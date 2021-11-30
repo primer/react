@@ -1,5 +1,6 @@
 ---
 title: SelectMenu
+status: Deprecated
 ---
 
 The `SelectMenu` components are a suite of components which can be combined together to make several different variations of our GitHub select menu. At it's most basic form, a select menu is comprised of a `SelectMenu` wrapper, which contains a `summary` component of your choice and a `Select.Modal` which contains the select menu content. Use `SelectMenu.List` to wrap items in the select menu, and `SelectMenu.Item` to wrap each item.

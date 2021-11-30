@@ -1,6 +1,7 @@
 ---
 title: Breadcrumbs
 status: Alpha
+description: Use breadcrumbs to show navigational context on pages that are many levels deep in a site’s hierarchy. Breadcrumbs show and link to parent, grandparent, and sometimes great-grandparent pages.
 source: https://github.com/primer/react/blob/main/src/Breadcrumbs.tsx
 ---
 
@@ -27,7 +28,7 @@ This ensures that the NavLink gets `activeClassName='selected'`
 </Breadcrumbs>
 ```
 
-## Component props
+## Props
 
 ### Breadcrumbs
 
@@ -45,3 +46,23 @@ This ensures that the NavLink gets `activeClassName='selected'`
 | href      | string            |         | URL to be used for the Link                      |
 | selected  | boolean           | `false` | Used to style the link as selected or unselected |
 | sx        | SystemStyleObject |  `{}`   | Style to be applied to the component             |
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

@@ -1,5 +1,6 @@
 ---
 title: Dropdown
+status: Deprecated
 ---
 
 The Dropdown component is a lightweight context menu for housing navigation and actions.
