@@ -12,7 +12,7 @@ function processFiles(items, block) {
   items.forEach(function (item, index) {
     promises.push(
       (function (item, i) {
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
           return block.apply(this, [item, index, resolve, reject])
         })
       })(item, index)
@@ -23,10 +23,10 @@ function processFiles(items, block) {
 
 function readFiles(dirname) {
   return new Promise((resolve, reject) => {
-    fs.readdir(dirname, function (err, filenames) {
+    fs.readdir(dirname, (err, filenames) => {
       if (err) return reject(err)
       processFiles(filenames, (filename, index, resolve, reject) => {
-        fs.readFile(path.resolve(dirname, filename), 'utf-8', function (err, content) {
+        fs.readFile(path.resolve(dirname, filename), 'utf-8', (err, content) => {
           if (err) return reject(err)
 
           if (fm.test(content)) {
