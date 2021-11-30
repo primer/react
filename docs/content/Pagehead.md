@@ -1,5 +1,6 @@
 ---
 title: Pagehead
+status: Alpha
 ---
 
 Give a page a clear, separated title and optional top nav by using Pagehead.

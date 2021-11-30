@@ -1,5 +1,6 @@
 ---
 title: SubNav
+status: Alpha
 ---
 
 Use the SubNav component for navigation on a dashboard-type interface with another set of navigation components above it. This helps distinguish navigation hierarchy.

@@ -1,15 +1,14 @@
 ---
-title: ActionList
+title: ActionList v2
 status: Alpha
 source: https://github.com/primer/react/tree/main/src/ActionList2
 storybook: '/react/storybook?path=/story/composite-components-actionlist2'
-description: An ActionList is a list of items which can be activated or selected. ActionList is the base component for many of our menu-type components, including DropdownMenu and ActionMenu.
+description: An ActionList is a list of items that can be activated or selected. ActionList is the base component for many menu-type components, including DropdownMenu and ActionMenu.
 ---
 
 import {Box, Avatar} from '@primer/components'
 import {ActionList} from '@primer/components/drafts'
-
-import {ImageContainer} from '@primer/gatsby-theme-doctocat'
+import {ComponentChecklist} from '../src/component-checklist'
 import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 
 <br />
@@ -355,3 +354,23 @@ render(<SelectFields />)
 - [ActionMenu](/drafts/ActionMenu2)
 - [DropdownMenu](/DropdownMenu)
 - [SelectPanel](/SelectPanel)
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: true,
+    hasFigmaComponent: true
+  }}
+/>

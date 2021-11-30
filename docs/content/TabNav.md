@@ -1,5 +1,6 @@
 ---
 title: TabNav
+status: Alpha
 ---
 
 Use the TabNav component to style navigation with a tab-based selected state, typically used for navigation placed at the top of the page.
