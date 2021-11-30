@@ -19,9 +19,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: Install deps
+      - name: Install ruby deps
         run: gem install graphql-client
       - name: Build status map
-        run: npx -p typescript -p ts-node ts-node script/build-component.status-map.ts
+        run: npx -p front-matter -p typescript -p ts-node ts-node script/build-component.status-map.ts
       - name: Make updates
         run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} script/update-statuses-project.rb
