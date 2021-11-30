@@ -801,7 +801,7 @@ export function AllCombinations(): JSX.Element {
             L + I + B<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item>
+          <ActionList.Item disabled>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -810,7 +810,7 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item>
+          <ActionList.Item disabled>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -819,7 +819,7 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item>
+          <ActionList.Item disabled>
             I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>

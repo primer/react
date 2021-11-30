@@ -5,6 +5,7 @@ import enzyme from 'enzyme'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import {cleanup, render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import type {Story as StoryType} from '@storybook/react'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 
@@ -253,7 +254,7 @@ export function checkStoriesForAxeViolations(name: string) {
   Object.values(Stories).map(Story => {
     if (typeof Story !== 'function') return
 
-    it(`story {Story.storyName} should have no axe violations`, async () => {
+    it(`story ${(Story as StoryType).storyName} should have no axe violations`, async () => {
       const {container} = HTMLRender(<Story />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
