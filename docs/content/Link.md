@@ -1,5 +1,6 @@
 ---
 title: Link
+status: Alpha
 ---
 
 The Link component styles anchor tags with default hyperlink color cues and hover text decoration. `Link` is used for destinations, or moving from one page to another.

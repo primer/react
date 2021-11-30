@@ -1,5 +1,6 @@
 ---
 title: Truncate
+status: Alpha
 ---
 
 The Truncate component will shorten text with an ellipsis. Always add a `title` attribute to the truncated element so the full text remains accessible.

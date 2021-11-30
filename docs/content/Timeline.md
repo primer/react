@@ -1,5 +1,6 @@
 ---
 title: Timeline
+status: Alpha
 ---
 
 The Timeline.Item component is used to display items on a vertical timeline, connected by Timeline.Badge elements.
