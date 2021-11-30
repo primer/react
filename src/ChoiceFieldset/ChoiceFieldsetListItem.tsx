@@ -18,7 +18,7 @@ export interface ChoiceFieldProps {
   id?: string
 }
 
-const ChoiceField: React.FC<ChoiceFieldProps> = ({children, id, disabled}) => {
+const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disabled}) => {
   const choiceFieldsetListContext = useContext(ChoiceFieldsetListContext)
   if (choiceFieldsetListContext === null) {
     throw new Error('ChoiceFieldsetListContext returned null')
@@ -34,9 +34,9 @@ const ChoiceField: React.FC<ChoiceFieldProps> = ({children, id, disabled}) => {
   )
 }
 
-export type ChoiceFieldComponentProps = ComponentProps<typeof ChoiceField>
+export type ChoiceFieldComponentProps = ComponentProps<typeof ChoiceFieldsetListItem>
 export type {ChoiceFieldInputProps} from './ChoiceFieldInput'
-export default Object.assign(ChoiceField, {
+export default Object.assign(ChoiceFieldsetListItem, {
   Caption: ChoiceFieldCaption,
   Input: ChoiceFieldInput,
   Label: ChoiceFieldLabel,

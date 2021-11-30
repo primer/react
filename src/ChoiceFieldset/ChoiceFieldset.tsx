@@ -5,7 +5,7 @@ import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {uniqueId} from '../utils/uniqueId'
 import ValidationAnimationContainer from '../_InputField/ValidationAnimationContainer'
 import InputValidation from '../_InputValidation'
-import ChoiceField from './ChoiceField'
+import ChoiceFieldsetListItem from './ChoiceFieldsetListItem'
 import ChoiceFieldsetCaption from './ChoiceFieldsetCaption'
 import ChoiceFieldsetLegend from './ChoiceFieldsetLegend'
 import ChoiceFieldsetList from './ChoiceFieldsetList'
@@ -115,9 +115,9 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
 export type InputFieldComponentProps = ComponentProps<typeof ChoiceFieldset>
 export type {ChoiceFieldsetListProps} from './ChoiceFieldsetList'
 export type {ChoiceFieldsetLegendProps} from './ChoiceFieldsetLegend'
-export type {ChoiceFieldProps} from './ChoiceField'
+export type {ChoiceFieldProps} from './ChoiceFieldsetListItem'
 export default Object.assign(ChoiceFieldset, {
-  ChoiceField,
+  Item: ChoiceFieldsetListItem,
   Caption: ChoiceFieldsetCaption,
   Legend: ChoiceFieldsetLegend,
   List: ChoiceFieldsetList,
