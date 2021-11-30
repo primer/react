@@ -77,10 +77,10 @@ Additionally, every component should support [the `sx` prop](https://primer.styl
 
 Here's an example of a basic component written in the style of Primer Components:
 
-```jsx
+```tsx
 import sx, {SxProp} from './sx'
 
-const Component = styled.div<​SxProp>`
+const Component = styled.div<SxProp>`
   // additional styles here
 
   ${sx};
@@ -98,15 +98,15 @@ export default Component
 
 Each component should accept a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/components/overriding-styles) doc for more information on using the prop.
 
-Adding the `sx` prop is similar to adding system props; import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
+To add the `sx` prop to your component: import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
 
-```jsx
+```tsx
 import sx, {SxProp} from './sx'
 
-const Component = styled.div<​SxProp>`
+const Component = styled.div<SxProp>`
   // additional styles here
 
-   ${sx};
+  ${sx};
 `
 ```
 
@@ -145,7 +145,7 @@ See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways 
 
 ### TypeScript support
 
-Primer React is written in TypeScript, and we include type definitions in our built artifacts. To check types, run the `typecheck` script:
+Primer React is written in TypeScript. We include type definitions in our built artifacts. To check types, run the `typecheck` script:
 
 ```
 npm run typecheck
