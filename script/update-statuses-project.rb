@@ -102,7 +102,7 @@ end
 @cards = columns.map(&:cards).map(&:nodes).flatten
 
 def get_card(name_prefix:)
-  @cards.find { |card| card.note.start_with?(name_prefix + NOTE_SEPARATOR) }
+  @cards.find { |card| card.note.start_with?(name_prefix) }
 end
 
 def on_correct_column?(card_id:, status:)
@@ -123,7 +123,7 @@ def create_card(component_name:, status:)
 
   puts "create card with #{component_name} on #{status} on column #{column_id}"
 
-  Project.create_card(note: component_name + NOTE_SEPARATOR, column_id: column_id)
+  Project.create_card(note: component_name, column_id: column_id)
 end
 
 statuses_json.each do |component_name, component_status|
