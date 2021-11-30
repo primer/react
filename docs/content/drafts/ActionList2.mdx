@@ -6,7 +6,7 @@ storybook: '/react/storybook?path=/story/composite-components-actionlist2'
 description: An ActionList is a list of items which can be activated or selected. ActionList is the base component for many of our menu-type components, including DropdownMenu and ActionMenu.
 ---
 
-import {BorderBox, Avatar} from '@primer/components'
+import {Box, Avatar} from '@primer/components'
 import {ActionList} from '@primer/components/drafts'
 
 import {ImageContainer} from '@primer/gatsby-theme-doctocat'
@@ -14,7 +14,7 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 
 <br />
 
-<BorderBox sx={{padding: 6}}>
+<Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6}}>
   <ActionList sx={{width: 320}}>
     <ActionList.Item>
       <ActionList.LeadingVisual>
@@ -42,7 +42,7 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
       </ActionList.TrailingVisual>
     </ActionList.Item>
   </ActionList>
-</BorderBox>
+</Box>
 
 <br />
 

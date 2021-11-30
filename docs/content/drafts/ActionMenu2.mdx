@@ -6,13 +6,13 @@ storybook: '/react/storybook?path=/story/composite-components-actionmenu2'
 description: An ActionMenu is an ActionList-based component for creating a menu of actions that expands through a trigger button.
 ---
 
-import {BorderBox, Avatar} from '@primer/components'
+import {Box, Avatar} from '@primer/components'
 import {ActionMenu, ActionList} from '@primer/components/drafts'
 import {Props} from '../../src/props'
 
 <br />
 
-<BorderBox sx={{padding: 6}}>
+<Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6}}>
 <ActionMenu>
   <ActionMenu.Button>Menu</ActionMenu.Button>
   <ActionList>
@@ -36,7 +36,7 @@ import {Props} from '../../src/props'
   </ActionList>
 
 </ActionMenu>
-</BorderBox>
+</Box>
 
 <br />
 
