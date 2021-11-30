@@ -137,7 +137,8 @@
     "storybook-addon-performance": "0.16.1",
     "styled-components": "4.4.1",
     "ts-toolbelt": "9.6.0",
-    "typescript": "4.2.2"
+    "typescript": "4.2.2",
+    "front-matter": "4.0.2"
   },
   "peerDependencies": {
     "react": "^17.0.0",
