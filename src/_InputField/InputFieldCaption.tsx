@@ -5,7 +5,11 @@ import {Slot} from './slots'
 
 const InputFieldCaption: React.FC = ({children}) => (
   <Slot name="Caption">
-    {({captionId}: InputFieldContext) => <InputCaption id={captionId}>{children}</InputCaption>}
+    {({captionId, disabled}: InputFieldContext) => (
+      <InputCaption id={captionId} disabled={disabled}>
+        {children}
+      </InputCaption>
+    )}
   </Slot>
 )
 
