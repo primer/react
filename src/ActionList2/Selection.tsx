@@ -47,7 +47,8 @@ export const Selection: React.FC<SelectionProps> = ({selected}) => {
       sx={{
         rect: {
           fill: selected ? 'accent.fg' : 'canvas.default',
-          stroke: selected ? 'accent.fg' : 'border.default'
+          stroke: selected ? 'accent.fg' : 'border.default',
+          shapeRendering: 'auto' // this is a workaround to override global style in github/github, see primer/react#1666
         },
         path: {
           fill: 'fg.onEmphasis',
