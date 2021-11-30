@@ -6,7 +6,7 @@
 require "graphql/client"
 require "graphql/client/http"
 
-statuses = File.read(File.join(File.dirname(__FILE__), "../dist/component-status.json"))
+statuses = File.read(File.join(File.dirname(__FILE__), "../../dist/component-status.json"))
 statuses_json = JSON.parse(statuses)
 
 class QueryExecutionError < StandardError; end

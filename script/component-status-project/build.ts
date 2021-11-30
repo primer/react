@@ -1,14 +1,23 @@
-// @ts-nocheck
+// ts-nocheck
+import * as fs from 'fs'
+import path from 'path'
+import fm from 'front-matter'
 
-const fs = require('fs')
-const path = require('path')
-const fm = require('front-matter')
+const sourceDirectory = path.resolve(__dirname, '../../docs/content/')
+const outputDir = path.resolve(__dirname, '../../dist')
 
-const sourceDirectory = path.resolve(__dirname, '../docs/content/')
+type ComponentStatus = {
+  [component: string]: string
+}
 
-function getComponentStatuses(filenames, dir) {
-  const promises = []
-  const handleCallback = (filename, resolve, reject) => {
+function getComponentStatuses(filenames: string[], dir: string) {
+  const promises: Promise<ComponentStatus | null>[] = []
+
+  const handleCallback = (
+    filename: string,
+    resolve: (value: ComponentStatus | null) => void,
+    reject: (value: unknown) => void
+  ) => {
     fs.readFile(path.resolve(dir, filename), 'utf-8', (err, content) => {
       if (err) return reject(err)
 
@@ -26,8 +35,8 @@ function getComponentStatuses(filenames, dir) {
     })
   }
 
-  filenames.forEach(filename => {
-    const promise = new Promise((resolve, reject) => {
+  filenames.forEach((filename: string) => {
+    const promise: Promise<ComponentStatus | null> = new Promise((resolve, reject) => {
       return handleCallback(filename, resolve, reject)
     })
     promises.push(promise)
@@ -35,7 +44,7 @@ function getComponentStatuses(filenames, dir) {
   return Promise.all(promises)
 }
 
-async function readFiles(dir) {
+async function readFiles(dir: string) {
   try {
     const filenames = fs.readdirSync(dir)
     const componentStatuses = await getComponentStatuses(filenames, dir)
@@ -56,8 +65,6 @@ async function readFiles(dir) {
 
 readFiles(sourceDirectory)
   .then(componentStatuses => {
-    const outputDir = path.resolve(__dirname, '../dist')
-
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir)
     }

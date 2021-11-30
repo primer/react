@@ -24,6 +24,6 @@ jobs:
       - name: Install ruby deps
         run: gem install graphql-client
       - name: Build status map
-        run: npx ts-node script/build-component.status-map.ts
+        run: npx ts-node script/build.ts
       - name: Make updates
-        run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} script/update-statuses-project.rb
+        run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} script/deploy.rb
