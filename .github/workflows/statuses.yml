@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 14
       - name: Install node deps
-        run: npm install -g typescript front-matter
+        run: npm ci
       - name: Install ruby deps
         run: gem install graphql-client
       - name: Build status map
