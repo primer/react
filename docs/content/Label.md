@@ -1,5 +1,6 @@
 ---
 title: Label
+status: Alpha
 ---
 
 The Label component is used to add contextual metadata to a design. Visually it styles text, adds padding, and rounded corners.
