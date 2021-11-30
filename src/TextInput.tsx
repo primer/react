@@ -6,13 +6,13 @@ import TextInputWrapper from './_TextInputWrapper'
 
 type NonPassthroughProps = {
   className?: string
-  // deprecate icon prop
+  /** @deprecated Use `leadingIcon` or `trailingIcon` prop instead */
   icon?: React.ComponentType<{className?: string}>
   leadingIcon?: React.ComponentType<{className?: string}>
   trailingIcon?: React.ComponentType<{className?: string}>
 } & Pick<
   ComponentProps<typeof TextInputWrapper>,
-  'block' | 'contrast' | 'disabled' | 'sx' | 'theme' | 'width' | 'maxWidth' | 'minWidth' | 'variant' | 'size'
+  'block' | 'contrast' | 'disabled' | 'sx' | 'width' | 'maxWidth' | 'minWidth' | 'variant' | 'size'
 >
 
 // Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
@@ -29,9 +29,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       className,
       contrast,
       disabled,
-      status,
+      validationStatus,
       sx: sxProp,
-      theme,
       size: sizeProp,
       // start deprecated props
       width: widthProp,
@@ -50,12 +49,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       <TextInputWrapper
         block={block}
         className={wrapperClasses}
-        status={status}
+        validationStatus={validationStatus}
         contrast={contrast}
         disabled={disabled}
         hasIcon={!!IconComponent || !!(LeadingIconComponent || TrailingIconComponent)}
         sx={sxProp}
-        theme={theme}
         size={sizeProp}
         width={widthProp}
         minWidth={minWidthProp}

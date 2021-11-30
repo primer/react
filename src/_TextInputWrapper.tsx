@@ -43,7 +43,8 @@ type StyledWrapperProps = {
   hasIcon?: boolean
   block?: boolean
   contrast?: boolean
-  status?: 'error' | 'warning'
+  validationStatus?: 'error' | 'warning'
+  /** @deprecated Use `size` prop instead */
   variant?: 'small' | 'large'
   size?: 'small' | 'large'
 } & WidthProps &
@@ -108,7 +109,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
     `}
 
   ${props =>
-    props.status === 'error' &&
+    props.validationStatus === 'error' &&
     css`
       border-color: ${get('colors.danger.emphasis')};
       &:focus-within {
@@ -118,7 +119,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
     `}
 
   ${props =>
-    props.status === 'warning' &&
+    props.validationStatus === 'warning' &&
     css`
       border-color: ${get('colors.attention.emphasis')};
       &:focus-within {

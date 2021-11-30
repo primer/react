@@ -44,8 +44,8 @@ export default {
       options: ['small', 'medium', 'large'],
       control: {type: 'radio'}
     },
-    status: {
-      name: 'Status',
+    validationStatus: {
+      name: 'Validation Status',
       options: ['warning', 'error'],
       control: {type: 'radio'}
     },
@@ -173,7 +173,14 @@ export const TextInputInWarningState = (args: TextInputProps) => {
     <form>
       <Label htmlFor={inputId}>Password</Label>
       <br />
-      <TextInput type="password" id={inputId} value={value} status="warning" onChange={handleChange} {...args} />
+      <TextInput
+        type="password"
+        id={inputId}
+        value={value}
+        validationStatus="warning"
+        onChange={handleChange}
+        {...args}
+      />
     </form>
   )
 }
