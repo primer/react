@@ -45,6 +45,5 @@ export default Object.assign(CheckboxInputField, {
   Input,
   Caption: InputField.Caption,
   Label: InputField.Label,
-  Validation: InputField.Validation,
   LeadingVisual: ToggleInputLeadingVisual
 })

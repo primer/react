@@ -51,6 +51,5 @@ export default Object.assign(RadioInputField, {
   Input,
   Caption: InputField.Caption,
   Label: InputField.Label,
-  Validation: InputField.Validation,
   LeadingVisual: ToggleInputLeadingVisual
 })
