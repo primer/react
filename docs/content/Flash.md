@@ -1,5 +1,6 @@
 ---
 title: Flash
+status: Alpha
 ---
 
 The Flash component informs users of successful or pending actions.

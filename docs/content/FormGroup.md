@@ -1,5 +1,6 @@
 ---
 title: FormGroup
+status: Alpha
 ---
 
 Adds styles for multiple form elements used together.

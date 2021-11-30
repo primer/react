@@ -1,5 +1,6 @@
 ---
 title: Pagination
+status: Alpha
 ---
 
 import State from '../components/State'
