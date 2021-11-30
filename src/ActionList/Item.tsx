@@ -275,6 +275,7 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 `
 
 const ColoredVisualContainer = styled(BaseVisualContainer)`
@@ -285,7 +286,6 @@ const ColoredVisualContainer = styled(BaseVisualContainer)`
 `
 
 const LeadingVisualContainer = styled(ColoredVisualContainer)`
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
