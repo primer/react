@@ -14,6 +14,10 @@ import ChoiceFieldsetValidation from './ChoiceFieldsetValidation'
 export interface ChoiceFieldsetProps<T = Record<string, FormValidationStatus>> {
   children?: React.ReactNode
   /**
+   * Whether the fieldset is ready for user input
+   */
+  disabled?: boolean
+  /**
    * The unique identifier for this fieldset. Used to associate the validation text and caption text with the fieldset
    */
   id?: string
@@ -50,6 +54,7 @@ export {Slot}
 
 const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   children,
+  disabled,
   id,
   name,
   onSelect,
@@ -69,6 +74,7 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
     <Slots
       context={{
         captionId,
+        disabled,
         name,
         onSelect,
         required,

@@ -5,6 +5,7 @@ import InputField from '../_InputField'
 import ToggleInputField, {ToggleInputFieldProps} from '../_InputField/ToggleInputField'
 
 const ChoiceFieldsetListContext = createContext<{
+  disabled?: boolean
   initialSelectedChoices?: string[]
   name?: string
   onChange: ChangeEventHandler<HTMLInputElement>

@@ -4,7 +4,11 @@ import {ChoiceFieldsetContext, Slot} from './ChoiceFieldset'
 
 const ChoiceFieldsetCaption: React.FC = ({children}) => (
   <Slot name="Caption">
-    {({captionId}: ChoiceFieldsetContext) => <InputCaption id={captionId}>{children}</InputCaption>}
+    {({captionId, disabled}: ChoiceFieldsetContext) => (
+      <InputCaption id={captionId} disabled={disabled}>
+        {children}
+      </InputCaption>
+    )}
   </Slot>
 )
 

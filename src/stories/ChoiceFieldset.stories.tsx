@@ -13,6 +13,9 @@ export default {
   title: 'Forms/ChoiceFieldset',
   component: ChoiceFieldset,
   argTypes: {
+    disabled: {
+      defaultValue: false
+    },
     required: {
       defaultValue: false
     },
@@ -33,7 +36,7 @@ export default {
       }
     }
   },
-  parameters: {controls: {exclude: ['id', 'validationMap', 'validationResult']}},
+  parameters: {controls: {exclude: ['id', 'validationMap', 'validationResult', 'name']}},
   decorators: [
     Story => {
       return (
@@ -104,6 +107,25 @@ export const Required = ({selectionVariant, ...restArgs}: Args) => (
   </ChoiceFieldset>
 )
 Required.parameters = {controls: {exclude: ['required']}}
+
+export const Disabled = ({selectionVariant, ...restArgs}: Args) => (
+  <ChoiceFieldset name="radioGroup" disabled {...restArgs}>
+    <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+    <ChoiceFieldset.List selectionVariant={selectionVariant}>
+      <ChoiceFieldset.Item>
+        <Item.Input value="labelOne" />
+        <Item.Label>Label one</Item.Label>
+        <Item.Caption>Caption</Item.Caption>
+      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item>
+        <Item.Input value="labelTwo" />
+        <Item.Label>Label two</Item.Label>
+        <Item.Caption>Caption</Item.Caption>
+      </ChoiceFieldset.Item>
+    </ChoiceFieldset.List>
+  </ChoiceFieldset>
+)
+Disabled.parameters = {controls: {exclude: ['disabled']}}
 
 export const WithVisuallyHiddenLegend = ({selectionVariant, ...restArgs}: Args) => (
   <ChoiceFieldset name="radioGroup" {...restArgs}>

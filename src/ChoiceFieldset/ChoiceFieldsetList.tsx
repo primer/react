@@ -49,9 +49,10 @@ const ChoiceFieldsetList: React.FC<ChoiceFieldsetListProps> = ({selectionVariant
 
   return (
     <Slot name="ChoiceList">
-      {({name, onSelect}: ChoiceFieldsetContext) => (
+      {({name, onSelect, disabled}: ChoiceFieldsetContext) => (
         <ChoiceFieldsetListContext.Provider
           value={{
+            disabled,
             initialSelectedChoices,
             name: getRadioGroupName(name),
             fieldComponent: selectionVariant === 'multiple' ? CheckboxInputField : RadioInputField,

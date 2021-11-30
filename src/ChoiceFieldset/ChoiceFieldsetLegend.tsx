@@ -9,11 +9,13 @@ export interface ChoiceFieldsetLegendProps {
 
 const ChoiceFieldsetLegend: React.FC<ChoiceFieldsetLegendProps> = ({children, visuallyHidden}) => (
   <Slot name="Legend">
-    {({required}: ChoiceFieldsetContext) => (
+    {({required, disabled}: ChoiceFieldsetContext) => (
       <VisuallyHidden
+        as="legend"
         isVisible={!visuallyHidden}
         title={required ? 'required field' : undefined}
         sx={{
+          color: disabled ? 'fg.muted' : undefined,
           fontSize: 2,
           padding: 0
         }}

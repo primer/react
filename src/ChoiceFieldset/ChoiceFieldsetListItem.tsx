@@ -18,17 +18,17 @@ export interface ChoiceFieldProps {
   id?: string
 }
 
-const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disabled}) => {
+const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disabled: disabledProp}) => {
   const choiceFieldsetListContext = useContext(ChoiceFieldsetListContext)
   if (choiceFieldsetListContext === null) {
     throw new Error('ChoiceFieldsetListContext returned null')
   }
-  const {fieldComponent: FieldComponent} = choiceFieldsetListContext
+  const {fieldComponent: FieldComponent, disabled} = choiceFieldsetListContext
 
   const fieldId = id || uniqueId()
 
   return (
-    <FieldComponent id={fieldId} disabled={disabled}>
+    <FieldComponent id={fieldId} disabled={disabledProp || disabled}>
       {children}
     </FieldComponent>
   )
