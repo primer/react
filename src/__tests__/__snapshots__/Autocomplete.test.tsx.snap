@@ -510,6 +510,7 @@ Array [
 .c6 rect {
   fill: #ffffff;
   stroke: #d0d7de;
+  shape-rendering: auto;
 }
 
 .c6 path {
@@ -1380,6 +1381,7 @@ Array [
 .c6 rect {
   fill: #ffffff;
   stroke: #d0d7de;
+  shape-rendering: auto;
 }
 
 .c6 path {
@@ -2197,6 +2199,7 @@ Array [
 .c10 rect {
   fill: #ffffff;
   stroke: #d0d7de;
+  shape-rendering: auto;
 }
 
 .c10 path {
@@ -2207,6 +2210,7 @@ Array [
 .c6 rect {
   fill: #0969da;
   stroke: #0969da;
+  shape-rendering: auto;
 }
 
 .c6 path {
