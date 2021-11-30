@@ -4,63 +4,62 @@ const fs = require('fs')
 const path = require('path')
 const fm = require('front-matter')
 
-const dirname = path.resolve(__dirname, '../docs/content/')
-const array = []
+const sourceDirectory = path.resolve(__dirname, '../docs/content/')
 
-function processFiles(items, block) {
-  var promises = []
-  items.forEach(function (item, index) {
-    promises.push(
-      (function (item, i) {
-        return new Promise((resolve, reject) => {
-          return block.apply(this, [item, index, resolve, reject])
-        })
-      })(item, index)
-    )
+function getComponentStatuses(filenames, dir) {
+  const promises = []
+  const handleCallback = (filename, resolve, reject) => {
+    fs.readFile(path.resolve(dir, filename), 'utf-8', (err, content) => {
+      if (err) return reject(err)
+
+      if (fm.test(content)) {
+        const {
+          attributes: {title, status}
+        } = fm(content)
+
+        if (status) {
+          return resolve({[title]: status})
+        }
+      }
+
+      resolve(null)
+    })
+  }
+
+  filenames.forEach(filename => {
+    const promise = new Promise((resolve, reject) => {
+      return handleCallback(filename, resolve, reject)
+    })
+    promises.push(promise)
   })
   return Promise.all(promises)
 }
 
-function readFiles(dirname) {
-  return new Promise((resolve, reject) => {
-    fs.readdir(dirname, (err, filenames) => {
-      if (err) return reject(err)
-      processFiles(filenames, (filename, index, resolve, reject) => {
-        fs.readFile(path.resolve(dirname, filename), 'utf-8', (err, content) => {
-          if (err) return reject(err)
-
-          if (fm.test(content)) {
-            const {
-              attributes: {title, status}
-            } = fm(content)
-
-            if (status) {
-              return resolve({[title]: status})
-            }
-          }
-
-          resolve(undefined)
-        })
-      })
-        .then(results => {
-          return resolve(results)
-        })
-        .catch(error => {
-          return reject(error)
-        })
-    })
-  })
+async function readFiles(dir) {
+  try {
+    const filenames = fs.readdirSync(dir)
+    const componentStatuses = await getComponentStatuses(filenames, dir)
+    return componentStatuses.filter(Boolean).reduce(
+      (acc, file) => ({
+        ...acc,
+        ...file
+      }),
+      {}
+    )
+  } catch (err) {
+    throw new Error(err)
+  }
 }
 
-readFiles(dirname)
-  .then(files => {
+readFiles(sourceDirectory)
+  .then(componentStatuses => {
     const outputDir = path.resolve(__dirname, '../dist')
-    const mappedFiles = files.filter(Boolean).reduce((acc, item) => ({...acc, ...item}), {})
+
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir)
     }
-    console.log(outputDir + '/component-status.json')
-    fs.writeFileSync(outputDir + '/component-status.json', JSON.stringify(mappedFiles))
+
+    fs.writeFileSync(outputDir + '/component-status.json', JSON.stringify(componentStatuses))
   })
   .catch(error => {
     console.log(error)
