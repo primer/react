@@ -1,0 +1,27 @@
+name: Update Statuses Board
+
+on:
+  push:
+    branches:
+      - feature/component-status-project-board
+
+jobs:
+  build-docs:
+    name: Update statuses project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.x
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install deps
+        run: gem install graphql-client
+      - name: Build status map
+        run: npx ts-node script/build-component.status-map.ts
+      - name: Make updates
+        run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} script/update-statuses-project.rb
