@@ -39,13 +39,16 @@ async function readFiles(dir) {
   try {
     const filenames = fs.readdirSync(dir)
     const componentStatuses = await getComponentStatuses(filenames, dir)
-    return componentStatuses.filter(Boolean).reduce(
-      (acc, file) => ({
-        ...acc,
-        ...file
-      }),
-      {}
-    )
+    return componentStatuses
+      .filter(Boolean)
+      .reverse()
+      .reduce(
+        (acc, file) => ({
+          ...acc,
+          ...file
+        }),
+        {}
+      )
   } catch (err) {
     throw new Error(err)
   }

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# Adapted from https://github.com/primer/view_components/blob/main/script/update-statuses-project.rb
 # Usage: script/update-statuses-project
 # frozen_string_literal: true
 
