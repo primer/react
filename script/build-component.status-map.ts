@@ -54,8 +54,13 @@ function readFiles(dirname) {
 
 readFiles(dirname)
   .then(files => {
+    const outputDir = path.resolve(__dirname, '../dist')
     const mappedFiles = files.filter(Boolean).reduce((acc, item) => ({...acc, ...item}), {})
-    fs.writeFileSync(path.resolve(__dirname, '../dist/component-status.json'), JSON.stringify(mappedFiles))
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir)
+    }
+    console.log(outputDir + '/component-status.json')
+    fs.writeFileSync(outputDir + '/component-status.json', JSON.stringify(mappedFiles))
   })
   .catch(error => {
     console.log(error)
