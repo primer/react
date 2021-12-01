@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import fs from 'fs'
 import path from 'path'
 import fm from 'front-matter'
 
@@ -41,12 +41,13 @@ function getComponentStatuses(filenames: string[], dir: string) {
     })
   }
 
-  filenames.forEach((filename: string) => {
+  for (const filename of filenames) {
     const promise: Promise<ComponentStatus | null> = new Promise((resolve, reject) => {
       return handleCallback(filename, resolve, reject)
     })
     promises.push(promise)
-  })
+  }
+
   return Promise.all(promises)
 }
 
@@ -71,21 +72,37 @@ async function readFiles(dir: string) {
         {}
       )
   } catch (err) {
-    throw new Error(err)
+    throw new Error(`error reading files: ${err}`)
   }
 }
 
 /**
  * Writes the component status to the given file.
  */
-readFiles(sourceDirectory)
-  .then(componentStatuses => {
+async function build() {
+  try {
+    const componentStatuses = await readFiles(sourceDirectory)
+
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir)
     }
 
-    fs.writeFileSync(outputDir + '/component-status.json', JSON.stringify(componentStatuses))
-  })
-  .catch(error => {
-    console.log(error)
-  })
+    fs.writeFileSync(`${outputDir}/component-status.json`, JSON.stringify(componentStatuses))
+  } catch (error) {
+    throw new Error(`error building component status object: ${error}`)
+  }
+}
+
+build()
+
+// readFiles(sourceDirectory)
+//   .then(componentStatuses => {
+//     if (!fs.existsSync(outputDir)) {
+//       fs.mkdirSync(outputDir)
+//     }
+
+//     fs.writeFileSync(outputDir + '/component-status.json', JSON.stringify(componentStatuses))
+//   })
+//   .catch(error => {
+//     console.log(error)
+//   })
