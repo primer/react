@@ -19,7 +19,7 @@
       url: /overriding-styles
     - title: Server-side rendering
       url: /ssr
-    - title: Component statuses
+    - title: Component status
       url: /status
 - title: Hooks
   children:

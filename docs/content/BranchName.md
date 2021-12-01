@@ -12,15 +12,16 @@ BranchName is a label-type component rendered as an `<a>` tag by default with mo
 
 ## Props
 
-| Name | Type   | Default | Description                         |
-| :--- | :----- | :-----: | :---------------------------------- |
-| as   | String |  `<a>`  | sets the HTML tag for the component |
-| href | String |         | a URL to link the component to      |
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| as   | String            |  `<a>`  | sets the HTML tag for the component  |
+| href | String            |         | a URL to link the component to       |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
 
 ## Component status
 
 <ComponentChecklist
-  items={{
+items={{
     propsDocumented: true,
     noUnnecessaryDeps: true,
     adaptsToThemes: true,

@@ -8,7 +8,7 @@ description: An ActionList is a list of items that can be activated or selected.
 
 import {BorderBox, Avatar} from '@primer/components'
 import {ActionList} from '@primer/components/drafts'
-import {Props} from '../src/props'
+import {ComponentChecklist} from '../src/component-checklist'
 
 import {ImageContainer} from '@primer/gatsby-theme-doctocat'
 import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
@@ -357,3 +357,23 @@ render(<SelectFields />)
 
 - [ActionMenu](/ActionMenu)
 - [SelectPanel](/SelectPanel)
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: true,
+    hasFigmaComponent: true
+  }}
+/>
