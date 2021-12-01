@@ -129,7 +129,7 @@ export function ExternalAnchor(): JSX.Element {
   const onSelect = (name: string) => fireAction(name)
 
   const [open, setOpen] = React.useState(false)
-  const triggerRef = React.createRef<HTMLButtonElement>()
+  const anchorRef = React.createRef<HTMLButtonElement>()
 
   return (
     <>
@@ -137,13 +137,13 @@ export function ExternalAnchor(): JSX.Element {
       <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
       <h2>Last option activated: {actionFired}</h2>
       <div>
-        <Button ref={triggerRef} onClick={() => setOpen(!open)}>
+        <Button ref={anchorRef} onClick={() => setOpen(!open)}>
           {open ? 'Close Menu' : 'Open Menu'}
         </Button>
       </div>
       <br />
 
-      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={triggerRef}>
+      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
         <ActionMenu.Overlay>
           <ActionList>
             <ActionList.Item onSelect={() => onSelect('Copy link')}>
@@ -538,6 +538,49 @@ export function MemexViewOptionsMenu(): JSX.Element {
   )
 }
 MemexViewOptionsMenu.storyName = 'Memex View Options Menu'
+
+export function OverlayProps(): JSX.Element {
+  const [open, setOpen] = React.useState(false)
+  const inputRef = React.createRef<HTMLInputElement>()
+
+  return (
+    <>
+      <h1>OverlayProps</h1>
+      <p>
+        Disable `onClickOutside` and `onEscape`. Only way to close is to select an action which takes focus on a
+        TextInput
+      </p>
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Menu</ActionMenu.Button>
+        <ActionMenu.Overlay
+          width="large"
+          onClickOutside={() => {
+            /* do nothing, keep it open*/
+          }}
+          onEscape={() => {
+            /* do nothing, keep it open*/
+          }}
+          returnFocusRef={inputRef}
+        >
+          <ActionList>
+            <ActionList.Item>Option 1</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+      <br />
+      <br />
+      <TextInput type="text" ref={inputRef} placeholder="random input to return focus to" />
+    </>
+  )
+}
+OverlayProps.storyName = 'Overlay Props'
 
 export function UnexpectedSelectionVariant(): JSX.Element {
   return (
