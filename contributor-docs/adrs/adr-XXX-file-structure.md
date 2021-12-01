@@ -32,3 +32,6 @@ Questions I would like to settle in this ADR:
   - Should subcomponents always have their own test files? What about type tests and stories?
 - Would this structure help if we wanted to move toward one-package-per-component like react-aria does?
 - Could we set a standard for replacement components? E.g., NewButton vs. Button2
+- Migration
+  - Can we implement this quickly? Can we script the migration?
+  - Can we do this without changing any of our exports from src/index.ts?
