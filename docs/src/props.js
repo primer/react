@@ -1,4 +1,4 @@
-import {Flash, Label} from '@primer/components'
+import {Flash, Label} from '@primer/react'
 import {H3} from '@primer/gatsby-theme-doctocat/src/components/heading'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 import Paragraph from '@primer/gatsby-theme-doctocat/src/components/paragraph'

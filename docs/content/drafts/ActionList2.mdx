@@ -6,8 +6,8 @@ storybook: '/react/storybook?path=/story/composite-components-actionlist2'
 description: An ActionList is a list of items that can be activated or selected. ActionList is the base component for many menu-type components, including DropdownMenu and ActionMenu.
 ---
 
-import {Box, Avatar} from '@primer/components'
-import {ActionList} from '@primer/components/drafts'
+import {Box, Avatar} from '@primer/react'
+import {ActionList} from '@primer/react/drafts'
 import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 
 <br />
@@ -45,7 +45,7 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 <br />
 
 ```js
-import {ActionList} from '@primer/components/drafts'
+import {ActionList} from '@primer/react/drafts'
 ```
 
 <br />
@@ -55,7 +55,7 @@ import {ActionList} from '@primer/components/drafts'
 ### Minimal example
 
 ```javascript live noinline
-// import {ActionList} from '@primer/components/drafts'
+// import {ActionList} from '@primer/react/drafts'
 const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
@@ -77,7 +77,7 @@ Leading visuals are optional and appear at the start of an item. They can be oct
 
 <!-- prettier-ignore -->
 ```javascript live noinline
-// import {ActionList} from '@primer/components/drafts'
+// import {ActionList} from '@primer/react/drafts'
 const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
@@ -105,7 +105,7 @@ render(
 Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
 
 ```javascript live noinline
-// import {ActionList} from '@primer/components/drafts'
+// import {ActionList} from '@primer/react/drafts'
 const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
@@ -137,7 +137,7 @@ render(
 Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
 
 ```javascript live noinline
-// import {ActionList} from '@primer/components/drafts'
+// import {ActionList} from '@primer/react/drafts'
 const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
@@ -173,7 +173,7 @@ When you want to add links to the List instead of actions, use `ActionList.LinkI
 
 <!-- prettier-ignore -->
 ```javascript live noinline
-// import {ActionList} from '@primer/components/drafts'
+// import {ActionList} from '@primer/react/drafts'
 const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
@@ -209,7 +209,7 @@ render(
 ### With groups
 
 ```javascript live noinline
-// import {ActionList} from '@primer/components/drafts'
+// import {ActionList} from '@primer/react/drafts'
 const {ActionList} = drafts // ignore docs silliness; import like that ↑
 
 const SelectFields = () => {

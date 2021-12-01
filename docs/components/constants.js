@@ -1,4 +1,4 @@
-import {theme} from '@primer/components'
+import {theme} from '@primer/react'
 import systemPropTypes from '@styled-system/prop-types'
 import themeGet from '@styled-system/theme-get'
 import * as styledSystem from 'styled-system'

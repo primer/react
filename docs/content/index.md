@@ -24,7 +24,7 @@ Check out [our getting started guide](/getting-started) for everything you need 
 
 ## Local development
 
-To run `@primer/components` locally when adding or updating components:
+To run `@primer/react` locally when adding or updating components:
 
 1. Clone this repo: `git clone https://github.com/primer/react`
 2. Install dependencies: `npm install`
