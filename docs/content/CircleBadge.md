@@ -1,5 +1,6 @@
 ---
 title: CircleBadge
+status: Alpha
 ---
 
 Use CircleBadge to visually connect logos of third party services like in marketplace. Use CircleBadge.Icon to add an Octicon to the CircleBadge.

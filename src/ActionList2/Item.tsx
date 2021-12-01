@@ -8,6 +8,7 @@ import sx, {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
 import {ListContext} from './List'
+import {MenuContext} from './MenuContext'
 import {Selection} from './Selection'
 
 export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
@@ -91,15 +92,17 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       variant = 'default',
       disabled = false,
       selected = undefined,
-      onSelect = () => null,
+      onSelect,
       sx: sxProp = {},
       id,
+      role,
       _PrivateItemWrapper,
       ...props
     },
     forwardedRef
   ): JSX.Element => {
     const {variant: listVariant, showDividers} = React.useContext(ListContext)
+    const {itemRole, afterSelect} = React.useContext(MenuContext)
 
     const {theme} = useTheme()
 
@@ -168,21 +171,28 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     const clickHandler = React.useCallback(
       event => {
+        if (typeof onSelect !== 'function') return
         if (disabled) return
-        if (!event.defaultPrevented) onSelect(event)
+        if (!event.defaultPrevented) {
+          onSelect(event)
+          // if this Item is inside a Menu, close the Menu
+          if (typeof afterSelect === 'function') afterSelect()
+        }
       },
-      [onSelect, disabled]
+      [onSelect, disabled, afterSelect]
     )
 
     const keyPressHandler = React.useCallback(
       event => {
+        if (typeof onSelect !== 'function') return
         if (disabled) return
-
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
           onSelect(event)
+          // if this Item is inside a Menu, close the Menu
+          if (typeof afterSelect === 'function') afterSelect()
         }
       },
-      [onSelect, disabled]
+      [onSelect, disabled, afterSelect]
     )
 
     // use props.id if provided, otherwise generate one.
@@ -205,6 +215,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             tabIndex={disabled || _PrivateItemWrapper ? undefined : 0}
             aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
             aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
+            role={role || itemRole}
             {...props}
           >
             <ItemWrapper>

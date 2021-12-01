@@ -275,6 +275,7 @@ const BaseVisualContainer = styled.div<{variant?: ItemProps['variant']; disabled
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 `
 
 const ColoredVisualContainer = styled(BaseVisualContainer)`
@@ -285,7 +286,6 @@ const ColoredVisualContainer = styled(BaseVisualContainer)`
 `
 
 const LeadingVisualContainer = styled(ColoredVisualContainer)`
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -317,6 +317,7 @@ const MultiSelectIcon = styled.svg<{selected?: boolean}>`
   rect {
     fill: ${({selected}) => (selected ? get('colors.accent.fg') : get('colors.canvas.default'))};
     stroke: ${({selected}) => (selected ? get('colors.accent.fg') : get('colors.border.default'))};
+    shape-rendering: auto; // this is a workaround to override global style in github/github, see primer/react#1666
   }
   path {
     fill: ${get('colors.fg.onEmphasis')};

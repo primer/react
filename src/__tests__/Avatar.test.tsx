@@ -39,6 +39,6 @@ describe('Avatar', () => {
   })
 
   it('respects margin props', () => {
-    expect(render(<Avatar m={2} src="primer.png" alt="" />)).toHaveStyleRule('margin', px(theme.space[2]))
+    expect(render(<Avatar src="primer.png" alt="" sx={{m: 2}} />)).toHaveStyleRule('margin', px(theme.space[2]))
   })
 })

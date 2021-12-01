@@ -1,5 +1,6 @@
 ---
 title: CircleOcticon
+status: Alpha
 ---
 
 CircleOcticon renders any Octicon with a circle background. CircleOcticons are most commonly used to represent the status of a pull request in the comment timeline.
@@ -7,7 +8,7 @@ CircleOcticon renders any Octicon with a circle background. CircleOcticons are m
 ## Default example
 
 ```jsx live
-<CircleOcticon icon={CheckIcon} size={32} sx={{bg: "success.fg", color: "fg.onEmphasis"}} />
+<CircleOcticon icon={CheckIcon} size={32} sx={{bg: 'success.fg', color: 'fg.onEmphasis'}} />
 ```
 
 ## Component props

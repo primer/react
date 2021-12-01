@@ -1,5 +1,6 @@
 ---
 title: FilteredSearch
+status: Alpha
 ---
 
 The FilteredSearch component helps style a Dropdown and a TextInput side-by-side.
