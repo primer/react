@@ -1,4 +1,4 @@
-name: Update Statuses Board
+name: Update status project
 
 on:
   push:
@@ -9,8 +9,8 @@ on:
       - 'docs/content/**'
 
 jobs:
-  build-docs:
-    name: Update statuses project
+  build-and-deploy:
+    name: Update status project
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
