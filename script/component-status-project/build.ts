@@ -1,6 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import fm from 'front-matter'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fm = require('front-matter')
 
 const sourceDirectory = path.resolve(__dirname, '../../docs/content/')
 const outputDir = path.resolve(__dirname, '../../dist')
