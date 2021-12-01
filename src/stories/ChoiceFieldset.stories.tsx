@@ -54,14 +54,8 @@ export const RadioGroup = ({selectionVariant, ...restArgs}: Args) => (
   <ChoiceFieldset name="radioGroup" {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
-      <ChoiceFieldset.Item value="labelOne">
-        <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-      <ChoiceFieldset.Item value="labelTwo">
-        <Item.Label>Label two</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
     </ChoiceFieldset.List>
   </ChoiceFieldset>
 )
@@ -71,14 +65,8 @@ export const CheckboxGroup = ({selectionVariant: _selectionVariant, ...restArgs}
   <ChoiceFieldset {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant="multiple">
-      <ChoiceFieldset.Item value="labelOne">
-        <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-      <ChoiceFieldset.Item value="labelTwo">
-        <Item.Label>Label two</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
     </ChoiceFieldset.List>
   </ChoiceFieldset>
 )
@@ -100,14 +88,8 @@ export const WithOnSelectHandler = ({selectionVariant: _selectionVariant, ...res
         >
           <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
           <ChoiceFieldset.List selectionVariant="multiple">
-            <ChoiceFieldset.Item value="one">
-              <Item.Label>Label one</Item.Label>
-              <Item.Caption>Caption</Item.Caption>
-            </ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="two">
-              <Item.Label>Label two</Item.Label>
-              <Item.Caption>Caption</Item.Caption>
-            </ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
       </Box>
@@ -129,14 +111,8 @@ export const Required = ({selectionVariant, ...restArgs}: Args) => (
   <ChoiceFieldset name="radioGroup" required {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
-      <ChoiceFieldset.Item value="labelOne">
-        <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-      <ChoiceFieldset.Item value="labelTwo">
-        <Item.Label>Label two</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
     </ChoiceFieldset.List>
   </ChoiceFieldset>
 )
@@ -146,14 +122,8 @@ export const Disabled = ({selectionVariant, ...restArgs}: Args) => (
   <ChoiceFieldset name="radioGroup" disabled {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
-      <ChoiceFieldset.Item value="labelOne">
-        <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-      <ChoiceFieldset.Item value="labelTwo">
-        <Item.Label>Label two</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
     </ChoiceFieldset.List>
   </ChoiceFieldset>
 )
@@ -163,14 +133,8 @@ export const WithVisuallyHiddenLegend = ({selectionVariant, ...restArgs}: Args) 
   <ChoiceFieldset name="radioGroup" {...restArgs}>
     <ChoiceFieldset.Legend visuallyHidden>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
-      <ChoiceFieldset.Item value="labelOne">
-        <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-      <ChoiceFieldset.Item value="labelTwo">
-        <Item.Label>Label two</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
     </ChoiceFieldset.List>
   </ChoiceFieldset>
 )
@@ -180,14 +144,8 @@ export const WithDescription = ({selectionVariant, ...restArgs}: Args) => (
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.Description>Hint: any selection is valid</ChoiceFieldset.Description>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
-      <ChoiceFieldset.Item value="labelOne">
-        <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-      <ChoiceFieldset.Item value="labelTwo">
-        <Item.Label>Label two</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
     </ChoiceFieldset.List>
   </ChoiceFieldset>
 )
@@ -196,40 +154,14 @@ export const WithValidation = ({selectionVariant, ...restArgs}: Args) => (
   <ChoiceFieldset name="radioGroup" {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
-      <ChoiceFieldset.Item value="labelOne">
-        <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-      <ChoiceFieldset.Item value="labelTwo">
-        <Item.Label>Label two</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
     </ChoiceFieldset.List>
     <ChoiceFieldset.Validation validationKey="validChoice">You made the right selection</ChoiceFieldset.Validation>
     <ChoiceFieldset.Validation validationKey="invalidChoice">You made the wrong selection</ChoiceFieldset.Validation>
   </ChoiceFieldset>
 )
 WithValidation.parameters = {controls: {exclude: ['id']}}
-
-export const WithValidationAndDescription = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" {...restArgs}>
-    <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
-    <ChoiceFieldset.Description>Hint: use the Controls panel to see the error message</ChoiceFieldset.Description>
-    <ChoiceFieldset.List selectionVariant={selectionVariant}>
-      <ChoiceFieldset.Item value="labelOne">
-        <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-      <ChoiceFieldset.Item value="labelTwo">
-        <Item.Label>Label two</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
-      </ChoiceFieldset.Item>
-    </ChoiceFieldset.List>
-    <ChoiceFieldset.Validation validationKey="validChoice">You made the right selection</ChoiceFieldset.Validation>
-    <ChoiceFieldset.Validation validationKey="invalidChoice">You made the wrong selection</ChoiceFieldset.Validation>
-  </ChoiceFieldset>
-)
-WithValidationAndDescription.parameters = {controls: {exclude: ['id']}}
 
 export const WithLeadingVisual = ({selectionVariant, ...restArgs}: Args) => (
   <ChoiceFieldset name="radioGroup" {...restArgs}>
@@ -240,16 +172,31 @@ export const WithLeadingVisual = ({selectionVariant, ...restArgs}: Args) => (
           <MarkGithubIcon />
         </Item.LeadingVisual>
         <Item.Label>Label one</Item.Label>
-        <Item.Caption>Caption</Item.Caption>
       </ChoiceFieldset.Item>
       <ChoiceFieldset.Item value="labelTwo">
         <Item.LeadingVisual>
           <MarkGithubIcon />
         </Item.LeadingVisual>
         <Item.Label>Label two</Item.Label>
+      </ChoiceFieldset.Item>
+    </ChoiceFieldset.List>
+  </ChoiceFieldset>
+)
+WithLeadingVisual.storyName = 'Choices with a LeadingVisual'
+
+export const WithChoiceCaptions = ({selectionVariant, ...restArgs}: Args) => (
+  <ChoiceFieldset name="radioGroup" {...restArgs}>
+    <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+    <ChoiceFieldset.List selectionVariant={selectionVariant}>
+      <ChoiceFieldset.Item value="labelOne">
+        <Item.Label>Label one</Item.Label>
+        <Item.Caption>Caption</Item.Caption>
+      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="labelTwo">
+        <Item.Label>Label two</Item.Label>
         <Item.Caption>Caption</Item.Caption>
       </ChoiceFieldset.Item>
     </ChoiceFieldset.List>
   </ChoiceFieldset>
 )
-WithLeadingVisual.storyName = 'With LeadingVisual'
+WithChoiceCaptions.storyName = 'Choices with a Caption'
