@@ -6,10 +6,10 @@ import TextInputWrapper from './_TextInputWrapper'
 
 type NonPassthroughProps = {
   className?: string
-  /** @deprecated Use `leadingIcon` or `trailingIcon` prop instead */
+  /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
   icon?: React.ComponentType<{className?: string}>
-  leadingIcon?: React.ComponentType<{className?: string}>
-  trailingIcon?: React.ComponentType<{className?: string}>
+  leadingVisual?: string | React.ComponentType<{className?: string}>
+  trailingVisual?: string | React.ComponentType<{className?: string}>
 } & Pick<
   ComponentProps<typeof TextInputWrapper>,
   'block' | 'contrast' | 'disabled' | 'sx' | 'width' | 'maxWidth' | 'minWidth' | 'variant' | 'size'
@@ -23,8 +23,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
   (
     {
       icon: IconComponent,
-      leadingIcon: LeadingIconComponent,
-      trailingIcon: TrailingIconComponent,
+      leadingVisual: LeadingVisual,
+      trailingVisual: TrailingVisual,
       block,
       className,
       contrast,
@@ -52,7 +52,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         validationStatus={validationStatus}
         contrast={contrast}
         disabled={disabled}
-        hasIcon={!!IconComponent || !!(LeadingIconComponent || TrailingIconComponent)}
         sx={sxProp}
         size={sizeProp}
         width={widthProp}
@@ -60,10 +59,18 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         maxWidth={maxWidthProp}
         variant={variantProp}
       >
-        {IconComponent && <IconComponent className="TextInput-leading-icon" />}
-        {LeadingIconComponent && <LeadingIconComponent className="TextInput-leading-icon" />}
+        {IconComponent && <IconComponent className="TextInput-icon" />}
+        {LeadingVisual && (
+          <span data-component="leadingVisual">
+            {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+          </span>
+        )}
         <UnstyledTextInput ref={ref} disabled={disabled} {...inputProps} data-component="input" />
-        {TrailingIconComponent && <TrailingIconComponent className="TextInput-trailing-icon" />}
+        {TrailingVisual && (
+          <span data-component="leadingVisual">
+            {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+          </span>
+        )}
       </TextInputWrapper>
     )
   }

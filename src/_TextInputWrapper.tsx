@@ -69,24 +69,27 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
   & > :not(:last-child) {
     margin-right: ${get('space.2')};
   }
-  [data-component='input'] {
-    grid-area: input;
-  }
 
-  .TextInput-leading-icon {
+  [data-component=' leadingVisual '] {
     align-self: center;
     color: ${get('colors.fg.muted')};
-    grid-area: leadingIcon;
   }
 
-  .TextInput-trailing-icon {
+  [data-component=' trailingVisual '] {
     align-self: center;
     color: ${get('colors.fg.muted')};
-    grid-area: trailingIcon;
+  }
+
+  .TextInput-icon {
+    align-self: center;
+    color: ${get('colors.fg.muted')};
+    margin: 0 ${get('space.2')};
+    flex-shrink: 0;
   }
 
   &:focus-within {
@@ -134,7 +137,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
       width: 100%;
     `}
   
-    // Ensures inputs don't zoom on mobile but are body-font size on desktop
+    // Ensures inputs don' t zoom on mobile but are body-font size on desktop
     @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }

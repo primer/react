@@ -88,20 +88,24 @@ export const Default = (args: TextInputProps) => {
   )
 }
 
-export const WithLeadingIcon = (args: TextInputProps) => {
+export const WithLeadingVisual = (args: TextInputProps) => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
 
-  const inputId = 'basic-text-input-with-leading-icon'
+  const iconInputId = 'text-input-with-leading-icon'
+  const leadingTextId = 'text-input-with-leading-text'
 
   return (
     <form>
-      <Label htmlFor={inputId}>Example label</Label>
+      <Label htmlFor={iconInputId}>Example label</Label>
       <br />
-      <TextInput leadingIcon={CheckIcon} id={inputId} value={value} onChange={handleChange} {...args} />
+      <TextInput leadingVisual={CheckIcon} id={iconInputId} value={value} onChange={handleChange} {...args} />
+      <Label htmlFor={leadingTextId}>Enter monies</Label>
+      <br />
+      <TextInput leadingVisual="$" id={leadingTextId} value={value} onChange={handleChange} {...args} />
     </form>
   )
 }
@@ -113,13 +117,26 @@ export const WithTrailingIcon = (args: TextInputProps) => {
     setValue(event.target.value)
   }
 
-  const inputId = 'basic-text-input-with-trailing-icon'
+  const iconInputId = 'text-input-with-trailing-icon'
+  const trailingTextInputId = 'text-input-with-trailing-text'
 
   return (
     <form>
-      <Label htmlFor={inputId}>Example label</Label>
+      <Label htmlFor={iconInputId}>Example label</Label>
       <br />
-      <TextInput trailingIcon={CheckIcon} id={inputId} value={value} onChange={handleChange} {...args} />
+      <TextInput trailingVisual={CheckIcon} id={iconInputId} value={value} onChange={handleChange} {...args} />
+
+      <Label htmlFor={trailingTextInputId}>Time in minutes</Label>
+      <br />
+      <TextInput
+        trailingVisual="minutes"
+        id={trailingTextInputId}
+        value={value}
+        onChange={handleChange}
+        sx={{width: '150px'}}
+        {...args}
+        placeholder="200"
+      />
     </form>
   )
 }

@@ -24,6 +24,7 @@ exports[`TextInput renders 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -33,31 +34,37 @@ exports[`TextInput renders 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -107,6 +114,7 @@ exports[`TextInput renders block 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -116,7 +124,8 @@ exports[`TextInput renders block 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
   width: 100%;
 }
 
@@ -124,24 +133,29 @@ exports[`TextInput renders block 1`] = `
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -191,6 +205,7 @@ exports[`TextInput renders consistently 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -200,31 +215,37 @@ exports[`TextInput renders consistently 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -273,6 +294,7 @@ exports[`TextInput renders contrast 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -282,31 +304,37 @@ exports[`TextInput renders contrast 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -356,6 +384,7 @@ exports[`TextInput renders error 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -365,42 +394,42 @@ exports[`TextInput renders error 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
-  border-color: #cf222e;
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
   border-color: #0969da;
   box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
-.c0:focus-within {
-  border-color: #cf222e;
-  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
 }
 
 @media (min-width:768px) {
@@ -445,6 +474,7 @@ exports[`TextInput renders large 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -454,31 +484,42 @@ exports[`TextInput renders large 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -494,6 +535,7 @@ exports[`TextInput renders large 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  size="large"
 >
   <input
     className="c1"
@@ -504,7 +546,7 @@ exports[`TextInput renders large 1`] = `
 </span>
 `;
 
-exports[`TextInput renders leadingIcon 1`] = `
+exports[`TextInput renders leadingVisual 1`] = `
 .c1 {
   border: 0;
   font-size: inherit;
@@ -528,6 +570,7 @@ exports[`TextInput renders leadingIcon 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -537,31 +580,37 @@ exports[`TextInput renders leadingIcon 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -578,28 +627,32 @@ exports[`TextInput renders leadingIcon 1`] = `
 <span
   className="c0 TextInput-wrapper"
 >
-  <svg
-    aria-hidden="true"
-    className="TextInput-leading-icon"
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+  <span
+    data-component="leadingVisual"
+  >
+    <svg
+      aria-hidden="true"
+      className="octicon octicon-search"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+        }
       }
-    }
-    fill="currentColor"
-    height={16}
-    role="img"
-    style={
-      Object {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
-        "verticalAlign": "text-bottom",
+      fill="currentColor"
+      height={16}
+      role="img"
+      style={
+        Object {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
+          "verticalAlign": "text-bottom",
+        }
       }
-    }
-    viewBox="0 0 16 16"
-    width={16}
-  />
+      viewBox="0 0 16 16"
+      width={16}
+    />
+  </span>
   <input
     className="c1"
     data-component="input"
@@ -634,6 +687,7 @@ exports[`TextInput renders placeholder 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -643,31 +697,37 @@ exports[`TextInput renders placeholder 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -718,6 +778,7 @@ exports[`TextInput renders small 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -727,31 +788,44 @@ exports[`TextInput renders small 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
+  min-height: 28px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -767,6 +841,7 @@ exports[`TextInput renders small 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  size="small"
 >
   <input
     className="c1"
@@ -777,7 +852,7 @@ exports[`TextInput renders small 1`] = `
 </span>
 `;
 
-exports[`TextInput renders trailingIcon 1`] = `
+exports[`TextInput renders trailingVisual 1`] = `
 .c1 {
   border: 0;
   font-size: inherit;
@@ -801,6 +876,7 @@ exports[`TextInput renders trailingIcon 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -810,31 +886,37 @@ exports[`TextInput renders trailingIcon 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
@@ -858,28 +940,32 @@ exports[`TextInput renders trailingIcon 1`] = `
     placeholder="Search"
     type="text"
   />
-  <svg
-    aria-hidden="true"
-    className="TextInput-trailing-icon"
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+  <span
+    data-component="leadingVisual"
+  >
+    <svg
+      aria-hidden="true"
+      className="octicon octicon-search"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+        }
       }
-    }
-    fill="currentColor"
-    height={16}
-    role="img"
-    style={
-      Object {
-        "display": "inline-block",
-        "overflow": "visible",
-        "userSelect": "none",
-        "verticalAlign": "text-bottom",
+      fill="currentColor"
+      height={16}
+      role="img"
+      style={
+        Object {
+          "display": "inline-block",
+          "overflow": "visible",
+          "userSelect": "none",
+          "verticalAlign": "text-bottom",
+        }
       }
-    }
-    viewBox="0 0 16 16"
-    width={16}
-  />
+      viewBox="0 0 16 16"
+      width={16}
+    />
+  </span>
 </span>
 `;
 
@@ -907,6 +993,7 @@ exports[`TextInput renders warning 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -916,42 +1003,42 @@ exports[`TextInput renders warning 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
-  border-color: #bf8700;
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {
   border-color: #0969da;
   box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
-.c0:focus-within {
-  border-color: #bf8700;
-  box-shadow: 0 0 0 3px rgba(212,167,44,0.4);
 }
 
 @media (min-width:768px) {
@@ -996,6 +1083,7 @@ exports[`TextInput should render a password input 1`] = `
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: right 8px center;
   border: 1px solid #d0d7de;
@@ -1005,31 +1093,37 @@ exports[`TextInput should render a password input 1`] = `
   cursor: text;
   padding: 6px 12px;
   display: grid;
-  grid-template-areas: 'leadingIcon input trailingIcon';
+  grid-template-columns: auto 1fr auto;
+  justify-items: end;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
 
-.c0 [data-component='input'] {
-  grid-area: input;
-}
-
-.c0 .TextInput-leading-icon {
+.c0 [data-component=' leadingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: leadingIcon;
 }
 
-.c0 .TextInput-trailing-icon {
+.c0 [data-component=' trailingVisual '] {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  grid-area: trailingIcon;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  margin: 0 8px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c0:focus-within {

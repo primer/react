@@ -53,12 +53,12 @@ describe('TextInput', () => {
     expect(render(<TextInput name="zipcode" placeholder={'560076'} />)).toMatchSnapshot()
   })
 
-  it('renders leadingIcon', () => {
-    expect(render(<TextInput name="search" placeholder={'Search'} leadingIcon={SearchIcon} />)).toMatchSnapshot()
+  it('renders leadingVisual', () => {
+    expect(render(<TextInput name="search" placeholder={'Search'} leadingVisual={SearchIcon} />)).toMatchSnapshot()
   })
 
-  it('renders trailingIcon', () => {
-    expect(render(<TextInput name="search" placeholder={'Search'} trailingIcon={SearchIcon} />)).toMatchSnapshot()
+  it('renders trailingVisual', () => {
+    expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />)).toMatchSnapshot()
   })
 
   it('should call onChange prop with input value', () => {
