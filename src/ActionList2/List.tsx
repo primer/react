@@ -3,6 +3,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/r
 import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
+import {MenuContext} from './MenuContext'
 
 export type ListProps = {
   /**
@@ -30,7 +31,7 @@ const ListBox = styled.ul<SxProp>(sx)
 
 export const List = React.forwardRef<HTMLUListElement, ListProps>(
   (
-    {variant = 'inset', selectionVariant, showDividers = false, sx: sxProp = {}, ...props},
+    {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = {}, ...props},
     forwardedRef
   ): JSX.Element => {
     const styles = {
@@ -39,8 +40,11 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
       paddingY: variant === 'inset' ? 2 : 0
     }
 
+    /** if list is inside a Menu, it will get a role from the Menu */
+    const {listRole} = React.useContext(MenuContext)
+
     return (
-      <ListBox sx={merge(styles, sxProp as SxProp)} {...props} ref={forwardedRef}>
+      <ListBox sx={merge(styles, sxProp as SxProp)} role={role || listRole} {...props} ref={forwardedRef}>
         <ListContext.Provider value={{variant, selectionVariant, showDividers}}>{props.children}</ListContext.Provider>
       </ListBox>
     )
