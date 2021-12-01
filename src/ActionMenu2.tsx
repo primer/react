@@ -23,11 +23,6 @@ type ActionMenuBaseProps = {
    * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
    */
   onOpenChange?: (s: boolean) => void
-
-  /**
-   * Props to be spread on the internal `Overlay` component.
-   */
-  overlayProps?: Partial<OverlayProps>
 }
 
 export type ActionMenuProps = ActionMenuBaseProps & AnchoredOverlayWrapperAnchorProps
@@ -36,7 +31,6 @@ const ActionMenuBase: React.FC<ActionMenuProps> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
-  overlayProps,
   children
 }: ActionMenuProps) => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
@@ -45,13 +39,16 @@ const ActionMenuBase: React.FC<ActionMenuProps> = ({
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
   let renderAnchor: AnchoredOverlayWrapperAnchorProps['renderAnchor'] = null
-  const contents: React.ReactElement[] = []
+  let contents: React.ReactElement[] = []
+  let overlayProps = {}
 
   React.Children.map(children, child => {
     if (child.type === MenuButton || child.type === Anchor) {
       renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
-    } else {
-      contents.push(child)
+    } else if (child.type === Overlay) {
+      const {children: overlayChildren, ...childProps} = child.props
+      contents = overlayChildren
+      overlayProps = childProps
     }
   })
 
@@ -90,5 +87,9 @@ const MenuButton = React.forwardRef<AnchorRef, ButtonProps>((props, anchorRef) =
   )
 })
 
+/** this component is syntactical sugar 🍭 */
+type MenuOverlayProps = Partial<OverlayProps> & {children: React.ReactElement[] | React.ReactElement}
+const Overlay: React.FC<MenuOverlayProps> = props => <>{props.children}</>
+
 ActionMenuBase.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(ActionMenuBase, {Button: MenuButton, Anchor, Divider})
+export const ActionMenu = Object.assign(ActionMenuBase, {Button: MenuButton, Anchor, Overlay, Divider})
