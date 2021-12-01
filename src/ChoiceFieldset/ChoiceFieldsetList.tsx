@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import {CheckboxInputField, RadioInputField} from '..'
 import {get} from '../constants'
 import {uniqueId} from '../utils/uniqueId'
-import ChoiceFieldInput from './ChoiceFieldInput'
 import {Slot, ChoiceFieldsetContext} from './ChoiceFieldset'
 import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'
 

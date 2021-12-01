@@ -39,7 +39,6 @@ const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disab
 }
 
 export type ChoiceFieldComponentProps = ComponentProps<typeof ChoiceFieldsetListItem>
-export type {ChoiceFieldInputProps} from './ChoiceFieldInput'
 export default Object.assign(ChoiceFieldsetListItem, {
   Caption: ChoiceFieldCaption,
   Label: ChoiceFieldLabel,
