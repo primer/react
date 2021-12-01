@@ -4,7 +4,6 @@ on:
     branches-ignore:
       - 'main'
       - 'changeset-release/main'
-      - 'feature/component-status-project-board'
     # To avoid unnecessary noise, we don't create canary releases when these paths change:
     paths-ignore:
       - '.changeset/**'

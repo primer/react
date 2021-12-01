@@ -9,6 +9,13 @@ type ComponentStatus = {
   [component: string]: string
 }
 
+/**
+ * Extracts the component status for each file in the given directory.
+ *
+ * @param filenames Array of filenames to read front-matter from
+ * @param dir Absolute path to directory containing files
+ * @returns A promise that resolves to an array containing outcome of file front-matter extraction
+ */
 function getComponentStatuses(filenames: string[], dir: string) {
   const promises: Promise<ComponentStatus | null>[] = []
 
@@ -43,6 +50,12 @@ function getComponentStatuses(filenames: string[], dir: string) {
   return Promise.all(promises)
 }
 
+/**
+ * Orchestrates the process of reading component status for each file in the given directory.
+ *
+ * @param dir Directory to source files where status will be extracted from
+ * @returns A promise that resolves to an object containing component statuses
+ */
 async function readFiles(dir: string) {
   try {
     const filenames = fs.readdirSync(dir)
@@ -62,6 +75,9 @@ async function readFiles(dir: string) {
   }
 }
 
+/**
+ * Writes the component status to the given file.
+ */
 readFiles(sourceDirectory)
   .then(componentStatuses => {
     if (!fs.existsSync(outputDir)) {

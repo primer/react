@@ -3,7 +3,6 @@ on:
   push:
     branches-ignore:
       - 'main'
-      - 'feature/component-status-project-board'
 
 jobs:
   deploy-preview:

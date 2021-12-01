@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feature/component-status-project-board
+    # Only run workflow on changes to component docs
+    paths:
+      - 'docs/content/**'
 
 jobs:
   build-docs:
@@ -23,7 +26,7 @@ jobs:
         run: npm ci
       - name: Install ruby deps
         run: gem install graphql-client
-      - name: Build status map
+      - name: Build statuses
         run: npx ts-node script/build.ts
-      - name: Make updates
+      - name: Deploy statuses to project
         run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} script/deploy.rb
