@@ -12,7 +12,8 @@ export interface ChoiceFieldProps {
    */
   disabled?: boolean
   /**
-   * The unique identifier for this field. Used to associate the label, validation text, and caption text
+   * The unique identifier for this field. Used to associate the label, validation text, and caption text.
+   * If an ID is not provided, one will be automatically generated.
    */
   id?: string
   /**

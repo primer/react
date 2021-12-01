@@ -6,7 +6,7 @@ import {uniqueId} from '../utils/uniqueId'
 import ValidationAnimationContainer from '../_InputField/ValidationAnimationContainer'
 import InputValidation from '../_InputValidation'
 import ChoiceFieldsetListItem from './ChoiceFieldsetListItem'
-import ChoiceFieldsetCaption from './ChoiceFieldsetCaption'
+import ChoiceFieldsetDescription from './ChoiceFieldsetDescription'
 import ChoiceFieldsetLegend from './ChoiceFieldsetLegend'
 import ChoiceFieldsetList from './ChoiceFieldsetList'
 import ChoiceFieldsetValidation from './ChoiceFieldsetValidation'
@@ -49,11 +49,10 @@ export interface ChoiceFieldsetProps<T = Record<string, FormValidationStatus>> {
 }
 
 export interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
-  captionId: string
   validationMessageId: string
 }
 
-const {Slots, Slot} = createSlots(['Caption', 'ChoiceList', 'Legend', 'Validation'])
+const {Slots, Slot} = createSlots(['Description', 'ChoiceList', 'Legend', 'Validation'])
 export {Slot}
 
 const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
@@ -72,13 +71,11 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
     React.isValidElement(child) && child.type === ChoiceFieldsetValidation ? child : null
   )?.filter(Boolean)
   const validationChildToRender = validationChildren?.find(child => child.props.validationKey === validationResult)
-  const captionId = `${fieldsetId}-caption`
   const validationMessageId = validationChildToRender ? `${fieldsetId}-validationMsg` : undefined
 
   return (
     <Slots
       context={{
-        captionId,
         disabled,
         name,
         onSelect,
@@ -97,24 +94,26 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
               border="none"
               margin={0}
               padding={0}
-              aria-describedby={[validationMessageId, captionId].filter(Boolean).join(' ')}
+              aria-describedby={[validationMessageId].filter(Boolean).join(' ')}
             >
               {React.Children.toArray(children).filter(
                 child => React.isValidElement(child) && child.type !== ChoiceFieldsetValidation
               )}
-              <Box mb={isLegendVisible ? 3 : undefined}>{slots.Legend}</Box>
+              <Box mb={isLegendVisible ? 3 : undefined}>
+                {slots.Legend}
+                {slots.Description}
+              </Box>
               {slots.ChoiceList}
             </Box>
-            {(validationChildToRender || slots.Caption) && (
+            {validationChildToRender && (
               <Box mt={3}>
-                {validationChildToRender && validationMap && validationResult && validationMessageId && (
+                {validationMap && validationResult && validationMessageId && (
                   <ValidationAnimationContainer show>
                     <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
                       {validationChildToRender}
                     </InputValidation>
                   </ValidationAnimationContainer>
                 )}
-                <Box mt={validationChildToRender ? 1 : undefined}>{slots.Caption}</Box>
               </Box>
             )}
           </div>
@@ -129,8 +128,8 @@ export type {ChoiceFieldsetListProps} from './ChoiceFieldsetList'
 export type {ChoiceFieldsetLegendProps} from './ChoiceFieldsetLegend'
 export type {ChoiceFieldProps} from './ChoiceFieldsetListItem'
 export default Object.assign(ChoiceFieldset, {
+  Description: ChoiceFieldsetDescription,
   Item: ChoiceFieldsetListItem,
-  Caption: ChoiceFieldsetCaption,
   Legend: ChoiceFieldsetLegend,
   List: ChoiceFieldsetList,
   Validation: ChoiceFieldsetValidation
