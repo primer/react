@@ -6,20 +6,18 @@ source: https://github.com/primer/react/blob/main/src/RadioButton.tsx
 storybook: '/react/storybook?path=/story/forms-radio-button--default'
 ---
 
-import {ComponentChecklist} from '../src/component-checklist'
-
 ## Default example
 
 ```jsx live
 <>
-  <RadioButton value="active radio button value" name="radio-group-name" />
-  <RadioButton value="active radio button value" name="radio-group-name" />
-  <RadioButton disabled value="inactive radio button value" name="radio-group-name" />
+  <RadioButton value="one" name="radio-group-name" />
+  <RadioButton value="two" name="radio-group-name" />
+  <RadioButton disabled value="three" name="radio-group-name" />
 </>
 ```
 
 <Note>
-Please use a <a href="/react/Checkbox">Checkbox</a> if the user needs to select more than one option in a list
+Please use a [Checkbox](/Checkbox) if the user needs to select more than one option in a list
 </Note>
 <Note variant="warning">
 RadioButton components should always be accompanied by a corresponding label to improve support for assistive technologies.
