@@ -94,15 +94,3 @@ async function build() {
 }
 
 build()
-
-// readFiles(sourceDirectory)
-//   .then(componentStatuses => {
-//     if (!fs.existsSync(outputDir)) {
-//       fs.mkdirSync(outputDir)
-//     }
-
-//     fs.writeFileSync(outputDir + '/component-status.json', JSON.stringify(componentStatuses))
-//   })
-//   .catch(error => {
-//     console.log(error)
-//   })
