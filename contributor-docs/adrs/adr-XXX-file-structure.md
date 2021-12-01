@@ -1,4 +1,4 @@
-# ADR XXX: Isolating behaviors through custom clements and vanilla JavaScript
+# ADR XXX: File structure
 
 ## Status
 
