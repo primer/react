@@ -2,6 +2,7 @@ import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
 import {ListContext} from './List'
 import {GroupContext} from './Group'
+import {MenuContext} from './MenuContext'
 import {ItemProps} from './Item'
 import {LeadingVisualContainer} from './Visuals'
 
@@ -9,6 +10,7 @@ type SelectionProps = Pick<ItemProps, 'selected'>
 export const Selection: React.FC<SelectionProps> = ({selected}) => {
   const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+  const {parent} = React.useContext(MenuContext)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   const selectionVariant = typeof groupSelectionVariant !== 'undefined' ? groupSelectionVariant : listSelectionVariant
@@ -20,6 +22,13 @@ export const Selection: React.FC<SelectionProps> = ({selected}) => {
       throw new Error(
         'For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined'
       )
+    return null
+  }
+
+  if (parent === 'ActionMenu') {
+    throw new Error(
+      'ActionList cannot have a selectionVariant inside ActionMenu, please use DropdownMenu or SelectPanel instead. More information: https://primer.style/design/components/action-list#application'
+    )
     return null
   }
 
