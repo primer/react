@@ -1,5 +1,5 @@
 ---
-title: ActionMenu
+title: ActionMenu v2
 status: Alpha
 source: https://github.com/primer/react/tree/main/src/ActionMenu
 storybook: '/react/storybook?path=/story/composite-components-actionmenu2'
@@ -239,6 +239,20 @@ render(<Example />)
 | Name       | Type                 | Default | Description                       |
 | :--------- | :------------------- | :-----: | :-------------------------------- |
 | children\* | `React.ReactElement` |    -    | Required. Accepts a single child. |
+
+<Note variant="warning">
+
+<DoDontContainer>
+  <Do>Use ActionMenu to choose an action from a list of actions.</Do>
+  <Dont>
+    <div>
+      Don't use ActionMenu with for single or multiple selection. Use <a href="/DropdownMenu">DropdownMenu</a> or{' '}
+      <a href="/SelectPanel">SelectPanel</a> instead.
+    </div>
+  </Dont>
+</DoDontContainer>
+
+</Note>
 
 ## Further reading
 
