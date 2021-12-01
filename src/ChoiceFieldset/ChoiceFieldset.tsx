@@ -30,6 +30,10 @@ export interface ChoiceFieldsetProps<T = Record<string, FormValidationStatus>> {
    */
   onSelect?: (selectedValues?: string[]) => void
   /**
+   * The selected values
+   */
+  selected?: string[]
+  /**
    * Whether this field must have a value for the user to complete their task
    */
   required?: boolean
@@ -59,6 +63,7 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   name,
   onSelect,
   required,
+  selected,
   validationMap,
   validationResult
 }: ChoiceFieldsetProps<T>) => {
@@ -78,6 +83,7 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
         name,
         onSelect,
         required,
+        selected,
         validationMessageId
       }}
     >

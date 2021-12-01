@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {CheckboxInputField, RadioInputField} from '..'
 import {get} from '../constants'
 import {uniqueId} from '../utils/uniqueId'
+import ChoiceFieldInput from './ChoiceFieldInput'
 import {Slot, ChoiceFieldsetContext} from './ChoiceFieldset'
 import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'
 
@@ -23,21 +24,6 @@ const List = styled.ul`
 `
 
 const ChoiceFieldsetList: React.FC<ChoiceFieldsetListProps> = ({selectionVariant, children}) => {
-  const initialSelectedChoices: string[] =
-    React.Children.map(children, child => {
-      if (React.isValidElement(child) && child.props.checked) {
-        return child.props.value
-      }
-
-      return ''
-    })?.filter(Boolean) || []
-  const getSelectedCheckboxes = (value: string, checked: boolean): string[] => {
-    if (checked) {
-      return selectionVariant === 'multiple' ? [...initialSelectedChoices, value] : [value]
-    }
-
-    return initialSelectedChoices.filter(selectedValue => selectedValue !== value)
-  }
   // generates a name to pass to radio inputs if one was not passed in ChoiceFieldset props
   const getRadioGroupName = (nameFromContext?: string) => {
     if (nameFromContext || selectionVariant !== 'multiple') {
@@ -49,25 +35,34 @@ const ChoiceFieldsetList: React.FC<ChoiceFieldsetListProps> = ({selectionVariant
 
   return (
     <Slot name="ChoiceList">
-      {({name, onSelect, disabled}: ChoiceFieldsetContext) => (
-        <ChoiceFieldsetListContext.Provider
-          value={{
-            disabled,
-            initialSelectedChoices,
-            name: getRadioGroupName(name),
-            fieldComponent: selectionVariant === 'multiple' ? CheckboxInputField : RadioInputField,
-            onChange: (e: ChangeEvent<HTMLInputElement>) => {
-              onSelect && onSelect(getSelectedCheckboxes(e.currentTarget.value, e.currentTarget.checked))
-            }
-          }}
-        >
-          <List>
-            {React.Children.map(children, (child, i) => (
-              <li key={i}>{child}</li>
-            ))}
-          </List>
-        </ChoiceFieldsetListContext.Provider>
-      )}
+      {({name, onSelect, disabled, selected = []}: ChoiceFieldsetContext) => {
+        const getSelectedCheckboxes = (value: string, checked: boolean): string[] => {
+          if (checked) {
+            return selectionVariant === 'multiple' ? [...selected, value] : [value]
+          }
+
+          return selected.filter(selectedValue => selectedValue !== value)
+        }
+        return (
+          <ChoiceFieldsetListContext.Provider
+            value={{
+              disabled,
+              selected,
+              name: getRadioGroupName(name),
+              fieldComponent: selectionVariant === 'multiple' ? CheckboxInputField : RadioInputField,
+              onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                onSelect && onSelect(getSelectedCheckboxes(e.currentTarget.value, e.currentTarget.checked))
+              }
+            }}
+          >
+            <List>
+              {React.Children.map(children, (child, i) => (
+                <li key={i}>{child}</li>
+              ))}
+            </List>
+          </ChoiceFieldsetListContext.Provider>
+        )
+      }}
     </Slot>
   )
 }

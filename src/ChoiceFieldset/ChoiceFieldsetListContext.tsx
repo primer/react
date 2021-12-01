@@ -6,7 +6,6 @@ import ToggleInputField, {ToggleInputFieldProps} from '../_InputField/ToggleInpu
 
 const ChoiceFieldsetListContext = createContext<{
   disabled?: boolean
-  initialSelectedChoices?: string[]
   name?: string
   onChange: ChangeEventHandler<HTMLInputElement>
   fieldComponent: React.FC<ToggleInputFieldProps> & {
@@ -17,6 +16,7 @@ const ChoiceFieldsetListContext = createContext<{
     Label: React.FC<ComponentProps<typeof InputField.Label>>
     LeadingVisual: React.FC<ComponentProps<typeof ToggleInputField.LeadingVisual>>
   }
+  selected?: string[]
 } | null>(null)
 
 CheckboxInputField.Input
