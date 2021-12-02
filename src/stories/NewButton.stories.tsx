@@ -195,7 +195,6 @@ const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkPro
 )
 
 export const linkButton = ({...args}: ButtonProps) => {
-  const buttonRef = React.useRef<HTMLButtonElement>(null)
   return (
     <>
       <Box mb={2} display="flex">
@@ -229,14 +228,7 @@ export const linkButton = ({...args}: ButtonProps) => {
         </ButtonLink>
       </Box>
       <Box mb={2} display="flex">
-        <ButtonLink
-          to="/dummy"
-          as={ReactRouterLikeLink}
-          ref={buttonRef}
-          variant="primary"
-          trailingIcon={TriangleRightIcon}
-          {...args}
-        >
+        <ButtonLink to="/dummy" as={ReactRouterLikeLink} variant="primary" trailingIcon={TriangleRightIcon} {...args}>
           Link to Primer
         </ButtonLink>
       </Box>
