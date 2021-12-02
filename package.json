@@ -158,5 +158,9 @@
       "webpack": false,
       "running": false
     }
-  ]
+  ],
+  "engines": {
+    "node": ">=16",
+    "npm": ">=8"
+  }
 }
