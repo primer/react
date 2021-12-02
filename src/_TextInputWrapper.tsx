@@ -45,6 +45,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
   border-radius: ${get('radii.2')};
   outline: none;
   box-shadow: ${get('shadows.primer.shadow.inset')};
+  cursor: text;
 
   ${props => {
     if (props.hasIcon) {
@@ -89,6 +90,13 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
     css`
       display: block;
       width: 100%;
+    `}
+
+    ${props =>
+    props.block &&
+    props.hasIcon &&
+    css`
+      display: flex;
     `}
   
     // Ensures inputs don't zoom on mobile but are body-font size on desktop

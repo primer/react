@@ -1,11 +1,11 @@
 import classnames from 'classnames'
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const TooltipBase = styled.span<SystemCommonProps & SxProp>`
+const TooltipBase = styled.span<SxProp>`
   position: relative;
 
   &::before {
@@ -229,7 +229,7 @@ const TooltipBase = styled.span<SystemCommonProps & SxProp>`
   &.tooltipped-align-left-2::before {
     left: 10px;
   }
-  ${COMMON};
+
   ${sx};
 `
 

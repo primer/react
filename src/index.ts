@@ -52,6 +52,8 @@ export {
   ButtonClose,
   ButtonGroup
 } from './Button'
+export {NewButton} from './NewButton'
+export type {NewButtonProps} from './NewButton'
 export type {
   ButtonProps,
   ButtonDangerProps,
@@ -166,5 +168,8 @@ export {default as Truncate} from './Truncate'
 export type {TruncateProps} from './Truncate'
 export {default as UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
+
+export {default as Checkbox} from './Checkbox'
+export type {CheckboxProps} from './Checkbox'
 
 export {SSRProvider, useSSRSafeId} from './utils/ssr'

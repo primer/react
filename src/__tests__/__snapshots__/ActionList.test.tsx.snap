@@ -178,25 +178,25 @@ exports[`ActionList.Item renders consistently 1`] = `
 }
 
 .c1[data-is-active-descendant='activated-directly'] {
-  background: rgba(54,77,100,0.16);
+  background: rgba(208,215,222,0.48);
 }
 
 .c1[data-is-active-descendant='activated-indirectly'] {
-  background: rgba(46,77,108,0.06);
+  background: rgba(208,215,222,0.32);
 }
 
 .c1:focus {
-  background: rgba(54,77,100,0.16);
+  background: rgba(208,215,222,0.48);
   outline: none;
 }
 
 .c1:active {
-  background: rgba(54,77,100,0.16);
+  background: rgba(208,215,222,0.48);
 }
 
 @media (hover:hover) and (pointer:fine) {
   .c1:hover {
-    background: var(--item-hover-bg-override,rgba(46,77,108,0.06));
+    background: var( --item-hover-bg-override,rgba(208,215,222,0.32) );
     cursor: pointer;
   }
 }

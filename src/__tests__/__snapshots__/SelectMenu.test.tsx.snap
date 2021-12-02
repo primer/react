@@ -352,6 +352,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
             style={
               Object {
                 "display": "inline-block",
+                "overflow": "visible",
                 "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
@@ -383,6 +384,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
             style={
               Object {
                 "display": "inline-block",
+                "overflow": "visible",
                 "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
@@ -418,6 +420,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
             style={
               Object {
                 "display": "inline-block",
+                "overflow": "visible",
                 "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }
@@ -448,6 +451,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
             style={
               Object {
                 "display": "inline-block",
+                "overflow": "visible",
                 "userSelect": "none",
                 "verticalAlign": "text-bottom",
               }

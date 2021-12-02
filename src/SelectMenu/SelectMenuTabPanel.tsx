@@ -1,14 +1,13 @@
 import React, {useContext} from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 import {MenuContext} from './SelectMenuContext'
 import SelectMenuList from './SelectMenuList'
 
-const TabPanelBase = styled.div<SystemCommonProps & SxProp>`
+const TabPanelBase = styled.div<SxProp>`
   border-top: ${get('borderWidths.1')} solid ${get('colors.border.muted')};
-  ${COMMON}
   ${sx};
 `
 

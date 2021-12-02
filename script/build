@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Clean up
 rm -rf dist
 rm -rf lib
