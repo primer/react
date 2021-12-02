@@ -2,4 +2,4 @@
 '@primer/components': minor
 ---
 
-Adds a RadioButton component
+Adds a Radio component

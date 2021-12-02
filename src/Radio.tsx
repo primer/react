@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import React, {InputHTMLAttributes, ReactElement} from 'react'
 import sx, {SxProp} from './sx'
 
-export type RadioButtonProps = {
+export type RadioProps = {
   /**
    * A unique value that is never shown to the user.
    * Used during form submission and to identify which radio button in a group is selected
@@ -35,7 +35,7 @@ export type RadioButtonProps = {
 } & InputHTMLAttributes<HTMLInputElement> &
   SxProp
 
-const StyledRadioButton = styled.input`
+const StyledRadio = styled.input`
   cursor: pointer;
 
   ${props => props.disabled && `cursor: not-allowed;`}
@@ -46,13 +46,13 @@ const StyledRadioButton = styled.input`
 /**
  * An accessible, native radio component for selecting one option from a list.
  */
-const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
+const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
-    {checked, disabled, sx: sxProp, required, validationStatus, value, name, ...rest}: RadioButtonProps,
+    {checked, disabled, sx: sxProp, required, validationStatus, value, name, ...rest}: RadioProps,
     ref
   ): ReactElement => {
     return (
-      <StyledRadioButton
+      <StyledRadio
         type="radio"
         value={value}
         name={name}
@@ -71,6 +71,6 @@ const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
   }
 )
 
-RadioButton.displayName = 'RadioButton'
+Radio.displayName = 'Radio'
 
-export default RadioButton
+export default Radio

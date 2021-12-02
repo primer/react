@@ -2,12 +2,12 @@ import React, {ChangeEvent, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
-import {BaseStyles, Box, RadioButton, RadioButtonProps, Text, ThemeProvider} from '..'
+import {BaseStyles, Box, Radio, RadioProps, Text, ThemeProvider} from '..'
 import {get} from '../constants'
 
 export default {
-  title: 'Forms/Radio Button',
-  component: RadioButton,
+  title: 'Forms/Radio',
+  component: Radio,
   decorators: [
     Story => {
       return (
@@ -60,7 +60,7 @@ const StyledLabel = styled.label`
   }
 `
 
-export const Default = ({disabled, checked}: RadioButtonProps) => {
+export const Default = ({disabled, checked}: RadioProps) => {
   const [isSelected, setSelected] = useState<boolean>(checked || false)
   const handleChange = () => {
     setSelected(!isSelected)
@@ -69,7 +69,7 @@ export const Default = ({disabled, checked}: RadioButtonProps) => {
   return (
     <>
       <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
-        <RadioButton
+        <Radio
           id="default-radio"
           value="default"
           name="default"
@@ -85,7 +85,7 @@ export const Default = ({disabled, checked}: RadioButtonProps) => {
   )
 }
 
-export const MultipleRadioButtons = ({disabled}: RadioButtonProps) => {
+export const MultipleRadios = ({disabled}: RadioProps) => {
   const [activeSelection, setActiveSelection] = useState<'yes' | 'no' | undefined>()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +97,7 @@ export const MultipleRadioButtons = ({disabled}: RadioButtonProps) => {
     <>
       <Box as="form" p={3} sx={{display: 'inline-flex', alignItems: 'flex-start'}}>
         <StyledLabel htmlFor="yes-radio" aria-disabled={disabled}>
-          <RadioButton
+          <Radio
             id="yes-radio"
             onChange={handleChange}
             checked={activeSelection === 'yes'}
@@ -110,7 +110,7 @@ export const MultipleRadioButtons = ({disabled}: RadioButtonProps) => {
       </Box>
       <Box as="form" p={3} sx={{display: 'inline-flex', alignItems: 'flex-start'}}>
         <StyledLabel htmlFor="no-radio" aria-disabled={disabled}>
-          <RadioButton
+          <Radio
             id="no-radio"
             onChange={handleChange}
             checked={activeSelection === 'no'}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {RadioButton} from '..'
+import {Radio} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render, cleanup, fireEvent} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
@@ -8,7 +8,7 @@ import '@testing-library/jest-dom'
 
 expect.extend(toHaveNoViolations)
 
-describe('RadioButton', () => {
+describe('Radio', () => {
   const defaultProps = {
     name: 'mock',
     value: 'mock value'
@@ -19,14 +19,14 @@ describe('RadioButton', () => {
     cleanup()
   })
 
-  behavesAsComponent({Component: RadioButton})
+  behavesAsComponent({Component: Radio})
 
-  checkExports('RadioButton', {
-    default: RadioButton
+  checkExports('Radio', {
+    default: Radio
   })
 
   it('renders a valid radio input', () => {
-    const {getByRole} = render(<RadioButton {...defaultProps} />)
+    const {getByRole} = render(<Radio {...defaultProps} />)
 
     const radio = getByRole('radio')
 
@@ -34,7 +34,7 @@ describe('RadioButton', () => {
   })
 
   it('renders an unchecked radio by default', () => {
-    const {getByRole} = render(<RadioButton {...defaultProps} />)
+    const {getByRole} = render(<Radio {...defaultProps} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
@@ -42,7 +42,7 @@ describe('RadioButton', () => {
   })
 
   it('accepts and applies value and name attributes', () => {
-    const {getByRole} = render(<RadioButton {...defaultProps} />)
+    const {getByRole} = render(<Radio {...defaultProps} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
@@ -52,7 +52,7 @@ describe('RadioButton', () => {
 
   it('renders an active radio when checked attribute is passed', () => {
     const handleChange = jest.fn()
-    const {getByRole} = render(<RadioButton {...defaultProps} checked onChange={handleChange} />)
+    const {getByRole} = render(<Radio {...defaultProps} checked onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
@@ -61,7 +61,7 @@ describe('RadioButton', () => {
 
   it('accepts a change handler that can alter a single radio state', () => {
     const handleChange = jest.fn()
-    const {getByRole} = render(<RadioButton {...defaultProps} onChange={handleChange} />)
+    const {getByRole} = render(<Radio {...defaultProps} onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
@@ -76,8 +76,8 @@ describe('RadioButton', () => {
     const handleChange = jest.fn()
     const RadioGroup = () => (
       <form>
-        <RadioButton {...defaultProps} value="radio-one" onChange={handleChange} />
-        <RadioButton {...defaultProps} value="radio-two" onChange={handleChange} />
+        <Radio {...defaultProps} value="radio-one" onChange={handleChange} />
+        <Radio {...defaultProps} value="radio-two" onChange={handleChange} />
       </form>
     )
     const {getByDisplayValue} = render(<RadioGroup />)
@@ -101,7 +101,7 @@ describe('RadioButton', () => {
 
   it('renders an inactive radio state correctly', () => {
     const handleChange = jest.fn()
-    const {getByRole, rerender} = render(<RadioButton {...defaultProps} disabled onChange={handleChange} />)
+    const {getByRole, rerender} = render(<Radio {...defaultProps} disabled onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
@@ -116,13 +116,13 @@ describe('RadioButton', () => {
     expect(radio).toHaveAttribute('aria-disabled', 'true')
 
     // remove disabled attribute and retest
-    rerender(<RadioButton {...defaultProps} onChange={handleChange} />)
+    rerender(<Radio {...defaultProps} onChange={handleChange} />)
 
     expect(radio).toHaveAttribute('aria-disabled', 'false')
   })
 
   it('renders an uncontrolled component correctly', () => {
-    const {getByRole} = render(<RadioButton {...defaultProps} defaultChecked />)
+    const {getByRole} = render(<Radio {...defaultProps} defaultChecked />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
@@ -131,43 +131,43 @@ describe('RadioButton', () => {
 
   it('renders an aria-checked attribute correctly', () => {
     const handleChange = jest.fn()
-    const {getByRole, rerender} = render(<RadioButton {...defaultProps} checked={false} onChange={handleChange} />)
+    const {getByRole, rerender} = render(<Radio {...defaultProps} checked={false} onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
     expect(radio).toHaveAttribute('aria-checked', 'false')
 
-    rerender(<RadioButton {...defaultProps} checked={true} onChange={handleChange} />)
+    rerender(<Radio {...defaultProps} checked={true} onChange={handleChange} />)
 
     expect(radio).toHaveAttribute('aria-checked', 'true')
   })
 
   it('renders an invalid aria state when validation prop indicates an error', () => {
     const handleChange = jest.fn()
-    const {getByRole, rerender} = render(<RadioButton {...defaultProps} onChange={handleChange} />)
+    const {getByRole, rerender} = render(<Radio {...defaultProps} onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
     expect(radio).toHaveAttribute('aria-invalid', 'false')
 
-    rerender(<RadioButton {...defaultProps} onChange={handleChange} validationStatus="success" />)
+    rerender(<Radio {...defaultProps} onChange={handleChange} validationStatus="success" />)
 
     expect(radio).toHaveAttribute('aria-invalid', 'false')
 
-    rerender(<RadioButton {...defaultProps} onChange={handleChange} validationStatus="error" />)
+    rerender(<Radio {...defaultProps} onChange={handleChange} validationStatus="error" />)
 
     expect(radio).toHaveAttribute('aria-invalid', 'true')
   })
 
   it('renders an aria state indicating the field is required', () => {
     const handleChange = jest.fn()
-    const {getByRole, rerender} = render(<RadioButton {...defaultProps} onChange={handleChange} />)
+    const {getByRole, rerender} = render(<Radio {...defaultProps} onChange={handleChange} />)
 
     const radio = getByRole('radio') as HTMLInputElement
 
     expect(radio).toHaveAttribute('aria-required', 'false')
 
-    rerender(<RadioButton {...defaultProps} onChange={handleChange} required />)
+    rerender(<Radio {...defaultProps} onChange={handleChange} required />)
 
     expect(radio).toHaveAttribute('aria-required', 'true')
   })
