@@ -22,4 +22,6 @@ jobs:
         run: npm ci
 
       - name: Chromatic
-        run: npx chromatic --project-token=91e12320417c
+        uses: chromaui/action@v1
+        with:
+          projectToken: 91e12320417c
