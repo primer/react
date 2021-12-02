@@ -1,5 +1,6 @@
 ---
 title: Header
+status: Alpha
 ---
 
 Use the `Header` component to create a header that has all of its items aligned vertically with consistent horizontal spacing.

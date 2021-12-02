@@ -1,5 +1,6 @@
 ---
 title: TextInput
+status: Alpha
 ---
 
 TextInput is a form component to add default styling to the native text input.

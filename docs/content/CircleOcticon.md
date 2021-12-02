@@ -1,5 +1,6 @@
 ---
 title: CircleOcticon
+status: Alpha
 ---
 
 CircleOcticon renders any Octicon with a circle background. CircleOcticons are most commonly used to represent the status of a pull request in the comment timeline.

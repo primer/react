@@ -1,5 +1,6 @@
 ---
 title: PointerBox
+status: Alpha
 ---
 
 PointerBox is a [BorderBox](./BorderBox) component with a caret added to it.

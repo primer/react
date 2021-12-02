@@ -1,5 +1,6 @@
 ---
 title: Dialog
+status: Deprecated
 ---
 
 import State from '../components/State'

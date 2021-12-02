@@ -1,5 +1,5 @@
 ---
-title: Position Components
+title: Position
 status: Deprecated
 ---
 

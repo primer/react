@@ -1,6 +1,6 @@
 ---
 title: StyledOcticon
-tags: icon
+status: Alpha
 ---
 
 StyledOcticon renders an [Octicon](https://octicons.github.com) with common system props, including `color`, margin, and padding.

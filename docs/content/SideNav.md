@@ -1,5 +1,6 @@
 ---
 title: SideNav
+status: Alpha
 ---
 
 The Side Nav is a vertical list of navigational links, typically used on the left side of a page. For maximum flexibility, **SideNav elements have no default width or positioning.**
