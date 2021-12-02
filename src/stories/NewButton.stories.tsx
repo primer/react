@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, forwardRef} from 'react'
 import {NewButton as Button, NewButtonProps as ButtonProps, IconButton, ButtonLink} from '../NewButton'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
@@ -186,7 +186,16 @@ export const disabledButton = ({...args}: ButtonProps) => {
   )
 }
 
+type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
+  ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    return <a ref={ref} href={to} {...props} />
+  }
+)
+
 export const linkButton = ({...args}: ButtonProps) => {
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
   return (
     <>
       <Box mb={2} display="flex">
@@ -216,6 +225,18 @@ export const linkButton = ({...args}: ButtonProps) => {
       </Box>
       <Box mb={2} display="flex">
         <ButtonLink href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink
+          to="/dummy"
+          as={ReactRouterLikeLink}
+          ref={buttonRef}
+          variant="primary"
+          trailingIcon={TriangleRightIcon}
+          {...args}
+        >
           Link to Primer
         </ButtonLink>
       </Box>

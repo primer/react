@@ -1,10 +1,15 @@
-import React, {HTMLAttributes} from 'react'
+import React, {HTMLAttributes, ComponentPropsWithRef} from 'react'
+import styled from 'styled-components'
 import {IconProps} from '@primer/octicons-react'
-import {SxProp} from '../sx'
+import sx, {SxProp} from '../sx'
+
+export const StyledButton = styled.button<SxProp>(sx)
 
 export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
 
 export type Size = 'small' | 'medium' | 'large'
+
+type StyledButtonProps = ComponentPropsWithRef<typeof StyledButton>
 
 export type ButtonBaseProps = {
   /**
@@ -20,7 +25,8 @@ export type ButtonBaseProps = {
    */
   disabled?: boolean
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement>
+  HTMLAttributes<HTMLButtonElement> &
+  StyledButtonProps
 
 export type ButtonProps = {
   /**
@@ -32,7 +38,6 @@ export type ButtonProps = {
    */
   trailingIcon?: React.FunctionComponent<IconProps>
   children: React.ReactNode
-  as?: React.ElementType
 } & ButtonBaseProps
 
 export type IconButtonProps = {
@@ -55,4 +60,4 @@ export type LinkButtonProps = {
   target?: string
   type?: string
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
-} & ButtonProps
+}

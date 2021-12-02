@@ -1,17 +1,18 @@
 import React, {forwardRef} from 'react'
 import {LinkButtonProps} from './types'
-import ButtonBase from './button-base'
+import ButtonBase, {ButtonBaseProps} from './button-base'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 
-const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(
+type MyProps = LinkButtonProps & ButtonBaseProps
+
+const LinkButton = forwardRef<HTMLElement, MyProps>(
   ({children, as: Component = 'a', ...props}, forwardedRef): JSX.Element => {
     return (
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore can't figure out why it wont accept as
-      <ButtonBase ref={forwardedRef} {...props} as={Component}>
+      <ButtonBase as={Component} ref={forwardedRef} {...props}>
         {children}
       </ButtonBase>
     )
   }
-)
+) as PolymorphicForwardRefComponent<'a', ButtonBaseProps>
 
 export default LinkButton

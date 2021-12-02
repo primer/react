@@ -1,15 +1,12 @@
-import React, {forwardRef} from 'react'
-import styled from 'styled-components'
+import React, {ComponentPropsWithRef, forwardRef} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import Box from '../Box'
-import sx, {merge, SxProp} from '../sx'
+import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
-import {ButtonProps} from './types'
+import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 
-export const Base = styled.button<SxProp>(sx)
-
-const ButtonBase = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
   ({children, as: Component = 'button', sx: sxProp = {}, ...props}, forwardedRef): JSX.Element => {
     const {leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, variant = 'default', size = 'medium'} = props
     const {theme} = useTheme()
@@ -23,7 +20,7 @@ const ButtonBase = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps
       sxProp as SxProp
     ])
     return (
-      <Box as={Component} sx={sxStyles} {...props} ref={forwardedRef}>
+      <StyledButton as={Component} sx={sxStyles} {...props} ref={forwardedRef}>
         {LeadingIcon && (
           <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
             <LeadingIcon />
@@ -35,9 +32,11 @@ const ButtonBase = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps
             <TrailingIcon />
           </Box>
         )}
-      </Box>
+      </StyledButton>
     )
   }
-) as PolymorphicForwardRefComponent<'button', ButtonProps>
+) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
+
+export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>
 
 export default ButtonBase
