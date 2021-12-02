@@ -7,6 +7,9 @@ import {Slot, ChoiceFieldsetContext} from './ChoiceFieldset'
 import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'
 
 export interface ChoiceFieldsetListProps {
+  /**
+   * Whether multiple items or a single item can be selected
+   */
   selectionVariant?: 'single' | 'multiple'
 }
 
@@ -25,11 +28,11 @@ const List = styled.ul`
 const ChoiceFieldsetList: React.FC<ChoiceFieldsetListProps> = ({selectionVariant, children}) => {
   // generates a name to pass to radio inputs if one was not passed in ChoiceFieldset props
   const getRadioGroupName = (nameFromContext?: string) => {
-    if (nameFromContext || selectionVariant !== 'multiple') {
+    if (nameFromContext || selectionVariant === 'multiple') {
       return nameFromContext
     }
-    const generatedName = uniqueId()
-    return generatedName
+
+    return uniqueId()
   }
 
   return (
@@ -51,7 +54,8 @@ const ChoiceFieldsetList: React.FC<ChoiceFieldsetListProps> = ({selectionVariant
               fieldComponent: selectionVariant === 'multiple' ? CheckboxInputField : RadioInputField,
               onChange: (e: ChangeEvent<HTMLInputElement>) => {
                 onSelect && onSelect(getSelectedCheckboxes(e.currentTarget.value, e.currentTarget.checked))
-              }
+              },
+              selectionVariant
             }}
           >
             <List>

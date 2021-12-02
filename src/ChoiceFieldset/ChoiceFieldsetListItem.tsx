@@ -27,7 +27,14 @@ const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disab
   if (choiceFieldsetListContext === null) {
     throw new Error('ChoiceFieldsetListContext returned null')
   }
-  const {name, onChange, fieldComponent: FieldComponent, selected, disabled} = choiceFieldsetListContext
+  const {
+    name,
+    onChange,
+    fieldComponent: FieldComponent,
+    selected,
+    disabled,
+    selectionVariant
+  } = choiceFieldsetListContext
   const fieldId = id || uniqueId()
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === ChoiceFieldLabel
@@ -39,7 +46,12 @@ const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disab
 
   return (
     <FieldComponent id={fieldId} disabled={disabledProp || disabled}>
-      <FieldComponent.Input checked={selected?.includes(value)} value={value} name={name} onChange={onChange} />
+      <FieldComponent.Input
+        checked={selected?.includes(value)}
+        value={value}
+        name={selectionVariant === 'multiple' ? value : name}
+        onChange={onChange}
+      />
       {/* this ternary makes it possible for users to safely pass the label content directly as a child */}
       {labelChild ? (
         // if <Item.Label> was passed, we can just render the children as-is

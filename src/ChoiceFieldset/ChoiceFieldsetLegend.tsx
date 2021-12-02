@@ -4,6 +4,9 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {ChoiceFieldsetContext, Slot} from './ChoiceFieldset'
 
 export interface ChoiceFieldsetLegendProps {
+  /**
+   * Whether to visually hide the fieldset legend
+   */
   visuallyHidden?: boolean
 }
 

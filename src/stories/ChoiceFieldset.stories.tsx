@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {MarkGithubIcon} from '@primer/octicons-react'
+import {MarkGithubIcon, MegaphoneIcon} from '@primer/octicons-react'
 import {BaseStyles, Box, ThemeProvider} from '..'
 import ChoiceFieldset from '../ChoiceFieldset'
 import Item from '../ChoiceFieldset/ChoiceFieldsetListItem'
@@ -51,7 +51,7 @@ export default {
 } as Meta
 
 export const RadioGroup = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" {...restArgs}>
+  <ChoiceFieldset {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
       <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
@@ -81,15 +81,15 @@ export const WithOnSelectHandler = ({selectionVariant: _selectionVariant, ...res
       <Box flexGrow={1}>
         <ChoiceFieldset
           onSelect={selectedValues => {
-            setSelectedChoices(selectedValues || [])
+            setSelectedChoices(selectedValues)
           }}
           selected={selectedChoices}
           {...restArgs}
         >
           <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
           <ChoiceFieldset.List selectionVariant="multiple">
-            <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="one">Label one</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="two">Label two</ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
       </Box>
@@ -108,7 +108,7 @@ export const WithOnSelectHandler = ({selectionVariant: _selectionVariant, ...res
 WithOnSelectHandler.storyName = 'With onSelect handler'
 
 export const Required = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" required {...restArgs}>
+  <ChoiceFieldset required {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
       <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
@@ -119,7 +119,7 @@ export const Required = ({selectionVariant, ...restArgs}: Args) => (
 Required.parameters = {controls: {exclude: ['required']}}
 
 export const Disabled = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" disabled {...restArgs}>
+  <ChoiceFieldset disabled {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
       <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
@@ -130,7 +130,7 @@ export const Disabled = ({selectionVariant, ...restArgs}: Args) => (
 Disabled.parameters = {controls: {exclude: ['disabled']}}
 
 export const WithVisuallyHiddenLegend = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" {...restArgs}>
+  <ChoiceFieldset {...restArgs}>
     <ChoiceFieldset.Legend visuallyHidden>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
       <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
@@ -140,7 +140,7 @@ export const WithVisuallyHiddenLegend = ({selectionVariant, ...restArgs}: Args) 
 )
 
 export const WithDescription = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" {...restArgs}>
+  <ChoiceFieldset {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.Description>Hint: any selection is valid</ChoiceFieldset.Description>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
@@ -151,7 +151,7 @@ export const WithDescription = ({selectionVariant, ...restArgs}: Args) => (
 )
 
 export const WithValidation = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" {...restArgs}>
+  <ChoiceFieldset {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
       <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
@@ -164,7 +164,7 @@ export const WithValidation = ({selectionVariant, ...restArgs}: Args) => (
 WithValidation.parameters = {controls: {exclude: ['id']}}
 
 export const WithLeadingVisual = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" {...restArgs}>
+  <ChoiceFieldset {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
       <ChoiceFieldset.Item value="labelOne">
@@ -185,7 +185,7 @@ export const WithLeadingVisual = ({selectionVariant, ...restArgs}: Args) => (
 WithLeadingVisual.storyName = 'Choices with a LeadingVisual'
 
 export const WithChoiceCaptions = ({selectionVariant, ...restArgs}: Args) => (
-  <ChoiceFieldset name="radioGroup" {...restArgs}>
+  <ChoiceFieldset {...restArgs}>
     <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
     <ChoiceFieldset.List selectionVariant={selectionVariant}>
       <ChoiceFieldset.Item value="labelOne">

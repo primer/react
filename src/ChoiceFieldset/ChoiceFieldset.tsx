@@ -14,29 +14,31 @@ import ChoiceFieldsetValidation from './ChoiceFieldsetValidation'
 export interface ChoiceFieldsetProps<T = Record<string, FormValidationStatus>> {
   children?: React.ReactNode
   /**
-   * Whether the fieldset is ready for user input
+   * Whether the fieldset is NOT ready for user input
    */
   disabled?: boolean
   /**
-   * The unique identifier for this fieldset. Used to associate the validation text and caption text with the fieldset
+   * The unique identifier for this fieldset. Used to associate the validation text with the fieldset
+   * If an ID is not passed, one will be automatically generated
    */
   id?: string
   /**
-   * The unique identifier used to associate the inputs with eachother
+   * The unique identifier used to associate radio inputs with eachother
+   * If a name is not passed and the fieldset renders radio inputs, a name will be automatically generated
    */
   name?: string
   /**
    * The callback that is called when a user toggles a choice on or off
    */
-  onSelect?: (selectedValues?: string[]) => void
-  /**
-   * The selected values
-   */
-  selected?: string[]
+  onSelect?: (selectedValues: string[]) => void
   /**
    * Whether this field must have a value for the user to complete their task
    */
   required?: boolean
+  /**
+   * The selected values
+   */
+  selected?: string[]
   /**
    * A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop,
    * the associated validation message will be rendered in the correct style

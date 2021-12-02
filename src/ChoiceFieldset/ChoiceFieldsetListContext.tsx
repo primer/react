@@ -17,6 +17,7 @@ const ChoiceFieldsetListContext = createContext<{
     LeadingVisual: React.FC<ComponentProps<typeof ToggleInputField.LeadingVisual>>
   }
   selected?: string[]
+  selectionVariant?: 'single' | 'multiple'
 } | null>(null)
 
 CheckboxInputField.Input
