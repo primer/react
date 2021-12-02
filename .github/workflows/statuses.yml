@@ -1,0 +1,32 @@
+name: Update status project
+
+on:
+  push:
+    branches:
+      - main
+    # Only run workflow on changes to component docs
+    paths:
+      - 'docs/content/**'
+
+jobs:
+  build-and-deploy:
+    name: Update status project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.x
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install node deps
+        run: npm ci
+      - name: Install ruby deps
+        run: gem install graphql-client
+      - name: Build statuses
+        run: npx ts-node script/component-status-project/build.ts
+      - name: Deploy statuses to project
+        run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} script/component-status-project/deploy.rb
