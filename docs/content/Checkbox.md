@@ -12,6 +12,8 @@ import {ComponentChecklist} from '../src/component-checklist'
 
 The `Checkbox` component can be used in controlled and uncontrolled modes.
 
+**Use [CheckboxInputField](/CheckboxInputField) to render a checkbox with a label and other content related to the field.** Do not use this component on it's own unless you're rendering a "special" checkbox field that cannot be build using the `CheckboxInputField` component. For example: the "Use your administrator privilages..." checkbox at the bottom of PR that doesn't meet the criteria to be merged without admin privilages.
+
 ```jsx live
 <>
   <Box as="form" sx={{p: 3, pt: 0, display: 'flex', alignItems: 'center'}}>
@@ -116,3 +118,7 @@ items={{
     hasFigmaComponent: false
   }}
 />
+
+## Related components
+
+- [CheckboxInputField](/CheckboxInputField)
