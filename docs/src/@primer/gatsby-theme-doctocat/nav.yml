@@ -53,6 +53,8 @@
       url: /Checkbox
     - title: CheckboxInputField
       url: /CheckboxInputField
+    - title: ChoiceFieldset
+      url: /ChoiceFieldset
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon

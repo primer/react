@@ -11,10 +11,12 @@ import {ComponentChecklist} from '../src/component-checklist'
 TODO: add `validationStatus` examples when we have the validation styling done
 -->
 
-import {CheckboxInputField, TextInputWithTokens} from '@primer/components'
+import {CheckboxInputField} from '@primer/components'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 The `CheckboxInputField` component is used to render a labelled checkbox input and, optionally, associated hint text and graphic.
+
+**Use [ChoiceFieldset](/ChoiceFieldset) to render a group of related checkbox input fields.** Do not use this component on it's own unless you're rendering a single checkbox field on it's own, and there will never be related checkboxes.
 
 ## Basic Example
 
@@ -147,3 +149,8 @@ If the selectable option would be easier to understand with a visual, the `Check
     hasFigmaComponent: false
   }}
 />
+
+## Related components
+
+- [ChoiceFieldset](/ChoiceFieldset)
+- [Checkbox](/Checkbox)
