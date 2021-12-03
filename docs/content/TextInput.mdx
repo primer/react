@@ -4,6 +4,7 @@ status: Alpha
 ---
 
 import {PropsTable} from '../src/props-table'
+import {Link} from '@primer/components'
 
 TextInput is a form component to add default styling to the native text input.
 
@@ -60,6 +61,12 @@ Native `<input>` attributes are forwarded to the underlying React `input` compon
   <PropsTable.SxRow />
   <PropsTable.RefRow
     elementType="input"
-    description="A ref to the input element rendered by this component. Note: this is not the outermost element rendered by TextInput. There is also a divElement wrapper for which a ref is not accepted."
+    description="A ref to the input element rendered by this component. Note: this is not the outermost element rendered by TextInput. There is also a div wrapper for which a ref is not accepted."
+  />
+  <PropsTable.PassthroughPropsRow
+    elementName="input"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes">MDN</Link>
+    }
   />
 </PropsTable>

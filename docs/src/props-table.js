@@ -2,7 +2,6 @@ import React from 'react'
 import {Box, Link, Label} from '@primer/components'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
-import {element} from 'prop-types'
 
 function PropsTable({children}) {
   return (
@@ -32,7 +31,7 @@ function Row({name, type, defaultValue, description, required}) {
   return (
     <tr>
       <Box as="td" fontFamily="mono" fontSize={1} sx={{whiteSpace: 'nowrap'}} verticalAlign="top">
-        {typeof name === 'function' ? name() : name}
+        {name}
         {required ? (
           <>
             {` `}
@@ -41,50 +40,47 @@ function Row({name, type, defaultValue, description, required}) {
         ) : null}
       </Box>
       <Box as="td" fontFamily="mono" fontSize={1} verticalAlign="top">
-        {typeof type === 'function' ? type() : type}
+        {type}
       </Box>
       <Box as="td" fontFamily="mono" fontSize={1} verticalAlign="top">
-        {typeof defaultValue === 'function' ? defaultValue() : defaultValue}
+        {defaultValue}
       </Box>
       <Box as="td" verticalAlign="top">
-        {typeof description === 'function' ? description() : description}
+        {description}
       </Box>
     </tr>
   )
 }
 
-function CommonPropRows({elementType, isPolymorphic}) {
+function BasePropRows({passthroughPropsLink, elementType, isPolymorphic, refType}) {
   return (
     <>
       <SxRow />
       {isPolymorphic && <AsRow defaultElementType={elementType} />}
-      <RefRow elementType={elementType} isPolymorphic={isPolymorphic} />
-      <DOMPropsRow elementName={elementType} isPolymorphic={isPolymorphic} />
+      <RefRow refType={refType} isPolymorphic={isPolymorphic} />
+      <PassthroughPropsRow
+        passthroughPropsLink={passthroughPropsLink}
+        elementName={elementType}
+        isPolymorphic={isPolymorphic}
+      />
     </>
   )
 }
 
-function DOMPropsRow({elementName, isPolymorphic}) {
+function PassthroughPropsRow({elementName, isPolymorphic, passthroughPropsLink}) {
   return (
     <tr>
-      <Box as="td" colSpan={3}>
-        <i>
-          (various DOM props. See{' '}
-          <Link href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L2023">
-            the React HTML attribute types
-          </Link>
-          )
-        </i>
-      </Box>
-      <td>
-        This component will also accept all the props of its underlying element (<InlineCode>{elementName}</InlineCode>)
+      <Box as="td" colSpan={4} fontSize={1} verticalAlign="top" fontStyle="italic">
+        Additional props are passed through to the <InlineCode>&lt;{elementName}&gt;</InlineCode> element. See{' '}
+        {passthroughPropsLink} for a list of props accepted by the <InlineCode>&lt;{elementName}&gt;</InlineCode>{' '}
+        element.
         {isPolymorphic && (
           <>
-            Or, if an <InlineCode>as</InlineCode> prop is passed, the properties of that element are passed through.
+            {' '}
+            If an <InlineCode>as</InlineCode> prop is specified, the accepted props will change accordingly.
           </>
         )}
-        .
-      </td>
+      </Box>
     </tr>
   )
 }
@@ -94,32 +90,33 @@ function AsRow({defaultElementType}) {
     <Row
       name="as"
       defaultValue={`"${defaultElementType}"`}
-      type={() => (
+      type={
         <Link href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L73">
           React.ElementType
         </Link>
-      )}
-      description="The underlying element to render — either a DOM element name or a React component."
+      }
+      description="The underlying element to render — either a HTML element name or a React component."
     />
   )
 }
 
-function RefRow({elementType, isPolymorphic}) {
+function RefRow({refType, isPolymorphic}) {
   return (
     <Row
       name="ref"
-      type={() => <>{'React.RefObject<HTMLElement>'}</>}
-      description={() => (
+      type={refType}
+      description={
         <>
           A ref to the element rendered by this component.
           {isPolymorphic && (
             <>
-              Because this component is isPolymorphic, the type will vary based on the value of the{' '}
+              {' '}
+              Because this component is polymorphic, the type will vary based on the value of the{' '}
               <InlineCode>as</InlineCode> prop.
             </>
           )}
         </>
-      )}
+      }
     />
   )
 }
@@ -128,20 +125,20 @@ function SxRow() {
   return (
     <Row
       name="sx"
-      type={() => (
+      type={
         <Link href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/styled-system__css/index.d.ts#L407">
           SystemStyleObject
         </Link>
-      )}
-      description={() => (
+      }
+      description={
         <>
           Style overrides to apply to the component. See also <Link href="/overriding-styles">overriding styles</Link>.
         </>
-      )}
+      }
     />
   )
 }
 
-Object.assign(PropsTable, {Row, CommonPropRows, AsRow, RefRow, DOMPropsRow, SxRow})
+Object.assign(PropsTable, {Row, BasePropRows, AsRow, RefRow, PassthroughPropsRow, SxRow})
 
 export {PropsTable}
