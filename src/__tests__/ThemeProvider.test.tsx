@@ -439,3 +439,119 @@ describe('useColorSchemeVar', () => {
     expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'blue')
   })
 })
+
+describe('useTheme().resolvedColorScheme', () => {
+  it('is undefined when not in a theme', () => {
+    const Component = () => {
+      const {resolvedColorScheme} = useTheme()
+
+      return <Text data-testid="text">{resolvedColorScheme}</Text>
+    }
+
+    render(<Component />)
+
+    expect(screen.getByTestId('text').textContent).toEqual('')
+  })
+
+  it('is undefined when the theme has no colorScheme object', () => {
+    const Component = () => {
+      const {resolvedColorScheme} = useTheme()
+
+      return <Text data-testid="text">{resolvedColorScheme}</Text>
+    }
+
+    render(
+      <ThemeProvider theme={{color: 'red'}}>
+        <Component />
+      </ThemeProvider>
+    )
+
+    expect(screen.getByTestId('text').textContent).toEqual('')
+  })
+
+  it('is the same as the applied colorScheme, when that colorScheme is in the theme', () => {
+    const Component = () => {
+      const {resolvedColorScheme} = useTheme()
+
+      return <Text data-testid="text">{resolvedColorScheme}</Text>
+    }
+
+    const schemeToApply = 'dark'
+
+    render(
+      <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+        <Component />
+      </ThemeProvider>
+    )
+
+    expect(exampleTheme.colorSchemes).toHaveProperty(schemeToApply)
+    expect(screen.getByTestId('text').textContent).toEqual(schemeToApply)
+  })
+
+  it('is the value of the fallback colorScheme applied when attempting to apply an invalid colorScheme', () => {
+    const Component = () => {
+      const {resolvedColorScheme} = useTheme()
+
+      return <Text data-testid="text">{resolvedColorScheme}</Text>
+    }
+
+    const schemeToApply = 'totally-invalid-colorscheme'
+    render(
+      <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+        <Component />
+      </ThemeProvider>
+    )
+
+    const defaultThemeColorScheme = Object.keys(exampleTheme.colorSchemes)[0]
+
+    expect(defaultThemeColorScheme).not.toEqual(schemeToApply)
+    expect(exampleTheme.colorSchemes).not.toHaveProperty(schemeToApply)
+    expect(screen.getByTestId('text').textContent).toEqual('light')
+  })
+
+  describe('nested theme', () => {
+    it('is the same as the applied colorScheme, when that colorScheme is in the theme', () => {
+      const Component = () => {
+        const {resolvedColorScheme} = useTheme()
+
+        return <Text data-testid="text">{resolvedColorScheme}</Text>
+      }
+
+      const schemeToApply = 'dark'
+
+      render(
+        <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+          <ThemeProvider>
+            <Component />
+          </ThemeProvider>
+        </ThemeProvider>
+      )
+
+      expect(exampleTheme.colorSchemes).toHaveProperty(schemeToApply)
+      expect(screen.getByTestId('text').textContent).toEqual(schemeToApply)
+    })
+
+    it('is the value of the fallback colorScheme applied when attempting to apply an invalid colorScheme', () => {
+      const Component = () => {
+        const {resolvedColorScheme} = useTheme()
+
+        return <Text data-testid="text">{resolvedColorScheme}</Text>
+      }
+
+      const schemeToApply = 'totally-invalid-colorscheme'
+      render(
+        <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme={schemeToApply}>
+          <ThemeProvider>
+            <Component />
+          </ThemeProvider>
+        </ThemeProvider>
+      )
+
+      const defaultThemeColorScheme = Object.keys(exampleTheme.colorSchemes)[0]
+
+      expect(defaultThemeColorScheme).not.toEqual(schemeToApply)
+      expect(exampleTheme.colorSchemes).not.toHaveProperty(schemeToApply)
+      expect(screen.getByTestId('text').textContent).toEqual('light')
+    })
+  })
+})
