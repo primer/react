@@ -5,7 +5,6 @@ import {
   ImageIcon,
   LightBulbIcon,
   LocationIcon,
-  MarkGithubIcon,
   OrganizationIcon,
   SmileyIcon,
   SquirrelIcon
@@ -15,11 +14,10 @@ import {Box, Button, ButtonInvisible, StyledOcticon, Text, TextInput} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import emojis from './data'
 import styled from 'styled-components'
-import {get} from 'styled-system'
-
-const githubEmojis: Array<Emoji> = []
+import {get} from '../constants'
 
 export interface EmojiPickerProps {
+  customCategories?: Array<EmojiCategory>
   onSelect?: (emoji: string) => void
 }
 
@@ -29,18 +27,23 @@ export interface Emoji {
 }
 
 export interface EmojiCategory {
-  id: number
+  id: number | string
   name: string
+  categoryIcon: React.ReactNode
   emojis: Array<Emoji>
 }
 
 const CategoryButton = styled(ButtonInvisible)`
   color: ${get('colors.fg.muted')};
+  background-color: transparent;
+  border: 0;
+  border-radius: ${get('radii.2')};
+  box-shadow: none;
   padding: 8px;
   flex: 1;
 `
 
-const EmojiPicker = ({onSelect}: EmojiPickerProps) => {
+const EmojiPicker = ({customCategories, onSelect}: EmojiPickerProps) => {
   const emojiAnchor = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
   const [frequentEmojis, setFrequentEmojis] = useState<Array<Emoji>>([])
@@ -72,14 +75,15 @@ const EmojiPicker = ({onSelect}: EmojiPickerProps) => {
                 <StyledOcticon icon={ClockIcon} color="fg.muted" />
               </CategoryButton>
             )}
+            {customCategories?.map(category => {
+              if (category.emojis.length > 0)
+                return <CategoryButton key={category.id}>{category.categoryIcon}</CategoryButton>
+            })}
             <CategoryButton>
-              <StyledOcticon icon={MarkGithubIcon} color="fg.muted" />
+              <SmileyIcon />
             </CategoryButton>
             <CategoryButton>
-              <StyledOcticon icon={SmileyIcon} color="fg.muted" />
-            </CategoryButton>
-            <CategoryButton>
-              <StyledOcticon icon={SquirrelIcon} color="fg.muted" />
+              <SquirrelIcon />
             </CategoryButton>
             <CategoryButton>
               <StyledOcticon icon={ImageIcon} color="fg.muted" />
@@ -104,7 +108,7 @@ const EmojiPicker = ({onSelect}: EmojiPickerProps) => {
           <Box sx={{overflow: 'auto', display: 'flex', flexDirection: 'column', width: '100%', height: '100%', p: 2}}>
             {frequentEmojis.length > 0 && (
               <Box key="frequently-used">
-                <Text sx={{fontSize: 1, color: 'fg.muted'}}>Frequently Used</Text>
+                <Text sx={{fontSize: 0, color: 'fg.muted'}}>Frequently Used</Text>
                 <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '100%'}}>
                   {frequentEmojis.map(emoji => (
                     <Text key={`emoji-${emoji.emoji}`} sx={{p: '10px', borderRadius: 'radii.3', flex: 1}}>
@@ -114,22 +118,27 @@ const EmojiPicker = ({onSelect}: EmojiPickerProps) => {
                 </Box>
               </Box>
             )}
-            <Box key="github">
-              <Text sx={{fontSize: 1, color: 'fg.muted'}}>Github</Text>
-              <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '100%'}}>
-                {githubEmojis.map(emoji => (
-                  <ButtonInvisible
-                    key={`emoji-${emoji.emoji}`}
-                    sx={{p: '10px', borderRadius: 'radii.3', flex: 1, color: 'fg.muted'}}
-                    onClick={() => onEmojiClick(emoji)}
-                  >
-                    <Text key={`emoji-${emoji.emoji}`} sx={{p: '10px', borderRadius: 'radii.3', flex: 1}}>
-                      {emoji.emoji}
-                    </Text>
-                  </ButtonInvisible>
-                ))}
-              </Box>
-            </Box>
+            {customCategories?.map(category => {
+              if (category.emojis.length > 0)
+                return (
+                  <Box key={`category-section-${category.id}`}>
+                    <Text sx={{fontSize: 0, color: 'fg.muted'}}>{category.name}</Text>
+                    <Box sx={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', width: '100%'}}>
+                      {category.emojis.map(emoji => (
+                        <ButtonInvisible
+                          key={`emoji-${emoji.emoji}`}
+                          sx={{p: '10px', borderRadius: 'radii.3', flex: 1, color: 'fg.muted'}}
+                          onClick={() => onEmojiClick(emoji)}
+                        >
+                          <Text key={`emoji-${emoji.emoji}`} sx={{p: '10px', borderRadius: 'radii.3', flex: 1}}>
+                            {emoji.emoji}
+                          </Text>
+                        </ButtonInvisible>
+                      ))}
+                    </Box>
+                  </Box>
+                )
+            })}
             {emojis.map(category => (
               <Box key={category.id}>
                 <Text sx={{fontSize: 0, color: 'fg.muted'}}>{category.name}</Text>
