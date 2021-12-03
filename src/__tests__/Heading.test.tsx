@@ -4,6 +4,7 @@ import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
+import ThemeProvider from '../ThemeProvider'
 expect.extend(toHaveNoViolations)
 
 const theme = {
@@ -48,44 +49,89 @@ describe('Heading', () => {
   })
 
   it('respects fontWeight', () => {
-    expect(render(<Heading fontWeight="bold" theme={theme} />)).toHaveStyleRule('font-weight', theme.fontWeights.bold)
-    expect(render(<Heading fontWeight="normal" theme={theme} />)).toHaveStyleRule(
-      'font-weight',
-      theme.fontWeights.normal
-    )
-    expect(render(<Heading fontWeight="semibold" theme={theme} />)).toHaveStyleRule(
-      'font-weight',
-      theme.fontWeights.semibold
-    )
-    expect(render(<Heading fontWeight="light" theme={theme} />)).toHaveStyleRule('font-weight', theme.fontWeights.light)
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{fontWeight: 'bold'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('font-weight', theme.fontWeights.bold)
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{fontWeight: 'normal'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('font-weight', theme.fontWeights.normal)
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{fontWeight: 'semibold'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('font-weight', theme.fontWeights.semibold)
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{fontWeight: 'light'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('font-weight', theme.fontWeights.light)
   })
 
   it('respects lineHeight', () => {
-    expect(render(<Heading lineHeight="normal" theme={theme} />)).toHaveStyleRule(
-      'line-height',
-      String(theme.lineHeights.normal)
-    )
-    expect(render(<Heading lineHeight="condensed" theme={theme} />)).toHaveStyleRule(
-      'line-height',
-      String(theme.lineHeights.condensed)
-    )
-    expect(render(<Heading lineHeight="condensedUltra" theme={theme} />)).toHaveStyleRule(
-      'line-height',
-      String(theme.lineHeights.condensedUltra)
-    )
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{lineHeight: 'normal'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('line-height', String(theme.lineHeights.normal))
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{lineHeight: 'condensed'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('line-height', String(theme.lineHeights.condensed))
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{lineHeight: 'condensedUltra'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('line-height', String(theme.lineHeights.condensedUltra))
   })
 
   it('respects fontFamily="mono"', () => {
-    expect(render(<Heading fontFamily="mono" theme={theme} />)).toHaveStyleRule('font-family', theme.fonts.mono)
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{fontFamily: 'mono'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('font-family', theme.fonts.mono)
   })
 
   it('renders fontSize', () => {
     for (const fontSize of theme.fontSizes) {
-      expect(render(<Heading fontSize={fontSize} theme={theme} />)).toHaveStyleRule('font-size', `${fontSize}`)
+      expect(
+        render(
+          <ThemeProvider theme={theme}>
+            <Heading sx={{fontSize}} />
+          </ThemeProvider>
+        )
+      ).toHaveStyleRule('font-size', `${fontSize}`)
     }
   })
 
   it('respects the "fontStyle" prop', () => {
-    expect(render(<Heading fontStyle="italic" />)).toHaveStyleRule('font-style', 'italic')
+    expect(
+      render(
+        <ThemeProvider theme={theme}>
+          <Heading sx={{fontStyle: 'italic'}} />
+        </ThemeProvider>
+      )
+    ).toHaveStyleRule('font-style', 'italic')
   })
 })

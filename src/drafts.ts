@@ -8,3 +8,4 @@
 // Components
 export * from './ActionList2'
 export * from './NewButton'
+export * from './ActionMenu2'

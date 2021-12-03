@@ -41,10 +41,9 @@ The Label component is used to add contextual metadata to a design. Visually it 
 
 ## Component props
 
-| Name       | Type              |        Default         | Description                                                                    |
-| :--------- | :---------------- | :--------------------: | :----------------------------------------------------------------------------- |
-| outline    | Boolean           |                        | Creates an outline style label                                                 |
-| variant    | String            |        'medium'        | Can be one of `small`, `medium` (default), `large` or `xl` .                   |
-| dropshadow | Boolean           |                        | Adds a dropshadow to the label                                                 |
-| bg         | String            | 'label.primary.border' | Part of the `COMMON` system props, used to change the background of the label. |
-| sx         | SystemStyleObject |           {}           | Style to be applied to the component                                           |
+| Name       | Type              | Default  | Description                                                  |
+| :--------- | :---------------- | :------: | :----------------------------------------------------------- |
+| outline    | Boolean           |          | Creates an outline style label                               |
+| variant    | String            | 'medium' | Can be one of `small`, `medium` (default), `large` or `xl` . |
+| dropshadow | Boolean           |          | Adds a dropshadow to the label                               |
+| sx         | SystemStyleObject |    {}    | Style to be applied to the component                         |

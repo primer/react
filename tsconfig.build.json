@@ -3,5 +3,5 @@
   // NOTE: We exclude Storybook stories — in part because we don't want their type definitions
   // included in our build, but also because _something_ in Storybook mucks with the type definitions
   // of Primer components. See also https://github.com/primer/react/issues/1163.
-  "exclude": ["**/*.stories.tsx"]
+  "exclude": ["**/*.stories.tsx", "script/**/*.ts"]
 }

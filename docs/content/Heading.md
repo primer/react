@@ -10,17 +10,12 @@ The Heading component will render an html `h2` tag without any default styling. 
 ## Default example
 
 ```jsx live
-<Heading fontSize={1} mb={2}>
-  H2 heading with fontSize={1}
-</Heading>
+<Heading sx={{fontSize: 1, mb: 2}}>H2 heading with fontSize={1}</Heading>
 ```
-
-## System props
-
-Heading components get `TYPOGRAPHY` and `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
 
 ## Component props
 
-| Prop name | Type                    | Description                         |
-| :-------- | :---------------------- | :---------------------------------- |
-| as        | String or React element | sets the HTML tag for the component |
+| Name | Type                    | Default | Description                          |
+| :--- | :---------------------- | :-----: | :----------------------------------- |
+| as   | String or React element |         | sets the HTML tag for the component  |
+| sx   | SystemStyleObject       |   {}    | Style to be applied to the component |
