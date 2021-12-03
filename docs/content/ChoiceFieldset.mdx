@@ -7,6 +7,7 @@ storybook: '/react/storybook/?path=/story/forms-choicefieldset--radio-group'
 
 import {ChoiceFieldset, Box} from '@primer/components'
 import {MegaphoneIcon, BellIcon, BellSlashIcon} from '@primer/octicons-react'
+import {ComponentChecklist} from '../src/component-checklist'
 
 A `ChoiceFieldset` is a controlled component that is used to render a related set of checkbox or radio inputs.
 
@@ -400,6 +401,26 @@ If the user's selection has been flagged during validation, `ChoiceFieldset.Vali
   <ChoiceFieldset.Validation validationKey="validChoice">You made the right selection</ChoiceFieldset.Validation>
 </ChoiceFieldset>
 ```
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: true,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
 
 ## Related components
 
