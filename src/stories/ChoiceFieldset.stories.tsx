@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {MarkGithubIcon, MegaphoneIcon} from '@primer/octicons-react'
+import {MarkGithubIcon} from '@primer/octicons-react'
 import {BaseStyles, Box, ThemeProvider} from '..'
 import ChoiceFieldset from '../ChoiceFieldset'
 import Item from '../ChoiceFieldset/ChoiceFieldsetListItem'

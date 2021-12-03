@@ -1,8 +1,7 @@
 import React from 'react'
 import {render} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {Item, SSRProvider} from '../index'
-import {ChoiceFieldset} from '..'
+import {ChoiceFieldset, Item, SSRProvider} from '..'
 import {MarkGithubIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {ChoiceFieldsetProps} from '../ChoiceFieldset'
@@ -22,8 +21,8 @@ const SelectableChoicelistFieldset: React.FC<ChoiceFieldsetProps & ChoiceFieldse
   return (
     <SSRProvider>
       <ChoiceFieldset
-        onSelect={selectionVals => {
-          setSelectionVals(selectionVals)
+        onSelect={selectedVals => {
+          setSelectionVals(selectedVals)
         }}
         selected={selectionVals}
       >
@@ -264,7 +263,7 @@ describe('ChoiceFieldset', () => {
     )
     const labelOneInputNode = getByLabelText('Label one')
 
-    labelOneInputNode && userEvent.click(labelOneInputNode)
+    userEvent.click(labelOneInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith(['labelOne'])
   })
   it('calls onSelect with the values of the selected items (multiple selections)', () => {
@@ -275,7 +274,7 @@ describe('ChoiceFieldset', () => {
     )
     const labelTwoInputNode = getByLabelText('Label two')
 
-    labelTwoInputNode && userEvent.click(labelTwoInputNode)
+    userEvent.click(labelTwoInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith(['labelOne', 'labelTwo'])
   })
   it('calls onSelect with an empty array if all values have be de-selected', () => {
@@ -286,7 +285,7 @@ describe('ChoiceFieldset', () => {
     )
     const labelTwoInputNode = getByLabelText('Label two')
 
-    labelTwoInputNode && userEvent.click(labelTwoInputNode)
+    userEvent.click(labelTwoInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith([])
   })
   it('generates a name attribute for radio groups if one is not provided', () => {
