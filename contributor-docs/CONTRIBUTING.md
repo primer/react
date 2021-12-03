@@ -6,7 +6,6 @@
 4. [Developing Components](#developing-components)
    - [Tools we use](#tools-we-use)
    - [Component patterns](#component-patterns)
-   - [Adding system props](#adding-system-props)
    - [Adding the sx prop](#adding-the-sx-prop)
    - [Linting](#linting)
    - [Testing](#testing)
@@ -21,8 +20,6 @@
    - [Path aliasing](#path-aliasing)
    - [Publishing](#publishing)
 8. [Troubleshooting](#troubleshooting)
-9. [Glossary](#glossary)
-   - [System Props](#system-props)
 
 ## Roadmap
 
