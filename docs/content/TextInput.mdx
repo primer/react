@@ -29,9 +29,9 @@ TextInput is a form component to add default styling to the native text input.
 </>
 ```
 
-## Component props
+## Props
 
-Native `<input>` attributes are forwarded to the underlying React `input` component and are not listed below.
+### TextInput
 
 <PropsTable>
   <PropsTable.Row name="aria-label" required type="string" description="Allows input to be accessible." />
@@ -55,12 +55,13 @@ Native `<input>` attributes are forwarded to the underlying React `input` compon
   </PropsTable.Row>
   <PropsTable.Row
     name="icon"
-    type="ReactNode"
+    type="React.ReactNode"
     description="An Octicon react component. To be used inside of input. Positioned on the left edge."
   />
   <PropsTable.SxRow />
   <PropsTable.RefRow
     elementType="input"
+    refType="HTMLInputElement"
     description="A ref to the input element rendered by this component. Note: this is not the outermost element rendered by TextInput. There is also a div wrapper for which a ref is not accepted."
   />
   <PropsTable.PassthroughPropsRow
