@@ -6,6 +6,12 @@ import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code
 function PropsTable({children}) {
   return (
     <Table>
+      <colgroup>
+        <col style={{width: '20%'}} />
+        <col style={{width: '30%'}} />
+        <col style={{width: '10%'}} />
+        <col style={{width: '40%'}} />
+      </colgroup>
       <thead>
         <tr>
           <Box as="th" textAlign="left">
@@ -27,7 +33,7 @@ function PropsTable({children}) {
   )
 }
 
-function Row({name, type, defaultValue, description, required}) {
+function Row({name, type, defaultValue, description, required, deprecated}) {
   return (
     <tr>
       <Box as="td" fontFamily="mono" fontSize={1} sx={{whiteSpace: 'nowrap'}} verticalAlign="top">
@@ -35,7 +41,20 @@ function Row({name, type, defaultValue, description, required}) {
         {required ? (
           <>
             {` `}
-            <Label style={{verticalAlign: 'text-top'}}>Required</Label>
+            <Label outline sx={{verticalAlign: 'middle', fontFamily: 'normal'}}>
+              Required
+            </Label>
+          </>
+        ) : null}
+        {deprecated ? (
+          <>
+            {` `}
+            <Label
+              outline
+              sx={{verticalAlign: 'middle', fontFamily: 'normal', color: 'danger.fg', borderColor: 'danger.emphasis'}}
+            >
+              Deprecated
+            </Label>
           </>
         ) : null}
       </Box>
@@ -70,8 +89,8 @@ function BasePropRows({passthroughPropsLink, elementType, isPolymorphic, refType
 function PassthroughPropsRow({elementName, isPolymorphic, passthroughPropsLink}) {
   return (
     <tr>
-      <Box as="td" colSpan={4} fontSize={1} verticalAlign="top" fontStyle="italic">
-        Additional props are passed through to the <InlineCode>&lt;{elementName}&gt;</InlineCode> element. See{' '}
+      <Box as="td" colSpan={4} fontSize={1} verticalAlign="top">
+        Additional props are passed to the <InlineCode>&lt;{elementName}&gt;</InlineCode> element. See{' '}
         {passthroughPropsLink} for a list of props accepted by the <InlineCode>&lt;{elementName}&gt;</InlineCode>{' '}
         element.
         {isPolymorphic && (
@@ -104,7 +123,7 @@ function RefRow({refType, isPolymorphic}) {
   return (
     <Row
       name="ref"
-      type={refType}
+      type={`React.RefObject<${refType}>`}
       description={
         <>
           A ref to the element rendered by this component.
