@@ -23,7 +23,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   margin-right: 0;
 }
 
-.c6 {
+.c7 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -34,13 +34,18 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   flex-direction: column;
 }
 
+.c6 {
+  cursor: pointer;
+  cursor: not-allowed;
+}
+
 .c2 {
   color: #57606a;
   font-size: 16px;
   padding: 0;
 }
 
-.c7 {
+.c8 {
   font-weight: 600;
   font-size: 14px;
   display: block;
@@ -90,8 +95,13 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
             className="c5"
           >
             <input
+              aria-checked="false"
               aria-describedby="__primer_id_10038-caption"
+              aria-disabled="true"
+              aria-invalid="false"
+              aria-required="false"
               checked={false}
+              className="c6"
               disabled={true}
               id="__primer_id_10038"
               name="__primer_id_10034"
@@ -101,11 +111,11 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
             />
           </div>
           <div
-            className="c6"
+            className="c7"
             display="flex"
           >
             <label
-              className="c7"
+              className="c8"
               htmlFor="__primer_id_10038"
             >
               Label one
@@ -122,8 +132,13 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
             className="c5"
           >
             <input
+              aria-checked="false"
               aria-describedby="__primer_id_10039-caption"
+              aria-disabled="true"
+              aria-invalid="false"
+              aria-required="false"
               checked={false}
+              className="c6"
               disabled={true}
               id="__primer_id_10039"
               name="__primer_id_10034"
@@ -133,11 +148,11 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
             />
           </div>
           <div
-            className="c6"
+            className="c7"
             display="flex"
           >
             <label
-              className="c7"
+              className="c8"
               htmlFor="__primer_id_10039"
             >
               Label two
@@ -173,7 +188,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   margin-right: 0;
 }
 
-.c7 {
+.c8 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -184,12 +199,16 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   flex-direction: column;
 }
 
+.c7 {
+  cursor: pointer;
+}
+
 .c2 {
   font-size: 16px;
   padding: 0;
 }
 
-.c8 {
+.c9 {
   font-weight: 600;
   font-size: 14px;
   display: block;
@@ -251,8 +270,13 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
             className="c6"
           >
             <input
+              aria-checked="false"
               aria-describedby="__primer_id_10052-caption"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
               checked={false}
+              className="c7"
               id="__primer_id_10052"
               name="__primer_id_10049"
               onChange={[Function]}
@@ -261,11 +285,11 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
             />
           </div>
           <div
-            className="c7"
+            className="c8"
             display="flex"
           >
             <label
-              className="c8"
+              className="c9"
               htmlFor="__primer_id_10052"
             >
               Label one
@@ -282,8 +306,13 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
             className="c6"
           >
             <input
+              aria-checked="false"
               aria-describedby="__primer_id_10053-caption"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
               checked={false}
+              className="c7"
               id="__primer_id_10053"
               name="__primer_id_10049"
               onChange={[Function]}
@@ -292,11 +321,11 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
             />
           </div>
           <div
-            className="c7"
+            className="c8"
             display="flex"
           >
             <label
-              className="c8"
+              className="c9"
               htmlFor="__primer_id_10053"
             >
               Label two
@@ -325,7 +354,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   margin-right: 0;
 }
 
-.c7 {
+.c8 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -347,15 +376,19 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   align-items: center;
 }
 
-.c6 {
+.c7 {
   margin-left: 8px;
   color: #24292f;
 }
 
-.c6 > * {
+.c7 > * {
   min-width: 24px;
   min-height: 24px;
   fill: currentColor;
+}
+
+.c6 {
+  cursor: pointer;
 }
 
 .c2 {
@@ -363,7 +396,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   padding: 0;
 }
 
-.c8 {
+.c9 {
   font-weight: 600;
   font-size: 14px;
   display: block;
@@ -387,7 +420,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   margin-top: 8px;
 }
 
-.c9 {
+.c10 {
   font-size: 12px;
   color: #57606a;
   display: block;
@@ -419,8 +452,13 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
             className="c5"
           >
             <input
+              aria-checked="false"
               aria-describedby="__primer_id_10024-caption"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
               checked={false}
+              className="c6"
               id="__primer_id_10024"
               name="__primer_id_10021"
               onChange={[Function]}
@@ -429,7 +467,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
             />
           </div>
           <div
-            className="c6"
+            className="c7"
             color="fg.default"
           >
             <svg
@@ -456,17 +494,17 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
             />
           </div>
           <div
-            className="c7"
+            className="c8"
             display="flex"
           >
             <label
-              className="c8"
+              className="c9"
               htmlFor="__primer_id_10024"
             >
               Label one
             </label>
             <span
-              className="c9"
+              className="c10"
               color="fg.muted"
               display="block"
               fontSize={0}
@@ -486,8 +524,13 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
             className="c5"
           >
             <input
+              aria-checked="false"
               aria-describedby="__primer_id_10025-caption"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
               checked={false}
+              className="c6"
               id="__primer_id_10025"
               name="__primer_id_10021"
               onChange={[Function]}
@@ -496,7 +539,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
             />
           </div>
           <div
-            className="c6"
+            className="c7"
             color="fg.default"
           >
             <svg
@@ -523,17 +566,17 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
             />
           </div>
           <div
-            className="c7"
+            className="c8"
             display="flex"
           >
             <label
-              className="c8"
+              className="c9"
               htmlFor="__primer_id_10025"
             >
               Label two
             </label>
             <span
-              className="c9"
+              className="c10"
               color="fg.muted"
               display="block"
               fontSize={0}
@@ -644,7 +687,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   margin-right: 0;
 }
 
-.c5 {
+.c6 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -655,7 +698,11 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   flex-direction: column;
 }
 
-.c6 {
+.c5 {
+  cursor: pointer;
+}
+
+.c7 {
   font-weight: 600;
   font-size: 14px;
   display: block;
@@ -718,8 +765,13 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
             className="c4"
           >
             <input
+              aria-checked="false"
               aria-describedby="__primer_id_10063-caption"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
               checked={false}
+              className="c5"
               id="__primer_id_10063"
               name="__primer_id_10060"
               onChange={[Function]}
@@ -728,11 +780,11 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
             />
           </div>
           <div
-            className="c5"
+            className="c6"
             display="flex"
           >
             <label
-              className="c6"
+              className="c7"
               htmlFor="__primer_id_10063"
             >
               Label one
@@ -749,8 +801,13 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
             className="c4"
           >
             <input
+              aria-checked="false"
               aria-describedby="__primer_id_10064-caption"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
               checked={false}
+              className="c5"
               id="__primer_id_10064"
               name="__primer_id_10060"
               onChange={[Function]}
@@ -759,11 +816,11 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
             />
           </div>
           <div
-            className="c5"
+            className="c6"
             display="flex"
           >
             <label
-              className="c6"
+              className="c7"
               htmlFor="__primer_id_10064"
             >
               Label two
@@ -799,7 +856,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   margin-right: 0;
 }
 
-.c6 {
+.c7 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -810,17 +867,21 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   flex-direction: column;
 }
 
-.c12 {
+.c13 {
   margin-right: 4px;
 }
 
-.c8 {
+.c9 {
   margin-top: 16px;
 }
 
-.c9 {
+.c10 {
   height: auto;
   overflow: hidden;
+}
+
+.c6 {
+  cursor: pointer;
 }
 
 .c2 {
@@ -828,14 +889,14 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   padding: 0;
 }
 
-.c7 {
+.c8 {
   font-weight: bold;
   font-size: 14px;
   display: block;
   color: fg.default;
 }
 
-.c10 {
+.c11 {
   -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
   animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
 }
@@ -857,7 +918,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   margin-top: 8px;
 }
 
-.c11 {
+.c12 {
   font-size: 12px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -870,7 +931,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   align-items: baseline;
 }
 
-.c11 a {
+.c12 a {
   color: currentColor;
   -webkit-text-decoration: underline;
   text-decoration: underline;
@@ -903,7 +964,12 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
               class="c5"
             >
               <input
+                aria-checked="false"
                 aria-describedby="__primer_id_10070-caption"
+                aria-disabled="false"
+                aria-invalid="false"
+                aria-required="false"
+                class="c6"
                 id="__primer_id_10070"
                 name="__primer_id_10069"
                 type="radio"
@@ -911,11 +977,11 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
               />
             </div>
             <div
-              class="c6"
+              class="c7"
               display="flex"
             >
               <label
-                class="c7"
+                class="c8"
                 for="__primer_id_10070"
               >
                 Label one
@@ -932,7 +998,12 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
               class="c5"
             >
               <input
+                aria-checked="false"
                 aria-describedby="__primer_id_10071-caption"
+                aria-disabled="false"
+                aria-invalid="false"
+                aria-required="false"
+                class="c6"
                 id="__primer_id_10071"
                 name="__primer_id_10069"
                 type="radio"
@@ -940,11 +1011,11 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
               />
             </div>
             <div
-              class="c6"
+              class="c7"
               display="flex"
             >
               <label
-                class="c7"
+                class="c8"
                 for="__primer_id_10071"
               >
                 Label two
@@ -955,24 +1026,24 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
       </ul>
     </fieldset>
     <div
-      class="c8"
+      class="c9"
     >
       <div
-        class="c9"
+        class="c10"
         height="auto"
         overflow="hidden"
       >
         <div
-          class="c10"
+          class="c11"
         >
           <span
-            class="c11"
+            class="c12"
             color="success.fg"
             display="flex"
             font-size="0"
           >
             <span
-              class="c12"
+              class="c13"
             >
               <svg
                 aria-hidden="true"
@@ -1026,7 +1097,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   margin-right: 0;
 }
 
-.c6 {
+.c7 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1037,17 +1108,21 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   flex-direction: column;
 }
 
-.c12 {
+.c13 {
   margin-right: 4px;
 }
 
-.c8 {
+.c9 {
   margin-top: 16px;
 }
 
-.c9 {
+.c10 {
   height: auto;
   overflow: hidden;
+}
+
+.c6 {
+  cursor: pointer;
 }
 
 .c2 {
@@ -1055,14 +1130,14 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   padding: 0;
 }
 
-.c7 {
+.c8 {
   font-weight: bold;
   font-size: 14px;
   display: block;
   color: fg.default;
 }
 
-.c10 {
+.c11 {
   -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
   animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
 }
@@ -1084,7 +1159,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   margin-top: 8px;
 }
 
-.c11 {
+.c12 {
   font-size: 12px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1097,7 +1172,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   align-items: baseline;
 }
 
-.c11 a {
+.c12 a {
   color: currentColor;
   -webkit-text-decoration: underline;
   text-decoration: underline;
@@ -1130,7 +1205,12 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
               class="c5"
             >
               <input
+                aria-checked="false"
                 aria-describedby="__primer_id_10077-caption"
+                aria-disabled="false"
+                aria-invalid="false"
+                aria-required="false"
+                class="c6"
                 id="__primer_id_10077"
                 name="__primer_id_10076"
                 type="radio"
@@ -1138,11 +1218,11 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
               />
             </div>
             <div
-              class="c6"
+              class="c7"
               display="flex"
             >
               <label
-                class="c7"
+                class="c8"
                 for="__primer_id_10077"
               >
                 Label one
@@ -1159,7 +1239,12 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
               class="c5"
             >
               <input
+                aria-checked="false"
                 aria-describedby="__primer_id_10078-caption"
+                aria-disabled="false"
+                aria-invalid="false"
+                aria-required="false"
+                class="c6"
                 id="__primer_id_10078"
                 name="__primer_id_10076"
                 type="radio"
@@ -1167,11 +1252,11 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
               />
             </div>
             <div
-              class="c6"
+              class="c7"
               display="flex"
             >
               <label
-                class="c7"
+                class="c8"
                 for="__primer_id_10078"
               >
                 Label two
@@ -1182,24 +1267,24 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
       </ul>
     </fieldset>
     <div
-      class="c8"
+      class="c9"
     >
       <div
-        class="c9"
+        class="c10"
         height="auto"
         overflow="hidden"
       >
         <div
-          class="c10"
+          class="c11"
         >
           <span
-            class="c11"
+            class="c12"
             color="danger.fg"
             display="flex"
             font-size="0"
           >
             <span
-              class="c12"
+              class="c13"
             >
               <svg
                 aria-hidden="true"

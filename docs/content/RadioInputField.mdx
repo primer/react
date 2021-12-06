@@ -23,7 +23,7 @@ The `RadioInputField` component is used to render a labelled radio input and, op
 ```jsx live
 <RadioInputField>
   <RadioInputField.Label>Option one</RadioInputField.Label>
-  <RadioInputField.Input />
+  <RadioInputField.Input name="basic" value="one" />
 </RadioInputField>
 ```
 
@@ -46,7 +46,7 @@ The container that handles the layout and passes the relevant IDs and ARIA attri
 ```jsx live
 <RadioInputField disabled>
   <RadioInputField.Label>Option one</RadioInputField.Label>
-  <RadioInputField.Input />
+  <RadioInputField.Input name="disabled" value="one" />
 </RadioInputField>
 ```
 
@@ -65,7 +65,7 @@ A `RadioInputField.Label` must be passed, but it may be visually hidden.
 ```jsx live
 <RadioInputField>
   <RadioInputField.Label visuallyHidden>Option One</RadioInputField.Label>
-  <RadioInputField.Input />
+  <RadioInputField.Input name="hiddenLabel" value="one" />
 </RadioInputField>
 ```
 
@@ -92,7 +92,7 @@ If this field needs additional context, a `RadioInputField.Caption` may be used 
 ```jsx live
 <RadioInputField>
   <RadioInputField.Label>Option One</RadioInputField.Label>
-  <RadioInputField.Input />
+  <RadioInputField.Input name="withCaption" value="one" />
   <RadioInputField.Caption>Hint: the first and only option</RadioInputField.Caption>
 </RadioInputField>
 ```
@@ -116,7 +116,7 @@ If the selectable option would be easier to understand with a visual, the `Radio
     <RadioInputField.LeadingVisual>
       <MarkGithubIcon />
     </RadioInputField.LeadingVisual>
-    <RadioInputField.Input />
+    <RadioInputField.Input name="leadingViz" value="one" />
   </RadioInputField>
 
   <RadioInputField>
@@ -124,7 +124,7 @@ If the selectable option would be easier to understand with a visual, the `Radio
     <RadioInputField.LeadingVisual>
       <MarkGithubIcon />
     </RadioInputField.LeadingVisual>
-    <RadioInputField.Input />
+    <RadioInputField.Input name="leadingViz" value="two" />
     <RadioInputField.Caption>This one has a caption</RadioInputField.Caption>
   </RadioInputField>
 </>

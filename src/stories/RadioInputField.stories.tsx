@@ -33,14 +33,14 @@ export default {
 export const Default = (args: Args) => (
   <RadioInputField {...args}>
     <RadioInputField.Label>Selectable choice</RadioInputField.Label>
-    <RadioInputField.Input />
+    <RadioInputField.Input name="singleRadio" value="choice" />
   </RadioInputField>
 )
 
 export const WithAVisuallyHiddenLabel = (args: Args) => (
   <RadioInputField {...args}>
     <RadioInputField.Label visuallyHidden>Selectable choice</RadioInputField.Label>
-    <RadioInputField.Input />
+    <RadioInputField.Input name="singleRadio" value="choice" />
   </RadioInputField>
 )
 
@@ -50,7 +50,7 @@ export const WithLeadingVisual = (args: Args) => (
     <RadioInputField.LeadingVisual>
       <MarkGithubIcon />
     </RadioInputField.LeadingVisual>
-    <RadioInputField.Input />
+    <RadioInputField.Input name="singleRadio" value="choice" />
   </RadioInputField>
 )
 WithLeadingVisual.storyName = 'With LeadingVisual'
@@ -58,7 +58,7 @@ WithLeadingVisual.storyName = 'With LeadingVisual'
 export const WithCaption = (args: Args) => (
   <RadioInputField {...args}>
     <RadioInputField.Label>Selectable choice</RadioInputField.Label>
-    <RadioInputField.Input />
+    <RadioInputField.Input name="singleRadio" value="choice" />
     <RadioInputField.Caption>This is an arbitrary choice</RadioInputField.Caption>
   </RadioInputField>
 )
@@ -69,7 +69,7 @@ export const WithCaptionAndLeadingVisual = (args: Args) => (
     <RadioInputField.LeadingVisual>
       <MarkGithubIcon />
     </RadioInputField.LeadingVisual>
-    <RadioInputField.Input />
+    <RadioInputField.Input name="singleRadio" value="choice" />
     <RadioInputField.Caption>This is an arbitrary choice</RadioInputField.Caption>
   </RadioInputField>
 )

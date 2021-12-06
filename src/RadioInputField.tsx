@@ -1,22 +1,12 @@
-import React, {HTMLProps} from 'react'
+import React from 'react'
+import {Radio, RadioProps} from '.'
 import InputField, {InputFieldContext} from './_InputField/InputField'
 import {Slot} from './_InputField/slots'
 import ToggleInputField, {ToggleInputFieldProps} from './_InputField/ToggleInputField'
 import ToggleInputLeadingVisual from './_InputField/ToggleInputLeadingVisual'
 
-// TODO: use Primer's checkbox input once it's available
-// https://github.com/github/primer/issues/489
-const RadioInput: React.FC<HTMLProps<HTMLInputElement>> = props => {
-  return <input type="radio" {...props} />
-}
-
 // pulling out `id`, `disabled`, and `required` because those should come from the parent TextInputField component
-const Input: React.FC<HTMLProps<HTMLInputElement>> = ({
-  id: idProp,
-  required: requiredProp,
-  disabled: disabledProp,
-  ...rest
-}) => {
+const Input: React.FC<RadioProps> = ({id: idProp, required: requiredProp, disabled: disabledProp, ...rest}) => {
   if (idProp) {
     // eslint-disable-next-line no-console
     console.warn(
@@ -38,7 +28,7 @@ const Input: React.FC<HTMLProps<HTMLInputElement>> = ({
   return (
     <Slot name="Input">
       {({disabled, id, required, captionId}: InputFieldContext) => (
-        <RadioInput aria-describedby={captionId} id={id} required={required} disabled={disabled} {...rest} />
+        <Radio aria-describedby={captionId} id={id} required={required} disabled={disabled} {...rest} />
       )}
     </Slot>
   )
