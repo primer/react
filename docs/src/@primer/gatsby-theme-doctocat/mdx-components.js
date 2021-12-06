@@ -7,5 +7,13 @@ export default {
   Box,
   ComponentChecklist,
   Props,
-  PropsTable
+  PropsTable,
+  // HACK: MDX doesn't support rendering subcomponents with dot notation
+  //       so we need to alias them
+  PropsTableRow: PropsTable.Row,
+  PropsTableBasePropRows: PropsTable.BasePropRows,
+  PropsTablePassthroughPropsRow: PropsTable.PassthroughPropsRow,
+  PropsTableAsRow: PropsTable.AsRow,
+  PropsTableRefRow: PropsTable.RefRow,
+  PropsTableSxRow: PropsTable.SxRow
 }

@@ -6,13 +6,12 @@ storybook: '/react/storybook?path=/story/composite-components-actionlist2'
 description: An ActionList is a list of items that can be activated or selected. ActionList is the base component for many menu-type components, including DropdownMenu and ActionMenu.
 ---
 
-import {Box, Avatar} from '@primer/components'
+import {Box, Avatar, Link} from '@primer/components'
 import {ActionList} from '@primer/components/drafts'
 import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
+import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 
-<br />
-
-<Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6}}>
+<Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
   <ActionList sx={{width: 320}}>
     <ActionList.Item>
       <ActionList.LeadingVisual>
@@ -42,13 +41,9 @@ import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
   </ActionList>
 </Box>
 
-<br />
-
 ```js
 import {ActionList} from '@primer/components/drafts'
 ```
-
-<br />
 
 ## Examples
 
@@ -68,8 +63,6 @@ render(
   </ActionList>
 )
 ```
-
-<br />
 
 ### With leading visual
 
@@ -97,8 +90,6 @@ render(
   </ActionList>
 )
 ```
-
-<br />
 
 ### With trailing visual
 
@@ -129,8 +120,6 @@ render(
   </ActionList>
 )
 ```
-
-<br />
 
 ### With description and dividers
 
@@ -204,8 +193,6 @@ render(
 )
 ```
 
-<br />
-
 ### With groups
 
 ```javascript live noinline
@@ -264,97 +251,208 @@ const SelectFields = () => {
 render(<SelectFields />)
 ```
 
-<br />
-
-## Props / API reference
+## Props
 
 ### ActionList
 
-| Name             | Type                                                                                              | Default | Description                                                                                                                                                                                |
-| :--------------- | :------------------------------------------------------------------------------------------------ | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children\*       | `ActionList.Item[]` or ActionList.LinkItem[] or `ActionList.Group[]`                              |    -    | Required.                                                                                                                                                                                  |
-| variant          | `'inset'` or `'full'`                                                                             | 'inset' | Optional. Usage is discretionary, `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges |
-| selectionVariant | `'single'` or `'multiple'`                                                                        |    -    | Optional. Whether multiple Items or a single Item can be selected.                                                                                                                         |
-| showDivider      | boolean                                                                                           |  false  | Optional. Display a divider above each `Item` in this `List` when it does not follow a `Header` or `Divider`.                                                                              |
-| sx               | sxProp                                                                                            |    -    | Optional. See guide to [Overriding styles](/overriding-styles)                                                                                                                             |
-| role             | [AriaRole](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) |    -    | Optional. The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.                                                                              |
-
-<br />
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]"
+  />
+  <PropsTableRow
+    name="variant"
+    type="'inset' | 'full'"
+    defaultValue="'inset'"
+    description={
+      <>
+        <InlineCode>inset</InlineCode> children are offset (vertically and horizontally) from list edges.{' '}
+        <InlineCode>full</InlineCode> children are flush (vertically and horizontally) with list edges
+      </>
+    }
+  />
+  <PropsTableRow
+    name="selectionVariant"
+    type="'single' | 'multiple'"
+    description="Whether multiple items or a single item can be selected."
+  />
+  <PropsTableRow
+    name="showDivider"
+    type="boolean"
+    defaultValue="false"
+    description="Display a divider above each item in this list when it does not follow a header or divider."
+  />
+  <PropsTableRow
+    name="role"
+    type={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles">AriaRole</Link>
+    }
+    description={
+      <>
+        ARIA role describing the function of the list. <InlineCode>listbox</InlineCode> and{' '}
+        <InlineCode>menu</InlineCode> are a common values.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
 
 ### ActionList.Item
 
-| Name       | Type                                                                                                          |   Default   | Description                                                                                      |
-| :--------- | :------------------------------------------------------------------------------------------------------------ | :---------: | :----------------------------------------------------------------------------------------------- |
-| children\* | one of [`React.ReactNode`, `ActionList.LeadingVisual`, `ActionList.Description`, `ActionList.TrailingVisual`] |      -      | Required.                                                                                        |
-| variant    | `'default'` or `'danger'`                                                                                     | `'default'` | Optional. variant="danger" creates a destructive action `Item`.                                  |
-| onSelect   | Function                                                                                                      |      -      | Optional. Callback that will trigger both on click selection and keyboard selection.             |
-| selected   | boolean                                                                                                       |    false    | Optional. For `Item`s which can be selected, whether the `Item` is currently selected.           |
-| disabled   | boolean                                                                                                       |    false    | Optional. Items that are disabled can not be clicked, selected, or navigated through.            |
-| role       | [AriaRole](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles)             |      -      | Optional. The ARIA role describing the function of `Item` component. `option` is a common value. |
-| sx         | sxProp                                                                                                        |      -      | Optional. See guide to [Overriding styles](/overriding-styles)                                   |
-
-<br />
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual"
+  />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'danger'"
+    defaultValue="'default'"
+    description={
+      <>
+        <InlineCode>danger</InlineCode> indicates that the item is destructive.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="onSelect"
+    type="(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void"
+    description="Callback that is called when the item is selected using either the mouse or keyboard."
+  />
+  <PropsTableRow
+    name="selected"
+    type="boolean"
+    defaultValue="false"
+    description="Indicate whether the item is selected. Only applies to items that can be selected."
+  />
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    defaultValue="false"
+    description="Items that are disabled can not be clicked, selected, or navigated to."
+  />
+  <PropsTableRow
+    name="role"
+    type={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles">AriaRole</Link>
+    }
+    description={
+      <>
+        ARIA role describing the function of the item. <InlineCode>option</InlineCode> is a common value.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
 
 ### ActionList.LinkItem
 
-| Name                                                | Type                                                                                                          | Default | Description                                                    |
-| :-------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ | :-----: | :------------------------------------------------------------- |
-| children\*                                          | one of [`React.ReactNode`, `ActionList.LeadingVisual`, `ActionList.Description`, `ActionList.TrailingVisual`] |    -    | Required.                                                      |
-| sx                                                  | sxProp                                                                                                        |    -    | Optional. See guide to [Overriding styles](/overriding-styles) |
-| + AnchorHTMLAttributes like href, target, rel, etc. |                                                                                                               |         |                                                                |
-
-<br />
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual"
+  />
+  <PropsTableBasePropRows
+    elementType="a"
+    isPolymorphic
+    refType="HTMLAnchorElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
+    }
+  />
+</PropsTable>
 
 ### ActionList.LeadingVisual
 
-| Name       | Type                | Default | Description                                                    |
-| :--------- | :------------------ | :-----: | :------------------------------------------------------------- |
-| children\* | `React.ReactNode` - |    -    | Required. Icon (or similar) positioned before `Item` text.     |
-| sx         | sxProp              |    -    | Optional. See guide to [Overriding styles](/overriding-styles) |
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode"
+    description="Icon (or similar) positioned before item text."
+  />
+  <PropsTableSxRow />
+</PropsTable>
 
 ### ActionList.TrailingVisual
 
-| Name       | Type                | Default | Description                                                    |
-| :--------- | :------------------ | :-----: | :------------------------------------------------------------- |
-| children\* | `React.ReactNode` - |    -    | Required. Visual positioned after `Item` text.                 |
-| sx         | sxProp              |    -    | Optional. See guide to [Overriding styles](/overriding-styles) |
-
-<br />
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode"
+    description="Visual positioned after item text."
+  />
+  <PropsTableSxRow />
+</PropsTable>
 
 ### ActionList.Description
 
-| Name       | Type                    |  Default   | Description                                                                                                                       |
-| :--------- | :---------------------- | :--------: | :-------------------------------------------------------------------------------------------------------------------------------- |
-| children\* | `React.ReactNode` -     |     -      | Required. Visual positioned after `Item` text.                                                                                    |
-| variant    | `'inline'` or `'block'` | `'inline'` | Optional. `"inline"` secondary text is positioned beside primary text. `"block"` secondary text is positioned below primary text. |
-| sx         | sxProp                  |     -      | Optional. See guide to [Overriding styles](/overriding-styles)                                                                    |
-
-<br />
+<PropsTable>
+  <PropsTableRow name="children" required type="React.ReactNode" />
+  <PropsTableRow
+    name="variant"
+    type="'inline' | 'block'"
+    defaultValue="'inline'"
+    description={
+      <>
+        <InlineCode>inline</InlineCode> descriptions are positioned beside primary text. <InlineCode>block</InlineCode>{' '}
+        descriptions are positioned below primary text.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
 
 ### ActionList.Group
 
-| Name             | Type                                                                                              |  Default   | Description                                                                                                                              |
-| :--------------- | :------------------------------------------------------------------------------------------------ | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| children\*       | `ActionList.Item[] or ActionList.LinkItem[]`                                                      |     -      | Required.                                                                                                                                |
-| title            | string                                                                                            |     -      | Optional. Primary text which names a `Group`                                                                                             |
-| auxiliaryText    | string                                                                                            |     -      | Optional. Secondary text which provides additional information about a `Group`.                                                          |
-| variant          | `'filled'` or `'subtle'`                                                                          | `'subtle'` | Optional. `"filled"` - Superimposed on a background, offset from nearby content, `"subtle"` - Relatively less offset from nearby content |
-| selectionVariant | `'single'` or `'multiple'` or `false`                                                             |     -      | Optional. Set `selectionVariant` at the group level                                                                                      |
-| role             | [AriaRole](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles) |     -      | Optional. \* The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.        |
+<PropsTable>
+  <PropsTableRow name="children" required type="ActionList.Item[] | ActionList.LinkItem[]" />
+  <PropsTableRow name="title" type="string" description="Title of the group." />
+  <PropsTableRow
+    name="auxiliaryText"
+    type="string"
+    description="Secondary text that provides additional information about the group."
+  />
+  <PropsTableRow
+    name="variant"
+    type="'filled' | 'subtle'"
+    defaultValue="'subtle'"
+    description={
+      <>
+        <InlineCode>inline</InlineCode> descriptions are positioned beside primary text. <InlineCode>block</InlineCode>{' '}
+        descriptions are positioned below primary text.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="selectionVariant"
+    type="'single' | 'multiple' | false"
+    description={
+      <>
+        Set <InlineCode>selectionVariant</InlineCode> at the group level.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="role"
+    type={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles">AriaRole</Link>
+    }
+    description={
+      <>
+        ARIA role describing the function of the list inside the group. <InlineCode>listbox</InlineCode> and{' '}
+        <InlineCode>menu</InlineCode> are a common values.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
 
-<br />
-
-## Further reading
-
-- [Interface guidelines: Action List](https://primer.style/design/components/action-list)
-
-## Related components
-
-- [ActionMenu](/drafts/ActionMenu2)
-- [DropdownMenu](/DropdownMenu)
-- [SelectPanel](/SelectPanel)
-
-## Component status
+## Status
 
 <ComponentChecklist
   items={{
@@ -365,6 +463,7 @@ render(<SelectFields />)
     fullTestCoverage: false,
     usedInProduction: false,
     usageExamplesDocumented: true,
+    hasStorybookStories: true,
     designReviewed: false,
     a11yReviewed: false,
     stableApi: false,
@@ -373,3 +472,13 @@ render(<SelectFields />)
     hasFigmaComponent: true
   }}
 />
+
+## Further reading
+
+- [Interface guidelines: Action List](https://primer.style/design/components/action-list)
+
+## Related components
+
+- [ActionMenu](/drafts/ActionMenu2)
+- [DropdownMenu](/DropdownMenu)
+- [SelectPanel](/SelectPanel)

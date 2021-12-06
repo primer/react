@@ -1,9 +1,9 @@
 ---
 title: Link
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/Link.tsx
 ---
 
-import {PropsTable} from '../src/props-table'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 import {Link} from '@primer/components'
 
@@ -13,18 +13,18 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
 
 **Important:** When using the `as` prop, be sure to always render an accessible element type, like `a`, `button`, `input`, or `summary`.
 
-## Default example
+## Examples
 
 ```jsx live
-<Link sx={{mb: 1}} href="https://github.com">
-  Link
-</Link>
+<Link href="https://github.com">Link</Link>
 ```
 
-## Component props
+## Props
+
+### Link
 
 <PropsTable>
-  <PropsTable.Row
+  <PropsTableRow
     name="href"
     type="string"
     description={
@@ -35,20 +35,41 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
       </>
     }
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="muted"
     type="boolean"
     defaultValue="false"
     description="Uses a less prominent shade for Link color, and the default link shade on hover"
   />
-  <PropsTable.Row name="underline" type="boolean" defaultValue="false" description="Adds underline to the Link" />
-  <PropsTable.Row name="hoverColor" type="string" description="Color used when hovering over link" />
-  <PropsTable.BasePropRows
+  <PropsTableRow name="underline" type="boolean" defaultValue="false" description="Adds underline to the Link" />
+  <PropsTableRow name="hoverColor" type="string" description="Color used when hovering over link" />
+  <PropsTableBasePropRows
     elementType="a"
-    refType="React.RefObject<HTMLAnchorElement>"
+    refType="HTMLAnchorElement"
     passthroughPropsLink={
       <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
     }
     isPolymorphic
   />
 </PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
