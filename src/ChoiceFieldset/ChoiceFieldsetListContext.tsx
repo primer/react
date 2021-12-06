@@ -6,7 +6,7 @@ import ToggleInputField, {ToggleInputFieldProps} from '../_InputField/ToggleInpu
 
 const ChoiceFieldsetListContext = createContext<{
   disabled?: boolean
-  name?: string
+  name: string
   onChange: ChangeEventHandler<HTMLInputElement>
   fieldComponent: React.FC<ToggleInputFieldProps> & {
     Input:
