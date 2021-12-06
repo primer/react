@@ -96,15 +96,15 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10038-caption"
+              aria-describedby="__primer_id_10042-caption"
               aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c6"
               disabled={true}
-              id="__primer_id_10038"
-              name="__primer_id_10034"
+              id="__primer_id_10042"
+              name="__primer_id_10038"
               onChange={[Function]}
               type="radio"
               value="labelOne"
@@ -116,7 +116,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <label
               className="c8"
-              htmlFor="__primer_id_10038"
+              htmlFor="__primer_id_10042"
             >
               Label one
             </label>
@@ -133,15 +133,15 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10039-caption"
+              aria-describedby="__primer_id_10043-caption"
               aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c6"
               disabled={true}
-              id="__primer_id_10039"
-              name="__primer_id_10034"
+              id="__primer_id_10043"
+              name="__primer_id_10038"
               onChange={[Function]}
               type="radio"
               value="labelTwo"
@@ -153,7 +153,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <label
               className="c8"
-              htmlFor="__primer_id_10039"
+              htmlFor="__primer_id_10043"
             >
               Label two
             </label>
@@ -271,14 +271,14 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10052-caption"
+              aria-describedby="__primer_id_10056-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c7"
-              id="__primer_id_10052"
-              name="__primer_id_10049"
+              id="__primer_id_10056"
+              name="__primer_id_10053"
               onChange={[Function]}
               type="radio"
               value="labelOne"
@@ -290,7 +290,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <label
               className="c9"
-              htmlFor="__primer_id_10052"
+              htmlFor="__primer_id_10056"
             >
               Label one
             </label>
@@ -307,14 +307,14 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10053-caption"
+              aria-describedby="__primer_id_10057-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c7"
-              id="__primer_id_10053"
-              name="__primer_id_10049"
+              id="__primer_id_10057"
+              name="__primer_id_10053"
               onChange={[Function]}
               type="radio"
               value="labelTwo"
@@ -326,7 +326,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <label
               className="c9"
-              htmlFor="__primer_id_10053"
+              htmlFor="__primer_id_10057"
             >
               Label two
             </label>
@@ -453,14 +453,14 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10024-caption"
+              aria-describedby="__primer_id_10026-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c6"
-              id="__primer_id_10024"
-              name="__primer_id_10021"
+              id="__primer_id_10026"
+              name="__primer_id_10023"
               onChange={[Function]}
               type="radio"
               value="labelOne"
@@ -499,7 +499,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <label
               className="c9"
-              htmlFor="__primer_id_10024"
+              htmlFor="__primer_id_10026"
             >
               Label one
             </label>
@@ -508,7 +508,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
               color="fg.muted"
               display="block"
               fontSize={0}
-              id="__primer_id_10024-caption"
+              id="__primer_id_10026-caption"
             >
               Caption one
             </span>
@@ -525,14 +525,14 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10025-caption"
+              aria-describedby="__primer_id_10027-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c6"
-              id="__primer_id_10025"
-              name="__primer_id_10021"
+              id="__primer_id_10027"
+              name="__primer_id_10023"
               onChange={[Function]}
               type="radio"
               value="labelTwo"
@@ -571,7 +571,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <label
               className="c9"
-              htmlFor="__primer_id_10025"
+              htmlFor="__primer_id_10027"
             >
               Label two
             </label>
@@ -580,7 +580,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
               color="fg.muted"
               display="block"
               fontSize={0}
-              id="__primer_id_10025-caption"
+              id="__primer_id_10027-caption"
             >
               Caption two
             </span>
@@ -766,14 +766,14 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10063-caption"
+              aria-describedby="__primer_id_10067-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c5"
-              id="__primer_id_10063"
-              name="__primer_id_10060"
+              id="__primer_id_10067"
+              name="__primer_id_10064"
               onChange={[Function]}
               type="radio"
               value="labelOne"
@@ -785,7 +785,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <label
               className="c7"
-              htmlFor="__primer_id_10063"
+              htmlFor="__primer_id_10067"
             >
               Label one
             </label>
@@ -802,14 +802,14 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10064-caption"
+              aria-describedby="__primer_id_10068-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c5"
-              id="__primer_id_10064"
-              name="__primer_id_10060"
+              id="__primer_id_10068"
+              name="__primer_id_10064"
               onChange={[Function]}
               type="radio"
               value="labelTwo"
@@ -821,7 +821,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <label
               className="c7"
-              htmlFor="__primer_id_10064"
+              htmlFor="__primer_id_10068"
             >
               Label two
             </label>
@@ -940,7 +940,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 <div>
   <div>
     <fieldset
-      aria-describedby="__primer_id_10065-validationMsg"
+      aria-describedby="__primer_id_10069-validationMsg"
       class="c0"
     >
       <div
@@ -965,13 +965,13 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby="__primer_id_10070-caption"
+                aria-describedby="__primer_id_10074-caption"
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
-                id="__primer_id_10070"
-                name="__primer_id_10069"
+                id="__primer_id_10074"
+                name="__primer_id_10073"
                 type="radio"
                 value="labelOne"
               />
@@ -982,7 +982,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <label
                 class="c8"
-                for="__primer_id_10070"
+                for="__primer_id_10074"
               >
                 Label one
               </label>
@@ -999,13 +999,13 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby="__primer_id_10071-caption"
+                aria-describedby="__primer_id_10075-caption"
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
-                id="__primer_id_10071"
-                name="__primer_id_10069"
+                id="__primer_id_10075"
+                name="__primer_id_10073"
                 type="radio"
                 value="labelTwo"
               />
@@ -1016,7 +1016,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <label
                 class="c8"
-                for="__primer_id_10071"
+                for="__primer_id_10075"
               >
                 Label two
               </label>
@@ -1062,7 +1062,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
               </svg>
             </span>
             <span
-              id="__primer_id_10065-validationMsg"
+              id="__primer_id_10069-validationMsg"
             >
               You made the right selection
             </span>
@@ -1181,7 +1181,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 <div>
   <div>
     <fieldset
-      aria-describedby="__primer_id_10072-validationMsg"
+      aria-describedby="__primer_id_10076-validationMsg"
       class="c0"
     >
       <div
@@ -1206,13 +1206,13 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby="__primer_id_10077-caption"
+                aria-describedby="__primer_id_10081-caption"
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
-                id="__primer_id_10077"
-                name="__primer_id_10076"
+                id="__primer_id_10081"
+                name="__primer_id_10080"
                 type="radio"
                 value="labelOne"
               />
@@ -1223,7 +1223,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <label
                 class="c8"
-                for="__primer_id_10077"
+                for="__primer_id_10081"
               >
                 Label one
               </label>
@@ -1240,13 +1240,13 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby="__primer_id_10078-caption"
+                aria-describedby="__primer_id_10082-caption"
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
-                id="__primer_id_10078"
-                name="__primer_id_10076"
+                id="__primer_id_10082"
+                name="__primer_id_10080"
                 type="radio"
                 value="labelTwo"
               />
@@ -1257,7 +1257,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <label
                 class="c8"
-                for="__primer_id_10078"
+                for="__primer_id_10082"
               >
                 Label two
               </label>
@@ -1303,7 +1303,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
               </svg>
             </span>
             <span
-              id="__primer_id_10072-validationMsg"
+              id="__primer_id_10076-validationMsg"
             >
               You made the wrong selection
             </span>

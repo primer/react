@@ -54,13 +54,15 @@ describe('ChoiceFieldset', () => {
   })
   it('renders a group of checkbox inputs when selectionVariant=single (default)', () => {
     const {getByLabelText} = HTMLRender(
-      <ChoiceFieldset>
-        <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
-        <ChoiceFieldset.List>
-          <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
-          <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
-        </ChoiceFieldset.List>
-      </ChoiceFieldset>
+      <SSRProvider>
+        <ChoiceFieldset>
+          <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+          <ChoiceFieldset.List>
+            <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
+          </ChoiceFieldset.List>
+        </ChoiceFieldset>
+      </SSRProvider>
     )
     const firstInput = getByLabelText('Label one')
     const secondInput = getByLabelText('Label one')
@@ -70,13 +72,15 @@ describe('ChoiceFieldset', () => {
   })
   it('renders a group of checkbox inputs when selectionVariant=multiple', () => {
     const {getByLabelText} = HTMLRender(
-      <ChoiceFieldset>
-        <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
-        <ChoiceFieldset.List selectionVariant="multiple">
-          <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
-          <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
-        </ChoiceFieldset.List>
-      </ChoiceFieldset>
+      <SSRProvider>
+        <ChoiceFieldset>
+          <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+          <ChoiceFieldset.List selectionVariant="multiple">
+            <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
+          </ChoiceFieldset.List>
+        </ChoiceFieldset>
+      </SSRProvider>
     )
     const firstInput = getByLabelText('Label one')
     const secondInput = getByLabelText('Label one')
