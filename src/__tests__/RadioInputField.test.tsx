@@ -17,7 +17,7 @@ describe('RadioInputField', () => {
         render(
           <RadioInputField>
             <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input />
+            <RadioInputField.Input name="testRadioInput" value="testVal" />
           </RadioInputField>
         )
       ).toMatchSnapshot()
@@ -27,7 +27,7 @@ describe('RadioInputField', () => {
         render(
           <RadioInputField>
             <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input />
+            <RadioInputField.Input name="testRadioInput" value="testVal" />
           </RadioInputField>
         )
       ).toMatchSnapshot()
@@ -37,7 +37,7 @@ describe('RadioInputField', () => {
         render(
           <RadioInputField id="customId">
             <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input />
+            <RadioInputField.Input name="testRadioInput" value="testVal" />
           </RadioInputField>
         )
       ).toMatchSnapshot()
@@ -47,7 +47,7 @@ describe('RadioInputField', () => {
         render(
           <RadioInputField disabled>
             <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input />
+            <RadioInputField.Input name="testRadioInput" value="testVal" />
           </RadioInputField>
         )
       ).toMatchSnapshot()
@@ -57,7 +57,7 @@ describe('RadioInputField', () => {
         render(
           <RadioInputField disabled>
             <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input />
+            <RadioInputField.Input name="testRadioInput" value="testVal" />
             <RadioInputField.LeadingVisual>
               <MarkGithubIcon />
             </RadioInputField.LeadingVisual>
@@ -70,7 +70,7 @@ describe('RadioInputField', () => {
         render(
           <RadioInputField>
             <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input />
+            <RadioInputField.Input name="testRadioInput" value="testVal" />
             <RadioInputField.Caption>{RADIOINPUTFIELD_CAPTION_TEXT}</RadioInputField.Caption>
           </RadioInputField>
         )
@@ -81,7 +81,7 @@ describe('RadioInputField', () => {
         render(
           <RadioInputField>
             <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input />
+            <RadioInputField.Input name="testRadioInput" value="testVal" />
             <RadioInputField.LeadingVisual>
               <MarkGithubIcon />
             </RadioInputField.LeadingVisual>
@@ -95,7 +95,7 @@ describe('RadioInputField', () => {
         render(
           <RadioInputField>
             <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input />
+            <RadioInputField.Input name="testRadioInput" value="testVal" />
             <RadioInputField.LeadingVisual>
               <MarkGithubIcon />
             </RadioInputField.LeadingVisual>
@@ -110,7 +110,7 @@ describe('RadioInputField', () => {
       const {getByLabelText} = HTMLRender(
         <RadioInputField>
           <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-          <RadioInputField.Input />
+          <RadioInputField.Input name="testRadioInput" value="testVal" />
         </RadioInputField>
       )
 
@@ -122,7 +122,7 @@ describe('RadioInputField', () => {
       const {getByLabelText, getByText} = HTMLRender(
         <RadioInputField id={fieldId}>
           <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-          <RadioInputField.Input />
+          <RadioInputField.Input name="testRadioInput" value="testVal" />
           <RadioInputField.Caption>{RADIOINPUTFIELD_CAPTION_TEXT}</RadioInputField.Caption>
         </RadioInputField>
       )
@@ -139,7 +139,7 @@ describe('RadioInputField', () => {
     const {container} = HTMLRender(
       <RadioInputField>
         <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-        <RadioInputField.Input />
+        <RadioInputField.Input name="testRadioInput" value="testVal" />
         <RadioInputField.Caption>{RADIOINPUTFIELD_CAPTION_TEXT}</RadioInputField.Caption>
       </RadioInputField>
     )

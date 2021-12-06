@@ -14,6 +14,11 @@ exports[`RadioInputField snapshots renders as disabled 1`] = `
 }
 
 .c2 {
+  cursor: pointer;
+  cursor: not-allowed;
+}
+
+.c3 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -34,14 +39,21 @@ exports[`RadioInputField snapshots renders as disabled 1`] = `
     className="c1"
   >
     <input
+      aria-checked="false"
       aria-describedby="undefined-caption"
+      aria-disabled="true"
+      aria-invalid="false"
+      aria-required="false"
+      className="c2"
       disabled={true}
       id="__primer_id_10002"
+      name="testRadioInput"
       type="radio"
+      value="testVal"
     />
   </div>
   <label
-    className="c2"
+    className="c3"
     htmlFor="__primer_id_10002"
   >
     Option one
@@ -78,7 +90,7 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
   margin-right: 0;
 }
 
-.c3 {
+.c4 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -100,18 +112,22 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
   align-items: center;
 }
 
-.c2 {
+.c3 {
   margin-left: 8px;
   color: #24292f;
 }
 
-.c2 > * {
+.c3 > * {
   min-width: 16px;
   min-height: 16px;
   fill: currentColor;
 }
 
-.c4 {
+.c2 {
+  cursor: pointer;
+}
+
+.c5 {
   font-weight: 600;
   font-size: 14px;
   display: block;
@@ -126,13 +142,20 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
     className="c1"
   >
     <input
+      aria-checked="false"
       aria-describedby="undefined-caption"
+      aria-disabled="false"
+      aria-invalid="false"
+      aria-required="false"
+      className="c2"
       id="__primer_id_10006"
+      name="testRadioInput"
       type="radio"
+      value="testVal"
     />
   </div>
   <div
-    className="c2"
+    className="c3"
     color="fg.default"
   >
     <svg
@@ -159,11 +182,11 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
     />
   </div>
   <div
-    className="c3"
+    className="c4"
     display="flex"
   >
     <label
-      className="c4"
+      className="c5"
       htmlFor="__primer_id_10006"
     >
       Option one
@@ -208,7 +231,7 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
   margin-right: 0;
 }
 
-.c2 {
+.c3 {
   margin-left: 8px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -219,14 +242,18 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
   flex-direction: column;
 }
 
-.c3 {
+.c2 {
+  cursor: pointer;
+}
+
+.c4 {
   font-weight: 600;
   font-size: 14px;
   display: block;
   color: #24292f;
 }
 
-.c4 {
+.c5 {
   font-size: 12px;
   color: #57606a;
 }
@@ -239,23 +266,30 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
     className="c1"
   >
     <input
+      aria-checked="false"
       aria-describedby="undefined-caption"
+      aria-disabled="false"
+      aria-invalid="false"
+      aria-required="false"
+      className="c2"
       id="__primer_id_10004"
+      name="testRadioInput"
       type="radio"
+      value="testVal"
     />
   </div>
   <div
-    className="c2"
+    className="c3"
     display="flex"
   >
     <label
-      className="c3"
+      className="c4"
       htmlFor="__primer_id_10004"
     >
       Option one
     </label>
     <span
-      className="c4"
+      className="c5"
       color="fg.muted"
       fontSize={0}
       id="undefined-caption"
@@ -303,6 +337,10 @@ exports[`RadioInputField snapshots renders with a hidden label 1`] = `
 }
 
 .c2 {
+  cursor: pointer;
+}
+
+.c3 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -323,13 +361,20 @@ exports[`RadioInputField snapshots renders with a hidden label 1`] = `
     className="c1"
   >
     <input
+      aria-checked="false"
       aria-describedby="undefined-caption"
+      aria-disabled="false"
+      aria-invalid="false"
+      aria-required="false"
+      className="c2"
       id="__primer_id_10001"
+      name="testRadioInput"
       type="radio"
+      value="testVal"
     />
   </div>
   <label
-    className="c2"
+    className="c3"
     htmlFor="__primer_id_10001"
   >
     Option one
