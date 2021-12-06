@@ -258,7 +258,7 @@ render(<SelectFields />)
 <PropsTable>
   <PropsTableRow
     name="children"
-    required={true}
+    required
     type="ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]"
   />
   <PropsTableRow
@@ -303,7 +303,7 @@ render(<SelectFields />)
 <PropsTable>
   <PropsTableRow
     name="children"
-    required={true}
+    required
     type="React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual"
   />
   <PropsTableRow
@@ -352,7 +352,7 @@ render(<SelectFields />)
 <PropsTable>
   <PropsTableRow
     name="children"
-    required={true}
+    required
     type="React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual"
   />
   <PropsTableBasePropRows
@@ -370,7 +370,7 @@ render(<SelectFields />)
 <PropsTable>
   <PropsTableRow
     name="children"
-    required={true}
+    required
     type="React.ReactNode"
     description="Icon (or similar) positioned before item text."
   />
@@ -382,7 +382,7 @@ render(<SelectFields />)
 <PropsTable>
   <PropsTableRow
     name="children"
-    required={true}
+    required
     type="React.ReactNode"
     description="Visual positioned after item text."
   />
@@ -392,7 +392,7 @@ render(<SelectFields />)
 ### ActionList.Description
 
 <PropsTable>
-  <PropsTableRow name="children" required={true} type="React.ReactNode" />
+  <PropsTableRow name="children" required type="React.ReactNode" />
   <PropsTableRow
     name="variant"
     type="'inline' | 'block'"
@@ -410,7 +410,7 @@ render(<SelectFields />)
 ### ActionList.Group
 
 <PropsTable>
-  <PropsTableRow name="children" required={true} type="ActionList.Item[] | ActionList.LinkItem[]" />
+  <PropsTableRow name="children" required type="ActionList.Item[] | ActionList.LinkItem[]" />
   <PropsTableRow name="title" type="string" description="Title of the group." />
   <PropsTableRow
     name="auxiliaryText"
