@@ -12,7 +12,7 @@ import {
   activeDescendantActivatedDirectly,
   activeDescendantActivatedIndirectly,
   isActiveDescendantAttribute
-} from '../behaviors/focusZone'
+} from '@primer/behaviors'
 import {useSSRSafeId} from '@react-aria/ssr'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {AriaRole} from '../utils/types'
