@@ -1,6 +1,7 @@
 ---
 title: Link
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/Link.tsx
 ---
 
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
@@ -12,15 +13,15 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
 
 **Important:** When using the `as` prop, be sure to always render an accessible element type, like `a`, `button`, `input`, or `summary`.
 
-## Default example
+## Examples
 
 ```jsx live
-<Link sx={{mb: 1}} href="https://github.com">
-  Link
-</Link>
+<Link href="https://github.com">Link</Link>
 ```
 
-## Component props
+## Props
+
+### Link
 
 <PropsTable>
   <PropsTableRow
@@ -51,3 +52,24 @@ In special cases where you'd like a `<button>` styled like a `Link`, use `<Link 
     isPolymorphic
   />
 </PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
