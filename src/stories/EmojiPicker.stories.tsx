@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, EmojiPicker, EmojiPickerProps, Text, ThemeProvider} from '..'
-import {ArchiveIcon, MarkGithubIcon} from '@primer/octicons-react'
+import {ArchiveIcon, LogoGithubIcon, MarkGithubIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Composite components/Emoji Picker',
@@ -46,7 +46,16 @@ export const defaultEmojiPicker = (args: EmojiPickerProps) => {
       id: 'github',
       name: 'GitHub',
       categoryIcon: <MarkGithubIcon />,
-      emojis: []
+      emojis: [
+        {
+          name: 'Icon',
+          emoji: <MarkGithubIcon />
+        },
+        {
+          name: 'Logo',
+          emoji: <LogoGithubIcon />
+        }
+      ]
     },
     {
       id: 'arhived',
