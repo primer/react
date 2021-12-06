@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import {BaseStyles, Box, Checkbox, CheckboxProps, Text, ThemeProvider} from '..'
 import {action} from '@storybook/addon-actions'
-import {COMMON, get} from '../constants'
+import {get} from '../constants'
 
 export default {
   title: 'Forms/Checkbox',
@@ -42,13 +42,11 @@ const StyledLabel = styled.label`
   font-size: 14px;
   line-height: 18px;
   margin-left: 16px;
-  ${COMMON}
 `
 
 const StyledSubLabel = styled(Text)`
   color: ${get('colors.fg.muted')};
   font-size: 13px;
-  ${COMMON}
 `
 
 export const Default = (args: CheckboxProps) => {

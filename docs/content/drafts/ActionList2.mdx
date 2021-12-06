@@ -236,7 +236,7 @@ const SelectFields = () => {
 
   return (
     <ActionList selectionVariant="multiple">
-      <ActionList.Group title="Visible fields (can be reordered)">
+      <ActionList.Group title="Visible fields">
         {visibleOptions.map(option => (
           <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
             {option.text}

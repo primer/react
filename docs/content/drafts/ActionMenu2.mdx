@@ -1,5 +1,5 @@
 ---
-title: ActionMenu
+title: ActionMenu v2
 status: Alpha
 source: https://github.com/primer/react/tree/main/src/ActionMenu
 storybook: '/react/storybook?path=/story/composite-components-actionmenu2'
@@ -13,29 +13,30 @@ import {Props} from '../../src/props'
 <br />
 
 <Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6}}>
-<ActionMenu>
-  <ActionMenu.Button>Menu</ActionMenu.Button>
-  <ActionList>
-    <ActionList.Item onSelect={() => onSelect('Copy link')}>
-      Copy link
-      <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-    </ActionList.Item>
-    <ActionList.Item onSelect={() => onSelect('Quote reply')}>
-      Quote reply
-      <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
-    </ActionList.Item>
-    <ActionList.Item onSelect={() => onSelect('Edit comment')}>
-      Edit comment
-      <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-    </ActionList.Item>
-    <ActionList.Divider />
-    <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
-      Delete file
-      <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-    </ActionList.Item>
-  </ActionList>
-
-</ActionMenu>
+  <ActionMenu>
+    <ActionMenu.Button>Menu</ActionMenu.Button>
+    <ActionMenu.Overlay>
+      <ActionList>
+        <ActionList.Item>
+          Copy link
+          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          Quote reply
+          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          Edit comment
+          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item variant="danger">
+          Delete file
+          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
 </Box>
 
 <br />
@@ -50,7 +51,7 @@ import {ActionMenu} from '@primer/components/drafts'
 
 ### Minimal example
 
-`ActionMenu` ships with `ActionMenu.Button` which is an accessible trigger for the overlay. It's recommended to compose `ActionList` with this component.
+`ActionMenu` ships with `ActionMenu.Button` which is an accessible trigger for the overlay. It's recommended to compose `ActionList` with `ActionMenu.Overlay`
 
 &nbsp;
 
@@ -62,13 +63,15 @@ render(
   <ActionMenu>
     <ActionMenu.Button>Menu</ActionMenu.Button>
 
-    <ActionList>
-      <ActionList.Item onSelect={event => console.log('New file')}>New file</ActionList.Item>
-      <ActionList.Item>Copy link</ActionList.Item>
-      <ActionList.Item>Edit file</ActionList.Item>
-      <ActionList.Divider />
-      <ActionList.Item variant="danger">Delete file</ActionList.Item>
-    </ActionList>
+    <ActionMenu.Overlay>
+      <ActionList>
+        <ActionList.Item onSelect={event => console.log('New file')}>New file</ActionList.Item>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Edit file</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item variant="danger">Delete file</ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
   </ActionMenu>
 )
 ```
@@ -91,26 +94,28 @@ render(
       </ButtonInvisible>
     </ActionMenu.Anchor>
 
-    <ActionList>
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <PencilIcon />
-        </ActionList.LeadingVisual>
-        Rename
-      </ActionList.Item>
-      <ActionList.Item>
-        <ActionList.LeadingVisual>
-          <ArchiveIcon />
-        </ActionList.LeadingVisual>
-        Archive all cards
-      </ActionList.Item>
-      <ActionList.Item variant="danger">
-        <ActionList.LeadingVisual>
-          <TrashIcon />
-        </ActionList.LeadingVisual>
-        Delete
-      </ActionList.Item>
-    </ActionList>
+    <ActionMenu.Overlay>
+      <ActionList>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <PencilIcon />
+          </ActionList.LeadingVisual>
+          Rename
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <ArchiveIcon />
+          </ActionList.LeadingVisual>
+          Archive all cards
+        </ActionList.Item>
+        <ActionList.Item variant="danger">
+          <ActionList.LeadingVisual>
+            <TrashIcon />
+          </ActionList.LeadingVisual>
+          Delete
+        </ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
   </ActionMenu>
 )
 ```
@@ -125,59 +130,61 @@ render(
   <ActionMenu>
     <ActionMenu.Button>Open column menu</ActionMenu.Button>
 
-    <ActionList showDividers>
-      <ActionList.Group title="Live query">
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <SearchIcon />
-          </ActionList.LeadingVisual>
-          repo:github/memex,github/github
-        </ActionList.Item>
-      </ActionList.Group>
-      <ActionList.Divider />
-      <ActionList.Group title="Layout" variant="subtle">
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <NoteIcon />
-          </ActionList.LeadingVisual>
-          Table
-          <ActionList.Description variant="block">
-            Information-dense table optimized for operations across teams
-          </ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item role="listitem">
-          <ActionList.LeadingVisual>
-            <ProjectIcon />
-          </ActionList.LeadingVisual>
-          Board
-          <ActionList.Description variant="block">Kanban-style board focused on visual states</ActionList.Description>
-        </ActionList.Item>
-      </ActionList.Group>
-      <ActionList.Divider />
-      <ActionList.Group>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <FilterIcon />
-          </ActionList.LeadingVisual>
-          Save sort and filters to current view
-        </ActionList.Item>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <FilterIcon />
-          </ActionList.LeadingVisual>
-          Save sort and filters to new view
-        </ActionList.Item>
-      </ActionList.Group>
-      <ActionList.Divider />
-      <ActionList.Group>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <GearIcon />
-          </ActionList.LeadingVisual>
-          View settings
-        </ActionList.Item>
-      </ActionList.Group>
-    </ActionList>
+    <ActionMenu.Overlay>
+      <ActionList showDividers>
+        <ActionList.Group title="Live query">
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <SearchIcon />
+            </ActionList.LeadingVisual>
+            repo:github/memex,github/github
+          </ActionList.Item>
+        </ActionList.Group>
+        <ActionList.Divider />
+        <ActionList.Group title="Layout" variant="subtle">
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <NoteIcon />
+            </ActionList.LeadingVisual>
+            Table
+            <ActionList.Description variant="block">
+              Information-dense table optimized for operations across teams
+            </ActionList.Description>
+          </ActionList.Item>
+          <ActionList.Item role="listitem">
+            <ActionList.LeadingVisual>
+              <ProjectIcon />
+            </ActionList.LeadingVisual>
+            Board
+            <ActionList.Description variant="block">Kanban-style board focused on visual states</ActionList.Description>
+          </ActionList.Item>
+        </ActionList.Group>
+        <ActionList.Divider />
+        <ActionList.Group>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <FilterIcon />
+            </ActionList.LeadingVisual>
+            Save sort and filters to current view
+          </ActionList.Item>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <FilterIcon />
+            </ActionList.LeadingVisual>
+            Save sort and filters to new view
+          </ActionList.Item>
+        </ActionList.Group>
+        <ActionList.Divider />
+        <ActionList.Group>
+          <ActionList.Item>
+            <ActionList.LeadingVisual>
+              <GearIcon />
+            </ActionList.LeadingVisual>
+            View settings
+          </ActionList.Item>
+        </ActionList.Group>
+      </ActionList>
+    </ActionMenu.Overlay>
   </ActionMenu>
 )
 ```
@@ -201,13 +208,15 @@ const Example = () => {
       </Button>
 
       <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
-        <ActionList>
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Quote reply</ActionList.Item>
-          <ActionList.Item>Edit comment</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        </ActionList>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>Copy link</ActionList.Item>
+            <ActionList.Item>Quote reply</ActionList.Item>
+            <ActionList.Item>Edit comment</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger">Delete file</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
       </ActionMenu>
     </>
   )
@@ -216,17 +225,52 @@ const Example = () => {
 render(<Example />)
 ```
 
+### With Overlay Props
+
+To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`:
+
+```javascript live noinline
+// import {ActionMenu, ActionList} from '@primer/components/drafts'
+const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
+
+const handleEscape = () => alert('you hit escape!')
+
+render(
+  <ActionMenu>
+    <ActionMenu.Button>Open Actions Menu</ActionMenu.Button>
+    <ActionMenu.Overlay width="medium" onEscape={handleEscape}>
+      <ActionList>
+        <ActionList.Item>
+          Open current Codespace
+          <ActionList.Description variant="block">
+            Your existing Codespace will be opened to its previous state, and you&apos;ll be asked to manually switch to
+            new-branch.
+          </ActionList.Description>
+          <ActionList.TrailingVisual>⌘O</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          Create new Codespace
+          <ActionList.Description variant="block">
+            Create a brand new Codespace with a fresh image and checkout this branch.
+          </ActionList.Description>
+          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
+)
+```
+
 ## Props / API reference
 
 ### ActionMenu
 
-| Name         | Type                                                | Default | Description                                                                                                              |
-| :----------- | :-------------------------------------------------- | :-----: | :----------------------------------------------------------------------------------------------------------------------- |
-| children\*   | `React.ReactElement[]`                              |    -    | Required. Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with [`ActionList`](/drafts/ActionList2)               |
-| open         | `boolean`                                           |    -    | Optional. If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`. |
-| onOpenChange | `(open: boolean) => void`                           |    -    | Optional. If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.         |
-| anchorRef    | `React.RefObject<HTMLElement>`                      |    -    | Optional. Useful for defining an external anchor                                                                         |
-| overlayProps | [`Partial<OverlayProps>`](/Overlay#component-props) |    -    | Optional. Props to be spread on the internal [`AnchoredOverlay`](/AnchoredOverlay) component.                            |
+| Name         | Type                           | Default | Description                                                                                                              |
+| :----------- | :----------------------------- | :-----: | :----------------------------------------------------------------------------------------------------------------------- |
+| children\*   | `React.ReactElement[]`         |    -    | Required. Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`                              |
+| open         | `boolean`                      |    -    | Optional. If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`. |
+| onOpenChange | `(open: boolean) => void`      |    -    | Optional. If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.         |
+| anchorRef    | `React.RefObject<HTMLElement>` |    -    | Optional. Useful for defining an external anchor                                                                         |
 
 ### ActionMenu.Button
 
@@ -239,6 +283,13 @@ render(<Example />)
 | Name       | Type                 | Default | Description                       |
 | :--------- | :------------------- | :-----: | :-------------------------------- |
 | children\* | `React.ReactElement` |    -    | Required. Accepts a single child. |
+
+### ActionMenu.Overlay
+
+| Name                                     | Type                  |       Default       | Description                                                                                   |
+| :--------------------------------------- | :-------------------- | :-----------------: | :-------------------------------------------------------------------------------------------- |
+| children\*                               | `React.ReactElement[] | React.ReactElement` | Required. Recommended: [`ActionList`](/drafts/ActionList2)                                    |
+| [OverlayProps](/Overlay#component-props) | -                     |          -          | Optional. Props to be spread on the internal [`AnchoredOverlay`](/AnchoredOverlay) component. |
 
 ## Further reading
 
