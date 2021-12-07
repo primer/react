@@ -1,4 +1,4 @@
-# ADR 003: Prop norms in Primer React Components
+# ADR 004: Children as API
 
 ## Status
 
