@@ -59,7 +59,9 @@ function Row({name, type, defaultValue, description, required, deprecated}) {
         ) : null}
       </Box>
       <Box as="td" fontFamily="mono" fontSize={1} verticalAlign="top">
-        {type}
+        <Box as="pre" fontFamily="inherit" fontSize="inherit" margin={0} sx={{whiteSpace: 'pre-wrap'}}>
+          {type}
+        </Box>
       </Box>
       <Box as="td" fontFamily="mono" fontSize={1} verticalAlign="top">
         {defaultValue}
