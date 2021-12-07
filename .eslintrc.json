@@ -22,7 +22,8 @@
     "dist/**/*",
     "lib/**/*",
     "lib-*/**/*",
-    "types/**/*"
+    "types/**/*",
+    "contributor-docs/adrs/*"
   ],
   "globals": {
     "__DEV__": "readonly"
