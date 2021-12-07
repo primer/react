@@ -3,7 +3,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/r
 import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
-import {MenuContext} from './MenuContext'
+import {ActionListContainerContext} from './ActionListContainerContext'
 
 export type ListProps = {
   /**
@@ -41,7 +41,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
     }
 
     /** if list is inside a Menu, it will get a role from the Menu */
-    const {listRole} = React.useContext(MenuContext)
+    const {listRole} = React.useContext(ActionListContainerContext)
 
     return (
       <ListBox sx={merge(styles, sxProp as SxProp)} role={role || listRole} {...props} ref={forwardedRef}>

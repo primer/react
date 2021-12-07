@@ -27,6 +27,8 @@ export {useOverlay} from './hooks/useOverlay'
 export {useConfirm} from './Dialog/ConfirmationDialog'
 
 // Components
+export {default as Radio} from './Radio'
+export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'

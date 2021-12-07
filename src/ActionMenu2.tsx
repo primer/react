@@ -1,16 +1,18 @@
 import Button, {ButtonProps} from './Button'
 import React from 'react'
-import {AnchoredOverlay} from './AnchoredOverlay'
-import {useProvidedStateOrCreate} from './hooks/useProvidedStateOrCreate'
+import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate} from './hooks'
-import {AnchoredOverlayWrapperAnchorProps} from './AnchoredOverlay/AnchoredOverlay'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate} from './hooks'
 import {Divider} from './ActionList2/Divider'
-import {MenuContext as ActionListMenuContext} from './ActionList2/MenuContext'
+import {ActionListContainerContext} from './ActionList2/ActionListContainerContext'
+import {MandateProps} from './utils/types'
 
-type ActionMenuBaseProps = {
+type MenuContextProps = Pick<AnchoredOverlayProps, 'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose'>
+export const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
+
+export type ActionMenuProps = {
   /**
-   * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with ActionList`
+   * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`
    */
   children: React.ReactElement[] | React.ReactElement
 
@@ -23,66 +25,49 @@ type ActionMenuBaseProps = {
    * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
    */
   onOpenChange?: (s: boolean) => void
+} & Pick<AnchoredOverlayProps, 'anchorRef'>
 
-  /**
-   * Props to be spread on the internal `Overlay` component.
-   */
-  overlayProps?: Partial<OverlayProps>
-}
-
-export type ActionMenuProps = ActionMenuBaseProps & AnchoredOverlayWrapperAnchorProps
-
-const ActionMenuBase: React.FC<ActionMenuProps> = ({
+const Menu: React.FC<ActionMenuProps> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
-  overlayProps,
   children
 }: ActionMenuProps) => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
-  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
-  let renderAnchor: AnchoredOverlayWrapperAnchorProps['renderAnchor'] = null
-  const contents: React.ReactElement[] = []
+  const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
 
-  React.Children.map(children, child => {
+  // 🚨 Hack for good API!
+  // we strip out Anchor from children and pass it to AnchoredOverlay to render
+  // with additional props for accessibility
+  const contents = React.Children.map(children, child => {
     if (child.type === MenuButton || child.type === Anchor) {
       renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
-    } else {
-      contents.push(child)
+      return null
     }
+    return child
   })
 
   return (
-    <AnchoredOverlay
-      renderAnchor={renderAnchor}
-      anchorRef={anchorRef}
-      open={combinedOpenState}
-      onOpen={onOpen}
-      onClose={onClose}
-      overlayProps={overlayProps}
-    >
-      <ActionListMenuContext.Provider
-        value={{parent: 'ActionMenu', listRole: 'menu', itemRole: 'menuitem', afterSelect: onClose}}
-      >
-        {contents}
-      </ActionListMenuContext.Provider>
-    </AnchoredOverlay>
+    <MenuContext.Provider value={{anchorRef, renderAnchor, open: combinedOpenState, onOpen, onClose}}>
+      {contents}
+    </MenuContext.Provider>
   )
 }
 
-type AnchorRef = AnchoredOverlayWrapperAnchorProps['anchorRef']
-
 export type MenuAnchorProps = {children: React.ReactElement}
-const Anchor = React.forwardRef<AnchorRef, MenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
-  return React.cloneElement(children, {...anchorProps, ref: anchorRef})
-})
+const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], MenuAnchorProps>(
+  ({children, ...anchorProps}, anchorRef) => {
+    return React.cloneElement(children, {...anchorProps, ref: anchorRef})
+  }
+)
 
 /** this component is syntactical sugar 🍭 */
 export type MenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef<AnchorRef, ButtonProps>((props, anchorRef) => {
+const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>((props, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
       <Button {...props} />
@@ -90,5 +75,42 @@ const MenuButton = React.forwardRef<AnchorRef, ButtonProps>((props, anchorRef) =
   )
 })
 
-ActionMenuBase.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(ActionMenuBase, {Button: MenuButton, Anchor, Divider})
+type MenuOverlayProps = Partial<OverlayProps> & {
+  /**
+   * Recommended: `ActionList`
+   */
+  children: React.ReactElement[] | React.ReactElement
+}
+const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
+  // we typecast anchorRef as required instead of optional
+  // because we know that we're setting it in context in Menu
+  const {anchorRef, renderAnchor, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
+    MenuContextProps,
+    'anchorRef'
+  >
+
+  return (
+    <AnchoredOverlay
+      anchorRef={anchorRef}
+      renderAnchor={renderAnchor}
+      open={open}
+      onOpen={onOpen}
+      onClose={onClose}
+      overlayProps={overlayProps}
+    >
+      <ActionListContainerContext.Provider
+        value={{
+          container: 'ActionMenu',
+          listRole: 'menu',
+          itemRole: 'menuitem',
+          afterSelect: onClose
+        }}
+      >
+        {children}
+      </ActionListContainerContext.Provider>
+    </AnchoredOverlay>
+  )
+}
+
+Menu.displayName = 'ActionMenu'
+export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})

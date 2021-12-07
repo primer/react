@@ -95,6 +95,8 @@
     #   url: /Portal
     - title: ProgressBar
       url: /ProgressBar
+    - title: Radio
+      url: /Radio
     - title: SelectMenu
       url: /SelectMenu
     - title: SideNav

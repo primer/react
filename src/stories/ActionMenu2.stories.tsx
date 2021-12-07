@@ -57,26 +57,27 @@ export function SimpleListStory(): JSX.Element {
       <h2>Last option activated: {actionFired}</h2>
       <ActionMenu>
         <ActionMenu.Button>Menu</ActionMenu.Button>
-
-        <ActionList>
-          <ActionList.Item onSelect={() => onSelect('Copy link')}>
-            Copy link
-            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Quote reply')}>
-            Quote reply
-            <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Edit comment')}>
-            Edit comment
-            <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
-            Delete file
-            <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-          </ActionList.Item>
-        </ActionList>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item onSelect={() => onSelect('Copy link')}>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Quote reply')}>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Edit comment')}>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
       </ActionMenu>
     </>
   )
@@ -88,33 +89,35 @@ export function ActionsStory(): JSX.Element {
     <>
       <h1>Actions</h1>
 
-      <ActionMenu overlayProps={{width: 'medium'}}>
+      <ActionMenu>
         <ActionMenu.Button aria-label="Open Actions Menu">
           <ServerIcon />
         </ActionMenu.Button>
-        <ActionList>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <ServerIcon />
-            </ActionList.LeadingVisual>
-            Open current Codespace
-            <ActionList.Description variant="block">
-              Your existing Codespace will be opened to its previous state, and you&apos;ll be asked to manually switch
-              to new-branch.
-            </ActionList.Description>
-            <ActionList.TrailingVisual>⌘O</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <PlusCircleIcon />
-            </ActionList.LeadingVisual>
-            Create new Codespace
-            <ActionList.Description variant="block">
-              Create a brand new Codespace with a fresh image and checkout this branch.
-            </ActionList.Description>
-            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-          </ActionList.Item>
-        </ActionList>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <ServerIcon />
+              </ActionList.LeadingVisual>
+              Open current Codespace
+              <ActionList.Description variant="block">
+                Your existing Codespace will be opened to its previous state, and you&apos;ll be asked to manually
+                switch to new-branch.
+              </ActionList.Description>
+              <ActionList.TrailingVisual>⌘O</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <PlusCircleIcon />
+              </ActionList.LeadingVisual>
+              Create new Codespace
+              <ActionList.Description variant="block">
+                Create a brand new Codespace with a fresh image and checkout this branch.
+              </ActionList.Description>
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
       </ActionMenu>
     </>
   )
@@ -126,7 +129,7 @@ export function ExternalAnchor(): JSX.Element {
   const onSelect = (name: string) => fireAction(name)
 
   const [open, setOpen] = React.useState(false)
-  const triggerRef = React.createRef<HTMLButtonElement>()
+  const anchorRef = React.createRef<HTMLButtonElement>()
 
   return (
     <>
@@ -134,32 +137,34 @@ export function ExternalAnchor(): JSX.Element {
       <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
       <h2>Last option activated: {actionFired}</h2>
       <div>
-        <Button ref={triggerRef} onClick={() => setOpen(!open)}>
+        <Button ref={anchorRef} onClick={() => setOpen(!open)}>
           {open ? 'Close Menu' : 'Open Menu'}
         </Button>
       </div>
       <br />
 
-      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={triggerRef}>
-        <ActionList>
-          <ActionList.Item onSelect={() => onSelect('Copy link')}>
-            Copy link
-            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Quote reply')}>
-            Quote reply
-            <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Edit comment')}>
-            Edit comment
-            <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
-            Delete file
-            <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-          </ActionList.Item>
-        </ActionList>
+      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item onSelect={() => onSelect('Copy link')}>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Quote reply')}>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Edit comment')}>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
       </ActionMenu>
     </>
   )
@@ -185,39 +190,39 @@ export function ControlledMenu(): JSX.Element {
       </div>
       <br />
 
-      <ActionMenu
-        open={open}
-        onOpenChange={setOpen}
-        overlayProps={{
-          // Because the component is controlled from outside, but the anchor is still internal,
-          // clicking the external button should not be counted as "clicking outside"
-          ignoreClickRefs: [triggerRef]
-        }}
-      >
-        {/**
-         * Even though the state is controlled externally,
-         * we can pass an Anchor for the menu to "anchor to"
-         */}
+      {/**
+       * Even though the state is controlled externally,
+       * we can pass an Anchor for the menu to "anchor to"
+       */}
+      <ActionMenu open={open} onOpenChange={setOpen}>
         <ActionMenu.Button>Anchor</ActionMenu.Button>
-        <ActionList>
-          <ActionList.Item onSelect={() => onSelect('Copy link')}>
-            Copy link
-            <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Quote reply')}>
-            Quote reply
-            <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Edit comment')}>
-            Edit comment
-            <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
-          </ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
-            Delete file
-            <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-          </ActionList.Item>
-        </ActionList>
+        <ActionMenu.Overlay
+          ignoreClickRefs={[
+            // Because the component is controlled from outside, but the anchor is still internal,
+            // clicking the external button should not be counted as "clicking outside"
+            triggerRef
+          ]}
+        >
+          <ActionList>
+            <ActionList.Item onSelect={() => onSelect('Copy link')}>
+              Copy link
+              <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Quote reply')}>
+              Quote reply
+              <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Edit comment')}>
+              Edit comment
+              <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+            </ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
+              Delete file
+              <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
       </ActionMenu>
     </>
   )
@@ -238,27 +243,28 @@ export function CustomAnchor(): JSX.Element {
             <KebabHorizontalIcon />
           </summary>
         </ActionMenu.Anchor>
-
-        <ActionList>
-          <ActionList.Item onSelect={() => onSelect('Rename')}>
-            <ActionList.LeadingVisual>
-              <PencilIcon />
-            </ActionList.LeadingVisual>
-            Rename
-          </ActionList.Item>
-          <ActionList.Item onSelect={() => onSelect('Archive')}>
-            <ActionList.LeadingVisual>
-              <ArchiveIcon />
-            </ActionList.LeadingVisual>
-            Archive all cards
-          </ActionList.Item>
-          <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
-            <ActionList.LeadingVisual>
-              <TrashIcon />
-            </ActionList.LeadingVisual>
-            Delete
-          </ActionList.Item>
-        </ActionList>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item onSelect={() => onSelect('Rename')}>
+              <ActionList.LeadingVisual>
+                <PencilIcon />
+              </ActionList.LeadingVisual>
+              Rename
+            </ActionList.Item>
+            <ActionList.Item onSelect={() => onSelect('Archive')}>
+              <ActionList.LeadingVisual>
+                <ArchiveIcon />
+              </ActionList.LeadingVisual>
+              Archive all cards
+            </ActionList.Item>
+            <ActionList.Item variant="danger" onSelect={() => onSelect('Delete file')}>
+              <ActionList.LeadingVisual>
+                <TrashIcon />
+              </ActionList.LeadingVisual>
+              Delete
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
       </ActionMenu>
     </>
   )
@@ -302,7 +308,7 @@ export function MemexTableMenu(): JSX.Element {
         }}
       >
         <Text sx={{fontSize: 0, fontWeight: 'bold'}}>{name}</Text>
-        <ActionMenu open={open} onOpenChange={setOpen} overlayProps={{onClickOutside: handleClickOutside}}>
+        <ActionMenu open={open} onOpenChange={setOpen}>
           <ActionMenu.Button
             aria-label="Open Estimate column options menu"
             sx={{
@@ -315,19 +321,21 @@ export function MemexTableMenu(): JSX.Element {
             <TriangleDownIcon />
           </ActionMenu.Button>
 
-          <TextInput ref={inputRef} sx={{m: 2}} defaultValue={name} onKeyPress={handleKeyPress} />
-          <ActionMenu.Divider sx={{m: 0}} />
+          <ActionMenu.Overlay onClickOutside={handleClickOutside}>
+            <TextInput ref={inputRef} sx={{m: 2}} defaultValue={name} onKeyPress={handleKeyPress} />
+            <ActionMenu.Divider sx={{m: 0}} />
 
-          <ActionList>
-            <ActionList.Item>Sort ascending (123...)</ActionList.Item>
-            <ActionList.Item>Sort descending (123...)</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item>Filter by values</ActionList.Item>
-            <ActionList.Item>Group by values</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item disabled>Hide field</ActionList.Item>
-            <ActionList.Item variant="danger">Delete file</ActionList.Item>
-          </ActionList>
+            <ActionList>
+              <ActionList.Item>Sort ascending (123...)</ActionList.Item>
+              <ActionList.Item>Sort descending (123...)</ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item>Filter by values</ActionList.Item>
+              <ActionList.Item>Group by values</ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item disabled>Hide field</ActionList.Item>
+              <ActionList.Item variant="danger">Delete file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
         </ActionMenu>
       </Box>
     </>
@@ -441,7 +449,7 @@ export function MemexViewOptionsMenu(): JSX.Element {
           <StyledOcticon icon={ProjectIcon} sx={{mr: 2}} />
           React
         </Text>
-        <ActionMenu open={open} onOpenChange={setOpen} overlayProps={{width: 'medium'}}>
+        <ActionMenu open={open} onOpenChange={setOpen}>
           <ActionMenu.Button
             aria-label="Open View options menu"
             sx={{
@@ -456,78 +464,123 @@ export function MemexViewOptionsMenu(): JSX.Element {
             <TriangleDownIcon />
           </ActionMenu.Button>
 
-          <ActionList>
-            <ActionList.Group title="Layout">
+          <ActionMenu.Overlay width="medium">
+            <ActionList>
+              <ActionList.Group title="Layout">
+                <li style={{listStyle: 'none'}}>
+                  <Box sx={{mx: 3, display: 'flex'}}>
+                    <LayoutToggleItem selected Icon={TableIcon}>
+                      Table
+                    </LayoutToggleItem>
+                    <LayoutToggleItem selected={false} Icon={ProjectIcon}>
+                      Board
+                    </LayoutToggleItem>
+                  </Box>
+                </li>
+              </ActionList.Group>
+              <ActionList.Divider />
+
+              <ActionList.Group title="Configuration">
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <ListUnorderedIcon />
+                  </ActionList.LeadingVisual>
+                  Title, Assignees, Status, Labels, Repositories
+                </ActionList.Item>
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <ListUnorderedIcon />
+                  </ActionList.LeadingVisual>
+                  group: none
+                </ActionList.Item>
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <ArrowDownIcon />
+                  </ActionList.LeadingVisual>
+                  sort: manual
+                </ActionList.Item>
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <SearchIcon />
+                  </ActionList.LeadingVisual>
+                  Search or filter this view
+                </ActionList.Item>
+              </ActionList.Group>
+              <ActionList.Divider />
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <PencilIcon />
+                </ActionList.LeadingVisual>
+                Rename view
+              </ActionList.Item>
+              <ActionList.Item>
+                <ActionList.LeadingVisual>
+                  <VersionsIcon />
+                </ActionList.LeadingVisual>
+                Save changes to new view
+              </ActionList.Item>
+              <ActionList.Item disabled>
+                <ActionList.LeadingVisual>
+                  <TrashIcon />
+                </ActionList.LeadingVisual>
+                Delete view
+              </ActionList.Item>
+              <ActionList.Divider />
+
               <li style={{listStyle: 'none'}}>
-                <Box sx={{mx: 3, display: 'flex'}}>
-                  <LayoutToggleItem selected Icon={TableIcon}>
-                    Table
-                  </LayoutToggleItem>
-                  <LayoutToggleItem selected={false} Icon={ProjectIcon}>
-                    Board
-                  </LayoutToggleItem>
-                </Box>
+                <ViewChangeButtons setOpen={setOpen} />
               </li>
-            </ActionList.Group>
-            <ActionList.Divider />
-
-            <ActionList.Group title="Configuration">
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <ListUnorderedIcon />
-                </ActionList.LeadingVisual>
-                Title, Assignees, Status, Labels, Repositories
-              </ActionList.Item>
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <ListUnorderedIcon />
-                </ActionList.LeadingVisual>
-                group: none
-              </ActionList.Item>
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <ArrowDownIcon />
-                </ActionList.LeadingVisual>
-                sort: manual
-              </ActionList.Item>
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <SearchIcon />
-                </ActionList.LeadingVisual>
-                Search or filter this view
-              </ActionList.Item>
-            </ActionList.Group>
-            <ActionList.Divider />
-            <ActionList.Item>
-              <ActionList.LeadingVisual>
-                <PencilIcon />
-              </ActionList.LeadingVisual>
-              Rename view
-            </ActionList.Item>
-            <ActionList.Item>
-              <ActionList.LeadingVisual>
-                <VersionsIcon />
-              </ActionList.LeadingVisual>
-              Save changes to new view
-            </ActionList.Item>
-            <ActionList.Item disabled>
-              <ActionList.LeadingVisual>
-                <TrashIcon />
-              </ActionList.LeadingVisual>
-              Delete view
-            </ActionList.Item>
-            <ActionList.Divider />
-
-            <li style={{listStyle: 'none'}}>
-              <ViewChangeButtons setOpen={setOpen} />
-            </li>
-          </ActionList>
+            </ActionList>
+          </ActionMenu.Overlay>
         </ActionMenu>
       </Box>
     </>
   )
 }
 MemexViewOptionsMenu.storyName = 'Memex View Options Menu'
+
+export function OverlayProps(): JSX.Element {
+  const [open, setOpen] = React.useState(false)
+  const inputRef = React.createRef<HTMLInputElement>()
+
+  return (
+    <>
+      <h1>OverlayProps</h1>
+      <p>
+        Disable `onClickOutside` and `onEscape`. Only way to close is to select an action which takes focus on a
+        TextInput
+      </p>
+      <ActionMenu open={open} onOpenChange={setOpen}>
+        <ActionMenu.Button>Menu</ActionMenu.Button>
+        <ActionMenu.Overlay
+          width="large"
+          onClickOutside={() => {
+            /* do nothing, keep it open*/
+          }}
+          onEscape={() => {
+            /* do nothing, keep it open*/
+          }}
+          returnFocusRef={inputRef}
+        >
+          <ActionList>
+            <ActionList.Item>Option 1</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+            <ActionList.Item>Option 2</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+      <br />
+      <br />
+      <TextInput type="text" ref={inputRef} placeholder="random input to return focus to" />
+    </>
+  )
+}
+OverlayProps.storyName = 'Overlay Props'
 
 export function UnexpectedSelectionVariant(): JSX.Element {
   return (
@@ -536,14 +589,15 @@ export function UnexpectedSelectionVariant(): JSX.Element {
 
       <ActionMenu>
         <ActionMenu.Button>Menu</ActionMenu.Button>
-
-        <ActionList selectionVariant="multiple">
-          <ActionList.Item>Copy link</ActionList.Item>
-          <ActionList.Item>Quote reply</ActionList.Item>
-          <ActionList.Item>Edit comment</ActionList.Item>
-          <ActionList.Divider />
-          <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        </ActionList>
+        <ActionMenu.Overlay>
+          <ActionList selectionVariant="multiple">
+            <ActionList.Item>Copy link</ActionList.Item>
+            <ActionList.Item>Quote reply</ActionList.Item>
+            <ActionList.Item>Edit comment</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger">Delete file</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
       </ActionMenu>
     </>
   )
