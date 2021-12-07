@@ -1,0 +1,52 @@
+---
+title: BranchName
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/BranchName.tsx
+---
+
+```js
+import {BranchName} from '@primer/components'
+```
+
+BranchName is a label-type component rendered as an `<a>` tag by default with monospace font.
+
+## Examples
+
+```jsx live
+<BranchName href="#">a_new_feature_branch</BranchName>
+```
+
+## Props
+
+### BranchName
+
+<PropsTable>
+  <PropsTableBasePropRows
+    elementType="a"
+    refType="HTMLAnchorElement"
+    isPolymorphic
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
