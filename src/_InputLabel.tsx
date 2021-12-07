@@ -19,7 +19,8 @@ const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidd
         fontWeight: 'bold',
         fontSize: 1,
         display: 'block',
-        color: disabled ? 'fg.muted' : 'fg.default'
+        color: disabled ? 'fg.muted' : 'fg.default',
+        cursor: 'pointer'
       }}
     >
       {required ? (

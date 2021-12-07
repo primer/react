@@ -1,11 +1,11 @@
 import React from 'react'
-import {Box} from '..'
+import {Box, useSSRSafeId} from '..'
 import {get} from '../constants'
-import {uniqueId} from '../utils/uniqueId'
 import {Slots} from './slots'
 import ToggleInputLeadingVisual from './ToggleInputLeadingVisual'
 import {Props as InputFieldProps} from './InputField'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
+import InputFieldCaption from './InputFieldCaption'
 
 export interface ToggleInputFieldProps extends Pick<InputFieldProps, 'disabled' | 'id'> {
   /**
@@ -14,15 +14,19 @@ export interface ToggleInputFieldProps extends Pick<InputFieldProps, 'disabled' 
   validationStatus?: FormValidationStatus
 }
 
-const ToggleInputField: React.FC<ToggleInputFieldProps> = ({children, disabled, id, validationStatus}) => {
-  const fieldId = id || uniqueId()
+const ToggleInputField: React.FC<ToggleInputFieldProps> = ({children, disabled, id: idProp, validationStatus}) => {
+  const id = useSSRSafeId(idProp)
+  const captionChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
+    React.isValidElement(child) && child.type === InputFieldCaption ? child : null
+  )?.filter(Boolean)
+  const captionId = captionChildren?.length ? `${id}-caption` : undefined
 
   return (
     <Slots
       context={{
-        captionId: `${id}-caption`,
+        captionId,
         disabled,
-        id: fieldId,
+        id,
         validationStatus
       }}
     >

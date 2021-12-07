@@ -99,7 +99,7 @@ exports[`TextInputField snapshots renders as disabled 1`] = `
 >
   <label
     className="c1"
-    htmlFor="__primer_id_10002"
+    htmlFor="react-aria1817003671-3"
   >
     Name
   </label>
@@ -111,7 +111,7 @@ exports[`TextInputField snapshots renders as disabled 1`] = `
       aria-describedby=""
       className="c3"
       disabled={true}
-      id="__primer_id_10002"
+      id="react-aria1817003671-3"
       type="text"
     />
   </span>
@@ -216,6 +216,7 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
 }
 
 .c4 {
@@ -237,7 +238,7 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
 >
   <label
     className="c1"
-    htmlFor="__primer_id_10004"
+    htmlFor="react-aria1817003671-5"
   >
     Name
   </label>
@@ -245,9 +246,9 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
     className="c2 TextInput-wrapper"
   >
     <input
-      aria-describedby="__primer_id_10004-caption"
+      aria-describedby="react-aria1817003671-5-caption"
       className="c3"
-      id="__primer_id_10004"
+      id="react-aria1817003671-5"
       type="text"
     />
   </span>
@@ -256,7 +257,7 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
     color="fg.muted"
     display="block"
     fontSize={0}
-    id="__primer_id_10004-caption"
+    id="react-aria1817003671-5-caption"
   >
     Hint: your first name
   </span>
@@ -382,7 +383,7 @@ exports[`TextInputField snapshots renders with a hidden label 1`] = `
 >
   <label
     className="c1"
-    htmlFor="__primer_id_10001"
+    htmlFor="react-aria1817003671-2"
   >
     Name
   </label>
@@ -392,7 +393,7 @@ exports[`TextInputField snapshots renders with a hidden label 1`] = `
     <input
       aria-describedby=""
       className="c3"
-      id="__primer_id_10001"
+      id="react-aria1817003671-2"
       type="text"
     />
   </span>
@@ -438,13 +439,17 @@ exports[`TextInputField snapshots renders with a successful validation message 1
   margin-top: 8px;
 }
 
-.c4 {
-  margin-right: 4px;
-}
-
 .c1 {
   height: auto;
   overflow: hidden;
+}
+
+.c4 {
+  margin-right: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c2 {
@@ -454,15 +459,15 @@ exports[`TextInputField snapshots renders with a successful validation message 1
 
 .c3 {
   font-size: 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #1a7f37;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  color: #1a7f37;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
 }
 
 .c3 a {
@@ -487,8 +492,6 @@ exports[`TextInputField snapshots renders with a successful validation message 1
     >
       <span
         className="c3"
-        color="success.fg"
-        display="flex"
         fontSize={0}
       >
         <span
@@ -518,7 +521,7 @@ exports[`TextInputField snapshots renders with a successful validation message 1
           />
         </span>
         <span
-          id="__primer_id_10005-validationMsg"
+          id="react-aria1817003671-6-validationMsg"
         >
           This name is valid
         </span>
@@ -544,13 +547,17 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
   margin-top: 8px;
 }
 
-.c7 {
-  margin-right: 4px;
-}
-
 .c4 {
   height: auto;
   overflow: hidden;
+}
+
+.c7 {
+  margin-right: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c3 {
@@ -612,6 +619,7 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
 }
 
 .c5 {
@@ -621,15 +629,15 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
 
 .c6 {
   font-size: 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #cf222e;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  color: #cf222e;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
 }
 
 .c6 a {
@@ -651,7 +659,7 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
 >
   <label
     className="c1"
-    htmlFor="__primer_id_10006"
+    htmlFor="react-aria1817003671-7"
   >
     Name
   </label>
@@ -659,9 +667,9 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
     className="c2 TextInput-wrapper"
   >
     <input
-      aria-describedby="__primer_id_10006-validationMsg"
+      aria-describedby="react-aria1817003671-7-validationMsg"
       className="c3"
-      id="__primer_id_10006"
+      id="react-aria1817003671-7"
       type="text"
     />
   </span>
@@ -676,8 +684,6 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
     >
       <span
         className="c6"
-        color="danger.fg"
-        display="flex"
         fontSize={0}
       >
         <span
@@ -707,7 +713,7 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
           />
         </span>
         <span
-          id="__primer_id_10006-validationMsg"
+          id="react-aria1817003671-7-validationMsg"
         >
           Your first name cannot contain spaces
         </span>

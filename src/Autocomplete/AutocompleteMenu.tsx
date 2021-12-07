@@ -5,9 +5,9 @@ import {ComponentProps, MandateProps} from '../utils/types'
 import {Box, Spinner} from '../'
 import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
-import {uniqueId} from '../utils/uniqueId'
 import {scrollIntoViewingArea} from '../behaviors/scrollIntoViewingArea'
 import VisuallyHidden from '../_VisuallyHidden'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
@@ -144,6 +144,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const listContainerRef = useRef<HTMLDivElement>(null)
   const [highlightedItem, setHighlightedItem] = useState<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id: itemId}) => itemId))
+  const generatedUniqueId = useSSRSafeId(id)
 
   const selectableItems = useMemo(
     () =>
@@ -217,7 +218,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               leadingVisual: () => <PlusIcon />,
               onAction: (item: T) => {
                 // TODO: make it possible to pass a leadingVisual when using `addNewItem`
-                addNewItem.handleAddItem({...item, id: item.id || uniqueId(), leadingVisual: undefined})
+                addNewItem.handleAddItem({...item, id: item.id || generatedUniqueId, leadingVisual: undefined})
 
                 if (selectionVariant === 'multiple') {
                   setInputValue('')
@@ -228,7 +229,14 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           ]
         : [])
     ],
-    [sortedAndFilteredItemsToRender, addNewItem, setAutocompleteSuggestion, selectionVariant, setInputValue]
+    [
+      sortedAndFilteredItemsToRender,
+      addNewItem,
+      setAutocompleteSuggestion,
+      selectionVariant,
+      setInputValue,
+      generatedUniqueId
+    ]
   )
 
   useFocusZone(

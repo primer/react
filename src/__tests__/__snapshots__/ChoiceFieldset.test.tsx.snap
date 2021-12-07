@@ -50,6 +50,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   font-size: 14px;
   display: block;
   color: #57606a;
+  cursor: pointer;
 }
 
 .c3 {
@@ -96,15 +97,14 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10042-caption"
               aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c6"
               disabled={true}
-              id="__primer_id_10042"
-              name="__primer_id_10038"
+              id="react-aria-3"
+              name="react-aria-2"
               onChange={[Function]}
               type="radio"
               value="labelOne"
@@ -116,7 +116,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <label
               className="c8"
-              htmlFor="__primer_id_10042"
+              htmlFor="react-aria-3"
             >
               Label one
             </label>
@@ -133,15 +133,14 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10043-caption"
               aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c6"
               disabled={true}
-              id="__primer_id_10043"
-              name="__primer_id_10038"
+              id="react-aria-4"
+              name="react-aria-2"
               onChange={[Function]}
               type="radio"
               value="labelTwo"
@@ -153,7 +152,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <label
               className="c8"
-              htmlFor="__primer_id_10043"
+              htmlFor="react-aria-4"
             >
               Label two
             </label>
@@ -213,6 +212,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
 }
 
 .c4 {
@@ -271,14 +271,13 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10056-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c7"
-              id="__primer_id_10056"
-              name="__primer_id_10053"
+              id="react-aria-3"
+              name="react-aria-2"
               onChange={[Function]}
               type="radio"
               value="labelOne"
@@ -290,7 +289,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <label
               className="c9"
-              htmlFor="__primer_id_10056"
+              htmlFor="react-aria-3"
             >
               Label one
             </label>
@@ -307,14 +306,13 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10057-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c7"
-              id="__primer_id_10057"
-              name="__primer_id_10053"
+              id="react-aria-4"
+              name="react-aria-2"
               onChange={[Function]}
               type="radio"
               value="labelTwo"
@@ -326,7 +324,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <label
               className="c9"
-              htmlFor="__primer_id_10057"
+              htmlFor="react-aria-4"
             >
               Label two
             </label>
@@ -401,6 +399,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
 }
 
 .c3 {
@@ -453,14 +452,13 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10026-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c6"
-              id="__primer_id_10026"
-              name="__primer_id_10023"
+              id="react-aria-3"
+              name="react-aria-2"
               onChange={[Function]}
               type="radio"
               value="labelOne"
@@ -499,7 +497,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <label
               className="c9"
-              htmlFor="__primer_id_10026"
+              htmlFor="react-aria-3"
             >
               Label one
             </label>
@@ -508,7 +506,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
               color="fg.muted"
               display="block"
               fontSize={0}
-              id="__primer_id_10026-caption"
             >
               Caption one
             </span>
@@ -525,14 +522,13 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10027-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c6"
-              id="__primer_id_10027"
-              name="__primer_id_10023"
+              id="react-aria-4"
+              name="react-aria-2"
               onChange={[Function]}
               type="radio"
               value="labelTwo"
@@ -571,7 +567,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <label
               className="c9"
-              htmlFor="__primer_id_10027"
+              htmlFor="react-aria-4"
             >
               Label two
             </label>
@@ -580,7 +576,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
               color="fg.muted"
               display="block"
               fontSize={0}
-              id="__primer_id_10027-caption"
             >
               Caption two
             </span>
@@ -707,6 +702,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
 }
 
 .c1 {
@@ -766,14 +762,13 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10067-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c5"
-              id="__primer_id_10067"
-              name="__primer_id_10064"
+              id="react-aria-3"
+              name="react-aria-2"
               onChange={[Function]}
               type="radio"
               value="labelOne"
@@ -785,7 +780,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <label
               className="c7"
-              htmlFor="__primer_id_10067"
+              htmlFor="react-aria-3"
             >
               Label one
             </label>
@@ -802,14 +797,13 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-describedby="__primer_id_10068-caption"
               aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
               className="c5"
-              id="__primer_id_10068"
-              name="__primer_id_10064"
+              id="react-aria-4"
+              name="react-aria-2"
               onChange={[Function]}
               type="radio"
               value="labelTwo"
@@ -821,7 +815,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <label
               className="c7"
-              htmlFor="__primer_id_10068"
+              htmlFor="react-aria-4"
             >
               Label two
             </label>
@@ -867,10 +861,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   flex-direction: column;
 }
 
-.c13 {
-  margin-right: 4px;
-}
-
 .c9 {
   margin-top: 16px;
 }
@@ -878,6 +868,14 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 .c10 {
   height: auto;
   overflow: hidden;
+}
+
+.c13 {
+  margin-right: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c6 {
@@ -894,6 +892,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   font-size: 14px;
   display: block;
   color: fg.default;
+  cursor: pointer;
 }
 
 .c11 {
@@ -920,15 +919,15 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 
 .c12 {
   font-size: 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: success.fg;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  color: success.fg;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
 }
 
 .c12 a {
@@ -940,7 +939,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 <div>
   <div>
     <fieldset
-      aria-describedby="__primer_id_10069-validationMsg"
+      aria-describedby="react-aria-1-validationMsg"
       class="c0"
     >
       <div
@@ -965,13 +964,12 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby="__primer_id_10074-caption"
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
-                id="__primer_id_10074"
-                name="__primer_id_10073"
+                id="react-aria-3"
+                name="react-aria-2"
                 type="radio"
                 value="labelOne"
               />
@@ -982,7 +980,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <label
                 class="c8"
-                for="__primer_id_10074"
+                for="react-aria-3"
               >
                 Label one
               </label>
@@ -999,13 +997,12 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby="__primer_id_10075-caption"
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
-                id="__primer_id_10075"
-                name="__primer_id_10073"
+                id="react-aria-4"
+                name="react-aria-2"
                 type="radio"
                 value="labelTwo"
               />
@@ -1016,7 +1013,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <label
                 class="c8"
-                for="__primer_id_10075"
+                for="react-aria-4"
               >
                 Label two
               </label>
@@ -1038,8 +1035,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
         >
           <span
             class="c12"
-            color="success.fg"
-            display="flex"
             font-size="0"
           >
             <span
@@ -1062,7 +1057,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
               </svg>
             </span>
             <span
-              id="__primer_id_10069-validationMsg"
+              id="react-aria-1-validationMsg"
             >
               You made the right selection
             </span>
@@ -1108,10 +1103,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   flex-direction: column;
 }
 
-.c13 {
-  margin-right: 4px;
-}
-
 .c9 {
   margin-top: 16px;
 }
@@ -1119,6 +1110,14 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 .c10 {
   height: auto;
   overflow: hidden;
+}
+
+.c13 {
+  margin-right: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c6 {
@@ -1135,6 +1134,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   font-size: 14px;
   display: block;
   color: fg.default;
+  cursor: pointer;
 }
 
 .c11 {
@@ -1161,15 +1161,15 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 
 .c12 {
   font-size: 12px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: danger.fg;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  color: danger.fg;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
 }
 
 .c12 a {
@@ -1181,7 +1181,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 <div>
   <div>
     <fieldset
-      aria-describedby="__primer_id_10076-validationMsg"
+      aria-describedby="react-aria-1-validationMsg"
       class="c0"
     >
       <div
@@ -1206,13 +1206,12 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby="__primer_id_10081-caption"
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
-                id="__primer_id_10081"
-                name="__primer_id_10080"
+                id="react-aria-3"
+                name="react-aria-2"
                 type="radio"
                 value="labelOne"
               />
@@ -1223,7 +1222,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <label
                 class="c8"
-                for="__primer_id_10081"
+                for="react-aria-3"
               >
                 Label one
               </label>
@@ -1240,13 +1239,12 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-describedby="__primer_id_10082-caption"
                 aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
-                id="__primer_id_10082"
-                name="__primer_id_10080"
+                id="react-aria-4"
+                name="react-aria-2"
                 type="radio"
                 value="labelTwo"
               />
@@ -1257,7 +1255,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <label
                 class="c8"
-                for="__primer_id_10082"
+                for="react-aria-4"
               >
                 Label two
               </label>
@@ -1279,8 +1277,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
         >
           <span
             class="c12"
-            color="danger.fg"
-            display="flex"
             font-size="0"
           >
             <span
@@ -1303,7 +1299,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
               </svg>
             </span>
             <span
-              id="__primer_id_10076-validationMsg"
+              id="react-aria-1-validationMsg"
             >
               You made the wrong selection
             </span>

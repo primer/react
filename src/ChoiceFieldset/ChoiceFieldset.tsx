@@ -1,5 +1,5 @@
 import React, {ComponentProps} from 'react'
-import {Box} from '..'
+import {Box, useSSRSafeId} from '..'
 import createSlots from '../utils/create-slots'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {uniqueId} from '../utils/uniqueId'
@@ -68,7 +68,7 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   validationMap,
   validationResult
 }: ChoiceFieldsetProps<T>) => {
-  const fieldsetId = id || uniqueId()
+  const fieldsetId = useSSRSafeId(id)
   const validationChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
     React.isValidElement(child) && child.type === ChoiceFieldsetValidation ? child : null
   )?.filter(Boolean)

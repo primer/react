@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box} from '..'
+import {Box, useSSRSafeId} from '..'
 import InputValidation from '../_InputValidation'
 import {ComponentProps} from '../utils/types'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -49,7 +49,7 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
   validationMap,
   validationResult
 }: Props<T>) => {
-  const id = idProp || uniqueId()
+  const id = useSSRSafeId(idProp)
   const validationChildren: React.ReactElement<InputFieldValidationProps>[] | undefined | null = React.Children.map(
     children,
     child =>

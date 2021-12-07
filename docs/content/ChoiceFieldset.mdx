@@ -81,7 +81,7 @@ const WithOnSelectHandler = () => {
         </ChoiceFieldset.Description>
         <ChoiceFieldset.List>
           {choices.map(choice => (
-            <ChoiceFieldset.Item value={choice.value}>
+            <ChoiceFieldset.Item value={choice.value} key={choice.value}>
               <Item.Label>{choice.displayName}</Item.Label>
               <Item.Caption>{choice.description}</Item.Caption>
             </ChoiceFieldset.Item>

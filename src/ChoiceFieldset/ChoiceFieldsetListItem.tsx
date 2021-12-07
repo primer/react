@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'
+import {useSSRSafeId} from '..'
 import {ComponentProps} from '../utils/types'
 import {uniqueId} from '../utils/uniqueId'
 import ToggleInputLeadingVisual from '../_InputField/ToggleInputLeadingVisual'
@@ -35,7 +36,7 @@ const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disab
     disabled,
     selectionVariant
   } = choiceFieldsetListContext
-  const fieldId = id || uniqueId()
+  const fieldId = useSSRSafeId(id)
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === ChoiceFieldLabel
   )

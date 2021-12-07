@@ -40,13 +40,12 @@ exports[`RadioInputField snapshots renders as disabled 1`] = `
   >
     <input
       aria-checked="false"
-      aria-describedby="undefined-caption"
       aria-disabled="true"
       aria-invalid="false"
       aria-required="false"
       className="c2"
       disabled={true}
-      id="__primer_id_10002"
+      id="react-aria346963785-3"
       name="testRadioInput"
       type="radio"
       value="testVal"
@@ -54,7 +53,7 @@ exports[`RadioInputField snapshots renders as disabled 1`] = `
   </div>
   <label
     className="c3"
-    htmlFor="__primer_id_10002"
+    htmlFor="react-aria346963785-3"
   >
     Option one
   </label>
@@ -132,6 +131,7 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
 }
 
 <div
@@ -143,12 +143,11 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
   >
     <input
       aria-checked="false"
-      aria-describedby="undefined-caption"
       aria-disabled="false"
       aria-invalid="false"
       aria-required="false"
       className="c2"
-      id="__primer_id_10006"
+      id="react-aria346963785-7"
       name="testRadioInput"
       type="radio"
       value="testVal"
@@ -187,7 +186,7 @@ exports[`RadioInputField snapshots renders with a LeadingVisual 1`] = `
   >
     <label
       className="c5"
-      htmlFor="__primer_id_10006"
+      htmlFor="react-aria346963785-7"
     >
       Option one
     </label>
@@ -251,6 +250,7 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
 }
 
 .c5 {
@@ -268,12 +268,12 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
   >
     <input
       aria-checked="false"
-      aria-describedby="undefined-caption"
+      aria-describedby="react-aria346963785-5-caption"
       aria-disabled="false"
       aria-invalid="false"
       aria-required="false"
       className="c2"
-      id="__primer_id_10004"
+      id="react-aria346963785-5"
       name="testRadioInput"
       type="radio"
       value="testVal"
@@ -285,7 +285,7 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
   >
     <label
       className="c4"
-      htmlFor="__primer_id_10004"
+      htmlFor="react-aria346963785-5"
     >
       Option one
     </label>
@@ -294,7 +294,7 @@ exports[`RadioInputField snapshots renders with a caption 1`] = `
       color="fg.muted"
       display="block"
       fontSize={0}
-      id="undefined-caption"
+      id="react-aria346963785-5-caption"
     >
       Hint: a cool option
     </span>
@@ -364,12 +364,11 @@ exports[`RadioInputField snapshots renders with a hidden label 1`] = `
   >
     <input
       aria-checked="false"
-      aria-describedby="undefined-caption"
       aria-disabled="false"
       aria-invalid="false"
       aria-required="false"
       className="c2"
-      id="__primer_id_10001"
+      id="react-aria346963785-2"
       name="testRadioInput"
       type="radio"
       value="testVal"
@@ -377,7 +376,7 @@ exports[`RadioInputField snapshots renders with a hidden label 1`] = `
   </div>
   <label
     className="c3"
-    htmlFor="__primer_id_10001"
+    htmlFor="react-aria346963785-2"
   >
     Option one
   </label>
