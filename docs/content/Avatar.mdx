@@ -5,17 +5,19 @@ componentId: avatar
 source: https://github.com/primer/react/blob/main/src/Avatar.tsx
 ---
 
+import {Avatar, Box} from '@primer/components'
+
+```js
 import {Avatar} from '@primer/components'
+```
+
+## Examples
+
+### Default
 
 ```jsx live
 <Avatar src="https://avatars.githubusercontent.com/primer" />
 ```
-
-## Props
-
-<Props of={Avatar} />
-
-## Examples
 
 ### Square
 
@@ -23,16 +25,29 @@ import {Avatar} from '@primer/components'
 <Avatar square src="https://avatars.githubusercontent.com/primer" />
 ```
 
-### AvatarPair
+## Props
 
-```jsx live
-<AvatarPair>
-  <Avatar src="https://avatars.githubusercontent.com/github" />
-  <Avatar src="https://avatars.githubusercontent.com/primer" />
-</AvatarPair>
-```
+### Avatar
 
-## Component status
+<PropsTable>
+  <PropsTableRow name="src" type="string" required description="URL of the avatar image." />{' '}
+  <PropsTableRow
+    name="alt"
+    type="string"
+    defaultValue="''"
+    description="Provide alt text when the avatar is used without a name next to it."
+  />
+  <PropsTableRow name="size" type="number" defaultValue="20" description="The size of the avatar in pixels." />
+  <PropsTableRow
+    name="square"
+    type="boolean"
+    defaultValue="false"
+    description="If true, the avatar will be square instead of circular."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
 
 <ComponentChecklist
   items={{

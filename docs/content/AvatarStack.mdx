@@ -7,7 +7,13 @@ source: https://github.com/primer/react/blob/main/src/AvatarStack.tsx
 
 import {AvatarStack} from '@primer/components'
 
-### Default example
+```js
+import {AvatarStack} from '@primer/components'
+```
+
+## Examples
+
+### Default
 
 ```jsx live
 <AvatarStack>
@@ -31,12 +37,14 @@ import {AvatarStack} from '@primer/components'
 
 ## Props
 
-| Name       | Type              | Default | Description                          |
-| :--------- | :---------------- | :-----: | :----------------------------------- |
-| alignRight | Boolean           |         | Creates right aligned AvatarStack    |
-| sx         | SystemStyleObject |   {}    | Style to be applied to the component |
+### AvatarStack
 
-## Component status
+<PropsTable>
+  <PropsTableRow name="alignRight" type="boolean" defaultValue="false" description="Align the avatars to the right" />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
 
 <ComponentChecklist
   items={{
