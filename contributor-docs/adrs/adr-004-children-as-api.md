@@ -339,3 +339,67 @@ We use this pattern in `ActionList v2` :
   <ActionList.Item>
 </ActionList>
 ```
+
+---
+
+<br/>
+
+### Case study with NewButton:
+
+<img width="195" alt="image 12" src="https://user-images.githubusercontent.com/1863771/145045540-9c5326ee-60f8-4678-aca3-46a754ce16bb.png">
+
+Prefer using children for “content”
+
+```jsx
+// we prefer:
+<Button>Watch<Button>
+<Button variant="primary">Watch<Button>
+
+// over this:
+<Button label="Watch"/>
+<Button label="Watch" variant="primary"/>
+```
+
+
+<img width="227" alt="image 13" src="https://user-images.githubusercontent.com/1863771/145045542-0d80491b-75e1-4304-b9fe-8c2cca80b298.png">
+
+
+The Icon should adapt to variant and size of the `Button`. We could use a `EyeIcon` in children here:
+
+```jsx
+<Button>
+  <EyeIcon/> Watch
+</Button>
+```
+
+But, we want to discourage customising the Icon’s color and size in the application. So, in the spirit of making the right thing easy and the wrong thing hard, we ask for the component in a prop instead:
+
+```jsx
+// we prefer:
+<Button leadingIcon={EyeIcon}>Watch</Button>
+// over these:
+<Button><EyeIcon/> Watch</Button>
+<Button leadingIcon={<EyeIcon/>} Watch</Button>
+```
+
+
+<img width="293" alt="image 14" src="https://user-images.githubusercontent.com/1863771/145045544-1a1651f1-fbcf-4022-8e9b-b37558bb2466.png">
+
+
+We want to add a `Counter` that adapts to the variant without supporting all the props of a `CounterLabel` like `scheme`.
+
+`Button.Counter` is a restricted version of `CounterLabel`, making the right thing easy and wrong thing hard:
+
+```jsx
+// we prefer:
+<Button leadingIcon={EyeIcon}>
+  Watch <Button.Counter>1</Button.Counter>
+</Button>
+// over this:
+<Button>
+  <EyeIcon/> Watch <CounterLabel>1</CounterLabel>
+</Button>
+
+// it's possible to make a strong case for this option as well:
+<Button leadingIcon={EyeIcon} counter={1}>Watch</Button>
+```
