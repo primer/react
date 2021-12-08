@@ -39,6 +39,8 @@
       url: /Autocomplete
     - title: Avatar
       url: /Avatar
+    - title: AvatarPair
+      url: /AvatarPair
     - title: AvatarStack
       url: /AvatarStack
     - title: Box

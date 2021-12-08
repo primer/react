@@ -9,17 +9,9 @@ import {Props} from '../src/props'
 import {ComponentChecklist} from '../src/component-checklist'
 import {Box} from '@primer/components'
 
-```jsx live
-<Box color="fg.muted" bg="canvas.subtle" p={3}>
-  Hello
-</Box>
+```js
+import {Box} from '@primer/components'
 ```
-
-## Props
-
-<Props of={Box} />
-
-Box also accepts all [styled system props](https://styled-system.com/table/).
 
 ## Examples
 
@@ -75,7 +67,17 @@ Use Box to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_
 </Box>
 ```
 
-## Component status
+## Props
+
+### Box
+
+<PropsTable>
+  <PropsTableBasePropRows elementType="div" isPolymorphic refType="HTMLDivElement" />
+</PropsTable>
+
+Box also accepts all [styled system props](https://styled-system.com/table/).
+
+## Status
 
 <ComponentChecklist
   items={{
