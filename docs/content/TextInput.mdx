@@ -4,9 +4,6 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/TextInput.tsx
 ---
 
-import {PropsTable} from '../src/props-table'
-import {Link} from '@primer/components'
-
 TextInput is a form component to add default styling to the native text input.
 
 **Note:** Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
@@ -35,8 +32,8 @@ TextInput is a form component to add default styling to the native text input.
 ### TextInput
 
 <PropsTable>
-  <PropsTable.Row name="aria-label" type="string" description="Allows input to be accessible." />
-  <PropsTable.Row
+  <PropsTableRow name="aria-label" type="string" description="Allows input to be accessible." />
+  <PropsTableRow
     name="block"
     type="boolean"
     defaultValue="false"
@@ -46,18 +43,18 @@ TextInput is a form component to add default styling to the native text input.
       </>
     }
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="contrast"
     type="boolean"
     defaultValue="false"
     description="Changes background color to a higher contrast color"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="variant"
     type="'small' | 'large'"
     description="Creates a smaller or larger input than the default."
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="width"
     type={
       <>
@@ -66,7 +63,7 @@ TextInput is a form component to add default styling to the native text input.
     }
     description="Set the width of the input"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="maxWidth"
     type={
       <>
@@ -75,7 +72,7 @@ TextInput is a form component to add default styling to the native text input.
     }
     description="Set the maximum width of the input"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="minWidth"
     type={
       <>
@@ -84,18 +81,18 @@ TextInput is a form component to add default styling to the native text input.
     }
     description="Set the minimum width of the input"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="icon"
     type="React.ComponentType"
     description="An Octicon React component. To be used inside of input. Positioned on the left edge."
   />
-  <PropsTable.SxRow />
-  <PropsTable.RefRow
+  <PropsTableSxRow />
+  <PropsTableRefRow
     elementType="input"
     refType="HTMLInputElement"
     description="A ref to the input element rendered by this component. Note: this is not the outermost element rendered by TextInput. There is also a div wrapper for which a ref is not accepted."
   />
-  <PropsTable.PassthroughPropsRow
+  <PropsTablePassthroughPropsRow
     elementName="input"
     passthroughPropsLink={
       <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes">MDN</Link>
