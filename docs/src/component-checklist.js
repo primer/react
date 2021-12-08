@@ -9,7 +9,9 @@ export function ComponentChecklist({items}) {
     <>
       <H3>Alpha</H3>
       <Checklist aria-describedby="alpha">
-        <Checklist.Item checked={items.propsDocumented}>Component props are documented.</Checklist.Item>
+        <Checklist.Item checked={items.propsDocumented}>
+          Component props are documented on <Link href="https://primer.style/react/">primer.style/react</Link>.
+        </Checklist.Item>
         <Checklist.Item checked={items.noUnnecessaryDeps}>
           Component does not have any unnecessary third-party dependencies.
         </Checklist.Item>
@@ -22,7 +24,13 @@ export function ComponentChecklist({items}) {
       <H3>Beta</H3>
       <Checklist aria-describedby="beta">
         <Checklist.Item checked={items.usedInProduction}>Component is used in a production application.</Checklist.Item>
-        <Checklist.Item checked={items.usageExamplesDocumented}>Common usage examples are documented.</Checklist.Item>
+        <Checklist.Item checked={items.usageExamplesDocumented}>
+          Common usage examples are documented on <Link href="https://primer.style/react/">primer.style/react</Link>.
+        </Checklist.Item>
+        <Checklist.Item checked={items.hasStorybookStories}>
+          Common usage examples are documented in <Link href="https://primer.style/react/storybook">storybook</Link>{' '}
+          stories.
+        </Checklist.Item>
         <Checklist.Item checked={items.designReviewed}>
           Component has been reviewed by a systems designer and any resulting issues have been addressed.
         </Checklist.Item>

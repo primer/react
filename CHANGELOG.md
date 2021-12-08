@@ -1,5 +1,43 @@
 # @primer/components
 
+## 33.1.0
+
+### Minor Changes
+
+- [#1658](https://github.com/primer/react/pull/1658) [`edc48ba8`](https://github.com/primer/react/commit/edc48ba817e2052d2f4ed8e602bffd92e82b8893) Thanks [@rezrah](https://github.com/rezrah)! - Adds a Radio component
+
+### Patch Changes
+
+- [#1675](https://github.com/primer/react/pull/1675) [`2380b668`](https://github.com/primer/react/commit/2380b66848a885ee5dd2e6b07a1173201976545f) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu v2: Added `ActionMenu.Overlay` which accepts props to customize the Menu overlay.
+
+* [#1702](https://github.com/primer/react/pull/1702) [`2c42c382`](https://github.com/primer/react/commit/2c42c382fc4ddf50fc18dd62ca854dc04304a539) Thanks [@colebemis](https://github.com/colebemis)! - Update `BranchName` styles to match github.com
+
+## 33.0.0
+
+### Major Changes
+
+- [#1643](https://github.com/primer/react/pull/1643) [`3938550f`](https://github.com/primer/react/commit/3938550fb3ea3fbec542a0cadaf6aeb734fba938) Thanks [@jfuchs](https://github.com/jfuchs)! - Details no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [#1643](https://github.com/primer/react/pull/1643) [`3938550f`](https://github.com/primer/react/commit/3938550fb3ea3fbec542a0cadaf6aeb734fba938) Thanks [@jfuchs](https://github.com/jfuchs)! - Avatar no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+- [#1643](https://github.com/primer/react/pull/1643) [`3938550f`](https://github.com/primer/react/commit/3938550fb3ea3fbec542a0cadaf6aeb734fba938) Thanks [@jfuchs](https://github.com/jfuchs)! - BranchName no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+* [#1643](https://github.com/primer/react/pull/1643) [`3938550f`](https://github.com/primer/react/commit/3938550fb3ea3fbec542a0cadaf6aeb734fba938) Thanks [@jfuchs](https://github.com/jfuchs)! - Heading no longer accepts styled-system props. Please use the `sx` prop to extend Primer component styling instead. See also https://primer.style/react/overriding-styles for information about `sx` and https://primer.style/react/system-props for context on the removal.
+
+### Minor Changes
+
+- [#1619](https://github.com/primer/react/pull/1619) [`a13efa45`](https://github.com/primer/react/commit/a13efa457ded69656fb390b5b9b666d00157fd21) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Add composable `ActionMenu` to `@primer/components/drafts`
+
+* [#1679](https://github.com/primer/react/pull/1679) [`006cc80b`](https://github.com/primer/react/commit/006cc80bd8fa2f31947e17e0683880e0b8cdc400) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Add `resolvedColorScheme` property to the object returned by `useTheme()`
+
+### Patch Changes
+
+- [#1668](https://github.com/primer/react/pull/1668) [`98dc6336`](https://github.com/primer/react/commit/98dc633674b793edfa4fbeb88fd239e6ca40544e) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Fix multiple selection svg by overriding global shape-rendering for github.com
+
+* [#1596](https://github.com/primer/react/pull/1596) [`5c6dc644`](https://github.com/primer/react/commit/5c6dc644c1e68b36d309deac653aca189f1fa624) Thanks [@dmarcey](https://github.com/dmarcey)! - Fix alignment of items in ActionList (single-select) if some of the items have wrapping text.
+
+- [#1538](https://github.com/primer/react/pull/1538) [`dda6e5d7`](https://github.com/primer/react/commit/dda6e5d7204347c3c66183464dd0903e878a4f20) Thanks [@shiftkey](https://github.com/shiftkey)! - Update `typescript` package to correct generated type declarations.
+
 ## 32.1.0
 
 ### Minor Changes

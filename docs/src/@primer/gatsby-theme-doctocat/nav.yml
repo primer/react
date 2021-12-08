@@ -39,6 +39,8 @@
       url: /Autocomplete
     - title: Avatar
       url: /Avatar
+    - title: AvatarPair
+      url: /AvatarPair
     - title: AvatarStack
       url: /AvatarStack
     - title: Box
@@ -95,6 +97,8 @@
     #   url: /Portal
     - title: ProgressBar
       url: /ProgressBar
+    - title: Radio
+      url: /Radio
     - title: SelectMenu
       url: /SelectMenu
     - title: SideNav
