@@ -1,7 +1,6 @@
 import React, {useContext} from 'react'
 import {useSSRSafeId} from '..'
 import {ComponentProps} from '../utils/types'
-import {uniqueId} from '../utils/uniqueId'
 import ToggleInputLeadingVisual from '../_InputField/ToggleInputLeadingVisual'
 import ChoiceFieldCaption from './ChoiceFieldCaption'
 import ChoiceFieldLabel from './ChoiceFieldLabel'
