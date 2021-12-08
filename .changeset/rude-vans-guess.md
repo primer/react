@@ -10,3 +10,10 @@ To upgrade, run:
 npm uninstall @primer/components
 npm install @primer/react
 ```
+
+Then update your imports:
+
+```diff
+- import {Box} from '@primer/components'
++ import {Box} from '@primer/react'
+```
