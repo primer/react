@@ -1,5 +1,25 @@
 # @primer/components
 
+## 34.0.0
+
+### Major Changes
+
+- [#1676](https://github.com/primer/react/pull/1676) [`1195336e`](https://github.com/primer/react/commit/1195336e475441f6f7bc266630070834ad564503) Thanks [@colebemis](https://github.com/colebemis)! - Rename npm package from `@primer/components` to `@primer/react`
+
+  To upgrade, run:
+
+  ```shell
+  npm uninstall @primer/components
+  npm install @primer/react
+  ```
+
+  Then update your imports:
+
+  ```diff
+  - import {Box} from '@primer/components'
+  + import {Box} from '@primer/react'
+  ```
+
 ## 33.1.0
 
 ### Minor Changes
