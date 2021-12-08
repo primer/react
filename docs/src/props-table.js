@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Link, Label} from '@primer/components'
+import {Box, Link, Label} from '@primer/react'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 
@@ -59,7 +59,9 @@ function Row({name, type, defaultValue, description, required, deprecated}) {
         ) : null}
       </Box>
       <Box as="td" fontFamily="mono" fontSize={1} verticalAlign="top">
-        {type}
+        <Box as="pre" fontFamily="inherit" fontSize="inherit" margin={0} sx={{whiteSpace: 'pre-wrap'}}>
+          {type}
+        </Box>
       </Box>
       <Box as="td" fontFamily="mono" fontSize={1} verticalAlign="top">
         {defaultValue}

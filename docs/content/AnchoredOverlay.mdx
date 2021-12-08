@@ -1,6 +1,8 @@
 ---
 title: AnchoredOverlay
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/AnchoredOverlay/AnchoredOverlay.tsx
+storybook: https://primer.style/react/storybook?path=/story/generic-behaviors-anchoredoverlay--default-portal
 ---
 
 An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
@@ -8,7 +10,7 @@ The overlay can be opened and navigated using keyboard or mouse.
 
 See also [Overlay positioning](/Overlay#positioning).
 
-## Example
+## Examples
 
 ```jsx live
 <State default={false}>
@@ -35,3 +37,121 @@ See also [Overlay positioning](/Overlay#positioning).
   }}
 </State>
 ```
+
+## Props
+
+<PropsTable>
+  <PropsTableRow
+    name="open"
+    type="boolean"
+    defaultValue="false"
+    description="Determines whether the overlay portion of the component should be shown or not."
+  />
+  <PropsTableRow
+    name="onOpen"
+    type="(gesture: 'anchor-click' | 'anchor-key-press') => unknown"
+    description='A callback that is called whenever the overlay is currently closed and an "open gesture" is detected.'
+  />
+  <PropsTableRow
+    name="onClose"
+    type="(gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown"
+    description='A callback that is called whenever the overlay is currently open and a "close gesture" is detected.'
+  />
+  <PropsTableRow
+    name="renderAnchor"
+    type="<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element"
+    description={
+      <>
+        A custom function component used to render the anchor element. When renderAnchor is null, an anchorRef is
+        required.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="anchorRef"
+    type="React.RefObject<HTMLElement>"
+    description={
+      <>
+        An override to the internal <InlineCode>renderAnchor</InlineCode> ref that will be used to position the overlay.
+        When <InlineCode>renderAnchor</InlineCode> is
+        <InlineCode>null</InlineCode>, this can be used to make an anchor that is detached from <InlineCode>
+          AnchoredOverlay
+        </InlineCode>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="side"
+    type={`| 'inside-top' 
+| 'inside-bottom' 
+| 'inside-left' 
+| 'inside-right' 
+| 'inside-center' 
+| 'outside-top' 
+| 'outside-bottom' 
+| 'outside-left' 
+| 'outside-right'`}
+    defaultValue="'outside-bottom'"
+  />
+  <PropsTableRow name="align" type="'start' | 'center' | 'end'" defaultValue="'start'" />
+  <PropsTableRow
+    name="overlayProps"
+    type={
+      <>
+        Partial&lt;<Link href="/Overlay#props">OverlayProps</Link>&gt;
+      </>
+    }
+    description={
+      <>
+        Props to be spread on the internal <InlineCode>Overlay</InlineCode> component.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="focusTrapSettings"
+    type={
+      <>
+        Partial&lt;<Link href="/focusTrap#focustraphooksettings-interface">FocusTrapHookSettings</Link>&gt;
+      </>
+    }
+    description={
+      <>
+        Settings to apply to the focus trap on the internal <InlineCode>Overlay</InlineCode> component.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="focusZoneSettings"
+    type={
+      <>
+        Partial&lt;<Link href="/focusZone#focuszonehooksettings-interface">FocusZoneHookSettings</Link>&gt;
+      </>
+    }
+    description={
+      <>
+        Settings to apply to the focus zone on the internal <InlineCode>Overlay</InlineCode> component.
+      </>
+    }
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
