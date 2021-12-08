@@ -3,7 +3,7 @@ import {render} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {CheckboxInputField} from '..'
+import {CheckboxInputField, SSRProvider} from '..'
 import {MarkGithubIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
@@ -15,91 +15,107 @@ describe('CheckboxInputField', () => {
     it('renders with a label an input', () => {
       expect(
         render(
-          <CheckboxInputField>
-            <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
-            <CheckboxInputField.Input />
-          </CheckboxInputField>
+          <SSRProvider>
+            <CheckboxInputField>
+              <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
+              <CheckboxInputField.Input />
+            </CheckboxInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a hidden label', () => {
       expect(
         render(
-          <CheckboxInputField>
-            <CheckboxInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
-            <CheckboxInputField.Input />
-          </CheckboxInputField>
+          <SSRProvider>
+            <CheckboxInputField>
+              <CheckboxInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
+              <CheckboxInputField.Input />
+            </CheckboxInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a custom ID', () => {
       expect(
         render(
-          <CheckboxInputField id="customId">
-            <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
-            <CheckboxInputField.Input />
-          </CheckboxInputField>
+          <SSRProvider>
+            <CheckboxInputField id="customId">
+              <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
+              <CheckboxInputField.Input />
+            </CheckboxInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders as disabled', () => {
       expect(
         render(
-          <CheckboxInputField disabled>
-            <CheckboxInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
-            <CheckboxInputField.Input />
-          </CheckboxInputField>
+          <SSRProvider>
+            <CheckboxInputField disabled>
+              <CheckboxInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
+              <CheckboxInputField.Input />
+            </CheckboxInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders as disabled with a LeadingVisual', () => {
       expect(
         render(
-          <CheckboxInputField disabled>
-            <CheckboxInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
-            <CheckboxInputField.Input />
-            <CheckboxInputField.LeadingVisual>
-              <MarkGithubIcon />
-            </CheckboxInputField.LeadingVisual>
-          </CheckboxInputField>
+          <SSRProvider>
+            <CheckboxInputField disabled>
+              <CheckboxInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
+              <CheckboxInputField.Input />
+              <CheckboxInputField.LeadingVisual>
+                <MarkGithubIcon />
+              </CheckboxInputField.LeadingVisual>
+            </CheckboxInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a caption', () => {
       expect(
         render(
-          <CheckboxInputField>
-            <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
-            <CheckboxInputField.Input />
-            <CheckboxInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</CheckboxInputField.Caption>
-          </CheckboxInputField>
+          <SSRProvider>
+            <CheckboxInputField>
+              <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
+              <CheckboxInputField.Input />
+              <CheckboxInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</CheckboxInputField.Caption>
+            </CheckboxInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a LeadingVisual and caption', () => {
       expect(
         render(
-          <CheckboxInputField>
-            <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
-            <CheckboxInputField.Input />
-            <CheckboxInputField.LeadingVisual>
-              <MarkGithubIcon />
-            </CheckboxInputField.LeadingVisual>
-            <CheckboxInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</CheckboxInputField.Caption>
-          </CheckboxInputField>
+          <SSRProvider>
+            <CheckboxInputField>
+              <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
+              <CheckboxInputField.Input />
+              <CheckboxInputField.LeadingVisual>
+                <MarkGithubIcon />
+              </CheckboxInputField.LeadingVisual>
+              <CheckboxInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</CheckboxInputField.Caption>
+            </CheckboxInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a LeadingVisual', () => {
       expect(
         render(
-          <CheckboxInputField>
-            <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
-            <CheckboxInputField.Input />
-            <CheckboxInputField.LeadingVisual>
-              <MarkGithubIcon />
-            </CheckboxInputField.LeadingVisual>
-          </CheckboxInputField>
+          <SSRProvider>
+            <CheckboxInputField>
+              <CheckboxInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</CheckboxInputField.Label>
+              <CheckboxInputField.Input />
+              <CheckboxInputField.LeadingVisual>
+                <MarkGithubIcon />
+              </CheckboxInputField.LeadingVisual>
+            </CheckboxInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })

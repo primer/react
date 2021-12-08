@@ -99,7 +99,7 @@ exports[`TextInputField snapshots renders as disabled 1`] = `
 >
   <label
     className="c1"
-    htmlFor="react-aria1817003671-3"
+    htmlFor="react-aria-1"
   >
     Name
   </label>
@@ -111,7 +111,7 @@ exports[`TextInputField snapshots renders as disabled 1`] = `
       aria-describedby=""
       className="c3"
       disabled={true}
-      id="react-aria1817003671-3"
+      id="react-aria-1"
       type="text"
     />
   </span>
@@ -238,7 +238,7 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
 >
   <label
     className="c1"
-    htmlFor="react-aria1817003671-5"
+    htmlFor="react-aria-1"
   >
     Name
   </label>
@@ -246,9 +246,9 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
     className="c2 TextInput-wrapper"
   >
     <input
-      aria-describedby="react-aria1817003671-5-caption"
+      aria-describedby="react-aria-1-caption"
       className="c3"
-      id="react-aria1817003671-5"
+      id="react-aria-1"
       type="text"
     />
   </span>
@@ -257,7 +257,7 @@ exports[`TextInputField snapshots renders with a caption 1`] = `
     color="fg.muted"
     display="block"
     fontSize={0}
-    id="react-aria1817003671-5-caption"
+    id="react-aria-1-caption"
   >
     Hint: your first name
   </span>
@@ -383,7 +383,7 @@ exports[`TextInputField snapshots renders with a hidden label 1`] = `
 >
   <label
     className="c1"
-    htmlFor="react-aria1817003671-2"
+    htmlFor="react-aria-1"
   >
     Name
   </label>
@@ -393,7 +393,7 @@ exports[`TextInputField snapshots renders with a hidden label 1`] = `
     <input
       aria-describedby=""
       className="c3"
-      id="react-aria1817003671-2"
+      id="react-aria-1"
       type="text"
     />
   </span>
@@ -521,7 +521,7 @@ exports[`TextInputField snapshots renders with a successful validation message 1
           />
         </span>
         <span
-          id="react-aria1817003671-6-validationMsg"
+          id="react-aria-1-validationMsg"
         >
           This name is valid
         </span>
@@ -659,7 +659,7 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
 >
   <label
     className="c1"
-    htmlFor="react-aria1817003671-7"
+    htmlFor="react-aria-1"
   >
     Name
   </label>
@@ -667,9 +667,9 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
     className="c2 TextInput-wrapper"
   >
     <input
-      aria-describedby="react-aria1817003671-7-validationMsg"
+      aria-describedby="react-aria-1-validationMsg"
       className="c3"
-      id="react-aria1817003671-7"
+      id="react-aria-1"
       type="text"
     />
   </span>
@@ -713,7 +713,7 @@ exports[`TextInputField snapshots renders with an error validation message 1`] =
           />
         </span>
         <span
-          id="react-aria1817003671-7-validationMsg"
+          id="react-aria-1-validationMsg"
         >
           Your first name cannot contain spaces
         </span>

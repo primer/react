@@ -3,7 +3,7 @@ import {render} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {RadioInputField} from '..'
+import {RadioInputField, SSRProvider} from '..'
 import {MarkGithubIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
@@ -15,91 +15,107 @@ describe('RadioInputField', () => {
     it('renders with a label an input', () => {
       expect(
         render(
-          <RadioInputField>
-            <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input name="testRadioInput" value="testVal" />
-          </RadioInputField>
+          <SSRProvider>
+            <RadioInputField>
+              <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
+              <RadioInputField.Input name="testRadioInput" value="testVal" />
+            </RadioInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a hidden label', () => {
       expect(
         render(
-          <RadioInputField>
-            <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input name="testRadioInput" value="testVal" />
-          </RadioInputField>
+          <SSRProvider>
+            <RadioInputField>
+              <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
+              <RadioInputField.Input name="testRadioInput" value="testVal" />
+            </RadioInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a custom ID', () => {
       expect(
         render(
-          <RadioInputField id="customId">
-            <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input name="testRadioInput" value="testVal" />
-          </RadioInputField>
+          <SSRProvider>
+            <RadioInputField id="customId">
+              <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
+              <RadioInputField.Input name="testRadioInput" value="testVal" />
+            </RadioInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders as disabled', () => {
       expect(
         render(
-          <RadioInputField disabled>
-            <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input name="testRadioInput" value="testVal" />
-          </RadioInputField>
+          <SSRProvider>
+            <RadioInputField disabled>
+              <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
+              <RadioInputField.Input name="testRadioInput" value="testVal" />
+            </RadioInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders as disabled with a LeadingVisual', () => {
       expect(
         render(
-          <RadioInputField disabled>
-            <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input name="testRadioInput" value="testVal" />
-            <RadioInputField.LeadingVisual>
-              <MarkGithubIcon />
-            </RadioInputField.LeadingVisual>
-          </RadioInputField>
+          <SSRProvider>
+            <RadioInputField disabled>
+              <RadioInputField.Label visuallyHidden>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
+              <RadioInputField.Input name="testRadioInput" value="testVal" />
+              <RadioInputField.LeadingVisual>
+                <MarkGithubIcon />
+              </RadioInputField.LeadingVisual>
+            </RadioInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a caption', () => {
       expect(
         render(
-          <RadioInputField>
-            <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input name="testRadioInput" value="testVal" />
-            <RadioInputField.Caption>{RADIOINPUTFIELD_CAPTION_TEXT}</RadioInputField.Caption>
-          </RadioInputField>
+          <SSRProvider>
+            <RadioInputField>
+              <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
+              <RadioInputField.Input name="testRadioInput" value="testVal" />
+              <RadioInputField.Caption>{RADIOINPUTFIELD_CAPTION_TEXT}</RadioInputField.Caption>
+            </RadioInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a LeadingVisual and caption', () => {
       expect(
         render(
-          <RadioInputField>
-            <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input name="testRadioInput" value="testVal" />
-            <RadioInputField.LeadingVisual>
-              <MarkGithubIcon />
-            </RadioInputField.LeadingVisual>
-            <RadioInputField.Caption>{RADIOINPUTFIELD_CAPTION_TEXT}</RadioInputField.Caption>
-          </RadioInputField>
+          <SSRProvider>
+            <RadioInputField>
+              <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
+              <RadioInputField.Input name="testRadioInput" value="testVal" />
+              <RadioInputField.LeadingVisual>
+                <MarkGithubIcon />
+              </RadioInputField.LeadingVisual>
+              <RadioInputField.Caption>{RADIOINPUTFIELD_CAPTION_TEXT}</RadioInputField.Caption>
+            </RadioInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
     it('renders with a LeadingVisual', () => {
       expect(
         render(
-          <RadioInputField>
-            <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
-            <RadioInputField.Input name="testRadioInput" value="testVal" />
-            <RadioInputField.LeadingVisual>
-              <MarkGithubIcon />
-            </RadioInputField.LeadingVisual>
-          </RadioInputField>
+          <SSRProvider>
+            <RadioInputField>
+              <RadioInputField.Label>{RADIOINPUTFIELD_LABEL_TEXT}</RadioInputField.Label>
+              <RadioInputField.Input name="testRadioInput" value="testVal" />
+              <RadioInputField.LeadingVisual>
+                <MarkGithubIcon />
+              </RadioInputField.LeadingVisual>
+            </RadioInputField>
+          </SSRProvider>
         )
       ).toMatchSnapshot()
     })
