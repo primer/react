@@ -1,6 +1,6 @@
 import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
 import {omit} from '@styled-system/props'
-import {FocusKeys} from './behaviors/focusZone'
+import {FocusKeys} from '@primer/behaviors'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
 import {useFocusZone} from './hooks/useFocusZone'
 import {ComponentProps} from './utils/types'
@@ -12,7 +12,7 @@ import UnstyledTextInput from './_UnstyledTextInput'
 import TextInputWrapper from './_TextInputWrapper'
 import Box from './Box'
 import Text from './Text'
-import {isFocusable} from './utils/iterateFocusableElements'
+import {isFocusable} from '@primer/behaviors/utils'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>

@@ -5,10 +5,6 @@
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "typings": "lib/index.d.ts",
-  "sideEffects": [
-    "(lib|lib-esm)/behaviors/focusZone.js",
-    "(lib|lib-esm)/behaviors/focusTrap.js"
-  ],
   "scripts": {
     "setup": "./script/setup",
     "build": "./script/build",
@@ -43,6 +39,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "dependencies": {
+    "@primer/behaviors": "^1.0.2",
     "@primer/octicons-react": "^16.1.0",
     "@primer/primitives": "7.1.1",
     "@radix-ui/react-polymorphic": "0.0.14",

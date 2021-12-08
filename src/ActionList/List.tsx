@@ -6,7 +6,7 @@ import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {SystemCssProperties} from '@styled-system/css'
-import {hasActiveDescendantAttribute} from '../behaviors/focusZone'
+import {hasActiveDescendantAttribute} from '@primer/behaviors'
 import {Merge} from '../utils/types/Merge'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
