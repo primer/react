@@ -18,3 +18,4 @@ The Heading component will render an html `h2` tag without any default styling. 
 | Name | Type                    | Default | Description                          |
 | :--- | :---------------------- | :-----: | :----------------------------------- |
 | as   | String or React element |         | sets the HTML tag for the component  |
+| sx   | SystemStyleObject       |   {}    | Style to be applied to the component |
