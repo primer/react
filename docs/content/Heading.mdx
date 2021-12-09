@@ -1,5 +1,6 @@
 ---
 title: Heading
+description: Use Heading to structure your content and provide an accessible experience for users of assistive technologies.
 status: Alpha
 ---
 
@@ -7,15 +8,15 @@ The Heading component will render an html `h2` tag without any default styling. 
 
 **Attention:** Make sure to include a valid heading element to render a Heading component other than `h2` (`<Heading as="h1">H1 Element</Heading>`).
 
-## Default example
+## Example
 
 ```jsx live
 <Heading sx={{fontSize: 1, mb: 2}}>H2 heading with fontSize={1}</Heading>
 ```
 
-## Component props
+## Props
 
-| Name | Type                    | Default | Description                          |
-| :--- | :---------------------- | :-----: | :----------------------------------- |
-| as   | String or React element |         | sets the HTML tag for the component  |
-| sx   | SystemStyleObject       |   {}    | Style to be applied to the component |
+<PropsTable>
+  <PropsTableAsRow defaultElementType="h2" />
+  <PropsTableSxRow />
+</PropsTable>
