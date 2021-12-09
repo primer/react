@@ -1,5 +1,6 @@
 import React from 'react'
-import {PositionSettings, getAnchoredPosition, AnchorPosition} from '../behaviors/anchoredPosition'
+import {getAnchoredPosition} from '@primer/behaviors'
+import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'

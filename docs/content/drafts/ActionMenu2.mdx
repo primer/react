@@ -6,8 +6,8 @@ storybook: '/react/storybook?path=/story/composite-components-actionmenu2'
 description: An ActionMenu is an ActionList-based component for creating a menu of actions that expands through a trigger button.
 ---
 
-import {Box, Avatar} from '@primer/components'
-import {ActionMenu, ActionList} from '@primer/components/drafts'
+import {Box, Avatar} from '@primer/react'
+import {ActionMenu, ActionList} from '@primer/react/drafts'
 import {Props} from '../../src/props'
 
 <br />
@@ -42,7 +42,7 @@ import {Props} from '../../src/props'
 <br />
 
 ```js
-import {ActionMenu} from '@primer/components/drafts'
+import {ActionMenu} from '@primer/react/drafts'
 ```
 
 <br />
@@ -56,7 +56,7 @@ import {ActionMenu} from '@primer/components/drafts'
 &nbsp;
 
 ```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/components/drafts'
+// import {ActionMenu, ActionList} from '@primer/react/drafts'
 const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
@@ -83,7 +83,7 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 &nbsp;
 
 ```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/components/drafts'
+// import {ActionMenu, ActionList} from '@primer/react/drafts'
 const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
@@ -123,7 +123,7 @@ render(
 ### With Groups
 
 ```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/components/drafts'
+// import {ActionMenu, ActionList} from '@primer/react/drafts'
 const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
 
 render(
@@ -194,7 +194,7 @@ render(
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`:
 
 ```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/components/drafts'
+// import {ActionMenu, ActionList} from '@primer/react/drafts'
 const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
 
 const Example = () => {
@@ -230,7 +230,7 @@ render(<Example />)
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`:
 
 ```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/components/drafts'
+// import {ActionMenu, ActionList} from '@primer/react/drafts'
 const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
 
 const handleEscape = () => alert('you hit escape!')
