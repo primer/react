@@ -8,7 +8,7 @@ storybook: '/react/storybook?path=/story/forms-checkbox--default'
 
 import {ComponentChecklist} from '../src/component-checklist'
 
-## Default example
+## Examples
 
 The `Checkbox` component can be used in controlled and uncontrolled modes.
 
@@ -43,7 +43,8 @@ The `Checkbox` component can be used in controlled and uncontrolled modes.
 ```
 
 <Note variant="warning">
-Checkbox components should always be accompanied by a corresponding label to improve support for assistive technologies.
+  Checkbox components should always be accompanied by a corresponding label to improve support for assistive
+  technologies.
 </Note>
 
 ## Indeterminate example
@@ -85,22 +86,56 @@ An `indeterminate` checkbox state should be used if the input value is neither t
 </>
 ```
 
-## Component props
+## Props
 
-Native `<input>` attributes are forwarded to the underlying React `input` component and are not listed below.
+<PropsTable>
+  <PropsTableRow
+    name="checked"
+    type="boolean"
+    description="Modifies true/false value of the native checkbox"
+  />
+  <PropsTableRow
+    name="defaultChecked"
+    type="boolean"
+    description="Checks the input by default in uncontrolled mode"
+  />
+  <PropsTableRow
+    name="onChange"
+    type="(ChangeEvent) => void"
+    description="A callback function that is triggered when the checked state has been changed"    
+  />
 
-| Name           | Type        |  Default  | Description                                                                                                                                             |
-| :------------- | :---------- | :-------: | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| checked        | Boolean     | undefined | Optional. Modifies true/false value of the native checkbox                                                                                              |
-| defaultChecked | Boolean     | undefined | Optional. Checks the input by default in uncontrolled mode                                                                                              |
-| onChange       | ChangeEvent | undefined | Optional. A callback function that is triggered when the checked state has been changed.                                                                |
-| disabled       | Boolean     | undefined | Optional. Modifies the native disabled state of the native checkbox                                                                                     |
-| indeterminate  | Boolean     | undefined | Optional. Applies an [indeterminate](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate) state to the checkbox |
+<PropsTableRow
+  name="indeterminate"
+  type="boolean"
+  description={
+    <>
+      Applies an{' '}
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate">
+        indeterminate state
+      </Link>{' '}
+      to the checkbox
+    </>
+  }
+/>
+
+<PropsTableBasePropRows
+  elementType="input"
+  isPolymorphic={false}
+  refType="HTMLInputElement"
+  passthroughPropsLink={
+    <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#additional_attributes">
+      MDN
+    </Link>
+  }
+/>
+
+</PropsTable>
 
 ## Component status
 
 <ComponentChecklist
-items={{
+  items={{
     propsDocumented: true,
     noUnnecessaryDeps: true,
     adaptsToThemes: true,
