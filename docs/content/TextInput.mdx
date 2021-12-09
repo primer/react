@@ -8,24 +8,84 @@ TextInput is a form component to add default styling to the native text input.
 
 **Note:** Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
 
-## Examples
+## Default example
+
+```jsx live
+<TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
+```
+
+## Text Input with Icons
 
 ```jsx live
 <>
-  <TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
-
-  <TextInput sx={{ml: 4}} aria-label="City" name="city" placeholder="City" contrast />
-
   <TextInput
-    sx={{ml: 4}}
-    icon={SearchIcon}
+    leadingVisual={SearchIcon}
     aria-label="Zipcode"
     name="zipcode"
-    placeholder="Find user"
+    placeholder="Zip"
+    autoComplete="postal-code"
+  />
+
+  <TextInput
+    sx={{mt: 3}}
+    trailingVisual={SearchIcon}
+    aria-label="Zipcode"
+    name="zipcode"
+    placeholder="Zip"
     autoComplete="postal-code"
   />
 </>
 ```
+
+## Text Input with Text visuals
+
+```jsx live
+<>
+  <TextInput leadingVisual="$" aria-label="Cost of the thing" name="cost" placeholder="23.45" />
+
+  <TextInput
+    sx={{mt: 3, width: '150px'}}
+    trailingVisual="minutes"
+    aria-label="Time in minutes"
+    name="time"
+    placeholder="25"
+  />
+</>
+```
+
+## Text Input with Error and warning states
+
+```jsx live
+<>
+  <TextInput
+    validationStatus="error"
+    aria-label="Zipcode"
+    name="zipcode"
+    placeholder="Error"
+    autoComplete="postal-code"
+  />
+
+  <TextInput
+    sx={{mt: 3}}
+    validationStatus="warning"
+    aria-label="Zipcode"
+    name="zipcode"
+    placeholder="Warning"
+    autoComplete="postal-code"
+  />
+</>
+```
+
+## Block text input
+
+```jsx live
+<TextInput block aria-label="Zipcode" name="zipcode" placeholder="560076" autoComplete="postal-code" />
+```
+
+## Contrast text input
+
+```jsx live
+<TextInput contrast aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
 
 ## Props
 
@@ -120,3 +180,4 @@ TextInput is a form component to add default styling to the native text input.
     hasFigmaComponent: false
   }}
 />
+```
