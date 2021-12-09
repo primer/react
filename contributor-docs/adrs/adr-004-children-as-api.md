@@ -14,7 +14,7 @@ _Note #2: Consumer is used multiple times on this page. It refers to the develop
 
 ## Prefer using children for “content”
 
-With React, `children` is the out-of-the-box way for putting _content_ inside your component. By using `children` instead our own custom prop, we can make the API “predictable” for its consumers.
+With React, `children` is the out-of-the-box way for putting _content_ inside your component. By using `children` instead of our own custom prop, we can make the API “predictable” for its consumers.
 
 <img width="373" alt="image" src="https://user-images.githubusercontent.com/1863771/144945223-70c4c800-5827-4985-9f18-0ab416eba058.png">
 
@@ -140,8 +140,8 @@ The icon gets its color and margin based on the variant and size of the `Button`
 <img width="141" alt="image 9" src="https://user-images.githubusercontent.com/1863771/144945219-a853ed1c-f21d-412e-a388-6d74ec436645.png">
 
 ```jsx
-<Button leadingIcon={SearchIcon}>Search</Button>
-<Button leadingIcon={SearchIcon} variant="primary" size="large">Search</Button>
+<NewButton leadingIcon={SearchIcon}>Search</NewButton>
+<NewButton leadingIcon={SearchIcon} variant="primary" size="large">Search</NewButton>
 ```
 
 ```jsx
