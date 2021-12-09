@@ -38,8 +38,6 @@ With a range-select datepicker, the user is able to select a range of dates by s
 
 ## Component props
 
-Native `<input>` attributes are forwarded to the underlying React `input` component and are not listed below.
-
 | Name                  | Type                                 |     Default      | Description                                                                                                                                                |
 | :-------------------- | :----------------------------------- | :--------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | anchoredOverlayProps  | Object                               |    undefined     | Optional. Additional properties passed to the overlay                                                                                                      |
