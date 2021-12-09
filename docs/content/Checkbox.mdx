@@ -47,7 +47,7 @@ The `Checkbox` component can be used in controlled and uncontrolled modes.
   technologies.
 </Note>
 
-## Indeterminate example
+## Indeterminate
 
 An `indeterminate` checkbox state should be used if the input value is neither true nor false. This can be useful in situations where you are required to display an incomplete state, or one that is dependent on other input selections to determine a value.
 
@@ -104,31 +104,34 @@ An `indeterminate` checkbox state should be used if the input value is neither t
     type="(ChangeEvent) => void"
     description="A callback function that is triggered when the checked state has been changed"    
   />
-
-<PropsTableRow
-  name="indeterminate"
-  type="boolean"
-  description={
-    <>
-      Applies an{' '}
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate">
-        indeterminate state
-      </Link>{' '}
-      to the checkbox
-    </>
-  }
-/>
-
-<PropsTableBasePropRows
-  elementType="input"
-  isPolymorphic={false}
-  refType="HTMLInputElement"
-  passthroughPropsLink={
-    <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#additional_attributes">
-      MDN
-    </Link>
-  }
-/>
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    description="Modifies the native disabled state of the native checkbox"    
+  />
+  <PropsTableRow
+    name="indeterminate"
+    type="boolean"
+    description={
+      <>
+        Applies an{' '}
+        <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate">
+          indeterminate state
+        </Link>{' '}
+        to the checkbox
+      </>
+    }
+  />
+  <PropsTableBasePropRows
+    elementType="input"
+    isPolymorphic={false}
+    refType="HTMLInputElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#additional_attributes">
+        MDN
+      </Link>
+    }
+  />
 
 </PropsTable>
 

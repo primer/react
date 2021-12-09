@@ -6,7 +6,7 @@ source: https://github.com/primer/react/blob/main/src/Radio.tsx
 storybook: '/react/storybook?path=/story/forms-radio-button--default'
 ---
 
-## Default example
+## Examples
 
 ```jsx live
 <>
@@ -16,11 +16,9 @@ storybook: '/react/storybook?path=/story/forms-radio-button--default'
 </>
 ```
 
-<Note>
-Please use a [Checkbox](/Checkbox) if the user needs to select more than one option in a list
-</Note>
+<Note>Please use a [Checkbox](/Checkbox) if the user needs to select more than one option in a list</Note>
 <Note variant="warning">
-Radio components should always be accompanied by a corresponding label to improve support for assistive technologies.
+  Radio components should always be accompanied by a corresponding label to improve support for assistive technologies.
 </Note>
 
 ## Grouping Radio components
@@ -56,23 +54,39 @@ Use the `name` prop to group together related `Radio` components in a list.
 </form>
 ```
 
-## Component props
+## Props
 
-Native `<input>` attributes are forwarded to the underlying React `input` component and are not listed below.
-
-| Name           | Type        |  Default  | Description                                                                              |
-| :------------- | :---------- | :-------: | :--------------------------------------------------------------------------------------- |
-| value          | String      | undefined | Required. A unique value that is never shown to the user.                                |
-| name           | String      | undefined | Required. Used for grouping multiple radios                                              |
-| checked        | Boolean     | undefined | Optional. Modifies true/false value of the native radio                                  |
-| defaultChecked | Boolean     | undefined | Optional. Selects the radio by default in uncontrolled mode                              |
-| onChange       | ChangeEvent | undefined | Optional. A callback function that is triggered when the checked state has been changed. |
-| disabled       | Boolean     | undefined | Optional. Modifies the native disabled state of the native radio                         |
+<PropsTable>
+  <PropsTableRow name="value" type="string" required description="A unique value that is never shown to the user" />
+  <PropsTableRow name="name" type="string" required description="Required for grouping multiple radios" />
+  <PropsTableRow name="checked" type="boolean" description="Modifies true/false value of the native radio" />
+  <PropsTableRow name="defaultChecked" type="boolean" description="Selects the radio by default in uncontrolled mode" />
+  <PropsTableRow
+    name="onChange"
+    type="(ChangeEvent) => void"
+    description="A callback function that is triggered when the input state has been changed"
+  />
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    description="Modifies the native disabled state of the native checkbox"
+  />
+  <PropsTableBasePropRows
+    elementType="input"
+    isPolymorphic={false}
+    refType="HTMLInputElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#additional_attributes">
+        MDN
+      </Link>
+    }
+  />
+</PropsTable>
 
 ## Component status
 
 <ComponentChecklist
-items={{
+  items={{
     propsDocumented: true,
     noUnnecessaryDeps: true,
     adaptsToThemes: true,
