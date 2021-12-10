@@ -239,20 +239,18 @@ We use this pattern as well in `NewButton`, `Button.Counter` is a restricted ver
 
 Another place where composite patterns lead to aesthetic predictable APIs is when we want to expose customisation options for internal components.
 
-For Example, `ActionMenu` accepts `overlayProps` to pass it down to the implementation detail:
+For Example, `ActionMenu` accepts `overlayProps` and `anchorContent` to pass it down to the implementation details:
 
 <img width="337" alt="image 10" src="https://user-images.githubusercontent.com/1863771/144945221-b6a4e7f0-5134-4485-bfd0-1e4b2e77a70e.png">
 
 ```jsx
-<ActionMenu overlayProps={{width: 'medium'}}>
-  <ActionMenu.Button>Open column menu</ActionMenu.Button>
-  <ActionList>...</ActionList>
+<ActionMenu overlayProps={{width: 'medium'}} anchorContent="Open column menu">
 </ActionMenu>
 ```
 
 <br/>
 
-When we see a a prop which resembles “childProps" on the container/parent, it's a sign that we should surface this detail in the API by creating a composite component:
+When we see a a prop which resembles “childProps" or `renderChild` on the container/parent, it's a sign that we should surface this detail in the API by creating a composite component:
 
 ```jsx
 // we created an additional layer so that
