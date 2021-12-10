@@ -261,6 +261,12 @@ render(
 )
 ```
 
+<Note variant="warning">
+
+Use `ActionMenu` to choose an action from a list. If you’re looking for single or multiple selection, use [DropdownMenu](/DropdownMenu) or [SelectPanel](/SelectPanel) instead.
+
+</Note>
+
 ## Props / API reference
 
 ### ActionMenu
@@ -290,21 +296,6 @@ render(
 | :--------------------------------------- | :-------------------- | :-----------------: | :-------------------------------------------------------------------------------------------- |
 | children\*                               | `React.ReactElement[] | React.ReactElement` | Required. Recommended: [`ActionList`](/drafts/ActionList2)                                    |
 | [OverlayProps](/Overlay#component-props) | -                     |          -          | Optional. Props to be spread on the internal [`AnchoredOverlay`](/AnchoredOverlay) component. |
-
-<Note variant="warning">
-
-<DoDontContainer>
-  <Do>Use ActionMenu to choose an action from a list.</Do>
-  <Dont>
-    <div>
-      Don't use ActionMenu for single or multiple selection. Use <a href="/react/DropdownMenu">DropdownMenu</a> or{' '}
-      <a href="/react/SelectPanel">SelectPanel</a> instead.
-    </div>
-  </Dont>
-</DoDontContainer>
-
-</Note>
-
 
 ## Further reading
 
