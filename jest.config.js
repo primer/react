@@ -9,5 +9,7 @@ module.exports = {
     '<rootDir>/src/utils/test-deprecations.tsx',
     '<rootDir>/src/utils/test-helpers.tsx'
   ],
-  testMatch: ['<rootDir>/(src|codemods)/__tests__/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)']
+  testMatch: ['<rootDir>/(src|codemods)/__tests__/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
+  // @primer/behaviors is ESM, so needs to be transformed
+  transformIgnorePatterns: ['node_modules/(?!@primer/behaviors)']
 }

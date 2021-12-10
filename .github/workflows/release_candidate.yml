@@ -1,4 +1,5 @@
 name: Release
+
 on:
   push:
     branches:
@@ -7,54 +8,7 @@ on:
 jobs:
   release-candidate:
     name: Candidate
-    if: ${{ github.repository == 'primer/react' }}
-
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Create .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
-
-      - name: Publish release candidate
-        run: |
-          version=$(jq -r .version package.json)
-          echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" package.json )" > package.json
-          yarn publish --tag next
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Output release candidate version number
-        uses: actions/github-script@v4.0.2
-        with:
-          script: |
-            const package = require(`${process.env.GITHUB_WORKSPACE}/package.json`)
-            github.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-              state: 'success',
-              context: `Published ${package.name}`,
-              description: package.version,
-              target_url: `https://unpkg.com/${package.name}@${package.version}/`
-            })
+    uses: primer/.github/.github/workflows/release_candidate.yml@main
+    secrets:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}

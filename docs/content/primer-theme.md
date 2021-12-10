@@ -2,7 +2,7 @@
 title: Primer Theme
 ---
 
-import {theme} from '@primer/components'
+import {theme} from '@primer/react'
 
 Primer React components come with built-in access to our Primer theme. The [theme file](https://github.com/primer/react/blob/main/src/theme-preval.ts) contains an object which holds values for common variables such as color, fonts, box shadows, and more. Our theme file pulls many of its color and typography values from [primer-primitives](https://github.com/primer/primer-primitives).
 
@@ -21,7 +21,7 @@ There are two ways to change the theme of Primer components:
 1. You can override the entire theme for an entire tree of components using the `<ThemeProvider>` from [styled-components]:
 
    ```javascript
-   import {Box, Button, Text, theme as primer} from '@primer/components'
+   import {Box, Button, Text, theme as primer} from '@primer/react'
    import {ThemeProvider} from 'styled-components'
 
    // a theme with custom spacing and font sizes
@@ -49,7 +49,7 @@ There are two ways to change the theme of Primer components:
 
    ```javascript
    import {ThemeProvider} from `styled-components`
-   import {theme} from '@primer/components'
+   import {theme} from '@primer/react'
 
    const customTheme = {} // Theme overrides
 
@@ -67,7 +67,7 @@ There are two ways to change the theme of Primer components:
 3. You can theme individual components by passing the `theme` prop directly:
 
    ```javascript
-   import {Text} from '@primer/components'
+   import {Text} from '@primer/react'
 
    const theme = {
      colors: {

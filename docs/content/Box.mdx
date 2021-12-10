@@ -5,21 +5,9 @@ description: A low-level utility component that accepts styled system props to e
 source: https://github.com/primer/react/blob/main/src/Box.tsx
 ---
 
-import {Props} from '../src/props'
-import {ComponentChecklist} from '../src/component-checklist'
-import {Box} from '@primer/components'
-
-```jsx live
-<Box color="fg.muted" bg="canvas.subtle" p={3}>
-  Hello
-</Box>
+```js
+import {Box} from '@primer/react'
 ```
-
-## Props
-
-<Props of={Box} />
-
-Box also accepts all [styled system props](https://styled-system.com/table/).
 
 ## Examples
 
@@ -75,7 +63,17 @@ Use Box to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_
 </Box>
 ```
 
-## Component status
+## Props
+
+### Box
+
+<PropsTable>
+  <PropsTableBasePropRows elementType="div" isPolymorphic refType="HTMLDivElement" />
+</PropsTable>
+
+Box also accepts all [styled system props](https://styled-system.com/table/).
+
+## Status
 
 <ComponentChecklist
   items={{
