@@ -78,7 +78,7 @@ function BasePropRows({passthroughPropsLink, elementType, isPolymorphic, refType
     <>
       <SxRow />
       {isPolymorphic && <AsRow defaultElementType={elementType} />}
-      <RefRow refType={refType} isPolymorphic={isPolymorphic} />
+      {refType && <RefRow refType={refType} isPolymorphic={isPolymorphic} />}
       <PassthroughPropsRow
         passthroughPropsLink={passthroughPropsLink}
         elementName={elementType}
