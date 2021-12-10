@@ -73,6 +73,11 @@ All items directly under the Header component should be a `Header.Item` componen
 
 <PropsTable>
   <PropsTableRow name="href" type="string" description="URL to be used for the Link" />
-  <PropsTableAsRow defaultElementType="a" />
-  <PropsTableSxRow />
+  <PropsTableBasePropRows
+    elementType="a"
+    refType="HTMLAnchorElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes">MDN</Link>
+    }
+  />
 </PropsTable>

@@ -68,7 +68,7 @@ Use the `name` prop to group together related `Radio` components in a list.
   <PropsTableRow name="defaultChecked" type="boolean" description="Selects the radio by default in uncontrolled mode" />
   <PropsTableRow
     name="onChange"
-    type="(ChangeEvent) => void"
+    type="(event: React.ChangeEvent) => void"
     description="A callback function that is triggered when the input state has been changed"
   />
   <PropsTableRow
@@ -78,7 +78,6 @@ Use the `name` prop to group together related `Radio` components in a list.
   />
   <PropsTableBasePropRows
     elementType="input"
-    isPolymorphic={false}
     refType="HTMLInputElement"
     passthroughPropsLink={
       <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#additional_attributes">
@@ -88,7 +87,7 @@ Use the `name` prop to group together related `Radio` components in a list.
   />
 </PropsTable>
 
-## Component status
+## Status
 
 <ComponentChecklist
   items={{
