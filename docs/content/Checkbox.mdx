@@ -101,7 +101,7 @@ An `indeterminate` checkbox state should be used if the input value is neither t
   />
   <PropsTableRow
     name="onChange"
-    type="(ChangeEvent) => void"
+    type="(event: React.ChangeEvent) => void"
     description="A callback function that is triggered when the checked state has been changed"    
   />
   <PropsTableRow
@@ -124,7 +124,6 @@ An `indeterminate` checkbox state should be used if the input value is neither t
   />
   <PropsTableBasePropRows
     elementType="input"
-    isPolymorphic={false}
     refType="HTMLInputElement"
     passthroughPropsLink={
       <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#additional_attributes">
@@ -135,7 +134,7 @@ An `indeterminate` checkbox state should be used if the input value is neither t
 
 </PropsTable>
 
-## Component status
+## Status
 
 <ComponentChecklist
   items={{
