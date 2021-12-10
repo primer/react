@@ -1,4 +1,4 @@
-# ADR 004: Children as API
+# ADR 004: Strict props or Composite components
 
 ## Status
 
