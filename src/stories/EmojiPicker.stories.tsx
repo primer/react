@@ -58,7 +58,7 @@ export const defaultEmojiPicker = (args: EmojiPickerProps) => {
       ]
     },
     {
-      id: 'arhived',
+      id: 'archived',
       name: 'Archived',
       categoryIcon: <ArchiveIcon />,
       emojis: []
