@@ -8,22 +8,22 @@ To get started using Primer React, install the package and its peer dependencies
 
 ```bash
 # with npm
-npm install @primer/components react react-dom styled-components
+npm install @primer/react react react-dom styled-components
 
 # with yarn
-yarn add @primer/components react react-dom styled-components
+yarn add @primer/react react react-dom styled-components
 ```
 
 You can now import Primer React from the main package module:
 
 ```javascript
 // using import syntax
-import {Box, Flex} from '@primer/components'
+import {Box, Flex} from '@primer/react'
 ```
 
 ```javascript
 // using require syntax
-const {Box, Flex} = require('@primer/components')
+const {Box, Flex} = require('@primer/react')
 ```
 
 ### Polyfills & Browser Support
@@ -40,14 +40,14 @@ Module bundlers that use ECMAScript modules (ESM) will automatically tree-shake 
 
 ```javascript
 // using import syntax
-import Box from '@primer/components/lib/Box'
-import Flex from '@primer/components/lib/Flex'
+import Box from '@primer/react/lib/Box'
+import Flex from '@primer/react/lib/Flex'
 ```
 
 ```javascript
 // using require syntax
-const Box = require('@primer/components/lib/Box')
-const Flex = require('@primer/components/lib/Flex')
+const Box = require('@primer/react/lib/Box')
+const Flex = require('@primer/react/lib/Flex')
 ```
 
 Note that the modules in the `lib` folder are CommonJS-style modules; if you're using ESM and a compatible module bundler, importing files individually from `lib` provides no benefit.
@@ -67,7 +67,7 @@ Primer React requires the following libraries to be installed along with it:
 For Primer React to work correctly and accurately apply color schemes, you must add `ThemeProvider` to the root of your application:
 
 ```jsx
-import {ThemeProvider} from '@primer/components'
+import {ThemeProvider} from '@primer/react'
 
 function App() {
   return (
@@ -85,7 +85,7 @@ See [Theming](/theming) for more details on advanced configuration, color modes,
 In order to set baseline color, font-family, and line-heights across your project, you will need to establish base Primer styles for your app by wrapping all of your Primer components in `<BaseStyles>` at the root of your app:
 
 ```jsx
-import {BaseStyles, Box, Heading} from '@primer/components'
+import {BaseStyles, Box, Heading} from '@primer/react'
 
 export default () => (
   <BaseStyles>
@@ -107,10 +107,10 @@ If you're rendering React components both server- and client-side, we suggest fo
 
 Primer React includes TypeScript support and ships with its own typings. You will still need to install type definitions for the peer dependencies if you import those in your own application code.
 
-Once installed, you can import components and their prop type interfaces from the `@primer/components` package:
+Once installed, you can import components and their prop type interfaces from the `@primer/react` package:
 
 ```typescript
-import {BorderBox, BorderBoxProps} from '@primer/components'
+import {BorderBox, BorderBoxProps} from '@primer/react'
 ```
 
 ### Fixing "Duplicate identifier 'FormData'"

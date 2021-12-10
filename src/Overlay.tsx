@@ -7,7 +7,7 @@ import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 import sx, {SxProp} from './sx'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
-import {AnchorSide} from './behaviors/anchoredPosition'
+import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from './ThemeProvider'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 

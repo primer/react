@@ -1,6 +1,6 @@
 import React from 'react'
-import * as primerComponents from '@primer/components'
-import * as drafts from '@primer/components/drafts'
+import * as primerComponents from '@primer/react'
+import * as drafts from '@primer/react/drafts'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
 import {
   CheckIcon,
