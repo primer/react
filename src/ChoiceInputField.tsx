@@ -1,11 +1,11 @@
 import React from 'react'
 import {Box, Checkbox, Radio, useSSRSafeId} from '.'
 import {get} from './constants'
-import {Slots} from './_InputField/slots'
-import ToggleInputLeadingVisual from './_InputField/ToggleInputLeadingVisual'
-import InputField, {Props as InputFieldProps} from './_InputField/InputField'
+import {Slots} from './InputField/slots'
+import ToggleInputLeadingVisual from './_ToggleInputLeadingVisual'
+import InputField, {Props as InputFieldProps} from './InputField/InputField'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
-import InputFieldCaption from './_InputField/InputFieldCaption'
+import InputFieldCaption from './InputField/_InputFieldCaption'
 
 export interface Props extends Pick<InputFieldProps, 'disabled' | 'id'> {
   /**

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styled, {keyframes, css} from 'styled-components'
-import {Box} from '..'
+import {Box} from '.'
 
 interface Props {
   show?: boolean
