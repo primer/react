@@ -1,12 +1,17 @@
-import React, {HTMLAttributes} from 'react'
+import React, {HTMLAttributes, ComponentPropsWithRef} from 'react'
+import styled from 'styled-components'
 import {IconProps} from '@primer/octicons-react'
-import {SxProp} from '../sx'
+import sx, {SxProp} from '../sx'
+
+export const StyledButton = styled.button<SxProp>(sx)
 
 export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
 
 export type Size = 'small' | 'medium' | 'large'
 
-export type ButtonProps = {
+type StyledButtonProps = ComponentPropsWithRef<typeof StyledButton>
+
+export type ButtonBaseProps = {
   /**
    * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
    */
@@ -16,9 +21,14 @@ export type ButtonProps = {
    */
   size?: Size
   /**
-   * This is to be used if it is an icon-only button. Will make text visually hidden
+   * Items that are disabled can not be clicked, selected, or navigated through.
    */
-  icon?: React.FunctionComponent<IconProps>
+  disabled?: boolean
+} & SxProp &
+  HTMLAttributes<HTMLButtonElement> &
+  StyledButtonProps
+
+export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
@@ -27,10 +37,27 @@ export type ButtonProps = {
    * The trailing icon comes after button content
    */
   trailingIcon?: React.FunctionComponent<IconProps>
-  /**
-   * Items that are disabled can not be clicked, selected, or navigated through.
-   */
-  disabled?: boolean
   children: React.ReactNode
-} & SxProp &
-  HTMLAttributes<HTMLButtonElement>
+} & ButtonBaseProps
+
+export type IconButtonProps = {
+  /**
+   * This is to be used if it is an icon-only button. Will make text visually hidden
+   */
+  icon: React.FunctionComponent<IconProps>
+  iconLabel: string
+} & ButtonBaseProps
+
+// adopted from React.AnchorHTMLAttributes
+export type LinkButtonProps = {
+  underline?: boolean
+  download?: string
+  href?: string
+  hrefLang?: string
+  media?: string
+  ping?: string
+  rel?: string
+  target?: string
+  type?: string
+  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
+}

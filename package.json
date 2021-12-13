@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "typings": "lib/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "setup": "./script/setup",
     "build": "./script/build",

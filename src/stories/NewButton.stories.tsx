@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
-import {NewButton as Button, NewButtonProps as ButtonProps} from '../NewButton'
+import React, {useState, forwardRef} from 'react'
+import {NewButton as Button, NewButtonProps as ButtonProps, IconButton, ButtonLink} from '../NewButton'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
-import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRightIcon} from '@primer/octicons-react'
 import Box from '../Box'
 
 export default {
@@ -29,12 +29,8 @@ export default {
   }
 } as Meta
 
-export const defaultButton = ({size = 'medium', ...args}: ButtonProps) => {
-  return (
-    <Button size={size} {...args}>
-      Default
-    </Button>
-  )
+export const defaultButton = (args: ButtonProps) => {
+  return <Button {...args}>Default</Button>
 }
 
 export const primaryButton = (args: ButtonProps) => {
@@ -73,29 +69,19 @@ export const iconButton = ({...args}: ButtonProps) => {
   return (
     <>
       <Box mb={2}>
-        <Button icon={XIcon} {...args}>
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} />
       </Box>
       <Box mb={2}>
-        <Button icon={XIcon} {...args} variant="invisible">
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="invisible" />
       </Box>
       <Box mb={2}>
-        <Button icon={XIcon} {...args} variant="danger">
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="danger" />
       </Box>
       <Box mb={2}>
-        <Button icon={XIcon} {...args} variant="primary">
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="primary" />
       </Box>
       <Box mb={2}>
-        <Button icon={XIcon} {...args} variant="outline">
-          Close
-        </Button>
+        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="outline" />
       </Box>
     </>
   )
@@ -194,7 +180,57 @@ export const disabledButton = ({...args}: ButtonProps) => {
         </Button>
       </Box>
       <Box mb={2}>
-        <Button disabled icon={() => <XIcon />} {...args}></Button>
+        <IconButton disabled icon={() => <XIcon />} iconLabel="Close" {...args} />
+      </Box>
+    </>
+  )
+}
+
+type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
+  ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    return <a ref={ref} href={to} {...props} />
+  }
+)
+
+export const linkButton = ({...args}: ButtonProps) => {
+  return (
+    <>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="danger" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="primary" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="outline" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="invisible" {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+          Link to Primer
+        </ButtonLink>
+      </Box>
+      <Box mb={2} display="flex">
+        <ButtonLink to="/dummy" as={ReactRouterLikeLink} variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+          Link to Primer
+        </ButtonLink>
       </Box>
     </>
   )
