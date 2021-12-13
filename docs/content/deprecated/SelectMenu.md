@@ -57,7 +57,7 @@ SelectMenu.MenuContext is a [context object](https://reactjs.org/docs/context.ht
 ### Example Usage
 
 ```jsx
-import {SelectMenu, Button} from `@primer/components`
+import {SelectMenu, Button} from `@primer/react`
 import React, {useContext} from 'react'
 
 const MyMenu = () => {
