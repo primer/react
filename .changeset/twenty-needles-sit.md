@@ -1,5 +1,5 @@
 ---
-'@primer/components': minor
+'@primer/react': minor
 ---
 
 Adds ChoiceFieldset component
