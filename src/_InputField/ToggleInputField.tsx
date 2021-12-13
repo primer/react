@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box} from '..'
 import {get} from '../constants'
-import {uniqueId} from '../utils/uniqueId'
+import {uniqueId} from '@primer/behaviors/utils'
 import {Slots} from './slots'
 import ToggleInputLeadingVisual from './ToggleInputLeadingVisual'
 import {Props as InputFieldProps} from './InputField'
