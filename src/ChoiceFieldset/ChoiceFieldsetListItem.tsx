@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {useSSRSafeId} from '..'
 import {ComponentProps} from '../utils/types'
-import ToggleInputLeadingVisual from '../_InputField/ToggleInputLeadingVisual'
+import ToggleInputLeadingVisual from '../_ToggleInputLeadingVisual'
 import ChoiceFieldCaption from './ChoiceFieldCaption'
 import ChoiceFieldLabel from './ChoiceFieldLabel'
 import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'

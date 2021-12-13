@@ -3,23 +3,23 @@ import {render} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {SSRProvider, TextInputField, TextInputWithTokens} from '..'
+import {Autocomplete, InputField, SSRProvider, TextInput, TextInputWithTokens} from '..'
 expect.extend(toHaveNoViolations)
 
 const TEXTINPUTFIELD_LABEL_TEXT = 'Name'
 const TEXTINPUTFIELD_CAPTION_TEXT = 'Hint: your first name'
 const TEXTINPUTFIELD_SUCCESS_TEXT = 'This name is valid'
 
-describe('TextInputField', () => {
+describe('InputField', () => {
   describe('snapshots', () => {
     it('renders with a label an input', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField>
-              <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input />
-            </TextInputField>
+            <InputField>
+              <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInput />
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -28,10 +28,10 @@ describe('TextInputField', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField>
-              <TextInputField.Label visuallyHidden>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input />
-            </TextInputField>
+            <InputField>
+              <InputField.Label visuallyHidden>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInput />
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -40,10 +40,10 @@ describe('TextInputField', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField id="customId">
-              <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input />
-            </TextInputField>
+            <InputField id="customId">
+              <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInput />
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -52,10 +52,10 @@ describe('TextInputField', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField disabled>
-              <TextInputField.Label visuallyHidden>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input />
-            </TextInputField>
+            <InputField disabled>
+              <InputField.Label visuallyHidden>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInput />
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -64,10 +64,10 @@ describe('TextInputField', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField required>
-              <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input />
-            </TextInputField>
+            <InputField required>
+              <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInput />
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -76,11 +76,11 @@ describe('TextInputField', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField>
-              <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input />
-              <TextInputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</TextInputField.Caption>
-            </TextInputField>
+            <InputField>
+              <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInput />
+              <InputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</InputField.Caption>
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -89,19 +89,17 @@ describe('TextInputField', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField
+            <InputField
               validationMap={{
                 noSpaces: 'error',
                 validName: 'success'
               }}
               validationResult="validName"
             >
-              <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input />
-              <TextInputField.Validation validationKey="validName">
-                {TEXTINPUTFIELD_SUCCESS_TEXT}
-              </TextInputField.Validation>
-            </TextInputField>
+              <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInput />
+              <InputField.Validation validationKey="validName">{TEXTINPUTFIELD_SUCCESS_TEXT}</InputField.Validation>
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -110,19 +108,19 @@ describe('TextInputField', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField
+            <InputField
               validationMap={{
                 noSpaces: 'error',
                 validName: 'success'
               }}
               validationResult="noSpaces"
             >
-              <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input />
-              <TextInputField.Validation validationKey="noSpaces">
+              <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInput />
+              <InputField.Validation validationKey="noSpaces">
                 Your first name cannot contain spaces
-              </TextInputField.Validation>
-            </TextInputField>
+              </InputField.Validation>
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -132,10 +130,9 @@ describe('TextInputField', () => {
       expect(
         render(
           <SSRProvider>
-            <TextInputField>
-              <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-              <TextInputField.Input
-                as={TextInputWithTokens}
+            <InputField>
+              <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <TextInputWithTokens
                 tokens={[
                   {text: 'zero', id: 0},
                   {text: 'one', id: 1},
@@ -143,7 +140,21 @@ describe('TextInputField', () => {
                 ]}
                 onRemove={onRemoveMock}
               />
-            </TextInputField>
+            </InputField>
+          </SSRProvider>
+        )
+      ).toMatchSnapshot()
+    })
+    it('renders with the input as an Autocomplete', () => {
+      expect(
+        render(
+          <SSRProvider>
+            <InputField>
+              <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+              <Autocomplete>
+                <Autocomplete.Input block />
+              </Autocomplete>
+            </InputField>
           </SSRProvider>
         )
       ).toMatchSnapshot()
@@ -153,10 +164,12 @@ describe('TextInputField', () => {
   describe('ARIA attributes', () => {
     it('associates the label with the input', () => {
       const {getByLabelText} = HTMLRender(
-        <TextInputField>
-          <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-          <TextInputField.Input />
-        </TextInputField>
+        <SSRProvider>
+          <InputField>
+            <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+            <TextInput />
+          </InputField>
+        </SSRProvider>
       )
 
       const inputNode = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -165,11 +178,13 @@ describe('TextInputField', () => {
     it('associates caption text with the input', () => {
       const fieldId = 'captionedInput'
       const {getByLabelText, getByText} = HTMLRender(
-        <TextInputField id={fieldId}>
-          <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-          <TextInputField.Input />
-          <TextInputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</TextInputField.Caption>
-        </TextInputField>
+        <SSRProvider>
+          <InputField id={fieldId}>
+            <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+            <TextInput />
+            <InputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</InputField.Caption>
+          </InputField>
+        </SSRProvider>
       )
 
       const inputNode = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -181,11 +196,13 @@ describe('TextInputField', () => {
     it('associates validation text with the input', () => {
       const fieldId = 'validatedInput'
       const {getByLabelText, getByText} = HTMLRender(
-        <TextInputField id={fieldId} validationMap={{validName: 'success'}} validationResult="validName">
-          <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-          <TextInputField.Input />
-          <TextInputField.Validation validationKey="validName">{TEXTINPUTFIELD_SUCCESS_TEXT}</TextInputField.Validation>
-        </TextInputField>
+        <SSRProvider>
+          <InputField id={fieldId} validationMap={{validName: 'success'}} validationResult="validName">
+            <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+            <TextInput />
+            <InputField.Validation validationKey="validName">{TEXTINPUTFIELD_SUCCESS_TEXT}</InputField.Validation>
+          </InputField>
+        </SSRProvider>
       )
 
       const inputNode = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -198,11 +215,13 @@ describe('TextInputField', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(
-      <TextInputField>
-        <TextInputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</TextInputField.Label>
-        <TextInputField.Input />
-        <TextInputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</TextInputField.Caption>
-      </TextInputField>
+      <SSRProvider>
+        <InputField>
+          <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
+          <TextInput />
+          <InputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</InputField.Caption>
+        </InputField>
+      </SSRProvider>
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()

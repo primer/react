@@ -1,0 +1,157 @@
+---
+title: ChoiceInputField
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/ChoiceInputField.tsx
+storybook: '/react/storybook?path=/story/forms-choiceinputfield--checkbox-input-field'
+---
+
+<!--
+TODO: add `validationStatus` examples when we have the validation styling done
+-->
+
+import {ComponentChecklist} from '../src/component-checklist'
+import {ChoiceInputField, Checkbox, Radio} from '@primer/react'
+import {MarkGithubIcon} from '@primer/octicons-react'
+
+The `ChoiceInputField` component is used to render a labelled checkbox or radio input and, optionally, associated hint text and graphic.
+
+**Use [ChoiceFieldset](/ChoiceFieldset) to render a group of related checkbox or radio input fields.** This component is only meant to be used in the case that you're building a custom checkbox or radio that is not yet supported by Primer (For example: the color mode selection in [Appearance settings](https://github.com/settings/appearance))
+
+## Anatomy
+
+### ChoiceInputField
+
+The container that handles the layout and passes the relevant IDs and ARIA attributes it's children.
+
+`ChoiceInputField.Label` and `ChoiceInputField.Input` are required children.
+
+### ChoiceInputField.Label
+
+A `ChoiceInputField.Label` must be passed, but it may be visually hidden.
+
+### ChoiceInputField.Caption
+
+If this field needs additional context, a `ChoiceInputField.Caption` may be used to render hint text.
+
+### ChoiceInputField.LeadingVisual
+
+If the selectable option would be easier to understand with a visual, the `ChoiceInputField.LeadingVisual` component may be used.
+
+## Examples
+
+### Checkbox
+
+```jsx live
+<ChoiceInputField>
+  <ChoiceInputField.Label>Option one</ChoiceInputField.Label>
+  <Checkbox />
+</ChoiceInputField>
+```
+
+### Radio
+
+```jsx live
+<ChoiceInputField>
+  <ChoiceInputField.Label>Option one</ChoiceInputField.Label>
+  <Radio />
+</ChoiceInputField>
+```
+
+### Disabled field
+
+```jsx live
+<ChoiceInputField disabled>
+  <ChoiceInputField.Label>Option one</ChoiceInputField.Label>
+  <Checkbox />
+</ChoiceInputField>
+```
+
+### With a visually hidden label
+
+```jsx live
+<ChoiceInputField>
+  <ChoiceInputField.Label visuallyHidden>Option One</ChoiceInputField.Label>
+  <Checkbox />
+</ChoiceInputField>
+```
+
+### With a caption
+
+```jsx live
+<ChoiceInputField>
+  <ChoiceInputField.Label>Option One</ChoiceInputField.Label>
+  <Checkbox />
+  <ChoiceInputField.Caption>Hint: the first and only option</ChoiceInputField.Caption>
+</ChoiceInputField>
+```
+
+### With a LeadingVisual
+
+```jsx live
+<>
+  <ChoiceInputField>
+    <ChoiceInputField.Label>Option one</ChoiceInputField.Label>
+    <ChoiceInputField.LeadingVisual>
+      <MarkGithubIcon />
+    </ChoiceInputField.LeadingVisual>
+    <Checkbox />
+  </ChoiceInputField>
+
+  <ChoiceInputField>
+    <ChoiceInputField.Label>Option two</ChoiceInputField.Label>
+    <ChoiceInputField.LeadingVisual>
+      <MarkGithubIcon />
+    </ChoiceInputField.LeadingVisual>
+    <Checkbox />
+    <ChoiceInputField.Caption>This one has a caption</ChoiceInputField.Caption>
+  </ChoiceInputField>
+</>
+```
+
+## Props
+
+### ChoiceInputField
+
+| Name       | Type                                                                                                        |     Default      | Description                                                                                          |
+| :--------- | :---------------------------------------------------------------------------------------------------------- | :--------------: | :--------------------------------------------------------------------------------------------------- |
+| children\* | `ChoiceInputField.Label`, `ChoiceInputField.Caption`, `ChoiceInputField.LeadingVisual`, `Checkbox`, `Radio` |        -         | Required                                                                                             |
+| disabled   | `boolean`                                                                                                   |      false       | Whether the field is ready for user input                                                            |
+| id         | `string`                                                                                                    | generated string | The unique identifier for this field. Used to associate the label, validation text, and caption text |
+
+### ChoiceInputField.Label
+
+| Name           | Type      | Default | Description                                 |
+| :------------- | :-------- | :-----: | :------------------------------------------ |
+| visuallyHidden | `boolean` |  false  | Whether the label should be visually hidden |
+
+### ChoiceInputField.Caption
+
+| Name     | Type              | Default | Description                                                                              |
+| :------- | :---------------- | :-----: | :--------------------------------------------------------------------------------------- |
+| children | `React.ReactNode` |    -    | The content (usually just text) that is rendered to give contextual info about the field |
+
+### ChoiceInputField.LeadingVisual
+
+| Name     | Type              | Default | Description                                      |
+| :------- | :---------------- | :-----: | :----------------------------------------------- |
+| children | `React.ReactNode` |    -    | The visual to render before the checkbox's label |
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: true,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
