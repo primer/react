@@ -20,7 +20,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
     sxProp as SxProp
   ])
   return (
-    <StyledButton aria-labelledBy={iconLabelId} sx={sxStyles} ref={forwardedRef} {...props}>
+    <StyledButton aria-labelledby={iconLabelId} sx={sxStyles} ref={forwardedRef} {...props}>
       <span id={iconLabelId} hidden={true}>
         {iconLabel}
       </span>
