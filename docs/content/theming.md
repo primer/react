@@ -10,7 +10,7 @@ import Code from '@primer/gatsby-theme-doctocat/src/components/code'
 To give components access to the theme object, you must add `ThemeProvider` to the root of your application:
 
 ```jsx
-import {ThemeProvider} from '@primer/components'
+import {ThemeProvider} from '@primer/react'
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
 To customize the [default theme](/theme-reference), you can pass your custom theme to `ThemeProvider` using the `theme` prop:
 
 ```jsx
-import {ThemeProvider, theme} from '@primer/components'
+import {ThemeProvider, theme} from '@primer/react'
 import deepmerge from 'deepmerge'
 
 const customTheme = deepmerge(theme, {
@@ -65,7 +65,7 @@ Only use `theme` objects accessed via Primer's theme context to ensure your appl
   </Do>
   <Dont>
     <Code className="language-jsx">
-      {`import {theme} from '@primer/components'\n\n<Box textShadow={theme.shadows.shadow.medium}>`}
+      {`import {theme} from '@primer/react'\n\n<Box textShadow={theme.shadows.shadow.medium}>`}
     </Code>
     <Caption>Don't style components with any other instance of theme</Caption>
   </Dont>
@@ -103,7 +103,7 @@ See the [Styled System Reference Table](https://styled-system.com/table) for a c
 The `themeGet` function is a convienient way to reference theme values in styled-components template literals:
 
 ```js
-import {themeGet} from '@primer/components'
+import {themeGet} from '@primer/react'
 import styled from 'styled-components'
 
 const Example = styled.div`
@@ -116,7 +116,7 @@ const Example = styled.div`
 You can use the `useTheme` hook to reference theme values from inside any function component nested under the `ThemeProvider`:
 
 ```js
-import {ThemeProvider, useTheme} from '@primer/components'
+import {ThemeProvider, useTheme} from '@primer/react'
 
 function Example() {
   const {theme} = useTheme()
@@ -153,7 +153,7 @@ By default, Primer React is in `day` mode. To change the color mode, use the `co
 #### `colorMode` prop
 
 ```jsx
-import {ThemeProvider} from '@primer/components'
+import {ThemeProvider} from '@primer/react'
 
 function App() {
   return (
@@ -168,7 +168,7 @@ function App() {
 #### `setColorMode` function
 
 ```jsx
-import {useTheme} from '@primer/components'
+import {useTheme} from '@primer/react'
 
 function Example() {
   const {setColorMode} = useTheme()
@@ -183,7 +183,7 @@ To choose which color schemes will be displayed in `day` and `night` mode, use t
 #### `dayScheme` and `nightScheme` props
 
 ```jsx
-import {ThemeProvider} from '@primer/components'
+import {ThemeProvider} from '@primer/react'
 
 function App() {
   return (
@@ -198,7 +198,7 @@ function App() {
 #### `setDayScheme` and `setNightScheme` functions
 
 ```jsx
-import {useTheme} from '@primer/components'
+import {useTheme} from '@primer/react'
 
 function Example() {
   const {setDayScheme, setNightScheme} = useTheme()
@@ -211,7 +211,7 @@ function Example() {
 To customize or add color schemes, update the `colorSchemes` object in the theme:
 
 ```jsx
-import {ThemeProvider, theme} from '@primer/components'
+import {ThemeProvider, theme} from '@primer/react'
 import deepmerge from 'deepmerge'
 
 const customTheme = deepmerge(theme, {
@@ -257,7 +257,7 @@ function Example() {
 Instead, use the `useColorSchemeVar` hook to create a local variable that will update based on the active color scheme:
 
 ```jsx
-import {useColorSchemeVar} from '@primer/components'
+import {useColorSchemeVar} from '@primer/react'
 import {colors} from '@primer/primitives'
 
 function Example() {

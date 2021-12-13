@@ -1,4 +1,4 @@
-import {Box, Link} from '@primer/components'
+import {Box, Link} from '@primer/react'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 import {ComponentChecklist} from '../../component-checklist'
 import {Props} from '../../props'

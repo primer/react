@@ -4,7 +4,7 @@ import {BaseStyles, Box, ButtonPrimary, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks'
 import styled from 'styled-components'
 import {get} from '../constants'
-import {AnchorSide} from '../behaviors/anchoredPosition'
+import type {AnchorSide} from '@primer/behaviors'
 import Portal, {registerPortalRoot} from '../Portal'
 import Button from '../Button'
 
