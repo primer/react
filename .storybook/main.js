@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -12,13 +14,11 @@ module.exports = {
     // 'PRODUCTION' is used when building the static version of storybook.
 
     // Make whatever fine-grained changes you need
-    config.module.resolve.push({
-      alias: {
-        ...config.module.resolve.alias,
-        'react-dom': 'react-dom/profiling',
-        'scheduler/tracing': 'scheduler/tracing-profiling'
-      }
-    })
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'react-dom$': path.resolve(__dirname, '../node_modules/react-dom/profiling'),
+      'scheduler/tracing': path.resolve(__dirname, '../node_modules/scheduler/tracing-profiling')
+    }
 
     // Return the altered config
     return config
