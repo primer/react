@@ -4,9 +4,11 @@ import {useTheme} from '../ThemeProvider'
 import Box from '../Box'
 import {IconButtonProps, StyledButton} from './types'
 import {getBaseStyles, getSizeStyles, getVariantStyles} from './styles'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwardedRef): JSX.Element => {
   const {variant = 'default', size = 'medium', sx: sxProp = {}, icon: Icon, iconLabel} = props
+  const iconLabelId = useSSRSafeId()
   const {theme} = useTheme()
   const styles = {
     ...getBaseStyles(theme)
@@ -18,8 +20,10 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
     sxProp as SxProp
   ])
   return (
-    <StyledButton sx={sxStyles} ref={forwardedRef} {...props}>
-      <span hidden={true}>{iconLabel}</span>
+    <StyledButton aria-labelledBy={iconLabelId} sx={sxStyles} ref={forwardedRef} {...props}>
+      <span id={iconLabelId} hidden={true}>
+        {iconLabel}
+      </span>
       <Box as="span" sx={{display: 'inline-block'}}>
         <Icon />
       </Box>

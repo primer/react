@@ -112,7 +112,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       color: 'btn.outline.text',
       boxShadow: `${theme?.shadows.btn.shadow}`,
 
-      '&:hover': {
+      '&:hover:not([disabled])': {
         color: 'btn.outline.hoverText',
         backgroundColor: 'btn.outline.hoverBg',
         borderColor: 'outline.hoverBorder',
@@ -123,7 +123,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         }
       },
       // focus must come before :active so that the active box shadow overrides
-      '&:focus': {
+      '&:focus:not([disabled])': {
         borderColor: 'btn.outline.focusBorder',
         boxShadow: `${theme?.shadows.btn.outline.focusShadow}`
       },

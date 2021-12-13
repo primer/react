@@ -88,12 +88,11 @@ exports[`Button renders consistently 1`] = `
 </button>
 `;
 
-exports[`Button respects the "disabled" prop 1`] = `
+exports[`Button styles danger button appropriately 1`] = `
 .c0 {
-  border-radius: 6px;
+  border-radius: 2;
   border: 1px solid;
-  border-color: rgba(27,31,36,0.15);
-  font-weight: 600;
+  font-weight: bold;
   line-height: 20px;
   white-space: nowrap;
   vertical-align: middle;
@@ -115,9 +114,9 @@ exports[`Button respects the "disabled" prop 1`] = `
   padding-left: 16px;
   padding-right: 16px;
   font-size: 14px;
-  color: #24292f;
-  background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  color: btn.danger.text;
+  background-color: btn.bg;
+  box-shadow: undefined;
 }
 
 .c0:focus {
@@ -126,8 +125,210 @@ exports[`Button respects the "disabled" prop 1`] = `
 
 .c0:disabled {
   cursor: default;
-  color: #8c959f;
+  color: btn.danger.disabledText;
+  background-color: btn.danger.disabledBg;
+  border-color: btn.danger.disabledBorder;
+}
+
+.c0:disabled [data-component="ButtonCounter"] {
+  background-color: btn.danger.disabledCounterBg;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c0 [data-component="text"] {
+  grid-area: text;
+}
+
+.c0 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
+.c0 [data-component="ButtonCounter"] {
+  font-size: 14px;
+  color: btn.danger.text;
+  background-color: btn.danger.counterBg;
+}
+
+.c0:hover:not([disabled]) {
+  color: btn.danger.hoverText;
+  background-color: btn.danger.hoverBg;
+  border-color: btn.danger.hoverBorder;
+  box-shadow: undefined;
+}
+
+.c0:hover:not([disabled]) [data-component="ButtonCounter"] {
+  background-color: btn.danger.hoverCounterBg;
+  color: btn.danger.hoverText;
+}
+
+.c0:focus:not([disabled]) {
+  border-color: btn.danger.focusBorder;
+  box-shadow: undefined;
+}
+
+.c0:active:not([disabled]) {
+  color: btn.danger.selectedText;
+  background-color: btn.danger.selectedBg;
+  box-shadow: undefined;
+  border-color: btn.danger.selectedBorder;
+}
+
+<button
+  class="c0"
+>
+  <span
+    data-component="text"
+  >
+    Danger
+  </span>
+</button>
+`;
+
+exports[`Button styles icon only button to make it a square 1`] = `
+.c1 {
+  display: inline-block;
+}
+
+.c0 {
+  border-radius: 2;
+  border: 1px solid;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
+  font-size: 14px;
+  color: btn.text;
+  background-color: btn.bg;
+  box-shadow: undefined,undefined;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+  color: primer.fg.disabled;
   background-color: btn.disabledBg;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0 [data-component="ButtonCounter"] {
+  font-size: 14px;
+}
+
+.c0:hover:not([disabled]) {
+  background-color: btn.hoverBg;
+}
+
+.c0:focus:not([disabled]) {
+  box-shadow: undefined;
+}
+
+.c0:active:not([disabled]) {
+  background-color: btn.selectedBg;
+  box-shadow: undefined;
+}
+
+<button
+  aria-labelledby="react-aria2690222312-1"
+  class="c0"
+>
+  <span
+    hidden=""
+    id="react-aria2690222312-1"
+  >
+    Search icon only button
+  </span>
+  <span
+    class="c1"
+  >
+    <svg
+      aria-hidden="true"
+      class="octicon octicon-search"
+      fill="currentColor"
+      height="16"
+      role="img"
+      style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+</button>
+`;
+
+exports[`Button styles invisible button appropriately 1`] = `
+.c0 {
+  border-radius: 2;
+  border: 0;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 14px;
+  color: accent.fg;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+  color: primer.fg.disabled;
 }
 
 .c0:disabled svg {
@@ -155,40 +356,34 @@ exports[`Button respects the "disabled" prop 1`] = `
 }
 
 .c0:hover:not([disabled]) {
-  background-color: #f3f4f6;
+  background-color: btn.hoverBg;
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  box-shadow: undefined;
 }
 
 .c0:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
-  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
+  background-color: btn.selectedBg;
 }
 
 <button
-  className="c0"
-  disabled={true}
+  class="c0"
 >
   <span
     data-component="text"
   >
-     Disabled
+    Invisible
   </span>
 </button>
 `;
 
-exports[`Button styles icon only button to make it a square 1`] = `
-.c1 {
-  display: inline-block;
-}
-
+exports[`Button styles primary button appropriately 1`] = `
 .c0 {
-  border-radius: 6px;
+  border-radius: 2;
   border: 1px solid;
-  border-color: rgba(27,31,36,0.15);
-  font-weight: 600;
+  border-color: border.subtle;
+  font-weight: bold;
   line-height: 20px;
   white-space: nowrap;
   vertical-align: middle;
@@ -203,14 +398,16 @@ exports[`Button styles icon only button to make it a square 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 7px;
-  padding-right: 7px;
+  padding-left: 16px;
+  padding-right: 16px;
   font-size: 14px;
-  color: #24292f;
-  background-color: #f6f8fa;
-  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  color: btn.primary.text;
+  background-color: btn.primary.bg;
+  box-shadow: undefined;
 }
 
 .c0:focus {
@@ -219,64 +416,57 @@ exports[`Button styles icon only button to make it a square 1`] = `
 
 .c0:disabled {
   cursor: default;
-  color: #8c959f;
-  background-color: btn.disabledBg;
+  color: btn.primary.disabledText;
+  background-color: btn.primary.disabledBg;
 }
 
 .c0:disabled svg {
   opacity: 0.6;
 }
 
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c0 [data-component="text"] {
+  grid-area: text;
+}
+
+.c0 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
 .c0 [data-component="ButtonCounter"] {
   font-size: 14px;
+  background-color: btn.primary.counterBg;
+  color: btn.primary.text;
 }
 
 .c0:hover:not([disabled]) {
-  background-color: #f3f4f6;
+  color: btn.primary.hoverText;
+  background-color: btn.primary.hoverBg;
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  box-shadow: undefined;
 }
 
 .c0:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
-  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
+  background-color: btn.primary.selectedBg;
+  box-shadow: undefined;
 }
 
 <button
-  className="c0"
+  class="c0"
 >
   <span
-    hidden={true}
+    data-component="text"
   >
-    Search icon only button
-  </span>
-  <span
-    className="c1"
-  >
-    <svg
-      aria-hidden="true"
-      className="octicon octicon-search"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
-        }
-      }
-      fill="currentColor"
-      height={16}
-      role="img"
-      style={
-        Object {
-          "display": "inline-block",
-          "overflow": "visible",
-          "userSelect": "none",
-          "verticalAlign": "text-bottom",
-        }
-      }
-      viewBox="0 0 16 16"
-      width={16}
-    />
+    Primary
   </span>
 </button>
 `;
