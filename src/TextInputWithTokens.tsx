@@ -242,7 +242,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       className={className}
       contrast={contrast}
       disabled={disabled}
-      hasIcon={!!IconComponent}
+      hasLeadingVisual={Boolean(IconComponent)}
       theme={theme}
       width={widthProp}
       minWidth={minWidthProp}
@@ -292,13 +292,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           }
         }}
       >
+        {IconComponent && <IconComponent className="TextInput-icon" />}
         <Box
           sx={{
             order: 1,
             flexGrow: 1
           }}
         >
-          {IconComponent && <IconComponent className="TextInput-icon" />}
           <UnstyledTextInput
             ref={combinedInputRef}
             disabled={disabled}

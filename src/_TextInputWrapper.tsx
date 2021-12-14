@@ -40,7 +40,8 @@ const sizeVariants = variant({
 
 type StyledWrapperProps = {
   disabled?: boolean
-  hasIcon?: boolean
+  hasLeadingVisual?: boolean
+  hasTrailingVisual?: boolean
   block?: boolean
   contrast?: boolean
   validationStatus?: 'error' | 'warning'
@@ -74,9 +75,16 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
     margin-right: ${get('space.2')};
   }
 
-  > input {
-    padding: 0 ${textInputHorizPadding};
-  }
+  ${props =>
+    css`
+      padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
+      padding-right: ${props.hasTrailingVisual ? textInputHorizPadding : 0};
+
+      > input {
+        padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
+        padding-right: ${!props.hasTrailingVisual ? textInputHorizPadding : 0};
+      }
+    `}
 
   .TextInput-icon {
     align-self: center;

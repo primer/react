@@ -58,6 +58,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         minWidth={minWidthProp}
         maxWidth={maxWidthProp}
         variant={variantProp}
+        hasLeadingVisual={Boolean(LeadingVisual)}
+        hasTrailingVisual={Boolean(TrailingVisual)}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
         {LeadingVisual && (

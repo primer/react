@@ -38,6 +38,8 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 >:not(:last-child) {
@@ -45,7 +47,8 @@ Array [
 }
 
 .c0 > input {
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -159,6 +162,8 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 >:not(:last-child) {
@@ -166,7 +171,8 @@ Array [
 }
 
 .c0 > input {
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -315,6 +321,8 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 >:not(:last-child) {
@@ -322,7 +330,8 @@ Array [
 }
 
 .c0 > input {
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -1234,6 +1243,8 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 >:not(:last-child) {
@@ -1241,7 +1252,8 @@ Array [
 }
 
 .c0 > input {
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -2063,6 +2075,8 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 >:not(:last-child) {
@@ -2070,7 +2084,8 @@ Array [
 }
 
 .c0 > input {
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -2903,6 +2918,8 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 >:not(:last-child) {
@@ -2910,7 +2927,8 @@ Array [
 }
 
 .c0 > input {
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -3873,6 +3891,8 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .c0 >:not(:last-child) {
@@ -3880,7 +3900,8 @@ Array [
 }
 
 .c0 > input {
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
