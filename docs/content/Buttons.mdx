@@ -9,7 +9,9 @@ In special cases where you'd like to use a `<a>` styled like a Button, use `<But
 
 To create a button group, wrap `Button` elements in the `ButtonGroup` element. `ButtonGroup` gets the same props as `Box`.
 
-## Default examples
+## Examples
+
+### Kitchen sink
 
 ```jsx live
 <>
@@ -30,18 +32,37 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 </>
 ```
 
-## Component props
+## Props
 
 Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
 
-### Button
+<PropsTable>
+  <PropsTableRow name="as" type="String" defaultValue="button" description="Sets the HTML tag for the component" />
+  <PropsTableRow name="sx" type="SystemStyleObject" defaultValue="{}" description="Additional styles" />
+  <PropsTableRow
+    name="variant"
+    type="String"
+    defaultValue="'medium'"
+    description="A value of `small`, `medium`, or `large` results in smaller or larger Button text size; no effect if `fontSize` prop is set"
+  />
+</PropsTable>
 
-| Prop name | Type              | Default  | Description                                                                                                                 |
-| :-------- | :---------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------- |
-| as        | String            | `button` | sets the HTML tag for the component                                                                                         |
-| sx        | SystemStyleObject |    {}    | Additional styles                                                                                                           |
-| variant   | String            | 'medium' | a value of `small`, `medium`, or `large` results in smaller or larger Button text size; no effect if `fontSize` prop is set |
+## Status
 
-### ButtonGroup
-
-`ButtonGroup` has access to the same props as `Box`
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
