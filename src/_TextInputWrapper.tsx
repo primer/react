@@ -52,8 +52,10 @@ type StyledWrapperProps = {
   MaxWidthProps &
   SxProp
 
+export const textInputHorizPadding = '12px'
+
 const TextInputWrapper = styled.span<StyledWrapperProps>`
-  min-height: 34px;
+  min-height: 32px;
   font-size: ${get('fontSizes.1')};
   line-height: 20px;
   color: ${get('colors.fg.default')};
@@ -66,11 +68,14 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
   outline: none;
   box-shadow: ${get('shadows.primer.shadow.inset')};
   cursor: text;
-  padding: 6px 12px;
   display: inline-flex;
   align-items: stretch;
   & > :not(:last-child) {
     margin-right: ${get('space.2')};
+  }
+
+  > input {
+    padding: 0 ${textInputHorizPadding};
   }
 
   .TextInput-icon {

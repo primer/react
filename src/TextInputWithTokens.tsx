@@ -9,10 +9,11 @@ import {TokenSizeKeys} from './Token/TokenBase'
 import {TextInputProps} from './TextInput'
 import {useProvidedRefOrCreate} from './hooks'
 import UnstyledTextInput from './_UnstyledTextInput'
-import TextInputWrapper from './_TextInputWrapper'
+import TextInputWrapper, {textInputHorizPadding} from './_TextInputWrapper'
 import Box from './Box'
 import Text from './Text'
 import {isFocusable} from '@primer/behaviors/utils'
+import {text} from 'stream/consumers'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>
@@ -249,6 +250,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       variant={variantProp}
       onClick={focusInput}
       sx={{
+        paddingLeft: textInputHorizPadding,
+        py: `calc(${textInputHorizPadding} / 2)`,
         ...(block
           ? {
               display: 'flex',

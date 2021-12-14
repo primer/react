@@ -16,7 +16,7 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -29,7 +29,6 @@ exports[`TextInput renders 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -42,6 +41,10 @@ exports[`TextInput renders 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -93,7 +96,7 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -106,7 +109,6 @@ exports[`TextInput renders block 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -120,6 +122,10 @@ exports[`TextInput renders block 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -171,7 +177,7 @@ exports[`TextInput renders consistently 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -184,7 +190,6 @@ exports[`TextInput renders consistently 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -197,6 +202,10 @@ exports[`TextInput renders consistently 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -247,7 +256,7 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -260,7 +269,6 @@ exports[`TextInput renders contrast 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -273,6 +281,10 @@ exports[`TextInput renders contrast 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -324,7 +336,7 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -337,7 +349,6 @@ exports[`TextInput renders error 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -350,6 +361,10 @@ exports[`TextInput renders error 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -401,7 +416,7 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -414,7 +429,6 @@ exports[`TextInput renders large 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -432,6 +446,10 @@ exports[`TextInput renders large 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -484,7 +502,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -497,7 +515,6 @@ exports[`TextInput renders leadingVisual 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -510,6 +527,10 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -588,7 +609,7 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -601,7 +622,6 @@ exports[`TextInput renders placeholder 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -614,6 +634,10 @@ exports[`TextInput renders placeholder 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -666,7 +690,7 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -679,7 +703,6 @@ exports[`TextInput renders small 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -699,6 +722,10 @@ exports[`TextInput renders small 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -751,7 +778,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -764,7 +791,6 @@ exports[`TextInput renders trailingVisual 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -777,6 +803,10 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -855,7 +885,7 @@ exports[`TextInput renders warning 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -868,7 +898,6 @@ exports[`TextInput renders warning 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -881,6 +910,10 @@ exports[`TextInput renders warning 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
@@ -932,7 +965,7 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0 {
-  min-height: 34px;
+  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -945,7 +978,6 @@ exports[`TextInput should render a password input 1`] = `
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
-  padding: 6px 12px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -958,6 +990,10 @@ exports[`TextInput should render a password input 1`] = `
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
+}
+
+.c0 > input {
+  padding: 0 12px;
 }
 
 .c0 .TextInput-icon {
