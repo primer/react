@@ -217,6 +217,7 @@ export const getButtonStyles = (theme?: Theme) => {
     ...getBaseStyles(theme),
     display: 'grid',
     gridTemplateAreas: '"leadingIcon text trailingIcon"',
+    gridTemplateColumns: 'min-content 1fr min-content',
     '& > :not(:last-child)': {
       mr: '2'
     },
@@ -224,7 +225,8 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'leadingIcon'
     },
     '[data-component="text"]': {
-      gridArea: 'text'
+      gridArea: 'text',
+      textAlign: 'left'
     },
     '[data-component="trailingIcon"]': {
       gridArea: 'trailingIcon'
