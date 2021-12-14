@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {CheckboxInputField, RadioInputField, useSSRSafeId} from '..'
+import {useSSRSafeId} from '..'
 import {get} from '../constants'
 import {Slot, ChoiceFieldsetContext} from './ChoiceFieldset'
 import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'
@@ -49,7 +49,6 @@ const ChoiceFieldsetList: React.FC<ChoiceFieldsetListProps> = ({selectionVariant
               disabled,
               selected,
               name: name || ssrSafeUniqueName,
-              fieldComponent: selectionVariant === 'multiple' ? CheckboxInputField : RadioInputField,
               onChange: e => {
                 const updatedSelections = getSelectedCheckboxes(
                   e.currentTarget.value,

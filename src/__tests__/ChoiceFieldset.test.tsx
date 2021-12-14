@@ -311,13 +311,4 @@ describe('ChoiceFieldset', () => {
     expect(labelOneInputNode.getAttribute('name')).toBeDefined()
     expect(labelOneInputNode.getAttribute('name')).toEqual(labelTwoInputNode.getAttribute('name'))
   })
-  it('throws errors when ChoiceFieldsetList context is null', () => {
-    expect(() => HTMLRender(<ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>)).toThrowError(
-      'ChoiceFieldsetListContext returned null'
-    )
-    expect(() => HTMLRender(<Item.Label>Label</Item.Label>)).toThrowError('ChoiceFieldsetListContext returned null')
-    expect(() => HTMLRender(<Item.Caption>Caption</Item.Caption>)).toThrowError(
-      'ChoiceFieldsetListContext returned null'
-    )
-  })
 })

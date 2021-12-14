@@ -226,6 +226,7 @@ exports[`ChoiceInputField snapshots renders with a LeadingVisual and caption 1`]
 .c6 {
   font-size: 12px;
   color: #57606a;
+  display: block;
 }
 
 .c2 {
@@ -290,6 +291,7 @@ exports[`ChoiceInputField snapshots renders with a LeadingVisual and caption 1`]
     <span
       className="c6"
       color="fg.muted"
+      display="block"
       fontSize={0}
       id="react-aria-1-caption"
     >
@@ -511,6 +513,7 @@ exports[`ChoiceInputField snapshots renders with a radio input 1`] = `
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
 }
 
 <div

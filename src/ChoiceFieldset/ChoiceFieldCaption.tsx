@@ -1,14 +1,6 @@
-import React, {useContext} from 'react'
-import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'
+import React from 'react'
+import {ChoiceInputField} from '..'
 
-const ChoiceFieldCaption: React.FC = ({children}) => {
-  const choiceFieldsetListContext = useContext(ChoiceFieldsetListContext)
-  if (choiceFieldsetListContext === null) {
-    throw new Error('ChoiceFieldsetListContext returned null')
-  }
-  const {fieldComponent: FieldComponent} = choiceFieldsetListContext
-
-  return <FieldComponent.Caption>{children}</FieldComponent.Caption>
-}
+const ChoiceFieldCaption: React.FC = ({children}) => <ChoiceInputField.Caption>{children}</ChoiceInputField.Caption>
 
 export default ChoiceFieldCaption

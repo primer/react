@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {useSSRSafeId} from '..'
+import {Checkbox, ChoiceInputField, Radio, useSSRSafeId} from '..'
 import {ComponentProps} from '../utils/types'
 import ToggleInputLeadingVisual from '../_ToggleInputLeadingVisual'
 import ChoiceFieldCaption from './ChoiceFieldCaption'
@@ -27,14 +27,7 @@ const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disab
   if (choiceFieldsetListContext === null) {
     throw new Error('ChoiceFieldsetListContext returned null')
   }
-  const {
-    name,
-    onChange,
-    fieldComponent: FieldComponent,
-    selected,
-    disabled,
-    selectionVariant
-  } = choiceFieldsetListContext
+  const {name, onChange, selected, disabled, selectionVariant} = choiceFieldsetListContext
   const fieldId = useSSRSafeId(id)
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === ChoiceFieldLabel
@@ -43,10 +36,11 @@ const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disab
     child =>
       React.isValidElement(child) && (child.type === ChoiceFieldCaption || child.type === ToggleInputLeadingVisual)
   )
+  const ChoiceInput = selectionVariant === 'multiple' ? Checkbox : Radio
 
   return (
-    <FieldComponent id={fieldId} disabled={disabledProp || disabled}>
-      <FieldComponent.Input
+    <ChoiceInputField id={fieldId} disabled={disabledProp || disabled}>
+      <ChoiceInput
         checked={selected?.includes(value)}
         value={value}
         name={selectionVariant === 'multiple' ? value : name}
@@ -59,11 +53,11 @@ const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disab
       ) : (
         // if <Item.Label> was NOT passed, treat all the children except <Item.Caption> and <Item.LeadingVisual> as the label
         <>
-          <FieldComponent.Label>{children}</FieldComponent.Label>
+          <ChoiceInputField.Label>{children}</ChoiceInputField.Label>
           {otherValidChildren}
         </>
       )}
-    </FieldComponent>
+    </ChoiceInputField>
   )
 }
 
