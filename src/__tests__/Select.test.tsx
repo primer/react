@@ -11,6 +11,7 @@ describe('Radio', () => {
   it('renders a select input', () => {
     const {getByLabelText} = render(
       <>
+        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="default">Choice</label>
         <Select id="default">
           <Select.Option value="one">Choice one</Select.Option>
@@ -31,6 +32,7 @@ describe('Radio', () => {
   it('renders a select input with grouped options', () => {
     const {getByLabelText} = render(
       <>
+        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="grouped">Choice</label>
         <Select id="grouped">
           <Select.Group label="Group one">
@@ -55,6 +57,7 @@ describe('Radio', () => {
   it('renders a select input with a placeholder', () => {
     const {getByText, getByLabelText} = render(
       <>
+        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="placeholder">Choice</label>
         <Select id="placeholder" placeholder="Pick a choice">
           <Select.Option value="one">Choice one</Select.Option>
@@ -74,7 +77,7 @@ describe('Radio', () => {
 
     expect(placeholderOption).toBeDefined()
     expect(placeholderOption.tagName.toLowerCase()).toBe('option')
-    /* @ts-ignore - `.selected` will exist if placeholderOption is an <option> element */
+    // @ts-expect-error Property 'selected' does not exist on type 'HTMLElement'
     expect(placeholderOption.selected).not.toBeNull()
     expect(placeholderOption.getAttribute('disabled')).toBeNull()
     expect(placeholderOption.getAttribute('hidden')).toBeNull()
@@ -83,6 +86,7 @@ describe('Radio', () => {
   it('renders a required select input with a placeholder', () => {
     const {getByText, getByLabelText} = render(
       <>
+        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="reqWithPlaceholder">Choice</label>
         <Select id="reqWithPlaceholder" placeholder="Pick a choice" required>
           <Select.Option value="one">Choice one</Select.Option>
@@ -102,7 +106,7 @@ describe('Radio', () => {
 
     expect(placeholderOption).toBeDefined()
     expect(placeholderOption.tagName.toLowerCase()).toBe('option')
-    /* @ts-ignore - `.selected` will exist if placeholderOption is an <option> element */
+    // @ts-expect-error Property 'selected' does not exist on type 'HTMLElement'
     expect(placeholderOption.selected).not.toBeNull()
     expect(placeholderOption.getAttribute('disabled')).not.toBeNull()
     expect(placeholderOption.getAttribute('hidden')).not.toBeNull()
@@ -111,6 +115,7 @@ describe('Radio', () => {
   it('renders a disabled select input', () => {
     const {getByLabelText} = render(
       <>
+        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="disabled">Choice</label>
         <Select id="disabled" disabled>
           <Select.Option value="one">Choice one</Select.Option>
