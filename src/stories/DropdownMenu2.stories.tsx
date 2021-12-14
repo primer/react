@@ -56,8 +56,8 @@ export function SimpleDropdownMenu(): JSX.Element {
       <h1>Simple DropdownMenu</h1>
 
       <DropdownMenu>
-        <DropdownMenu.Button aria-label="Select field type" sx={{textAlign: 'left'}}>
-          {selectedType.icon} {selectedType.name}
+        <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+          {selectedType.name}
         </DropdownMenu.Button>
         <DropdownMenu.Overlay width="medium">
           <ActionList selectionVariant="single">
@@ -134,9 +134,8 @@ export function SingleSelectListStory(): JSX.Element {
                   color: 'fg.muted',
                   ':hover, :focus': {background: 'none !important', color: 'accent.fg'},
                   width: '100%',
-                  paddingX: 0,
-                  justifyContent: 'space-between',
-                  gridTemplateAreas: '"text trailingIcon"'
+                  textAlign: 'left',
+                  paddingX: 0
                 }}
               >
                 Milestone
@@ -190,7 +189,7 @@ export function MemexAddColumn(): JSX.Element {
       <Box sx={{display: 'flex', flexDirection: 'column', width: 200}}>
         <TextInput defaultValue="Estimate" sx={{mb: 2}} />
         <DropdownMenu>
-          <DropdownMenu.Button aria-label="Select field type" sx={{textAlign: 'left'}} leadingIcon={selectedType.icon}>
+          <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
             {selectedType.name}
           </DropdownMenu.Button>
           <DropdownMenu.Overlay width="medium">
