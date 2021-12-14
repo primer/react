@@ -16,9 +16,6 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -33,27 +30,18 @@ exports[`TextInput renders 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -61,7 +49,6 @@ exports[`TextInput renders 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -106,9 +93,6 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -123,9 +107,14 @@ exports[`TextInput renders block 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   width: 100%;
 }
 
@@ -133,26 +122,11 @@ exports[`TextInput renders block 1`] = `
   margin-right: 8px;
 }
 
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
 .c0 .TextInput-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -197,9 +171,6 @@ exports[`TextInput renders consistently 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -214,27 +185,18 @@ exports[`TextInput renders consistently 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -242,7 +204,6 @@ exports[`TextInput renders consistently 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -286,9 +247,6 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -303,27 +261,18 @@ exports[`TextInput renders contrast 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -331,7 +280,6 @@ exports[`TextInput renders contrast 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -376,9 +324,6 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -393,27 +338,18 @@ exports[`TextInput renders error 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -421,7 +357,6 @@ exports[`TextInput renders error 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -466,9 +401,6 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -483,9 +415,14 @@ exports[`TextInput renders large 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
@@ -497,26 +434,11 @@ exports[`TextInput renders large 1`] = `
   margin-right: 8px;
 }
 
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
 .c0 .TextInput-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -562,9 +484,6 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -579,27 +498,18 @@ exports[`TextInput renders leadingVisual 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -607,7 +517,6 @@ exports[`TextInput renders leadingVisual 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -628,7 +537,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   className="c0 TextInput-wrapper"
 >
   <span
-    data-component="leadingVisual"
+    className="TextInput-icon"
   >
     <svg
       aria-hidden="true"
@@ -679,9 +588,6 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -696,27 +602,18 @@ exports[`TextInput renders placeholder 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -724,7 +621,6 @@ exports[`TextInput renders placeholder 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -770,9 +666,6 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -787,9 +680,14 @@ exports[`TextInput renders small 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -803,26 +701,11 @@ exports[`TextInput renders small 1`] = `
   margin-right: 8px;
 }
 
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
 .c0 .TextInput-icon {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -868,9 +751,6 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -885,27 +765,18 @@ exports[`TextInput renders trailingVisual 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -913,7 +784,6 @@ exports[`TextInput renders trailingVisual 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -941,7 +811,7 @@ exports[`TextInput renders trailingVisual 1`] = `
     type="text"
   />
   <span
-    data-component="leadingVisual"
+    className="TextInput-icon"
   >
     <svg
       aria-hidden="true"
@@ -985,9 +855,6 @@ exports[`TextInput renders warning 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -1002,27 +869,18 @@ exports[`TextInput renders warning 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -1030,7 +888,6 @@ exports[`TextInput renders warning 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1075,9 +932,6 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0 {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
   min-height: 34px;
   font-size: 14px;
   line-height: 20px;
@@ -1092,27 +946,18 @@ exports[`TextInput should render a password input 1`] = `
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 [data-component=' leadingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-}
-
-.c0 [data-component=' trailingVisual '] {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
 }
 
 .c0 .TextInput-icon {
@@ -1120,7 +965,6 @@ exports[`TextInput should render a password input 1`] = `
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;

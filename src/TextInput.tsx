@@ -61,13 +61,13 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
         {LeadingVisual && (
-          <span data-component="leadingVisual">
+          <span className="TextInput-icon">
             {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
           </span>
         )}
         <UnstyledTextInput ref={ref} disabled={disabled} {...inputProps} data-component="input" />
         {TrailingVisual && (
-          <span data-component="leadingVisual">
+          <span className="TextInput-icon">
             {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
           </span>
         )}

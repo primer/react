@@ -101,10 +101,9 @@ export const WithLeadingVisual = (args: TextInputProps) => {
   return (
     <form>
       <Label htmlFor={iconInputId}>Example label</Label>
-      <br />
       <TextInput leadingVisual={CheckIcon} id={iconInputId} value={value} onChange={handleChange} {...args} />
-      <Label htmlFor={leadingTextId}>Enter monies</Label>
       <br />
+      <Label htmlFor={leadingTextId}>Enter monies</Label>
       <TextInput leadingVisual="$" id={leadingTextId} value={value} onChange={handleChange} {...args} />
     </form>
   )
@@ -123,11 +122,9 @@ export const WithTrailingIcon = (args: TextInputProps) => {
   return (
     <form>
       <Label htmlFor={iconInputId}>Example label</Label>
-      <br />
       <TextInput trailingVisual={CheckIcon} id={iconInputId} value={value} onChange={handleChange} {...args} />
-
-      <Label htmlFor={trailingTextInputId}>Time in minutes</Label>
       <br />
+      <Label htmlFor={trailingTextInputId}>Time in minutes</Label>
       <TextInput
         trailingVisual="minutes"
         id={trailingTextInputId}

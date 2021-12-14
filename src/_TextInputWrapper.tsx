@@ -53,7 +53,6 @@ type StyledWrapperProps = {
   SxProp
 
 const TextInputWrapper = styled.span<StyledWrapperProps>`
-  width: max-content;
   min-height: 34px;
   font-size: ${get('fontSizes.1')};
   line-height: 20px;
@@ -68,27 +67,15 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
   box-shadow: ${get('shadows.primer.shadow.inset')};
   cursor: text;
   padding: 6px 12px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  justify-items: end;
+  display: inline-flex;
+  align-items: stretch;
   & > :not(:last-child) {
     margin-right: ${get('space.2')};
-  }
-
-  [data-component=' leadingVisual '] {
-    align-self: center;
-    color: ${get('colors.fg.muted')};
-  }
-
-  [data-component=' trailingVisual '] {
-    align-self: center;
-    color: ${get('colors.fg.muted')};
   }
 
   .TextInput-icon {
     align-self: center;
     color: ${get('colors.fg.muted')};
-    margin: 0 ${get('space.2')};
     flex-shrink: 0;
   }
 
