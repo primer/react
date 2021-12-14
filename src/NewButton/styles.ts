@@ -225,11 +225,13 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'leadingIcon'
     },
     '[data-component="text"]': {
-      gridArea: 'text',
-      textAlign: 'left'
+      gridArea: 'text'
     },
     '[data-component="trailingIcon"]': {
       gridArea: 'trailingIcon'
+    },
+    '[data-component="leadingIcon"] + [data-component="text"]': {
+      textAlign: 'left'
     }
   }
   return styles
