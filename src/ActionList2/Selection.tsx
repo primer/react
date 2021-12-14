@@ -29,7 +29,6 @@ export const Selection: React.FC<SelectionProps> = ({selected}) => {
     throw new Error(
       'ActionList cannot have a selectionVariant inside ActionMenu, please use DropdownMenu or SelectPanel instead. More information: https://primer.style/design/components/action-list#application'
     )
-    return null
   }
 
   if (selectionVariant === 'single') {
