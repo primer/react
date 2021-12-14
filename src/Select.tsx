@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import {get} from './constants'
 import TextInputWrapper, {StyledWrapperProps} from './_TextInputWrapper'
 
-export type SelectProps = Omit<React.HTMLProps<HTMLSelectElement>, 'multiple' | 'size'> &
-  Omit<StyledWrapperProps, 'hasIcon'>
+type SelectProps = Omit<React.HTMLProps<HTMLSelectElement> & StyledWrapperProps, 'multiple' | 'size' | 'hasIcon' | 'as'>
 
 const StyledSelect = styled(TextInputWrapper)<SelectProps>`
   appearance: none;
@@ -21,11 +20,14 @@ const StyledSelect = styled(TextInputWrapper)<SelectProps>`
   }
 `
 
-const Select: React.FC<SelectProps> = ({as: _as, ref, children, placeholder, required, ...rest}) => (
+const Select: React.FC<SelectProps> = ({ref, children, disabled, placeholder, required, ...rest}) => (
   <StyledSelect
     as="select"
     ref={ref as RefObject<HTMLSelectElement>}
     required={required || Boolean(placeholder)}
+    disabled={disabled}
+    aria-required={required}
+    aria-disabled={disabled}
     {...rest}
   >
     {placeholder ? (
