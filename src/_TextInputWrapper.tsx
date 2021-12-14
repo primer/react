@@ -20,7 +20,7 @@ const sizeVariants = variant({
   }
 })
 
-type StyledWrapperProps = {
+export type StyledWrapperProps = {
   disabled?: boolean
   hasIcon?: boolean
   block?: boolean

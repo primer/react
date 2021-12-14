@@ -123,6 +123,7 @@ export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as SelectMenu} from './SelectMenu'
+export {default as Select} from './Select'
 export type {
   SelectMenuProps,
   SelectMenuDividerProps,
