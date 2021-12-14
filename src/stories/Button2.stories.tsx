@@ -1,5 +1,5 @@
 import React, {useState, forwardRef} from 'react'
-import {NewButton as Button, NewButtonProps as ButtonProps, IconButton, ButtonLink} from '../NewButton'
+import {Button2 as Button, Button2Props as ButtonProps, IconButton, ButtonLink} from '../Button2'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
 import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRightIcon} from '@primer/octicons-react'
