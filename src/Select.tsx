@@ -18,6 +18,11 @@ const StyledSelect = styled(TextInputWrapper)<SelectProps>`
   &:invalid {
     color: ${get('colors.fg.subtle')};
   }
+
+  /* For Firefox: reverts color of non-placeholder options in the dropdown */
+  &:invalid option:not(:first-child) {
+    color: ${get('colors.fg.default')};
+  }
 `
 
 const Select: React.FC<SelectProps> = ({ref, children, disabled, placeholder, required, ...rest}) => (
