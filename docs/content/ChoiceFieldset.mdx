@@ -11,7 +11,27 @@ import {ComponentChecklist} from '../src/component-checklist'
 
 A `ChoiceFieldset` is a controlled component that is used to render a related set of checkbox or radio inputs.
 
-## Basic Example
+## Anatomy
+
+### ChoiceFieldset.Legend
+
+A title for the set of choices. A `ChoiceFieldset.Legend` must be passed, but it may be visually hidden.
+
+### ChoiceFieldset.List
+
+The list choices are rendered in.
+
+### ChoiceFieldset.Item
+
+Renders a choice to the list as a checkbox or radio field.
+
+### ChoiceFieldset.Validation
+
+If the user's selection has been flagged during validation, `ChoiceFieldset.Validation` may be used to render contextual validation information to help the user complete their task
+
+## Examples
+
+### Basic
 
 ```jsx live
 <ChoiceFieldset>
@@ -24,20 +44,6 @@ A `ChoiceFieldset` is a controlled component that is used to render a related se
   </ChoiceFieldset.List>
 </ChoiceFieldset>
 ```
-
-### Component props
-
-| Name             | Type                                                                                                      | Default | Description                                                                                                                                                                                                          |
-| :--------------- | :-------------------------------------------------------------------------------------------------------- | :-----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children\*       | `ChoiceFieldset.Legend`, `ChoiceFieldset.Description`, `ChoiceFieldset.List`, `ChoiceFieldset.Validation` |    –    | The list of choices and contextual information                                                                                                                                                                       |
-| disabled         | `boolean`                                                                                                 |    –    | Whether the fieldset is NOT ready for user input                                                                                                                                                                     |
-| id               | `string`                                                                                                  |    –    | The unique identifier for this fieldset. Used to associate the validation text with the fieldset <br /> If an ID is not passed, one will be automatically generated                                                  |
-| name             | `string`                                                                                                  |    –    | The unique identifier used to associate radio inputs with eachother <br /> If a name is not passed and the fieldset renders radio inputs, a name will be automatically generated                                     |
-| onSelect         | `(selectedValues?: string[]) => void`                                                                     |    –    | The callback that is called when a user toggles a choice on or off                                                                                                                                                   |
-| required         | `boolean`                                                                                                 |    –    | Whether this field must have a value for the user to complete their task                                                                                                                                             |
-| selected         | `string[]`                                                                                                |    –    | The selected values                                                                                                                                                                                                  |
-| validationMap    | `Record<string, 'error' \| 'success'>`                                                                    |    –    | A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop, the associated validation message will be rendered in the correct style |
-| validationResult | `keyof validationMap`                                                                                     |    –    | The key of the validation message to show                                                                                                                                                                            |
 
 ### Example: using an onSelect handler
 
@@ -213,16 +219,6 @@ const ChoiceFieldsetWithValidation = () => {
 render(<ChoiceFieldsetWithValidation />)
 ```
 
-## ChoiceFieldset.Legend
-
-A title for the set of choices. A `ChoiceFieldset.Legend` must be passed, but it may be visually hidden.
-
-### Component props
-
-| Name           | Type      | Default | Description                                  |
-| :------------- | :-------- | :-----: | :------------------------------------------- |
-| visuallyHidden | `boolean` |    –    | Whether to visually hide the fieldset legend |
-
 ### Example: A visually hidden legend
 
 ```jsx live
@@ -236,17 +232,6 @@ A title for the set of choices. A `ChoiceFieldset.Legend` must be passed, but it
   </ChoiceFieldset.List>
 </ChoiceFieldset>
 ```
-
-## ChoiceFieldset.List
-
-The list choices are rendered in.
-
-### Component props
-
-| Name             | Type                   | Default | Description                                             |
-| :--------------- | :--------------------- | :-----: | :------------------------------------------------------ |
-| children\*       | `ChoiceFieldset.Item`  |    –    | The choices that render as a checkbox or radio field    |
-| selectionVariant | `'single'\|'multiple'` |    –    | Whether multiple items or a single item can be selected |
 
 ### Example: checkbox group
 
@@ -263,11 +248,36 @@ The list choices are rendered in.
 </ChoiceFieldset>
 ```
 
-## ChoiceFieldset.Item
+## Props
 
-Renders a choice to the list as a checkbox or radio field.
+### ChoiceFieldset
 
-### Component props
+| Name             | Type                                                                                                      | Default | Description                                                                                                                                                                                                          |
+| :--------------- | :-------------------------------------------------------------------------------------------------------- | :-----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| children\*       | `ChoiceFieldset.Legend`, `ChoiceFieldset.Description`, `ChoiceFieldset.List`, `ChoiceFieldset.Validation` |    –    | The list of choices and contextual information                                                                                                                                                                       |
+| disabled         | `boolean`                                                                                                 |    –    | Whether the fieldset is NOT ready for user input                                                                                                                                                                     |
+| id               | `string`                                                                                                  |    –    | The unique identifier for this fieldset. Used to associate the validation text with the fieldset <br /> If an ID is not passed, one will be automatically generated                                                  |
+| name             | `string`                                                                                                  |    –    | The unique identifier used to associate radio inputs with eachother <br /> If a name is not passed and the fieldset renders radio inputs, a name will be automatically generated                                     |
+| onSelect         | `(selectedValues?: string[]) => void`                                                                     |    –    | The callback that is called when a user toggles a choice on or off                                                                                                                                                   |
+| required         | `boolean`                                                                                                 |    –    | Whether this field must have a value for the user to complete their task                                                                                                                                             |
+| selected         | `string[]`                                                                                                |    –    | The selected values                                                                                                                                                                                                  |
+| validationMap    | `Record<string, 'error' \| 'success'>`                                                                    |    –    | A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop, the associated validation message will be rendered in the correct style |
+| validationResult | `keyof validationMap`                                                                                     |    –    | The key of the validation message to show                                                                                                                                                                            |
+
+### ChoiceFieldset.Legend
+
+| Name           | Type      | Default | Description                                  |
+| :------------- | :-------- | :-----: | :------------------------------------------- |
+| visuallyHidden | `boolean` |    –    | Whether to visually hide the fieldset legend |
+
+### ChoiceFieldset.List
+
+| Name             | Type                   | Default | Description                                             |
+| :--------------- | :--------------------- | :-----: | :------------------------------------------------------ |
+| children\*       | `ChoiceFieldset.Item`  |    –    | The choices that render as a checkbox or radio field    |
+| selectionVariant | `'single'\|'multiple'` |    –    | Whether multiple items or a single item can be selected |
+
+### ChoiceFieldset.Item
 
 | Name       | Type                                                                                                | Default | Description                                                                                                                                                                                                  |
 | :--------- | :-------------------------------------------------------------------------------------------------- | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -369,40 +379,14 @@ A `ChoiceFieldset.Description` may be used to render hint text if this list need
 </ChoiceFieldset>
 ```
 
-## ChoiceFieldset.Validation
-
-If the user's selection has been flagged during validation, `ChoiceFieldset.Validation` may be used to render contextual validation information to help the user complete their task
-
-### Component props
+### ChoiceFieldset.Validation
 
 | Name            | Type              | Default | Description                                                                                                                        |
 | :-------------- | :---------------- | :-----: | :--------------------------------------------------------------------------------------------------------------------------------- |
 | children\*      | `React.ReactNode` |    –    | The validation message                                                                                                             |
 | validationKey\* | `string`          |    –    | When this matches the `validationResult` prop on the parent `ChoiceFieldset` component, this validation component will be rendered |
 
-### Example:
-
-```jsx live
-<ChoiceFieldset
-  name="radioGroup"
-  validationMap={{
-    validChoice: 'success'
-  }}
-  validationResult="validChoice"
-  selected={['all']}
->
-  <ChoiceFieldset.Legend>Security</ChoiceFieldset.Legend>
-
-  <ChoiceFieldset.List>
-    <ChoiceFieldset.Item value="all">All repos</ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="none">No repos</ChoiceFieldset.Item>
-  </ChoiceFieldset.List>
-
-  <ChoiceFieldset.Validation validationKey="validChoice">You made the right selection</ChoiceFieldset.Validation>
-</ChoiceFieldset>
-```
-
-## Component status
+## Status
 
 <ComponentChecklist
   items={{
@@ -424,5 +408,6 @@ If the user's selection has been flagged during validation, `ChoiceFieldset.Vali
 
 ## Related components
 
-- [CheckboxInputField](/CheckboxInputField)
-- [RadioInputField](/RadioInputField)
+- [ChoiceInputField](/ChoiceInputField)
+- [Checkbox](/Checkbox)
+- [Radio](/Radio)
