@@ -8,11 +8,17 @@ storybook: '/react/storybook?path=/story/forms-checkbox--default'
 
 import {ComponentChecklist} from '../src/component-checklist'
 
+<Note variant="warning">
+
+**Use [ChoiceInputField](/ChoiceInputField) to render a checkbox with a label and other content related to the field.** This component is only meant to be used in the case that you're building a custom checkbox that is not yet supported by Primer. For example: the "Use your administrator privilages..." checkbox at the bottom of PR that doesn't meet the criteria to be merged without admin privilages.
+
+If you do use this component to build a custom checkbox, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
+
+</Note>
+
 ## Default example
 
 The `Checkbox` component can be used in controlled and uncontrolled modes.
-
-**Use [CheckboxInputField](/CheckboxInputField) to render a checkbox with a label and other content related to the field.** Do not use this component on it's own unless you're rendering a "special" checkbox field that cannot be build using the `CheckboxInputField` component. For example: the "Use your administrator privilages..." checkbox at the bottom of PR that doesn't meet the criteria to be merged without admin privilages.
 
 ```jsx live
 <>
