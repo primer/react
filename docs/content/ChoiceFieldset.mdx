@@ -45,7 +45,7 @@ If the user's selection has been flagged during validation, `ChoiceFieldset.Vali
 </ChoiceFieldset>
 ```
 
-### Example: using an onSelect handler
+### Using an onSelect handler
 
 ```javascript live noinline
 const WithOnSelectHandler = () => {
@@ -106,7 +106,22 @@ const WithOnSelectHandler = () => {
 render(<WithOnSelectHandler />)
 ```
 
-### Example: Disabled
+### Checkbox group
+
+```jsx live
+<ChoiceFieldset>
+  <ChoiceFieldset.Legend>Prefered Primer component interface</ChoiceFieldset.Legend>
+
+  <ChoiceFieldset.List selectionVariant="multiple">
+    <ChoiceFieldset.Item value="figma">Figma library</ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="css">Primer CSS</ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="react">Primer React components</ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="viewcomponents">Primer ViewComponents</ChoiceFieldset.Item>
+  </ChoiceFieldset.List>
+</ChoiceFieldset>
+```
+
+### Disabled
 
 ```jsx live
 <ChoiceFieldset disabled>
@@ -120,7 +135,7 @@ render(<WithOnSelectHandler />)
 </ChoiceFieldset>
 ```
 
-### Example: Required
+### Required
 
 ```jsx live
 <ChoiceFieldset required>
@@ -134,7 +149,7 @@ render(<WithOnSelectHandler />)
 </ChoiceFieldset>
 ```
 
-### Example: With pre-selected choices
+### With pre-selected choices
 
 ```jsx live
 <ChoiceFieldset selected={['figma', 'react']}>
@@ -149,7 +164,7 @@ render(<WithOnSelectHandler />)
 </ChoiceFieldset>
 ```
 
-### Example: with validation
+### With validation
 
 ```javascript live noinline
 const choices = [
@@ -219,7 +234,7 @@ const ChoiceFieldsetWithValidation = () => {
 render(<ChoiceFieldsetWithValidation />)
 ```
 
-### Example: A visually hidden legend
+### A visually hidden legend
 
 ```jsx live
 <ChoiceFieldset>
@@ -229,21 +244,6 @@ render(<ChoiceFieldsetWithValidation />)
     <ChoiceFieldset.Item value="hc-dark">High-contrast dark</ChoiceFieldset.Item>
     <ChoiceFieldset.Item value="light">Light</ChoiceFieldset.Item>
     <ChoiceFieldset.Item value="hc-light">High-contrast light</ChoiceFieldset.Item>
-  </ChoiceFieldset.List>
-</ChoiceFieldset>
-```
-
-### Example: checkbox group
-
-```jsx live
-<ChoiceFieldset>
-  <ChoiceFieldset.Legend>Prefered Primer component interface</ChoiceFieldset.Legend>
-
-  <ChoiceFieldset.List selectionVariant="multiple">
-    <ChoiceFieldset.Item value="figma">Figma library</ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="css">Primer CSS</ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="react">Primer React components</ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="viewcomponents">Primer ViewComponents</ChoiceFieldset.Item>
   </ChoiceFieldset.List>
 </ChoiceFieldset>
 ```
