@@ -53,7 +53,7 @@ export function SimpleDropdownMenu(): JSX.Element {
 
   return (
     <>
-      <h1>Simple DropdownMenu</h1>
+      <h1>Simple Dropdown Menu</h1>
 
       <DropdownMenu>
         <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
@@ -186,8 +186,8 @@ export function MemexAddColumn(): JSX.Element {
     <>
       <h1>Memex Add column</h1>
 
-      <Box sx={{display: 'flex', flexDirection: 'column', width: 200}}>
-        <TextInput defaultValue="Estimate" sx={{mb: 2}} />
+      <Box as="form" sx={{display: 'flex', flexDirection: 'column', width: 200}}>
+        <TextInput defaultValue="Estimate" aria-label="Field Name" sx={{mb: 2}} />
         <DropdownMenu>
           <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
             {selectedType.name}
@@ -209,7 +209,7 @@ export function MemexAddColumn(): JSX.Element {
         <Text sx={{fontSize: 0, color: 'fg.muted', mt: 3, mb: 1}}>Options</Text>
 
         <Box sx={{display: 'flex', alignItems: 'center'}}>
-          <Text>Duration:</Text>
+          <Text sx={{fontSize: 1}}>Duration:</Text>
           <DropdownMenu>
             <DropdownMenu.Button
               id="duration"
