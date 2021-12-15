@@ -9,7 +9,7 @@ import {TokenSizeKeys} from './Token/TokenBase'
 import {TextInputProps} from './TextInput'
 import {useProvidedRefOrCreate} from './hooks'
 import UnstyledTextInput from './_UnstyledTextInput'
-import TextInputWrapper from './_TextInputWrapper'
+import TextInputWrapper, {textInputHorizPadding} from './_TextInputWrapper'
 import Box from './Box'
 import Text from './Text'
 import {isFocusable} from '@primer/behaviors/utils'
@@ -241,7 +241,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       className={className}
       contrast={contrast}
       disabled={disabled}
-      hasIcon={!!IconComponent}
+      hasLeadingVisual={Boolean(IconComponent)}
       theme={theme}
       width={widthProp}
       minWidth={minWidthProp}
@@ -249,6 +249,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       variant={variantProp}
       onClick={focusInput}
       sx={{
+        paddingLeft: textInputHorizPadding,
+        py: `calc(${textInputHorizPadding} / 2)`,
         ...(block
           ? {
               display: 'flex',
@@ -289,13 +291,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           }
         }}
       >
+        {IconComponent && <IconComponent className="TextInput-icon" />}
         <Box
           sx={{
             order: 1,
             flexGrow: 1
           }}
         >
-          {IconComponent && <IconComponent className="TextInput-icon" />}
           <UnstyledTextInput
             ref={combinedInputRef}
             disabled={disabled}

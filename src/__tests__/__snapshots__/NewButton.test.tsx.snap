@@ -5,6 +5,7 @@ exports[`Button renders consistently 1`] = `
   border-radius: 6px;
   border: 1px solid;
   border-color: rgba(27,31,36,0.15);
+  font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
@@ -92,6 +93,7 @@ exports[`Button styles danger button appropriately 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
+  font-family: inherit;
   font-weight: bold;
   line-height: 20px;
   white-space: nowrap;
@@ -199,6 +201,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 .c0 {
   border-radius: 2;
   border: 0;
+  font-family: inherit;
   font-weight: bold;
   line-height: 20px;
   white-space: nowrap;
@@ -286,6 +289,7 @@ exports[`Button styles outline button appropriately 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
+  font-family: inherit;
   font-weight: bold;
   line-height: 20px;
   white-space: nowrap;
@@ -393,6 +397,7 @@ exports[`Button styles primary button appropriately 1`] = `
   border-radius: 2;
   border: 1px solid;
   border-color: border.subtle;
+  font-family: inherit;
   font-weight: bold;
   line-height: 20px;
   white-space: nowrap;
