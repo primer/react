@@ -6,7 +6,7 @@ import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRig
 import Box from '../Box'
 
 export default {
-  title: 'Composite components/New Button',
+  title: 'Composite components/Button2',
 
   decorators: [
     Story => {
