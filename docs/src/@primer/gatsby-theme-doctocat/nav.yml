@@ -61,10 +61,6 @@
       url: /CounterLabel
     - title: Details & useDetails
       url: /Details
-    - title: Dialog
-      url: /Dialog
-    - title: Dropdown
-      url: /Dropdown
     - title: FilteredSearch
       url: /FilteredSearch
     - title: FilterList
@@ -99,8 +95,6 @@
       url: /ProgressBar
     - title: Radio
       url: /Radio
-    - title: SelectMenu
-      url: /SelectMenu
     - title: SideNav
       url: /SideNav
     - title: Spinner
@@ -132,10 +126,16 @@
 - title: Deprecated
   children:
     - title: BorderBox
-      url: /BorderBox
+      url: /deprecated/BorderBox
     - title: Flex
-      url: /Flex
+      url: /deprecated/Flex
     - title: Grid
-      url: /Grid
+      url: /deprecated/Grid
     - title: Position
-      url: /Position
+      url: /deprecated/Position
+    - title: Dialog
+      url: /deprecated/Dialog
+    - title: Dropdown
+      url: /deprecated/Dropdown
+    - title: SelectMenu
+      url: /deprecated/SelectMenu

@@ -1,5 +1,5 @@
 import React from 'react'
-import {focusTrap} from '../behaviors/focusTrap'
+import {focusTrap} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export interface FocusTrapHookSettings {
