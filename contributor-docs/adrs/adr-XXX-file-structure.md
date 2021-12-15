@@ -31,8 +31,7 @@ primer-react/
 ### Rules
 
 - Every component should have its own PascalCased directory directly under `src/`
-- Subcomponents meant to be used as children of their parent component should be properties of the exported component (e.g., `Breadcrumbs.Item`)
-- Subcomponents meant to be used on their own should be exported as a named export (e.g., `ButtonDanger`)
+- Subcomponents should be properties of the exported parent component (e.g., `Breadcrumbs.Item`)
 - Replacements of existing components should use an incrementing number (e.g., `Breadcrumbs2` rather than `NewBreadcrumbs`)
 
 ## Implementation
