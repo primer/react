@@ -6,6 +6,7 @@ storybook: '/react/storybook?path=/story/composite-components-button--default-bu
 ---
 
 import {ComponentChecklist} from '../src/component-checklist'
+import {PropsTable} from '../src/props-table'
 
 `Button` is used for actions, like in forms, while `Link` is used for destinations, or moving from one page to another.
 
@@ -41,9 +42,9 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
 
 <PropsTable>
-  <PropsTableRow name="as" type="String" defaultValue="button" description="Sets the HTML tag for the component" />
-  <PropsTableRow name="sx" type="SystemStyleObject" defaultValue="{}" description="Additional styles" />
-  <PropsTableRow
+  <PropsTable.Row name="as" type="String" defaultValue="button" description="Sets the HTML tag for the component" />
+  <PropsTable.Row name="sx" type="SystemStyleObject" defaultValue="{}" description="Additional styles" />
+  <PropsTable.Row
     name="variant"
     type="String"
     defaultValue="'medium'"
