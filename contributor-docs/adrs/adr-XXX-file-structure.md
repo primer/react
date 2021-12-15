@@ -6,9 +6,11 @@ Proposed
 
 ## Context
 
-Components might be more grokable if they were structured consistently
+Components might be more grokable if they were structured consistently. This ADR proposes conventions
 
 ## Decision
+
+TL;DR:
 
 ```
 primer-react/
@@ -16,22 +18,25 @@ primer-react/
 │  ├─ BreadCrumbs/
 │  │  ├─ index.ts                    // Just re-exporting?
 │  │  ├─ BreadCrumbs.tsx             // Primary component
-│  │  ├─ BreadCrumbsItem.tsx         // Subcomponent
+│  │  ├─ BreadCrumbsItem.tsx         // Subcomponent (include item name for findability in most IDEs)
 │  │  ├─ BreadCrumbs.mdx             // Documentation. Always .mdx, not .md
 │  │  ├─ BreadCrumbs.stories.tsx
-│  │  ├─ BreadCrumbs.test.tsx
-│  │  └─ BreadCrumbs.types.test.tsx
+│  │  ├─ BreadCrumbs.test.tsx        // Unit tests
+│  │  ├─ BreadCrumbs.types.test.tsx  // Type tests
+│  │  ├─ BreadCrumbs.yml             // Component metadata (Possible future)
+│  │  └─ __snapshots__/
 ┆  ┆
 ```
 
-Questions I would like to settle in this ADR:
+### Rules
 
-- On subcomponents:
-  - Do subcomponents filenames need to be namespaced with the parent component? (e.g., `BreadCrumbsItem.tsx` vs `Item.tsx`)
-  - Should the `index.ts` in each component directory export every subcomponent under its own name, or should we prefer `Object.assign`ing subcomponents to the parent component?
-  - Should subcomponents always have their own test files? What about type tests and stories?
-- Would this structure help if we wanted to move toward one-package-per-component like react-aria does?
-- Could we set a standard for replacement components? E.g., NewButton vs. Button2
-- Migration
-  - Can we implement this quickly? Can we script the migration?
-  - Can we do this without changing any of our exports from src/index.ts?
+- Every component should have its own PascalCased directory directly under `src/`
+- Subcomponents meant to be used as children of their parent component should be properties of the exported component (e.g., `BreadCrumbs.Item`)
+- Subcomponents meant to be used on their own should be exported as a named export (e.g., `ButtonDanger`)
+- Replacements of existing components should use an incrementing number (e.g., `BreadCrumbs2` rather than `NewBreadCrumbs`)
+
+## Implementation
+
+- [ ] Migrate components into this structure
+- [ ] Set up tests for the component structure
+- [ ] Mark this ADR as adopted
