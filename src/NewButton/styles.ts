@@ -191,6 +191,7 @@ export const getBaseStyles = (theme?: Theme) => ({
   borderRadius: '2',
   border: '1px solid',
   borderColor: theme?.colors.btn.border,
+  fontFamily: 'inherit',
   fontWeight: 'bold',
   lineHeight: TEXT_ROW_HEIGHT,
   whiteSpace: 'nowrap',
