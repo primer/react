@@ -6,6 +6,7 @@ type ContextProps = {
   container?: string
   listRole?: string
   itemRole?: string
+  selectionVariant?: 'single' | 'multiple'
   selectionAttribute?: 'aria-selected' | 'aria-checked'
   // This can be any function, we don't know anything about the arguments
   // to be more specific here, this is as good as (...args: any[]) => unknown

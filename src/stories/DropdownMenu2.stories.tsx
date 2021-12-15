@@ -59,7 +59,7 @@ export function SimpleDropdownMenu(): JSX.Element {
           {selectedType.name}
         </DropdownMenu.Button>
         <DropdownMenu.Overlay width="medium">
-          <ActionList selectionVariant="single">
+          <ActionList>
             {fieldTypes.map((type, index) => (
               <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
                 <type.icon /> {type.name}
@@ -86,7 +86,7 @@ export function Placeholder(): JSX.Element {
           {selectedType.name || 'Pick a field type'}
         </DropdownMenu.Button>
         <DropdownMenu.Overlay width="medium">
-          <ActionList selectionVariant="single">
+          <ActionList>
             {fieldTypes.map((type, index) => (
               <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
                 <type.icon /> {type.name}
@@ -120,7 +120,7 @@ export function MemexIteration(): JSX.Element {
           {duration} {duration > 1 ? 'weeks' : 'week'}
         </DropdownMenu.Button>
         <DropdownMenu.Overlay width="medium">
-          <ActionList selectionVariant="single">
+          <ActionList>
             {[1, 2, 3, 4, 5, 6].map(weeks => (
               <ActionList.Item key={weeks} selected={duration === weeks} onSelect={() => setDuration(weeks)}>
                 {weeks} {weeks > 1 ? 'weeks' : 'week'}
@@ -157,7 +157,7 @@ export function MemexAddColumn(): JSX.Element {
             {selectedType.name}
           </DropdownMenu.Button>
           <DropdownMenu.Overlay width="medium">
-            <ActionList selectionVariant="single">
+            <ActionList>
               {fieldTypes.map((type, index) => (
                 <ActionList.Item
                   key={index}
@@ -183,7 +183,7 @@ export function MemexAddColumn(): JSX.Element {
               {duration} {duration > 1 ? 'weeks' : 'week'}
             </DropdownMenu.Button>
             <DropdownMenu.Overlay width="medium">
-              <ActionList selectionVariant="single">
+              <ActionList>
                 {[1, 2, 3, 4, 5, 6].map(weeks => (
                   <ActionList.Item key={weeks} selected={duration === weeks} onSelect={() => setDuration(weeks)}>
                     {weeks} {weeks > 1 ? 'weeks' : 'week'}
@@ -228,7 +228,7 @@ export function MilestoneStory(): JSX.Element {
             </DropdownMenu.Anchor>
           </DropdownMenu.Anchor>
           <DropdownMenu.Overlay width="medium">
-            <ActionList selectionVariant="single" showDividers>
+            <ActionList showDividers>
               {milestones.map((milestone, index) => (
                 <ActionList.Item
                   key={index}
@@ -275,7 +275,7 @@ export function ControlledMenu(): JSX.Element {
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenu.Button onClick={() => setOpen(!open)}>{open ? 'Close Menu' : 'Open Menu'}</DropdownMenu.Button>
         <DropdownMenu.Overlay>
-          <ActionList selectionVariant="single">
+          <ActionList>
             {fieldTypes.map((type, index) => (
               <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
                 {type.name}
@@ -319,7 +319,7 @@ export function ExternalAnchor(): JSX.Element {
             triggerRef
           ]}
         >
-          <ActionList selectionVariant="single">
+          <ActionList>
             {fieldTypes.map((type, index) => (
               <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
                 {type.name}

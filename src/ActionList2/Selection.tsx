@@ -10,10 +10,13 @@ type SelectionProps = Pick<ItemProps, 'selected'>
 export const Selection: React.FC<SelectionProps> = ({selected}) => {
   const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
-  const {container} = React.useContext(ActionListContainerContext)
+  const {container, selectionVariant: menuSelectionVariant} = React.useContext(ActionListContainerContext)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
-  const selectionVariant = typeof groupSelectionVariant !== 'undefined' ? groupSelectionVariant : listSelectionVariant
+  /** fallback to selectionVariant from container menu if any (ActionMenu, DropdownMenu, SelectPanel ) */
+  let selectionVariant
+  if (typeof groupSelectionVariant !== 'undefined') selectionVariant = groupSelectionVariant
+  else selectionVariant = listSelectionVariant || menuSelectionVariant
 
   // if selectionVariant is not set on List, don't show selection
   if (!selectionVariant) {
