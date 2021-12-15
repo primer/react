@@ -48,8 +48,8 @@ const fieldTypes = [
 ]
 
 export function SimpleDropdownMenu(): JSX.Element {
-  const [selectedIndex, setSelectedIndex] = React.useState(0)
-  const selectedType = fieldTypes[selectedIndex]
+  const [selectedIndex, setSelectedIndex] = React.useState(-1)
+  const selectedType = fieldTypes[selectedIndex] || {}
 
   return (
     <>
@@ -57,7 +57,7 @@ export function SimpleDropdownMenu(): JSX.Element {
 
       <DropdownMenu>
         <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
-          {selectedType.name}
+          {selectedType.name || 'Pick a field type'}
         </DropdownMenu.Button>
         <DropdownMenu.Overlay width="medium">
           <ActionList selectionVariant="single">
