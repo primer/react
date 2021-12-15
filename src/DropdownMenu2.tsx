@@ -59,15 +59,15 @@ const Menu: React.FC<DropdownMenuProps> = ({
   )
 }
 
-export type MenuAnchorProps = {children: React.ReactElement}
-const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], MenuAnchorProps>(
+export type DropdownMenuAnchorProps = {children: React.ReactElement}
+const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], DropdownMenuAnchorProps>(
   ({children, ...anchorProps}, anchorRef) => {
     return React.cloneElement(children, {...anchorProps, ref: anchorRef})
   }
 )
 
 /** this component is syntactical sugar 🍭 */
-export type MenuButtonProps = ButtonProps
+export type DropdownMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
   ({children, ...props}, anchorRef) => {
     return (
@@ -108,6 +108,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
           container: 'DropdownMenu',
           listRole: 'menu',
           itemRole: 'menuitemradio',
+          selectionVariant: 'single',
           selectionAttribute: 'aria-checked',
           afterSelect: onClose
         }}
