@@ -2,11 +2,11 @@
 
 ## Status
 
-Proposed
+Adopted
 
 ## Context
 
-Today our component prop APIs have:
+Our component prop APIs have, at times been a bit of a mess. We've seen:
 
 - Implicit conventions not documented anywhere but consistently reflected in our code (e.g., the type of the `sx` prop)
 - Explicit plans to change some of those (e.g., the deprecation of Styled System props)
