@@ -1,14 +1,16 @@
 ---
 title: Autocomplete
 status: Alpha
+description: Used to render a text input that allows a user to quickly filter through a list of options to pick one or more values.
 source: https://github.com/primer/react/tree/main/src/Autocomplete
 storybook: '/react/storybook?path=/story/forms-autocomplete--single-select'
 ---
 
-import {Props} from '../src/props'
 import {Autocomplete} from '@primer/react'
+import {Props} from '../src/props'
+import {ComponentChecklist} from '../src/component-checklist'
 
-The `Autocomplete` components are used to render a text input that allows a user to quickly filter through a list of options to pick one or more values. It is comprised of an `Autocomplete.Input` component that a user types into, and a `Autocomplete.Menu` component that displays the list of selectable values.
+The `Autocomplete` component is comprised of an `Autocomplete.Input` component that a user types into, and a `Autocomplete.Menu` component that displays the list of selectable values.
 
 ## Anatomy
 
@@ -681,6 +683,6 @@ render(<MultiSelectAddNewItem />)
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: true,
-    hasFigmaComponent: false
+    hasFigmaComponent: true
   }}
 />
