@@ -13,7 +13,6 @@ import TextInputWrapper, {textInputHorizPadding} from './_TextInputWrapper'
 import Box from './Box'
 import Text from './Text'
 import {isFocusable} from '@primer/behaviors/utils'
-import {text} from 'stream/consumers'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>
