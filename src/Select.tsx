@@ -35,7 +35,8 @@ const Select: React.FC<SelectProps> = ({ref, children, disabled, placeholder, re
     aria-disabled={disabled}
     {...rest}
   >
-    {placeholder ? (
+{placeholder && <option value="" disabled={required} selected hidden={required}>{placeholder}</option>}
+``
       <option value="" disabled={required} selected hidden={required}>
         {placeholder}
       </option>
