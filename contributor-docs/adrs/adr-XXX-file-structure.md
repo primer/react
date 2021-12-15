@@ -15,15 +15,15 @@ TL;DR:
 ```
 primer-react/
 ├─ src/
-│  ├─ BreadCrumbs/
+│  ├─ Breadcrumbs/
 │  │  ├─ index.ts                    // Just re-exporting?
-│  │  ├─ BreadCrumbs.tsx             // Primary component
-│  │  ├─ BreadCrumbsItem.tsx         // Subcomponent (include item name for findability in most IDEs)
-│  │  ├─ BreadCrumbs.mdx             // Documentation. Always .mdx, not .md
-│  │  ├─ BreadCrumbs.stories.tsx
-│  │  ├─ BreadCrumbs.test.tsx        // Unit tests
-│  │  ├─ BreadCrumbs.types.test.tsx  // Type tests
-│  │  ├─ BreadCrumbs.yml             // Component metadata (Possible future)
+│  │  ├─ Breadcrumbs.tsx             // Primary component
+│  │  ├─ BreadcrumbsItem.tsx         // Subcomponent (include item name for findability in most IDEs)
+│  │  ├─ Breadcrumbs.mdx             // Documentation. Always .mdx, not .md
+│  │  ├─ Breadcrumbs.stories.tsx
+│  │  ├─ Breadcrumbs.test.tsx        // Unit tests
+│  │  ├─ Breadcrumbs.types.test.tsx  // Type tests
+│  │  ├─ Breadcrumbs.yml             // Component metadata (Possible future)
 │  │  └─ __snapshots__/
 ┆  ┆
 ```
@@ -31,9 +31,9 @@ primer-react/
 ### Rules
 
 - Every component should have its own PascalCased directory directly under `src/`
-- Subcomponents meant to be used as children of their parent component should be properties of the exported component (e.g., `BreadCrumbs.Item`)
+- Subcomponents meant to be used as children of their parent component should be properties of the exported component (e.g., `Breadcrumbs.Item`)
 - Subcomponents meant to be used on their own should be exported as a named export (e.g., `ButtonDanger`)
-- Replacements of existing components should use an incrementing number (e.g., `BreadCrumbs2` rather than `NewBreadCrumbs`)
+- Replacements of existing components should use an incrementing number (e.g., `Breadcrumbs2` rather than `NewBreadcrumbs`)
 
 ## Implementation
 
