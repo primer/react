@@ -87,6 +87,7 @@ exports[`ActionMenu renders consistently 1`] = `
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}
+    type="button"
   >
     Toggle Menu
   </button>
