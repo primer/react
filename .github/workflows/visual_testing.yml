@@ -28,3 +28,4 @@ jobs:
         with:
           buildScriptName: build:storybook
           projectToken: 91e12320417c
+          autoAcceptChanges: github.ref == 'refs/heads/main'
