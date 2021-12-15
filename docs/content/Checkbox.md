@@ -10,7 +10,8 @@ import {ComponentChecklist} from '../src/component-checklist'
 
 <Note variant="warning">
 
-**Use [ChoiceInputField](/ChoiceInputField) to render a checkbox with a label and other content related to the field.** This component is only meant to be used in the case that you're building a custom checkbox that is not yet supported by Primer. For example: the "Use your administrator privilages..." checkbox at the bottom of PR that doesn't meet the criteria to be merged without admin privilages.
+**Use [ChoiceInputField](/ChoiceInputField) to display an accessible checkbox form field**. This `Checkbox` component is intended only as an ingredient for other custom components, or as a drop-in replacement for native HTML checkboxes outside of form use-cases.
+
 
 If you do use this component to build a custom checkbox, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
 
