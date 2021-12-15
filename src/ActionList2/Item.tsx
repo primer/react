@@ -102,7 +102,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     forwardedRef
   ): JSX.Element => {
     const {variant: listVariant, showDividers} = React.useContext(ListContext)
-    const {itemRole, afterSelect, selectionProperty = 'aria-selected'} = React.useContext(ActionListContainerContext)
+    const {itemRole, afterSelect, selectionAttribute = 'aria-selected'} = React.useContext(ActionListContainerContext)
 
     const {theme} = useTheme()
 
@@ -213,7 +213,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
             aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
             role={role || itemRole}
-            {...{[selectionProperty]: selected}}
+            {...{[selectionAttribute]: selected}}
             {...props}
           >
             <ItemWrapper>

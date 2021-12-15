@@ -108,7 +108,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
           container: 'DropdownMenu',
           listRole: 'menu',
           itemRole: 'menuitemradio',
-          selectionProperty: 'aria-checked',
+          selectionAttribute: 'aria-checked',
           afterSelect: onClose
         }}
       >
