@@ -48,12 +48,38 @@ const fieldTypes = [
 ]
 
 export function SimpleDropdownMenu(): JSX.Element {
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const selectedType = fieldTypes[selectedIndex]
+  return (
+    <>
+      <h1>Simple Dropdown Menu</h1>
+
+      <DropdownMenu>
+        <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+          {selectedType.name}
+        </DropdownMenu.Button>
+        <DropdownMenu.Overlay width="medium">
+          <ActionList selectionVariant="single">
+            {fieldTypes.map((type, index) => (
+              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+                <type.icon /> {type.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </DropdownMenu.Overlay>
+      </DropdownMenu>
+    </>
+  )
+}
+SimpleDropdownMenu.storyName = 'Simple DropdownMenu'
+
+export function Placeholder(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(-1)
   const selectedType = fieldTypes[selectedIndex] || {}
 
   return (
     <>
-      <h1>Simple Dropdown Menu</h1>
+      <h1>With placeholder</h1>
 
       <DropdownMenu>
         <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
@@ -72,7 +98,7 @@ export function SimpleDropdownMenu(): JSX.Element {
     </>
   )
 }
-SimpleDropdownMenu.storyName = 'Simple DropdownMenu'
+Placeholder.storyName = 'Placeholder'
 
 export function MemexIteration(): JSX.Element {
   const [duration, setDuration] = React.useState(1)
