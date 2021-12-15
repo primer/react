@@ -143,7 +143,7 @@ const milestones = [
 export function SingleSelectListStory(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(-1)
 
-  const selectedMilestone = milestones[selectedIndex]
+  const selectedMilestone = milestones[selectedIndex] as typeof milestones[0] | undefined
 
   return (
     <>
