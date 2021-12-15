@@ -149,7 +149,13 @@ export const blockButton = ({...args}: ButtonProps) => {
       <Button {...args} sx={{width: '100%', mb: 2}}>
         Block
       </Button>
-      <Button leadingIcon={EyeIcon} trailingIcon={TriangleDownIcon} {...args} sx={{width: '100%'}}>
+      <Button leadingIcon={EyeIcon} trailingIcon={TriangleDownIcon} {...args} sx={{width: '100%', mb: 2}}>
+        Watch
+      </Button>
+      <Button trailingIcon={TriangleDownIcon} {...args} sx={{width: '100%', mb: 2}}>
+        Watch
+      </Button>
+      <Button leadingIcon={EyeIcon} {...args} sx={{width: '100%'}}>
         Watch
       </Button>
     </>
