@@ -102,7 +102,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     forwardedRef
   ): JSX.Element => {
     const {variant: listVariant, showDividers} = React.useContext(ListContext)
-    const {itemRole, selectionProperty, afterSelect} = React.useContext(ActionListContainerContext)
+    const {itemRole, afterSelect, selectionProperty = 'aria-selected'} = React.useContext(ActionListContainerContext)
 
     const {theme} = useTheme()
 
