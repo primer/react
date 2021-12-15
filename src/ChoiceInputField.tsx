@@ -2,7 +2,7 @@ import React from 'react'
 import {Box, Checkbox, Radio, useSSRSafeId} from '.'
 import {get} from './constants'
 import {Slots} from './InputField/slots'
-import ToggleInputLeadingVisual from './_ToggleInputLeadingVisual'
+import ChoiceInputLeadingVisual from './_ChoiceInputLeadingVisual'
 import InputField, {Props as InputFieldProps} from './InputField/InputField'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import InputFieldCaption from './InputField/_InputFieldCaption'
@@ -36,30 +36,30 @@ const ChoiceInputField: React.FC<Props> = ({children, disabled, id: idProp, vali
   )
     ? 'checkbox'
     : 'radio'
-  const ToggleInput = getInputToRender(inputType, children)
-  const toggleInputProps = React.isValidElement(ToggleInput) ? ToggleInput.props : undefined
+  const ChoiceInput = getInputToRender(inputType, children)
+  const choiceInputProps = React.isValidElement(ChoiceInput) ? ChoiceInput.props : undefined
 
-  if (!ToggleInput) {
+  if (!ChoiceInput) {
     // eslint-disable-next-line no-console
     console.warn(
       'To correctly render this field with the correct ARIA attributes passed to the input, please pass the Checkbox or Radio component from @primer/react as a direct child of the ChoiceInputField component'
     )
   } else {
-    if (toggleInputProps?.id) {
+    if (choiceInputProps?.id) {
       // eslint-disable-next-line no-console
       console.warn(
         `instead of passing the 'id' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`
       )
     }
 
-    if (toggleInputProps?.disabled) {
+    if (choiceInputProps?.disabled) {
       // eslint-disable-next-line no-console
       console.warn(
         `instead of passing the 'disabled' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`
       )
     }
 
-    if (toggleInputProps?.required) {
+    if (choiceInputProps?.required) {
       // eslint-disable-next-line no-console
       console.warn(
         `instead of passing the 'required' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`
@@ -80,8 +80,8 @@ const ChoiceInputField: React.FC<Props> = ({children, disabled, id: idProp, vali
         return (
           <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
             <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
-              {React.isValidElement(ToggleInput) &&
-                React.cloneElement(ToggleInput, {
+              {React.isValidElement(ChoiceInput) &&
+                React.cloneElement(ChoiceInput, {
                   id,
                   disabled,
                   ['aria-describedby']: captionId
@@ -125,8 +125,10 @@ const ChoiceInputField: React.FC<Props> = ({children, disabled, id: idProp, vali
   )
 }
 
+const Label: React.FC = ({children}) => <InputField.Label>{children}</InputField.Label>
+
 export default Object.assign(ChoiceInputField, {
+  Label,
   Caption: InputField.Caption,
-  Label: InputField.Label,
-  LeadingVisual: ToggleInputLeadingVisual
+  LeadingVisual: ChoiceInputLeadingVisual
 })
