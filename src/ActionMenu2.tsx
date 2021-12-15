@@ -70,7 +70,7 @@ export type MenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>((props, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button {...props} />
+      <Button type="button" {...props} />
     </Anchor>
   )
 })

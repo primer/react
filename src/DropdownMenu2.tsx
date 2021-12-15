@@ -72,7 +72,7 @@ const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonPro
   ({children, ...props}, anchorRef) => {
     return (
       <Anchor ref={anchorRef}>
-        <Button trailingIcon={TriangleDownIcon} {...props}>
+        <Button trailingIcon={TriangleDownIcon} type="button" {...props}>
           {children}
         </Button>
       </Anchor>
