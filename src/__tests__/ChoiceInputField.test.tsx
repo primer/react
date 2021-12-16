@@ -1,6 +1,5 @@
 import React from 'react'
-import {render} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import {Checkbox, ChoiceInputField, Radio, SSRProvider} from '..'
@@ -11,131 +10,100 @@ const CHECKBOXINPUTFIELD_LABEL_TEXT = 'Option one'
 const CHECKBOXINPUTFIELD_CAPTION_TEXT = 'Hint: a cool option'
 
 describe('ChoiceInputField', () => {
-  describe('snapshots', () => {
-    it('renders with a label and input', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField>
-              <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Checkbox />
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
+  describe('rendering', () => {
+    it('renders with a checkbox input', () => {
+      const {getByLabelText} = render(
+        <SSRProvider>
+          <ChoiceInputField>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Checkbox />
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      const input = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
+
+      expect(input.getAttribute('type')).toBe('checkbox')
     })
     it('renders with a radio input', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField>
-              <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Radio name="textRadioInput" value="choice" />
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-    it('renders with a hidden label', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField>
-              <ChoiceInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Checkbox />
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
+      const {getByLabelText} = render(
+        <SSRProvider>
+          <ChoiceInputField>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Radio name="testRadio" value="testRadio" />
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      const input = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
+
+      expect(input.getAttribute('type')).toBe('radio')
     })
     it('renders with a custom ID', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField id="customId">
-              <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Checkbox />
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
+      const {getByLabelText} = render(
+        <SSRProvider>
+          <ChoiceInputField id="customId">
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Checkbox />
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      const input = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
+
+      expect(input.getAttribute('id')).toBe('customId')
     })
     it('renders as disabled', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField disabled>
-              <ChoiceInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Checkbox />
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-    it('renders as disabled with a LeadingVisual', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField disabled>
-              <ChoiceInputField.Label visuallyHidden>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Checkbox />
-              <ChoiceInputField.LeadingVisual>
-                <MarkGithubIcon />
-              </ChoiceInputField.LeadingVisual>
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
+      const {getByLabelText} = render(
+        <SSRProvider>
+          <ChoiceInputField disabled>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Checkbox />
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      const input = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
+
+      expect(input.getAttribute('disabled')).not.toBeNull()
     })
     it('renders with a caption', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField>
-              <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Checkbox />
-              <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-    it('renders with a LeadingVisual and caption', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField>
-              <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Checkbox />
-              <ChoiceInputField.LeadingVisual>
-                <MarkGithubIcon />
-              </ChoiceInputField.LeadingVisual>
-              <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
+      const {getByText} = render(
+        <SSRProvider>
+          <ChoiceInputField>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Checkbox />
+            <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      const caption = getByText(CHECKBOXINPUTFIELD_CAPTION_TEXT)
+
+      expect(caption).toBeDefined()
     })
     it('renders with a LeadingVisual', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <ChoiceInputField>
-              <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-              <Checkbox />
-              <ChoiceInputField.LeadingVisual>
-                <MarkGithubIcon />
-              </ChoiceInputField.LeadingVisual>
-            </ChoiceInputField>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
+      const {getByLabelText} = render(
+        <SSRProvider>
+          <ChoiceInputField>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Checkbox />
+            <ChoiceInputField.LeadingVisual>
+              <MarkGithubIcon aria-label="leadingVisualIcon" />
+            </ChoiceInputField.LeadingVisual>
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      const leadingVisual = getByLabelText('leadingVisualIcon')
+
+      expect(leadingVisual).toBeDefined()
     })
   })
 
   describe('ARIA attributes', () => {
     it('associates the label with the input', () => {
-      const {getByLabelText} = HTMLRender(
+      const {getByLabelText} = render(
         <SSRProvider>
           <ChoiceInputField>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
@@ -149,7 +117,7 @@ describe('ChoiceInputField', () => {
     })
     it('associates caption text with the input', () => {
       const fieldId = 'captionedInput'
-      const {getByLabelText, getByText} = HTMLRender(
+      const {getByLabelText, getByText} = render(
         <SSRProvider>
           <ChoiceInputField id="captionedInput">
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
@@ -167,8 +135,69 @@ describe('ChoiceInputField', () => {
     })
   })
 
+  describe('warnings', () => {
+    it('should warn users if they do not pass an input', async () => {
+      const consoleSpy = jest.spyOn(global.console, 'warn')
+      render(
+        <SSRProvider>
+          <ChoiceInputField>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      expect(consoleSpy).toHaveBeenCalled()
+    })
+
+    it('should warn users if they pass an id directly to the input', async () => {
+      const consoleSpy = jest.spyOn(global.console, 'warn')
+      render(
+        <SSRProvider>
+          <ChoiceInputField>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Checkbox id="testId" />
+            <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      expect(consoleSpy).toHaveBeenCalled()
+    })
+
+    it('should warn users if they pass a `disabled` prop directly to the input', async () => {
+      const consoleSpy = jest.spyOn(global.console, 'warn')
+      render(
+        <SSRProvider>
+          <ChoiceInputField>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Checkbox disabled />
+            <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      expect(consoleSpy).toHaveBeenCalled()
+    })
+
+    it('should warn users if they pass a `required` prop directly to the input', async () => {
+      const consoleSpy = jest.spyOn(global.console, 'warn')
+      render(
+        <SSRProvider>
+          <ChoiceInputField>
+            <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
+            <Checkbox required />
+            <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
+          </ChoiceInputField>
+        </SSRProvider>
+      )
+
+      expect(consoleSpy).toHaveBeenCalled()
+    })
+  })
+
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(
+    const {container} = render(
       <SSRProvider>
         <ChoiceInputField>
           <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>

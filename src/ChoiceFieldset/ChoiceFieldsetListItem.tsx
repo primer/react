@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {Checkbox, ChoiceInputField, Radio, useSSRSafeId} from '..'
 import {ComponentProps} from '../utils/types'
-import ToggleInputLeadingVisual from '../_ToggleInputLeadingVisual'
+import ChoiceInputLeadingVisual from '../_ChoiceInputLeadingVisual'
 import ChoiceFieldCaption from './ChoiceFieldCaption'
 import ChoiceFieldLabel from './ChoiceFieldLabel'
 import ChoiceFieldsetListContext from './ChoiceFieldsetListContext'
@@ -34,7 +34,7 @@ const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disab
   )
   const otherValidChildren = React.Children.toArray(children).filter(
     child =>
-      React.isValidElement(child) && (child.type === ChoiceFieldCaption || child.type === ToggleInputLeadingVisual)
+      React.isValidElement(child) && (child.type === ChoiceFieldCaption || child.type === ChoiceInputLeadingVisual)
   )
   const ChoiceInput = selectionVariant === 'multiple' ? Checkbox : Radio
 
@@ -65,5 +65,5 @@ export type ChoiceFieldComponentProps = ComponentProps<typeof ChoiceFieldsetList
 export default Object.assign(ChoiceFieldsetListItem, {
   Caption: ChoiceFieldCaption,
   Label: ChoiceFieldLabel,
-  LeadingVisual: ToggleInputLeadingVisual
+  LeadingVisual: ChoiceInputLeadingVisual
 })

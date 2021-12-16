@@ -8,7 +8,7 @@ import {ActionListContainerContext} from './ActionList2/ActionListContainerConte
 import {MandateProps} from './utils/types'
 
 type MenuContextProps = Pick<AnchoredOverlayProps, 'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose'>
-export const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
+const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
 export type ActionMenuProps = {
   /**

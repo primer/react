@@ -10,5 +10,5 @@ jobs:
     name: Canary
     uses: primer/.github/.github/workflows/release_canary.yml@main
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
