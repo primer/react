@@ -1,32 +1,13 @@
 ---
 title: InputField
 status: Alpha
+description: The InputField component is used to render a labelled text input and, optionally, associated validation text and hint text.
 source: https://github.com/primer/react/blob/main/src/InputField.tsx
 storybook: '/react/storybook?path=/story/forms-inputfield--text-input-field'
 ---
 
 import {InputField, TextInputWithTokens} from '@primer/react'
 import {ComponentChecklist} from '../src/component-checklist'
-
-The `InputField` component is used to render a labelled text input and, optionally, associated validation text and hint text.
-
-## Anatomy
-
-### InputField
-
-The container that handles the layout and passes the relevant IDs and ARIA attributes it's children.
-
-### InputField.Label
-
-A `InputField.Label` must be passed, but it may be visually hidden.
-
-### InputField.Caption
-
-If this field needs additional context, a `InputField.Caption` may be used to render hint text.
-
-### InputField.Validation
-
-If the field was flagged during validation, `InputField.Validation` may be used to render contextual validation information to help the user complete their task.
 
 ## Examples
 
@@ -83,6 +64,14 @@ render(TextInputWithTokensExample)
 
 ### With a visually hidden label
 
+<Note>
+
+Every input must have a corresponding label to be accessible to assistive technology. That's why you'd use InputField instead of using [TextInput](/TextInput) directly.
+
+InputField also provides an interface for showing a hint text caption and a validation message, and associating those with the input for assistive technology.
+
+</Note>
+
 ```jsx live
 <InputField>
   <InputField.Label visuallyHidden>Name</InputField.Label>
@@ -128,7 +117,7 @@ const ValidationExample = () => {
       validationResult={validationResult}
     >
       <InputField.Label>GitHub handle</InputField.Label>
-      <TextInput as={TextInput} block value={value} onChange={handleInputChange} />
+      <TextInput block value={value} onChange={handleInputChange} />
       <InputField.Validation validationKey="noSpaces">GitHub handles cannot contain spaces</InputField.Validation>
       <InputField.Validation validationKey="validName">Valid name</InputField.Validation>
       <InputField.Caption>With or without "@". For example "monalisa" or "@monalisa"</InputField.Caption>
@@ -143,33 +132,81 @@ render(ValidationExample)
 
 ### InputField
 
-| Name             | Type                                                                                                                  |     Default      | Description                                                                                                                                                                                                          |
-| :--------------- | :-------------------------------------------------------------------------------------------------------------------- | :--------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children\*       | `InputField.Label`, `InputField.Caption`, `InputField.Validation`, `Autocomplete`, `TextInput`, `TextInputWithTokens` |        -         | Required                                                                                                                                                                                                             |
-| disabled         | `boolean`                                                                                                             |      false       | Whether the field is ready for user input                                                                                                                                                                            |
-| id               | `string`                                                                                                              | generated string | The unique identifier for this field. Used to associate the label, validation text, and caption text                                                                                                                 |
-| required         | `boolean`                                                                                                             |      false       | Whether this field must have a value for the user to complete their task                                                                                                                                             |
-| validationMap    | `Record<string, 'error'\|'sucess'>`                                                                                   |        -         | A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop, the associated validation message will be rendered in the correct style |
-| validationResult | `string`                                                                                                              |        -         | The key of the validation message to show                                                                                                                                                                            |
+The container that handles the layout and passes the relevant IDs and ARIA attributes it's children.
+
+<PropsTable>
+  <PropsTable.Row
+    name="children"
+    type="InputField.Label | InputField.Caption | InputField.Validation | Autocomplete | TextInput | TextInputWithTokens"
+    required
+  />
+  <PropsTable.Row
+    name="disabled"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the field is ready for user input"
+  />
+  <PropsTable.Row
+    name="id"
+    type="string"
+    defaultValue="a generated string"
+    description="The unique identifier for this field. Used to associate the label, validation text, and caption text"
+  />
+  <PropsTable.Row
+    name="required"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the field is ready for user input"
+  />
+  <PropsTable.Row
+    name="validationMap"
+    type="Record<string, 'error'|'sucess'>"
+    description="A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop, the associated validation message will be rendered in the correct style"
+  />
+  <PropsTable.Row name="validationResult" type="string" description="The key of the validation message to show " />
+</PropsTable>
 
 ### InputField.Label
 
-| Name           | Type      | Default | Description                                 |
-| :------------- | :-------- | :-----: | :------------------------------------------ |
-| visuallyHidden | `boolean` |  false  | Whether the label should be visually hidden |
+A `InputField.Label` must be passed for the field to be accessible to assistive technology, but it may be visually hidden.
+
+<PropsTable>
+  <PropsTable.Row
+    name="boolean"
+    type="InputField.Label | InputField.Caption | InputField.Validation | Autocomplete | TextInput | TextInputWithTokens"
+    defaultValue="false"
+    description="Whether the label should be visually hidden"
+  />
+</PropsTable>
 
 ### InputField.Caption
 
-| Name     | Type              | Default | Description                                                                              |
-| :------- | :---------------- | :-----: | :--------------------------------------------------------------------------------------- |
-| children | `React.ReactNode` |    -    | The content (usually just text) that is rendered to give contextual info about the field |
+`InputField.Caption` may be used to render hint text for fields that require additional context.
+
+<PropsTable>
+  <PropsTable.Row
+    name="children"
+    type="React.ReactNode"
+    description="The content (usually just text) that is rendered to give contextual info about the field"
+  />
+</PropsTable>
 
 ### InputField.Validation
 
-| Name          | Type              | Default | Description                                                                                                                                                                                                       |
-| :------------ | :---------------- | :-----: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children      | `React.ReactNode` |    -    | The content (usually just text) that is rendered to give contextual info about the validation result for the field                                                                                                |
-| validationKey | `string`          |    -    | The key of the property from `InputField` that corresponds to this validation message. When `InputField`'s `validationResult` prop matches `InputField.Validation`'s `validationKey` prop, this message is shown. |
+`InputField.Validation` may be used to render contextual validation information if the field was flagged during validation.
+
+<PropsTable>
+  <PropsTable.Row
+    name="children"
+    type="React.ReactNode"
+    description="The content (usually just text) that is rendered to give contextual info about the validation result for the field"
+  />
+  <PropsTable.Row
+    name="validationKey"
+    type="string"
+    description="The key of the property from `InputField` that corresponds to this validation message. When `InputField`'s `validationResult` prop matches `InputField.Validation`'s `validationKey` prop, this message is shown."
+  />
+</PropsTable>
 
 ## Component status
 
@@ -190,3 +227,8 @@ render(ValidationExample)
     hasFigmaComponent: false
   }}
 />
+
+## Related components
+
+- [ChoiceInputField](/ChoiceInputField)
+- [TextInput](/TextInput)
