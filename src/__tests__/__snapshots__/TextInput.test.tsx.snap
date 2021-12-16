@@ -45,7 +45,8 @@ exports[`TextInput renders 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -129,7 +130,8 @@ exports[`TextInput renders block 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -212,7 +214,8 @@ exports[`TextInput renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -294,7 +297,8 @@ exports[`TextInput renders contrast 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -377,7 +381,8 @@ exports[`TextInput renders error 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -465,7 +470,8 @@ exports[`TextInput renders large 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -549,7 +555,8 @@ exports[`TextInput renders leadingVisual 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 0;
   padding-right: 12px;
 }
@@ -659,7 +666,8 @@ exports[`TextInput renders placeholder 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -750,7 +758,8 @@ exports[`TextInput renders small 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -834,7 +843,8 @@ exports[`TextInput renders trailingVisual 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 0;
 }
@@ -944,7 +954,8 @@ exports[`TextInput renders warning 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -1027,7 +1038,8 @@ exports[`TextInput should render a password input 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }

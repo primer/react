@@ -87,7 +87,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -466,7 +467,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -604,7 +606,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -1252,7 +1255,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -1900,7 +1904,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -2548,7 +2553,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -3196,7 +3202,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -3845,7 +3852,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -4493,7 +4501,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -4849,7 +4858,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -5497,7 +5507,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -6150,7 +6161,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }

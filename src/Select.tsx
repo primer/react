@@ -5,14 +5,26 @@ import TextInputWrapper, {StyledWrapperProps} from './_TextInputWrapper'
 
 type SelectProps = Omit<React.HTMLProps<HTMLSelectElement> & StyledWrapperProps, 'multiple' | 'size' | 'hasIcon' | 'as'>
 
-const StyledSelect = styled(TextInputWrapper)<SelectProps>`
+const ArrowIndicatorSVG: React.FC<{className?: string}> = ({className}) => (
+  <svg width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path d="m4.074 9.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.043 9H4.251a.25.25 0 0 0-.177.427ZM4.074 7.47 7.47 4.073a.25.25 0 0 1 .354 0L11.22 7.47a.25.25 0 0 1-.177.426H4.251a.25.25 0 0 1-.177-.426Z" />
+  </svg>
+)
+
+const ArrowIndicator = styled(ArrowIndicatorSVG)`
+  pointer-events: none;
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+`
+
+const StyledSelect = styled.select<SelectProps>`
   appearance: none;
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0iIzU4NjA2OSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNC40MjcgOS40MjdsMy4zOTYgMy4zOTZhLjI1MS4yNTEgMCAwMC4zNTQgMGwzLjM5Ni0zLjM5NkEuMjUuMjUgMCAwMDExLjM5NiA5SDQuNjA0YS4yNS4yNSAwIDAwLS4xNzcuNDI3ek00LjQyMyA2LjQ3TDcuODIgMy4wNzJhLjI1LjI1IDAgMDEuMzU0IDBMMTEuNTcgNi40N2EuMjUuMjUgMCAwMS0uMTc3LjQyN0g0LjZhLjI1LjI1IDAgMDEtLjE3Ny0uNDI3eiIgLz48L3N2Zz4=);
-  background-repeat: no-repeat;
-  background-position: right 4px center;
-  background-size: 16px;
-  padding-right: 20px;
-  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  color: currentColor;
+  outline: none;
 
   /* colors the select input's placeholder text */
   &:invalid {
@@ -26,29 +38,35 @@ const StyledSelect = styled(TextInputWrapper)<SelectProps>`
 `
 
 const Select: React.FC<SelectProps> = ({ref, children, disabled, placeholder, required, ...rest}) => (
-  <StyledSelect
-    as="select"
-    ref={ref as RefObject<HTMLSelectElement>}
-    required={required || Boolean(placeholder)}
-    disabled={disabled}
-    aria-required={required}
-    aria-disabled={disabled}
-    {...rest}
+  <TextInputWrapper
+    sx={{
+      position: 'relative'
+    }}
   >
-    {placeholder ? (
-      <option value="" disabled={required} selected hidden={required}>
-        {placeholder}
-      </option>
-    ) : null}
-    {children}
-  </StyledSelect>
+    <StyledSelect
+      ref={ref as RefObject<HTMLSelectElement>}
+      required={required || Boolean(placeholder)}
+      disabled={disabled}
+      aria-required={required}
+      aria-disabled={disabled}
+      {...rest}
+    >
+      {placeholder ? (
+        <option value="" disabled={required} selected hidden={required}>
+          {placeholder}
+        </option>
+      ) : null}
+      {children}
+    </StyledSelect>
+    <ArrowIndicator />
+  </TextInputWrapper>
 )
 
 const Option: React.FC<React.HTMLProps<HTMLOptionElement> & {value: string}> = props => <option {...props} />
 
-const Group: React.FC<React.HTMLProps<HTMLOptGroupElement>> = props => <optgroup {...props} />
+const OptGroup: React.FC<React.HTMLProps<HTMLOptGroupElement>> = props => <optgroup {...props} />
 
 export default Object.assign(Select, {
   Option,
-  Group
+  OptGroup
 })

@@ -80,7 +80,8 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
       padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
       padding-right: ${props.hasTrailingVisual ? textInputHorizPadding : 0};
 
-      > input {
+      > input,
+      > select {
         padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
         padding-right: ${!props.hasTrailingVisual ? textInputHorizPadding : 0};
       }

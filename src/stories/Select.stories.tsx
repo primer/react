@@ -48,8 +48,8 @@ export default {
         disable: true
       }
     },
-    variant: {
-      name: 'Variant',
+    size: {
+      name: 'Size',
       defaultValue: 'medium',
       options: ['small', 'medium', 'large'],
       control: {type: 'radio'}
@@ -81,16 +81,16 @@ export const WithOptionGroups = (args: SelectProps) => (
   <>
     <Label htmlFor="selectInput">Choice</Label>
     <Select id="selectInput" {...args}>
-      <Select.Group label="Group one">
+      <Select.OptGroup label="Group one">
         <Select.Option value="one">Choice one</Select.Option>
         <Select.Option value="two">Choice two</Select.Option>
         <Select.Option value="three">Choice three</Select.Option>
         <Select.Option value="four">Choice four</Select.Option>
-      </Select.Group>
-      <Select.Group disabled label="Group two">
+      </Select.OptGroup>
+      <Select.OptGroup disabled label="Group two">
         <Select.Option value="five">Choice five</Select.Option>
         <Select.Option value="six">Choice six</Select.Option>
-      </Select.Group>
+      </Select.OptGroup>
     </Select>
   </>
 )

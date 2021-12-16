@@ -35,16 +35,16 @@ describe('Radio', () => {
         {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="grouped">Choice</label>
         <Select id="grouped">
-          <Select.Group label="Group one">
+          <Select.OptGroup label="Group one">
             <Select.Option value="one">Choice one</Select.Option>
             <Select.Option value="two">Choice two</Select.Option>
             <Select.Option value="three">Choice three</Select.Option>
-          </Select.Group>
-          <Select.Group label="Group two">
+          </Select.OptGroup>
+          <Select.OptGroup label="Group two">
             <Select.Option value="four">Choice four</Select.Option>
             <Select.Option value="five">Choice five</Select.Option>
             <Select.Option value="six">Choice six</Select.Option>
-          </Select.Group>
+          </Select.OptGroup>
         </Select>
       </>
     )
