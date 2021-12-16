@@ -18,7 +18,7 @@ primer-react/
 │  ├─ Breadcrumbs/
 │  │  ├─ index.ts                    // Just re-exporting?
 │  │  ├─ Breadcrumbs.tsx             // Primary component
-│  │  ├─ BreadcrumbsItem.tsx         // Subcomponent (include item name for findability in most IDEs)
+│  │  ├─ BreadcrumbsItem.tsx         // Subcomponent (include parent component name to increase findability in most IDEs)
 │  │  ├─ Breadcrumbs.mdx             // Documentation. Always .mdx, not .md
 │  │  ├─ Breadcrumbs.stories.tsx
 │  │  ├─ Breadcrumbs.test.tsx        // Unit tests
