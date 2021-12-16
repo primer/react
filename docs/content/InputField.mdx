@@ -136,6 +136,7 @@ render(ValidationExample)
 
 The container that handles the layout and passes the relevant IDs and ARIA attributes it's children.
 
+<!--
 <PropsTable>
   <PropsTable.Row
     name="children"
@@ -167,11 +168,13 @@ The container that handles the layout and passes the relevant IDs and ARIA attri
   />
   <PropsTable.Row name="validationResult" type="string" description="The key of the validation message to show " />
 </PropsTable>
+-->
 
 ### InputField.Label
 
 A `InputField.Label` must be passed for the field to be accessible to assistive technology, but it may be visually hidden.
 
+<!--
 <PropsTable>
   <PropsTable.Row
     name="boolean"
@@ -180,11 +183,13 @@ A `InputField.Label` must be passed for the field to be accessible to assistive 
     description="Whether the label should be visually hidden"
   />
 </PropsTable>
+-->
 
 ### InputField.Caption
 
 `InputField.Caption` may be used to render hint text for fields that require additional context.
 
+<!--
 <PropsTable>
   <PropsTable.Row
     name="children"
@@ -192,11 +197,13 @@ A `InputField.Label` must be passed for the field to be accessible to assistive 
     description="The content (usually just text) that is rendered to give contextual info about the field"
   />
 </PropsTable>
+-->
 
 ### InputField.Validation
 
 `InputField.Validation` may be used to render contextual validation information if the field was flagged during validation.
 
+<!--
 <PropsTable>
   <PropsTable.Row
     name="children"
@@ -209,6 +216,7 @@ A `InputField.Label` must be passed for the field to be accessible to assistive 
     description="The key of the property from `InputField` that corresponds to this validation message. When `InputField`'s `validationResult` prop matches `InputField.Validation`'s `validationKey` prop, this message is shown."
   />
 </PropsTable>
+-->
 
 ## Component status
 
