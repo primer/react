@@ -1,4 +1,5 @@
 ---
+componentId: details
 title: Details
 status: Alpha
 ---
