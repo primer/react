@@ -1,4 +1,5 @@
 ---
+componentId: label_group
 title: LabelGroup
 status: Alpha
 ---

@@ -1,4 +1,5 @@
 ---
+componentId: spinner
 title: StateLabel
 status: Alpha
 ---
