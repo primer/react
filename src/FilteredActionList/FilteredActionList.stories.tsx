@@ -2,7 +2,6 @@ import {Meta} from '@storybook/react'
 import React from 'react'
 import {ThemeProvider} from '..'
 import {FilteredActionList} from '../FilteredActionList'
-import {ItemInput} from '../ActionList/List'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 
@@ -54,7 +53,6 @@ const items = [
 ]
 
 export function Default(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
 
