@@ -1,13 +1,14 @@
 ---
 title: InputField
 status: Alpha
-description: The `InputField` component is used to render a labelled text input and, optionally, associated validation text and hint text.
+description: The InputField component is used to render a labelled text input and, optionally, associated validation text and hint text.
 source: https://github.com/primer/react/blob/main/src/InputField.tsx
 storybook: '/react/storybook?path=/story/forms-inputfield--text-input-field'
 ---
 
 import {InputField, TextInputWithTokens} from '@primer/react'
 import {ComponentChecklist} from '../src/component-checklist'
+import {PropsTable} from '../src/props-table'
 
 ## Examples
 
@@ -170,26 +171,43 @@ The container that handles the layout and passes the relevant IDs and ARIA attri
 
 A `InputField.Label` must be passed for the field to be accessible to assistive technology, but it may be visually hidden.
 
-| Name           | Type      | Default | Description                                 |
-| :------------- | :-------- | :-----: | :------------------------------------------ |
-| visuallyHidden | `boolean` |  false  | Whether the label should be visually hidden |
+<PropsTable>
+  <PropsTable.Row
+    name="boolean"
+    type="InputField.Label | InputField.Caption | InputField.Validation | Autocomplete | TextInput | TextInputWithTokens"
+    defaultValue="false"
+    description="Whether the label should be visually hidden"
+  />
+</PropsTable>
 
 ### InputField.Caption
 
 `InputField.Caption` may be used to render hint text for fields that require additional context.
 
-| Name     | Type              | Default | Description                                                                              |
-| :------- | :---------------- | :-----: | :--------------------------------------------------------------------------------------- |
-| children | `React.ReactNode` |    -    | The content (usually just text) that is rendered to give contextual info about the field |
+<PropsTable>
+  <PropsTable.Row
+    name="children"
+    type="React.ReactNode"
+    description="The content (usually just text) that is rendered to give contextual info about the field"
+  />
+</PropsTable>
 
 ### InputField.Validation
 
 `InputField.Validation` may be used to render contextual validation information if the field was flagged during validation.
 
-| Name          | Type              | Default | Description                                                                                                                                                                                                       |
-| :------------ | :---------------- | :-----: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children      | `React.ReactNode` |    -    | The content (usually just text) that is rendered to give contextual info about the validation result for the field                                                                                                |
-| validationKey | `string`          |    -    | The key of the property from `InputField` that corresponds to this validation message. When `InputField`'s `validationResult` prop matches `InputField.Validation`'s `validationKey` prop, this message is shown. |
+<PropsTable>
+  <PropsTable.Row
+    name="children"
+    type="React.ReactNode"
+    description="The content (usually just text) that is rendered to give contextual info about the validation result for the field"
+  />
+  <PropsTable.Row
+    name="validationKey"
+    type="string"
+    description="The key of the property from `InputField` that corresponds to this validation message. When `InputField`'s `validationResult` prop matches `InputField.Validation`'s `validationKey` prop, this message is shown."
+  />
+</PropsTable>
 
 ## Component status
 

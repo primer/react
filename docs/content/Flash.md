@@ -1,4 +1,5 @@
 ---
+componentId: flash
 title: Flash
 status: Alpha
 ---
