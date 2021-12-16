@@ -1,4 +1,5 @@
 ---
+componentId: pagehead
 title: Pagehead
 status: Alpha
 ---

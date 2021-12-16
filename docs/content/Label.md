@@ -1,4 +1,5 @@
 ---
+componentId: label
 title: Label
 status: Alpha
 ---
