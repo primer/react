@@ -1,4 +1,5 @@
 ---
+componentId: radio
 title: Radio
 description: Use radios when a user needs to select one option from a list
 status: Alpha
