@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import {focusZone} from '@primer/behaviors'
 import type {FocusZoneSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
+export {FocusKeys} from '@primer/behaviors'
+export type {Direction} from '@primer/behaviors'
 
 export interface FocusZoneHookSettings extends Omit<FocusZoneSettings, 'activeDescendantControl'> {
   /**
