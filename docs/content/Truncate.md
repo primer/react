@@ -1,4 +1,5 @@
 ---
+componentId: truncate
 title: Truncate
 status: Alpha
 ---

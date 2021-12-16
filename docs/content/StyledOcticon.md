@@ -1,4 +1,5 @@
 ---
+componentId: styled_octicon
 title: StyledOcticon
 status: Alpha
 ---
