@@ -45,7 +45,7 @@ All components that accept an `as` prop should accept props en masse for the ele
 
 ### 🔴 Styled System props
 
-Components should not accept Styled System props (except our utility components: `Box` and `Type`)
+Components should not accept Styled System props (except our utility components: `Box` and `Text`)
 
 _Reasoning:_ Utility components are meant to provide a convenient API for writing styles (including styles that reference theme and other context managed within Primer). Non-utility components implement specific design patterns where additional styling is available for exceptional cases.
 
