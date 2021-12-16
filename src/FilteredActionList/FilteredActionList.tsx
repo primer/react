@@ -11,8 +11,11 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
-import {scrollIntoViewingArea} from '../behaviors/scrollIntoViewingArea'
+import {scrollIntoView} from '@primer/behaviors'
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {SxProp} from '../sx'
+
+const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
@@ -83,7 +86,7 @@ export function FilteredActionList({
         activeDescendantRef.current = current
 
         if (current && scrollContainerRef.current && directlyActivated) {
-          scrollIntoViewingArea(current, scrollContainerRef.current)
+          scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
         }
       }
     },
@@ -96,14 +99,7 @@ export function FilteredActionList({
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
     if (activeDescendantRef.current && scrollContainerRef.current) {
-      scrollIntoViewingArea(
-        activeDescendantRef.current,
-        scrollContainerRef.current,
-        'vertical',
-        undefined,
-        undefined,
-        'auto'
-      )
+      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {...menuScrollMargins, behavior: 'auto'})
     }
   }, [items])
 
