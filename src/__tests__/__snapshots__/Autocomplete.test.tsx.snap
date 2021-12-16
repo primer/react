@@ -17,6 +17,19 @@ Array [
 }
 
 .c0 {
+  min-height: 32px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -25,19 +38,17 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 > input {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -45,7 +56,6 @@ Array [
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -72,6 +82,7 @@ Array [
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       className="c1"
+      data-component="input"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -130,6 +141,19 @@ Array [
 }
 
 .c0 {
+  min-height: 32px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -138,19 +162,17 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 > input {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -158,7 +180,6 @@ Array [
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -185,6 +206,7 @@ Array [
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       className="c1"
+      data-component="input"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -278,6 +300,19 @@ Array [
 }
 
 .c0 {
+  min-height: 32px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -286,19 +321,17 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 > input {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -306,7 +339,6 @@ Array [
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -333,6 +365,7 @@ Array [
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       className="c1"
+      data-component="input"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -1189,6 +1222,19 @@ Array [
 }
 
 .c0 {
+  min-height: 32px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1197,19 +1243,17 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 > input {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -1217,7 +1261,6 @@ Array [
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -1244,6 +1287,7 @@ Array [
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       className="c1"
+      data-component="input"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -2010,6 +2054,19 @@ Array [
 }
 
 .c0 {
+  min-height: 32px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2018,19 +2075,17 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 > input {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -2038,7 +2093,6 @@ Array [
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2065,6 +2119,7 @@ Array [
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       className="c1"
+      data-component="input"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -2842,6 +2897,19 @@ Array [
 }
 
 .c0 {
+  min-height: 32px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2850,19 +2918,17 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 > input {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -2870,7 +2936,6 @@ Array [
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -2897,6 +2962,7 @@ Array [
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       className="c1"
+      data-component="input"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -3804,6 +3870,19 @@ Array [
 }
 
 .c0 {
+  min-height: 32px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3812,19 +3891,17 @@ Array [
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 > input {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -3832,7 +3909,6 @@ Array [
   -ms-flex-item-align: center;
   align-self: center;
   color: #57606a;
-  margin: 0 8px;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -3859,6 +3935,7 @@ Array [
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
       className="c1"
+      data-component="input"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}

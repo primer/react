@@ -8,23 +8,76 @@ TextInput is a form component to add default styling to the native text input.
 
 **Note:** Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
 
-## Examples
+## Default example
+
+```jsx live
+<TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
+```
+
+## Text Input with icons
 
 ```jsx live
 <>
-  <TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
-
-  <TextInput sx={{ml: 4}} aria-label="City" name="city" placeholder="City" contrast />
-
   <TextInput
-    sx={{ml: 4}}
-    icon={SearchIcon}
+    leadingVisual={SearchIcon}
     aria-label="Zipcode"
     name="zipcode"
-    placeholder="Find user"
+    placeholder="Zip"
+    autoComplete="postal-code"
+  />
+
+  <TextInput
+    trailingVisual={SearchIcon}
+    aria-label="Zipcode"
+    name="zipcode"
+    placeholder="Zip"
     autoComplete="postal-code"
   />
 </>
+```
+
+## Text Input with text visuals
+
+```jsx live
+<>
+  <TextInput leadingVisual="$" aria-label="Cost of the thing" name="cost" placeholder="23.45" />
+
+  <TextInput sx={{width: '150px'}} trailingVisual="minutes" aria-label="Time in minutes" name="time" placeholder="25" />
+</>
+```
+
+## Text Input with error and warning states
+
+```jsx live
+<>
+  <TextInput
+    validationStatus="error"
+    aria-label="Zipcode"
+    name="zipcode"
+    placeholder="Error"
+    autoComplete="postal-code"
+  />
+
+  <TextInput
+    validationStatus="warning"
+    aria-label="Zipcode"
+    name="zipcode"
+    placeholder="Warning"
+    autoComplete="postal-code"
+  />
+</>
+```
+
+## Block text input
+
+```jsx live
+<TextInput block aria-label="Zipcode" name="zipcode" placeholder="560076" autoComplete="postal-code" />
+```
+
+## Contrast text input
+
+```jsx live
+<TextInput contrast aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
 ```
 
 ## Props
@@ -39,7 +92,7 @@ TextInput is a form component to add default styling to the native text input.
     defaultValue="false"
     description={
       <>
-        Adds <InlineCode>display: block</InlineCode> to element
+        Creates a full width input element
       </>
     }
   />
@@ -49,11 +102,27 @@ TextInput is a form component to add default styling to the native text input.
     defaultValue="false"
     description="Changes background color to a higher contrast color"
   />
-  <PropsTableRow
-    name="variant"
-    type="'small' | 'large'"
-    description="Creates a smaller or larger input than the default."
-  />
+  <PropsTableRow name='size' type="'small' | 'medium' | 'large'"     description="Creates a smaller or larger input than the default." />
+
+<PropsTableRow
+  name="leadingVisual"
+  type={<>string | React.ComponentType</>}
+  description="Visual positioned on the left edge inside the input"
+/>
+<PropsTableRow
+  name="trailingVisual"
+  type={<>string | React.ComponentType</>}
+  description="Visual positioned on the right edge inside the input"
+/>
+<PropsTableRow name="validationStatus" type="'warning' | 'error'" description="Style the input to match the status" />
+
+<PropsTableRow
+  name="variant"
+  type="'small' | 'medium' | 'large'"
+  description="(Use size) Creates a smaller or larger input than the default."
+  deprecated
+/>
+
   <PropsTableRow
     name="width"
     type={
@@ -61,7 +130,8 @@ TextInput is a form component to add default styling to the native text input.
         string | number | <Link href="https://styled-system.com/guides/array-props">Array&lt;string | number&gt;</Link>
       </>
     }
-    description="Set the width of the input"
+    description="(Use sx prop) Set the width of the input"
+    deprecated
   />
   <PropsTableRow
     name="maxWidth"
@@ -70,7 +140,8 @@ TextInput is a form component to add default styling to the native text input.
         string | number | <Link href="https://styled-system.com/guides/array-props">Array&lt;string | number&gt;</Link>
       </>
     }
-    description="Set the maximum width of the input"
+    description="(Use sx prop) Set the maximum width of the input"
+    deprecated
   />
   <PropsTableRow
     name="minWidth"
@@ -79,12 +150,14 @@ TextInput is a form component to add default styling to the native text input.
         string | number | <Link href="https://styled-system.com/guides/array-props">Array&lt;string | number&gt;</Link>
       </>
     }
-    description="Set the minimum width of the input"
+    description="(Use sx prop) Set the minimum width of the input"
+    deprecated
   />
   <PropsTableRow
     name="icon"
     type="React.ComponentType"
-    description="An Octicon React component. To be used inside of input. Positioned on the left edge."
+    description="(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
+    deprecated
   />
   <PropsTableSxRow />
   <PropsTableRefRow
@@ -110,8 +183,8 @@ TextInput is a form component to add default styling to the native text input.
     adaptsToScreenSizes: true,
     fullTestCoverage: false,
     usedInProduction: true,
-    usageExamplesDocumented: false,
-    hasStorybookStories: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
     designReviewed: false,
     a11yReviewed: false,
     stableApi: false,
