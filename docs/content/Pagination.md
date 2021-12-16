@@ -1,4 +1,5 @@
 ---
+compnoentId: pagination
 title: Pagination
 status: Alpha
 ---

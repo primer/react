@@ -10,5 +10,5 @@ jobs:
     name: Release
     uses: primer/.github/.github/workflows/release.yml@main
     secrets:
-      github_token: ${{ secrets.GPR_AUTH_TOKEN_SHARED }}
+      gh_token: ${{ secrets.GPR_AUTH_TOKEN_SHARED }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}

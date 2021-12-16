@@ -1,4 +1,5 @@
 ---
+componentId: tooltip
 title: Tooltip
 status: Alpha
 ---
