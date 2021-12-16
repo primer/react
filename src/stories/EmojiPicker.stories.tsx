@@ -39,13 +39,13 @@ export default {
 
 export const defaultEmojiPicker = (args: EmojiPickerProps) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [emoji, setEmoji] = useState<string>('')
+  const [emoji, setEmoji] = useState<React.ReactNode>()
 
   const customCategories = [
     {
       id: 'github',
       name: 'GitHub',
-      categoryIcon: <MarkGithubIcon />,
+      icon: <MarkGithubIcon />,
       emojis: [
         {
           name: 'Icon',
@@ -60,7 +60,7 @@ export const defaultEmojiPicker = (args: EmojiPickerProps) => {
     {
       id: 'archived',
       name: 'Archived',
-      categoryIcon: <ArchiveIcon />,
+      icon: <ArchiveIcon />,
       emojis: []
     }
   ]

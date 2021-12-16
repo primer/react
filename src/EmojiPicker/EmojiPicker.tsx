@@ -9,14 +9,16 @@ import {
   SquirrelIcon,
   TelescopeIcon
 } from '@primer/octicons-react'
-import React, {createRef, RefObject, useEffect, useRef, useCallback, useState, useMemo} from 'react'
-import {Box, Button, ButtonInvisible, StyledOcticon, Text, TextInput} from '..'
+import React, {useEffect, useRef, useCallback, useState, useMemo, Fragment} from 'react'
+import {useVirtual} from 'react-virtual'
+import {Box, Button, ButtonInvisible, StyledOcticon, TextInput} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import emojis from './data.json'
 import styled from 'styled-components'
 import {get} from '../constants'
+import EmojiCategory from './EmojiCategory'
 
-const EmojiCategories = [
+const EmojiCategories: Array<EmojiCategory> = [
   {
     id: 'smileys-and-people',
     name: 'Smileys & People',
@@ -85,7 +87,7 @@ export interface Emoji {
 export interface EmojiCategory {
   id: string
   name: string
-  categoryIcon: React.ReactNode
+  icon: React.ReactNode
   emojis: Array<Emoji>
 }
 
@@ -101,8 +103,8 @@ const CategoryButton = styled(ButtonInvisible)`
 
 const EmojiPicker = React.memo(function ({customCategories, onSelect}: EmojiPickerProps) {
   const emojiAnchor = useRef(null)
+  const listContainerRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [categoryRefs, setCategoryRefs] = useState<Array<{id: string | number; ref: RefObject<HTMLDivElement>}>>([])
   const [frequentEmojis, setFrequentEmojis] = useState<Array<Emoji>>([])
 
   const parseEmojis = useCallback(
@@ -125,24 +127,6 @@ const EmojiPicker = React.memo(function ({customCategories, onSelect}: EmojiPick
     },
     [customCategories]
   )
-
-  useEffect(() => {
-    const refs = []
-    if (frequentEmojis.length > 0) {
-      refs.push({id: 'frequent', ref: createRef<HTMLDivElement>()})
-    }
-    if (customCategories) {
-      for (const category of customCategories) {
-        refs.push({id: category.id, ref: createRef<HTMLDivElement>()})
-      }
-    }
-
-    for (const category of EmojiCategories) {
-      refs.push({id: category.id, ref: createRef<HTMLDivElement>()})
-    }
-
-    setCategoryRefs(refs)
-  }, [customCategories, frequentEmojis.length])
 
   useEffect(() => {
     if (isOpen) {
@@ -181,108 +165,28 @@ const EmojiPicker = React.memo(function ({customCategories, onSelect}: EmojiPick
     [frequentEmojis, onSelect]
   )
 
-  const getRef = useCallback(
-    (id: string | number) => {
-      return categoryRefs.find(ref => ref.id === id)?.ref
-    },
-    [categoryRefs]
-  )
+  const allCategories = useMemo(() => {
+    const categories = [...EmojiCategories]
+    if (customCategories) {
+      categories.unshift(...customCategories.filter(c => c.emojis.length > 0))
+    }
+    if (frequentEmojis.length > 0) {
+      categories.unshift({
+        id: 'frequent',
+        name: 'Frequent',
+        icon: <ClockIcon />,
+        emojis: frequentEmojis
+      })
+    }
+    return categories
+  }, [customCategories, frequentEmojis])
 
-  const scrolltoCategory = useCallback(
-    (id: string | number) => {
-      const ref = categoryRefs.find(r => r.id === id)?.ref
-      ref?.current?.scrollIntoView({behavior: 'smooth'})
-    },
-    [categoryRefs]
-  )
-
-  const getEmojiPanel = useMemo(
-    () => (
-      <Box sx={{display: 'flex', flex: 1, flexDirection: 'column', height: '100%'}}>
-        <Box sx={{display: 'flex', flex: 1, flexDirection: 'row', width: '100%'}}>
-          {frequentEmojis.length > 0 && (
-            <CategoryButton onClick={() => scrolltoCategory('frequent')}>
-              <StyledOcticon icon={ClockIcon} color="fg.muted" />
-            </CategoryButton>
-          )}
-          {customCategories?.map(category => {
-            if (category.emojis.length > 0)
-              return (
-                <CategoryButton key={category.id} onClick={() => scrolltoCategory(category.id)}>
-                  {category.categoryIcon}
-                </CategoryButton>
-              )
-          })}
-          {EmojiCategories.map(category => (
-            <CategoryButton key={category.id} onClick={() => scrolltoCategory(category.id)}>
-              {category.icon}
-            </CategoryButton>
-          ))}
-        </Box>
-        <TextInput block width="auto" color="fg.default" sx={{mx: 2}} />
-        <Box sx={{overflow: 'auto', display: 'flex', flexDirection: 'column', width: '100%', height: '100%', p: 2}}>
-          {frequentEmojis.length > 0 && (
-            <Box key="frequently-used" ref={getRef('frequent')}>
-              <Text sx={{fontSize: 0, color: 'fg.muted'}}>Frequently Used</Text>
-              <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', width: '100%'}}>
-                {frequentEmojis.map(emoji => (
-                  <ButtonInvisible
-                    key={`emoji-${emoji.name}`}
-                    sx={{p: '8px', borderRadius: 'radii.3', flex: 1, color: 'fg.default'}}
-                    onClick={() => onEmojiClick('frequent', emoji)}
-                  >
-                    <Text key={`emoji-${emoji.emoji}`} sx={{fontSize: 3}}>
-                      {emoji.emoji}
-                    </Text>
-                  </ButtonInvisible>
-                ))}
-              </Box>
-            </Box>
-          )}
-          {customCategories?.map(category => {
-            if (category.emojis.length > 0)
-              return (
-                <Box key={`category-section-${category.id}`} ref={getRef(category.id)}>
-                  <Text sx={{fontSize: 0, color: 'fg.muted'}}>{category.name}</Text>
-                  <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', width: '100%'}}>
-                    {category.emojis.map(emoji => (
-                      <ButtonInvisible
-                        key={`emoji-${emoji.name}`}
-                        sx={{p: '8px', borderRadius: 'radii.3', flex: 1, color: 'fg.default'}}
-                        onClick={() => onEmojiClick(category.id, emoji)}
-                      >
-                        <Text key={`emoji-${emoji.emoji}`} sx={{fontSize: 3}}>
-                          {emoji.emoji}
-                        </Text>
-                      </ButtonInvisible>
-                    ))}
-                  </Box>
-                </Box>
-              )
-          })}
-          {EmojiCategories.map(category => (
-            <Box key={category.id} ref={getRef(category.id)}>
-              <Text sx={{fontSize: 0, color: 'fg.muted'}}>{category.name}</Text>
-              <Box sx={{display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', width: '100%'}}>
-                {category.emojis.map(emoji => (
-                  <ButtonInvisible
-                    key={`emoji-${emoji.name}`}
-                    sx={{p: '8px', borderRadius: 'radii.3', flex: 1, color: 'fg.default'}}
-                    onClick={() => onEmojiClick(category.id, emoji)}
-                  >
-                    <Text key={`emoji-${emoji.emoji}`} sx={{fontSize: 3}}>
-                      {emoji.emoji}
-                    </Text>
-                  </ButtonInvisible>
-                ))}
-              </Box>
-            </Box>
-          ))}
-        </Box>
-      </Box>
-    ),
-    [customCategories, frequentEmojis, getRef, onEmojiClick, scrolltoCategory]
-  )
+  const categoryVirtualizer = useVirtual({
+    size: allCategories.length,
+    parentRef: listContainerRef,
+    estimateSize: React.useCallback(i => 15 + Math.ceil(allCategories[i].emojis.length / 7) * 38, [allCategories]),
+    overscan: 4
+  })
 
   return (
     <>
@@ -290,7 +194,25 @@ const EmojiPicker = React.memo(function ({customCategories, onSelect}: EmojiPick
         <StyledOcticon icon={SmileyIcon} />
       </Button>
       <AnchoredOverlay anchorRef={emojiAnchor} renderAnchor={null} open={isOpen} height={'large'} width={'medium'}>
-        {getEmojiPanel}
+        <Box sx={{display: 'flex', flex: 1, flexDirection: 'column', height: '100%'}}>
+          <Box sx={{display: 'flex', flex: 1, flexDirection: 'row', width: '100%'}}>
+            {allCategories.map((category, i) => (
+              <CategoryButton key={category.id} onClick={() => categoryVirtualizer.scrollToIndex(i)}>
+                {category.icon}
+              </CategoryButton>
+            ))}
+          </Box>
+          <TextInput block width="auto" color="fg.default" sx={{mx: 2}} />
+          <Box
+            ref={listContainerRef}
+            sx={{overflow: 'auto', display: 'flex', flexDirection: 'column', width: '100%', height: '100%', p: 2}}
+          >
+            {categoryVirtualizer.virtualItems.map(categoryRow => {
+              const category = allCategories[categoryRow.index]
+              return <EmojiCategory key={category.id} category={category} onClick={onEmojiClick} />
+            })}
+          </Box>
+        </Box>
       </AnchoredOverlay>
     </>
   )
