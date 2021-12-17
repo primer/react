@@ -1,13 +1,9 @@
-import React, {forwardRef} from 'react'
-import Box from '../Box'
-import styled from 'styled-components'
-import sx, {merge, SxProp} from '../sx'
-import {useTheme, Theme} from '../ThemeProvider'
-import {VariantType, ButtonProps} from './types'
+import {VariantType} from './types'
+import {Theme} from '../ThemeProvider'
 
-const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
+export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
-const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
+export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
     default: {
       color: 'btn.text',
@@ -116,7 +112,7 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
       color: 'btn.outline.text',
       boxShadow: `${theme?.shadows.btn.shadow}`,
 
-      '&:hover': {
+      '&:hover:not([disabled])': {
         color: 'btn.outline.hoverText',
         backgroundColor: 'btn.outline.hoverBg',
         borderColor: 'outline.hoverBorder',
@@ -127,7 +123,7 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
         }
       },
       // focus must come before :active so that the active box shadow overrides
-      '&:focus': {
+      '&:focus:not([disabled])': {
         borderColor: 'btn.outline.focusBorder',
         boxShadow: `${theme?.shadows.btn.outline.focusShadow}`
       },
@@ -156,7 +152,7 @@ const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   return style[variant]
 }
 
-const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
+export const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
   let paddingY, paddingX, fontSize
   switch (size) {
     case 'small':
@@ -191,93 +187,48 @@ const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOn
   }
 }
 
-const ButtonBase = styled.button<SxProp>(sx)
-
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({children, sx: sxProp = {}, ...props}, forwardedRef): JSX.Element => {
-    const {
-      icon: Icon,
-      leadingIcon: LeadingIcon,
-      trailingIcon: TrailingIcon,
-      variant = 'default',
-      size = 'medium'
-    } = props
-    const iconOnly = !!Icon
-    const {theme} = useTheme()
-
-    const styles = {
-      borderRadius: '2',
-      border: '1px solid',
-      borderColor: theme?.colors.btn.border,
-      display: 'grid',
-      gridTemplateAreas: '"leadingIcon text trailingIcon"',
-      fontWeight: 'bold',
-      lineHeight: TEXT_ROW_HEIGHT,
-      whiteSpace: 'nowrap',
-      verticalAlign: 'middle',
-      cursor: 'pointer',
-      appearance: 'none',
-      userSelect: 'none',
-      textDecoration: 'none',
-      textAlign: 'center',
-      '& > :not(:last-child)': {
-        mr: '2'
-      },
-      '&:focus': {
-        outline: 'none'
-      },
-      '&:disabled': {
-        cursor: 'default'
-      },
-      '&:disabled svg': {
-        opacity: '0.6'
-      },
-      '[data-component="leadingIcon"]': {
-        gridArea: 'leadingIcon'
-      },
-      '[data-component="text"]': {
-        gridArea: 'text'
-      },
-      '[data-component="trailingIcon"]': {
-        gridArea: 'trailingIcon'
-      }
-    }
-    const iconWrapStyles = {
-      display: 'inline-block'
-    }
-    const sxStyles = merge.all([
-      styles,
-      getSizeStyles(size, variant, iconOnly),
-      getVariantStyles(variant, theme),
-      sxProp as SxProp
-    ])
-    return (
-      <ButtonBase sx={sxStyles} ref={forwardedRef} {...props}>
-        {LeadingIcon && (
-          <Box as="span" data-component="leadingIcon" sx={iconWrapStyles} aria-hidden={!iconOnly}>
-            <LeadingIcon />
-          </Box>
-        )}
-        <span data-component="text" hidden={Icon ? true : false}>
-          {children}
-        </span>
-        {Icon && (
-          <Box data-component="icon-only" as="span" sx={{display: 'inline-block'}} aria-hidden={!iconOnly}>
-            <Icon />
-          </Box>
-        )}
-        {TrailingIcon && (
-          <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles, ml: 2}} aria-hidden={!iconOnly}>
-            <TrailingIcon />
-          </Box>
-        )}
-      </ButtonBase>
-    )
+export const getBaseStyles = (theme?: Theme) => ({
+  borderRadius: '2',
+  border: '1px solid',
+  borderColor: theme?.colors.btn.border,
+  fontFamily: 'inherit',
+  fontWeight: 'bold',
+  lineHeight: TEXT_ROW_HEIGHT,
+  whiteSpace: 'nowrap',
+  verticalAlign: 'middle',
+  cursor: 'pointer',
+  appearance: 'none',
+  userSelect: 'none',
+  textDecoration: 'none',
+  textAlign: 'center',
+  '&:focus': {
+    outline: 'none'
+  },
+  '&:disabled': {
+    cursor: 'default'
+  },
+  '&:disabled svg': {
+    opacity: '0.6'
   }
-)
+})
 
-Button.displayName = 'Button'
-
-Object.assign(Button, {})
-
-export {Button}
+export const getButtonStyles = (theme?: Theme) => {
+  const styles = {
+    ...getBaseStyles(theme),
+    display: 'grid',
+    gridTemplateAreas: '"leadingIcon text trailingIcon"',
+    '& > :not(:last-child)': {
+      mr: '2'
+    },
+    '[data-component="leadingIcon"]': {
+      gridArea: 'leadingIcon'
+    },
+    '[data-component="text"]': {
+      gridArea: 'text'
+    },
+    '[data-component="trailingIcon"]': {
+      gridArea: 'trailingIcon'
+    }
+  }
+  return styles
+}

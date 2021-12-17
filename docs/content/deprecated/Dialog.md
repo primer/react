@@ -3,6 +3,42 @@ title: Dialog
 status: Deprecated
 ---
 
+## Deprecation
+
+Use [Dialog2](/Dialog2) instead.
+
+**Before**
+
+```jsx
+<Dialog isOpen={open} onDismiss={() => setOpen(false)} aria-labelledby="header-id">
+  <Dialog.Header id="header-id">Title</Dialog.Header>
+  <Box p={3}>
+    <Text fontFamily="sans-serif">Some content</Text>
+  </Box>
+</Dialog>
+```
+
+**After**
+
+```jsx
+{
+  open && (
+    <Dialog2
+      title="Dialog example"
+      subtitle={
+        <>
+          This is a <b>description</b> of the dialog.
+        </>
+      }
+      footerButtons={[{content: 'Ok', onClick: () => setOpen(false)}]}
+      onClose={() => setOpen(false)}
+    >
+      <Text fontFamily="sans-serif">Some content</Text>
+    </Dialog2>
+  )
+}
+```
+
 import State from '../../components/State'
 
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
