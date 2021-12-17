@@ -95,6 +95,8 @@
       url: /ProgressBar
     - title: Radio
       url: /Radio
+    - title: Select
+      url: /Select
     - title: SideNav
       url: /SideNav
     - title: Spinner

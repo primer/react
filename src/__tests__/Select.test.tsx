@@ -7,7 +7,7 @@ import '@testing-library/jest-dom'
 
 expect.extend(toHaveNoViolations)
 
-describe('Radio', () => {
+describe('Select', () => {
   it('renders a select input', () => {
     const {getByLabelText} = render(
       <>
@@ -73,14 +73,14 @@ describe('Radio', () => {
     const placeholderOption = getByText('Pick a choice')
     const select = getByLabelText('Choice')
 
-    expect(select.getAttribute('aria-required')).toBeFalsy()
+    expect(select).not.toHaveAttribute('aria-required')
 
     expect(placeholderOption).toBeDefined()
     expect(placeholderOption.tagName.toLowerCase()).toBe('option')
     // @ts-expect-error Property 'selected' does not exist on type 'HTMLElement'
     expect(placeholderOption.selected).not.toBeNull()
-    expect(placeholderOption.getAttribute('disabled')).toBeNull()
-    expect(placeholderOption.getAttribute('hidden')).toBeNull()
+    expect(placeholderOption).not.toHaveAttribute('disabled')
+    expect(placeholderOption).not.toHaveAttribute('hidden')
   })
 
   it('renders a required select input with a placeholder', () => {
@@ -102,14 +102,14 @@ describe('Radio', () => {
     const placeholderOption = getByText('Pick a choice')
     const select = getByLabelText('Choice')
 
-    expect(select.getAttribute('aria-required')).toBeTruthy()
+    expect(select).toHaveAttribute('aria-required')
 
     expect(placeholderOption).toBeDefined()
     expect(placeholderOption.tagName.toLowerCase()).toBe('option')
     // @ts-expect-error Property 'selected' does not exist on type 'HTMLElement'
     expect(placeholderOption.selected).not.toBeNull()
-    expect(placeholderOption.getAttribute('disabled')).not.toBeNull()
-    expect(placeholderOption.getAttribute('hidden')).not.toBeNull()
+    expect(placeholderOption).toHaveAttribute('disabled')
+    expect(placeholderOption).toHaveAttribute('hidden')
   })
 
   it('renders a disabled select input', () => {
@@ -130,7 +130,7 @@ describe('Radio', () => {
 
     const select = getByLabelText('Choice')
 
-    expect(select.getAttribute('aria-disabled')).toBeTruthy()
-    expect(select.getAttribute('disabled')).toBeDefined()
+    expect(select).toHaveAttribute('aria-disabled')
+    expect(select).toHaveAttribute('disabled')
   })
 })
