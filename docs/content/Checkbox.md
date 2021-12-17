@@ -3,11 +3,20 @@ componentId: checkbox
 title: Checkbox
 description: Use checkboxes to toggle between checked and unchecked states in a list or as a standalone form field
 status: Alpha
-source: https://github.com/primer/react/blob/main/src/Checklist.tsx
+source: https://github.com/primer/react/blob/main/src/Checkbox.tsx
 storybook: '/react/storybook?path=/story/forms-checkbox--default'
 ---
 
 import {ComponentChecklist} from '../src/component-checklist'
+
+<Note variant="warning">
+
+**Use [ChoiceInputField](/ChoiceInputField) to display an accessible checkbox form field**. This `Checkbox` component is intended only as an ingredient for other custom components, or as a drop-in replacement for native HTML checkboxes outside of form use-cases.
+
+
+If you do use this component to build a custom checkbox, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
+
+</Note>
 
 ## Default example
 
@@ -117,3 +126,7 @@ items={{
     hasFigmaComponent: false
   }}
 />
+
+## Related components
+
+- [CheckboxInputField](/CheckboxInputField)
