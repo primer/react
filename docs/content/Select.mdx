@@ -67,7 +67,36 @@ import PropsTable from '../src/props-table'
 
 ### Select
 
-The `Select` component accepts the same props as a native HTML [`<select>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) except for `multiple` and `size`.
+<PropsTable>
+  <PropsTableRow
+    name="block"
+    type="boolean"
+    defaultValue="false"
+    description={<>Creates a full width input element</>}
+  />
+  <PropsTableRow
+    name="contrast"
+    type="boolean"
+    defaultValue="false"
+    description="Changes background color to a higher contrast color"
+  />
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large'"
+    description="Creates a smaller or larger input than the default."
+  />
+  <PropsTableRow name="validationStatus" type="'warning' | 'error'" description="Style the input to match the status" />
+  <tr>
+    <Box as="td" colSpan={4} fontSize={1} verticalAlign="top">
+      Additional props are passed to the <InlineCode>&lt;select&gt;</InlineCode> element. See{' '}
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attributes">MDN</Link> for a list of
+      props accepted by the <InlineCode>&lt;select&gt;</InlineCode> element.
+
+      <br /> The <InlineCode>multiple</InlineCode> prop is not accepted.
+    </Box>
+
+  </tr>
+</PropsTable>
 
 ### Select.OptGroup
 
