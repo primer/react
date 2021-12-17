@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react'
 import {LinkButtonProps} from './types'
-import ButtonBase, {ButtonBaseProps} from './button-base'
+import ButtonBase, {ButtonBaseProps} from './ButtonBase'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 
 type MyProps = LinkButtonProps & ButtonBaseProps
