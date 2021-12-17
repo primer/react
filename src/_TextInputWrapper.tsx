@@ -135,6 +135,7 @@ const TextInputWrapper = styled.span<StyledWrapperProps>`
     props.block &&
     css`
       width: 100%;
+      display: flex;
     `}
   
     // Ensures inputs don' t zoom on mobile but are body-font size on desktop

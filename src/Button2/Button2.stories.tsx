@@ -1,12 +1,12 @@
 import React, {useState, forwardRef} from 'react'
-import {NewButton as Button, NewButtonProps as ButtonProps, IconButton, ButtonLink} from '../NewButton'
+import {Button, ButtonProps, IconButton, ButtonLink} from '.'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
 import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRightIcon} from '@primer/octicons-react'
 import Box from '../Box'
 
 export default {
-  title: 'Composite components/New Button',
+  title: 'Composite components/Button2',
 
   decorators: [
     Story => {

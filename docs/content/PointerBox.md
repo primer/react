@@ -1,4 +1,5 @@
 ---
+componentId: pointer_box
 title: PointerBox
 status: Alpha
 ---

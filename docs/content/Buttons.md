@@ -1,4 +1,5 @@
 ---
+componentId: button
 title: Button
 status: Alpha
 ---

@@ -123,6 +123,10 @@ exports[`TextInput renders block 1`] = `
   padding-left: 0;
   padding-right: 0;
   width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .c0 >:not(:last-child) {

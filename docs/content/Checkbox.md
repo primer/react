@@ -1,4 +1,5 @@
 ---
+componentId: checkbox
 title: Checkbox
 description: Use checkboxes to toggle between checked and unchecked states in a list or as a standalone form field
 status: Alpha
