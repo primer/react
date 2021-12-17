@@ -1,4 +1,5 @@
 ---
+componentId: header
 title: Header
 status: Alpha
 ---
