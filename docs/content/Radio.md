@@ -18,10 +18,16 @@ storybook: '/react/storybook?path=/story/forms-radio-button--default'
 ```
 
 <Note>
+
 Please use a [Checkbox](/Checkbox) if the user needs to select more than one option in a list
+
 </Note>
 <Note variant="warning">
-Radio components should always be accompanied by a corresponding label to improve support for assistive technologies.
+
+**Use [ChoiceInputField](/ChoiceInputField) to render a standard radio input field.** This component is only meant to be used in the case that you're building a custom radio that is not yet supported by Primer (For example: the color mode selection in [Appearance settings](https://github.com/settings/appearance))
+
+If you do use this component to build a custom radio, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
+
 </Note>
 
 ## Grouping Radio components
