@@ -1,4 +1,5 @@
 ---
+componentId: filter_list
 title: FilterList
 status: Alpha
 ---

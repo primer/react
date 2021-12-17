@@ -1,4 +1,5 @@
 ---
+componentId: circle_badge
 title: CircleBadge
 status: Alpha
 ---

@@ -1,4 +1,5 @@
 ---
+componentId: text
 title: Text
 status: Alpha
 ---
