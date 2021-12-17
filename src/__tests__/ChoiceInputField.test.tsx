@@ -10,6 +10,11 @@ const CHECKBOXINPUTFIELD_LABEL_TEXT = 'Option one'
 const CHECKBOXINPUTFIELD_CAPTION_TEXT = 'Hint: a cool option'
 
 describe('ChoiceInputField', () => {
+  afterEach(() => {
+    cleanup()
+    jest.clearAllMocks()
+  })
+
   describe('rendering', () => {
     it('renders with a checkbox input', () => {
       const {getByLabelText} = render(
@@ -208,6 +213,5 @@ describe('ChoiceInputField', () => {
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })
