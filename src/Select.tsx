@@ -56,11 +56,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         aria-disabled={disabled}
         {...rest}
       >
-        {placeholder ? (
+        {placeholder && (
           <option value="" disabled={required} selected hidden={required}>
             {placeholder}
           </option>
-        ) : null}
+        )}
         {children}
       </StyledSelect>
       <ArrowIndicator />
