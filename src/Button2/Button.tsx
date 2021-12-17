@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react'
 import {ButtonProps} from './types'
-import ButtonBase from './button-base'
+import ButtonBase from './ButtonBase'
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props}, forwardedRef): JSX.Element => {
   return (

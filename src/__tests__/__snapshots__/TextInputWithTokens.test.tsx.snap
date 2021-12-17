@@ -452,6 +452,10 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   padding-left: 0;
   padding-right: 0;
   width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
