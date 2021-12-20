@@ -1,24 +1,23 @@
 ---
-componentId: checkbox
 title: Checkbox
 description: Use checkboxes to toggle between checked and unchecked states in a list or as a standalone form field
 status: Alpha
 source: https://github.com/primer/react/blob/main/src/Checkbox.tsx
 storybook: '/react/storybook?path=/story/forms-checkbox--default'
+componentId: checkbox
 ---
 
 import {ComponentChecklist} from '../src/component-checklist'
+
+## Examples
 
 <Note variant="warning">
 
 **Use [ChoiceInputField](/ChoiceInputField) to display an accessible checkbox form field**. This `Checkbox` component is intended only as an ingredient for other custom components, or as a drop-in replacement for native HTML checkboxes outside of form use-cases.
 
-
 If you do use this component to build a custom checkbox, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
 
 </Note>
-
-## Default example
 
 The `Checkbox` component can be used in controlled and uncontrolled modes.
 
@@ -53,10 +52,11 @@ The `Checkbox` component can be used in controlled and uncontrolled modes.
 ```
 
 <Note variant="warning">
-Checkbox components should always be accompanied by a corresponding label to improve support for assistive technologies.
+  Checkbox components should always be accompanied by a corresponding label to improve support for assistive
+  technologies.
 </Note>
 
-## Indeterminate example
+## Indeterminate
 
 An `indeterminate` checkbox state should be used if the input value is neither true nor false. This can be useful in situations where you are required to display an incomplete state, or one that is dependent on other input selections to determine a value.
 
@@ -95,22 +95,59 @@ An `indeterminate` checkbox state should be used if the input value is neither t
 </>
 ```
 
-## Component props
+## Props
 
-Native `<input>` attributes are forwarded to the underlying React `input` component and are not listed below.
+<PropsTable>
+  <PropsTableRow
+    name="checked"
+    type="boolean"
+    description="Modifies true/false value of the native checkbox"
+  />
+  <PropsTableRow
+    name="defaultChecked"
+    type="boolean"
+    description="Checks the input by default in uncontrolled mode"
+  />
+  <PropsTableRow
+    name="onChange"
+    type="(event: React.ChangeEvent) => void"
+    description="A callback function that is triggered when the checked state has been changed"    
+  />
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    description="Modifies the native disabled state of the native checkbox"    
+  />
+  <PropsTableRow
+    name="indeterminate"
+    type="boolean"
+    defaultValue="false"
+    description={
+      <>
+        Applies an{' '}
+        <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate">
+          indeterminate state
+        </Link>{' '}
+        to the checkbox
+      </>
+    }
+  />
+  <PropsTableBasePropRows
+    elementType="input"
+    refType="HTMLInputElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#additional_attributes">
+        MDN
+      </Link>
+    }
+  />
 
-| Name           | Type        |  Default  | Description                                                                                                                                             |
-| :------------- | :---------- | :-------: | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| checked        | Boolean     | undefined | Optional. Modifies true/false value of the native checkbox                                                                                              |
-| defaultChecked | Boolean     | undefined | Optional. Checks the input by default in uncontrolled mode                                                                                              |
-| onChange       | ChangeEvent | undefined | Optional. A callback function that is triggered when the checked state has been changed.                                                                |
-| disabled       | Boolean     | undefined | Optional. Modifies the native disabled state of the native checkbox                                                                                     |
-| indeterminate  | Boolean     | undefined | Optional. Applies an [indeterminate](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate) state to the checkbox |
+</PropsTable>
 
-## Component status
+## Status
 
 <ComponentChecklist
-items={{
+  items={{
     propsDocumented: true,
     noUnnecessaryDeps: true,
     adaptsToThemes: true,
