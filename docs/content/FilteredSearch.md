@@ -1,4 +1,5 @@
 ---
+componentId: filtered_search
 title: FilteredSearch
 status: Alpha
 ---

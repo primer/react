@@ -107,10 +107,12 @@ function PassthroughPropsRow({elementName, isPolymorphic, passthroughPropsLink})
 }
 
 function AsRow({defaultElementType}) {
+  // Element is a component if the first letter is uppercase (e.g. Button)
+  const isComponent = defaultElementType[0].toUpperCase() === defaultElementType[0]
   return (
     <Row
       name="as"
-      defaultValue={`"${defaultElementType}"`}
+      defaultValue={isComponent ? defaultElementType : `"${defaultElementType}"`}
       type={
         <Link href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L73">
           React.ElementType

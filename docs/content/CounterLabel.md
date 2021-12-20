@@ -1,4 +1,5 @@
 ---
+componentId: counter_label
 title: CounterLabel
 status: Alpha
 ---
