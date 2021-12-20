@@ -19,7 +19,6 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       getVariantStyles(variant, theme),
       sxProp as SxProp
     ])
-    debugger
     return (
       <StyledButton as={Component} sx={sxStyles} {...props} ref={forwardedRef}>
         {LeadingIcon && (

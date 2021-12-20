@@ -21,7 +21,7 @@ const LinkButton = forwardRef<HTMLElement, MyProps>(
         textDecoration: 'underline'
       }
     }
-    const sxStyle = merge.all([style, sx])
+    const sxStyle = merge.all([style, sx as SxProp])
     return (
       <ButtonBase as={Component} ref={forwardedRef} sx={sxStyle} {...props}>
         {children}
