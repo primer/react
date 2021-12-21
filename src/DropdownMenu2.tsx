@@ -1,6 +1,6 @@
 import React from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {NewButton as Button, NewButtonProps as ButtonProps} from './NewButton'
+import {Button, ButtonProps} from './Button2'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate} from './hooks'

@@ -146,11 +146,8 @@ export const caretButton = ({...args}: ButtonProps) => {
 export const blockButton = ({...args}: ButtonProps) => {
   return (
     <>
-      <Button {...args} sx={{width: '100%', mb: 2}}>
+      <Button {...args} sx={{width: '100%'}}>
         Block
-      </Button>
-      <Button leadingIcon={EyeIcon} trailingIcon={TriangleDownIcon} {...args} sx={{width: '100%'}}>
-        Watch
       </Button>
     </>
   )

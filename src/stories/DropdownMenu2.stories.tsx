@@ -4,7 +4,7 @@ import {ThemeProvider} from '..'
 import BaseStyles from '../BaseStyles'
 import {DropdownMenu} from '../DropdownMenu2'
 import {ActionList} from '../ActionList2'
-import {NewButton as Button} from '../NewButton'
+import {Button} from '../Button2'
 import Box from '../Box'
 import Text from '../Text'
 import TextInput from '../TextInput'
@@ -217,10 +217,11 @@ export function MilestoneStory(): JSX.Element {
                 trailingIcon={GearIcon}
                 sx={{
                   color: 'fg.muted',
-                  ':hover, :focus': {background: 'none !important', color: 'accent.fg'},
                   width: '100%',
+                  paddingX: 0,
+                  gridTemplateColumns: 'min-content 1fr min-content',
                   textAlign: 'left',
-                  paddingX: 0
+                  ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
                 }}
               >
                 Milestone

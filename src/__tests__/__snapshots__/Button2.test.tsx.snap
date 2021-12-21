@@ -23,7 +23,6 @@ exports[`Button renders consistently 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  grid-template-columns: min-content 1fr min-content;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 16px;
@@ -62,10 +61,6 @@ exports[`Button renders consistently 1`] = `
 
 .c0 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
-}
-
-.c0 [data-component="leadingIcon"] + [data-component="text"] {
-  text-align: left;
 }
 
 .c0 [data-component="ButtonCounter"] {
@@ -116,7 +111,6 @@ exports[`Button styles danger button appropriately 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  grid-template-columns: min-content 1fr min-content;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 16px;
@@ -160,10 +154,6 @@ exports[`Button styles danger button appropriately 1`] = `
 
 .c0 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
-}
-
-.c0 [data-component="leadingIcon"] + [data-component="text"] {
-  text-align: left;
 }
 
 .c0 [data-component="ButtonCounter"] {
@@ -229,7 +219,6 @@ exports[`Button styles invisible button appropriately 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  grid-template-columns: min-content 1fr min-content;
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 16px;
@@ -267,10 +256,6 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
-}
-
-.c0 [data-component="leadingIcon"] + [data-component="text"] {
-  text-align: left;
 }
 
 .c0 [data-component="ButtonCounter"] {
@@ -322,7 +307,6 @@ exports[`Button styles outline button appropriately 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  grid-template-columns: min-content 1fr min-content;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 16px;
@@ -365,10 +349,6 @@ exports[`Button styles outline button appropriately 1`] = `
 
 .c0 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
-}
-
-.c0 [data-component="leadingIcon"] + [data-component="text"] {
-  text-align: left;
 }
 
 .c0 [data-component="ButtonCounter"] {
@@ -435,7 +415,6 @@ exports[`Button styles primary button appropriately 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  grid-template-columns: min-content 1fr min-content;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 16px;
@@ -474,10 +453,6 @@ exports[`Button styles primary button appropriately 1`] = `
 
 .c0 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
-}
-
-.c0 [data-component="leadingIcon"] + [data-component="text"] {
-  text-align: left;
 }
 
 .c0 [data-component="ButtonCounter"] {
