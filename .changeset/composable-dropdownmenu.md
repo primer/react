@@ -1,5 +1,5 @@
 ---
-'@primer/components': patch
+'@primer/primer': patch
 ---
 
 Add composable `DropdownMenu` to `@primer/components/drafts`
