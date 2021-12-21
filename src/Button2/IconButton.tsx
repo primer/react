@@ -7,20 +7,17 @@ import {getBaseStyles, getSizeStyles, getVariantStyles} from './styles'
 import {useSSRSafeId} from '@react-aria/ssr'
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwardedRef): JSX.Element => {
-  const {variant = 'default', size = 'medium', sx: sxProp = {}, icon: Icon, iconLabel} = props
+  const {variant = 'default', size = 'medium', sx: sxProp = {}, icon: Icon, iconLabel, ...rest} = props
   const iconLabelId = useSSRSafeId()
   const {theme} = useTheme()
-  const styles = {
-    ...getBaseStyles(theme)
-  }
   const sxStyles = merge.all([
-    styles,
+    getBaseStyles(theme),
     getSizeStyles(size, variant, true),
     getVariantStyles(variant, theme),
     sxProp as SxProp
   ])
   return (
-    <StyledButton aria-labelledby={iconLabelId} sx={sxStyles} ref={forwardedRef} {...props}>
+    <StyledButton aria-labelledby={iconLabelId} sx={sxStyles} {...rest} ref={forwardedRef}>
       <span id={iconLabelId} hidden={true}>
         {iconLabel}
       </span>
@@ -31,4 +28,4 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
   )
 })
 
-export default IconButton
+export {IconButton}

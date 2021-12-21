@@ -1,12 +1,12 @@
 ---
-componentId: header
 title: Header
+description: Use the Header component to create a header that has all of its items aligned vertically with consistent horizontal spacing
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/Header.tsx
+componentId: header
 ---
 
-Use the `Header` component to create a header that has all of its items aligned vertically with consistent horizontal spacing.
-
-## Default example
+## Examples
 
 All items directly under the Header component should be a `Header.Item` component. Inside these components can be anything (text, forms, images...), and the `Header.Item` component will make sure these elements vertically align with each other.
 
@@ -27,7 +27,7 @@ All items directly under the Header component should be a `Header.Item` componen
 </Header>
 ```
 
-## Header with full-size item example
+### With full-size item
 
 ```jsx live
 <Header>
@@ -39,7 +39,7 @@ All items directly under the Header component should be a `Header.Item` componen
 </Header>
 ```
 
-## Header with links example
+### With links
 
 ```jsx live
 <Header>
@@ -55,25 +55,49 @@ All items directly under the Header component should be a `Header.Item` componen
 </Header>
 ```
 
-## Component props
+## Props
 
 ### Header
 
-| Name | Type              | Default | Description                          |
-| :--- | :---------------- | :-----: | :----------------------------------- |
-| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
+<PropsTable>
+  <PropsTableSxRow />
+</PropsTable>
 
 ### Header.Item
 
-| Name | Type              | Default | Description                                |
-| :--- | :---------------- | :-----: | :----------------------------------------- |
-| full | Boolean           |         | stretches item to fill the available space |
-| sx   | SystemStyleObject |   {}    | Style to be applied to the component       |
+<PropsTable>
+  <PropsTableRow name="full" type="string" description="Stretches item to fill the available space" />
+  <PropsTableSxRow />
+</PropsTable>
 
 ### Header.Link
 
-| Name | Type              | Default | Description                          |
-| :--- | :---------------- | :-----: | :----------------------------------- |
-| as   | String            |         | sets the HTML tag for the component  |
-| href | String            |         | URL to be used for the Link          |
-| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
+<PropsTable>
+  <PropsTableRow name="href" type="string" description="URL to be used for the Link" />
+  <PropsTableBasePropRows
+    elementType="a"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

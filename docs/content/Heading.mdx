@@ -1,0 +1,44 @@
+---
+title: Heading
+description: Use Heading to structure your content and provide an accessible experience for users of assistive technologies.
+source: https://github.com/primer/react/blob/main/src/Heading.tsx
+status: Alpha
+componentId: heading
+---
+
+The Heading component will render an html `h2` tag without any default styling. Other heading level elements `h1-h6` are available through use of the `as` prop (see [System Props](/system-props) for additional explanation). Please reference the [w3 recommendations for headings](https://www.w3.org/WAI/tutorials/page-structure/headings/) to ensure your headings provide an accessible experience for screen reader users.
+
+**Attention:** Make sure to include a valid heading element to render a Heading component other than `h2` (`<Heading as="h1">H1 Element</Heading>`).
+
+## Example
+
+```jsx live
+<Heading sx={{fontSize: 1, mb: 2}}>H2 heading with fontSize={1}</Heading>
+```
+
+## Props
+
+<PropsTable>
+  <PropsTableAsRow defaultElementType="h2" />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
