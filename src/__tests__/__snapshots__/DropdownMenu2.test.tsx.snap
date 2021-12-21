@@ -34,7 +34,6 @@ exports[`DropdownMenu renders consistently 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  grid-template-columns: min-content 1fr min-content;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 16px;
@@ -73,10 +72,6 @@ exports[`DropdownMenu renders consistently 1`] = `
 
 .c1 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
-}
-
-.c1 [data-component="leadingIcon"] + [data-component="text"] {
-  text-align: left;
 }
 
 .c1 [data-component="ButtonCounter"] {
