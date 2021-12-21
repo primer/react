@@ -314,17 +314,18 @@ const Header = styled.div.attrs<SxProp>({as: 'header'})`
   flex-shrink: 0;
 `
 
-const Title = styled.div<SxProp>`
+const Title = styled.h1<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
-
+  margin: 0; /* override default margin */
   ${sx};
 `
 
-const Subtitle = styled.div<SxProp>`
+const Subtitle = styled.h2<SxProp>`
   font-size: ${get('fontSizes.0')};
-  margin-top: ${get('space.1')};
   color: ${get('colors.fg.muted')};
+  margin: 0; /* override default margin */
+  margin-top: ${get('space.1')};
 
   ${sx};
 `

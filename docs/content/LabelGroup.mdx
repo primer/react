@@ -1,0 +1,43 @@
+---
+title: LabelGroup
+description: Use LabelGroup components to add commonly used margins and other layout constraints to groups of Labels
+source: https://github.com/primer/react/blob/main/src/LabelGroup.tsx
+status: Alpha
+componentId: label_group
+---
+
+## Example
+
+```jsx live
+<LabelGroup>
+  <Label>Default label</Label>
+  <Label sx={{color: 'fg.onEmphasis', bg: 'danger.emphasis'}}>Label with background indicating a closed PR state</Label>
+  <Label outline>Default outline label</Label>
+</LabelGroup>
+```
+
+## Props
+
+<PropsTable>
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: null,
+    adaptsToScreenSizes: null,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

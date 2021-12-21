@@ -6,10 +6,12 @@ export type CounterProps = {
   children: number
 } & SxProp
 
-export const Counter = ({children, sx: sxProp = {}, ...props}: CounterProps) => {
+const Counter = ({children, sx: sxProp = {}, ...props}: CounterProps) => {
   return (
     <CounterLabel data-component="ButtonCounter" sx={{ml: 2, ...sxProp}} {...props}>
       {children}
     </CounterLabel>
   )
 }
+
+export {Counter}
