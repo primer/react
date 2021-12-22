@@ -73,7 +73,6 @@ exports[`DropdownMenu renders consistently 1`] = `
 
 <button
   aria-haspopup="true"
-  aria-labelledby="react-aria-1"
   className="c0"
   id="react-aria-1"
   onClick={[Function]}

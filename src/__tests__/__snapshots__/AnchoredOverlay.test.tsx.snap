@@ -81,7 +81,6 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 >
   <button
     aria-haspopup="true"
-    aria-labelledby="react-aria-1"
     className="c1"
     id="react-aria-1"
     onClick={[Function]}
@@ -194,7 +193,6 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   >
     <button
       aria-haspopup="true"
-      aria-labelledby="react-aria-1"
       class="c1"
       id="react-aria-1"
       tabindex="0"
