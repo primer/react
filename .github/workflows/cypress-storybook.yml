@@ -23,8 +23,6 @@ jobs:
       - name: Cypress install
         uses: cypress-io/github-action@v2
         with:
-          # Disable running of tests within install job
-          runTests: false
           build: yarn build
 
   ui-chrome-tests:
