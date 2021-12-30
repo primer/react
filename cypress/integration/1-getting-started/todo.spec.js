@@ -20,5 +20,6 @@ describe('example to-do app', () => {
   it('should access perf tab', () => {
     cy.get('#tabbutton-performance').click()
     cy.get('#storybook-addon-performance-start-all-button').click()
+    cy.get('#storybook-addon-performance-save-button').click()
   })
 })
