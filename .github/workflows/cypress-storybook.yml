@@ -12,7 +12,7 @@ jobs:
       - name: Run Cypress
         uses: cypress-io/github-action@v2
         with:
-          start: npm start:storybook
+          start: npm run start:storybook
           wait-on: 'http://localhost:6006'
           wait-on-timeout: 120
           browser: chrome
