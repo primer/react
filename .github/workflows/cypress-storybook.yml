@@ -1,64 +1,18 @@
-name: Cypress Tests with Install Job and UI Chrome Job x 5
-on:
-  push:
-    branches-ignore:
-      - 'main'
-      - 'changeset-release/main'
+name: Cypress Tests
+on: [push]
 
 jobs:
-  install:
+  cypress-run:
+    name: Run Cypress tests
     runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Save build folder
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          if-no-files-found: error
-          path: build
-
-      - name: Cypress install
+      - name: Run Cypress
         uses: cypress-io/github-action@v2
         with:
-          build: yarn build
-
-  ui-chrome-tests:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
-    needs: install
-    strategy:
-      fail-fast: false
-      matrix:
-        # run copies of the current job in parallel
-        containers: [1, 2, 3, 4, 5]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-
-      - name: 'UI Tests - Chrome'
-        uses: cypress-io/github-action@v2
-        with:
-          # we have already installed all dependencies above
-          install: false
           start: npm start:storybook
-          wait-on: 'http://localhost:6006'
-          wait-on-timeout: 120
-          browser: chrome
           record: true
-          parallel: true
-          group: 'UI - Chrome'
-          spec: cypress/integration*
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # Recommended: pass the GitHub token lets this action correctly
-          # determine the unique run id necessary to re-run the checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          env:
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
