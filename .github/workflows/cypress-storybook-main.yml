@@ -1,5 +1,8 @@
 name: Cypress Tests and Perf comparison
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   cypress-run:
@@ -23,26 +26,5 @@ jobs:
         uses: actions/upload-artifact@v2
         if: success()
         with:
-          name: perf-benchmarks-branch
-          path: cypress/downloads
-
-      - name: Download main artifacts
-        uses: actions/download-artifact@v2
-        with:
           name: perf-benchmarks-main
-
-      - name: Download main artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: perf-benchmarks-branch
-      
-      - name: Run perf-addon-cli
-        id: run-cli
-        run: | sb-perf -c perf-benchmarks-main -b perf-benchmarks-branch
-
-      - name: Upload sb-perf
-        id: sb-perf-upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: sb-perf
-          path: cypress/sb-perf
+          path: cypress/downloads
