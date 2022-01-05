@@ -38,7 +38,7 @@ jobs:
       
       - name: Run perf-addon-cli
         id: run-cli
-        run: | sb-perf -c perf-benchmarks-main -b perf-benchmarks-branch
+        run: sb-perf -c perf-benchmarks-main -b perf-benchmarks-branch
 
       - name: Upload sb-perf
         id: sb-perf-upload
