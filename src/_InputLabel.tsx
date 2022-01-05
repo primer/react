@@ -25,7 +25,7 @@ const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidd
       {required ? (
         <Box display="flex" as="span">
           <Box mr={1}>{children}</Box>
-          <span>*</span>
+          <span aria-hidden="true">*</span>
         </Box>
       ) : (
         children
