@@ -72,6 +72,7 @@ exports[`DropdownMenu renders consistently 1`] = `
 }
 
 <button
+  aria-expanded={false}
   aria-haspopup="true"
   aria-labelledby="react-aria-1"
   className="c0"
