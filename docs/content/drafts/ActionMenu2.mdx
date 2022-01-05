@@ -192,7 +192,7 @@ render(
 
 ### With External Anchor
 
-To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`:
+To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor:
 
 ```javascript live noinline
 // import {ActionMenu, ActionList} from '@primer/react/drafts'
@@ -204,7 +204,7 @@ const Example = () => {
 
   return (
     <>
-      <Button ref={anchorRef} onClick={() => setOpen(!open)}>
+      <Button ref={anchorRef} aria-haspopup="true" aria-expanded={open} onClick={() => setOpen(!open)}>
         {open ? 'Close Menu' : 'Open Menu'}
       </Button>
 
