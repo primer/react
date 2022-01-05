@@ -1,0 +1,79 @@
+---
+componentId: flash
+title: Flash
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/Flash.tsx
+---
+
+```js
+import {Flash} from '@primer/react'
+```
+
+The Flash component informs users of successful or pending actions.
+
+## Examples
+
+### Default
+
+```jsx live
+<>
+  <Flash>Default Flash</Flash>
+  <Flash variant="success">Success Flash</Flash>
+  <Flash variant="warning">Warning Flash</Flash>
+  <Flash variant="danger">Danger Flash</Flash>
+</>
+```
+
+### With an icon
+
+Flash components with icons inside of them will automatically set the correct color for the icon depending on the type of Flash, as well as applying the correct right margin.
+
+```jsx live
+<Flash variant="success">
+  <StyledOcticon icon={CheckIcon} />
+  Success!
+</Flash>
+```
+
+## Props
+
+### Flash
+
+<PropsTable>
+  <PropsTableRow name="full" type="boolean" defaultValue="false" description="Creates a full width Flash component" />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'success' | 'warning' | 'danger'"
+    defaultValue="'default'"
+    description="Sets the background color and border"
+  />
+  <PropsTableBasePropRows
+    elementType="div"
+    isPolymorphic
+    refType="HTMLDivElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#Attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

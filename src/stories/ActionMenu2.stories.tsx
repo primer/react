@@ -137,7 +137,7 @@ export function ExternalAnchor(): JSX.Element {
       <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
       <h2>Last option activated: {actionFired}</h2>
       <div>
-        <Button ref={anchorRef} onClick={() => setOpen(!open)}>
+        <Button ref={anchorRef} onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="true">
           {open ? 'Close Menu' : 'Open Menu'}
         </Button>
       </div>

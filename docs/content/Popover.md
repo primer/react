@@ -1,4 +1,5 @@
 ---
+componentId: popover
 title: Popover
 status: Alpha
 ---
