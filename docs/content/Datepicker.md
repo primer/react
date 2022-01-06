@@ -22,7 +22,7 @@ With a multi-select datepicker, the user is able to select multiple dates (with 
 
 ```jsx live
 <>
-  <DatePicker variat="multi" maxSelections={5} />
+  <DatePicker variant="multi" maxSelections={5} />
 </>
 ```
 
@@ -32,7 +32,7 @@ With a range-select datepicker, the user is able to select a range of dates by s
 
 ```jsx live
 <>
-  <DatePicker variat="range" maxRangeSize={14} />
+  <DatePicker variant="range" maxRangeSize={14} />
 </>
 ```
 
