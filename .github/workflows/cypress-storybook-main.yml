@@ -1,0 +1,30 @@
+name: Cypress Tests and Perf comparison
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cypress-run:
+    name: Run Cypress tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm run start:storybook
+          wait-on: 'http://localhost:6006'
+          wait-on-timeout: 120
+          browser: chrome
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: perf-benchmarks-main
+          path: cypress/downloads
