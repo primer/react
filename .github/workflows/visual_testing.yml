@@ -9,6 +9,7 @@ jobs:
   chromatic:
     name: Visual testing
     runs-on: ubuntu-latest
+    environment: visual-testing
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -29,3 +30,4 @@ jobs:
           buildScriptName: build:storybook
           projectToken: 91e12320417c
           autoAcceptChanges: github.ref == 'refs/heads/main'
+          onlyChanged: true

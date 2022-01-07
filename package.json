@@ -18,7 +18,8 @@
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
     "release": "npm run build && changeset publish",
-    "size": "size-limit"
+    "size": "size-limit",
+    "prepare": "husky install"
   },
   "repository": "primer/react",
   "keywords": [
@@ -119,9 +120,11 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "front-matter": "4.0.2",
     "jest": "27.4.5",
+    "husky": "7.0.4",
     "jest-axe": "5.0.1",
     "jest-styled-components": "6.3.4",
     "jscodeshift": "0.13.0",
+    "lint-staged": "12.1.2",
     "lodash.isempty": "4.4.0",
     "lodash.isobject": "3.0.2",
     "prettier": "2.3.2",
@@ -158,5 +161,8 @@
       "webpack": false,
       "running": false
     }
-  ]
+  ],
+  "lint-staged": {
+    "**/*.{js,ts,tsx,md,mdx}": "npm run lint"
+  }
 }
