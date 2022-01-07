@@ -12,7 +12,7 @@
 // please read our getting started guide:
 // https://on.cypress.io/introduction-to-cypress
 
-describe('example to-do app', () => {
+describe('perf tests', () => {
   beforeEach(() => {
     cy.visit('localhost:6006')
     cy.wait(1000)
