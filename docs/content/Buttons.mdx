@@ -19,10 +19,10 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 ```jsx live
 <>
   <Button>Button</Button>
-  <ButtonDanger>Button Danger</ButtonDanger>
-  <ButtonOutline>Button Outline</ButtonOutline>
-  <ButtonPrimary>Button Primary</ButtonPrimary>
-  <ButtonInvisible>Button Invisible</ButtonInvisible>
+  <ButtonDanger>Button danger</ButtonDanger>
+  <ButtonOutline>Button outline</ButtonOutline>
+  <ButtonPrimary>Button primary</ButtonPrimary>
+  <ButtonInvisible>Button invisible</ButtonInvisible>
   <ButtonClose onClick={() => window.alert('button clicked')} />
 
   <ButtonGroup display="block" my={2}>
@@ -31,7 +31,7 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
     <Button>Button</Button>
   </ButtonGroup>
 
-  <ButtonTableList>Button Table List </ButtonTableList>
+  <ButtonTableList>Button table list </ButtonTableList>
 </>
 ```
 
@@ -40,9 +40,9 @@ To create a button group, wrap `Button` elements in the `ButtonGroup` element. `
 Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
 
 <PropsTable>
-  <PropsTable.Row name="as" type="String" defaultValue="button" description="Sets the HTML tag for the component" />
-  <PropsTable.Row name="sx" type="SystemStyleObject" defaultValue="{}" description="Additional styles" />
-  <PropsTable.Row
+  <PropsTableRow name="as" type="String" defaultValue="button" description="Sets the HTML tag for the component" />
+  <PropsTableRow name="sx" type="SystemStyleObject" defaultValue="{}" description="Additional styles" />
+  <PropsTableRow
     name="variant"
     type="String"
     defaultValue="'medium'"
