@@ -1,5 +1,5 @@
 import React from 'react'
-import {Autocomplete, Box, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
+import {Autocomplete, Box, Select, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
 import InputValidation from '../_InputValidation'
 import {ComponentProps} from '../utils/types'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -48,7 +48,7 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
   validationMap,
   validationResult
 }: Props<T>) => {
-  const expectedInputComponents = [TextInput, TextInputWithTokens, Autocomplete]
+  const expectedInputComponents = [TextInput, TextInputWithTokens, Autocomplete, Select]
   const id = useSSRSafeId(idProp)
   const validationChildren: React.ReactElement<InputFieldValidationProps>[] | undefined | null = React.Children.map(
     children,
