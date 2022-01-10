@@ -39,4 +39,4 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
 
 export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>
 
-export default ButtonBase
+export {ButtonBase}
