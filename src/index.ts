@@ -137,6 +137,8 @@ export type {
   SelectMenuTabPanelProps,
   SelectMenuLoadingAnimationProps
 } from './SelectMenu'
+export {SelectPanel} from './SelectPanel'
+export type {SelectPanelProps} from './SelectPanel'
 export {default as SideNav} from './SideNav'
 export type {SideNavProps, SideNavLinkProps} from './SideNav'
 export {default as Spinner} from './Spinner'
