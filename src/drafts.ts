@@ -7,5 +7,5 @@
 
 // Components
 export * from './ActionList2'
-export * from './NewButton'
+export * from './Button2'
 export * from './ActionMenu2'
