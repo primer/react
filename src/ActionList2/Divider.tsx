@@ -12,7 +12,7 @@ export const Divider: React.FC<SxProp> = ({sx = {}}) => {
   return (
     <Box
       as="li"
-      role="separator"
+      aria-hidden="true"
       sx={merge(
         {
           height: 1,

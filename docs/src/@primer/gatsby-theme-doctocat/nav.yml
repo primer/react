@@ -53,6 +53,8 @@
       url: /Buttons
     - title: Checkbox
       url: /Checkbox
+    - title: ChoiceInputField
+      url: /ChoiceInputField
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
@@ -73,6 +75,8 @@
       url: /Header
     - title: Heading
       url: /Heading
+    - title: InputField
+      url: /InputField
     - title: Label
       url: /Label
     - title: LabelGroup
@@ -97,6 +101,8 @@
       url: /Radio
     - title: Select
       url: /Select
+    - title: SelectPanel
+      url: /SelectPanel
     - title: SideNav
       url: /SideNav
     - title: Spinner

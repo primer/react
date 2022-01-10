@@ -1,15 +1,17 @@
 import React, {forwardRef} from 'react'
 import {ButtonProps} from './types'
-import ButtonBase from './ButtonBase'
+import {ButtonBase} from './ButtonBase'
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({children, ...props}, forwardedRef): JSX.Element => {
-  return (
-    <ButtonBase ref={forwardedRef} {...props} as="button">
-      {children}
-    </ButtonBase>
-  )
-})
+const ButtonComponent = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({children, ...props}, forwardedRef): JSX.Element => {
+    return (
+      <ButtonBase ref={forwardedRef} {...props} as="button">
+        {children}
+      </ButtonBase>
+    )
+  }
+)
 
-Button.displayName = 'Button'
+ButtonComponent.displayName = 'Button'
 
-export {Button}
+export {ButtonComponent}
