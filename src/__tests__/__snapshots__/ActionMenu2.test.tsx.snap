@@ -80,6 +80,7 @@ exports[`ActionMenu renders consistently 1`] = `
   fontFamily="normal"
 >
   <button
+    aria-expanded={false}
     aria-haspopup="true"
     aria-labelledby="react-aria-1"
     className="c1"

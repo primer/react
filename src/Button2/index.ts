@@ -1,11 +1,10 @@
-import {Button as ButtonComponent} from './Button'
+import {ButtonComponent} from './Button'
 import {Counter} from './ButtonCounter'
-import IconButton from './IconButton'
-import ButtonLink from './ButtonLink'
-import {ButtonProps, IconButtonProps} from './types'
-// change this when moving to released state
-export type {ButtonProps, IconButtonProps}
+import {IconButton} from './IconButton'
+import {LinkButton} from './LinkButton'
+export type {ButtonProps, IconButtonProps} from './types'
+export {IconButton, LinkButton}
+
 export const Button = Object.assign(ButtonComponent, {
   Counter
 })
-export {IconButton, ButtonLink}
