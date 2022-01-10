@@ -86,7 +86,9 @@ const withThemeProvider = (Story, context) => {
           nightScheme={context.globals.nightScheme}
         >
           <ThemedSectionStyle>
-            <Story {...context} />
+            <div id="html-addon-root">
+              <Story {...context} />
+            </div>
           </ThemedSectionStyle>
         </ThemeProvider>
       </Wrapper>
@@ -100,10 +102,13 @@ const withThemeProvider = (Story, context) => {
       nightScheme={context.globals.nightScheme}
     >
       <GlobalStyle />
-      <Story {...context} />
+      <div id="html-addon-root">
+        <Story {...context} />
+      </div>
     </ThemeProvider>
   )
 }
+
 export const decorators = [withThemeProvider, withPerformance]
 
 addons.setConfig({
@@ -113,5 +118,9 @@ addons.setConfig({
 })
 
 export const parameters = {
-  actions: {argTypesRegex: '^on[A-Z].*'}
+  actions: {argTypesRegex: '^on[A-Z].*'},
+  html: {
+    root: '#html-addon-root',
+    removeEmptyComments: true
+  }
 }
