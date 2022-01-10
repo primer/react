@@ -1,5 +1,31 @@
 # @primer/components
 
+## 34.1.0
+
+### Minor Changes
+
+- [#1611](https://github.com/primer/react/pull/1611) [`11382eeb`](https://github.com/primer/react/commit/11382eeb60441fe4d03f5aedf1f28b4b061cb07d) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds TextInputField, CheckboxInputField, and RadioInputField components. Also adds a few internal (private to primer/react) components to support form fields
+
+### Patch Changes
+
+- [#1754](https://github.com/primer/react/pull/1754) [`08cdb0bc`](https://github.com/primer/react/commit/08cdb0bcad859663e7e425a89d3b696388f449f3) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Fix title and subtitle tag for Dialog2 and ConfirmationDialog
+
+* [#1730](https://github.com/primer/react/pull/1730) [`a9dc6f20`](https://github.com/primer/react/commit/a9dc6f20b65d3ed31d4bb13dd234a3c7b36caf10) Thanks [@pksjce](https://github.com/pksjce)! - NewButton -> Button2 file name changes
+
+- [#1742](https://github.com/primer/react/pull/1742) [`4ab78a26`](https://github.com/primer/react/commit/4ab78a26eaeea517b65ec202a2abeb7f93dcfc89) Thanks [@pksjce](https://github.com/pksjce)! - Fix for SelectPanel Filter width
+
+## 34.0.1
+
+### Patch Changes
+
+- [#1661](https://github.com/primer/react/pull/1661) [`6f13441b`](https://github.com/primer/react/commit/6f13441b074bc47e4982bdb15e0470378799dfe0) Thanks [@pksjce](https://github.com/pksjce)! - Text Input enhancements
+
+* [#1700](https://github.com/primer/react/pull/1700) [`9d2827a9`](https://github.com/primer/react/commit/9d2827a9cbb023c0a412d8040182a887651a55b7) Thanks [@dgreif](https://github.com/dgreif)! - Use extracted [@primer/behaviors](https://github.com/primer/behaviors) for hook behaviors
+
+- [#1712](https://github.com/primer/react/pull/1712) [`4ce8f07b`](https://github.com/primer/react/commit/4ce8f07be6452ef9bc55ca61ce03202d5ab6a3f9) Thanks [@colebemis](https://github.com/colebemis)! - Remove "engines" field from package.json
+
+* [#1734](https://github.com/primer/react/pull/1734) [`bba4c245`](https://github.com/primer/react/commit/bba4c2451f1c32cd25e7351ad8f808dc22c85e97) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Button v2 - Fix font family
+
 ## 34.0.0
 
 ### Major Changes

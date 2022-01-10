@@ -1,0 +1,70 @@
+---
+title: Label
+description: Use Label components to add contextual metadata to a design.
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/Label.tsx
+componentId: label_group
+---
+
+## Example
+
+```jsx live
+<>
+  <Label variant="small" outline sx={{borderColor: 'danger.emphasis', mr: 2, color: 'danger.fg'}}>
+    small
+  </Label>
+  <Label variant="medium" sx={{mr: 2}}>
+    medium (default)
+  </Label>
+  <Label variant="large" sx={{mr: 2}}>
+    large
+  </Label>
+  <Label variant="xl">xl label</Label>
+
+  <Box mt={4} />
+  <Label variant="medium" sx={{bg: '#A575FF', m: 1}}>
+    good first issue
+  </Label>
+  <Label variant="medium" sx={{bg: '#FF75C8', m: 1}}>
+    🚂 deploy: train
+  </Label>
+  <Label variant="medium" sx={{bg: '#1C90FA', m: 1}}>
+    css
+  </Label>
+  <Label variant="medium" sx={{bg: '#FFF06C', color: '#24292E', m: 1}}>
+    documentation
+  </Label>
+  <Label variant="medium" sx={{bg: '#656BFE', m: 1}}>
+    primer
+  </Label>
+</>
+```
+
+## Props
+
+<PropsTable>
+  <PropsTableRow name="outline" type="boolean" defaultValue="false" description="Creates an outline style label" />
+  <PropsTableRow name="variant" type="'small' | 'medium' | 'large' | 'xl'" defaultValue="'medium'" />
+  <PropsTableRow name="dropshadow" type="boolean" defaultValue="false" description="Adds a dropshadow to the label" />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

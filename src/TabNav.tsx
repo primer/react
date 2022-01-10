@@ -1,6 +1,5 @@
 import classnames from 'classnames'
-// eslint-disable-next-line import/no-namespace
-import * as History from 'history'
+import {Location} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
@@ -33,7 +32,7 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
 }
 
 type StyledTabNavLinkProps = {
-  to?: History.LocationDescriptor
+  to?: Location
   selected?: boolean
 } & SxProp
 
