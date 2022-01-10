@@ -1,10 +1,9 @@
 import classnames from 'classnames'
-// eslint-disable-next-line import/no-namespace
-import * as History from 'history'
+import {Location} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import Box from './Box'
-import {COMMON, FLEX, get, SystemCommonProps, SystemFlexProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
@@ -31,20 +30,22 @@ const Wrapper = styled.li`
   }
 `
 
-const BreadcrumbsBase = styled.nav<SystemFlexProps & SystemCommonProps & SxProp>`
+const BreadcrumbsBase = styled.nav<SxProp>`
   display: flex;
   justify-content: space-between;
-  ${COMMON};
-  ${FLEX};
   ${sx};
 `
 
-export type BreadcrumbsProps = ComponentProps<typeof BreadcrumbsBase>
+export type BreadcrumbsProps = React.PropsWithChildren<
+  {
+    className?: string
+  } & SxProp
+>
 
-function Breadcrumbs({className, children, theme, ...rest}: React.PropsWithChildren<BreadcrumbsProps>) {
-  const wrappedChildren = React.Children.map(children, child => <Wrapper theme={theme}>{child}</Wrapper>)
+function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<BreadcrumbsProps>) {
+  const wrappedChildren = React.Children.map(children, child => <Wrapper>{child}</Wrapper>)
   return (
-    <BreadcrumbsBase className={className} aria-label="Breadcrumbs" theme={theme} {...rest}>
+    <BreadcrumbsBase className={className} aria-label="Breadcrumbs" sx={sxProp}>
       <Box as="ol" my={0} pl={0}>
         {wrappedChildren}
       </Box>
@@ -53,10 +54,9 @@ function Breadcrumbs({className, children, theme, ...rest}: React.PropsWithChild
 }
 
 type StyledBreadcrumbsItemProps = {
-  to?: History.LocationDescriptor
+  to?: Location
   selected?: boolean
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
@@ -74,7 +74,6 @@ const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
     color: ${get('colors.fg.default')};
     pointer-events: none;
   }
-  ${COMMON}
   ${sx};
 `
 

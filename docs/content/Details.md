@@ -1,5 +1,7 @@
 ---
-title: Details & useDetails hook
+componentId: details
+title: Details
+status: Alpha
 ---
 
 `Details` is a styled `details` element for use with the `useDetails` hook. The `useDetails` hook returns the `open` state, a `setOpen` function to manually change the open state, and **`getDetailsProps` which must be spread onto your `Details` element in order for `Details` to get receive the proper behaviors provided by the hook**. See Kent Dodd's article on this pattern [here](https://kentcdodds.com/blog/how-to-give-rendering-control-to-users-with-prop-getters).
@@ -78,15 +80,11 @@ In previous versions of Primer React Components, we allowed users to pass in a c
 </State>
 ```
 
-## `Details` System props
+## Details props
 
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-Details components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
 
 ## `useDetails` hook configuration options
 

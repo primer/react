@@ -2,7 +2,7 @@ import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Box} from '..'
-import {AnchorSide} from '../behaviors/anchoredPosition'
+import type {AnchorSide} from '@primer/behaviors'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
 import {ItemInput} from '../ActionList/List'
 

@@ -7,8 +7,8 @@
 <p align="center">A React implementation of GitHub's Primer Design System</p>
 
 <p align="center">
-  <a aria-label="npm package" href="https://www.npmjs.com/package/@primer/components">
-    <img alt="" src="https://img.shields.io/npm/v/@primer/components.svg">
+  <a aria-label="npm package" href="https://www.npmjs.com/package/@primer/react">
+    <img alt="" src="https://img.shields.io/npm/v/@primer/react.svg">
   </a>
   <a aria-label="contributors graph" href="https://github.com/primer/react/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/primer/react.svg">
@@ -28,14 +28,14 @@ Our documentation site lives at [primer.style/react](https://primer.style/react)
 
 ## Installation
 
-Install @primer/components in your project with your package manager of choice:
+Install @primer/react in your project with your package manager of choice:
 
 ```
-npm install @primer/components
+npm install @primer/react
 
 // or
 
-yarn add @primer/components
+yarn add @primer/react
 ```
 
 ## Roadmap

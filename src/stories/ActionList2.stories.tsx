@@ -21,7 +21,9 @@ import {
   IssueOpenedIcon,
   NumberIcon,
   XIcon,
-  RepoIcon
+  RepoIcon,
+  BookIcon,
+  EyeIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -318,8 +320,8 @@ export function GroupsStory(): JSX.Element {
     <>
       <h1>Groups</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple" showDividers role="listbox" aria-label="Select reviewers">
-          <ActionList.Group title="Suggestions" variant="filled">
+        <ActionList selectionVariant="multiple" showDividers aria-label="Select reviewers">
+          <ActionList.Group title="Suggestions" variant="filled" role="listbox">
             {users.slice(0, 2).map(user => (
               <ActionList.Item
                 key={user.login}
@@ -336,7 +338,7 @@ export function GroupsStory(): JSX.Element {
               </ActionList.Item>
             ))}
           </ActionList.Group>
-          <ActionList.Group title="Everyone" variant="filled">
+          <ActionList.Group title="Everyone" variant="filled" role="listbox">
             {users.slice(2).map(user => (
               <ActionList.Item
                 role="option"
@@ -801,7 +803,7 @@ export function AllCombinations(): JSX.Element {
             L + I + B<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
           </ActionList.Item>
-          <ActionList.Item>
+          <ActionList.Item disabled>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -810,7 +812,7 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item>
+          <ActionList.Item disabled>
             <ActionList.LeadingVisual>
               <StarIcon />
             </ActionList.LeadingVisual>
@@ -819,7 +821,7 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.TrailingVisual>
           </ActionList.Item>
-          <ActionList.Item>
+          <ActionList.Item disabled>
             I + B + T<ActionList.Description variant="inline">inline description</ActionList.Description>
             <ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>
@@ -1034,6 +1036,48 @@ export function WithSx(): JSX.Element {
 }
 WithSx.storyName = 'With sx'
 
+export function RepositoryLinks(): JSX.Element {
+  return (
+    <>
+      <h1>Repository Links</h1>
+
+      <ActionList>
+        <ActionList.LinkItem href="https://github.com/primer/react#readme">
+          <ActionList.LeadingVisual>
+            <BookIcon />
+          </ActionList.LeadingVisual>
+          Readme
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
+          <ActionList.LeadingVisual>
+            <LawIcon />
+          </ActionList.LeadingVisual>
+          MIT License
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
+          <ActionList.LeadingVisual>
+            <StarIcon />
+          </ActionList.LeadingVisual>
+          <strong>1.5k</strong> stars
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer/react/watchers">
+          <ActionList.LeadingVisual>
+            <EyeIcon />
+          </ActionList.LeadingVisual>
+          <strong>21</strong> watching
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer/react/network/members">
+          <ActionList.LeadingVisual>
+            <RepoForkedIcon />
+          </ActionList.LeadingVisual>
+          <strong>225</strong> forks
+        </ActionList.LinkItem>
+      </ActionList>
+    </>
+  )
+}
+RepositoryLinks.storyName = 'Repository Links'
+
 export function MemexGroupBy(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
@@ -1051,9 +1095,14 @@ export function MemexGroupBy(): JSX.Element {
       <h1>Memex GroupBy List</h1>
       <ErsatzOverlay>
         <ActionList>
-          <ActionList.Group title="Group by" selectionVariant="single">
+          <ActionList.Group title="Group by" selectionVariant="single" role="listbox">
             {options.map((option, index) => (
-              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+              <ActionList.Item
+                key={index}
+                selected={index === selectedIndex}
+                onSelect={() => setSelectedIndex(index)}
+                role="option"
+              >
                 <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
                 {option.text}
               </ActionList.Item>
@@ -1119,10 +1168,11 @@ export function MemexSortable(): JSX.Element {
       <ErsatzOverlay>
         <DndProvider backend={HTML5Backend}>
           <ActionList selectionVariant="multiple">
-            <ActionList.Group title="Visible fields (can be reordered)">
+            <ActionList.Group title="Visible fields (can be reordered)" role="listbox">
               {visibleOptions.map(option => (
                 <SortableItem
                   key={option.text}
+                  role="option"
                   option={option}
                   onSelect={() => toggle(option.text)}
                   reorder={reorder}
@@ -1130,6 +1180,7 @@ export function MemexSortable(): JSX.Element {
               ))}
             </ActionList.Group>
             <ActionList.Group
+              role="listbox"
               title="Hidden fields"
               selectionVariant={
                 /** selectionVariant override on Group: disable selection if there are no options */
@@ -1137,7 +1188,12 @@ export function MemexSortable(): JSX.Element {
               }
             >
               {hiddenOptions.map((option, index) => (
-                <ActionList.Item key={index} selected={option.selected} onSelect={() => toggle(option.text)}>
+                <ActionList.Item
+                  key={index}
+                  role="option"
+                  selected={option.selected}
+                  onSelect={() => toggle(option.text)}
+                >
                   <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
                   {option.text}
                 </ActionList.Item>
@@ -1154,10 +1210,11 @@ MemexSortable.storyName = 'Memex Sortable List'
 
 type SortableItemProps = {
   option: Option
+  role: ItemProps['role']
   onSelect: ItemProps['onSelect']
   reorder: ({optionToMove, moveAfterOption}: {optionToMove: Option; moveAfterOption: Option}) => void
 }
-const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) => {
+const SortableItem: React.FC<SortableItemProps> = ({option, role, onSelect, reorder}) => {
   const [{isDragging}, dragRef] = useDrag(() => ({
     type: 'ITEM',
     item: option,
@@ -1178,6 +1235,7 @@ const SortableItem: React.FC<SortableItemProps> = ({option, onSelect, reorder}) 
 
   return (
     <ActionList.Item
+      role={role}
       ref={element => dragRef(element) && dropRef(element)} // merge refs
       selected={option.selected}
       onSelect={onSelect}

@@ -2,6 +2,7 @@ import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
 import {ListContext} from './List'
 import {GroupContext} from './Group'
+import {ActionListContainerContext} from './ActionListContainerContext'
 import {ItemProps} from './Item'
 import {LeadingVisualContainer} from './Visuals'
 
@@ -9,6 +10,7 @@ type SelectionProps = Pick<ItemProps, 'selected'>
 export const Selection: React.FC<SelectionProps> = ({selected}) => {
   const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+  const {container} = React.useContext(ActionListContainerContext)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   const selectionVariant = typeof groupSelectionVariant !== 'undefined' ? groupSelectionVariant : listSelectionVariant
@@ -21,6 +23,12 @@ export const Selection: React.FC<SelectionProps> = ({selected}) => {
         'For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined'
       )
     return null
+  }
+
+  if (container === 'ActionMenu') {
+    throw new Error(
+      'ActionList cannot have a selectionVariant inside ActionMenu, please use DropdownMenu or SelectPanel instead. More information: https://primer.style/design/components/action-list#application'
+    )
   }
 
   if (selectionVariant === 'single') {
@@ -38,7 +46,8 @@ export const Selection: React.FC<SelectionProps> = ({selected}) => {
       sx={{
         rect: {
           fill: selected ? 'accent.fg' : 'canvas.default',
-          stroke: selected ? 'accent.fg' : 'border.default'
+          stroke: selected ? 'accent.fg' : 'border.default',
+          shapeRendering: 'auto' // this is a workaround to override global style in github/github, see primer/react#1666
         },
         path: {
           fill: 'fg.onEmphasis',

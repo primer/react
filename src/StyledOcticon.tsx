@@ -1,19 +1,17 @@
 import {IconProps} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, SystemCommonProps} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-type OcticonProps = {icon: React.ElementType} & IconProps
+type OcticonProps = {icon: React.ElementType; color?: string} & IconProps
 
 function Octicon({icon: IconComponent, ...rest}: OcticonProps) {
   return <IconComponent {...rest} />
 }
 
-const StyledOcticon = styled(Octicon)<SystemCommonProps & SxProp>`
-  ${COMMON}
-  ${sx}
+const StyledOcticon = styled(Octicon)<SxProp>`
+  ${({color, sx: sxProp}) => sx({sx: {color, ...sxProp}})}
 `
 
 StyledOcticon.defaultProps = {

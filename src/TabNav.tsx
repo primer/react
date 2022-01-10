@@ -1,19 +1,17 @@
 import classnames from 'classnames'
-// eslint-disable-next-line import/no-namespace
-import * as History from 'history'
+import {Location} from 'history'
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps, SystemTypographyProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-const TabNavBase = styled.div<SystemCommonProps & SxProp>`
+const TabNavBase = styled.div<SxProp>`
   margin-top: 0;
   border-bottom: 1px solid ${get('colors.border.default')};
-  ${COMMON}
   ${sx}
 `
 
@@ -34,11 +32,9 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
 }
 
 type StyledTabNavLinkProps = {
-  to?: History.LocationDescriptor
+  to?: Location
   selected?: boolean
-} & SystemCommonProps &
-  SxProp &
-  SystemTypographyProps
+} & SxProp
 
 const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
@@ -67,7 +63,6 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
     background-color: ${get('colors.canvas.default')};
   }
 
-  ${COMMON};
   ${sx};
 `
 

@@ -1,5 +1,7 @@
 ---
+componentId: tooltip
 title: Tooltip
+status: Alpha
 ---
 
 The Tooltip component adds a tooltip to add context to elements on the page.
@@ -20,22 +22,13 @@ Before adding a tooltip, please consider: Is this information essential and nece
 </Box>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-Tooltip components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
-| Name       | Type    | Default | Description                                              |
-| :--------- | :------ | :-----: | :------------------------------------------------------- | --------------------------------------------------------- |
-| align      | String  |         | Can be either `left` or `right`.                         |
-| direction  | String  |         | Can be one of `n`, `ne`, `e`, `se`, `s`, `sw`, `w`, `nw` | Sets where the tooltip renders in relation to the target. |
-| noDelay    | Boolean |         | When set to `true`, tooltip appears without any delay    |
-| aria-label | String  |         | Text used in `aria-label` (for accessibility).           |
-| wrap       | Boolean |         | Use `true` to allow text within tooltip to wrap.         |
+| Name       | Type              | Default | Description                                                                                                         |
+| :--------- | :---------------- | :-----: | :------------------------------------------------------------------------------------------------------------------ |
+| align      | String            |         | Can be either `left` or `right`.                                                                                    |
+| direction  | String            |         | Can be one of `n`, `ne`, `e`, `se`, `s`, `sw`, `w`, `nw`. Sets where the tooltip renders in relation to the target. |
+| noDelay    | Boolean           |         | When set to `true`, tooltip appears without any delay                                                               |
+| aria-label | String            |         | Text used in `aria-label` (for accessibility).                                                                      |
+| wrap       | Boolean           |         | Use `true` to allow text within tooltip to wrap.                                                                    |
+| sx         | SystemStyleObject |   {}    | Style to be applied to the component                                                                                |

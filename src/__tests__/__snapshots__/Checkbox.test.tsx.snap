@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox renders consistently 1`] = `
+.c0 {
+  cursor: pointer;
+}
+
+<input
+  aria-checked="false"
+  aria-disabled="false"
+  aria-invalid="false"
+  aria-required="false"
+  className="c0"
+  type="checkbox"
+/>
+`;

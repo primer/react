@@ -1,13 +1,20 @@
 ---
+componentId: avatar_stack
 title: AvatarStack
+status: Alpha
+description: Use an avatar stack to display two or more avatars in an inline stack.
+source: https://github.com/primer/react/blob/main/src/AvatarStack.tsx
 ---
 
-import {Props} from '../src/props'
-import {AvatarStack} from '@primer/components'
+import {AvatarStack} from '@primer/react'
 
-AvatarStack is used to display more than one Avatar in an inline stack.
+```js
+import {AvatarStack} from '@primer/react'
+```
 
-### Default example
+## Examples
+
+### Default
 
 ```jsx live
 <AvatarStack>
@@ -31,7 +38,29 @@ AvatarStack is used to display more than one Avatar in an inline stack.
 
 ## Props
 
-| Name       | Type              | Default | Description                          |
-| :--------- | :---------------- | :-----: | :----------------------------------- |
-| alignRight | Boolean           |         | Creates right aligned AvatarStack    |
-| sx         | SystemStyleObject |   {}    | Style to be applied to the component |
+### AvatarStack
+
+<PropsTable>
+  <PropsTableRow name="alignRight" type="boolean" defaultValue="false" description="Align the avatars to the right" />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

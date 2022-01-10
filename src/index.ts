@@ -27,6 +27,8 @@ export {useOverlay} from './hooks/useOverlay'
 export {useConfirm} from './Dialog/ConfirmationDialog'
 
 // Components
+export {default as Radio} from './Radio'
+export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'
@@ -52,8 +54,6 @@ export {
   ButtonClose,
   ButtonGroup
 } from './Button'
-export {NewButton} from './NewButton'
-export type {NewButtonProps} from './NewButton'
 export type {
   ButtonProps,
   ButtonDangerProps,
@@ -66,6 +66,7 @@ export type {
 } from './Button'
 export {default as Caret} from './Caret'
 export type {CaretProps} from './Caret'
+export {default as ChoiceInputField} from './ChoiceInputField'
 export {default as CircleBadge} from './CircleBadge'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
 export {default as CircleOcticon} from './CircleOcticon'
@@ -100,6 +101,7 @@ export {default as Header} from './Header'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
 export {default as Heading} from './Heading'
 export type {HeadingProps} from './Heading'
+export {default as InputField} from './InputField'
 export {default as LabelGroup} from './LabelGroup'
 export type {LabelGroupProps} from './LabelGroup'
 export {default as Label} from './Label'
@@ -135,6 +137,8 @@ export type {
   SelectMenuTabPanelProps,
   SelectMenuLoadingAnimationProps
 } from './SelectMenu'
+export {SelectPanel} from './SelectPanel'
+export type {SelectPanelProps} from './SelectPanel'
 export {default as SideNav} from './SideNav'
 export type {SideNavProps, SideNavLinkProps} from './SideNav'
 export {default as Spinner} from './Spinner'
@@ -168,5 +172,8 @@ export {default as Truncate} from './Truncate'
 export type {TruncateProps} from './Truncate'
 export {default as UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
+
+export {default as Checkbox} from './Checkbox'
+export type {CheckboxProps} from './Checkbox'
 
 export {SSRProvider, useSSRSafeId} from './utils/ssr'

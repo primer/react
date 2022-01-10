@@ -4,7 +4,7 @@ import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useSSRSafeId} from '@react-aria/ssr'
-import {PositionSettings} from '../behaviors/anchoredPosition'
+import type {PositionSettings} from '@primer/behaviors'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -156,6 +156,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
           id: anchorId,
           'aria-labelledby': anchorId,
           'aria-haspopup': 'true',
+          'aria-expanded': open,
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown

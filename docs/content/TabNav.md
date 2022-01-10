@@ -1,5 +1,7 @@
 ---
+componentId: tab_nav
 title: TabNav
+status: Alpha
 ---
 
 Use the TabNav component to style navigation with a tab-based selected state, typically used for navigation placed at the top of the page.
@@ -23,28 +25,20 @@ This ensures that the NavLink gets `activeClassName='selected'`
 </TabNav>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-TabNav and TabNav.Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 ### TabNav
 
-| Prop name  | Type   | Description                                                    |
-| :--------- | :----- | :------------------------------------------------------------- |
-| aria-label | String | Used to set the `aria-label` on the top level `<nav>` element. |
+| Name       | Type              | Default | Description                                                    |
+| :--------- | :---------------- | :-----: | :------------------------------------------------------------- |
+| aria-label | String            |         | Used to set the `aria-label` on the top level `<nav>` element. |
+| sx         | SystemStyleObject |   {}    | Style to be applied to the component                           |
 
 ### TabNav.Link
 
-| Prop name | Type    | Description                                      |
-| :-------- | :------ | :----------------------------------------------- |
-| as        | String  | sets the HTML tag for the component              |
-| href      | String  | URL to be used for the Link                      |
-| selected  | Boolean | Used to style the link as selected or unselected |
+| Name     | Type              | Default | Description                                      |
+| :------- | :---------------- | :-----: | :----------------------------------------------- |
+| as       | String            |         | sets the HTML tag for the component              |
+| href     | String            |         | URL to be used for the Link                      |
+| selected | Boolean           |         | Used to style the link as selected or unselected |
+| sx       | SystemStyleObject |   {}    | Style to be applied to the component             |

@@ -1,0 +1,77 @@
+---
+componentId: breadcrumbs
+title: Breadcrumbs
+status: Alpha
+description: Use breadcrumbs to show navigational context on pages that are many levels deep in a site’s hierarchy. Breadcrumbs show and link to parent, grandparent, and sometimes great-grandparent pages.
+source: https://github.com/primer/react/blob/main/src/Breadcrumbs.tsx
+---
+
+```js
+import {Breadcrumbs} from '@primer/react'
+```
+
+Breadcrumbs are used to show taxonomical context on pages that are many levels deep in a site’s hierarchy. Breadcrumbs show and link to parent, grandparent, and sometimes great-grandparent pages. Breadcrumbs are most appropriate on pages that:
+
+- Are many levels deep on a site
+- Do not have a section-level navigation
+- May need the ability to quickly go back to the previous (parent) page
+
+To use Breadcrumbs with [react-router](https://github.com/ReactTraining/react-router) or
+[react-router-dom](https://www.npmjs.com/package/react-router-dom), pass
+`as={NavLink}` and omit the `selected` prop.
+This ensures that the NavLink gets `activeClassName='selected'`
+
+## Examples
+
+```jsx live
+<Breadcrumbs>
+  <Breadcrumbs.Item href="/">Home</Breadcrumbs.Item>
+  <Breadcrumbs.Item href="/about">About</Breadcrumbs.Item>
+  <Breadcrumbs.Item href="/about/team" selected>
+    Team
+  </Breadcrumbs.Item>
+</Breadcrumbs>
+```
+
+## Props
+
+### Breadcrumbs
+
+<PropsTable>
+  <PropsTableRow name="children" type="Breadcrumbs.Item[]" />
+  <PropsTableSxRow />
+</PropsTable>
+
+### Breadcrumbs.Item
+
+<PropsTable>
+  <PropsTableRow name="selected" type="boolean" defaultValue="false" />
+  <PropsTableBasePropRows
+    elementType="a"
+    refType="HTMLAnchorElement"
+    isPolymorphic
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

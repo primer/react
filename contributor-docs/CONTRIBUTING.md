@@ -6,7 +6,6 @@
 4. [Developing Components](#developing-components)
    - [Tools we use](#tools-we-use)
    - [Component patterns](#component-patterns)
-   - [Adding system props](#adding-system-props)
    - [Adding the sx prop](#adding-the-sx-prop)
    - [Linting](#linting)
    - [Testing](#testing)
@@ -21,8 +20,6 @@
    - [Path aliasing](#path-aliasing)
    - [Publishing](#publishing)
 8. [Troubleshooting](#troubleshooting)
-9. [Glossary](#glossary)
-   - [System Props](#system-props)
 
 ## Roadmap
 
@@ -77,65 +74,35 @@ Additionally, every component should support [the `sx` prop](https://primer.styl
 
 Here's an example of a basic component written in the style of Primer Components:
 
-```jsx
-import {TYPOGRAPHY, COMMON} from './constants'
-import sx from './sx'
+```tsx
+import sx, {SxProp} from './sx'
 
-const Component = styled.div`
+const Component = styled.div<SxProp>`
   // additional styles here
 
-  ${COMMON};
-  ${TYPOGRAPHY};
   ${sx};
 `
 
 Component.defaultProps = {
   m: 0,
-  fontSize: 5,
+  fontSize: 5
 }
 
 export default Component
 ```
 
-### Adding system props
-
-Each component should have access to the appropriate system props. Every component has access to `COMMON`. For **most** components added, you'll only need to give the component to `COMMON`. If you are unsure, ping a DS team member on your PR.
-
-Categories of system props are exported from `src/constants.js`:
-
-- `COMMON` includes color and spacing (margin and padding) props
-- `TYPOGRAPHY` includes font family, font weight, and line-height props
-- `POSITION` includes positioning props
-- `FLEX` includes flexbox props
-- `BORDER` includes border and box-shadow props
-- `GRID` includes grid props
-
-To give the component access to a group of system props, import the system prop function from `./constants` and include the system prop function in your styled-component like so:
-
-```jsx
-import {COMMON} from './constants'
-
-const Component = styled.div`
-  // additional styles here
-  ${COMMON};
-`
-```
-
-Remember that the system prop function inside your style declaration needs to go _after_ any built-in styles you want to be overridable.
-
 ### Adding the `sx` prop
 
-Each component should provide access to a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/components/overriding-styles) doc for more information on using the prop.
+Each component should accept a prop called `sx` that allows for setting theme-aware ad-hoc styles. See the [overriding styles](https://primer.style/components/overriding-styles) doc for more information on using the prop.
 
-Adding the `sx` prop is similar to adding system props; import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
+To add the `sx` prop to your component: import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
 
-```jsx
-import {COMMON} from './constants'
-import sx from './sx'
+```tsx
+import sx, {SxProp} from './sx'
 
-const Component = styled.div`
+const Component = styled.div<SxProp>`
   // additional styles here
-  ${COMMON};
+
   ${sx};
 `
 ```
@@ -175,15 +142,16 @@ See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways 
 
 ### TypeScript support
 
-Several of the projects that consume Primer Components are written in TypeScript. Though Primer Components is not currently written in TS, we do export type definitions in order to make Primer Components compatible with other TS projects.
+Primer React is written in TypeScript. We include type definitions in our built artifacts. To check types, run the `typecheck` script:
 
-Whenever adding new components or modifying the props of an existing component, **please make sure to update the type definition** in `index.d.ts`! This is super important to make sure we don't break compatibility :)
+```
+npm run typecheck
+```
 
 ### Additional resources
 
 - [Primer Components Philosophy](https://primer.style/components/philosophy)
 - [Primer Components Core Concepts](https://primer.style/components/core-concepts)
-- [Primer Components System Props](https://primer.style/components/system-props)
 - [Styled Components docs](https://styled-components.com/)
 - [Styled System docs](https://styled-system.com/)
 
@@ -206,7 +174,6 @@ After opening a pull request, a member of the design systems team will add the a
 - If it's a new component, does the component make sense to add to Primer Components? (Ideally this is discussed before the pull request stage, please reach out to a DS member if you aren't sure if a component should be added to Primer Components!)
 - Does the component follow our [Primer Components code style](#component-patterns)?
 - Does the component use theme values for most CSS values?
-- Does the component have the [correct system props implemented](#adding-system-props)?
 - Is the component API intuitive?
 - Does the component have the appropriate [type definitions in `index.d.ts`](#typescript-support)?
 - Is the component documented accurately?
@@ -250,20 +217,6 @@ Make sure to run `npm install` from inside the `docs/` subfolder _as well as_ th
 **`npm start` fails with a different error**
 
 Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.
-
-## Glossary
-
-### System props
-
-System props are style functions that provide one or more props, and can be passed directly the return value of [styled-components]'s `styled()` function:
-
-```jsx
-import styled from 'styled-components'
-import {space} from 'styled-system'
-const SpaceDiv = styled.div`
-  ${space}
-`
-```
 
 [classnames]: https://www.npmjs.com/package/classnames
 [spread syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax

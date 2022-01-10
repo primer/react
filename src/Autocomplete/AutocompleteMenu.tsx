@@ -5,8 +5,10 @@ import {ComponentProps, MandateProps} from '../utils/types'
 import {Box, Spinner} from '../'
 import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
-import {uniqueId} from '../utils/uniqueId'
-import {scrollIntoViewingArea} from '../behaviors/scrollIntoViewingArea'
+import VisuallyHidden from '../_VisuallyHidden'
+import {uniqueId} from '@primer/behaviors/utils'
+import {scrollIntoView} from '@primer/behaviors'
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
@@ -14,6 +16,7 @@ type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
 const getDefaultSortFn =
   (isItemSelectedFn: (itemId: string | number) => boolean) => (itemIdA: string | number, itemIdB: string | number) =>
     isItemSelectedFn(itemIdA) === isItemSelectedFn(itemIdB) ? 0 : isItemSelectedFn(itemIdA) ? -1 : 1
+const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 function getDefaultItemFilter<T extends AutocompleteMenuItem>(filterValue: string) {
   return function (item: T, _i: number) {
@@ -248,9 +251,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         }
 
         if (current && customScrollContainerRef && customScrollContainerRef.current && directlyActivated) {
-          scrollIntoViewingArea(current, customScrollContainerRef.current)
+          scrollIntoView(current, customScrollContainerRef.current, menuScrollMargins)
         } else if (current && scrollContainerRef.current && directlyActivated) {
-          scrollIntoViewingArea(current, scrollContainerRef.current)
+          scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
         }
       }
     },
@@ -287,24 +290,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   }, [selectedItemIds, setSelectedItemLength])
 
   return (
-    <Box
-      sx={
-        !showMenu
-          ? {
-              // visually hides this label for sighted users
-              position: 'absolute',
-              width: '1px',
-              height: '1px',
-              padding: '0',
-              margin: '-1px',
-              overflow: 'hidden',
-              clip: 'rect(0, 0, 0, 0)',
-              whiteSpace: 'nowrap',
-              borderWidth: '0'
-            }
-          : {}
-      }
-    >
+    <VisuallyHidden isVisible={showMenu}>
       {loading ? (
         <Box p={3} display="flex" justifyContent="center">
           <Spinner />
@@ -326,7 +312,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           )}
         </div>
       )}
-    </Box>
+    </VisuallyHidden>
   )
 }
 

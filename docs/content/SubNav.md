@@ -1,5 +1,7 @@
 ---
+componentId: sub_nav
 title: SubNav
+status: Alpha
 ---
 
 Use the SubNav component for navigation on a dashboard-type interface with another set of navigation components above it. This helps distinguish navigation hierarchy.
@@ -72,31 +74,29 @@ This ensures that the NavLink gets `activeClassName='selected'`
 </SubNav>
 ```
 
-## System props
-
-<Note variant="warning">
-
-System props are deprecated in all components except [Box](/Box). Please use the [`sx` prop](/overriding-styles) instead.
-
-</Note>
-
-SubNav and SubNav.Link components get `COMMON` system props. Read our [System Props](/system-props) doc page for a full list of available props.
-
 ## Component props
 
 ### SubNav
 
-| Prop name  | Type    | Description                                                                            |
-| :--------- | :------ | :------------------------------------------------------------------------------------- |
-| actions    | Node    | Place another element, such as a button, to the opposite side of the navigation items. |
-| align      | String  | Use `right` to have navigation items aligned right.                                    |
-| full       | Boolean | Used to make navigation fill the width of the container.                               |
-| aria-label | String  | Used to set the `aria-label` on the top level `<nav>` element.                         |
+| Name       | Type              | Default | Description                                                                            |
+| :--------- | :---------------- | :-----: | :------------------------------------------------------------------------------------- |
+| actions    | Node              |         | Place another element, such as a button, to the opposite side of the navigation items. |
+| align      | String            |         | Use `right` to have navigation items aligned right.                                    |
+| full       | Boolean           |         | Used to make navigation fill the width of the container.                               |
+| aria-label | String            |         | Used to set the `aria-label` on the top level `<nav>` element.                         |
+| sx         | SystemStyleObject |   {}    | Style to be applied to the component                                                   |
 
 ### SubNav.Link
 
-| Prop name | Type    | Description                                      |
-| :-------- | :------ | :----------------------------------------------- |
-| as        | String  | sets the HTML tag for the component              |
-| href      | String  | URL to be used for the Link                      |
-| selected  | Boolean | Used to style the link as selected or unselected |
+| Name     | Type              | Default | Description                                      |
+| :------- | :---------------- | :-----: | :----------------------------------------------- |
+| as       | String            |         | sets the HTML tag for the component              |
+| href     | String            |         | URL to be used for the Link                      |
+| selected | Boolean           |         | Used to style the link as selected or unselected |
+| sx       | SystemStyleObject |   {}    | Style to be applied to the component             |
+
+### SubNav.Links
+
+| Name | Type              | Default | Description                          |
+| :--- | :---------------- | :-----: | :----------------------------------- |
+| sx   | SystemStyleObject |   {}    | Style to be applied to the component |

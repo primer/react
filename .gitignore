@@ -8,3 +8,4 @@ lib/
 lib-esm/
 public/
 stats.html
+.env

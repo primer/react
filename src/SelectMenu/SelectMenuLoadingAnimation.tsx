@@ -1,14 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from '../constants'
+import {get} from '../constants'
 import Spinner from '../Spinner'
+import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 
-const Animation = styled.div<SystemCommonProps>`
+const Animation = styled.div<SxProp>`
   padding: ${get('space.6')} ${get('space.4')};
   text-align: center;
   background-color: ${get('colors.canvas.overlay')};
-  ${COMMON}
+  ${sx}
 `
 
 export type SelectMenuLoadingAnimationProps = ComponentProps<typeof Animation>

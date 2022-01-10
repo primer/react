@@ -1,6 +1,6 @@
 import React from 'react'
-import * as primerComponents from '@primer/components'
-import * as drafts from '@primer/components/drafts'
+import * as primerComponents from '@primer/react'
+import * as drafts from '@primer/react/drafts'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
 import {
   CheckIcon,
@@ -24,7 +24,11 @@ import {
   LawIcon,
   StarIcon,
   AlertIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  KebabHorizontalIcon,
+  PencilIcon,
+  ArchiveIcon,
+  TrashIcon
 } from '@primer/octicons-react'
 import State from '../../../components/State'
 import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
@@ -65,6 +69,10 @@ export default {
   StarIcon,
   AlertIcon,
   ArrowRightIcon,
+  KebabHorizontalIcon,
+  PencilIcon,
+  ArchiveIcon,
+  TrashIcon,
   Dialog2,
   ConfirmationDialog,
   useConfirm,

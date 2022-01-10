@@ -1,16 +1,15 @@
 import classnames from 'classnames'
-// eslint-disable-next-line import/no-namespace
-import * as History from 'history'
+import {Location} from 'history'
 import React from 'react'
 import styled from 'styled-components'
-import {COMMON, get, SystemCommonProps} from './constants'
+import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
 const ITEM_CLASS = 'UnderlineNav-item'
 const SELECTED_CLASS = 'selected'
 
-const UnderlineNavBase = styled.nav`
+const UnderlineNavBase = styled.nav<SxProp>`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid ${get('colors.border.muted')};
@@ -39,7 +38,6 @@ const UnderlineNavBase = styled.nav`
     align-self: center;
   }
 
-  ${COMMON};
   ${sx};
 `
 
@@ -61,10 +59,9 @@ function UnderlineNav({actions, className, align, children, full, label, theme, 
 }
 
 type StyledUnderlineNavLinkProps = {
-  to?: History.LocationDescriptor
+  to?: Location
   selected?: boolean
-} & SystemCommonProps &
-  SxProp
+} & SxProp
 
 const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
@@ -100,7 +97,6 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
     }
   }
 
-  ${COMMON};
   ${sx};
 `
 

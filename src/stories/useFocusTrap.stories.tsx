@@ -165,7 +165,7 @@ export const CustomInitialFocus = () => {
     <>
       <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <Flash mb={3}>
+        <Flash sx={{mb: 3}}>
           This story is the same as the `Focus Trap` story, except, when the trap zone is activated, the
           &ldquo;Elderberry&rdquo; button will receive the initial focus (if the trap zone container does not already
           have focus).
@@ -302,7 +302,7 @@ export const MultipleFocusTraps = () => {
     <>
       <HelperGlobalStyling />
       <Box display="flex" flexDirection="column" alignItems="flex-start">
-        <Flash mb={3}>
+        <Flash sx={{mb: 3}}>
           This story demonstrates the global nature of focus traps. When a focus trap is enabled, if there is already an
           active focus trap, it becomes suspended and pushed onto a stack. Once the newly-active focus trap is disabled,
           the most recently-suspended trap will reactivate. Suspended focus traps can be disabled, causing them to be

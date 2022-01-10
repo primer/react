@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import {COMMON, SystemCommonProps} from '../constants'
 import sx, {SxProp} from '../sx'
 import {ComponentProps} from '../utils/types'
 import useKeyboardNav from './hooks/useKeyboardNav'
@@ -32,9 +31,8 @@ const wrapperStyles = `
   }
 `
 
-const StyledSelectMenu = styled.details<SystemCommonProps & SxProp>`
+const StyledSelectMenu = styled.details<SxProp>`
   ${wrapperStyles}
-  ${COMMON}
   ${sx};
 `
 
