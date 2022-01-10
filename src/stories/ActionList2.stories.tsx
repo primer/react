@@ -21,7 +21,9 @@ import {
   IssueOpenedIcon,
   NumberIcon,
   XIcon,
-  RepoIcon
+  RepoIcon,
+  BookIcon,
+  EyeIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -1033,6 +1035,48 @@ export function WithSx(): JSX.Element {
   )
 }
 WithSx.storyName = 'With sx'
+
+export function RepositoryLinks(): JSX.Element {
+  return (
+    <>
+      <h1>Repository Links</h1>
+
+      <ActionList>
+        <ActionList.LinkItem href="https://github.com/primer/react#readme">
+          <ActionList.LeadingVisual>
+            <BookIcon />
+          </ActionList.LeadingVisual>
+          Readme
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
+          <ActionList.LeadingVisual>
+            <LawIcon />
+          </ActionList.LeadingVisual>
+          MIT License
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
+          <ActionList.LeadingVisual>
+            <StarIcon />
+          </ActionList.LeadingVisual>
+          <strong>1.5k</strong> stars
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer/react/watchers">
+          <ActionList.LeadingVisual>
+            <EyeIcon />
+          </ActionList.LeadingVisual>
+          <strong>21</strong> watching
+        </ActionList.LinkItem>
+        <ActionList.LinkItem href="https://github.com/primer/react/network/members">
+          <ActionList.LeadingVisual>
+            <RepoForkedIcon />
+          </ActionList.LeadingVisual>
+          <strong>225</strong> forks
+        </ActionList.LinkItem>
+      </ActionList>
+    </>
+  )
+}
+RepositoryLinks.storyName = 'Repository Links'
 
 export function MemexGroupBy(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
