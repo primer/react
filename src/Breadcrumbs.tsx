@@ -1,6 +1,5 @@
 import classnames from 'classnames'
-// eslint-disable-next-line import/no-namespace
-import * as History from 'history'
+import {Location} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import Box from './Box'
@@ -55,7 +54,7 @@ function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<
 }
 
 type StyledBreadcrumbsItemProps = {
-  to?: History.LocationDescriptor
+  to?: Location
   selected?: boolean
 } & SxProp
 
