@@ -101,6 +101,8 @@
       url: /Radio
     - title: Select
       url: /Select
+    - title: SelectPanel
+      url: /SelectPanel
     - title: SideNav
       url: /SideNav
     - title: Spinner
