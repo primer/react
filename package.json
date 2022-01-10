@@ -50,7 +50,6 @@
     "@styled-system/css": "5.1.5",
     "@styled-system/props": "5.1.5",
     "@styled-system/theme-get": "5.1.2",
-    "@types/history": "4.7.8",
     "@types/styled-components": "5.1.11",
     "@types/styled-system": "5.1.12",
     "@types/styled-system__css": "5.0.16",
