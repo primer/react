@@ -8,8 +8,6 @@ storybook: '/react/storybook?path=/story/forms-autocomplete--single-select'
 ---
 
 import {Autocomplete} from '@primer/react'
-import {Props} from '../src/props'
-import {ComponentChecklist} from '../src/component-checklist'
 
 The `Autocomplete` component is comprised of an `Autocomplete.Input` component that a user types into, and a `Autocomplete.Menu` component that displays the list of selectable values.
 
@@ -657,13 +655,20 @@ render(<MultiSelectAddNewItem />)
 
 ### Autocomplete.Input
 
-`Autocomplete.Input` accepts the same props as a native `<input />`. The other props of `Autocomplete.Input` depend on what component is passed to the `as` prop. The default value for `as` is [TextInput](/TextInput)
-
-### Autocomplete.Overlay
+<PropsTable>
+  <PropsTableAsRow defaultElementType="TextInput" />
+  <PropsTablePassthroughPropsRow
+    elementName="TextInput"
+    isPolymorphic
+    passthroughPropsLink={
+      <>
+        the <Link href="/TextInput">TextInput docs</Link>
+      </>
+    }
+  />
+</PropsTable>
 
 <Props of={Autocomplete.Overlay} />
-
-### Autocomplete.Menu
 
 <Props of={Autocomplete.Menu} />
 
