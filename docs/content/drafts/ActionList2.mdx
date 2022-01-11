@@ -50,7 +50,7 @@ import {ActionList} from '@primer/react/drafts'
 
 ### Minimal example
 
-```javascript live drafts
+```jsx live drafts
 <ActionList>
   <ActionList.Item>New file</ActionList.Item>
   <ActionList.Item>Copy link</ActionList.Item>
@@ -65,7 +65,7 @@ import {ActionList} from '@primer/react/drafts'
 Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
 
 <!-- prettier-ignore -->
-```javascript live drafts
+```jsx live drafts
 <ActionList>
   <ActionList.Item>
     <ActionList.LeadingVisual><LinkIcon /></ActionList.LeadingVisual>
@@ -87,7 +87,7 @@ Leading visuals are optional and appear at the start of an item. They can be oct
 
 Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
 
-```javascript live drafts
+```jsx live drafts
 <ActionList>
   <ActionList.Item>
     New file
@@ -112,7 +112,7 @@ Trailing visual and trailing text can display auxiliary information. They're pla
 
 Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
 
-```javascript live drafts
+```jsx live drafts
 <ActionList showDividers>
   <ActionList.Item>
     <ActionList.LeadingVisual>
@@ -143,7 +143,7 @@ Item dividers allow users to parse heavier amounts of information. They're place
 When you want to add links to the List instead of actions, use `ActionList.LinkItem`
 
 <!-- prettier-ignore -->
-```javascript live drafts
+```jsx live drafts
 <ActionList>
   <ActionList.LinkItem href="https://github.com/primer">
     <ActionList.LeadingVisual>
