@@ -21,6 +21,7 @@ import {
   ProjectIcon,
   ListUnorderedIcon,
   ArrowDownIcon,
+  ArrowRightIcon,
   SearchIcon,
   VersionsIcon,
   TableIcon,
@@ -603,3 +604,46 @@ export function UnexpectedSelectionVariant(): JSX.Element {
   )
 }
 UnexpectedSelectionVariant.storyName = 'Unexpected selectionVariant'
+
+export function NestedMenu(): JSX.Element {
+  // const [menu]
+
+  return (
+    <>
+      <h1>Nested menu</h1>
+
+      <ActionMenu>
+        <ActionMenu.Button>Menu</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <ListUnorderedIcon />
+              </ActionList.LeadingVisual>
+              Title, Assignees, Status, Labels, Repositories
+            </ActionList.Item>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <ListUnorderedIcon />
+              </ActionList.LeadingVisual>
+              group: none
+            </ActionList.Item>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <ArrowDownIcon />
+              </ActionList.LeadingVisual>
+              sort: manual
+            </ActionList.Item>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <SearchIcon />
+              </ActionList.LeadingVisual>
+              Search or filter this view
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
+NestedMenu.storyName = 'Nested Menu'
