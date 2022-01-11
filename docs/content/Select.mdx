@@ -8,8 +8,6 @@ storybook: '/react/storybook?path=/story/forms-select--default'
 ---
 
 import {Select, Text} from '@primer/react'
-import {ComponentChecklist} from '../src/component-checklist'
-import PropsTable from '../src/props-table'
 
 ## Examples
 
@@ -88,17 +86,13 @@ import PropsTable from '../src/props-table'
     description="Creates a smaller or larger input than the default."
   />
   <PropsTableRow name="validationStatus" type="'warning' | 'error'" description="Style the input to match the status" />
-  <tr>
+  <PropsTablePassthroughPropsRow
+    elementName="select"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attributes">MDN</Link>
+    }
+  />
 
-    <Box as="td" colSpan={4} fontSize={1} verticalAlign="top">
-      Additional props are passed to the <InlineCode>&lt;select&gt;</InlineCode> element. See{' '}
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attributes">MDN</Link> for a list of
-      props accepted by the <InlineCode>&lt;select&gt;</InlineCode> element.
-
-      <br /> The <InlineCode>multiple</InlineCode> prop is not accepted.
-    </Box>
-
-  </tr>
 </PropsTable>
 
 ### Select.OptGroup
@@ -119,7 +113,8 @@ The `Select.Option` component accepts the same props as a native HTML [`<option>
     adaptsToScreenSizes: true,
     fullTestCoverage: true,
     usedInProduction: false,
-    usageExamplesDocumented: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
     designReviewed: false,
     a11yReviewed: false,
     stableApi: false,
