@@ -99,6 +99,8 @@
       url: /ProgressBar
     - title: Radio
       url: /Radio
+    - title: Select
+      url: /Select
     - title: SelectPanel
       url: /SelectPanel
     - title: SideNav
