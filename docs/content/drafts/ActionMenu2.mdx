@@ -56,22 +56,20 @@ import {ActionMenu} from '@primer/react/drafts'
 
 &nbsp;
 
-```javascript live noinline drafts
-render(
-  <ActionMenu>
-    <ActionMenu.Button>Menu</ActionMenu.Button>
+```javascript live drafts
+<ActionMenu>
+  <ActionMenu.Button>Menu</ActionMenu.Button>
 
-    <ActionMenu.Overlay>
-      <ActionList>
-        <ActionList.Item onSelect={event => console.log('New file')}>New file</ActionList.Item>
-        <ActionList.Item>Copy link</ActionList.Item>
-        <ActionList.Item>Edit file</ActionList.Item>
-        <ActionList.Divider />
-        <ActionList.Item variant="danger">Delete file</ActionList.Item>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
-)
+  <ActionMenu.Overlay>
+    <ActionList>
+      <ActionList.Item onSelect={event => console.log('New file')}>New file</ActionList.Item>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Edit file</ActionList.Item>
+      <ActionList.Divider />
+      <ActionList.Item variant="danger">Delete file</ActionList.Item>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
 ```
 
 ### With a custom anchor
@@ -80,105 +78,101 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 
 &nbsp;
 
-```javascript live noinline drafts
-render(
-  <ActionMenu>
-    <ActionMenu.Anchor>
-      <ButtonInvisible aria-label="Open column options">
-        <KebabHorizontalIcon />
-      </ButtonInvisible>
-    </ActionMenu.Anchor>
+```javascript live drafts
+<ActionMenu>
+  <ActionMenu.Anchor>
+    <ButtonInvisible aria-label="Open column options">
+      <KebabHorizontalIcon />
+    </ButtonInvisible>
+  </ActionMenu.Anchor>
 
-    <ActionMenu.Overlay>
-      <ActionList>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <PencilIcon />
-          </ActionList.LeadingVisual>
-          Rename
-        </ActionList.Item>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <ArchiveIcon />
-          </ActionList.LeadingVisual>
-          Archive all cards
-        </ActionList.Item>
-        <ActionList.Item variant="danger">
-          <ActionList.LeadingVisual>
-            <TrashIcon />
-          </ActionList.LeadingVisual>
-          Delete
-        </ActionList.Item>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
-)
+  <ActionMenu.Overlay>
+    <ActionList>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <PencilIcon />
+        </ActionList.LeadingVisual>
+        Rename
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArchiveIcon />
+        </ActionList.LeadingVisual>
+        Archive all cards
+      </ActionList.Item>
+      <ActionList.Item variant="danger">
+        <ActionList.LeadingVisual>
+          <TrashIcon />
+        </ActionList.LeadingVisual>
+        Delete
+      </ActionList.Item>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
 ```
 
 ### With Groups
 
-```javascript live noinline drafts
-render(
-  <ActionMenu>
-    <ActionMenu.Button>Open column menu</ActionMenu.Button>
+```javascript live drafts
+<ActionMenu>
+  <ActionMenu.Button>Open column menu</ActionMenu.Button>
 
-    <ActionMenu.Overlay>
-      <ActionList showDividers>
-        <ActionList.Group title="Live query">
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <SearchIcon />
-            </ActionList.LeadingVisual>
-            repo:github/memex,github/github
-          </ActionList.Item>
-        </ActionList.Group>
-        <ActionList.Divider />
-        <ActionList.Group title="Layout" variant="subtle">
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <NoteIcon />
-            </ActionList.LeadingVisual>
-            Table
-            <ActionList.Description variant="block">
-              Information-dense table optimized for operations across teams
-            </ActionList.Description>
-          </ActionList.Item>
-          <ActionList.Item role="listitem">
-            <ActionList.LeadingVisual>
-              <ProjectIcon />
-            </ActionList.LeadingVisual>
-            Board
-            <ActionList.Description variant="block">Kanban-style board focused on visual states</ActionList.Description>
-          </ActionList.Item>
-        </ActionList.Group>
-        <ActionList.Divider />
-        <ActionList.Group>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <FilterIcon />
-            </ActionList.LeadingVisual>
-            Save sort and filters to current view
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <FilterIcon />
-            </ActionList.LeadingVisual>
-            Save sort and filters to new view
-          </ActionList.Item>
-        </ActionList.Group>
-        <ActionList.Divider />
-        <ActionList.Group>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <GearIcon />
-            </ActionList.LeadingVisual>
-            View settings
-          </ActionList.Item>
-        </ActionList.Group>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
-)
+  <ActionMenu.Overlay>
+    <ActionList showDividers>
+      <ActionList.Group title="Live query">
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <SearchIcon />
+          </ActionList.LeadingVisual>
+          repo:github/memex,github/github
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group title="Layout" variant="subtle">
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <NoteIcon />
+          </ActionList.LeadingVisual>
+          Table
+          <ActionList.Description variant="block">
+            Information-dense table optimized for operations across teams
+          </ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item role="listitem">
+          <ActionList.LeadingVisual>
+            <ProjectIcon />
+          </ActionList.LeadingVisual>
+          Board
+          <ActionList.Description variant="block">Kanban-style board focused on visual states</ActionList.Description>
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FilterIcon />
+          </ActionList.LeadingVisual>
+          Save sort and filters to current view
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FilterIcon />
+          </ActionList.LeadingVisual>
+          Save sort and filters to new view
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <GearIcon />
+          </ActionList.LeadingVisual>
+          View settings
+        </ActionList.Item>
+      </ActionList.Group>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
 ```
 
 ### With External Anchor
