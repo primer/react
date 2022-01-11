@@ -1,14 +1,13 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
+import {scrollIntoView} from '@primer/behaviors'
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {ActionList, ItemProps} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {ComponentProps, MandateProps} from '../utils/types'
-import {Box, Spinner} from '../'
+import {Box, Spinner, useSSRSafeId} from '../'
 import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
-import {uniqueId} from '@primer/behaviors/utils'
-import {scrollIntoView} from '@primer/behaviors'
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
@@ -146,6 +145,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const listContainerRef = useRef<HTMLDivElement>(null)
   const [highlightedItem, setHighlightedItem] = useState<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id: itemId}) => itemId))
+  const generatedUniqueId = useSSRSafeId(id)
 
   const selectableItems = useMemo(
     () =>
@@ -219,7 +219,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               leadingVisual: () => <PlusIcon />,
               onAction: (item: T) => {
                 // TODO: make it possible to pass a leadingVisual when using `addNewItem`
-                addNewItem.handleAddItem({...item, id: item.id || uniqueId(), leadingVisual: undefined})
+                addNewItem.handleAddItem({...item, id: item.id || generatedUniqueId, leadingVisual: undefined})
 
                 if (selectionVariant === 'multiple') {
                   setInputValue('')
@@ -230,7 +230,14 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           ]
         : [])
     ],
-    [sortedAndFilteredItemsToRender, addNewItem, setAutocompleteSuggestion, selectionVariant, setInputValue]
+    [
+      sortedAndFilteredItemsToRender,
+      addNewItem,
+      setAutocompleteSuggestion,
+      selectionVariant,
+      setInputValue,
+      generatedUniqueId
+    ]
   )
 
   useFocusZone(

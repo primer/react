@@ -53,6 +53,8 @@
       url: /Buttons
     - title: Checkbox
       url: /Checkbox
+    - title: ChoiceFieldset
+      url: /ChoiceFieldset
     - title: ChoiceInputField
       url: /ChoiceInputField
     - title: CircleBadge
