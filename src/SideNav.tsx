@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-namespace
-import * as History from 'history'
+import {Location} from 'history'
 
 import {get} from './constants'
 import styled, {css} from 'styled-components'
@@ -55,7 +54,7 @@ const SideNav = styled(SideNavBase)<SxProp>`
   ${sx};
 `
 type StyledSideNavLinkProps = {
-  to?: History.LocationDescriptor
+  to?: Location
   selected?: boolean
   variant?: 'full' | 'normal'
 }
