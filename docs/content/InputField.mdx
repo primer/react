@@ -7,9 +7,7 @@ source: https://github.com/primer/react/blob/main/src/InputField/InputField.tsx
 storybook: '/react/storybook?path=/story/forms-inputfield--text-input-field'
 ---
 
-import {InputField, TextInputWithTokens} from '@primer/react'
-import {PropsTable} from '../src/props-table'
-import {ComponentChecklist} from '../src/component-checklist'
+import {InputField, TextInputWithTokens, Autocomplete, Select} from '@primer/react'
 
 ## Examples
 
@@ -40,7 +38,7 @@ import {ComponentChecklist} from '../src/component-checklist'
 </InputField>
 ```
 
-### Using a TextInputWithTokens input
+### Using different input components
 
 ```javascript live noinline
 const TextInputWithTokensExample = () => {
@@ -54,10 +52,49 @@ const TextInputWithTokensExample = () => {
   }
 
   return (
-    <InputField>
-      <InputField.Label>Name</InputField.Label>
-      <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
-    </InputField>
+    <Box
+      display="flex"
+      flexDirection="column"
+      sx={{
+        '> * + *': {
+          marginTop: 4
+        }
+      }}
+    >
+      <InputField>
+        <InputField.Label>TextInputWithTokens</InputField.Label>
+        <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
+      </InputField>
+      <InputField>
+        <InputField.Label>Autocomplete</InputField.Label>
+        <Autocomplete>
+          <Autocomplete.Input block />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu
+              items={[
+                {text: 'css', id: 0},
+                {text: 'css-in-js', id: 1},
+                {text: 'styled-system', id: 2},
+                {text: 'javascript', id: 3},
+                {text: 'typescript', id: 4},
+                {text: 'react', id: 5},
+                {text: 'design-systems', id: 6}
+              ]}
+              selectedItemIds={[]}
+            />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </InputField>
+      <InputField>
+        <InputField.Label>Select</InputField.Label>
+        <Select>
+          <Select.Option value="figma">Figma</Select.Option>
+          <Select.Option value="css">Primer CSS</Select.Option>
+          <Select.Option value="prc">Primer React components</Select.Option>
+          <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+        </Select>
+      </InputField>
+    </Box>
   )
 }
 
@@ -137,35 +174,35 @@ render(ValidationExample)
 The container that handles the layout and passes the relevant IDs and ARIA attributes it's children.
 
 <PropsTable>
-  <PropsTable.Row
+  <PropsTableRow
     name="children"
-    type="InputField.Label | InputField.Caption | InputField.Validation | Autocomplete | TextInput | TextInputWithTokens"
+    type="InputField.Label | InputField.Caption | InputField.Validation | Autocomplete | TextInput | TextInputWithTokens | Select"
     required
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="disabled"
     type="boolean"
     defaultValue="false"
     description="Whether the field is ready for user input"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="id"
     type="string"
     defaultValue="a generated string"
     description="The unique identifier for this field. Used to associate the label, validation text, and caption text"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="required"
     type="boolean"
     defaultValue="false"
     description="Whether the field is ready for user input"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="validationMap"
     type="Record<string, 'error'|'sucess'>"
     description="A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop, the associated validation message will be rendered in the correct style"
   />
-  <PropsTable.Row name="validationResult" type="string" description="The key of the validation message to show " />
+  <PropsTableRow name="validationResult" type="string" description="The key of the validation message to show " />
 </PropsTable>
 
 ### InputField.Label
@@ -173,7 +210,7 @@ The container that handles the layout and passes the relevant IDs and ARIA attri
 A `InputField.Label` must be passed for the field to be accessible to assistive technology, but it may be visually hidden.
 
 <PropsTable>
-  <PropsTable.Row
+  <PropsTableRow
     name="boolean"
     type="InputField.Label | InputField.Caption | InputField.Validation | Autocomplete | TextInput | TextInputWithTokens"
     defaultValue="false"
@@ -186,7 +223,7 @@ A `InputField.Label` must be passed for the field to be accessible to assistive 
 `InputField.Caption` may be used to render hint text for fields that require additional context.
 
 <PropsTable>
-  <PropsTable.Row
+  <PropsTableRow
     name="children"
     type="React.ReactNode"
     description="The content (usually just text) that is rendered to give contextual info about the field"
@@ -198,12 +235,12 @@ A `InputField.Label` must be passed for the field to be accessible to assistive 
 `InputField.Validation` may be used to render contextual validation information if the field was flagged during validation.
 
 <PropsTable>
-  <PropsTable.Row
+  <PropsTableRow
     name="children"
     type="React.ReactNode"
     description="The content (usually just text) that is rendered to give contextual info about the validation result for the field"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="validationKey"
     type="string"
     description="The key of the property from `InputField` that corresponds to this validation message. When `InputField`'s `validationResult` prop matches `InputField.Validation`'s `validationKey` prop, this message is shown."
