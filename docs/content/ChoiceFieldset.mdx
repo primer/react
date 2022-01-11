@@ -6,28 +6,10 @@ storybook: '/react/storybook/?path=/story/forms-choicefieldset--radio-group'
 ---
 
 import {ChoiceFieldset, Box} from '@primer/components'
-import {MegaphoneIcon, BellIcon, BellSlashIcon} from '@primer/octicons-react'
+import {CheckIcon, XIcon, AlertIcon} from '@primer/octicons-react'
 import {ComponentChecklist} from '../src/component-checklist'
 
 A `ChoiceFieldset` is a controlled component that is used to render a related set of checkbox or radio inputs.
-
-## Anatomy
-
-### ChoiceFieldset.Legend
-
-A title for the set of choices. A `ChoiceFieldset.Legend` must be passed, but it may be visually hidden.
-
-### ChoiceFieldset.List
-
-The list choices are rendered in.
-
-### ChoiceFieldset.Item
-
-Renders a choice to the list as a checkbox or radio field.
-
-### ChoiceFieldset.Validation
-
-If the user's selection has been flagged during validation, `ChoiceFieldset.Validation` may be used to render contextual validation information to help the user complete their task
 
 ## Examples
 
@@ -248,6 +230,89 @@ render(<ChoiceFieldsetWithValidation />)
 </ChoiceFieldset>
 ```
 
+### With a ChoiceFieldset.Description
+
+```jsx live
+<ChoiceFieldset>
+  <ChoiceFieldset.Legend>Notification preferences</ChoiceFieldset.Legend>
+  <ChoiceFieldset.Description>
+    Your selection will affect notifications sent to your email and mobile device
+  </ChoiceFieldset.Description>
+
+  <ChoiceFieldset.List>
+    <ChoiceFieldset.Item value="all">
+      <Item.LeadingVisual>
+        <CheckIcon />
+      </Item.LeadingVisual>
+      <Item.Label>All notifications</Item.Label>
+      <Item.Caption>Every possible notification</Item.Caption>
+    </ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="relevant">
+      <Item.LeadingVisual>
+        <AlertIcon />
+      </Item.LeadingVisual>
+      <Item.Label>Relevant notifications</Item.Label>
+      <Item.Caption>Only the ones you'll care about</Item.Caption>
+    </ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="none">
+      <Item.LeadingVisual>
+        <XIcon />
+      </Item.LeadingVisual>
+      <Item.Label>No notifications</Item.Label>
+      <Item.Caption>Notifications won't be sent</Item.Caption>
+    </ChoiceFieldset.Item>
+  </ChoiceFieldset.List>
+</ChoiceFieldset>
+```
+
+### With one disabled item
+
+```jsx live
+<ChoiceFieldset>
+  <ChoiceFieldset.Legend>Color mode</ChoiceFieldset.Legend>
+  <ChoiceFieldset.List>
+    <ChoiceFieldset.Item disabled value="dark">
+      Dark
+    </ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="hc-dark">High-contrast dark</ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="light">Light</ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="hc-light">High-contrast light</ChoiceFieldset.Item>
+  </ChoiceFieldset.List>
+</ChoiceFieldset>
+```
+
+### Items with a caption and a leading visual
+
+```jsx live
+<ChoiceFieldset>
+  <ChoiceFieldset.Legend>Notification preferences</ChoiceFieldset.Legend>
+
+  <ChoiceFieldset.List>
+    <ChoiceFieldset.Item value="all">
+      <Item.LeadingVisual>
+        <CheckIcon />
+      </Item.LeadingVisual>
+      <Item.Label>All notifications</Item.Label>
+      <Item.Caption>Every possible notification</Item.Caption>
+    </ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="relevant">
+      <Item.LeadingVisual>
+        <AlertIcon />
+      </Item.LeadingVisual>
+      <Item.Label>Relevant notifications</Item.Label>
+      <Item.Caption>Only the ones you'll care about</Item.Caption>
+    </ChoiceFieldset.Item>
+    <ChoiceFieldset.Item value="none">
+      <Item.LeadingVisual>
+        <XIcon />
+      </Item.LeadingVisual>
+      <Item.Label>No notifications</Item.Label>
+      <Item.Caption>Notifications won't be sent</Item.Caption>
+    </ChoiceFieldset.Item>
+  </ChoiceFieldset.List>
+</ChoiceFieldset>
+```
+
 ## Props
 
 ### ChoiceFieldset
@@ -266,11 +331,15 @@ render(<ChoiceFieldsetWithValidation />)
 
 ### ChoiceFieldset.Legend
 
+A title for the set of choices. A `ChoiceFieldset.Legend` must be passed, but it may be visually hidden.
+
 | Name           | Type      | Default | Description                                  |
 | :------------- | :-------- | :-----: | :------------------------------------------- |
 | visuallyHidden | `boolean` |    –    | Whether to visually hide the fieldset legend |
 
 ### ChoiceFieldset.List
+
+The list choices are rendered in.
 
 | Name             | Type                   | Default | Description                                             |
 | :--------------- | :--------------------- | :-----: | :------------------------------------------------------ |
@@ -279,6 +348,8 @@ render(<ChoiceFieldsetWithValidation />)
 
 ### ChoiceFieldset.Item
 
+Renders a choice to the list as a checkbox or radio field.
+
 | Name       | Type                                                                                                | Default | Description                                                                                                                                                                                                  |
 | :--------- | :-------------------------------------------------------------------------------------------------- | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | children\* | `ChoiceFieldset.Caption`, `ChoiceFieldset.Label`, `ChoiceFieldset.LeadingVisual`, `React.ReactNode` |    –    | The parts that make up the checkbox or radio field used to select the choice. <br /> If you **only** need a label, it's fine to pass in a string or JSX instead of wrapping it in the `Item.Label` component |
@@ -286,100 +357,17 @@ render(<ChoiceFieldsetWithValidation />)
 | disabled   | `boolean`                                                                                           |    –    | Whether the field is ready for user input                                                                                                                                                                    |
 | id         | `string`                                                                                            |    –    | The unique identifier for this field. Used to associate the label, validation text, and caption text. <br /> If an ID is not provided, one will be automatically generated.                                  |
 
-### Example: With one disabled item
-
-```jsx live
-<ChoiceFieldset>
-  <ChoiceFieldset.Legend>Color mode</ChoiceFieldset.Legend>
-  <ChoiceFieldset.List>
-    <ChoiceFieldset.Item disabled value="dark">
-      Dark
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="hc-dark">High-contrast dark</ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="light">Light</ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="hc-light">High-contrast light</ChoiceFieldset.Item>
-  </ChoiceFieldset.List>
-</ChoiceFieldset>
-```
-
-### Example: Items with a caption and a leading visual
-
-```jsx live
-<ChoiceFieldset>
-  <ChoiceFieldset.Legend>Notification preferences</ChoiceFieldset.Legend>
-
-  <ChoiceFieldset.List>
-    <ChoiceFieldset.Item value="all">
-      <Item.LeadingVisual>
-        <MegaphoneIcon />
-      </Item.LeadingVisual>
-      <Item.Label>All notifications</Item.Label>
-      <Item.Caption>Every possible notification</Item.Caption>
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="relevant">
-      <Item.LeadingVisual>
-        <BellIcon />
-      </Item.LeadingVisual>
-      <Item.Label>Relevant notifications</Item.Label>
-      <Item.Caption>Only the ones you'll care about</Item.Caption>
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="none">
-      <Item.LeadingVisual>
-        <BellSlashIcon />
-      </Item.LeadingVisual>
-      <Item.Label>No notifications</Item.Label>
-      <Item.Caption>Notifications won't be sent</Item.Caption>
-    </ChoiceFieldset.Item>
-  </ChoiceFieldset.List>
-</ChoiceFieldset>
-```
-
-## ChoiceFieldset.Description
+### ChoiceFieldset.Description
 
 A `ChoiceFieldset.Description` may be used to render hint text if this list needs additional context to guide a user to make their selection
-
-### Component props
 
 | Name       | Type              | Default | Description             |
 | :--------- | :---------------- | :-----: | :---------------------- |
 | children\* | `React.ReactNode` |    –    | The description content |
 
-### Example:
-
-```jsx live
-<ChoiceFieldset>
-  <ChoiceFieldset.Legend>Notification preferences</ChoiceFieldset.Legend>
-  <ChoiceFieldset.Description>
-    Your selection will affect notifications sent to your email and mobile device
-  </ChoiceFieldset.Description>
-
-  <ChoiceFieldset.List>
-    <ChoiceFieldset.Item value="all">
-      <Item.LeadingVisual>
-        <MegaphoneIcon />
-      </Item.LeadingVisual>
-      <Item.Label>All notifications</Item.Label>
-      <Item.Caption>Every possible notification</Item.Caption>
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="relevant">
-      <Item.LeadingVisual>
-        <BellIcon />
-      </Item.LeadingVisual>
-      <Item.Label>Relevant notifications</Item.Label>
-      <Item.Caption>Only the ones you'll care about</Item.Caption>
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="none">
-      <Item.LeadingVisual>
-        <BellSlashIcon />
-      </Item.LeadingVisual>
-      <Item.Label>No notifications</Item.Label>
-      <Item.Caption>Notifications won't be sent</Item.Caption>
-    </ChoiceFieldset.Item>
-  </ChoiceFieldset.List>
-</ChoiceFieldset>
-```
-
 ### ChoiceFieldset.Validation
+
+If the user's selection has been flagged during validation, `ChoiceFieldset.Validation` may be used to render contextual validation information to help the user complete their task
 
 | Name            | Type              | Default | Description                                                                                                                        |
 | :-------------- | :---------------- | :-----: | :--------------------------------------------------------------------------------------------------------------------------------- |
@@ -397,6 +385,7 @@ A `ChoiceFieldset.Description` may be used to render hint text if this list need
     fullTestCoverage: true,
     usedInProduction: false,
     usageExamplesDocumented: true,
+    hasStorybookStories: true,
     designReviewed: false,
     a11yReviewed: true,
     stableApi: false,
