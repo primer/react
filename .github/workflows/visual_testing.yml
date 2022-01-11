@@ -1,8 +1,10 @@
 name: Visual testing
 on:
   push:
-    branches:
-      - main
+    # branches:
+      # - main
+    branches-ignore:
+      - '**'
   pull_request:
 
 jobs:
