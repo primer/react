@@ -23,7 +23,9 @@ function SimpleActionMenu(): JSX.Element {
                 <ActionList.Divider />
                 <ActionList.Item>Copy link</ActionList.Item>
                 <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger">Delete file</ActionList.Item>
+                <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
+                  Delete file
+                </ActionList.Item>
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
@@ -84,6 +86,19 @@ describe('ActionMenu', () => {
     const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
     fireEvent.keyPress(menuItems[0], {key: 'Enter', charCode: 13})
     expect(component.queryByRole('menu')).toBeNull()
+
+    cleanup()
+  })
+
+  it('should not close Menu if event is prevented', async () => {
+    const component = HTMLRender(<SimpleActionMenu />)
+    const button = component.getByText('Toggle Menu')
+
+    fireEvent.click(button)
+    const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
+    fireEvent.click(menuItems[3])
+    // menu should still be open
+    expect(component.getByRole('menu')).toBeInTheDocument()
 
     cleanup()
   })
