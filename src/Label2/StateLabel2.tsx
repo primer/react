@@ -1,16 +1,15 @@
 import React from 'react'
 import {GitMergeIcon, GitPullRequestIcon, IconProps, IssueClosedIcon, IssueOpenedIcon} from '@primer/octicons-react'
-import {LabelSizeKeys} from './_labelStyleUtils'
-import Label2, {LabelColorOptions} from './Label2'
+import Label from './Label2'
+import {LabelColorOptions, LabelSizeKeys} from './types'
 
-type Statuses = 'issueClosed' | 'pullClosed' | 'pullMerged' | 'issueOpened' | 'pullOpened' | 'draft'
+export type Statuses = 'issueClosed' | 'pullClosed' | 'pullMerged' | 'issueOpened' | 'pullOpened' | 'draft'
 
 interface Props {
+  /** Changes the visual design of the label to match the status that the label is communicating */
   status: Statuses
-  // TODO: rename to "size"
+  /** How large the label is rendered */
   size?: LabelSizeKeys
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  leadingVisual?: React.ComponentType<any>
 }
 
 const colorMap: Record<Statuses, LabelColorOptions> = {
@@ -31,12 +30,12 @@ const octiconMap: Record<Statuses, React.ComponentType<{size?: IconProps['size']
   draft: GitPullRequestIcon
 }
 
-const StateLabel2: React.FC<Props> = ({status, ...rest}) => (
-  <Label2 filled color={colorMap[status]} leadingVisual={octiconMap[status]} {...rest} />
+const StateLabel: React.FC<Props> = ({status, ...rest}) => (
+  <Label filled appearance={colorMap[status]} leadingVisual={octiconMap[status]} {...rest} />
 )
 
-StateLabel2.defaultProps = {
+StateLabel.defaultProps = {
   size: 'lg'
 }
 
-export default StateLabel2
+export default StateLabel
