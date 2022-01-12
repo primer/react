@@ -82,32 +82,32 @@ All types of tokens may have the same interactive qualities as links or buttons.
       }}
     >
       <Token
+        size="small"
         text="'small' Token"
         onRemove={() => {
           console.log('remove me')
         }}
-        sx={{size: 'small'}}
       />
       <Token
+        size="medium"
         text="'medium' Token"
         onRemove={() => {
           console.log('remove me')
         }}
-        sx={{size: 'medium'}}
       />
       <Token
+        size="large"
         text="'large' Token (default)"
         onRemove={() => {
           console.log('remove me')
         }}
-        sx={{size: 'large'}}
       />
       <Token
+        size="extralarge"
         text="'extralarge' Token"
         onRemove={() => {
           console.log('remove me')
         }}
-        sx={{size: 'extralarge'}}
       />
     </Box>
   </div>
@@ -167,7 +167,6 @@ These rules apply to all token components mentioned in this document.
         onRemove={() => {
           console.log('remove me')
         }}
-        sx={{size: 'medium'}}
       />
       <Token
         as="button"
@@ -176,7 +175,6 @@ These rules apply to all token components mentioned in this document.
         onRemove={() => {
           console.log('remove me')
         }}
-        sx={{size: 'large'}}
       />
       <Token
         as="span"
@@ -186,7 +184,6 @@ These rules apply to all token components mentioned in this document.
         onRemove={() => {
           console.log('remove me')
         }}
-        sx={{size: 'extralarge'}}
       />
     </Box>
   </div>
