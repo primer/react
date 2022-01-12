@@ -4,6 +4,7 @@ import {ThemeProvider} from '..'
 import BaseStyles from '../BaseStyles'
 import {ActionMenu} from '../ActionMenu2'
 import {ActionList} from '../ActionList2'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 import Button, {ButtonInvisible} from '../Button'
 import Box from '../Box'
 import Text from '../Text'
@@ -606,35 +607,47 @@ export function UnexpectedSelectionVariant(): JSX.Element {
 UnexpectedSelectionVariant.storyName = 'Unexpected selectionVariant'
 
 export function NestedMenu(): JSX.Element {
-  // const [menu]
+  const [primaryMenuOpen, setPrimaryMenuOpen] = React.useState(false)
+  const [groupMenuOpen, setGroupMenuOpen] = React.useState(false)
+  const [selectedGroup, setSelectedGroup] = React.useState(0)
+
+  const groupOptions = ['Status', 'Stage', 'Assignee', 'Team', 'Estimate', 'Due Date']
+
+  const anchorRef = React.createRef<HTMLButtonElement>()
 
   return (
     <>
       <h1>Nested menu</h1>
 
-      <ActionMenu>
-        <ActionMenu.Button>Menu</ActionMenu.Button>
-        <ActionMenu.Overlay width="medium">
+      <Button
+        ref={anchorRef}
+        onClick={() => {
+          if (groupMenuOpen) setGroupMenuOpen(false)
+          else setPrimaryMenuOpen(!primaryMenuOpen)
+        }}
+      >
+        Change view options
+      </Button>
+
+      <ActionMenu anchorRef={anchorRef} open={primaryMenuOpen} onOpenChange={setPrimaryMenuOpen}>
+        <ActionMenu.Overlay>
           <ActionList>
-            <ActionList.Item>
+            <ActionList.Item onSelect={() => setGroupMenuOpen(true)}>
               <ActionList.LeadingVisual>
                 <ListUnorderedIcon />
               </ActionList.LeadingVisual>
-              Title, Assignees, Status, Labels, Repositories
+              group: {groupOptions[selectedGroup]}
+              <ActionList.TrailingVisual>
+                <ArrowRightIcon />
+              </ActionList.TrailingVisual>
             </ActionList.Item>
-            <ActionList.Item>
-              <ActionList.LeadingVisual>
-                <ListUnorderedIcon />
-              </ActionList.LeadingVisual>
-              group: none
-            </ActionList.Item>
-            <ActionList.Item>
+            <ActionList.Item disabled>
               <ActionList.LeadingVisual>
                 <ArrowDownIcon />
               </ActionList.LeadingVisual>
               sort: manual
             </ActionList.Item>
-            <ActionList.Item>
+            <ActionList.Item disabled>
               <ActionList.LeadingVisual>
                 <SearchIcon />
               </ActionList.LeadingVisual>
@@ -643,6 +656,35 @@ export function NestedMenu(): JSX.Element {
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
+
+      {/* TODO: This can be replaced with a DropdownMenu2 when merged */}
+      {groupMenuOpen && (
+        <AnchoredOverlay
+          anchorRef={anchorRef}
+          renderAnchor={null}
+          open={groupMenuOpen}
+          onOpen={() => setGroupMenuOpen(true)}
+          onClose={() => setGroupMenuOpen(false)}
+        >
+          <ActionList>
+            <ActionList.Group title="Group by" selectionVariant="single">
+              {groupOptions.map((group, index) => (
+                <ActionList.Item
+                  key={index}
+                  role="option"
+                  selected={index === selectedGroup}
+                  onSelect={() => {
+                    setSelectedGroup(index)
+                    setGroupMenuOpen(false)
+                  }}
+                >
+                  {group}
+                </ActionList.Item>
+              ))}
+            </ActionList.Group>
+          </ActionList>
+        </AnchoredOverlay>
+      )}
     </>
   )
 }
