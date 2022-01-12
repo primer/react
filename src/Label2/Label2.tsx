@@ -25,7 +25,7 @@ interface FilledLabelColorConfig {
   textColor?: (props: Props) => React.CSSProperties['color']
 }
 
-const labelColorMap: Record<LabelColorOptions, LabelColorConfig> = {
+export const labelColorMap: Record<LabelColorOptions, LabelColorConfig> = {
   default: {
     borderColor: get('colors.border.default')
   },
@@ -184,12 +184,10 @@ const Label: React.FC<Props> = ({children, leadingVisual: LeadingVisual, size, .
     )
   }
 
-  console.log('LABEL IS BEING RENDERED')
-
   return (
     <LabelContainer size={size} {...other}>
       {LeadingVisual && size !== 'sm' && (
-        <LeadingVisualContainer>
+        <LeadingVisualContainer aria-hidden={true}>
           <LeadingVisual />
         </LeadingVisualContainer>
       )}
