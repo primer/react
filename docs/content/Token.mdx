@@ -2,19 +2,20 @@
 componentId: token
 title: Token
 status: Alpha
+description: A Token represents a piece of data. They are typically used to show a collection of related attributes.
 source: https://github.com/primer/react/tree/main/src/Token
+storybook: '/react/storybook?path=/story/tokens-default--default-token'
 ---
 
-import {Props} from '../src/props'
 import {AvatarToken, IssueLabelToken, Token} from '@primer/react'
-
-A Token represents a piece of data. They are typically used to show a collection of related attributes.
 
 The default `Token` can be used for most cases, but specialized token components are provided for specific use cases (see below for more info).
 
 All types of tokens may have the same interactive qualities as links or buttons. They also have a sense of being "selected" and ready for user interaction such as being removed from a collection.
 
-## Basic Example
+## Examples
+
+### Basic
 
 ```jsx live
 <>
@@ -25,91 +26,7 @@ All types of tokens may have the same interactive qualities as links or buttons.
 </>
 ```
 
-### Interactive tokens
-
-If any token is interactive (it is a link or a button), it will become focusable, and react to being hovered or focused on.
-
-If a token is interactive _and_ has a remove button (appears when passing `onRemove`), the remove button should not get focus. To invoke the `onRemove` callback without using the cursor, press 'Backspace' when the token is focused.
-
-These rules apply to all token components mentioned in this document.
-
-#### Example: Interactive tokens with and without an `onRemove` prop
-
-```jsx live
-<Box
-  display="flex"
-  sx={{
-    alignItems: 'start',
-    flexDirection: 'column',
-    gap: 6
-  }}
->
-  <div>
-    <Text fontSize={0} display="block" color="fg.subtle">
-      Interactive
-    </Text>
-    <Box
-      display="flex"
-      sx={{
-        alignItems: 'start',
-        gap: 2
-      }}
-    >
-      <Token as="a" href="http://google.com/" text="Link" />
-      <Token as="button" onClick={() => console.log('clicked')} text="Button" />
-      <Token as="span" tabIndex={0} onFocus={() => console.log('focused')} text="Focusable Span" />
-    </Box>
-  </div>
-  <div>
-    <Text fontSize={0} display="block" color="fg.subtle">
-      Interactive with `onRemove` passed
-    </Text>
-    <Box
-      display="flex"
-      sx={{
-        alignItems: 'start',
-        gap: 2
-      }}
-    >
-      <Token
-        as="a"
-        href="http://google.com/"
-        text="Link"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
-      <Token
-        as="button"
-        onClick={() => console.log('clicked')}
-        text="Button"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
-      <Token
-        as="span"
-        tabIndex={0}
-        onFocus={() => console.log('focused')}
-        text="Focusable Span"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
-    </Box>
-  </div>
-</Box>
-```
-
-## Token
-
-The default `Token` component
-
-### Component Props
-
-<Props of={Token} />
-
-### Example
+### Kitchen sink
 
 ```jsx live
 <Box
@@ -197,13 +114,85 @@ The default `Token` component
 </Box>
 ```
 
-## IssueLabelToken
+### Interactive tokens
+
+If any token is interactive (it is a link or a button), it will become focusable, and react to being hovered or focused on.
+
+If a token is interactive _and_ has a remove button (appears when passing `onRemove`), the remove button should not get focus. To invoke the `onRemove` callback without using the cursor, press 'Backspace' when the token is focused.
+
+These rules apply to all token components mentioned in this document.
+
+#### Interactive tokens with and without an `onRemove` prop
+
+```jsx live
+<Box
+  display="flex"
+  sx={{
+    alignItems: 'start',
+    flexDirection: 'column',
+    gap: 6
+  }}
+>
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Interactive
+    </Text>
+    <Box
+      display="flex"
+      sx={{
+        alignItems: 'start',
+        gap: 2
+      }}
+    >
+      <Token as="a" href="http://google.com/" text="Link" />
+      <Token as="button" onClick={() => console.log('clicked')} text="Button" />
+      <Token as="span" tabIndex={0} onFocus={() => console.log('focused')} text="Focusable Span" />
+    </Box>
+  </div>
+  <div>
+    <Text fontSize={0} display="block" color="fg.subtle">
+      Interactive with `onRemove` passed
+    </Text>
+    <Box
+      display="flex"
+      sx={{
+        alignItems: 'start',
+        gap: 2
+      }}
+    >
+      <Token
+        as="a"
+        href="http://google.com/"
+        text="Link"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <Token
+        as="button"
+        onClick={() => console.log('clicked')}
+        text="Button"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+      <Token
+        as="span"
+        tabIndex={0}
+        onFocus={() => console.log('focused')}
+        text="Focusable Span"
+        onRemove={() => {
+          console.log('remove me')
+        }}
+      />
+    </Box>
+  </div>
+</Box>
+```
+
+### IssueLabelToken
 
 Tokens that represent Issue labels should use the `IssueLabelToken` component.
-
-### Component Props
-
-<Props of={IssueLabelToken} />
 
 ```jsx live
 <Box
@@ -289,13 +278,9 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
 </Box>
 ```
 
-## AvatarToken
+### AvatarToken
 
 Tokens that represent GitHub users should use the `AvatarToken` component.
-
-### Component Props
-
-<Props of={AvatarToken} />
 
 ```jsx live
 <Box
@@ -380,3 +365,31 @@ Tokens that represent GitHub users should use the `AvatarToken` component.
   </div>
 </Box>
 ```
+
+## Props
+
+<Props of={Token} />
+
+<Props of={IssueLabelToken} />
+
+<Props of={AvatarToken} />
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: true,
+    hasFigmaComponent: false
+  }}
+/>

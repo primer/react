@@ -2,17 +2,20 @@
 componentId: text_input_with_tokens
 title: TextInputWithTokens
 status: Alpha
+description: Used to show multiple values in one field
 source: https://github.com/primer/react/tree/main/src/TextInputWithTokens.tsx
+storybook: '/react/storybook?path=/story/forms-text-input-with-tokens--default'
 ---
 
-import {Props} from '../src/props'
 import {TextInputWithTokens} from '@primer/react'
+import {PropsTable} from '../src/props-table'
+import {ComponentChecklist} from '../src/component-checklist'
 
-A `TextInputWithTokens` component is used to show multiple values in one field.
+A `TextInputWithTokens` component supports all of the features of a [TextInput](/TextInput) component, but it can render a list of [Tokens](/Token) next to the area a user types in.
 
-It supports all of the features of a [TextInput](/TextInput) component, but it can render a list of [Tokens](/Token) next to the area a user types in.
+## Examples
 
-## Basic Example
+### Basic
 
 ```javascript live noinline
 const BasicExample = () => {
@@ -38,36 +41,9 @@ const BasicExample = () => {
 render(BasicExample)
 ```
 
-## Component Props
-
-| Name                   | Type                                  |   Default    | Description                                                                                                               |
-| :--------------------- | :------------------------------------ | :----------: | :------------------------------------------------------------------------------------------------------------------------ |
-| tokens                 | `TokenProps[]`                        | `undefined`  | Required. The array of tokens to render                                                                                   |
-| onTokenRemove          | `(tokenId: string \| number) => void` | `undefined`  | Required. The function that gets called when a token is removed                                                           |
-| tokenComponent         | `React.ComponentType<any>`            |   `Token`    | Optional. The component used to render each token                                                                         |
-| maxHeight              | `React.CSSProperties['maxHeight']`    | `undefined`  | Optional. The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically |
-| preventTokenWrapping   | `boolean`                             |   `false`    | Optional. Whether tokens should render inline horizontally. By default, tokens wrap to new lines.                         |
-| size                   | `TokenSizeKeys`                       | `extralarge` | Optional. The size of the tokens                                                                                          |
-| hideTokenRemoveButtons | `boolean`                             |   `false`    | Optional. Whether the remove buttons should be rendered in the tokens                                                     |
-| visibleTokenCount      | `number`                              | `undefined`  | Optional. The number of tokens to display before truncating                                                               |
-
-## Adding and removing tokens
-
-The array passed to the `tokens` prop needs to be manually updated to add and remove tokens.
-
-The function passed to the `onRemoveToken` prop is called when:
-
-- Clicking the remove button in the token
-- Pressing the `Backspace` key when the input is empty
-- Selecting a token using the arrow keys or by clicking on a token and then pressing the `Backspace` key
-
-There is no function that gets called to "add" a token, so the user needs to be provided with a UI to select tokens.
-
-## Custom token rendering
+### Using a different token component
 
 By default, the `Token` component is used to render the tokens in the input. If this component does not make sense for the kinds of tokens you're rendering, you can pass a component to the `tokenComponent` prop
-
-Example: a `TextInputWithTokens` that renders tokens as `IssueLabelToken`:
 
 ```javascript live noinline
 const UsingIssueLabelTokens = () => {
@@ -98,13 +74,11 @@ const UsingIssueLabelTokens = () => {
 render(<UsingIssueLabelTokens />)
 ```
 
-## Dealing with long lists of tokens
+### Dealing with long lists of tokens
 
 By default, all tokens will be visible when the component is rendered.
 
 If the component is being used in an area where it's height needs to be constrained, there are options to limit the height of the input.
-
-### Hide and show tokens
 
 ```javascript live noinline
 const VisibleTokenCountExample = () => {
@@ -210,3 +184,76 @@ const MaxHeightExample = () => {
 
 render(MaxHeightExample)
 ```
+
+## Props
+
+<PropsTable>
+  <PropsTable.Row required name="tokens" type="TokenProps[]" description="The array of tokens to render" />
+  <PropsTable.Row
+    required
+    name="onTokenRemove"
+    type="(tokenId: string|number) => void"
+    description="The function that gets called when a token is removed"
+  />
+  <PropsTable.Row
+    name="tokenComponent"
+    type="React.ComponentType<any>"
+    defaultValue="Token"
+    description="The component used to render each token"
+  />
+  <PropsTable.Row
+    name="maxHeight"
+    type="React.CSSProperties['maxHeight']"
+    description="The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
+  />
+  <PropsTable.Row
+    name="preventTokenWrapping"
+    type="boolean"
+    defaultValue="false"
+    description="Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
+  />
+  <PropsTable.Row name="size" type="TokenSizeKeys" defaultValue="extralarge" description="The size of the tokens" />
+  <PropsTable.Row
+    name="hideTokenRemoveButtons"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the remove buttons should be rendered in the tokens"
+  />
+  <PropsTable.Row
+    name="visibleTokenCount"
+    type="number"
+    description="The number of tokens to display before truncating"
+  />
+</PropsTable>
+
+### Adding and removing tokens
+
+The array passed to the `tokens` prop needs to be manually updated to add and remove tokens.
+
+The function passed to the `onRemoveToken` prop is called when:
+
+- Clicking the remove button in the token
+- Pressing the `Backspace` key when the input is empty
+- Selecting a token using the arrow keys or by clicking on a token and then pressing the `Backspace` key
+
+There is no function that gets called to "add" a token, so the user needs to be provided with a UI to select tokens.
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: true,
+    hasFigmaComponent: false
+  }}
+/>
