@@ -239,7 +239,7 @@ const handleEscape = () => alert('you hit escape!')
 render(
   <ActionMenu>
     <ActionMenu.Button>Open Actions Menu</ActionMenu.Button>
-    <ActionMenu.Overlay width="medium" onEscape={handleEscape}>
+    <ActionMenu.Overlay onEscape={handleEscape} sx={{width: 'medium'}}>
       <ActionList>
         <ActionList.Item>
           Open current Codespace

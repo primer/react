@@ -57,11 +57,9 @@ The `invisible` variant of `Button` indicates that the action is a low priority 
 
 ```jsx live
 <>
-  <drafts.Button size="small">Search</drafts.Button>
+  <drafts.Button sx={{size: 'small'}}>Search</drafts.Button>
   <drafts.Button sx={{mt: 2}}>Search</drafts.Button>
-  <drafts.Button sx={{mt: 2}} size="large">
-    Search
-  </drafts.Button>
+  <drafts.Button sx={{mt: 2, size: 'large'}}>Search</drafts.Button>
 </>
 ```
 
@@ -96,13 +94,13 @@ A separate component called `IconButton` is used if the action shows only an ico
 
 ```jsx live
 <>
-  <drafts.IconButton icon={SearchIcon} size="small">
+  <drafts.IconButton icon={SearchIcon} sx={{size: 'small'}}>
     Search
   </drafts.IconButton>
   <drafts.IconButton sx={{ml: 2}} icon={SearchIcon}>
     Search
   </drafts.IconButton>
-  <drafts.IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
+  <drafts.IconButton sx={{ml: 2, size: 'large'}} icon={SearchIcon}>
     Search
   </drafts.IconButton>
 </>
