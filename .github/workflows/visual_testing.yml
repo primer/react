@@ -1,0 +1,33 @@
+name: Visual testing
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  chromatic:
+    name: Visual testing
+    runs-on: ubuntu-latest
+    environment: visual-testing
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Required to retrieve git history
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Chromatic
+        uses: chromaui/action@v1
+        with:
+          buildScriptName: build:storybook
+          projectToken: 91e12320417c
+          autoAcceptChanges: github.ref == 'refs/heads/main'
+          onlyChanged: true

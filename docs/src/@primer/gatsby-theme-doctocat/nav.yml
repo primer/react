@@ -53,6 +53,10 @@
       url: /Buttons
     - title: Checkbox
       url: /Checkbox
+    - title: ChoiceFieldset
+      url: /ChoiceFieldset
+    - title: ChoiceInputField
+      url: /ChoiceInputField
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
@@ -61,10 +65,6 @@
       url: /CounterLabel
     - title: Details & useDetails
       url: /Details
-    - title: Dialog
-      url: /Dialog
-    - title: Dropdown
-      url: /Dropdown
     - title: FilteredSearch
       url: /FilteredSearch
     - title: FilterList
@@ -77,6 +77,8 @@
       url: /Header
     - title: Heading
       url: /Heading
+    - title: InputField
+      url: /InputField
     - title: Label
       url: /Label
     - title: LabelGroup
@@ -99,8 +101,10 @@
       url: /ProgressBar
     - title: Radio
       url: /Radio
-    - title: SelectMenu
-      url: /SelectMenu
+    - title: Select
+      url: /Select
+    - title: SelectPanel
+      url: /SelectPanel
     - title: SideNav
       url: /SideNav
     - title: Spinner
@@ -132,10 +136,16 @@
 - title: Deprecated
   children:
     - title: BorderBox
-      url: /BorderBox
+      url: /deprecated/BorderBox
     - title: Flex
-      url: /Flex
+      url: /deprecated/Flex
     - title: Grid
-      url: /Grid
+      url: /deprecated/Grid
     - title: Position
-      url: /Position
+      url: /deprecated/Position
+    - title: Dialog
+      url: /deprecated/Dialog
+    - title: Dropdown
+      url: /deprecated/Dropdown
+    - title: SelectMenu
+      url: /deprecated/SelectMenu

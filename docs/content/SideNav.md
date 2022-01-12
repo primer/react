@@ -1,4 +1,5 @@
 ---
+componentId: side_nav
 title: SideNav
 status: Alpha
 ---

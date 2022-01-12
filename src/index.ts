@@ -54,8 +54,6 @@ export {
   ButtonClose,
   ButtonGroup
 } from './Button'
-export {NewButton} from './NewButton'
-export type {NewButtonProps} from './NewButton'
 export type {
   ButtonProps,
   ButtonDangerProps,
@@ -68,10 +66,12 @@ export type {
 } from './Button'
 export {default as Caret} from './Caret'
 export type {CaretProps} from './Caret'
+export {default as ChoiceInputField} from './ChoiceInputField'
 export {default as CircleBadge} from './CircleBadge'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
 export {default as CircleOcticon} from './CircleOcticon'
 export type {CircleOcticonProps} from './CircleOcticon'
+export {default as ChoiceFieldset, Item} from './ChoiceFieldset'
 export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
 export {default as Details} from './Details'
@@ -102,6 +102,7 @@ export {default as Header} from './Header'
 export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
 export {default as Heading} from './Heading'
 export type {HeadingProps} from './Heading'
+export {default as InputField} from './InputField'
 export {default as LabelGroup} from './LabelGroup'
 export type {LabelGroupProps} from './LabelGroup'
 export {default as Label} from './Label'
@@ -123,6 +124,7 @@ export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as SelectMenu} from './SelectMenu'
+export {default as Select} from './Select'
 export type {
   SelectMenuProps,
   SelectMenuDividerProps,
@@ -137,6 +139,8 @@ export type {
   SelectMenuTabPanelProps,
   SelectMenuLoadingAnimationProps
 } from './SelectMenu'
+export {SelectPanel} from './SelectPanel'
+export type {SelectPanelProps} from './SelectPanel'
 export {default as SideNav} from './SideNav'
 export type {SideNavProps, SideNavLinkProps} from './SideNav'
 export {default as Spinner} from './Spinner'
