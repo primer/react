@@ -73,23 +73,6 @@ render(
 )
 ```
 
-### StateLabel states
-
-```javascript live noinline
-// import {StateLabel} from '@primer/react/drafts'
-const {StateLabel} = drafts // ignore docs silliness; import like that ↑
-render(
-  <>
-    <StateLabel status="issueOpened">Issue opened</StateLabel>
-    <StateLabel status="issueClosed">Issue closed</StateLabel>
-    <StateLabel status="pullOpened">Opened</StateLabel>
-    <StateLabel status="pullClosed">Closed</StateLabel>
-    <StateLabel status="pullMerged">Merged</StateLabel>
-    <StateLabel status="draft">Draft</StateLabel>
-  </>
-)
-```
-
 ## Props
 
 ### Label
@@ -117,23 +100,6 @@ render(
     name="leadingVisual"
     type="React.ComponentType<any>"
     description="The icon component to be rendered before the the label's text"
-  />
-</PropsTable>
-
-### StateLabel
-
-<PropsTable>
-  <PropsTableRow
-    name="appearance"
-    type="'issueClosed' | 'pullClosed' | 'pullMerged' | 'issueOpened' | 'pullOpened' | 'draft'"
-    defaultValue="'default'"
-    description="Changes the visual design of the label to match the status that the label is communicating"
-  />
-  <PropsTableRow
-    name="size"
-    type="'sm' | 'md' | 'lg'"
-    defaultValue="'md'"
-    description="How large the label is rendered"
   />
 </PropsTable>
 

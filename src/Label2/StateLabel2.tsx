@@ -1,5 +1,7 @@
 import React from 'react'
 import {GitMergeIcon, GitPullRequestIcon, IconProps, IssueClosedIcon, IssueOpenedIcon} from '@primer/octicons-react'
+import styled from 'styled-components'
+import {get} from '../constants'
 import Label from './Label2'
 import {LabelColorOptions, LabelSizeKeys} from './types'
 
@@ -30,12 +32,27 @@ const octiconMap: Record<Statuses, React.ComponentType<{size?: IconProps['size']
   draft: GitPullRequestIcon
 }
 
-const StateLabel: React.FC<Props> = ({status, ...rest}) => (
-  <Label filled appearance={colorMap[status]} leadingVisual={octiconMap[status]} {...rest} />
-)
+const LeadingVisualContainer = styled('span')`
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: ${get('space.1')};
+`
+
+const StateLabel: React.FC<Props> = ({children, status, size}) => {
+  const LeadingVisual = octiconMap[status]
+
+  return (
+    <Label filled scheme={colorMap[status]} size={size}>
+      <LeadingVisualContainer aria-hidden={true}>
+        <LeadingVisual />
+      </LeadingVisualContainer>
+      {children}
+    </Label>
+  )
+}
 
 StateLabel.defaultProps = {
-  size: 'lg'
+  size: 'large'
 }
 
 export default StateLabel

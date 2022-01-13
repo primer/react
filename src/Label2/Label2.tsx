@@ -6,14 +6,11 @@ import {LabelColorOptions, LabelSizeKeys} from './types'
 
 interface Props {
   /** The color of the label */
-  appearance?: LabelColorOptions
+  scheme?: LabelColorOptions
   /** How large the label is rendered */
   size?: LabelSizeKeys
   /** Whether the label should be styled with a solid background color */
   filled?: boolean
-  /** The icon component to be rendered before the the label's text */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  leadingVisual?: React.ComponentType<any>
 }
 interface LabelColorConfig {
   borderColor: (props: Props) => React.CSSProperties['color']
@@ -67,9 +64,9 @@ export const labelColorMap: Record<LabelColorOptions, LabelColorConfig> = {
 }
 
 const badgeSizes: Record<LabelSizeKeys, number> = {
-  sm: 20,
-  md: 24,
-  lg: 32
+  small: 20,
+  medium: 24,
+  large: 32
 }
 
 const labelVariants = variant<
@@ -78,21 +75,21 @@ const labelVariants = variant<
 >({
   prop: 'size',
   variants: {
-    sm: {
+    small: {
       fontSize: 0,
-      height: `${badgeSizes.sm}px`,
+      height: `${badgeSizes.small}px`,
       paddingLeft: 2,
       paddingRight: 2
     },
-    md: {
+    medium: {
       fontSize: 0,
-      height: `${badgeSizes.md}px`,
+      height: `${badgeSizes.medium}px`,
       paddingLeft: 2,
       paddingRight: 2
     },
-    lg: {
+    large: {
       fontSize: 1,
-      height: `${badgeSizes.lg}px`,
+      height: `${badgeSizes.large}px`,
       paddingLeft: 3,
       paddingRight: 3
     }
@@ -141,12 +138,6 @@ const filledLabelColorMap: Record<LabelColorOptions, FilledLabelColorConfig> = {
   }
 }
 
-const LeadingVisualContainer = styled('span')`
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: ${get('space.1')};
-`
-
 const LabelContainer = styled.span<Props>`
   align-items: center;
   border-width: 1px;
@@ -158,47 +149,32 @@ const LabelContainer = styled.span<Props>`
   white-space: nowrap;
   ${labelVariants};
 
-  ${({appearance = 'default', filled}) => {
+  ${({scheme = 'default', filled}) => {
     if (filled) {
       return css`
-        background-color: ${filledLabelColorMap[appearance].bgColor};
+        background-color: ${filledLabelColorMap[scheme].bgColor};
         border-color: transparent;
-        color: ${filledLabelColorMap[appearance].textColor};
+        color: ${filledLabelColorMap[scheme].textColor};
       `
     } else {
       return css`
         background-color: transparent;
-        border-color: ${labelColorMap[appearance].borderColor};
-        color: ${labelColorMap[appearance].textColor};
+        border-color: ${labelColorMap[scheme].borderColor};
+        color: ${labelColorMap[scheme].textColor};
       `
     }
   }}
 `
 
-const Label: React.FC<Props> = ({children, leadingVisual: LeadingVisual, size, ...other}) => {
-  if (LeadingVisual && size === 'sm') {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'The Label component is too small to render a leading visual when the `size` prop is set to "sm"',
-      '\n\nRemove the `leadingVisual` prop or change the `size` prop to `size="md"` or `size="lg"`'
-    )
-  }
-
-  return (
-    <LabelContainer size={size} {...other}>
-      {LeadingVisual && size !== 'sm' && (
-        <LeadingVisualContainer aria-hidden={true}>
-          <LeadingVisual />
-        </LeadingVisualContainer>
-      )}
-      {children}
-    </LabelContainer>
-  )
-}
+const Label: React.FC<Props> = ({children, size, ...other}) => (
+  <LabelContainer size={size} {...other}>
+    {children}
+  </LabelContainer>
+)
 
 Label.defaultProps = {
-  size: 'md',
-  appearance: 'default'
+  size: 'medium',
+  scheme: 'default'
 }
 
 export default Label

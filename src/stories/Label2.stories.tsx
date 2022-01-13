@@ -1,6 +1,5 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {MarkGithubIcon} from '@primer/octicons-react'
 import {BaseStyles, ThemeProvider} from '..'
 import {ComponentProps} from '../utils/types'
 import Label from '../Label2/Label2'
@@ -9,20 +8,41 @@ type Args = ComponentProps<typeof Label>
 
 export default {
   // TODO: update story nesting
-  title: 'Label/Label',
+  title: 'Labels/Label',
   component: Label,
   argTypes: {
-    appearance: {
-      defaultValue: 'default'
+    scheme: {
+      defaultValue: 'default',
+      control: {
+        options: [
+          'default',
+          'primary',
+          'secondary',
+          'accent',
+          'success',
+          'attention',
+          'severe',
+          'danger',
+          'done',
+          'sponsors'
+        ],
+        type: 'select'
+      }
     },
     size: {
-      defaultValue: 'md'
+      defaultValue: 'medium',
+      control: {
+        options: ['small', 'medium', 'large'],
+        type: 'radio'
+      }
     },
     filled: {
-      defaultValue: false
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
     }
   },
-  parameters: {controls: {exclude: ['leadingVisual']}},
   decorators: [
     Story => {
       return (
@@ -37,9 +57,3 @@ export default {
 } as Meta
 
 export const label = (args: Args) => <Label {...args}>Label</Label>
-export const labelWithLeadingVisual = (args: Args) => (
-  <Label {...args} leadingVisual={MarkGithubIcon}>
-    Label
-  </Label>
-)
-labelWithLeadingVisual.storyName = 'Label with leadingVisual'

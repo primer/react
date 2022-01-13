@@ -8,17 +8,24 @@ type Args = ComponentProps<typeof StateLabel>
 
 export default {
   // TODO: update story nesting
-  title: 'Label/StateLabel',
+  title: 'Labels/State Label',
   component: StateLabel,
   argTypes: {
     status: {
-      defaultValue: 'draft'
+      defaultValue: 'draft',
+      control: {
+        options: ['issueClosed', 'pullClosed', 'pullMerged', 'issueOpened', 'pullOpened', 'draft'],
+        type: 'select'
+      }
     },
     size: {
-      defaultValue: 'md'
+      defaultValue: 'large',
+      control: {
+        options: ['small', 'medium', 'large'],
+        type: 'radio'
+      }
     }
   },
-  parameters: {controls: {exclude: ['leadingVisual']}},
   decorators: [
     Story => {
       return (

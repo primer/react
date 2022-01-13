@@ -10,4 +10,4 @@ export type LabelColorOptions =
   | 'done'
   | 'sponsors'
 
-export type LabelSizeKeys = 'sm' | 'md' | 'lg'
+export type LabelSizeKeys = 'small' | 'medium' | 'large'
