@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import {Location} from 'history'
+import {Location, Pathname} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import Box from './Box'
@@ -54,7 +54,7 @@ function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<
 }
 
 type StyledBreadcrumbsItemProps = {
-  to?: Location
+  to?: Location | Pathname
   selected?: boolean
 } & SxProp
 

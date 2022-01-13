@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import {Location} from 'history'
+import {Location, Pathname} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
@@ -32,7 +32,7 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
 }
 
 type StyledTabNavLinkProps = {
-  to?: Location
+  to?: Location | Pathname
   selected?: boolean
 } & SxProp
 
