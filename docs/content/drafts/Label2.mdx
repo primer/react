@@ -7,8 +7,6 @@ storybook: '/react/storybook?path=/story/label-label2--label'
 description: Use Label components to add contextual metadata to a design.
 ---
 
-import {MarkGithubIcon} from '@primer/octicons-react'
-
 ## Examples
 
 ### Basic
@@ -28,15 +26,15 @@ const {Label} = drafts // ignore docs silliness; import like that ↑
 render(
   <>
     <Label>Default</Label>
-    <Label appearance="primary">Primary</Label>
-    <Label appearance="secondary">Secondary</Label>
-    <Label appearance="accent">Info</Label>
-    <Label appearance="success">Success</Label>
-    <Label appearance="attention">Warning</Label>
-    <Label appearance="severe">Severe</Label>
-    <Label appearance="danger">Danger</Label>
-    <Label appearance="done">Done</Label>
-    <Label appearance="sponsors">Sponsors</Label>
+    <Label scheme="primary">Primary</Label>
+    <Label scheme="secondary">Secondary</Label>
+    <Label scheme="accent">Info</Label>
+    <Label scheme="success">Success</Label>
+    <Label scheme="attention">Warning</Label>
+    <Label scheme="severe">Severe</Label>
+    <Label scheme="danger">Danger</Label>
+    <Label scheme="done">Done</Label>
+    <Label scheme="sponsors">Sponsors</Label>
   </>
 )
 ```
@@ -48,9 +46,9 @@ render(
 const {Label} = drafts // ignore docs silliness; import like that ↑
 render(
   <>
-    <Label size="sm">Small (default)</Label>
-    <Label size="md">Medium</Label>
-    <Label size="lg">Large</Label>
+    <Label size="small">Small</Label>
+    <Label size="medium">Medium (default)</Label>
+    <Label size="large">Large</Label>
   </>
 )
 ```
