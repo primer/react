@@ -2,14 +2,56 @@
 componentId: autocomplete
 title: Autocomplete
 status: Alpha
+description: Used to render a text input that allows a user to quickly filter through a list of options to pick one or more values.
+source: https://github.com/primer/react/tree/main/src/Autocomplete
+storybook: '/react/storybook?path=/story/forms-autocomplete--single-select'
 ---
 
-import {Props} from '../src/props'
 import {Autocomplete} from '@primer/react'
 
-The `Autocomplete` components are used to render a text input that allows a user to quickly filter through a list of options to pick one or more values. It is comprised of an `Autocomplete.Input` component that a user types into, and a `Autocomplete.Menu` component that displays the list of selectable values.
+The `Autocomplete` component is comprised of an `Autocomplete.Input` component that a user types into, and a `Autocomplete.Menu` component that displays the list of selectable values.
 
-## Basic Example
+## Anatomy
+
+### Autocomplete.Input
+
+The text input is used to filter the options in the dropdown menu. It is also used to show the selected value (or values).
+
+The default input rendered is the `TextInput` component. A different text input component may be rendered by passing a different component to the `as` prop.
+
+The `Autocomplete.Input` should not be rendered without a `<label>` who's `htmlFor` prop matches the `Autocomplete.Input`'s `id` prop
+
+### Autocomplete.Overlay
+
+The `Autocomplete.Overlay` wraps the `Autocomplete.Menu` to display it in an [Overlay]() component.
+Most `Autocomplete` implementations will use the `Autocomplete.Overlay` component, but there could be special cases where the `Autocomplete.Menu` should be rendered directly after the `Autocomplete.Input` (for example: an `Autocomplete` that is already being rendered in an `Overlay`).
+
+### Autocomplete.Menu
+
+The `Autocomplete.Menu` component renders a list of selectable options in a non-modal dialog. The list is filtered and sorted to make it as easy as possible to find the option/s that a user is looking for.
+
+The `Autocomplete.Menu` component should be passed an `aria-labelledby` prop that matches the `id` prop of the `<label>` associated with the `Autocomplete.Input`
+
+#### Customizing how menu items are rendered
+
+By default, menu items are just rendered as a single line of text. The list in the menu is rendered using the [Action List](/ActionList) component, so menu items can be rendered with all of the same options as Action List items.
+However, the `renderGroup`, `groupMetadata`, and `renderItem` props have not been implemented yet.
+
+#### Sorting menu items
+
+Items can be displayed in any order that makes sense, but the `Autocomplete.Menu` component comes with a default sort behavior to make it easy to find selected items. The default behavior is to sort selected items to the top of the list after the menu has been closed.
+
+A function may be passed to the `sortOnCloseFn` prop if this default sorting logic is not helpful for your use case. The sort function will be only be called after the menu is closed so that items don't shift while users are trying to make a selection.
+
+#### Filtering menu items
+
+By default, menu items are filtered based on whether or not they match the value of the text input. The default filter is case-insensitive.
+
+A function may be passed to the `filterFn` prop if this default filtering behavior does not make sense for your use case.
+
+## Examples
+
+### Basic example
 
 ```jsx live
 <>
@@ -38,19 +80,7 @@ The `Autocomplete` components are used to render a text input that allows a user
 </>
 ```
 
-## Autocomplete.Input
-
-The text input is used to filter the options in the dropdown menu. It is also used to show the selected value (or values).
-
-The default input rendered is the `TextInput` component. A different text input component may be rendered by passing a different component to the `as` prop.
-
-The `Autocomplete.Input` should not be rendered without a `<label>` who's `htmlFor` prop matches the `Autocomplete.Input`'s `id` prop
-
-### Component Props
-
-`Autocomplete.Input` accepts the same props as a native `<input />`. The other props of `Autocomplete.Input` depend on what component is passed to the `as` prop. The default value for `as` is [TextInput](/TextInput)
-
-### Example: Passing a custom text input
+### Autocomplete.Input with a custom text input
 
 In this example, we're passing a [TextInputWithTokens](/TextInputWithTokens) component
 
@@ -129,16 +159,7 @@ const CustomTextInputExample = () => {
 render(<CustomTextInputExample />)
 ```
 
-## Autocomplete.Overlay
-
-The `Autocomplete.Overlay` wraps the `Autocomplete.Menu` to display it in an [Overlay]() component.
-Most `Autocomplete` implementations will use the `Autocomplete.Overlay` component, but there could be special cases where the `Autocomplete.Menu` should be rendered directly after the `Autocomplete.Input` (for example: an `Autocomplete` that is already being rendered in an `Overlay`).
-
-### Component Props
-
-<Props of={Autocomplete.Overlay} />
-
-### Example: Without `Autocomplete.Overlay`
+### Without `Autocomplete.Overlay`
 
 ```jsx live
 <>
@@ -172,22 +193,7 @@ Most `Autocomplete` implementations will use the `Autocomplete.Overlay` componen
 </>
 ```
 
-## Autocomplete.Menu
-
-The `Autocomplete.Menu` component renders a list of selectable options in a non-modal dialog. The list is filtered and sorted to make it as easy as possible to find the option/s that a user is looking for.
-
-The `Autocomplete.Menu` component should be passed an `aria-labelledby` prop that matches the `id` prop of the `<label>` associated with the `Autocomplete.Input`
-
-### Component Props
-
-<Props of={Autocomplete.Menu} />
-
-### Customizing how menu items are rendered
-
-By default, menu items are just rendered as a single line of text. The list in the menu is rendered using the [Action List](/ActionList) component, so menu items can be rendered with all of the same options as Action List items.
-However, the `renderGroup`, `groupMetadata`, and `renderItem` props have not been implemented yet.
-
-#### Example: Render items using `ActionList.Item` props
+#### Render items using `ActionList.Item` props
 
 ```javascript live noinline
 function getColorCircle(color) {
@@ -290,13 +296,9 @@ const CustomRenderedItemExample = () => {
 render(<CustomRenderedItemExample />)
 ```
 
-### Sorting menu items
+#### Customize sort when the menu is re-opened
 
-Items can be displayed in any order that makes sense, but the `Autocomplete.Menu` component comes with a default sort behavior to make it easy to find selected items. The default behavior is to sort selected items to the top of the list after the menu has been closed.
-
-A function may be passed to the `sortOnCloseFn` prop if this default sorting logic is not helpful for your use case. The sort function will be only be called after the menu is closed so that items don't shift while users are trying to make a selection.
-
-#### Example: When the menu is re-opened, selected items get sorted to the end
+In this example, selected items get sorted to the end. By default, they are sorted to the beginning.
 
 ```javascript live noinline
 const CustomSortAfterMenuClose = () => {
@@ -353,13 +355,9 @@ const CustomSortAfterMenuClose = () => {
 render(<CustomSortAfterMenuClose />)
 ```
 
-### Filtering items
+#### Custom filtering
 
-By default, menu items are filtered based on whether or not they match the value of the text input. The default filter is case-insensitive.
-
-A function may be passed to the `filterFn` prop if this default filtering behavior does not make sense for your use case.
-
-#### Example: Show any items that contain the input value
+In this example, we show any items who's `text` **contains** the input value. By default, we only show items that start with the input value.
 
 ```javascript live noinline
 const CustomSearchFilter = () => {
@@ -408,11 +406,9 @@ const CustomSearchFilter = () => {
 render(<CustomSearchFilter />)
 ```
 
-### Rendering the menu without an `Autocomplete.Overlay`
+#### Rendered without `Autocomplete.Overlay` with a `customScrollContainerRef`
 
 If a `Autocomplete.Menu` is rendered without an `Autocomplete.Overlay` inside of a scrollable container, the ref of the scrollable container must be passed to the `customScrollContainerRef` to ensure that highlighted items are always scrolled into view.
-
-#### Example: Rendered without `Autocomplete.Overlay` with a `customScrollContainerRef`
 
 ```javascript live noinline
 const InOverlayWithCustomScrollContainerRef = () => {
@@ -508,8 +504,6 @@ const InOverlayWithCustomScrollContainerRef = () => {
 
 render(<InOverlayWithCustomScrollContainerRef />)
 ```
-
-### More examples
 
 #### Select multiple values
 
@@ -656,3 +650,45 @@ const MultiSelectAddNewItem = () => {
 
 render(<MultiSelectAddNewItem />)
 ```
+
+## Props
+
+### Autocomplete.Input
+
+<PropsTable>
+  <PropsTableAsRow defaultElementType="TextInput" />
+  <PropsTablePassthroughPropsRow
+    elementName="TextInput"
+    isPolymorphic
+    passthroughPropsLink={
+      <>
+        the <Link href="/TextInput">TextInput docs</Link>
+      </>
+    }
+  />
+</PropsTable>
+
+<Props of={Autocomplete.Overlay} />
+
+<Props of={Autocomplete.Menu} />
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: true,
+    hasFigmaComponent: true
+  }}
+/>

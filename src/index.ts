@@ -71,6 +71,7 @@ export {default as CircleBadge} from './CircleBadge'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
 export {default as CircleOcticon} from './CircleOcticon'
 export type {CircleOcticonProps} from './CircleOcticon'
+export {default as ChoiceFieldset, Item} from './ChoiceFieldset'
 export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
 export {default as Details} from './Details'
@@ -123,6 +124,7 @@ export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as SelectMenu} from './SelectMenu'
+export {default as Select} from './Select'
 export type {
   SelectMenuProps,
   SelectMenuDividerProps,

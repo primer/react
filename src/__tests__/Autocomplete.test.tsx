@@ -441,4 +441,14 @@ describe('Autocomplete', () => {
       expect(handleAddItemMock).toHaveBeenCalled()
     })
   })
+
+  describe('null context', () => {
+    it('throws errors when Autocomplete context is null', () => {
+      expect(() => HTMLRender(<Autocomplete.Overlay />)).toThrowError('AutocompleteContext returned null values')
+      expect(() => HTMLRender(<Autocomplete.Input />)).toThrowError('AutocompleteContext returned null values')
+      expect(() => HTMLRender(<Autocomplete.Menu items={mockItems} selectedItemIds={[]} />)).toThrowError(
+        'AutocompleteContext returned null values'
+      )
+    })
+  })
 })

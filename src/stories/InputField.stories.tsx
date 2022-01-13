@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, TextInput, TextInputWithTokens, ThemeProvider} from '..'
+import {BaseStyles, Select, TextInput, TextInputWithTokens, ThemeProvider} from '..'
 import InputField from '../InputField'
 import {ComponentProps} from '../utils/types'
 import Autocomplete from '../Autocomplete'
@@ -120,6 +120,18 @@ export const UsingTextInputWithTokens = (args: Args) => (
         {text: 'styled-system', id: 2}
       ]}
     />
+  </InputField>
+)
+
+export const UsingSelectInput = (args: Args) => (
+  <InputField {...args}>
+    <InputField.Label>Preferred Primer component interface</InputField.Label>
+    <Select>
+      <Select.Option value="figma">Figma</Select.Option>
+      <Select.Option value="css">Primer CSS</Select.Option>
+      <Select.Option value="prc">Primer React components</Select.Option>
+      <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+    </Select>
   </InputField>
 )
 

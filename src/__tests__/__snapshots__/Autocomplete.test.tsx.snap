@@ -46,7 +46,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -171,7 +172,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -331,7 +333,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -1254,7 +1257,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -2087,7 +2091,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -2931,7 +2936,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -3905,7 +3911,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 > input {
+.c0 > input,
+.c0 > select {
   padding-left: 12px;
   padding-right: 12px;
 }
