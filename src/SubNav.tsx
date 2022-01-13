@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import {Location, Pathname} from 'history'
+import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
@@ -58,7 +58,7 @@ const SubNavLinks = styled.div<SubNavLinksProps>`
 `
 
 type StyledSubNavLinkProps = {
-  to?: Location | Pathname
+  to?: To
   selected?: boolean
 } & SxProp
 
