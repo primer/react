@@ -1,6 +1,5 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
-import {variant} from 'styled-system'
 import {get} from './constants'
 
 interface Props {
@@ -25,7 +24,7 @@ export type LabelColorOptions =
   | 'done'
   | 'sponsors'
 
-type LabelSizeKeys = 'small' | 'medium' | 'large'
+type LabelSizeKeys = 'small' | 'large'
 
 export const labelColorMap: Record<LabelColorOptions, LabelColorConfig> = {
   default: {
@@ -68,38 +67,16 @@ export const labelColorMap: Record<LabelColorOptions, LabelColorConfig> = {
   }
 }
 
-const badgeSizes: Record<LabelSizeKeys, number> = {
-  small: 20,
-  medium: 24,
-  large: 32
-}
-
-const labelVariants = variant<
-  {fontSize: number; height: string; paddingLeft: number; paddingRight: number},
-  LabelSizeKeys
->({
-  prop: 'size',
-  variants: {
-    small: {
-      fontSize: 0,
-      height: `${badgeSizes.small}px`,
-      paddingLeft: 2,
-      paddingRight: 2
-    },
-    medium: {
-      fontSize: 0,
-      height: `${badgeSizes.medium}px`,
-      paddingLeft: 2,
-      paddingRight: 2
-    },
-    large: {
-      fontSize: 1,
-      height: `${badgeSizes.large}px`,
-      paddingLeft: 3,
-      paddingRight: 3
-    }
+const badgeBoxStyle: Record<LabelSizeKeys, Record<'height' | 'padding', number>> = {
+  small: {
+    height: 20,
+    padding: 7 // hard-coded to align with Primer ViewCompnents and Primer CSS
+  },
+  large: {
+    height: 24,
+    padding: 10 // hard-coded to align with Primer ViewCompnents and Primer CSS
   }
-})
+}
 
 const LabelContainer = styled.span<Props>`
   align-items: center;
@@ -108,15 +85,17 @@ const LabelContainer = styled.span<Props>`
   border-style: solid;
   display: inline-flex;
   font-weight: ${get('fontWeights.bold')};
+  font-size: ${get('fontSizes.0')};
   line-height: 1;
   white-space: nowrap;
-  ${labelVariants};
 
-  ${({scheme = 'default'}) => {
+  ${({scheme = 'default', size = 'small'}) => {
     return css`
       background-color: transparent;
       border-color: ${labelColorMap[scheme].borderColor};
       color: ${labelColorMap[scheme].textColor};
+      height: ${badgeBoxStyle[size].height}px;
+      padding: 0 ${badgeBoxStyle[size].padding}px;
     `
   }}
 `
@@ -128,7 +107,7 @@ const Label: React.FC<Props> = ({children, size, ...other}) => (
 )
 
 Label.defaultProps = {
-  size: 'medium',
+  size: 'small',
   scheme: 'default'
 }
 

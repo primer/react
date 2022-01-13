@@ -46,8 +46,7 @@ render(
 const {Label} = drafts // ignore docs silliness; import like that ↑
 render(
   <>
-    <Label size="small">Small</Label>
-    <Label size="medium">Medium (default)</Label>
+    <Label>Small (default)</Label>
     <Label size="large">Large</Label>
   </>
 )
@@ -66,8 +65,8 @@ render(
   />
   <PropsTableRow
     name="size"
-    type="'small' | 'medium' | 'large'"
-    defaultValue="'medium'"
+    type="'small' | 'large'"
+    defaultValue="'small'"
     description="How large the label is rendered"
   />
 </PropsTable>

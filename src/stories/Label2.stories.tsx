@@ -30,9 +30,9 @@ export default {
       }
     },
     size: {
-      defaultValue: 'medium',
+      defaultValue: 'large',
       control: {
-        options: ['small', 'medium', 'large'],
+        options: ['small', 'large'],
         type: 'radio'
       }
     },
