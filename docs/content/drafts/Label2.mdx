@@ -11,31 +11,13 @@ import {MarkGithubIcon} from '@primer/octicons-react'
 
 ## Examples
 
-### Text-only
+### Basic
 
 ```javascript live noinline
 // import {Label} from '@primer/react/drafts'
 const {Label} = drafts // ignore docs silliness; import like that ↑
 
 render(<Label>Default</Label>)
-```
-
-### Filled
-
-```javascript live noinline
-// import {Label} from '@primer/react/drafts'
-const {Label} = drafts // ignore docs silliness; import like that ↑
-
-render(<Label filled>Default</Label>)
-```
-
-### With a leading visual
-
-```javascript live noinline
-// import {Label} from '@primer/react/drafts'
-const {Label} = drafts // ignore docs silliness; import like that ↑
-
-render(<Label leadingVisual={MarkGithubIcon}>Default</Label>)
 ```
 
 ### Appearances
@@ -86,20 +68,9 @@ render(
   />
   <PropsTableRow
     name="size"
-    type="'sm' | 'md' | 'lg'"
-    defaultValue="'md'"
+    type="'small' | 'medium' | 'large'"
+    defaultValue="'medium'"
     description="How large the label is rendered"
-  />
-  <PropsTableRow
-    name="filled"
-    type="boolean"
-    defaultValue="false"
-    description="Whether the label should be styled with a solid background color"
-  />
-  <PropsTableRow
-    name="leadingVisual"
-    type="React.ComponentType<any>"
-    description="The icon component to be rendered before the the label's text"
   />
 </PropsTable>
 

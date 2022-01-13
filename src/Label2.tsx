@@ -1,26 +1,31 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
-import {get} from '../constants'
-import {LabelColorOptions, LabelSizeKeys} from './types'
+import {get} from './constants'
 
 interface Props {
   /** The color of the label */
   scheme?: LabelColorOptions
   /** How large the label is rendered */
   size?: LabelSizeKeys
-  /** Whether the label should be styled with a solid background color */
-  filled?: boolean
 }
 interface LabelColorConfig {
   borderColor: (props: Props) => React.CSSProperties['color']
   textColor?: (props: Props) => React.CSSProperties['color']
 }
+export type LabelColorOptions =
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'success'
+  | 'attention'
+  | 'severe'
+  | 'danger'
+  | 'done'
+  | 'sponsors'
 
-interface FilledLabelColorConfig {
-  bgColor: (props: Props) => React.CSSProperties['color']
-  textColor?: (props: Props) => React.CSSProperties['color']
-}
+type LabelSizeKeys = 'small' | 'medium' | 'large'
 
 export const labelColorMap: Record<LabelColorOptions, LabelColorConfig> = {
   default: {
@@ -96,48 +101,6 @@ const labelVariants = variant<
   }
 })
 
-const filledLabelColorMap: Record<LabelColorOptions, FilledLabelColorConfig> = {
-  default: {
-    bgColor: get('colors.neutral.muted')
-  },
-  primary: {
-    bgColor: get('colors.neutral.emphasis'),
-    textColor: get('colors.fg.onEmphasis')
-  },
-  secondary: {
-    bgColor: get('colors.neutral.subtle'),
-    textColor: get('colors.fg.muted')
-  },
-  accent: {
-    bgColor: get('colors.accent.emphasis'),
-    textColor: get('colors.fg.onEmphasis')
-  },
-  success: {
-    bgColor: get('colors.success.emphasis'),
-    textColor: get('colors.fg.onEmphasis')
-  },
-  attention: {
-    bgColor: get('colors.attention.emphasis'),
-    textColor: get('colors.fg.onEmphasis')
-  },
-  severe: {
-    bgColor: get('colors.severe.emphasis'),
-    textColor: get('colors.fg.onEmphasis')
-  },
-  danger: {
-    bgColor: get('colors.danger.emphasis'),
-    textColor: get('colors.fg.onEmphasis')
-  },
-  done: {
-    bgColor: get('colors.done.fg'),
-    textColor: get('colors.fg.onEmphasis')
-  },
-  sponsors: {
-    bgColor: get('colors.sponsors.fg'),
-    textColor: get('colors.fg.onEmphasis')
-  }
-}
-
 const LabelContainer = styled.span<Props>`
   align-items: center;
   border-width: 1px;
@@ -149,20 +112,12 @@ const LabelContainer = styled.span<Props>`
   white-space: nowrap;
   ${labelVariants};
 
-  ${({scheme = 'default', filled}) => {
-    if (filled) {
-      return css`
-        background-color: ${filledLabelColorMap[scheme].bgColor};
-        border-color: transparent;
-        color: ${filledLabelColorMap[scheme].textColor};
-      `
-    } else {
-      return css`
-        background-color: transparent;
-        border-color: ${labelColorMap[scheme].borderColor};
-        color: ${labelColorMap[scheme].textColor};
-      `
-    }
+  ${({scheme = 'default'}) => {
+    return css`
+      background-color: transparent;
+      border-color: ${labelColorMap[scheme].borderColor};
+      color: ${labelColorMap[scheme].textColor};
+    `
   }}
 `
 
