@@ -248,7 +248,7 @@ const filterSlowly = async (query: string) => {
   return await branches.filter(name => name.includes(query))
 }
 
-export function MemexGroupBy(): JSX.Element {
+export function MixedSelection(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   const options = [

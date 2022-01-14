@@ -20,10 +20,7 @@ import {
   CalendarIcon,
   IssueOpenedIcon,
   NumberIcon,
-  XIcon,
-  RepoIcon,
-  BookIcon,
-  EyeIcon
+  XIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -36,8 +33,6 @@ import {Header} from '../../ActionList/Header'
 import BaseStyles from '../../BaseStyles'
 import Avatar from '../../Avatar'
 import {ButtonInvisible} from '../../Button'
-import TextInput from '../../TextInput'
-import Spinner from '../../Spinner'
 import Box from '../../Box'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
 
