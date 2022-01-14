@@ -98,6 +98,8 @@ const LabelContainer = styled.span<Props>`
       padding: 0 ${badgeBoxStyle[size].padding}px;
     `
   }}
+  
+  ${sx}
 `
 
 const Label: React.FC<Props> = ({children, size, ...other}) => (
