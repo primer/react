@@ -17,6 +17,11 @@ interface AnchoredOverlayPropsWithAnchor {
    * An override to the internal ref that will be spread on to the renderAnchor
    */
   anchorRef?: React.RefObject<HTMLElement>
+
+  /**
+   * An override to the internal id that will be spread on to the renderAnchor
+   */
+  anchorId?: string
 }
 
 interface AnchoredOverlayPropsWithoutAnchor {
@@ -31,6 +36,10 @@ interface AnchoredOverlayPropsWithoutAnchor {
    * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
    */
   anchorRef: React.RefObject<HTMLElement>
+  /**
+   * An override to the internal id that will be spread on to the renderAnchor
+   */
+  anchorId?: string
 }
 
 export type AnchoredOverlayWrapperAnchorProps =
@@ -80,6 +89,7 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
 export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   renderAnchor,
   anchorRef: externalAnchorRef,
+  anchorId: externalAnchorId,
   children,
   open,
   onOpen,
@@ -94,7 +104,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const anchorId = useSSRSafeId()
+  const anchorId = useSSRSafeId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
@@ -154,7 +164,6 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
-          'aria-labelledby': anchorId,
           'aria-haspopup': 'true',
           'aria-expanded': open,
           tabIndex: 0,
