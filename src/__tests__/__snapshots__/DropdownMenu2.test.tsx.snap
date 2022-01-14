@@ -98,9 +98,9 @@ exports[`DropdownMenu renders consistently 1`] = `
   fontFamily="normal"
 >
   <button
+    aria-expanded={false}
     aria-haspopup="true"
     aria-label="Select field type"
-    aria-labelledby="react-aria-1"
     className="c1"
     id="react-aria-1"
     onClick={[Function]}
