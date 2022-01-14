@@ -11,7 +11,7 @@ export default {
   title: 'Labels/Label',
   component: Label,
   argTypes: {
-    scheme: {
+    variant: {
       defaultValue: 'default',
       control: {
         options: [

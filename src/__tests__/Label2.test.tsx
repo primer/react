@@ -12,8 +12,8 @@ describe('Label2', () => {
     expect(label.textContent).toEqual('Default')
   })
   it('should have no axe violations', async () => {
-    for (const scheme in labelColorMap) {
-      const {container} = render(<Label scheme={scheme as LabelColorOptions}>Default</Label>)
+    for (const variant in labelColorMap) {
+      const {container} = render(<Label variant={variant as LabelColorOptions}>Default</Label>)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
       cleanup()

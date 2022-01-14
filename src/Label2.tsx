@@ -4,7 +4,7 @@ import {get} from './constants'
 
 interface Props {
   /** The color of the label */
-  scheme?: LabelColorOptions
+  variant?: LabelColorOptions
   /** How large the label is rendered */
   size?: LabelSizeKeys
 }
@@ -89,11 +89,11 @@ const LabelContainer = styled.span<Props>`
   line-height: 1;
   white-space: nowrap;
 
-  ${({scheme = 'default', size = 'small'}) => {
+  ${({variant = 'default', size = 'small'}) => {
     return css`
       background-color: transparent;
-      border-color: ${labelColorMap[scheme].borderColor};
-      color: ${labelColorMap[scheme].textColor};
+      border-color: ${labelColorMap[variant].borderColor};
+      color: ${labelColorMap[variant].textColor};
       height: ${badgeBoxStyle[size].height}px;
       padding: 0 ${badgeBoxStyle[size].padding}px;
     `
@@ -108,7 +108,7 @@ const Label: React.FC<Props> = ({children, size, ...other}) => (
 
 Label.defaultProps = {
   size: 'small',
-  scheme: 'default'
+  variant: 'default'
 }
 
 export default Label
