@@ -2,7 +2,7 @@ import React from 'react'
 import styled, {css} from 'styled-components'
 import {get} from './constants'
 
-interface Props {
+export type LabelProps = {
   /** The color of the label */
   variant?: LabelColorOptions
   /** How large the label is rendered */
