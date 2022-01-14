@@ -13,7 +13,7 @@ interface Props {
 }
 
 const InputCaption: React.FC<Props> = ({children, disabled, id}) => (
-  <Text color={disabled ? 'fg.subtle' : 'fg.muted'} fontSize={0} id={id}>
+  <Text color={disabled ? 'fg.subtle' : 'fg.muted'} display="block" fontSize={0} id={id}>
     {children}
   </Text>
 )

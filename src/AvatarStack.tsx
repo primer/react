@@ -20,7 +20,6 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     height: 20px;
     width: 20px;
     box-shadow: 0 0 0 1px ${get('colors.canvas.default')};
-    margin-left: -11px;
     position: relative;
     overflow: hidden;
     transition: margin 0.2s ease-in-out, opacity 0.2s ease-in-out, visibility 0.2s ease-in-out,
@@ -28,54 +27,59 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
 
     &:first-child {
       margin-left: 0;
+      z-index: 10;
     }
+
+    &:nth-child(n + 2) {
+      margin-left: -11px;
+      z-index: 9;
+    }
+
+    &:nth-child(n + 3) {
+      margin-left: -17px;
+      opacity: ${100 - 3 * 15}%;
+      z-index: 8;
+    }
+
     &:nth-child(n + 4) {
-      display: none;
+      opacity: ${100 - 4 * 15}%;
+      z-index: 7;
+    }
+
+    &:nth-child(n + 5) {
+      opacity: ${100 - 5 * 15}%;
+      z-index: 6;
+    }
+
+    &:nth-child(n + 6) {
+      opacity: 0;
+      visibility: hidden;
     }
   }
 
   &.pc-AvatarStack--two {
     min-width: 30px;
-    .pc-AvatarItem {
-      &:nth-child(n + 3) {
-        display: none;
-      }
-    }
   }
 
   &.pc-AvatarStack--three-plus {
     min-width: 38px;
-    .pc-AvatarItem {
-      &:nth-child(3) {
-        opacity: ${100 - 3 * 15}%;
-        margin-left: -17px;
-      }
-      &:nth-child(4) {
-        opacity: ${100 - 4 * 15}%;
-        margin-left: -17px;
-      }
-      &:nth-child(5) {
-        opacity: ${100 - 5 * 15}%;
-        margin-left: -17px;
-      }
-      &:nth-child(n + 4) {
-        display: block;
-      }
-      &:nth-child(n + 6) {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
   }
 
   &.pc-AvatarStack--right {
     justify-content: flex-end;
     .pc-AvatarItem {
       margin-left: 0 !important;
-      margin-right: -11px;
 
       &:first-child {
         margin-right: 0;
+      }
+
+      &:nth-child(n + 2) {
+        margin-right: -11px;
+      }
+
+      &:nth-child(n + 3) {
+        margin-right: -17px;
       }
     }
 
@@ -91,20 +95,6 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
             margin-right: 0 !important;
           }
         }
-      }
-    }
-  }
-
-  &.pc-AvatarStack--three-plus.pc-AvatarStack--right {
-    .pc-AvatarItem {
-      &:nth-child(3) {
-        margin-right: -17px;
-      }
-      &:nth-child(4) {
-        margin-right: -17px;
-      }
-      &:nth-child(5) {
-        margin-right: -17px;
       }
     }
   }
@@ -126,11 +116,11 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   ${sx};
 `
 const transformChildren = (children: React.ReactNode) => {
-  return React.Children.map(children, (child, index) => {
+  return React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
-      className: classnames(child.props.className, 'pc-AvatarItem'),
-      sx: {zIndex: 10 - index, ...child.props.sx}
+      ...child.props,
+      className: classnames(child.props.className, 'pc-AvatarItem')
     })
   })
 }
