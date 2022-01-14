@@ -1,17 +1,16 @@
 import React from 'react'
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
+import {variant} from 'styled-system'
+import sx, {SxProp} from './sx'
 import {get} from './constants'
 
-interface Props {
+type LabelProps = {
   /** The color of the label */
   variant?: LabelColorOptions
   /** How large the label is rendered */
   size?: LabelSizeKeys
-}
-interface LabelColorConfig {
-  borderColor: (props: Props) => React.CSSProperties['color']
-  textColor?: (props: Props) => React.CSSProperties['color']
-}
+} & SxProp
+
 export type LabelColorOptions =
   | 'default'
   | 'primary'
@@ -26,60 +25,67 @@ export type LabelColorOptions =
 
 type LabelSizeKeys = 'small' | 'large'
 
-export const labelColorMap: Record<LabelColorOptions, LabelColorConfig> = {
+export const variants: Record<
+  LabelColorOptions,
+  {
+    borderColor: React.CSSProperties['color']
+    color?: React.CSSProperties['color']
+  }
+> = {
   default: {
-    borderColor: get('colors.border.default')
+    borderColor: 'border.default'
   },
   primary: {
-    borderColor: get('colors.fg.default')
+    borderColor: 'fg.default'
   },
   secondary: {
-    borderColor: get('colors.border.muted'),
-    textColor: get('colors.fg.muted')
+    borderColor: 'border.muted',
+    color: 'fg.muted'
   },
   accent: {
-    borderColor: get('colors.accent.emphasis'),
-    textColor: get('colors.accent.fg')
+    borderColor: 'accent.emphasis',
+    color: 'accent.fg'
   },
   success: {
-    borderColor: get('colors.success.emphasis'),
-    textColor: get('colors.success.fg')
+    borderColor: 'success.emphasis',
+    color: 'success.fg'
   },
   attention: {
-    borderColor: get('colors.attention.emphasis'),
-    textColor: get('colors.attention.fg')
+    borderColor: 'attention.emphasis',
+    color: 'attention.fg'
   },
   severe: {
-    borderColor: get('colors.severe.emphasis'),
-    textColor: get('colors.severe.fg')
+    borderColor: 'severe.emphasis',
+    color: 'severe.fg'
   },
   danger: {
-    borderColor: get('colors.danger.emphasis'),
-    textColor: get('colors.danger.fg')
+    borderColor: 'danger.emphasis',
+    color: 'danger.fg'
   },
   done: {
-    borderColor: get('colors.done.fg'),
-    textColor: get('colors.done.emphasis')
+    borderColor: 'done.fg',
+    color: 'done.emphasis'
   },
   sponsors: {
-    borderColor: get('colors.sponsors.fg'),
-    textColor: get('colors.sponsors.emphasis')
+    borderColor: 'sponsors.fg',
+    color: 'sponsors.emphasis'
   }
 }
 
-const badgeBoxStyle: Record<LabelSizeKeys, Record<'height' | 'padding', number>> = {
+const sizes: Record<LabelSizeKeys, {height: React.CSSProperties['height']; padding: React.CSSProperties['padding']}> = {
   small: {
-    height: 20,
-    padding: 7 // hard-coded to align with Primer ViewCompnents and Primer CSS
+    height: '20px',
+    padding: '0 7px' // hard-coded to align with Primer ViewCompnents and Primer CSS
   },
   large: {
-    height: 24,
-    padding: 10 // hard-coded to align with Primer ViewCompnents and Primer CSS
+    height: '24px',
+    padding: '0 10px' // hard-coded to align with Primer ViewCompnents and Primer CSS
   }
 }
 
-const LabelContainer = styled.span<Props>`
+const Label = styled.span<LabelProps>`
   align-items: center;
+  background-color: transparent;
   border-width: 1px;
   border-radius: 999px;
   border-style: solid;
@@ -88,23 +94,10 @@ const LabelContainer = styled.span<Props>`
   font-size: ${get('fontSizes.0')};
   line-height: 1;
   white-space: nowrap;
-
-  ${({variant = 'default', size = 'small'}) => {
-    return css`
-      background-color: transparent;
-      border-color: ${labelColorMap[variant].borderColor};
-      color: ${labelColorMap[variant].textColor};
-      height: ${badgeBoxStyle[size].height}px;
-      padding: 0 ${badgeBoxStyle[size].padding}px;
-    `
-  }}
+  ${variant({variants})};
+  ${variant({prop: 'size', variants: sizes})};
+  ${sx};
 `
-
-const Label: React.FC<Props> = ({children, size, ...other}) => (
-  <LabelContainer size={size} {...other}>
-    {children}
-  </LabelContainer>
-)
 
 Label.defaultProps = {
   size: 'small',

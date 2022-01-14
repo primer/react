@@ -35,12 +35,6 @@ export default {
         options: ['small', 'large'],
         type: 'radio'
       }
-    },
-    filled: {
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
     }
   },
   decorators: [

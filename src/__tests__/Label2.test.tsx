@@ -2,7 +2,7 @@ import React from 'react'
 import {render, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import Label, {labelColorMap, LabelColorOptions} from '../Label2'
+import Label, {variants, LabelColorOptions} from '../Label2'
 expect.extend(toHaveNoViolations)
 
 describe('Label2', () => {
@@ -12,7 +12,7 @@ describe('Label2', () => {
     expect(label.textContent).toEqual('Default')
   })
   it('should have no axe violations', async () => {
-    for (const variant in labelColorMap) {
+    for (const variant in variants) {
       const {container} = render(<Label variant={variant as LabelColorOptions}>Default</Label>)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
