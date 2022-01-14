@@ -41,10 +41,16 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
     }
 
     /** if list is inside a Menu, it will get a role from the Menu */
-    const {listRole} = React.useContext(ActionListContainerContext)
+    const {listRole, listLabelledBy} = React.useContext(ActionListContainerContext)
 
     return (
-      <ListBox sx={merge(styles, sxProp as SxProp)} role={role || listRole} {...props} ref={forwardedRef}>
+      <ListBox
+        sx={merge(styles, sxProp as SxProp)}
+        role={role || listRole}
+        aria-labelledby={listLabelledBy}
+        {...props}
+        ref={forwardedRef}
+      >
         <ListContext.Provider value={{variant, selectionVariant, showDividers}}>{props.children}</ListContext.Provider>
       </ListBox>
     )
