@@ -86,7 +86,6 @@ exports[`SelectPanel renders consistently 1`] = `
   <button
     aria-expanded={false}
     aria-haspopup="true"
-    aria-labelledby="react-aria-1"
     className="c1"
     id="react-aria-1"
     onClick={[Function]}
