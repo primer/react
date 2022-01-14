@@ -4,7 +4,7 @@ import {variant} from 'styled-system'
 import sx, {SxProp} from './sx'
 import {get} from './constants'
 
-type LabelProps = {
+export type LabelProps = {
   /** The color of the label */
   variant?: LabelColorOptions
   /** How large the label is rendered */
