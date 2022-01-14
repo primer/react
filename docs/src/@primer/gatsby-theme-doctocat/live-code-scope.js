@@ -45,7 +45,7 @@ export default function resolveScope(metastring) {
   return {
     ...doctocatComponents,
     ...primerComponents,
-    ...(metastring.includes('drafts') ? drafts : {}),
+    ...(metastring.includes('scope=drafts') ? drafts : {}),
     ReactRouterLink,
     State,
     CheckIcon,
