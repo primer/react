@@ -30,7 +30,7 @@ const ActionList = Object.assign(_ActionList, {
 })
 
 const meta: Meta = {
-  title: 'Composite components/ActionList2/patterns',
+  title: 'Composite components/ActionList2/examples',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (

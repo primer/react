@@ -153,5 +153,5 @@ describe('ActionList', () => {
   })
 
   checkStoriesForAxeViolations('ActionList2/fixtures')
-  checkStoriesForAxeViolations('ActionList2/patterns')
+  checkStoriesForAxeViolations('ActionList2/examples')
 })
