@@ -140,11 +140,15 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     const {theme} = useTheme()
     const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
     const slideAnimationEasing = get('animation.easeOutCubic')(theme)
+    const handleOnEscape = (event: KeyboardEvent) => {
+      event.preventDefault()
+      onEscape(event)
+    }
 
     useOverlay({
       overlayRef,
       returnFocusRef,
-      onEscape,
+      onEscape: handleOnEscape,
       ignoreClickRefs,
       onClickOutside,
       initialFocusRef,
