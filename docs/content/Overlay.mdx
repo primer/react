@@ -144,13 +144,8 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   />
   <PropsTableRow
     name="width"
-    type={
-      <>
-        <InlineCode>small</InlineCode>, <InlineCode>medium</InlineCode>, <InlineCode>large</InlineCode>,{' '}
-        <InlineCode>xlarge</InlineCode>, <InlineCode>xxlarge</InlineCode>, <InlineCode>auto</InlineCode>
-      </>
-    }
-    defaultValue="auto"
+    type="'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'"
+    defaultValue="'auto'"
     description={
       <>
         Sets the width of the <InlineCode>Overlay</InlineCode>, pick from our set list of widths, or pass{' '}
@@ -164,13 +159,8 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   />
   <PropsTableRow
     name="height"
-    type={
-      <>
-        <InlineCode>xsmall</InlineCode>, <InlineCode>small</InlineCode>, <InlineCode>medium</InlineCode>,{' '}
-        <InlineCode>large</InlineCode>, <InlineCode>xlarge</InlineCode>, <InlineCode>auto</InlineCode>
-      </>
-    }
-    defaultValue="auto"
+    type="'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'"
+    defaultValue="'auto'"
     description={
       <>
         Sets the height of the <InlineCode>Overlay</InlineCode>, pick from our set list of heights, or pass{' '}
@@ -184,12 +174,8 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   />
   <PropsTableRow
     name="visibility"
-    type={
-      <>
-        <InlineCode>visible</InlineCode>, <InlineCode>hidden</InlineCode>
-      </>
-    }
-    defaultValue="visible"
+    type="'visible' | 'hidden'"
+    defaultValue="'visible'"
     description={
       <>
         Sets the visibility of the <InlineCode>Overlay</InlineCode>.
@@ -198,15 +184,7 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   />
   <PropsTableRow
     name="anchorSide"
-    type={
-      <>
-        <InlineCode>inside-top</InlineCode>, <InlineCode>inside-bottom</InlineCode>,{' '}
-        <InlineCode>inside-left</InlineCode>, <InlineCode>inside-right</InlineCode>,{' '}
-        <InlineCode>inside-center</InlineCode>, <InlineCode>outside-top</InlineCode>,{' '}
-        <InlineCode>outside-bottom</InlineCode>, <InlineCode>outside-left</InlineCode>,{' '}
-        <InlineCode>outside-right</InlineCode>
-      </>
-    }
+    type="'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'"
     description={
       <>If provided, the Overlay will slide into position from the side of the anchor with a brief animation</>
     }
@@ -236,7 +214,6 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   <PropsTableRow
     name="portalContainerName"
     type="string"
-    defaultValue={0}
     description={
       <>
         If defined, Overlays will be rendered in the named portal. See also <InlineCode>Portal</InlineCode>.
