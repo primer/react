@@ -18,6 +18,8 @@ import {Pagehead} from '@primer/react'
 
 ## Props
 
+### Pagehead
+
 <PropsTable>
   <PropsTableRow
     name="as"

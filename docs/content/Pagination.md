@@ -172,6 +172,8 @@ export default {
 
 ## Props
 
+### Pagination
+
 <PropsTable>
   <PropsTableRow
     name="currentPage"
