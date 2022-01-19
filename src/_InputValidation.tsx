@@ -24,11 +24,11 @@ const InputValidation: React.FC<Props> = ({children, id, validationStatus}) => {
 
   return (
     <Text
-      display="flex"
-      color={fgColor}
       fontSize={0}
       sx={{
-        alignItems: 'baseline',
+        alignItems: 'center',
+        color: fgColor,
+        display: 'flex',
         a: {
           color: 'currentColor',
           textDecoration: 'underline'
@@ -36,7 +36,7 @@ const InputValidation: React.FC<Props> = ({children, id, validationStatus}) => {
       }}
     >
       {IconComponent && (
-        <Box as="span" mr={1}>
+        <Box as="span" mr={1} sx={{display: 'flex'}}>
           <IconComponent size={12} fill="currentColor" />
         </Box>
       )}

@@ -1,0 +1,125 @@
+---
+componentId: select
+title: Select
+description: Use a select input when a user needs to select one option from a long list
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/Select.tsx
+storybook: '/react/storybook?path=/story/forms-select--default'
+---
+
+import {Select, Text} from '@primer/react'
+
+## Examples
+
+### Basic
+
+```jsx live
+<>
+  <Text fontWeight="bold" fontSize={1} as="label" display="block" htmlFor="basic">
+    Preferred Primer component interface
+  </Text>
+  <Select id="basic">
+    <Select.Option value="figma">Figma</Select.Option>
+    <Select.Option value="css">Primer CSS</Select.Option>
+    <Select.Option value="prc">Primer React components</Select.Option>
+    <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+  </Select>
+</>
+```
+
+### With grouped options
+
+```jsx live
+<>
+  <Text fontWeight="bold" fontSize={1} as="label" display="block" htmlFor="grouped">
+    Preferred Primer component interface
+  </Text>
+  <Select id="grouped">
+    <Select.OptGroup label="GUI">
+      <Select.Option value="figma">Figma</Select.Option>
+    </Select.OptGroup>
+    <Select.OptGroup label="Code">
+      <Select.Option value="css">Primer CSS</Select.Option>
+      <Select.Option value="prc">Primer React components</Select.Option>
+      <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+    </Select.OptGroup>
+  </Select>
+</>
+```
+
+### With a placeholder
+
+```jsx live
+<>
+  <Text fontWeight="bold" fontSize={1} as="label" display="block" htmlFor="withPlaceholder">
+    Preferred Primer component interface
+  </Text>
+  <Select id="withPlaceholder" placeholder="Pick an interface">
+    <Select.Option value="figma">Figma</Select.Option>
+    <Select.Option value="css">Primer CSS</Select.Option>
+    <Select.Option value="prc">Primer React components</Select.Option>
+    <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+  </Select>
+</>
+```
+
+## Props
+
+### Select
+
+<PropsTable>
+  <PropsTableRow
+    name="block"
+    type="boolean"
+    defaultValue="false"
+    description={<>Creates a full width input element</>}
+  />
+  <PropsTableRow
+    name="contrast"
+    type="boolean"
+    defaultValue="false"
+    description="Changes background color to a higher contrast color"
+  />
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large'"
+    description="Creates a smaller or larger input than the default."
+  />
+  <PropsTableRow name="validationStatus" type="'warning' | 'error'" description="Style the input to match the status" />
+  <PropsTablePassthroughPropsRow
+    elementName="select"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#attributes">MDN</Link>
+    }
+  />
+
+</PropsTable>
+
+### Select.OptGroup
+
+The `Select.OptGroup` component accepts the same props as a native HTML [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup).
+
+### Select.Option
+
+The `Select.Option` component accepts the same props as a native HTML [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option).
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
