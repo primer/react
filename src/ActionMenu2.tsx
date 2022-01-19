@@ -1,11 +1,12 @@
-import Button, {ButtonProps} from './Button'
 import React from 'react'
 import {useSSRSafeId} from '@react-aria/ssr'
+import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate} from './hooks'
 import {Divider} from './ActionList2/Divider'
 import {ActionListContainerContext} from './ActionList2/ActionListContainerContext'
+import {Button, ButtonProps} from './Button2'
 import {MandateProps} from './utils/types'
 
 type MenuContextProps = Pick<
@@ -75,7 +76,7 @@ export type MenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>((props, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
-      <Button {...props} />
+      <Button trailingIcon={TriangleDownIcon} type="button" {...props} />
     </Anchor>
   )
 })
