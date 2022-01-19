@@ -59,7 +59,7 @@ import {ActionMenu} from '@primer/react/lib/drafts'
 
 &nbsp;
 
-```jsx live scope=drafts
+```jsx live drafts
 <ActionMenu>
   <ActionMenu.Button>Menu</ActionMenu.Button>
 
@@ -81,7 +81,7 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 
 &nbsp;
 
-```jsx live scope=drafts
+```jsx live drafts
 <ActionMenu>
   <ActionMenu.Anchor>
     <ButtonInvisible aria-label="Open column options">
@@ -116,7 +116,7 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 
 ### With Groups
 
-```jsx live scope=drafts
+```jsx live drafts
 <ActionMenu>
   <ActionMenu.Button>Open column menu</ActionMenu.Button>
 
@@ -182,7 +182,7 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor:
 
-```javascript live noinline scope=drafts
+```javascript live noinline drafts
 const Example = () => {
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.createRef()
@@ -215,7 +215,7 @@ render(<Example />)
 
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`:
 
-```javascript live noinline scope=drafts
+```javascript live noinline drafts
 const handleEscape = () => alert('you hit escape!')
 
 render(
