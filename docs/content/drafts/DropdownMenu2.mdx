@@ -33,13 +33,13 @@ import {CalendarIcon, IterationsIcon, NumberIcon, SingleSelectIcon, TypographyIc
           </DropdownMenu.Button>
           <DropdownMenu.Overlay width="medium">
             <ActionList>
-              {fieldTypes.map((type, index) => (
+              {fieldTypes.map(({icon: Icon, name}, index) => (
                 <ActionList.Item
                   key={index}
                   selected={index === selectedIndex}
                   onSelect={() => setSelectedIndex(index)}
                 >
-                  <type.icon /> {type.name}
+                  <Icon /> {name}
                 </ActionList.Item>
               ))}
             </ActionList>
