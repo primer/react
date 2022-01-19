@@ -7,7 +7,7 @@ storybook: '/react/storybook?path=/story/composite-components-dropdownmenu2'
 description: Use DropdownMenu to select a single option from a list of menu options.
 ---
 
-import {Box, Text, Avatar} from '@primer/react'
+import {Box, Avatar} from '@primer/react'
 import {DropdownMenu, ActionList} from '@primer/react/drafts'
 import {Props} from '../../src/props'
 import State from '../../components/State'
@@ -27,7 +27,6 @@ import {CalendarIcon, IterationsIcon, NumberIcon, SingleSelectIcon, TypographyIc
     const selectedType = fieldTypes[selectedIndex]
     return (
       <Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6}}>
-        <Text sx={{fontSize: 1, mb: 1}}>Select field type:</Text>
         <DropdownMenu>
           <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
             {selectedType.name}
@@ -250,31 +249,103 @@ Use `DropdownMenu` to select an option from a small list. If you’re looking fo
 
 ### DropdownMenu
 
-| Name         | Type                           | Default | Description                                                                                                              |
-| :----------- | :----------------------------- | :-----: | :----------------------------------------------------------------------------------------------------------------------- |
-| children\*   | `React.ReactElement[]`         |    -    | Required. Recommended: `DropdownMenu.Button` or `DropdownMenu.Anchor` with `DropdownMenu.Overlay`                        |
-| open         | `boolean`                      |    -    | Optional. If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`. |
-| onOpenChange | `(open: boolean) => void`      |    -    | Optional. If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.         |
-| anchorRef    | `React.RefObject<HTMLElement>` |    -    | Optional. Useful for defining an external anchor                                                                         |
+<PropsTable>
+  <PropsTableRow
+    required
+    name="children"
+    type="React.ReactElement[]"
+    description={
+      <>
+        Recommended: <InlineCode>DropdownMenu.Button</InlineCode> or <InlineCode>DropdownMenu.Anchor</InlineCode> with{' '}
+        <InlineCode>DropdownMenu.Overlay</InlineCode>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="open"
+    type="boolean"
+    description={
+      <>
+        If defined, will control the open/closed state of the overlay. Must be used in conjuction with{' '}
+        <InlineCode>onOpenChange</InlineCode>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="onOpenChange"
+    type="(open: boolean) => void"
+    description={
+      <>
+        If defined, will control the open/closed state of the overlay. Must be used in conjuction with{' '}
+        <InlineCode>open</InlineCode>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="anchorRef"
+    type="React.RefObject<HTMLElement>"
+    description="Useful for defining an external anchor"
+  />
+</PropsTable>
 
 ### DropdownMenu.Button
 
-| Type                                          | Default | Description                                                                                                                                                    |
-| :-------------------------------------------- | :-----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Button props](/drafts/Button2#api-reference) |    -    | Optional. You can pass all of the props that you would pass to a [`Button`](/drafts/Button2#api-reference) component like `variant`, `leadingIcon`, `sx`, etc. |
+<PropsTable>
+  <PropsTableRow
+    name="ButtonProps"
+    type={
+      <>
+        <Link href="/drafts/Button2#api-reference">ButtonProps</Link>
+      </>
+    }
+    description={
+      <>
+        You can pass all of the props that you would pass to a{' '}
+        <Link href="/drafts/Button2#api-reference">
+          <InlineCode>Button</InlineCode>
+        </Link>{' '}
+        component like <InlineCode>variant</InlineCode>, <InlineCode>leadingIcon</InlineCode>,{' '}
+        <InlineCode>sx</InlineCode>, etc.
+      </>
+    }
+  />
+</PropsTable>
 
 ### DropdownMenu.Anchor
 
-| Name       | Type                 | Default | Description                       |
-| :--------- | :------------------- | :-----: | :-------------------------------- |
-| children\* | `React.ReactElement` |    -    | Required. Accepts a single child. |
+<PropsTable>
+  <PropsTableRow required name="children" type="React.ReactElement" description="Accepts a single child" />
+</PropsTable>
 
 ### DropdownMenu.Overlay
 
-| Name                                     | Type                  |       Default       | Description                                                                                   |
-| :--------------------------------------- | :-------------------- | :-----------------: | :-------------------------------------------------------------------------------------------- |
-| children\*                               | `React.ReactElement[] | React.ReactElement` | Required. Recommended: [`ActionList`](/drafts/ActionList2)                                    |
-| [OverlayProps](/Overlay#component-props) | -                     |          -          | Optional. Props to be spread on the internal [`AnchoredOverlay`](/AnchoredOverlay) component. |
+<PropsTable>
+  <PropsTableRow
+    required
+    name="children"
+    type="React.ReactElement[]"
+    description={
+      <>
+        Recommended:{' '}
+        <Link href="/drafts/ActionList2">
+          <InlineCode>ActionList</InlineCode>
+        </Link>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="OverlayProps"
+    type="OverlayProps"
+    description={
+      <>
+        Props to be spread on the internal{' '}
+        <Link href="/AnchoredOverlay">
+          <InlineCode>AnchoredOverlay</InlineCode>
+        </Link>
+      </>
+    }
+  />
+</PropsTable>
 
 ## Status
 
