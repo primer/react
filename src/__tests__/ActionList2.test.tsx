@@ -152,5 +152,6 @@ describe('ActionList', () => {
     cleanup()
   })
 
-  checkStoriesForAxeViolations('ActionList2')
+  checkStoriesForAxeViolations('ActionList2/fixtures')
+  checkStoriesForAxeViolations('ActionList2/examples')
 })
