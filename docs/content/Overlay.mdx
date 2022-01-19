@@ -144,7 +144,12 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   />
   <PropsTableRow
     name="width"
-    type="'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'"
+    type={`| 'small' 
+| 'medium' 
+| 'large' 
+| 'xlarge' 
+| 'xxlarge' 
+| 'auto'`}
     defaultValue="'auto'"
     description={
       <>
@@ -159,7 +164,12 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   />
   <PropsTableRow
     name="height"
-    type="'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'"
+    type={`| 'xsmall' 
+| 'small' 
+| 'medium' 
+| 'large' 
+| 'xlarge' 
+| 'auto'`}
     defaultValue="'auto'"
     description={
       <>
@@ -174,7 +184,8 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   />
   <PropsTableRow
     name="visibility"
-    type="'visible' | 'hidden'"
+    type={`| 'visible' 
+| 'hidden'`}
     defaultValue="'visible'"
     description={
       <>
@@ -184,7 +195,15 @@ See the W3C accessibility recommendations for modals [here](https://www.w3.org/T
   />
   <PropsTableRow
     name="anchorSide"
-    type="'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'"
+    type={`| 'inside-top' 
+| 'inside-bottom' 
+| 'inside-left' 
+| 'inside-right' 
+| 'inside-center' 
+| 'outside-top' 
+| 'outside-bottom' 
+| 'outside-left' 
+| 'outside-right'`}
     description={
       <>If provided, the Overlay will slide into position from the side of the anchor with a brief animation</>
     }
