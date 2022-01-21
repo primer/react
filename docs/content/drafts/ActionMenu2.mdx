@@ -84,15 +84,13 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 &nbsp;
 
 ```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/react/drafts'
-const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
+// import {ActionMenu, ActionList, IconButton} from '@primer/react/drafts'
+const {ActionMenu, ActionList, IconButton} = drafts // ignore docs silliness; import like that ↑
 
 render(
   <ActionMenu>
     <ActionMenu.Anchor>
-      <ButtonInvisible aria-label="Open column options">
-        <KebabHorizontalIcon />
-      </ButtonInvisible>
+      <IconButton variant="invisible" icon={KebabHorizontalIcon} aria-label="Open column options" />
     </ActionMenu.Anchor>
 
     <ActionMenu.Overlay>
@@ -196,7 +194,7 @@ To create an anchor outside of the menu, you need to switch to controlled mode f
 
 ```javascript live noinline
 // import {ActionMenu, ActionList} from '@primer/react/drafts'
-const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
+const {ActionMenu, ActionList, Button} = drafts // ignore docs silliness; import like that ↑
 
 const Example = () => {
   const [open, setOpen] = React.useState(false)
@@ -281,9 +279,9 @@ Use `ActionMenu` to choose an action from a list. If you’re looking for single
 
 ### ActionMenu.Button
 
-| Type                                    | Default | Description                                                                                                          |
-| :-------------------------------------- | :-----: | :------------------------------------------------------------------------------------------------------------------- |
-| [ButtonProps](/Buttons#component-props) |    -    | Optional. You can pass all of the props that you would pass to a [`Button`](/Buttons) component like `variant`, `sx` |
+| Type                                             | Default | Description                                                                                                       |
+| :----------------------------------------------- | :-----: | :---------------------------------------------------------------------------------------------------------------- |
+| [Button v2 props](/drafts/Button2#api-reference) |    -    | You can pass all of the props that you would pass to a [`Button`](/drafts/Button2) component like `variant`, `sx` |
 
 ### ActionMenu.Anchor
 
@@ -328,3 +326,4 @@ Use `ActionMenu` to choose an action from a list. If you’re looking for single
 - [ActionList](/drafts/ActionList2)
 - [DropdownMenu](/DropdownMenu)
 - [SelectPanel](/SelectPanel)
+- [Button](/drafts/Button2)
