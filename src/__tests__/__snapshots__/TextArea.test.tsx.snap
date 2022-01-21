@@ -2,10 +2,9 @@
 
 exports[`TextArea renders consistently 1`] = `
 .c0 {
-  min-height: 124px;
   font-family: inherit;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 1.25;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
@@ -45,12 +44,6 @@ exports[`TextArea renders consistently 1`] = `
 
 .c0::placeholder {
   color: #6e7781;
-}
-
-@media (min-width:360px) {
-  .c0 {
-    min-width: 300px;
-  }
 }
 
 @media (min-width:768px) {
