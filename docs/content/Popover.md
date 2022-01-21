@@ -124,12 +124,20 @@ render(<PopoverDemo />)
   />
   <PropsTableRow
     name="caret"
-    defaultValue="top"
-    type={
-      <>
-        <InlineCode>top</InlineCode>, <InlineCode>bottom</InlineCode>, <InlineCode>left</InlineCode>, <InlineCode>right</InlineCode>, <InlineCode>bottom-left</InlineCode>, <InlineCode>bottom-right</InlineCode>, <InlineCode>top-left</InlineCode>, <InlineCode>top-right</InlineCode>, <InlineCode>left-bottom</InlineCode>, <InlineCode>left-top</InlineCode>, <InlineCode>right-bottom</InlineCode>, or <InlineCode>right-top</InlineCode>
-      </>
-    }
+    defaultValue="'top'"
+	    type={`| 'top'
+| 'bottom'
+| 'left'
+| 'right'
+| 'bottom-left'
+| 'bottom-right'
+| 'top-left'
+| 'top-right'
+| 'left-bottom'
+| 'left-top'
+| 'right-bottom'
+| 'right-top'
+  `}
     description="Controls the position of the caret"
   />
   <PropsTableRow

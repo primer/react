@@ -31,15 +31,13 @@ If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be s
 ### ProgressBar
 
 <PropsTable>
-  <PropsTableRow name="progress" type="number" description="Used to set the size of the green bar" />
+  <PropsTableRow name="progress" type="number" description="Used to set the size of the green bar" defaultValue={0} />
   <PropsTableRow
     name="barSize"
-    type={
-      <>
-        <InlineCode>small</InlineCode>, <InlineCode>large</InlineCode>, or <InlineCode>default</InlineCode>
-      </>
-    }
-    defaultValue="default"
+    type={`| 'small'
+| 'large'
+| 'default'`}
+    defaultValue="'default'"
     description="Controls the height of the progress bar. If omitted, height is set to the default height."
   />
   <PropsTableRow name="inline" type="boolean" defaultValue="false" description="Styles the progress bar inline" />
