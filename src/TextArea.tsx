@@ -10,7 +10,7 @@ export type TextAreaProps = {
    */
   disabled?: boolean
   /**
-   * Indicates whether the TextArea must be checked
+   * Indicates whether the TextArea is a required form field
    */
   required?: boolean
   /**
@@ -25,14 +25,6 @@ export type TextAreaProps = {
    * Allows resizing of the textarea
    */
   resize?: 'none' | 'both' | 'horizontal' | 'vertical'
-  /**
-   * Applies a custom width to the textarea
-   */
-  width?: number
-  /**
-   * Applies a custom height to the textarea
-   */
-  height?: number
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
 
@@ -88,27 +80,11 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
       display: flex;
     `}
 
-  
-
   ${props =>
     props.resize &&
     css`
       resize: ${props.resize};
     `}
-
-    ${props =>
-    props.width &&
-    css`
-      resize: ${props.resize === 'vertical' && !props.height ? 'vertical' : 'none'};
-      width: ${props.width}px;
-    `} 
-
-    ${props =>
-    props.height &&
-    css`
-      resize: ${props.resize === 'horizontal' && !props.width ? 'horizontal' : 'none'};
-      height: ${props.height}px;
-    `} 
 
     ${props =>
     props.disabled &&
@@ -133,10 +109,7 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
  * This component accepts all native HTML <textarea> attributes as props.
  */
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  (
-    {disabled, sx: sxProp, required, validationStatus, width, height, resize = 'both', ...rest}: TextAreaProps,
-    ref
-  ): ReactElement => {
+  ({disabled, sx: sxProp, required, validationStatus, resize = 'both', ...rest}: TextAreaProps, ref): ReactElement => {
     return (
       <StyledTextArea
         ref={ref}
@@ -144,8 +117,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
         sx={sxProp}
         validationStatus={validationStatus}
         resize={resize}
-        width={width}
-        height={height}
+        required={required}
         aria-required={required ? 'true' : 'false'}
         aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         {...rest}

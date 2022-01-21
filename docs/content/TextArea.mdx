@@ -107,15 +107,12 @@ render(<TextAreaExample />)
 </>
 ```
 
-### Resizing and constraining dimensions
+### Resize
 
-By default, `TextArea` can be resized by the user vertically and horizontally.
-
-Resizing can be prevented by setting `resize` to `none`, with `height` and `width` props available for granular control of its appearance.
-Setting an explicit `height` or `width` can prevent its respective `resize` options from being applied.
+By default, `TextArea` can be resized by the user vertically and horizontally. Resizing can be prevented by setting `resize` to `none`
 
 ```jsx live
-<TextArea cols={40} resize="none" height={400} />
+<TextArea cols={40} resize="none" />
 ```
 
 ### Custom styling
@@ -159,18 +156,6 @@ Setting an explicit `height` or `width` can prevent its respective `resize` opti
     type="'both' | 'horizontal' | 'vertical' | 'none'"
     defaultValue="both"
     description="Changes background color to a higher contrast color"
-  />
-  <PropsTableRow
-    name="height"
-    defaultValue="undefined"
-    type="number"
-    description="Apply an optional, precise height"
-  />
-  <PropsTableRow
-    name="width"
-    defaultValue="undefined"
-    type="number"
-    description="Apply an optional, precise width"
   />
   <PropsTableRow name="validationStatus" 
     defaultValue="undefined" 

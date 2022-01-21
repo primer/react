@@ -70,26 +70,6 @@ describe('TextArea', () => {
     expect(blockStyles).not.toEqual(expect.objectContaining(expectedStyles))
   })
 
-  it('renders an optional height style via props correctly', () => {
-    const mockValue = 200
-    const expectedStyles = {
-      height: `${mockValue}px`
-    }
-    const styles = renderStyles(<TextArea height={mockValue} />)
-
-    expect(styles).toEqual(expect.objectContaining(expectedStyles))
-  })
-
-  it('renders an optional width style via props correctly', () => {
-    const mockValue = 200
-    const expectedStyles = {
-      width: `${mockValue}px`
-    }
-    const styles = renderStyles(<TextArea width={mockValue} />)
-
-    expect(styles).toEqual(expect.objectContaining(expectedStyles))
-  })
-
   it('renders default resize values correctly', () => {
     const defaultStyles = renderStyles(<TextArea />)
 
@@ -104,40 +84,6 @@ describe('TextArea', () => {
     const defaultStyles = renderStyles(<TextArea resize="none" />)
 
     expect(defaultStyles).toEqual(
-      expect.objectContaining({
-        resize: 'none'
-      })
-    )
-  })
-
-  it('renders resize as none if height, width and and horizontal resize props are set', () => {
-    const horizontalResizeDefaultStyles = renderStyles(<TextArea resize="horizontal" height={30} />)
-    const guardedHorizontalResizeStyles = renderStyles(<TextArea resize="horizontal" height={30} width={30} />)
-
-    expect(horizontalResizeDefaultStyles).toEqual(
-      expect.objectContaining({
-        resize: 'horizontal'
-      })
-    )
-
-    expect(guardedHorizontalResizeStyles).toEqual(
-      expect.objectContaining({
-        resize: 'none'
-      })
-    )
-  })
-
-  it('renders resize as none if height, width and vertical resize props are set', () => {
-    const verticalResizeDefaultStyles = renderStyles(<TextArea resize="vertical" width={30} />)
-    const guardedVerticalResizeStyles = renderStyles(<TextArea resize="vertical" width={30} height={30} />)
-
-    expect(verticalResizeDefaultStyles).toEqual(
-      expect.objectContaining({
-        resize: 'vertical'
-      })
-    )
-
-    expect(guardedVerticalResizeStyles).toEqual(
       expect.objectContaining({
         resize: 'none'
       })
