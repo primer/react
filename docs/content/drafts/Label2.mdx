@@ -18,7 +18,7 @@ const {Label} = drafts // ignore docs silliness; import like that ↑
 render(<Label>Default</Label>)
 ```
 
-### Appearances
+### Variants
 
 ```javascript live noinline
 // import {Label} from '@primer/react/drafts'
@@ -59,7 +59,16 @@ render(
 <PropsTable>
   <PropsTableRow
     name="variant"
-    type="'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'attention' | 'severe' | 'danger' | 'done' | 'sponsors'"
+    type={`| 'default'
+| 'primary'
+| 'secondary'
+| 'accent'
+| 'success'
+| 'attention'
+| 'severe'
+| 'danger'
+| 'done'
+| 'sponsors'`}
     defaultValue="'default'"
     description="The color of the label"
   />
