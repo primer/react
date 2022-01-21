@@ -72,7 +72,7 @@ export const variants: Record<
   }
 }
 
-const sizes: Record<LabelSizeKeys, {height: React.CSSProperties['height']; padding: React.CSSProperties['padding']}> = {
+const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
   small: {
     height: '20px',
     padding: '0 7px' // hard-coded to align with Primer ViewCompnents and Primer CSS
