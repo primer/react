@@ -40,7 +40,7 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
   min-height: 124px;
   font-family: inherit;
   font-size: ${get('fontSizes.1')};
-  line-height: 20px;
+  line-height: ${get('lineHeights.condensed')};
   color: ${get('colors.fg.default')};
   vertical-align: middle;
   background-color: ${get('colors.canvas.default')};

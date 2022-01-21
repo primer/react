@@ -24,6 +24,12 @@ technologies. Examples below are provided for conciseness and may not reflect ac
 
 ### Basic
 
+```jsx live
+<TextArea />
+```
+
+### Controlled mode
+
 ```javascript live noinline
 const TextAreaExample = () => {
   // Running in controlled mode (recommended)
@@ -71,11 +77,11 @@ render(<TextAreaExample />)
 
 ```jsx live
 <>
-  <Box as="label" for="success-state" sx={{display: 'block'}}>
+  <Box as="label" htmlFor="success-state" sx={{display: 'block'}}>
     Success state:
   </Box>
   <TextArea id="success-state" validationStatus="success" />
-  <Box as="label" for="error-state" sx={{display: 'block', mt: 5}}>
+  <Box as="label" htmlFor="error-state" sx={{display: 'block', mt: 5}}>
     Error state:
   </Box>
   <TextArea id="error-state" validationStatus="error" />
@@ -98,14 +104,14 @@ Resizing can be prevented by setting `resize` to `none`, with `height` and `widt
 Setting an explicit `height` or `width` can prevent its respective `resize` options from being applied.
 
 ```jsx live
-<TextArea resize="none" height={400}></TextArea>
+<TextArea resize="none" height={400} />
 ```
 
 ### Custom styling
 
 ```jsx live
 <>
-  <TextArea sx={{marginBottom: 2}}></TextArea>
+  <TextArea sx={{marginBottom: 2}} />
   <p>Custom styles like `margin` and `padding` can be applied using the `sx` prop</p>
 </>
 ```
@@ -122,16 +128,20 @@ Setting an explicit `height` or `width` can prevent its respective `resize` opti
     description="Indicates to the user and assistive technologies that the field value is required"
   />
   <PropsTableRow
-    name="block"
-    type="boolean"
-    defaultValue="false"
-    description="Expands with width of the component to fill the parent elements"
+    name="cols"
+    type="number"
+    description="Specifies the visible width of a text area."
+  />
+  <PropsTableRow
+    name="rows"
+    type="number"
+    description="Specifies the visible height of a text area."
   />
   <PropsTableRow
     name="block"
     type="boolean"
     defaultValue="false"
-    description={<>Creates a full width input element</>}
+    description="Expands with width of the component to fill the parent elements"
   />
   <PropsTableRow
     name="resize"
@@ -143,13 +153,13 @@ Setting an explicit `height` or `width` can prevent its respective `resize` opti
     name="height"
     defaultValue="undefined"
     type="number"
-    description="Apply an optional, explicit height"
+    description="Apply an optional, precise height"
   />
   <PropsTableRow
     name="width"
     defaultValue="undefined"
     type="number"
-    description="Apply an optional, explicit width"
+    description="Apply an optional, precise width"
   />
   <PropsTableRow name="validationStatus" 
     defaultValue="undefined" 
