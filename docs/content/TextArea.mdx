@@ -25,7 +25,7 @@ technologies. Examples below are provided for conciseness and may not reflect ac
 ### Basic
 
 ```jsx live
-<TextArea />
+<TextArea cols={40} rows={8} />
 ```
 
 ### Controlled mode
@@ -39,7 +39,11 @@ const TextAreaExample = () => {
     setValue(event.target.value)
   }
 
-  return <TextArea onChange={handleChange}>{value}</TextArea>
+  return (
+    <TextArea cols={40} rows={8} onChange={handleChange}>
+      {value}
+    </TextArea>
+  )
 }
 
 render(<TextAreaExample />)
@@ -63,7 +67,12 @@ const TextAreaExample = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextArea ref={ref} defaultValue="Set the initial state in uncontrolled mode using the defaultValue prop" />
+      <TextArea
+        cols={40}
+        rows={8}
+        ref={ref}
+        defaultValue="Set the initial state in uncontrolled mode using the defaultValue prop"
+      />
       <br />
       <Button type="submit">Submit</Button>
     </form>
@@ -80,11 +89,11 @@ render(<TextAreaExample />)
   <Box as="label" htmlFor="success-state" sx={{display: 'block'}}>
     Success state:
   </Box>
-  <TextArea id="success-state" validationStatus="success" />
+  <TextArea cols={40} rows={8} id="success-state" validationStatus="success" />
   <Box as="label" htmlFor="error-state" sx={{display: 'block', mt: 5}}>
     Error state:
   </Box>
-  <TextArea id="error-state" validationStatus="error" />
+  <TextArea cols={40} rows={8} id="error-state" validationStatus="error" />
 </>
 ```
 
@@ -92,7 +101,9 @@ render(<TextAreaExample />)
 
 ```jsx live
 <>
-  <TextArea disabled>This text is inactive</TextArea>
+  <TextArea cols={40} rows={8} disabled>
+    This text is inactive
+  </TextArea>
 </>
 ```
 
@@ -104,14 +115,14 @@ Resizing can be prevented by setting `resize` to `none`, with `height` and `widt
 Setting an explicit `height` or `width` can prevent its respective `resize` options from being applied.
 
 ```jsx live
-<TextArea resize="none" height={400} />
+<TextArea cols={40} resize="none" height={400} />
 ```
 
 ### Custom styling
 
 ```jsx live
 <>
-  <TextArea sx={{marginBottom: 2}} />
+  <TextArea cols={40} rows={8} sx={{marginBottom: 2}} />
   <p>Custom styles like `margin` and `padding` can be applied using the `sx` prop</p>
 </>
 ```

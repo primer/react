@@ -37,7 +37,6 @@ export type TextAreaProps = {
   SxProp
 
 const StyledTextArea = styled.textarea<TextAreaProps>`
-  min-height: 124px;
   font-family: inherit;
   font-size: ${get('fontSizes.1')};
   line-height: ${get('lineHeights.condensed')};
@@ -120,10 +119,6 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
       border-color: ${get('colors.border.default')};
       cursor: not-allowed;
     `}
-
-  @media (min-width: 360px) {
-    min-width: 300px;
-  }
 
   // Ensures inputs don't zoom on mobile but are body-font size on desktop
   @media (min-width: ${get('breakpoints.1')}) {
