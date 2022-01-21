@@ -9,4 +9,4 @@
 export * from './ActionList2'
 export * from './Button2'
 export * from './ActionMenu2'
-export {default as Label} from './Label2'
+export * from './Label2'

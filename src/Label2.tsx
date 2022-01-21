@@ -83,7 +83,7 @@ const sizes: Record<LabelSizeKeys, {height: React.CSSProperties['height']; paddi
   }
 }
 
-const Label = styled.span<LabelProps>`
+export const Label = styled.span<LabelProps>`
   align-items: center;
   background-color: transparent;
   border-width: 1px;
@@ -103,5 +103,3 @@ Label.defaultProps = {
   size: 'small',
   variant: 'default'
 }
-
-export default Label
