@@ -53,10 +53,12 @@
       url: /Buttons
     - title: Checkbox
       url: /Checkbox
-    - title: ChoiceFieldset
-      url: /ChoiceFieldset
-    - title: ChoiceInputField
-      url: /ChoiceInputField
+    # Temporarily hiding form field layout components due to
+    # feedback about the names being unclear
+    # - title: ChoiceFieldset
+    #   url: /ChoiceFieldset
+    # - title: ChoiceInputField
+    #   url: /ChoiceInputField
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
@@ -77,8 +79,10 @@
       url: /Header
     - title: Heading
       url: /Heading
-    - title: InputField
-      url: /InputField
+    # Temporarily hiding form field layout components due to
+    # feedback about the names being unclear
+    # - title: InputField
+    #   url: /InputField
     - title: Label
       url: /Label
     - title: LabelGroup
