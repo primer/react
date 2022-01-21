@@ -1,4 +1,5 @@
 import React, {useState, useRef, useCallback} from 'react'
+import ReactDOM from 'react-dom'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {TriangleDownIcon, PlusIcon} from '@primer/octicons-react'
@@ -235,9 +236,24 @@ export const OverlayOnOverlay = () => {
 
   const buttonRef = useRef<HTMLButtonElement>(null)
   const secondaryButtonRef = useRef<HTMLButtonElement>(null)
+  const containerRef = useRef(null)
+
+  React.useEffect(() => {
+    const handler = event => {
+      console.log('story', event)
+      // if (!event.defaultPrevented) console.log(event)
+    }
+
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [containerRef])
+
+  const hostElement = document.createElement('div')
+  ReactDOM.render(<div>hello</div>, hostElement)
 
   return (
-    <>
+    <div ref={containerRef}>
+      <TextInput />
       <ButtonGroup display="block" my={2}>
         <Button>Star</Button>
         <Button
@@ -308,6 +324,6 @@ export const OverlayOnOverlay = () => {
           )}
         </Overlay>
       )}
-    </>
+    </div>
   )
 }

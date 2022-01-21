@@ -9,6 +9,7 @@ const handlers: ((e: KeyboardEvent) => void)[] = []
 function handleEscape(event: KeyboardEvent) {
   if (event.key === 'Escape' && !event.defaultPrevented) {
     if (typeof handlers[0] === 'function') handlers[0](event)
+    event.stopPropagation()
   }
 }
 
@@ -32,17 +33,23 @@ function handleEscape(event: KeyboardEvent) {
  * @param callbackDependencies {React.DependencyList} The dependencies of the given
  * `onEscape` callback for memoization. Omit this param if the callback is already
  * memoized. See `React.useCallback` for more info on memoization.
+ *
+ * @param overlayRef {React.RefObject<HTMLElement>}
+ * TODO
  */
 export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
-  callbackDependencies: React.DependencyList = [onEscape]
+  callbackDependencies: React.DependencyList = [onEscape],
+  overlayRef: React.RefObject<HTMLElement>
 ): void => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const escapeCallback = useCallback(onEscape, callbackDependencies)
 
   useEffect(() => {
+    const element = overlayRef.current || document
+
     if (handlers.length === 0) {
-      document.addEventListener('keydown', handleEscape)
+      element.addEventListener('keydown', handleEscape)
     }
     handlers.push(escapeCallback)
     return () => {
@@ -51,8 +58,8 @@ export const useOnEscapePress = (
         1
       )
       if (handlers.length === 0) {
-        document.removeEventListener('keydown', handleEscape)
+        element.removeEventListener('keydown', handleEscape)
       }
     }
-  }, [escapeCallback])
+  }, [escapeCallback, overlayRef])
 }
