@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import sx, {SxProp} from './sx'
+import sx, {SxProp, BetterSystemStyleObject} from './sx'
 import {get} from './constants'
 
 export type LabelProps = {
