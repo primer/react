@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import sx, {SxProp, BetterSystemStyleObject} from './sx'
@@ -25,10 +24,7 @@ export type LabelColorOptions =
 
 type LabelSizeKeys = 'small' | 'large'
 
-export const variants: Record<
-  LabelColorOptions,
-  BetterSystemStyleObject
-> = {
+export const variants: Record<LabelColorOptions, BetterSystemStyleObject> = {
   default: {
     borderColor: 'border.default'
   },
