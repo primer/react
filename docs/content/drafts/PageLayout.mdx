@@ -23,10 +23,10 @@ description: TODO
 
 ```jsx
 <PageLayout>
-  <PageLayout.Header showDivider>Header</PageLayout.Header>
+  <PageLayout.Header divider="line">Header</PageLayout.Header>
   <PageLayout.Content>Content</PageLayout.Content>
-  <PageLayout.Pane showDivider>Pane</PageLayout.Pane>
-  <PageLayout.Footer showDivider>Footer</PageLayout.Footer>
+  <PageLayout.Pane divider="line">Pane</PageLayout.Pane>
+  <PageLayout.Footer dividier="line">Footer</PageLayout.Footer>
 </PageLayout>
 ```
 
@@ -81,9 +81,9 @@ description: TODO
 ### PageLayout.Header
 
 <PropsTable>
-  <PropsTableRow name="dividerVariant" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
   <PropsTableRow
-    name="dividerVariantWhenNarrow"
+    name="dividerWhenNarrow"
     type={`| 'inherit'
 | 'none'
 | 'line'
@@ -132,9 +132,9 @@ description: TODO
     defaultValue="'medium'"
     description="Define the width of the pane."
   />
-  <PropsTableRow name="dividerVariant" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
   <PropsTableRow
-    name="dividerVariantWhenNarrow"
+    name="dividerWhenNarrow"
     type={`| 'inherit'
 | 'none'
 | 'line'
@@ -147,9 +147,9 @@ description: TODO
 ### PageLayout.Footer
 
 <PropsTable>
-  <PropsTableRow name="dividerVariant" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
   <PropsTableRow
-    name="dividerVariantWhenNarrow"
+    name="dividerWhenNarrow"
     type={`| 'inherit'
 | 'none'
 | 'line'
