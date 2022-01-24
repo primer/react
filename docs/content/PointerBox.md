@@ -81,8 +81,19 @@ render(<PointerBoxDemo />)
 <PropsTable>
   <PropsTableRow
     name="caret"
-    type="top| top-left | top-right | right | right-top | right-bottom | bottom | bottom-left | bottom-right | left | left-top | left-bottom"
-    defaultValue="bottom"
+    type={`| 'top'
+| 'top-left'
+| 'top-right'
+| 'right'
+| 'right-top'
+| 'right-bottom'
+| 'bottom'
+| 'bottom-left'
+| 'bottom-right'
+| 'left'
+| 'left-top'
+| 'left-bottom'`}
+    defaultValue="'bottom'"
     description="Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
   />
 </PropsTable>
