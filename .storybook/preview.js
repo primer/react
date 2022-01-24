@@ -1,5 +1,5 @@
 import {addons} from '@storybook/addons'
-import {ThemeProvider, themeGet, theme} from '../src'
+import {ThemeProvider, themeGet, theme, BaseStyles} from '../src'
 import styled, {createGlobalStyle} from 'styled-components'
 import {addDecorator} from '@storybook/react'
 import {withPerformance} from 'storybook-addon-performance'
@@ -86,9 +86,11 @@ const withThemeProvider = (Story, context) => {
           nightScheme={context.globals.nightScheme}
         >
           <ThemedSectionStyle>
-            <div id="html-addon-root">
-              <Story {...context} />
-            </div>
+            <BaseStyles>
+              <div id="html-addon-root">
+                <Story {...context} />
+              </div>
+            </BaseStyles>
           </ThemedSectionStyle>
         </ThemeProvider>
       </Wrapper>
@@ -102,9 +104,11 @@ const withThemeProvider = (Story, context) => {
       nightScheme={context.globals.nightScheme}
     >
       <GlobalStyle />
-      <div id="html-addon-root">
-        <Story {...context} />
-      </div>
+      <BaseStyles>
+        <div id="html-addon-root">
+          <Story {...context} />
+        </div>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
