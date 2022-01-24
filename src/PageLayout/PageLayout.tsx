@@ -1,13 +1,25 @@
 import React from 'react'
 import {Box} from '..'
 
+type PageLayoutProps = {
+  /** The maximum width of the page container */
+  containerWidth?: keyof typeof containerWidths
+}
+
+const containerWidths = {
+  full: '100%',
+  medium: '768px',
+  large: '1012px',
+  xlarge: '1280px'
+}
+
 // TODO: refs
-const Root: React.FC = ({children}) => {
+const Root: React.FC<PageLayoutProps> = ({containerWidth = 'xlarge', children}) => {
   return (
     <Box sx={{padding: [3, null, null, 4]}}>
       <Box
         sx={{
-          maxWidth: '1280px',
+          maxWidth: containerWidths[containerWidth],
           marginX: 'auto',
           display: 'grid',
           gridTemplateAreas: [

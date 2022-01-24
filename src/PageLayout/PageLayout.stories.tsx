@@ -1,4 +1,4 @@
-import {Meta} from '@storybook/react'
+import {Meta, Story} from '@storybook/react'
 import React from 'react'
 import {Box} from '..'
 import {PageLayout} from './PageLayout'
@@ -34,8 +34,8 @@ const Placeholder: React.FC<{
     </Box>
   )
 }
-export const Default = () => (
-  <PageLayout>
+export const Default: Story = args => (
+  <PageLayout containerWidth={args.containerWidth}>
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
@@ -50,5 +50,9 @@ export const Default = () => (
     </PageLayout.Footer>
   </PageLayout>
 )
+
+Default.args = {
+  containerWidth: 'xlarge'
+}
 
 export default meta
