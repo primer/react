@@ -20,33 +20,28 @@ import {
   CalendarIcon,
   IssueOpenedIcon,
   NumberIcon,
-  XIcon,
-  RepoIcon,
-  BookIcon,
-  EyeIcon
+  XIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {DndProvider, useDrag, useDrop} from 'react-dnd'
 import {HTML5Backend} from 'react-dnd-html5-backend'
-import {Label, ThemeProvider} from '..'
-import {ActionList as _ActionList, ItemProps} from '../ActionList2'
-import {Header} from '../ActionList/Header'
-import BaseStyles from '../BaseStyles'
-import Avatar from '../Avatar'
-import {ButtonInvisible} from '../Button'
-import TextInput from '../TextInput'
-import Spinner from '../Spinner'
-import Box from '../Box'
-import {AnchoredOverlay} from '../AnchoredOverlay'
+import {Label, ThemeProvider} from '../..'
+import {ActionList as _ActionList, ItemProps} from '../../ActionList2'
+import {Header} from '../../ActionList/Header'
+import BaseStyles from '../../BaseStyles'
+import Avatar from '../../Avatar'
+import {ButtonInvisible} from '../../Button'
+import Box from '../../Box'
+import {AnchoredOverlay} from '../../AnchoredOverlay'
 
 const ActionList = Object.assign(_ActionList, {
   Header
 })
 
 const meta: Meta = {
-  title: 'Composite components/ActionList2',
+  title: 'Composite components/ActionList2/fixtures',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (
@@ -210,71 +205,6 @@ const projects = [
   {name: 'Octicons', scope: 'github/primer'},
   {name: 'Primer React', scope: 'github/primer'}
 ]
-
-export function SingleSelectListStory(): JSX.Element {
-  const [selectedIndex, setSelectedIndex] = React.useState(1)
-
-  return (
-    <>
-      <h1>Single Select List</h1>
-      <ErsatzOverlay>
-        <ActionList selectionVariant="single" showDividers role="listbox" aria-label="Select a project">
-          {projects.map((project, index) => (
-            <ActionList.Item
-              key={index}
-              role="option"
-              selected={index === selectedIndex}
-              onSelect={() => setSelectedIndex(index)}
-            >
-              <ActionList.LeadingVisual>
-                <TableIcon />
-              </ActionList.LeadingVisual>
-              {project.name}
-              <ActionList.Description variant="block">{project.scope}</ActionList.Description>
-            </ActionList.Item>
-          ))}
-        </ActionList>
-      </ErsatzOverlay>
-    </>
-  )
-}
-SingleSelectListStory.storyName = 'Single Select'
-
-export function MultiSelectListStory(): JSX.Element {
-  const [assignees, setAssignees] = React.useState(users.slice(0, 2))
-
-  const toggleAssignee = (assignee: typeof users[number]) => {
-    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
-
-    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
-    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
-  }
-
-  return (
-    <>
-      <h1>Multi Select List</h1>
-      <ErsatzOverlay>
-        <ActionList selectionVariant="multiple" showDividers role="listbox" aria-label="Select assignees">
-          {users.map(user => (
-            <ActionList.Item
-              role="option"
-              key={user.login}
-              selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-              onSelect={() => toggleAssignee(user)}
-            >
-              <ActionList.LeadingVisual>
-                <Avatar src={`https://github.com/${user.login}.png`} />
-              </ActionList.LeadingVisual>
-              {user.login}
-              <ActionList.Description>{user.name}</ActionList.Description>
-            </ActionList.Item>
-          ))}
-        </ActionList>
-      </ErsatzOverlay>
-    </>
-  )
-}
-MultiSelectListStory.storyName = 'Multi Select'
 
 export function DisabledStory(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -1036,96 +966,6 @@ export function WithSx(): JSX.Element {
 }
 WithSx.storyName = 'With sx'
 
-export function RepositoryLinks(): JSX.Element {
-  return (
-    <>
-      <h1>Repository Links</h1>
-
-      <ActionList>
-        <ActionList.LinkItem href="https://github.com/primer/react#readme">
-          <ActionList.LeadingVisual>
-            <BookIcon />
-          </ActionList.LeadingVisual>
-          Readme
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="https://github.com/primer/react/blob/main/LICENSE">
-          <ActionList.LeadingVisual>
-            <LawIcon />
-          </ActionList.LeadingVisual>
-          MIT License
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="https://github.com/primer/react/stargazers">
-          <ActionList.LeadingVisual>
-            <StarIcon />
-          </ActionList.LeadingVisual>
-          <strong>1.5k</strong> stars
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="https://github.com/primer/react/watchers">
-          <ActionList.LeadingVisual>
-            <EyeIcon />
-          </ActionList.LeadingVisual>
-          <strong>21</strong> watching
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="https://github.com/primer/react/network/members">
-          <ActionList.LeadingVisual>
-            <RepoForkedIcon />
-          </ActionList.LeadingVisual>
-          <strong>225</strong> forks
-        </ActionList.LinkItem>
-      </ActionList>
-    </>
-  )
-}
-RepositoryLinks.storyName = 'Repository Links'
-
-export function MemexGroupBy(): JSX.Element {
-  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
-
-  const options = [
-    {text: 'Status', icon: <IssueOpenedIcon />},
-    {text: 'Stage', icon: <TableIcon />},
-    {text: 'Assignee', icon: <PeopleIcon />},
-    {text: 'Team', icon: <TypographyIcon />},
-    {text: 'Estimate', icon: <NumberIcon />},
-    {text: 'Due Date', icon: <CalendarIcon />}
-  ]
-
-  return (
-    <>
-      <h1>Memex GroupBy List</h1>
-      <ErsatzOverlay>
-        <ActionList>
-          <ActionList.Group title="Group by" selectionVariant="single" role="listbox">
-            {options.map((option, index) => (
-              <ActionList.Item
-                key={index}
-                selected={index === selectedIndex}
-                onSelect={() => setSelectedIndex(index)}
-                role="option"
-              >
-                <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
-                {option.text}
-              </ActionList.Item>
-            ))}
-          </ActionList.Group>
-          {typeof selectedIndex === 'number' && (
-            <>
-              <ActionList.Divider />
-              <ActionList.Item onSelect={() => setSelectedIndex(null)}>
-                <ActionList.LeadingVisual>
-                  <XIcon />
-                </ActionList.LeadingVisual>
-                Clear Group by
-              </ActionList.Item>
-            </>
-          )}
-        </ActionList>
-      </ErsatzOverlay>
-    </>
-  )
-}
-MemexGroupBy.storyName = 'Memex GroupBy List'
-
 type Option = {text: string; icon: React.ReactNode; selected: boolean}
 export function MemexSortable(): JSX.Element {
   const [options, setOptions] = React.useState<Option[]>([
@@ -1249,66 +1089,6 @@ const SortableItem: React.FC<SortableItemProps> = ({option, role, onSelect, reor
       {option.text}
     </ActionList.Item>
   )
-}
-
-const repos = [
-  'primer/primer-markdown',
-  'primer/octicons',
-  'primer/css',
-  'primer/primer-layout',
-  'primer/primer-alerts',
-  'primer/primer-avatars',
-  'primer/react',
-  'primer/primitives'
-]
-
-export function AsyncListStory(): JSX.Element {
-  const [results, setResults] = React.useState(repos.slice(0, 6))
-  const [loading, setLoading] = React.useState(false)
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const filter = async (event: any) => {
-    setLoading(true)
-    const filteredResults = await filterSlowly(event.target.value)
-    setResults(filteredResults)
-    setLoading(false)
-  }
-
-  return (
-    <>
-      <h1>Async List Items</h1>
-      <ErsatzOverlay>
-        <TextInput
-          onChange={filter}
-          placeholder="Search repositories, showing 6 by default"
-          sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}
-        />
-        <ActionList sx={{height: 208, overflow: 'auto'}}>
-          {loading ? (
-            <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
-              <Spinner />
-            </Box>
-          ) : (
-            results.map(name => (
-              <ActionList.Item key={name}>
-                <ActionList.LeadingVisual>
-                  <RepoIcon />
-                </ActionList.LeadingVisual>
-                {name}
-              </ActionList.Item>
-            ))
-          )}
-        </ActionList>
-      </ErsatzOverlay>
-    </>
-  )
-}
-AsyncListStory.storyName = 'Async List Options'
-
-const filterSlowly = async (query: string) => {
-  // sleep for 1s before returning results
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  return await repos.filter(name => name.includes(query))
 }
 
 export function InsideOverlay(): JSX.Element {

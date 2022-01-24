@@ -7,37 +7,41 @@ exports[`ActionMenu renders consistently 1`] = `
   color: #24292f;
 }
 
-.c1 {
-  position: relative;
+.c2 {
   display: inline-block;
-  padding: 6px 16px;
+  margin-left: 8px;
+}
+
+.c1 {
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: rgba(27,31,36,0.15);
   font-family: inherit;
   font-weight: 600;
   line-height: 20px;
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  border-radius: 6px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
   font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
-  border: 1px solid rgba(27,31,36,0.15);
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
-}
-
-.c1:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c1:focus {
@@ -46,31 +50,45 @@ exports[`ActionMenu renders consistently 1`] = `
 
 .c1:disabled {
   cursor: default;
+  color: #8c959f;
+  background-color: btn.disabledBg;
 }
 
 .c1:disabled svg {
   opacity: 0.6;
 }
 
-.c1:hover {
-  background-color: #f3f4f6;
-  border-color: rgba(27,31,36,0.15);
+.c1 > :not(:last-child) {
+  margin-right: 8px;
 }
 
-.c1:focus {
-  border-color: rgba(27,31,36,0.15);
+.c1 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c1 [data-component="text"] {
+  grid-area: text;
+}
+
+.c1 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
+.c1 [data-component="ButtonCounter"] {
+  font-size: 14px;
+}
+
+.c1:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c1:focus:not([disabled]) {
   box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
 }
 
-.c1:active {
+.c1:active:not([disabled]) {
   background-color: hsla(220,14%,94%,1);
   box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
-}
-
-.c1:disabled {
-  color: #8c959f;
-  background-color: #f6f8fa;
-  border-color: rgba(27,31,36,0.15);
 }
 
 <div
@@ -87,8 +105,40 @@ exports[`ActionMenu renders consistently 1`] = `
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}
+    type="button"
   >
-    Toggle Menu
+    <span
+      data-component="text"
+    >
+      Toggle Menu
+    </span>
+    <span
+      className="c2"
+      data-component="trailingIcon"
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-triangle-down"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<path d=\\"M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z\\"></path>",
+          }
+        }
+        fill="currentColor"
+        height={16}
+        role="img"
+        style={
+          Object {
+            "display": "inline-block",
+            "overflow": "visible",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={16}
+      />
+    </span>
   </button>
 </div>
 `;
