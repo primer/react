@@ -73,6 +73,11 @@ exports[`AnchoredOverlay renders consistently 1`] = `
   border-color: rgba(27,31,36,0.15);
 }
 
+.c1.selected,
+.c1[aria-selected='true'] {
+  background-color: hsla(220,14%,94%,1);
+}
+
 <div
   className="c0"
   color="fg.default"
@@ -164,6 +169,11 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   color: #8c959f;
   background-color: #f6f8fa;
   border-color: rgba(27,31,36,0.15);
+}
+
+.c1.selected,
+.c1[aria-selected='true'] {
+  background-color: hsla(220,14%,94%,1);
 }
 
 .c2 {

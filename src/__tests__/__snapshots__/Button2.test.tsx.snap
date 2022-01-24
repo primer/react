@@ -80,6 +80,12 @@ exports[`Button renders consistently 1`] = `
   box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
 }
 
+.c0.selected,
+.c0[aria-selected="true"] {
+  background-color: hsla(220,14%,94%,1);
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+}
+
 <button
   className="c0"
 >
@@ -179,7 +185,9 @@ exports[`Button styles danger button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]),
+.c0.selected,
+.c0[aria-selected="true"] {
   color: btn.danger.selectedText;
   background-color: btn.danger.selectedBg;
   box-shadow: undefined;
@@ -270,7 +278,9 @@ exports[`Button styles invisible button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]),
+.c0.selected,
+.c0[aria-selected="true"] {
   background-color: btn.selectedBg;
 }
 
@@ -374,7 +384,9 @@ exports[`Button styles outline button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]),
+.c0.selected,
+.c0[aria-selected="true"] {
   color: btn.outline.selectedText;
   background-color: btn.outline.selectedBg;
   box-shadow: undefined;
@@ -470,7 +482,9 @@ exports[`Button styles primary button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0:active:not([disabled]) {
+.c0:active:not([disabled]),
+.c0.selected,
+.c0[aria-selected="true"] {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
 }

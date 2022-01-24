@@ -67,6 +67,11 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   border-color: rgba(27,31,36,0.15);
 }
 
+.c1.selected,
+.c1[aria-selected='true'] {
+  background-color: hsla(220,14%,94%,1);
+}
+
 .c6 {
   padding: 4px 16px;
   margin: 0;

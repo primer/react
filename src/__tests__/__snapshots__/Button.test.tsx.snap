@@ -67,6 +67,11 @@ exports[`Button renders consistently 1`] = `
   border-color: rgba(27,31,36,0.15);
 }
 
+.c0.selected,
+.c0[aria-selected='true'] {
+  background-color: hsla(220,14%,94%,1);
+}
+
 <button
   className="c0"
 />
@@ -139,6 +144,11 @@ exports[`Button respects the "disabled" prop 1`] = `
   border-color: rgba(27,31,36,0.15);
 }
 
+.c0.selected,
+.c0[aria-selected='true'] {
+  background-color: hsla(220,14%,94%,1);
+}
+
 <button
   className="c0"
   disabled={true}
@@ -203,7 +213,9 @@ exports[`ButtonDanger renders consistently 1`] = `
   box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
 }
 
-.c0:active {
+.c0:active,
+.c0.selected,
+.c0[aria-selected='true'] {
   color: #ffffff;
   background-color: hsla(356,72%,44%,1);
   box-shadow: inset 0 1px 0 rgba(76,0,20,0.2);
@@ -278,7 +290,9 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
   box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
 }
 
-.c0:active {
+.c0:active,
+.c0.selected,
+.c0[aria-selected='true'] {
   color: #ffffff;
   background-color: hsla(356,72%,44%,1);
   box-shadow: inset 0 1px 0 rgba(76,0,20,0.2);
@@ -406,7 +420,9 @@ exports[`ButtonInvisible renders consistently 1`] = `
   box-shadow: 0 0 0 3px rgba(5,80,174,0.4);
 }
 
-.c0:active {
+.c0:active,
+.c0 $.selected,
+.c0[aria-selected='true'] {
   color: #ffffff;
   background-color: hsla(212,92%,42%,1);
   box-shadow: inset 0 1px 0 rgba(0,33,85,0.2);
@@ -483,7 +499,9 @@ exports[`ButtonInvisible renders correct disabled styles 1`] = `
   background-color: #f3f4f6;
 }
 
-.c0:active {
+.c0:active,
+.c0 $.selected,
+.c0[aria-selected='true'] {
   background-color: hsla(220,14%,94%,1);
 }
 
@@ -551,7 +569,9 @@ exports[`ButtonOutline renders consistently 1`] = `
   box-shadow: 0 0 0 3px rgba(5,80,174,0.4);
 }
 
-.c0:active {
+.c0:active,
+.c0 $.selected,
+.c0[aria-selected='true'] {
   color: #ffffff;
   background-color: hsla(212,92%,42%,1);
   box-shadow: inset 0 1px 0 rgba(0,33,85,0.2);
@@ -627,7 +647,9 @@ exports[`ButtonOutline renders correct disabled styles 1`] = `
   box-shadow: 0 0 0 3px rgba(5,80,174,0.4);
 }
 
-.c0:active {
+.c0:active,
+.c0 $.selected,
+.c0[aria-selected='true'] {
   color: #ffffff;
   background-color: hsla(212,92%,42%,1);
   box-shadow: inset 0 1px 0 rgba(0,33,85,0.2);
@@ -702,7 +724,9 @@ exports[`ButtonPrimary renders consistently 1`] = `
   box-shadow: 0 0 0 3px rgba(45,164,78,0.4);
 }
 
-.c0:active {
+.c0:active,
+.c0 $.selected,
+.c0[aria-selected='true'] {
   background-color: hsla(137,55%,36%,1);
   box-shadow: inset 0 1px 0 rgba(0,45,17,0.2);
 }
@@ -774,7 +798,9 @@ exports[`ButtonPrimary renders correct disabled styles 1`] = `
   box-shadow: 0 0 0 3px rgba(45,164,78,0.4);
 }
 
-.c0:active {
+.c0:active,
+.c0 $.selected,
+.c0[aria-selected='true'] {
   background-color: hsla(137,55%,36%,1);
   box-shadow: inset 0 1px 0 rgba(0,45,17,0.2);
 }
