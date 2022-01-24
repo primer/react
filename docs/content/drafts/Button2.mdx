@@ -65,6 +65,20 @@ The `invisible` variant of `Button` indicates that the action is a low priority 
 </>
 ```
 
+### Selected button
+
+`Button` can be set to in a "selected" state in two ways. You can use a `selected` class or set `aria-selected ="true"`.
+This is in many cases similar to the active state of the button. Usually used in `ButtonGroup` when like tabs.
+
+```jsx live
+<>
+  <drafts.Button aria-selected="true">Search</drafts.Button>
+  <drafts.Button aria-selected="true" variant="danger">
+    Delete
+  </drafts.Button>
+</>
+```
+
 ### Appending an icon
 
 We can place an inside the `Button` in either the leading or the trailing position to enhance the visual context.

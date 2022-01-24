@@ -22,7 +22,9 @@ const ButtonOutline = styled(ButtonBase)<ButtonBaseProps & SxProp>`
     box-shadow: ${get('shadows.btn.outline.focusShadow')};
   }
 
-  &:active {
+  &:active,
+  $.selected,
+  &[aria-selected='true'] {
     color: ${get('colors.btn.outline.selectedText')};
     background-color: ${get('colors.btn.outline.selectedBg')};
     box-shadow: ${get('shadows.btn.outline.selectedShadow')};

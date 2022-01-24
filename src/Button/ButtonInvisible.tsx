@@ -20,7 +20,9 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & SxProp>`
   &:hover {
     background-color: ${get('colors.btn.hoverBg')};
   }
-  &:active {
+  &:active,
+  $.selected,
+  &[aria-selected='true'] {
     background-color: ${get('colors.btn.selectedBg')};
   }
 

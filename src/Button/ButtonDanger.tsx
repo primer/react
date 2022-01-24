@@ -22,7 +22,9 @@ const ButtonDanger = styled(ButtonBase)<ButtonBaseProps & SxProp>`
     box-shadow: ${get('shadows.btn.danger.focusShadow')};
   }
 
-  &:active {
+  &:active,
+  &.selected,
+  &[aria-selected='true'] {
     color: ${get('colors.btn.danger.selectedText')};
     background-color: ${get('colors.btn.danger.selectedBg')};
     box-shadow: ${get('shadows.btn.danger.selectedShadow')};

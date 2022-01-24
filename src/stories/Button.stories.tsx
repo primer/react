@@ -52,6 +52,12 @@ export default {
         type: 'radio',
         options: ['small', 'medium', 'large']
       }
+    },
+    'aria-selected': {
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
     }
   }
 } as Meta

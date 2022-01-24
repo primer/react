@@ -23,6 +23,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:disabled': {
         color: 'primer.fg.disabled',
         backgroundColor: 'btn.disabledBg'
+      },
+      '&.selected, &[aria-selected="true"]': {
+        backgroundColor: 'btn.selectedBg',
+        boxShadow: 'primer.shadow.inset'
       }
     },
     primary: {
@@ -38,7 +42,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:focus:not([disabled])': {
         boxShadow: `${theme?.shadows.btn.primary.focusShadow}`
       },
-      '&:active:not([disabled])': {
+      '&:active:not([disabled]),&.selected, &[aria-selected="true"]': {
         backgroundColor: 'btn.primary.selectedBg',
         boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`
       },
@@ -70,7 +74,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: 'btn.danger.focusBorder',
         boxShadow: `${theme?.shadows.btn.danger.focusShadow}`
       },
-      '&:active:not([disabled])': {
+      '&:active:not([disabled]),&.selected, &[aria-selected="true"]': {
         color: 'btn.danger.selectedText',
         backgroundColor: 'btn.danger.selectedBg',
         boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
@@ -101,7 +105,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:focus:not([disabled])': {
         boxShadow: `${theme?.shadows.btn.focusShadow}`
       },
-      '&:active:not([disabled])': {
+      '&:active:not([disabled]),&.selected, &[aria-selected="true"]': {
         backgroundColor: 'btn.selectedBg'
       },
       '&:disabled': {
@@ -128,7 +132,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         boxShadow: `${theme?.shadows.btn.outline.focusShadow}`
       },
 
-      '&:active:not([disabled])': {
+      '&:active:not([disabled]),&.selected, &[aria-selected="true"]': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,

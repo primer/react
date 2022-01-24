@@ -22,7 +22,9 @@ export const ButtonPrimary = styled(ButtonBase)<ButtonBaseProps & SxProp>`
     box-shadow: ${get('shadows.btn.primary.focusShadow')};
   }
 
-  &:active {
+  &:active,
+  $.selected,
+  &[aria-selected='true'] {
     background-color: ${get('colors.btn.primary.selectedBg')};
     box-shadow: ${get('shadows.btn.primary.selectedShadow')};
   }

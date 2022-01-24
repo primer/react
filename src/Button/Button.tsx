@@ -31,6 +31,11 @@ const Button = styled(ButtonBase)<ButtonBaseProps & SxProp>`
     background-color: ${get('colors.btn.bg')};
     border-color: ${get('colors.btn.border')};
   }
+  &.selected,
+  &[aria-selected='true'] {
+    background-color: ${get('colors.btn.selectedBg')};
+    box-shadow: ${get('colors.primer.shadow.inset')};
+  }
 
   ${sx};
 `
