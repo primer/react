@@ -27,10 +27,7 @@ type LabelSizeKeys = 'small' | 'large'
 
 export const variants: Record<
   LabelColorOptions,
-  {
-    borderColor: React.CSSProperties['color']
-    color?: React.CSSProperties['color']
-  }
+  BetterSystemStyleObject
 > = {
   default: {
     borderColor: 'border.default'
