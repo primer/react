@@ -3,23 +3,34 @@ import {Box} from '..'
 
 type PageLayoutProps = {
   /** The maximum width of the page container */
-  containerWidth?: keyof typeof containerWidths
+  containerWidth?: keyof typeof containerWidthMap
+  /** The spacing between the outer edges of the page container and the viewport */
+  outerSpacing?: keyof typeof spacingMap // Should this be called `padding`?
 }
 
-const containerWidths = {
+const containerWidthMap = {
   full: '100%',
   medium: '768px',
   large: '1012px',
   xlarge: '1280px'
 }
 
+const spacingMap = {
+  normal: [3, null, null, 4],
+  condensed: 3
+}
+
 // TODO: refs
-const Root: React.FC<PageLayoutProps> = ({containerWidth = 'xlarge', children}) => {
+const Root: React.FC<PageLayoutProps> = ({containerWidth = 'xlarge', outerSpacing = 'normal', children}) => {
   return (
-    <Box sx={{padding: [3, null, null, 4]}}>
+    <Box
+      sx={{
+        padding: spacingMap[outerSpacing]
+      }}
+    >
       <Box
         sx={{
-          maxWidth: containerWidths[containerWidth],
+          maxWidth: containerWidthMap[containerWidth],
           marginX: 'auto',
           display: 'grid',
           gridTemplateAreas: [
