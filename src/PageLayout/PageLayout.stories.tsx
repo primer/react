@@ -43,7 +43,7 @@ export const Default = () => (
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
     <PageLayout.Pane>
-      <Placeholder width={400} height={200} label="Pane" />
+      <Placeholder height={200} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Footer>
       <Placeholder height={64} label="Footer" />

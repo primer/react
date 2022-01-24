@@ -4,23 +4,31 @@ import {Box} from '..'
 // TODO: refs
 const Root: React.FC = ({children}) => {
   return (
-    <Box
-      sx={{
-        display: 'grid',
-        gridTemplateAreas: `"header header" "content pane" "footer footer"`,
-        gridTemplateColumns: '1fr auto',
-        padding: 4,
-        rowGap: 4,
-        columnGap: 4
-      }}
-    >
-      {children}
+    <Box sx={{padding: [3, null, null, 4]}}>
+      <Box
+        sx={{
+          maxWidth: '1280px',
+          marginX: 'auto',
+          display: 'grid',
+          gridTemplateAreas: [
+            `"header header" "content content" "pane pane" "footer footer"`,
+            null,
+            `"header header" "content pane" "footer footer"`
+          ],
+          gridTemplateColumns: '1fr auto',
+          rowGap: [3, null, null, 4],
+          columnGap: [3, null, null, 4]
+        }}
+      >
+        {children}
+      </Box>
     </Box>
   )
 }
 
 Root.displayName = 'PageLayout'
 
+// ----------------------------------------------------------------------------
 // PageLayout.Header
 
 const Header: React.FC = ({children}) => {
@@ -37,14 +45,25 @@ const Content: React.FC = ({children}) => {
 
 Content.displayName = 'PageLayout.Content'
 
+// ----------------------------------------------------------------------------
 // PageLayout.Pane
 
 const Pane: React.FC = ({children}) => {
-  return <Box sx={{gridArea: 'pane'}}>{children}</Box>
+  return (
+    <Box
+      sx={{
+        gridArea: 'pane',
+        width: ['100%', null, '296px']
+      }}
+    >
+      {children}
+    </Box>
+  )
 }
 
 Pane.displayName = 'PageLayout.Pane'
 
+// ----------------------------------------------------------------------------
 // PageLayout.Footer
 
 const Footer: React.FC = ({children}) => {
