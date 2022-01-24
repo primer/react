@@ -35,7 +35,12 @@ const Placeholder: React.FC<{
   )
 }
 export const Default: Story = args => (
-  <PageLayout containerWidth={args.containerWidth} outerSpacing={args.outerSpacing}>
+  <PageLayout
+    containerWidth={args.containerWidth}
+    outerSpacing={args.outerSpacing}
+    rowGap={args.rowGap}
+    columnGap={args.columnGap}
+  >
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
@@ -53,7 +58,9 @@ export const Default: Story = args => (
 
 Default.args = {
   containerWidth: 'xlarge',
-  outerSpacing: 'normal'
+  outerSpacing: 'normal',
+  rowGap: 'normal',
+  columnGap: 'normal'
 }
 
 export default meta

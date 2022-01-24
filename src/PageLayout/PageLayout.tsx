@@ -6,6 +6,8 @@ type PageLayoutProps = {
   containerWidth?: keyof typeof containerWidthMap
   /** The spacing between the outer edges of the page container and the viewport */
   outerSpacing?: keyof typeof spacingMap // Should this be called `padding`?
+  rowGap?: keyof typeof spacingMap
+  columnGap?: keyof typeof spacingMap
 }
 
 const containerWidthMap = {
@@ -21,7 +23,13 @@ const spacingMap = {
 }
 
 // TODO: refs
-const Root: React.FC<PageLayoutProps> = ({containerWidth = 'xlarge', outerSpacing = 'normal', children}) => {
+const Root: React.FC<PageLayoutProps> = ({
+  containerWidth = 'xlarge',
+  outerSpacing = 'normal',
+  rowGap = 'normal',
+  columnGap = 'normal',
+  children
+}) => {
   return (
     <Box
       sx={{
@@ -39,8 +47,8 @@ const Root: React.FC<PageLayoutProps> = ({containerWidth = 'xlarge', outerSpacin
             `"header header" "content pane" "footer footer"`
           ],
           gridTemplateColumns: '1fr auto',
-          rowGap: [3, null, null, 4],
-          columnGap: [3, null, null, 4]
+          rowGap: spacingMap[rowGap],
+          columnGap: spacingMap[columnGap]
         }}
       >
         {children}
