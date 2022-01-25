@@ -40,6 +40,7 @@ export const Default: Story = args => (
     outerSpacing={args.outerSpacing}
     rowGap={args.rowGap}
     columnGap={args.columnGap}
+    sx={args.sx}
   >
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />

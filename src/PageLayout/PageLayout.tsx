@@ -1,5 +1,6 @@
 import React from 'react'
 import {Box} from '..'
+import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 
 type PageLayoutProps = {
   /** The maximum width of the page container */
@@ -8,7 +9,7 @@ type PageLayoutProps = {
   outerSpacing?: keyof typeof spacingMap // Should this be called `padding`?
   rowGap?: keyof typeof spacingMap
   columnGap?: keyof typeof spacingMap
-}
+} & SxProp
 
 const containerWidthMap = {
   full: '100%',
@@ -28,14 +29,11 @@ const Root: React.FC<PageLayoutProps> = ({
   outerSpacing = 'normal',
   rowGap = 'normal',
   columnGap = 'normal',
+  sx = {},
   children
 }) => {
   return (
-    <Box
-      sx={{
-        padding: spacingMap[outerSpacing]
-      }}
-    >
+    <Box sx={merge<BetterSystemStyleObject>({padding: spacingMap[outerSpacing]}, sx)}>
       <Box
         sx={{
           maxWidth: containerWidthMap[containerWidth],
