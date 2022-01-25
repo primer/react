@@ -209,7 +209,7 @@ export function MixedSelection(): JSX.Element {
         is an action. This pattern appears inside a DropdownMenu for selection view options in Memex
       </p>
 
-      <DropdownMenu open={true}>
+      <DropdownMenu>
         <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedOption && selectedOption.icon}>
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </DropdownMenu.Button>
