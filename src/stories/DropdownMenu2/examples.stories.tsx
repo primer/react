@@ -134,8 +134,8 @@ export function GroupsAndDescription(): JSX.Element {
             Milestone
           </DropdownMenu.Button>
           <DropdownMenu.Overlay width="medium">
-            <ActionList showDividers>
-              <ActionList.Group title="Open">
+            <ActionList showDividers role="none">
+              <ActionList.Group title="Open" role="menu">
                 {milestones
                   .filter(milestone => !milestone.name.includes('21'))
                   .map((milestone, index) => (
@@ -152,7 +152,7 @@ export function GroupsAndDescription(): JSX.Element {
                     </ActionList.Item>
                   ))}
               </ActionList.Group>
-              <ActionList.Group title="Closed">
+              <ActionList.Group title="Closed" role="menu">
                 {milestones
                   .filter(milestone => milestone.name.includes('21'))
                   .map((milestone, index) => (
@@ -209,19 +209,18 @@ export function MixedSelection(): JSX.Element {
         is an action. This pattern appears inside a DropdownMenu for selection view options in Memex
       </p>
 
-      <DropdownMenu>
+      <DropdownMenu open={true}>
         <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedOption && selectedOption.icon}>
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </DropdownMenu.Button>
         <DropdownMenu.Overlay width="medium">
-          <ActionList>
-            <ActionList.Group title="Group by" selectionVariant="single" role="listbox">
+          <ActionList role="none">
+            <ActionList.Group title="Group by" role="menu">
               {options.map((option, index) => (
                 <ActionList.Item
                   key={index}
                   selected={index === selectedIndex}
                   onSelect={() => setSelectedIndex(index)}
-                  role="option"
                 >
                   <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>
                   {option.text}
@@ -229,7 +228,7 @@ export function MixedSelection(): JSX.Element {
               ))}
             </ActionList.Group>
             {typeof selectedIndex === 'number' && (
-              <>
+              <ActionList.Group role="menu">
                 <ActionList.Divider />
                 <ActionList.Item onSelect={() => setSelectedIndex(null)} role="menuitem">
                   <ActionList.LeadingVisual>
@@ -237,7 +236,7 @@ export function MixedSelection(): JSX.Element {
                   </ActionList.LeadingVisual>
                   Clear Group by
                 </ActionList.Item>
-              </>
+              </ActionList.Group>
             )}
           </ActionList>
         </DropdownMenu.Overlay>
