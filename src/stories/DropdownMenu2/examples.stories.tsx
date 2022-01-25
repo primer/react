@@ -211,7 +211,7 @@ export function MixedSelection(): JSX.Element {
 
       <DropdownMenu>
         <DropdownMenu.Button aria-label="Select field type" leadingIcon={selectedOption && selectedOption.icon}>
-          {selectedOption ? selectedOption.text : 'Group options by'}
+          {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </DropdownMenu.Button>
         <DropdownMenu.Overlay width="medium">
           <ActionList>
