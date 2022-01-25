@@ -28,7 +28,11 @@ import {
   KebabHorizontalIcon,
   PencilIcon,
   ArchiveIcon,
-  TrashIcon
+  TrashIcon,
+  CalendarIcon,
+  IterationsIcon,
+  NumberIcon,
+  SingleSelectIcon
 } from '@primer/octicons-react'
 import State from '../../../components/State'
 import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
@@ -73,6 +77,10 @@ export default {
   PencilIcon,
   ArchiveIcon,
   TrashIcon,
+  CalendarIcon,
+  IterationsIcon,
+  NumberIcon,
+  SingleSelectIcon,
   Dialog2,
   ConfirmationDialog,
   useConfirm,
