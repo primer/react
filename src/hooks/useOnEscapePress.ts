@@ -9,7 +9,7 @@ const handlers: ((e: KeyboardEvent) => void)[] = []
 function handleEscape(event: KeyboardEvent) {
   if (event.key === 'Escape' && !event.defaultPrevented) {
     for (let i = handlers.length - 1; i >= 0; --i) {
-      handlers[i](event)
+      if (typeof handlers[i] === 'function') handlers[i](event)
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (event.defaultPrevented) {
         break
