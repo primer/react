@@ -73,11 +73,7 @@ const BugRepro1802 = ({mockHandler}: {mockHandler: (event: KeyboardEvent) => voi
           open overlay
         </Button>
         {isOpen ? (
-          <Overlay
-            returnFocusRef={buttonRef}
-            onEscape={event => setIsOpen(false)}
-            onClickOutside={() => setIsOpen(false)}
-          >
+          <Overlay returnFocusRef={buttonRef} onEscape={() => setIsOpen(false)} onClickOutside={() => setIsOpen(false)}>
             <Text>Text inside Overlay</Text>
           </Overlay>
         ) : null}
