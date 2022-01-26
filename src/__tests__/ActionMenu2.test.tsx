@@ -140,5 +140,6 @@ describe('ActionMenu', () => {
     cleanup()
   })
 
-  checkStoriesForAxeViolations('ActionMenu2')
+  checkStoriesForAxeViolations('ActionMenu2/fixtures')
+  checkStoriesForAxeViolations('ActionMenu2/examples')
 })
