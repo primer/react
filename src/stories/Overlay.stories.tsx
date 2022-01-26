@@ -230,7 +230,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
   )
 }
 
-export const OverlayOnOverlay = () => {
+export const NestedOverlays = () => {
   const [listOverlayOpen, setListOverlayOpen] = React.useState(false)
   const [createListOverlayOpen, setCreateListOverlayOpen] = React.useState(false)
 
