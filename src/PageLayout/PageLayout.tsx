@@ -19,16 +19,16 @@ const containerWidthMap = {
 }
 
 const spacingMap = {
-  normal: [3, null, null, 4],
-  condensed: 3
+  small: 3,
+  medium: [3, null, null, 4]
 }
 
 // TODO: refs
 const Root: React.FC<PageLayoutProps> = ({
   containerWidth = 'xlarge',
-  outerSpacing = 'normal',
-  rowGap = 'normal',
-  columnGap = 'normal',
+  outerSpacing = 'medium',
+  rowGap = 'medium',
+  columnGap = 'medium',
   sx = {},
   children
 }) => {

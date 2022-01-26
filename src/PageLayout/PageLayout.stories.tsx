@@ -60,9 +60,9 @@ export const Default: Story = args => (
 
 Default.args = {
   containerWidth: 'xlarge',
-  outerSpacing: 'normal',
-  rowGap: 'normal',
-  columnGap: 'normal'
+  outerSpacing: 'medium',
+  rowGap: 'medium',
+  columnGap: 'medium'
 }
 
 export default meta
