@@ -2,6 +2,17 @@ import React from 'react'
 import {Box} from '..'
 import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 
+const REGION_ORDER = {
+  header: 0,
+  paneStart: 1,
+  content: 2,
+  paneEnd: 3,
+  footer: 4
+}
+
+// ----------------------------------------------------------------------------
+// PageLayout
+
 type PageLayoutProps = {
   /** The maximum width of the page container */
   containerWidth?: keyof typeof containerWidthMap
@@ -38,15 +49,10 @@ const Root: React.FC<PageLayoutProps> = ({
         sx={{
           maxWidth: containerWidthMap[containerWidth],
           marginX: 'auto',
-          display: 'grid',
-          gridTemplateAreas: [
-            `"header header" "content content" "pane pane" "footer footer"`,
-            null,
-            `"header header" "content pane" "footer footer"`
-          ],
-          gridTemplateColumns: '1fr auto',
-          rowGap: spacingMap[rowGap],
-          columnGap: spacingMap[columnGap]
+          display: 'flex',
+          flexWrap: 'wrap',
+          rowGap: spacingMap[rowGap], // TODO: browser support
+          columnGap: spacingMap[columnGap] // TODO: browser support
         }}
       >
         {children}
@@ -61,15 +67,17 @@ Root.displayName = 'PageLayout'
 // PageLayout.Header
 
 const Header: React.FC = ({children}) => {
-  return <Box sx={{gridArea: 'header'}}>{children}</Box>
+  return <Box sx={{order: REGION_ORDER.header, width: '100%'}}>{children}</Box>
 }
 
 Header.displayName = 'PageLayout.Header'
 
+// ----------------------------------------------------------------------------
+
 // PageLayout.Content
 
 const Content: React.FC = ({children}) => {
-  return <Box sx={{gridArea: 'content'}}>{children}</Box>
+  return <Box sx={{order: REGION_ORDER.content, flexGrow: 1}}>{children}</Box>
 }
 
 Content.displayName = 'PageLayout.Content'
@@ -77,11 +85,25 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-const Pane: React.FC = ({children}) => {
+type PageLayoutPaneProps = {
+  position?: keyof typeof panePositionMap
+  positionWhenNarrow?: 'inherit' | keyof typeof panePositionMap
+}
+
+const panePositionMap = {
+  start: REGION_ORDER.paneStart,
+  end: REGION_ORDER.paneEnd
+}
+
+const Pane: React.FC<PageLayoutPaneProps> = ({position = 'end', positionWhenNarrow = 'inherit', children}) => {
   return (
     <Box
       sx={{
-        gridArea: 'pane',
+        order: [
+          panePositionMap[positionWhenNarrow === 'inherit' ? position : positionWhenNarrow],
+          null,
+          panePositionMap[position]
+        ],
         width: ['100%', null, '296px']
       }}
     >
@@ -96,7 +118,7 @@ Pane.displayName = 'PageLayout.Pane'
 // PageLayout.Footer
 
 const Footer: React.FC = ({children}) => {
-  return <Box sx={{gridArea: 'footer'}}>{children}</Box>
+  return <Box sx={{order: REGION_ORDER.footer, width: '100%'}}>{children}</Box>
 }
 
 Footer.displayName = 'PageLayout.Footer'

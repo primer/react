@@ -9,6 +9,40 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true}
+  },
+  argTypes: {
+    'Pane.position': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end']
+      },
+      defaultValue: 'end',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Pane',
+        defaultValue: {
+          summary: '"end"'
+        }
+      }
+    },
+    'Pane.positionWhenNarrow': {
+      type: {
+        name: 'enum',
+        value: ['inherit', 'start', 'end']
+      },
+      defaultValue: 'inherit',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Pane',
+        defaultValue: {
+          summary: '"inherit"'
+        }
+      }
+    }
   }
 }
 
@@ -49,7 +83,7 @@ export const Default: Story = args => (
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
-    <PageLayout.Pane>
+    <PageLayout.Pane position={args['Pane.position']} positionWhenNarrow={args['Pane.positionWhenNarrow']}>
       <Placeholder height={200} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Footer>
