@@ -265,7 +265,7 @@ export const OverlayOnOverlay = () => {
         <Overlay
           width="medium"
           onEscape={event => {
-            // event.stopPropagation()
+            event.stopPropagation()
             setListOverlayOpen(false)
           }}
           onClickOutside={() => setListOverlayOpen(false)}
