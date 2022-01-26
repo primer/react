@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
+exports[`PointerBox applies the background color via "bg" prop for backwards compatibility 1`] = `
 .c0 {
-  background-color: #FFEBE9;
+  background-color: #cf222e;
   border-width: 1px;
   border-style: solid;
   border-color: #d0d7de;
@@ -31,7 +31,7 @@ exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
     >
       <path
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="#FFEBE9"
+        fill="#cf222e"
       />
       <path
         d="M-8,0L0,8L8,0"
@@ -44,11 +44,55 @@ exports[`PointerBox passes the "bg" prop to both <BorderBox> and <Caret> 1`] = `
 </div>
 `;
 
-exports[`PointerBox passes the "borderColor" prop to both <BorderBox> and <Caret> 1`] = `
+exports[`PointerBox applies the background color via sx prop 1`] = `
 .c0 {
-  border-color: #cf222e;
   border-width: 1px;
   border-style: solid;
+  border-color: #d0d7de;
+  border-radius: 6px;
+  background-color: #cf222e;
+  position: relative;
+}
+
+<div
+  className="c0"
+>
+  <svg
+    height={16}
+    style={
+      Object {
+        "left": "50%",
+        "marginLeft": -8,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": "100%",
+      }
+    }
+    width={16}
+  >
+    <g
+      transform="translate(8,0)"
+    >
+      <path
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#cf222e"
+      />
+      <path
+        d="M-8,0L0,8L8,0"
+        fill="none"
+        stroke="#d0d7de"
+        strokeWidth="1px"
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`PointerBox applies the border color via "borderColor" prop for backwards compatibility 1`] = `
+.c0 {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #cf222e;
   border-radius: 6px;
   position: relative;
 }
@@ -87,7 +131,51 @@ exports[`PointerBox passes the "borderColor" prop to both <BorderBox> and <Caret
 </div>
 `;
 
-exports[`PointerBox renders a <Caret> in <BorderBox> with relative positioning 1`] = `
+exports[`PointerBox applies the border color via sx prop 1`] = `
+.c0 {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d0d7de;
+  border-radius: 6px;
+  border-color: #cf222e;
+  position: relative;
+}
+
+<div
+  className="c0"
+>
+  <svg
+    height={16}
+    style={
+      Object {
+        "left": "50%",
+        "marginLeft": -8,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "top": "100%",
+      }
+    }
+    width={16}
+  >
+    <g
+      transform="translate(8,0)"
+    >
+      <path
+        d="M-8,0L0,8L8,0L-8,0Z"
+        fill="#ffffff"
+      />
+      <path
+        d="M-8,0L0,8L8,0"
+        fill="none"
+        stroke="#cf222e"
+        strokeWidth="1px"
+      />
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
 .c0 {
   border-width: 1px;
   border-style: solid;
