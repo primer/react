@@ -126,5 +126,6 @@ describe('DropdownMenu', () => {
     mockError.mockRestore()
   })
 
-  checkStoriesForAxeViolations('DropdownMenu2')
+  checkStoriesForAxeViolations('DropdownMenu2/fixtures')
+  checkStoriesForAxeViolations('DropdownMenu2/examples')
 })
