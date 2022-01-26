@@ -7,7 +7,8 @@ const meta: Meta = {
   title: 'Layout/PageLayout',
   component: PageLayout,
   parameters: {
-    layout: 'fullscreen'
+    layout: 'fullscreen',
+    controls: {expanded: true}
   }
 }
 
