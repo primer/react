@@ -264,10 +264,7 @@ export const NestedOverlays = () => {
       {listOverlayOpen && (
         <Overlay
           width="medium"
-          onEscape={event => {
-            event.stopPropagation()
-            setListOverlayOpen(false)
-          }}
+          onEscape={() => setListOverlayOpen(false)}
           onClickOutside={() => setListOverlayOpen(false)}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}
@@ -303,10 +300,7 @@ export const NestedOverlays = () => {
           {createListOverlayOpen && (
             <Overlay
               width="large"
-              onEscape={event => {
-                event.stopPropagation()
-                setCreateListOverlayOpen(false)
-              }}
+              onEscape={() => setCreateListOverlayOpen(false)}
               onClickOutside={() => setCreateListOverlayOpen(false)}
               returnFocusRef={secondaryButtonRef}
               ignoreClickRefs={[secondaryButtonRef]}
