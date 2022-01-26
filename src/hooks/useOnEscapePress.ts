@@ -9,7 +9,6 @@ const handlers: ((e: KeyboardEvent) => void)[] = []
 function handleEscape(event: KeyboardEvent) {
   if (event.key === 'Escape' && !event.defaultPrevented) {
     if (typeof handlers[0] === 'function') handlers[0](event)
-    event.stopPropagation()
   }
 }
 
@@ -34,8 +33,8 @@ function handleEscape(event: KeyboardEvent) {
  * `onEscape` callback for memoization. Omit this param if the callback is already
  * memoized. See `React.useCallback` for more info on memoization.
  *
- * @param overlayRef {React.RefObject<HTMLElement>}
- * TODO
+ * @param overlayRef {React.RefObject<HTMLElement>} The overlay element to attach the
+ * handlers on. If not provided, fallback to document.
  */
 export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
@@ -46,10 +45,11 @@ export const useOnEscapePress = (
   const escapeCallback = useCallback(onEscape, callbackDependencies)
 
   useEffect(() => {
-    const element = overlayRef.current || document
+    const element = overlayRef.current
 
     if (handlers.length === 0) {
-      element.addEventListener('keydown', handleEscape)
+      if (element) element.addEventListener('keydown', handleEscape)
+      else document.addEventListener('keydown', handleEscape)
     }
     handlers.push(escapeCallback)
     return () => {
@@ -58,7 +58,8 @@ export const useOnEscapePress = (
         1
       )
       if (handlers.length === 0) {
-        element.removeEventListener('keydown', handleEscape)
+        if (element) element.removeEventListener('keydown', handleEscape)
+        else document.removeEventListener('keydown', handleEscape)
       }
     }
   }, [escapeCallback, overlayRef])

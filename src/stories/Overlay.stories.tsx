@@ -236,23 +236,19 @@ export const OverlayOnOverlay = () => {
 
   const buttonRef = useRef<HTMLButtonElement>(null)
   const secondaryButtonRef = useRef<HTMLButtonElement>(null)
-  const containerRef = useRef(null)
 
   React.useEffect(() => {
-    const handler = event => {
-      console.log('story', event)
-      // if (!event.defaultPrevented) console.log(event)
-    }
-
+    // eslint-disable-next-line no-console
+    const handler = (event: KeyboardEvent) => console.log('global handler:', event.key)
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [containerRef])
+  })
 
   const hostElement = document.createElement('div')
   ReactDOM.render(<div>hello</div>, hostElement)
 
   return (
-    <div ref={containerRef}>
+    <div>
       <TextInput />
       <ButtonGroup display="block" my={2}>
         <Button>Star</Button>
@@ -268,7 +264,10 @@ export const OverlayOnOverlay = () => {
       {listOverlayOpen && (
         <Overlay
           width="medium"
-          onEscape={() => setListOverlayOpen(false)}
+          onEscape={event => {
+            event.stopPropagation()
+            setListOverlayOpen(false)
+          }}
           onClickOutside={() => setListOverlayOpen(false)}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}
@@ -304,7 +303,10 @@ export const OverlayOnOverlay = () => {
           {createListOverlayOpen && (
             <Overlay
               width="large"
-              onEscape={() => setCreateListOverlayOpen(false)}
+              onEscape={event => {
+                event.stopPropagation()
+                setCreateListOverlayOpen(false)
+              }}
               onClickOutside={() => setCreateListOverlayOpen(false)}
               returnFocusRef={secondaryButtonRef}
               ignoreClickRefs={[secondaryButtonRef]}
