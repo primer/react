@@ -45,13 +45,13 @@ function handleEscape(event: KeyboardEvent) {
 export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
   callbackDependencies: React.DependencyList = [onEscape],
-  containerRef: React.RefObject<HTMLElement>
+  containerRef?: React.RefObject<HTMLElement>
 ): void => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const escapeCallback = useCallback(onEscape, callbackDependencies)
 
   useEffect(() => {
-    const element = containerRef.current
+    const element = containerRef?.current
 
     if (handlers.length === 0) {
       if (element) element.addEventListener('keydown', handleEscape)

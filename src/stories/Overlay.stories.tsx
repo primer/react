@@ -242,7 +242,7 @@ export const OverlayOnOverlay = () => {
     const handler = (event: KeyboardEvent) => console.log('global handler:', event.key)
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  })
+  }, [])
 
   const hostElement = document.createElement('div')
   ReactDOM.render(<div>hello</div>, hostElement)
