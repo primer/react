@@ -23,7 +23,7 @@ import {Pagehead} from '@primer/react'
 <PropsTable>
   <PropsTableRow
     name="as"
-    defaultValue="Link"
+    defaultValue="div"
     type="string"
     description="Sets the underlying HTML tag for the component"
   />

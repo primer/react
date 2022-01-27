@@ -167,11 +167,6 @@ render(<PopoverDemo />)
   <PropsTableSxRow />
 </PropsTable>
 
-| Name | Type              | Default | Description                          |
-| :--- | :---------------- | :-----: | :----------------------------------- |
-| as   | String            |  'div'  | Sets the HTML tag for the component. |
-| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
-
 ## Status
 
 <ComponentChecklist
