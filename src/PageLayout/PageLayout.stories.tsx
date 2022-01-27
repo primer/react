@@ -42,6 +42,22 @@ const meta: Meta = {
           summary: '"inherit"'
         }
       }
+    },
+    'Pane.width': {
+      type: {
+        name: 'enum',
+        value: ['small', 'medium', 'large']
+      },
+      defaultValue: 'medium',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Pane',
+        defaultValue: {
+          summary: '"medium"'
+        }
+      }
     }
   }
 }
@@ -77,13 +93,17 @@ export const Default: Story = args => (
     columnGap={args.columnGap}
     sx={args.sx}
   >
-    <PageLayout.Header divider="line" dividerWhenNarrow="filled">
+    <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
     <PageLayout.Content>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
-    <PageLayout.Pane position={args['Pane.position']} positionWhenNarrow={args['Pane.positionWhenNarrow']}>
+    <PageLayout.Pane
+      position={args['Pane.position']}
+      positionWhenNarrow={args['Pane.positionWhenNarrow']}
+      width={args['Pane.width']}
+    >
       <Placeholder height={200} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Footer>

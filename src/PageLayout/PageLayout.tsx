@@ -31,7 +31,7 @@ const containerWidthMap = {
 
 const spacingMap = {
   condensed: 3,
-  normal: [3, null, 4]
+  normal: [3, null, null, 4]
 }
 
 // TODO: refs
@@ -67,37 +67,41 @@ Root.displayName = 'PageLayout'
 // PageLayout.Header
 
 type PageLayoutHeaderProps = {
-  divider?: 'none' | 'line'
-  dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  // divider?: 'none' | 'line'
+  // dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
 }
 
-const dividerMap = {
-  none: {},
-  line: {
-    height: 1,
-    backgroundColor: 'border.default'
-  },
-  filled: {
-    height: 8,
-    backgroundColor: 'canvas.inset',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    boxShadow: (theme: any) =>
-      `inset 0 -1px 0 0 ${theme.colors.border.default}, inset 0 1px 0 0 ${theme.colors.border.default}`
-  }
-}
+// const dividerMap = {
+//   none: {},
+//   line: {
+//     height: 1,
+//     backgroundColor: 'border.default'
+//   },
+//   filled: {
+//     height: 8,
+//     backgroundColor: 'canvas.inset',
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//     boxShadow: (theme: any) =>
+//       `inset 0 -1px 0 0 ${theme.colors.border.default}, inset 0 1px 0 0 ${theme.colors.border.default}`
+//   }
+// }
 
-const Header: React.FC<PageLayoutHeaderProps> = ({divider = 'none', dividerWhenNarrow = 'inherit', children}) => {
+const Header: React.FC<PageLayoutHeaderProps> = ({
+  // divider = 'none',
+  // dividerWhenNarrow = 'inherit',
+  children
+}) => {
   return (
     <Box
       sx={{
         order: REGION_ORDER.header,
-        width: '100%',
-        display: 'grid',
-        gap: [3, null, 4]
+        width: '100%'
+        // display: 'grid',
+        // gap: [3, null, 4]
       }}
     >
       {children}
-      <Box
+      {/* <Box
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sx={(theme: any) => ({
           // marginTop: 3,
@@ -109,7 +113,7 @@ const Header: React.FC<PageLayoutHeaderProps> = ({divider = 'none', dividerWhenN
             ...dividerMap[divider]
           }
         })}
-      />
+      /> */}
     </Box>
   )
 }
@@ -132,6 +136,7 @@ Content.displayName = 'PageLayout.Content'
 type PageLayoutPaneProps = {
   position?: keyof typeof panePositionMap
   positionWhenNarrow?: 'inherit' | keyof typeof panePositionMap
+  width?: keyof typeof paneWidthMap
 }
 
 const panePositionMap = {
@@ -139,7 +144,18 @@ const panePositionMap = {
   end: REGION_ORDER.paneEnd
 }
 
-const Pane: React.FC<PageLayoutPaneProps> = ({position = 'end', positionWhenNarrow = 'inherit', children}) => {
+const paneWidthMap = {
+  small: ['100%', null, '240px', '256px'],
+  medium: ['100%', null, '256px', '296px'],
+  large: ['100%', null, '256px', '320px', '336px']
+}
+
+const Pane: React.FC<PageLayoutPaneProps> = ({
+  position = 'end',
+  positionWhenNarrow = 'inherit',
+  width = 'medium',
+  children
+}) => {
   return (
     <Box
       sx={{
@@ -148,7 +164,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({position = 'end', positionWhenNarr
           null,
           panePositionMap[position]
         ],
-        width: ['100%', null, '296px']
+        width: paneWidthMap[width]
       }}
     >
       {children}
