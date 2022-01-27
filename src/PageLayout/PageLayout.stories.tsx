@@ -77,7 +77,7 @@ export const Default: Story = args => (
     columnGap={args.columnGap}
     sx={args.sx}
   >
-    <PageLayout.Header>
+    <PageLayout.Header divider="line" dividerWhenNarrow="filled">
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
     <PageLayout.Content>

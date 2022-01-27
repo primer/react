@@ -66,8 +66,52 @@ Root.displayName = 'PageLayout'
 // ----------------------------------------------------------------------------
 // PageLayout.Header
 
-const Header: React.FC = ({children}) => {
-  return <Box sx={{order: REGION_ORDER.header, width: '100%'}}>{children}</Box>
+type PageLayoutHeaderProps = {
+  divider?: 'none' | 'line'
+  dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+}
+
+const dividerMap = {
+  none: {},
+  line: {
+    height: 1,
+    backgroundColor: 'border.default'
+  },
+  filled: {
+    height: 8,
+    backgroundColor: 'canvas.inset',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    boxShadow: (theme: any) =>
+      `inset 0 -1px 0 0 ${theme.colors.border.default}, inset 0 1px 0 0 ${theme.colors.border.default}`
+  }
+}
+
+const Header: React.FC<PageLayoutHeaderProps> = ({divider = 'none', dividerWhenNarrow = 'inherit', children}) => {
+  return (
+    <Box
+      sx={{
+        order: REGION_ORDER.header,
+        width: '100%',
+        display: 'grid',
+        gap: [3, null, 4]
+      }}
+    >
+      {children}
+      <Box
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        sx={(theme: any) => ({
+          // marginTop: 3,
+          marginX: -3,
+          ...dividerMap[dividerWhenNarrow === 'inherit' ? divider : dividerWhenNarrow],
+          [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+            // marginTop: 4,
+            marginX: 0,
+            ...dividerMap[divider]
+          }
+        })}
+      />
+    </Box>
+  )
 }
 
 Header.displayName = 'PageLayout.Header'
