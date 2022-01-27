@@ -11,6 +11,22 @@ const meta: Meta = {
     controls: {expanded: true}
   },
   argTypes: {
+    'Content.width': {
+      type: {
+        name: 'enum',
+        value: ['full', 'medium', 'large', 'xlarge']
+      },
+      defaultValue: 'full',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Content',
+        defaultValue: {
+          summary: '"full"'
+        }
+      }
+    },
     'Pane.position': {
       type: {
         name: 'enum',
@@ -96,7 +112,7 @@ export const Default: Story = args => (
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Content>
+    <PageLayout.Content width={args['Content.width']}>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
     <PageLayout.Pane
@@ -114,9 +130,9 @@ export const Default: Story = args => (
 
 Default.args = {
   containerWidth: 'xlarge',
-  outerSpacing: 'medium',
-  rowGap: 'medium',
-  columnGap: 'medium'
+  outerSpacing: 'normal',
+  rowGap: 'normal',
+  columnGap: 'normal'
 }
 
 export default meta

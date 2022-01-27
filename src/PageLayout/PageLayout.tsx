@@ -124,8 +124,24 @@ Header.displayName = 'PageLayout.Header'
 
 // PageLayout.Content
 
-const Content: React.FC = ({children}) => {
-  return <Box sx={{order: REGION_ORDER.content, flexGrow: 1}}>{children}</Box>
+type PageLayoutContentProps = {
+  width?: keyof typeof contentWidthMap
+}
+
+// TODO: Account for pane width when centering content
+const contentWidthMap = {
+  full: '100%',
+  medium: '768px',
+  large: '1012px',
+  xlarge: '1280px'
+}
+
+const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children}) => {
+  return (
+    <Box sx={{order: REGION_ORDER.content, flexGrow: 1}}>
+      <Box sx={{maxWidth: contentWidthMap[width], marginX: 'auto'}}>{children}</Box>
+    </Box>
+  )
 }
 
 Content.displayName = 'PageLayout.Content'
