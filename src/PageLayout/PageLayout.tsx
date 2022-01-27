@@ -30,6 +30,7 @@ const containerWidthMap = {
 }
 
 const spacingMap = {
+  // none: '0', Should `none` be an option?
   condensed: 3,
   normal: [3, null, null, 4]
 }
