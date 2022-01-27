@@ -14,7 +14,12 @@ export const useMenuFocus = (open: boolean, onOpen?: Callback) => {
     if (typeof onOpen === 'function') onOpen(gesture, event)
   }
 
-  // Handle the first element to focus
+  /**
+   * Pick the first element to focus based on the key used to open the Menu
+   * ArrowDown | Space | Enter: first element
+   * ArrowUp: last element
+   */
+
   React.useEffect(() => {
     if (!open) return
     if (!openingKey || !containerRef.current) return
@@ -31,47 +36,5 @@ export const useMenuFocus = (open: boolean, onOpen?: Callback) => {
     }
   }, [open, openingKey, containerRef])
 
-  // Handle focus based on the first letter
-  React.useEffect(() => {
-    if (!open) return
-
-    const container = containerRef.current
-    if (!container) return
-
-    const handler = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (!isAlphabetKey(event)) return
-      const letter = event.key.toLowerCase()
-
-      const activeElement = document.activeElement as HTMLElement
-      if (activeElement.tagName === 'INPUT') return
-
-      const focusableItems = [...iterateFocusableElements(container)]
-      const itemsStartingWithKey = focusableItems.filter(item => {
-        return item.textContent?.toLowerCase().startsWith(letter)
-      })
-
-      let elementToFocus: HTMLElement | undefined
-
-      const currentActiveIndex = itemsStartingWithKey.indexOf(activeElement)
-
-      // If the last element is already selected, cycle through the list
-      if (currentActiveIndex === itemsStartingWithKey.length - 1) elementToFocus = itemsStartingWithKey[0]
-      else {
-        elementToFocus = itemsStartingWithKey.find((item, index) => {
-          return index > currentActiveIndex
-        })
-      }
-
-      elementToFocus?.focus()
-    }
-
-    container.addEventListener('keydown', handler)
-    return () => container.removeEventListener('keydown', handler)
-  }, [open, containerRef])
-
   return {containerRef, openWithFocus}
-}
-
-const isAlphabetKey = (event: React.KeyboardEvent<HTMLElement>) => {
-  return /[a-z]/i.test(event.key)
 }
