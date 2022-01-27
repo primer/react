@@ -1,4 +1,5 @@
 import React from 'react'
+import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {Button, ButtonProps} from './Button2'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
@@ -8,7 +9,10 @@ import {Divider} from './ActionList2/Divider'
 import {ActionListContainerContext} from './ActionList2/ActionListContainerContext'
 import {MandateProps} from './utils/types'
 
-type MenuContextProps = Pick<AnchoredOverlayProps, 'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose'>
+type MenuContextProps = Pick<
+  AnchoredOverlayProps,
+  'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose' | 'anchorId'
+>
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
 export type DropdownMenuProps = {
@@ -39,6 +43,7 @@ const Menu: React.FC<DropdownMenuProps> = ({
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
+  const anchorId = useSSRSafeId()
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
 
   // 🚨 Hack for good API!
@@ -53,7 +58,7 @@ const Menu: React.FC<DropdownMenuProps> = ({
   })
 
   return (
-    <MenuContext.Provider value={{anchorRef, renderAnchor, open: combinedOpenState, onOpen, onClose}}>
+    <MenuContext.Provider value={{anchorRef, renderAnchor, anchorId, open: combinedOpenState, onOpen, onClose}}>
       {contents}
     </MenuContext.Provider>
   )
@@ -89,7 +94,7 @@ type MenuOverlayProps = Partial<OverlayProps> & {
 const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
-  const {anchorRef, renderAnchor, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
+  const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
     MenuContextProps,
     'anchorRef'
   >
@@ -98,6 +103,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
     <AnchoredOverlay
       anchorRef={anchorRef}
       renderAnchor={renderAnchor}
+      anchorId={anchorId}
       open={open}
       onOpen={onOpen}
       onClose={onClose}
@@ -108,6 +114,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
           container: 'DropdownMenu',
           listRole: 'menu',
           itemRole: 'menuitemradio',
+          listLabelledBy: anchorId,
           selectionVariant: 'single',
           selectionAttribute: 'aria-checked',
           afterSelect: onClose

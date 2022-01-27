@@ -56,6 +56,32 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
   )
 }
 
+// https://github.com/primer/react/issues/1802
+const BugRepro1802 = ({mockHandler}: {mockHandler: (event: KeyboardEvent) => void}) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  React.useEffect(() => {
+    document.addEventListener('keydown', mockHandler)
+    return () => document.removeEventListener('keydown', mockHandler)
+  }, [mockHandler])
+
+  return (
+    <ThemeProvider theme={theme}>
+      <BaseStyles>
+        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+          open overlay
+        </Button>
+        {isOpen ? (
+          <Overlay returnFocusRef={buttonRef} onEscape={() => setIsOpen(false)} onClickOutside={() => setIsOpen(false)}>
+            <Text>Text inside Overlay</Text>
+          </Overlay>
+        ) : null}
+      </BaseStyles>
+    </ThemeProvider>
+  )
+}
+
 describe('Overlay', () => {
   it('should have no axe violations', async () => {
     const {container} = render(<TestComponent />)
@@ -99,5 +125,15 @@ describe('Overlay', () => {
     expect(mockFunction).toHaveBeenCalledTimes(1)
     const cancelButtons = queryAllByText('Cancel')
     expect(cancelButtons).toHaveLength(0)
+  })
+
+  it('should call stop propagation', () => {
+    const mockHandler = jest.fn()
+    const {getByText} = render(<BugRepro1802 mockHandler={mockHandler} />)
+    act(() => userEvent.click(getByText('open overlay')))
+    const domNode = getByText('Text inside Overlay')
+    fireEvent.keyDown(domNode, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})
+    // if stopPropagation worked, mockHandler would not have been called
+    expect(mockHandler).toHaveBeenCalledTimes(0)
   })
 })
