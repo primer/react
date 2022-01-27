@@ -1,14 +1,14 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider} from '..'
-import BaseStyles from '../BaseStyles'
-import {DropdownMenu} from '../DropdownMenu2'
-import {ActionList} from '../ActionList2'
-import {Button} from '../Button2'
-import Box from '../Box'
-import Text from '../Text'
-import TextInput from '../TextInput'
-import ProgressBar from '../ProgressBar'
+import {ThemeProvider} from '../..'
+import BaseStyles from '../../BaseStyles'
+import {DropdownMenu} from '../../DropdownMenu2'
+import {ActionList} from '../../ActionList2'
+import {Button} from '../../Button2'
+import Box from '../../Box'
+import Text from '../../Text'
+import TextInput from '../../TextInput'
+import ProgressBar from '../../ProgressBar'
 import {
   GearIcon,
   MilestoneIcon,
@@ -20,7 +20,7 @@ import {
 } from '@primer/octicons-react'
 
 const meta: Meta = {
-  title: 'Composite components/DropdownMenu2',
+  title: 'Composite components/DropdownMenu2/fixtures',
   component: DropdownMenu,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (
