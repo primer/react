@@ -1,7 +1,25 @@
 import React, {useState, useRef, useCallback} from 'react'
+import ReactDOM from 'react-dom'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
-import {BaseStyles, Overlay, Button, Text, ButtonDanger, ThemeProvider, Box} from '..'
+import {TriangleDownIcon, PlusIcon} from '@primer/octicons-react'
+import {
+  BaseStyles,
+  Overlay,
+  Button,
+  ButtonInvisible,
+  ButtonPrimary,
+  ButtonGroup,
+  Text,
+  ButtonDanger,
+  ThemeProvider,
+  Box,
+  StyledOcticon,
+  Checkbox,
+  ChoiceInputField,
+  TextInput,
+  ActionList
+} from '..'
 import type {AnchorSide} from '@primer/behaviors'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
 import {ItemInput} from '../ActionList/List'
@@ -209,5 +227,99 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
         </Overlay>
       ) : null}
     </Box>
+  )
+}
+
+export const NestedOverlays = () => {
+  const [listOverlayOpen, setListOverlayOpen] = React.useState(false)
+  const [createListOverlayOpen, setCreateListOverlayOpen] = React.useState(false)
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const secondaryButtonRef = useRef<HTMLButtonElement>(null)
+
+  React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    const handler = (event: KeyboardEvent) => console.log('global handler:', event.key)
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [])
+
+  const hostElement = document.createElement('div')
+  ReactDOM.render(<div>hello</div>, hostElement)
+
+  return (
+    <div>
+      <TextInput />
+      <ButtonGroup display="block" my={2}>
+        <Button>Star</Button>
+        <Button
+          aria-label="Add this repository to a list"
+          ref={buttonRef}
+          onClick={() => setListOverlayOpen(!listOverlayOpen)}
+          sx={{paddingX: 2}}
+        >
+          <TriangleDownIcon />
+        </Button>
+      </ButtonGroup>
+      {listOverlayOpen && (
+        <Overlay
+          width="medium"
+          onEscape={() => setListOverlayOpen(false)}
+          onClickOutside={() => setListOverlayOpen(false)}
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          top={60}
+          left={16}
+        >
+          <Box sx={{display: 'flex', flexDirection: 'column', py: 2}}>
+            <Box sx={{paddingX: 3}}>
+              <Text color="fg.muted" sx={{fontSize: 1}}>
+                Add to list
+              </Text>
+              <Box sx={{marginY: 1}}>
+                <ChoiceInputField>
+                  <ChoiceInputField.Label>My stack</ChoiceInputField.Label>
+                  <Checkbox />
+                </ChoiceInputField>
+                <ChoiceInputField>
+                  <ChoiceInputField.Label>Want to try</ChoiceInputField.Label>
+                  <Checkbox />
+                </ChoiceInputField>
+              </Box>
+            </Box>
+            <ActionList.Divider />
+            <ButtonInvisible
+              ref={secondaryButtonRef}
+              sx={{textAlign: 'left', px: 2, mx: 2}}
+              onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
+            >
+              <StyledOcticon icon={PlusIcon} sx={{mr: 1}} />
+              Create list
+            </ButtonInvisible>
+          </Box>
+          {createListOverlayOpen && (
+            <Overlay
+              width="large"
+              onEscape={() => setCreateListOverlayOpen(false)}
+              onClickOutside={() => setCreateListOverlayOpen(false)}
+              returnFocusRef={secondaryButtonRef}
+              ignoreClickRefs={[secondaryButtonRef]}
+              top={120}
+              left={64}
+            >
+              <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}}>
+                <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
+                  Create a list to organize your starred repositories.
+                </Text>
+                <TextInput placeholder="Name this list" sx={{mb: 2}} />
+                <TextInput as="textarea" placeholder="Write a description" rows="3" sx={{mb: 2, textarea: {p: 2}}} />
+
+                <ButtonPrimary onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}>Create</ButtonPrimary>
+              </Box>
+            </Overlay>
+          )}
+        </Overlay>
+      )}
+    </div>
   )
 }

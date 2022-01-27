@@ -1,0 +1,102 @@
+---
+title: Label v2
+componentId: label2
+status: Alpha
+source: https://github.com/primer/react/tree/main/src/Label2
+storybook: '/react/storybook?path=story/labels-label--label'
+description: Use Label components to add contextual metadata to a design.
+---
+
+## Examples
+
+### Basic
+
+```javascript live noinline
+// import {Label} from '@primer/react/drafts'
+const {Label} = drafts // ignore docs silliness; import like that ↑
+
+render(<Label>Default</Label>)
+```
+
+### Variants
+
+```javascript live noinline
+// import {Label} from '@primer/react/drafts'
+const {Label} = drafts // ignore docs silliness; import like that ↑
+render(
+  <>
+    <Label>Default</Label>
+    <Label variant="primary">Primary</Label>
+    <Label variant="secondary">Secondary</Label>
+    <Label variant="accent">Accent</Label>
+    <Label variant="success">Success</Label>
+    <Label variant="attention">Attention</Label>
+    <Label variant="severe">Severe</Label>
+    <Label variant="danger">Danger</Label>
+    <Label variant="done">Done</Label>
+    <Label variant="sponsors">Sponsors</Label>
+  </>
+)
+```
+
+### Sizes
+
+```javascript live noinline
+// import {Label} from '@primer/react/drafts'
+const {Label} = drafts // ignore docs silliness; import like that ↑
+render(
+  <>
+    <Label>Small (default)</Label>
+    <Label size="large">Large</Label>
+  </>
+)
+```
+
+## Props
+
+### Label
+
+<PropsTable>
+  <PropsTableRow
+    name="variant"
+    type={`| 'default'
+| 'primary'
+| 'secondary'
+| 'accent'
+| 'success'
+| 'attention'
+| 'severe'
+| 'danger'
+| 'done'
+| 'sponsors'`}
+    defaultValue="'default'"
+    description="The color of the label"
+  />
+  <PropsTableRow
+    name="size"
+    type="'small' | 'large'"
+    defaultValue="'small'"
+    description="How large the label is rendered"
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
