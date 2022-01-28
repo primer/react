@@ -11,6 +11,38 @@ const meta: Meta = {
     controls: {expanded: true}
   },
   argTypes: {
+    'Header.divider': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Header',
+        defaultValue: {
+          summary: '"none"'
+        }
+      }
+    },
+    'Header.dividerWhenNarrow': {
+      type: {
+        name: 'enum',
+        value: ['inherit', 'none', 'line', 'filled']
+      },
+      defaultValue: 'inherit',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Header',
+        defaultValue: {
+          summary: '"inherit"'
+        }
+      }
+    },
     'Content.width': {
       type: {
         name: 'enum',
@@ -109,7 +141,7 @@ export const Default: Story = args => (
     columnGap={args.columnGap}
     sx={args.sx}
   >
-    <PageLayout.Header>
+    <PageLayout.Header divider={args['Header.divider']} dividerWhenNarrow={args['Header.dividerWhenNarrow']}>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
     <PageLayout.Content width={args['Content.width']}>

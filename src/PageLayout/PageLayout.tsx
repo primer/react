@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box} from '..'
-import {SxProp, merge, BetterSystemStyleObject} from '../sx'
+import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 
 const REGION_ORDER = {
   header: 0,
@@ -9,6 +9,11 @@ const REGION_ORDER = {
   paneEnd: 3,
   footer: 4
 }
+
+const PageLayoutContext = React.createContext<{
+  rowGap: Required<PageLayoutProps>['rowGap']
+  columnGap: Required<PageLayoutProps>['columnGap']
+}>({rowGap: 'normal', columnGap: 'normal'})
 
 // ----------------------------------------------------------------------------
 // PageLayout
@@ -45,20 +50,22 @@ const Root: React.FC<PageLayoutProps> = ({
   children
 }) => {
   return (
-    <Box sx={merge<BetterSystemStyleObject>({padding: spacingMap[outerSpacing]}, sx)}>
-      <Box
-        sx={{
-          maxWidth: containerWidthMap[containerWidth],
-          marginX: 'auto',
-          display: 'flex',
-          flexWrap: 'wrap',
-          rowGap: spacingMap[rowGap], // TODO: browser support
-          columnGap: spacingMap[columnGap] // TODO: browser support
-        }}
-      >
-        {children}
+    <PageLayoutContext.Provider value={{rowGap, columnGap}}>
+      <Box sx={merge<BetterSystemStyleObject>({padding: spacingMap[outerSpacing]}, sx)}>
+        <Box
+          sx={{
+            maxWidth: containerWidthMap[containerWidth],
+            marginX: 'auto',
+            display: 'flex',
+            flexWrap: 'wrap',
+            // rowGap: spacingMap[rowGap], // TODO: browser support
+            columnGap: spacingMap[columnGap] // TODO: browser support
+          }}
+        >
+          {children}
+        </Box>
       </Box>
-    </Box>
+    </PageLayoutContext.Provider>
   )
 }
 
@@ -68,53 +75,52 @@ Root.displayName = 'PageLayout'
 // PageLayout.Header
 
 type PageLayoutHeaderProps = {
-  // divider?: 'none' | 'line'
-  // dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  divider?: 'none' | 'line'
+  dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
 }
 
-// const dividerMap = {
-//   none: {},
-//   line: {
-//     height: 1,
-//     backgroundColor: 'border.default'
-//   },
-//   filled: {
-//     height: 8,
-//     backgroundColor: 'canvas.inset',
-//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//     boxShadow: (theme: any) =>
-//       `inset 0 -1px 0 0 ${theme.colors.border.default}, inset 0 1px 0 0 ${theme.colors.border.default}`
-//   }
-// }
+const dividerMap = {
+  none: {
+    display: 'none'
+  },
+  line: {
+    display: 'block',
+    height: 1,
+    backgroundColor: 'border.default'
+  },
+  filled: {
+    display: 'block',
+    height: 8,
+    backgroundColor: 'canvas.inset',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    boxShadow: (theme: any) =>
+      `inset 0 -1px 0 0 ${theme.colors.border.default}, inset 0 1px 0 0 ${theme.colors.border.default}`
+  }
+}
 
-const Header: React.FC<PageLayoutHeaderProps> = ({
-  // divider = 'none',
-  // dividerWhenNarrow = 'inherit',
-  children
-}) => {
+const Header: React.FC<PageLayoutHeaderProps> = ({divider = 'none', dividerWhenNarrow = 'inherit', children}) => {
+  const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
       sx={{
         order: REGION_ORDER.header,
-        width: '100%'
-        // display: 'grid',
-        // gap: [3, null, 4]
+        width: '100%',
+        marginBottom: spacingMap[rowGap]
       }}
     >
       {children}
-      {/* <Box
+      <Box
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sx={(theme: any) => ({
-          // marginTop: 3,
+          marginTop: spacingMap[rowGap],
           marginX: -3,
           ...dividerMap[dividerWhenNarrow === 'inherit' ? divider : dividerWhenNarrow],
           [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-            // marginTop: 4,
             marginX: 0,
             ...dividerMap[divider]
           }
         })}
-      /> */}
+      />
     </Box>
   )
 }
@@ -195,7 +201,8 @@ Pane.displayName = 'PageLayout.Pane'
 // PageLayout.Footer
 
 const Footer: React.FC = ({children}) => {
-  return <Box sx={{order: REGION_ORDER.footer, width: '100%'}}>{children}</Box>
+  const {rowGap} = React.useContext(PageLayoutContext)
+  return <Box sx={{order: REGION_ORDER.footer, width: '100%', marginTop: spacingMap[rowGap]}}>{children}</Box>
 }
 
 Footer.displayName = 'PageLayout.Footer'
