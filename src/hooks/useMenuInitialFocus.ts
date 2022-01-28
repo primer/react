@@ -4,7 +4,7 @@ import {iterateFocusableElements} from '@primer/behaviors/utils'
 type Gesture = 'anchor-click' | 'anchor-key-press'
 type Callback = (gesture: Gesture, event?: React.KeyboardEvent<HTMLElement>) => unknown
 
-export const useMenuFocus = (open: boolean, onOpen?: Callback) => {
+export const useMenuInitialFocus = (open: boolean, onOpen?: Callback) => {
   const containerRef = React.createRef<HTMLDivElement>()
   const [openingKey, setOpeningKey] = React.useState<string | undefined>(undefined)
 

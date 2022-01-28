@@ -1,11 +1,11 @@
 import React from 'react'
 import {render, fireEvent, cleanup, waitFor} from '@testing-library/react'
-import {useMenuFocus} from '../../hooks'
+import {useMenuInitialFocus} from '../../hooks'
 
 const Component = () => {
   const [open, setOpen] = React.useState(false)
   const onOpen = () => setOpen(!open)
-  const {containerRef, openWithFocus} = useMenuFocus(open, onOpen)
+  const {containerRef, openWithFocus} = useMenuInitialFocus(open, onOpen)
   const buttonRef = React.createRef<HTMLButtonElement>()
 
   return (
