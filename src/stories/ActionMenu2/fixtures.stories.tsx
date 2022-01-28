@@ -561,23 +561,3 @@ export function UnexpectedSelectionVariant(): JSX.Element {
   )
 }
 UnexpectedSelectionVariant.storyName = 'Unexpected selectionVariant'
-
-export function FocusTest(): JSX.Element {
-  return (
-    <>
-      <h1>Expect error if selectionVariant is passed</h1>
-
-      <ActionMenu>
-        <ActionMenu.Button>Menu</ActionMenu.Button>
-        <ActionMenu.Overlay>
-          <ActionList>
-            <ActionList.Item>Item 1</ActionList.Item>
-            <ActionList.Item>Item 2</ActionList.Item>
-            <ActionList.Item>Item 3</ActionList.Item>
-          </ActionList>
-        </ActionMenu.Overlay>
-      </ActionMenu>
-    </>
-  )
-}
-FocusTest.storyName = 'Focus Test'
