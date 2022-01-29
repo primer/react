@@ -14,7 +14,6 @@ const InputLabel: React.FC<Props> = ({children, disabled, required, visuallyHidd
       isVisible={!visuallyHidden}
       as="label"
       htmlFor={htmlFor}
-      title={required ? 'required field' : undefined}
       sx={{
         fontWeight: 'bold',
         fontSize: 1,

@@ -66,7 +66,7 @@ describe('InputField', () => {
         </SSRProvider>
       )
 
-      const input = getByRole('textbox')
+      const input = getByRole('textbox', {name: TEXTINPUTFIELD_LABEL_TEXT})
 
       expect(input.getAttribute('required')).not.toBeNull()
     })
