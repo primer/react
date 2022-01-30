@@ -6,15 +6,10 @@ const Component = () => {
   const [open, setOpen] = React.useState(false)
   const onOpen = () => setOpen(!open)
   const {containerRef, openWithFocus} = useMenuInitialFocus(open, onOpen)
-  const buttonRef = React.createRef<HTMLButtonElement>()
 
   return (
     <>
-      <button
-        ref={buttonRef}
-        onClick={() => setOpen(true)}
-        onKeyDown={event => openWithFocus('anchor-key-press', event)}
-      >
+      <button onClick={() => setOpen(true)} onKeyDown={event => openWithFocus('anchor-key-press', event)}>
         open container
       </button>
       {open && (
