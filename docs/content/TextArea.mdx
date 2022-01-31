@@ -39,7 +39,7 @@ const TextAreaExample = () => {
     setValue(event.target.value)
   }
 
-  return <TextArea onChange={handleChange}>{value}</TextArea>
+  return <TextArea onChange={handleChange} value={value} />
 }
 
 render(<TextAreaExample />)

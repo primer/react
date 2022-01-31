@@ -16,14 +16,11 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -37,18 +34,40 @@ exports[`TextInput renders 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -61,9 +80,10 @@ exports[`TextInput renders 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -100,14 +120,11 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -121,23 +138,45 @@ exports[`TextInput renders block 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 0;
-  padding-right: 0;
+  min-height: 32px;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -150,9 +189,10 @@ exports[`TextInput renders block 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -189,14 +229,11 @@ exports[`TextInput renders consistently 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -210,18 +247,40 @@ exports[`TextInput renders consistently 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -234,9 +293,10 @@ exports[`TextInput renders consistently 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -272,14 +332,11 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -293,18 +350,40 @@ exports[`TextInput renders contrast 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -317,9 +396,10 @@ exports[`TextInput renders contrast 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -356,14 +436,11 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -377,18 +454,40 @@ exports[`TextInput renders error 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -401,9 +500,10 @@ exports[`TextInput renders error 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -440,14 +540,11 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -461,23 +558,45 @@ exports[`TextInput renders large 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 0;
-  padding-right: 0;
+  min-height: 32px;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 20px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -490,9 +609,10 @@ exports[`TextInput renders large 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -530,14 +650,11 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -551,18 +668,40 @@ exports[`TextInput renders leadingVisual 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 0;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -575,9 +714,10 @@ exports[`TextInput renders leadingVisual 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 0;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -641,14 +781,11 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -662,18 +799,40 @@ exports[`TextInput renders placeholder 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -686,9 +845,10 @@ exports[`TextInput renders placeholder 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -726,14 +886,11 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -747,8 +904,7 @@ exports[`TextInput renders small 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 0;
-  padding-right: 0;
+  min-height: 32px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -756,16 +912,39 @@ exports[`TextInput renders small 1`] = `
   padding-bottom: 3px;
   font-size: 12px;
   line-height: 20px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -778,9 +957,10 @@ exports[`TextInput renders small 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -818,14 +998,11 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -839,18 +1016,40 @@ exports[`TextInput renders trailingVisual 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -863,9 +1062,10 @@ exports[`TextInput renders trailingVisual 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
 }
 
 @media (min-width:768px) {
@@ -929,14 +1129,11 @@ exports[`TextInput renders warning 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -950,18 +1147,40 @@ exports[`TextInput renders warning 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -974,9 +1193,10 @@ exports[`TextInput renders warning 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -1013,14 +1233,11 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -1034,18 +1251,40 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -1058,9 +1297,10 @@ exports[`TextInput should render a password input 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {

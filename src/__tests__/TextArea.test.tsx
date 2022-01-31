@@ -14,7 +14,7 @@ describe('TextArea', () => {
     jest.resetAllMocks()
     cleanup()
   })
-  behavesAsComponent({Component: TextArea})
+  behavesAsComponent({Component: TextArea, options: {skipAs: true}})
 
   checkExports('TextArea', {
     default: TextArea
@@ -71,28 +71,26 @@ describe('TextArea', () => {
   })
 
   it('renders default resize values correctly', () => {
-    const defaultStyles = renderStyles(<TextArea />)
+    const {getByRole} = render(<TextArea />)
+    const textareaElement = getByRole('textbox')
 
-    expect(defaultStyles).toEqual(
-      expect.objectContaining({
-        resize: 'both'
-      })
-    )
+    expect(textareaElement).toHaveStyle({
+      resize: 'both'
+    })
   })
 
   it('renders none resize values correctly', () => {
-    const defaultStyles = renderStyles(<TextArea resize="none" />)
+    const {getByRole} = render(<TextArea resize="none" />)
+    const textareaElement = getByRole('textbox')
 
-    expect(defaultStyles).toEqual(
-      expect.objectContaining({
-        resize: 'none'
-      })
-    )
+    expect(textareaElement).toHaveStyle({
+      resize: 'none'
+    })
   })
 
   it('renders a value in the textarea', () => {
     const mockValue = 'mock value'
-    const {getByRole} = render(<TextArea>{mockValue}</TextArea>)
+    const {getByRole} = render(<TextArea value={mockValue} />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
 

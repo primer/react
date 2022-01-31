@@ -52,11 +52,10 @@ export type StyledBaseWrapperProps = {
 export type StyledWrapperProps = {
   hasLeadingVisual?: boolean
   hasTrailingVisual?: boolean
-  validationStatus?: 'error' | 'warning'
   /** @deprecated Use `size` prop instead */
   variant?: 'small' | 'large'
   size?: 'small' | 'large'
-} & Omit<StyledBaseWrapperProps, 'validationStatus'>
+} & StyledBaseWrapperProps
 
 const textInputBasePadding = '12px'
 export const textInputHorizPadding = textInputBasePadding
@@ -103,7 +102,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       border-color: ${get('colors.border.default')};
     `}
   
-    ${props =>
+  ${props =>
     props.validationStatus === 'error' &&
     css`
       border-color: ${get('colors.danger.emphasis')};
@@ -124,15 +123,15 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       }
     `}
 
-      ${props =>
+  ${props =>
     props.block &&
     css`
       width: 100%;
       display: flex;
     `}
       
-        // Ensures inputs don' t zoom on mobile but are body-font size on desktop
-        @media (min-width: ${get('breakpoints.1')}) {
+  // Ensures inputs don' t zoom on mobile but are body-font size on desktop
+  @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
 
@@ -179,6 +178,8 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
         box-shadow: 0 0 0 3px ${get('colors.attention.muted')};
       }
     `}
+
+  ${sx};
 `
 
 export default TextInputWrapper

@@ -3,7 +3,6 @@ import React, {TextareaHTMLAttributes, ReactElement} from 'react'
 import {TextInputBaseWrapper} from './_TextInputWrapper'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import sx, {SxProp} from './sx'
-import {get} from './constants'
 
 export type TextAreaProps = {
   /**
@@ -37,6 +36,7 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
   -webkit-appearance: none;
   color: inherit;
   width: 100%;
+  resize: both;
 
   &:focus {
     outline: 0;
@@ -64,12 +64,24 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
  */
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
-    {disabled, sx: sxProp, required, validationStatus, rows = 7, cols = 30, resize = 'both', ...rest}: TextAreaProps,
+    {
+      value,
+      disabled,
+      sx: sxProp,
+      required,
+      validationStatus,
+      rows = 7,
+      cols = 30,
+      resize = 'both',
+      block,
+      ...rest
+    }: TextAreaProps,
     ref
   ): ReactElement => {
     return (
-      <TextInputBaseWrapper sx={sxProp} validationStatus={validationStatus} disabled={disabled}>
+      <TextInputBaseWrapper sx={sxProp} validationStatus={validationStatus} disabled={disabled} block={block}>
         <StyledTextArea
+          value={value}
           resize={resize}
           required={required}
           aria-required={required ? 'true' : 'false'}
