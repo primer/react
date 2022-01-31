@@ -182,7 +182,15 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor:
 
-```javascript live noinline drafts
+<<<<<<< HEAD
+
+````javascript live noinline drafts
+=======
+```javascript live noinline
+// import {ActionMenu, ActionList} from '@primer/react/drafts'
+const {ActionMenu, ActionList, Button} = drafts // ignore docs silliness; import like that ↑
+
+>>>>>>> main
 const Example = () => {
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.createRef()
@@ -209,7 +217,7 @@ const Example = () => {
 }
 
 render(<Example />)
-```
+````
 
 ### With Overlay Props
 
@@ -263,9 +271,9 @@ Use `ActionMenu` to choose an action from a list. If you’re looking for single
 
 ### ActionMenu.Button
 
-| Type                                    | Default | Description                                                                                                          |
-| :-------------------------------------- | :-----: | :------------------------------------------------------------------------------------------------------------------- |
-| [ButtonProps](/Buttons#component-props) |    -    | Optional. You can pass all of the props that you would pass to a [`Button`](/Buttons) component like `variant`, `sx` |
+| Type                                             | Default | Description                                                                                                       |
+| :----------------------------------------------- | :-----: | :---------------------------------------------------------------------------------------------------------------- |
+| [Button v2 props](/drafts/Button2#api-reference) |    -    | You can pass all of the props that you would pass to a [`Button`](/drafts/Button2) component like `variant`, `sx` |
 
 ### ActionMenu.Anchor
 
@@ -310,3 +318,4 @@ Use `ActionMenu` to choose an action from a list. If you’re looking for single
 - [ActionList](/drafts/ActionList2)
 - [DropdownMenu](/DropdownMenu)
 - [SelectPanel](/SelectPanel)
+- [Button](/drafts/Button2)

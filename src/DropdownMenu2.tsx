@@ -1,12 +1,12 @@
 import React from 'react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
+import {Button, ButtonProps} from './Button2'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate} from './hooks'
 import {Divider} from './ActionList2/Divider'
 import {ActionListContainerContext} from './ActionList2/ActionListContainerContext'
-import {Button, ButtonProps} from './Button2'
 import {MandateProps} from './utils/types'
 
 type MenuContextProps = Pick<
@@ -15,7 +15,7 @@ type MenuContextProps = Pick<
 >
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
-export type ActionMenuProps = {
+export type DropdownMenuProps = {
   /**
    * Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`
    */
@@ -32,12 +32,12 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
-const Menu: React.FC<ActionMenuProps> = ({
+const Menu: React.FC<DropdownMenuProps> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
   children
-}: ActionMenuProps) => {
+}: DropdownMenuProps) => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
@@ -64,22 +64,26 @@ const Menu: React.FC<ActionMenuProps> = ({
   )
 }
 
-export type MenuAnchorProps = {children: React.ReactElement}
-const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], MenuAnchorProps>(
+export type DropdownMenuAnchorProps = {children: React.ReactElement}
+const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], DropdownMenuAnchorProps>(
   ({children, ...anchorProps}, anchorRef) => {
     return React.cloneElement(children, {...anchorProps, ref: anchorRef})
   }
 )
 
 /** this component is syntactical sugar 🍭 */
-export type MenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>((props, anchorRef) => {
-  return (
-    <Anchor ref={anchorRef}>
-      <Button trailingIcon={TriangleDownIcon} type="button" {...props} />
-    </Anchor>
-  )
-})
+export type DropdownMenuButtonProps = ButtonProps
+const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
+  ({children, ...props}, anchorRef) => {
+    return (
+      <Anchor ref={anchorRef}>
+        <Button trailingIcon={TriangleDownIcon} type="button" {...props}>
+          {children}
+        </Button>
+      </Anchor>
+    )
+  }
+)
 
 type MenuOverlayProps = Partial<OverlayProps> & {
   /**
@@ -107,10 +111,12 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
     >
       <ActionListContainerContext.Provider
         value={{
-          container: 'ActionMenu',
+          container: 'DropdownMenu',
           listRole: 'menu',
-          itemRole: 'menuitem',
+          itemRole: 'menuitemradio',
           listLabelledBy: anchorId,
+          selectionVariant: 'single',
+          selectionAttribute: 'aria-checked',
           afterSelect: onClose
         }}
       >
@@ -121,4 +127,4 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
 }
 
 Menu.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})
+export const DropdownMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})

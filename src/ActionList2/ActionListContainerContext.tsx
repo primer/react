@@ -6,10 +6,13 @@ type ContextProps = {
   container?: string
   listRole?: string
   itemRole?: string
+  selectionVariant?: 'single' | 'multiple'
+  selectionAttribute?: 'aria-selected' | 'aria-checked'
   listLabelledBy?: string
   // This can be any function, we don't know anything about the arguments
   // to be more specific here, this is as good as (...args: any[]) => unknown
   // eslint-disable-next-line @typescript-eslint/ban-types
   afterSelect?: Function
 }
+
 export const ActionListContainerContext = React.createContext<ContextProps>({})
