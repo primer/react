@@ -104,6 +104,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
       onOpen={onOpen}
       onClose={onClose}
       overlayProps={overlayProps}
+      focusZoneSettings={{focusOutBehavior: 'wrap'}}
     >
       <ActionListContainerContext.Provider
         value={{
