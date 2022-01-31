@@ -82,7 +82,7 @@ export const Inactive = (args: TextAreaProps) => {
     <>
       <StyledForm>
         <Label htmlFor="textarea-inactive">Inactive</Label>
-        <TextArea id="textarea-inactive" disabled {...args} />
+        <TextArea id="textarea-inactive" {...args} disabled />
       </StyledForm>
     </>
   )

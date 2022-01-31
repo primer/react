@@ -1,5 +1,6 @@
 import styled, {css} from 'styled-components'
 import React, {TextareaHTMLAttributes, ReactElement} from 'react'
+import {TextInputBaseWrapper} from './_TextInputWrapper'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import sx, {SxProp} from './sx'
 import {get} from './constants'
@@ -29,56 +30,17 @@ export type TextAreaProps = {
   SxProp
 
 const StyledTextArea = styled.textarea<TextAreaProps>`
+  border: 0;
+  font-size: inherit;
   font-family: inherit;
-  font-size: ${get('fontSizes.1')};
-  line-height: ${get('lineHeights.condensed')};
-  color: ${get('colors.fg.default')};
-  vertical-align: middle;
-  background-color: ${get('colors.canvas.default')};
-  border: 1px solid ${get('colors.border.default')};
-  border-radius: ${get('radii.2')};
-  outline: none;
-  box-shadow: ${get('shadows.primer.shadow.inset')};
-  cursor: text;
-  display: inline-flex;
-  align-items: stretch;
-  padding: ${get('space.2')};
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
 
-  &:focus-within {
-    border-color: ${get('colors.accent.emphasis')};
-    box-shadow: ${get('shadows.primer.shadow.focus')};
+  &:focus {
+    outline: 0;
   }
-
-  &::placeholder {
-    color: ${get('colors.fg.subtle')};
-  }
-
-  ${props =>
-    props.validationStatus === 'error' &&
-    css`
-      border-color: ${get('colors.danger.emphasis')};
-      &:focus-within {
-        border-color: ${get('colors.danger.emphasis')};
-        box-shadow: ${get('shadows.btn.danger.focusShadow')};
-      }
-    `}
-
-  ${props =>
-    props.validationStatus === 'success' &&
-    css`
-      border-color: ${get('colors.success.emphasis')};
-      &:focus-within {
-        border-color: ${get('colors.success.emphasis')};
-        box-shadow: 0 0 0 3px ${get('colors.success.muted')};
-      }
-    `}
-  
-    ${props =>
-    props.block &&
-    css`
-      width: 100%;
-      display: flex;
-    `}
 
   ${props =>
     props.resize &&
@@ -86,22 +48,14 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
       resize: ${props.resize};
     `}
 
-    ${props =>
+  ${props =>
     props.disabled &&
     css`
       resize: none;
-      color: ${get('colors.primer.fg.disabled')};
-      background-color: ${get('colors.input.disabledBg')};
-      border-color: ${get('colors.border.default')};
       cursor: not-allowed;
     `}
 
-  // Ensures inputs don't zoom on mobile but are body-font size on desktop
-  @media (min-width: ${get('breakpoints.1')}) {
-    font-size: ${get('fontSizes.1')};
-  }
-
-  ${sx}
+  ${sx};
 `
 
 /**
@@ -109,19 +63,24 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
  * This component accepts all native HTML <textarea> attributes as props.
  */
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({disabled, sx: sxProp, required, validationStatus, resize = 'both', ...rest}: TextAreaProps, ref): ReactElement => {
+  (
+    {disabled, sx: sxProp, required, validationStatus, rows = 7, cols = 30, resize = 'both', ...rest}: TextAreaProps,
+    ref
+  ): ReactElement => {
     return (
-      <StyledTextArea
-        ref={ref}
-        disabled={disabled}
-        sx={sxProp}
-        validationStatus={validationStatus}
-        resize={resize}
-        required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-        {...rest}
-      />
+      <TextInputBaseWrapper sx={sxProp} validationStatus={validationStatus} disabled={disabled}>
+        <StyledTextArea
+          resize={resize}
+          required={required}
+          aria-required={required ? 'true' : 'false'}
+          aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+          ref={ref}
+          disabled={disabled}
+          rows={rows}
+          cols={cols}
+          {...rest}
+        />
+      </TextInputBaseWrapper>
     )
   }
 )

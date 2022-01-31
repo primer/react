@@ -25,7 +25,7 @@ technologies. Examples below are provided for conciseness and may not reflect ac
 ### Basic
 
 ```jsx live
-<TextArea cols={40} rows={8} placeholder="Enter a description" />
+<TextArea placeholder="Enter a description" />
 ```
 
 ### Controlled mode
@@ -39,11 +39,7 @@ const TextAreaExample = () => {
     setValue(event.target.value)
   }
 
-  return (
-    <TextArea cols={40} rows={8} onChange={handleChange}>
-      {value}
-    </TextArea>
-  )
+  return <TextArea onChange={handleChange}>{value}</TextArea>
 }
 
 render(<TextAreaExample />)
@@ -89,11 +85,11 @@ render(<TextAreaExample />)
   <Box as="label" htmlFor="success-state" sx={{display: 'block'}}>
     Success state:
   </Box>
-  <TextArea cols={40} rows={8} id="success-state" validationStatus="success" />
+  <TextArea id="success-state" validationStatus="success" />
   <Box as="label" htmlFor="error-state" sx={{display: 'block', mt: 5}}>
     Error state:
   </Box>
-  <TextArea cols={40} rows={8} id="error-state" validationStatus="error" />
+  <TextArea id="error-state" validationStatus="error" />
 </>
 ```
 
@@ -101,9 +97,7 @@ render(<TextAreaExample />)
 
 ```jsx live
 <>
-  <TextArea cols={40} rows={8} disabled>
-    This text is inactive
-  </TextArea>
+  <TextArea disabled>This text is inactive</TextArea>
 </>
 ```
 
@@ -119,7 +113,7 @@ By default, `TextArea` can be resized by the user vertically and horizontally. R
 
 ```jsx live
 <>
-  <TextArea cols={40} rows={8} sx={{marginBottom: 2}} />
+  <TextArea sx={{marginBottom: 2}} />
   <p>Custom styles like `margin` and `padding` can be applied using the `sx` prop</p>
 </>
 ```
