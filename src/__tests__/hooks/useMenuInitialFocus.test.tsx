@@ -15,9 +15,9 @@ const Component = () => {
       {open && (
         <div ref={containerRef}>
           <span>not focusable</span>
-          <button tabIndex={0}>first focusable element</button>
-          <button tabIndex={0}>second focusable element</button>
-          <button tabIndex={0}>third focusable element</button>
+          <button>first focusable element</button>
+          <button>second focusable element</button>
+          <button>third focusable element</button>
           <span>not focusable</span>
         </div>
       )}
