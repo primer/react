@@ -13,7 +13,10 @@
       "node": "./lib/drafts/index.js",
       "default": "./lib-esm/drafts/index.js"
     },
-    "./lib-esm/*": "./lib-esm/*/*.js"
+    "./lib-esm/*": {
+      "node": "./lib/*.js",
+      "default":"./lib-esm/*.js"
+    }
   },
   "typings": "lib/index.d.ts",
   "sideEffects": false,
