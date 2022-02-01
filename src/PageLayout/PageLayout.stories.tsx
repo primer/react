@@ -106,6 +106,70 @@ const meta: Meta = {
           summary: '"medium"'
         }
       }
+    },
+    'Pane.divider': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Pane',
+        defaultValue: {
+          summary: '"none"'
+        }
+      }
+    },
+    'Pane.dividerWhenNarrow': {
+      type: {
+        name: 'enum',
+        value: ['inherit', 'none', 'line', 'filled']
+      },
+      defaultValue: 'inherit',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Pane',
+        defaultValue: {
+          summary: '"inherit"'
+        }
+      }
+    },
+    'Footer.divider': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Footer',
+        defaultValue: {
+          summary: '"none"'
+        }
+      }
+    },
+    'Footer.dividerWhenNarrow': {
+      type: {
+        name: 'enum',
+        value: ['inherit', 'none', 'line', 'filled']
+      },
+      defaultValue: 'inherit',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Footer',
+        defaultValue: {
+          summary: '"inherit"'
+        }
+      }
     }
   }
 }
@@ -124,8 +188,6 @@ const Placeholder: React.FC<{
         display: 'grid',
         placeItems: 'center',
         bg: 'canvas.inset',
-        border: '1px solid',
-        borderColor: 'border.default',
         borderRadius: 2
       }}
     >
@@ -151,10 +213,12 @@ export const Default: Story = args => (
       position={args['Pane.position']}
       positionWhenNarrow={args['Pane.positionWhenNarrow']}
       width={args['Pane.width']}
+      divider={args['Pane.divider']}
+      dividerWhenNarrow={args['Pane.dividerWhenNarrow']}
     >
       <Placeholder height={200} label="Pane" />
     </PageLayout.Pane>
-    <PageLayout.Footer>
+    <PageLayout.Footer divider={args['Footer.divider']} dividerWhenNarrow={args['Footer.dividerWhenNarrow']}>
       <Placeholder height={64} label="Footer" />
     </PageLayout.Footer>
   </PageLayout>
