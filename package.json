@@ -14,8 +14,8 @@
       "default": "./lib-esm/drafts/index.js"
     },
     "./lib-esm/*": {
-      "node": "./lib/*.js",
-      "default":"./lib-esm/*.js"
+      "node": ["./lib/*.js","./lib/*/index.js"],
+      "default": ["./lib-esm/*.js","./lib-esm/*/index.js"]
     }
   },
   "typings": "lib/index.d.ts",
