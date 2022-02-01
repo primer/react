@@ -16,52 +16,55 @@ import {Button, IconButton, LinkButton} from '@primer/react/drafts'
 ### Installation
 
 ```js
-import {Button} from '@primer/react/drafts'
+// ESM
+import {Button} from '@primer/react/lib-esm/drafts'
+// or commonjs:
+import {Button} from '@primer/react/lib/drafts'
 ```
 
 ### Default button
 
 This is the default variant for the `Button` component.
 
-```jsx live
-<drafts.Button>Default</drafts.Button>
+```jsx live drafts
+<Button>Default</Button>
 ```
 
 ### Danger button
 
 The `danger` variant of `Button` is used to warn users about potentially destructive actions
 
-```jsx live
-<drafts.Button variant="danger">Danger</drafts.Button>
+```jsx live drafts
+<Button variant="danger">Danger</Button>
 ```
 
 ### Outline button
 
 The `outline` variant of `Button` is typically used as a secondary button
 
-```jsx live
-<drafts.Button variant="outline">Outline</drafts.Button>
+```jsx live drafts
+<Button variant="outline">Outline</Button>
 ```
 
 ### Invisible button
 
 The `invisible` variant of `Button` indicates that the action is a low priority one.
 
-```jsx live
-<drafts.Button variant="invisible">Invisible</drafts.Button>
+```jsx live drafts
+<Button variant="invisible">Invisible</Button>
 ```
 
 ### Different sized buttons
 
 `Button` component supports three different sizes. `small`, `medium`, `large`.
 
-```jsx live
+```jsx live drafts
 <>
-  <drafts.Button size="small">Search</drafts.Button>
-  <drafts.Button sx={{mt: 2}}>Search</drafts.Button>
-  <drafts.Button sx={{mt: 2}} size="large">
+  <Button size="small">Search</Button>
+  <Button sx={{mt: 2}}>Search</Button>
+  <Button sx={{mt: 2}} size="large">
     Search
-  </drafts.Button>
+  </Button>
 </>
 ```
 
@@ -70,15 +73,15 @@ The `invisible` variant of `Button` indicates that the action is a low priority 
 We can place an inside the `Button` in either the leading or the trailing position to enhance the visual context.
 It is recommended to use an octicon here.
 
-```jsx live
+```jsx live drafts
 <>
-  <drafts.Button leadingIcon={SearchIcon}>Search</drafts.Button>
-  <drafts.Button trailingIcon={SearchIcon} sx={{mt: 2}}>
+  <Button leadingIcon={SearchIcon}>Search</Button>
+  <Button trailingIcon={SearchIcon} sx={{mt: 2}}>
     Search
-  </drafts.Button>
-  <drafts.Button leadingIcon={SearchIcon} trailingIcon={CheckIcon} sx={{mt: 2}}>
+  </Button>
+  <Button leadingIcon={SearchIcon} trailingIcon={CheckIcon} sx={{mt: 2}}>
     Search
-  </drafts.Button>
+  </Button>
 </>
 ```
 
@@ -86,25 +89,25 @@ It is recommended to use an octicon here.
 
 A separate component called `IconButton` is used if the action shows only an icon with no text. This button will remain square in shape.
 
-```jsx live
-<drafts.IconButton icon={SearchIcon}>Search</drafts.IconButton>
+```jsx live drafts
+<IconButton icon={SearchIcon}>Search</IconButton>
 ```
 
 ### Different sized icon buttons
 
 `IconButton` also supports the three different sizes. `small`, `medium`, `large`.
 
-```jsx live
+```jsx live drafts
 <>
-  <drafts.IconButton icon={SearchIcon} size="small">
+  <IconButton icon={SearchIcon} size="small">
     Search
-  </drafts.IconButton>
-  <drafts.IconButton sx={{ml: 2}} icon={SearchIcon}>
+  </IconButton>
+  <IconButton sx={{ml: 2}} icon={SearchIcon}>
     Search
-  </drafts.IconButton>
-  <drafts.IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
+  </IconButton>
+  <IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
     Search
-  </drafts.IconButton>
+  </IconButton>
 </>
 ```
 
@@ -114,11 +117,11 @@ A common use case for primer is a button with a counter component which shows th
 We provide `Button.Counter` as a composite component which requires you to provide a number as child.
 The counter will match the `variant` styles of the parent button.
 
-```jsx live
-<drafts.Button>
+```jsx live drafts
+<Button>
   Watch
-  <drafts.Button.Counter>1</drafts.Button.Counter>
-</drafts.Button>
+  <Button.Counter>1</Button.Counter>
+</Button>
 ```
 
 ### Styling a button
@@ -126,8 +129,8 @@ The counter will match the `variant` styles of the parent button.
 A button can be styled in an appropriate manner using the `sx` prop. This maybe to change width, or to add margins etc.
 Here's an example of a block button which takes 100% of available width. Checkout [styled-system](https://styled-system.com/) to see what you can send in an `sx` prop.
 
-```jsx live
-<drafts.Button sx={{width: '100%'}}>Block</drafts.Button>
+```jsx live drafts
+<Button sx={{width: '100%'}}>Block</Button>
 ```
 
 ## API reference
