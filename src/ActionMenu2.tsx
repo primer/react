@@ -3,7 +3,7 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate} from './hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus} from './hooks'
 import {Divider} from './ActionList2/Divider'
 import {ActionListContainerContext} from './ActionList2/ActionListContainerContext'
 import {Button, ButtonProps} from './Button2'
@@ -95,27 +95,31 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
     'anchorRef'
   >
 
+  const {containerRef, openWithFocus} = useMenuInitialFocus(open, onOpen)
+
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
       open={open}
-      onOpen={onOpen}
+      onOpen={openWithFocus}
       onClose={onClose}
       overlayProps={overlayProps}
     >
-      <ActionListContainerContext.Provider
-        value={{
-          container: 'ActionMenu',
-          listRole: 'menu',
-          itemRole: 'menuitem',
-          listLabelledBy: anchorId,
-          afterSelect: onClose
-        }}
-      >
-        {children}
-      </ActionListContainerContext.Provider>
+      <div ref={containerRef}>
+        <ActionListContainerContext.Provider
+          value={{
+            container: 'ActionMenu',
+            listRole: 'menu',
+            itemRole: 'menuitem',
+            listLabelledBy: anchorId,
+            afterSelect: onClose
+          }}
+        >
+          {children}
+        </ActionListContainerContext.Provider>
+      </div>
     </AnchoredOverlay>
   )
 }

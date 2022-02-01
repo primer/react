@@ -4,7 +4,7 @@ import {TriangleDownIcon} from '@primer/octicons-react'
 import {Button, ButtonProps} from './Button2'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate} from './hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus} from './hooks'
 import {Divider} from './ActionList2/Divider'
 import {ActionListContainerContext} from './ActionList2/ActionListContainerContext'
 import {MandateProps} from './utils/types'
@@ -99,29 +99,33 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
     'anchorRef'
   >
 
+  const {containerRef, openWithFocus} = useMenuInitialFocus(open, onOpen)
+
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
       renderAnchor={renderAnchor}
       anchorId={anchorId}
       open={open}
-      onOpen={onOpen}
+      onOpen={openWithFocus}
       onClose={onClose}
       overlayProps={overlayProps}
     >
-      <ActionListContainerContext.Provider
-        value={{
-          container: 'DropdownMenu',
-          listRole: 'menu',
-          itemRole: 'menuitemradio',
-          listLabelledBy: anchorId,
-          selectionVariant: 'single',
-          selectionAttribute: 'aria-checked',
-          afterSelect: onClose
-        }}
-      >
-        {children}
-      </ActionListContainerContext.Provider>
+      <div ref={containerRef}>
+        <ActionListContainerContext.Provider
+          value={{
+            container: 'DropdownMenu',
+            listRole: 'menu',
+            itemRole: 'menuitemradio',
+            listLabelledBy: anchorId,
+            selectionVariant: 'single',
+            selectionAttribute: 'aria-checked',
+            afterSelect: onClose
+          }}
+        >
+          {children}
+        </ActionListContainerContext.Provider>
+      </div>
     </AnchoredOverlay>
   )
 }
