@@ -89,8 +89,8 @@
       url: /LabelGroup
     - title: Link
       url: /Link
-    # - title: Overlay
-    #   url: /Overlay
+    - title: Overlay
+      url: /Overlay
     - title: Pagehead
       url: /Pagehead
     - title: Pagination

@@ -1,29 +1,26 @@
 ---
-componentId: portal
 title: Portal
+description: Portals allow you to create a separation between the logical React component hierarchy and the physical DOM.
+componentId: portal
+source: https://github.com/primer/react/blob/main/src/Portal/Portal.tsx
 status: Alpha
 ---
 
-Portals allow you to create a separation between the logical React component hierarchy and the physical DOM. See the [React documentation on portals](https://reactjs.org/docs/portals.html) for an in-depth explanation.
+```js
+import {Portal, registerPortalRoot} from '@primer/react'
+```
 
-This Portal component will render all children into the portal root DOM node instead of as children of this Portal's parent DOM element. This is useful for breaking out of the current stacking context. For example, popup menus and tooltips may need to render on top of (read: covering up) other UI. The best way to guarantee this is to add these elements to top-level DOM, such as directly on `document.body`. These elements can then be moved to the correct location using absolute positioning.
+This `Portal` component will render all children into the portal root DOM node instead of as children of this Portal's parent DOM element. This is useful for breaking out of the current stacking context. For example, popup menus and tooltips may need to render on top of (read: covering up) other UI. The best way to guarantee this is to add these elements to top-level DOM, such as directly on `document.body`. These elements can then be moved to the correct location using absolute positioning.
 
-## Customizing the portal root
+<Note variant="info">
 
-By default, Primer will create a portal root for you as a child of the closest `<BaseStyles>` element, or `document.body` if none is found. That root will be positioned absolutely in the top-left corner of its parent element. If you would like to specify your own portal root, there are two options:
+See the [React documentation on portals](https://reactjs.org/docs/portals.html) for an in-depth explanation.
 
-1. Before rendering a `<Portal>` for the first time, ensure that an element exists with id `__primerPortalRoot__`. If that exists, it will be used as the default portal root.
-2. Call the `registerPortalRoot` function, passing in the element you would like to use as your default portal root.
+</Note>
 
-Keep in mind that any inherited styles applied to portaled elements are based on its physical DOM parent. Practically this means that styles added by a `<BaseStyles>` element will not apply to the portaled content unless the portal root is a descendent of a `<BaseStyles>` element.
+## Examples
 
-Also, as `<ThemeProvider>` affects the _React_ context, which applies to the logical React component hierarchy, the portal root is not required to be a child of a `<ThemeProvider>` for its children to receive that context.
-
-## Multiple portal roots
-
-There may be situations where you want to have multiple portal roots. Advanced scenarios may necessitate multiple stacking contexts for overlays. You can set up multiple roots using the `registerPortalRoot` function. Calling this function with an element and a string `name` will register the root, which can then be used by creating a `<Portal>` with a `name` prop matching the one you registered.
-
-## Default example
+### Default example
 
 ```jsx
 <Portal>
@@ -32,7 +29,7 @@ There may be situations where you want to have multiple portal roots. Advanced s
 </Portal>
 ```
 
-## Example: custom portal root
+### Customizing the portal root
 
 ```html
 <!-- Wherever in your DOM tree you would like to have the default portal root -->
@@ -46,7 +43,16 @@ import { registerPortalRoot } from "@primer/react"
 registerPortalRoot(document.querySelector(".my-portal-root")!)
 ```
 
-## Example: multiple portal roots
+By default, Primer will create a portal root for you as a child of the closest `<BaseStyles>` element, or `document.body` if none is found. That root will be positioned absolutely in the top-left corner of its parent element. If you would like to specify your own portal root, there are two options:
+
+1. Before rendering a `<Portal>` for the first time, ensure that an element exists with id `__primerPortalRoot__`. If that exists, it will be used as the default portal root.
+2. Call the `registerPortalRoot` function, passing in the element you would like to use as your default portal root.
+
+Keep in mind that any inherited styles applied to portaled elements are based on its physical DOM parent. Practically this means that styles added by a `<BaseStyles>` element will not apply to the portaled content unless the portal root is a descendent of a `<BaseStyles>` element.
+
+Also, as `<ThemeProvider>` affects the _React_ context, which applies to the logical React component hierarchy, the portal root is not required to be a child of a `<ThemeProvider>` for its children to receive that context.
+
+### Multiple portal roots
 
 ```jsx
 import { Portal, registerPortalRoot } from "@primer/react"
@@ -68,13 +74,38 @@ export default () => (
 )
 ```
 
-## System props
+There may be situations where you want to have multiple portal roots. Advanced scenarios may necessitate multiple stacking contexts for overlays. You can set up multiple roots using the `registerPortalRoot` function. Calling this function with an element and a string `name` will register the root, which can then be used by creating a `<Portal>` with a `name` prop matching the one you registered.
 
-Since Portals do not render UI on their own, they do not accept any system props.
+## Props
 
-## Component props
+### Portal
 
-| Name          | Type       | Default | Description                                                                                                                                    |
-| :------------ | :--------- | :-----: | :--------------------------------------------------------------------------------------------------------------------------------------------- |
-| onMount       | () => void |         | Called when this portal is added to the DOM                                                                                                    |
-| containerName | string     |         | Renders the portal children into the container registered with the given name. If omitted, children are rendered into the default portal root. |
+<PropsTable>
+  <PropsTableRow name="onMount" type="function" description="Called when this portal is added to the DOM" />
+  <PropsTableRow
+    name="containerName"
+    type="string"
+    description="Renders the portal children into the container registered with the given name. If omitted, children are rendered into the default portal root."
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: null,
+    adaptsToScreenSizes: null,
+    fullTestCoverage: true,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
