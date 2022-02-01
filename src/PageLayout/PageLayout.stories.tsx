@@ -11,6 +11,13 @@ const meta: Meta = {
     controls: {expanded: true}
   },
   argTypes: {
+    'Render header?': {
+      type: 'boolean',
+      defaultValue: true,
+      table: {
+        category: 'Header'
+      }
+    },
     'Header.divider': {
       type: {
         name: 'enum',
@@ -57,6 +64,13 @@ const meta: Meta = {
         defaultValue: {
           summary: '"full"'
         }
+      }
+    },
+    'Render pane?': {
+      type: 'boolean',
+      defaultValue: true,
+      table: {
+        category: 'Pane'
       }
     },
     'Pane.position': {
@@ -139,6 +153,13 @@ const meta: Meta = {
         }
       }
     },
+    'Render footer?': {
+      type: 'boolean',
+      defaultValue: true,
+      table: {
+        category: 'Footer'
+      }
+    },
     'Footer.divider': {
       type: {
         name: 'enum',
@@ -203,24 +224,30 @@ export const Default: Story = args => (
     columnGap={args.columnGap}
     sx={args.sx}
   >
-    <PageLayout.Header divider={args['Header.divider']} dividerWhenNarrow={args['Header.dividerWhenNarrow']}>
-      <Placeholder height={64} label="Header" />
-    </PageLayout.Header>
+    {args['Render header?'] ? (
+      <PageLayout.Header divider={args['Header.divider']} dividerWhenNarrow={args['Header.dividerWhenNarrow']}>
+        <Placeholder height={64} label="Header" />
+      </PageLayout.Header>
+    ) : null}
     <PageLayout.Content width={args['Content.width']}>
       <Placeholder height={400} label="Content" />
     </PageLayout.Content>
-    <PageLayout.Pane
-      position={args['Pane.position']}
-      positionWhenNarrow={args['Pane.positionWhenNarrow']}
-      width={args['Pane.width']}
-      divider={args['Pane.divider']}
-      dividerWhenNarrow={args['Pane.dividerWhenNarrow']}
-    >
-      <Placeholder height={200} label="Pane" />
-    </PageLayout.Pane>
-    <PageLayout.Footer divider={args['Footer.divider']} dividerWhenNarrow={args['Footer.dividerWhenNarrow']}>
-      <Placeholder height={64} label="Footer" />
-    </PageLayout.Footer>
+    {args['Render pane?'] ? (
+      <PageLayout.Pane
+        position={args['Pane.position']}
+        positionWhenNarrow={args['Pane.positionWhenNarrow']}
+        width={args['Pane.width']}
+        divider={args['Pane.divider']}
+        dividerWhenNarrow={args['Pane.dividerWhenNarrow']}
+      >
+        <Placeholder height={200} label="Pane" />
+      </PageLayout.Pane>
+    ) : null}
+    {args['Render footer?'] ? (
+      <PageLayout.Footer divider={args['Footer.divider']} dividerWhenNarrow={args['Footer.dividerWhenNarrow']}>
+        <Placeholder height={64} label="Footer" />
+      </PageLayout.Footer>
+    ) : null}
   </PageLayout>
 )
 
