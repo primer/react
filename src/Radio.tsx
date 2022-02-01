@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import React, {InputHTMLAttributes, ReactElement} from 'react'
 import sx, {SxProp} from './sx'
+import {FormValidationStatus} from './utils/types/FormValidationStatus'
 
 export type RadioProps = {
   /**
@@ -31,7 +32,7 @@ export type RadioProps = {
   /**
    * Indicates whether the radio button validation state is non-standard
    */
-  validationStatus?: 'error' | 'success' // TODO: hoist to Validation typings
+  validationStatus?: FormValidationStatus
 } & InputHTMLAttributes<HTMLInputElement> &
   SxProp
 
