@@ -121,6 +121,8 @@
       url: /SubNav
     - title: TabNav
       url: /TabNav
+    - title: Textarea
+      url: /Textarea
     - title: Text
       url: /Text
     - title: TextInput
@@ -137,6 +139,18 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
+- title: Drafts
+  children:
+    - title: Button v2
+      url: /drafts/Button2
+    - title: LinkButton
+      url: /drafts/LinkButton
+    - title: IconButton
+      url: /drafts/IconButton
+    - title: ActionList v2
+      url: /drafts/ActionList2
+    - title: ActionMenu v2
+      url: /drafts/ActionMenu2
 - title: Deprecated
   children:
     - title: BorderBox

@@ -14,32 +14,34 @@ import {ComponentChecklist} from '../../src/component-checklist'
 ### Installation
 
 ```js
-import {IconButton} from '@primer/react/drafts'
+import {IconButton} from '@primer/react/lib-esm/drafts'
+// or commonjs:
+import {IconButton} from '@primer/react/lib/drafts'
 ```
 
 ### Icon only button
 
 A separate component called `IconButton` is used if the action shows only an icon with no text. This button will remain square in shape.
 
-```jsx live
-<drafts.IconButton icon={SearchIcon}>Search</drafts.IconButton>
+```jsx live drafts
+<IconButton icon={SearchIcon}>Search</IconButton>
 ```
 
 ### Different sized icon buttons
 
 `IconButton` also supports the three different sizes. `small`, `medium`, `large`.
 
-```jsx live
+```jsx live drafts
 <>
-  <drafts.IconButton icon={SearchIcon} size="small">
+  <IconButton icon={SearchIcon} size="small">
     Search
-  </drafts.IconButton>
-  <drafts.IconButton sx={{ml: 2}} icon={SearchIcon}>
+  </IconButton>
+  <IconButton sx={{ml: 2}} icon={SearchIcon}>
     Search
-  </drafts.IconButton>
-  <drafts.IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
+  </IconButton>
+  <IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
     Search
-  </drafts.IconButton>
+  </IconButton>
 </>
 ```
 

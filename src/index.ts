@@ -178,4 +178,7 @@ export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
 export {default as Checkbox} from './Checkbox'
 export type {CheckboxProps} from './Checkbox'
 
+export {default as Textarea} from './Textarea'
+export type {TextareaProps} from './Textarea'
+
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
