@@ -1,15 +1,21 @@
 ---
-componentId: progress_bar
 title: ProgressBar
+componentId: progress_bar
 status: Alpha
 source: https://github.com/primer/react/blob/main/src/ProgressBar.tsx
 ---
 
-## Default example
+```js
+import {ProgressBar} from '@primer/react'
+```
+
+## Examples
 
 ```jsx live
 <ProgressBar progress={80} />
 ```
+
+### Inline
 
 If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be sure to set a width**.
 
@@ -20,12 +26,41 @@ If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be s
 </>
 ```
 
-## Component props
+## Props
 
-| Name     | Type              |       Default       | Description                                                                                                                      |
-| :------- | :---------------- | :-----------------: | :------------------------------------------------------------------------------------------------------------------------------- |
-| progress | Number            |                     | Used to set the size of the green bar                                                                                            |
-| barSize  | String            |      'default'      | Controls the height of the progress bar. Can be 'small', 'large', or 'default'. If omitted, height is set to the default height. |
-| inline   | Boolean           |        false        | Styles the progress bar inline                                                                                                   |
-| bg       | String            | 'bg.successInverse' | Set the progress bar color, defaults to bg-green                                                                                 |
-| sx       | SystemStyleObject |         {}          | Style to be applied to the component                                                                                             |
+### ProgressBar
+
+<PropsTable>
+  <PropsTableRow name="progress" type="number" description="Used to set the size of the green bar" defaultValue={0} />
+  <PropsTableRow
+    name="barSize"
+    type={`| 'small'
+| 'large'
+| 'default'`}
+    defaultValue="'default'"
+    description="Controls the height of the progress bar. If omitted, height is set to the default height."
+  />
+  <PropsTableRow name="inline" type="boolean" defaultValue="false" description="Styles the progress bar inline" />
+  <PropsTableRow name="bg" type="string" defaultValue="'bg.successInverse'" description="Set the progress bar color" />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

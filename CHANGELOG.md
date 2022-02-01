@@ -1,5 +1,24 @@
 # @primer/components
 
+## 34.3.0
+
+### Minor Changes
+
+- [#1797](https://github.com/primer/react/pull/1797) [`8b376b9d`](https://github.com/primer/react/commit/8b376b9d3c894eaa1a77edbdd3d168d3afa7b66d) Thanks [@mperrotti](https://github.com/mperrotti)! - Introduces a draft for component to replace the existing Label component
+
+### Patch Changes
+
+- [#1759](https://github.com/primer/react/pull/1759) [`493c6ea1`](https://github.com/primer/react/commit/493c6ea1e92382fd3bbbfb002b2127fafbd7bc6f) Thanks [@siddharthkp](https://github.com/siddharthkp)! - AnchoredOverlay: Add support for passing an id to the anchor. Remove unnecessary aria-labelledby on anchor.
+  ActionMenu v2: Add aria-labelledby for ActionList
+
+* [#1779](https://github.com/primer/react/pull/1779) [`2630800d`](https://github.com/primer/react/commit/2630800d7905b1004d40481ab4f25517bcc34f5a) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu v2: ActionMenu.Button now uses Button v2
+
+- [#1735](https://github.com/primer/react/pull/1735) [`8ff114b1`](https://github.com/primer/react/commit/8ff114b1347047f9a518d7d361da455a59573f3b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Add composable `DropdownMenu` to `@primer/components/drafts`
+
+* [#1814](https://github.com/primer/react/pull/1814) [`384c3756`](https://github.com/primer/react/commit/384c375649da0718cc66b088e3ec5928afbeaded) Thanks [@pksjce](https://github.com/pksjce)! - Upgrade @primer/behaviors
+
+- [#1804](https://github.com/primer/react/pull/1804) [`aa09ed79`](https://github.com/primer/react/commit/aa09ed790ba9461a4516c546924a4673c0b21462) Thanks [@rezrah](https://github.com/rezrah)! - Fixes bug in PointerBox component where caret doesn't inherit correct styling. Backwards compataible with previous API.
+
 ## 34.2.0
 
 ### Minor Changes

@@ -1,18 +1,16 @@
 ---
-componentId: popover
 title: Popover
+description: Use Popovers to bring attention to specific user interface elements and suggest an action or to guide users through a new experience
+componentId: popover
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/Popover.tsx
 ---
 
-Popovers are used to bring attention to specific user interface elements, typically to suggest an action or to guide users through a new experience.
+```js
+import {Popover} from '@primer/react'
+```
 
-Two components make up a popover; the `Popover` component controls the absolute positioning of the popover, and `Popover.Content` renders the inner content of the popover as well as the caret.
-
-By default, the popover renders with absolute positioning, meaning it should usually be wrapped in an element with a relative position in order to be positioned properly. To render the popover with relative positioning, use the `relative` property.
-
-It can be useful to give the `Popover.Content` element a margin to help align the popover.
-
-## Default Example
+## Examples
 
 ```jxs live
 <Box position="relative">
@@ -30,7 +28,13 @@ It can be useful to give the `Popover.Content` element a margin to help align th
 </Box>
 ```
 
-## Caret position
+Two components make up a popover; the `Popover` component controls the absolute positioning of the popover, and `Popover.Content` renders the inner content of the popover as well as the caret.
+
+By default, the popover renders with absolute positioning, meaning it should usually be wrapped in an element with a relative position in order to be positioned properly. To render the popover with relative positioning, use the `relative` property.
+
+It can be useful to give the `Popover.Content` element a margin to help align the popover.
+
+### Caret position
 
 `Popover` supports various caret positions, which you can specify via the `caret` property. This demo shows all the valid values for the prop. The default is `top`. Note that the `top-left`, `bottom-left`, `top-right`, and `bottom-right` values modify the horizontal alignment of the popover.
 
@@ -107,25 +111,78 @@ function CaretSelector(props) {
 render(<PopoverDemo />)
 ```
 
-## Component props
+## Props
 
 ### Popover
 
-| Name     | Type              | Default | Description                                                                    |
-| :------- | :---------------- | :-----: | :----------------------------------------------------------------------------- |
-| as       | String            |  'div'  | Sets the HTML tag for the component.                                           |
-| caret    | String            |  'top'  | Controls the position of the caret. See below for the list of caret positions. |
-| open     | Boolean           |  false  | Controls the visibility of the popover.                                        |
-| relative | Boolean           |  false  | Set to true to render the popover using relative positioning.                  |
-| sx       | SystemStyleObject |   {}    | Style to be applied to the component                                           |
-
-#### Caret Positions
-
-The `caret` prop can be one of the following values: `top`, `bottom`, `left`, `right`, `bottom-left`, `bottom-right`, `top-left`, `top-right`, `left-bottom`, `left-top`, `right-bottom`, or `right-top`.
+<PropsTable>
+  <PropsTableRow
+    name="as"
+    defaultValue="div"
+    type="string"
+    description="Sets the underlying HTML tag for the component"
+  />
+  <PropsTableRow
+    name="caret"
+    defaultValue="'top'"
+	    type={`| 'top'
+| 'bottom'
+| 'left'
+| 'right'
+| 'bottom-left'
+| 'bottom-right'
+| 'top-left'
+| 'top-right'
+| 'left-bottom'
+| 'left-top'
+| 'right-bottom'
+| 'right-top'
+  `}
+    description="Controls the position of the caret"
+  />
+  <PropsTableRow
+    name="open"
+    defaultValue="false"
+    type="boolean"
+    description="Controls the visibility of the popover."
+  />
+  <PropsTableRow
+    name="relative"
+    defaultValue="false"
+    type="boolean"
+    description="Set to true to render the popover using relative positioning. "
+  />
+  <PropsTableSxRow />
+</PropsTable>
 
 ### Popover.Content
 
-| Name | Type              | Default | Description                          |
-| :--- | :---------------- | :-----: | :----------------------------------- |
-| as   | String            |  'div'  | Sets the HTML tag for the component. |
-| sx   | SystemStyleObject |   {}    | Style to be applied to the component |
+<PropsTable>
+  <PropsTableRow
+    name="as"
+    defaultValue="div"
+    type="string"
+    description="Sets the underlying HTML tag for the component"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

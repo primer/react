@@ -1,0 +1,182 @@
+---
+title: PageLayout
+status: Draft
+description: TODO
+---
+
+<Note variant="warning">Not implemented yet</Note>
+
+## Examples
+
+### Default
+
+```jsx
+<PageLayout>
+  <PageLayout.Header>Header</PageLayout.Header>
+  <PageLayout.Content>Content</PageLayout.Content>
+  <PageLayout.Pane>Pane</PageLayout.Pane>
+  <PageLayout.Footer>Footer</PageLayout.Footer>
+</PageLayout>
+```
+
+### With dividers
+
+```jsx
+<PageLayout>
+  <PageLayout.Header divider="line">Header</PageLayout.Header>
+  <PageLayout.Content>Content</PageLayout.Content>
+  <PageLayout.Pane divider="line">Pane</PageLayout.Pane>
+  <PageLayout.Footer divider="line">Footer</PageLayout.Footer>
+</PageLayout>
+```
+
+### Condensed
+
+```jsx
+<PageLayout columnGap="condensed" rowGap="condensed">
+  <PageLayout.Header>Header</PageLayout.Header>
+  <PageLayout.Content>Content</PageLayout.Content>
+  <PageLayout.Pane>Pane</PageLayout.Pane>
+  <PageLayout.Footer>Footer</PageLayout.Footer>
+</PageLayout>
+```
+
+## Props
+
+### PageLayout
+
+<!-- TODO: Resoponsive variants -->
+
+<PropsTable>
+  <PropsTableRow
+    name="containerWidth"
+    type={`| 'full'
+| 'medium'
+| 'large'
+| 'xlarge'`}
+    defaultValue="'full'"
+    description="The maximum width of the page container."
+  />
+  <PropsTableRow
+    name="outerSpacing"
+    type={`| 'normal'
+| 'condensed'`}
+    defaultValue="'normal'"
+    description="The spacing between the outer edges of the page container and the viewport"
+  />
+  <PropsTableRow
+    name="columnGap"
+    type={`| 'normal'
+| 'condensed'`}
+    defaultValue="'normal'"
+  />
+  <PropsTableRow
+    name="rowGap"
+    type={`| 'normal'
+| 'condensed'`}
+    defaultValue="'normal'"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageLayout.Header
+
+<PropsTable>
+  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow
+    name="dividerWhenNarrow"
+    type={`| 'inherit'
+| 'none'
+| 'line'
+| 'filled'`}
+    defaultValue="'inherit'"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageLayout.Content
+
+<PropsTable>
+  <PropsTableRow
+    name="width"
+    type={`| 'full'
+| 'medium'
+| 'large'
+| 'xlarge'`}
+    defaultValue="'full'"
+    description="Define the maximum width of the content region."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageLayout.Pane
+
+<PropsTable>
+  <PropsTableRow
+    name="position"
+    type={`| 'start'
+| 'end'`}
+    defaultValue="'start'"
+  />
+  <PropsTableRow
+    name="positionWhenNarrow"
+    type={`| 'inherit'
+| 'start'
+| 'end'`}
+    defaultValue="'inherit'"
+  />
+  <PropsTableRow
+    name="width"
+    type={`| 'small'
+| 'medium'
+| 'large'`}
+    defaultValue="'medium'"
+    description="Define the width of the pane."
+  />
+  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow
+    name="dividerWhenNarrow"
+    type={`| 'inherit'
+| 'none'
+| 'line'
+| 'filled'`}
+    defaultValue="'inherit'"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageLayout.Footer
+
+<PropsTable>
+  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow
+    name="dividerWhenNarrow"
+    type={`| 'inherit'
+| 'none'
+| 'line'
+| 'filled'`}
+    defaultValue="'inherit'"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
