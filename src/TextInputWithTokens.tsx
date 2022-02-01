@@ -9,7 +9,7 @@ import {TokenSizeKeys} from './Token/TokenBase'
 import {TextInputProps} from './TextInput'
 import {useProvidedRefOrCreate} from './hooks'
 import UnstyledTextInput from './_UnstyledTextInput'
-import TextInputWrapper, {textInputHorizPadding} from './_TextInputWrapper'
+import TextInputWrapper, {StyledWrapperProps, textInputHorizPadding} from './_TextInputWrapper'
 import Box from './Box'
 import Text from './Text'
 import {isFocusable} from '@primer/behaviors/utils'
@@ -45,6 +45,10 @@ type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactCompone
    * The size of the tokens
    */
   size?: TokenSizeKeys
+  /**
+   * The size of the text input
+   */
+  inputSize?: StyledWrapperProps['size']
   /**
    * Whether the remove buttons should be rendered in the tokens
    */
@@ -82,7 +86,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     width: widthProp,
     minWidth: minWidthProp,
     maxWidth: maxWidthProp,
-    variant: variantProp,
+    validationStatus,
+    variant: variantProp, // deprecated. use `inputSize` instead
+    inputSize,
     visibleTokenCount,
     ...rest
   }: TextInputWithTokensInternalProps<TokenComponentType> & {
@@ -246,7 +252,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       width={widthProp}
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
-      variant={variantProp}
+      size={inputSize}
+      validationStatus={validationStatus}
+      variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
       sx={{
         paddingLeft: textInputHorizPadding,
