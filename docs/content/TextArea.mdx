@@ -1,37 +1,35 @@
 ---
 componentId: textarea
-title: TextArea
-description: Use TextArea for multi-line text input form fields
+title: Textarea
+description: Use Textarea for multi-line text input form fields
 status: Alpha
-source: https://github.com/primer/react/blob/main/src/TextArea.tsx
+source: https://github.com/primer/react/blob/main/src/Textarea.tsx
 storybook: /react/storybook?path=/story/forms-textarea--default
 ---
 
-import {TextArea} from '@primer/react'
+import {Textarea} from '@primer/react'
+
+<Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
+  <Textarea />
+</Box>
 
 ```js
-import {TextArea} from '@primer/react'
+import {Textarea} from '@primer/react'
 ```
 
 ## Examples
 
 <Note variant="warning">
 
-TextArea components **must always** be accompanied by a corresponding label to improve support for assistive
+Textarea components **must always** be accompanied by a corresponding label to improve support for assistive
 technologies. Examples below are provided for conciseness and may not reflect accessibility best practices.
 
 </Note>
 
-### Basic
-
-```jsx live
-<TextArea placeholder="Enter a description" />
-```
-
 ### Controlled mode
 
 ```javascript live noinline
-const TextAreaExample = () => {
+const TextareaExample = () => {
   // Running in controlled mode (recommended)
   const [value, setValue] = React.useState('')
 
@@ -39,31 +37,31 @@ const TextAreaExample = () => {
     setValue(event.target.value)
   }
 
-  return <TextArea onChange={handleChange} value={value} />
+  return <Textarea placeholder="Enter a description" onChange={handleChange} value={value} />
 }
 
-render(<TextAreaExample />)
+render(<TextareaExample />)
 ```
 
 ### Uncontrolled mode
 
 ```javascript live noinline
-const TextAreaExample = () => {
+const TextareaExample = () => {
   const ref = React.useRef()
 
   const handleSubmit = event => {
     event.preventDefault()
     if (!ref.current.value) {
-      alert(`Enter a value into the TextArea and press submit`)
+      alert(`Enter a value into the Textarea and press submit`)
       return
     }
 
-    alert(`Current TextArea value: ${ref.current.value}`)
+    alert(`Current Textarea value: ${ref.current.value}`)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextArea
+      <Textarea
         cols={40}
         rows={8}
         ref={ref}
@@ -75,7 +73,7 @@ const TextAreaExample = () => {
   )
 }
 
-render(<TextAreaExample />)
+render(<TextareaExample />)
 ```
 
 ### Displaying form validation state
@@ -85,11 +83,11 @@ render(<TextAreaExample />)
   <Box as="label" htmlFor="success-state" sx={{display: 'block'}}>
     Success state:
   </Box>
-  <TextArea id="success-state" validationStatus="success" />
+  <Textarea id="success-state" validationStatus="success" />
   <Box as="label" htmlFor="error-state" sx={{display: 'block', mt: 5}}>
     Error state:
   </Box>
-  <TextArea id="error-state" validationStatus="error" />
+  <Textarea id="error-state" validationStatus="error" />
 </>
 ```
 
@@ -97,30 +95,30 @@ render(<TextAreaExample />)
 
 ```jsx live
 <>
-  <TextArea disabled>This text is inactive</TextArea>
+  <Textarea disabled>This text is inactive</Textarea>
 </>
 ```
 
 ### Resize
 
-By default, `TextArea` can be resized by the user vertically and horizontally. Resizing can be prevented by setting `resize` to `none`
+By default, `Textarea` can be resized by the user vertically and horizontally. Resizing can be prevented by setting `resize` to `none`
 
 ```jsx live
-<TextArea cols={40} resize="none" />
+<Textarea cols={40} resize="none" />
 ```
 
 ### Custom styling
 
 ```jsx live
 <>
-  <TextArea sx={{marginBottom: 2}} />
+  <Textarea sx={{marginBottom: 2}} />
   <p>Custom styles like `margin` and `padding` can be applied using the `sx` prop</p>
 </>
 ```
 
 ## Props
 
-### TextArea
+### Textarea
 
 <PropsTable>
   <PropsTableRow

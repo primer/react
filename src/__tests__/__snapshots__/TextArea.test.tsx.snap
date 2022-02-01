@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TextArea renders consistently 1`] = `
+exports[`Textarea renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;

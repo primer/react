@@ -4,17 +4,17 @@ import {TextInputBaseWrapper} from './_TextInputWrapper'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import sx, {SxProp} from './sx'
 
-export type TextAreaProps = {
+export type TextareaProps = {
   /**
-   * Apply inactive visual appearance to the TextArea
+   * Apply inactive visual appearance to the Textarea
    */
   disabled?: boolean
   /**
-   * Indicates whether the TextArea is a required form field
+   * Indicates whether the Textarea is a required form field
    */
   required?: boolean
   /**
-   * Indicates whether the TextArea validation state
+   * Indicates whether the Textarea validation state
    */
   validationStatus?: FormValidationStatus
   /**
@@ -28,7 +28,7 @@ export type TextAreaProps = {
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
 
-const StyledTextArea = styled.textarea<TextAreaProps>`
+const StyledTextarea = styled.textarea<TextareaProps>`
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -62,7 +62,7 @@ const StyledTextArea = styled.textarea<TextAreaProps>`
  * An accessible, native textarea component that supports validation states.
  * This component accepts all native HTML <textarea> attributes as props.
  */
-const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       value,
@@ -75,12 +75,12 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       resize = 'both',
       block,
       ...rest
-    }: TextAreaProps,
+    }: TextareaProps,
     ref
   ): ReactElement => {
     return (
       <TextInputBaseWrapper sx={sxProp} validationStatus={validationStatus} disabled={disabled} block={block}>
-        <StyledTextArea
+        <StyledTextarea
           value={value}
           resize={resize}
           required={required}
@@ -97,6 +97,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   }
 )
 
-TextArea.displayName = 'TextArea'
+Textarea.displayName = 'Textarea'
 
-export default TextArea
+export default Textarea

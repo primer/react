@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Add new TextArea component
+Add new Textarea component

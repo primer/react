@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
-import {BaseStyles, Box, TextArea, TextAreaProps, ThemeProvider} from '..'
+import {BaseStyles, Box, Textarea, TextareaProps, ThemeProvider} from '..'
 
 const StyledForm = styled.form`
   padding: 20px;
@@ -16,8 +16,8 @@ const Label = ({children, htmlFor}: LabelProps) => (
 )
 
 export default {
-  title: 'Forms/TextArea',
-  component: TextArea,
+  title: 'Forms/Textarea',
+  component: Textarea,
   decorators: [
     Story => {
       return (
@@ -51,38 +51,38 @@ export default {
   }
 } as Meta
 
-export const Default = (args: TextAreaProps) => {
+export const Default = (args: TextareaProps) => {
   return (
     <>
       <StyledForm>
         <Label htmlFor="textarea">Label</Label>
-        <TextArea id="textarea" {...args} />
+        <Textarea id="textarea" {...args} />
       </StyledForm>
     </>
   )
 }
 
-export const ValidationStates = (args: TextAreaProps) => {
+export const ValidationStates = (args: TextareaProps) => {
   return (
     <>
       <StyledForm>
         <Label htmlFor="textarea-success">Success</Label>
-        <TextArea id="textarea-success" validationStatus="success" {...args} />
+        <Textarea id="textarea-success" validationStatus="success" {...args} />
       </StyledForm>
       <StyledForm>
         <Label htmlFor="textarea-error">Error</Label>
-        <TextArea id="textarea-error" validationStatus="error" {...args} />
+        <Textarea id="textarea-error" validationStatus="error" {...args} />
       </StyledForm>
     </>
   )
 }
 
-export const Inactive = (args: TextAreaProps) => {
+export const Inactive = (args: TextareaProps) => {
   return (
     <>
       <StyledForm>
         <Label htmlFor="textarea-inactive">Inactive</Label>
-        <TextArea id="textarea-inactive" {...args} disabled />
+        <Textarea id="textarea-inactive" {...args} disabled />
       </StyledForm>
     </>
   )

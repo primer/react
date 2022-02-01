@@ -1,5 +1,5 @@
 import React from 'react'
-import {TextArea} from '..'
+import {Textarea} from '..'
 import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {render, cleanup} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
@@ -9,19 +9,19 @@ import userEvent from '@testing-library/user-event'
 
 expect.extend(toHaveNoViolations)
 
-describe('TextArea', () => {
+describe('Textarea', () => {
   beforeEach(() => {
     jest.resetAllMocks()
     cleanup()
   })
-  behavesAsComponent({Component: TextArea, options: {skipAs: true}})
+  behavesAsComponent({Component: Textarea, options: {skipAs: true}})
 
-  checkExports('TextArea', {
-    default: TextArea
+  checkExports('Textarea', {
+    default: Textarea
   })
 
   it('renders a valid textarea input', () => {
-    const {getByRole} = render(<TextArea />)
+    const {getByRole} = render(<Textarea />)
 
     const textarea = getByRole('textbox')
 
@@ -29,7 +29,7 @@ describe('TextArea', () => {
   })
 
   it('renders an empty textarea by default', () => {
-    const {getByRole} = render(<TextArea />)
+    const {getByRole} = render(<Textarea />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
 
@@ -48,7 +48,7 @@ describe('TextArea', () => {
         }
       }, [ref])
 
-      return <TextArea ref={ref} />
+      return <Textarea ref={ref} />
     }
 
     const {getByRole} = render(<MockComponent />)
@@ -63,15 +63,15 @@ describe('TextArea', () => {
       width: '100%',
       display: 'flex'
     }
-    const defaultStyles = renderStyles(<TextArea block />)
-    const blockStyles = renderStyles(<TextArea />)
+    const defaultStyles = renderStyles(<Textarea block />)
+    const blockStyles = renderStyles(<Textarea />)
 
     expect(defaultStyles).toEqual(expect.objectContaining(expectedStyles))
     expect(blockStyles).not.toEqual(expect.objectContaining(expectedStyles))
   })
 
   it('renders default resize values correctly', () => {
-    const {getByRole} = render(<TextArea />)
+    const {getByRole} = render(<Textarea />)
     const textareaElement = getByRole('textbox')
 
     expect(textareaElement).toHaveStyle({
@@ -80,7 +80,7 @@ describe('TextArea', () => {
   })
 
   it('renders none resize values correctly', () => {
-    const {getByRole} = render(<TextArea resize="none" />)
+    const {getByRole} = render(<Textarea resize="none" />)
     const textareaElement = getByRole('textbox')
 
     expect(textareaElement).toHaveStyle({
@@ -90,7 +90,7 @@ describe('TextArea', () => {
 
   it('renders a value in the textarea', () => {
     const mockValue = 'mock value'
-    const {getByRole} = render(<TextArea value={mockValue} />)
+    const {getByRole} = render(<Textarea value={mockValue} />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
 
@@ -99,7 +99,7 @@ describe('TextArea', () => {
 
   it('can render an inactive textarea', () => {
     const handleChange = jest.fn()
-    const {getByRole, rerender} = render(<TextArea disabled onChange={handleChange} />)
+    const {getByRole, rerender} = render(<Textarea disabled onChange={handleChange} />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
     expect(textareaElement.disabled).toEqual(true)
@@ -110,14 +110,14 @@ describe('TextArea', () => {
     expect(handleChange).not.toHaveBeenCalled()
 
     // remove disabled attribute and retest
-    rerender(<TextArea onChange={handleChange} />)
+    rerender(<Textarea onChange={handleChange} />)
 
     expect(textareaElement.disabled).toEqual(false)
     expect(textareaElement).not.toHaveAttribute('disabled')
   })
 
   it('renders an aria-required attribute correctly', () => {
-    const {getByRole} = render(<TextArea required />)
+    const {getByRole} = render(<Textarea required />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
 
@@ -125,17 +125,17 @@ describe('TextArea', () => {
   })
 
   it('renders an invalid aria state when validation prop indicates an error', () => {
-    const {getByRole, rerender} = render(<TextArea />)
+    const {getByRole, rerender} = render(<Textarea />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
 
     expect(textareaElement).toHaveAttribute('aria-invalid', 'false')
 
-    rerender(<TextArea validationStatus="success" />)
+    rerender(<Textarea validationStatus="success" />)
 
     expect(textareaElement).toHaveAttribute('aria-invalid', 'false')
 
-    rerender(<TextArea validationStatus="error" />)
+    rerender(<Textarea validationStatus="error" />)
 
     expect(textareaElement).toHaveAttribute('aria-invalid', 'true')
   })
