@@ -97,6 +97,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   ${props =>
     props.disabled &&
     css`
+      cursor: not-allowed;
       color: ${get('colors.primer.fg.disabled')};
       background-color: ${get('colors.input.disabledBg')};
       border-color: ${get('colors.border.default')};

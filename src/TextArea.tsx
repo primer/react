@@ -52,7 +52,6 @@ const StyledTextarea = styled.textarea<TextareaProps>`
     props.disabled &&
     css`
       resize: none;
-      cursor: not-allowed;
     `}
 
   ${sx};
