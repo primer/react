@@ -29,16 +29,16 @@ const PageLayoutContext = React.createContext<{
 // ----------------------------------------------------------------------------
 // PageLayout
 
-type PageLayoutProps = {
+export type PageLayoutProps = {
   /** The maximum width of the page container */
-  containerWidth?: keyof typeof containerWidthMap
+  containerWidth?: keyof typeof containerWidths
   /** The spacing between the outer edges of the page container and the viewport */
   outerSpacing?: keyof typeof SPACING_MAP // Should this be called `padding`?
   rowGap?: keyof typeof SPACING_MAP
   columnGap?: keyof typeof SPACING_MAP
 } & SxProp
 
-const containerWidthMap = {
+const containerWidths = {
   full: '100%',
   medium: '768px',
   large: '1012px',
@@ -59,12 +59,10 @@ const Root: React.FC<PageLayoutProps> = ({
       <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[outerSpacing]}, sx)}>
         <Box
           sx={{
-            maxWidth: containerWidthMap[containerWidth],
+            maxWidth: containerWidths[containerWidth],
             marginX: 'auto',
             display: 'flex',
             flexWrap: 'wrap'
-            // rowGap: SPACING_MAP[rowGap], // TODO: browser support
-            // columnGap: SPACING_MAP[columnGap] // TODO: browser support
           }}
         >
           {children}
@@ -84,7 +82,7 @@ type DividerProps = {
   variantWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
 } & SxProp
 
-const horizontalDividerStyles = {
+const horizontalDividerVariants = {
   none: {
     display: 'none'
   },
@@ -105,6 +103,7 @@ const horizontalDividerStyles = {
 
 function negateSpacingValue(value: number | null | Array<number | null>) {
   if (Array.isArray(value)) {
+    // Not using recursion to avoid deeply nested arrays
     return value.map(v => (v === null ? null : -v))
   }
 
@@ -119,10 +118,10 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhe
       sx={(theme: any) => ({
         // Srtetch divider to viewport edges on narrow screens
         marginX: negateSpacingValue(SPACING_MAP[outerSpacing]),
-        ...horizontalDividerStyles[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
+        ...horizontalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
         [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
           marginX: '0 !important',
-          ...horizontalDividerStyles[variant]
+          ...horizontalDividerVariants[variant]
         },
         ...sx
       })}
@@ -130,7 +129,7 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhe
   )
 }
 
-const verticalDividerStyles = {
+const verticalDividerVariants = {
   none: {
     display: 'none'
   },
@@ -156,9 +155,9 @@ const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenN
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) => ({
         height: '100%',
-        ...verticalDividerStyles[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
+        ...verticalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
         [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-          ...verticalDividerStyles[variant]
+          ...verticalDividerVariants[variant]
         },
         ...sx
       })}
@@ -169,7 +168,7 @@ const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenN
 // ----------------------------------------------------------------------------
 // PageLayout.Header
 
-type PageLayoutHeaderProps = {
+export type PageLayoutHeaderProps = {
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
 }
@@ -199,12 +198,12 @@ Header.displayName = 'PageLayout.Header'
 // ----------------------------------------------------------------------------
 // PageLayout.Content
 
-type PageLayoutContentProps = {
-  width?: keyof typeof contentWidthMap
+export type PageLayoutContentProps = {
+  width?: keyof typeof contentWidths
 }
 
 // TODO: Account for pane width when centering content
-const contentWidthMap = {
+const contentWidths = {
   full: '100%',
   medium: '768px',
   large: '1012px',
@@ -214,7 +213,7 @@ const contentWidthMap = {
 const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children}) => {
   return (
     <Box sx={{order: REGION_ORDER.content, flexGrow: 1}}>
-      <Box sx={{maxWidth: contentWidthMap[width], marginX: 'auto'}}>{children}</Box>
+      <Box sx={{maxWidth: contentWidths[width], marginX: 'auto'}}>{children}</Box>
     </Box>
   )
 }
@@ -224,20 +223,20 @@ Content.displayName = 'PageLayout.Content'
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
 
-type PageLayoutPaneProps = {
-  position?: keyof typeof panePositionMap
-  positionWhenNarrow?: 'inherit' | keyof typeof panePositionMap
-  width?: keyof typeof paneWidthMap
+export type PageLayoutPaneProps = {
+  position?: keyof typeof panePositions
+  positionWhenNarrow?: 'inherit' | keyof typeof panePositions
+  width?: keyof typeof paneWidths
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
 }
 
-const panePositionMap = {
+const panePositions = {
   start: REGION_ORDER.paneStart,
   end: REGION_ORDER.paneEnd
 }
 
-const paneWidthMap = {
+const paneWidths = {
   small: ['100%', null, '240px', '256px'],
   medium: ['100%', null, '256px', '296px'],
   large: ['100%', null, '256px', '320px', '336px']
@@ -258,7 +257,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
     <Box
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) => ({
-        order: panePositionMap[computedPositionWhenNarrow],
+        order: panePositions[computedPositionWhenNarrow],
         display: 'flex',
         flexDirection: computedPositionWhenNarrow === 'end' ? 'column' : 'column-reverse',
         width: '100%',
@@ -269,7 +268,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
           [position === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
           marginY: `0 !important`,
           flexDirection: position === 'end' ? 'row' : 'row-reverse',
-          order: panePositionMap[position]
+          order: panePositions[position]
         }
       })}
     >
@@ -285,7 +284,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
         sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
       />
 
-      <Box sx={{width: paneWidthMap[width]}}>{children}</Box>
+      <Box sx={{width: paneWidths[width]}}>{children}</Box>
     </Box>
   )
 }
@@ -295,7 +294,7 @@ Pane.displayName = 'PageLayout.Pane'
 // ----------------------------------------------------------------------------
 // PageLayout.Footer
 
-type PageLayoutFooterProps = {
+export type PageLayoutFooterProps = {
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
 }
@@ -323,6 +322,7 @@ const Footer: React.FC<PageLayoutFooterProps> = ({divider = 'none', dividerWhenN
 Footer.displayName = 'PageLayout.Footer'
 
 // ----------------------------------------------------------------------------
+// Export
 
 export const PageLayout = Object.assign(Root, {
   Header,
