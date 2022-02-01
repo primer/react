@@ -43,7 +43,10 @@ import {Props} from '../../src/props'
 <br />
 
 ```js
-import {ActionMenu} from '@primer/react/drafts'
+// ESM
+import {ActionMenu} from '@primer/react/lib-esm/drafts'
+// or commonjs:
+import {ActionMenu} from '@primer/react/lib/drafts'
 ```
 
 <br />
@@ -56,25 +59,20 @@ import {ActionMenu} from '@primer/react/drafts'
 
 &nbsp;
 
-```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/react/drafts'
-const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
+```jsx live drafts
+<ActionMenu>
+  <ActionMenu.Button>Menu</ActionMenu.Button>
 
-render(
-  <ActionMenu>
-    <ActionMenu.Button>Menu</ActionMenu.Button>
-
-    <ActionMenu.Overlay>
-      <ActionList>
-        <ActionList.Item onSelect={event => console.log('New file')}>New file</ActionList.Item>
-        <ActionList.Item>Copy link</ActionList.Item>
-        <ActionList.Item>Edit file</ActionList.Item>
-        <ActionList.Divider />
-        <ActionList.Item variant="danger">Delete file</ActionList.Item>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
-)
+  <ActionMenu.Overlay>
+    <ActionList>
+      <ActionList.Item onSelect={event => console.log('New file')}>New file</ActionList.Item>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Edit file</ActionList.Item>
+      <ActionList.Divider />
+      <ActionList.Item variant="danger">Delete file</ActionList.Item>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
 ```
 
 ### With a custom anchor
@@ -83,119 +81,108 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 
 &nbsp;
 
-```javascript live noinline
-// import {ActionMenu, ActionList, IconButton} from '@primer/react/drafts'
-const {ActionMenu, ActionList, IconButton} = drafts // ignore docs silliness; import like that ↑
+```jsx live drafts
+<ActionMenu>
+  <ActionMenu.Anchor>
+    <ButtonInvisible aria-label="Open column options">
+      <KebabHorizontalIcon />
+    </ButtonInvisible>
+  </ActionMenu.Anchor>
 
-render(
-  <ActionMenu>
-    <ActionMenu.Anchor>
-      <IconButton variant="invisible" icon={KebabHorizontalIcon} aria-label="Open column options" />
-    </ActionMenu.Anchor>
-
-    <ActionMenu.Overlay>
-      <ActionList>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <PencilIcon />
-          </ActionList.LeadingVisual>
-          Rename
-        </ActionList.Item>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <ArchiveIcon />
-          </ActionList.LeadingVisual>
-          Archive all cards
-        </ActionList.Item>
-        <ActionList.Item variant="danger">
-          <ActionList.LeadingVisual>
-            <TrashIcon />
-          </ActionList.LeadingVisual>
-          Delete
-        </ActionList.Item>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
-)
+  <ActionMenu.Overlay>
+    <ActionList>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <PencilIcon />
+        </ActionList.LeadingVisual>
+        Rename
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArchiveIcon />
+        </ActionList.LeadingVisual>
+        Archive all cards
+      </ActionList.Item>
+      <ActionList.Item variant="danger">
+        <ActionList.LeadingVisual>
+          <TrashIcon />
+        </ActionList.LeadingVisual>
+        Delete
+      </ActionList.Item>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
 ```
 
 ### With Groups
 
-```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/react/drafts'
-const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
+```jsx live drafts
+<ActionMenu>
+  <ActionMenu.Button>Open column menu</ActionMenu.Button>
 
-render(
-  <ActionMenu>
-    <ActionMenu.Button>Open column menu</ActionMenu.Button>
-
-    <ActionMenu.Overlay>
-      <ActionList showDividers>
-        <ActionList.Group title="Live query">
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <SearchIcon />
-            </ActionList.LeadingVisual>
-            repo:github/memex,github/github
-          </ActionList.Item>
-        </ActionList.Group>
-        <ActionList.Divider />
-        <ActionList.Group title="Layout" variant="subtle">
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <NoteIcon />
-            </ActionList.LeadingVisual>
-            Table
-            <ActionList.Description variant="block">
-              Information-dense table optimized for operations across teams
-            </ActionList.Description>
-          </ActionList.Item>
-          <ActionList.Item role="listitem">
-            <ActionList.LeadingVisual>
-              <ProjectIcon />
-            </ActionList.LeadingVisual>
-            Board
-            <ActionList.Description variant="block">Kanban-style board focused on visual states</ActionList.Description>
-          </ActionList.Item>
-        </ActionList.Group>
-        <ActionList.Divider />
-        <ActionList.Group>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <FilterIcon />
-            </ActionList.LeadingVisual>
-            Save sort and filters to current view
-          </ActionList.Item>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <FilterIcon />
-            </ActionList.LeadingVisual>
-            Save sort and filters to new view
-          </ActionList.Item>
-        </ActionList.Group>
-        <ActionList.Divider />
-        <ActionList.Group>
-          <ActionList.Item>
-            <ActionList.LeadingVisual>
-              <GearIcon />
-            </ActionList.LeadingVisual>
-            View settings
-          </ActionList.Item>
-        </ActionList.Group>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
-)
+  <ActionMenu.Overlay>
+    <ActionList showDividers>
+      <ActionList.Group title="Live query">
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <SearchIcon />
+          </ActionList.LeadingVisual>
+          repo:github/memex,github/github
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group title="Layout" variant="subtle">
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <NoteIcon />
+          </ActionList.LeadingVisual>
+          Table
+          <ActionList.Description variant="block">
+            Information-dense table optimized for operations across teams
+          </ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item role="listitem">
+          <ActionList.LeadingVisual>
+            <ProjectIcon />
+          </ActionList.LeadingVisual>
+          Board
+          <ActionList.Description variant="block">Kanban-style board focused on visual states</ActionList.Description>
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FilterIcon />
+          </ActionList.LeadingVisual>
+          Save sort and filters to current view
+        </ActionList.Item>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FilterIcon />
+          </ActionList.LeadingVisual>
+          Save sort and filters to new view
+        </ActionList.Item>
+      </ActionList.Group>
+      <ActionList.Divider />
+      <ActionList.Group>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <GearIcon />
+          </ActionList.LeadingVisual>
+          View settings
+        </ActionList.Item>
+      </ActionList.Group>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
 ```
 
 ### With External Anchor
 
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor:
 
-```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/react/drafts'
-const {ActionMenu, ActionList, Button} = drafts // ignore docs silliness; import like that ↑
-
+```javascript live noinline drafts
 const Example = () => {
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.createRef()
@@ -228,10 +215,7 @@ render(<Example />)
 
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`:
 
-```javascript live noinline
-// import {ActionMenu, ActionList} from '@primer/react/drafts'
-const {ActionMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
-
+```javascript live noinline drafts
 const handleEscape = () => alert('you hit escape!')
 
 render(

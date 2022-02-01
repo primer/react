@@ -15,17 +15,19 @@ import {ArrowRightIcon} from '@primer/octicons-react'
 ### Installation
 
 ```js
-import {LinkButton} from '@primer/react/drafts'
+import {LinkButton} from '@primer/react/lib-esm/drafts'
+// or commonjs:
+import {LinkButton} from '@primer/react/lib/drafts'
 ```
 
 ### Default
 
 The `LinkButton` can be considered an extension of `Button` component. It accepts all of the same props along with new link specific props like `to` and `href`.
 
-```jsx live
-<drafts.LinkButton as="a" href="https://primer.style/">
+```jsx live drafts
+<LinkButton as="a" href="https://primer.style/">
   Link to Primer
-</drafts.LinkButton>
+</LinkButton>
 ```
 
 ### Other examples of using a LinkButton
@@ -36,21 +38,21 @@ The `LinkButton` can be considered an extension of `Button` component. It accept
 - supports the different variants in [Button]('../Button2')
 - supports leadingIcon and trailingIcon
 
-```jsx live
+```jsx live drafts
 <Box>
-  <drafts.LinkButton>Small link</drafts.LinkButton>
-  <drafts.LinkButton size="large" sx={{mt: 2}}>
+  <LinkButton>Small link</LinkButton>
+  <LinkButton size="large" sx={{mt: 2}}>
     Large link
-  </drafts.LinkButton>
-  <drafts.LinkButton variant="invisible" sx={{mt: 2}}>
+  </LinkButton>
+  <LinkButton variant="invisible" sx={{mt: 2}}>
     Invisible link
-  </drafts.LinkButton>
-  <drafts.LinkButton variant="danger" sx={{mt: 2}}>
+  </LinkButton>
+  <LinkButton variant="danger" sx={{mt: 2}}>
     Danger link
-  </drafts.LinkButton>
-  <drafts.LinkButton trailingIcon={ArrowRightIcon} sx={{mt: 2}}>
+  </LinkButton>
+  <LinkButton trailingIcon={ArrowRightIcon} sx={{mt: 2}}>
     Link with arrow
-  </drafts.LinkButton>
+  </LinkButton>
 </Box>
 ```
 

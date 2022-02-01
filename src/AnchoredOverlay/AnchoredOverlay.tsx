@@ -55,7 +55,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently closed and an "open gesture" is detected.
    */
-  onOpen?: (gesture: 'anchor-click' | 'anchor-key-press') => unknown
+  onOpen?: (gesture: 'anchor-click' | 'anchor-key-press', event?: React.KeyboardEvent<HTMLElement>) => unknown
 
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
@@ -113,7 +113,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (!event.defaultPrevented) {
         if (!open && ['ArrowDown', 'ArrowUp', ' ', 'Enter'].includes(event.key)) {
-          onOpen?.('anchor-key-press')
+          onOpen?.('anchor-key-press', event)
           event.preventDefault()
         }
       }
