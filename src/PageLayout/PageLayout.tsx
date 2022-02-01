@@ -114,6 +114,7 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhe
   const {outerSpacing} = React.useContext(PageLayoutContext)
   return (
     <Box
+      role="separator"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) => ({
         // Srtetch divider to viewport edges on narrow screens
