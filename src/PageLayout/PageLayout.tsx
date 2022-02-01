@@ -17,9 +17,14 @@ const SPACING_MAP = {
 }
 
 const PageLayoutContext = React.createContext<{
-  rowGap: Required<PageLayoutProps>['rowGap']
-  columnGap: Required<PageLayoutProps>['columnGap']
-}>({rowGap: 'normal', columnGap: 'normal'})
+  outerSpacing: keyof typeof SPACING_MAP
+  rowGap: keyof typeof SPACING_MAP
+  columnGap: keyof typeof SPACING_MAP
+}>({
+  outerSpacing: 'normal',
+  rowGap: 'normal',
+  columnGap: 'normal'
+})
 
 // ----------------------------------------------------------------------------
 // PageLayout
@@ -40,12 +45,6 @@ const containerWidthMap = {
   xlarge: '1280px'
 }
 
-// const SPACING_MAP = {
-//   // none: '0', Should `none` be an option?
-//   condensed: 3,
-//   normal: [3, null, null, 4]
-// }
-
 // TODO: refs
 const Root: React.FC<PageLayoutProps> = ({
   containerWidth = 'xlarge',
@@ -56,7 +55,7 @@ const Root: React.FC<PageLayoutProps> = ({
   children
 }) => {
   return (
-    <PageLayoutContext.Provider value={{rowGap, columnGap}}>
+    <PageLayoutContext.Provider value={{outerSpacing, rowGap, columnGap}}>
       <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[outerSpacing]}, sx)}>
         <Box
           sx={{
@@ -104,14 +103,25 @@ const horizontalDividerStyles = {
   }
 }
 
+function negateSpacingValue(value: number | null | Array<number | null>) {
+  if (Array.isArray(value)) {
+    return value.map(v => (v === null ? null : -v))
+  }
+
+  return value === null ? null : -value
+}
+
 const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit'}) => {
+  const {outerSpacing} = React.useContext(PageLayoutContext)
   return (
     <Box
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) => ({
-        width: '100%',
+        // Srtetch divider to viewport edges on narrow screens
+        marginX: negateSpacingValue(SPACING_MAP[outerSpacing]),
         ...horizontalDividerStyles[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
         [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+          marginX: '0 !important',
           ...horizontalDividerStyles[variant]
         }
       })}
