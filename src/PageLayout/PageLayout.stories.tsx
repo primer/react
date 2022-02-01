@@ -1,6 +1,6 @@
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Box} from '..'
+import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
 
 const meta: Meta = {
@@ -195,27 +195,6 @@ const meta: Meta = {
   }
 }
 
-// This might be useful in other stories/docs
-const Placeholder: React.FC<{
-  width?: number | string
-  height: number | string
-  label?: string
-}> = ({width, height, label}) => {
-  return (
-    <Box
-      sx={{
-        width: width ?? '100%',
-        height,
-        display: 'grid',
-        placeItems: 'center',
-        bg: 'canvas.inset',
-        borderRadius: 2
-      }}
-    >
-      {label}
-    </Box>
-  )
-}
 export const Default: Story = args => (
   <PageLayout
     containerWidth={args.containerWidth}
