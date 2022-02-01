@@ -121,6 +121,8 @@
       url: /SubNav
     - title: TabNav
       url: /TabNav
+    - title: Textarea
+      url: /Textarea
     - title: Text
       url: /Text
     - title: TextInput
