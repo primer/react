@@ -10,12 +10,14 @@ interface Props {
 
 const validationIconMap: Record<NonNullable<Props['validationStatus']>, React.ComponentType<IconProps>> = {
   success: CheckCircleFillIcon,
-  error: AlertFillIcon
+  error: AlertFillIcon,
+  warning: AlertFillIcon
 }
 
 const validationColorMap: Record<NonNullable<Props['validationStatus']>, string> = {
   success: 'success.fg',
-  error: 'danger.fg'
+  error: 'danger.fg',
+  warning: 'attention.fg'
 }
 
 const InputValidation: React.FC<Props> = ({children, id, validationStatus}) => {

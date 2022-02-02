@@ -89,8 +89,8 @@
       url: /LabelGroup
     - title: Link
       url: /Link
-    # - title: Overlay
-    #   url: /Overlay
+    - title: Overlay
+      url: /Overlay
     - title: Pagehead
       url: /Pagehead
     - title: Pagination
@@ -121,6 +121,8 @@
       url: /SubNav
     - title: TabNav
       url: /TabNav
+    - title: Textarea
+      url: /Textarea
     - title: Text
       url: /Text
     - title: TextInput
