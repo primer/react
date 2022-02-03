@@ -1,4 +1,4 @@
-name: Cypress Tests and Perf comparison
+name: Cypress Tests
 on:
   push:
     branches:
@@ -19,12 +19,8 @@ jobs:
           wait-on: 'http://localhost:6006'
           wait-on-timeout: 120
           browser: chrome
+          record: true
+          command: npm run cypress:tests -- --config baseUrl=http://localhost:6006
         env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        if: success()
-        with:
-          name: perf-benchmarks-main
-          path: cypress/downloads

@@ -1,0 +1,86 @@
+name: Cypress Tests and Perf comparison
+on: [push]
+
+jobs:
+  cypress-run-main:
+    name: Run Cypress tests on main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v2
+        with:
+          wait-on: 'https://primer.style/react/storybook'
+          wait-on-timeout: 120
+          browser: chrome
+          command: npm run cypress:perf-tests -- --config baseUrl=https://primer.style/react/storybook
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: videos
+          path: cypress/videos
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: perf-benchmarks-main
+          path: cypress/downloads
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm run start:storybook
+          wait-on: 'http://localhost:6006'
+          wait-on-timeout: 120
+          browser: chrome
+          command: npm run cypress:perf-tests -- --config baseUrl=http://localhost:6006
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: perf-benchmarks-branch
+          path: cypress/downloads
+
+      - name: Download main artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: perf-benchmarks-main
+          path: perf-benchmarks-main
+
+      - name: Download main artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: perf-benchmarks-branch
+          path: perf-benchmarks-branch
+
+      - run: ls -R
+
+      - name: Run perf-addon-cli
+        id: run-cli
+        run: npm run sb-perf -- -c /perf-benchmarks-main -b /perf-benchmarks-branch
+
+      - name: Upload sb-perf
+        id: sb-perf-upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: sb-perf
+          path: sb-perf
+
+      - run: |
+          content=`cat sb-perf/current-vs-baseline.json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=diffJson::$content"
+          echo "${{fromJson(steps.set_var.outputs.diffJson)}}"

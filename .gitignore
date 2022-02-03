@@ -9,3 +9,6 @@ lib-esm/
 public/
 stats.html
 .env
+cypress/videos
+cypress/downloads
+cypress/support
