@@ -4,7 +4,7 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export const TYPEAHEAD_TIMEOUT = 1000
 
-export const useMenuTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<HTMLElement>) => {
+export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<HTMLElement>) => {
   const containerRef = useProvidedRefOrCreate(providedRef)
 
   React.useEffect(() => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import {render, fireEvent, cleanup} from '@testing-library/react'
-import {useMenuTypeaheadFocus} from '../../hooks'
-import {TYPEAHEAD_TIMEOUT} from '../../hooks/useMenuTypeaheadFocus'
+import {useTypeaheadFocus} from '../../hooks'
+import {TYPEAHEAD_TIMEOUT} from '../../hooks/useTypeaheadFocus'
 
 const Component = ({
   onSelect = () => null,
@@ -13,7 +13,7 @@ const Component = ({
   refNotAttached?: boolean
 }) => {
   const containerRef = React.createRef<HTMLDivElement>()
-  useMenuTypeaheadFocus(true, containerRef) // hard coding open=true for test
+  useTypeaheadFocus(true, containerRef) // hard coding open=true for test
 
   return (
     <>
@@ -31,7 +31,7 @@ const Component = ({
   )
 }
 
-describe('useMenuTypeaheadFocus', () => {
+describe('useTypeaheadFocus', () => {
   afterEach(cleanup)
 
   it('First element: when b is pressed, it should move focus the "b"utton 1', () => {
