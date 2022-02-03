@@ -116,11 +116,10 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhe
     <Box
       role="separator"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-<<<<<<< HEAD
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
           {
-            // Srtetch divider to viewport edges on narrow screens
+            // Stretch divider to viewport edges on narrow screens
             marginX: negateSpacingValue(SPACING_MAP[outerSpacing]),
             ...horizontalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
             [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
@@ -131,18 +130,6 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhe
           sx
         )
       }
-=======
-      sx={(theme: any) => ({
-        // Stretch divider to viewport edges on narrow screens
-        marginX: negateSpacingValue(SPACING_MAP[outerSpacing]),
-        ...horizontalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
-        [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-          marginX: '0 !important',
-          ...horizontalDividerVariants[variant]
-        },
-        ...sx
-      })}
->>>>>>> 95674d5a7cc47f4e32bf83dc2b8c5a490dfecb4f
     />
   )
 }
