@@ -2,7 +2,7 @@ import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
-const TYPEAHEAD_TIMEOUT = 1000
+export const TYPEAHEAD_TIMEOUT = 1000
 
 export const useMenuTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<HTMLElement>) => {
   const containerRef = useProvidedRefOrCreate(providedRef)
