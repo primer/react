@@ -98,12 +98,6 @@ const FormControl = ({children, disabled, id: idProp, required, variant = 'stack
   }
 
   if (variant === 'choice') {
-    // TODO: reconsider if we even need this check. The UI will just look like something is wrong
-    if (React.isValidElement(InputComponent) && (InputComponent.type !== Checkbox || InputComponent.type !== Radio)) {
-      // eslint-disable-next-line no-console
-      console.warn('Only the Checkbox or Radio components are inteded to be used with the "choice" variant')
-    }
-
     if (validationChild) {
       // eslint-disable-next-line no-console
       console.warn(
@@ -119,7 +113,7 @@ const FormControl = ({children, disabled, id: idProp, required, variant = 'stack
     // TODO: reconsider if we even need this check. The UI will just look like something is wrong
     if (React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)) {
       // eslint-disable-next-line no-console
-      console.warn('The Checkbox or Radio components are not intended to be used with the "stack" variant')
+      console.warn('The Checkbox or Radio components are only intended to be used with the "choice" variant')
     }
 
     if (
