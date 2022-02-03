@@ -15,15 +15,11 @@
 const componentList = ['composite-components-button2--default-button', 'composite-components-actionlist--actions-story']
 
 describe('perf tests', () => {
-  beforeEach(() => {
-    cy.visit('/')
-    cy.wait(4000)
-  })
-
   it('should access perf tab', () => {
     for (let i = 0; i < componentList.length; i++) {
       const component = componentList[i]
       cy.visit(`?path=/story/${component}`)
+      cy.wait(4000)
       cy.get('#storybook-panel-root').then(() => {
         cy.get('#tabbutton-performance').click()
         cy.get('#storybook-addon-performance-sample-select').select('10 samples')

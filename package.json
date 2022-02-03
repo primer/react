@@ -20,7 +20,9 @@
     "release": "npm run build && changeset publish",
     "size": "size-limit",
     "prepare": "husky install",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:tests": "cypress run --spec 'cypress/integration/components/*.spec.js'",
+    "cypress:perf-tests": "cypress run --spec 'cypress/integration/performance/*.spec.js'"
   },
   "repository": "primer/react",
   "keywords": [
