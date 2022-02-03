@@ -2,8 +2,7 @@ name: Cypress Tests and Perf comparison
 on: [push]
 
 jobs:
-  cypress-run-main:
-    name: Run Cypress tests on main
+  cypress:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
