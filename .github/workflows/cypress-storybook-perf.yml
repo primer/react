@@ -1,5 +1,8 @@
 name: Cypress Tests and Perf comparison
-on: [push]
+on:
+  workflow_run:
+    workflows: [Deploy]
+    types: [completed]
 
 jobs:
   cypress:
@@ -28,11 +31,10 @@ jobs:
       - name: Run Cypress
         uses: cypress-io/github-action@v2
         with:
-          start: npm run start:storybook
-          wait-on: 'http://localhost:6006'
+          wait-on: $${{github.event.workflow_run.steps.vercel-action.outputs.preview-url}}
           wait-on-timeout: 120
           browser: chrome
-          command: npm run cypress:perf-tests -- --config baseUrl=http://localhost:6006
+          command: npm run cypress:perf-tests -- --config baseUrl=$${{github.event.workflow_run.steps.vercel-action.outputs.preview-url}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
