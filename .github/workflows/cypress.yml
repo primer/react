@@ -1,16 +1,7 @@
 name: Cypress Tests
-on:
-  workflow_run:
-    workflows: [Deploy]
-    types: [completed]
+on: [push]
 
 jobs:
-  on-success:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    steps:
-      - run: echo 'The triggering workflow passed'
-
   cypress-run:
     name: Run Cypress tests
     runs-on: ubuntu-latest
@@ -21,10 +12,12 @@ jobs:
       - name: Run Cypress
         uses: cypress-io/github-action@v2
         with:
+          start: npm run start:storybook
+          wait-on: 'http://localhost:6006'
           wait-on-timeout: 120
           browser: chrome
           record: true
-          command: npm run cypress:tests -- --config baseUrl=$${{github.event.workflow_run.steps.vercel-action.outputs.preview-url}}
+          command: npm run cypress:tests -- --config baseUrl=http://localhost:6006
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
