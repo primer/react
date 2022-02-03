@@ -51,8 +51,8 @@ const Root: React.FC<PageLayoutProps> = ({
   outerSpacing = 'normal',
   rowGap = 'normal',
   columnGap = 'normal',
-  sx = {},
-  children
+  children,
+  sx = {}
 }) => {
   return (
     <PageLayoutContext.Provider value={{outerSpacing, rowGap, columnGap}}>
@@ -110,22 +110,26 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx}) => {
+const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
   const {outerSpacing} = React.useContext(PageLayoutContext)
   return (
     <Box
       role="separator"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sx={(theme: any) => ({
-        // Srtetch divider to viewport edges on narrow screens
-        marginX: negateSpacingValue(SPACING_MAP[outerSpacing]),
-        ...horizontalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
-        [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-          marginX: '0 !important',
-          ...horizontalDividerVariants[variant]
-        },
-        ...sx
-      })}
+      sx={(theme: any) =>
+        merge<BetterSystemStyleObject>(
+          {
+            // Srtetch divider to viewport edges on narrow screens
+            marginX: negateSpacingValue(SPACING_MAP[outerSpacing]),
+            ...horizontalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
+            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+              marginX: '0 !important',
+              ...horizontalDividerVariants[variant]
+            }
+          },
+          sx
+        )
+      }
     />
   )
 }
@@ -149,19 +153,23 @@ const verticalDividerVariants = {
   }
 }
 
-const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx}) => {
+const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
   return (
     <Box
       role="separator"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sx={(theme: any) => ({
-        height: '100%',
-        ...verticalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
-        [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-          ...verticalDividerVariants[variant]
-        },
-        ...sx
-      })}
+      sx={(theme: any) =>
+        merge<BetterSystemStyleObject>(
+          {
+            height: '100%',
+            ...verticalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
+            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+              ...verticalDividerVariants[variant]
+            }
+          },
+          sx
+        )
+      }
     />
   )
 }
@@ -172,17 +180,25 @@ const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenN
 export type PageLayoutHeaderProps = {
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
-}
+} & SxProp
 
-const Header: React.FC<PageLayoutHeaderProps> = ({divider = 'none', dividerWhenNarrow = 'inherit', children}) => {
+const Header: React.FC<PageLayoutHeaderProps> = ({
+  divider = 'none',
+  dividerWhenNarrow = 'inherit',
+  children,
+  sx = {}
+}) => {
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
-      sx={{
-        order: REGION_ORDER.header,
-        width: '100%',
-        marginBottom: SPACING_MAP[rowGap]
-      }}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          order: REGION_ORDER.header,
+          width: '100%',
+          marginBottom: SPACING_MAP[rowGap]
+        },
+        sx
+      )}
     >
       {children}
       <HorizontalDivider
@@ -201,7 +217,7 @@ Header.displayName = 'PageLayout.Header'
 
 export type PageLayoutContentProps = {
   width?: keyof typeof contentWidths
-}
+} & SxProp
 
 // TODO: Account for pane width when centering content
 const contentWidths = {
@@ -211,9 +227,9 @@ const contentWidths = {
   xlarge: '1280px'
 }
 
-const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children}) => {
+const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}}) => {
   return (
-    <Box sx={{order: REGION_ORDER.content, flexGrow: 1}}>
+    <Box sx={merge<BetterSystemStyleObject>({order: REGION_ORDER.content, flexGrow: 1}, sx)}>
       <Box sx={{maxWidth: contentWidths[width], marginX: 'auto'}}>{children}</Box>
     </Box>
   )
@@ -230,7 +246,7 @@ export type PageLayoutPaneProps = {
   width?: keyof typeof paneWidths
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
-}
+} & SxProp
 
 const panePositions = {
   start: REGION_ORDER.paneStart,
@@ -249,7 +265,8 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   width = 'medium',
   divider = 'none',
   dividerWhenNarrow = 'inherit',
-  children
+  children,
+  sx = {}
 }) => {
   const {rowGap, columnGap} = React.useContext(PageLayoutContext)
   const computedPositionWhenNarrow = positionWhenNarrow === 'inherit' ? position : positionWhenNarrow
@@ -257,21 +274,26 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   return (
     <Box
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sx={(theme: any) => ({
-        order: panePositions[computedPositionWhenNarrow],
-        display: 'flex',
-        flexDirection: computedPositionWhenNarrow === 'end' ? 'column' : 'column-reverse',
-        width: '100%',
-        marginX: 0,
-        [computedPositionWhenNarrow === 'end' ? 'marginTop' : 'marginBottom']: SPACING_MAP[rowGap],
-        [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-          width: 'auto',
-          [position === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
-          marginY: `0 !important`,
-          flexDirection: position === 'end' ? 'row' : 'row-reverse',
-          order: panePositions[position]
-        }
-      })}
+      sx={(theme: any) =>
+        merge<BetterSystemStyleObject>(
+          {
+            order: panePositions[computedPositionWhenNarrow],
+            display: 'flex',
+            flexDirection: computedPositionWhenNarrow === 'end' ? 'column' : 'column-reverse',
+            width: '100%',
+            marginX: 0,
+            [computedPositionWhenNarrow === 'end' ? 'marginTop' : 'marginBottom']: SPACING_MAP[rowGap],
+            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+              width: 'auto',
+              [position === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
+              marginY: `0 !important`,
+              flexDirection: position === 'end' ? 'row' : 'row-reverse',
+              order: panePositions[position]
+            }
+          },
+          sx
+        )
+      }
     >
       {/* Show a horiztonal divider when viewport is narrow. Otherwise, show a vertical divider. */}
       <HorizontalDivider
@@ -298,17 +320,25 @@ Pane.displayName = 'PageLayout.Pane'
 export type PageLayoutFooterProps = {
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
-}
+} & SxProp
 
-const Footer: React.FC<PageLayoutFooterProps> = ({divider = 'none', dividerWhenNarrow = 'inherit', children}) => {
+const Footer: React.FC<PageLayoutFooterProps> = ({
+  divider = 'none',
+  dividerWhenNarrow = 'inherit',
+  children,
+  sx = {}
+}) => {
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
-      sx={{
-        order: REGION_ORDER.footer,
-        width: '100%',
-        marginTop: SPACING_MAP[rowGap]
-      }}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          order: REGION_ORDER.footer,
+          width: '100%',
+          marginTop: SPACING_MAP[rowGap]
+        },
+        sx
+      )}
     >
       <HorizontalDivider
         variant={divider}
