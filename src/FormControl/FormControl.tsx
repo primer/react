@@ -1,7 +1,6 @@
 import React from 'react'
 import {Autocomplete, Box, Checkbox, Radio, Select, Textarea, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
 import InputValidation from '../_InputValidation'
-import {ComponentProps} from '../utils/types'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlValidation from './_FormControlValidation'
@@ -10,7 +9,7 @@ import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 
-export interface Props {
+export interface FormControlProps {
   children?: React.ReactNode
   /**
    * Whether the field is ready for user input
@@ -30,8 +29,7 @@ export interface Props {
   variant?: 'stack' | 'choice' // TODO: come up with a better name for 'stack'
 }
 
-type FormControlValidationProps = ComponentProps<typeof FormControlValidation>
-export interface FormControlContext extends Pick<Props, 'disabled' | 'id' | 'required'> {
+export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
   captionId: string
   validationMessageId: string
 }
@@ -40,7 +38,7 @@ const FormControl = ({children, disabled, id: idProp, required, variant}: FormCo
   const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
   const id = useSSRSafeId(idProp)
   const validationChild = React.Children.toArray(children).find(child =>
-    React.isValidElement<FormControlValidationProps>(child) && child.type === FormControlValidation ? child : null
+    React.isValidElement(child) && child.type === FormControlValidation ? child : null
   )
   const captionChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
     React.isValidElement(child) && child.type === FormControlCaption ? child : null
