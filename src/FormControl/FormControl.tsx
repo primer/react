@@ -223,7 +223,6 @@ FormControl.defaultProps = {
   variant: 'stack'
 }
 
-export type FormControlComponentProps = ComponentProps<typeof FormControl>
 export default Object.assign(FormControl, {
   Caption: FormControlCaption,
   Label: FormControlLabel,
