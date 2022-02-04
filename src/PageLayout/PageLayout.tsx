@@ -17,11 +17,11 @@ const SPACING_MAP = {
 }
 
 const PageLayoutContext = React.createContext<{
-  outerSpacing: keyof typeof SPACING_MAP
+  padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
 }>({
-  outerSpacing: 'normal',
+  padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal'
 })
@@ -33,7 +33,7 @@ export type PageLayoutProps = {
   /** The maximum width of the page container */
   containerWidth?: keyof typeof containerWidths
   /** The spacing between the outer edges of the page container and the viewport */
-  outerSpacing?: keyof typeof SPACING_MAP // Should this be called `padding`?
+  padding?: keyof typeof SPACING_MAP
   rowGap?: keyof typeof SPACING_MAP
   columnGap?: keyof typeof SPACING_MAP
 } & SxProp
@@ -48,15 +48,15 @@ const containerWidths = {
 // TODO: refs
 const Root: React.FC<PageLayoutProps> = ({
   containerWidth = 'xlarge',
-  outerSpacing = 'normal',
+  padding = 'normal',
   rowGap = 'normal',
   columnGap = 'normal',
   children,
   sx = {}
 }) => {
   return (
-    <PageLayoutContext.Provider value={{outerSpacing, rowGap, columnGap}}>
-      <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[outerSpacing]}, sx)}>
+    <PageLayoutContext.Provider value={{padding, rowGap, columnGap}}>
+      <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}>
         <Box
           sx={{
             maxWidth: containerWidths[containerWidth],
@@ -111,7 +111,7 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
 }
 
 const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
-  const {outerSpacing} = React.useContext(PageLayoutContext)
+  const {padding} = React.useContext(PageLayoutContext)
   return (
     <Box
       role="separator"
@@ -120,7 +120,7 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhe
         merge<BetterSystemStyleObject>(
           {
             // Stretch divider to viewport edges on narrow screens
-            marginX: negateSpacingValue(SPACING_MAP[outerSpacing]),
+            marginX: negateSpacingValue(SPACING_MAP[padding]),
             ...horizontalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
             [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
               marginX: '0 !important',

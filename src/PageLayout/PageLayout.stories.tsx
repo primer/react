@@ -16,7 +16,7 @@ const meta: Meta = {
 export const Playground: Story = args => (
   <PageLayout
     containerWidth={args.containerWidth}
-    outerSpacing={args.outerSpacing}
+    padding={args.padding}
     rowGap={args.rowGap}
     columnGap={args.columnGap}
     sx={args.sx}
@@ -234,7 +234,7 @@ Playground.argTypes = {
 
 Playground.args = {
   containerWidth: 'xlarge',
-  outerSpacing: 'normal',
+  padding: 'normal',
   rowGap: 'normal',
   columnGap: 'normal'
 }
