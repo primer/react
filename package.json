@@ -42,6 +42,7 @@
   "author": "GitHub, Inc.",
   "license": "MIT",
   "engines": {
+    "node": ">=12",
     "npm": ">=7"
   },
   "dependencies": {
