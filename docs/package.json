@@ -9,7 +9,8 @@
     "build:storybook": "cd .. && ./script/build-storybook"
   },
   "engines": {
-    "node": ">= 10.x"
+    "node": ">=12",
+    "npm": ">=7"
   },
   "dependencies": {
     "@primer/gatsby-theme-doctocat": "^3.2.0",
