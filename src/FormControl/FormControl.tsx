@@ -9,7 +9,7 @@ import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 
-export interface FormControlProps {
+export type FormControlProps = {
   children?: React.ReactNode
   /**
    * Whether the field is ready for user input
