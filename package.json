@@ -62,6 +62,7 @@
     "color2k": "1.2.4",
     "deepmerge": "4.2.2",
     "focus-visible": "5.2.0",
+    "history": "5.0.0",
     "styled-system": "5.1.5"
   },
   "devDependencies": {
