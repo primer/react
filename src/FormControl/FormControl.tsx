@@ -36,7 +36,7 @@ export interface FormControlContext extends Pick<Props, 'disabled' | 'id' | 'req
   validationMessageId: string
 }
 
-const FormControl = ({children, disabled, id: idProp, required, variant = 'stack'}: FormControlProps) => {
+const FormControl = ({children, disabled, id: idProp, required, variant}: FormControlProps) => {
   const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
   const id = useSSRSafeId(idProp)
   const validationChild = React.Children.toArray(children).find(child =>

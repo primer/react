@@ -2,7 +2,7 @@
 componentId: form_control
 title: FormControl
 status: Alpha
-description: Use a form control to group a form label, input, and, optionally, validation and hint text
+description: The FormControl component is used to render a labelled text input and, optionally, associated validation text and hint text.
 source: https://github.com/primer/react/blob/main/src/FormControl/FormControl.tsx
 storybook: '/react/storybook?path=/story/forms-inputfield--text-input-field'
 ---
@@ -35,15 +35,7 @@ const DifferentInputs = () => {
   }
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      sx={{
-        '> * + *': {
-          marginTop: 4
-        }
-      }}
-    >
+    <Box display="grid" gridGap={1}>
       <FormControl>
         <FormControl.Label>TextInputWithTokens</FormControl.Label>
         <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
@@ -91,6 +83,7 @@ render(DifferentInputs)
 ### With checkbox and radio inputs
 
 Use `variant="choice"` to position checkbox and radio inputs to the left of the label.
+
 ```javascript live noinline
 const DifferentInputs = () => {
   const [tokens, setTokens] = React.useState([
@@ -103,16 +96,7 @@ const DifferentInputs = () => {
   }
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      as="form"
-      sx={{
-        '> * + *': {
-          marginTop: 4
-        }
-      }}
-    >
+    <Box display="grid" gridGap={1}>
       <FormControl variant="choice">
         <FormControl.Label>Checkbox option one</FormControl.Label>
         <Checkbox />
@@ -151,16 +135,7 @@ render(DifferentInputs)
 ### Disabled
 
 ```jsx live
-<Box
-  display="flex"
-  flexDirection="column"
-  as="form"
-  sx={{
-    '> * + *': {
-      marginTop: 4
-    }
-  }}
->
+<Box display="grid" gridGap={1}>
   <FormControl disabled>
     <FormControl.Label>Name</FormControl.Label>
     <TextInput />
@@ -184,16 +159,7 @@ Every input must have a corresponding label to be accessible to assistive techno
 </Note>
 
 ```jsx live
-<Box
-  display="flex"
-  flexDirection="column"
-  as="form"
-  sx={{
-    '> * + *': {
-      marginTop: 4
-    }
-  }}
->
+<Box display="grid" gridGap={1}>
   <FormControl>
     <FormControl.Label visuallyHidden>Name</FormControl.Label>
     <TextInput />
@@ -208,16 +174,7 @@ Every input must have a corresponding label to be accessible to assistive techno
 ### With a caption
 
 ```jsx live
-<Box
-  display="flex"
-  flexDirection="column"
-  as="form"
-  sx={{
-    '> * + *': {
-      marginTop: 4
-    }
-  }}
->
+<Box display="grid" gridGap={1}>
   <FormControl>
     <FormControl.Label>Name</FormControl.Label>
     <TextInput />
