@@ -14,6 +14,7 @@ const StyledSelect = styled.select`
   border: 0;
   color: currentColor;
   outline: none;
+  width: 100%;
 
   /* colors the select input's placeholder text */
   &:invalid {

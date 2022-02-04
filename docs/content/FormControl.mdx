@@ -252,17 +252,13 @@ const ValidationExample = () => {
   }, [value])
 
   return (
-    <FormControl
-      validationMap={{
-        noSpaces: 'error',
-        validName: 'success'
-      }}
-      validationResult={validationResult}
-    >
+    <FormControl>
       <FormControl.Label>GitHub handle</FormControl.Label>
       <TextInput block value={value} onChange={handleInputChange} />
-      <FormControl.Validation validationKey="noSpaces">GitHub handles cannot contain spaces</FormControl.Validation>
-      <FormControl.Validation validationKey="validName">Valid name</FormControl.Validation>
+      {validationResult === 'noSpaces' && (
+        <FormControl.Validation>GitHub handles cannot contain spaces</FormControl.Validation>
+      )}
+      {validationResult === 'validName' && <FormControl.Validation>Valid name</FormControl.Validation>}
       <FormControl.Caption>With or without "@". For example "monalisa" or "@monalisa"</FormControl.Caption>
     </FormControl>
   )
@@ -332,12 +328,6 @@ The container that handles the layout and passes the relevant IDs and ARIA attri
     defaultValue="false"
     description="Whether the field is ready for user input"
   />
-  <PropsTableRow
-    name="validationMap"
-    type="Record<string, 'error'|'sucess'>"
-    description="A map of validation statuses and their associated validation keys. When one of the validation keys is passed to the `validationResult` prop, the associated validation message will be rendered in the correct style"
-  />
-  <PropsTableRow name="validationResult" type="string" description="The key of the validation message to show " />
 </PropsTable>
 
 ### FormControl.Label
@@ -380,11 +370,6 @@ A `FormControl.Label` must be passed for the field to be accessible to assistive
     name="children"
     type="React.ReactNode"
     description="The content (usually just text) that is rendered to give contextual info about the validation result for the field"
-  />
-  <PropsTableRow
-    name="validationKey"
-    type="string"
-    description="The key of the property from `FormControl` that corresponds to this validation message. When `FormControl`'s `validationResult` prop matches `FormControl.Validation`'s `validationKey` prop, this message is shown."
   />
 </PropsTable>
 
