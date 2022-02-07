@@ -11,7 +11,7 @@ const REGION_ORDER = {
 }
 
 const SPACING_MAP = {
-  // none: '0', Should `none` be an option?
+  none: 0,
   condensed: 3,
   normal: [3, null, null, 4]
 }
