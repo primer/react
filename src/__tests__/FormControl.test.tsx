@@ -11,6 +11,18 @@ const CAPTION_TEXT = 'Hint text'
 const ERROR_TEXT = 'This field is invalid'
 
 describe('FormControl', () => {
+  const mockWarningFn = jest.fn()
+  const mockErrorFn = jest.fn()
+
+  beforeAll(() => {
+    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
+    jest.spyOn(global.console, 'error').mockImplementation(mockErrorFn)
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   describe('default variant', () => {
     describe('rendering', () => {
       it('renders with a hidden label', () => {
@@ -246,7 +258,6 @@ describe('FormControl', () => {
 
     describe('warnings', () => {
       it('should warn users if they do not pass an input', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
         render(
           <SSRProvider>
             <FormControl>
@@ -256,10 +267,9 @@ describe('FormControl', () => {
           </SSRProvider>
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(mockWarningFn).toHaveBeenCalled()
       })
       it('should warn users if they try to render a choice (checkbox or radio) input', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
         render(
           <SSRProvider>
             <FormControl>
@@ -270,10 +280,9 @@ describe('FormControl', () => {
           </SSRProvider>
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(mockWarningFn).toHaveBeenCalled()
       })
       it('should log an error if a user does not pass a label', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'error')
         render(
           <SSRProvider>
             <FormControl>
@@ -283,10 +292,9 @@ describe('FormControl', () => {
           </SSRProvider>
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(mockErrorFn).toHaveBeenCalled()
       })
       it('should warn users if they try to render a leading visual when using variant="stack"', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
         render(
           <SSRProvider>
             <FormControl>
@@ -299,10 +307,9 @@ describe('FormControl', () => {
           </SSRProvider>
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(mockWarningFn).toHaveBeenCalled()
       })
       it('should warn users if they pass an id directly to the input', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
         render(
           <SSRProvider>
             <FormControl>
@@ -313,10 +320,9 @@ describe('FormControl', () => {
           </SSRProvider>
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(mockWarningFn).toHaveBeenCalled()
       })
       it('should warn users if they pass a `disabled` prop directly to the input', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
         render(
           <SSRProvider>
             <FormControl>
@@ -327,10 +333,9 @@ describe('FormControl', () => {
           </SSRProvider>
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(mockWarningFn).toHaveBeenCalled()
       })
       it('should warn users if they pass a `required` prop directly to the input', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
         render(
           <SSRProvider>
             <FormControl>
@@ -341,7 +346,7 @@ describe('FormControl', () => {
           </SSRProvider>
         )
 
-        expect(consoleSpy).toHaveBeenCalled()
+        expect(mockWarningFn).toHaveBeenCalled()
       })
     })
     it('should have no axe violations', async () => {
