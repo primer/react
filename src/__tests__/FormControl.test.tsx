@@ -23,7 +23,7 @@ describe('FormControl', () => {
     jest.clearAllMocks()
   })
 
-  describe('default variant', () => {
+  describe('vertically stacked layout (default)', () => {
     describe('rendering', () => {
       it('renders with a hidden label', () => {
         const {getByLabelText, getByText} = render(
@@ -365,12 +365,12 @@ describe('FormControl', () => {
     })
   })
 
-  describe('variant="choice"', () => {
+  describe('checkbox and radio layout', () => {
     describe('rendering', () => {
       it('renders with a LeadingVisual', () => {
         const {getByLabelText} = render(
           <SSRProvider>
-            <FormControl variant="choice">
+            <FormControl>
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <Checkbox />
               <FormControl.LeadingVisual>
@@ -387,25 +387,11 @@ describe('FormControl', () => {
     })
 
     describe('warnings', () => {
-      it('should warn users if they try to render anything except a Checkbox or Radio when using variant="choice"', async () => {
+      it('should warn users if they try to render a validation message when using a checkbox or radio', async () => {
         const consoleSpy = jest.spyOn(global.console, 'warn')
         render(
           <SSRProvider>
-            <FormControl variant="choice">
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>
-        )
-
-        expect(consoleSpy).toHaveBeenCalled()
-      })
-      it('should warn users if they try to render a validation message when using variant="choice"', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
-        render(
-          <SSRProvider>
-            <FormControl variant="choice">
+            <FormControl>
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <Checkbox />
               <FormControl.Validation appearance="error">Some error</FormControl.Validation>
@@ -416,11 +402,11 @@ describe('FormControl', () => {
 
         expect(consoleSpy).toHaveBeenCalled()
       })
-      it('should warn users if they pass `required` to variant="choice"', async () => {
+      it('should warn users if they pass `required` to a checkbox or radio', async () => {
         const consoleSpy = jest.spyOn(global.console, 'warn')
         render(
           <SSRProvider>
-            <FormControl variant="choice" required>
+            <FormControl required>
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <Checkbox required />
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
@@ -434,7 +420,7 @@ describe('FormControl', () => {
     it('should have no axe violations', async () => {
       const {container} = render(
         <SSRProvider>
-          <FormControl variant="choice">
+          <FormControl>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
             <Checkbox />
             <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>

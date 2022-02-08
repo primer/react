@@ -126,21 +126,21 @@ export const UsingSelectInput = (args: Args) => (
 UsingTextInputWithTokens.storyName = 'Using TextInputWithTokens Input'
 
 export const UsingCheckboxInput = (args: Args) => (
-  <FormControl variant="choice" {...args}>
+  <FormControl {...args}>
     <Checkbox />
     <FormControl.Label>Selectable choice</FormControl.Label>
   </FormControl>
 )
 
 export const UsingRadioInput = (args: Args) => (
-  <FormControl variant="choice" {...args}>
+  <FormControl {...args}>
     <Radio name="radioInput" value="choice" />
     <FormControl.Label>Selectable choice</FormControl.Label>
   </FormControl>
 )
 
 export const WithLeadingVisual = (args: Args) => (
-  <FormControl variant="choice" {...args}>
+  <FormControl {...args}>
     <FormControl.Label>Selectable choice</FormControl.Label>
     <FormControl.LeadingVisual>
       <MarkGithubIcon />
@@ -151,7 +151,7 @@ export const WithLeadingVisual = (args: Args) => (
 WithLeadingVisual.storyName = 'With LeadingVisual'
 
 export const WithCaptionAndLeadingVisual = (args: Args) => (
-  <FormControl variant="choice" {...args}>
+  <FormControl {...args}>
     <FormControl.Label>Selectable choice</FormControl.Label>
     <FormControl.LeadingVisual>
       <MarkGithubIcon />

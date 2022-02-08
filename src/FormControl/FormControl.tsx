@@ -23,10 +23,6 @@ export type FormControlProps = {
    * Whether this field must have a value for the user to complete their task
    */
   required?: boolean
-  /**
-   * Changes the layout of the form control
-   */
-  variant?: 'stack' | 'choice' // TODO: come up with a better name for 'stack'
 }
 
 export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
@@ -34,7 +30,7 @@ export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 
   validationMessageId: string
 }
 
-const FormControl = ({children, disabled, id: idProp, required, variant}: FormControlProps) => {
+const FormControl = ({children, disabled, id: idProp, required}: FormControlProps) => {
   const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
   const id = useSSRSafeId(idProp)
   const validationChild = React.Children.toArray(children).find(child =>
@@ -53,6 +49,8 @@ const FormControl = ({children, disabled, id: idProp, required, variant}: FormCo
     expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)
   )
   const inputProps = React.isValidElement(InputComponent) ? InputComponent.props : undefined
+  const isChoiceInput =
+    React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
 
   if (!InputComponent) {
     // eslint-disable-next-line no-console
@@ -95,7 +93,7 @@ const FormControl = ({children, disabled, id: idProp, required, variant}: FormCo
     )
   }
 
-  if (variant === 'choice') {
+  if (isChoiceInput) {
     if (validationChild) {
       // eslint-disable-next-line no-console
       console.warn(
@@ -108,12 +106,6 @@ const FormControl = ({children, disabled, id: idProp, required, variant}: FormCo
       console.warn('An individual checkbox or radio cannot be a required field.')
     }
   } else {
-    // TODO: reconsider if we even need this check. The UI will just look like something is wrong
-    if (React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)) {
-      // eslint-disable-next-line no-console
-      console.warn('The Checkbox or Radio components are only intended to be used with the "choice" variant')
-    }
-
     if (
       React.Children.toArray(children).find(
         child => React.isValidElement(child) && child.type === FormControlLeadingVisual
@@ -139,7 +131,7 @@ const FormControl = ({children, disabled, id: idProp, required, variant}: FormCo
       {slots => {
         const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
 
-        return variant === 'choice' ? (
+        return isChoiceInput ? (
           <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
             <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
               {React.isValidElement(InputComponent) &&
@@ -215,10 +207,6 @@ const FormControl = ({children, disabled, id: idProp, required, variant}: FormCo
       }}
     </Slots>
   )
-}
-
-FormControl.defaultProps = {
-  variant: 'stack'
 }
 
 export default Object.assign(FormControl, {

@@ -82,8 +82,6 @@ render(DifferentInputs)
 
 ### With checkbox and radio inputs
 
-Use `variant="choice"` to position checkbox and radio inputs to the left of the label.
-
 ```javascript live noinline
 const DifferentInputs = () => {
   const [tokens, setTokens] = React.useState([
@@ -97,16 +95,16 @@ const DifferentInputs = () => {
 
   return (
     <Box display="grid" gridGap={1}>
-      <FormControl variant="choice">
+      <FormControl>
         <FormControl.Label>Checkbox option one</FormControl.Label>
         <Checkbox />
       </FormControl>
       <fieldset style={{marginLeft: 0, marginRight: 0, padding: 0, border: 0}}>
-        <FormControl variant="choice">
+        <FormControl>
           <FormControl.Label>Radio option one</FormControl.Label>
           <Radio name="radioExample" value="one" />
         </FormControl>
-        <FormControl variant="choice">
+        <FormControl>
           <FormControl.Label>Radio option two</FormControl.Label>
           <Radio name="radioExample" value="two" />
         </FormControl>
@@ -141,7 +139,7 @@ render(DifferentInputs)
     <TextInput />
   </FormControl>
 
-  <FormControl variant="choice" disabled>
+  <FormControl disabled>
     <FormControl.Label>Checkbox option</FormControl.Label>
     <Checkbox />
   </FormControl>
@@ -152,7 +150,7 @@ render(DifferentInputs)
 
 <Note>
 
-We encourage using `FormControl` alongside all standalone form components like [`TextInput`](/TextInput), as every input must have a corresponding label to be accessible to assistive technology. 
+We encourage using `FormControl` alongside all standalone form components like [`TextInput`](/TextInput), as every input must have a corresponding label to be accessible to assistive technology.
 ``
 
 `FormControl` also provides an interface for showing a hint text caption and a validation message, and associating those with the input for assistive technology.
@@ -165,7 +163,7 @@ We encourage using `FormControl` alongside all standalone form components like [
     <FormControl.Label visuallyHidden>Name</FormControl.Label>
     <TextInput />
   </FormControl>
-  <FormControl variant="choice">
+  <FormControl>
     <FormControl.Label visuallyHidden>Checkbox option</FormControl.Label>
     <Checkbox />
   </FormControl>
@@ -181,7 +179,7 @@ We encourage using `FormControl` alongside all standalone form components like [
     <TextInput />
     <FormControl.Caption>Hint: your first name</FormControl.Caption>
   </FormControl>
-  <FormControl variant="choice">
+  <FormControl>
     <FormControl.Label>Option one</FormControl.Label>
     <Checkbox />
     <FormControl.Caption>Hint: the first and only option</FormControl.Caption>
@@ -232,7 +230,7 @@ render(ValidationExample)
 
 ```jsx live
 <>
-  <FormControl variant="choice">
+  <FormControl>
     <FormControl.Label>Option one</FormControl.Label>
     <FormControl.LeadingVisual>
       <MarkGithubIcon />
@@ -240,7 +238,7 @@ render(ValidationExample)
     <Checkbox />
   </FormControl>
 
-  <FormControl variant="choice">
+  <FormControl>
     <FormControl.Label>Option two</FormControl.Label>
     <FormControl.LeadingVisual>
       <MarkGithubIcon />
@@ -262,12 +260,6 @@ The container that handles the layout and passes the relevant IDs and ARIA attri
     name="children"
     type="FormControl.Label | FormControl.Caption | FormControl.Validation | Autocomplete | TextInput | TextInputWithTokens | Select"
     required
-  />
-  <PropsTableRow
-    name="variant"
-    defaultValue="'stack'"
-    type="'stack' | 'choice'"
-    description="Changes the layout of the form control"
   />
   <PropsTableRow
     name="disabled"
@@ -320,7 +312,7 @@ A `FormControl.Label` must be passed for the field to be accessible to assistive
 
 <Note>
   Validation messages should not be shown for an individual checkbox or radio form control, so `FormControl.Validation`
-  will not be rendered when `variant="choice"` is passed to the parent `FormControl`. Validation messages for checkbox
+  will not be rendered when a `Checkbox` or `Radio` is not a child of `FormControl`. Validation messages for checkbox
   and radio selections should only apply to the entire group of inputs.
 </Note>
 
