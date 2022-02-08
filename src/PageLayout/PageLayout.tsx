@@ -229,8 +229,20 @@ const contentWidths = {
 
 const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}}) => {
   return (
-    <Box sx={merge<BetterSystemStyleObject>({order: REGION_ORDER.content, flexGrow: 1}, sx)}>
-      <Box sx={{maxWidth: contentWidths[width], marginX: 'auto'}}>{children}</Box>
+    <Box
+      sx={merge<BetterSystemStyleObject>(
+        {
+          order: REGION_ORDER.content,
+          flexGrow: 1,
+          // Set width to 0% on wide viewports to allow flex-grow
+          // to control the width of the content region.
+          // Without this, the content region could wrap onto a different line than the pane region if its contents are too wide.
+          width: ['100%', null, '0%']
+        },
+        sx
+      )}
+    >
+      <Box sx={{width: '100%', maxWidth: contentWidths[width], marginX: 'auto'}}>{children}</Box>
     </Box>
   )
 }
