@@ -12,15 +12,15 @@ import FormControlLeadingVisual from './_FormControlLeadingVisual'
 export type FormControlProps = {
   children?: React.ReactNode
   /**
-   * Whether the field is ready for user input
+   * Whether the control allows user input
    */
   disabled?: boolean
   /**
-   * The unique identifier for this field. Used to associate the label, validation text, and caption text
+   * The unique identifier for this control. Used to associate the label, validation text, and caption text
    */
   id?: string
   /**
-   * Whether this field must have a value for the user to complete their task
+   * If true, the user must specify a value for the input before the owning form can be submitted
    */
   required?: boolean
 }
