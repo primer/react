@@ -331,8 +331,8 @@ export const SettingsPage = () => (
         <Box sx={{display: 'grid', gap: 1}}>
           <Text sx={{fontSize: 1, fontWeight: 'bold', color: 'danger.fg'}}>Delete account</Text>
           <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            Are you sure you don't want to just downgrade your account to a free account? We won't charge your credit
-            card anymore.
+            Are you sure you don&apos;t want to just downgrade your account to a free account? We won&apos;t charge your
+            credit card anymore.
           </Text>
         </Box>
         <Button variant="danger">Delete account</Button>
