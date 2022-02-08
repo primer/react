@@ -1,43 +1,109 @@
 ---
 title: PageLayout
 status: Draft
-description: TODO
+# description: TODO
+source: https://github.com/primer/react/tree/main/src/PageLayout
+storybook: https://primer.style/react/storybook?path=/story/layout-pagelayout--playground
 ---
 
-<Note variant="warning">Not implemented yet</Note>
+```js
+import {PageLayout} from '@primer/react/drafts'
+```
 
 ## Examples
 
+<Note>
+
+See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayout--playground) for fullscreen examples.
+
+</Note>
+
 ### Default
 
-```jsx
+```jsx live drafts
 <PageLayout>
-  <PageLayout.Header>Header</PageLayout.Header>
-  <PageLayout.Content>Content</PageLayout.Content>
-  <PageLayout.Pane>Pane</PageLayout.Pane>
-  <PageLayout.Footer>Footer</PageLayout.Footer>
+  <PageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
 </PageLayout>
 ```
 
 ### With dividers
 
-```jsx
+```jsx live drafts
 <PageLayout>
-  <PageLayout.Header divider="line">Header</PageLayout.Header>
-  <PageLayout.Content>Content</PageLayout.Content>
-  <PageLayout.Pane divider="line">Pane</PageLayout.Pane>
-  <PageLayout.Footer divider="line">Footer</PageLayout.Footer>
+  <PageLayout.Header divider="line">
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane divider="line">
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer divider="line">
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
 </PageLayout>
 ```
 
-### Condensed
+### With pane on left
 
-```jsx
-<PageLayout columnGap="condensed" rowGap="condensed">
-  <PageLayout.Header>Header</PageLayout.Header>
-  <PageLayout.Content>Content</PageLayout.Content>
-  <PageLayout.Pane>Pane</PageLayout.Pane>
-  <PageLayout.Footer>Footer</PageLayout.Footer>
+```jsx live drafts
+<PageLayout>
+  <PageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane position="start">
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
+### With condensed spacing
+
+```jsx live drafts
+<PageLayout padding="condensed" rowGap="condensed" columnGap="condensed">
+  <PageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
+### Without header or footer
+
+```jsx live drafts
+<PageLayout>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
 </PageLayout>
 ```
 
@@ -58,21 +124,24 @@ description: TODO
     description="The maximum width of the page container."
   />
   <PropsTableRow
-    name="outerSpacing"
-    type={`| 'normal'
+    name="padding"
+    type={`| 'none'
+| 'normal'
 | 'condensed'`}
     defaultValue="'normal'"
     description="The spacing between the outer edges of the page container and the viewport"
   />
   <PropsTableRow
     name="columnGap"
-    type={`| 'normal'
+    type={`| 'none'
+| 'normal'
 | 'condensed'`}
     defaultValue="'normal'"
   />
   <PropsTableRow
     name="rowGap"
-    type={`| 'normal'
+    type={`| 'none'
+| 'normal'
 | 'condensed'`}
     defaultValue="'normal'"
   />
@@ -82,7 +151,12 @@ description: TODO
 ### PageLayout.Header
 
 <PropsTable>
-  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow
+    name="divider"
+    type={`| 'none'
+| 'line'`}
+    defaultValue="'none'"
+  />
   <PropsTableRow
     name="dividerWhenNarrow"
     type={`| 'inherit'
@@ -104,7 +178,7 @@ description: TODO
 | 'large'
 | 'xlarge'`}
     defaultValue="'full'"
-    description="Define the maximum width of the content region."
+    description="The maximum width of the content region."
   />
   <PropsTableSxRow />
 </PropsTable>
@@ -131,9 +205,14 @@ description: TODO
 | 'medium'
 | 'large'`}
     defaultValue="'medium'"
-    description="Define the width of the pane."
+    description="The width of the pane."
   />
-  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow
+    name="divider"
+    type={`| 'none'
+| 'line'`}
+    defaultValue="'none'"
+  />
   <PropsTableRow
     name="dividerWhenNarrow"
     type={`| 'inherit'
@@ -148,7 +227,12 @@ description: TODO
 ### PageLayout.Footer
 
 <PropsTable>
-  <PropsTableRow name="divider" type="'none' | 'line'" defaultValue="'none'" />
+  <PropsTableRow
+    name="divider"
+    type={`| 'none'
+| 'line'`}
+    defaultValue="'none'"
+  />
   <PropsTableRow
     name="dividerWhenNarrow"
     type={`| 'inherit'
@@ -165,9 +249,9 @@ description: TODO
 <ComponentChecklist
   items={{
     propsDocumented: true,
-    noUnnecessaryDeps: false,
-    adaptsToThemes: false,
-    adaptsToScreenSizes: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
     fullTestCoverage: false,
     usedInProduction: false,
     usageExamplesDocumented: true,
