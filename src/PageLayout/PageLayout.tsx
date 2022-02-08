@@ -233,10 +233,9 @@ const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.content,
-          // Set flex-basis to 0% on wide viewports to allow flex-grow to
-          // control the width of the content region.
+          // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
-          // than the pane region if its contents are too wide.
+          // than the pane region on wide viewports if its contents are too wide.
           flexBasis: '0%',
           flexGrow: 1,
           flexShrink: 1
