@@ -53,12 +53,10 @@
       url: /Buttons
     - title: Checkbox
       url: /Checkbox
-    # Temporarily hiding form field layout components due to
-    # feedback about the names being unclear
+    # Temporarily hiding ChoiceFieldset because the API
+    # is being refactored with breaking changes
     # - title: ChoiceFieldset
     #   url: /ChoiceFieldset
-    # - title: ChoiceInputField
-    #   url: /ChoiceInputField
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
@@ -73,16 +71,12 @@
       url: /FilterList
     - title: Flash
       url: /Flash
-    - title: FormGroup
-      url: /FormGroup
+    - title: FormControl
+      url: /FormControl
     - title: Header
       url: /Header
     - title: Heading
       url: /Heading
-    # Temporarily hiding form field layout components due to
-    # feedback about the names being unclear
-    # - title: InputField
-    #   url: /InputField
     - title: Label
       url: /Label
     - title: LabelGroup
@@ -165,5 +159,7 @@
       url: /deprecated/Dialog
     - title: Dropdown
       url: /deprecated/Dropdown
+    - title: FormGroup
+      url: /FormGroup
     - title: SelectMenu
       url: /deprecated/SelectMenu

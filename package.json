@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "34.3.0",
+  "version": "34.4.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -14,8 +14,14 @@
       "default": "./lib-esm/drafts/index.js"
     },
     "./lib-esm/*": {
-      "node": ["./lib/*.js","./lib/*/index.js"],
-      "default": ["./lib-esm/*.js","./lib-esm/*/index.js"]
+      "node": [
+        "./lib/*.js",
+        "./lib/*/index.js"
+      ],
+      "default": [
+        "./lib-esm/*.js",
+        "./lib-esm/*/index.js"
+      ]
     }
   },
   "typings": "lib/index.d.ts",
