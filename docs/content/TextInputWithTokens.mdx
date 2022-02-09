@@ -243,7 +243,12 @@ render(BasicExample)
     defaultValue="false"
     description="Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
   />
-  <PropsTable.Row name="size" type="TokenSizeKeys" defaultValue="extralarge" description="The size of the tokens" />
+  <PropsTable.Row
+    name="size"
+    type="'small' | 'medium' | 'large' | 'extralarge'"
+    defaultValue="extralarge"
+    description="The size of the tokens and text input"
+  />
   <PropsTable.Row
     name="hideTokenRemoveButtons"
     type="boolean"
