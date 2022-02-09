@@ -3,6 +3,7 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import Box from '../Box'
 import {SxProp} from '../sx'
 import {ListContext, ListProps} from './List'
+import {AriaRole} from '../utils/types'
 
 export type GroupProps = {
   /**
@@ -23,6 +24,7 @@ export type GroupProps = {
   /**
    * The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.
    */
+  role?: AriaRole
 } & SxProp & {
     /**
      * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
@@ -38,10 +40,12 @@ export const Group: React.FC<GroupProps> = ({
   variant = 'subtle',
   auxiliaryText,
   selectionVariant,
+  role,
   sx = {},
   ...props
 }) => {
   const labelId = useSSRSafeId()
+  const {role: listRole} = React.useContext(ListContext)
 
   return (
     <Box
@@ -56,7 +60,12 @@ export const Group: React.FC<GroupProps> = ({
     >
       {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
       <GroupContext.Provider value={{selectionVariant}}>
-        <Box as="ul" sx={{paddingInlineStart: 0}} aria-labelledby={title ? labelId : undefined} role="group">
+        <Box
+          as="ul"
+          sx={{paddingInlineStart: 0}}
+          aria-labelledby={title ? labelId : undefined}
+          role={role || (listRole && 'group')}
+        >
           {props.children}
         </Box>
       </GroupContext.Provider>

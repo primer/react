@@ -24,7 +24,7 @@ export type ListProps = {
   role?: AriaRole
 } & SxProp
 
-type ContextProps = Pick<ListProps, 'variant' | 'selectionVariant' | 'showDividers'>
+type ContextProps = Pick<ListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'>
 export const ListContext = React.createContext<ContextProps>({})
 
 const ListBox = styled.ul<SxProp>(sx)
@@ -51,7 +51,9 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
         {...props}
         ref={forwardedRef}
       >
-        <ListContext.Provider value={{variant, selectionVariant, showDividers}}>{props.children}</ListContext.Provider>
+        <ListContext.Provider value={{variant, selectionVariant, showDividers, role: role || listRole}}>
+          {props.children}
+        </ListContext.Provider>
       </ListBox>
     )
   }
