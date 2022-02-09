@@ -8,6 +8,7 @@ import {Slots} from './slots'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
+import {SxProp} from '../sx'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -23,14 +24,14 @@ export type FormControlProps = {
    * If true, the user must specify a value for the input before the owning form can be submitted
    */
   required?: boolean
-}
+} & SxProp
 
 export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
   captionId: string
   validationMessageId: string
 }
 
-const FormControl = ({children, disabled, id: idProp, required}: FormControlProps) => {
+const FormControl = ({children, disabled, id: idProp, required, sx}: FormControlProps) => {
   const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
   const id = useSSRSafeId(idProp)
   const validationChild = React.Children.toArray(children).find(child =>
@@ -132,7 +133,7 @@ const FormControl = ({children, disabled, id: idProp, required}: FormControlProp
         const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
 
         return isChoiceInput ? (
-          <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
+          <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
             <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
               {React.isValidElement(InputComponent) &&
                 React.cloneElement(InputComponent, {
@@ -178,7 +179,7 @@ const FormControl = ({children, disabled, id: idProp, required}: FormControlProp
             display="flex"
             flexDirection="column"
             width="100%"
-            sx={isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}}
+            sx={{...sx, ...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}})}}
           >
             {React.Children.toArray(children).filter(
               child =>
