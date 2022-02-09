@@ -14,26 +14,22 @@ import {Select, Text} from '@primer/react'
 ### Basic
 
 ```jsx live
-<>
-  <Text fontWeight="bold" fontSize={1} as="label" display="block" htmlFor="basic">
-    Preferred Primer component interface
-  </Text>
+<FormControl>
+  <FormControl.Label>Preferred Primer component interface</FormControl.Label>
   <Select id="basic">
     <Select.Option value="figma">Figma</Select.Option>
     <Select.Option value="css">Primer CSS</Select.Option>
     <Select.Option value="prc">Primer React components</Select.Option>
     <Select.Option value="pvc">Primer ViewComponents</Select.Option>
   </Select>
-</>
+</FormControl>
 ```
 
 ### With grouped options
 
 ```jsx live
-<>
-  <Text fontWeight="bold" fontSize={1} as="label" display="block" htmlFor="grouped">
-    Preferred Primer component interface
-  </Text>
+<FormControl>
+  <FormControl.Label>Preferred Primer component interface</FormControl.Label>
   <Select id="grouped">
     <Select.OptGroup label="GUI">
       <Select.Option value="figma">Figma</Select.Option>
@@ -44,23 +40,21 @@ import {Select, Text} from '@primer/react'
       <Select.Option value="pvc">Primer ViewComponents</Select.Option>
     </Select.OptGroup>
   </Select>
-</>
+</FormControl>
 ```
 
 ### With a placeholder
 
 ```jsx live
-<>
-  <Text fontWeight="bold" fontSize={1} as="label" display="block" htmlFor="withPlaceholder">
-    Preferred Primer component interface
-  </Text>
+<FormControl>
+  <FormControl.Label>Preferred Primer component interface</FormControl.Label>
   <Select id="withPlaceholder" placeholder="Pick an interface">
     <Select.Option value="figma">Figma</Select.Option>
     <Select.Option value="css">Primer CSS</Select.Option>
     <Select.Option value="prc">Primer React components</Select.Option>
     <Select.Option value="pvc">Primer ViewComponents</Select.Option>
   </Select>
-</>
+</FormControl>
 ```
 
 ## Props

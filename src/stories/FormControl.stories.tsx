@@ -19,7 +19,7 @@ export default {
       defaultValue: false
     }
   },
-  parameters: {controls: {exclude: ['variant', 'id']}},
+  parameters: {controls: {exclude: ['id']}},
   decorators: [
     Story => {
       return (
@@ -58,7 +58,7 @@ export const WithValidation = (args: Args) => (
   <FormControl {...args}>
     <FormControl.Label>Name</FormControl.Label>
     <TextInput />
-    <FormControl.Validation appearance="error">Your first name cannot contain spaces</FormControl.Validation>
+    <FormControl.Validation variant="error">Your first name cannot contain spaces</FormControl.Validation>
   </FormControl>
 )
 WithValidation.parameters = {controls: {exclude: ['id']}}
@@ -67,7 +67,7 @@ export const WithValidationAndCaption = (args: Args) => (
   <FormControl {...args}>
     <FormControl.Label>Name</FormControl.Label>
     <TextInput />
-    <FormControl.Validation appearance="error">Your first name cannot contain spaces</FormControl.Validation>
+    <FormControl.Validation variant="error">Your first name cannot contain spaces</FormControl.Validation>
     <FormControl.Caption>Hint: your first name</FormControl.Caption>
   </FormControl>
 )

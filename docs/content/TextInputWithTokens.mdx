@@ -29,12 +29,10 @@ const BasicExample = () => {
   }
 
   return (
-    <>
-      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
-        Basic example tokens
-      </Box>
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} id="inputWithTokens-basic" />
-    </>
+    <FormControl>
+      <FormControl.Label>Basic example tokens</FormControl.Label>
+      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />
+    </FormControl>
   )
 }
 
@@ -57,17 +55,10 @@ const UsingIssueLabelTokens = () => {
   }
 
   return (
-    <>
-      <Box as="label" display="block" htmlFor="inputWithTokens-issueLabels">
-        Issue labels
-      </Box>
-      <TextInputWithTokens
-        tokenComponent={IssueLabelToken}
-        tokens={tokens}
-        onTokenRemove={onTokenRemove}
-        id="inputWithTokens-issueLabels"
-      />
-    </>
+    <FormControl>
+      <FormControl.Label>Issue labels</FormControl.Label>
+      <TextInputWithTokens tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
+    </FormControl>
   )
 }
 
@@ -94,16 +85,10 @@ const VisibleTokenCountExample = () => {
 
   return (
     <Box maxWidth="500px">
-      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
-        Tokens truncated after 2
-      </Box>
-      <TextInputWithTokens
-        visibleTokenCount={2}
-        block
-        tokens={tokens}
-        onTokenRemove={onTokenRemove}
-        id="inputWithTokens-basic"
-      />
+      <FormControl>
+        <FormControl.Label>Tokens truncated after 2</FormControl.Label>
+        <TextInputWithTokens visibleTokenCount={2} block tokens={tokens} onTokenRemove={onTokenRemove} />
+      </FormControl>
     </Box>
   )
 }
@@ -131,16 +116,16 @@ const PreventTokenWrappingExample = () => {
 
   return (
     <Box maxWidth="500px">
-      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
-        Tokens on one line
-      </Box>
-      <TextInputWithTokens
-        preventTokenWrapping
-        block
-        tokens={tokens}
-        onTokenRemove={onTokenRemove}
-        id="inputWithTokens-basic"
-      />
+      <FormControl>
+        <FormControl.Label>Tokens on one line</FormControl.Label>
+        <TextInputWithTokens
+          preventTokenWrapping
+          block
+          tokens={tokens}
+          onTokenRemove={onTokenRemove}
+          id="inputWithTokens-basic"
+        />
+      </FormControl>
     </Box>
   )
 }
@@ -168,16 +153,16 @@ const MaxHeightExample = () => {
 
   return (
     <Box maxWidth="500px">
-      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
-        Tokens restricted to a max height
-      </Box>
-      <TextInputWithTokens
-        maxHeight="50px"
-        block
-        tokens={tokens}
-        onTokenRemove={onTokenRemove}
-        id="inputWithTokens-basic"
-      />
+      <FormControl>
+        <FormControl.Label>Tokens restricted to a max height</FormControl.Label>
+        <TextInputWithTokens
+          maxHeight="50px"
+          block
+          tokens={tokens}
+          onTokenRemove={onTokenRemove}
+          id="inputWithTokens-basic"
+        />
+      </FormControl>
     </Box>
   )
 }
