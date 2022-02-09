@@ -179,7 +179,7 @@ const FormControl = ({children, disabled, id: idProp, required, sx}: FormControl
             display="flex"
             flexDirection="column"
             width="100%"
-            sx={{...sx, ...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}})}}
+            sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}), ...sx}}
           >
             {React.Children.toArray(children).filter(
               child =>
@@ -195,13 +195,7 @@ const FormControl = ({children, disabled, id: idProp, required, sx}: FormControl
                 validationStatus,
                 ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
               })}
-            {validationChild && (
-              <ValidationAnimationContainer show>
-                <InputValidation validationStatus={validationStatus} id={validationMessageId}>
-                  {slots.Validation}
-                </InputValidation>
-              </ValidationAnimationContainer>
-            )}
+            {validationChild && <ValidationAnimationContainer show>{slots.Validation}</ValidationAnimationContainer>}
             {slots.Caption}
           </Box>
         )
