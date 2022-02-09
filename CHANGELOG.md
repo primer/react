@@ -1,5 +1,28 @@
 # @primer/components
 
+## 34.4.0
+
+### Minor Changes
+
+- [#1812](https://github.com/primer/react/pull/1812) [`97bf7c62`](https://github.com/primer/react/commit/97bf7c627bb10cdd18406557e6f1e79a39ed5b48) Thanks [@rezrah](https://github.com/rezrah)! - Add new Textarea component
+
+### Patch Changes
+
+- [#1824](https://github.com/primer/react/pull/1824) [`4eab65e5`](https://github.com/primer/react/commit/4eab65e57571d64a0f8a4fcb4aafbf47d3e98a2d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Overlay: Attach escape handler to overlay container instead of document to fix stopPropagation
+
+* [#1840](https://github.com/primer/react/pull/1840) [`1c4786c7`](https://github.com/primer/react/commit/1c4786c7d99fe083b47902acff5326c44a7c8288) Thanks [@jclem](https://github.com/jclem)! - Set Node.js and npm versions to ">=12" and ">=7", respectively, in package.json manifests, and update package-lock.json files accordingly.
+
+- [#1828](https://github.com/primer/react/pull/1828) [`6a695bdc`](https://github.com/primer/react/commit/6a695bdcea356821390f42c575d78a2f5ded6e86) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu2 + DropdownMenu2: A keyboard user will be able to wrap through options
+
+* [#1810](https://github.com/primer/react/pull/1810) [`35ad7084`](https://github.com/primer/react/commit/35ad7084bca048748479301e286ca305faada5b2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu2 + DropdownMenu2: Focus the correct element when Menu is opened with keyboard. [See detailed spec.](https://github.com/github/primer/issues/518#issuecomment-999104848)
+
+  - ArrowDown | Space | Enter: first element
+  - ArrowUp: last element
+
+- [#1842](https://github.com/primer/react/pull/1842) [`11011f55`](https://github.com/primer/react/commit/11011f5598a2c97f2dbb5928962dfa12b7437be0) Thanks [@jclem](https://github.com/jclem)! - Allow `KeyPaths` type to accept any type in order to remove need for `// @ts-ignore` internally.
+
+* [#1820](https://github.com/primer/react/pull/1820) [`50c7bfaa`](https://github.com/primer/react/commit/50c7bfaa283154e28d1905e3eb01f7f01901c806) Thanks [@colebemis](https://github.com/colebemis)! - Add draft `PageLayout` component
+
 ## 34.3.0
 
 ### Minor Changes

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import {useProvidedRefOrCreate} from './hooks'
 import React, {InputHTMLAttributes, ReactElement, useLayoutEffect} from 'react'
 import sx, {SxProp} from './sx'
+import {FormValidationStatus} from './utils/types/FormValidationStatus'
 
 export type CheckboxProps = {
   /**
@@ -24,7 +25,7 @@ export type CheckboxProps = {
   /**
    * Indicates whether the checkbox validation state
    */
-  validationStatus?: 'error' | 'success' // TODO: hoist to Validation typings
+  validationStatus?: FormValidationStatus
 } & InputHTMLAttributes<HTMLInputElement> &
   SxProp
 

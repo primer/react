@@ -55,14 +55,11 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -76,6 +73,12 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -83,14 +86,33 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -103,9 +125,10 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c7 {
@@ -429,14 +452,11 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -450,8 +470,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 0;
-  padding-right: 0;
+  min-height: 32px;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -465,16 +484,47 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
 }
 
 .c0 >:not(:last-child) {
   margin-right: 8px;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
 }
 
 .c0 .TextInput-icon {
@@ -487,9 +537,10 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
@@ -576,14 +627,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -597,6 +645,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  max-height: 20px;
+  overflow: auto;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -606,14 +662,33 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   overflow: auto;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -626,9 +701,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c6 {
@@ -1227,14 +1303,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -1248,6 +1321,12 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -1255,14 +1334,33 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -1275,9 +1373,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c6 {
@@ -1876,14 +1975,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -1897,6 +1993,12 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -1904,14 +2006,33 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -1924,9 +2045,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c6 {
@@ -2525,14 +2647,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -2546,6 +2665,12 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -2553,14 +2678,33 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -2573,9 +2717,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c6 {
@@ -3174,14 +3319,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -3195,6 +3337,12 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -3202,14 +3350,33 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -3222,9 +3389,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c6 {
@@ -3823,14 +3991,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -3844,6 +4009,13 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  overflow: auto;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -3852,14 +4024,33 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   overflow: auto;
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -3872,9 +4063,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c6 {
@@ -4473,14 +4665,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -4494,6 +4683,12 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -4501,14 +4696,33 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -4521,9 +4735,10 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c5 {
@@ -4830,14 +5045,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -4851,6 +5063,12 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -4858,14 +5076,33 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -4878,9 +5115,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c6 {
@@ -5479,14 +5717,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -5500,6 +5735,12 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -5507,14 +5748,33 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -5527,9 +5787,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .c4 {
@@ -6133,14 +6394,11 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 }
 
 .c0 {
-  min-height: 32px;
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
   vertical-align: middle;
   background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
   border: 1px solid #d0d7de;
   border-radius: 6px;
   outline: none;
@@ -6154,6 +6412,12 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
@@ -6161,14 +6425,33 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
-.c0 >:not(:last-child) {
-  margin-right: 8px;
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
 }
 
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
 }
 
 .c0 .TextInput-icon {
@@ -6181,9 +6464,10 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   flex-shrink: 0;
 }
 
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 @media (min-width:768px) {
