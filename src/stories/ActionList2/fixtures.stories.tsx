@@ -250,13 +250,14 @@ export function GroupsStory(): JSX.Element {
     <>
       <h1>Groups</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple" showDividers aria-label="Select reviewers">
-          <ActionList.Group title="Suggestions" variant="filled" role="listbox">
+        <ActionList selectionVariant="multiple" showDividers aria-label="Select reviewers" role="menu">
+          <ActionList.Group title="Suggestions" variant="filled">
             {users.slice(0, 2).map(user => (
               <ActionList.Item
                 key={user.login}
-                role="option"
+                role="menuitemcheckbox"
                 selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+                aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login)) || undefined}
                 onSelect={() => toggleAssignee(user)}
               >
                 <ActionList.LeadingVisual>
@@ -268,12 +269,13 @@ export function GroupsStory(): JSX.Element {
               </ActionList.Item>
             ))}
           </ActionList.Group>
-          <ActionList.Group title="Everyone" variant="filled" role="listbox">
+          <ActionList.Group title="Everyone" variant="filled">
             {users.slice(2).map(user => (
               <ActionList.Item
-                role="option"
+                role="menuitemcheckbox"
                 key={user.login}
                 selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+                aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login)) || undefined}
                 onSelect={() => toggleAssignee(user)}
               >
                 <ActionList.LeadingVisual>
@@ -1007,8 +1009,8 @@ export function MemexSortable(): JSX.Element {
       <h1>Memex Sortable List</h1>
       <ErsatzOverlay>
         <DndProvider backend={HTML5Backend}>
-          <ActionList selectionVariant="multiple">
-            <ActionList.Group title="Visible fields (can be reordered)" role="listbox">
+          <ActionList selectionVariant="multiple" role="listbox" aria-label="Select visible fields">
+            <ActionList.Group title="Visible fields (can be reordered)">
               {visibleOptions.map(option => (
                 <SortableItem
                   key={option.text}
@@ -1020,7 +1022,6 @@ export function MemexSortable(): JSX.Element {
               ))}
             </ActionList.Group>
             <ActionList.Group
-              role="listbox"
               title="Hidden fields"
               selectionVariant={
                 /** selectionVariant override on Group: disable selection if there are no options */
