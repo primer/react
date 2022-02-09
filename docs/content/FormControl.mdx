@@ -155,7 +155,6 @@ render(DifferentInputs)
 <Note>
 
 We encourage using `FormControl` alongside all standalone form components like [`TextInput`](/TextInput), as every input must have a corresponding label to be accessible to assistive technology.
-``
 
 `FormControl` also provides an interface for showing a hint text caption and a validation message, and associating those with the input for assistive technology.
 
@@ -204,9 +203,11 @@ const ValidationExample = () => {
       <FormControl.Label>GitHub handle</FormControl.Label>
       <TextInput block value={value} onChange={handleInputChange} />
       {validationResult === 'noSpaces' && (
-        <FormControl.Validation>GitHub handles cannot contain spaces</FormControl.Validation>
+        <FormControl.Validation variant="error">GitHub handles cannot contain spaces</FormControl.Validation>
       )}
-      {validationResult === 'validName' && <FormControl.Validation>Valid name</FormControl.Validation>}
+      {validationResult === 'validName' && (
+        <FormControl.Validation variant="success">Valid name</FormControl.Validation>
+      )}
       <FormControl.Caption>With or without "@". For example "monalisa" or "@monalisa"</FormControl.Caption>
     </FormControl>
   )
@@ -270,6 +271,7 @@ The container that handles the layout and passes the relevant IDs and ARIA attri
     defaultValue="false"
     description="If true, the user must specify a value for the input before the owning form can be submitted"
   />
+  <PropsTableSxRow />
 </PropsTable>
 
 ### FormControl.Label
@@ -283,6 +285,7 @@ A `FormControl.Label` must be passed for the field to be accessible to assistive
     defaultValue="false"
     description="Whether the label should be visually hidden"
   />
+  <PropsTableSxRow />
 </PropsTable>
 
 ### FormControl.Caption
@@ -295,6 +298,7 @@ A `FormControl.Label` must be passed for the field to be accessible to assistive
     type="React.ReactNode"
     description="The content (usually just text) that is rendered to give contextual info about the field"
   />
+  <PropsTableSxRow />
 </PropsTable>
 
 ### FormControl.Validation
@@ -307,12 +311,21 @@ Use `FormControl.Validation` to render contextual validation information if nece
     type="React.ReactNode"
     description="The content (usually just text) that is rendered to give contextual info about the validation result for the field"
   />
+  <PropsTableRow
+    required
+    name="variant"
+    type="'error' | 'success' | 'warning'"
+    description="Changes the visual style to match the validation status"
+  />
+  <PropsTableSxRow />
 </PropsTable>
 
 <Note>
-  Validation messages should not be shown for an individual checkbox or radio form control, so `FormControl.Validation`
-  will not be rendered when a `Checkbox` or `Radio` is not a child of `FormControl`. Validation messages for checkbox
-  and radio selections should only apply to the entire group of inputs.
+
+Validation messages should not be shown for an individual checkbox or radio form control, so `FormControl.Validation`
+will not be rendered when a `Checkbox` or `Radio` is not a child of `FormControl`. Validation messages for checkbox
+and radio selections should only apply to the entire group of inputs.
+
 </Note>
 
 ### FormControl.LeadingVisual
@@ -325,6 +338,7 @@ Use `FormControl.LeadingVisual` if the selectable option is easier to understand
     type="React.ReactNode"
     description="The visual to render before the choice input's label"
   />
+  <PropsTableSxRow />
 </PropsTable>
 
 <Note>

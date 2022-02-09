@@ -1,6 +1,5 @@
 import React from 'react'
 import {Autocomplete, Box, Checkbox, Radio, Select, Textarea, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
-import InputValidation from '../_InputValidation'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlValidation from './_FormControlValidation'
@@ -8,6 +7,7 @@ import {Slots} from './slots'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
+import {SxProp} from '../sx'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -23,14 +23,14 @@ export type FormControlProps = {
    * If true, the user must specify a value for the input before the owning form can be submitted
    */
   required?: boolean
-}
+} & SxProp
 
 export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
   captionId: string
   validationMessageId: string
 }
 
-const FormControl = ({children, disabled, id: idProp, required}: FormControlProps) => {
+const FormControl = ({children, disabled, id: idProp, required, sx}: FormControlProps) => {
   const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
   const id = useSSRSafeId(idProp)
   const validationChild = React.Children.toArray(children).find(child =>
@@ -43,7 +43,7 @@ const FormControl = ({children, disabled, id: idProp, required}: FormControlProp
     child => React.isValidElement(child) && child.type === FormControlLabel
   )
   const validationMessageId = validationChild ? `${id}-validationMsg` : ''
-  const validationStatus = React.isValidElement(validationChild) ? validationChild.props.appearance : undefined
+  const validationStatus = React.isValidElement(validationChild) ? validationChild.props.variant : undefined
   const captionId = captionChildren?.length ? `${id}-caption` : undefined
   const InputComponent = React.Children.toArray(children).find(child =>
     expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)
@@ -132,7 +132,7 @@ const FormControl = ({children, disabled, id: idProp, required}: FormControlProp
         const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
 
         return isChoiceInput ? (
-          <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
+          <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
             <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
               {React.isValidElement(InputComponent) &&
                 React.cloneElement(InputComponent, {
@@ -178,7 +178,7 @@ const FormControl = ({children, disabled, id: idProp, required}: FormControlProp
             display="flex"
             flexDirection="column"
             width="100%"
-            sx={isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}}
+            sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}), ...sx}}
           >
             {React.Children.toArray(children).filter(
               child =>
@@ -194,13 +194,7 @@ const FormControl = ({children, disabled, id: idProp, required}: FormControlProp
                 validationStatus,
                 ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
               })}
-            {validationChild && (
-              <ValidationAnimationContainer show>
-                <InputValidation validationStatus={validationStatus} id={validationMessageId}>
-                  {slots.Validation}
-                </InputValidation>
-              </ValidationAnimationContainer>
-            )}
+            {validationChild && <ValidationAnimationContainer show>{slots.Validation}</ValidationAnimationContainer>}
             {slots.Caption}
           </Box>
         )

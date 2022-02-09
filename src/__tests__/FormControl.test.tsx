@@ -104,7 +104,7 @@ describe('FormControl', () => {
             <FormControl>
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <TextInput />
-              <FormControl.Validation appearance="error">{ERROR_TEXT}</FormControl.Validation>
+              <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
             </FormControl>
           </SSRProvider>
         )
@@ -119,7 +119,7 @@ describe('FormControl', () => {
             <FormControl>
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <TextInput />
-              <FormControl.Validation appearance="error">{ERROR_TEXT}</FormControl.Validation>
+              <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
             </FormControl>
           </SSRProvider>
         )
@@ -243,7 +243,7 @@ describe('FormControl', () => {
             <FormControl id={fieldId}>
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <TextInput />
-              <FormControl.Validation appearance="error">{ERROR_TEXT}</FormControl.Validation>
+              <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
             </FormControl>
           </SSRProvider>
         )
@@ -394,7 +394,7 @@ describe('FormControl', () => {
             <FormControl>
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <Checkbox />
-              <FormControl.Validation appearance="error">Some error</FormControl.Validation>
+              <FormControl.Validation variant="error">Some error</FormControl.Validation>
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
           </SSRProvider>
