@@ -10,7 +10,7 @@ type SelectionProps = Pick<ItemProps, 'selected'>
 export const Selection: React.FC<SelectionProps> = ({selected}) => {
   const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
-  const {container, selectionVariant: menuSelectionVariant} = React.useContext(ActionListContainerContext)
+  const {selectionVariant: menuSelectionVariant} = React.useContext(ActionListContainerContext)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   /** fallback to selectionVariant from container menu if any (ActionMenu, DropdownMenu, SelectPanel ) */
@@ -26,18 +26,6 @@ export const Selection: React.FC<SelectionProps> = ({selected}) => {
         'For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined'
       )
     return null
-  }
-
-  if (container === 'ActionMenu') {
-    throw new Error(
-      'ActionList cannot have a selectionVariant inside ActionMenu, please use DropdownMenu or SelectPanel instead. More information: https://primer.style/design/components/action-list#application'
-    )
-  }
-
-  if (container === 'DropdownMenu' && selectionVariant === 'multiple') {
-    throw new Error(
-      'selectionVariant multiple cannot be used in DropdownMenu, please use SelectPanel instead. More information: https://primer.style/design/components/action-list#application'
-    )
   }
 
   if (selectionVariant === 'single') {
