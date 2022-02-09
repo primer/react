@@ -15,15 +15,15 @@ import {
   XIcon
 } from '@primer/octicons-react'
 
-import {ThemeProvider} from '../..'
-import {ActionList as _ActionList} from '../../ActionList2'
-import {Header} from '../../ActionList/Header'
-import BaseStyles from '../../BaseStyles'
-import Avatar from '../../Avatar'
-import TextInput from '../../TextInput'
-import Spinner from '../../Spinner'
-import Box from '../../Box'
-import Text from '../../Text'
+import {ThemeProvider} from '../../../src'
+import {ActionList as _ActionList} from '../../../src/ActionList2'
+import {Header} from '../../../src/ActionList/Header'
+import BaseStyles from '../../../src/BaseStyles'
+import Avatar from '../../../src/Avatar'
+import TextInput from '../../../src/TextInput'
+import Spinner from '../../../src/Spinner'
+import Box from '../../../src/Box'
+import Text from '../../../src/Text'
 
 const ActionList = Object.assign(_ActionList, {
   Header
