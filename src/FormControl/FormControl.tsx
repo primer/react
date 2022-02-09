@@ -1,6 +1,5 @@
 import React from 'react'
 import {Autocomplete, Box, Checkbox, Radio, Select, Textarea, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
-import InputValidation from '../_InputValidation'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlValidation from './_FormControlValidation'
