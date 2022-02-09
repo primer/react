@@ -102,6 +102,7 @@
     "@rollup/plugin-node-resolve": "13.0.5",
     "@size-limit/preset-big-lib": "7.0.3",
     "@testing-library/dom": "7.31.2",
+    "@testing-library/jest-dom": "5.16.2",
     "@testing-library/react": "11.2.7",
     "@testing-library/react-hooks": "7.0.2",
     "@testing-library/user-event": "13.1.9",
