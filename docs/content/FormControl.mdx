@@ -204,9 +204,11 @@ const ValidationExample = () => {
       <FormControl.Label>GitHub handle</FormControl.Label>
       <TextInput block value={value} onChange={handleInputChange} />
       {validationResult === 'noSpaces' && (
-        <FormControl.Validation>GitHub handles cannot contain spaces</FormControl.Validation>
+        <FormControl.Validation appearance="error">GitHub handles cannot contain spaces</FormControl.Validation>
       )}
-      {validationResult === 'validName' && <FormControl.Validation>Valid name</FormControl.Validation>}
+      {validationResult === 'validName' && (
+        <FormControl.Validation appearance="success">Valid name</FormControl.Validation>
+      )}
       <FormControl.Caption>With or without "@". For example "monalisa" or "@monalisa"</FormControl.Caption>
     </FormControl>
   )
