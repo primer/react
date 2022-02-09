@@ -67,7 +67,7 @@ export default {
       }
     },
     validationStatus: {
-      options: ['warning', 'error', undefined],
+      options: ['warning', 'error', 'success', undefined],
       control: {type: 'radio'}
     }
   },
