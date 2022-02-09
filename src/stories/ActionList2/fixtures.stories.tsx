@@ -1009,12 +1009,12 @@ export function MemexSortable(): JSX.Element {
       <h1>Memex Sortable List</h1>
       <ErsatzOverlay>
         <DndProvider backend={HTML5Backend}>
-          <ActionList selectionVariant="multiple" role="listbox" aria-label="Select visible fields">
+          <ActionList selectionVariant="multiple" role="menu" aria-label="Select visible fields">
             <ActionList.Group title="Visible fields (can be reordered)">
               {visibleOptions.map(option => (
                 <SortableItem
                   key={option.text}
-                  role="option"
+                  role="menuitemcheckbox"
                   option={option}
                   onSelect={() => toggle(option.text)}
                   reorder={reorder}
@@ -1031,7 +1031,7 @@ export function MemexSortable(): JSX.Element {
               {hiddenOptions.map((option, index) => (
                 <ActionList.Item
                   key={index}
-                  role="option"
+                  role="menuitemcheckbox"
                   selected={option.selected}
                   onSelect={() => toggle(option.text)}
                 >

@@ -312,7 +312,7 @@ export function MixedSelection(): JSX.Element {
         is an action. This pattern appears inside a ActionMenu for selection view options in Memex
       </p>
 
-      <ActionMenu open={true}>
+      <ActionMenu>
         <ActionMenu.Button
           aria-label="Select field type to group by"
           leadingIcon={selectedOption && selectedOption.icon}
