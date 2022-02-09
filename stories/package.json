@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "@storybook/addon-a11y": "6.4.9",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/react": "6.4.9",
+    "@whitespace/storybook-addon-html": "5.0.0",
+    "storybook-addon-performance": "0.16.1"
+  }
+}
