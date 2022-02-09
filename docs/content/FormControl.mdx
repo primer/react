@@ -204,10 +204,10 @@ const ValidationExample = () => {
       <FormControl.Label>GitHub handle</FormControl.Label>
       <TextInput block value={value} onChange={handleInputChange} />
       {validationResult === 'noSpaces' && (
-        <FormControl.Validation appearance="error">GitHub handles cannot contain spaces</FormControl.Validation>
+        <FormControl.Validation variant="error">GitHub handles cannot contain spaces</FormControl.Validation>
       )}
       {validationResult === 'validName' && (
-        <FormControl.Validation appearance="success">Valid name</FormControl.Validation>
+        <FormControl.Validation variant="success">Valid name</FormControl.Validation>
       )}
       <FormControl.Caption>With or without "@". For example "monalisa" or "@monalisa"</FormControl.Caption>
     </FormControl>
@@ -308,6 +308,11 @@ Use `FormControl.Validation` to render contextual validation information if nece
     name="children"
     type="React.ReactNode"
     description="The content (usually just text) that is rendered to give contextual info about the validation result for the field"
+  />
+  <PropsTableRow
+    name="variant"
+    type="FormValidationStatus"
+    description="Changes the visual style to match the validation status"
   />
 </PropsTable>
 

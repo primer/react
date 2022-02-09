@@ -43,7 +43,7 @@ const FormControl = ({children, disabled, id: idProp, required}: FormControlProp
     child => React.isValidElement(child) && child.type === FormControlLabel
   )
   const validationMessageId = validationChild ? `${id}-validationMsg` : ''
-  const validationStatus = React.isValidElement(validationChild) ? validationChild.props.appearance : undefined
+  const validationStatus = React.isValidElement(validationChild) ? validationChild.props.variant : undefined
   const captionId = captionChildren?.length ? `${id}-caption` : undefined
   const InputComponent = React.Children.toArray(children).find(child =>
     expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)

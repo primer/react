@@ -3,7 +3,7 @@ import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {Slot} from './slots'
 
 export interface FormControlValidationProps {
-  appearance: FormValidationStatus
+  variant: FormValidationStatus
 }
 
 const FormControlValidation: React.FC<FormControlValidationProps> = ({children}) => (
