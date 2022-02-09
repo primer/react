@@ -1,10 +1,14 @@
 ---
 componentId: form_group
 title: FormGroup
-status: Alpha
+status: Deprecated
 ---
 
 Adds styles for multiple form elements used together.
+
+## Deprecation
+
+Use [FormControl](/FormControl) instead.
 
 ## Default example
 
