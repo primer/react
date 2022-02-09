@@ -11,7 +11,7 @@ export const Selection: React.FC<SelectionProps> = ({selected}) => {
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
-  /** fallback to selectionVariant from container menu if any (ActionMenu, DropdownMenu, SelectPanel ) */
+  /** fallback to selectionVariant from container menu if any (ActionMenu, SelectPanel ) */
   let selectionVariant: ListProps['selectionVariant'] | GroupProps['selectionVariant']
   if (typeof groupSelectionVariant !== 'undefined') selectionVariant = groupSelectionVariant
   else selectionVariant = listSelectionVariant

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider, BaseStyles, Box, Text} from '../..'
+import {ThemeProvider, BaseStyles, Box, Text, Avatar} from '../..'
 import {ActionMenu, ActionList} from '../../drafts'
 import {
   GearIcon,
@@ -213,6 +213,73 @@ export function GroupsAndDescription(): JSX.Element {
             No milestone
           </Text>
         )}
+      </Box>
+    </>
+  )
+}
+
+const users = [
+  {login: 'pksjce', name: 'Pavithra Kodmad'},
+  {login: 'jfuchs', name: 'Jonathan Fuchs'},
+  {login: 'colebemis', name: 'Cole Bemis'},
+  {login: 'mperrotti', name: 'Mike Perrotti'},
+  {login: 'dgreif', name: 'Dusty Greif'},
+  {login: 'smockle', name: 'Clay Miller'},
+  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'}
+]
+
+export function MultipleSelection(): JSX.Element {
+  const [assignees, setAssignees] = React.useState(users.slice(0, 2))
+
+  const toggleAssignee = (assignee: typeof users[number]) => {
+    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
+
+    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
+    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
+  }
+
+  return (
+    <>
+      <h1>Multi Select List</h1>
+
+      <p>ActionMenu with multiple selection is not seen in production. You see SelectPanel used instead.</p>
+
+      <Box sx={{width: 200}}>
+        <ActionMenu>
+          <ActionMenu.Button
+            aria-label="Select assignees"
+            variant="invisible"
+            trailingIcon={GearIcon}
+            sx={{
+              color: 'fg.muted',
+              width: '100%',
+              paddingX: 0,
+              gridTemplateColumns: 'min-content 1fr min-content',
+              textAlign: 'left',
+              ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
+            }}
+          >
+            Assignees
+          </ActionMenu.Button>
+          <ActionMenu.Overlay>
+            <ActionList selectionVariant="multiple" showDividers>
+              {users.map(user => (
+                <ActionList.Item
+                  role="option"
+                  key={user.login}
+                  selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+                  onSelect={() => toggleAssignee(user)}
+                >
+                  <ActionList.LeadingVisual>
+                    <Avatar src={`https://github.com/${user.login}.png`} />
+                  </ActionList.LeadingVisual>
+                  {user.login}
+                  <ActionList.Description>{user.name}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
       </Box>
     </>
   )
