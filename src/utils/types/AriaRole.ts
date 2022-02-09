@@ -35,7 +35,7 @@ export type AriaRole =
   | 'menu'
   | 'menubar'
   | 'menuitem'
-  | 'menuitemcheckbox '
+  | 'menuitemcheckbox'
   | 'menuitemradio'
   | 'navigation'
   | 'none'

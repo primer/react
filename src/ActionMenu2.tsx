@@ -113,8 +113,8 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            itemRole: 'menuitem',
             listLabelledBy: anchorId,
+            selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: onClose
           }}
         >
