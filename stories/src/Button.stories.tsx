@@ -12,9 +12,9 @@ import {
   ButtonPrimary,
   ButtonTableList,
   ThemeProvider
-} from '..'
+} from '../../src'
 import {ButtonStyleProps} from 'styled-system'
-import {ButtonBaseProps} from '../Button/ButtonBase'
+import {ButtonBaseProps} from '../../src/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
 
 export default {

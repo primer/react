@@ -1,8 +1,8 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 
-import {ThemeProvider, BaseStyles, Box, themeGet, useTheme} from '..'
-import {ThemeProviderProps} from '../ThemeProvider'
+import {ThemeProvider, BaseStyles, Box, themeGet, useTheme} from '../../src'
+import {ThemeProviderProps} from '../../src/ThemeProvider'
 import {createGlobalStyle} from 'styled-components'
 
 export default {

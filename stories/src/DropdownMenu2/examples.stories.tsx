@@ -1,11 +1,11 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider} from '../..'
-import BaseStyles from '../../BaseStyles'
-import {DropdownMenu} from '../../DropdownMenu2'
-import {ActionList} from '../../ActionList2'
-import Box from '../../Box'
-import Text from '../../Text'
+import {ThemeProvider} from '../../../src'
+import BaseStyles from '../../../src/BaseStyles'
+import {DropdownMenu} from '../../../src/DropdownMenu2'
+import {ActionList} from '../../../src/ActionList2'
+import Box from '../../../src/Box'
+import Text from '../../../src/Text'
 import {
   GearIcon,
   MilestoneIcon,

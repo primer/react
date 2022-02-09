@@ -1,12 +1,12 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Box, ButtonPrimary, ThemeProvider} from '..'
-import {useAnchoredPosition} from '../hooks'
+import {BaseStyles, Box, ButtonPrimary, ThemeProvider} from '../../src'
+import {useAnchoredPosition} from '../../src/hooks'
 import styled from 'styled-components'
-import {get} from '../constants'
+import {get} from '../../src/constants'
 import type {AnchorSide} from '@primer/behaviors'
-import Portal, {registerPortalRoot} from '../Portal'
-import Button from '../Button'
+import Portal, {registerPortalRoot} from '../../src/Portal'
+import Button from '../../src/Button'
 
 export default {
   title: 'Hooks/useAnchoredPosition',

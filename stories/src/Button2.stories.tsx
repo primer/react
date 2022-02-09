@@ -1,9 +1,9 @@
 import React, {useState, forwardRef} from 'react'
-import {Button, ButtonProps, IconButton, LinkButton} from '.'
-import {BaseStyles, ThemeProvider} from '..'
+import {Button, ButtonProps, IconButton, LinkButton} from '../../src/Button2'
+import {BaseStyles, ThemeProvider} from '../../src'
 import {Meta} from '@storybook/react'
 import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRightIcon} from '@primer/octicons-react'
-import Box from '../Box'
+import Box from '../../src/Box'
 
 export default {
   title: 'Composite components/Button2',

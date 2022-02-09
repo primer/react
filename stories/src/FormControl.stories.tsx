@@ -1,9 +1,9 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Checkbox, Radio, Select, TextInput, TextInputWithTokens, ThemeProvider} from '..'
-import FormControl from '../FormControl'
-import {ComponentProps} from '../utils/types'
-import Autocomplete from '../Autocomplete'
+import {BaseStyles, Checkbox, Radio, Select, TextInput, TextInputWithTokens, ThemeProvider} from '../../src'
+import FormControl from '../../src/FormControl'
+import {ComponentProps} from '../../src/utils/types'
+import Autocomplete from '../../src/Autocomplete'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 type Args = ComponentProps<typeof FormControl>

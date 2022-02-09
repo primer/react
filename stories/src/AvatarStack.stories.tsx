@@ -1,9 +1,9 @@
-import AvatarStack from '../AvatarStack'
-import Avatar from '../Avatar'
+import AvatarStack from '../../src/AvatarStack'
+import Avatar from '../../src/Avatar'
 import {Meta} from '@storybook/react'
 import React from 'react'
-import {ThemeProvider} from '..'
-import BaseStyles from '../BaseStyles'
+import {ThemeProvider} from '../../src'
+import BaseStyles from '../../src/BaseStyles'
 
 const meta: Meta = {
   title: 'Composite components/AvatarStack',

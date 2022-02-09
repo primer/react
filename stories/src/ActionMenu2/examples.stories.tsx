@@ -1,9 +1,9 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider} from '../..'
-import BaseStyles from '../../BaseStyles'
-import {ActionMenu} from '../../ActionMenu2'
-import {ActionList} from '../../ActionList2'
+import {ThemeProvider} from '../../../src'
+import BaseStyles from '../../../src/BaseStyles'
+import {ActionMenu} from '../../../src/ActionMenu2'
+import {ActionList} from '../../../src/ActionList2'
 
 const meta: Meta = {
   title: 'Composite components/ActionMenu2/examples',

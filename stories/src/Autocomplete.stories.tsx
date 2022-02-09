@@ -1,11 +1,11 @@
 import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, Text, TextInput, ThemeProvider} from '..'
-import TextInputTokens from '../TextInputWithTokens'
-import Autocomplete from '../Autocomplete/Autocomplete'
-import {AnchoredOverlay} from '../AnchoredOverlay'
-import {ButtonInvisible} from '../Button'
+import {BaseStyles, Box, Text, TextInput, ThemeProvider} from '../../src'
+import TextInputTokens from '../../src/TextInputWithTokens'
+import Autocomplete from '../../src/Autocomplete/Autocomplete'
+import {AnchoredOverlay} from '../../src/AnchoredOverlay'
+import {ButtonInvisible} from '../../src/Button'
 
 type ItemMetadata = {
   fillColor: React.CSSProperties['backgroundColor']

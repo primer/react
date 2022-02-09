@@ -2,11 +2,11 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 
-import {get} from '../constants'
-import {BaseStyles, ThemeProvider} from '..'
-import Box from '../Box'
-import AvatarToken, {AvatarTokenProps} from '../Token/AvatarToken'
-import Text from '../Text'
+import {get} from '../../src/constants'
+import {BaseStyles, ThemeProvider} from '../../src'
+import Box from '../../src/Box'
+import AvatarToken, {AvatarTokenProps} from '../../src/Token/AvatarToken'
+import Text from '../../src/Text'
 
 export default {
   title: 'Tokens/AvatarToken',

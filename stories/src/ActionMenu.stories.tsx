@@ -13,13 +13,13 @@ import {
 import {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
-import {ThemeProvider} from '..'
-import {ActionMenu, ActionMenuProps} from '../ActionMenu'
-import Link, {LinkProps} from '../Link'
-import Button from '../Button'
-import {ActionList, ItemProps} from '../ActionList'
-import BaseStyles from '../BaseStyles'
-import {DropdownButton} from '../DropdownMenu'
+import {ThemeProvider} from '../../src'
+import {ActionMenu, ActionMenuProps} from '../../src/ActionMenu'
+import Link, {LinkProps} from '../../src/Link'
+import Button from '../../src/Button'
+import {ActionList, ItemProps} from '../../src/ActionList'
+import BaseStyles from '../../src/BaseStyles'
+import {DropdownButton} from '../../src/DropdownMenu'
 
 const meta: Meta = {
   title: 'Composite components/ActionMenu',

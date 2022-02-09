@@ -1,8 +1,8 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
-import Portal, {registerPortalRoot} from '../Portal'
+import {BaseStyles, Box, ThemeProvider} from '../../src'
+import Portal, {registerPortalRoot} from '../../src/Portal'
 
 export default {
   title: 'Generic behaviors/Portal',

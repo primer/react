@@ -1,11 +1,11 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {MarkGithubIcon} from '@primer/octicons-react'
-import {BaseStyles, Box, ThemeProvider} from '..'
-import ChoiceFieldset from '../ChoiceFieldset'
-import Item from '../ChoiceFieldset/ChoiceFieldsetListItem'
-import {ComponentProps} from '../utils/types'
-import {ChoiceFieldsetListProps} from '../ChoiceFieldset/ChoiceFieldsetList'
+import {BaseStyles, Box, ThemeProvider} from '../../src'
+import ChoiceFieldset from '../../src/ChoiceFieldset'
+import Item from '../../src/ChoiceFieldset/ChoiceFieldsetListItem'
+import {ComponentProps} from '../../src/utils/types'
+import {ChoiceFieldsetListProps} from '../../src/ChoiceFieldset/ChoiceFieldsetList'
 
 type Args = ComponentProps<typeof ChoiceFieldset> & ChoiceFieldsetListProps
 

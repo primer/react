@@ -2,9 +2,9 @@ import React, {useLayoutEffect, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
-import {BaseStyles, Box, Checkbox, CheckboxProps, Text, ThemeProvider} from '..'
+import {BaseStyles, Box, Checkbox, CheckboxProps, Text, ThemeProvider} from '../../src'
 import {action} from '@storybook/addon-actions'
-import {get} from '../constants'
+import {get} from '../../src/constants'
 
 export default {
   title: 'Forms/Checkbox',

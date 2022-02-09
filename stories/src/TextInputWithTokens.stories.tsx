@@ -1,9 +1,9 @@
 import React, {useCallback, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
-import TextInputWithTokens from '../TextInputWithTokens'
-import IssueLabelToken from '../Token/IssueLabelToken'
+import {BaseStyles, Box, ThemeProvider} from '../../src'
+import TextInputWithTokens from '../../src/TextInputWithTokens'
+import IssueLabelToken from '../../src/Token/IssueLabelToken'
 
 export default {
   title: 'Forms/Text Input with Tokens',

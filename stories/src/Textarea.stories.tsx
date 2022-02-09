@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
-import {BaseStyles, Box, Textarea, TextareaProps, ThemeProvider} from '..'
+import {BaseStyles, Box, Textarea, TextareaProps, ThemeProvider} from '../../src'
 
 const StyledForm = styled.form`
   padding: 20px;

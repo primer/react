@@ -1,5 +1,5 @@
 import {addons} from '@storybook/addons'
-import {ThemeProvider, themeGet, theme, BaseStyles} from '../src'
+import {ThemeProvider, themeGet, theme, BaseStyles} from '../../src'
 import styled, {createGlobalStyle} from 'styled-components'
 import {addDecorator} from '@storybook/react'
 import {withPerformance} from 'storybook-addon-performance'

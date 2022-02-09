@@ -1,11 +1,11 @@
 import {Meta} from '@storybook/react'
 import React from 'react'
-import {theme, ThemeProvider} from '..'
-import {ItemInput} from '../ActionList/List'
-import BaseStyles from '../BaseStyles'
-import Box from '../Box'
-import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import TextInput from '../TextInput'
+import {theme, ThemeProvider} from '../../src'
+import {ItemInput} from '../../src/ActionList/List'
+import BaseStyles from '../../src/BaseStyles'
+import Box from '../../src/Box'
+import {DropdownMenu, DropdownButton} from '../../src/DropdownMenu'
+import TextInput from '../../src/TextInput'
 
 const meta: Meta = {
   title: 'Composite components/DropdownMenu',

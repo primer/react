@@ -1,12 +1,12 @@
-import type {OverlayProps} from '../Overlay'
+import type {OverlayProps} from '../../src/Overlay'
 import {Meta} from '@storybook/react'
 import React, {useRef, useState} from 'react'
-import {theme, ThemeProvider} from '..'
-import {ItemInput} from '../ActionList/List'
-import BaseStyles from '../BaseStyles'
-import {DropdownButton} from '../DropdownMenu'
-import {SelectPanel} from '../SelectPanel'
-import Box from '../Box'
+import {theme, ThemeProvider} from '../../src'
+import {ItemInput} from '../../src/ActionList/List'
+import BaseStyles from '../../src/BaseStyles'
+import {DropdownButton} from '../../src/DropdownMenu'
+import {SelectPanel} from '../../src/SelectPanel'
+import Box from '../../src/Box'
 
 const meta: Meta = {
   title: 'Composite components/SelectPanel',

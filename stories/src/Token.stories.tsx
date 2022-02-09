@@ -2,11 +2,11 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 
-import {get} from '../constants'
-import {BaseStyles, ThemeProvider} from '..'
-import Box from '../Box'
-import Token, {TokenProps} from '../Token/Token'
-import Text from '../Text'
+import {get} from '../../src/constants'
+import {BaseStyles, ThemeProvider} from '../../src'
+import Box from '../../src/Box'
+import Token, {TokenProps} from '../../src/Token/Token'
+import Text from '../../src/Text'
 import {GitBranchIcon} from '@primer/octicons-react'
 
 export default {

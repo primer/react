@@ -19,10 +19,10 @@ import {
   ChoiceInputField,
   TextInput,
   ActionList
-} from '..'
+} from '../../src'
 import type {AnchorSide} from '@primer/behaviors'
-import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import {ItemInput} from '../ActionList/List'
+import {DropdownMenu, DropdownButton} from '../../src/DropdownMenu'
+import {ItemInput} from '../../src/ActionList/List'
 
 export default {
   title: 'Internal components/Overlay',

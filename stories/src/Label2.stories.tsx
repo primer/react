@@ -1,8 +1,8 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, ThemeProvider} from '..'
-import {ComponentProps} from '../utils/types'
-import {Label} from '../Label2'
+import {BaseStyles, ThemeProvider} from '../../src'
+import {ComponentProps} from '../../src/utils/types'
+import {Label} from '../../src/Label2'
 
 type Args = ComponentProps<typeof Label>
 

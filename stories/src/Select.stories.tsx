@@ -1,8 +1,8 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Text, Select, ThemeProvider} from '..'
-import {SelectProps} from '../Select'
+import {BaseStyles, Text, Select, ThemeProvider} from '../../src'
+import {SelectProps} from '../../src/Select'
 
 export default {
   title: 'Forms/Select',

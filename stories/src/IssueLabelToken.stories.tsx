@@ -2,11 +2,11 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 
-import {get} from '../constants'
-import {BaseStyles, ThemeProvider} from '..'
-import Box from '../Box'
-import IssueLabelToken, {IssueLabelTokenProps} from '../Token/IssueLabelToken'
-import Text from '../Text'
+import {get} from '../../src/constants'
+import {BaseStyles, ThemeProvider} from '../../src'
+import Box from '../../src/Box'
+import IssueLabelToken, {IssueLabelTokenProps} from '../../src/Token/IssueLabelToken'
+import Text from '../../src/Text'
 
 export default {
   title: 'Tokens/IssueLabelToken',

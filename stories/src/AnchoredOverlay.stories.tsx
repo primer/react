@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
-import Heading from '../Heading'
-import DropdownButton from '../Button'
-import {AnchoredOverlay} from '../AnchoredOverlay'
-import {registerPortalRoot} from '../Portal'
+import {BaseStyles, Box, ThemeProvider} from '../../src'
+import Heading from '../../src/Heading'
+import DropdownButton from '../../src/Button'
+import {AnchoredOverlay} from '../../src/AnchoredOverlay'
+import {registerPortalRoot} from '../../src/Portal'
 
 export default {
   title: 'Generic behaviors/AnchoredOverlay',
