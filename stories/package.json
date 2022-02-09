@@ -1,4 +1,15 @@
 {
+  "name": "stories",
+  "repository": "primer/react",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=7"
+  },
+  "scripts": {
+    "start": "start-storybook -p 6006",
+    "build": "build-storybook"
+  },
   "devDependencies": {
     "@storybook/addon-a11y": "6.4.9",
     "@storybook/addon-actions": "^6.4.9",
