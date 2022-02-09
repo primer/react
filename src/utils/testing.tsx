@@ -5,7 +5,6 @@ import enzyme from 'enzyme'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import {cleanup, render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import type {Story as StoryType} from '@storybook/react'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 
@@ -247,12 +246,19 @@ export function checkExports(path: string, exports: Record<any, any>): void {
 expect.extend(toHaveNoViolations)
 export function checkStoriesForAxeViolations(name: string) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const stories = require(`../stories/${name}.stories`)
+  const stories = require(`../../stories/src/${name}.stories`)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- _meta
   const {default: _meta, ...Stories} = stories
   Object.values(Stories).map(Story => {
     if (typeof Story !== 'function') return
+
+    // Normally, a type like this is exported by @storybook/react, but we want
+    // to avoid adding Storybook dependencies directly to @primer/react.
+    // https://github.com/primer/react/issues/1849
+    type StoryType = React.FunctionComponent & {
+      storyName: string
+    }
 
     it(`story ${(Story as StoryType).storyName} should have no axe violations`, async () => {
       const {container} = HTMLRender(<Story />)
