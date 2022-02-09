@@ -55,6 +55,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         disabled={disabled}
         aria-required={required}
         aria-disabled={disabled}
+        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         {...rest}
       >
         {placeholder && (

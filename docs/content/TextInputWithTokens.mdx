@@ -185,6 +185,37 @@ const MaxHeightExample = () => {
 render(MaxHeightExample)
 ```
 
+### With an error validation status
+
+```javascript live noinline
+const BasicExample = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2}
+  ])
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <>
+      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
+        Basic example tokens
+      </Box>
+      <TextInputWithTokens
+        tokens={tokens}
+        onTokenRemove={onTokenRemove}
+        id="inputWithTokens-basic"
+        validationStatus="error"
+      />
+    </>
+  )
+}
+
+render(BasicExample)
+```
+
 ## Props
 
 <PropsTable>
@@ -225,7 +256,7 @@ render(MaxHeightExample)
     defaultValue="false"
     description="Whether the remove buttons should be rendered in the tokens"
   />
-  <PropsTableRow name="validationStatus" type="'warning' | 'error' | 'success'" description="Style the input to match the status" />
+  <PropsTableRow name="validationStatus" type="'warning' | 'error'" description="Style the input to match the status" />
   <PropsTable.Row
     name="visibleTokenCount"
     type="number"

@@ -54,13 +54,6 @@ export default {
         type: 'radio'
       }
     },
-    inputSize: {
-      defaultValue: 'small',
-      options: ['small', 'large'],
-      control: {
-        type: 'radio'
-      }
-    },
     hideTokenRemoveButtons: {
       defaultValue: false,
       control: {
