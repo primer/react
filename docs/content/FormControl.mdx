@@ -155,7 +155,6 @@ render(DifferentInputs)
 <Note>
 
 We encourage using `FormControl` alongside all standalone form components like [`TextInput`](/TextInput), as every input must have a corresponding label to be accessible to assistive technology.
-``
 
 `FormControl` also provides an interface for showing a hint text caption and a validation message, and associating those with the input for assistive technology.
 
@@ -317,9 +316,11 @@ Use `FormControl.Validation` to render contextual validation information if nece
 </PropsTable>
 
 <Note>
-  Validation messages should not be shown for an individual checkbox or radio form control, so `FormControl.Validation`
-  will not be rendered when a `Checkbox` or `Radio` is not a child of `FormControl`. Validation messages for checkbox
-  and radio selections should only apply to the entire group of inputs.
+
+Validation messages should not be shown for an individual checkbox or radio form control, so `FormControl.Validation`
+will not be rendered when a `Checkbox` or `Radio` is not a child of `FormControl`. Validation messages for checkbox
+and radio selections should only apply to the entire group of inputs.
+
 </Note>
 
 ### FormControl.LeadingVisual
