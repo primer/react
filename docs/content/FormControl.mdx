@@ -1,0 +1,356 @@
+---
+componentId: form_control
+title: FormControl
+status: Alpha
+description: The FormControl component is used to render a labelled text input and, optionally, associated validation text and hint text.
+source: https://github.com/primer/react/blob/main/src/FormControl/FormControl.tsx
+storybook: '/react/storybook?path=/story/forms-inputfield--text-input-field'
+---
+
+import {FormControl, TextInputWithTokens, Autocomplete, Select, Textarea, Checkbox, Radio, Text} from '@primer/react'
+import {MarkGithubIcon} from '@primer/octicons-react'
+
+## Examples
+
+### Basic
+
+```jsx live
+<FormControl>
+  <FormControl.Label>Name</FormControl.Label>
+  <TextInput />
+</FormControl>
+```
+
+### With complex inputs
+
+```javascript live noinline
+const DifferentInputs = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2}
+  ])
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box display="grid" gridGap={3}>
+      <FormControl>
+        <FormControl.Label>TextInputWithTokens</FormControl.Label>
+        <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Autocomplete</FormControl.Label>
+        <Autocomplete>
+          <Autocomplete.Input block />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu
+              items={[
+                {text: 'css', id: 0},
+                {text: 'css-in-js', id: 1},
+                {text: 'styled-system', id: 2},
+                {text: 'javascript', id: 3},
+                {text: 'typescript', id: 4},
+                {text: 'react', id: 5},
+                {text: 'design-systems', id: 6}
+              ]}
+              selectedItemIds={[]}
+            />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Select</FormControl.Label>
+        <Select>
+          <Select.Option value="figma">Figma</Select.Option>
+          <Select.Option value="css">Primer CSS</Select.Option>
+          <Select.Option value="prc">Primer React components</Select.Option>
+          <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+        </Select>
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Textarea</FormControl.Label>
+        <Textarea />
+      </FormControl>
+    </Box>
+  )
+}
+
+render(DifferentInputs)
+```
+
+### With checkbox and radio inputs
+
+```jsx live
+<Box display="grid" gridGap={3}>
+  <fieldset style={{marginLeft: 0, marginRight: 0, padding: 0, border: 0}}>
+    <FormControl>
+      <FormControl.Label>Checkbox option one</FormControl.Label>
+      <Checkbox />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>Checkbox option two</FormControl.Label>
+      <Checkbox />
+    </FormControl>
+  </fieldset>
+  <fieldset style={{marginLeft: 0, marginRight: 0, padding: 0, border: 0}}>
+    <FormControl>
+      <FormControl.Label>Radio option one</FormControl.Label>
+      <Radio name="radioExample" value="one" />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>Radio option two</FormControl.Label>
+      <Radio name="radioExample" value="two" />
+    </FormControl>
+  </fieldset>
+</Box>
+```
+
+### Required
+
+```jsx live
+<FormControl required>
+  <FormControl.Label>Name</FormControl.Label>
+  <TextInput />
+</FormControl>
+```
+
+<Note>
+  Checkbox and radio form controls cannot be required individually. Instead, you can require a selection from the entire
+  group of checkboxes or radios.
+</Note>
+
+### Disabled
+
+```jsx live
+<Box display="grid" gridGap={3}>
+  <FormControl disabled>
+    <FormControl.Label>Name</FormControl.Label>
+    <TextInput />
+  </FormControl>
+
+  <FormControl disabled>
+    <FormControl.Label>Checkbox option</FormControl.Label>
+    <Checkbox />
+  </FormControl>
+</Box>
+```
+
+### With a visually hidden label
+
+```jsx live
+<Box display="grid" gridGap={3}>
+  <FormControl>
+    <FormControl.Label visuallyHidden>Name</FormControl.Label>
+    <TextInput />
+  </FormControl>
+  <FormControl>
+    <FormControl.Label visuallyHidden>Checkbox option</FormControl.Label>
+    <Checkbox />
+  </FormControl>
+</Box>
+```
+
+<Note>
+
+We encourage using `FormControl` alongside all standalone form components like [`TextInput`](/TextInput), as every input must have a corresponding label to be accessible to assistive technology.
+``
+
+`FormControl` also provides an interface for showing a hint text caption and a validation message, and associating those with the input for assistive technology.
+
+</Note>
+
+### With a caption
+
+```jsx live
+<Box display="grid" gridGap={3}>
+  <FormControl>
+    <FormControl.Label>Name</FormControl.Label>
+    <TextInput />
+    <FormControl.Caption>Hint: your first name</FormControl.Caption>
+  </FormControl>
+  <FormControl>
+    <FormControl.Label>Option one</FormControl.Label>
+    <Checkbox />
+    <FormControl.Caption>Hint: the first and only option</FormControl.Caption>
+  </FormControl>
+</Box>
+```
+
+### With validation
+
+<Note>Validation messages are not used for an individual checkbox or radio form control.</Note>
+
+```javascript live noinline
+const ValidationExample = () => {
+  const [value, setValue] = React.useState('mona lisa')
+  const [validationResult, setValidationResult] = React.useState()
+  const doesValueContainSpaces = inputValue => /\s/g.test(inputValue)
+  const handleInputChange = e => {
+    setValue(e.currentTarget.value)
+  }
+
+  React.useEffect(() => {
+    if (doesValueContainSpaces(value)) {
+      setValidationResult('noSpaces')
+    } else if (value) {
+      setValidationResult('validName')
+    }
+  }, [value])
+
+  return (
+    <FormControl>
+      <FormControl.Label>GitHub handle</FormControl.Label>
+      <TextInput block value={value} onChange={handleInputChange} />
+      {validationResult === 'noSpaces' && (
+        <FormControl.Validation>GitHub handles cannot contain spaces</FormControl.Validation>
+      )}
+      {validationResult === 'validName' && <FormControl.Validation>Valid name</FormControl.Validation>}
+      <FormControl.Caption>With or without "@". For example "monalisa" or "@monalisa"</FormControl.Caption>
+    </FormControl>
+  )
+}
+
+render(ValidationExample)
+```
+
+### With a leading visual
+
+<Note>Only a checkbox or radio form control may have a leading visual.</Note>
+
+```jsx live
+<>
+  <FormControl>
+    <FormControl.Label>Option one</FormControl.Label>
+    <FormControl.LeadingVisual>
+      <MarkGithubIcon />
+    </FormControl.LeadingVisual>
+    <Checkbox />
+  </FormControl>
+
+  <FormControl>
+    <FormControl.Label>Option two</FormControl.Label>
+    <FormControl.LeadingVisual>
+      <MarkGithubIcon />
+    </FormControl.LeadingVisual>
+    <Checkbox />
+    <FormControl.Caption>This one has a caption</FormControl.Caption>
+  </FormControl>
+</>
+```
+
+## Props
+
+### FormControl
+
+The container that handles the layout and passes the relevant IDs and ARIA attributes it's children.
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type="FormControl.Label | FormControl.Caption | FormControl.Validation | Autocomplete | TextInput | TextInputWithTokens | Select"
+    required
+  />
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the control allows user input"
+  />
+  <PropsTableRow
+    name="id"
+    type="string"
+    defaultValue="a generated string"
+    description="The unique identifier for this control. Used to associate the label, validation text, and caption text"
+  />
+  <PropsTableRow
+    name="required"
+    type="boolean"
+    defaultValue="false"
+    description="If true, the user must specify a value for the input before the owning form can be submitted"
+  />
+</PropsTable>
+
+### FormControl.Label
+
+A `FormControl.Label` must be passed for the field to be accessible to assistive technology, but it may be visually hidden.
+
+<PropsTable>
+  <PropsTableRow
+    name="boolean"
+    type="FormControl.Label | FormControl.Caption | FormControl.Validation | Autocomplete | TextInput | TextInputWithTokens"
+    defaultValue="false"
+    description="Whether the label should be visually hidden"
+  />
+</PropsTable>
+
+### FormControl.Caption
+
+`FormControl.Caption` may be used to render hint text for fields that require additional context.
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type="React.ReactNode"
+    description="The content (usually just text) that is rendered to give contextual info about the field"
+  />
+</PropsTable>
+
+### FormControl.Validation
+
+Use `FormControl.Validation` to render contextual validation information if necessary.
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type="React.ReactNode"
+    description="The content (usually just text) that is rendered to give contextual info about the validation result for the field"
+  />
+</PropsTable>
+
+<Note>
+  Validation messages should not be shown for an individual checkbox or radio form control, so `FormControl.Validation`
+  will not be rendered when a `Checkbox` or `Radio` is not a child of `FormControl`. Validation messages for checkbox
+  and radio selections should only apply to the entire group of inputs.
+</Note>
+
+### FormControl.LeadingVisual
+
+Use `FormControl.LeadingVisual` if the selectable option is easier to understand with a visual.
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type="React.ReactNode"
+    description="The visual to render before the choice input's label"
+  />
+</PropsTable>
+
+<Note>
+
+Only a checkbox or radio form control may have a leading visual. If you want to render a leading visual
+**inside** an input, check if that input component supports a leading visual.
+
+</Note>
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: true,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
