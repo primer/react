@@ -96,7 +96,12 @@ export function SingleSelection(): JSX.Element {
         <ActionMenu.Overlay width="medium">
           <ActionList selectionVariant="single">
             {fieldTypes.map((type, index) => (
-              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+              <ActionList.Item
+                key={index}
+                selected={index === selectedIndex}
+                onSelect={() => setSelectedIndex(index)}
+                disabled={index === 3}
+              >
                 <type.icon /> {type.name}
               </ActionList.Item>
             ))}
@@ -309,7 +314,10 @@ export function MixedSelection(): JSX.Element {
       </p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedOption && selectedOption.icon}>
+        <ActionMenu.Button
+          aria-label="Select field type to group by"
+          leadingIcon={selectedOption && selectedOption.icon}
+        >
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">

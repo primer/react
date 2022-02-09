@@ -4,9 +4,10 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionMenu} from '../ActionMenu2'
-import {ActionList, ActionListProps} from '../ActionList2'
+import {ActionList} from '../ActionList2'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
+import {SingleSelection, MixedSelection} from '../../src/stories/ActionMenu2/examples.stories'
 import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
@@ -26,37 +27,6 @@ function Example(): JSX.Element {
                 <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
                   Delete file
                 </ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>
-      </SSRProvider>
-    </ThemeProvider>
-  )
-}
-
-function WithSelection({selectionVariant}: {selectionVariant?: ActionListProps['selectionVariant']}): JSX.Element {
-  const fieldTypes = ['Text', 'Number', 'Date', 'Single select', 'Iteration']
-  const [selectedIndex, setSelectedIndex] = React.useState(0)
-  const selectedType = fieldTypes[selectedIndex]
-
-  return (
-    <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <ActionMenu>
-            <ActionMenu.Button aria-label="Select field type">{selectedType}</ActionMenu.Button>
-            <ActionMenu.Overlay width="medium">
-              <ActionList selectionVariant={selectionVariant}>
-                {fieldTypes.map((type, index) => (
-                  <ActionList.Item
-                    key={index}
-                    selected={index === selectedIndex}
-                    onSelect={() => setSelectedIndex(index)}
-                  >
-                    {selectedType}
-                  </ActionList.Item>
-                ))}
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
@@ -135,7 +105,11 @@ describe('ActionMenu', () => {
   })
 
   it('should be able to select an Item with selectionVariant', async () => {
-    const component = HTMLRender(<WithSelection selectionVariant="single" />)
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <SingleSelection />
+      </ThemeProvider>
+    )
     const button = component.getByLabelText('Select field type')
     fireEvent.click(button)
 
@@ -146,6 +120,21 @@ describe('ActionMenu', () => {
     // open menu again and check if the first option is checked
     fireEvent.click(button)
     expect(component.getAllByRole('menuitemradio')[0]).toHaveAttribute('aria-checked', 'true')
+    cleanup()
+  })
+
+  it('should assign the right roles with groups & mixed selectionVariant', async () => {
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <MixedSelection />
+      </ThemeProvider>
+    )
+    const button = component.getByLabelText('Select field type to group by')
+    fireEvent.click(button)
+
+    expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
+    expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
+
     cleanup()
   })
 
