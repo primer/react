@@ -47,9 +47,11 @@ jobs:
 
       - name: Add annotation
         if: failure() && steps.link-and-test.conclusion == 'failure'
-        run: >
-          echo "::error file=tsconfig.build.json::Test package could not build.
+        run: |
+          cat <<EOF
+          ::error file=tsconfig.build.json::Test package could not build.
           A likely cause is that development dependency imports have been added
           to a file that is not excluded by tsconfig.build.json.  To resolve the
           issue, ensure that there are no non-excluded files that, for example,
-          import Storybook."
+          import Storybook.
+          EOF
