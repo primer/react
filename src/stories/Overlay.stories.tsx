@@ -330,7 +330,9 @@ export const OverrideOnEscape = () => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const onInputKeyDown = () => alert("Don't close the menu")
+  const onInputKeyUp = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') alert('Did not close the menu')
+  }
 
   return (
     <div>
@@ -351,9 +353,9 @@ export const OverrideOnEscape = () => {
           top={60}
           left={16}
         >
-          <Box sx={{display: 'flex', flexDirection: 'column', p: 2, gap: 2}}>
-            <TextInput ref={inputRef} placeholder="Hit escape when input has focus" onKeyUp={onInputKeyDown} />
-            <ButtonPrimary>Save</ButtonPrimary>
+          <Box onSubmit={() => setOpen(false)} as="form" sx={{display: 'flex', flexDirection: 'column', p: 2, gap: 2}}>
+            <TextInput ref={inputRef} placeholder="Hit escape when input has focus" onKeyUp={onInputKeyUp} />
+            <ButtonPrimary>Hit escape when button has focus</ButtonPrimary>
           </Box>
         </Overlay>
       )}
