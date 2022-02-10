@@ -1,12 +1,12 @@
-name: Test types
+name: Consumer test
 on:
   push: {branches: main}
-  pull_request: {branches: main}
+  pull_request:
   workflow_dispatch:
 
 jobs:
-  test-types:
-    name: Test types
+  consumer-test:
+    name: Consumer test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -38,8 +38,14 @@ jobs:
         run: npm link
 
       - name: Link and test
-        working-directory: test-types
+        id: link-and-test
+        working-directory: consumer-test
         run: |
           npm install
           npm link @primer/react
           npm run check
+
+      - name: Add annotation
+        if: failure() && steps.link-and-test.conclusion == 'failure'
+        run: |
+          echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/consumer-test"

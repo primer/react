@@ -23,7 +23,7 @@
     "lib/**/*",
     "lib-*/**/*",
     "types/**/*",
-    "test-types/**/*"
+    "consumer-test/**/*"
   ],
   "globals": {
     "__DEV__": "readonly"
