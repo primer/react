@@ -66,10 +66,7 @@ import {DropdownMenu} from '@primer/react/drafts'
 
 &nbsp;
 
-```javascript live noinline
-// import {DropdownMenu, ActionList} from '@primer/react/drafts'
-const {DropdownMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
-
+```javascript live noinline drafts
 const fieldTypes = [
   {icon: TypographyIcon, name: 'Text'},
   {icon: NumberIcon, name: 'Number'},
@@ -107,10 +104,7 @@ render(<Example />)
 
 `Dropdown.Button` uses `Button v2` so you can pass props like `variant` and `leadingIcon` that `Button v2` accepts.
 
-```javascript live noinline
-// import {DropdownMenu, ActionList} from '@primer/react/drafts'
-const {DropdownMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
-
+```javascript live noinline drafts
 const Example = () => {
   const [duration, setDuration] = React.useState(1)
 
@@ -139,10 +133,7 @@ render(<Example />)
 
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass `open` and `onOpenChange` along with an `anchorRef` to `DropdownMenu`:
 
-```javascript live noinline
-// import {DropdownMenu, ActionList} from '@primer/react/drafts'
-const {DropdownMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
-
+```javascript live noinline drafts
 const Example = () => {
   const [open, setOpen] = React.useState(false)
   const anchorRef = React.createRef()
@@ -172,10 +163,7 @@ render(<Example />)
 
 ### With Overlay Props
 
-```javascript live noinline
-// import {DropdownMenu, ActionList} from '@primer/react/drafts'
-const {DropdownMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
-
+```javascript live noinline drafts
 const fieldTypes = [
   {icon: TypographyIcon, name: 'Text'},
   {icon: NumberIcon, name: 'Number'},
@@ -217,10 +205,7 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 
 &nbsp;
 
-```javascript live noinline
-// import {DropdownMenu, ActionList} from '@primer/react/drafts'
-const {DropdownMenu, ActionList} = drafts // ignore docs silliness; import like that ↑
-
+```javascript live noinline drafts
 render(
   <DropdownMenu>
     <DropdownMenu.Anchor>

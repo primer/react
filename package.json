@@ -1,9 +1,29 @@
 {
   "name": "@primer/react",
-  "version": "34.3.0",
+  "version": "34.5.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
+  "exports": {
+    ".": {
+      "node": "./lib/index.js",
+      "default": "./lib-esm/index.js"
+    },
+    "./drafts": {
+      "node": "./lib/drafts/index.js",
+      "default": "./lib-esm/drafts/index.js"
+    },
+    "./lib-esm/*": {
+      "node": [
+        "./lib/*.js",
+        "./lib/*/index.js"
+      ],
+      "default": [
+        "./lib-esm/*.js",
+        "./lib-esm/*/index.js"
+      ]
+    }
+  },
   "typings": "lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -34,6 +54,7 @@
     "lib",
     "lib-esm",
     "index.d.ts",
+    "drafts/package.json",
     "!lib/__tests__",
     "!lib/stories",
     "!lib-esm/__tests__",
@@ -147,7 +168,7 @@
     "storybook-addon-performance": "0.16.1",
     "styled-components": "4.4.1",
     "ts-toolbelt": "9.6.0",
-    "typescript": "4.4.4"
+    "typescript": "4.5.4"
   },
   "peerDependencies": {
     "react": "^17.0.0",

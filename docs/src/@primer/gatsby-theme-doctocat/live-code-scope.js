@@ -1,44 +1,45 @@
-import React from 'react'
-import * as primerComponents from '@primer/react'
-import * as drafts from '@primer/react/drafts'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
 import {
+  AlertIcon,
+  ArchiveIcon,
+  ArrowRightIcon,
+  CalendarIcon,
   CheckIcon,
-  ZapIcon,
-  XIcon,
-  SearchIcon,
   DotIcon,
-  OctofaceIcon,
-  PersonIcon,
-  MailIcon,
-  GitCommitIcon,
+  FilterIcon,
   FlameIcon,
+  GearIcon,
+  GitCommitIcon,
+  IterationsIcon,
+  KebabHorizontalIcon,
+  LawIcon,
+  LinkIcon,
+  MailIcon,
   MarkGithubIcon,
   NoteIcon,
+  NumberIcon,
+  OctofaceIcon,
+  PencilIcon,
+  PersonIcon,
   ProjectIcon,
-  FilterIcon,
-  GearIcon,
+  SearchIcon,
+  SingleSelectIcon,
+  StarIcon,
+  TrashIcon,
   TypographyIcon,
   VersionsIcon,
-  LinkIcon,
-  LawIcon,
-  StarIcon,
-  AlertIcon,
-  ArrowRightIcon,
-  KebabHorizontalIcon,
-  PencilIcon,
-  ArchiveIcon,
-  TrashIcon,
-  CalendarIcon,
-  IterationsIcon,
-  NumberIcon,
-  SingleSelectIcon
+  XIcon,
+  ZapIcon
 } from '@primer/octicons-react'
-import State from '../../../components/State'
-import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
+import * as primerComponents from '@primer/react'
+import * as drafts from '@primer/react/drafts'
+import {Placeholder} from '@primer/react/Placeholder'
+import React from 'react'
 import {AnchoredOverlay} from '../../../../src/AnchoredOverlay'
 import {ConfirmationDialog, useConfirm} from '../../../../src/Dialog/ConfirmationDialog'
+import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
 import {SelectPanel} from '../../../../src/SelectPanel/SelectPanel'
+import State from '../../../components/State'
 
 const ReactRouterLink = ({to, ...props}) => {
   // eslint-disable-next-line jsx-a11y/anchor-has-content
@@ -86,6 +87,7 @@ export default function resolveScope(metastring) {
     ConfirmationDialog,
     useConfirm,
     AnchoredOverlay,
-    SelectPanel
+    SelectPanel,
+    Placeholder
   }
 }
