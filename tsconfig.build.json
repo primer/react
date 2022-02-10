@@ -1,7 +1,12 @@
 {
   "extends": "./tsconfig.json",
-  // NOTE: We exclude Storybook stories — in part because we don't want their type definitions
-  // included in our build, but also because _something_ in Storybook mucks with the type definitions
-  // of Primer components. See also https://github.com/primer/react/issues/1163.
-  "exclude": ["**/*.stories.tsx", "script/**/*.ts"]
+  // NOTE: We exclude Storybook stories and test utilities which import
+  // Storybook and its dependencies, because:
+  //   a) we don't want Storybook types in our build output, and
+  //   b) we don't want transitive dependencies, like @emotion/core, to have
+  //      their React interface augmentations in our build output.
+  // See also:
+  //   - https://github.com/primer/react/issues/1163
+  //   - https://github.com/primer/react/issues/1849
+  "exclude": ["**/*.stories.tsx", "script/**/*.ts", "src/__tests__/", "src/utils/test-*.tsx", "src/utils/testing.tsx"]
 }

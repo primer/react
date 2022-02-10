@@ -22,7 +22,8 @@
     "dist/**/*",
     "lib/**/*",
     "lib-*/**/*",
-    "types/**/*"
+    "types/**/*",
+    "consumer-test/**/*"
   ],
   "globals": {
     "__DEV__": "readonly"
