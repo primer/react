@@ -41,5 +41,6 @@ jobs:
       - name: Link and test
         working-directory: test-types
         run: |
+          npm install
           npm link @primer/react
           npx tsc --noEmit
