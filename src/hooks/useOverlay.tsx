@@ -29,12 +29,6 @@ export const useOverlay = ({
   const overlayRef = useProvidedRefOrCreate<HTMLDivElement>(_overlayRef)
   useOpenAndCloseFocus({containerRef: overlayRef, returnFocusRef, initialFocusRef, preventFocusOnOpen})
   useOnOutsideClick({containerRef: overlayRef, ignoreClickRefs, onClickOutside})
-
-  /** Don't bubble Escape event up the tree  */
-  const onEscapeWithStoppedPropagation: UseOverlaySettings['onEscape'] = event => {
-    event.stopPropagation()
-    onEscape(event)
-  }
-  useOnEscapePress(onEscapeWithStoppedPropagation, undefined, overlayRef)
+  useOnEscapePress(onEscape)
   return {ref: overlayRef}
 }
