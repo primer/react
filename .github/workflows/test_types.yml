@@ -17,20 +17,25 @@ jobs:
         with:
           node-version: 16
 
+      - name: Remove "prepare" script
+        run: |
+          jq 'del(.scripts.prepare)' < package.json > package-no-prepare.json
+          mv package-no-prepare.json package.json
+
       - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
 
+      - name: Install only production dependencies
+        run: npm ci --production
+
       - name: Link
         run: npm link
-
-      - name: Install only production dependencies
-        run: npm ci --production --ignore-scripts
 
       - name: Link and test
         working-directory: test-types
         run: |
-          npm link @primer/react --ignore-scripts
+          npm link @primer/react
           npx tsc --noEmit
