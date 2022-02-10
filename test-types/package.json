@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
   "dependencies": {
-    "@primer/react": "*"
+    "@primer/react": "*",
+    "typescript": "^4.4.4"
   }
 }
