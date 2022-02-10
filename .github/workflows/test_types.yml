@@ -17,6 +17,10 @@ jobs:
         with:
           node-version: 16
 
+      # `prepare` is a special case in `npm` and likes to run all the time, even
+      # with `--ignore-scripts` and even when using `npm link @primer/react
+      # --ignore-scripts`. This just removes it entirely for the duration of
+      # this workflow.
       - name: Remove "prepare" script
         run: |
           jq 'del(.scripts.prepare)' < package.json > package-no-prepare.json
