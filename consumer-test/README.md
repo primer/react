@@ -18,3 +18,8 @@ Primer React.
 If a mistake is made and a file is omitted, we will catch those when we attempt
 to build this consumer library, which has `"skipLibCheck": false` in its
 TypeScript configuration.
+
+For historical context, see these issues:
+
+- https://github.com/primer/react/issues/1163
+- https://github.com/primer/react/issues/1849
