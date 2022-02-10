@@ -23,14 +23,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Link
-        run: npm link
-
       - name: Install only production dependencies
         run: npm ci --production --ignore-scripts
+
+      - name: Link
+        run: npm link --ignore-scripts
 
       - name: Link and test
         working-directory: test-types
         run: |
-          npm link @primer/react
+          npm link @primer/react --ignore-scripts
           npm tsc --noEmit
