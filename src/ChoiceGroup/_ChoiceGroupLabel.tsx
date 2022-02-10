@@ -1,25 +1,26 @@
 import React from 'react'
 import {Box} from '..'
 import VisuallyHidden from '../_VisuallyHidden'
-import {ChoiceFieldsetContext, Slot} from './ChoiceFieldset'
+import {ChoiceGroupContext} from './ChoiceGroup'
+import {Slot} from './slots'
 
-export interface ChoiceFieldsetLegendProps {
+export interface ChoiceGroupLabelProps {
   /**
    * Whether to visually hide the fieldset legend
    */
   visuallyHidden?: boolean
 }
 
-const ChoiceFieldsetLegend: React.FC<ChoiceFieldsetLegendProps> = ({children, visuallyHidden}) => (
-  <Slot name="Legend">
-    {({required, disabled}: ChoiceFieldsetContext) => (
+const ChoiceGroupLabel: React.FC<ChoiceGroupLabelProps> = ({children, visuallyHidden}) => (
+  <Slot name="Label">
+    {({required, disabled}: ChoiceGroupContext) => (
       <VisuallyHidden
         isVisible={!visuallyHidden}
         title={required ? 'required field' : undefined}
         sx={{
+          display: 'block',
           color: disabled ? 'fg.muted' : undefined,
-          fontSize: 2,
-          padding: 0
+          fontSize: 2
         }}
       >
         {required ? (
@@ -35,4 +36,4 @@ const ChoiceFieldsetLegend: React.FC<ChoiceFieldsetLegendProps> = ({children, vi
   </Slot>
 )
 
-export default ChoiceFieldsetLegend
+export default ChoiceGroupLabel
