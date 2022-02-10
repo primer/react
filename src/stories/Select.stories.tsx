@@ -49,9 +49,12 @@ export default {
       }
     },
     size: {
-      name: 'Size',
       defaultValue: 'medium',
       options: ['small', 'medium', 'large'],
+      control: {type: 'radio'}
+    },
+    validationStatus: {
+      options: ['success', 'warning', 'error', undefined],
       control: {type: 'radio'}
     }
   }

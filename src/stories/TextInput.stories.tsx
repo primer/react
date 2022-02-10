@@ -46,7 +46,7 @@ export default {
     },
     validationStatus: {
       name: 'Validation Status',
-      options: ['warning', 'error'],
+      options: ['warning', 'error', 'success', undefined],
       control: {type: 'radio'}
     },
     placeholder: {
