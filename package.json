@@ -1,9 +1,29 @@
 {
   "name": "@primer/react",
-  "version": "34.3.0",
+  "version": "34.4.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
+  "exports": {
+    ".": {
+      "node": "./lib/index.js",
+      "default": "./lib-esm/index.js"
+    },
+    "./drafts": {
+      "node": "./lib/drafts/index.js",
+      "default": "./lib-esm/drafts/index.js"
+    },
+    "./lib-esm/*": {
+      "node": [
+        "./lib/*.js",
+        "./lib/*/index.js"
+      ],
+      "default": [
+        "./lib-esm/*.js",
+        "./lib-esm/*/index.js"
+      ]
+    }
+  },
   "typings": "lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -34,6 +54,7 @@
     "lib",
     "lib-esm",
     "index.d.ts",
+    "drafts/package.json",
     "!lib/__tests__",
     "!lib/stories",
     "!lib-esm/__tests__",
@@ -41,6 +62,10 @@
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=7"
+  },
   "dependencies": {
     "@primer/behaviors": "1.0.3",
     "@primer/octicons-react": "16.1.1",
@@ -58,6 +83,7 @@
     "color2k": "1.2.4",
     "deepmerge": "4.2.2",
     "focus-visible": "5.2.0",
+    "history": "5.0.0",
     "styled-system": "5.1.5"
   },
   "devDependencies": {
