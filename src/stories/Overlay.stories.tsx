@@ -323,3 +323,40 @@ export const NestedOverlays = () => {
     </div>
   )
 }
+
+export const OverrideOnEscape = () => {
+  const [open, setOpen] = React.useState(false)
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const onInputKeyDown = () => alert("Don't close the menu")
+
+  return (
+    <div>
+      <Button ref={buttonRef} onClick={() => setOpen(!open)}>
+        Open Overlay
+      </Button>
+
+      {open && (
+        <Overlay
+          width="medium"
+          onEscape={() => {
+            if (inputRef.current === document.activeElement) return
+            setOpen(false)
+          }}
+          onClickOutside={() => setOpen(false)}
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          top={60}
+          left={16}
+        >
+          <Box sx={{display: 'flex', flexDirection: 'column', p: 2, gap: 2}}>
+            <TextInput ref={inputRef} placeholder="Hit escape when input has focus" onKeyUp={onInputKeyDown} />
+            <ButtonPrimary>Save</ButtonPrimary>
+          </Box>
+        </Overlay>
+      )}
+    </div>
+  )
+}
