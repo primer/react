@@ -46,6 +46,6 @@ jobs:
           npm run check
 
       - name: Add annotation
-        if: failed() && steps.link-and-test.status == 'failure'
+        if: failed() && steps.link-and-test.conclusion == 'failure'
         run: |
           echo "::error file=tsconfig.build.json::Test package could not build—it is possible that files were added for development that are not excluded in tsconfig.build.json"
