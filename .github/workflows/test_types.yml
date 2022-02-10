@@ -38,8 +38,14 @@ jobs:
         run: npm link
 
       - name: Link and test
+        id: link-and-test
         working-directory: test-types
         run: |
           npm install
           npm link @primer/react
           npm run check
+
+      - name: Add annotation
+        if: ${{ steps.link-and-test.status == 'failure' }}
+        run: |
+          echo "::error file=tsconfig.build.json::Test package could not build—it is possible that files were added for development that are not excluded in tsconfig.build.json"
