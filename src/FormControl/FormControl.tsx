@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {Autocomplete, Box, Checkbox, Radio, Select, Textarea, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
+import {Box, Checkbox, Radio, useSSRSafeId} from '..'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlValidation from './_FormControlValidation'
@@ -8,7 +8,8 @@ import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import {SxProp} from '../sx'
-import CheckboxOrRadioGroupContext from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupContext'
+import ChoiceGroupContext from '../ChoiceGroup/_ChoiceGroupContext'
+import {expectedInputComponents} from '../expectedInputComponents'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -32,8 +33,7 @@ export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 
 }
 
 const FormControl = ({children, disabled: disabledProp, id: idProp, required, sx}: FormControlProps) => {
-  const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
-  const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
+  const choiceGroupContext = useContext(ChoiceGroupContext)
   const disabled = choiceGroupContext?.disabled || disabledProp
   const id = useSSRSafeId(idProp)
   const validationChild = React.Children.toArray(children).find(child =>
