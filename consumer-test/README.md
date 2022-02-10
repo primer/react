@@ -21,5 +21,5 @@ TypeScript configuration.
 
 For historical context, see these issues:
 
-- https://github.com/primer/react/issues/1163
-- https://github.com/primer/react/issues/1849
+- [v27.0.0 breaks TypeScript typings](https://github.com/primer/react/issues/1163)
+- [Storybook dependency changes types in build output](https://github.com/primer/react/issues/1849)
