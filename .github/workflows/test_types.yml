@@ -1,0 +1,37 @@
+name: Test types
+on:
+  push: {branches: main}
+  pull_request: {branches: main}
+  workflow_dispatch:
+
+jobs:
+  test-types:
+    name: Test types
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Link
+        run: npm link
+
+      - name: Install only production dependencies
+        run: npm ci --production
+
+      - name: Link and test
+        working-directory: test-types
+        run: |
+          npm link @primer/react
+          npm tsc --noEmit
