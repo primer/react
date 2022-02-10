@@ -16,35 +16,14 @@ export type ChoiceGroupProps = {
    * Used when associating the choice group with a label other than `ChoiceGroup.Label`
    */
   ['aria-labelledby']?: string
-  children?: React.ReactNode
   /**
    * Whether the fieldset is NOT ready for user input
    */
   disabled?: boolean
   /**
-   * The unique identifier for this fieldset. Used to associate the validation text with the fieldset
-   * If an ID is not passed, one will be automatically generated
-   */
-  id?: string
-  /**
-   * The unique identifier used to associate radio inputs with eachother
-   * If a name is not passed and the fieldset renders radio inputs, a name will be automatically generated
-   */
-  name?: string
-  /**
-   * TODO: consider removing this
-   * The callback that is called when a user toggles a choice on or off
-   */
-  onSelect?: (selectedValues: string[]) => void
-  /**
    * Whether this field must have a value for the user to complete their task
    */
   required?: boolean
-  /**
-   * TODO: if we remove onSelect, also remove this
-   * The selected values
-   */
-  selected?: string[]
 }
 
 export type ChoiceGroupContext = {
@@ -63,21 +42,11 @@ const Body = styled.div`
   }
 `
 
-const ChoiceGroup = ({
-  'aria-labelledby': ariaLabelledby,
-  children,
-  disabled,
-  id,
-  name,
-  onSelect,
-  required,
-  selected
-}: ChoiceGroupProps) => {
-  const fieldsetId = useSSRSafeId(id)
+const ChoiceGroup: React.FC<ChoiceGroupProps> = ({'aria-labelledby': ariaLabelledby, children, disabled, required}) => {
   const validationChild = React.Children.toArray(children).find(child =>
     React.isValidElement(child) && child.type === ChoiceGroupValidation ? child : null
   )
-  const validationMessageId = validationChild ? `${fieldsetId}-validationMsg` : ''
+  const validationMessageId = useSSRSafeId()
   const checkIfOnlyContainsChoiceInputs = () => {
     const formControlComponentChildren = React.Children.toArray(children)
       .filter(child => React.isValidElement(child) && child.type === FormControl)
@@ -105,10 +74,7 @@ const ChoiceGroup = ({
     <Slots
       context={{
         disabled,
-        name,
-        onSelect,
         required,
-        selected,
         validationMessageId
       }}
     >
