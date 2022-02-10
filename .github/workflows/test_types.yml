@@ -22,9 +22,7 @@ jobs:
       # --ignore-scripts`. This just removes it entirely for the duration of
       # this workflow.
       - name: Remove "prepare" script
-        run: |
-          jq 'del(.scripts.prepare)' < package.json > package-no-prepare.json
-          mv package-no-prepare.json package.json
+        run: echo $(jq 'del(.scripts.prepare)' < package.json) > package.json
 
       - name: Install dependencies
         run: npm ci
