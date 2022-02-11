@@ -3,9 +3,11 @@ import {Overlay, Box, Text, ButtonDanger, Button} from '..'
 import {render, cleanup, waitFor, fireEvent, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
+import '@testing-library/jest-dom'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
+import {MemexIssueOverlay, MemexNestedOverlays, NestedOverlays} from '../stories/Overlay.stories'
 
 expect.extend(toHaveNoViolations)
 
@@ -56,6 +58,8 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
   )
 }
 
+// https://github.com/primer/react/issues/1802
+
 describe('Overlay', () => {
   it('should have no axe violations', async () => {
     const {container} = render(<TestComponent />)
@@ -99,5 +103,75 @@ describe('Overlay', () => {
     expect(mockFunction).toHaveBeenCalledTimes(1)
     const cancelButtons = queryAllByText('Cancel')
     expect(cancelButtons).toHaveLength(0)
+  })
+
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('should close the top most overlay on escape', () => {
+    const {getByLabelText, getByText, getByPlaceholderText, queryByPlaceholderText, queryByText} = render(
+      <ThemeProvider>
+        <NestedOverlays />
+      </ThemeProvider>
+    )
+
+    // open first menu
+    userEvent.click(getByLabelText('Add this repository to a list'))
+    expect(getByText('Add to list')).toBeInTheDocument()
+
+    // open second menu
+    userEvent.click(getByText('Create list'))
+    expect(getByPlaceholderText('Name this list')).toBeInTheDocument()
+
+    // hitting escape on input should close the second menu but not the first
+    fireEvent.keyDown(getByPlaceholderText('Name this list'), {key: 'Escape', code: 'Escape'})
+    expect(queryByPlaceholderText('Name this list')).not.toBeInTheDocument()
+    // this breaks:
+    expect(getByText('Add to list')).toBeInTheDocument()
+
+    // hitting escape again in first overlay should close it
+    fireEvent.keyDown(getByText('Add to list'), {key: 'Escape', code: 'Escape'})
+    expect(queryByText('Add to list')).not.toBeInTheDocument()
+  })
+
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('memex repro: should only close the dropdown when escape is pressed', () => {
+    const {getByLabelText, getByRole, queryByRole} = render(
+      <ThemeProvider>
+        <MemexNestedOverlays />
+      </ThemeProvider>
+    )
+
+    // open first menu
+    userEvent.click(getByLabelText('Add custom iteration'))
+    expect(getByLabelText('Change duration unit')).toBeInTheDocument()
+
+    // open dropdown menu
+    userEvent.click(getByLabelText('Change duration unit'))
+    expect(getByRole('menu')).toBeInTheDocument()
+
+    // hitting escape on menu item should close the dropdown menu but not the overlay
+    fireEvent.keyDown(getByRole('menu'), {key: 'Escape', code: 'Escape'})
+    expect(queryByRole('menu')).not.toBeInTheDocument()
+    // this breaks:
+    expect(getByLabelText('Change duration unit')).toBeInTheDocument()
+  })
+
+  it('memex repro: should not close overlay when input has event.preventDefault', () => {
+    const {getByText, getByLabelText, getByDisplayValue} = render(
+      <ThemeProvider>
+        <MemexIssueOverlay />
+      </ThemeProvider>
+    )
+
+    // clicking the title opens overlay
+    userEvent.click(getByText('Implement draft issue editor'))
+    expect(getByLabelText('Change issue title')).toBeInTheDocument()
+
+    // clicking the button changes to input
+    userEvent.click(getByLabelText('Change issue title'))
+    expect(getByDisplayValue('Implement draft issue editor')).toBeInTheDocument()
+
+    // pressing Escape inside input brings back the button but does not close the overlay
+    fireEvent.keyDown(getByDisplayValue('Implement draft issue editor'), {key: 'Escape', code: 'Escape'})
+    expect(getByLabelText('Change issue title')).toBeInTheDocument()
   })
 })

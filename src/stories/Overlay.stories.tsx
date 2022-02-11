@@ -360,7 +360,9 @@ export const MemexNestedOverlays = () => {
               </Text>
               <TextInput defaultValue={2} />
               <DropdownMenu2>
-                <DropdownMenu2.Button sx={{width: 200}}>{duration}</DropdownMenu2.Button>
+                <DropdownMenu2.Button sx={{width: 200}} aria-label="Change duration unit">
+                  {duration}
+                </DropdownMenu2.Button>
                 <DropdownMenu2.Overlay>
                   <ActionList2>
                     {durations.map(item => (
@@ -385,7 +387,7 @@ export const MemexNestedOverlays = () => {
 }
 
 export const MemexIssueOverlay = () => {
-  const [overlayOpen, setOverlayOpen] = React.useState(true)
+  const [overlayOpen, setOverlayOpen] = React.useState(false)
   const linkRef = useRef<HTMLAnchorElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -452,7 +454,8 @@ export const MemexIssueOverlay = () => {
                   } else if (event.key === 'Escape') {
                     setEditing(false)
                     setTitle(title)
-                    event.preventDefault() // this prevents the modal from closing
+                    event.preventDefault() // this is what we recommend
+                    // event.stopPropagation() // this should also works and feels nicer to use
                   }
                 }}
                 ref={inputRef}
@@ -469,6 +472,7 @@ export const MemexIssueOverlay = () => {
               <ButtonInvisible
                 ref={buttonRef}
                 onClick={() => setEditing(true)}
+                aria-label="Change issue title"
                 sx={{
                   width: '100%',
                   fontSize: 4,
