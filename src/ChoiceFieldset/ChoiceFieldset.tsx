@@ -56,6 +56,9 @@ export interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
 const {Slots, Slot} = createSlots(['Description', 'ChoiceList', 'Legend', 'Validation'])
 export {Slot}
 
+/**
+ * @deprecated Use the `ChoiceGroup` component instead
+ */
 const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   children,
   disabled,
