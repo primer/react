@@ -1,5 +1,4 @@
 import React, {useState, useRef, useCallback} from 'react'
-import ReactDOM from 'react-dom'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react'
@@ -246,9 +245,6 @@ export const NestedOverlays = () => {
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
   }, [])
-
-  const hostElement = document.createElement('div')
-  ReactDOM.render(<div>hello</div>, hostElement)
 
   return (
     <div>

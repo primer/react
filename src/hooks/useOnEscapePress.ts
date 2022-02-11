@@ -9,7 +9,7 @@ const handlers: ((e: KeyboardEvent) => void)[] = []
 function handleEscape(event: KeyboardEvent) {
   if (event.key === 'Escape' && !event.defaultPrevented) {
     for (let i = handlers.length - 1; i >= 0; --i) {
-      if (typeof handlers[i] === 'function') handlers[i](event)
+      handlers[i](event)
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (event.defaultPrevented) {
         break
@@ -19,7 +19,7 @@ function handleEscape(event: KeyboardEvent) {
 }
 
 /**
- * Sets up a `keydown` listener on element passed | `window.document`. If
+ * Sets up a `keydown` listener on `window.document`. If
  * 1) The pressed key is "Escape", and
  * 2) The event has not had `.preventDefault()` called
  * The given callback will be executed.
@@ -38,24 +38,16 @@ function handleEscape(event: KeyboardEvent) {
  * @param callbackDependencies {React.DependencyList} The dependencies of the given
  * `onEscape` callback for memoization. Omit this param if the callback is already
  * memoized. See `React.useCallback` for more info on memoization.
- *
- * @param containerRef {React.RefObject<HTMLElement>} The overlay element to attach the
- * handlers on. If not provided, fallback to document.
  */
 export const useOnEscapePress = (
   onEscape: (e: KeyboardEvent) => void,
-  callbackDependencies: React.DependencyList = [onEscape],
-  containerRef?: React.RefObject<HTMLElement>
+  callbackDependencies: React.DependencyList = [onEscape]
 ): void => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const escapeCallback = useCallback(onEscape, callbackDependencies)
-
   useEffect(() => {
-    const element = containerRef?.current
-
     if (handlers.length === 0) {
-      if (element) element.addEventListener('keydown', handleEscape)
-      else document.addEventListener('keydown', handleEscape)
+      document.addEventListener('keydown', handleEscape)
     }
     handlers.push(escapeCallback)
     return () => {
@@ -64,9 +56,8 @@ export const useOnEscapePress = (
         1
       )
       if (handlers.length === 0) {
-        if (element) element.removeEventListener('keydown', handleEscape)
-        else document.removeEventListener('keydown', handleEscape)
+        document.removeEventListener('keydown', handleEscape)
       }
     }
-  }, [escapeCallback, containerRef])
+  }, [escapeCallback])
 }
