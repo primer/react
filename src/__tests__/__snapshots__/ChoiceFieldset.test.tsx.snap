@@ -1038,6 +1038,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             font-size="0"
           >
             <span
+              aria-hidden="true"
               class="c13"
             >
               <svg
@@ -1280,6 +1281,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             font-size="0"
           >
             <span
+              aria-hidden="true"
               class="c13"
             >
               <svg
