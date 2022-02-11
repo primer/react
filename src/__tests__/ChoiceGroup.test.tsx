@@ -2,6 +2,7 @@ import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render, within} from '@testing-library/react'
 import {Checkbox, ChoiceGroup, FormControl, Radio, TextInput} from '..'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 const INPUT_GROUP_LABEL = 'Choices'
 
@@ -14,6 +15,30 @@ describe('ChoiceGroup', () => {
 
   afterAll(() => {
     jest.clearAllMocks()
+  })
+  behavesAsComponent({
+    Component: ChoiceGroup,
+    options: {skipAs: true},
+    toRender: () => (
+      <ChoiceGroup>
+        <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
+        <FormControl>
+          <Radio name="radioInput" value="choiceOne" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio name="radioInput" value="choiceTwo" />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio name="radioInput" value="choiceThree" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </ChoiceGroup>
+    )
+  })
+  checkExports('ChoiceGroup', {
+    default: ChoiceGroup
   })
   it('renders a group of radio inputs', () => {
     const {getAllByRole} = render(

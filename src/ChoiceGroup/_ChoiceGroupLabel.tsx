@@ -1,17 +1,18 @@
 import React from 'react'
 import {Box} from '..'
+import {SxProp} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ChoiceGroupContext} from './ChoiceGroup'
 import {Slot} from './slots'
 
-export interface ChoiceGroupLabelProps {
+export type ChoiceGroupLabelProps = {
   /**
    * Whether to visually hide the fieldset legend
    */
   visuallyHidden?: boolean
-}
+} & SxProp
 
-const ChoiceGroupLabel: React.FC<ChoiceGroupLabelProps> = ({children, visuallyHidden}) => (
+const ChoiceGroupLabel: React.FC<ChoiceGroupLabelProps> = ({children, visuallyHidden, sx}) => (
   <Slot name="Label">
     {({required, disabled}: ChoiceGroupContext) => (
       <VisuallyHidden
@@ -20,7 +21,8 @@ const ChoiceGroupLabel: React.FC<ChoiceGroupLabelProps> = ({children, visuallyHi
         sx={{
           display: 'block',
           color: disabled ? 'fg.muted' : undefined,
-          fontSize: 2
+          fontSize: 2,
+          ...sx
         }}
       >
         {required ? (
