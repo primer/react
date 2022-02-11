@@ -8,6 +8,7 @@ exports[`ChoiceGroup renders consistently 1`] = `
 }
 
 .c1 {
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -60,6 +61,7 @@ exports[`ChoiceGroup renders consistently 1`] = `
 <div>
   <fieldset
     className="c0"
+    disabled={false}
   >
     <legend
       className="c1"
