@@ -107,71 +107,75 @@ describe('Overlay', () => {
 
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should close the top most overlay on escape', () => {
-    const {getByLabelText, getByText, getByPlaceholderText, queryByPlaceholderText, queryByText} = render(
+    const container = render(
       <ThemeProvider>
         <NestedOverlays />
       </ThemeProvider>
     )
 
     // open first menu
-    userEvent.click(getByLabelText('Add this repository to a list'))
-    expect(getByText('Add to list')).toBeInTheDocument()
+    userEvent.click(container.getByLabelText('Add this repository to a list'))
+    expect(container.getByText('Add to list')).toBeInTheDocument()
 
     // open second menu
-    userEvent.click(getByText('Create list'))
-    expect(getByPlaceholderText('Name this list')).toBeInTheDocument()
+    userEvent.click(container.getByText('Create list'))
+    expect(container.getByPlaceholderText('Name this list')).toBeInTheDocument()
 
     // hitting escape on input should close the second menu but not the first
-    fireEvent.keyDown(getByPlaceholderText('Name this list'), {key: 'Escape', code: 'Escape'})
-    expect(queryByPlaceholderText('Name this list')).not.toBeInTheDocument()
+    fireEvent.keyDown(container.getByPlaceholderText('Name this list'), {key: 'Escape', code: 'Escape'})
+    expect(container.queryByPlaceholderText('Name this list')).not.toBeInTheDocument()
     // this breaks:
-    expect(getByText('Add to list')).toBeInTheDocument()
+    expect(container.getByText('Add to list')).toBeInTheDocument()
 
     // hitting escape again in first overlay should close it
-    fireEvent.keyDown(getByText('Add to list'), {key: 'Escape', code: 'Escape'})
-    expect(queryByText('Add to list')).not.toBeInTheDocument()
+    fireEvent.keyDown(container.getByText('Add to list'), {key: 'Escape', code: 'Escape'})
+    expect(container.queryByText('Add to list')).not.toBeInTheDocument()
   })
 
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('memex repro: should only close the dropdown when escape is pressed', () => {
-    const {getByLabelText, getByRole, queryByRole} = render(
+    const container = render(
       <ThemeProvider>
         <MemexNestedOverlays />
       </ThemeProvider>
     )
 
     // open first menu
-    userEvent.click(getByLabelText('Add custom iteration'))
-    expect(getByLabelText('Change duration unit')).toBeInTheDocument()
+    userEvent.click(container.getByLabelText('Add custom iteration'))
+    expect(container.getByLabelText('Change duration unit')).toBeInTheDocument()
 
     // open dropdown menu
-    userEvent.click(getByLabelText('Change duration unit'))
-    expect(getByRole('menu')).toBeInTheDocument()
+    userEvent.click(container.getByLabelText('Change duration unit'))
+    expect(container.getByRole('menu')).toBeInTheDocument()
 
     // hitting escape on menu item should close the dropdown menu but not the overlay
-    fireEvent.keyDown(getByRole('menu'), {key: 'Escape', code: 'Escape'})
-    expect(queryByRole('menu')).not.toBeInTheDocument()
+    fireEvent.keyDown(container.getByRole('menu'), {key: 'Escape', code: 'Escape'})
+    expect(container.queryByRole('menu')).not.toBeInTheDocument()
     // this breaks:
-    expect(getByLabelText('Change duration unit')).toBeInTheDocument()
+    expect(container.getByLabelText('Change duration unit')).toBeInTheDocument()
   })
 
   it('memex repro: should not close overlay when input has event.preventDefault', () => {
-    const {getByText, getByLabelText, getByDisplayValue} = render(
+    const container = render(
       <ThemeProvider>
         <MemexIssueOverlay />
       </ThemeProvider>
     )
 
     // clicking the title opens overlay
-    userEvent.click(getByText('Implement draft issue editor'))
-    expect(getByLabelText('Change issue title')).toBeInTheDocument()
+    userEvent.click(container.getByText('Implement draft issue editor'))
+    expect(container.getByLabelText('Change issue title')).toBeInTheDocument()
 
     // clicking the button changes to input
-    userEvent.click(getByLabelText('Change issue title'))
-    expect(getByDisplayValue('Implement draft issue editor')).toBeInTheDocument()
+    userEvent.click(container.getByLabelText('Change issue title'))
+    expect(container.getByDisplayValue('Implement draft issue editor')).toBeInTheDocument()
 
     // pressing Escape inside input brings back the button but does not close the overlay
-    fireEvent.keyDown(getByDisplayValue('Implement draft issue editor'), {key: 'Escape', code: 'Escape'})
-    expect(getByLabelText('Change issue title')).toBeInTheDocument()
+    fireEvent.keyDown(container.getByDisplayValue('Implement draft issue editor'), {key: 'Escape', code: 'Escape'})
+    expect(container.getByLabelText('Change issue title')).toBeInTheDocument()
+
+    // hitting Escape again should close the Overlay
+    fireEvent.keyDown(container.getByLabelText('Change issue title'), {key: 'Escape', code: 'Escape'})
+    expect(container.queryByLabelText('Change issue title')).not.toBeInTheDocument()
   })
 })
