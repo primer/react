@@ -249,6 +249,9 @@ export const NestedOverlays = () => {
   return (
     <div>
       <TextInput />
+      <div>
+        primary overlay open: {String(listOverlayOpen)}, secondary overlay open: {String(createListOverlayOpen)}
+      </div>
       <ButtonGroup display="block" my={2}>
         <Button>Star</Button>
         <Button
@@ -267,7 +270,7 @@ export const NestedOverlays = () => {
           onClickOutside={() => setListOverlayOpen(false)}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}
-          top={60}
+          top={100}
           left={16}
         >
           <Box sx={{display: 'flex', flexDirection: 'column', py: 2}}>
@@ -454,8 +457,8 @@ export const MemexIssueOverlay = () => {
                   } else if (event.key === 'Escape') {
                     setEditing(false)
                     setTitle(title)
-                    event.preventDefault() // this is what we recommend
-                    // event.stopPropagation() // this should also works and feels nicer to use
+                    event.preventDefault() // prevent Overlay from closing, this is what we recommend
+                    // event.stopPropagation() // this also works and feels nicer to use
                   }
                 }}
                 ref={inputRef}

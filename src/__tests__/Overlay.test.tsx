@@ -106,7 +106,7 @@ describe('Overlay', () => {
   })
 
   // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should close the top most overlay on escape', () => {
+  it('should close the top most overlay on escape', () => {
     const container = render(
       <ThemeProvider>
         <NestedOverlays />
@@ -133,7 +133,7 @@ describe('Overlay', () => {
   })
 
   // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('memex repro: should only close the dropdown when escape is pressed', () => {
+  it('memex repro: should only close the dropdown when escape is pressed', () => {
     const container = render(
       <ThemeProvider>
         <MemexNestedOverlays />
