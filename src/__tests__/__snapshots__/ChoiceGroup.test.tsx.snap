@@ -1,44 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChoiceGroup renders consistently 1`] = `
-.c1 {
-  padding: 0;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c6 > input {
-  margin-left: 0;
-  margin-right: 0;
-}
-
 .c0 {
   margin: 0;
   padding: 0;
   border: none;
 }
 
-.c8 {
-  margin-left: 8px;
+.c1 {
+  padding: 0;
+}
+
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
 }
 
-.c7 {
+.c5 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c6 {
   cursor: pointer;
 }
 
-.c3 {
+.c2 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -51,20 +40,7 @@ exports[`ChoiceGroup renders consistently 1`] = `
   border-width: 0;
 }
 
-.c2 {
-  display: block;
-  font-size: 16px;
-}
-
-.c9 {
-  font-weight: 600;
-  font-size: 14px;
-  display: block;
-  color: #24292f;
-  cursor: pointer;
-}
-
-.c4 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -77,7 +53,7 @@ exports[`ChoiceGroup renders consistently 1`] = `
   padding: 0;
 }
 
-.c4 > * + * {
+.c3 > * + * {
   margin-top: 8px;
 }
 
@@ -90,107 +66,69 @@ exports[`ChoiceGroup renders consistently 1`] = `
     >
       <span
         className="c2"
-      >
-        Choices
-      </span>
-      <span
-        className="c3"
       />
     </legend>
     <div
-      className="c4"
+      className="c3"
     >
       <div
-        className="c5"
+        className="c4"
         display="flex"
       >
         <div
-          className="c6"
+          className="c5"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c7"
-            id="react-aria4136567348-6"
+            className="c6"
+            id="react-aria-2"
             name="radioInput"
             type="radio"
             value="choiceOne"
           />
         </div>
-        <div
-          className="c8"
-          display="flex"
-        >
-          <label
-            className="c9"
-            htmlFor="react-aria4136567348-6"
-          >
-            Choice one
-          </label>
-        </div>
       </div>
       <div
-        className="c5"
+        className="c4"
         display="flex"
       >
         <div
-          className="c6"
+          className="c5"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c7"
-            id="react-aria4136567348-7"
+            className="c6"
+            id="react-aria-3"
             name="radioInput"
             type="radio"
             value="choiceTwo"
           />
         </div>
-        <div
-          className="c8"
-          display="flex"
-        >
-          <label
-            className="c9"
-            htmlFor="react-aria4136567348-7"
-          >
-            Choice two
-          </label>
-        </div>
       </div>
       <div
-        className="c5"
+        className="c4"
         display="flex"
       >
         <div
-          className="c6"
+          className="c5"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c7"
-            id="react-aria4136567348-8"
+            className="c6"
+            id="react-aria-4"
             name="radioInput"
             type="radio"
             value="choiceThree"
           />
-        </div>
-        <div
-          className="c8"
-          display="flex"
-        >
-          <label
-            className="c9"
-            htmlFor="react-aria4136567348-8"
-          >
-            Choice three
-          </label>
         </div>
       </div>
     </div>
