@@ -14,6 +14,7 @@ const ChoiceFieldsetLegend: React.FC<ChoiceFieldsetLegendProps> = ({children, vi
   <Slot name="Legend">
     {({required, disabled}: ChoiceFieldsetContext) => (
       <VisuallyHidden
+        as="legend"
         isVisible={!visuallyHidden}
         title={required ? 'required field' : undefined}
         sx={{
