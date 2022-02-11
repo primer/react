@@ -388,11 +388,13 @@ export const MemexIssueOverlay = () => {
   const [overlayOpen, setOverlayOpen] = React.useState(true)
   const linkRef = useRef<HTMLAnchorElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   const [title, setTitle] = React.useState('Implement draft issue editor')
   const [editing, setEditing] = React.useState(false)
 
   React.useEffect(() => {
+    // If we just started editing, focus the newly rendered input
     if (editing) inputRef.current?.focus()
   }, [editing])
 
@@ -433,24 +435,24 @@ export const MemexIssueOverlay = () => {
               <Label variant="xl">
                 <IssueDraftIcon /> Draft
               </Label>
-              <Text sx={{fontSize: 1}}>opened</Text>
+              <Text sx={{fontSize: 1}}>opened 2 days ago,</Text>
+              <Text sx={{fontSize: 1}}>showing {editing ? 'input' : 'button'}</Text>
             </Box>
             {editing ? (
               <TextInput
                 defaultValue={title}
-                onBlur={event => {
+                onBlur={(event: React.FocusEvent<HTMLInputElement>) => {
                   setEditing(false)
                   setTitle(event.target.value)
                 }}
-                onKeyDown={event => {
+                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
                   if (event.key === 'Enter') {
-                    setTitle(event.target.value)
                     setEditing(false)
+                    setTitle((event.target as HTMLInputElement).value)
                   } else if (event.key === 'Escape') {
-                    event.preventDefault()
-                    event.stopPropogation()
-                    setTitle(title)
                     setEditing(false)
+                    setTitle(title)
+                    event.preventDefault() // this prevents the modal from closing
                   }
                 }}
                 ref={inputRef}
@@ -465,6 +467,8 @@ export const MemexIssueOverlay = () => {
               />
             ) : (
               <ButtonInvisible
+                ref={buttonRef}
+                onClick={() => setEditing(true)}
                 sx={{
                   width: '100%',
                   fontSize: 4,
@@ -474,7 +478,6 @@ export const MemexIssueOverlay = () => {
                   borderRadius: '2',
                   '&:hover': {boxShadow: 'primer.shadow.focus'}
                 }}
-                onClick={() => setEditing(true)}
               >
                 {title}
               </ButtonInvisible>
