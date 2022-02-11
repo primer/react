@@ -10,6 +10,7 @@ import {get} from '../constants'
 import {expectedInputComponents} from '../expectedInputComponents'
 import ChoiceGroupContext from './_ChoiceGroupContext'
 import VisuallyHidden from '../_VisuallyHidden'
+import {SxProp} from '../sx'
 
 export type ChoiceGroupProps = {
   /**
@@ -29,7 +30,7 @@ export type ChoiceGroupProps = {
    * Whether this field must have a value for the user to complete their task
    */
   required?: boolean
-}
+} & SxProp
 
 export type ChoiceGroupContext = {
   validationMessageId?: string
@@ -53,7 +54,8 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
   children,
   disabled,
   id: idProp,
-  required
+  required,
+  sx
 }) => {
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === ChoiceGroupLabel
@@ -121,6 +123,7 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
                   as: 'fieldset',
                   disabled
                 })}
+                sx={sx}
               >
                 {labelChild ? (
                   /*

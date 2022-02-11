@@ -11,7 +11,7 @@ export type ChoiceGroupValidationProps = {
 
 const ChoiceGroupValidation: React.FC<ChoiceGroupValidationProps> = ({children, variant, sx}) => (
   <Slot name="Validation">
-    {({validationMessageId}: ChoiceGroupContext) => (
+    {({validationMessageId = ''}: ChoiceGroupContext) => (
       <InputValidation validationStatus={variant} id={validationMessageId} sx={sx}>
         {children}
       </InputValidation>
