@@ -58,8 +58,6 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
   )
 }
 
-// https://github.com/primer/react/issues/1802
-
 describe('Overlay', () => {
   it('should have no axe violations', async () => {
     const {container} = render(<TestComponent />)

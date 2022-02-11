@@ -67,7 +67,6 @@ export const useOnEscapePress = (
   const id = useMemo(() => handlerId++, [])
   useEffect(() => {
     if (Object.keys(registry).length === 0) {
-      // use capture to ensure we get all events
       document.addEventListener('keydown', handleEscape)
     }
     register(id, handler)
