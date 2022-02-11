@@ -7,7 +7,7 @@ import '@testing-library/jest-dom'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
-import {MemexIssueOverlay, MemexNestedOverlays, NestedOverlays} from '../stories/Overlay.stories'
+import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay} from '../stories/Overlay.stories'
 
 expect.extend(toHaveNoViolations)
 
@@ -177,5 +177,44 @@ describe('Overlay', () => {
     // hitting Escape again should close the Overlay
     fireEvent.keyDown(container.getByLabelText('Change issue title'), {key: 'Escape', code: 'Escape'})
     expect(container.queryByLabelText('Change issue title')).not.toBeInTheDocument()
+  })
+
+  // https://github.com/primer/react/issues/1802
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('memex repro: should not leak overlay events to the document', () => {
+    const mockHandler = jest.fn()
+    const BugRepro1802 = () => {
+      const [isOpen, setIsOpen] = useState(false)
+      const closeOverlay = () => setIsOpen(false)
+      const buttonRef = useRef<HTMLButtonElement>(null)
+
+      React.useEffect(() => {
+        document.addEventListener('keydown', mockHandler)
+        return () => document.removeEventListener('keydown', mockHandler)
+      }, [])
+
+      return (
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+              open overlay
+            </Button>
+            {isOpen ? (
+              <Overlay returnFocusRef={buttonRef} onEscape={closeOverlay} onClickOutside={closeOverlay}>
+                <Text>Text inside Overlay</Text>
+              </Overlay>
+            ) : null}
+          </BaseStyles>
+        </ThemeProvider>
+      )
+    }
+
+    const container = render(<BugRepro1802 />)
+
+    userEvent.click(container.getByText('open overlay'))
+    fireEvent.keyDown(container.getByText('Text inside Overlay'), {key: 'Escape', code: 'Escape'})
+
+    // if stopPropagation worked, mockHandler would not have been called
+    expect(mockHandler).toHaveBeenCalledTimes(0)
   })
 })
