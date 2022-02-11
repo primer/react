@@ -1,9 +1,8 @@
-import React, {ChangeEventHandler} from 'react'
+import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Box, Checkbox, FormControl, Radio, ThemeProvider} from '../../'
+import {BaseStyles, Checkbox, FormControl, Radio, ThemeProvider} from '../../'
 import ChoiceGroup from '../../ChoiceGroup'
 import {ComponentProps} from '../../utils/types'
-import {useState} from '@storybook/addons'
 
 type Args = ComponentProps<typeof ChoiceGroup>
 

@@ -27,7 +27,7 @@ export type ChoiceGroupProps = {
    */
   id?: string
   /**
-   * Whether this field must have a value for the user to complete their task
+   * If true, the user must make a selection before the owning form can be submitted
    */
   required?: boolean
 } & SxProp
@@ -109,7 +109,7 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
       }}
     >
       {slots => {
-        const isLegendVisible = React.isValidElement(labelChild) && labelChild.props.isVisible
+        const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
 
         return (
           <ChoiceGroupContext.Provider value={{disabled}}>
@@ -173,6 +173,11 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
       }}
     </Slots>
   )
+}
+
+ChoiceGroup.defaultProps = {
+  disabled: false,
+  required: false
 }
 
 export type InputFieldComponentProps = ComponentProps<typeof ChoiceGroup>

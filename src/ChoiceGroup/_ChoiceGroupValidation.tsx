@@ -6,6 +6,7 @@ import {ChoiceGroupContext} from './ChoiceGroup'
 import {Slot} from './slots'
 
 export type ChoiceGroupValidationProps = {
+  /** Changes the visual style to match the validation status */
   variant: FormValidationStatus
 } & SxProp
 

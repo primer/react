@@ -38,4 +38,8 @@ const ChoiceGroupLabel: React.FC<ChoiceGroupLabelProps> = ({children, visuallyHi
   </Slot>
 )
 
+ChoiceGroupLabel.defaultProps = {
+  visuallyHidden: false
+}
+
 export default ChoiceGroupLabel
