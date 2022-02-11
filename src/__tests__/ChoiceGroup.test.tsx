@@ -1,8 +1,8 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render, within} from '@testing-library/react'
-import {Checkbox, ChoiceGroup, FormControl, Radio, TextInput} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {Checkbox, ChoiceGroup, FormControl, Radio, SSRProvider, TextInput} from '..'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 
 const INPUT_GROUP_LABEL = 'Choices'
 
@@ -12,29 +12,30 @@ describe('ChoiceGroup', () => {
   beforeAll(() => {
     jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
   })
-
   afterAll(() => {
     jest.clearAllMocks()
   })
   behavesAsComponent({
     Component: ChoiceGroup,
-    options: {skipAs: true},
+    options: {skipAs: true, skipSx: true}, // skipping sx check because we have to render this in a <SSRProvider> to keep snapshots consistent
     toRender: () => (
-      <ChoiceGroup>
-        <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
-        <FormControl>
-          <Radio name="radioInput" value="choiceOne" />
-          <FormControl.Label>Choice one</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Radio name="radioInput" value="choiceTwo" />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Radio name="radioInput" value="choiceThree" />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </ChoiceGroup>
+      <SSRProvider>
+        <ChoiceGroup>
+          <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
+          <FormControl>
+            <Radio name="radioInput" value="choiceOne" />
+            <FormControl.Label>Choice one</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Radio name="radioInput" value="choiceTwo" />
+            <FormControl.Label>Choice two</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Radio name="radioInput" value="choiceThree" />
+            <FormControl.Label>Choice three</FormControl.Label>
+          </FormControl>
+        </ChoiceGroup>
+      </SSRProvider>
     )
   })
   checkExports('ChoiceGroup', {
@@ -296,3 +297,6 @@ describe('ChoiceGroup', () => {
     expect(consoleSpy).toHaveBeenCalled()
   })
 })
+
+checkStoriesForAxeViolations('ChoiceGroup/fixtures')
+checkStoriesForAxeViolations('ChoiceGroup/examples')

@@ -135,7 +135,9 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
                   <Box as="legend" mb={isLegendVisible ? 2 : undefined} padding={0}>
                     {slots.Label}
                     {slots.Caption}
-                    <VisuallyHidden>{slots.Validation}</VisuallyHidden>
+                    <VisuallyHidden>
+                      {React.isValidElement(slots.Validation) && slots.Validation.props.children}
+                    </VisuallyHidden>
                   </Box>
                 ) : (
                   /*
