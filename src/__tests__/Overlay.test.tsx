@@ -105,7 +105,6 @@ describe('Overlay', () => {
     expect(cancelButtons).toHaveLength(0)
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
   it('should close the top most overlay on escape', () => {
     const container = render(
       <ThemeProvider>
@@ -132,7 +131,6 @@ describe('Overlay', () => {
     expect(container.queryByText('Add to list')).not.toBeInTheDocument()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
   it('memex repro: should only close the dropdown when escape is pressed', () => {
     const container = render(
       <ThemeProvider>
