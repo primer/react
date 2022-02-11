@@ -39,19 +39,19 @@ const FormControl = ({children, disabled: disabledProp, id: idProp, required, sx
   const validationChild = React.Children.toArray(children).find(child =>
     React.isValidElement(child) && child.type === FormControlValidation ? child : null
   )
-  const captionChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
+  const captionChild = React.Children.toArray(children).find(child =>
     React.isValidElement(child) && child.type === FormControlCaption ? child : null
-  )?.filter(Boolean)
-  const labelChild: React.ReactNode | undefined | null = React.Children.toArray(children).find(
+  )
+  const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === FormControlLabel
   )
-  const validationMessageId = validationChild ? `${id}-validationMsg` : ''
-  const validationStatus = React.isValidElement(validationChild) ? validationChild.props.variant : undefined
-  const captionId = captionChildren?.length ? `${id}-caption` : undefined
+  const validationMessageId = validationChild && `${id}-validationMessage`
+  const captionId = captionChild && `${id}-caption`
+  const validationStatus = React.isValidElement(validationChild) && validationChild.props.variant
   const InputComponent = React.Children.toArray(children).find(child =>
     expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)
   )
-  const inputProps = React.isValidElement(InputComponent) ? InputComponent.props : undefined
+  const inputProps = React.isValidElement(InputComponent) && InputComponent.props
   const isChoiceInput =
     React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
 
