@@ -57,7 +57,7 @@ const {Slots, Slot} = createSlots(['Description', 'ChoiceList', 'Legend', 'Valid
 export {Slot}
 
 /**
- * @deprecated Use `CheckboxGroup` or `RadioGroup` instead.
+ * @deprecated Use the `ChoiceGroup` component instead
  */
 const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   children,
