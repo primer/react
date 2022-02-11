@@ -2,7 +2,7 @@ import React, {useState, useRef, useCallback} from 'react'
 import ReactDOM from 'react-dom'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
-import {TriangleDownIcon, PlusIcon} from '@primer/octicons-react'
+import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react'
 import {
   BaseStyles,
   Overlay,
@@ -18,10 +18,13 @@ import {
   Checkbox,
   ChoiceInputField,
   TextInput,
-  ActionList
+  ActionList,
+  Link,
+  Label
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
+import {DropdownMenu as DropdownMenu2, ActionList as ActionList2} from '../drafts'
 import {ItemInput} from '../ActionList/List'
 
 export default {
@@ -321,5 +324,168 @@ export const NestedOverlays = () => {
         </Overlay>
       )}
     </div>
+  )
+}
+
+export const MemexNestedOverlays = () => {
+  const [overlayOpen, setOverlayOpen] = React.useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  const durations = ['days', 'weeks']
+  const [duration, setDuration] = React.useState(durations[0])
+
+  return (
+    <div>
+      <ButtonGroup display="block" my={2}>
+        <Button>Add iteration</Button>
+        <Button
+          aria-label="Add custom iteration"
+          ref={buttonRef}
+          onClick={() => setOverlayOpen(!overlayOpen)}
+          sx={{paddingX: 2}}
+        >
+          <TriangleDownIcon />
+        </Button>
+      </ButtonGroup>
+      {overlayOpen && (
+        <Overlay
+          width="medium"
+          onEscape={() => setOverlayOpen(false)}
+          onClickOutside={() => setOverlayOpen(false)}
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          top={60}
+          left={16}
+        >
+          <Box as="form" onSubmit={() => setOverlayOpen(false)} sx={{display: 'flex', flexDirection: 'column', py: 2}}>
+            <Box sx={{paddingX: 3, display: 'flex', alignItems: 'center', gap: 1}}>
+              <Text color="fg.muted" sx={{fontSize: 1}}>
+                Duration:
+              </Text>
+              <TextInput defaultValue={2} />
+              <DropdownMenu2>
+                <DropdownMenu2.Button sx={{width: 200}}>{duration}</DropdownMenu2.Button>
+                <DropdownMenu2.Overlay>
+                  <ActionList2>
+                    {durations.map(item => (
+                      <ActionList2.Item key={item} selected={item === duration} onSelect={() => setDuration(item)}>
+                        {item}
+                      </ActionList2.Item>
+                    ))}
+                  </ActionList2>
+                </DropdownMenu2.Overlay>
+              </DropdownMenu2>
+            </Box>
+            <ActionList.Divider />
+            <Box sx={{display: 'flex', justifyContent: 'flex-end', px: 2, gap: 1}}>
+              <Button>Cancel</Button>
+              <ButtonPrimary>Add</ButtonPrimary>
+            </Box>
+          </Box>
+        </Overlay>
+      )}
+    </div>
+  )
+}
+
+export const MemexIssueOverlay = () => {
+  const [overlayOpen, setOverlayOpen] = React.useState(true)
+  const linkRef = useRef<HTMLAnchorElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const [title, setTitle] = React.useState('Implement draft issue editor')
+  const [editing, setEditing] = React.useState(false)
+
+  React.useEffect(() => {
+    if (editing) inputRef.current?.focus()
+  }, [editing])
+
+  return (
+    <>
+      <Link
+        href="#"
+        muted
+        ref={linkRef}
+        onClick={event => {
+          event.preventDefault()
+          setOverlayOpen(true)
+        }}
+        sx={{
+          display: 'block',
+          border: '1px solid',
+          borderColor: 'border.default',
+          p: 2,
+          ':hover': {
+            backgroundColor: 'canvas.subtle'
+          }
+        }}
+      >
+        <IssueDraftIcon /> {title}
+      </Link>
+      {overlayOpen && (
+        <Overlay
+          height="auto"
+          width="large"
+          onEscape={() => setOverlayOpen(false)}
+          onClickOutside={() => setOverlayOpen(false)}
+          returnFocusRef={linkRef}
+          top={0}
+          left={window.innerWidth - 480}
+        >
+          <Box sx={{p: 4, height: '100vh'}}>
+            <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 2}}>
+              <Label variant="xl">
+                <IssueDraftIcon /> Draft
+              </Label>
+              <Text sx={{fontSize: 1}}>opened</Text>
+            </Box>
+            {editing ? (
+              <TextInput
+                defaultValue={title}
+                onBlur={event => {
+                  setEditing(false)
+                  setTitle(event.target.value)
+                }}
+                onKeyDown={event => {
+                  if (event.key === 'Enter') {
+                    setTitle(event.target.value)
+                    setEditing(false)
+                  } else if (event.key === 'Escape') {
+                    event.preventDefault()
+                    event.stopPropogation()
+                    setTitle(title)
+                    setEditing(false)
+                  }
+                }}
+                ref={inputRef}
+                sx={{
+                  width: '100%',
+                  py: '2px',
+                  px: '7px',
+                  textAlign: 'left',
+                  color: 'fg.default',
+                  input: {fontWeight: 'bold', fontSize: 4, px: 0}
+                }}
+              />
+            ) : (
+              <ButtonInvisible
+                sx={{
+                  width: '100%',
+                  fontSize: 4,
+                  color: 'fg.default',
+                  p: 2,
+                  textAlign: 'left',
+                  borderRadius: '2',
+                  '&:hover': {boxShadow: 'primer.shadow.focus'}
+                }}
+                onClick={() => setEditing(true)}
+              >
+                {title}
+              </ButtonInvisible>
+            )}
+          </Box>
+        </Overlay>
+      )}
+    </>
   )
 }
