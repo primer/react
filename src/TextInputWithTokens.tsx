@@ -9,7 +9,7 @@ import {TokenSizeKeys} from './Token/TokenBase'
 import {TextInputProps} from './TextInput'
 import {useProvidedRefOrCreate} from './hooks'
 import UnstyledTextInput from './_UnstyledTextInput'
-import TextInputWrapper, {textInputHorizPadding} from './_TextInputWrapper'
+import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from './_TextInputWrapper'
 import Box from './Box'
 import Text from './Text'
 import {isFocusable} from '@primer/behaviors/utils'
@@ -42,7 +42,7 @@ type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactCompone
    */
   preventTokenWrapping?: boolean
   /**
-   * The size of the tokens
+   * The size of the tokens and text input
    */
   size?: TokenSizeKeys
   /**
@@ -82,7 +82,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     width: widthProp,
     minWidth: minWidthProp,
     maxWidth: maxWidthProp,
-    variant: variantProp,
+    validationStatus,
+    variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
     ...rest
   }: TextInputWithTokensInternalProps<TokenComponentType> & {
@@ -234,6 +235,12 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   }
 
   const visibleTokens = tokensAreTruncated ? tokens.slice(0, visibleTokenCount) : tokens
+  const inputSizeMap: Record<TokenSizeKeys, TextInputSizes> = {
+    small: 'small',
+    medium: 'small',
+    large: 'medium',
+    extralarge: 'medium'
+  }
 
   return (
     <TextInputWrapper
@@ -246,7 +253,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       width={widthProp}
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
-      variant={variantProp}
+      size={size && inputSizeMap[size]}
+      validationStatus={validationStatus}
+      variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
       sx={{
         paddingLeft: textInputHorizPadding,
@@ -306,6 +315,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             onKeyDown={handleInputKeyDown}
             type="text"
             sx={{height: '100%'}}
+            aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
             {...inputPropsRest}
           />
         </Box>

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": false, // IMPORTANT: Validates our type outputs
+    "target": "esnext",
+    "module": "commonjs",
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "preserve",
+    "declaration": true,
+    "noEmit": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["./*.tsx"]
+}
