@@ -13,7 +13,7 @@ import {ComponentChecklist} from '../src/component-checklist'
 
 <Note variant="warning">
 
-**Use [ChoiceInputField](/ChoiceInputField) to display an accessible checkbox form field**. This `Checkbox` component is intended only as an ingredient for other custom components, or as a drop-in replacement for native HTML checkboxes outside of form use-cases.
+**Use [FormControl](/FormControl) to display an accessible checkbox form field**. This `Checkbox` component is intended only as an ingredient for other custom components, or as a drop-in replacement for native HTML checkboxes outside of form use-cases.
 
 If you do use this component to build a custom checkbox, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
 
@@ -22,33 +22,24 @@ If you do use this component to build a custom checkbox, it should always be acc
 The `Checkbox` component can be used in controlled and uncontrolled modes.
 
 ```jsx live
-<>
-  <Box as="form" sx={{p: 3, pt: 0, display: 'flex', alignItems: 'center'}}>
+<form>
+  <FormControl>
     <Checkbox id="default-checkbox" />
-    <Text as="label" htmlFor="default-checkbox" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-      Default checkbox
-    </Text>
-  </Box>
-  <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'center'}}>
-    <Checkbox id="always-checked-checkbox" checked={true} />
-    <Text as="label" htmlFor="always-checked-checkbox" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-      Always checked
-    </Text>
-  </Box>
-  <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'center'}}>
-    <Checkbox id="always-unchecked-checkbox" checked={false} />
-    <Text as="label" htmlFor="always-unchecked-checkbox" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-      Always unchecked
-    </Text>
-  </Box>
-
-  <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'center'}}>
-    <Checkbox id="inactive-checkbox" checked={true} disabled />
-    <Text as="label" htmlFor="inactive-checkbox" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}}>
-      Inactive
-    </Text>
-  </Box>
-</>
+    <FormControl.Label>Default checkbox</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox id="always-checked-checkbox" checked />
+    <FormControl.Label>Always checked</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox id="always-unchecked-checkbox" />
+    <FormControl.Label>Always unchecked</FormControl.Label>
+  </FormControl>
+  <FormControl disabled>
+    <Checkbox id="inactive-checkbox" checked />
+    <FormControl.Label>Inactive</FormControl.Label>
+  </FormControl>
+</form>
 ```
 
 <Note variant="warning">
@@ -61,38 +52,28 @@ The `Checkbox` component can be used in controlled and uncontrolled modes.
 An `indeterminate` checkbox state should be used if the input value is neither true nor false. This can be useful in situations where you are required to display an incomplete state, or one that is dependent on other input selections to determine a value.
 
 ```jsx live
-<>
-  <Box as="form" sx={{p: 3, pt: 0, pb: 1, display: 'flex', alignItems: 'center'}}>
-    <Checkbox id="indeterminate-checkbox" onChange={() => {}} indeterminate={true} />
-    <Text as="label" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}} htmlFor="controlled-checkbox">
-      <Text sx={{display: 'block'}}>Default checkbox</Text>
-    </Text>
-  </Box>
-  <Box key={`sub-checkbox-0`} as="form" sx={{p: 1, pl: 6, display: 'flex', alignItems: 'center'}}>
-    <Checkbox id={`sub-checkbox-0`} checked={true} onChange={() => {}} />
-    <Text as="label" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}} htmlFor={`sub-checkbox-0`}>
-      <Text sx={{display: 'block'}}>Checkbox 1</Text>
-    </Text>
-  </Box>
-  <Box key={`sub-checkbox-1`} as="form" sx={{p: 1, pl: 6, display: 'flex', alignItems: 'center'}}>
-    <Checkbox id={`sub-checkbox-1`} checked={false} onChange={() => {}} />
-    <Text as="label" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}} htmlFor={`sub-checkbox-1`}>
-      <Text sx={{display: 'block'}}>Checkbox 2</Text>
-    </Text>
-  </Box>
-  <Box key={`sub-checkbox-2`} as="form" sx={{p: 1, pl: 6, display: 'flex', alignItems: 'center'}}>
-    <Checkbox id={`sub-checkbox-2`} checked={false} onChange={() => {}} />
-    <Text as="label" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}} htmlFor={`sub-checkbox-2`}>
-      <Text sx={{display: 'block'}}>Checkbox 3</Text>
-    </Text>
-  </Box>
-  <Box key={`sub-checkbox-3`} as="form" sx={{p: 1, pl: 6, display: 'flex', alignItems: 'center'}}>
-    <Checkbox id={`sub-checkbox-3`} checked={false} onChange={() => {}} />
-    <Text as="label" sx={{fontSize: 2, fontWeight: 'bold', marginLeft: 1}} htmlFor={`sub-checkbox-3`}>
-      <Text sx={{display: 'block'}}>Checkbox 4</Text>
-    </Text>
-  </Box>
-</>
+<form>
+  <FormControl>
+    <Checkbox onChange={() => {}} indeterminate={true} />
+    <FormControl.Label>Default checkbox</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox checked={true} onChange={() => {}} />
+    <FormControl.Label>Checkbox 1</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox checked={false} onChange={() => {}} />
+    <FormControl.Label>Checkbox 2</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox checked={false} onChange={() => {}} />
+    <FormControl.Label>Checkbox 3</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox checked={false} onChange={() => {}} />
+    <FormControl.Label>Checkbox 4</FormControl.Label>
+  </FormControl>
+</form>
 ```
 
 ## Props

@@ -1,5 +1,23 @@
 # @primer/components
 
+## 34.5.0
+
+### Minor Changes
+
+- [#1831](https://github.com/primer/react/pull/1831) [`96473f39`](https://github.com/primer/react/commit/96473f398bb0fe5f2eff1b3e8bb9110a009f1894) Thanks [@mperrotti](https://github.com/mperrotti)! - Makes validation styling available for Select and TextInputWithTokens
+
+* [#1836](https://github.com/primer/react/pull/1836) [`7e8ae653`](https://github.com/primer/react/commit/7e8ae653664796349358e80a7c5f585efe893707) Thanks [@mperrotti](https://github.com/mperrotti)! - Introduces FormControl component. The FormControl component combines the functionality of InputField and ChoiceInputField, and will replace FormGroup, InputField, and ChoiceInputField.
+
+### Patch Changes
+
+- [#1846](https://github.com/primer/react/pull/1846) [`65c405b6`](https://github.com/primer/react/commit/65c405b60c053cad4e9cb9b678d67459740764d6) Thanks [@colebemis](https://github.com/colebemis)! - PageLayout: Prevent content region from wrapping on wide viewports
+
+* [#1856](https://github.com/primer/react/pull/1856) [`3f405221`](https://github.com/primer/react/commit/3f405221c64abb90c1f3a54211b62a90e9354d98) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Revert "Overlay: Attach escape handler to overlay container"
+
+- [#1850](https://github.com/primer/react/pull/1850) [`fad43d67`](https://github.com/primer/react/commit/fad43d67bd82b51104c11900871be9132219e6f8) Thanks [@mperrotti](https://github.com/mperrotti)! - FormControl:
+  - Add `sx` prop
+  - Rename `appearance` prop to `variant`
+
 ## 34.4.0
 
 ### Minor Changes

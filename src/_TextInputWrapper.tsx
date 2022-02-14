@@ -4,6 +4,8 @@ import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 
+export type TextInputSizes = 'small' | 'medium' | 'large'
+
 const sizeDeprecatedVariants = variant({
   variants: {
     small: {
@@ -53,8 +55,8 @@ export type StyledWrapperProps = {
   hasLeadingVisual?: boolean
   hasTrailingVisual?: boolean
   /** @deprecated Use `size` prop instead */
-  variant?: 'small' | 'large'
-  size?: 'small' | 'large'
+  variant?: TextInputSizes
+  size?: TextInputSizes
 } & StyledBaseWrapperProps
 
 const textInputBasePadding = '12px'

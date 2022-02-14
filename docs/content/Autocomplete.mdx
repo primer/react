@@ -54,12 +54,10 @@ A function may be passed to the `filterFn` prop if this default filtering behavi
 ### Basic example
 
 ```jsx live
-<>
-  <Text fontWeight="bold" fontSize={1} as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-    Pick a branch
-  </Text>
+<FormControl>
+  <FormControl.Label>Pick a branch</FormControl.Label>
   <Autocomplete>
-    <Autocomplete.Input id="autocompleteInput-basic" />
+    <Autocomplete.Input />
     <Autocomplete.Overlay>
       <Autocomplete.Menu
         items={[
@@ -73,11 +71,10 @@ A function may be passed to the `filterFn` prop if this default filtering behavi
           {text: 'visual-design-tweaks', id: 7}
         ]}
         selectedItemIds={[]}
-        aria-labelledby="autocompleteLabel-basic"
       />
     </Autocomplete.Overlay>
   </Autocomplete>
-</>
+</FormControl>
 ```
 
 ### Autocomplete.Input with a custom text input
@@ -115,24 +112,10 @@ const CustomTextInputExample = () => {
   }
 
   return (
-    <>
-      <Text
-        fontWeight="bold"
-        fontSize={1}
-        as="label"
-        display="block"
-        htmlFor="autocompleteInput-customInput"
-        id="autocompleteLabel-customInput"
-      >
-        Pick options
-      </Text>
+    <FormControl>
+      <FormControl.Label>Pick options</FormControl.Label>
       <Autocomplete>
-        <Autocomplete.Input
-          as={TextInputWithTokens}
-          tokens={tokens}
-          onTokenRemove={onTokenRemove}
-          id="autocompleteInput-customInput"
-        />
+        <Autocomplete.Input as={TextInputWithTokens} tokens={tokens} onTokenRemove={onTokenRemove} />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
@@ -148,11 +131,10 @@ const CustomTextInputExample = () => {
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
             selectionVariant="multiple"
-            aria-labelledby="autocompleteLabel-customInput"
           />
         </Autocomplete.Overlay>
       </Autocomplete>
-    </>
+    </FormControl>
   )
 }
 
@@ -162,19 +144,10 @@ render(<CustomTextInputExample />)
 ### Without `Autocomplete.Overlay`
 
 ```jsx live
-<>
-  <Text
-    fontWeight="bold"
-    fontSize={1}
-    as="label"
-    display="block"
-    htmlFor="autocompleteInput-withoutOverlay"
-    id="autocompleteLabel-withoutOverlay"
-  >
-    Pick a branch
-  </Text>
+<FormControl>
+  <FormControl.Label>Pick a branch</FormControl.Label>
   <Autocomplete>
-    <Autocomplete.Input id="autocompleteInput-withoutOverlay" />
+    <Autocomplete.Input />
     <Autocomplete.Menu
       items={[
         {text: 'main', id: 0},
@@ -187,10 +160,9 @@ render(<CustomTextInputExample />)
         {text: 'visual-design-tweaks', id: 7}
       ]}
       selectedItemIds={[]}
-      aria-labelledby="autocompleteLabel-withoutOverlay"
     />
   </Autocomplete>
-</>
+</FormControl>
 ```
 
 #### Render items using `ActionList.Item` props
@@ -247,24 +219,14 @@ const CustomRenderedItemExample = () => {
   }
 
   return (
-    <>
-      <Text
-        fontWeight="bold"
-        fontSize={1}
-        as="label"
-        display="block"
-        htmlFor="autocompleteInput-issueLabels"
-        id="autocompleteLabel-issueLabels"
-      >
-        Pick labels
-      </Text>
+    <FormControl>
+      <FormControl.Label>Pick labels</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input
           as={TextInputWithTokens}
           tokens={tokens}
           tokenComponent={IssueLabelToken}
           onTokenRemove={onTokenRemove}
-          id="autocompleteInput-issueLabels"
         />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
@@ -289,7 +251,7 @@ const CustomRenderedItemExample = () => {
           />
         </Autocomplete.Overlay>
       </Autocomplete>
-    </>
+    </FormControl>
   )
 }
 
@@ -315,17 +277,8 @@ const CustomSortAfterMenuClose = () => {
     isItemSelected(itemIdA) === isItemSelected(itemIdB) ? 0 : isItemSelected(itemIdA) ? 1 : -1
 
   return (
-    <>
-      <Text
-        fontWeight="bold"
-        fontSize={1}
-        as="label"
-        display="block"
-        htmlFor="autocompleteInput-sortAfterClose"
-        id="autocompleteLabel-sortAfterClose"
-      >
-        Pick branches
-      </Text>
+    <FormControl>
+      <FormControl.Label>Pick branches</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput-sortAfterClose" />
         <Autocomplete.Overlay>
@@ -348,7 +301,7 @@ const CustomSortAfterMenuClose = () => {
           />
         </Autocomplete.Overlay>
       </Autocomplete>
-    </>
+    </FormControl>
   )
 }
 
@@ -368,17 +321,8 @@ const CustomSearchFilter = () => {
   const customFilterFn = item => item.text.includes(filterVal)
 
   return (
-    <>
-      <Text
-        fontWeight="bold"
-        fontSize={1}
-        as="label"
-        display="block"
-        htmlFor="autocompleteInput-customFilter"
-        id="autocompleteLabel-customFilter"
-      >
-        Pick a branch
-      </Text>
+    <FormControl>
+      <FormControl.Label>Pick a branch</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput-customFilter" onChange={handleChange} />
         <Autocomplete.Overlay>
@@ -399,7 +343,7 @@ const CustomSearchFilter = () => {
           />
         </Autocomplete.Overlay>
       </Autocomplete>
-    </>
+    </FormControl>
   )
 }
 
@@ -432,72 +376,55 @@ const InOverlayWithCustomScrollContainerRef = () => {
       side="inside-top"
       renderAnchor={props => <ButtonInvisible {...props}>Pick branches</ButtonInvisible>}
     >
-      <Box
-        as="label"
-        display="block"
-        htmlFor="autocompleteInput"
-        id="autocompleteLabel"
-        sx={{
-          // visually hides this label for sighted users
-          position: 'absolute',
-          width: '1px',
-          height: '1px',
-          padding: '0',
-          margin: '-1px',
-          overflow: 'hidden',
-          clip: 'rect(0, 0, 0, 0)',
-          whiteSpace: 'nowrap',
-          borderWidth: '0'
-        }}
-      >
-        Pick branches
-      </Box>
-      <Autocomplete>
-        <Box display="flex" flexDirection="column" height="100%">
-          <Box
-            paddingX="3"
-            paddingY="1"
-            borderWidth={0}
-            borderBottomWidth={1}
-            borderColor="border.default"
-            borderStyle="solid"
-          >
-            <Autocomplete.Input
-              block
-              as={TextInput}
-              ref={inputRef}
-              id="autocompleteInput"
-              sx={{
-                display: 'flex',
-                border: '0',
-                padding: '0',
-                boxShadow: 'none',
-                ':focus-within': {
+      <FormControl>
+        <FormControl.Label visuallyHidden>Pick branches</FormControl.Label>
+        <Autocomplete>
+          <Box display="flex" flexDirection="column" height="100%">
+            <Box
+              paddingX="3"
+              paddingY="1"
+              borderWidth={0}
+              borderBottomWidth={1}
+              borderColor="border.default"
+              borderStyle="solid"
+            >
+              <Autocomplete.Input
+                block
+                as={TextInput}
+                ref={inputRef}
+                id="autocompleteInput"
+                sx={{
+                  display: 'flex',
                   border: '0',
-                  boxShadow: 'none'
-                }
-              }}
-            />
+                  padding: '0',
+                  boxShadow: 'none',
+                  ':focus-within': {
+                    border: '0',
+                    boxShadow: 'none'
+                  }
+                }}
+              />
+            </Box>
+            <Box overflow="auto" flexGrow={1} ref={scrollContainerRef}>
+              <Autocomplete.Menu
+                items={[
+                  {text: 'main', id: 0},
+                  {text: 'autocomplete-tests', id: 1},
+                  {text: 'a11y-improvements', id: 2},
+                  {text: 'button-bug-fixes', id: 3},
+                  {text: 'radio-input-component', id: 4},
+                  {text: 'release-1.0.0', id: 5},
+                  {text: 'text-input-implementation', id: 6},
+                  {text: 'visual-design-tweaks', id: 7}
+                ]}
+                selectedItemIds={[]}
+                customScrollContainerRef={scrollContainerRef}
+                aria-labelledby="autocompleteLabel"
+              />
+            </Box>
           </Box>
-          <Box overflow="auto" flexGrow={1} ref={scrollContainerRef}>
-            <Autocomplete.Menu
-              items={[
-                {text: 'main', id: 0},
-                {text: 'autocomplete-tests', id: 1},
-                {text: 'a11y-improvements', id: 2},
-                {text: 'button-bug-fixes', id: 3},
-                {text: 'radio-input-component', id: 4},
-                {text: 'release-1.0.0', id: 5},
-                {text: 'text-input-implementation', id: 6},
-                {text: 'visual-design-tweaks', id: 7}
-              ]}
-              selectedItemIds={[]}
-              customScrollContainerRef={scrollContainerRef}
-              aria-labelledby="autocompleteLabel"
-            />
-          </Box>
-        </Box>
-      </Autocomplete>
+        </Autocomplete>
+      </FormControl>
     </AnchoredOverlay>
   )
 }
@@ -531,11 +458,9 @@ const MultiSelect = () => {
   const getItemById = id => items.find(item => item.id === id)
 
   return (
-    <Box display="flex" sx={{gap: '1em'}}>
-      <div>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-          Pick branches
-        </Box>
+    <Box display="flex" flexDirection="column" sx={{gap: '1em'}}>
+      <FormControl>
+        <FormControl.Label>Pick branches</FormControl.Label>
         <Autocomplete>
           <Autocomplete.Input id="autocompleteInput" />
           <Autocomplete.Overlay>
@@ -548,7 +473,7 @@ const MultiSelect = () => {
             />
           </Autocomplete.Overlay>
         </Autocomplete>
-      </div>
+      </FormControl>
       <div>
         <div>Selected items:</div>
         <Box as="ul" my={0}>
@@ -603,11 +528,9 @@ const MultiSelectAddNewItem = () => {
   }
 
   return (
-    <Box display="flex" sx={{gap: '1em'}}>
-      <div>
-        <Box as="label" display="block" htmlFor="autocompleteInput" id="autocompleteLabel">
-          Pick or add branches
-        </Box>
+    <Box display="flex" flexDirection="column" sx={{gap: '1em'}}>
+      <FormControl>
+        <FormControl.Label>Pick or add branches</FormControl.Label>
         <Autocomplete>
           <Autocomplete.Input onChange={handleChange} id="autocompleteInput" />
           <Autocomplete.Overlay>
@@ -635,7 +558,7 @@ const MultiSelectAddNewItem = () => {
             />
           </Autocomplete.Overlay>
         </Autocomplete>
-      </div>
+      </FormControl>
       <div>
         <div>Selected items:</div>
         <Box as="ul" my={0}>
