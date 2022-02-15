@@ -29,6 +29,12 @@ export const useOverlay = ({
   const overlayRef = useProvidedRefOrCreate<HTMLDivElement>(_overlayRef)
   useOpenAndCloseFocus({containerRef: overlayRef, returnFocusRef, initialFocusRef, preventFocusOnOpen})
   useOnOutsideClick({containerRef: overlayRef, ignoreClickRefs, onClickOutside})
-  useOnEscapePress(onEscape)
+
+  // We only want one overlay to close at a time
+  const preventedDefaultOnEscape: UseOverlaySettings['onEscape'] = event => {
+    onEscape(event)
+    event.preventDefault()
+  }
+  useOnEscapePress(preventedDefaultOnEscape)
   return {ref: overlayRef}
 }
