@@ -93,6 +93,6 @@ describe('Button', () => {
   it('styles icon only button to make it a square', async () => {
     const container = render(<IconButton icon={SearchIcon} iconLabel="Search icon only button" />)
     const IconOnlyButton = await container.findByRole('button')
-    expect(IconOnlyButton).toHaveStyleRule('padding-right', '7px')
+    expect(IconOnlyButton).toHaveStyleRule('padding-right', '8px')
   })
 })

@@ -152,6 +152,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
   return style[variant]
 }
 
+/* The button heights have to amount to 
+  small - 28
+  medium - 32
+  large - 34
+  In icon these have to be square.
+*/
 export const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
   let paddingY, paddingX, fontSize
   switch (size) {
@@ -172,10 +178,10 @@ export const getSizeStyles = (size = 'medium', variant: VariantType = 'default',
       fontSize = 1
   }
   if (iconOnly) {
-    paddingX = paddingY + 2
+    paddingX = paddingY + 3 // to make it a square
   }
   if (variant === 'invisible') {
-    paddingY = paddingY + 1
+    paddingY = paddingY + 1 // to make up for absence of border
   }
   return {
     paddingY: `${paddingY}px`,
