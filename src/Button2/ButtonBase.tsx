@@ -26,7 +26,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
             <LeadingIcon />
           </Box>
         )}
-        <span data-component="text">{children}</span>
+        {children && <span data-component="text">{children}</span>}
         {TrailingIcon && (
           <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles, ml: 2}}>
             <TrailingIcon />
