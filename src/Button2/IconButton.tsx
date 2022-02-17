@@ -18,9 +18,11 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
   ])
   return (
     <StyledButton aria-labelledby={iconLabelId} sx={sxStyles} {...rest} ref={forwardedRef}>
-      <span id={iconLabelId} hidden={true}>
-        {iconLabel}
-      </span>
+      {iconLabel && (
+        <span id={iconLabelId} hidden={true}>
+          {iconLabel}
+        </span>
+      )}
       <Box as="span" sx={{display: 'inline-block'}}>
         <Icon />
       </Box>
