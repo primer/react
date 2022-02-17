@@ -1,4 +1,4 @@
-import React, {ComponentProps} from 'react'
+import React from 'react'
 import {Box, useSSRSafeId} from '..'
 import createSlots from '../utils/create-slots'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -127,7 +127,6 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   )
 }
 
-export type InputFieldComponentProps = ComponentProps<typeof ChoiceFieldset>
 export type {ChoiceFieldsetListProps} from './ChoiceFieldsetList'
 export type {ChoiceFieldsetLegendProps} from './ChoiceFieldsetLegend'
 export type {ChoiceFieldProps} from './ChoiceFieldsetListItem'
