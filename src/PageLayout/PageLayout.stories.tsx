@@ -1,6 +1,7 @@
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
+import {Box, BranchName, Heading, Link, SideNav, StateLabel, TabNav, Text} from '..'
+import {Button} from '../drafts'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
 
@@ -292,7 +293,54 @@ export const PullRequestPage = () => (
   </PageLayout>
 )
 
+export const SettingsPage = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      {/* TODO: Replace with NavigationList when it's ready */}
+      <SideNav bordered aria-label="Main">
+        <SideNav.Link href="#">
+          <Text>Profile</Text>
+        </SideNav.Link>
+        <SideNav.Link selected href="#">
+          <Text>Account</Text>
+        </SideNav.Link>
+        <SideNav.Link href="#">
+          <Text>Emails</Text>
+        </SideNav.Link>
+        <SideNav.Link href="#">
+          <Text>Notifications</Text>
+        </SideNav.Link>
+      </SideNav>
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Heading as="h2" sx={{fontSize: 4, fontWeight: 'normal', color: 'danger.fg', mb: 2}}>
+        Danger zone
+      </Heading>
+      <Box
+        sx={{
+          border: '1px solid',
+          borderColor: 'danger.emphasis',
+          borderRadius: 2,
+          p: 3,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 3
+        }}
+      >
+        <Box sx={{display: 'grid', gap: 1}}>
+          <Text sx={{fontSize: 1, fontWeight: 'bold', color: 'danger.fg'}}>Delete account</Text>
+          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+            Are you sure you don&apos;t want to just downgrade your account to a free account? We won&apos;t charge your
+            credit card anymore.
+          </Text>
+        </Box>
+        <Button variant="danger">Delete account</Button>
+      </Box>
+    </PageLayout.Content>
+  </PageLayout>
+)
+
 // TODO: discussions page example
-// TODO: settings page example
 
 export default meta

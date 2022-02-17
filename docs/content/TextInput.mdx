@@ -115,7 +115,11 @@ TextInput is a form component to add default styling to the native text input.
   type={<>string | React.ComponentType</>}
   description="Visual positioned on the right edge inside the input"
 />
-<PropsTableRow name="validationStatus" type="'warning' | 'error'" description="Style the input to match the status" />
+<PropsTableRow
+  name="validationStatus"
+  type="'error' | 'success' | 'warning'"
+  description="Style the input to match the status"
+/>
 
 <PropsTableRow
   name="variant"

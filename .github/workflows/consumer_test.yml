@@ -1,0 +1,51 @@
+name: Consumer test
+on:
+  push: {branches: main}
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  consumer-test:
+    name: Consumer test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: npm
+
+      # `prepare` is a special case in `npm` and likes to run all the time, even
+      # with `--ignore-scripts` and even when using `npm link @primer/react
+      # --ignore-scripts`. This just removes it entirely for the duration of
+      # this workflow.
+      - name: Remove "prepare" script
+        run: npm pkg delete scripts.prepare
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Install only production dependencies
+        run: npm ci --production
+
+      - name: Link
+        run: npm link
+
+      - name: Link and test
+        id: link-and-test
+        working-directory: consumer-test
+        run: |
+          npm install
+          npm link @primer/react
+          npm run check
+
+      - name: Add annotation
+        if: failure() && steps.link-and-test.conclusion == 'failure'
+        run: |
+          echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/consumer-test"

@@ -273,6 +273,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -282,6 +283,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -552,6 +554,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -561,6 +564,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -844,6 +848,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -853,6 +858,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -1322,6 +1328,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  min-height: 28px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  line-height: 20px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -1516,6 +1529,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="small"
 >
   <div
     className="c1"
@@ -1525,6 +1539,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -1994,6 +2009,13 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  min-height: 28px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 12px;
+  line-height: 20px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -2188,6 +2210,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="small"
 >
   <div
     className="c1"
@@ -2197,6 +2220,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -2860,6 +2884,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -2869,6 +2894,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -3532,6 +3558,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -3541,6 +3568,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -4206,6 +4234,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -4215,6 +4244,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -4826,6 +4856,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -4835,6 +4866,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -5258,6 +5290,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -5267,6 +5300,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -5935,6 +5969,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -5944,6 +5979,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -6479,6 +6515,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 <span
   className="c0"
   onClick={[Function]}
+  size="medium"
 >
   <div
     className="c1"
@@ -6488,6 +6525,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
       className="c2"
     >
       <input
+        aria-invalid="false"
         className="c3"
         onBlur={[Function]}
         onFocus={[Function]}

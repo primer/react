@@ -11,7 +11,7 @@ storybook: '/react/storybook?path=/story/forms-radio-button--default'
 
 <Note variant="warning">
 
-**Use [ChoiceInputField](/ChoiceInputField) to render a standard radio input field.** This component is only meant to be used in the case that you're building a custom radio that is not yet supported by Primer (For example: the color mode selection in [Appearance settings](https://github.com/settings/appearance))
+**Use [FormControl](/FormControl) to render a standard radio input field.** This component is only meant to be used in the case that you're building a custom radio that is not yet supported by Primer (For example: the color mode selection in [Appearance settings](https://github.com/settings/appearance))
 
 If you do use this component to build a custom radio, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
 
@@ -39,30 +39,22 @@ If you're not building something custom, you should use the [ChoiceFieldset](/Ch
 
 ```jsx live
 <form>
-  <Box sx={{p: 1, display: 'flex', alignItems: 'center'}}>
-    <Radio id="radio-0" value="1" name="radio-example" />
-    <Text as="label" htmlFor="radio-0" sx={{fontSize: 1, marginLeft: 1}}>
-      <Text sx={{display: 'block'}}>Radio 1</Text>
-    </Text>
-  </Box>
-  <Box sx={{p: 1, display: 'flex', alignItems: 'center'}}>
-    <Radio id="radio-1" value="2" name="radio-example" />
-    <Text as="label" htmlFor="radio-1" sx={{fontSize: 1, marginLeft: 1}}>
-      <Text sx={{display: 'block'}}>Radio 2</Text>
-    </Text>
-  </Box>
-  <Box sx={{p: 1, display: 'flex', alignItems: 'center'}}>
-    <Radio id="radio-2" value="3" name="radio-example" />
-    <Text as="label" htmlFor="radio-2" sx={{fontSize: 1, marginLeft: 1}}>
-      <Text sx={{display: 'block'}}>Radio 3</Text>
-    </Text>
-  </Box>
-  <Box sx={{p: 1, display: 'flex', alignItems: 'center'}}>
-    <Radio id="radio-3" value="4" name="radio-example" />
-    <Text as="label" htmlFor="radio-3" sx={{fontSize: 1, marginLeft: 1}}>
-      <Text sx={{display: 'block'}}>Radio 4</Text>
-    </Text>
-  </Box>
+  <FormControl>
+    <Radio value="1" name="radio-example" />
+    <FormControl.Label>Radio 1</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Radio value="2" name="radio-example" />
+    <FormControl.Label>Radio 2</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Radio value="3" name="radio-example" />
+    <FormControl.Label>Radio 3</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Radio value="4" name="radio-example" />
+    <FormControl.Label>Radio 4</FormControl.Label>
+  </FormControl>
 </form>
 ```
 
