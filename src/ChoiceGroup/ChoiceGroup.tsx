@@ -1,5 +1,5 @@
-import React, {ComponentProps} from 'react'
-import {Box, Checkbox, FormControl, Radio, useSSRSafeId} from '..' // Checkbox, FormControl, Radio,
+import React from 'react'
+import {Box, Checkbox, FormControl, Radio, useSSRSafeId} from '..'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import ChoiceGroupCaption from './_ChoiceGroupCaption'
 import ChoiceGroupLabel from './_ChoiceGroupLabel'
@@ -7,7 +7,6 @@ import ChoiceGroupValidation from './_ChoiceGroupValidation'
 import {Slots} from './slots'
 import styled from 'styled-components'
 import {get} from '../constants'
-import {expectedInputComponents} from '../expectedInputComponents'
 import ChoiceGroupContext from './_ChoiceGroupContext'
 import VisuallyHidden from '../_VisuallyHidden'
 import {SxProp} from '../sx'
@@ -57,6 +56,7 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
   required,
   sx
 }) => {
+  const expectedInputComponents = [Checkbox, Radio]
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === ChoiceGroupLabel
   )
@@ -77,14 +77,11 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
       )
       .flat()
 
-    return React.Children.toArray(formControlComponentChildren)
-      .filter(child =>
+    return Boolean(
+      React.Children.toArray(formControlComponentChildren).find(child =>
         expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)
       )
-      .every(
-        inputComponent =>
-          React.isValidElement(inputComponent) && (inputComponent.type === Checkbox || inputComponent.type === Radio)
-      )
+    )
   }
 
   if (!checkIfOnlyContainsChoiceInputs()) {
@@ -180,7 +177,6 @@ ChoiceGroup.defaultProps = {
   required: false
 }
 
-export type InputFieldComponentProps = ComponentProps<typeof ChoiceGroup>
 export type {ChoiceGroupLabelProps} from './_ChoiceGroupLabel'
 export default Object.assign(ChoiceGroup, {
   Caption: ChoiceGroupCaption,
