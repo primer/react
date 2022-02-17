@@ -82,11 +82,7 @@ exports[`Button renders consistently 1`] = `
 
 <button
   className="c0"
->
-  <span
-    data-component="text"
-  />
-</button>
+/>
 `;
 
 exports[`Button styles danger button appropriately 1`] = `
