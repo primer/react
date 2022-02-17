@@ -95,8 +95,8 @@ render(DifferentInputs)
 
 ```jsx live
 <Box display="grid" sx={{gap: 3}}>
-  <CheckboxGroup>
-    <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
+  <ChoiceGroup>
+    <ChoiceGroup.Label>Checkboxes</ChoiceGroup.Label>
     <FormControl>
       <Checkbox value="checkOne" />
       <FormControl.Label>Checkbox one</FormControl.Label>
@@ -109,10 +109,10 @@ render(DifferentInputs)
       <Checkbox value="checkThree" />
       <FormControl.Label>Checkbox three</FormControl.Label>
     </FormControl>
-  </CheckboxGroup>
+  </ChoiceGroup>
 
-  <RadioGroup>
-    <RadioGroup.Label>Radios</RadioGroup.Label>
+  <ChoiceGroup>
+    <ChoiceGroup.Label>Radios</ChoiceGroup.Label>
     <FormControl>
       <Radio name="radioChoices" value="radioOne" />
       <FormControl.Label>Radio one</FormControl.Label>
@@ -125,7 +125,7 @@ render(DifferentInputs)
       <Radio name="radioChoices" value="radioThree" />
       <FormControl.Label>Radio three</FormControl.Label>
     </FormControl>
-  </RadioGroup>
+  </ChoiceGroup>
 </Box>
 ```
 
