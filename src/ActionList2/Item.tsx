@@ -112,7 +112,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
 
     /** Infer item role based on the container */
     let itemRole: ItemProps['role']
-    if (container === 'ActionMenu') {
+    if (container === 'ActionMenu' || container === 'DropdownMenu') {
       if (selectionVariant === 'single') itemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
       else itemRole = 'menuitem'

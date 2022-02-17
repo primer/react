@@ -9,5 +9,6 @@
 export * from '../ActionList2'
 export * from '../Button2'
 export * from '../ActionMenu2'
+export * from '../DropdownMenu2'
 export * from '../Label2'
 export * from '../PageLayout'

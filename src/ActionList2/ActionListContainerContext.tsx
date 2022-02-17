@@ -5,6 +5,7 @@ import React from 'react'
 type ContextProps = {
   container?: string
   listRole?: string
+  selectionVariant?: 'single' | 'multiple' // TODO: Remove after DropdownMenu2 deprecation
   selectionAttribute?: 'aria-selected' | 'aria-checked'
   listLabelledBy?: string
   // This can be any function, we don't know anything about the arguments
