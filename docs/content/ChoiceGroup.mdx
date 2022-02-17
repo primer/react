@@ -16,21 +16,39 @@ A `ChoiceGroup` is used to render a related set of checkbox or radio inputs.
 ### Basic
 
 ```jsx live
-<ChoiceGroup>
-  <ChoiceGroup.Label>Choices</ChoiceGroup.Label>
-  <FormControl>
-    <Radio name="radioInput" value="choiceOne" />
-    <FormControl.Label>Choice one</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Radio name="radioInput" value="choiceTwo" />
-    <FormControl.Label>Choice two</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Radio name="radioInput" value="choiceThree" />
-    <FormControl.Label>Choice three</FormControl.Label>
-  </FormControl>
-</ChoiceGroup>
+<Box display="grid" sx={{gap: 3}}>
+  <ChoiceGroup>
+    <ChoiceGroup.Label>Checkboxes</ChoiceGroup.Label>
+    <FormControl>
+      <Checkbox value="checkOne" />
+      <FormControl.Label>Checkbox one</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="checkTwo" />
+      <FormControl.Label>Checkbox two</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="checkThree" />
+      <FormControl.Label>Checkbox three</FormControl.Label>
+    </FormControl>
+  </ChoiceGroup>
+
+  <ChoiceGroup>
+    <ChoiceGroup.Label>Radios</ChoiceGroup.Label>
+    <FormControl>
+      <Radio name="radioChoices" value="radioOne" />
+      <FormControl.Label>Radio one</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio name="radioChoices" value="radioTwo" />
+      <FormControl.Label>Radio two</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio name="radioChoices" value="radioThree" />
+      <FormControl.Label>Radio three</FormControl.Label>
+    </FormControl>
+  </ChoiceGroup>
+</Box>
 ```
 
 ### Using onChange handlers
@@ -107,26 +125,6 @@ const WithOnChangeHandlers = () => {
 }
 
 render(<WithOnChangeHandlers />)
-```
-
-### Checkbox group
-
-```jsx live
-<ChoiceGroup>
-  <ChoiceGroup.Label>Choices</ChoiceGroup.Label>
-  <FormControl>
-    <Checkbox />
-    <FormControl.Label>Choice one</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Checkbox />
-    <FormControl.Label>Choice two</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Checkbox />
-    <FormControl.Label>Choice three</FormControl.Label>
-  </FormControl>
-</ChoiceGroup>
 ```
 
 ### Disabled
