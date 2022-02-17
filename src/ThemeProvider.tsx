@@ -50,7 +50,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
 
   const resolvedColorModePassthrough = React.useRef(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore of course this doesn't exist on window it's a custom variable
+    // @ts-ignore This custom variable does not exist on window because we set it outselves
     typeof window !== 'undefined' ? window.__PRIMER_RESOLVED_SERVER_COLOR_MODE : undefined
   )
 
@@ -65,30 +65,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
     [theme, colorScheme]
   )
 
-  // eslint-disable-next-line no-console
-  console.log({
-    colorMode,
-    resolvedColorMode: resolveColorMode(colorMode, systemColorMode),
-    resolvedColorModePassthrough: resolvedColorModePassthrough.current
-  })
-
   // this effect will only run on client
   React.useEffect(
     function updateColorModeAfterServerPassthorugh() {
       const resolvedColorModeOnClient = resolveColorMode(colorMode, systemColorMode)
 
       if (resolvedColorModePassthrough.current) {
-        // eslint-disable-next-line no-console
-        console.log('effect running', {
-          resolvedColorModeOnClient,
-          resolvedColorModePassthrough: resolvedColorModePassthrough.current
-        })
-
         // if the resolved color mode passed on from the server is not the resolved color mode on client, change it!
         if (resolvedColorModePassthrough.current !== resolvedColorModeOnClient) {
           window.setTimeout(() => {
-            // eslint-disable-next-line no-console
-            console.log('fixing color mode')
             // override colorMode to whatever is resolved on the client to get a re-render
             setColorMode(resolvedColorModeOnClient)
             // immediately after that, set the colorMode to what the user passed to respond to system color mode changes
@@ -100,7 +85,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
       }
     },
     [colorMode, systemColorMode]
-  ) // Update state if props change
+  )
 
   // Update state if props change
   React.useEffect(() => {
