@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, Checkbox, FormControl, Radio, ThemeProvider} from '../../'
 import ChoiceGroup from '../../ChoiceGroup'
 import {ComponentProps} from '../../utils/types'
+import CheckboxGroup from '../../CheckboxGroup'
 
 type Args = ComponentProps<typeof ChoiceGroup>
 
@@ -51,21 +52,26 @@ export const RadioChoiceGroup = (args: Args) => (
 RadioChoiceGroup.storyName = 'Radio group (default)'
 
 export const CheckboxChoiceGroup = (args: Args) => (
-  <ChoiceGroup {...args}>
-    <ChoiceGroup.Label>Choices</ChoiceGroup.Label>
+  <CheckboxGroup
+    {...args}
+    onChange={(selected, e) => {
+      console.log(selected, e)
+    }}
+  >
+    <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="choiceOne" />
       <FormControl.Label>Choice one</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="choiceTwo" />
       <FormControl.Label>Choice two</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="choiceThree" />
       <FormControl.Label>Choice three</FormControl.Label>
     </FormControl>
-  </ChoiceGroup>
+  </CheckboxGroup>
 )
 CheckboxChoiceGroup.parameters = {controls: {exclude: ['id', 'selectionVariant']}}
 CheckboxChoiceGroup.storyName = 'Checkbox group'
