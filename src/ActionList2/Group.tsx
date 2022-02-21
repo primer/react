@@ -47,8 +47,6 @@ export const Group: React.FC<GroupProps> = ({
   const labelId = useSSRSafeId()
   const {role: listRole} = React.useContext(ListContext)
 
-  console.log({listRole})
-
   return (
     <Box
       as="li"
