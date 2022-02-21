@@ -7,7 +7,8 @@ import Box, {BoxProps} from '../Box'
 import sx, {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
-import {ListContext} from './List'
+import {ListContext, ListProps} from './List'
+import {GroupContext, GroupProps} from './Group'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Selection} from './Selection'
 
@@ -101,8 +102,21 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     },
     forwardedRef
   ): JSX.Element => {
-    const {variant: listVariant, showDividers} = React.useContext(ListContext)
-    const {itemRole, afterSelect, selectionAttribute = 'aria-selected'} = React.useContext(ActionListContainerContext)
+    const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
+    const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+    const {container, afterSelect, selectionAttribute = 'aria-selected'} = React.useContext(ActionListContainerContext)
+
+    let selectionVariant: ListProps['selectionVariant'] | GroupProps['selectionVariant']
+    if (typeof groupSelectionVariant !== 'undefined') selectionVariant = groupSelectionVariant
+    else selectionVariant = listSelectionVariant
+
+    /** Infer item role based on the container */
+    let itemRole: ItemProps['role']
+    if (container === 'ActionMenu' || container === 'DropdownMenu') {
+      if (selectionVariant === 'single') itemRole = 'menuitemradio'
+      else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
+      else itemRole = 'menuitem'
+    }
 
     const {theme} = useTheme()
 

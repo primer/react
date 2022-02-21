@@ -108,7 +108,7 @@ export function SingleSelection(): JSX.Element {
     <>
       <h1>Single Selection</h1>
 
-      <p>This pattern appears inside a nested DropdownMenu in Memex view options.</p>
+      <p>This pattern appears inside a nested menu in Memex view options.</p>
 
       <ActionList aria-label="Group items by" selectionVariant="single" role="listbox">
         {options.map((option, index) => (
@@ -266,7 +266,7 @@ export function MixedSelection(): JSX.Element {
 
       <p>
         In this list, there is a ActionList.Group with single selection for picking one option, followed by a Item that
-        is an action. This pattern appears inside a DropdownMenu for selection view options in Memex
+        is an action. This pattern appears inside a menu for selection view options in Memex
       </p>
 
       <ActionList>
