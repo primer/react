@@ -96,36 +96,6 @@ describe('DropdownMenu', () => {
     cleanup()
   })
 
-  it('should throw when selectionVariant=multiple is provided to ActionList within DropdownMenu', async () => {
-    // we expect console.error to be called, so we suppress that in the test
-    const mockError = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
-
-    expect(() => {
-      const component = HTMLRender(
-        <ThemeProvider theme={theme}>
-          <SSRProvider>
-            <BaseStyles>
-              <DropdownMenu>
-                <DropdownMenu.Button>Select a field</DropdownMenu.Button>
-                <DropdownMenu.Overlay>
-                  <ActionList selectionVariant="multiple">
-                    <ActionList.Item selected={true}>Primer React</ActionList.Item>
-                  </ActionList>
-                </DropdownMenu.Overlay>
-              </DropdownMenu>
-            </BaseStyles>
-          </SSRProvider>
-        </ThemeProvider>
-      )
-
-      const button = component.getByText('Select a field')
-      fireEvent.click(button)
-    }).toThrow('selectionVariant multiple cannot be used in DropdownMenu')
-
-    cleanup()
-    mockError.mockRestore()
-  })
-
   checkStoriesForAxeViolations('DropdownMenu2/fixtures')
   checkStoriesForAxeViolations('DropdownMenu2/examples')
 })

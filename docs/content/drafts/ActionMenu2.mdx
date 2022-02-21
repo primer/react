@@ -175,6 +175,44 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 </ActionMenu>
 ```
 
+### With selection
+
+Use `selectionVariant` on `ActionList` to create a menu with single or multiple selection.
+
+```javascript live noinline drafts
+const fieldTypes = [
+  {icon: TypographyIcon, name: 'Text'},
+  {icon: NumberIcon, name: 'Number'},
+  {icon: CalendarIcon, name: 'Date'},
+  {icon: SingleSelectIcon, name: 'Single select'},
+  {icon: IterationsIcon, name: 'Iteration'}
+]
+
+const Example = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState(1)
+  const selectedType = fieldTypes[selectedIndex]
+
+  return (
+    <ActionMenu>
+      <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+        {selectedType.name}
+      </ActionMenu.Button>
+      <ActionMenu.Overlay width="medium">
+        <ActionList selectionVariant="single">
+          {fieldTypes.map((type, index) => (
+            <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+              <type.icon /> {type.name}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+}
+
+render(<Example />)
+```
+
 ### With External Anchor
 
 To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor:
@@ -241,12 +279,6 @@ render(
 )
 ```
 
-<Note variant="warning">
-
-Use `ActionMenu` to choose an action from a list. If you’re looking for single or multiple selection, use [DropdownMenu](/DropdownMenu) or [SelectPanel](/SelectPanel) instead.
-
-</Note>
-
 ## Props / API reference
 
 ### ActionMenu
@@ -305,6 +337,5 @@ Use `ActionMenu` to choose an action from a list. If you’re looking for single
 ## Related components
 
 - [ActionList](/drafts/ActionList2)
-- [DropdownMenu](/DropdownMenu)
 - [SelectPanel](/SelectPanel)
 - [Button](/drafts/Button2)

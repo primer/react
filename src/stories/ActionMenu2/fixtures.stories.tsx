@@ -1,16 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider} from '../..'
-import BaseStyles from '../../BaseStyles'
-import {ActionMenu} from '../../ActionMenu2'
-import {ActionList} from '../../ActionList2'
-import {Button} from '../../Button2'
-import {IconButton} from '../../Button2/IconButton'
-import Box from '../../Box'
-import Text from '../../Text'
-import TextInput from '../../TextInput'
-import StyledOcticon from '../../StyledOcticon'
-import FormGroup from '../../FormGroup'
+import {ThemeProvider, BaseStyles, Box, Text, TextInput, StyledOcticon, FormGroup} from '../..'
+import {ActionMenu, ActionList, Button, IconButton} from '../../drafts'
 import {
   ServerIcon,
   PlusCircleIcon,
@@ -25,6 +16,11 @@ import {
   SearchIcon,
   VersionsIcon,
   TableIcon,
+  CalendarIcon,
+  IterationsIcon,
+  NumberIcon,
+  SingleSelectIcon,
+  TypographyIcon,
   IconProps
 } from '@primer/octicons-react'
 
@@ -86,7 +82,6 @@ export function ActionsStory(): JSX.Element {
     </>
   )
 }
-ActionsStory.storyName = 'Actions'
 
 export function ExternalAnchor(): JSX.Element {
   const [actionFired, fireAction] = React.useState('')
@@ -133,7 +128,6 @@ export function ExternalAnchor(): JSX.Element {
     </>
   )
 }
-ExternalAnchor.storyName = 'External Anchor'
 
 export function ControlledMenu(): JSX.Element {
   const [actionFired, fireAction] = React.useState('')
@@ -191,7 +185,6 @@ export function ControlledMenu(): JSX.Element {
     </>
   )
 }
-ControlledMenu.storyName = 'Controlled Menu'
 
 export function CustomAnchor(): JSX.Element {
   const [actionFired, fireAction] = React.useState('')
@@ -233,7 +226,6 @@ export function CustomAnchor(): JSX.Element {
     </>
   )
 }
-CustomAnchor.storyName = 'Custom Anchor'
 
 export function MemexTableMenu(): JSX.Element {
   const [name, setName] = React.useState('Estimate')
@@ -297,7 +289,6 @@ export function MemexTableMenu(): JSX.Element {
     </>
   )
 }
-MemexTableMenu.storyName = 'Memex Table Menu'
 
 /* copied from github/memex */
 const LayoutToggleItem = ({
@@ -408,19 +399,15 @@ export function MemexViewOptionsMenu(): JSX.Element {
           React
         </Text>
         <ActionMenu open={open} onOpenChange={setOpen}>
-          <ActionMenu.Button
-            aria-label="Open View options menu"
-            sx={{
-              p: 0,
-              width: 18,
-              height: 18,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <TriangleDownIcon />
-          </ActionMenu.Button>
+          <ActionMenu.Anchor aria-label="Open View options menu">
+            <IconButton
+              icon={TriangleDownIcon}
+              sx={{
+                padding: '0 1px',
+                lineHeight: '18px'
+              }}
+            />
+          </ActionMenu.Anchor>
 
           <ActionMenu.Overlay width="medium">
             <ActionList>
@@ -495,7 +482,105 @@ export function MemexViewOptionsMenu(): JSX.Element {
     </>
   )
 }
-MemexViewOptionsMenu.storyName = 'Memex View Options Menu'
+
+export function MemexIteration(): JSX.Element {
+  const [duration, setDuration] = React.useState(1)
+
+  return (
+    <>
+      <h1>Memex Iteration Menu</h1>
+
+      <ActionMenu>
+        <ActionMenu.Button
+          variant="invisible"
+          sx={{
+            fontWeight: 'normal',
+            color: 'fg.muted',
+            ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
+          }}
+          aria-label="Select iteration duration"
+        >
+          {duration} {duration > 1 ? 'weeks' : 'week'}
+        </ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="single">
+            {[1, 2, 3, 4, 5, 6].map(weeks => (
+              <ActionList.Item key={weeks} selected={duration === weeks} onSelect={() => setDuration(weeks)}>
+                {weeks} {weeks > 1 ? 'weeks' : 'week'}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
+
+const fieldTypes = [
+  {icon: TypographyIcon, name: 'Text'},
+  {icon: NumberIcon, name: 'Number'},
+  {icon: CalendarIcon, name: 'Date'},
+  {icon: SingleSelectIcon, name: 'Single select'},
+  {icon: IterationsIcon, name: 'Iteration'}
+]
+
+export function MemexAddColumn(): JSX.Element {
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const selectedType = fieldTypes[selectedIndex]
+
+  const [duration, setDuration] = React.useState(1)
+
+  return (
+    <>
+      <h1>Memex Add column</h1>
+
+      <Box as="form" sx={{display: 'flex', flexDirection: 'column', width: 200}}>
+        <TextInput defaultValue="Estimate" aria-label="Field Name" sx={{mb: 2}} />
+        <ActionMenu>
+          <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+            {selectedType.name}
+          </ActionMenu.Button>
+          <ActionMenu.Overlay width="medium">
+            <ActionList selectionVariant="single">
+              {fieldTypes.map((type, index) => (
+                <ActionList.Item
+                  key={index}
+                  selected={index === selectedIndex}
+                  onSelect={() => setSelectedIndex(index)}
+                >
+                  {type.icon} {type.name}
+                </ActionList.Item>
+              ))}
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+        <Text sx={{fontSize: 0, color: 'fg.muted', mt: 3, mb: 1}}>Options</Text>
+
+        <Box sx={{display: 'flex', alignItems: 'center'}}>
+          <Text sx={{fontSize: 1}}>Duration:</Text>
+          <ActionMenu>
+            <ActionMenu.Button
+              id="duration"
+              aria-label="Select field type"
+              sx={{textAlign: 'left', ml: 2, flexGrow: 1}}
+            >
+              {duration} {duration > 1 ? 'weeks' : 'week'}
+            </ActionMenu.Button>
+            <ActionMenu.Overlay width="medium">
+              <ActionList selectionVariant="single">
+                {[1, 2, 3, 4, 5, 6].map(weeks => (
+                  <ActionList.Item key={weeks} selected={duration === weeks} onSelect={() => setDuration(weeks)}>
+                    {weeks} {weeks > 1 ? 'weeks' : 'week'}
+                  </ActionList.Item>
+                ))}
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Box>
+      </Box>
+    </>
+  )
+}
 
 export function OverlayProps(): JSX.Element {
   const [open, setOpen] = React.useState(false)
@@ -534,30 +619,7 @@ export function OverlayProps(): JSX.Element {
       </ActionMenu>
       <br />
       <br />
-      <TextInput type="text" ref={inputRef} placeholder="random input to return focus to" />
+      <TextInput type="text" ref={inputRef} placeholder="Random input to return focus to" sx={{width: 280}} />
     </>
   )
 }
-OverlayProps.storyName = 'Overlay Props'
-
-export function UnexpectedSelectionVariant(): JSX.Element {
-  return (
-    <>
-      <h1>Expect error if selectionVariant is passed</h1>
-
-      <ActionMenu>
-        <ActionMenu.Button>Menu</ActionMenu.Button>
-        <ActionMenu.Overlay>
-          <ActionList selectionVariant="multiple">
-            <ActionList.Item>Copy link</ActionList.Item>
-            <ActionList.Item>Quote reply</ActionList.Item>
-            <ActionList.Item>Edit comment</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item variant="danger">Delete file</ActionList.Item>
-          </ActionList>
-        </ActionMenu.Overlay>
-      </ActionMenu>
-    </>
-  )
-}
-UnexpectedSelectionVariant.storyName = 'Unexpected selectionVariant'

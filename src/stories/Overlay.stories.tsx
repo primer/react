@@ -23,7 +23,7 @@ import {
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import {DropdownMenu as DropdownMenu2, ActionList as ActionList2} from '../drafts'
+import {ActionMenu, ActionList as ActionList2} from '../drafts'
 import {ItemInput} from '../ActionList/List'
 
 export default {
@@ -362,20 +362,20 @@ export const MemexNestedOverlays = () => {
                 Duration:
               </Text>
               <TextInput defaultValue={2} />
-              <DropdownMenu2>
-                <DropdownMenu2.Button sx={{width: 200}} aria-label="Change duration unit">
+              <ActionMenu>
+                <ActionMenu.Button sx={{width: 200}} aria-label="Change duration unit">
                   {duration}
-                </DropdownMenu2.Button>
-                <DropdownMenu2.Overlay>
-                  <ActionList2>
+                </ActionMenu.Button>
+                <ActionMenu.Overlay>
+                  <ActionList2 selectionVariant="single">
                     {durations.map(item => (
                       <ActionList2.Item key={item} selected={item === duration} onSelect={() => setDuration(item)}>
                         {item}
                       </ActionList2.Item>
                     ))}
                   </ActionList2>
-                </DropdownMenu2.Overlay>
-              </DropdownMenu2>
+                </ActionMenu.Overlay>
+              </ActionMenu>
             </Box>
             <ActionList.Divider />
             <Box sx={{display: 'flex', justifyContent: 'flex-end', px: 2, gap: 1}}>
