@@ -190,8 +190,8 @@ export function Groups(): JSX.Element {
 
       <p>Grouped content with labels and description. This patterns appears in pull requests to pick a reviewer.</p>
 
-      <ActionList selectionVariant="multiple" showDividers aria-label="Select reviewers">
-        <ActionList.Group title="Suggestions" role="listbox">
+      <ActionList selectionVariant="multiple" role="listbox" showDividers aria-label="Select reviewers">
+        <ActionList.Group title="Suggestions">
           {users.slice(0, 2).map(user => (
             <ActionList.Item
               key={user.login}
@@ -208,7 +208,7 @@ export function Groups(): JSX.Element {
             </ActionList.Item>
           ))}
         </ActionList.Group>
-        <ActionList.Group title="Everyone" role="listbox">
+        <ActionList.Group title="Everyone">
           {users.slice(2).map(user => (
             <ActionList.Item
               role="option"
