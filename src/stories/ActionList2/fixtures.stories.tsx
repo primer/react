@@ -237,63 +237,6 @@ export function DisabledStory(): JSX.Element {
 }
 DisabledStory.storyName = 'Disabled Items'
 
-export function GroupsStory(): JSX.Element {
-  const [assignees, setAssignees] = React.useState(users.slice(0, 1))
-
-  const toggleAssignee = (assignee: typeof users[number]) => {
-    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
-
-    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
-    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
-  }
-
-  return (
-    <>
-      <h1>Groups</h1>
-      <ErsatzOverlay>
-        <ActionList role="menu" selectionVariant="multiple" showDividers aria-label="Select reviewers">
-          <ActionList.Group title="Suggestions" variant="filled">
-            {users.slice(0, 2).map(user => (
-              <ActionList.Item
-                key={user.login}
-                role="menuitemcheckbox"
-                selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-                aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login)) || undefined}
-                onSelect={() => toggleAssignee(user)}
-              >
-                <ActionList.LeadingVisual>
-                  <Avatar src={`https://github.com/${user.login}.png`} />
-                </ActionList.LeadingVisual>
-                {user.login}
-                <ActionList.Description>{user.name}</ActionList.Description>
-                <ActionList.Description variant="block">Recently edited these files</ActionList.Description>
-              </ActionList.Item>
-            ))}
-          </ActionList.Group>
-          <ActionList.Group title="Everyone" variant="filled">
-            {users.slice(2).map(user => (
-              <ActionList.Item
-                role="menuitemcheckbox"
-                key={user.login}
-                selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-                aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login)) || undefined}
-                onSelect={() => toggleAssignee(user)}
-              >
-                <ActionList.LeadingVisual>
-                  <Avatar src={`https://github.com/${user.login}.png`} />
-                </ActionList.LeadingVisual>
-                {user.login}
-                <ActionList.Description>{user.name}</ActionList.Description>
-              </ActionList.Item>
-            ))}
-          </ActionList.Group>
-        </ActionList>
-      </ErsatzOverlay>
-    </>
-  )
-}
-GroupsStory.storyName = 'Groups'
-
 export function ActionsStory(): JSX.Element {
   return (
     <>

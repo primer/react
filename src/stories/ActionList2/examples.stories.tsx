@@ -190,13 +190,14 @@ export function Groups(): JSX.Element {
 
       <p>Grouped content with labels and description. This patterns appears in pull requests to pick a reviewer.</p>
 
-      <ActionList selectionVariant="multiple" role="listbox" showDividers aria-label="Select reviewers">
+      <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Select reviewers">
         <ActionList.Group title="Suggestions">
           {users.slice(0, 2).map(user => (
             <ActionList.Item
               key={user.login}
-              role="option"
+              role="menuitemcheckbox"
               selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
               onSelect={() => toggleAssignee(user)}
             >
               <ActionList.LeadingVisual>
@@ -211,9 +212,10 @@ export function Groups(): JSX.Element {
         <ActionList.Group title="Everyone">
           {users.slice(2).map(user => (
             <ActionList.Item
-              role="option"
+              role="menuitemcheckbox"
               key={user.login}
               selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
               onSelect={() => toggleAssignee(user)}
             >
               <ActionList.LeadingVisual>
