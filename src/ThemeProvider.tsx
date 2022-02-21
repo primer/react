@@ -17,7 +17,7 @@ export type ThemeProviderProps = {
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
-  preventServerClientMismatch?: boolean
+  preventSSRMismatch?: boolean
 }
 
 const ThemeContext = React.createContext<{
@@ -118,7 +118,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
     >
       <SCThemeProvider theme={resolvedTheme}>
         {children}
-        {props.preventServerClientMismatch ? (
+        {props.preventSSRMismatch ? (
           <script dangerouslySetInnerHTML={{__html: `__PRIMER_RESOLVED_SERVER_COLOR_MODE='${resolvedColorMode}'`}} />
         ) : null}
       </SCThemeProvider>
