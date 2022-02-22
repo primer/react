@@ -16,6 +16,14 @@ export {default as Grid} from './Grid'
 export type {GridProps} from './Grid'
 export {default as Position, Absolute, Fixed, Relative, Sticky} from './Position'
 export type {PositionProps, AbsoluteProps, FixedProps, RelativeProps, StickyProps} from './Position'
+export {PageLayout} from './PageLayout'
+export type {
+  PageLayoutProps,
+  PageLayoutHeaderProps,
+  PageLayoutContentProps,
+  PageLayoutPaneProps,
+  PageLayoutFooterProps
+} from './PageLayout'
 
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
