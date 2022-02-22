@@ -1,8 +1,8 @@
 import React, {ChangeEvent, ChangeEventHandler, createContext, FC} from 'react'
-import CheckboxOrRadioGroup, {CheckboxOrRadioGroupProps} from './_CheckboxOrRadioGroup'
-import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupCaption'
-import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupLabel'
-import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupValidation'
+import ChoiceGroup, {ChoiceGroupProps} from './ChoiceGroup'
+import ChoiceGroupCaption from './ChoiceGroup/_ChoiceGroupCaption'
+import ChoiceGroupLabel from './ChoiceGroup/_ChoiceGroupLabel'
+import ChoiceGroupValidation from './ChoiceGroup/_ChoiceGroupValidation'
 import {useRenderForcingRef} from './hooks'
 import {SxProp} from './sx'
 
@@ -15,7 +15,7 @@ type RadioGroupProps = {
    * The name used to identify this group of radios
    */
   name: string
-} & CheckboxOrRadioGroupProps &
+} & ChoiceGroupProps &
   SxProp
 
 export const RadioGroupContext = createContext<{
@@ -49,15 +49,13 @@ const RadioGroup: FC<RadioGroupProps> = ({children, disabled, onChange, name, ..
         }
       }}
     >
-      <CheckboxOrRadioGroup disabled={disabled} {...rest}>
-        {children}
-      </CheckboxOrRadioGroup>
+      <ChoiceGroup {...rest}>{children}</ChoiceGroup>
     </RadioGroupContext.Provider>
   )
 }
 
 export default Object.assign(RadioGroup, {
-  Caption: CheckboxOrRadioGroupCaption,
-  Label: CheckboxOrRadioGroupLabel,
-  Validation: CheckboxOrRadioGroupValidation
+  Caption: ChoiceGroupCaption,
+  Label: ChoiceGroupLabel,
+  Validation: ChoiceGroupValidation
 })

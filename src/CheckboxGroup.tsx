@@ -14,44 +14,39 @@ type CheckboxGroupProps = {
 } & ChoiceGroupProps &
   SxProp
 
-// TODO: hoist this up for use in checkboxes _and_ radios
-export const CheckboxChoiceGroupContext = createContext<{
+export const CheckboxGroupContext = createContext<{
   disabled?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement>
 }>({})
 
 const CheckboxGroup: FC<CheckboxGroupProps> = ({children, disabled, onChange, ...rest}) => {
-  const [selectedCheckboxValues, setSelectedCheckboxValues] = useRenderForcingRef<string[] | null>([])
+  const [selectedCheckboxValues, setSelectedCheckboxValues] = useRenderForcingRef<string[]>([])
 
   const updateSelectedCheckboxes: ChangeEventHandler<HTMLInputElement> = e => {
     const {value, checked} = e.currentTarget
 
     if (checked) {
-      setSelectedCheckboxValues([...(selectedCheckboxValues.current ? selectedCheckboxValues.current : []), value])
+      setSelectedCheckboxValues([...(selectedCheckboxValues.current || []), value])
       return
     }
 
-    setSelectedCheckboxValues(
-      (selectedCheckboxValues.current ? selectedCheckboxValues.current : []).filter(
-        selectedValue => selectedValue !== value
-      )
-    )
+    setSelectedCheckboxValues((selectedCheckboxValues.current || []).filter(selectedValue => selectedValue !== value))
   }
 
   return (
-    <CheckboxChoiceGroupContext.Provider
+    <CheckboxGroupContext.Provider
       value={{
         disabled,
         onChange: e => {
           if (onChange) {
             updateSelectedCheckboxes(e)
-            onChange(selectedCheckboxValues.current ? selectedCheckboxValues.current : [], e)
+            onChange(selectedCheckboxValues.current || [], e)
           }
         }
       }}
     >
       <ChoiceGroup {...rest}>{children}</ChoiceGroup>
-    </CheckboxChoiceGroupContext.Provider>
+    </CheckboxGroupContext.Provider>
   )
 }
 
