@@ -34,15 +34,15 @@ export const Basic = (args: Args) => (
   <CheckboxGroup {...args}>
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
     <FormControl>
-      <Checkbox value="one" checked />
+      <Checkbox />
       <FormControl.Label>Choice one</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox value="two" defaultChecked />
+      <Checkbox />
       <FormControl.Label>Choice two</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox value="three" />
+      <Checkbox />
       <FormControl.Label>Choice three</FormControl.Label>
     </FormControl>
   </CheckboxGroup>
@@ -53,15 +53,15 @@ export const WithCaptionAndValidation = (args: Args) => (
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
     <CheckboxGroup.Caption>You can pick any or all of these choices</CheckboxGroup.Caption>
     <FormControl>
-      <Checkbox value="one" />
+      <Checkbox />
       <FormControl.Label>Choice one</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox value="two" />
+      <Checkbox />
       <FormControl.Label>Choice two</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox value="three" />
+      <Checkbox />
       <FormControl.Label>Choice three</FormControl.Label>
     </FormControl>
     <CheckboxGroup.Validation variant="error">Your choices are wrong</CheckboxGroup.Validation>
