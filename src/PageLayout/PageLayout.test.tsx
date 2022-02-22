@@ -50,7 +50,7 @@ describe('PageLayout', () => {
     expect(container).toMatchSnapshot()
   })
 
-  it('render pane in different position when narrow', () => {
+  it('renders pane in different position when narrow', () => {
     const {container} = render(
       <ThemeProvider>
         <PageLayout>
