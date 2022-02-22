@@ -3,7 +3,7 @@ import {useProvidedRefOrCreate} from './hooks'
 import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext, useLayoutEffect} from 'react'
 import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
-import {CheckboxChoiceGroupContext} from './CheckboxGroup'
+import {CheckboxGroupContext} from './CheckboxGroup'
 
 export type CheckboxProps = {
   /**
@@ -47,7 +47,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref
   ): ReactElement => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
-    const checkboxGroupContext = useContext(CheckboxChoiceGroupContext)
+    const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)

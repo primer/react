@@ -6,51 +6,55 @@ import ChoiceGroupValidation from './ChoiceGroup/_ChoiceGroupValidation'
 import {useRenderForcingRef} from './hooks'
 import {SxProp} from './sx'
 
-type CheckboxGroupProps = {
+type RadioGroupProps = {
   /**
-   * An onChange handler that gets called when any of the checkboxes change
+   * An onChange handler that gets called when the selection changes
    */
-  onChange?: (selected: string[], e?: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (selected: string | null, e?: ChangeEvent<HTMLInputElement>) => void
+  /**
+   * The name used to identify this group of radios
+   */
+  name: string
 } & ChoiceGroupProps &
   SxProp
 
-export const CheckboxGroupContext = createContext<{
+export const RadioGroupContext = createContext<{
   disabled?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement>
-}>({})
+  name: string
+} | null>(null)
 
-const CheckboxGroup: FC<CheckboxGroupProps> = ({children, disabled, onChange, ...rest}) => {
-  const [selectedCheckboxValues, setSelectedCheckboxValues] = useRenderForcingRef<string[]>([])
+const RadioGroup: FC<RadioGroupProps> = ({children, disabled, onChange, name, ...rest}) => {
+  const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(null)
 
   const updateSelectedCheckboxes: ChangeEventHandler<HTMLInputElement> = e => {
     const {value, checked} = e.currentTarget
 
     if (checked) {
-      setSelectedCheckboxValues([...(selectedCheckboxValues.current || []), value])
+      setSelectedRadioValue(value)
       return
     }
-
-    setSelectedCheckboxValues((selectedCheckboxValues.current || []).filter(selectedValue => selectedValue !== value))
   }
 
   return (
-    <CheckboxGroupContext.Provider
+    <RadioGroupContext.Provider
       value={{
         disabled,
+        name,
         onChange: e => {
           if (onChange) {
             updateSelectedCheckboxes(e)
-            onChange(selectedCheckboxValues.current || [], e)
+            onChange(selectedRadioValue.current, e)
           }
         }
       }}
     >
       <ChoiceGroup {...rest}>{children}</ChoiceGroup>
-    </CheckboxGroupContext.Provider>
+    </RadioGroupContext.Provider>
   )
 }
 
-export default Object.assign(CheckboxGroup, {
+export default Object.assign(RadioGroup, {
   Caption: ChoiceGroupCaption,
   Label: ChoiceGroupLabel,
   Validation: ChoiceGroupValidation
