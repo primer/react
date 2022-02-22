@@ -47,7 +47,7 @@ const StyledCheckbox = styled.input`
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
-    {checked, indeterminate, disabled, onChange, sx: sxProp, required, validationStatus, ...rest}: CheckboxProps,
+    {checked, indeterminate, disabled, onChange, sx: sxProp, required, validationStatus, value, ...rest}: CheckboxProps,
     ref
   ): ReactElement => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
@@ -76,6 +76,8 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         aria-required={required ? 'true' : 'false'}
         aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         onChange={handleOnChange}
+        value={value}
+        name={value}
         {...rest}
       />
     )
