@@ -31,12 +31,7 @@ export default {
 } as Meta
 
 export const Basic = (args: Args) => (
-  <CheckboxGroup
-    {...args}
-    onChange={selected => {
-      console.log('selected', selected)
-    }}
-  >
+  <CheckboxGroup {...args}>
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
     <FormControl>
       <Checkbox value="one" />

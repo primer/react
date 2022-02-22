@@ -47,15 +47,15 @@ describe('ChoiceGroup', () => {
         <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
         <ChoiceGroup.Caption>Caption text</ChoiceGroup.Caption>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="one" />
           <FormControl.Label>Choice one</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="two" />
           <FormControl.Label>Choice two</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
       </ChoiceGroup>
@@ -71,15 +71,15 @@ describe('ChoiceGroup', () => {
         <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
         <ChoiceGroup.Caption>Caption text</ChoiceGroup.Caption>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="one" />
           <FormControl.Label>Choice one</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="two" />
           <FormControl.Label>Choice two</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
         <ChoiceGroup.Validation variant="error">Validation text</ChoiceGroup.Validation>
@@ -95,15 +95,15 @@ describe('ChoiceGroup', () => {
       <ChoiceGroup disabled>
         <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="one" />
           <FormControl.Label>Choice one</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="two" />
           <FormControl.Label>Choice two</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
       </ChoiceGroup>
@@ -117,15 +117,15 @@ describe('ChoiceGroup', () => {
       <ChoiceGroup>
         <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="one" />
           <FormControl.Label>Choice one</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="two" />
           <FormControl.Label>Choice two</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
       </ChoiceGroup>
@@ -140,15 +140,15 @@ describe('ChoiceGroup', () => {
         <h2 id={INPUT_GROUP_LABEL_ID}>{INPUT_GROUP_LABEL}</h2>
         <ChoiceGroup aria-labelledby={INPUT_GROUP_LABEL_ID}>
           <FormControl>
-            <Checkbox />
+            <Checkbox value="one" />
             <FormControl.Label>Choice one</FormControl.Label>
           </FormControl>
           <FormControl>
-            <Checkbox />
+            <Checkbox value="two" />
             <FormControl.Label>Choice two</FormControl.Label>
           </FormControl>
           <FormControl>
-            <Checkbox />
+            <Checkbox value="three" />
             <FormControl.Label>Choice three</FormControl.Label>
           </FormControl>
         </ChoiceGroup>
@@ -164,15 +164,15 @@ describe('ChoiceGroup', () => {
     render(
       <ChoiceGroup>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="one" />
           <FormControl.Label>Choice one</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="two" />
           <FormControl.Label>Choice two</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
       </ChoiceGroup>
@@ -191,11 +191,11 @@ describe('ChoiceGroup', () => {
           <TextInput />
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="two" />
           <FormControl.Label>Choice two</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox />
+          <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
       </ChoiceGroup>
@@ -204,6 +204,3 @@ describe('ChoiceGroup', () => {
     expect(consoleSpy).toHaveBeenCalled()
   })
 })
-
-checkStoriesForAxeViolations('ChoiceGroup/fixtures')
-checkStoriesForAxeViolations('ChoiceGroup/examples')
