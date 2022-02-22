@@ -41,50 +41,6 @@ describe('ChoiceGroup', () => {
   checkExports('ChoiceGroup', {
     default: ChoiceGroup
   })
-  it('renders a group of radio inputs', () => {
-    const {getAllByRole} = render(
-      <ChoiceGroup>
-        <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
-        <FormControl>
-          <Radio name="radioInput" value="choiceOne" />
-          <FormControl.Label>Choice one</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Radio name="radioInput" value="choiceTwo" />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Radio name="radioInput" value="choiceThree" />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </ChoiceGroup>
-    )
-    const radioInputs = getAllByRole('radio')
-
-    expect(radioInputs.length).toBe(3)
-  })
-  it('renders a group of checkbox inputs', () => {
-    const {getAllByRole} = render(
-      <ChoiceGroup>
-        <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice one</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </ChoiceGroup>
-    )
-    const checkboxInputs = getAllByRole('checkbox')
-
-    expect(checkboxInputs.length).toBe(3)
-  })
   it('renders a group of inputs with a caption in the <legend>', () => {
     render(
       <ChoiceGroup>
@@ -133,55 +89,6 @@ describe('ChoiceGroup', () => {
     const validationMsg = within(legend).getByText('Validation text')
 
     expect(validationMsg).toBeInTheDocument()
-  })
-  it('renders a disabled group of inputs', () => {
-    const {getAllByRole, getByRole} = render(
-      <ChoiceGroup disabled>
-        <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice one</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </ChoiceGroup>
-    )
-    const checkboxInputs = getAllByRole('checkbox') as HTMLInputElement[]
-    const fieldset = getByRole('group') as HTMLFieldSetElement
-
-    for (const checkboxInput of checkboxInputs) {
-      expect(checkboxInput.disabled).toBe(true)
-    }
-
-    expect(fieldset.disabled).toBe(true)
-  })
-  it('renders a required group of inputs', () => {
-    const {getByTitle} = render(
-      <ChoiceGroup required>
-        <ChoiceGroup.Label>{INPUT_GROUP_LABEL}</ChoiceGroup.Label>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice one</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice two</FormControl.Label>
-        </FormControl>
-        <FormControl>
-          <Checkbox />
-          <FormControl.Label>Choice three</FormControl.Label>
-        </FormControl>
-      </ChoiceGroup>
-    )
-    const requiredIndicator = getByTitle('required field')
-
-    expect(requiredIndicator).toBeInTheDocument()
   })
   it('renders with a hidden label', () => {
     const {getByText} = render(
