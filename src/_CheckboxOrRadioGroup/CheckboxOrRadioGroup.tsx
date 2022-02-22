@@ -1,19 +1,19 @@
 import React from 'react'
 import {Box, Checkbox, FormControl, Radio, useSSRSafeId} from '..'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
-import ChoiceGroupCaption from './_ChoiceGroupCaption'
-import ChoiceGroupLabel from './_ChoiceGroupLabel'
-import ChoiceGroupValidation from './_ChoiceGroupValidation'
+import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroupCaption'
+import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroupLabel'
+import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroupValidation'
 import {Slots} from './slots'
 import styled from 'styled-components'
 import {get} from '../constants'
-import ChoiceGroupContext from './_ChoiceGroupContext'
+import CheckboxOrRadioGroupContext from './_CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../_VisuallyHidden'
 import {SxProp} from '../sx'
 
-export type ChoiceGroupProps = {
+export type CheckboxOrRadioGroupProps = {
   /**
-   * Used when associating the input group with a label other than `ChoiceGroup.Label`
+   * Used when associating the input group with a label other than `CheckboxOrRadioGroup.Label`
    */
   ['aria-labelledby']?: string
   /**
@@ -31,10 +31,10 @@ export type ChoiceGroupProps = {
   required?: boolean
 } & SxProp
 
-export type ChoiceGroupContext = {
+export type CheckboxOrRadioGroupContext = {
   validationMessageId?: string
   captionId?: string
-} & ChoiceGroupProps
+} & CheckboxOrRadioGroupProps
 
 const Body = styled.div`
   display: flex;
@@ -48,7 +48,7 @@ const Body = styled.div`
   }
 `
 
-const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
+const CheckboxOrRadioGroup: React.FC<CheckboxOrRadioGroupProps> = ({
   'aria-labelledby': ariaLabelledby,
   children,
   disabled,
@@ -58,13 +58,13 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
 }) => {
   const expectedInputComponents = [Checkbox, Radio]
   const labelChild = React.Children.toArray(children).find(
-    child => React.isValidElement(child) && child.type === ChoiceGroupLabel
+    child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel
   )
   const validationChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === ChoiceGroupValidation ? child : null
+    React.isValidElement(child) && child.type === CheckboxOrRadioGroupValidation ? child : null
   )
   const captionChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === ChoiceGroupCaption ? child : null
+    React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null
   )
   const id = useSSRSafeId(idProp)
   const validationMessageId = validationChild && `${id}-validationMessage`
@@ -86,13 +86,13 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
 
   if (!checkIfOnlyContainsChoiceInputs()) {
     // eslint-disable-next-line no-console
-    console.warn('Only `Checkbox` and `Radio` form controls should be used in a `ChoiceGroup`.')
+    console.warn('Only `Checkbox` and `Radio` form controls should be used in a `CheckboxOrRadioGroup`.')
   }
 
   if (!labelChild && !ariaLabelledby) {
     // eslint-disable-next-line no-console
     console.warn(
-      'A choice group must be labelled using a `ChoiceGroup.Label` child, or by passing `aria-labelledby` to the ChoiceGroup component.'
+      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.'
     )
   }
 
@@ -109,7 +109,7 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
         const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
 
         return (
-          <ChoiceGroupContext.Provider value={{disabled}}>
+          <CheckboxOrRadioGroupContext.Provider value={{disabled}}>
             <div>
               <Box
                 border="none"
@@ -138,7 +138,7 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
                   </Box>
                 ) : (
                   /*
-                    If ChoiceGroup.Label wasn't passed as a child, we don't render a <legend> 
+                    If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend> 
                     but we still want to render a caption
                   */
                   slots.Caption
@@ -157,7 +157,7 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
               </Box>
               {validationChild && (
                 <ValidationAnimationContainer
-                  // If we have ChoiceGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
+                  // If we have CheckboxOrRadioGroup.Label as a child, we render a screenreader-accessible validation message in the <legend>
                   aria-hidden={Boolean(labelChild)}
                   show
                 >
@@ -165,21 +165,21 @@ const ChoiceGroup: React.FC<ChoiceGroupProps> = ({
                 </ValidationAnimationContainer>
               )}
             </div>
-          </ChoiceGroupContext.Provider>
+          </CheckboxOrRadioGroupContext.Provider>
         )
       }}
     </Slots>
   )
 }
 
-ChoiceGroup.defaultProps = {
+CheckboxOrRadioGroup.defaultProps = {
   disabled: false,
   required: false
 }
 
-export type {ChoiceGroupLabelProps} from './_ChoiceGroupLabel'
-export default Object.assign(ChoiceGroup, {
-  Caption: ChoiceGroupCaption,
-  Label: ChoiceGroupLabel,
-  Validation: ChoiceGroupValidation
+export type {CheckboxOrRadioGroupLabelProps} from './_CheckboxOrRadioGroupLabel'
+export default Object.assign(CheckboxOrRadioGroup, {
+  Caption: CheckboxOrRadioGroupCaption,
+  Label: CheckboxOrRadioGroupLabel,
+  Validation: CheckboxOrRadioGroupValidation
 })

@@ -2,19 +2,19 @@ import React from 'react'
 import {Box} from '..'
 import {SxProp} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
-import {ChoiceGroupContext} from './ChoiceGroup'
+import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
 import {Slot} from './slots'
 
-export type ChoiceGroupLabelProps = {
+export type CheckboxOrRadioGroupLabelProps = {
   /**
    * Whether to visually hide the fieldset legend
    */
   visuallyHidden?: boolean
 } & SxProp
 
-const ChoiceGroupLabel: React.FC<ChoiceGroupLabelProps> = ({children, visuallyHidden, sx}) => (
+const CheckboxOrRadioGroupLabel: React.FC<CheckboxOrRadioGroupLabelProps> = ({children, visuallyHidden, sx}) => (
   <Slot name="Label">
-    {({required, disabled}: ChoiceGroupContext) => (
+    {({required, disabled}: CheckboxOrRadioGroupContext) => (
       <VisuallyHidden
         isVisible={!visuallyHidden}
         title={required ? 'required field' : undefined}
@@ -38,8 +38,8 @@ const ChoiceGroupLabel: React.FC<ChoiceGroupLabelProps> = ({children, visuallyHi
   </Slot>
 )
 
-ChoiceGroupLabel.defaultProps = {
+CheckboxOrRadioGroupLabel.defaultProps = {
   visuallyHidden: false
 }
 
-export default ChoiceGroupLabel
+export default CheckboxOrRadioGroupLabel

@@ -73,7 +73,6 @@ export {default as CircleOcticon} from './CircleOcticon'
 export type {CircleOcticonProps} from './CircleOcticon'
 export {default as ChoiceFieldset, Item} from './ChoiceFieldset'
 export {default as CheckboxGroup} from './CheckboxGroup'
-export {default as ChoiceGroup} from './ChoiceGroup' // TODO: rm this line
 export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
 export {default as Details} from './Details'
