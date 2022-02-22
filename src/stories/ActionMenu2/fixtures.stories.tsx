@@ -623,3 +623,27 @@ export function OverlayProps(): JSX.Element {
     </>
   )
 }
+
+export function TypeaheadTest(): JSX.Element {
+  return (
+    <>
+      <h1>Story to test typeahead</h1>
+
+      <ActionMenu>
+        <ActionMenu.Button>Menu</ActionMenu.Button>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Group title="Sorting">
+              <ActionList.Item>Sort by A</ActionList.Item>
+              <ActionList.Item>Sort by B</ActionList.Item>
+              <ActionList.Item>Sort by C</ActionList.Item>
+            </ActionList.Group>
+            <ActionList.Item>Order</ActionList.Item>
+            <ActionList.Item>Group</ActionList.Item>
+            <ActionList.Item disabled>Disabled</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
