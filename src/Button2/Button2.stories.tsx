@@ -1,5 +1,5 @@
 import React, {useState, forwardRef} from 'react'
-import {Button, ButtonProps, IconButton, LinkButton} from '.'
+import {Button, ButtonProps, IconButton} from '.'
 import {BaseStyles, ThemeProvider} from '..'
 import {Meta} from '@storybook/react'
 import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRightIcon} from '@primer/octicons-react'
@@ -198,39 +198,39 @@ export const linkButton = ({...args}: ButtonProps) => {
   return (
     <>
       <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" {...args}>
+        <Button href="https://primer.style/" {...args} as="a">
           Link to Primer
-        </LinkButton>
+        </Button>
       </Box>
       <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="danger" {...args}>
+        <Button href="https://primer.style/" variant="danger" {...args} as="a">
           Link to Primer
-        </LinkButton>
+        </Button>
       </Box>
       <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="primary" {...args}>
+        <Button href="https://primer.style/" variant="primary" {...args} as="a">
           Link to Primer
-        </LinkButton>
+        </Button>
       </Box>
       <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="outline" {...args}>
+        <Button href="https://primer.style/" variant="outline" {...args} as="a">
           Link to Primer
-        </LinkButton>
+        </Button>
       </Box>
       <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="invisible" {...args}>
+        <Button href="https://primer.style/" variant="invisible" {...args} as="a">
           Link to Primer
-        </LinkButton>
+        </Button>
       </Box>
       <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+        <Button href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args} as="a">
           Link to Primer
-        </LinkButton>
+        </Button>
       </Box>
       <Box mb={2} display="flex">
-        <LinkButton to="/dummy" as={ReactRouterLikeLink} variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+        <Button to="/dummy" variant="primary" trailingIcon={TriangleRightIcon} {...args} as={ReactRouterLikeLink}>
           Link to Primer
-        </LinkButton>
+        </Button>
       </Box>
     </>
   )

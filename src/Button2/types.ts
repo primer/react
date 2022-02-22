@@ -1,4 +1,4 @@
-import React, {HTMLAttributes, ComponentPropsWithRef} from 'react'
+import React, {HTMLAttributes, ComponentPropsWithRef, ComponentType} from 'react'
 import styled from 'styled-components'
 import {IconProps} from '@primer/octicons-react'
 import sx, {SxProp} from '../sx'
@@ -24,8 +24,10 @@ export type ButtonBaseProps = {
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
   disabled?: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  as?: string | ComponentType<any> | undefined
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement> &
+  HTMLAttributes<HTMLElement> &
   StyledButtonProps
 
 export type ButtonProps = {
