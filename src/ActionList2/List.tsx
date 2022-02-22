@@ -41,7 +41,11 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
     }
 
     /** if list is inside a Menu, it will get a role from the Menu */
-    const {listRole, listLabelledBy} = React.useContext(ActionListContainerContext)
+    const {
+      listRole,
+      listLabelledBy,
+      selectionVariant: containerSelectionVariant // TODO: Remove after DropdownMenu2 deprecation
+    } = React.useContext(ActionListContainerContext)
 
     return (
       <ListBox
@@ -51,7 +55,11 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
         {...props}
         ref={forwardedRef}
       >
-        <ListContext.Provider value={{variant, selectionVariant, showDividers}}>{props.children}</ListContext.Provider>
+        <ListContext.Provider
+          value={{variant, selectionVariant: selectionVariant || containerSelectionVariant, showDividers}}
+        >
+          {props.children}
+        </ListContext.Provider>
       </ListBox>
     )
   }

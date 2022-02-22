@@ -7,10 +7,11 @@ import {ActionMenu} from '../ActionMenu2'
 import {ActionList} from '../ActionList2'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
+import {SingleSelection, MixedSelection} from '../../src/stories/ActionMenu2/examples.stories'
 import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
-function SimpleActionMenu(): JSX.Element {
+function Example(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <SSRProvider>
@@ -39,7 +40,7 @@ describe('ActionMenu', () => {
   behavesAsComponent({
     Component: ActionList,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <SimpleActionMenu />
+    toRender: () => <Example />
   })
 
   checkExports('ActionMenu2', {
@@ -48,7 +49,7 @@ describe('ActionMenu', () => {
   })
 
   it('should open Menu on MenuButton click', async () => {
-    const component = HTMLRender(<SimpleActionMenu />)
+    const component = HTMLRender(<Example />)
     const button = component.getByText('Toggle Menu')
     fireEvent.click(button)
     expect(component.getByRole('menu')).toBeInTheDocument()
@@ -56,7 +57,7 @@ describe('ActionMenu', () => {
   })
 
   it('should open Menu on MenuButton keypress', async () => {
-    const component = HTMLRender(<SimpleActionMenu />)
+    const component = HTMLRender(<Example />)
     const button = component.getByText('Toggle Menu')
 
     // We pass keycode here to navigate a implementation detail in react-testing-library
@@ -67,7 +68,7 @@ describe('ActionMenu', () => {
   })
 
   it('should close Menu on selecting an action with click', async () => {
-    const component = HTMLRender(<SimpleActionMenu />)
+    const component = HTMLRender(<Example />)
     const button = component.getByText('Toggle Menu')
 
     fireEvent.click(button)
@@ -79,7 +80,7 @@ describe('ActionMenu', () => {
   })
 
   it('should close Menu on selecting an action with Enter', async () => {
-    const component = HTMLRender(<SimpleActionMenu />)
+    const component = HTMLRender(<Example />)
     const button = component.getByText('Toggle Menu')
 
     fireEvent.click(button)
@@ -91,7 +92,7 @@ describe('ActionMenu', () => {
   })
 
   it('should not close Menu if event is prevented', async () => {
-    const component = HTMLRender(<SimpleActionMenu />)
+    const component = HTMLRender(<Example />)
     const button = component.getByText('Toggle Menu')
 
     fireEvent.click(button)
@@ -103,38 +104,42 @@ describe('ActionMenu', () => {
     cleanup()
   })
 
-  it('should throw when selectionVariant is provided to ActionList within ActionMenu', async () => {
-    // we expect console.error to be called, so we suppress that in the test
-    const mockError = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+  it('should be able to select an Item with selectionVariant', async () => {
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <SingleSelection />
+      </ThemeProvider>
+    )
+    const button = component.getByLabelText('Select field type')
+    fireEvent.click(button)
 
-    expect(() => {
-      const component = HTMLRender(
-        <ThemeProvider theme={theme}>
-          <SSRProvider>
-            <BaseStyles>
-              <ActionMenu>
-                <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-                <ActionMenu.Overlay>
-                  <ActionList selectionVariant="single">
-                    <ActionList.Item selected={true}>Primer React</ActionList.Item>
-                  </ActionList>
-                </ActionMenu.Overlay>
-              </ActionMenu>
-            </BaseStyles>
-          </SSRProvider>
-        </ThemeProvider>
-      )
+    // select first item by role, that would close the menu
+    fireEvent.click(component.getAllByRole('menuitemradio')[0])
+    expect(component.queryByRole('menu')).not.toBeInTheDocument()
 
-      const button = component.getByText('Toggle Menu')
-      fireEvent.click(button)
-    }).toThrow('ActionList cannot have a selectionVariant inside ActionMenu')
+    // open menu again and check if the first option is checked
+    fireEvent.click(button)
+    expect(component.getAllByRole('menuitemradio')[0]).toHaveAttribute('aria-checked', 'true')
+    cleanup()
+  })
+
+  it('should assign the right roles with groups & mixed selectionVariant', async () => {
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <MixedSelection />
+      </ThemeProvider>
+    )
+    const button = component.getByLabelText('Select field type to group by')
+    fireEvent.click(button)
+
+    expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
+    expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
 
     cleanup()
-    mockError.mockRestore()
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SimpleActionMenu />)
+    const {container} = HTMLRender(<Example />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
