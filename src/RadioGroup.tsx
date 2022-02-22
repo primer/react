@@ -49,7 +49,9 @@ const RadioGroup: FC<RadioGroupProps> = ({children, disabled, onChange, name, ..
         }
       }}
     >
-      <ChoiceGroup {...rest}>{children}</ChoiceGroup>
+      <ChoiceGroup disabled={disabled} {...rest}>
+        {children}
+      </ChoiceGroup>
     </RadioGroupContext.Provider>
   )
 }

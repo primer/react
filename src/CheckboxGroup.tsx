@@ -45,7 +45,9 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({children, disabled, onChange, ..
         }
       }}
     >
-      <ChoiceGroup {...rest}>{children}</ChoiceGroup>
+      <ChoiceGroup disabled={disabled} {...rest}>
+        {children}
+      </ChoiceGroup>
     </CheckboxGroupContext.Provider>
   )
 }
