@@ -3,7 +3,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   cacheDirectory: '.test',
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**'],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
   setupFilesAfterEnv: [
     '<rootDir>/src/utils/test-matchers.tsx',
     '<rootDir>/src/utils/test-deprecations.tsx',
