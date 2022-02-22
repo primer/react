@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Adds a ChoiceGroup component to replace the ChoiceFieldset component
+Adds CheckboxGroup and RadioGroup components to replace the ChoiceFieldset component

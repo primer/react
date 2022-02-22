@@ -2,7 +2,7 @@ import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render, within} from '@testing-library/react'
 import {Checkbox, ChoiceGroup, FormControl, Radio, SSRProvider, TextInput} from '..'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 const INPUT_GROUP_LABEL = 'Choices'
 
