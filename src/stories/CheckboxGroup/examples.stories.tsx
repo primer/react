@@ -31,18 +31,23 @@ export default {
 } as Meta
 
 export const Basic = (args: Args) => (
-  <CheckboxGroup {...args}>
+  <CheckboxGroup
+    {...args}
+    onChange={selected => {
+      console.log('selected', selected)
+    }}
+  >
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="one" />
       <FormControl.Label>Choice one</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="two" />
       <FormControl.Label>Choice two</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="three" />
       <FormControl.Label>Choice three</FormControl.Label>
     </FormControl>
   </CheckboxGroup>
@@ -53,15 +58,15 @@ export const WithCaptionAndValidation = (args: Args) => (
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
     <CheckboxGroup.Caption>You can pick any or all of these choices</CheckboxGroup.Caption>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="one" />
       <FormControl.Label>Choice one</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="two" />
       <FormControl.Label>Choice two</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox />
+      <Checkbox value="three" />
       <FormControl.Label>Choice three</FormControl.Label>
     </FormControl>
     <CheckboxGroup.Validation variant="error">Your choices are wrong</CheckboxGroup.Validation>
