@@ -40,10 +40,24 @@ describe('PageLayout', () => {
             Header
           </PageLayout.Header>
           <PageLayout.Content>Content</PageLayout.Content>
-          <PageLayout.Pane divider="line" dividerWhenNarrow="filled">
+          <PageLayout.Pane position="start" divider="line" dividerWhenNarrow="filled">
             Pane
           </PageLayout.Pane>
           <PageLayout.Footer dividerWhenNarrow="line">Footer</PageLayout.Footer>
+        </PageLayout>
+      </ThemeProvider>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  it('render pane in different position when narrow', () => {
+    const {container} = render(
+      <ThemeProvider>
+        <PageLayout>
+          <PageLayout.Header>Header</PageLayout.Header>
+          <PageLayout.Content>Content</PageLayout.Content>
+          <PageLayout.Pane positionWhenNarrow="start">Pane</PageLayout.Pane>
+          <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
       </ThemeProvider>
     )
