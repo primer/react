@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ChoiceGroup renders consistently 1`] = `
+exports[`CheckboxOrRadioGroup renders consistently 1`] = `
 .c0 {
   margin: 0;
   padding: 0;
@@ -12,36 +12,19 @@ exports[`ChoiceGroup renders consistently 1`] = `
   padding: 0;
 }
 
-.c4 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c5 > input {
+.c4 > input {
   margin-left: 0;
   margin-right: 0;
 }
 
-.c6 {
-  cursor: pointer;
-}
-
 .c2 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -54,8 +37,12 @@ exports[`ChoiceGroup renders consistently 1`] = `
   padding: 0;
 }
 
-.c3 > * + * {
+.c2 > * + * {
   margin-top: 8px;
+}
+
+.c5 {
+  cursor: pointer;
 }
 
 <div>
@@ -65,69 +52,68 @@ exports[`ChoiceGroup renders consistently 1`] = `
   >
     <legend
       className="c1"
-    >
-      <span
-        className="c2"
-      />
-    </legend>
+    />
     <div
-      className="c3"
+      className="c2"
     >
       <div
-        className="c4"
+        className="c3"
         display="flex"
       >
         <div
-          className="c5"
+          className="c4"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c6"
+            className="c5"
             id="react-aria-2"
             name="radioInput"
+            onChange={[Function]}
             type="radio"
             value="choiceOne"
           />
         </div>
       </div>
       <div
-        className="c4"
+        className="c3"
         display="flex"
       >
         <div
-          className="c5"
+          className="c4"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c6"
+            className="c5"
             id="react-aria-3"
             name="radioInput"
+            onChange={[Function]}
             type="radio"
             value="choiceTwo"
           />
         </div>
       </div>
       <div
-        className="c4"
+        className="c3"
         display="flex"
       >
         <div
-          className="c5"
+          className="c4"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c6"
+            className="c5"
             id="react-aria-4"
             name="radioInput"
+            onChange={[Function]}
             type="radio"
             value="choiceThree"
           />
