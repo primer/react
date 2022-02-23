@@ -9,6 +9,9 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    labels:
+      - "dependencies"
+      - "skip changeset"
 
   - package-ecosystem: 'npm'
     directory: '/docs'
@@ -16,3 +19,6 @@ updates:
       interval: 'weekly'
     allow:
       - dependency-name: '@primer/gatsby-theme-doctocat'
+    labels:
+      - "dependencies"
+      - "skip changeset"
