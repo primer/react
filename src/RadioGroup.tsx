@@ -5,7 +5,6 @@ import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroup/_CheckboxOrRadioG
 import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from './hooks'
 import {SxProp} from './sx'
-import {FormControl, Radio} from '.'
 
 type RadioGroupProps = {
   /**
@@ -26,19 +25,7 @@ export const RadioGroupContext = createContext<{
 } | null>(null)
 
 const RadioGroup: FC<RadioGroupProps> = ({children, disabled, onChange, name, ...rest}) => {
-  const formControlComponentChildren = React.Children.toArray(children)
-    .filter(child => React.isValidElement(child) && child.type === FormControl)
-    .map(formControlComponent =>
-      React.isValidElement(formControlComponent) ? formControlComponent.props.children : []
-    )
-    .flat()
-
-  const selectedRadio = React.Children.toArray(formControlComponentChildren).find(
-    child => React.isValidElement(child) && child.type === Radio && (child.props.checked || child.props.defaultChecked)
-  )
-  const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(
-    React.isValidElement(selectedRadio) ? selectedRadio.props.value : null
-  )
+  const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(null)
 
   const updateSelectedCheckboxes: ChangeEventHandler<HTMLInputElement> = e => {
     const {value, checked} = e.currentTarget

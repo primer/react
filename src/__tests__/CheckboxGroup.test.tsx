@@ -4,6 +4,7 @@ import {render} from '@testing-library/react'
 import {Checkbox, CheckboxGroup, FormControl, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
+import {CheckboxGroupContext} from '../CheckboxGroup'
 
 describe('CheckboxGroup', () => {
   const mockWarningFn = jest.fn()
@@ -38,7 +39,8 @@ describe('CheckboxGroup', () => {
     )
   })
   checkExports('CheckboxGroup', {
-    default: CheckboxGroup
+    default: CheckboxGroup,
+    CheckboxGroupContext
   })
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
@@ -127,7 +129,7 @@ describe('CheckboxGroup', () => {
           <FormControl.Label>Choice one</FormControl.Label>
         </FormControl>
         <FormControl>
-          <Checkbox value="two" />
+          <Checkbox value="two" defaultChecked />
           <FormControl.Label>Choice two</FormControl.Label>
         </FormControl>
         <FormControl>
@@ -142,7 +144,16 @@ describe('CheckboxGroup', () => {
     expect(handleParentChange).not.toHaveBeenCalled()
     userEvent.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
-      ['one'],
+      ['two', 'one'],
+      expect.objectContaining({
+        target: expect.objectContaining({
+          value: 'one'
+        })
+      })
+    )
+    userEvent.click(checkbox)
+    expect(handleParentChange).toHaveBeenCalledWith(
+      ['two'],
       expect.objectContaining({
         target: expect.objectContaining({
           value: 'one'

@@ -38,7 +38,7 @@ import {ComponentChecklist} from '../src/component-checklist'
 
 ```javascript live noinline
 const WithOnChangeHandlers = () => {
-  const [selectedRadioValue, setSelectedCheckboxValues] = React.useState()
+  const [selectedRadioValue, setSelectedCheckboxValues] = React.useState('two')
   const [selectedRadioId, setSelectedRadioId] = React.useState()
 
   const handleRadioGroupChange = (selectedValue, e) => {
@@ -68,12 +68,8 @@ const WithOnChangeHandlers = () => {
         </FormControl>
       </RadioGroup>
 
-      {selectedRadioValue && (
-        <>
-          <div>The selected radio value is {selectedRadioValue}</div>
-          <div>The last selected radio ID is {selectedRadioId}</div>
-        </>
-      )}
+      {selectedRadioValue && <div>The selected radio value is {selectedRadioValue}</div>}
+      {selectedRadioId && <div>The last selected radio ID is {selectedRadioId}</div>}
     </Box>
   )
 }
