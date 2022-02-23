@@ -8,11 +8,11 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
 
   - package-ecosystem: 'npm'
     directory: '/docs'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
     allow:
       - dependency-name: '@primer/gatsby-theme-doctocat'

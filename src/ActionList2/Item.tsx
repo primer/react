@@ -104,7 +104,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   ): JSX.Element => {
     const {variant: listVariant, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
-    const {container, afterSelect, selectionAttribute = 'aria-selected'} = React.useContext(ActionListContainerContext)
+    const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
     let selectionVariant: ListProps['selectionVariant'] | GroupProps['selectionVariant']
     if (typeof groupSelectionVariant !== 'undefined') selectionVariant = groupSelectionVariant
@@ -227,7 +227,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
             aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
             aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
             role={role || itemRole}
-            {...{[selectionAttribute]: selected}}
+            {...(selectionAttribute && {[selectionAttribute]: selected})}
             {...props}
           >
             <ItemWrapper>
