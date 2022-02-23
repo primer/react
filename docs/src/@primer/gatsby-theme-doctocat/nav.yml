@@ -77,8 +77,6 @@
       url: /Header
     - title: Heading
       url: /Heading
-    - title: Label
-      url: /Label
     - title: LabelGroup
       url: /LabelGroup
     - title: Link
@@ -163,5 +161,7 @@
       url: /deprecated/Dropdown
     - title: FormGroup
       url: /FormGroup
+    - title: Label
+      url: /Label
     - title: SelectMenu
       url: /deprecated/SelectMenu
