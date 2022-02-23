@@ -213,12 +213,13 @@ export function DisabledStory(): JSX.Element {
     <>
       <h1>Disabled Items</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="single" showDividers role="listbox" aria-label="Select a project">
+        <ActionList selectionVariant="single" showDividers role="menu" aria-label="Select a project">
           {projects.map((project, index) => (
             <ActionList.Item
               key={index}
-              role="option"
+              role="menuitemradio"
               selected={index === selectedIndex}
+              aria-checked={index === selectedIndex}
               onSelect={() => setSelectedIndex(index)}
               disabled={index === 1}
             >
@@ -235,61 +236,6 @@ export function DisabledStory(): JSX.Element {
   )
 }
 DisabledStory.storyName = 'Disabled Items'
-
-export function GroupsStory(): JSX.Element {
-  const [assignees, setAssignees] = React.useState(users.slice(0, 1))
-
-  const toggleAssignee = (assignee: typeof users[number]) => {
-    const assigneeIndex = assignees.findIndex(a => a.login === assignee.login)
-
-    if (assigneeIndex === -1) setAssignees([...assignees, assignee])
-    else setAssignees(assignees.filter((_, index) => index !== assigneeIndex))
-  }
-
-  return (
-    <>
-      <h1>Groups</h1>
-      <ErsatzOverlay>
-        <ActionList selectionVariant="multiple" showDividers aria-label="Select reviewers">
-          <ActionList.Group title="Suggestions" variant="filled" role="listbox">
-            {users.slice(0, 2).map(user => (
-              <ActionList.Item
-                key={user.login}
-                role="option"
-                selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-                onSelect={() => toggleAssignee(user)}
-              >
-                <ActionList.LeadingVisual>
-                  <Avatar src={`https://github.com/${user.login}.png`} />
-                </ActionList.LeadingVisual>
-                {user.login}
-                <ActionList.Description>{user.name}</ActionList.Description>
-                <ActionList.Description variant="block">Recently edited these files</ActionList.Description>
-              </ActionList.Item>
-            ))}
-          </ActionList.Group>
-          <ActionList.Group title="Everyone" variant="filled" role="listbox">
-            {users.slice(2).map(user => (
-              <ActionList.Item
-                role="option"
-                key={user.login}
-                selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
-                onSelect={() => toggleAssignee(user)}
-              >
-                <ActionList.LeadingVisual>
-                  <Avatar src={`https://github.com/${user.login}.png`} />
-                </ActionList.LeadingVisual>
-                {user.login}
-                <ActionList.Description>{user.name}</ActionList.Description>
-              </ActionList.Item>
-            ))}
-          </ActionList.Group>
-        </ActionList>
-      </ErsatzOverlay>
-    </>
-  )
-}
-GroupsStory.storyName = 'Groups'
 
 export function ActionsStory(): JSX.Element {
   return (
@@ -1007,12 +953,12 @@ export function MemexSortable(): JSX.Element {
       <h1>Memex Sortable List</h1>
       <ErsatzOverlay>
         <DndProvider backend={HTML5Backend}>
-          <ActionList selectionVariant="multiple">
-            <ActionList.Group title="Visible fields (can be reordered)" role="listbox">
+          <ActionList selectionVariant="multiple" role="menu">
+            <ActionList.Group title="Visible fields (can be reordered)">
               {visibleOptions.map(option => (
                 <SortableItem
                   key={option.text}
-                  role="option"
+                  role="menuitemcheckbox"
                   option={option}
                   onSelect={() => toggle(option.text)}
                   reorder={reorder}
@@ -1020,7 +966,6 @@ export function MemexSortable(): JSX.Element {
               ))}
             </ActionList.Group>
             <ActionList.Group
-              role="listbox"
               title="Hidden fields"
               selectionVariant={
                 /** selectionVariant override on Group: disable selection if there are no options */
@@ -1030,7 +975,7 @@ export function MemexSortable(): JSX.Element {
               {hiddenOptions.map((option, index) => (
                 <ActionList.Item
                   key={index}
-                  role="option"
+                  role="menuitemcheckbox"
                   selected={option.selected}
                   onSelect={() => toggle(option.text)}
                 >
