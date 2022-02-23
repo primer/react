@@ -4,7 +4,7 @@ import {TriangleDownIcon} from '@primer/octicons-react'
 import {Button, ButtonProps} from './Button2'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus} from './hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, useTypeaheadFocus} from './hooks'
 import {Divider} from './ActionList2/Divider'
 import {ActionListContainerContext} from './ActionList2/ActionListContainerContext'
 import {MandateProps} from './utils/types'
@@ -99,7 +99,9 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
     'anchorRef'
   >
 
-  const {containerRef, openWithFocus} = useMenuInitialFocus(open, onOpen)
+  const containerRef = React.createRef<HTMLDivElement>()
+  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef)
+  useTypeaheadFocus(open, containerRef)
 
   return (
     <AnchoredOverlay

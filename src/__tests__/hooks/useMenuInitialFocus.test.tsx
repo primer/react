@@ -5,7 +5,9 @@ import {useMenuInitialFocus} from '../../hooks'
 const Component = () => {
   const [open, setOpen] = React.useState(false)
   const onOpen = () => setOpen(!open)
-  const {containerRef, openWithFocus} = useMenuInitialFocus(open, onOpen)
+
+  const containerRef = React.createRef<HTMLDivElement>()
+  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef)
 
   return (
     <>
@@ -25,7 +27,7 @@ const Component = () => {
   )
 }
 
-describe('useMenuFocus', () => {
+describe('useMenuInitialFocus', () => {
   afterEach(cleanup)
 
   it('should focus first element when opened with Enter', async () => {

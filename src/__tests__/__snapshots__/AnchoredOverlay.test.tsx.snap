@@ -216,6 +216,11 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
           style="top: 4px; left: 0px; --styled-overlay-visibility: visible;"
           width="auto"
         >
+          <span
+            aria-hidden="true"
+            class="sentinel"
+            tabindex="0"
+          />
           <button
             class="focus-visible"
             data-focus-visible-added=""
@@ -224,6 +229,11 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
           >
             Focusable Child
           </button>
+          <span
+            aria-hidden="true"
+            class="sentinel"
+            tabindex="0"
+          />
         </div>
       </div>
     </div>
