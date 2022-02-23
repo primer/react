@@ -1,11 +1,12 @@
 import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
+import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 type Gesture = 'anchor-click' | 'anchor-key-press'
 type Callback = (gesture: Gesture, event?: React.KeyboardEvent<HTMLElement>) => unknown
 
-export const useMenuInitialFocus = (open: boolean, onOpen?: Callback) => {
-  const containerRef = React.createRef<HTMLDivElement>()
+export const useMenuInitialFocus = (open: boolean, onOpen?: Callback, providedRef?: React.RefObject<HTMLElement>) => {
+  const containerRef = useProvidedRefOrCreate(providedRef)
   const [openingKey, setOpeningKey] = React.useState<string | undefined>(undefined)
 
   const openWithFocus: Callback = (gesture, event) => {
@@ -19,7 +20,6 @@ export const useMenuInitialFocus = (open: boolean, onOpen?: Callback) => {
    * ArrowDown | Space | Enter: first element
    * ArrowUp: last element
    */
-
   React.useEffect(() => {
     if (!open) return
     if (!openingKey || !containerRef.current) return
