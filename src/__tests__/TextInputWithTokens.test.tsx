@@ -6,6 +6,7 @@ import 'babel-polyfill'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken} from '../Token'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
+import {MarkGithubIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
 const mockTokens = [
@@ -91,6 +92,20 @@ describe('TextInputWithTokens', () => {
     const onRemoveMock = jest.fn()
     expect(
       render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />)
+    ).toMatchSnapshot()
+  })
+
+  it('renders a leadingVisual and trailingVisual', () => {
+    const onRemoveMock = jest.fn()
+    expect(
+      render(
+        <TextInputWithTokens
+          leadingVisual={MarkGithubIcon}
+          trailingVisual={MarkGithubIcon}
+          tokens={mockTokens}
+          onTokenRemove={onRemoveMock}
+        />
+      )
     ).toMatchSnapshot()
   })
 
