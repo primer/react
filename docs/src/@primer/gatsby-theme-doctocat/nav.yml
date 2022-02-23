@@ -161,5 +161,7 @@
       url: /deprecated/Dropdown
     - title: FormGroup
       url: /FormGroup
+    - title: InputField
+      url: /deprecated/InputField
     - title: SelectMenu
       url: /deprecated/SelectMenu
