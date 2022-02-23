@@ -178,7 +178,7 @@ function Example() {
 
 #### `preventSSRMismatch` prop
 
-For usage with server side rendering, it is recommended to pass `preventSSRMismatch` to ensure the rendered output from the server and browser match even when they resolve "auto" color mode differently.
+If you are doing server-side rendering, pass the `preventSSRMismatch` prop to ensure the rendered output from the server and browser match even when they resolve "auto" color mode differently.
 
 ```jsx
 <ThemeProvider colorMode="auto" preventSSRMismatch>
