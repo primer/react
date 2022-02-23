@@ -17,6 +17,7 @@ export type ThemeProviderProps = {
   colorMode?: ColorModeWithAuto
   dayScheme?: string
   nightScheme?: string
+  preventSSRMismatch?: boolean
 }
 
 const ThemeContext = React.createContext<{
@@ -47,21 +48,50 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
 
   // Initialize state
   const theme = props.theme ?? fallbackTheme ?? defaultTheme
+
+  const resolvedColorModePassthrough = React.useRef(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore This custom variable does not exist on window because we set it outselves
+    typeof window !== 'undefined' ? window.__PRIMER_RESOLVED_SERVER_COLOR_MODE : undefined
+  )
+
   const [colorMode, setColorMode] = React.useState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
   const [dayScheme, setDayScheme] = React.useState(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
   const [nightScheme, setNightScheme] = React.useState(props.nightScheme ?? fallbackNightScheme ?? defaultNightScheme)
   const systemColorMode = useSystemColorMode()
-  const resolvedColorMode = resolveColorMode(colorMode, systemColorMode)
+  const resolvedColorMode = resolvedColorModePassthrough.current || resolveColorMode(colorMode, systemColorMode)
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
     () => applyColorScheme(theme, colorScheme),
     [theme, colorScheme]
   )
 
+  // this effect will only run on client
+  React.useEffect(
+    function updateColorModeAfterServerPassthorugh() {
+      const resolvedColorModeOnClient = resolveColorMode(colorMode, systemColorMode)
+
+      if (resolvedColorModePassthrough.current) {
+        // if the resolved color mode passed on from the server is not the resolved color mode on client, change it!
+        if (resolvedColorModePassthrough.current !== resolvedColorModeOnClient) {
+          window.setTimeout(() => {
+            // override colorMode to whatever is resolved on the client to get a re-render
+            setColorMode(resolvedColorModeOnClient)
+            // immediately after that, set the colorMode to what the user passed to respond to system color mode changes
+            setColorMode(colorMode)
+          })
+        }
+
+        resolvedColorModePassthrough.current = null
+      }
+    },
+    [colorMode, systemColorMode]
+  )
+
   // Update state if props change
   React.useEffect(() => {
     setColorMode(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
-  }, [props.colorMode, fallbackColorMode])
+  }, [props.colorMode, resolvedColorMode, fallbackColorMode])
 
   React.useEffect(() => {
     setDayScheme(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
@@ -86,7 +116,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
         setNightScheme
       }}
     >
-      <SCThemeProvider theme={resolvedTheme}>{children}</SCThemeProvider>
+      <SCThemeProvider theme={resolvedTheme}>
+        {children}
+        {props.preventSSRMismatch ? (
+          <script dangerouslySetInnerHTML={{__html: `__PRIMER_RESOLVED_SERVER_COLOR_MODE='${resolvedColorMode}'`}} />
+        ) : null}
+      </SCThemeProvider>
     </ThemeContext.Provider>
   )
 }

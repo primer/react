@@ -1,12 +1,12 @@
 /** This context can be used by components that compose ActionList inside a Menu */
 
 import React from 'react'
+import {AriaRole} from '../utils/types'
 
 type ContextProps = {
   container?: string
-  listRole?: string
-  itemRole?: string
-  selectionVariant?: 'single' | 'multiple'
+  listRole?: AriaRole
+  selectionVariant?: 'single' | 'multiple' // TODO: Remove after DropdownMenu2 deprecation
   selectionAttribute?: 'aria-selected' | 'aria-checked'
   listLabelledBy?: string
   // This can be any function, we don't know anything about the arguments

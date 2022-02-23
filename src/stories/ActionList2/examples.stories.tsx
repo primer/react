@@ -108,7 +108,7 @@ export function SingleSelection(): JSX.Element {
     <>
       <h1>Single Selection</h1>
 
-      <p>This pattern appears inside a nested DropdownMenu in Memex view options.</p>
+      <p>This pattern appears inside a nested menu in Memex view options.</p>
 
       <ActionList aria-label="Group items by" selectionVariant="single" role="listbox">
         {options.map((option, index) => (
@@ -190,13 +190,14 @@ export function Groups(): JSX.Element {
 
       <p>Grouped content with labels and description. This patterns appears in pull requests to pick a reviewer.</p>
 
-      <ActionList selectionVariant="multiple" showDividers aria-label="Select reviewers">
-        <ActionList.Group title="Suggestions" role="listbox">
+      <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Select reviewers">
+        <ActionList.Group title="Suggestions">
           {users.slice(0, 2).map(user => (
             <ActionList.Item
               key={user.login}
-              role="option"
+              role="menuitemcheckbox"
               selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
               onSelect={() => toggleAssignee(user)}
             >
               <ActionList.LeadingVisual>
@@ -208,12 +209,13 @@ export function Groups(): JSX.Element {
             </ActionList.Item>
           ))}
         </ActionList.Group>
-        <ActionList.Group title="Everyone" role="listbox">
+        <ActionList.Group title="Everyone">
           {users.slice(2).map(user => (
             <ActionList.Item
-              role="option"
+              role="menuitemcheckbox"
               key={user.login}
               selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
+              aria-checked={Boolean(assignees.find(assignee => assignee.login === user.login))}
               onSelect={() => toggleAssignee(user)}
             >
               <ActionList.LeadingVisual>
@@ -266,7 +268,7 @@ export function MixedSelection(): JSX.Element {
 
       <p>
         In this list, there is a ActionList.Group with single selection for picking one option, followed by a Item that
-        is an action. This pattern appears inside a DropdownMenu for selection view options in Memex
+        is an action. This pattern appears inside a menu for selection view options in Memex
       </p>
 
       <ActionList>
