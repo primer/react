@@ -131,6 +131,11 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding-right: 12px;
 }
 
+.c7 {
+  font-size: 16px;
+  color: #57606a;
+}
+
 .c6 {
   background-color: transparent;
   font-family: inherit;
@@ -257,11 +262,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 .c4:hover {
   background-color: rgba(175,184,193,0.2);
   color: #24292f;
-}
-
-.c7 {
-  font-size: 16px;
-  color: #57606a;
 }
 
 @media (min-width:768px) {
