@@ -171,8 +171,8 @@ export function GroupsAndDescription(): JSX.Element {
             Milestone
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
-            <ActionList selectionVariant="single" showDividers role="none">
-              <ActionList.Group title="Open" role="menu">
+            <ActionList selectionVariant="single" showDividers>
+              <ActionList.Group title="Open">
                 {milestones
                   .filter(milestone => !milestone.name.includes('21'))
                   .map((milestone, index) => (
@@ -189,7 +189,7 @@ export function GroupsAndDescription(): JSX.Element {
                     </ActionList.Item>
                   ))}
               </ActionList.Group>
-              <ActionList.Group title="Closed" role="menu">
+              <ActionList.Group title="Closed">
                 {milestones
                   .filter(milestone => milestone.name.includes('21'))
                   .map((milestone, index) => (
@@ -270,7 +270,6 @@ export function MultipleSelection(): JSX.Element {
             <ActionList selectionVariant="multiple" showDividers>
               {users.map(user => (
                 <ActionList.Item
-                  role="option"
                   key={user.login}
                   selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
                   onSelect={() => toggleAssignee(user)}
@@ -321,8 +320,8 @@ export function MixedSelection(): JSX.Element {
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
-          <ActionList role="none">
-            <ActionList.Group selectionVariant="single" title="Group by" role="menu">
+          <ActionList>
+            <ActionList.Group selectionVariant="single" title="Group by">
               {options.map((option, index) => (
                 <ActionList.Item
                   key={index}
@@ -337,9 +336,9 @@ export function MixedSelection(): JSX.Element {
               ))}
             </ActionList.Group>
             {typeof selectedIndex === 'number' && (
-              <ActionList.Group role="menu">
+              <ActionList.Group>
                 <ActionList.Divider />
-                <ActionList.Item onSelect={() => setSelectedIndex(null)} role="menuitem">
+                <ActionList.Item onSelect={() => setSelectedIndex(null)}>
                   <ActionList.LeadingVisual>
                     <XIcon />
                   </ActionList.LeadingVisual>

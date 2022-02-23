@@ -45,10 +45,12 @@ export const Group: React.FC<GroupProps> = ({
   ...props
 }) => {
   const labelId = useSSRSafeId()
+  const {role: listRole} = React.useContext(ListContext)
 
   return (
     <Box
       as="li"
+      role="none"
       sx={{
         '&:not(:first-child)': {marginTop: 2},
         listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
@@ -58,7 +60,12 @@ export const Group: React.FC<GroupProps> = ({
     >
       {title && <Header title={title} variant={variant} auxiliaryText={auxiliaryText} labelId={labelId} />}
       <GroupContext.Provider value={{selectionVariant}}>
-        <Box as="ul" sx={{paddingInlineStart: 0}} aria-labelledby={title ? labelId : undefined} role={role}>
+        <Box
+          as="ul"
+          sx={{paddingInlineStart: 0}}
+          aria-labelledby={title ? labelId : undefined}
+          role={role || (listRole && 'group')}
+        >
           {props.children}
         </Box>
       </GroupContext.Provider>
