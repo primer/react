@@ -39,7 +39,7 @@ describe('CheckboxOrRadioGroup', () => {
       </SSRProvider>
     )
   })
-  checkExports('CheckboxOrRadioGroup', {
+  checkExports('_CheckboxOrRadioGroup', {
     default: CheckboxOrRadioGroup
   })
   it('renders a group of inputs with a caption in the <legend>', () => {

@@ -4,6 +4,7 @@ import {render} from '@testing-library/react'
 import {RadioGroup, FormControl, Radio, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
+import {RadioGroupContext} from '../RadioGroup'
 
 describe('RadioGroup', () => {
   const mockWarningFn = jest.fn()
@@ -38,7 +39,8 @@ describe('RadioGroup', () => {
     )
   })
   checkExports('RadioGroup', {
-    default: RadioGroup
+    default: RadioGroup,
+    RadioGroupContext
   })
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
