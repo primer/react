@@ -254,7 +254,8 @@ export function checkStoriesForAxeViolations(name: string) {
   Object.values(Stories).map(Story => {
     if (typeof Story !== 'function') return
 
-    it(`story ${(Story as StoryType).storyName} should have no axe violations`, async () => {
+    const {storyName, name: StoryFunctionName} = Story as StoryType
+    it(`story ${storyName || StoryFunctionName} should have no axe violations`, async () => {
       const {container} = HTMLRender(<Story />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()

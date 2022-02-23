@@ -176,6 +176,16 @@ function Example() {
 }
 ```
 
+#### `preventSSRMismatch` prop
+
+If you are doing server-side rendering, pass the `preventSSRMismatch` prop to ensure the rendered output from the server and browser match even when they resolve "auto" color mode differently.
+
+```jsx
+<ThemeProvider colorMode="auto" preventSSRMismatch>
+  ...
+</ThemeProvider>
+```
+
 ### Setting color schemes
 
 To choose which color schemes will be displayed in `day` and `night` mode, use the `dayScheme` and `nightScheme` props on `ThemeProvider` or the `setDayScheme` and `setNightScheme` functions from the `useTheme` hook:
