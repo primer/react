@@ -34,11 +34,11 @@ export const Basic = (args: Args) => (
   <CheckboxGroup {...args}>
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
     <FormControl>
-      <Checkbox value="one" />
+      <Checkbox value="one" checked />
       <FormControl.Label>Choice one</FormControl.Label>
     </FormControl>
     <FormControl>
-      <Checkbox value="two" />
+      <Checkbox value="two" defaultChecked />
       <FormControl.Label>Choice two</FormControl.Label>
     </FormControl>
     <FormControl>

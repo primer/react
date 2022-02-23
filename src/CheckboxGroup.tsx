@@ -5,6 +5,7 @@ import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroup/_CheckboxOrRadioG
 import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from './hooks'
 import {SxProp} from './sx'
+import {Checkbox, FormControl} from '.'
 
 type CheckboxGroupProps = {
   /**
@@ -20,7 +21,23 @@ export const CheckboxGroupContext = createContext<{
 }>({})
 
 const CheckboxGroup: FC<CheckboxGroupProps> = ({children, disabled, onChange, ...rest}) => {
-  const [selectedCheckboxValues, setSelectedCheckboxValues] = useRenderForcingRef<string[]>([])
+  const formControlComponentChildren = React.Children.toArray(children)
+    .filter(child => React.isValidElement(child) && child.type === FormControl)
+    .map(formControlComponent =>
+      React.isValidElement(formControlComponent) ? formControlComponent.props.children : []
+    )
+    .flat()
+
+  const checkedCheckboxes = React.Children.toArray(formControlComponentChildren)
+    .filter(child => React.isValidElement(child) && child.type === Checkbox)
+    .map(
+      checkbox =>
+        React.isValidElement(checkbox) &&
+        (checkbox.props.checked || checkbox.props.defaultChecked) &&
+        checkbox.props.value
+    )
+    .filter(Boolean)
+  const [selectedCheckboxValues, setSelectedCheckboxValues] = useRenderForcingRef<string[]>(checkedCheckboxes)
 
   const updateSelectedCheckboxes: ChangeEventHandler<HTMLInputElement> = e => {
     const {value, checked} = e.currentTarget
