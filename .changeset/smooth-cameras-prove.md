@@ -61,7 +61,66 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Dropdown
 
-TODO
+`Dropdown` has been deprecated. Please use `ActionMenu` instead.
+
+<table>
+<tr>
+<th> Before </th> <th> After </th>
+</tr>
+<tr>
+<td valign="top">
+
+```jsx
+const fieldTypes = [
+  {leadingVisual: TypographyIcon, text: 'Text'},
+  {leadingVisual: NumberIcon, text: 'Number'},
+];
+
+const [selectedItem, setSelectedItem] = React.useState()
+
+<DropdownMenu
+  renderAnchor={({children, ...anchorProps}) => (
+    <ButtonInvisible {...anchorProps}>
+      {children}
+    </ButtonInvisible>
+  )}
+  placeholder="Select a field type"
+  items={fieldTypes}
+  selectedItem={selectedItem}
+  onChange={() => setSelectedIndex(index)}
+/>
+```
+
+ </td>
+<td valign="top">
+
+```jsx
+const fieldTypes = [
+  {icon: <TypographyIcon/>, name: 'Text'},
+  {icon: <NumberIcon/>, name: 'Number'},
+];
+
+const [selectedItem, setSelectedItem] = React.useState()
+
+<ActionMenu>
+  <ActionMenu.Button>{selectedItem ? selectedItem.name : 'Select a field type'}</ActionMenu.Button>
+  <ActionMenu.Overlay>
+     <ActionList selectionVariant="single">
+      {fieldTypes.map(field => (
+        <ActionList.Item onSelect={() => setSelectedItem(field)} key={field.name}>
+           <ActionList.LeadingVisual>{field.icon}</ActionList.LeadingVisual>
+           {field.name}
+         </ActionList.Item>
+     <ActionList>
+  </ActionMenu.Overlay>
+<ActionMenu>
+```
+
+</td>
+</tr>
+</table>
+
+See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMenu) for more migration examples.
 
 ### Flex
 
