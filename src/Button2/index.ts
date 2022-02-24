@@ -7,3 +7,5 @@ export {IconButton}
 export const Button = Object.assign(ButtonComponent, {
   Counter
 })
+
+Button.displayName = 'Button'
