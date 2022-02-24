@@ -12,7 +12,7 @@ Use [Box](/Box) instead.
 
 **Before**
 
-```jsx
+```jsx deprecated
 <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     1
@@ -25,7 +25,7 @@ Use [Box](/Box) instead.
 
 **After**
 
-```jsx
+```jsx deprecated
 <Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     1
@@ -38,7 +38,7 @@ Use [Box](/Box) instead.
 
 ## Default example
 
-```jsx live
+```jsx deprecated live
 <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     1

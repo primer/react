@@ -12,7 +12,7 @@ Use [Box](/Box) instead.
 
 **Before**
 
-```jsx
+```jsx deprecated
 <Flex flexWrap="nowrap">
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     Item 1
@@ -22,7 +22,7 @@ Use [Box](/Box) instead.
 
 **After**
 
-```jsx
+```jsx deprecated
 <Box display="flex" flexWrap="nowrap">
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     Item 1
@@ -32,7 +32,7 @@ Use [Box](/Box) instead.
 
 ## Default example
 
-```jsx live
+```jsx deprecated live
 <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" width={300} height={300} borderRadius={0}>
   <Flex flexWrap="nowrap">
     <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">

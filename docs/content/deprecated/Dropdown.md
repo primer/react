@@ -17,7 +17,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 
 ## Default example
 
-```jsx live
+```jsx live deprecated
 <Dropdown>
   <Dropdown.Button>Dropdown</Dropdown.Button>
   <Dropdown.Menu direction="sw">
@@ -30,7 +30,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 
 ## With custom button
 
-```jsx live
+```jsx live deprecated
 <Dropdown>
   <summary>
     Dropdown
