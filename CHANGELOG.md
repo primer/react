@@ -1,5 +1,30 @@
 # @primer/components
 
+## 34.6.0
+
+### Minor Changes
+
+- [#1834](https://github.com/primer/react/pull/1834) [`2abd7b7a`](https://github.com/primer/react/commit/2abd7b7a1f8a1cddaf452770c9c102b9d66f3316) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu2 + DropdownMenu2: Implement typeahead search. [See detailed spec.](https://github.com/github/primer/issues/518#issuecomment-999104848)
+
+### Patch Changes
+
+- [#1877](https://github.com/primer/react/pull/1877) [`50fa9880`](https://github.com/primer/react/commit/50fa98802700130576c81be85dba5695013f5f23) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Upgrade @primer/behaviors to 1.1.0
+
+* [#1876](https://github.com/primer/react/pull/1876) [`6cc9260a`](https://github.com/primer/react/commit/6cc9260a97334aea835c3981da0e8ed5d55d3467) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Better aria roles for ActionList group
+
+- [#1848](https://github.com/primer/react/pull/1848) [`96a151ac`](https://github.com/primer/react/commit/96a151ac4d6edf9b3eb3e05bbee64a49cd87e17c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Merges drafts/DropdownMenu2 into drafts/ActionMenu2
+
+* [#1866](https://github.com/primer/react/pull/1866) [`01efa73f`](https://github.com/primer/react/commit/01efa73fb003d6529bb27c961bb802faab57d034) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Fix the behavior of Escape key in nested overlays [#1854](https://github.com/primer/react/issues/1854), now only the top most overlay will close instead of all of them.
+
+- [#1855](https://github.com/primer/react/pull/1855) [`c3b4ad70`](https://github.com/primer/react/commit/c3b4ad705a40f6e0f09dd74cf8457cb6bc0d5ca1) Thanks [@jclem](https://github.com/jclem)! - Fix [an issue](https://github.com/primer/react/issues/1849) where transitive
+  dependency interface augmentations appeared in our build output
+
+* [#1826](https://github.com/primer/react/pull/1826) [`004c4623`](https://github.com/primer/react/commit/004c4623162816cbf1b77b0b1387b8c03732675b) Thanks [@PeterYangIO](https://github.com/PeterYangIO)! - Remove unnecessary "required field" label title in favor for native `required` input attribute
+
+- [#1868](https://github.com/primer/react/pull/1868) [`f3f42553`](https://github.com/primer/react/commit/f3f425536dde3cd2c92599216987305964b76187) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Fixes a bug for theming with server side rendering where the output of the server and client mismatch [#1773](https://github.com/primer/react/issues/1773)
+
+* [#1864](https://github.com/primer/react/pull/1864) [`8558ae5b`](https://github.com/primer/react/commit/8558ae5b1734bdcf306a43a08fa0fae34f98609c) Thanks [@pksjce](https://github.com/pksjce)! - Small fixes to icon button sizes. Truthy checks for children props
+
 ## 34.5.0
 
 ### Minor Changes
