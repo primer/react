@@ -5,7 +5,7 @@ status: Deprecated
 
 ## Deprecation
 
-Use [DropdownMenu](/DropdownMenu) instead.
+Use [ActionMenu](/ActionMenu) instead.
 
 ---
 
