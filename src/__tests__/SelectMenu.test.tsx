@@ -1,5 +1,6 @@
 import React from 'react'
-import {SelectMenu, Button} from '..'
+import {SelectMenu} from '../deprecated'
+import {Button} from '..'
 import {mount, render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
