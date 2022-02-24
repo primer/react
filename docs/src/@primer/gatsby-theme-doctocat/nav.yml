@@ -85,6 +85,8 @@
       url: /Overlay
     - title: Pagehead
       url: /Pagehead
+    - title: PageLayout
+      url: /PageLayout
     - title: Pagination
       url: /Pagination
     - title: PointerBox

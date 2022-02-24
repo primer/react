@@ -8,6 +8,14 @@ export type {ThemeProviderProps} from './ThemeProvider'
 // Layout
 export {default as Box} from './Box'
 export type {BoxProps} from './Box'
+export {PageLayout} from './PageLayout'
+export type {
+  PageLayoutProps,
+  PageLayoutHeaderProps,
+  PageLayoutContentProps,
+  PageLayoutPaneProps,
+  PageLayoutFooterProps
+} from './PageLayout'
 
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
