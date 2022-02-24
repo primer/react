@@ -106,20 +106,6 @@ export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as Select} from './Select'
-export type {
-  SelectMenuProps,
-  SelectMenuDividerProps,
-  SelectMenuFilterProps,
-  SelectMenuFooterProps,
-  SelectMenuItemProps,
-  SelectMenuListProps,
-  SelectMenuModalProps,
-  SelectMenuTabsProps,
-  SelectMenuHeaderProps,
-  SelectMenuTabProps,
-  SelectMenuTabPanelProps,
-  SelectMenuLoadingAnimationProps
-} from './SelectMenu'
 export {SelectPanel} from './SelectPanel'
 export type {SelectPanelProps} from './SelectPanel'
 export {default as SideNav} from './SideNav'

@@ -14,9 +14,6 @@ export {default as Grid} from '../Grid'
 export type {GridProps} from '../Grid'
 export {default as Position, Absolute, Fixed, Relative, Sticky} from '../Position'
 export type {PositionProps, AbsoluteProps, FixedProps, RelativeProps, StickyProps} from '../Position'
-export {default as Dialog} from '../Dialog'
-export type {DialogProps, DialogHeaderProps} from '../Dialog'
-export {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 export {default as Dropdown} from '../Dropdown'
 export type {
   DropdownProps,
@@ -25,6 +22,18 @@ export type {
   DropdownItemProps,
   DropdownMenuProps
 } from '../Dropdown'
-export {default as FormGroup} from '../FormGroup'
-export type {FormGroupProps, FormGroupLabelProps} from '../FormGroup'
 export {default as SelectMenu} from '../SelectMenu'
+export type {
+  SelectMenuProps,
+  SelectMenuDividerProps,
+  SelectMenuFilterProps,
+  SelectMenuFooterProps,
+  SelectMenuItemProps,
+  SelectMenuListProps,
+  SelectMenuModalProps,
+  SelectMenuTabsProps,
+  SelectMenuHeaderProps,
+  SelectMenuTabProps,
+  SelectMenuTabPanelProps,
+  SelectMenuLoadingAnimationProps
+} from '../SelectMenu'
