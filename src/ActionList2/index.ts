@@ -7,10 +7,13 @@ import {Description} from './Description'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 
 export type {ListProps as ActionListProps} from './List'
-export type {GroupProps} from './Group'
-export type {ItemProps} from './Item'
-export type {DescriptionProps} from './Description'
-export type {LeadingVisualProps, TrailingVisualProps} from './Visuals'
+export type {GroupProps as ActionListGroupProps} from './Group'
+export type {ItemProps as ActionListItemProps} from './Item'
+export type {DescriptionProps as ActionListDescriptionProps} from './Description'
+export type {
+  LeadingVisualProps as ActionListLeadingVisualProps,
+  TrailingVisualProps as ActionListTrailingVisualProps
+} from './Visuals'
 
 /**
  * Collection of list-related components.

@@ -64,15 +64,15 @@ const Menu: React.FC<ActionMenuProps> = ({
   )
 }
 
-export type MenuAnchorProps = {children: React.ReactElement}
-const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], MenuAnchorProps>(
+export type ActionMenuAnchorProps = {children: React.ReactElement}
+const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnchorProps>(
   ({children, ...anchorProps}, anchorRef) => {
     return React.cloneElement(children, {...anchorProps, ref: anchorRef})
   }
 )
 
 /** this component is syntactical sugar 🍭 */
-export type MenuButtonProps = ButtonProps
+export type ActionMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>((props, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>

@@ -1,17 +1,24 @@
 {
   "name": "@primer/react",
-  "version": "34.5.0",
+  "version": "34.6.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
       "node": "./lib/index.js",
+      "require": "./lib/index.js",
       "default": "./lib-esm/index.js"
     },
     "./drafts": {
       "node": "./lib/drafts/index.js",
+      "require": "./lib/drafts/index.js",
       "default": "./lib-esm/drafts/index.js"
+    },
+    "./deprecated": {
+      "node": "./lib/deprecated/index.js",
+      "require": "./lib/deprecated/index.js",
+      "default": "./lib-esm/deprecated/index.js"
     },
     "./lib-esm/*": {
       "node": [
