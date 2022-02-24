@@ -139,4 +139,38 @@ TODO
 
 ### Position
 
-TODO
+`Position` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+
+<table>
+<tr>
+<th> Before </th> <th> After </th>
+</tr>
+<tr>
+<td valign="top">
+
+```jsx
+<>
+  <Position position="absolute">...</Position>
+  <Absolute>...</Absolute>
+  <Relative>...</Relative>
+  <Fixed>...</Fixed>
+  <Sticky>...</Sticky>
+</>
+```
+
+ </td>
+<td valign="top">
+
+```jsx
+<>
+  <Box position="absolute">...</Box>
+  <Box position="absolute">...</Box>
+  <Box position="relative">...</Box>
+  <Box position="fixed">...</Box>
+  <Box position="sticky">...</Box>
+</>
+```
+
+</td>
+</tr>
+</table>
