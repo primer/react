@@ -6,16 +6,8 @@ export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProv
 export type {ThemeProviderProps} from './ThemeProvider'
 
 // Layout
-export {default as BorderBox} from './BorderBox'
-export type {BorderBoxProps} from './BorderBox'
 export {default as Box} from './Box'
 export type {BoxProps} from './Box'
-export {default as Flex} from './Flex'
-export type {FlexProps} from './Flex'
-export {default as Grid} from './Grid'
-export type {GridProps} from './Grid'
-export {default as Position, Absolute, Fixed, Relative, Sticky} from './Position'
-export type {PositionProps, AbsoluteProps, FixedProps, RelativeProps, StickyProps} from './Position'
 
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
@@ -80,14 +72,7 @@ export type {DetailsProps} from './Details'
 export {default as Dialog} from './Dialog'
 export type {DialogProps, DialogHeaderProps} from './Dialog'
 export {ConfirmationDialog} from './Dialog/ConfirmationDialog'
-export {default as Dropdown} from './Dropdown'
-export type {
-  DropdownProps,
-  DropdownCaretProps,
-  DropdownButtonProps,
-  DropdownItemProps,
-  DropdownMenuProps
-} from './Dropdown'
+
 export {DropdownButton, DropdownMenu} from './DropdownMenu'
 // not exporting new DropdownMenu types yet due to conflict with Dropdown types above
 // export type {DropdownButtonProps, DropdownMenuProps} from './DropdownMenu'
@@ -126,22 +111,7 @@ export type {PopoverProps, PopoverContentProps} from './Popover'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as RadioGroup} from './RadioGroup'
-export {default as SelectMenu} from './SelectMenu'
 export {default as Select} from './Select'
-export type {
-  SelectMenuProps,
-  SelectMenuDividerProps,
-  SelectMenuFilterProps,
-  SelectMenuFooterProps,
-  SelectMenuItemProps,
-  SelectMenuListProps,
-  SelectMenuModalProps,
-  SelectMenuTabsProps,
-  SelectMenuHeaderProps,
-  SelectMenuTabProps,
-  SelectMenuTabPanelProps,
-  SelectMenuLoadingAnimationProps
-} from './SelectMenu'
 export {SelectPanel} from './SelectPanel'
 export type {SelectPanelProps} from './SelectPanel'
 export {default as SideNav} from './SideNav'

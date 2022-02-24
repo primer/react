@@ -33,6 +33,7 @@ import {
 } from '@primer/octicons-react'
 import * as primerComponents from '@primer/react'
 import * as drafts from '@primer/react/drafts'
+import * as deprecated from '@primer/react/deprecated'
 import {Placeholder} from '@primer/react/Placeholder'
 import React from 'react'
 import {AnchoredOverlay} from '../../../../src/AnchoredOverlay'
@@ -51,6 +52,7 @@ export default function resolveScope(metastring) {
     ...doctocatComponents,
     ...primerComponents,
     ...(metastring.includes('drafts') ? drafts : {}),
+    ...deprecated,
     ReactRouterLink,
     State,
     CheckIcon,
