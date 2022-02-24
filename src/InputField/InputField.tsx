@@ -40,6 +40,7 @@ export interface InputFieldContext
   validationMessageId: string
 }
 
+/** @deprecated Use FormControl instead. See https://primer.style/react/FormControl for more details. */
 const InputField = <T extends Record<string, FormValidationStatus>>({
   children,
   disabled,

@@ -3,12 +3,14 @@ import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
+/** @deprecated Use FormControl instead. See https://primer.style/react/FormControl for more details. */
 const FormGroup = styled.div<SxProp>`
   margin: ${get('space.3')} 0;
   font-weight: ${get('fontWeights.normal')};
   ${sx};
 `
 
+/** @deprecated Use FormControl instead. See https://primer.style/react/FormControl for more details. */
 const FormGroupLabel = styled.label<SxProp>`
   display: block;
   margin: 0 0 ${get('space.2')};
