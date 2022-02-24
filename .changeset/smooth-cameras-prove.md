@@ -65,7 +65,41 @@ TODO
 
 ### Flex
 
-TODO
+`Flex` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+
+<table>
+<tr>
+<th> Before </th> <th> After </th>
+</tr>
+<tr>
+<td valign="top">
+
+```jsx
+// import {Flex} from '@primer/react';
+
+<Flex flexWrap="nowrap">
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
+    Item 1
+  </Box>
+</Flex>
+```
+
+ </td>
+<td valign="top">
+
+```jsx
+// import {Box} from '@primer/react';
+
+<Box display="flex" flexWrap="nowrap">
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
+    Item 1
+  </Box>
+</Box>
+```
+
+</td>
+</tr>
+</table>
 
 ### Grid
 
@@ -73,11 +107,35 @@ TODO
 
 ### BorderBox
 
-TODO
+`BorderBox` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
 
-### BorderBox
+<table>
+<tr>
+<th> Before </th> <th> After </th>
+</tr>
+<tr>
+<td valign="top">
 
-TODO
+```jsx
+// import {BorderBox} from '@primer/react';
+
+<BorderBox>Item 1</BorderBox>
+```
+
+ </td>
+<td valign="top">
+
+```jsx
+// import {Box} from '@primer/react';
+
+<Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
+  Item 1
+</Box>
+```
+
+</td>
+</tr>
+</table>
 
 ### Position
 
