@@ -2,11 +2,9 @@
 '@primer/react': major
 ---
 
-## ⚠️ Deprecations
-
 ### SelectMenu
 
-`SelectMenu` has been deprecated. Please use `ActionMenu` instead.
+> ⚠️ `SelectMenu` has been deprecated. Please use `ActionMenu` instead.
 
 <table>
 <tr>
@@ -61,7 +59,7 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Dropdown
 
-`Dropdown` has been deprecated. Please use `ActionMenu` instead.
+> ⚠️ `Dropdown` has been deprecated. Please use `ActionMenu` instead.
 
 <table>
 <tr>
@@ -124,7 +122,7 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Flex
 
-`Flex` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+> ⚠️ `Flex` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
 
 <table>
 <tr>
@@ -162,11 +160,47 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Grid
 
-TODO
+> ⚠️ `Grid` has been deprecated. Please use `ActionMenu` instead.
+
+<table>
+<tr>
+<th> Before </th> <th> After </th>
+</tr>
+<tr>
+<td valign="top">
+
+```jsx
+<Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
+    1
+  </Box>
+  <Box p={3} color="fg.onEmphasis" bg="attention.emphasis">
+    2
+  </Box>
+</Grid>
+```
+
+ </td>
+<td valign="top">
+
+```jsx
+<Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+  <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
+    1
+  </Box>
+  <Box p={3} color="fg.onEmphasis" bg="attention.emphasis">
+    2
+  </Box>
+</Box>
+```
+
+</td>
+</tr>
+</table>
 
 ### BorderBox
 
-`BorderBox` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+> ⚠️ `BorderBox` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
 
 <table>
 <tr>
@@ -198,7 +232,7 @@ TODO
 
 ### Position
 
-`Position` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+> ⚠️ `Position` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
 
 <table>
 <tr>
