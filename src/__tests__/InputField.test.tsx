@@ -2,7 +2,8 @@ import React from 'react'
 import {render, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {Autocomplete, InputField, SSRProvider, TextInput, TextInputWithTokens} from '..'
+import {Autocomplete, SSRProvider, TextInput, TextInputWithTokens} from '..'
+import InputField from '../InputField'
 expect.extend(toHaveNoViolations)
 
 const TEXTINPUTFIELD_LABEL_TEXT = 'Name'
