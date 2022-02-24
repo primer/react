@@ -40,6 +40,7 @@ const sizeVariant = variant({
   }
 })
 
+/** @deprecated Use the new Label instead. See https://primer.style/react/Label for more details. */
 const Label = styled.span<
   {
     variant?: 'small' | 'medium' | 'large' | 'xl'
