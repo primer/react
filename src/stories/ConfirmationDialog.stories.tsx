@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Button, Box, ThemeProvider, useTheme} from '..'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
-import {ActionMenu} from '../ActionMenu'
+import {ActionMenu} from '../deprecated/ActionMenu'
 
 export default {
   title: 'Internal components/ConfirmationDialog',

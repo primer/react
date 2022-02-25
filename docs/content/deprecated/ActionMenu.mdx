@@ -1,0 +1,127 @@
+---
+componentId: action_menu
+title: ActionMenu
+status: Deprecated
+source: https://github.com/primer/react/tree/main/src/deprecated/ActionMenu.tsx
+---
+
+An `ActionMenu` is an ActionList-based component for creating a menu of actions that expands through a trigger button.
+
+## Deprecation
+
+Use [new version of ActionMenu](/ActionMenu) with composable API, design updates and accessibility fixes.
+
+**Before**
+
+```jsx
+<ActionMenu
+  anchorContent="Menu"
+  onAction={fn}
+  items={[
+    {text: 'New file'},
+    {text: 'Copy link'},
+    {text: 'Edit file'},
+    ActionMenu.Divider,
+    {text: 'Delete file', variant: 'danger'}
+  ]}
+  overlayProps={{width: 'small'}}
+/>
+```
+
+**After**
+
+```jsx
+<ActionMenu>
+  <ActionMenu.Button>Menu</ActionMenu.Button>
+  <ActionMenu.Overlay width="small">
+    <ActionList>
+      <ActionList.Item onSelect={fn}>New file</ActionList.Item>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Edit file</ActionList.Item>
+      <ActionList.Divider />
+      <ActionList.Item variant="danger">Delete file</ActionList.Item>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
+```
+
+Or continue using deprecated API:
+
+```js
+import {ActionMenu} from '@primer/react/deprecated'
+```
+
+## Default example
+
+```jsx live deprecated
+<ActionMenu
+  anchorContent="Menu"
+  onAction={({text}) => console.log(text)}
+  items={[
+    {text: 'New file', key: 'new-file'},
+    ActionMenu.Divider,
+    {text: 'Copy link', key: 'copy-link'},
+    {text: 'Edit file', key: 'edit-file'},
+    {text: 'Delete file', variant: 'danger', key: 'delete-file'}
+  ]}
+/>
+```
+
+## Example with grouped items
+
+```jsx live deprecated
+<ActionMenu
+  anchorContent="Menu"
+  onAction={({text}) => console.log(text)}
+  groupMetadata={[
+    {groupId: '0'},
+    {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
+    {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
+    {groupId: '3'},
+    {groupId: '4'}
+  ]}
+  items={[
+    {key: '1', leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
+    {key: '2', leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
+    {key: '3', leadingVisual: SearchIcon, text: 'repo:github/github', groupId: '1'},
+    {
+      key: '4',
+      leadingVisual: NoteIcon,
+      text: 'Table',
+      description: 'Information-dense table optimized for operations across teams',
+      descriptionVariant: 'block',
+      groupId: '2'
+    },
+    {
+      key: '5',
+      leadingVisual: ProjectIcon,
+      text: 'Board',
+      description: 'Kanban-style board focused on visual states',
+      descriptionVariant: 'block',
+      groupId: '2'
+    },
+    {
+      key: '6',
+      leadingVisual: FilterIcon,
+      text: 'Save sort and filters to current view',
+      disabled: true,
+      groupId: '3'
+    },
+    {key: '7', leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
+    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
+  ]}
+/>
+```
+
+## Component props
+
+| Name          | Type                                  |      Default      | Description                                                                                                                                                                                        |
+| :------------ | :------------------------------------ | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| items         | `ItemProps[]`                         |    `undefined`    | Required. A list of item objects conforming to the `ActionList.Item` props interface.                                                                                                              |
+| renderItem    | `(props: ItemProps) => JSX.Element`   | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for `ActionList`-wide custom item rendering.                                                                  |
+| groupMetadata | `GroupProps[]`                        |    `undefined`    | Optional. If defined, `ActionList` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property.                                            |
+| renderAnchor  | `(props: ButtonProps) => JSX.Element` |     `Button`      | Optional. If defined, provided component will be used to render the menu anchor. Will receive the selected `Item` text as `children` prop when an item is activated.                               |
+| anchorContent | React.ReactNode                       |    `undefined`    | Optional. If defined, it will be passed to the trigger as the elements child.                                                                                                                      |
+| onAction      | (props: ItemProps) => void            |    `undefined`    | Optional. If defined, this function will be called when a menu item is activated either by a click or a keyboard press.                                                                            |
+| open          | boolean                               |    `undefined`    | Optional. If defined, ActionMenu will use this to control the open/closed state of the Overlay instead of controlling the state internally. Should be used in conjunction with the `setOpen` prop. |
+| setOpen       | (state: boolean) => void              |    `undefined`    | Optional. If defined, ActionMenu will use this to control the open/closed state of the Overlay instead of controlling the state internally. Should be used in conjunction with the `open` prop.    |

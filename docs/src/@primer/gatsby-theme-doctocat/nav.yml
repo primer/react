@@ -37,6 +37,8 @@
   children:
     - title: ActionList
       url: /ActionList
+    - title: ActionMenu
+      url: /ActionMenu
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar
@@ -55,10 +57,8 @@
       url: /Buttons
     - title: Checkbox
       url: /Checkbox
-    # Temporarily hiding ChoiceFieldset because the API
-    # is being refactored with breaking changes
-    # - title: ChoiceFieldset
-    #   url: /ChoiceFieldset
+    - title: CheckboxGroup
+      url: /CheckboxGroup
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
@@ -103,6 +103,8 @@
       url: /ProgressBar
     - title: Radio
       url: /Radio
+    - title: RadioGroup
+      url: /RadioGroup
     - title: Select
       url: /Select
     - title: SelectPanel
@@ -145,25 +147,25 @@
       url: /drafts/LinkButton
     - title: IconButton
       url: /drafts/IconButton
-    - title: ActionMenu v2
-      url: /drafts/ActionMenu2
 - title: Deprecated
   children:
+    - title: ActionList
+      url: /deprecated/ActionList
+    - title: ActionMenu
+      url: /deprecated/ActionMenu
     - title: BorderBox
       url: /deprecated/BorderBox
-    - title: Flex
-      url: /deprecated/Flex
-    - title: Grid
-      url: /deprecated/Grid
-    - title: Position
-      url: /deprecated/Position
     - title: Dialog
       url: /deprecated/Dialog
     - title: Dropdown
       url: /deprecated/Dropdown
+    - title: Flex
+      url: /deprecated/Flex
     - title: FormGroup
       url: /FormGroup
+    - title: Grid
+      url: /deprecated/Grid
+    - title: Position
+      url: /deprecated/Position
     - title: SelectMenu
       url: /deprecated/SelectMenu
-    - title: ActionList
-      url: /deprecated/ActionList

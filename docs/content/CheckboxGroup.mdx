@@ -1,0 +1,317 @@
+---
+title: CheckboxGroup
+description: A `CheckboxGroup` is used to render a set of checkboxes to let users select one or more options
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/CheckboxGroup/CheckboxGroup.tsx
+storybook: '/react/storybook/?path=/story/forms-checkboxgroup-examples--basic'
+---
+
+import {CheckboxGroup, Checkbox, Box} from '@primer/components'
+import {CheckIcon, XIcon, AlertIcon} from '@primer/octicons-react'
+import {ComponentChecklist} from '../src/component-checklist'
+
+## Examples
+
+### Basic
+
+```jsx live
+<Box display="grid" sx={{gap: 3}}>
+  <CheckboxGroup>
+    <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+    <FormControl>
+      <Checkbox value="one" />
+      <FormControl.Label>Choice one</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="two" />
+      <FormControl.Label>Choice two</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="three" />
+      <FormControl.Label>Choice three</FormControl.Label>
+    </FormControl>
+  </CheckboxGroup>
+</Box>
+```
+
+### Using onChange handlers
+
+```javascript live noinline
+const WithOnChangeHandlers = () => {
+  const [selectedCheckboxValues, setSelectedCheckboxValues] = React.useState(['one', 'two'])
+  const [lastSelectedCheckboxValue, setLastSelectedCheckboxValue] = React.useState()
+
+  const handleCheckboxGroupChange = (selectedValues, e) => {
+    setSelectedCheckboxValues(selectedValues)
+    setLastSelectedCheckboxValue(e.currentTarget.value)
+  }
+
+  const handleChoiceOneChange = e => {
+    alert('Choice one has its own handler')
+  }
+
+  return (
+    <Box display="grid" sx={{gap: 1}}>
+      <CheckboxGroup onChange={handleCheckboxGroupChange}>
+        <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+        <FormControl>
+          <Checkbox value="one" defaultChecked onChange={handleChoiceOneChange} />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox value="two" defaultChecked />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox value="three" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </CheckboxGroup>
+
+      {Boolean(selectedCheckboxValues.length) && (
+        <div>The selected checkbox values are {selectedCheckboxValues.join(', ')}</div>
+      )}
+      {Boolean(lastSelectedCheckboxValue) && <div>The last affected checkbox value is {lastSelectedCheckboxValue}</div>}
+    </Box>
+  )
+}
+
+render(<WithOnChangeHandlers />)
+```
+
+### Disabled
+
+```jsx live
+<CheckboxGroup disabled>
+  <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+  <FormControl>
+    <Checkbox value="one" />
+    <FormControl.Label>Choice one</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="two" />
+    <FormControl.Label>Choice two</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="three" />
+    <FormControl.Label>Choice three</FormControl.Label>
+  </FormControl>
+</CheckboxGroup>
+```
+
+### Required
+
+```jsx live
+<CheckboxGroup required>
+  <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+  <FormControl>
+    <Checkbox value="one" />
+    <FormControl.Label>Choice one</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="two" />
+    <FormControl.Label>Choice two</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="three" />
+    <FormControl.Label>Choice three</FormControl.Label>
+  </FormControl>
+</CheckboxGroup>
+```
+
+### With validation
+
+```jsx live
+<CheckboxGroup>
+  <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+  <FormControl>
+    <Checkbox value="one" />
+    <FormControl.Label>Choice one</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="two" />
+    <FormControl.Label>Choice two</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="three" />
+    <FormControl.Label>Choice three</FormControl.Label>
+  </FormControl>
+  <CheckboxGroup.Validation variant="error">Your choices are wrong</CheckboxGroup.Validation>
+</CheckboxGroup>
+```
+
+### With caption
+
+```jsx live
+<CheckboxGroup>
+  <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+  <CheckboxGroup.Caption>You can pick any or all of these choices</CheckboxGroup.Caption>
+  <FormControl>
+    <Checkbox value="one" />
+    <FormControl.Label>Choice one</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="two" />
+    <FormControl.Label>Choice two</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="three" />
+    <FormControl.Label>Choice three</FormControl.Label>
+  </FormControl>
+</CheckboxGroup>
+```
+
+### A visually hidden label
+
+```jsx live
+<CheckboxGroup>
+  <CheckboxGroup.Label visuallyHidden>Choices</CheckboxGroup.Label>
+  <FormControl>
+    <Checkbox value="one" />
+    <FormControl.Label>Choice one</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="two" />
+    <FormControl.Label>Choice two</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox value="three" />
+    <FormControl.Label>Choice three</FormControl.Label>
+  </FormControl>
+</CheckboxGroup>
+```
+
+### With an external label
+
+```jsx live
+<>
+  <Box
+    id="choiceHeading"
+    borderBottomWidth="1px"
+    borderBottomStyle="solid"
+    borderBottomColor="border.default"
+    pb={2}
+    mb={3}
+    fontSize={3}
+  >
+    Choices
+  </Box>
+  <CheckboxGroup aria-labelledby="choiceHeading">
+    <FormControl>
+      <Checkbox value="one" />
+      <FormControl.Label>Choice one</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="two" />
+      <FormControl.Label>Choice two</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="three" />
+      <FormControl.Label>Choice three</FormControl.Label>
+    </FormControl>
+  </CheckboxGroup>
+</>
+```
+
+## Props
+
+### CheckboxGroup
+
+<PropsTable>
+  <PropsTableRow
+    name="aria-labelledby"
+    type="string"
+    description="Used when associating the input group with a label other than CheckboxGroup.Label"
+  />
+  <PropsTableRow
+    name="children"
+    type="CheckboxGroup.Label | CheckboxGroup.Caption | CheckboxGroup.Validation | FormControl"
+    required
+  />
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the input group allows user input"
+  />
+  <PropsTableRow
+    name="id"
+    type="string"
+    defaultValue="a generated string"
+    description={
+      <span>
+        The unique identifier for this input group. Used to associate the label, validation text, and caption text.{' '}
+        <br /> You may want a custom ID to make it easier to select elements in integration tests.
+      </span>
+    }
+  />
+  <PropsTableRow
+    name="onChange"
+    type="(selected: string[], e?: ChangeEvent<HTMLInputElement>) => void"
+    description="An onChange handler that gets called when the selection changes"
+  />
+  <PropsTableRow
+    name="required"
+    type="boolean"
+    defaultValue="false"
+    description="If true, the user must make a selection before the owning form can be submitted"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### CheckboxGroup.Label
+
+A title for the set of choices. If a `CheckboxGroup.Label` is not passed as a child, you must pass the external title's ID to the `aria-describedby` prop on `CheckboxGroup`
+
+<PropsTable>
+  <PropsTableRow
+    name="visuallyHidden"
+    type="boolean"
+    defaultValue="false"
+    description="If true, the fieldset legend will be visually hidden"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### CheckboxGroup.Description
+
+<PropsTable>
+  <PropsTableRow name="children" type="React.ReactNode" description="The caption content" />
+  <PropsTableSxRow />
+</PropsTable>
+
+### CheckboxGroup.Validation
+
+If the user's selection has been flagged during validation, `CheckboxGroup.Validation` may be used to render contextual validation information to help the user complete their task
+
+<PropsTable>
+  <PropsTableRow name="children" type="React.ReactNode" description="The validation message" />
+  <PropsTableRow
+    required
+    name="variant"
+    type="'error' | 'success' | 'warning'"
+    description="Changes the visual style to match the validation status"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
