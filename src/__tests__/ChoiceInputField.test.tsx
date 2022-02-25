@@ -2,7 +2,8 @@ import React from 'react'
 import {render, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {Checkbox, ChoiceInputField, Radio, SSRProvider} from '..'
+import {Checkbox, Radio, SSRProvider} from '..'
+import ChoiceInputField from '../ChoiceInputField'
 import {MarkGithubIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
