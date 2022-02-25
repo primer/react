@@ -12,7 +12,7 @@ Use [Box](/Box) instead.
 
 **Before**
 
-```jsx
+```jsx deprecated
 <>
   <Position position="absolute">...</Position>
   <Absolute>...</Absolute>
@@ -24,7 +24,7 @@ Use [Box](/Box) instead.
 
 **After**
 
-```jsx
+```jsx deprecated
 <>
   <Box position="absolute">...</Box>
   <Box position="absolute">...</Box>
@@ -36,7 +36,7 @@ Use [Box](/Box) instead.
 
 ## Default examples
 
-```jsx live
+```jsx deprecated live
 <Box p={2} mb={200}>
   <Heading mb={2}>Relative + Absolute</Heading>
   <Relative size={128} mx={128} my={6}>
