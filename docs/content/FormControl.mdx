@@ -7,7 +7,18 @@ source: https://github.com/primer/react/blob/main/src/FormControl/FormControl.ts
 storybook: '/react/storybook?path=/story/forms-inputfield--text-input-field'
 ---
 
-import {FormControl, TextInputWithTokens, Autocomplete, Select, Textarea, Checkbox, Radio, Text} from '@primer/react'
+import {
+  FormControl,
+  TextInputWithTokens,
+  Autocomplete,
+  Select,
+  Textarea,
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  RadioGroup,
+  Text
+} from '@primer/react'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 ## Examples
@@ -83,27 +94,38 @@ render(DifferentInputs)
 ### With checkbox and radio inputs
 
 ```jsx live
-<Box display="grid" gridGap={3}>
-  <fieldset style={{marginLeft: 0, marginRight: 0, padding: 0, border: 0}}>
+<Box display="grid" sx={{gap: 3}}>
+  <CheckboxGroup>
+    <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
     <FormControl>
-      <FormControl.Label>Checkbox option one</FormControl.Label>
-      <Checkbox />
+      <Checkbox value="checkOne" />
+      <FormControl.Label>Checkbox one</FormControl.Label>
     </FormControl>
     <FormControl>
-      <FormControl.Label>Checkbox option two</FormControl.Label>
-      <Checkbox />
-    </FormControl>
-  </fieldset>
-  <fieldset style={{marginLeft: 0, marginRight: 0, padding: 0, border: 0}}>
-    <FormControl>
-      <FormControl.Label>Radio option one</FormControl.Label>
-      <Radio name="radioExample" value="one" />
+      <Checkbox value="checkTwo" />
+      <FormControl.Label>Checkbox two</FormControl.Label>
     </FormControl>
     <FormControl>
-      <FormControl.Label>Radio option two</FormControl.Label>
-      <Radio name="radioExample" value="two" />
+      <Checkbox value="checkThree" />
+      <FormControl.Label>Checkbox three</FormControl.Label>
     </FormControl>
-  </fieldset>
+  </CheckboxGroup>
+
+  <RadioGroup>
+    <RadioGroup.Label>Radios</RadioGroup.Label>
+    <FormControl>
+      <Radio name="radioChoices" value="radioOne" />
+      <FormControl.Label>Radio one</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio name="radioChoices" value="radioTwo" />
+      <FormControl.Label>Radio two</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio name="radioChoices" value="radioThree" />
+      <FormControl.Label>Radio three</FormControl.Label>
+    </FormControl>
+  </RadioGroup>
 </Box>
 ```
 
@@ -280,8 +302,8 @@ A `FormControl.Label` must be passed for the field to be accessible to assistive
 
 <PropsTable>
   <PropsTableRow
-    name="boolean"
-    type="FormControl.Label | FormControl.Caption | FormControl.Validation | Autocomplete | TextInput | TextInputWithTokens"
+    name="visuallyHidden"
+    type="boolean"
     defaultValue="false"
     description="Whether the label should be visually hidden"
   />
