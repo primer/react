@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
+import sx, {SxProp} from '../../sx'
 import {Header, HeaderProps} from './Header'
 
 /**

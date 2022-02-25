@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {ActionList, ItemProps} from '../ActionList'
+import {ActionList, ItemProps} from '../deprecated/ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {ComponentProps, MandateProps} from '../utils/types'
 import {Box, Spinner, useSSRSafeId} from '../'

@@ -15,8 +15,8 @@ import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {Label, ThemeProvider} from '..'
-import {ActionList as _ActionList} from '../ActionList'
-import {Header} from '../ActionList/Header'
+import {ActionList as _ActionList} from '../deprecated/ActionList'
+import {Header} from '../deprecated/ActionList/Header'
 import BaseStyles from '../BaseStyles'
 import sx from '../sx'
 
@@ -25,7 +25,7 @@ const ActionList = Object.assign(_ActionList, {
 })
 
 const meta: Meta = {
-  title: 'Composite components/ActionList',
+  title: 'Deprecated components/ActionList',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (

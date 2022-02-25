@@ -3,7 +3,7 @@ import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionList} from '../ActionList'
+import {ActionList} from '../deprecated/ActionList'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider} from '..'
 expect.extend(toHaveNoViolations)
@@ -33,7 +33,7 @@ describe('ActionList', () => {
     toRender: () => <ActionList items={[]} />
   })
 
-  checkExports('ActionList', {
+  checkExports('deprecated/ActionList', {
     default: undefined,
     ActionList
   })

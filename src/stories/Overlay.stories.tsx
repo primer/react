@@ -17,14 +17,14 @@ import {
   Checkbox,
   ChoiceInputField,
   TextInput,
-  ActionList,
   Link,
   Label
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
 import {ActionMenu, ActionList as ActionList2} from '../drafts'
-import {ItemInput} from '../ActionList/List'
+import {ActionList} from '../deprecated'
+import {ItemInput} from '../deprecated/ActionList/List'
 
 export default {
   title: 'Internal components/Overlay',

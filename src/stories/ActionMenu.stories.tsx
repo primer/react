@@ -17,7 +17,7 @@ import {ThemeProvider} from '..'
 import {ActionMenu, ActionMenuProps} from '../ActionMenu'
 import Link, {LinkProps} from '../Link'
 import Button from '../Button'
-import {ActionList, ItemProps} from '../ActionList'
+import {ActionList, ItemProps} from '../deprecated/ActionList'
 import BaseStyles from '../BaseStyles'
 import {DropdownButton} from '../DropdownMenu'
 
