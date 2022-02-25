@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Autocomplete, Box, Checkbox, Radio, Select, Textarea, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
@@ -8,6 +8,7 @@ import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import {SxProp} from '../sx'
+import CheckboxOrRadioGroupContext from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupContext'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -30,25 +31,27 @@ export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 
   validationMessageId: string
 }
 
-const FormControl = ({children, disabled, id: idProp, required, sx}: FormControlProps) => {
+const FormControl = ({children, disabled: disabledProp, id: idProp, required, sx}: FormControlProps) => {
   const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
+  const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
+  const disabled = choiceGroupContext?.disabled || disabledProp
   const id = useSSRSafeId(idProp)
   const validationChild = React.Children.toArray(children).find(child =>
     React.isValidElement(child) && child.type === FormControlValidation ? child : null
   )
-  const captionChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
+  const captionChild = React.Children.toArray(children).find(child =>
     React.isValidElement(child) && child.type === FormControlCaption ? child : null
-  )?.filter(Boolean)
-  const labelChild: React.ReactNode | undefined | null = React.Children.toArray(children).find(
+  )
+  const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === FormControlLabel
   )
-  const validationMessageId = validationChild ? `${id}-validationMsg` : ''
-  const validationStatus = React.isValidElement(validationChild) ? validationChild.props.variant : undefined
-  const captionId = captionChildren?.length ? `${id}-caption` : undefined
+  const validationMessageId = validationChild && `${id}-validationMessage`
+  const captionId = captionChild && `${id}-caption`
+  const validationStatus = React.isValidElement(validationChild) && validationChild.props.variant
   const InputComponent = React.Children.toArray(children).find(child =>
     expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)
   )
-  const inputProps = React.isValidElement(InputComponent) ? InputComponent.props : undefined
+  const inputProps = React.isValidElement(InputComponent) && InputComponent.props
   const isChoiceInput =
     React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
 
