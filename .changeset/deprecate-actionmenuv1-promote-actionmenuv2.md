@@ -4,7 +4,7 @@
 
 ### ActionMenu
 
-ActionMenu now ships a composable API that utilises ActionList
+ActionMenu has been rewritten with a composable API, design updates and accessibility fixes.
 
 See full list of props and examples: https://primer.style/react/ActionMenu
 
@@ -18,7 +18,7 @@ Main changes:
 
 <table>
 <tr>
-<th> Before </th> <th> After </th>
+<th> Before (v34)</th> <th> After (v35)</th>
 </tr>
 <tr>
 <td valign="top">
@@ -65,3 +65,5 @@ To continue to use the deprecated API for now, change the import path to `@prime
 ```js
 import {ActionMenu} from '@primer/react/deprecated'
 ```
+
+You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
