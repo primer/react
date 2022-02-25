@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import {useProvidedRefOrCreate} from './hooks'
-import React, {InputHTMLAttributes, ReactElement, useLayoutEffect} from 'react'
+import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext, useLayoutEffect} from 'react'
 import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
+import {CheckboxGroupContext} from './CheckboxGroup'
 
 export type CheckboxProps = {
   /**
@@ -21,12 +22,16 @@ export type CheckboxProps = {
    * Indicates whether the checkbox must be checked
    */
   required?: boolean
-
   /**
    * Indicates whether the checkbox validation state
    */
   validationStatus?: FormValidationStatus
-} & InputHTMLAttributes<HTMLInputElement> &
+  /**
+   * A unique value that is never shown to the user.
+   * Used during form submission and to identify which checkbox inputs are selected
+   */
+  value: string
+} & Exclude<InputHTMLAttributes<HTMLInputElement>, 'value'> &
   SxProp
 
 const StyledCheckbox = styled.input`
@@ -42,10 +47,15 @@ const StyledCheckbox = styled.input`
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
-    {checked, indeterminate, disabled, sx: sxProp, required, validationStatus, ...rest}: CheckboxProps,
+    {checked, indeterminate, disabled, onChange, sx: sxProp, required, validationStatus, value, ...rest}: CheckboxProps,
     ref
   ): ReactElement => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
+    const checkboxGroupContext = useContext(CheckboxGroupContext)
+    const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
+      checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
+      onChange && onChange(e)
+    }
 
     useLayoutEffect(() => {
       if (checkboxRef.current) {
@@ -65,6 +75,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         required={required}
         aria-required={required ? 'true' : 'false'}
         aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+        onChange={handleOnChange}
+        value={value}
+        name={value}
         {...rest}
       />
     )
