@@ -1,5 +1,5 @@
 import React from 'react'
-import {ActionList} from '..'
+import {ActionList} from '../../deprecated/ActionList'
 
 export function emptyList() {
   return <ActionList items={[]} />
