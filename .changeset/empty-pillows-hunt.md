@@ -133,7 +133,7 @@ See full list of props and examples: https://primer.style/react/ActionList
 
   <ActionList.Group title="Layout">
     <ActionList.Item>Table</ActionList.Item>
-    <ActionList.Item>Board Description></ActionList.Item>
+    <ActionList.Item>Board Description</ActionList.Item>
   </ActionList.Group>
   <ActionList.Divider />
 
