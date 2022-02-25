@@ -149,23 +149,23 @@
       url: /drafts/IconButton
 - title: Deprecated
   children:
-    - title: BorderBox
-      url: /deprecated/BorderBox
-    - title: Flex
-      url: /deprecated/Flex
-    - title: Grid
-      url: /deprecated/Grid
-    - title: Position
-      url: /deprecated/Position
-    - title: Dialog
-      url: /deprecated/Dialog
-    - title: Dropdown
-      url: /deprecated/Dropdown
-    - title: FormGroup
-      url: /FormGroup
-    - title: SelectMenu
-      url: /deprecated/SelectMenu
     - title: ActionList
       url: /deprecated/ActionList
     - title: ActionMenu
       url: /deprecated/ActionMenu
+    - title: BorderBox
+      url: /deprecated/BorderBox
+    - title: Dialog
+      url: /deprecated/Dialog
+    - title: Dropdown
+      url: /deprecated/Dropdown
+    - title: Flex
+      url: /deprecated/Flex
+    - title: FormGroup
+      url: /FormGroup
+    - title: Grid
+      url: /deprecated/Grid
+    - title: Position
+      url: /deprecated/Position
+    - title: SelectMenu
+      url: /deprecated/SelectMenu
