@@ -52,7 +52,7 @@ export default function resolveScope(metastring) {
     ...doctocatComponents,
     ...primerComponents,
     ...(metastring.includes('drafts') ? drafts : {}),
-    ...deprecated,
+    ...(metastring.includes('deprecated') ? deprecated : {}),
     ReactRouterLink,
     State,
     CheckIcon,

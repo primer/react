@@ -12,13 +12,13 @@ Use [Box](/Box) instead.
 
 **Before**
 
-```jsx
+```jsx deprecated
 <BorderBox>Item 1</BorderBox>
 ```
 
 **After**
 
-```jsx
+```jsx deprecated
 <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
   Item 1
 </Box>
@@ -26,7 +26,7 @@ Use [Box](/Box) instead.
 
 ## Default example
 
-```jsx live
+```jsx live deprecated
 <BorderBox>This is a BorderBox</BorderBox>
 ```
 

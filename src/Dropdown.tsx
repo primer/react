@@ -146,6 +146,9 @@ Dropdown.defaultProps = Details.defaultProps
 export type DropdownCaretProps = ComponentProps<typeof DropdownCaret>
 export type DropdownMenuProps = ComponentProps<typeof DropdownMenu>
 export type DropdownItemProps = ComponentProps<typeof DropdownItem>
+/**
+ * @deprecated Use ActionMenu instead. See https://primer.style/react/ActionMenu for more details.
+ */
 export default Object.assign(Dropdown, {
   Caret: DropdownCaret,
   Menu: DropdownMenu,
