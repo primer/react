@@ -1,7 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider, BaseStyles, Box, Text, Avatar} from '../..'
-import {ActionMenu, ActionList} from '../../drafts'
+import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList} from '../..'
 import {
   GearIcon,
   MilestoneIcon,
@@ -17,7 +16,7 @@ import {
 } from '@primer/octicons-react'
 
 const meta: Meta = {
-  title: 'Composite components/ActionMenu2/examples',
+  title: 'Composite components/ActionMenu/examples',
   component: ActionMenu,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (

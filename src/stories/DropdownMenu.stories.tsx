@@ -1,7 +1,7 @@
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {theme, ThemeProvider} from '..'
-import {ItemInput} from '../ActionList/List'
+import {ItemInput} from '../deprecated/ActionList/List'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'

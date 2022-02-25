@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
+import {get} from '../../constants'
+import sx, {SxProp} from '../../sx'
 
 /**
  * Contract for props passed to the `Header` component.
