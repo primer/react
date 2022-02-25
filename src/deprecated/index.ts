@@ -8,6 +8,8 @@
 
 export {default as BorderBox} from '../BorderBox'
 export type {BorderBoxProps} from '../BorderBox'
+export {default as ChoiceFieldset, Item} from '../ChoiceFieldset'
+export {default as ChoiceInputField} from '../ChoiceInputField'
 export {default as Flex} from '../Flex'
 export type {FlexProps} from '../Flex'
 export {default as Grid} from '../Grid'
@@ -37,5 +39,3 @@ export type {
   SelectMenuTabPanelProps,
   SelectMenuLoadingAnimationProps
 } from '../SelectMenu'
-export {ActionList} from './ActionList'
-export type {ActionListProps} from './ActionList'

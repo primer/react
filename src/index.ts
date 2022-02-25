@@ -8,14 +8,6 @@ export type {ThemeProviderProps} from './ThemeProvider'
 // Layout
 export {default as Box} from './Box'
 export type {BoxProps} from './Box'
-export {PageLayout} from './PageLayout'
-export type {
-  PageLayoutProps,
-  PageLayoutHeaderProps,
-  PageLayoutContentProps,
-  PageLayoutPaneProps,
-  PageLayoutFooterProps
-} from './PageLayout'
 
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
@@ -74,12 +66,11 @@ export type {
 } from './Button'
 export {default as Caret} from './Caret'
 export type {CaretProps} from './Caret'
-export {default as ChoiceInputField} from './ChoiceInputField'
 export {default as CircleBadge} from './CircleBadge'
 export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
 export {default as CircleOcticon} from './CircleOcticon'
 export type {CircleOcticonProps} from './CircleOcticon'
-export {default as ChoiceFieldset, Item} from './ChoiceFieldset'
+export {default as CheckboxGroup} from './CheckboxGroup'
 export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
 export {default as Details} from './Details'
@@ -125,6 +116,7 @@ export type {PopoverProps, PopoverContentProps} from './Popover'
 // export type {PortalProps} from './Portal'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
+export {default as RadioGroup} from './RadioGroup'
 export {default as Select} from './Select'
 export {SelectPanel} from './SelectPanel'
 export type {SelectPanelProps} from './SelectPanel'

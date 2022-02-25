@@ -1,6 +1,6 @@
 ---
 title: ChoiceFieldset
-status: Alpha
+status: Deprecated
 source: https://github.com/primer/react/blob/main/src/ChoiceFieldset/ChoiceFieldset.tsx
 storybook: '/react/storybook/?path=/story/forms-choicefieldset--radio-group'
 ---
@@ -11,11 +11,15 @@ import {ComponentChecklist} from '../src/component-checklist'
 
 A `ChoiceFieldset` is a controlled component that is used to render a related set of checkbox or radio inputs.
 
+## Deprecation
+
+Use [CheckboxGroup](/CheckboxGroup) or [RadioGroup](/RadioGroup) instead.
+
 ## Examples
 
 ### Basic
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset>
   <ChoiceFieldset.Legend>Color mode</ChoiceFieldset.Legend>
   <ChoiceFieldset.List>
@@ -29,7 +33,7 @@ A `ChoiceFieldset` is a controlled component that is used to render a related se
 
 ### Using an onSelect handler
 
-```javascript live noinline
+```javascript live noinline deprecated
 const WithOnSelectHandler = () => {
   const [selectedChoices, setSelectedChoices] = React.useState([])
   const choices = [
@@ -90,7 +94,7 @@ render(<WithOnSelectHandler />)
 
 ### Checkbox group
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset>
   <ChoiceFieldset.Legend>Prefered Primer component interface</ChoiceFieldset.Legend>
 
@@ -105,7 +109,7 @@ render(<WithOnSelectHandler />)
 
 ### Disabled
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset disabled>
   <ChoiceFieldset.Legend>Color mode</ChoiceFieldset.Legend>
   <ChoiceFieldset.List>
@@ -119,7 +123,7 @@ render(<WithOnSelectHandler />)
 
 ### Required
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset required>
   <ChoiceFieldset.Legend>Color mode</ChoiceFieldset.Legend>
   <ChoiceFieldset.List>
@@ -133,7 +137,7 @@ render(<WithOnSelectHandler />)
 
 ### With pre-selected choices
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset selected={['figma', 'react']}>
   <ChoiceFieldset.Legend>Prefered Primer component interface</ChoiceFieldset.Legend>
 
@@ -148,7 +152,7 @@ render(<WithOnSelectHandler />)
 
 ### With validation
 
-```javascript live noinline
+```javascript live noinline deprecated
 const choices = [
   {
     value: 'figma',
@@ -218,7 +222,7 @@ render(<ChoiceFieldsetWithValidation />)
 
 ### A visually hidden legend
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset>
   <ChoiceFieldset.Legend visuallyHidden>Color mode</ChoiceFieldset.Legend>
   <ChoiceFieldset.List>
@@ -232,7 +236,7 @@ render(<ChoiceFieldsetWithValidation />)
 
 ### With a ChoiceFieldset.Description
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset>
   <ChoiceFieldset.Legend>Notification preferences</ChoiceFieldset.Legend>
   <ChoiceFieldset.Description>
@@ -267,7 +271,7 @@ render(<ChoiceFieldsetWithValidation />)
 
 ### With one disabled item
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset>
   <ChoiceFieldset.Legend>Color mode</ChoiceFieldset.Legend>
   <ChoiceFieldset.List>
@@ -283,7 +287,7 @@ render(<ChoiceFieldsetWithValidation />)
 
 ### Items with a caption and a leading visual
 
-```jsx live
+```jsx live deprecated
 <ChoiceFieldset>
   <ChoiceFieldset.Legend>Notification preferences</ChoiceFieldset.Legend>
 
