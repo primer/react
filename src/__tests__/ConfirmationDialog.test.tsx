@@ -3,7 +3,7 @@ import {render as HTMLRender, cleanup, act, fireEvent} from '@testing-library/re
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
-import {ActionMenu} from '../ActionMenu'
+import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 import Button from '../Button/Button'

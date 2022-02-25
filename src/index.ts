@@ -38,8 +38,7 @@ export type {
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps
 } from './ActionList'
-export {ActionMenu} from './ActionMenu'
-export type {ActionMenuProps} from './ActionMenu'
+
 export {default as Autocomplete} from './Autocomplete'
 export type {AutocompleteMenuProps, AutocompleteInputProps, AutocompleteOverlayProps} from './Autocomplete'
 export {default as Avatar} from './Avatar'
