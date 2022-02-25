@@ -7,7 +7,7 @@ export type {GroupProps} from './Group'
 export type {ItemProps} from './Item'
 
 /**
- * Collection of list-related components.
+ * @deprecated Use ActionList with composable API instead. See https://primer.style/react/ActionList for more details.
  */
 export const ActionList = Object.assign(List, {
   /** Collects related `Items` in an `ActionList`. */
