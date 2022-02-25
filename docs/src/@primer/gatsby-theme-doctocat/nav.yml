@@ -35,10 +35,6 @@
     #   url: /useOverlay
 - title: Components
   children:
-    - title: ActionList
-      url: /ActionList
-    - title: ActionMenu
-      url: /ActionMenu
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar
@@ -147,6 +143,10 @@
       url: /drafts/LinkButton
     - title: IconButton
       url: /drafts/IconButton
+    - title: ActionList v2
+      url: /drafts/ActionList2
+    - title: ActionMenu v2
+      url: /drafts/ActionMenu2
 - title: Deprecated
   children:
     - title: BorderBox
@@ -165,7 +165,3 @@
       url: /FormGroup
     - title: SelectMenu
       url: /deprecated/SelectMenu
-    - title: ActionList
-      url: /deprecated/ActionList
-    - title: ActionMenu
-      url: /deprecated/ActionMenu

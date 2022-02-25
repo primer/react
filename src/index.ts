@@ -30,16 +30,8 @@ export {useConfirm} from './Dialog/ConfirmationDialog'
 export {default as Radio} from './Radio'
 export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
-export type {
-  ActionListProps,
-  ActionListGroupProps,
-  ActionListItemProps,
-  ActionListDescriptionProps,
-  ActionListLeadingVisualProps,
-  ActionListTrailingVisualProps
-} from './ActionList'
 export {ActionMenu} from './ActionMenu'
-export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
+export type {ActionMenuProps} from './ActionMenu'
 export {default as Autocomplete} from './Autocomplete'
 export type {AutocompleteMenuProps, AutocompleteInputProps, AutocompleteOverlayProps} from './Autocomplete'
 export {default as Avatar} from './Avatar'
