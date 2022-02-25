@@ -7,9 +7,53 @@ source: https://github.com/primer/react/tree/main/src/deprecated/ActionMenu.tsx
 
 An `ActionMenu` is an ActionList-based component for creating a menu of actions that expands through a trigger button.
 
+## Deprecation
+
+Use [composable API instead](/ActionMenu) instead.
+
+**Before**
+
+```jsx
+<ActionMenu
+  anchorContent="Menu"
+  onAction={fn}
+  items={[
+    {text: 'New file'},
+    {text: 'Copy link'},
+    {text: 'Edit file'},
+    ActionMenu.Divider,
+    {text: 'Delete file', variant: 'danger'}
+  ]}
+  overlayProps={{width: 'small'}}
+/>
+```
+
+**After**
+
+```jsx
+<ActionMenu>
+  <ActionMenu.Button>Menu</ActionMenu.Button>
+  <ActionMenu.Overlay width="small">
+    <ActionList>
+      <ActionList.Item onSelect={fn}>New file</ActionList.Item>
+      <ActionList.Item>Copy link</ActionList.Item>
+      <ActionList.Item>Edit file</ActionList.Item>
+      <ActionList.Divider />
+      <ActionList.Item variant="danger">Delete file</ActionList.Item>
+    </ActionList>
+  </ActionMenu.Overlay>
+</ActionMenu>
+```
+
+Or continue using deprecated API:
+
+```js
+import {ActionMenu} from '@primer/react/deprecated'
+```
+
 ## Default example
 
-```jsx live
+```jsx live deprecated
 <ActionMenu
   anchorContent="Menu"
   onAction={({text}) => console.log(text)}
@@ -25,7 +69,7 @@ An `ActionMenu` is an ActionList-based component for creating a menu of actions 
 
 ## Example with grouped items
 
-```jsx live
+```jsx live deprecated
 <ActionMenu
   anchorContent="Menu"
   onAction={({text}) => console.log(text)}

@@ -3,11 +3,9 @@ import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu} from '../ActionMenu2'
-import {ActionList} from '../ActionList'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-import {BaseStyles, ThemeProvider, SSRProvider} from '..'
-import {SingleSelection, MixedSelection} from '../../src/stories/ActionMenu2/examples.stories'
+import {SingleSelection, MixedSelection} from '../stories/ActionMenu/examples.stories'
 import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
@@ -43,7 +41,7 @@ describe('ActionMenu', () => {
     toRender: () => <Example />
   })
 
-  checkExports('ActionMenu2', {
+  checkExports('ActionMenu', {
     default: undefined,
     ActionMenu
   })
@@ -145,6 +143,6 @@ describe('ActionMenu', () => {
     cleanup()
   })
 
-  checkStoriesForAxeViolations('ActionMenu2/fixtures')
-  checkStoriesForAxeViolations('ActionMenu2/examples')
+  checkStoriesForAxeViolations('ActionMenu/fixtures')
+  checkStoriesForAxeViolations('ActionMenu/examples')
 })

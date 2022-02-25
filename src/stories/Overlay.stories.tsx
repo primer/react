@@ -19,11 +19,11 @@ import {
   TextInput,
   Link,
   Label,
-  ActionList
+  ActionList,
+  ActionMenu
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import {ActionMenu} from '../drafts'
 import {ItemInput} from '../deprecated/ActionList/List'
 
 export default {

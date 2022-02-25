@@ -37,6 +37,8 @@
   children:
     - title: ActionList
       url: /ActionList
+    - title: ActionMenu
+      url: /ActionMenu
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar
@@ -145,8 +147,6 @@
       url: /drafts/LinkButton
     - title: IconButton
       url: /drafts/IconButton
-    - title: ActionMenu v2
-      url: /drafts/ActionMenu2
 - title: Deprecated
   children:
     - title: BorderBox
