@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioGroup renders consistently 1`] = `
+.c0 {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.c1 {
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c4 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c2 > * + * {
+  margin-top: 8px;
+}
+
+.c5 {
+  cursor: pointer;
+}
+
+<div>
+  <fieldset
+    className="c0"
+    disabled={false}
+  >
+    <legend
+      className="c1"
+    />
+    <div
+      className="c2"
+    >
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-invalid="false"
+            aria-required="false"
+            className="c5"
+            id="react-aria-2"
+            name="choices"
+            onChange={[Function]}
+            type="radio"
+            value="one"
+          />
+        </div>
+      </div>
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-invalid="false"
+            aria-required="false"
+            className="c5"
+            id="react-aria-3"
+            name="choices"
+            onChange={[Function]}
+            type="radio"
+            value="two"
+          />
+        </div>
+      </div>
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <input
+            aria-checked="false"
+            aria-disabled="false"
+            aria-invalid="false"
+            aria-required="false"
+            className="c5"
+            id="react-aria-4"
+            name="choices"
+            onChange={[Function]}
+            type="radio"
+            value="three"
+          />
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+`;

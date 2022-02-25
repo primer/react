@@ -251,8 +251,8 @@ describe('FormControl', () => {
         const inputNode = getByLabelText(LABEL_TEXT)
         const validationNode = getByText(ERROR_TEXT)
 
-        expect(validationNode.getAttribute('id')).toBe(`${fieldId}-validationMsg`)
-        expect(inputNode.getAttribute('aria-describedby')).toBe(`${fieldId}-validationMsg`)
+        expect(validationNode.getAttribute('id')).toBe(`${fieldId}-validationMessage`)
+        expect(inputNode.getAttribute('aria-describedby')).toBe(`${fieldId}-validationMessage`)
       })
     })
 

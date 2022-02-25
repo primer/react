@@ -53,10 +53,8 @@
       url: /Buttons
     - title: Checkbox
       url: /Checkbox
-    # Temporarily hiding ChoiceFieldset because the API
-    # is being refactored with breaking changes
-    # - title: ChoiceFieldset
-    #   url: /ChoiceFieldset
+    - title: CheckboxGroup
+      url: /CheckboxGroup
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
@@ -99,6 +97,8 @@
       url: /ProgressBar
     - title: Radio
       url: /Radio
+    - title: RadioGroup
+      url: /RadioGroup
     - title: Select
       url: /Select
     - title: SelectPanel
