@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider, BaseStyles, Box, Text, TextInput, StyledOcticon, FormGroup} from '../..'
-import {ActionMenu, ActionList, Button, IconButton} from '../../drafts'
+import {ThemeProvider, BaseStyles, Box, Text, TextInput, StyledOcticon, FormGroup, ActionList} from '../..'
+import {ActionMenu, Button, IconButton} from '../../drafts'
 import {
   ServerIcon,
   PlusCircleIcon,

@@ -6,7 +6,7 @@ import theme from '../theme'
 import {ActionMenu} from '../ActionMenu'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
-import {ItemProps} from '../ActionList/Item'
+import {ItemProps} from '../deprecated/ActionList/Item'
 expect.extend(toHaveNoViolations)
 
 const items = [

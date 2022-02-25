@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 import {ThemeProvider} from '../..'
 import BaseStyles from '../../BaseStyles'
 import {DropdownMenu} from '../../DropdownMenu2'
-import {ActionList} from '../../ActionList2'
+import {ActionList} from '../../ActionList'
 import Box from '../../Box'
 import Text from '../../Text'
 import {

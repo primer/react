@@ -6,7 +6,7 @@ import theme from '../theme'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
-import {ItemInput} from '../ActionList/List'
+import {ItemInput} from '../deprecated/ActionList/List'
 
 expect.extend(toHaveNoViolations)
 
