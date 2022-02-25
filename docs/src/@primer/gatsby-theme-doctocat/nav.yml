@@ -77,6 +77,8 @@
       url: /Header
     - title: Heading
       url: /Heading
+    - title: Label
+      url: /Label
     - title: LabelGroup
       url: /LabelGroup
     - title: Link
