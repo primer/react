@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import {Meta} from '@storybook/react'
+import {CheckIcon, NumberIcon} from '@primer/octicons-react'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
@@ -97,6 +98,28 @@ export const Default = (args: TextInputWithTokensProps) => {
 }
 
 Default.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
+
+export const WithLeadingVisual = (args: TextInputWithTokensProps) => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return <TextInputWithTokens leadingVisual={NumberIcon} tokens={tokens} onTokenRemove={onTokenRemove} {...args} />
+}
+
+WithLeadingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
+
+export const WithTrailingVisual = (args: TextInputWithTokensProps) => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return <TextInputWithTokens trailingVisual={CheckIcon} tokens={tokens} onTokenRemove={onTokenRemove} {...args} />
+}
+
+WithTrailingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
 
 export const UsingIssueLabelTokens = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([
