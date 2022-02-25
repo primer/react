@@ -16,7 +16,7 @@ import {
 } from '@primer/octicons-react'
 
 import {ThemeProvider} from '../..'
-import {ActionList} from '../../ActionList2'
+import {ActionList} from '../../ActionList'
 import BaseStyles from '../../BaseStyles'
 import Avatar from '../../Avatar'
 import TextInput from '../../TextInput'
@@ -25,7 +25,7 @@ import Box from '../../Box'
 import Text from '../../Text'
 
 const meta: Meta = {
-  title: 'Composite components/ActionList2/examples',
+  title: 'Composite components/ActionList/examples',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (

@@ -35,6 +35,8 @@
     #   url: /useOverlay
 - title: Components
   children:
+    - title: ActionList
+      url: /ActionList
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar
@@ -143,8 +145,6 @@
       url: /drafts/LinkButton
     - title: IconButton
       url: /drafts/IconButton
-    - title: ActionList v2
-      url: /drafts/ActionList2
     - title: ActionMenu v2
       url: /drafts/ActionMenu2
 - title: Deprecated

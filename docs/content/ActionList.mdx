@@ -1,14 +1,14 @@
 ---
-componentId: action_list2
-title: ActionList v2
+componentId: action_list
+title: ActionList
 status: Alpha
-source: https://github.com/primer/react/tree/main/src/ActionList2
-storybook: '/react/storybook?path=/story/composite-components-actionlist2'
+source: https://github.com/primer/react/tree/main/src/ActionList
+storybook: '/react/storybook?path=/story/composite-components-actionlist'
 description: An ActionList is a list of items that can be activated or selected. ActionList is the base component for many menu-type components, including DropdownMenu and ActionMenu.
 ---
 
 import {Avatar} from '@primer/react'
-import {ActionList} from '@primer/react/drafts'
+import {ActionList} from '@primer/react'
 import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 
@@ -43,14 +43,14 @@ import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code
 </Box>
 
 ```js
-import {ActionList} from '@primer/react/drafts'
+import {ActionList} from '@primer/react'
 ```
 
 ## Examples
 
 ### Minimal example
 
-```jsx live drafts
+```jsx live
 <ActionList>
   <ActionList.Item>New file</ActionList.Item>
   <ActionList.Item>Copy link</ActionList.Item>
@@ -65,7 +65,7 @@ import {ActionList} from '@primer/react/drafts'
 Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
 
 <!-- prettier-ignore -->
-```jsx live drafts
+```jsx live
 <ActionList>
   <ActionList.Item>
     <ActionList.LeadingVisual><LinkIcon /></ActionList.LeadingVisual>
@@ -87,7 +87,7 @@ Leading visuals are optional and appear at the start of an item. They can be oct
 
 Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
 
-```jsx live drafts
+```jsx live
 <ActionList>
   <ActionList.Item>
     New file
@@ -112,7 +112,7 @@ Trailing visual and trailing text can display auxiliary information. They're pla
 
 Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
 
-```jsx live drafts
+```jsx live
 <ActionList showDividers>
   <ActionList.Item>
     <ActionList.LeadingVisual>
@@ -143,7 +143,7 @@ Item dividers allow users to parse heavier amounts of information. They're place
 When you want to add links to the List instead of actions, use `ActionList.LinkItem`
 
 <!-- prettier-ignore -->
-```jsx live drafts
+```jsx live
 <ActionList>
   <ActionList.LinkItem href="https://github.com/primer">
     <ActionList.LeadingVisual>
@@ -172,7 +172,7 @@ When you want to add links to the List instead of actions, use `ActionList.LinkI
 
 ### With groups
 
-```javascript live noinline drafts
+```javascript live noinline
 const SelectFields = () => {
   const [options, setOptions] = React.useState([
     {text: 'Status', selected: true},
@@ -426,7 +426,7 @@ render(<SelectFields />)
     adaptsToThemes: true,
     adaptsToScreenSizes: true,
     fullTestCoverage: true,
-    usedInProduction: false,
+    usedInProduction: true,
     usageExamplesDocumented: true,
     hasStorybookStories: true,
     designReviewed: false,

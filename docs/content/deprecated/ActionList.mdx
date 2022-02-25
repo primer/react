@@ -7,6 +7,42 @@ source: https://github.com/primer/react/tree/main/src/deprecated/ActionList
 
 An `ActionList` is a list of items which can be activated or selected. `ActionList` is the base component for many of our menu-type components, including `DropdownMenu` and `ActionMenu`.
 
+## Deprecation
+
+Use [composable API instead](/ActionList) instead.
+
+**Before**
+
+```jsx
+<ActionList
+  items={[
+    {text: 'New file'},
+    {text: 'Copy link'},
+    {text: 'Edit file'},
+    ActionList.Divider,
+    {text: 'Delete file', variant: 'danger'}
+  ]}
+/>
+```
+
+**After**
+
+```jsx
+<ActionList>
+  <ActionList.Item>New file</ActionList.Item>
+  <ActionList.Item>Copy link</ActionList.Item>
+  <ActionList.Item>Edit file</ActionList.Item>
+  <ActionList.Divider />
+  <ActionList.Item variant="danger">Delete file</ActionList.Item>
+</ActionList>
+```
+
+Or continue using deprecated API:
+
+```js
+import {ActionList} from '@primer/react/deprecated'
+```
+
 ## Minimal example
 
 ```jsx live deprecated

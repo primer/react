@@ -28,7 +28,7 @@ import styled from 'styled-components'
 import {DndProvider, useDrag, useDrop} from 'react-dnd'
 import {HTML5Backend} from 'react-dnd-html5-backend'
 import {Label, ThemeProvider} from '../..'
-import {ActionList, ActionListItemProps} from '../../ActionList2'
+import {ActionList, ActionListItemProps} from '../../ActionList'
 import BaseStyles from '../../BaseStyles'
 import Avatar from '../../Avatar'
 import {ButtonInvisible} from '../../Button'
@@ -36,7 +36,7 @@ import Box from '../../Box'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
 
 const meta: Meta = {
-  title: 'Composite components/ActionList2/fixtures',
+  title: 'Composite components/ActionList/fixtures',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (
@@ -471,14 +471,14 @@ export function LinkItemStory(): JSX.Element {
           </ActionList.LinkItem>
           <ActionList.LinkItem
             as={ReactRouterLikeLink}
-            to="?path=/story/composite-components-actionlist2--simple-list-story"
+            to="?path=/story/composite-components-actionlist--simple-list-story"
           >
             <ActionList.LeadingVisual>
               <LinkIcon />
             </ActionList.LeadingVisual>
             as ReactRouterLink
           </ActionList.LinkItem>
-          <NextJSLikeLink href="?path=/story/composite-components-actionlist2--simple-list-story">
+          <NextJSLikeLink href="?path=/story/composite-components-actionlist--simple-list-story">
             <ActionList.LinkItem>
               <ActionList.LeadingVisual>
                 <LinkIcon />
@@ -486,7 +486,7 @@ export function LinkItemStory(): JSX.Element {
               NextJS style Link
             </ActionList.LinkItem>
           </NextJSLikeLink>
-          <ActionList.LinkItem href="?path=/story/composite-components-actionlist2--simple-list-story">
+          <ActionList.LinkItem href="?path=/story/composite-components-actionlist--simple-list-story">
             <ActionList.LeadingVisual>
               <LinkIcon />
             </ActionList.LeadingVisual>
