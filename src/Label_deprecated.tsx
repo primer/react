@@ -69,5 +69,7 @@ Label.defaultProps = {
   variant: 'medium'
 }
 
+Label.displayName = 'Label'
+
 export type LabelProps = ComponentProps<typeof Label>
 export default Label

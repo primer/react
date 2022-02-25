@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('Label_deprecated', () => {
   behavesAsComponent({Component: Label})
 
-  checkExports('Label', {
+  checkExports('Label_deprecated', {
     default: Label
   })
 
