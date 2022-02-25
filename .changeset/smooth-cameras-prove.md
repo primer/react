@@ -4,7 +4,7 @@
 
 ### SelectMenu
 
-> ⚠️ `SelectMenu` has been deprecated. Please use `ActionMenu` instead.
+⚠️ `SelectMenu` has been deprecated. Please use `ActionMenu` instead.
 
 <table>
 <tr>
@@ -14,8 +14,6 @@
 <td valign="top">
 
 ```jsx
-// import {SelectMenu} from '@primer/react';
-
 <SelectMenu>
   <Button as="summary">Projects</Button>
   <SelectMenu.Modal>
@@ -34,8 +32,6 @@
 <td valign="top">
 
 ```jsx
-// import {ActionMenu, ActionList} from '@primer/react';
-
 <ActionMenu>
   <ActionMenu.Button>Projects</ActionMenu.Button>
   <ActionMenu.Overlay>
@@ -59,7 +55,7 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Dropdown
 
-> ⚠️ `Dropdown` has been deprecated. Please use `ActionMenu` instead.
+⚠️ `Dropdown` has been deprecated. Please use `ActionMenu` instead.
 
 <table>
 <tr>
@@ -122,7 +118,7 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Flex
 
-> ⚠️ `Flex` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+⚠️ `Flex` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
 
 <table>
 <tr>
@@ -132,8 +128,6 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 <td valign="top">
 
 ```jsx
-// import {Flex} from '@primer/react';
-
 <Flex flexWrap="nowrap">
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     Item 1
@@ -145,8 +139,6 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 <td valign="top">
 
 ```jsx
-// import {Box} from '@primer/react';
-
 <Box display="flex" flexWrap="nowrap">
   <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
     Item 1
@@ -160,7 +152,7 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Grid
 
-> ⚠️ `Grid` has been deprecated. Please use `ActionMenu` instead.
+⚠️ `Grid` has been deprecated. Please use `ActionMenu` instead.
 
 <table>
 <tr>
@@ -200,7 +192,7 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### BorderBox
 
-> ⚠️ `BorderBox` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+⚠️ `BorderBox` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
 
 <table>
 <tr>
@@ -210,8 +202,6 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 <td valign="top">
 
 ```jsx
-// import {BorderBox} from '@primer/react';
-
 <BorderBox>Item 1</BorderBox>
 ```
 
@@ -219,8 +209,6 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 <td valign="top">
 
 ```jsx
-// import {Box} from '@primer/react';
-
 <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
   Item 1
 </Box>
@@ -232,7 +220,7 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Position
 
-> ⚠️ `Position` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+⚠️ `Position` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
 
 <table>
 <tr>
