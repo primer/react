@@ -7,8 +7,8 @@ storybook: '/react/storybook?path=/story/composite-components-actionmenu2'
 description: An ActionMenu is an ActionList-based component for creating a menu of actions that expands through a trigger button.
 ---
 
-import {Box, Avatar} from '@primer/react'
-import {ActionMenu, ActionList} from '@primer/react/drafts'
+import {Box, Avatar, ActionList} from '@primer/react'
+import {ActionMenu} from '@primer/react/drafts'
 import {Props} from '../../src/props'
 
 <br />
@@ -306,7 +306,7 @@ render(
 
 | Name                                     | Type                  |       Default       | Description                                                                                   |
 | :--------------------------------------- | :-------------------- | :-----------------: | :-------------------------------------------------------------------------------------------- |
-| children\*                               | `React.ReactElement[] | React.ReactElement` | Required. Recommended: [`ActionList`](/drafts/ActionList2)                                    |
+| children\*                               | `React.ReactElement[] | React.ReactElement` | Required. Recommended: [`ActionList`](/ActionList)                                            |
 | [OverlayProps](/Overlay#component-props) | -                     |          -          | Optional. Props to be spread on the internal [`AnchoredOverlay`](/AnchoredOverlay) component. |
 
 ## Status
@@ -336,6 +336,6 @@ render(
 
 ## Related components
 
-- [ActionList](/drafts/ActionList2)
+- [ActionList](/ActionList)
 - [SelectPanel](/SelectPanel)
 - [Button](/drafts/Button2)

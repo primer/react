@@ -17,14 +17,14 @@ import {
   Checkbox,
   ChoiceInputField,
   TextInput,
-  ActionList,
   Link,
-  Label
+  Label,
+  ActionList
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
 import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import {ActionMenu, ActionList as ActionList2} from '../drafts'
-import {ItemInput} from '../ActionList/List'
+import {ActionMenu} from '../drafts'
+import {ItemInput} from '../deprecated/ActionList/List'
 
 export default {
   title: 'Internal components/Overlay',
@@ -367,13 +367,13 @@ export const MemexNestedOverlays = () => {
                   {duration}
                 </ActionMenu.Button>
                 <ActionMenu.Overlay>
-                  <ActionList2 selectionVariant="single">
+                  <ActionList selectionVariant="single">
                     {durations.map(item => (
-                      <ActionList2.Item key={item} selected={item === duration} onSelect={() => setDuration(item)}>
+                      <ActionList.Item key={item} selected={item === duration} onSelect={() => setDuration(item)}>
                         {item}
-                      </ActionList2.Item>
+                      </ActionList.Item>
                     ))}
-                  </ActionList2>
+                  </ActionList>
                 </ActionMenu.Overlay>
               </ActionMenu>
             </Box>
