@@ -199,7 +199,10 @@ const Example = () => {
         <ActionList selectionVariant="single">
           {fieldTypes.map((type, index) => (
             <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
-              <type.icon /> {type.name}
+              <ActionList.LeadingVisual>
+                <type.icon />
+              </ActionList.LeadingVisual>
+              {type.name}
             </ActionList.Item>
           ))}
         </ActionList>

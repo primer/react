@@ -8,17 +8,17 @@ A `DropdownMenu` provides an anchor (button by default) that will open a floatin
 
 ## Deprecation
 
-Use [new version of ActionMenu](/ActionMenu) with composable API, design updates and accessibility fixes.
+Use [new version of ActionMenu](/ActionMenu#with-selection) with composable API, design updates and accessibility fixes.
 
 **Before**
 
 ```jsx
 const fieldTypes = [
-  {leadingVisual: TypographyIcon, text: 'Text'},
-  {leadingVisual: NumberIcon, text: 'Number'},
-  {leadingVisual: CalendarIcon, text: 'Date'},
-  {leadingVisual: SingleSelectIcon, text: 'Single select'},
-  {leadingVisual: IterationsIcon, text: 'Iteration'}
+  {key: 0, text: 'Text'},
+  {key: 1, text: 'Number'},
+  {key: 3, text: 'Date'},
+  {key: 4, text: 'Single select'},
+  {key: 5, text: 'Iteration'}
 ]
 
 const Example = () => {
@@ -46,27 +46,28 @@ Instead of `DropdownMenu`, you can use the `ActionMenu` with `ActionList selecti
 
 ```jsx
 const fieldTypes = [
-  {icon: TypographyIcon, name: 'Text'},
-  {icon: NumberIcon, name: 'Number'},
-  {icon: CalendarIcon, name: 'Date'},
-  {icon: SingleSelectIcon, name: 'Single select'},
-  {icon: IterationsIcon, name: 'Iteration'}
+  {id: 0, text: 'Text'},
+  {id: 1, text: 'Number'},
+  {id: 3, text: 'Date'},
+  {id: 4, text: 'Single select'},
+  {id: 5, text: 'Iteration'}
 ]
 
-const Example = ( ) => {
+const Example = () => {
   const [selectedType, setSelectedType] = React.useState()
 
   render(
     <ActionMenu>
-      <ActionMenu.Button leadingIcon={selectedType.Icon} aria-label="Select field type">
-        {selectedType.name || 'Field type'}
-      </ActionMenu.Button>
+      <ActionMenu.Button aria-label="Select field type">{selectedType.name || 'Field type'}</ActionMenu.Button>
       <ActionMenu.Overlay>
         <ActionList selectionVariant="single">
-          {fieldTypes.map(type, index) => (
-            <ActionList.Item key={type.key} selected={type.key === selectedType.key} onSelect={() => setSelectedType(field)}>
-               <ActionList.LeadingVisual><type.Icon/></ActionList.LeadingVisual>
-               {type.name}
+          {fieldTypes.map(type => (
+            <ActionList.Item
+              key={type.id}
+              selected={type.id === selectedType.id}
+              onSelect={() => setSelectedType(type)}
+            >
+              {type.name}
             </ActionList.Item>
           ))}
         </ActionList>
