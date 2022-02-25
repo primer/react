@@ -23,7 +23,7 @@ import {
   ActionMenu
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
-import {DropdownMenu, DropdownButton} from '../DropdownMenu'
+import {DropdownMenu, DropdownButton} from '../deprecated/DropdownMenu'
 import {ItemInput} from '../deprecated/ActionList/List'
 
 export default {

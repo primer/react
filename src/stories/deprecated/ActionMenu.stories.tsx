@@ -16,10 +16,9 @@ import styled from 'styled-components'
 import {ThemeProvider} from '../..'
 import Link, {LinkProps} from '../../Link'
 import Button from '../../Button'
-import {ActionMenu, ActionMenuProps, ActionList} from '../../deprecated'
+import {ActionMenu, ActionMenuProps, ActionList, DropdownButton} from '../../deprecated'
 import {ItemProps} from '../../deprecated/ActionList'
 import BaseStyles from '../../BaseStyles'
-import {DropdownButton} from '../../DropdownMenu'
 
 const meta: Meta = {
   title: 'Deprecated components/ActionMenu',
