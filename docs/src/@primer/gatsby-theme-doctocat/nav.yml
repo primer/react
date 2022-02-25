@@ -167,3 +167,5 @@
       url: /deprecated/SelectMenu
     - title: ActionList
       url: /deprecated/ActionList
+    - title: ActionMenu
+      url: /deprecated/ActionMenu

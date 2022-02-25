@@ -2,11 +2,11 @@ import {cleanup, render as HTMLRender, act, fireEvent} from '@testing-library/re
 import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
-import theme from '../theme'
-import {ActionMenu} from '../deprecated/ActionMenu'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, SSRProvider, ThemeProvider} from '..'
-import {ItemProps} from '../deprecated/ActionList/Item'
+import theme from '../../theme'
+import {ActionMenu} from '../../deprecated'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
+import {BaseStyles, SSRProvider, ThemeProvider} from '../..'
+import {ItemProps} from '../../deprecated/ActionList/Item'
 expect.extend(toHaveNoViolations)
 
 const items = [
@@ -47,7 +47,7 @@ describe('ActionMenu', () => {
     )
   })
 
-  checkExports('ActionMenu', {
+  checkExports('deprecated/ActionMenu', {
     default: undefined,
     ActionMenu
   })

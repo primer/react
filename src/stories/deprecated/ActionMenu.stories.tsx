@@ -13,16 +13,16 @@ import {
 import {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
-import {ThemeProvider} from '..'
-import {ActionMenu, ActionMenuProps} from '../deprecated/ActionMenu'
-import Link, {LinkProps} from '../Link'
-import Button from '../Button'
-import {ActionList, ItemProps} from '../deprecated/ActionList'
-import BaseStyles from '../BaseStyles'
-import {DropdownButton} from '../DropdownMenu'
+import {ThemeProvider} from '../..'
+import Link, {LinkProps} from '../../Link'
+import Button from '../../Button'
+import {ActionMenu, ActionMenuProps, ActionList} from '../../deprecated'
+import {ItemProps} from '../../deprecated/ActionList'
+import BaseStyles from '../../BaseStyles'
+import {DropdownButton} from '../../DropdownMenu'
 
 const meta: Meta = {
-  title: 'Composite components/ActionMenu',
+  title: 'Deprecated components/ActionMenu',
   component: ActionMenu,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (
