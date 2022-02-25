@@ -57,7 +57,7 @@ const {Slots, Slot} = createSlots(['Description', 'ChoiceList', 'Legend', 'Valid
 export {Slot}
 
 /**
- * @deprecated Use `CheckboxGroup` or `RadioGroup` instead.
+ * @deprecated Use `CheckboxGroup` or `RadioGroup` instead. See https://primer.style/react/CheckboxGroup and https://primer.style/react/RadioGroup for more info
  */
 const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   children,
