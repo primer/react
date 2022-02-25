@@ -4,7 +4,7 @@
 
 ![NewLabels](https://user-images.githubusercontent.com/2313998/155384037-8a56c943-4cff-4349-925b-dc28247e3491.png)
 
-The Label component has been updated to be visually consistent with its counterpart in [Primer ViewComponents' Label component](https://primer.style/view-components/components/label).
+The Label component's API and visual design have been updated to be consistent with its counterpart in [Primer ViewComponents' Label component](https://primer.style/view-components/components/label).
 
 Major changes in the new Label component:
 
