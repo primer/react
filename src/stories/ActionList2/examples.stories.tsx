@@ -16,7 +16,8 @@ import {
 } from '@primer/octicons-react'
 
 import {ThemeProvider} from '../..'
-import {ActionList} from '../../ActionList'
+import {ActionList as _ActionList} from '../../ActionList2'
+import {Header} from '../../ActionList/Header'
 import BaseStyles from '../../BaseStyles'
 import Avatar from '../../Avatar'
 import TextInput from '../../TextInput'
@@ -24,8 +25,12 @@ import Spinner from '../../Spinner'
 import Box from '../../Box'
 import Text from '../../Text'
 
+const ActionList = Object.assign(_ActionList, {
+  Header
+})
+
 const meta: Meta = {
-  title: 'Composite components/ActionList/examples',
+  title: 'Composite components/ActionList2/examples',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (

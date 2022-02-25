@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider, BaseStyles, Box, Text, TextInput, StyledOcticon, FormGroup, ActionMenu, ActionList} from '../..'
-import {Button, IconButton} from '../../drafts'
+import {ThemeProvider, BaseStyles, Box, Text, TextInput, StyledOcticon, FormGroup} from '../..'
+import {ActionMenu, ActionList, Button, IconButton} from '../../drafts'
 import {
   ServerIcon,
   PlusCircleIcon,
@@ -25,7 +25,7 @@ import {
 } from '@primer/octicons-react'
 
 const meta: Meta = {
-  title: 'Composite components/ActionMenu/fixtures',
+  title: 'Composite components/ActionMenu2/fixtures',
   component: ActionMenu,
   decorators: [
     (Story: React.ComponentType): JSX.Element => (
