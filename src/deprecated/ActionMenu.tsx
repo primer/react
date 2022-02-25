@@ -103,4 +103,7 @@ const ActionMenuBase = ({
 
 ActionMenuBase.displayName = 'ActionMenu'
 
+/**
+ * @deprecated Use ActionMenu with composable API instead. See https://primer.style/react/ActionMenu for more details.
+ */
 export const ActionMenu = Object.assign(ActionMenuBase, {Divider, Item: ActionMenuItem})
