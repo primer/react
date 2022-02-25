@@ -1,4 +1,5 @@
-import {BaseStyles, Box, ThemeProvider, useTheme, DropdownMenu, DropdownButton} from '@primer/react'
+import {BaseStyles, Box, ThemeProvider, useTheme} from '@primer/react'
+import {DropdownMenu, DropdownButton} from '@primer/react/deprecated'
 import React from 'react'
 
 function ThemeSwitcher() {
