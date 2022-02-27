@@ -33,7 +33,7 @@ import deepmerge from 'deepmerge'
 
 const customTheme = deepmerge(theme, {
   fonts: {
-    mono: 'Monolisa, monospace'
+    mono: 'MonoLisa, monospace'
   }
 })
 
