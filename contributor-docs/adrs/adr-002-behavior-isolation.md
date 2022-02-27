@@ -59,7 +59,7 @@ Building behaviors in React Hooks gives us the ability to provide things like st
 
 #### Other
 
-- The custom element and web component API progress slower than React due to changes needing to go through the whatwq standards process.
+- The custom element and web component API progress slower than React due to changes needing to go through the whatwg standards process.
 
 #### Risks of not switching to custom elements for behaviors
 
