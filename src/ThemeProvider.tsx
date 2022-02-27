@@ -68,7 +68,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
 
   // this effect will only run on client
   React.useEffect(
-    function updateColorModeAfterServerPassthorugh() {
+    function updateColorModeAfterServerPassthrough() {
       const resolvedColorModeOnClient = resolveColorMode(colorMode, systemColorMode)
 
       if (resolvedColorModePassthrough.current) {
