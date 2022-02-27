@@ -21,12 +21,12 @@ interface ActionMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListP
   onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `setOpen`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `setOpen`.
    */
   open?: boolean
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `open`.
    */
   setOpen?: (s: boolean) => void
 
