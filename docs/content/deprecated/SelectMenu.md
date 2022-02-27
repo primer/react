@@ -118,7 +118,7 @@ Use the `align='right'` prop to align the modal to the right. Note that this onl
 
 ## SelectMenu.List
 
-Used to wrap the select menu list content. All menu items **must** be wrapped in a SelectMenu.List in order for the accessbility keyboard handling to function properly. If you are using the `SelectMenu.TabPanel` you do not need to provide a `SelectMenu.List` as that component renders a `SelectMenu.List` as a wrapper.
+Used to wrap the select menu list content. All menu items **must** be wrapped in a SelectMenu.List in order for the accessibility keyboard handling to function properly. If you are using the `SelectMenu.TabPanel` you do not need to provide a `SelectMenu.List` as that component renders a `SelectMenu.List` as a wrapper.
 
 ```jsx
 <SelectMenu.List>{/* all menu  list items are wrapped in the list*/}</SelectMenu.List>
