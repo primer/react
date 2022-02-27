@@ -182,7 +182,7 @@ SelectMenu.Filter components receive all the props that the [TextInput](/TextInp
 
 ## SelectMenu.Tabs
 
-Use `SelectMenu.Tabs` to wrap the the tab navigation and `SelectMenu.Tab` for each tab in the navigation.
+Use `SelectMenu.Tabs` to wrap the tab navigation and `SelectMenu.Tab` for each tab in the navigation.
 
 `SelectMenu.TabPanel` should wrap each corresponding panel for each of the tabs. The `tabName` prop for each `SelectMenu.TabPanel` must match the name provided in the `tabName` prop on `SelectMenu.Tab`.
 

@@ -135,7 +135,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const handleTokenRemove = (tokenId: string | number) => {
     onTokenRemove(tokenId)
 
-    // HACK: wait a tick for the the token node to be removed from the DOM
+    // HACK: wait a tick for the token node to be removed from the DOM
     setTimeout(() => {
       const nextElementToFocus = containerRef.current?.children[selectedTokenIndex || 0] as HTMLElement | undefined
 
