@@ -141,7 +141,7 @@ const AutocompleteInput = React.forwardRef(
         }
       }
 
-      // calling this useEffeect when `highlightRemainingText` changes breaks backspace functionality
+      // calling this useEffect when `highlightRemainingText` changes breaks backspace functionality
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated])
 
