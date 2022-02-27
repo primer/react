@@ -83,7 +83,7 @@
 
 * [#1814](https://github.com/primer/react/pull/1814) [`384c3756`](https://github.com/primer/react/commit/384c375649da0718cc66b088e3ec5928afbeaded) Thanks [@pksjce](https://github.com/pksjce)! - Upgrade @primer/behaviors
 
-- [#1804](https://github.com/primer/react/pull/1804) [`aa09ed79`](https://github.com/primer/react/commit/aa09ed790ba9461a4516c546924a4673c0b21462) Thanks [@rezrah](https://github.com/rezrah)! - Fixes bug in PointerBox component where caret doesn't inherit correct styling. Backwards compataible with previous API.
+- [#1804](https://github.com/primer/react/pull/1804) [`aa09ed79`](https://github.com/primer/react/commit/aa09ed790ba9461a4516c546924a4673c0b21462) Thanks [@rezrah](https://github.com/rezrah)! - Fixes bug in PointerBox component where caret doesn't inherit correct styling. Backwards compatible with previous API.
 
 ## 34.2.0
 
