@@ -103,7 +103,7 @@ exports[`Link renders consistently 1`] = `
 />
 `;
 
-exports[`Link respectes the  "sx" prop when "muted" prop is also passed 1`] = `
+exports[`Link respects the  "sx" prop when "muted" prop is also passed 1`] = `
 .c0 {
   color: #57606a;
   -webkit-text-decoration: none;
@@ -140,7 +140,7 @@ exports[`Link respectes the  "sx" prop when "muted" prop is also passed 1`] = `
 />
 `;
 
-exports[`Link respectes the "muted" prop 1`] = `
+exports[`Link respects the "muted" prop 1`] = `
 .c0 {
   color: #57606a;
   -webkit-text-decoration: none;
