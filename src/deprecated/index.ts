@@ -40,3 +40,10 @@ export type {
   SelectMenuTabPanelProps,
   SelectMenuLoadingAnimationProps
 } from '../SelectMenu'
+export {ActionList} from './ActionList'
+export type {ActionListProps} from './ActionList'
+export {ActionMenu} from './ActionMenu'
+export type {ActionMenuProps} from './ActionMenu'
+export {DropdownButton, DropdownMenu} from './DropdownMenu'
+// (copied over from src/index) not exporting new DropdownMenu types yet due to conflict with Dropdown types above
+// export type {DropdownButtonProps, DropdownMenuProps} from './DropdownMenu'
