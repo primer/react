@@ -6,9 +6,9 @@ import {
   ButtonDanger,
   ButtonOutline,
   ButtonInvisible,
-  ButtonGroup,
   ButtonTableList
-} from '..'
+} from '../deprecated'
+import {ButtonGroup} from '../'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -21,15 +21,17 @@ function noop() {}
 describe('Button', () => {
   behavesAsComponent({Component: Button})
 
-  checkExports('Button', {
+  checkExports('deprecated/Button', {
     default: Button,
     ButtonPrimary,
     ButtonDanger,
     ButtonOutline,
     ButtonInvisible,
-    ButtonGroup,
     ButtonTableList,
     ButtonClose
+  })
+  checkExports('ButtonGroup', {
+    default: ButtonGroup
   })
 
   it('renders a <button>', () => {
