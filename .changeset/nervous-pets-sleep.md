@@ -133,6 +133,8 @@ or
 import {ChoiceFieldset} from '@primer/react/deprecated' // change your import statements
 ```
 
+ChoiceFieldset codemod: https://github.com/primer/react-migrate/blob/main/src/use-deprecated-choicefieldset.js
+
 </td>
 </tr>
 </table>
