@@ -116,7 +116,7 @@ const withThemeProvider = (Story, context) => {
 export const decorators = [withThemeProvider, withPerformance]
 
 addons.setConfig({
-  // Some stories may set up keyboard event handlers, which can can be interfered
+  // Some stories may set up keyboard event handlers, which can be interfered
   // with by these keyboard shortcuts.
   enableShortcuts: false
 })

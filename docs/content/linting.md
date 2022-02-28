@@ -32,4 +32,4 @@ description: Primer React offers an ESLint plugin to enforce best practices and 
    }
    ```
 
-See the [eslint-plugin-primer-react](https://github.com/primer/eslint-plugin-primer-react) respository for a list of included lint rules.
+See the [eslint-plugin-primer-react](https://github.com/primer/eslint-plugin-primer-react) repository for a list of included lint rules.

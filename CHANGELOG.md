@@ -83,7 +83,7 @@
 
 * [#1814](https://github.com/primer/react/pull/1814) [`384c3756`](https://github.com/primer/react/commit/384c375649da0718cc66b088e3ec5928afbeaded) Thanks [@pksjce](https://github.com/pksjce)! - Upgrade @primer/behaviors
 
-- [#1804](https://github.com/primer/react/pull/1804) [`aa09ed79`](https://github.com/primer/react/commit/aa09ed790ba9461a4516c546924a4673c0b21462) Thanks [@rezrah](https://github.com/rezrah)! - Fixes bug in PointerBox component where caret doesn't inherit correct styling. Backwards compataible with previous API.
+- [#1804](https://github.com/primer/react/pull/1804) [`aa09ed79`](https://github.com/primer/react/commit/aa09ed790ba9461a4516c546924a4673c0b21462) Thanks [@rezrah](https://github.com/rezrah)! - Fixes bug in PointerBox component where caret doesn't inherit correct styling. Backwards compatible with previous API.
 
 ## 34.2.0
 
@@ -277,7 +277,7 @@
 
 ### Patch Changes
 
-- [#1598](https://github.com/primer/react/pull/1598) [`3bb895f1`](https://github.com/primer/react/commit/3bb895f1a2cbd36d509f005524878d14218acb39) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Better semantics for accessibile ActionList.Group
+- [#1598](https://github.com/primer/react/pull/1598) [`3bb895f1`](https://github.com/primer/react/commit/3bb895f1a2cbd36d509f005524878d14218acb39) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Better semantics for accessible ActionList.Group
 
 * [#1601](https://github.com/primer/react/pull/1601) [`250e4b00`](https://github.com/primer/react/commit/250e4b00f4d996b6125d381bae2487b57156687c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Use icon instead of input for multiple selection in ActionList
 
@@ -657,7 +657,7 @@
 
 - [`d20a5996`](https://github.com/primer/react/commit/d20a5996aafdbc6446f13aaa7a489394926f083a) [#1209](https://github.com/primer/react/pull/1209) Thanks [@dgreif](https://github.com/dgreif)! - Allow Overlay height and width to be set through AnchoredOverlay
   Allow ActionList Items to supply an `id` instead of `key`
-  Performance imporvements when ActionList is not given any groups
+  Performance improvements when ActionList is not given any groups
   Enable focus zone as soon as AnchoredOverlay opens
 
 * [`d29741ca`](https://github.com/primer/react/commit/d29741cab4bfa4249000e5b2479e99f5aeea3189) [#1196](https://github.com/primer/react/pull/1196) Thanks [@dgreif](https://github.com/dgreif)! - Allow custom `children` in `ActionItem`. `text` and `description` can still be provided as a shortcut, but `children` is now available if you need more control over the rending of the item, without sacrificing benefits from `Item` by using `renderItem`.

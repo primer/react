@@ -37,11 +37,11 @@ describe('Link', () => {
     expect(render(<Link as="button" />)).toMatchSnapshot()
   })
 
-  it('respectes the "muted" prop', () => {
+  it('respects the "muted" prop', () => {
     expect(render(<Link muted />)).toMatchSnapshot()
   })
 
-  it('respectes the  "sx" prop when "muted" prop is also passed', () => {
+  it('respects the  "sx" prop when "muted" prop is also passed', () => {
     expect(render(<Link muted sx={{color: 'fg.onEmphasis'}} />)).toMatchSnapshot()
   })
 })
