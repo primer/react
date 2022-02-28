@@ -66,6 +66,8 @@ const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
 function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactComponent>(
   {
     icon: IconComponent,
+    leadingVisual: LeadingVisual,
+    trailingVisual: TrailingVisual,
     contrast,
     className,
     block,
@@ -248,7 +250,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       className={className}
       contrast={contrast}
       disabled={disabled}
-      hasLeadingVisual={Boolean(IconComponent)}
+      hasLeadingVisual={Boolean(LeadingVisual)}
+      hasTrailingVisual={Boolean(TrailingVisual)}
       theme={theme}
       width={widthProp}
       minWidth={minWidthProp}
@@ -283,6 +286,12 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         ...sxProp
       }}
     >
+      {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
+      {LeadingVisual && !IconComponent && (
+        <span className="TextInput-icon">
+          {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+        </span>
+      )}
       <Box
         ref={containerRef as RefObject<HTMLDivElement>}
         display="flex"
@@ -300,7 +309,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           }
         }}
       >
-        {IconComponent && <IconComponent className="TextInput-icon" />}
         <Box
           sx={{
             order: 1,
@@ -344,6 +352,11 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           </Text>
         ) : null}
       </Box>
+      {TrailingVisual && (
+        <span className="TextInput-icon">
+          {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+        </span>
+      )}
     </TextInputWrapper>
   )
 }
