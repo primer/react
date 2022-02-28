@@ -2,8 +2,8 @@ import React from 'react'
 import {render, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {Checkbox, Radio, SSRProvider} from '..'
-import ChoiceInputField from '../ChoiceInputField'
+import {Checkbox, Radio, SSRProvider} from '../../'
+import ChoiceInputField from '../../ChoiceInputField'
 import {MarkGithubIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
@@ -22,7 +22,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox />
+            <Checkbox value="testCheckbox" />
           </ChoiceInputField>
         </SSRProvider>
       )
@@ -50,7 +50,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField id="customId">
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox />
+            <Checkbox value="testCheckbox" />
           </ChoiceInputField>
         </SSRProvider>
       )
@@ -64,7 +64,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField disabled>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox />
+            <Checkbox value="testCheckbox" />
           </ChoiceInputField>
         </SSRProvider>
       )
@@ -78,7 +78,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox />
+            <Checkbox value="testCheckbox" />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
         </SSRProvider>
@@ -93,7 +93,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox />
+            <Checkbox value="testCheckbox" />
             <ChoiceInputField.LeadingVisual>
               <MarkGithubIcon aria-label="leadingVisualIcon" />
             </ChoiceInputField.LeadingVisual>
@@ -113,7 +113,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox />
+            <Checkbox value="testCheckbox" />
           </ChoiceInputField>
         </SSRProvider>
       )
@@ -127,7 +127,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField id="captionedInput">
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox />
+            <Checkbox value="testCheckbox" />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
         </SSRProvider>
@@ -162,7 +162,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox id="testId" />
+            <Checkbox value="testCheckbox" id="testId" />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
         </SSRProvider>
@@ -177,7 +177,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox disabled />
+            <Checkbox value="testCheckbox" disabled />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
         </SSRProvider>
@@ -192,7 +192,7 @@ describe('ChoiceInputField', () => {
         <SSRProvider>
           <ChoiceInputField>
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-            <Checkbox required />
+            <Checkbox value="testCheckbox" required />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
         </SSRProvider>
@@ -207,7 +207,7 @@ describe('ChoiceInputField', () => {
       <SSRProvider>
         <ChoiceInputField>
           <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
-          <Checkbox />
+          <Checkbox value="testCheckbox" />
           <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
         </ChoiceInputField>
       </SSRProvider>

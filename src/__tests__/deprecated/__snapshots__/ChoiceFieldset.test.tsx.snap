@@ -215,6 +215,11 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   cursor: pointer;
 }
 
+.c3 {
+  font-size: 14px;
+  color: #24292f;
+}
+
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -230,11 +235,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 
 .c4 > li + li {
   margin-top: 8px;
-}
-
-.c3 {
-  font-size: 14px;
-  color: #24292f;
 }
 
 <div>
@@ -402,6 +402,12 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   cursor: pointer;
 }
 
+.c10 {
+  font-size: 12px;
+  color: #57606a;
+  display: block;
+}
+
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -417,12 +423,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 
 .c3 > li + li {
   margin-top: 8px;
-}
-
-.c10 {
-  font-size: 12px;
-  color: #57606a;
-  display: block;
 }
 
 <div>
@@ -900,23 +900,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   cursor: pointer;
 }
 
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.c3 > li + li {
-  margin-top: 8px;
-}
-
 .c12 {
   font-size: 12px;
   -webkit-align-items: center;
@@ -934,6 +917,23 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   color: currentColor;
   -webkit-text-decoration: underline;
   text-decoration: underline;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c3 > li + li {
+  margin-top: 8px;
 }
 
 <div>
@@ -1143,23 +1143,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   cursor: pointer;
 }
 
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.c3 > li + li {
-  margin-top: 8px;
-}
-
 .c12 {
   font-size: 12px;
   -webkit-align-items: center;
@@ -1177,6 +1160,23 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   color: currentColor;
   -webkit-text-decoration: underline;
   text-decoration: underline;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c3 > li + li {
+  margin-top: 8px;
 }
 
 <div>

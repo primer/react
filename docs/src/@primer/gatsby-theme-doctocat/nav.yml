@@ -155,6 +155,10 @@
       url: /deprecated/ActionMenu
     - title: BorderBox
       url: /deprecated/BorderBox
+    - title: ChoiceFieldset
+      url: /deprecated/ChoiceFieldset
+    - title: ChoiceInputField
+      url: /deprecated/ChoiceInputField
     - title: Dialog
       url: /deprecated/Dialog
     - title: Dropdown
