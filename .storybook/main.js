@@ -1,3 +1,5 @@
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -5,6 +7,6 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     'storybook-addon-performance/register',
-    '@whitespace/storybook-addon-html'
+    ...(isProd ? ['@whitespace/storybook-addon-html'] : [])
   ]
 }
