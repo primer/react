@@ -2,6 +2,8 @@
 '@primer/react': major
 ---
 
+<br />
+
 ### DropdownMenu
 
 DropdownMenu has been deprecated in favor of ActionMenu with ActionList

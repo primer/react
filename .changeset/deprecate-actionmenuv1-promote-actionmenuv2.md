@@ -2,6 +2,8 @@
 '@primer/react': major
 ---
 
+<br />
+
 ### ActionMenu
 
 ActionMenu has been rewritten with a composable API, design updates and accessibility fixes.
