@@ -11,6 +11,7 @@ exports[`Checkbox renders consistently 1`] = `
   aria-invalid="false"
   aria-required="false"
   className="c0"
+  onChange={[Function]}
   type="checkbox"
 />
 `;

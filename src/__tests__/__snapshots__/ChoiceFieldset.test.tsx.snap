@@ -34,11 +34,6 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   flex-direction: column;
 }
 
-.c6 {
-  cursor: pointer;
-  cursor: not-allowed;
-}
-
 .c2 {
   color: #57606a;
   font-size: 16px;
@@ -50,7 +45,12 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   font-size: 14px;
   display: block;
   color: #57606a;
+  cursor: default;
+}
+
+.c6 {
   cursor: pointer;
+  cursor: not-allowed;
 }
 
 .c3 {
@@ -198,10 +198,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   flex-direction: column;
 }
 
-.c7 {
-  cursor: pointer;
-}
-
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -212,6 +208,10 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
+}
+
+.c7 {
   cursor: pointer;
 }
 
@@ -385,10 +385,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   fill: currentColor;
 }
 
-.c6 {
-  cursor: pointer;
-}
-
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -399,6 +395,10 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   font-size: 14px;
   display: block;
   color: #24292f;
+  cursor: pointer;
+}
+
+.c6 {
   cursor: pointer;
 }
 
@@ -693,10 +693,6 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   flex-direction: column;
 }
 
-.c5 {
-  cursor: pointer;
-}
-
 .c7 {
   font-weight: 600;
   font-size: 14px;
@@ -716,6 +712,10 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.c5 {
+  cursor: pointer;
 }
 
 .c2 {
@@ -878,8 +878,9 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   display: flex;
 }
 
-.c6 {
-  cursor: pointer;
+.c11 {
+  -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
+  animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
 }
 
 .c2 {
@@ -895,9 +896,8 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   cursor: pointer;
 }
 
-.c11 {
-  -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
-  animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
+.c6 {
+  cursor: pointer;
 }
 
 .c3 {
@@ -1038,6 +1038,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             font-size="0"
           >
             <span
+              aria-hidden="true"
               class="c13"
             >
               <svg
@@ -1120,8 +1121,9 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   display: flex;
 }
 
-.c6 {
-  cursor: pointer;
+.c11 {
+  -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
+  animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
 }
 
 .c2 {
@@ -1137,9 +1139,8 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   cursor: pointer;
 }
 
-.c11 {
-  -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
-  animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
+.c6 {
+  cursor: pointer;
 }
 
 .c3 {
@@ -1280,6 +1281,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             font-size="0"
           >
             <span
+              aria-hidden="true"
               class="c13"
             >
               <svg
