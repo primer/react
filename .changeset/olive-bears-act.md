@@ -63,7 +63,7 @@ import {FormGroup, TextInput} from "@primer/react"
 
 ```jsx
 import {InputField} from '@primer/react'
-;<InputField>
+<InputField>
   <InputField.Label>Example text</InputField.Label>
   <TextInput />
 </InputField>
@@ -74,7 +74,7 @@ import {InputField} from '@primer/react'
 
 ```jsx
 import {FormControl} from '@primer/react'
-;<FormControl>
+<FormControl>
   <FormControl.Label>Example Text</FormControl.Label>
   <TextInput />
 </FormControl>
