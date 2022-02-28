@@ -1,8 +1,8 @@
 import styled, {css} from 'styled-components'
 import {borderColor, BorderColorProps, variant} from 'styled-system'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const outlineStyles = css`
   margin-top: -1px; // offsets the 1px border

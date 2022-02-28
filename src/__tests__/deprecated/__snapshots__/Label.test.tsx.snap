@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Label_deprecated renders consistently 1`] = `
+exports[`Label renders consistently 1`] = `
 .c0 {
   display: inline-block;
   font-weight: 500;
@@ -22,7 +22,7 @@ exports[`Label_deprecated renders consistently 1`] = `
 />
 `;
 
-exports[`Label_deprecated respects the "outline" prop 1`] = `
+exports[`Label respects the "outline" prop 1`] = `
 .c0 {
   display: inline-block;
   font-weight: 500;
@@ -50,7 +50,7 @@ exports[`Label_deprecated respects the "outline" prop 1`] = `
 />
 `;
 
-exports[`Label_deprecated respects the "variant" prop 1`] = `
+exports[`Label respects the "variant" prop 1`] = `
 .c0 {
   display: inline-block;
   font-weight: 500;
