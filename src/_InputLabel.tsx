@@ -20,7 +20,7 @@ const InputLabel: React.FC<Props & SxProp> = ({children, disabled, required, vis
         fontSize: 1,
         display: 'block',
         color: disabled ? 'fg.muted' : 'fg.default',
-        cursor: 'pointer',
+        cursor: disabled ? 'default' : 'pointer',
         ...sx
       }}
     >

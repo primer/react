@@ -6,8 +6,8 @@ import {MutableRefObject, RefObject, useCallback, useRef, useState} from 'react'
  * In these situations, we need to force a re-render, which is done here by the useState hook.
  * @type TRef The type of the RefObject which should be created.
  */
-export function useRenderForcingRef<TRef>() {
-  const [refCurrent, setRefCurrent] = useState<TRef | null>(null)
+export function useRenderForcingRef<TRef>(value?: TRef) {
+  const [refCurrent, setRefCurrent] = useState<TRef | null>(value || null)
   const ref = useRef<TRef>(null) as MutableRefObject<TRef | null>
   ref.current = refCurrent
 

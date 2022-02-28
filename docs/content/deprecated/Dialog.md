@@ -9,7 +9,7 @@ Use [Dialog2](/Dialog2) instead.
 
 **Before**
 
-```jsx
+```jsx deprecated
 <Dialog isOpen={open} onDismiss={() => setOpen(false)} aria-labelledby="header-id">
   <Dialog.Header id="header-id">Title</Dialog.Header>
   <Box p={3}>
@@ -20,7 +20,7 @@ Use [Dialog2](/Dialog2) instead.
 
 **After**
 
-```jsx
+```jsx deprecated
 {
   open && (
     <Dialog2
@@ -59,7 +59,7 @@ If you're running into z-index issues or are rendering the component inside of a
 
 ### Examples
 
-```jsx live
+```jsx deprecated live
 <State default={false}>
   {([isOpen, setIsOpen]) => {
     const returnFocusRef = React.useRef(null)
@@ -87,7 +87,7 @@ If you're running into z-index issues or are rendering the component inside of a
 
 You can also pass any non-text content into the header:
 
-```jsx live
+```jsx deprecated live
 <State default={false}>
   {([isOpen, setIsOpen]) => {
     const returnFocusRef = React.useRef(null)

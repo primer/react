@@ -107,6 +107,10 @@ export type {SelectMenuModalProps} from './SelectMenuModal'
 export type {SelectMenuTabProps} from './SelectMenuTab'
 export type {SelectMenuTabPanelProps} from './SelectMenuTabPanel'
 export type {SelectMenuTabsProps} from './SelectMenuTabs'
+
+/**
+ * @deprecated Use ActionMenu instead. See https://primer.style/react/ActionMenu for more details.
+ */
 export default Object.assign(SelectMenu, {
   MenuContext,
   List: SelectMenuList,

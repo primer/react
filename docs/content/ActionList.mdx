@@ -3,98 +3,446 @@ componentId: action_list
 title: ActionList
 status: Alpha
 source: https://github.com/primer/react/tree/main/src/ActionList
+storybook: '/react/storybook?path=/story/composite-components-actionlist'
+description: An ActionList is a list of items that can be activated or selected. ActionList is the base component for many menu-type components, including ActionMenu and SelectPanel.
 ---
 
-An `ActionList` is a list of items which can be activated or selected. `ActionList` is the base component for many of our menu-type components, including `DropdownMenu` and `ActionMenu`.
+import {Avatar} from '@primer/react'
+import {ActionList} from '@primer/react'
+import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
+import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 
-## Minimal example
+<Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
+  <ActionList sx={{width: 320}}>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      github.com/primer
+      <ActionList.Description variant="block">
+        A React implementation of GitHub's Primer Design System
+      </ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/mona.png" />
+      </ActionList.LeadingVisual>
+      mona
+      <ActionList.Description>Monalisa Octocat</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      <ActionList.LeadingVisual>
+        <AlertIcon />
+      </ActionList.LeadingVisual>
+      4 vulnerabilities
+      <ActionList.TrailingVisual>
+        <ArrowRightIcon />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+</Box>
 
-```jsx live
-<ActionList
-  items={[
-    {text: 'New file'},
-    ActionList.Divider,
-    {text: 'Copy link'},
-    {text: 'Edit file'},
-    {text: 'Delete file', variant: 'danger'}
-  ]}
-/>
+```js
+import {ActionList} from '@primer/react'
 ```
 
-## Example with grouped items
+## Examples
+
+### Minimal example
 
 ```jsx live
-<ActionList
-  groupMetadata={[
-    {groupId: '0'},
-    {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
-    {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
-    {groupId: '3'},
-    {groupId: '4'}
-  ]}
-  items={[
-    {key: '1', leadingVisual: TypographyIcon, text: 'Rename', groupId: '0', trailingVisual: '⌘R'},
-    {key: '2', leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
-    {key: '3', leadingVisual: SearchIcon, text: 'repo:github/github', groupId: '1'},
-    {
-      key: '4',
-      leadingVisual: NoteIcon,
-      text: 'Table',
-      description: 'Information-dense table optimized for operations across teams',
-      descriptionVariant: 'block',
-      groupId: '2'
-    },
-    {
-      key: '5',
-      leadingVisual: ProjectIcon,
-      text: 'Board',
-      description: 'Kanban-style board focused on visual states',
-      descriptionVariant: 'block',
-      groupId: '2'
-    },
-    {
-      key: '6',
-      leadingVisual: FilterIcon,
-      text: 'Save sort and filters to current view',
-      disabled: true,
-      groupId: '3'
-    },
-    {key: '7', leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4', trailingVisual: ArrowRightIcon}
-  ]}
-/>
+<ActionList>
+  <ActionList.Item>New file</ActionList.Item>
+  <ActionList.Item>Copy link</ActionList.Item>
+  <ActionList.Item>Edit file</ActionList.Item>
+  <ActionList.Divider />
+  <ActionList.Item variant="danger">Delete file</ActionList.Item>
+</ActionList>
 ```
 
-## Example with custom item renderer
+### With leading visual
 
-```jsx
-<ActionList
-  items={[
-    {
-      text: 'Vanilla link',
-      renderItem: props => <ActionList.Item as="a" href="/about" {...props} />
-    },
-    {
-      text: 'React Router link',
-      renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />
-    },
-    {
-      text: 'NextJS style',
-      renderItem: props => (
-        <NextJSLikeLink href="/about">
-          <ActionList.Item as="a" {...props} />
-        </NextJSLikeLink>
-      )
-    }
-  ]}
-/>
+Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
+
+<!-- prettier-ignore -->
+```jsx live
+<ActionList>
+  <ActionList.Item>
+    <ActionList.LeadingVisual><LinkIcon /></ActionList.LeadingVisual>
+    github.com/primer
+  </ActionList.Item>
+  <ActionList.Item variant="danger">
+    <ActionList.LeadingVisual><AlertIcon /></ActionList.LeadingVisual>
+    4 vulnerabilities
+  </ActionList.Item>
+  <ActionList.Item>
+    <ActionList.LeadingVisual><Avatar src="https://github.com/mona.png" /></ActionList.LeadingVisual>
+    mona
+  </ActionList.Item>
+</ActionList>
+
+```
+
+### With trailing visual
+
+Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, keyboard shortcuts, or be used to set expectations about what the action does.
+
+```jsx live
+<ActionList>
+  <ActionList.Item>
+    New file
+    <ActionList.TrailingVisual>⌘ + N</ActionList.TrailingVisual>
+  </ActionList.Item>
+  <ActionList.Item>
+    Copy link
+    <ActionList.TrailingVisual>⌘ + C</ActionList.TrailingVisual>
+  </ActionList.Item>
+  <ActionList.Item>
+    Edit file
+    <ActionList.TrailingVisual>⌘ + E</ActionList.TrailingVisual>
+  </ActionList.Item>
+  <ActionList.Item variant="danger">
+    Delete file
+    <ActionList.TrailingVisual>⌫</ActionList.TrailingVisual>
+  </ActionList.Item>
+</ActionList>
+```
+
+### With description and dividers
+
+Item dividers allow users to parse heavier amounts of information. They're placed between items and are useful in complex lists, particularly when descriptions or multi-line text is present.
+
+```jsx live
+<ActionList showDividers>
+  <ActionList.Item>
+    <ActionList.LeadingVisual>
+      <Avatar src="https://github.com/mona.png" />
+    </ActionList.LeadingVisual>
+    mona
+    <ActionList.Description>Monalisa Octocat</ActionList.Description>
+  </ActionList.Item>
+  <ActionList.Item>
+    <ActionList.LeadingVisual>
+      <Avatar src="https://github.com/hubot.png" />
+    </ActionList.LeadingVisual>
+    hubot
+    <ActionList.Description>Hubot</ActionList.Description>
+  </ActionList.Item>
+  <ActionList.Item>
+    <ActionList.LeadingVisual>
+      <Avatar src="https://github.com/primer-css.png" />
+    </ActionList.LeadingVisual>
+    primer-css
+    <ActionList.Description>GitHub Design Systems Bot</ActionList.Description>
+  </ActionList.Item>
+</ActionList>
+```
+
+### With links
+
+When you want to add links to the List instead of actions, use `ActionList.LinkItem`
+
+<!-- prettier-ignore -->
+```jsx live
+<ActionList>
+  <ActionList.LinkItem href="https://github.com/primer">
+    <ActionList.LeadingVisual>
+      <LinkIcon />
+    </ActionList.LeadingVisual>
+    github/primer
+  </ActionList.LinkItem>
+  <ActionList.LinkItem as={ReactRouterLink} to="/">
+    <ActionList.LeadingVisual>
+      <LawIcon />
+    </ActionList.LeadingVisual>
+    MIT License
+  </ActionList.LinkItem>
+  <ActionList.LinkItem 
+    href="https://github.com/primer/react/stargazers"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <ActionList.LeadingVisual>
+      <StarIcon />
+    </ActionList.LeadingVisual>
+    1.4k stars
+  </ActionList.LinkItem>
+</ActionList>
+```
+
+### With groups
+
+```javascript live noinline
+const SelectFields = () => {
+  const [options, setOptions] = React.useState([
+    {text: 'Status', selected: true},
+    {text: 'Stage', selected: true},
+    {text: 'Assignee', selected: true},
+    {text: 'Team', selected: true},
+    {text: 'Estimate', selected: false},
+    {text: 'Due Date', selected: false}
+  ])
+
+  const visibleOptions = options.filter(option => option.selected)
+  const hiddenOptions = options.filter(option => !option.selected)
+
+  const toggle = text => {
+    setOptions(
+      options.map(option => {
+        if (option.text === text) option.selected = !option.selected
+        return option
+      })
+    )
+  }
+
+  return (
+    <ActionList selectionVariant="multiple">
+      <ActionList.Group title="Visible fields">
+        {visibleOptions.map(option => (
+          <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
+            {option.text}
+          </ActionList.Item>
+        ))}
+      </ActionList.Group>
+      <ActionList.Group
+        title="Hidden fields"
+        selectionVariant={
+          /** selectionVariant override on Group: disable selection if there are no options */
+          hiddenOptions.length ? 'multiple' : false
+        }
+      >
+        {hiddenOptions.map((option, index) => (
+          <ActionList.Item key={option.text} selected={false} onSelect={() => toggle(option.text)}>
+            {option.text}
+          </ActionList.Item>
+        ))}
+        {hiddenOptions.length === 0 && <ActionList.Item disabled>No hidden fields</ActionList.Item>}
+      </ActionList.Group>
+    </ActionList>
+  )
+}
+
+render(<SelectFields />)
 ```
 
 ## Props
 
-| Name             | Type                                                                                                                                              |      Default      | Description                                                                                                                                             |
-| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| items            | `(ItemProps & Omit<React.ComponentPropsWithoutRef<'div'>, keyof ItemProps>) \| ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})` |    `undefined`    | Required. A list of item objects conforming to the `ActionList.Item` props interface.                                                                   |
-| renderItem       | `(props: ItemProps) => JSX.Element`                                                                                                               | `ActionList.Item` | Optional. If defined, each item in `items` will be passed to this function, allowing for `ActionList`-wide custom item rendering.                       |
-| groupMetadata    | `GroupProps[]`                                                                                                                                    |    `undefined`    | Optional. If defined, `ActionList` will group `items` into `ActionList.Group`s separated by `ActionList.Divider` according to their `groupId` property. |
-| showItemDividers | `boolean`                                                                                                                                         |      `false`      | Optional. If `true` dividers will be displayed above each `ActionList.Item` which does not follow an `ActionList.Header` or `ActionList.Divider`        |
+### ActionList
+
+<PropsTable>
+  <PropsTableRow name="children" required type="ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]" />
+  <PropsTableRow
+    name="variant"
+    type="'inset' | 'full'"
+    defaultValue="'inset'"
+    description={
+      <>
+        <InlineCode>inset</InlineCode> children are offset (vertically and horizontally) from list edges.{' '}
+        <InlineCode>full</InlineCode> children are flush (vertically and horizontally) with list edges
+      </>
+    }
+  />
+  <PropsTableRow
+    name="selectionVariant"
+    type="'single' | 'multiple'"
+    description="Whether multiple items or a single item can be selected."
+  />
+  <PropsTableRow
+    name="showDivider"
+    type="boolean"
+    defaultValue="false"
+    description="Display a divider above each item in this list when it does not follow a header or divider."
+  />
+  <PropsTableRow
+    name="role"
+    type={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles">AriaRole</Link>
+    }
+    description={
+      <>
+        ARIA role describing the function of the list. <InlineCode>listbox</InlineCode> and{' '}
+        <InlineCode>menu</InlineCode> are a common values.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### ActionList.Item
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual"
+  />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'danger'"
+    defaultValue="'default'"
+    description={
+      <>
+        <InlineCode>danger</InlineCode> indicates that the item is destructive.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="onSelect"
+    type="(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void"
+    description="Callback that is called when the item is selected using either the mouse or keyboard."
+  />
+  <PropsTableRow
+    name="selected"
+    type="boolean"
+    defaultValue="false"
+    description="Indicate whether the item is selected. Only applies to items that can be selected."
+  />
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    defaultValue="false"
+    description="Items that are disabled can not be clicked, selected, or navigated to."
+  />
+  <PropsTableRow
+    name="role"
+    type={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles">AriaRole</Link>
+    }
+    description={
+      <>
+        ARIA role describing the function of the item. <InlineCode>option</InlineCode> is a common value.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### ActionList.LinkItem
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual"
+  />
+  <PropsTableBasePropRows
+    elementType="a"
+    isPolymorphic
+    refType="HTMLAnchorElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
+### ActionList.LeadingVisual
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode"
+    description="Icon (or similar) positioned before item text."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### ActionList.TrailingVisual
+
+<PropsTable>
+  <PropsTableRow name="children" required type="React.ReactNode" description="Visual positioned after item text." />
+  <PropsTableSxRow />
+</PropsTable>
+
+### ActionList.Description
+
+<PropsTable>
+  <PropsTableRow name="children" required type="React.ReactNode" />
+  <PropsTableRow
+    name="variant"
+    type="'inline' | 'block'"
+    defaultValue="'inline'"
+    description={
+      <>
+        <InlineCode>inline</InlineCode> descriptions are positioned beside primary text. <InlineCode>block</InlineCode>{' '}
+        descriptions are positioned below primary text.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### ActionList.Group
+
+<PropsTable>
+  <PropsTableRow name="children" required type="ActionList.Item[] | ActionList.LinkItem[]" />
+  <PropsTableRow name="title" type="string" description="Title of the group." />
+  <PropsTableRow
+    name="auxiliaryText"
+    type="string"
+    description="Secondary text that provides additional information about the group."
+  />
+  <PropsTableRow
+    name="variant"
+    type="'filled' | 'subtle'"
+    defaultValue="'subtle'"
+    description={
+      <>
+        <InlineCode>inline</InlineCode> descriptions are positioned beside primary text. <InlineCode>block</InlineCode>{' '}
+        descriptions are positioned below primary text.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="selectionVariant"
+    type="'single' | 'multiple' | false"
+    description={
+      <>
+        Set <InlineCode>selectionVariant</InlineCode> at the group level.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="role"
+    type={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques#roles">AriaRole</Link>
+    }
+    description={
+      <>
+        ARIA role describing the function of the list inside the group. <InlineCode>listbox</InlineCode> and{' '}
+        <InlineCode>menu</InlineCode> are a common values.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: true,
+    hasFigmaComponent: true
+  }}
+/>
+
+## Further reading
+
+- [Interface guidelines: Action List](https://primer.style/design/components/action-list)
+
+## Related components
+
+- [ActionMenu](/ActionMenu)
+- [SelectPanel](/SelectPanel)

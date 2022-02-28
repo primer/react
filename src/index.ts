@@ -30,8 +30,16 @@ export {useConfirm} from './Dialog/ConfirmationDialog'
 export {default as Radio} from './Radio'
 export type {RadioProps} from './Radio'
 export {ActionList} from './ActionList'
+export type {
+  ActionListProps,
+  ActionListGroupProps,
+  ActionListItemProps,
+  ActionListDescriptionProps,
+  ActionListLeadingVisualProps,
+  ActionListTrailingVisualProps
+} from './ActionList'
 export {ActionMenu} from './ActionMenu'
-export type {ActionMenuProps} from './ActionMenu'
+export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
 export {default as Autocomplete} from './Autocomplete'
 export type {AutocompleteMenuProps, AutocompleteInputProps, AutocompleteOverlayProps} from './Autocomplete'
 export {default as Avatar} from './Avatar'
@@ -72,6 +80,7 @@ export type {CircleBadgeProps, CircleBadgeIconProps} from './CircleBadge'
 export {default as CircleOcticon} from './CircleOcticon'
 export type {CircleOcticonProps} from './CircleOcticon'
 export {default as ChoiceFieldset, Item} from './ChoiceFieldset'
+export {default as CheckboxGroup} from './CheckboxGroup'
 export {default as CounterLabel} from './CounterLabel'
 export type {CounterLabelProps} from './CounterLabel'
 export {default as Details} from './Details'
@@ -80,9 +89,6 @@ export {default as Dialog} from './Dialog'
 export type {DialogProps, DialogHeaderProps} from './Dialog'
 export {ConfirmationDialog} from './Dialog/ConfirmationDialog'
 
-export {DropdownButton, DropdownMenu} from './DropdownMenu'
-// not exporting new DropdownMenu types yet due to conflict with Dropdown types above
-// export type {DropdownButtonProps, DropdownMenuProps} from './DropdownMenu'
 export {default as FilteredSearch} from './FilteredSearch'
 export type {FilteredSearchProps} from './FilteredSearch'
 export {default as FilterList} from './FilterList'
@@ -117,6 +123,8 @@ export type {PopoverProps, PopoverContentProps} from './Popover'
 // export type {PortalProps} from './Portal'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
+export {default as RadioGroup} from './RadioGroup'
+export {default as SelectMenu} from './SelectMenu'
 export {default as Select} from './Select'
 export {SelectPanel} from './SelectPanel'
 export type {SelectPanelProps} from './SelectPanel'

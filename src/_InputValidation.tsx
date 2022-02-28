@@ -40,7 +40,7 @@ const InputValidation: React.FC<Props> = ({children, id, validationStatus, sx}) 
       }}
     >
       {IconComponent && (
-        <Box as="span" mr={1} sx={{display: 'flex'}}>
+        <Box as="span" mr={1} sx={{display: 'flex'}} aria-hidden="true">
           <IconComponent size={12} fill="currentColor" />
         </Box>
       )}

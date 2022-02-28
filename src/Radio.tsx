@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import React, {InputHTMLAttributes, ReactElement} from 'react'
+import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext} from 'react'
 import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
+import {RadioGroupContext} from './RadioGroup'
 
 export type RadioProps = {
   /**
@@ -12,7 +13,7 @@ export type RadioProps = {
   /**
    * Name attribute of the input element. Required for grouping radio inputs
    */
-  name: string
+  name?: string
   /**
    * Apply inactive visual appearance to the radio button
    */
@@ -49,9 +50,23 @@ const StyledRadio = styled.input`
  */
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
-    {checked, disabled, sx: sxProp, required, validationStatus, value, name, ...rest}: RadioProps,
+    {checked, disabled, name: nameProp, onChange, sx: sxProp, required, validationStatus, value, ...rest}: RadioProps,
     ref
   ): ReactElement => {
+    const radioGroupContext = useContext(RadioGroupContext)
+    const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
+      radioGroupContext?.onChange && radioGroupContext.onChange(e)
+      onChange && onChange(e)
+    }
+    const name = nameProp || radioGroupContext?.name
+
+    if (!name) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop'
+      )
+    }
+
     return (
       <StyledRadio
         type="radio"
@@ -66,6 +81,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         aria-required={required ? 'true' : 'false'}
         aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         sx={sxProp}
+        onChange={handleOnChange}
         {...rest}
       />
     )
