@@ -4,12 +4,23 @@ on:
   push:
     branches:
       - main
-      - 'next/**'
+      - next-major
 
 jobs:
-  release:
-    name: Release
+  release-main:
+    if: github.ref_name == 'main'
+    name: Main
     uses: primer/.github/.github/workflows/release.yml@main
+    secrets:
+      gh_token: ${{ secrets.GPR_AUTH_TOKEN_SHARED }}
+      npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+
+  release-next-major:
+    if: github.ref_name == 'next-major'
+    name: Next major
+    uses: primer/.github/.github/workflows/release.yml@main
+    with:
+      title: Release tracking (next major)
     secrets:
       gh_token: ${{ secrets.GPR_AUTH_TOKEN_SHARED }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
