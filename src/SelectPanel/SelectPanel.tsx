@@ -3,7 +3,7 @@ import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList
 import {OverlayProps} from '../Overlay'
 import {ItemInput} from '../deprecated/ActionList/List'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
-import {DropdownButton} from '../DropdownMenu'
+import {DropdownButton} from '../deprecated/DropdownMenu'
 import {ItemProps} from '../deprecated/ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {TextInputProps} from '../TextInput'

@@ -1,14 +1,14 @@
 import {Meta} from '@storybook/react'
 import React from 'react'
-import {theme, ThemeProvider} from '..'
-import {ItemInput} from '../deprecated/ActionList/List'
-import BaseStyles from '../BaseStyles'
-import Box from '../Box'
-import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import TextInput from '../TextInput'
+import {theme, ThemeProvider} from '../..'
+import {ItemInput} from '../../deprecated/ActionList/List'
+import BaseStyles from '../../BaseStyles'
+import Box from '../../Box'
+import {DropdownMenu, DropdownButton} from '../../deprecated'
+import TextInput from '../../TextInput'
 
 const meta: Meta = {
-  title: 'Composite components/DropdownMenu',
+  title: 'Deprecated components/DropdownMenu',
   component: DropdownMenu,
   decorators: [
     (Story: React.ComponentType): JSX.Element => {

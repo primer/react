@@ -1,12 +1,12 @@
 import React, {useCallback, useMemo} from 'react'
-import {List, GroupedListProps, ListPropsBase, ItemInput} from '../deprecated/ActionList/List'
+import {List, GroupedListProps, ListPropsBase, ItemInput} from '../ActionList/List'
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
-import {ItemProps} from '../deprecated/ActionList/Item'
-import {AnchoredOverlay} from '../AnchoredOverlay'
-import {OverlayProps} from '../Overlay'
-import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
-import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
-import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
+import {ItemProps} from '../ActionList/Item'
+import {AnchoredOverlay} from '../../AnchoredOverlay'
+import {OverlayProps} from '../../Overlay'
+import {AnchoredOverlayWrapperAnchorProps} from '../../AnchoredOverlay/AnchoredOverlay'
+import {useProvidedRefOrCreate} from '../../hooks/useProvidedRefOrCreate'
+import {useProvidedStateOrCreate} from '../../hooks/useProvidedStateOrCreate'
 
 interface DropdownMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**
@@ -45,9 +45,7 @@ interface DropdownMenuBaseProps extends Partial<Omit<GroupedListProps, keyof Lis
 export type DropdownMenuProps = DropdownMenuBaseProps & AnchoredOverlayWrapperAnchorProps
 
 /**
- * A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items.  The menu can be
- * opened and navigated using keyboard or mouse.  When an item is selected, the menu will close and the `onChange` callback will be called.
- * If the default anchor button is used, the anchor contents will be updated with the selection.
+ * @deprecated Use ActionMenu with ActionList instead. See https://primer.style/react/ActionMenu#with-selection for more details.
  */
 export function DropdownMenu({
   renderAnchor = <T extends DropdownButtonProps>(props: T) => <DropdownButton {...props} />,

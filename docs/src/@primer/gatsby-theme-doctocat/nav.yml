@@ -163,6 +163,8 @@
       url: /deprecated/Dialog
     - title: Dropdown
       url: /deprecated/Dropdown
+    - title: DropdownMenu
+      url: /deprecated/DropdownMenu
     - title: Flex
       url: /deprecated/Flex
     - title: FormGroup
