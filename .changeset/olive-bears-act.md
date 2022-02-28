@@ -22,14 +22,14 @@ import {FormControl, Checkbox, TextInput} from "@primer/react"
     <TextInput id="example-text" />
 </FormGroup>
 
-OR
+// OR
 
 <InputField>
     <InputField.Label>Example text</InputField.Label>
     <TextInput />
 </InputField>
 
-OR
+// OR
 
 <ChoiceInputField>
     <ChoiceInputField.Label>Example text</ChoiceInputField.Label>
@@ -49,7 +49,7 @@ import {FormGroup, TextInput} from "@primer/react"
   <TextInput />
 </FormControl>
 
-OR
+// OR
 
 <FormControl>
   <FormControl.Label>Example text</FormControl.Label>
@@ -65,8 +65,7 @@ OR
 
 ```jsx
 import {InputField} from '@primer/react'
-
-<InputField>
+;<InputField>
   <InputField.Label>Example text</InputField.Label>
   <TextInput />
 </InputField>
@@ -77,8 +76,7 @@ import {InputField} from '@primer/react'
 
 ```jsx
 import {FormControl} from '@primer/react'
-
-<FormControl>
+;<FormControl>
   <FormControl.Label>Example Text</FormControl.Label>
   <TextInput />
 </FormControl>
@@ -101,6 +99,12 @@ or
 ```js
 import {FormGroup, ChoiceInputField, InputField} from '@primer/react/deprecated' // change your import statements
 ```
+
+Codemods:
+
+- InputField codemod: https://github.com/primer/react-migrate/blob/main/src/use-deprecated-inputfield.js
+- ChoiceInputField https://github.com/primer/react-migrate/blob/main/src/use-deprecated-choiceinputfield.js
+- FormGroup codemod: https://github.com/primer/react-migrate/blob/main/src/use-deprecated-formgroup.js
 
 </td>
 </tr>

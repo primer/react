@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
-/** @deprecated Use FormControl instead. See https://primer.style/react/FormControl for more details. */
 const FormGroup = styled.div<SxProp>`
   margin: ${get('space.3')} 0;
   font-weight: ${get('fontWeights.normal')};
@@ -23,4 +22,5 @@ FormGroupLabel.displayName = 'FormGroup.Label'
 
 export type FormGroupProps = ComponentProps<typeof FormGroup>
 export type FormGroupLabelProps = ComponentProps<typeof FormGroupLabel>
+/** @deprecated Use FormControl instead. See https://primer.style/react/FormControl for more details. */
 export default Object.assign(FormGroup, {Label: FormGroupLabel})

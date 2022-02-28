@@ -1,5 +1,5 @@
 import React from 'react'
-import FormGroup from '../FormGroup'
+import FormGroup from '../deprecated/FormGroup'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('FormGroup', () => {
   behavesAsComponent({Component: FormGroup})
 
-  checkExports('FormGroup', {
+  checkExports('deprecated/FormGroup', {
     default: FormGroup
   })
 
