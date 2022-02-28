@@ -48,7 +48,7 @@ export default {
       description: 'note'
     },
     anchorAlignment: {
-      control: {type: 'inline-radio', options: ['first', 'center', 'last']}
+      control: {type: 'inline-radio', options: ['start', 'center', 'end']}
     },
     anchorOffset: {
       control: {type: 'range', min: -100, max: 100}
