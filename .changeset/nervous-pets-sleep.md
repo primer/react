@@ -14,7 +14,7 @@ The `CheckboxGroup` and `RadioGroup` components will be used to deprecate the `C
 <td valign="top">
 
 ```jsx
-import {ChoiceFieldset} from "@primer/react";
+import {ChoiceFieldset} from "@primer/react"
 
 // Multi-select
 <ChoiceFieldset>
@@ -66,7 +66,7 @@ import {ChoiceFieldset} from "@primer/react";
 <td valign="top">
 
 ```jsx
-import {FormGroup, Checkbox} from "@primer/react";
+import {FormGroup, Checkbox} from "@primer/react"
 
 // Multi-select
 <CheckboxGroup>
