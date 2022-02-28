@@ -173,7 +173,7 @@ render(MaxHeightExample)
 ### With an error validation status
 
 ```javascript live noinline
-const BasicExample = () => {
+const ErrorExample = () => {
   const [tokens, setTokens] = React.useState([
     {text: 'zero', id: 0},
     {text: 'one', id: 1},
@@ -198,7 +198,45 @@ const BasicExample = () => {
   )
 }
 
-render(BasicExample)
+render(ErrorExample)
+```
+
+### With leading and trailing visuals
+
+```javascript live noinline
+const LeadingVisualExample = () => {
+  const [dates, setDates] = React.useState([
+    {text: '01 Jan', id: 0},
+    {text: '01 Feb', id: 1},
+    {text: '01 Mar', id: 2}
+  ])
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2}
+  ])
+  const onDateRemove = tokenId => {
+    setDates(dates.filter(token => token.id !== tokenId))
+  }
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <>
+      <FormControl>
+        <FormControl.Label>Dates</FormControl.Label>
+        <TextInputWithTokens leadingVisual={CalendarIcon} tokens={dates} onTokenRemove={onDateRemove} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Tokens</FormControl.Label>
+        <TextInputWithTokens trailingVisual={CheckIcon} tokens={tokens} onTokenRemove={onTokenRemove} />
+      </FormControl>
+    </>
+  )
+}
+
+render(LeadingVisualExample)
 ```
 
 ## Props
