@@ -311,7 +311,7 @@ describe('Autocomplete', () => {
       expect(getByDisplayValue('zero')).toBeDefined()
     })
 
-    it('clears the input value when when the user hits Escape', () => {
+    it('clears the input value when the user hits Escape', () => {
       const {container} = HTMLRender(<LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />)
       const inputNode = container.querySelector('#autocompleteInput')
 
