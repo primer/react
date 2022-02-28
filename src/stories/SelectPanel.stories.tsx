@@ -4,7 +4,7 @@ import React, {useRef, useState} from 'react'
 import {theme, ThemeProvider} from '..'
 import {ItemInput} from '../deprecated/ActionList/List'
 import BaseStyles from '../BaseStyles'
-import {DropdownButton} from '../DropdownMenu'
+import {DropdownButton} from '../deprecated/DropdownMenu'
 import {SelectPanel} from '../SelectPanel'
 import Box from '../Box'
 

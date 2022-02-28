@@ -1,14 +1,91 @@
 ---
 componentId: dropdown_menu
 title: DropdownMenu
-status: Alpha
+status: Deprecated
 ---
 
 A `DropdownMenu` provides an anchor (button by default) that will open a floating menu of selectable items. The menu can be opened and navigated using keyboard or mouse. When an item is selected, the menu will close and the `onChange` callback will be called. If the default anchor button is used, the anchor contents will be updated with the selection.
 
+## Deprecation
+
+Use [new version of ActionMenu](/ActionMenu#with-selection) with composable API, design updates and accessibility fixes.
+
+**Before**
+
+```jsx
+const fieldTypes = [
+  {key: 0, text: 'Text'},
+  {key: 1, text: 'Number'},
+  {key: 3, text: 'Date'},
+  {key: 4, text: 'Single select'},
+  {key: 5, text: 'Iteration'}
+]
+
+const Example = () => {
+  const [selectedType, setSelectedType] = React.useState()
+
+  return (
+    <DropdownMenu
+      renderAnchor={({children, ...anchorProps}) => (
+        <ButtonInvisible {...anchorProps}>
+          {children} <GearIcon />
+        </ButtonInvisible>
+      )}
+      placeholder="Field type"
+      items={fieldTypes}
+      selectedItem={selectedType}
+      onChange={setSelectedType}
+    />
+  )
+}
+```
+
+**After**
+
+Instead of `DropdownMenu`, you can use the `ActionMenu` with `ActionList selectionVariant=single`, this will give menu items the correct semantics:
+
+```jsx
+const fieldTypes = [
+  {id: 0, text: 'Text'},
+  {id: 1, text: 'Number'},
+  {id: 3, text: 'Date'},
+  {id: 4, text: 'Single select'},
+  {id: 5, text: 'Iteration'}
+]
+
+const Example = () => {
+  const [selectedType, setSelectedType] = React.useState()
+
+  render(
+    <ActionMenu>
+      <ActionMenu.Button aria-label="Select field type">{selectedType.name || 'Field type'}</ActionMenu.Button>
+      <ActionMenu.Overlay>
+        <ActionList selectionVariant="single">
+          {fieldTypes.map(type => (
+            <ActionList.Item
+              key={type.id}
+              selected={type.id === selectedType.id}
+              onSelect={() => setSelectedType(type)}
+            >
+              {type.name}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
+  )
+}
+```
+
+Or continue using deprecated API:
+
+```js
+import {DropdownMenu} from '@primer/react/deprecated'
+```
+
 ## Example
 
-```javascript live noinline
+```javascript live noinline deprecated
 function DemoComponent() {
   const items = React.useMemo(
     () => [
