@@ -308,7 +308,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
         )
       }
     >
-      {/* Show a horiztonal divider when viewport is narrow. Otherwise, show a vertical divider. */}
+      {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
       <HorizontalDivider
         variant="none"
         variantWhenNarrow={computedDividerWhenNarrow}

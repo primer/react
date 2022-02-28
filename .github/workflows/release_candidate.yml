@@ -4,11 +4,23 @@ on:
   push:
     branches:
       - 'changeset-release/main'
+      - 'changeset-release/next-major'
 
 jobs:
   release-candidate:
-    name: Candidate
+    if: github.ref_name == 'changeset-release/main'
+    name: Candidate (@next)
     uses: primer/.github/.github/workflows/release_candidate.yml@main
+    secrets:
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
+      npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      
+  release-candidate-next-major:
+    if: github.ref_name == 'changeset-release/next-major'
+    name: Candidate (@next-major)
+    uses: primer/.github/.github/workflows/release_candidate.yml@main
+    with:
+      tag: next-major
     secrets:
       gh_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}

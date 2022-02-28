@@ -50,7 +50,7 @@ describe('useTypeaheadFocus', () => {
     expect(getByText('third button')).toEqual(document.activeElement)
   })
 
-  it('Case insinsitive: when B is pressed, it should move focus the "b"utton 1', () => {
+  it('Case insensitive: when B is pressed, it should move focus the "b"utton 1', () => {
     const {getByTestId, getByText} = render(<Component />)
     const container = getByTestId('container')
 

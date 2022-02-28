@@ -22,12 +22,12 @@ export type DropdownMenuProps = {
   children: React.ReactElement[] | React.ReactElement
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `onOpenChange`.
    */
   open?: boolean
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `open`.
    */
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
