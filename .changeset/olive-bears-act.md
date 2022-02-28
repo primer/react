@@ -2,8 +2,6 @@
 '@primer/react': major
 ---
 
-![FormControl component using a label, text input, validation and hint](https://user-images.githubusercontent.com/13340707/154948443-60d70cc7-4f26-444f-8366-7963336be53c.png)
-
 The `FormControl` component will be used to deprecate the `FormGroup`, `InputField`, and `ChoiceInputField` components. It has the ability to render contextual content with your inputs: labels, validation statuses, captions. It also handles the ARIA attributes that make the form controls accessible to assistive technology.
 
 <table>
