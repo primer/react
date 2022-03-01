@@ -9,10 +9,10 @@ import {
   ButtonOutline,
   ButtonPrimary,
   ButtonTableList
-} from '../deprecated'
-import {BaseStyles, ButtonGroup, ThemeProvider} from '..'
+} from '../../deprecated'
+import {BaseStyles, ButtonGroup, ThemeProvider} from '../..'
 import {ButtonStyleProps} from 'styled-system'
-import {ButtonBaseProps} from '../deprecated/Button/ButtonBase'
+import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
 
 export default {

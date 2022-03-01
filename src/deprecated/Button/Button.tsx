@@ -4,6 +4,7 @@ import sx, {SxProp} from '../../sx'
 import {ComponentProps} from '../../utils/types'
 import ButtonBase, {ButtonBaseProps} from './ButtonBase'
 
+/** @deprecated Use the new Label instead. See https://primer.style/react/Button for more details. */
 const Button = styled(ButtonBase)<ButtonBaseProps & SxProp>`
   color: ${get('colors.btn.text')};
   background-color: ${get('colors.btn.bg')};
