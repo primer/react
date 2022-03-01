@@ -53,8 +53,8 @@
       url: /BranchName
     - title: Breadcrumbs
       url: /Breadcrumbs
-    - title: Buttons
-      url: /Buttons
+    - title: Button
+      url: /Button
     - title: Checkbox
       url: /Checkbox
     - title: CheckboxGroup
@@ -79,12 +79,16 @@
       url: /Header
     - title: Heading
       url: /Heading
+    - title: IconButton
+      url: /IconButton
     - title: Label
       url: /Label
     - title: LabelGroup
       url: /LabelGroup
     - title: Link
       url: /Link
+    - title: LinkButton
+      url: /LinkButton
     - title: Overlay
       url: /Overlay
     - title: Pagehead
@@ -141,12 +145,6 @@
       url: /UnderlineNav
 - title: Drafts
   children:
-    - title: Button v2
-      url: /drafts/Button2
-    - title: LinkButton
-      url: /drafts/LinkButton
-    - title: IconButton
-      url: /drafts/IconButton
 - title: Deprecated
   children:
     - title: ActionList
@@ -155,6 +153,8 @@
       url: /deprecated/ActionMenu
     - title: BorderBox
       url: /deprecated/BorderBox
+    - title: Buttons
+      url: /deprecated/Buttons
     - title: Dialog
       url: /deprecated/Dialog
     - title: Dropdown

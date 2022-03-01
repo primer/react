@@ -6,7 +6,7 @@ import {OverlayProps} from './Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, useTypeaheadFocus} from './hooks'
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
-import {Button, ButtonProps} from './Button2'
+import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
 
 type MenuContextProps = Pick<
