@@ -23,6 +23,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:disabled': {
         color: 'primer.fg.disabled',
         backgroundColor: 'btn.disabledBg'
+      },
+      '&[aria-expanded=true]': {
+        backgroundColor: 'btn.selectedBg',
+        boxShadow: `${theme?.shadows.btn.shadowActive}`
       }
     },
     primary: {
@@ -49,6 +53,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '[data-component="ButtonCounter"]': {
         backgroundColor: 'btn.primary.counterBg',
         color: 'btn.primary.text'
+      },
+      '&[aria-expanded=true]': {
+        backgroundColor: 'btn.primary.selectedBg',
+        boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`
       }
     },
     danger: {
@@ -87,6 +95,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '[data-component="ButtonCounter"]': {
         color: 'btn.danger.text',
         backgroundColor: 'btn.danger.counterBg'
+      },
+      '&[aria-expanded=true]': {
+        color: 'btn.danger.selectedText',
+        backgroundColor: 'btn.danger.selectedBg',
+        boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
+        borderColor: 'btn.danger.selectedBorder'
       }
     },
     invisible: {
@@ -106,6 +120,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled'
+      },
+      '&[aria-expanded=true]': {
+        backgroundColor: 'btn.selectedBg'
       }
     },
     outline: {
@@ -146,6 +163,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '[data-component="ButtonCounter"]': {
         backgroundColor: 'btn.outline.counterBg',
         color: 'btn.outline.text'
+      },
+      '&[aria-expanded=true]': {
+        color: 'btn.outline.selectedText',
+        backgroundColor: 'btn.outline.selectedBg',
+        boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
+        borderColor: 'btn.outline.selectedBorder'
       }
     }
   }

@@ -164,7 +164,7 @@ export function GroupsAndDescription(): JSX.Element {
               paddingX: 0,
               gridTemplateColumns: 'min-content 1fr min-content',
               textAlign: 'left',
-              ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
+              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'}
             }}
           >
             Milestone
@@ -260,7 +260,7 @@ export function MultipleSelection(): JSX.Element {
               paddingX: 0,
               gridTemplateColumns: 'min-content 1fr min-content',
               textAlign: 'left',
-              ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
+              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'}
             }}
           >
             Assignees
