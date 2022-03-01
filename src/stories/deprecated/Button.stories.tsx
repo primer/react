@@ -16,7 +16,7 @@ import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
 
 export default {
-  title: 'Composite components/Button',
+  title: 'Deprecated components/Button',
 
   decorators: [
     Story => {
