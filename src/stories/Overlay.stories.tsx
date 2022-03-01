@@ -5,12 +5,8 @@ import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react
 import {
   BaseStyles,
   Overlay,
-  Button,
-  ButtonInvisible,
-  ButtonPrimary,
   ButtonGroup,
   Text,
-  ButtonDanger,
   ThemeProvider,
   Box,
   StyledOcticon,
@@ -22,6 +18,7 @@ import {
   ActionList,
   ActionMenu
 } from '..'
+import {Button, ButtonInvisible, ButtonPrimary, ButtonDanger} from '../deprecated'
 import type {AnchorSide} from '@primer/behaviors'
 import {DropdownMenu, DropdownButton} from '../deprecated/DropdownMenu'
 import {ItemInput} from '../deprecated/ActionList/List'

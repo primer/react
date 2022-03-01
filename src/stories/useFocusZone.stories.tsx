@@ -2,13 +2,13 @@ import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
 
-import {Box, BaseStyles, Button, Flash, theme, ThemeProvider} from '..'
+import {Box, BaseStyles, Flash, theme, ThemeProvider} from '..'
+import {Button, ButtonDanger, ButtonPrimary} from '../deprecated'
 import {FocusKeys} from '@primer/behaviors'
 import type {Direction} from '@primer/behaviors'
 import {themeGet} from '@styled-system/theme-get'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useTheme} from '../ThemeProvider'
-import {ButtonDanger, ButtonPrimary} from '../Button'
 
 export default {
   title: 'Hooks/useFocusZone',

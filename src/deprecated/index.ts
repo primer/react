@@ -46,3 +46,21 @@ export type {ActionMenuProps} from './ActionMenu'
 export {DropdownButton, DropdownMenu} from './DropdownMenu'
 // (copied over from src/index) not exporting new DropdownMenu types yet due to conflict with Dropdown types above
 // export type {DropdownButtonProps, DropdownMenuProps} from './DropdownMenu'
+export {
+  default as Button,
+  ButtonDanger,
+  ButtonOutline,
+  ButtonPrimary,
+  ButtonInvisible,
+  ButtonTableList,
+  ButtonClose
+} from './Button'
+export type {
+  ButtonProps,
+  ButtonDangerProps,
+  ButtonOutlineProps,
+  ButtonPrimaryProps,
+  ButtonInvisibleProps,
+  ButtonTableListProps,
+  ButtonCloseProps
+} from './Button'

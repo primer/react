@@ -6,7 +6,7 @@ import {OverlayProps} from './Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, useTypeaheadFocus} from './hooks'
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
-import {Button, ButtonProps} from './Button2'
+import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
 
 type MenuContextProps = Pick<
@@ -22,12 +22,12 @@ export type ActionMenuProps = {
   children: React.ReactElement[] | React.ReactElement
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `onOpenChange`.
    */
   open?: boolean
 
   /**
-   * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.
+   * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `open`.
    */
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>

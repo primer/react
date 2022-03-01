@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
 import Heading from '../Heading'
-import DropdownButton from '../Button'
+import DropdownButton from '../deprecated/Button'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {registerPortalRoot} from '../Portal'
 

@@ -41,7 +41,7 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
 exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
   const {createNode} = actions
 
-  // Extract compontent metadata from source files
+  // Extract component metadata from source files
   const files = globby.sync(['../src/**/*.tsx'], {absolute: true})
   const data = docgen.parse(files, {
     savePropValueAsString: true,

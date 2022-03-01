@@ -2,23 +2,21 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 
 import {
-  BaseStyles,
   Button,
   ButtonClose,
   ButtonDanger,
-  ButtonGroup,
   ButtonInvisible,
   ButtonOutline,
   ButtonPrimary,
-  ButtonTableList,
-  ThemeProvider
-} from '..'
+  ButtonTableList
+} from '../../deprecated'
+import {BaseStyles, ButtonGroup, ThemeProvider} from '../..'
 import {ButtonStyleProps} from 'styled-system'
-import {ButtonBaseProps} from '../Button/ButtonBase'
+import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
 
 export default {
-  title: 'Composite components/Button',
+  title: 'Deprecated components/Button',
 
   decorators: [
     Story => {
