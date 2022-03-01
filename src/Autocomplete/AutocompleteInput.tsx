@@ -132,7 +132,7 @@ const AutocompleteInput = React.forwardRef(
 
       // TODO: fix bug where this function prevents `onChange` from being triggered if the highlighted item text
       //       is the same as what I'm typing
-      //       e.g.: typing 'tw' highights 'two', but when I 'two', the text input change does not get triggered
+      //       e.g.: typing 'tw' highlights 'two', but when I 'two', the text input change does not get triggered
       if (highlightRemainingText && autocompleteSuggestion && (inputValue || isMenuDirectlyActivated)) {
         inputRef.current.value = autocompleteSuggestion
 
@@ -141,7 +141,7 @@ const AutocompleteInput = React.forwardRef(
         }
       }
 
-      // calling this useEffeect when `highlightRemainingText` changes breaks backspace functionality
+      // calling this useEffect when `highlightRemainingText` changes breaks backspace functionality
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated])
 

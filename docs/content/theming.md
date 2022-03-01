@@ -33,7 +33,7 @@ import deepmerge from 'deepmerge'
 
 const customTheme = deepmerge(theme, {
   fonts: {
-    mono: 'Monolisa, monospace'
+    mono: 'MonoLisa, monospace'
   }
 })
 
@@ -100,7 +100,7 @@ See the [Styled System Reference Table](https://styled-system.com/table) for a c
 
 ### themeGet
 
-The `themeGet` function is a convienient way to reference theme values in styled-components template literals:
+The `themeGet` function is a convenient way to reference theme values in styled-components template literals:
 
 ```js
 import {themeGet} from '@primer/react'

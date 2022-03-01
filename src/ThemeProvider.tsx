@@ -51,7 +51,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
 
   const resolvedColorModePassthrough = React.useRef(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore This custom variable does not exist on window because we set it outselves
+    // @ts-ignore This custom variable does not exist on window because we set it ourselves
     typeof window !== 'undefined' ? window.__PRIMER_RESOLVED_SERVER_COLOR_MODE : undefined
   )
 
@@ -68,7 +68,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
 
   // this effect will only run on client
   React.useEffect(
-    function updateColorModeAfterServerPassthorugh() {
+    function updateColorModeAfterServerPassthrough() {
       const resolvedColorModeOnClient = resolveColorMode(colorMode, systemColorMode)
 
       if (resolvedColorModePassthrough.current) {
