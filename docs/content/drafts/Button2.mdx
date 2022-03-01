@@ -9,7 +9,7 @@ description: Use button for the main actions on a page or form.
 
 import {Props} from '../../src/props'
 import {ComponentChecklist} from '../../src/component-checklist'
-import {Button, IconButton, LinkButton} from '@primer/react/drafts'
+import {Button} from '@primer/react/drafts'
 
 ## Usage
 
@@ -85,27 +85,10 @@ It is recommended to use an octicon here.
 ### Icon only button
 
 A separate component called `IconButton` is used if the action shows only an icon with no text. This button will remain square in shape.
+Read more at [IconButton docs](/drafts/IconButton)
 
 ```jsx live drafts
 <IconButton icon={SearchIcon}>Search</IconButton>
-```
-
-### Different sized icon buttons
-
-`IconButton` also supports the three different sizes. `small`, `medium`, `large`.
-
-```jsx live drafts
-<>
-  <IconButton icon={SearchIcon} size="small">
-    Search
-  </IconButton>
-  <IconButton sx={{ml: 2}} icon={SearchIcon}>
-    Search
-  </IconButton>
-  <IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
-    Search
-  </IconButton>
-</>
 ```
 
 ### Counter component
