@@ -22,8 +22,9 @@ export type {
   DropdownItemProps,
   DropdownMenuProps
 } from '../Dropdown'
-export {default as FormGroup} from '../FormGroup'
-export type {FormGroupProps, FormGroupLabelProps} from '../FormGroup'
+export {default as FormGroup} from './FormGroup'
+export type {FormGroupProps, FormGroupLabelProps} from './FormGroup'
+export {default as InputField} from './InputField'
 export {default as Label} from './Label'
 export type {LabelProps} from './Label'
 export {default as SelectMenu} from '../SelectMenu'
