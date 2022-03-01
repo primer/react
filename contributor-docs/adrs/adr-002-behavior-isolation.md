@@ -59,12 +59,12 @@ Building behaviors in React Hooks gives us the ability to provide things like st
 
 #### Other
 
-- The custom element and web component API progress slower than React due to changes needing to go through the whatwq standards process.
+- The custom element and web component API progress slower than React due to changes needing to go through the whatwg standards process.
 
 #### Risks of not switching to custom elements for behaviors
 
 - We spend extra time building behaviors in React that have already been built in our [custom elements library](https://github.github.io/web-systems-documentation/#custom-elements).
-  - There are currently 19 behaviors/components listed on the custom elements documentation site. Several of these we have already implemented in React in either Priemr React, Doctocat, or other React applications at GitHub which can be upstreamed (details-dialog, details-menu, clipboard-copy, text-expander, autocomplete, task-list via drag and drop hooks, tab-container, text-expander).
+  - There are currently 19 behaviors/components listed on the custom elements documentation site. Several of these we have already implemented in React in either Primer React, Doctocat, or other React applications at GitHub which can be upstreamed (details-dialog, details-menu, clipboard-copy, text-expander, autocomplete, task-list via drag and drop hooks, tab-container, text-expander).
 - We decide not to invest further in React at GitHub and have wasted time we could have spent building more custom elements.
   - This seems unlikely as there seems to be clear consensus that we will continue to build more and more highly interactive products.
 - The React library is abandoned and becomes obsolete.
