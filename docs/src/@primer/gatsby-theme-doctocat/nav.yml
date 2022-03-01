@@ -164,9 +164,11 @@
     - title: Flex
       url: /deprecated/Flex
     - title: FormGroup
-      url: /FormGroup
+      url: /deprecated/FormGroup
     - title: Grid
       url: /deprecated/Grid
+    - title: InputField
+      url: /deprecated/InputField
     - title: Position
       url: /deprecated/Position
     - title: SelectMenu

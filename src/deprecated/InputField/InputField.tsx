@@ -1,13 +1,13 @@
 import React from 'react'
-import {Autocomplete, Box, Select, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
-import InputValidation from '../_InputValidation'
-import {ComponentProps} from '../utils/types'
-import {FormValidationStatus} from '../utils/types/FormValidationStatus'
+import {Autocomplete, Box, Select, TextInput, TextInputWithTokens, useSSRSafeId} from '../../'
+import InputValidation from '../../_InputValidation'
+import {ComponentProps} from '../../utils/types'
+import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import InputFieldCaption from './_InputFieldCaption'
 import InputFieldLabel from './_InputFieldLabel'
 import InputFieldValidation from './_InputFieldValidation'
 import {Slots} from './slots'
-import ValidationAnimationContainer from '../_ValidationAnimationContainer'
+import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
 export interface Props<T = Record<string, FormValidationStatus>> {
   children?: React.ReactNode
   /**
@@ -40,6 +40,7 @@ export interface InputFieldContext
   validationMessageId: string
 }
 
+/** @deprecated Use FormControl instead. See https://primer.style/react/FormControl for more details. */
 const InputField = <T extends Record<string, FormValidationStatus>>({
   children,
   disabled,
