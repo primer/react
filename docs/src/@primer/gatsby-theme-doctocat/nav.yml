@@ -173,6 +173,8 @@
       url: /deprecated/Grid
     - title: InputField
       url: /deprecated/InputField
+    - title: Label
+      url: /deprecated/Label
     - title: Position
       url: /deprecated/Position
     - title: SelectMenu

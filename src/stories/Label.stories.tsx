@@ -2,12 +2,11 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider} from '..'
 import {ComponentProps} from '../utils/types'
-import {Label} from '../Label2'
+import Label from '../Label'
 
 type Args = ComponentProps<typeof Label>
 
 export default {
-  // TODO: update story nesting
   title: 'Labels/Label',
   component: Label,
   argTypes: {
