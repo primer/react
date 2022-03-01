@@ -56,9 +56,6 @@ export interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
 const {Slots, Slot} = createSlots(['Description', 'ChoiceList', 'Legend', 'Validation'])
 export {Slot}
 
-/**
- * @deprecated Use `CheckboxGroup` or `RadioGroup` instead. See https://primer.style/react/CheckboxGroup and https://primer.style/react/RadioGroup for more info
- */
 const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   children,
   disabled,
@@ -130,6 +127,9 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
 export type {ChoiceFieldsetListProps} from './ChoiceFieldsetList'
 export type {ChoiceFieldsetLegendProps} from './ChoiceFieldsetLegend'
 export type {ChoiceFieldProps} from './ChoiceFieldsetListItem'
+/**
+ * @deprecated Use `CheckboxGroup` or `RadioGroup` instead. See https://primer.style/react/CheckboxGroup and https://primer.style/react/RadioGroup for more info
+ */
 export default Object.assign(ChoiceFieldset, {
   Description: ChoiceFieldsetDescription,
   Item: ChoiceFieldsetListItem,
