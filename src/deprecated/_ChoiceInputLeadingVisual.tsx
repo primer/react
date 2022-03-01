@@ -1,5 +1,5 @@
 import React from 'react'
-import {Slot} from '../InputField/slots'
+import {Slot} from '../deprecated/InputField/slots'
 
 const ChoiceInputLeadingVisual: React.FC = ({children}) => <Slot name="LeadingVisual">{children}</Slot>
 

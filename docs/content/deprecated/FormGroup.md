@@ -12,7 +12,7 @@ Use [FormControl](/FormControl) instead.
 
 ## Default example
 
-```jsx live
+```jsx live deprecated
 <>
   <FormGroup>
     <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>

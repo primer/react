@@ -7,7 +7,7 @@ source: https://github.com/primer/react/blob/main/src/InputField/InputField.tsx
 storybook: '/react/storybook?path=/story/forms-inputfield--text-input-field'
 ---
 
-import {InputField, TextInputWithTokens, Autocomplete, Select} from '@primer/react'
+import {TextInputWithTokens, Autocomplete, Select} from '@primer/react'
 
 ## Deprecation
 
@@ -17,7 +17,7 @@ Use [FormControl](/FormControl) instead.
 
 ### Basic
 
-```jsx live
+```jsx live deprecated
 <InputField>
   <InputField.Label>Name</InputField.Label>
   <TextInput />
@@ -26,7 +26,7 @@ Use [FormControl](/FormControl) instead.
 
 ### Required
 
-```jsx live
+```jsx live deprecated
 <InputField required>
   <InputField.Label>Name</InputField.Label>
   <TextInput />
@@ -35,7 +35,7 @@ Use [FormControl](/FormControl) instead.
 
 ### Disabled
 
-```jsx live
+```jsx live deprecated
 <InputField disabled>
   <InputField.Label>Name</InputField.Label>
   <TextInput />
@@ -44,7 +44,7 @@ Use [FormControl](/FormControl) instead.
 
 ### Using different input components
 
-```javascript live noinline
+```javascript live noinline deprecated
 const TextInputWithTokensExample = () => {
   const [tokens, setTokens] = React.useState([
     {text: 'zero', id: 0},
@@ -115,7 +115,7 @@ Every input must have a corresponding label to be accessible to assistive techno
 
 </Note>
 
-```jsx live
+```jsx live deprecated
 <InputField>
   <InputField.Label visuallyHidden>Name</InputField.Label>
   <TextInput />
@@ -124,7 +124,7 @@ Every input must have a corresponding label to be accessible to assistive techno
 
 ### With a caption
 
-```jsx live
+```jsx live deprecated
 <InputField>
   <InputField.Label>Name</InputField.Label>
   <TextInput />
@@ -134,7 +134,7 @@ Every input must have a corresponding label to be accessible to assistive techno
 
 ### With validation
 
-```javascript live noinline
+```javascript live noinline deprecated
 const ValidationExample = () => {
   const [value, setValue] = React.useState('mona lisa')
   const [validationResult, setValidationResult] = React.useState()
