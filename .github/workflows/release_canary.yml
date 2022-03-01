@@ -3,7 +3,8 @@ on:
   push:
     branches-ignore:
       - 'main'
-      - 'changeset-release/main'
+      - 'next-major'
+      - 'changeset-release/**'
 
 jobs:
   release-canary:

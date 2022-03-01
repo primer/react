@@ -1,6 +1,7 @@
 ---
 '@primer/react': major
 ---
+<br />
 
 ### ActionList
 

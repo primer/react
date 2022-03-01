@@ -65,17 +65,17 @@ export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<H
         elementToFocus?.focus()
       }
 
-      // Single charachter in query: Jump to the next match
+      // Single character in query: Jump to the next match
       if (query.length === 1) return focusNextMatch()
 
-      // 2 charachters in query but the user is pressing
+      // 2 characters in query but the user is pressing
       // the same key, jump to the next match
       if (query.length === 2 && query[0] === query[1]) {
         query = query[0] // remove the second key
         return focusNextMatch()
       }
 
-      // More > 1 charachters in query
+      // More > 1 characters in query
       // If active element satisfies the query stay there,
       if (activeElement.textContent?.toLowerCase().startsWith(query)) return
       // otherwise move to the next one that does.

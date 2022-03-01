@@ -1,5 +1,5 @@
 // Utility functions used in theme-preval.js
-// This file needs to be a JavaScript file using CommonJS to be compatiable with preval
+// This file needs to be a JavaScript file using CommonJS to be compatible with preval
 
 const isEmpty = require('lodash.isempty')
 const isObject = require('lodash.isobject')

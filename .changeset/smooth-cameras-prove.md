@@ -2,6 +2,8 @@
 '@primer/react': major
 ---
 
+<br />
+
 ### SelectMenu
 
 ⚠️ `SelectMenu` has been deprecated. Please use `ActionMenu` instead.

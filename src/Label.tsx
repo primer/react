@@ -68,11 +68,11 @@ export const variants: Record<LabelColorOptions, BetterSystemStyleObject> = {
 const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
   small: {
     height: '20px',
-    padding: '0 7px' // hard-coded to align with Primer ViewCompnents and Primer CSS
+    padding: '0 7px' // hard-coded to align with Primer ViewComponents and Primer CSS
   },
   large: {
     height: '24px',
-    padding: '0 10px' // hard-coded to align with Primer ViewCompnents and Primer CSS
+    padding: '0 10px' // hard-coded to align with Primer ViewComponents and Primer CSS
   }
 }
 
