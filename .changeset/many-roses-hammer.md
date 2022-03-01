@@ -1,5 +1,5 @@
 ---
-"@primer/react": patch
+"@primer/react": major
 ---
 
 ## Button deprecation
