@@ -278,11 +278,11 @@ export const NestedOverlays = () => {
               <Box sx={{marginY: 1}}>
                 <ChoiceInputField>
                   <ChoiceInputField.Label>My stack</ChoiceInputField.Label>
-                  <Checkbox />
+                  <Checkbox value="my-stack" />
                 </ChoiceInputField>
                 <ChoiceInputField>
                   <ChoiceInputField.Label>Want to try</ChoiceInputField.Label>
-                  <Checkbox />
+                  <Checkbox value="wanna-try" />
                 </ChoiceInputField>
               </Box>
             </Box>
@@ -434,7 +434,7 @@ export const MemexIssueOverlay = () => {
         >
           <Box sx={{p: 4, height: '100vh'}}>
             <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 2}}>
-              <Label variant="xl">
+              <Label size="large">
                 <IssueDraftIcon /> Draft
               </Label>
               <Text sx={{fontSize: 1}}>opened 2 days ago,</Text>

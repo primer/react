@@ -529,9 +529,7 @@ export function CustomItemChildren(): JSX.Element {
             <ActionList.LeadingVisual>
               <ArrowRightIcon />
             </ActionList.LeadingVisual>
-            <Label outline borderColor="success.emphasis">
-              Choose this one
-            </Label>
+            <Label>Choose this one</Label>
             <ActionList.TrailingVisual>
               <ArrowLeftIcon />
             </ActionList.TrailingVisual>
