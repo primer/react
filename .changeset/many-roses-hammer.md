@@ -16,17 +16,16 @@ We now support a variant property which takes values `primary`, `invisible`, `ou
 <td valign="top">
     
 ```jsx
-<import {
-    ButtonPrimary,
-    ButtonInvisible,
-    ButtonOutline,
-    ButtonDanger
-} from '@primer/react'
-<ButtonPrimary>
-    Primary Button
+
+import { ButtonPrimary, ButtonInvisible, 
+    ButtonOutline, ButtonDanger }
+    from '@primer/react'
+    
+<ButtonPrimary> 
+    Primary Button 
 </ButtonPrimary>
 <ButtonInvisible>
-    Invisible Button
+    Invisible Button 
 </ButtonInvisible>
 <ButtonOutline>
     Outline Button
@@ -35,13 +34,14 @@ We now support a variant property which takes values `primary`, `invisible`, `ou
     Danger Button
 </ButtonDanger>
 ```
+    
  </td>
 <td valign="top">
     
 ```jsx
-import {
-    Button
-} from '@primer/react'
+
+import { Button } from '@primer/react'
+    
 <Button variant="primary">
     Primary Button
 </Button>
