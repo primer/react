@@ -1,9 +1,9 @@
 import React from 'react'
-import {Box, useSSRSafeId} from '..'
-import createSlots from '../utils/create-slots'
-import {FormValidationStatus} from '../utils/types/FormValidationStatus'
-import ValidationAnimationContainer from '../_ValidationAnimationContainer'
-import InputValidation from '../_InputValidation'
+import {Box, useSSRSafeId} from '../..'
+import createSlots from '../../utils/create-slots'
+import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
+import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
+import InputValidation from '../../_InputValidation'
 import ChoiceFieldsetListItem from './ChoiceFieldsetListItem'
 import ChoiceFieldsetDescription from './ChoiceFieldsetDescription'
 import ChoiceFieldsetLegend from './ChoiceFieldsetLegend'
@@ -56,9 +56,6 @@ export interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
 const {Slots, Slot} = createSlots(['Description', 'ChoiceList', 'Legend', 'Validation'])
 export {Slot}
 
-/**
- * @deprecated Use `CheckboxGroup` or `RadioGroup` instead.
- */
 const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   children,
   disabled,
@@ -130,6 +127,9 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
 export type {ChoiceFieldsetListProps} from './ChoiceFieldsetList'
 export type {ChoiceFieldsetLegendProps} from './ChoiceFieldsetLegend'
 export type {ChoiceFieldProps} from './ChoiceFieldsetListItem'
+/**
+ * @deprecated Use `CheckboxGroup` or `RadioGroup` instead. See https://primer.style/react/CheckboxGroup and https://primer.style/react/RadioGroup for more info
+ */
 export default Object.assign(ChoiceFieldset, {
   Description: ChoiceFieldsetDescription,
   Item: ChoiceFieldsetListItem,
