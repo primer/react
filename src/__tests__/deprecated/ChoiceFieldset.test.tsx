@@ -1,11 +1,11 @@
 import React from 'react'
-import {render} from '../utils/testing'
+import {render} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {ChoiceFieldset, Item, SSRProvider} from '..'
+import {SSRProvider} from '../../'
 import {MarkGithubIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {ChoiceFieldsetProps} from '../ChoiceFieldset'
-import {ChoiceFieldsetListProps} from '../ChoiceFieldset/ChoiceFieldsetList'
+import ChoiceFieldset, {Item, ChoiceFieldsetProps} from '../../deprecated/ChoiceFieldset'
+import {ChoiceFieldsetListProps} from '../../deprecated/ChoiceFieldset/ChoiceFieldsetList'
 
 const SelectableChoicelistFieldset: React.FC<ChoiceFieldsetProps & ChoiceFieldsetListProps> = ({
   onSelect,

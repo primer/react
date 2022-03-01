@@ -11,7 +11,7 @@ import {
   Box,
   StyledOcticon,
   Checkbox,
-  ChoiceInputField,
+  FormControl,
   TextInput,
   Link,
   Label,
@@ -276,14 +276,14 @@ export const NestedOverlays = () => {
                 Add to list
               </Text>
               <Box sx={{marginY: 1}}>
-                <ChoiceInputField>
-                  <ChoiceInputField.Label>My stack</ChoiceInputField.Label>
-                  <Checkbox />
-                </ChoiceInputField>
-                <ChoiceInputField>
-                  <ChoiceInputField.Label>Want to try</ChoiceInputField.Label>
-                  <Checkbox />
-                </ChoiceInputField>
+                <FormControl>
+                  <FormControl.Label>My stack</FormControl.Label>
+                  <Checkbox value="my-stack" />
+                </FormControl>
+                <FormControl>
+                  <FormControl.Label>Want to try</FormControl.Label>
+                  <Checkbox value="wanna-try" />
+                </FormControl>
               </Box>
             </Box>
             <ActionList.Divider />

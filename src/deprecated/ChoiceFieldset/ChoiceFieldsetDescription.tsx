@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text} from '..'
+import {Text} from '../..'
 import {ChoiceFieldsetContext, Slot} from './ChoiceFieldset'
 
 const ChoiceFieldsetDescription: React.FC = ({children}) => (
