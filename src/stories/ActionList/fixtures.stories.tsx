@@ -31,7 +31,7 @@ import {Label, ThemeProvider} from '../..'
 import {ActionList, ActionListItemProps} from '../../ActionList'
 import BaseStyles from '../../BaseStyles'
 import Avatar from '../../Avatar'
-import {ButtonInvisible} from '../../Button'
+import {ButtonInvisible} from '../../deprecated/Button'
 import Box from '../../Box'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
 

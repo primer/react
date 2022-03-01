@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Button, {ButtonProps} from './Button'
+import Button, {ButtonProps} from './deprecated/Button'
 import {get} from './constants'
 import Details, {DetailsProps} from './Details'
 import getDirectionStyles from './DropdownStyles'

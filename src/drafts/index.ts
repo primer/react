@@ -6,5 +6,4 @@
  */
 
 // Components
-export * from '../Button2'
 export * from '../Label2'

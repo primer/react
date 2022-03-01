@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react'
-import {Overlay, Box, Text, ButtonDanger, Button} from '..'
+import {Overlay, Box, Text} from '..'
+import {ButtonDanger, Button} from '../deprecated'
 import {render, cleanup, waitFor, fireEvent, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
