@@ -1,14 +1,31 @@
 import classnames from 'classnames'
-import React from 'react'
+import React, {MouseEventHandler} from 'react'
 import {ComponentProps, Merge} from './utils/types'
 import UnstyledTextInput from './_UnstyledTextInput'
 import TextInputWrapper from './_TextInputWrapper'
+import TextInputInnerVisualSlot from './_TextInputInnerVisualSlot'
+import {useProvidedRefOrCreate} from './hooks'
 
-type NonPassthroughProps = {
+export type TextInputNonPassthroughProps = {
   className?: string
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
   icon?: React.ComponentType<{className?: string}>
+  /** Whether the to show a loading indicator in the input */
+  isLoading?: boolean
+  /**
+   * Which position to render the loading indicator
+   * 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning
+   * 'leading': at the beginning of the input
+   * 'trailing': at the end of the input
+   **/
+  loadingIndicatorPosition?: 'auto' | 'leading' | 'trailing' // TODO: come up with a shorter name
+  /**
+   * A visual that renders inside the input before the typing area
+   */
   leadingVisual?: string | React.ComponentType<{className?: string}>
+  /**
+   * A visual that renders inside the input after the typing area
+   */
   trailingVisual?: string | React.ComponentType<{className?: string}>
 } & Pick<
   ComponentProps<typeof TextInputWrapper>,
@@ -16,7 +33,10 @@ type NonPassthroughProps = {
 >
 
 // Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
-type TextInputInternalProps = Merge<React.ComponentPropsWithoutRef<typeof UnstyledTextInput>, NonPassthroughProps>
+type TextInputInternalProps = Merge<
+  React.ComponentPropsWithoutRef<typeof UnstyledTextInput>,
+  TextInputNonPassthroughProps
+>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
 const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
@@ -29,6 +49,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       className,
       contrast,
       disabled,
+      isLoading,
+      loadingIndicatorPosition,
       validationStatus,
       sx: sxProp,
       size: sizeProp,
@@ -42,44 +64,61 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
     },
     ref
   ) => {
+    const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
+    const showLeadingLoadingIndicator =
+      isLoading &&
+      (loadingIndicatorPosition === 'leading' || Boolean(LeadingVisual && loadingIndicatorPosition !== 'trailing'))
+    const showTrailingLoadingIndicator =
+      isLoading && (loadingIndicatorPosition === 'trailing' || (loadingIndicatorPosition === 'auto' && !LeadingVisual))
+    const focusInput: MouseEventHandler = () => {
+      inputRef.current?.focus()
+    }
 
     return (
-      <TextInputWrapper
-        block={block}
-        className={wrapperClasses}
-        validationStatus={validationStatus}
-        contrast={contrast}
-        disabled={disabled}
-        sx={sxProp}
-        size={sizeProp}
-        width={widthProp}
-        minWidth={minWidthProp}
-        maxWidth={maxWidthProp}
-        variant={variantProp}
-        hasLeadingVisual={Boolean(LeadingVisual)}
-        hasTrailingVisual={Boolean(TrailingVisual)}
-      >
-        {IconComponent && <IconComponent className="TextInput-icon" />}
-        {LeadingVisual && (
-          <span className="TextInput-icon">
+      <div>
+        <TextInputWrapper
+          block={block}
+          className={wrapperClasses}
+          validationStatus={validationStatus}
+          contrast={contrast}
+          disabled={disabled}
+          sx={sxProp}
+          size={sizeProp}
+          width={widthProp}
+          minWidth={minWidthProp}
+          maxWidth={maxWidthProp}
+          variant={variantProp}
+          hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
+          hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
+          onClick={focusInput}
+        >
+          {IconComponent && <IconComponent className="TextInput-icon" />}
+          <TextInputInnerVisualSlot
+            visualPosition="leading"
+            showLoadingIndicator={showLeadingLoadingIndicator}
+            hasLoadingIndicator={typeof isLoading === 'boolean'}
+          >
             {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
-          </span>
-        )}
-        <UnstyledTextInput ref={ref} disabled={disabled} {...inputProps} data-component="input" />
-        {TrailingVisual && (
-          <span className="TextInput-icon">
+          </TextInputInnerVisualSlot>
+          <UnstyledTextInput ref={inputRef} disabled={disabled} {...inputProps} data-component="input" />
+          <TextInputInnerVisualSlot
+            visualPosition="trailing"
+            showLoadingIndicator={showTrailingLoadingIndicator}
+            hasLoadingIndicator={typeof isLoading === 'boolean'}
+          >
             {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
-          </span>
-        )}
-      </TextInputWrapper>
+          </TextInputInnerVisualSlot>
+        </TextInputWrapper>
+      </div>
     )
   }
 )
 
 TextInput.defaultProps = {
-  type: 'text'
+  type: 'text',
+  loadingIndicatorPosition: 'auto'
 }
 
 TextInput.displayName = 'TextInput'

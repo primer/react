@@ -1,6 +1,7 @@
 import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
 import {omit} from '@styled-system/props'
 import {FocusKeys} from '@primer/behaviors'
+import {isFocusable} from '@primer/behaviors/utils'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
 import {useFocusZone} from './hooks/useFocusZone'
 import {ComponentProps} from './utils/types'
@@ -12,7 +13,7 @@ import UnstyledTextInput from './_UnstyledTextInput'
 import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from './_TextInputWrapper'
 import Box from './Box'
 import Text from './Text'
-import {isFocusable} from '@primer/behaviors/utils'
+import TextInputInnerVisualSlot from './_TextInputInnerVisualSlot'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>
@@ -68,6 +69,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     icon: IconComponent,
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
+    isLoading,
+    loadingIndicatorPosition,
     contrast,
     className,
     block,
@@ -243,6 +246,11 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     large: 'medium',
     extralarge: 'medium'
   }
+  const showLeadingLoadingIndicator =
+    isLoading &&
+    (loadingIndicatorPosition === 'leading' || Boolean(LeadingVisual && loadingIndicatorPosition !== 'trailing'))
+  const showTrailingLoadingIndicator =
+    isLoading && (loadingIndicatorPosition === 'trailing' || (loadingIndicatorPosition === 'auto' && !LeadingVisual))
 
   return (
     <TextInputWrapper
@@ -250,8 +258,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       className={className}
       contrast={contrast}
       disabled={disabled}
-      hasLeadingVisual={Boolean(LeadingVisual)}
-      hasTrailingVisual={Boolean(TrailingVisual)}
+      hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
+      hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
       theme={theme}
       width={widthProp}
       minWidth={minWidthProp}
@@ -287,11 +295,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       }}
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
-      {LeadingVisual && !IconComponent && (
-        <span className="TextInput-icon">
-          {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
-        </span>
-      )}
+      <TextInputInnerVisualSlot
+        hasLoadingIndicator={typeof isLoading === 'boolean'}
+        visualPosition="leading"
+        showLoadingIndicator={showLeadingLoadingIndicator}
+      >
+        {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+      </TextInputInnerVisualSlot>
       <Box
         ref={containerRef as RefObject<HTMLDivElement>}
         display="flex"
@@ -352,11 +362,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           </Text>
         ) : null}
       </Box>
-      {TrailingVisual && (
-        <span className="TextInput-icon">
-          {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
-        </span>
-      )}
+      <TextInputInnerVisualSlot
+        hasLoadingIndicator={typeof isLoading === 'boolean'}
+        visualPosition="trailing"
+        showLoadingIndicator={showTrailingLoadingIndicator}
+      >
+        {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+      </TextInputInnerVisualSlot>
     </TextInputWrapper>
   )
 }
@@ -367,7 +379,8 @@ TextInputWithTokens.defaultProps = {
   tokenComponent: Token,
   size: 'extralarge',
   hideTokenRemoveButtons: false,
-  preventTokenWrapping: false
+  preventTokenWrapping: false,
+  loadingIndicatorPosition: 'auto'
 }
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
