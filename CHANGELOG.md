@@ -1,5 +1,19 @@
 # @primer/components
 
+## 34.7.0
+
+### Minor Changes
+
+- [#1862](https://github.com/primer/react/pull/1862) [`eebb3f27`](https://github.com/primer/react/commit/eebb3f27c54b68c4a8b4d46c555f7d603e9c8e7d) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds CheckboxGroup and RadioGroup components to replace the ChoiceFieldset component
+
+### Patch Changes
+
+- [#1886](https://github.com/primer/react/pull/1886) [`ecbf923e`](https://github.com/primer/react/commit/ecbf923e794498654e9e5d749e3593136a5790ff) Thanks [@mperrotti](https://github.com/mperrotti)! - Makes it possible to render leading and trailing visuals in TextInputWithTokens just like we do in TextInput
+
+* [#1880](https://github.com/primer/react/pull/1880) [`0256a5f5`](https://github.com/primer/react/commit/0256a5f5bef5fb939700fd2c2d9d92b22c02ab11) Thanks [@pksjce](https://github.com/pksjce)! - Remove link button from the new button
+
+- [#1914](https://github.com/primer/react/pull/1914) [`b651d70d`](https://github.com/primer/react/commit/b651d70d73b5693ebafc301177aed275c1a17e29) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu: Fix typeahead with leading visuals
+
 ## 34.6.0
 
 ### Minor Changes
