@@ -71,53 +71,54 @@ describe('TextInput', () => {
     )
 
     const icon = container.querySelector('svg')!
-    fireEvent.click(icon)
 
+    expect(getByLabelText('Search')).not.toEqual(document.activeElement)
+    fireEvent.click(icon)
     expect(getByLabelText('Search')).toEqual(document.activeElement)
   })
 
-  // it('renders with a loading indicator', () => {
-  //   expect(
-  //     render(
-  //       <>
-  //         <TextInput isLoading />
+  it('renders with a loading indicator', () => {
+    expect(
+      render(
+        <>
+          <TextInput isLoading />
 
-  //         <TextInput isLoading loadingIndicatorPosition="leading" />
+          <TextInput isLoading loadingIndicatorPosition="leading" />
 
-  //         <TextInput isLoading loadingIndicatorPosition="trailing" />
+          <TextInput isLoading loadingIndicatorPosition="trailing" />
 
-  //         <TextInput isLoading leadingVisual={SearchIcon} />
+          <TextInput isLoading leadingVisual={SearchIcon} />
 
-  //         <TextInput isLoading leadingVisual={SearchIcon} loadingIndicatorPosition="leading" />
+          <TextInput isLoading leadingVisual={SearchIcon} loadingIndicatorPosition="leading" />
 
-  //         <TextInput isLoading leadingVisual={SearchIcon} loadingIndicatorPosition="trailing" />
+          <TextInput isLoading leadingVisual={SearchIcon} loadingIndicatorPosition="trailing" />
 
-  //         <TextInput isLoading trailingVisual={SearchIcon} />
+          <TextInput isLoading trailingVisual={SearchIcon} />
 
-  //         <TextInput isLoading trailingVisual={SearchIcon} loadingIndicatorPosition="leading" />
+          <TextInput isLoading trailingVisual={SearchIcon} loadingIndicatorPosition="leading" />
 
-  //         <TextInput isLoading trailingVisual={SearchIcon} loadingIndicatorPosition="trailing" />
+          <TextInput isLoading trailingVisual={SearchIcon} loadingIndicatorPosition="trailing" />
 
-  //         <TextInput isLoading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
+          <TextInput isLoading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
 
-  //         <TextInput
-  //           isLoading
-  //           leadingVisual={SearchIcon}
-  //           trailingVisual={SearchIcon}
-  //           loadingIndicatorPosition="leading"
-  //         />
+          <TextInput
+            isLoading
+            leadingVisual={SearchIcon}
+            trailingVisual={SearchIcon}
+            loadingIndicatorPosition="leading"
+          />
 
-  //         <TextInput
-  //           isLoading
-  //           size="large"
-  //           leadingVisual={SearchIcon}
-  //           trailingVisual={SearchIcon}
-  //           loadingIndicatorPosition="trailing"
-  //         />
-  //       </>
-  //     )
-  //   ).toMatchSnapshot()
-  // })
+          <TextInput
+            isLoading
+            size="large"
+            leadingVisual={SearchIcon}
+            trailingVisual={SearchIcon}
+            loadingIndicatorPosition="trailing"
+          />
+        </>
+      )
+    ).toMatchSnapshot()
+  })
 
   it('should call onChange prop with input value', () => {
     const onChangeMock = jest.fn()
