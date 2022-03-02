@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import Button, {ButtonProps} from './deprecated/Button'
-import {get} from './constants'
-import Details, {DetailsProps} from './Details'
-import getDirectionStyles from './DropdownStyles'
-import useDetails from './hooks/useDetails'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import Button, {ButtonProps} from './Button'
+import {get} from '../constants'
+import Details, {DetailsProps} from '../Details'
+import getDirectionStyles from '../DropdownStyles'
+import useDetails from '../hooks/useDetails'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 const StyledDetails = styled(Details)`
   position: relative;

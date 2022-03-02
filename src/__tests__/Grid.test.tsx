@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('Grid', () => {
   behavesAsComponent({Component: Grid})
 
-  checkExports('Grid', {
+  checkExports('deprecated/Grid', {
     default: Grid
   })
 

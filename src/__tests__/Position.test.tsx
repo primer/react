@@ -11,7 +11,7 @@ describe('position components', () => {
   describe('Absolute', () => {
     behavesAsComponent({Component: Absolute})
 
-    checkExports('Position', {
+    checkExports('deprecated/Position', {
       default: Position,
       Absolute,
       Fixed,

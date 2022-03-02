@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('Flex', () => {
   behavesAsComponent({Component: Flex})
 
-  checkExports('Flex', {
+  checkExports('deprecated/Flex', {
     default: Flex
   })
 

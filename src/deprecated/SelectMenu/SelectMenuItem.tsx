@@ -1,10 +1,10 @@
 import {CheckIcon} from '@primer/octicons-react'
 import React, {forwardRef, useContext, useRef} from 'react'
 import styled, {css} from 'styled-components'
-import {get} from '../constants'
-import StyledOcticon from '../StyledOcticon'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {get} from '../../constants'
+import StyledOcticon from '../../StyledOcticon'
+import sx, {SxProp} from '../../sx'
+import {ComponentProps} from '../../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
 export const listItemStyles = css`

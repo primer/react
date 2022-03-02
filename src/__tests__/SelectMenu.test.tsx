@@ -4,7 +4,7 @@ import {mount, render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} f
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../SelectMenu'
+import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../deprecated/SelectMenu'
 expect.extend(toHaveNoViolations)
 
 const BasicSelectMenu = ({
@@ -63,7 +63,7 @@ const MenuWithTabs = ({onClick}: {onClick?: SelectMenuTabProps['onClick']}) => {
 }
 
 describe('SelectMenu', () => {
-  checkExports('SelectMenu', {
+  checkExports('deprecated/SelectMenu', {
     default: SelectMenu
   })
 

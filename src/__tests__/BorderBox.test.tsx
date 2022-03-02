@@ -10,7 +10,7 @@ expect.extend(toHaveNoViolations)
 describe('BorderBox', () => {
   behavesAsComponent({Component: BorderBox})
 
-  checkExports('BorderBox', {
+  checkExports('deprecated/BorderBox', {
     default: BorderBox
   })
 

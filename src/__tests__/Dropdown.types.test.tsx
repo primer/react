@@ -1,5 +1,5 @@
 import React from 'react'
-import Dropdown from '../Dropdown'
+import Dropdown from '../deprecated/Dropdown'
 
 export function shouldAcceptCallWithNoProps() {
   return <Dropdown />

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Box, {BoxProps} from './Box'
+import Box, {BoxProps} from '../Box'
 
 export type BorderBoxProps = BoxProps
 
