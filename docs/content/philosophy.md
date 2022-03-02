@@ -8,7 +8,7 @@ We are focusing primarily on presentational components that help standardize com
 
 ## Assume that people will break the rules, provide safe ways for them to do so
 
-While we aim to standardize design in Primer React, we also provide some flexibility with constraint-based props. We offer system props via [styled-system](https://github.com/styled-system/styled-system) to allow users of the components to make small customizations, such as color and spacing, using values from the theme. Users also have the option to override the theme with a theme of their own.
+While we aim to standardize design in Primer React, we also provide additional styling flexibility through the [`sx` prop](/overriding-styles). This enables small customizations to color and spacing, using values from the theme. Users also have the option to override the theme with a theme of their own.
 
 ## Pattern Components vs Helper Components
 
