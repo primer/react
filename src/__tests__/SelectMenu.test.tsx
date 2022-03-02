@@ -63,7 +63,7 @@ const MenuWithTabs = ({onClick}: {onClick?: SelectMenuTabProps['onClick']}) => {
 }
 
 describe('SelectMenu', () => {
-  checkExports('SelectMenu', {
+  checkExports('deprecated/SelectMenu', {
     default: SelectMenu
   })
 

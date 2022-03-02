@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('Dropdown', () => {
   behavesAsComponent({Component: Dropdown, toRender: () => <Dropdown>Hello!</Dropdown>})
 
-  checkExports('Dropdown', {
+  checkExports('deprecated/Dropdown', {
     default: Dropdown
   })
 
