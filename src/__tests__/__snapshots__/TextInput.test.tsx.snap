@@ -94,6 +94,7 @@ exports[`TextInput renders 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"
@@ -203,6 +204,7 @@ exports[`TextInput renders block 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"
@@ -307,6 +309,7 @@ exports[`TextInput renders consistently 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"
@@ -410,6 +413,7 @@ exports[`TextInput renders contrast 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"
@@ -514,6 +518,7 @@ exports[`TextInput renders error 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"
@@ -623,6 +628,7 @@ exports[`TextInput renders large 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
   size="large"
 >
   <input
@@ -728,6 +734,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <span
     className="TextInput-icon"
@@ -859,6 +866,7 @@ exports[`TextInput renders placeholder 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"
@@ -971,6 +979,7 @@ exports[`TextInput renders small 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
   size="small"
 >
   <input
@@ -1076,6 +1085,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"
@@ -1207,6 +1217,7 @@ exports[`TextInput renders warning 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"
@@ -1311,6 +1322,7 @@ exports[`TextInput should render a password input 1`] = `
 
 <span
   className="c0 TextInput-wrapper"
+  onClick={[Function]}
 >
   <input
     className="c1"

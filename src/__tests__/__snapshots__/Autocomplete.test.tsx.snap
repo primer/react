@@ -95,6 +95,7 @@ Array [
 
 <span
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -241,6 +242,7 @@ Array [
 
 <span
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -422,6 +424,7 @@ Array [
 
 <span
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -1366,6 +1369,7 @@ Array [
 
 <span
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -2220,6 +2224,7 @@ Array [
 
 <span
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -3085,6 +3090,7 @@ Array [
 
 <span
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -4080,6 +4086,7 @@ Array [
 
 <span
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
