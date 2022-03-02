@@ -38,7 +38,7 @@ const ThemeContext = React.createContext<{
 })
 
 // inspired from __NEXT_DATA__, we use application/json to avoid CSRF policy with inline scripts
-const getSeverHandoff = () => {
+const getServerHandoff = () => {
   if (typeof document !== 'undefined' && document.getElementById('__PRIMER_DATA__')?.textContent) {
     try {
       return JSON.parse(document.getElementById('__PRIMER_DATA__')?.textContent as string)
@@ -61,7 +61,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
   // Initialize state
   const theme = props.theme ?? fallbackTheme ?? defaultTheme
 
-  const {resolvedServerColorMode} = getSeverHandoff()
+  const {resolvedServerColorMode} = getServerHandoff()
   const resolvedColorModePassthrough = React.useRef(resolvedServerColorMode)
 
   const [colorMode, setColorMode] = React.useState(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
