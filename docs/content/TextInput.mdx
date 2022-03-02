@@ -47,6 +47,113 @@ TextInput is a form component to add default styling to the native text input.
 </>
 ```
 
+## Text Input with visuals and loading indicators
+
+```javascript live noinline
+const WithIconAndLoadingIndicator = () => {
+  const [isLoading, setIsLoading] = React.useState(true)
+
+  const toggleLoadingState = () => {
+    setIsLoading(!isLoading)
+  }
+
+  return (
+    <>
+      <Box mb={5} display="flex" justifyContent="flex-end">
+        <button type="button" onClick={toggleLoadingState}>
+          Toggle loading state {isLoading ? 'off' : 'on'}
+        </button>
+      </Box>
+
+      <h3>No visual</h3>
+      <Box mb={2}>
+        <TextInput value="auto" isLoading={isLoading} />
+      </Box>
+      <Box mb={2}>
+        <TextInput value="leading" isLoading={isLoading} loadingIndicatorPosition="leading" />
+      </Box>
+      <Box mb={5}>
+        <TextInput value="trailing" isLoading={isLoading} loadingIndicatorPosition="trailing" />
+      </Box>
+
+      <h3>Leading visual</h3>
+      <Box mb={2}>
+        <TextInput leadingVisual={SearchIcon} isLoading={isLoading} value="auto" />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          leadingVisual={SearchIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInput
+          leadingVisual={SearchIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+
+      <h3>Trailing visual</h3>
+      <Box mb={2}>
+        <TextInput trailingVisual={SearchIcon} isLoading={isLoading} value="auto" />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          trailingVisual={SearchIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInput
+          trailingVisual={SearchIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+
+      <h3>Both visuals</h3>
+      <Box mb={2}>
+        <TextInput
+          size="small"
+          leadingVisual={SearchIcon}
+          trailingVisual={SearchIcon}
+          isLoading={isLoading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          leadingVisual={SearchIcon}
+          trailingVisual={SearchIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          size="large"
+          leadingVisual={SearchIcon}
+          trailingVisual={SearchIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+    </>
+  )
+}
+
+render(<WithIconAndLoadingIndicator />)
+```
+
 ## Text Input with error and warning states
 
 ```jsx live
@@ -91,11 +198,7 @@ TextInput is a form component to add default styling to the native text input.
     name="block"
     type="boolean"
     defaultValue="false"
-    description={
-      <>
-        Creates a full width input element
-      </>
-    }
+    description={<>Creates a full width input element</>}
   />
   <PropsTableRow
     name="contrast"
@@ -103,31 +206,62 @@ TextInput is a form component to add default styling to the native text input.
     defaultValue="false"
     description="Changes background color to a higher contrast color"
   />
-  <PropsTableRow name='size' type="'small' | 'medium' | 'large'"     description="Creates a smaller or larger input than the default." />
-
-<PropsTableRow
-  name="leadingVisual"
-  type={<>string | React.ComponentType</>}
-  description="Visual positioned on the left edge inside the input"
-/>
-<PropsTableRow
-  name="trailingVisual"
-  type={<>string | React.ComponentType</>}
-  description="Visual positioned on the right edge inside the input"
-/>
-<PropsTableRow
-  name="validationStatus"
-  type="'error' | 'success' | 'warning'"
-  description="Style the input to match the status"
-/>
-
-<PropsTableRow
-  name="variant"
-  type="'small' | 'medium' | 'large'"
-  description="(Use size) Creates a smaller or larger input than the default."
-  deprecated
-/>
-
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large'"
+    description="Creates a smaller or larger input than the default."
+  />
+  <PropsTableRow name="isLoading" type="boolean" description="Whether the to show a loading indicator in the input" />
+  <PropsTableRow
+    name="loadingIndicatorPosition"
+    type={"'auto' | 'leading' | 'trailing'"}
+    description={() => (
+      <>
+        <div>Which position to render the loading indicator</div>
+        <ul>
+          <li>
+            'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
+            beginning
+          </li>
+          <li>'leading': at the beginning of the input</li>
+          <li>'trailing': at the end of the input</li>
+        </ul>
+      </>
+    )}
+  />
+  <PropsTableRow
+    name="leadingVisual"
+    type={<>string | React.ComponentType</>}
+    description={() => (
+      <>
+        <div>Which position to render the loading indicator</div>
+        <ul>
+          <li>
+            'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
+            beginning
+          </li>
+          <li>'leading': at the beginning of the input</li>
+          <li>'trailing': at the end of the input</li>
+        </ul>
+      </>
+    )}
+  />
+  <PropsTableRow
+    name="trailingVisual"
+    type={<>string | React.ComponentType</>}
+    description="Visual positioned on the right edge inside the input"
+  />
+  <PropsTableRow
+    name="validationStatus"
+    type="'error' | 'success' | 'warning'"
+    description="Style the input to match the status"
+  />
+  <PropsTableRow
+    name="variant"
+    type="'small' | 'medium' | 'large'"
+    description="(Use size) Creates a smaller or larger input than the default."
+    deprecated
+  />
   <PropsTableRow
     name="width"
     type={

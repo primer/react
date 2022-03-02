@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react'
 import {Meta} from '@storybook/react'
 import {CheckIcon, NumberIcon} from '@primer/octicons-react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
+import {BaseStyles, Box, FormControl, ThemeProvider} from '..'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import IssueLabelToken from '../Token/IssueLabelToken'
 
@@ -45,6 +45,21 @@ export default {
       defaultValue: false,
       control: {
         type: 'boolean'
+      }
+    },
+    isLoading: {
+      name: 'isLoading',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
+    loadingIndicatorPosition: {
+      name: 'loadingIndicatorPosition',
+      defaultValue: 'auto',
+      options: ['auto', 'leading', 'trailing'],
+      control: {
+        type: 'radio'
       }
     },
     size: {
@@ -120,6 +135,59 @@ export const WithTrailingVisual = (args: TextInputWithTokensProps) => {
 }
 
 WithTrailingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
+
+export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
+  const [isLoading, setIsLoading] = useState(true)
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+  const toggleLoadingState = () => {
+    setIsLoading(!isLoading)
+  }
+
+  return (
+    <form>
+      <Box mb={5} display="flex" justifyContent="flex-end">
+        <button type="button" onClick={toggleLoadingState}>
+          Toggle loading state {isLoading ? 'off' : 'on'}
+        </button>
+      </Box>
+
+      <Box display="grid" sx={{gap: 3}}>
+        <FormControl>
+          <FormControl.Label>No visual</FormControl.Label>
+          <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} isLoading={isLoading} {...args} />
+        </FormControl>
+
+        <FormControl>
+          <FormControl.Label>Leading visual</FormControl.Label>
+          <TextInputWithTokens
+            tokens={tokens}
+            onTokenRemove={onTokenRemove}
+            isLoading={isLoading}
+            leadingVisual={NumberIcon}
+            {...args}
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormControl.Label>Both visuals</FormControl.Label>
+          <TextInputWithTokens
+            tokens={tokens}
+            onTokenRemove={onTokenRemove}
+            isLoading={isLoading}
+            leadingVisual={NumberIcon}
+            trailingVisual={CheckIcon}
+            {...args}
+          />
+        </FormControl>
+      </Box>
+    </form>
+  )
+}
+
+WithLoadingIndicator.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'isLoading']}}
 
 export const UsingIssueLabelTokens = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([

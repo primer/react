@@ -1,9 +1,9 @@
 import React, {useState, ReactNode} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider, Text} from '..'
+import {BaseStyles, Box, ThemeProvider, Text, FormControl} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
-import {CheckIcon} from '@primer/octicons-react'
+import {CalendarIcon, CheckIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Forms/Text Input',
@@ -39,6 +39,21 @@ export default {
         type: 'boolean'
       }
     },
+    isLoading: {
+      name: 'isLoading',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
+    loadingIndicatorPosition: {
+      name: 'loadingIndicatorPosition',
+      defaultValue: 'auto',
+      options: ['auto', 'leading', 'trailing'],
+      control: {
+        type: 'radio'
+      }
+    },
     variant: {
       name: 'Variants',
       options: ['small', 'medium', 'large'],
@@ -65,28 +80,106 @@ const Label = ({htmlFor, children}: {htmlFor: string; children: ReactNode}) => (
   </Text>
 )
 
-export const Default = (args: TextInputProps) => {
-  const [value, setValue] = useState('')
+export const Default = () => {
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
+  const toggleLoadingState = () => {
+    setIsLoading(!isLoading)
   }
 
-  const inputId = 'basic-text-input'
-
   return (
-    <form>
-      <div className="form-group">
-        <div className="form-group-header">
-          <Label htmlFor={inputId}>Example label</Label>
-        </div>
-        <div className="form-group-body">
-          <TextInput id={inputId} value={value} onChange={handleChange} {...args} />
-        </div>
-      </div>
-    </form>
+    <>
+      <button type="button" onClick={toggleLoadingState}>
+        Toggle loading state {isLoading ? 'off' : 'on'}
+      </button>
+
+      <h3>No visual</h3>
+      <Box mb={2}>
+        <TextInput value="auto" isLoading={isLoading} />
+      </Box>
+      <Box mb={2}>
+        <TextInput value="leading" isLoading={isLoading} loadingIndicatorPosition="leading" />
+      </Box>
+      <Box mb={5}>
+        <TextInput value="trailing" isLoading={isLoading} loadingIndicatorPosition="trailing" />
+      </Box>
+
+      <h3>Leading visual</h3>
+      <Box mb={2}>
+        <TextInput leadingVisual="$" isLoading={isLoading} value="auto" />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          leadingVisual={CalendarIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInput
+          leadingVisual={CalendarIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+
+      <h3>Trailing visual</h3>
+      <Box mb={2}>
+        <TextInput trailingVisual={CalendarIcon} isLoading={isLoading} value="auto" />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          trailingVisual={CalendarIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInput
+          trailingVisual={CalendarIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+
+      <h3>Both visuals</h3>
+      <Box mb={2}>
+        <TextInput
+          size="small"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          isLoading={isLoading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          isLoading={isLoading}
+          loadingIndicatorPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          size="large"
+          leadingVisual={() => <CalendarIcon size="medium" />}
+          trailingVisual={() => <CalendarIcon size="medium" />}
+          isLoading={isLoading}
+          loadingIndicatorPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+    </>
   )
 }
+
+Default.parameters = {controls: {exclude: ['isLoading', 'loadingIndicatorPosition']}}
 
 export const WithLeadingVisual = (args: TextInputProps) => {
   const [value, setValue] = useState('')
@@ -137,6 +230,43 @@ export const WithTrailingIcon = (args: TextInputProps) => {
     </form>
   )
 }
+
+export const WithLoadingIndicator = (args: TextInputProps) => {
+  const [isLoading, setIsLoading] = useState(true)
+
+  const toggleLoadingState = () => {
+    setIsLoading(!isLoading)
+  }
+
+  return (
+    <form>
+      <Box mb={5} display="flex" justifyContent="flex-end">
+        <button type="button" onClick={toggleLoadingState}>
+          Toggle loading state {isLoading ? 'off' : 'on'}
+        </button>
+      </Box>
+
+      <Box display="grid" sx={{gap: 3}}>
+        <FormControl>
+          <FormControl.Label>No visual</FormControl.Label>
+          <TextInput isLoading={isLoading} {...args} />
+        </FormControl>
+
+        <FormControl>
+          <FormControl.Label>Leading visual</FormControl.Label>
+          <TextInput isLoading={isLoading} leadingVisual={CalendarIcon} {...args} />
+        </FormControl>
+
+        <FormControl>
+          <FormControl.Label>Both visuals</FormControl.Label>
+          <TextInput isLoading={isLoading} leadingVisual={CalendarIcon} trailingVisual={CalendarIcon} {...args} />
+        </FormControl>
+      </Box>
+    </form>
+  )
+}
+
+WithLoadingIndicator.parameters = {controls: {exclude: ['isLoading']}}
 
 export const ContrastTextInput = (args: TextInputProps) => {
   const [value, setValue] = useState('')
