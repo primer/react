@@ -77,41 +77,39 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
     }
 
     return (
-      <div>
-        <TextInputWrapper
-          block={block}
-          className={wrapperClasses}
-          validationStatus={validationStatus}
-          contrast={contrast}
-          disabled={disabled}
-          sx={sxProp}
-          size={sizeProp}
-          width={widthProp}
-          minWidth={minWidthProp}
-          maxWidth={maxWidthProp}
-          variant={variantProp}
-          hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
-          hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
-          onClick={focusInput}
+      <TextInputWrapper
+        block={block}
+        className={wrapperClasses}
+        validationStatus={validationStatus}
+        contrast={contrast}
+        disabled={disabled}
+        sx={sxProp}
+        size={sizeProp}
+        width={widthProp}
+        minWidth={minWidthProp}
+        maxWidth={maxWidthProp}
+        variant={variantProp}
+        hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
+        hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
+        onClick={focusInput}
+      >
+        {IconComponent && <IconComponent className="TextInput-icon" />}
+        <TextInputInnerVisualSlot
+          visualPosition="leading"
+          showLoadingIndicator={showLeadingLoadingIndicator}
+          hasLoadingIndicator={typeof isLoading === 'boolean'}
         >
-          {IconComponent && <IconComponent className="TextInput-icon" />}
-          <TextInputInnerVisualSlot
-            visualPosition="leading"
-            showLoadingIndicator={showLeadingLoadingIndicator}
-            hasLoadingIndicator={typeof isLoading === 'boolean'}
-          >
-            {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
-          </TextInputInnerVisualSlot>
-          <UnstyledTextInput ref={inputRef} disabled={disabled} {...inputProps} data-component="input" />
-          <TextInputInnerVisualSlot
-            visualPosition="trailing"
-            showLoadingIndicator={showTrailingLoadingIndicator}
-            hasLoadingIndicator={typeof isLoading === 'boolean'}
-          >
-            {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
-          </TextInputInnerVisualSlot>
-        </TextInputWrapper>
-      </div>
+          {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+        </TextInputInnerVisualSlot>
+        <UnstyledTextInput ref={inputRef} disabled={disabled} {...inputProps} data-component="input" />
+        <TextInputInnerVisualSlot
+          visualPosition="trailing"
+          showLoadingIndicator={showTrailingLoadingIndicator}
+          hasLoadingIndicator={typeof isLoading === 'boolean'}
+        >
+          {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+        </TextInputInnerVisualSlot>
+      </TextInputWrapper>
     )
   }
 )
