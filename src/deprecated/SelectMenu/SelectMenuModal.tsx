@@ -1,9 +1,9 @@
 import React from 'react'
 import styled, {css, keyframes} from 'styled-components'
 import {width, WidthProps} from 'styled-system'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {get} from '../../constants'
+import sx, {SxProp} from '../../sx'
+import {ComponentProps} from '../../utils/types'
 
 type StyledModalProps = {
   filter?: boolean

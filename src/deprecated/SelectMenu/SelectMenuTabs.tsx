@@ -1,8 +1,8 @@
 import React from 'react'
 import styled, {css} from 'styled-components'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {get} from '../../constants'
+import sx, {SxProp} from '../../sx'
+import {ComponentProps} from '../../utils/types'
 
 const tabWrapperStyles = css`
   display: flex;

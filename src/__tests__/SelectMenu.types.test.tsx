@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectMenu from '../SelectMenu'
+import SelectMenu from '../deprecated/SelectMenu'
 
 export function shouldAcceptCallWithNoProps() {
   return <SelectMenu />

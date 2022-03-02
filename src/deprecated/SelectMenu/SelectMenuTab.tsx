@@ -1,9 +1,9 @@
 import classnames from 'classnames'
 import React, {useContext, useEffect} from 'react'
 import styled, {css} from 'styled-components'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {get} from '../../constants'
+import sx, {SxProp} from '../../sx'
+import {ComponentProps} from '../../utils/types'
 import {MenuContext} from './SelectMenuContext'
 
 const tabStyles = css`

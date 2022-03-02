@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {get} from '../../constants'
+import sx, {SxProp} from '../../sx'
+import {ComponentProps} from '../../utils/types'
 
 const footerStyles = css`
   margin-top: -1px;
