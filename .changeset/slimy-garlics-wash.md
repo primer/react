@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Menu: Fix typeahead with leading visuals
+ActionMenu: Fix typeahead with leading visuals
