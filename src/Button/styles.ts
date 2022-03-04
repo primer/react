@@ -17,16 +17,16 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         boxShadow: `${theme?.shadows.btn.focusShadow}`
       },
       '&:active:not([disabled])': {
-        backgroundColor: 'btn.selectedBg',
-        boxShadow: `${theme?.shadows.btn.shadowActive}`
+        backgroundColor: 'btn.activeBg',
+        borderColor: 'btn.activeBorder'
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
         backgroundColor: 'btn.disabledBg'
       },
       '&[aria-expanded=true]': {
-        backgroundColor: 'btn.selectedBg',
-        boxShadow: `${theme?.shadows.btn.shadowActive}`
+        backgroundColor: 'btn.activeBg',
+        borderColor: 'btn.activeBorder'
       }
     },
     primary: {
