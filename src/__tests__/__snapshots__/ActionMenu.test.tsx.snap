@@ -87,8 +87,13 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
-  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
+  background-color: hsla(220,14%,93%,1);
+  border-color: rgba(27,31,36,0.15);
+}
+
+.c1[aria-expanded=true] {
+  background-color: hsla(220,14%,93%,1);
+  border-color: rgba(27,31,36,0.15);
 }
 
 <div

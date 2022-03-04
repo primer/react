@@ -76,8 +76,13 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
-  box-shadow: inset 0 0.15em 0.3em rgba(27,31,36,0.15);
+  background-color: hsla(220,14%,93%,1);
+  border-color: rgba(27,31,36,0.15);
+}
+
+.c0[aria-expanded=true] {
+  background-color: hsla(220,14%,93%,1);
+  border-color: rgba(27,31,36,0.15);
 }
 
 <button
@@ -182,6 +187,13 @@ exports[`Button styles danger button appropriately 1`] = `
   border-color: btn.danger.selectedBorder;
 }
 
+.c0[aria-expanded=true] {
+  color: btn.danger.selectedText;
+  background-color: btn.danger.selectedBg;
+  box-shadow: undefined;
+  border-color: btn.danger.selectedBorder;
+}
+
 <button
   class="c0"
 >
@@ -267,6 +279,10 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0:active:not([disabled]) {
+  background-color: btn.selectedBg;
+}
+
+.c0[aria-expanded=true] {
   background-color: btn.selectedBg;
 }
 
@@ -377,6 +393,13 @@ exports[`Button styles outline button appropriately 1`] = `
   border-color: btn.outline.selectedBorder;
 }
 
+.c0[aria-expanded=true] {
+  color: btn.outline.selectedText;
+  background-color: btn.outline.selectedBg;
+  box-shadow: undefined;
+  border-color: btn.outline.selectedBorder;
+}
+
 <button
   class="c0"
 >
@@ -467,6 +490,11 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 .c0:active:not([disabled]) {
+  background-color: btn.primary.selectedBg;
+  box-shadow: undefined;
+}
+
+.c0[aria-expanded=true] {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
 }
