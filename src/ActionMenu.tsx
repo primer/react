@@ -84,7 +84,7 @@ const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonPro
           sx={merge(
             {
               // override the margin on caret for optical alignment
-              '[data-component=trailingIcon]': {marginLeft: 0, marginRight: -1}
+              '[data-component=trailingIcon]': {marginX: -1}
             },
             sxProp as SxProp
           )}
