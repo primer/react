@@ -8,6 +8,7 @@ import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
+import {SxProp, merge} from './sx'
 
 type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -73,13 +74,26 @@ const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnc
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>((props, anchorRef) => {
-  return (
-    <Anchor ref={anchorRef}>
-      <Button trailingIcon={TriangleDownIcon} type="button" {...props} />
-    </Anchor>
-  )
-})
+const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
+  ({sx: sxProp = {}, ...props}, anchorRef) => {
+    return (
+      <Anchor ref={anchorRef}>
+        <Button
+          type="button"
+          trailingIcon={TriangleDownIcon}
+          sx={merge(
+            {
+              // override the margin on caret for optical alignment
+              '[data-component=trailingIcon]': {marginLeft: 0, marginRight: -1}
+            },
+            sxProp as SxProp
+          )}
+          {...props}
+        />
+      </Anchor>
+    )
+  }
+)
 
 type MenuOverlayProps = Partial<OverlayProps> & {
   /**
