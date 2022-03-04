@@ -604,30 +604,33 @@ export function OverlayProps(): JSX.Element {
         Disable `onClickOutside` and `onEscape`. Only way to close is to select an action which takes focus on a
         TextInput
       </p>
-      <ActionMenu open={open} onOpenChange={setOpen}>
-        <ActionMenu.Button>Menu</ActionMenu.Button>
-        <ActionMenu.Overlay
-          width="large"
-          onClickOutside={() => {
-            /* do nothing, keep it open*/
-          }}
-          onEscape={() => {
-            /* do nothing, keep it open*/
-          }}
-          returnFocusRef={inputRef}
-        >
-          <ActionList>
-            <ActionList.Item>Option 1</ActionList.Item>
-            <ActionList.Item>Option 2</ActionList.Item>
-            <ActionList.Item>Option 2</ActionList.Item>
-            <ActionList.Item>Option 2</ActionList.Item>
-            <ActionList.Item>Option 2</ActionList.Item>
-            <ActionList.Item>Option 2</ActionList.Item>
-            <ActionList.Item>Option 2</ActionList.Item>
-            <ActionList.Item>Option 2</ActionList.Item>
-          </ActionList>
-        </ActionMenu.Overlay>
-      </ActionMenu>
+      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <ActionMenu open={open} onOpenChange={setOpen}>
+          <ActionMenu.Button>Menu</ActionMenu.Button>
+          <ActionMenu.Overlay
+            width="large"
+            align="center"
+            onClickOutside={() => {
+              /* do nothing, keep it open*/
+            }}
+            onEscape={() => {
+              /* do nothing, keep it open*/
+            }}
+            returnFocusRef={inputRef}
+          >
+            <ActionList>
+              <ActionList.Item>Option 1</ActionList.Item>
+              <ActionList.Item>Option 2</ActionList.Item>
+              <ActionList.Item>Option 2</ActionList.Item>
+              <ActionList.Item>Option 2</ActionList.Item>
+              <ActionList.Item>Option 2</ActionList.Item>
+              <ActionList.Item>Option 2</ActionList.Item>
+              <ActionList.Item>Option 2</ActionList.Item>
+              <ActionList.Item>Option 2</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </Box>
       <br />
       <br />
       <TextInput type="text" ref={inputRef} placeholder="Random input to return focus to" sx={{width: 280}} />
