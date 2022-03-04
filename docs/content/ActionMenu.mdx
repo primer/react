@@ -305,10 +305,11 @@ render(
 
 ### ActionMenu.Overlay
 
-| Name                                     | Type                  |       Default       | Description                                                                                   |
-| :--------------------------------------- | :-------------------- | :-----------------: | :-------------------------------------------------------------------------------------------- |
-| children\*                               | `React.ReactElement[] | React.ReactElement` | Required. Recommended: [`ActionList`](/ActionList)                                            |
-| [OverlayProps](/Overlay#component-props) | -                     |          -          | Optional. Props to be spread on the internal [`AnchoredOverlay`](/AnchoredOverlay) component. |
+| Name                                     | Type                                               | Default | Description                                                                             |
+| :--------------------------------------- | :------------------------------------------------- | :-----: | :-------------------------------------------------------------------------------------- |
+| children\*                               | `React.ReactElement` &#124; `React.ReactElement[]` |    -    | Required. Recommended: [`ActionList`](/ActionList)                                      |
+| align                                    | 'start' &#124; 'center' &#124; 'end'               | 'start' | Optional. Passed down to internal [`AnchoredOverlay`](/AnchoredOverlay#props) component |
+| [OverlayProps](/Overlay#component-props) | -                                                  |    -    | Optional. Props to be spread on the internal [`Overlay`](/Overlay) component.           |
 
 ## Status
 
