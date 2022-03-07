@@ -81,13 +81,14 @@ const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonPro
   )
 })
 
-type MenuOverlayProps = Partial<OverlayProps> & {
-  /**
-   * Recommended: `ActionList`
-   */
-  children: React.ReactElement[] | React.ReactElement
-}
-const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
+type MenuOverlayProps = Partial<OverlayProps> &
+  Pick<AnchoredOverlayProps, 'align'> & {
+    /**
+     * Recommended: `ActionList`
+     */
+    children: React.ReactElement[] | React.ReactElement
+  }
+const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...overlayProps}) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
   const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
@@ -107,6 +108,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, ...overlayProps}) => {
       open={open}
       onOpen={openWithFocus}
       onClose={onClose}
+      align={align}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
     >

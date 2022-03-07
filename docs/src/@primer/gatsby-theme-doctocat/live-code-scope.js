@@ -29,7 +29,8 @@ import {
   TypographyIcon,
   VersionsIcon,
   XIcon,
-  ZapIcon
+  ZapIcon,
+  TriangleDownIcon
 } from '@primer/octicons-react'
 import * as primerComponents from '@primer/react'
 import * as drafts from '@primer/react/drafts'
@@ -85,6 +86,7 @@ export default function resolveScope(metastring) {
     IterationsIcon,
     NumberIcon,
     SingleSelectIcon,
+    TriangleDownIcon,
     Dialog2,
     ConfirmationDialog,
     useConfirm,
