@@ -111,6 +111,8 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
     outline: {
       color: 'btn.outline.text',
       boxShadow: `${theme?.shadows.btn.shadow}`,
+      borderColor: 'btn.border',
+      backgroundColor: 'btn.bg',
 
       '&:hover:not([disabled])': {
         color: 'btn.outline.hoverText',
