@@ -39,12 +39,11 @@ const ThemeContext = React.createContext<{
 
 // inspired from __NEXT_DATA__, we use application/json to avoid CSRF policy with inline scripts
 const getServerHandoff = () => {
-  if (typeof document !== 'undefined' && document.getElementById('__PRIMER_DATA__')?.textContent) {
-    try {
-      return JSON.parse(document.getElementById('__PRIMER_DATA__')?.textContent as string)
-    } catch (error) {
+  try {
+    const serverData = document?.getElementById('__PRIMER_DATA__')?.textContent
+    if (serverData) return JSON.parse(serverData)
+  } catch (error) {
       // if JSON is invalid, supress error
-    }
   }
   return {}
 }
