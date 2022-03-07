@@ -79,9 +79,7 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 ```jsx live
 <ActionMenu>
   <ActionMenu.Anchor>
-    <ButtonInvisible aria-label="Open column options">
-      <KebabHorizontalIcon />
-    </ButtonInvisible>
+    <IconButton icon={KebabHorizontalIcon} variant="invisible" aria-label="Open column options" />
   </ActionMenu.Anchor>
 
   <ActionMenu.Overlay>
@@ -293,9 +291,9 @@ render(
 
 ### ActionMenu.Button
 
-| Type                                             | Default | Description                                                                                                       |
-| :----------------------------------------------- | :-----: | :---------------------------------------------------------------------------------------------------------------- |
-| [Button v2 props](/drafts/Button2#api-reference) |    -    | You can pass all of the props that you would pass to a [`Button`](/drafts/Button2) component like `variant`, `sx` |
+| Type                                  | Default | Description                                                                                               |
+| :------------------------------------ | :-----: | :-------------------------------------------------------------------------------------------------------- |
+| [Button props](/Button#api-reference) |    -    | You can pass all of the props that you would pass to a [`Button`](/Button) component like `variant`, `sx` |
 
 ### ActionMenu.Anchor
 
@@ -340,4 +338,4 @@ render(
 
 - [ActionList](/ActionList)
 - [SelectPanel](/SelectPanel)
-- [Button](/drafts/Button2)
+- [Button](/Button)
