@@ -79,9 +79,7 @@ You can choose to have a different _anchor_ for the Menu dependending on the app
 ```jsx live
 <ActionMenu>
   <ActionMenu.Anchor>
-    <ButtonInvisible aria-label="Open column options">
-      <KebabHorizontalIcon />
-    </ButtonInvisible>
+    <IconButton icon={KebabHorizontalIcon} variant="invisible" aria-label="Open column options" />
   </ActionMenu.Anchor>
 
   <ActionMenu.Overlay>
@@ -284,32 +282,73 @@ render(
 
 ### ActionMenu
 
-| Name         | Type                           | Default | Description                                                                                                              |
-| :----------- | :----------------------------- | :-----: | :----------------------------------------------------------------------------------------------------------------------- |
-| children\*   | `React.ReactElement[]`         |    -    | Required. Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`                              |
-| open         | `boolean`                      |    -    | Optional. If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`. |
-| onOpenChange | `(open: boolean) => void`      |    -    | Optional. If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`.         |
-| anchorRef    | `React.RefObject<HTMLElement>` |    -    | Optional. Useful for defining an external anchor                                                                         |
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactElement[]"
+    description={
+      <>
+        Recommended: <InlineCode>ActionMenu.Button</InlineCode> or <InlineCode>ActionMenu.Anchor</InlineCode> with{' '}
+        <InlineCode>ActionMenu.Overlay</InlineCode>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="open"
+    type="boolean"
+    defaultValue="false"
+    description={
+      <>
+        If defined, will control the open/closed state of the overlay. Must be used in conjuction with{' '}
+        <InlineCode>onOpenChange</InlineCode>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="onOpenChange"
+    type="(open: boolean) => void"
+    description={
+      <>
+        If defined, will control the open/closed state of the overlay. Must be used in conjuction with{' '}
+        <InlineCode>open</InlineCode>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="anchorRef"
+    type="React.RefObject<HTMLElement>"
+    description="Useful for defining an external anchor"
+  />
+</PropsTable>
 
 ### ActionMenu.Button
 
-| Type                                             | Default | Description                                                                                                       |
-| :----------------------------------------------- | :-----: | :---------------------------------------------------------------------------------------------------------------- |
-| [Button v2 props](/drafts/Button2#api-reference) |    -    | You can pass all of the props that you would pass to a [`Button`](/drafts/Button2) component like `variant`, `sx` |
+<PropsTable>
+  <PropsTableRow name="children" required type="React.ReactElement" />
+  <PropsTablePassthroughPropsRow
+    elementName="Button"
+    isPolymorphic
+    passthroughPropsLink={<Link href="/Button">Button docs</Link>}
+  />
+</PropsTable>
 
 ### ActionMenu.Anchor
 
-| Name       | Type                 | Default | Description                       |
-| :--------- | :------------------- | :-----: | :-------------------------------- |
-| children\* | `React.ReactElement` |    -    | Required. Accepts a single child. |
+<PropsTable>
+  <PropsTableRow name="children" required type="React.ReactElement" description="Accepts a single child element" />
+</PropsTable>
 
 ### ActionMenu.Overlay
 
-| Name                                     | Type                                               | Default | Description                                                                             |
-| :--------------------------------------- | :------------------------------------------------- | :-----: | :-------------------------------------------------------------------------------------- |
-| children\*                               | `React.ReactElement` &#124; `React.ReactElement[]` |    -    | Required. Recommended: [`ActionList`](/ActionList)                                      |
-| align                                    | 'start' &#124; 'center' &#124; 'end'               | 'start' | Optional. Passed down to internal [`AnchoredOverlay`](/AnchoredOverlay#props) component |
-| [OverlayProps](/Overlay#component-props) | -                                                  |    -    | Optional. Props to be spread on the internal [`Overlay`](/Overlay) component.           |
+<PropsTable>
+  <PropsTableRow name="children" required type="React.ReactElement | React.ReactElement[]" />
+  <PropsTableRow name="align" type="start | center | end" defaultValue="start" />
+  <PropsTablePassthroughPropsRow
+    elementName="Overlay"
+    passthroughPropsLink={<Link href="/Overlay">Overlay docs</Link>}
+  />
+</PropsTable>
 
 ## Status
 
