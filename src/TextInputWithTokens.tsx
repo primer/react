@@ -70,7 +70,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
     isLoading,
-    loadingIndicatorPosition,
+    loaderPosition,
     contrast,
     className,
     block,
@@ -247,10 +247,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     extralarge: 'medium'
   }
   const showLeadingLoadingIndicator =
-    isLoading &&
-    (loadingIndicatorPosition === 'leading' || Boolean(LeadingVisual && loadingIndicatorPosition !== 'trailing'))
+    isLoading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
   const showTrailingLoadingIndicator =
-    isLoading && (loadingIndicatorPosition === 'trailing' || (loadingIndicatorPosition === 'auto' && !LeadingVisual))
+    isLoading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
 
   return (
     <TextInputWrapper
@@ -380,7 +379,7 @@ TextInputWithTokens.defaultProps = {
   size: 'extralarge',
   hideTokenRemoveButtons: false,
   preventTokenWrapping: false,
-  loadingIndicatorPosition: 'auto'
+  loaderPosition: 'auto'
 }
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'

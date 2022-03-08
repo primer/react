@@ -116,19 +116,9 @@ describe('TextInputWithTokens', () => {
         <>
           <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} isLoading />
 
-          <TextInputWithTokens
-            tokens={mockTokens}
-            onTokenRemove={onRemoveMock}
-            isLoading
-            loadingIndicatorPosition="leading"
-          />
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} isLoading loaderPosition="leading" />
 
-          <TextInputWithTokens
-            tokens={mockTokens}
-            onTokenRemove={onRemoveMock}
-            isLoading
-            loadingIndicatorPosition="trailing"
-          />
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} isLoading loaderPosition="trailing" />
 
           <TextInputWithTokens
             tokens={mockTokens}
@@ -142,7 +132,7 @@ describe('TextInputWithTokens', () => {
             onTokenRemove={onRemoveMock}
             isLoading
             leadingVisual={MarkGithubIcon}
-            loadingIndicatorPosition="leading"
+            loaderPosition="leading"
           />
 
           <TextInputWithTokens
@@ -150,7 +140,7 @@ describe('TextInputWithTokens', () => {
             onTokenRemove={onRemoveMock}
             isLoading
             leadingVisual={MarkGithubIcon}
-            loadingIndicatorPosition="trailing"
+            loaderPosition="trailing"
           />
 
           <TextInputWithTokens
@@ -165,7 +155,7 @@ describe('TextInputWithTokens', () => {
             onTokenRemove={onRemoveMock}
             isLoading
             trailingVisual={MarkGithubIcon}
-            loadingIndicatorPosition="leading"
+            loaderPosition="leading"
           />
 
           <TextInputWithTokens
@@ -173,7 +163,7 @@ describe('TextInputWithTokens', () => {
             onTokenRemove={onRemoveMock}
             isLoading
             trailingVisual={MarkGithubIcon}
-            loadingIndicatorPosition="trailing"
+            loaderPosition="trailing"
           />
 
           <TextInputWithTokens
@@ -191,7 +181,7 @@ describe('TextInputWithTokens', () => {
             isLoading
             leadingVisual={MarkGithubIcon}
             trailingVisual={MarkGithubIcon}
-            loadingIndicatorPosition="leading"
+            loaderPosition="leading"
           />
 
           <TextInputWithTokens
@@ -201,7 +191,7 @@ describe('TextInputWithTokens', () => {
             size="large"
             leadingVisual={MarkGithubIcon}
             trailingVisual={MarkGithubIcon}
-            loadingIndicatorPosition="trailing"
+            loaderPosition="trailing"
           />
         </>
       )

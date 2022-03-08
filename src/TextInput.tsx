@@ -18,7 +18,7 @@ export type TextInputNonPassthroughProps = {
    * 'leading': at the beginning of the input
    * 'trailing': at the end of the input
    **/
-  loadingIndicatorPosition?: 'auto' | 'leading' | 'trailing' // TODO: come up with a shorter name
+  loaderPosition?: 'auto' | 'leading' | 'trailing'
   /**
    * A visual that renders inside the input before the typing area
    */
@@ -50,7 +50,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       contrast,
       disabled,
       isLoading,
-      loadingIndicatorPosition,
+      loaderPosition,
       validationStatus,
       sx: sxProp,
       size: sizeProp,
@@ -68,10 +68,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
-      isLoading &&
-      (loadingIndicatorPosition === 'leading' || Boolean(LeadingVisual && loadingIndicatorPosition !== 'trailing'))
+      isLoading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
     const showTrailingLoadingIndicator =
-      isLoading && (loadingIndicatorPosition === 'trailing' || Boolean(loadingIndicatorPosition === 'auto' && !LeadingVisual))
+      isLoading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
     const focusInput: MouseEventHandler = () => {
       inputRef.current?.focus()
     }
@@ -116,7 +115,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
 
 TextInput.defaultProps = {
   type: 'text',
-  loadingIndicatorPosition: 'auto'
+  loaderPosition: 'auto'
 }
 
 TextInput.displayName = 'TextInput'

@@ -46,8 +46,8 @@ export default {
         type: 'boolean'
       }
     },
-    loadingIndicatorPosition: {
-      name: 'loadingIndicatorPosition',
+    loaderPosition: {
+      name: 'loaderPosition',
       defaultValue: 'auto',
       options: ['auto', 'leading', 'trailing'],
       control: {

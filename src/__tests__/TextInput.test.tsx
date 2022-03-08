@@ -83,37 +83,32 @@ describe('TextInput', () => {
         <>
           <TextInput isLoading />
 
-          <TextInput isLoading loadingIndicatorPosition="leading" />
+          <TextInput isLoading loaderPosition="leading" />
 
-          <TextInput isLoading loadingIndicatorPosition="trailing" />
+          <TextInput isLoading loaderPosition="trailing" />
 
           <TextInput isLoading leadingVisual={SearchIcon} />
 
-          <TextInput isLoading leadingVisual={SearchIcon} loadingIndicatorPosition="leading" />
+          <TextInput isLoading leadingVisual={SearchIcon} loaderPosition="leading" />
 
-          <TextInput isLoading leadingVisual={SearchIcon} loadingIndicatorPosition="trailing" />
+          <TextInput isLoading leadingVisual={SearchIcon} loaderPosition="trailing" />
 
           <TextInput isLoading trailingVisual={SearchIcon} />
 
-          <TextInput isLoading trailingVisual={SearchIcon} loadingIndicatorPosition="leading" />
+          <TextInput isLoading trailingVisual={SearchIcon} loaderPosition="leading" />
 
-          <TextInput isLoading trailingVisual={SearchIcon} loadingIndicatorPosition="trailing" />
+          <TextInput isLoading trailingVisual={SearchIcon} loaderPosition="trailing" />
 
           <TextInput isLoading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
 
-          <TextInput
-            isLoading
-            leadingVisual={SearchIcon}
-            trailingVisual={SearchIcon}
-            loadingIndicatorPosition="leading"
-          />
+          <TextInput isLoading leadingVisual={SearchIcon} trailingVisual={SearchIcon} loaderPosition="leading" />
 
           <TextInput
             isLoading
             size="large"
             leadingVisual={SearchIcon}
             trailingVisual={SearchIcon}
-            loadingIndicatorPosition="trailing"
+            loaderPosition="trailing"
           />
         </>
       )
