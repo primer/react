@@ -41,8 +41,9 @@ exports[`renders consistently 1`] = `
   -webkit-transform: translateX(-100%);
   -ms-transform: translateX(-100%);
   transform: translateX(-100%);
-  -webkit-transition-property: none;
-  transition-property: none;
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-property: transform;
+  transition-property: transform;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
 }
@@ -67,8 +68,9 @@ exports[`renders consistently 1`] = `
   -webkit-transform: translateX(0);
   -ms-transform: translateX(0);
   transform: translateX(0);
-  -webkit-transition-property: none;
-  transition-property: none;
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-property: transform;
+  transition-property: transform;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
 }
@@ -89,8 +91,9 @@ exports[`renders consistently 1`] = `
   bottom: 0;
   z-index: 1;
   box-shadow: rgba(0,0,0,0.12) 0px 2px 1px -1px,rgba(0,0,0,0.1) 0px 1px 4px 0px,rgb(0,0,0,0.08) 0px 1px 3px 0px;
-  -webkit-transition-property: none;
-  transition-property: none;
+  -webkit-transition-property: -webkit-transform,background-color,border-color;
+  -webkit-transition-property: transform,background-color,border-color;
+  transition-property: transform,background-color,border-color;
   -webkit-transition-duration: 150ms;
   transition-duration: 150ms;
   -webkit-transform: translateX(-1px);
