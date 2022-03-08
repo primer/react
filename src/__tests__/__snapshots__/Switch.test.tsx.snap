@@ -1,0 +1,280 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders consistently 1`] = `
+.c2 {
+  text-align: right;
+  visibility: hidden;
+  height: 0;
+}
+
+.c3 {
+  text-align: right;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c7 {
+  color: #0969da;
+  line-height: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-transition-property: none;
+  transition-property: none;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+}
+
+.c7 > svg {
+  fill: currentcolor;
+}
+
+.c8 {
+  color: #24292f;
+  line-height: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition-property: none;
+  transition-property: none;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+}
+
+.c8 > svg {
+  fill: currentcolor;
+}
+
+.c9 {
+  background-color: #f6f8fa;
+  width: 50%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d0d7de;
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  box-shadow: rgba(0,0,0,0.12) 0px 2px 1px -1px,rgba(0,0,0,0.1) 0px 1px 4px 0px,rgb(0,0,0,0.08) 0px 1px 3px 0px;
+  -webkit-transition-property: none;
+  transition-property: none;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+  -webkit-transform: translateX(-1px);
+  -ms-transform: translateX(-1px);
+  transform: translateX(-1px);
+}
+
+.c0 {
+  margin-bottom: 24px;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c1 {
+  font-size: 14px;
+  color: #24292f;
+  margin-left: 8px;
+  margin-right: 8px;
+  position: relative;
+}
+
+.c4 {
+  border: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transition-property: background-color,border-color;
+  transition-property: background-color,border-color;
+  -webkit-transition-delay: 50ms;
+  transition-delay: 50ms;
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
+  background: rgba(175,184,193,0.2);
+  border-radius: 6px;
+  display: block;
+  height: 32px;
+  width: 64px;
+  position: relative;
+}
+
+.c4:after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(27,31,36,0.15);
+  opacity: 1;
+  border-radius: 6px;
+}
+
+.c4:hover,
+.c4:focus:focus-visible {
+  background-color: rgba(27,31,36,0.15);
+}
+
+.c4:active:after {
+  background-color: rgba(27,31,36,0.15);
+  opacity: 0.5;
+}
+
+.c4:disabled {
+  cursor: not-allowed;
+}
+
+<div
+  className="c0"
+  display="inline-flex"
+>
+  <span
+    aria-hidden="true"
+    className="c1"
+    color="fg.default"
+    fontSize={1}
+  >
+    <div
+      className="c2"
+    >
+      On
+    </div>
+    <div
+      className="c3"
+    >
+      Off
+    </div>
+  </span>
+  <button
+    aria-checked={false}
+    aria-disabled={false}
+    className="c4"
+    disabled={false}
+    on={false}
+    onClick={[Function]}
+    role="switch"
+    size="medium"
+  >
+    <span
+      className="c5"
+    >
+      Off
+    </span>
+    <div
+      aria-hidden="true"
+      className="c6"
+      display="flex"
+      height="100%"
+      overflow="hidden"
+      width="100%"
+    >
+      <div
+        className="c7"
+        color="accent.fg"
+      >
+        <svg
+          fill="none"
+          height="16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M8 2a.75.75 0 0 1 .75.75v11.5a.75.75 0 0 1-1.5 0V2.75A.75.75 0 0 1 8 2Z"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        className="c8"
+        color="fg.default"
+      >
+        <svg
+          fill="none"
+          height="16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M8 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      className="c9"
+      width="50%"
+    />
+  </button>
+</div>
+`;

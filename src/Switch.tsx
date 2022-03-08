@@ -31,7 +31,7 @@ type SwitchProps = {
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
   statusLabelPosition?: 'start' | 'end'
-}
+} & SxProp
 
 const sizeVariants = variant({
   prop: 'size',
@@ -130,11 +130,6 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     }
   }}
 
-  &:hover {
-    // needed to override link styles
-    text-decoration: none;
-  }
-
   &:disabled {
     cursor: not-allowed;
   }
@@ -158,7 +153,8 @@ const Switch: React.FC<SwitchProps> = ({
   onChange,
   onClick,
   size,
-  statusLabelPosition
+  statusLabelPosition,
+  sx: sxProp
 }) => {
   const isControlled = typeof defaultOn === 'undefined' && typeof onProp !== 'undefined'
   const {colorScheme} = useTheme()
@@ -186,6 +182,7 @@ const Switch: React.FC<SwitchProps> = ({
       alignItems="center"
       flexDirection={statusLabelPosition === 'start' ? 'row' : 'row-reverse'}
       mb={4}
+      sx={sxProp}
     >
       {isLoading ? <Spinner size="small" /> : null}
       <Text
@@ -206,6 +203,9 @@ const Switch: React.FC<SwitchProps> = ({
         onClick={handleToggleClick}
         aria-labelledby={ariaLabelledby}
         aria-describedby={ariaDescribedby}
+        aria-checked={onState}
+        aria-disabled={!acceptsInteraction}
+        role="switch"
         on={onState}
         size={size}
         disabled={!acceptsInteraction}

@@ -13,7 +13,8 @@ const excludedControlKeys = [
   'defaultOn',
   'onChange',
   'onClick',
-  'statusLabelPosition'
+  'statusLabelPosition',
+  'sx'
 ]
 
 export default {

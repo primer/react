@@ -29,7 +29,6 @@ export default {
       }
     },
     size: {
-      defaultValue: 'medium',
       control: {
         type: 'radio',
         options: ['small', 'medium']
@@ -53,6 +52,15 @@ export default {
     }
   ]
 } as Meta
+
+export const Small = (args: Args) => (
+  <>
+    <Box fontSize={1} fontWeight="bold" id="switchLabel">
+      Notifications
+    </Box>
+    <Switch {...args} aria-labelledby="switchLabel" size="small" />
+  </>
+)
 
 export const WithCaption = (args: Args) => (
   <Box display="flex">
