@@ -71,7 +71,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       isLoading &&
       (loadingIndicatorPosition === 'leading' || Boolean(LeadingVisual && loadingIndicatorPosition !== 'trailing'))
     const showTrailingLoadingIndicator =
-      isLoading && (loadingIndicatorPosition === 'trailing' || (loadingIndicatorPosition === 'auto' && !LeadingVisual))
+      isLoading && (loadingIndicatorPosition === 'trailing' || Boolean(loadingIndicatorPosition === 'auto' && !LeadingVisual))
     const focusInput: MouseEventHandler = () => {
       inputRef.current?.focus()
     }
