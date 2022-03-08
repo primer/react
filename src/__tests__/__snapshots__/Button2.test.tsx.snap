@@ -285,6 +285,7 @@ exports[`Button styles outline button appropriately 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
+  border-color: btn.border;
   font-family: inherit;
   font-weight: bold;
   line-height: 20px;
@@ -310,6 +311,7 @@ exports[`Button styles outline button appropriately 1`] = `
   font-size: 14px;
   color: btn.outline.text;
   box-shadow: undefined;
+  background-color: btn.bg;
 }
 
 .c0:focus {
