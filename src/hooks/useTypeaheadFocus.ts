@@ -49,7 +49,7 @@ export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<H
 
       const focusNextMatch = () => {
         const itemsStartingWithKey = focusableItems.filter(item => {
-          return item.textContent?.toLowerCase().startsWith(query)
+          return item.textContent?.toLowerCase().trim().startsWith(query)
         })
 
         const currentActiveIndex = itemsStartingWithKey.indexOf(activeElement)
