@@ -5,7 +5,7 @@ import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 
-export type ListProps = {
+export type ActionListProps = {
   /**
    * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
    */
@@ -24,12 +24,12 @@ export type ListProps = {
   role?: AriaRole
 } & SxProp
 
-type ContextProps = Pick<ListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'>
+type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'>
 export const ListContext = React.createContext<ContextProps>({})
 
 const ListBox = styled.ul<SxProp>(sx)
 
-export const List = React.forwardRef<HTMLUListElement, ListProps>(
+export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
     {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = {}, ...props},
     forwardedRef
@@ -68,6 +68,6 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>(
       </ListBox>
     )
   }
-) as PolymorphicForwardRefComponent<'ul', ListProps>
+) as PolymorphicForwardRefComponent<'ul', ActionListProps>
 
 List.displayName = 'ActionList'

@@ -2,7 +2,7 @@ import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import Link from '../Link'
 import {SxProp, merge} from '../sx'
-import {Item, ItemProps} from './Item'
+import {Item, ActionListItemProps} from './Item'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -18,7 +18,7 @@ type LinkProps = {
 }
 
 // LinkItem does not support selected, variants, etc.
-type LinkItemProps = Pick<ItemProps, 'children' | 'sx'> & LinkProps
+export type ActionListLinkItemProps = Pick<ActionListItemProps, 'children' | 'sx'> & LinkProps
 
 export const LinkItem = React.forwardRef(({sx = {}, as: Component, ...props}, forwardedRef) => {
   const styles = {
@@ -46,4 +46,4 @@ export const LinkItem = React.forwardRef(({sx = {}, as: Component, ...props}, fo
       {props.children}
     </Item>
   )
-}) as PolymorphicForwardRefComponent<'a', LinkItemProps>
+}) as PolymorphicForwardRefComponent<'a', ActionListLinkItemProps>

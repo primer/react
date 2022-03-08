@@ -39,6 +39,7 @@ export type {
   ActionListProps,
   ActionListGroupProps,
   ActionListItemProps,
+  ActionListLinkItemProps,
   ActionListDescriptionProps,
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps

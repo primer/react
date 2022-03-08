@@ -4,7 +4,7 @@ import {SxProp, merge} from '../sx'
 import Truncate from '../Truncate'
 import {Slot, ItemContext} from './Item'
 
-export type DescriptionProps = {
+export type ActionListDescriptionProps = {
   /**
    * Secondary text style variations.
    *
@@ -14,7 +14,7 @@ export type DescriptionProps = {
   variant?: 'inline' | 'block'
 } & SxProp
 
-export const Description: React.FC<DescriptionProps> = ({variant = 'inline', sx = {}, ...props}) => {
+export const Description: React.FC<ActionListDescriptionProps> = ({variant = 'inline', sx = {}, ...props}) => {
   const styles = {
     fontSize: 0,
     lineHeight: '16px',

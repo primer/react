@@ -6,14 +6,12 @@ import {Divider} from './Divider'
 import {Description} from './Description'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 
-export type {ListProps as ActionListProps} from './List'
-export type {GroupProps as ActionListGroupProps} from './Group'
-export type {ItemProps as ActionListItemProps} from './Item'
-export type {DescriptionProps as ActionListDescriptionProps} from './Description'
-export type {
-  LeadingVisualProps as ActionListLeadingVisualProps,
-  TrailingVisualProps as ActionListTrailingVisualProps
-} from './Visuals'
+export type {ActionListProps} from './List'
+export type {ActionListGroupProps} from './Group'
+export type {ActionListItemProps} from './Item'
+export type {ActionListLinkItemProps} from './LinkItem'
+export type {ActionListDescriptionProps} from './Description'
+export type {ActionListLeadingVisualProps, ActionListTrailingVisualProps} from './Visuals'
 
 /**
  * Collection of list-related components.

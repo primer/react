@@ -7,12 +7,15 @@ import Box, {BoxProps} from '../Box'
 import sx, {SxProp, merge} from '../sx'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
-import {ListContext, ListProps} from './List'
-import {GroupContext, GroupProps} from './Group'
+import {ListContext, ActionListProps} from './List'
+import {GroupContext, ActionListGroupProps} from './Group'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {Selection} from './Selection'
 
-export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemProps['disabled']) => {
+export const getVariantStyles = (
+  variant: ActionListItemProps['variant'],
+  disabled: ActionListItemProps['disabled']
+) => {
   if (disabled) {
     return {
       color: 'primer.fg.disabled',
@@ -39,7 +42,7 @@ export const getVariantStyles = (variant: ItemProps['variant'], disabled: ItemPr
   }
 }
 
-export type ItemProps = {
+export type ActionListItemProps = {
   /**
    * Primary content for an Item
    */
@@ -79,7 +82,7 @@ export type ItemProps = {
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
 export {Slot}
-export type ItemContext = Pick<ItemProps, 'variant' | 'disabled'> & {
+export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
   inlineDescriptionId: string
   blockDescriptionId: string
 }
@@ -87,7 +90,7 @@ export type ItemContext = Pick<ItemProps, 'variant' | 'disabled'> & {
 const LiBox = styled.li<SxProp>(sx)
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
-export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
+export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
       variant = 'default',
@@ -106,12 +109,12 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
 
-    let selectionVariant: ListProps['selectionVariant'] | GroupProps['selectionVariant']
+    let selectionVariant: ActionListProps['selectionVariant'] | ActionListGroupProps['selectionVariant']
     if (typeof groupSelectionVariant !== 'undefined') selectionVariant = groupSelectionVariant
     else selectionVariant = listSelectionVariant
 
     /** Infer item role based on the container */
-    let itemRole: ItemProps['role']
+    let itemRole: ActionListItemProps['role']
     if (container === 'ActionMenu' || container === 'DropdownMenu') {
       if (selectionVariant === 'single') itemRole = 'menuitemradio'
       else if (selectionVariant === 'multiple') itemRole = 'menuitemcheckbox'
@@ -257,7 +260,7 @@ export const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       </Slots>
     )
   }
-) as PolymorphicForwardRefComponent<'li', ItemProps>
+) as PolymorphicForwardRefComponent<'li', ActionListItemProps>
 
 Item.displayName = 'ActionList.Item'
 
