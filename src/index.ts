@@ -21,7 +21,8 @@ export type {
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
 export {default as useSafeTimeout} from './hooks/useSafeTimeout'
-export {useOnOutsideClick, TouchOrMouseEvent} from './hooks/useOnOutsideClick'
+export {useOnOutsideClick} from './hooks/useOnOutsideClick'
+export type {TouchOrMouseEvent} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
