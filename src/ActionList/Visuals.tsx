@@ -28,7 +28,7 @@ export const LeadingVisualContainer: React.FC<VisualProps> = ({sx = {}, ...props
   )
 }
 
-export type LeadingVisualProps = VisualProps
+export type ActionListLeadingVisualProps = VisualProps
 export const LeadingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
   return (
     <Slot name="LeadingVisual">
@@ -50,7 +50,7 @@ export const LeadingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
   )
 }
 
-export type TrailingVisualProps = VisualProps
+export type ActionListTrailingVisualProps = VisualProps
 export const TrailingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
   return (
     <Slot name="TrailingVisual">

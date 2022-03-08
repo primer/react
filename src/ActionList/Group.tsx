@@ -2,10 +2,10 @@ import React from 'react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import Box from '../Box'
 import {SxProp} from '../sx'
-import {ListContext, ListProps} from './List'
+import {ListContext, ActionListProps} from './List'
 import {AriaRole} from '../utils/types'
 
-export type GroupProps = {
+export type ActionListGroupProps = {
   /**
    * Style variations. Usage is discretionary.
    *
@@ -29,13 +29,13 @@ export type GroupProps = {
     /**
      * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
      */
-    selectionVariant?: ListProps['selectionVariant'] | false
+    selectionVariant?: ActionListProps['selectionVariant'] | false
   }
 
-type ContextProps = Pick<GroupProps, 'selectionVariant'>
+type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'>
 export const GroupContext = React.createContext<ContextProps>({})
 
-export const Group: React.FC<GroupProps> = ({
+export const Group: React.FC<ActionListGroupProps> = ({
   title,
   variant = 'subtle',
   auxiliaryText,
@@ -73,7 +73,7 @@ export const Group: React.FC<GroupProps> = ({
   )
 }
 
-export type HeaderProps = Pick<GroupProps, 'variant' | 'title' | 'auxiliaryText'> & {
+export type HeaderProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxiliaryText'> & {
   labelId: string
 }
 
