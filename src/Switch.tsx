@@ -11,7 +11,7 @@ import {useTheme} from './ThemeProvider'
 type SwitchProps = {
   /** The id of the DOM node that describes the switch */
   ['aria-describedby']?: string
-  /** The id of the text node that labels the switch */
+  /** The id of the DOM node that labels the switch */
   ['aria-labelledby']: string
   /** Uncontrolled - whether the switch is turned on */
   defaultOn?: boolean
@@ -220,7 +220,7 @@ const Switch: React.FC<SwitchProps> = ({
             lineHeight="0"
             sx={{
               transform: `translateX(${onState ? '0' : '-100%'})`,
-              transitionProperty: acceptsInteraction ? 'none' : 'transform',
+              transitionProperty: acceptsInteraction ? 'transform' : 'none',
               transitionDuration: '150ms',
               '> svg': {
                 fill: 'currentcolor'
@@ -237,7 +237,7 @@ const Switch: React.FC<SwitchProps> = ({
             lineHeight="0"
             sx={{
               transform: `translateX(${onState ? '100%' : '0'})`,
-              transitionProperty: acceptsInteraction ? 'none' : 'transform',
+              transitionProperty: acceptsInteraction ? 'transform' : 'none',
               transitionDuration: '150ms',
               '> svg': {
                 fill: 'currentcolor'
@@ -275,7 +275,7 @@ const Switch: React.FC<SwitchProps> = ({
               : undefined
           }
           sx={{
-            transitionProperty: acceptsInteraction ? 'none' : 'transform, background-color, border-color',
+            transitionProperty: acceptsInteraction ? 'transform, background-color, border-color' : 'none',
             transitionDuration: '150ms',
             transform: `translateX(${onState ? 'calc(100% + 1px)' : '-1px'})`
           }}
