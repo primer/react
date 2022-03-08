@@ -21,7 +21,7 @@ export type {
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
 export {default as useSafeTimeout} from './hooks/useSafeTimeout'
-export {useOnOutsideClick} from './hooks/useOnOutsideClick'
+export {useOnOutsideClick, TouchOrMouseEvent} from './hooks/useOnOutsideClick'
 export {useOpenAndCloseFocus} from './hooks/useOpenAndCloseFocus'
 export {useOnEscapePress} from './hooks/useOnEscapePress'
 export {useOverlay} from './hooks/useOverlay'
@@ -139,6 +139,7 @@ export type {
   TimelineItemsProps
 } from './Timeline'
 export {default as Token, IssueLabelToken, AvatarToken} from './Token'
+export type {TokenProps} from './Token'
 export {default as Tooltip} from './Tooltip'
 export type {TooltipProps} from './Tooltip'
 export {default as Truncate} from './Truncate'
