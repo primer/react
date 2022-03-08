@@ -1,5 +1,15 @@
 # @primer/components
 
+## 34.7.1
+
+### Patch Changes
+
+- [#1936](https://github.com/primer/react/pull/1936) [`ceaaf171`](https://github.com/primer/react/commit/ceaaf17174f08ccccd5223066e456c38b76241c1) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ThemeProvider: Fix `setColorMode`. Broken in `34.6.0`
+
+* [#1913](https://github.com/primer/react/pull/1913) [`92a02377`](https://github.com/primer/react/commit/92a023770f04662a3571de7e87fab8565592bae4) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Fixes the theming implementation with server side rendering to use a CSRF safe approach
+
+- [#1928](https://github.com/primer/react/pull/1928) [`4dc15c33`](https://github.com/primer/react/commit/4dc15c3300838733da39fd2895692cce5bc3a3b5) Thanks [@pksjce](https://github.com/pksjce)! - Add outline background and border color
+
 ## 34.7.0
 
 ### Minor Changes
