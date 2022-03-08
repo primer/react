@@ -7,7 +7,7 @@ import {
   Text,
   TextInput,
   StyledOcticon,
-  FormGroup,
+  FormControl,
   ActionMenu,
   ActionList,
   Button,
@@ -313,7 +313,7 @@ const LayoutToggleItem = ({
   Icon: React.ComponentType<IconProps>
 }) => {
   return (
-    <FormGroup
+    <FormControl
       sx={{
         flex: 'auto',
         borderRadius: 2,
@@ -340,7 +340,7 @@ const LayoutToggleItem = ({
         }
       }}
     >
-      <FormGroup.Label
+      <FormControl.Label
         htmlFor="layout-selector"
         sx={{fontWeight: 'normal', cursor: 'pointer', px: 3, py: 2, mb: 0}}
         {...props}
@@ -349,8 +349,8 @@ const LayoutToggleItem = ({
           <Icon size="medium" />
           <Text sx={{color: selected ? 'fg.default' : 'fg.muted', fontSize: 0}}>{children}</Text>
         </Box>
-      </FormGroup.Label>
-    </FormGroup>
+      </FormControl.Label>
+    </FormControl>
   )
 }
 
