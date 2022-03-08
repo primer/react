@@ -134,6 +134,58 @@ const WithIconAndLoadingIndicator = () => {
 render(<WithIconAndLoadingIndicator />)
 ```
 
+## Text input with trailing action
+
+```jsx live
+<Box display="grid" sx={{gap: 3}}>
+  <FormControl>
+    <FormControl.Label>Icon action</FormControl.Label>
+    <TextInput
+      trailingAction={
+        <TextInput.Action
+          onClick={() => {
+            alert('clear input')
+          }}
+          icon={XIcon}
+          iconLabel="Clear input"
+          sx={{color: 'fg.subtle'}}
+        />
+      }
+    />
+  </FormControl>
+  <FormControl>
+    <FormControl.Label>Icon action with tooltip</FormControl.Label>
+    <TextInput
+      trailingAction={
+        <TextInput.Action
+          onClick={() => {
+            alert('clear input')
+          }}
+          icon={XIcon}
+          iconLabel="Clear input"
+          tooltipMessage="Clear"
+          sx={{color: 'fg.subtle'}}
+        />
+      }
+    />
+  </FormControl>
+  <FormControl>
+    <FormControl.Label>Text action</FormControl.Label>
+    <TextInput
+      trailingAction={
+        <TextInput.Action
+          onClick={() => {
+            alert('clear input')
+          }}
+        >
+          Clear
+        </TextInput.Action>
+      }
+    />
+  </FormControl>
+</Box>
+```
+
 ## Text Input with error and warning states
 
 ```jsx live
@@ -225,6 +277,11 @@ render(<WithIconAndLoadingIndicator />)
         </ul>
       </>
     )}
+  />
+  <PropsTableRow
+    name="trailingAction"
+    type="React.ReactElement<HTMLProps<HTMLButtonElement>>"
+    description="A visual that renders inside the input after the typing area"
   />
   <PropsTableRow
     name="trailingVisual"

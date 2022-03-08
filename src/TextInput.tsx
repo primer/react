@@ -1,10 +1,11 @@
 import classnames from 'classnames'
-import React, {MouseEventHandler} from 'react'
+import React, {HTMLProps, MouseEventHandler, useState, useCallback} from 'react'
 import {ComponentProps, Merge} from './utils/types'
 import UnstyledTextInput from './_UnstyledTextInput'
 import TextInputWrapper from './_TextInputWrapper'
 import TextInputInnerVisualSlot from './_TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from './hooks'
+import TextInputAction from './_TextInputInnerAction'
 
 export type TextInputNonPassthroughProps = {
   className?: string
@@ -27,6 +28,11 @@ export type TextInputNonPassthroughProps = {
    * A visual that renders inside the input after the typing area
    */
   trailingVisual?: string | React.ComponentType<{className?: string}>
+  /**
+   * A visual that renders inside the input after the typing area
+   */
+  trailingAction?: React.ReactElement<HTMLProps<HTMLButtonElement>>
+  // trailingAction?: React.ComponentType<{className?: string; onClick: MouseEventHandler}>
 } & Pick<
   ComponentProps<typeof TextInputWrapper>,
   'block' | 'contrast' | 'disabled' | 'sx' | 'width' | 'maxWidth' | 'minWidth' | 'variant' | 'size'
@@ -45,6 +51,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       icon: IconComponent,
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
+      trailingAction,
       block,
       className,
       contrast,
@@ -54,6 +61,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       validationStatus,
       sx: sxProp,
       size: sizeProp,
+      onFocus,
+      onBlur,
       // start deprecated props
       width: widthProp,
       minWidth: minWidthProp,
@@ -64,6 +73,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
     },
     ref
   ) => {
+    const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
     const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
@@ -74,6 +84,20 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
     const focusInput: MouseEventHandler = () => {
       inputRef.current?.focus()
     }
+    const handleInputFocus = useCallback(
+      e => {
+        setIsInputFocused(true)
+        onFocus && onFocus(e)
+      },
+      [onFocus]
+    )
+    const handleInputBlur = useCallback(
+      e => {
+        setIsInputFocused(false)
+        onBlur && onBlur(e)
+      },
+      [onBlur]
+    )
 
     return (
       <TextInputWrapper
@@ -90,6 +114,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         variant={variantProp}
         hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
         hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
+        hasActions={Boolean(trailingAction)}
+        isInputFocused={isInputFocused}
         onClick={focusInput}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
@@ -100,7 +126,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         >
           {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
-        <UnstyledTextInput ref={inputRef} disabled={disabled} {...inputProps} data-component="input" />
+        <UnstyledTextInput
+          ref={inputRef}
+          disabled={disabled}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          {...inputProps}
+          data-component="input"
+        />
         <TextInputInnerVisualSlot
           visualPosition="trailing"
           showLoadingIndicator={showTrailingLoadingIndicator}
@@ -108,6 +141,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         >
           {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
         </TextInputInnerVisualSlot>
+        {trailingAction}
       </TextInputWrapper>
     )
   }
@@ -121,4 +155,7 @@ TextInput.defaultProps = {
 TextInput.displayName = 'TextInput'
 
 export type TextInputProps = ComponentProps<typeof TextInput>
-export default TextInput
+
+export default Object.assign(TextInput, {
+  Action: TextInputAction
+})

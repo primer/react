@@ -180,7 +180,6 @@ const FormControl = ({children, disabled: disabledProp, id: idProp, required, sx
           <Box
             display="flex"
             flexDirection="column"
-            width="100%"
             sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}), ...sx}}
           >
             {React.Children.toArray(children).filter(
@@ -195,7 +194,8 @@ const FormControl = ({children, disabled: disabledProp, id: idProp, required, sx
                 required,
                 disabled,
                 validationStatus,
-                ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+                ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
+                ...InputComponent.props
               })}
             {validationChild && <ValidationAnimationContainer show>{slots.Validation}</ValidationAnimationContainer>}
             {slots.Caption}

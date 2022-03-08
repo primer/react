@@ -70,7 +70,8 @@ exports[`TextInput renders 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -100,6 +101,8 @@ exports[`TextInput renders 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -180,7 +183,8 @@ exports[`TextInput renders block 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -210,6 +214,8 @@ exports[`TextInput renders block 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -285,7 +291,8 @@ exports[`TextInput renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -314,6 +321,8 @@ exports[`TextInput renders consistently 1`] = `
   <input
     className="c1"
     data-component="input"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -389,7 +398,8 @@ exports[`TextInput renders contrast 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -419,6 +429,8 @@ exports[`TextInput renders contrast 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -494,7 +506,8 @@ exports[`TextInput renders error 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -524,6 +537,8 @@ exports[`TextInput renders error 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -604,7 +619,8 @@ exports[`TextInput renders large 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -635,6 +651,8 @@ exports[`TextInput renders large 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -710,7 +728,8 @@ exports[`TextInput renders leadingVisual 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -766,6 +785,8 @@ exports[`TextInput renders leadingVisual 1`] = `
     className="c1"
     data-component="input"
     name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
     placeholder="Search"
     type="text"
   />
@@ -842,7 +863,8 @@ exports[`TextInput renders placeholder 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -872,6 +894,8 @@ exports[`TextInput renders placeholder 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     placeholder="560076"
     type="text"
   />
@@ -955,7 +979,8 @@ exports[`TextInput renders small 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -986,8 +1011,417 @@ exports[`TextInput renders small 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
+</span>
+`;
+
+exports[`TextInput renders trailingAction icon button 1`] = `
+.c3 {
+  display: inline-block;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c2 {
+  border-radius: 6px;
+  border: 0;
+  border-color: rgba(27,31,36,0.15);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  color: #24292f;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c2:focus {
+  outline: none;
+}
+
+.c2:disabled {
+  cursor: default;
+  color: #8c959f;
+}
+
+.c2:disabled svg {
+  opacity: 0.6;
+}
+
+.c2 [data-component="ButtonCounter"] {
+  font-size: 14px;
+}
+
+.c2:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c2:focus:not([disabled]) {
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c2:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-action"
+  >
+    <button
+      aria-labelledby="react-aria7301725458-1"
+      className="c2"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        hidden={true}
+        id="react-aria7301725458-1"
+      >
+        iconLabel
+      </span>
+      <span
+        className="c3"
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-search"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={16}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 16 16"
+          width={16}
+        />
+      </span>
+    </button>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button 1`] = `
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c2 {
+  border-radius: 6px;
+  border: 0;
+  border-color: rgba(27,31,36,0.15);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 12px;
+  color: #24292f;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c2:focus {
+  outline: none;
+}
+
+.c2:disabled {
+  cursor: default;
+  color: #8c959f;
+}
+
+.c2:disabled svg {
+  opacity: 0.6;
+}
+
+.c2 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c2 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c2 [data-component="text"] {
+  grid-area: text;
+}
+
+.c2 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
+.c2 [data-component="ButtonCounter"] {
+  font-size: 12px;
+}
+
+.c2:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c2:focus:not([disabled]) {
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c2:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-action"
+  >
+    <button
+      className="c2"
+      onClick={[MockFunction]}
+      size="small"
+      type="button"
+    >
+      <span
+        data-component="text"
+      >
+        Clear
+      </span>
+    </button>
+  </span>
 </span>
 `;
 
@@ -1061,7 +1495,8 @@ exports[`TextInput renders trailingVisual 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1091,6 +1526,8 @@ exports[`TextInput renders trailingVisual 1`] = `
     className="c1"
     data-component="input"
     name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
     placeholder="Search"
     type="text"
   />
@@ -1193,7 +1630,8 @@ exports[`TextInput renders warning 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1223,6 +1661,8 @@ exports[`TextInput renders warning 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -1307,7 +1747,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1342,6 +1783,8 @@ Array [
     <input
       className="c1"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -1460,7 +1903,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1539,6 +1983,8 @@ Array [
     <input
       className="c3"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -1657,7 +2103,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1692,6 +2139,8 @@ Array [
     <input
       className="c1"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -1814,7 +2263,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1929,6 +2379,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2051,7 +2503,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2166,6 +2619,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2288,7 +2743,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2403,6 +2859,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2525,7 +2983,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2565,6 +3024,8 @@ Array [
     <input
       className="c1"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2718,7 +3179,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2802,6 +3264,8 @@ Array [
     <input
       className="c3"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2955,7 +3419,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2995,6 +3460,8 @@ Array [
     <input
       className="c1"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -3159,7 +3626,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3280,6 +3748,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -3437,7 +3907,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3557,6 +4028,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -3719,7 +4192,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3840,6 +4314,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -3985,7 +4461,8 @@ exports[`TextInput should render a password input 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4015,6 +4492,8 @@ exports[`TextInput should render a password input 1`] = `
     className="c1"
     data-component="input"
     name="password"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="password"
   />
 </span>
