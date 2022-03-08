@@ -99,7 +99,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}
   // Update state if props change
   React.useEffect(() => {
     setColorMode(props.colorMode ?? fallbackColorMode ?? defaultColorMode)
-  }, [props.colorMode, resolvedColorMode, fallbackColorMode])
+  }, [props.colorMode, fallbackColorMode])
+
+  React.useEffect(() => {
+    setColorMode(resolvedColorMode)
+  }, [resolvedColorMode])
 
   React.useEffect(() => {
     setDayScheme(props.dayScheme ?? fallbackDayScheme ?? defaultDayScheme)
