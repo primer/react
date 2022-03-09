@@ -8,6 +8,9 @@ import sx, {BetterSystemStyleObject, SxProp} from './sx'
 import VisuallyHidden from './_VisuallyHidden'
 import {useTheme} from './ThemeProvider'
 
+const TRANSITION_DURATION = '80ms'
+const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
+
 type SwitchProps = {
   /** The id of the DOM node that describes the switch */
   ['aria-describedby']?: string
@@ -47,24 +50,31 @@ type SwitchButtonProps = {
   disabled?: boolean
   on: boolean
   size?: SwitchProps['size']
+  isHighContrast: boolean
 } & SxProp
 
-const Circle = () => (
-  <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M8 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z"
-    />
+type InnerIconProps = {size?: SwitchProps['size']}
+
+const CircleIcon: React.FC<InnerIconProps> = ({size}) => (
+  <svg
+    width={size === 'small' ? '12' : '16'}
+    height={size === 'small' ? '12' : '16'}
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path fillRule="evenodd" d="M8 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z" />
   </svg>
 )
-const Line = () => (
-  <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M8 2a.75.75 0 0 1 .75.75v11.5a.75.75 0 0 1-1.5 0V2.75A.75.75 0 0 1 8 2Z"
-    />
+const LineIcon: React.FC<InnerIconProps> = ({size}) => (
+  <svg
+    width={size === 'small' ? '12' : '16'}
+    height={size === 'small' ? '12' : '16'}
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path fillRule="evenodd" d="M8 2a.75.75 0 0 1 .75.75v11.5a.75.75 0 0 1-1.5 0V2.75A.75.75 0 0 1 8 2Z" />
   </svg>
 )
 
@@ -77,20 +87,33 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   text-decoration: none;
   padding: 0;
   transition-property: ${props => (props.disabled ? 'none' : 'background-color, border-color')};
-  transition-delay: 50ms;
-  transition-duration: 150ms;
+  transition-duration: ${TRANSITION_DURATION};
+  transition-timing-function: ${EASE_OUT_QUAD_CURVE};
   background: ${props => {
-    if (props.disabled) {
+    if (props.disabled && props.on) {
       return get('colors.canvas.subtle')
     }
 
-    return props.on ? get('colors.accent.subtle') : get('colors.neutral.muted')
+    return props.on ? get('colors.accent.subtle') : get('colors.canvas.default')
   }};
   border-radius: 6px;
   display: block;
   height: 32px;
   width: 64px;
   position: relative;
+  outline-offset: 1px;
+
+  @media (pointer: coarse) {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      top: 50%;
+      min-height: 44px;
+    }
+  }
 
   &:after {
     content: '';
@@ -100,33 +123,74 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     left: 0;
     width: 100%;
     height: 100%;
-    border-style: solid;
-    border-width: 1px;
-    border-color: ${props => (props.on && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle'))};
-    opacity: ${props => {
-      if (props.disabled) {
-        return '0.5'
-      }
-      return props.on ? '0.2' : '1'
-    }};
     border-radius: 6px;
   }
 
   ${props => {
-    if (!props.disabled) {
+    if (!props.isHighContrast) {
       return css`
-        &:hover,
-        &:focus:focus-visible {
-          background-color: ${props.on ? get('colors.accent.muted') : get('colors.border.subtle')};
-        }
-
-        &:active {
-          :after {
-            background-color: ${props.on ? get('colors.accent.muted') : get('colors.border.subtle')};
-            opacity: 0.5;
-          }
+        &:after {
+          border-style: solid;
+          border-width: 1px;
+          border-color: ${props.on && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle')};
+          opacity: ${props.disabled ? '0.5' : props.on ? '0.2' : '1'};
         }
       `
+    } else {
+      return css`
+        border-style: solid;
+        border-color: ${props.on && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle')};
+        border-width: 1px;
+        outline-offset: 2px;
+
+        .Toggle-knob {
+          left: -1px;
+          top: -1px;
+          bottom: -1px;
+          transform: translateX(${props.on ? 'calc(100% + 1px)' : '0'});
+        }
+      `
+    }
+  }}
+
+  ${props => {
+    if (!props.disabled) {
+      if (props.on) {
+        return css`
+          &:hover,
+          &:focus:focus-visible {
+            :after {
+              background-color: ${get('colors.accent.muted')};
+              opacity: 0.2;
+            }
+          }
+
+          &:active,
+          &:active:focus-visible {
+            :after {
+              background-color: ${get('colors.accent.muted')};
+              opacity: 0.5;
+            }
+          }
+        `
+      } else {
+        return css`
+          &:hover,
+          &:focus:focus-visible {
+            .Toggle-knob {
+              background-color: ${get('colors.btn.hoverBg')};
+              border-color: ${get('colors.border.default')};
+            }
+          }
+
+          &:active,
+          &:active:focus-visible {
+            .Toggle-knob {
+              background-color: ${get('colors.btn.activeBg')};
+            }
+          }
+        `
+      }
     }
   }}
 
@@ -157,7 +221,7 @@ const Switch: React.FC<SwitchProps> = ({
   sx: sxProp
 }) => {
   const isControlled = typeof defaultOn === 'undefined' && typeof onProp !== 'undefined'
-  const {colorScheme} = useTheme()
+  const {theme, colorScheme} = useTheme()
   const [onState, setOnState] = useProvidedStateOrCreate<boolean>(onProp, onChange, Boolean(defaultOn))
   const acceptsInteraction = !disabled && !isLoading
   const handleToggleClick: MouseEventHandler = useCallback(
@@ -209,6 +273,7 @@ const Switch: React.FC<SwitchProps> = ({
         on={onState}
         size={size}
         disabled={!acceptsInteraction}
+        isHighContrast={Boolean(colorScheme?.includes('high_contrast'))}
       >
         <VisuallyHidden>{onState ? 'On' : 'Off'}</VisuallyHidden>
         <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
@@ -220,14 +285,14 @@ const Switch: React.FC<SwitchProps> = ({
             lineHeight="0"
             sx={{
               transform: `translateX(${onState ? '0' : '-100%'})`,
-              transitionProperty: acceptsInteraction ? 'transform' : 'none',
-              transitionDuration: '150ms',
+              transitionProperty: 'transform',
+              transitionDuration: TRANSITION_DURATION,
               '> svg': {
                 fill: 'currentcolor'
               }
             }}
           >
-            <Line />
+            <LineIcon size={size} />
           </Box>
           <Box
             flexGrow={1}
@@ -237,21 +302,21 @@ const Switch: React.FC<SwitchProps> = ({
             lineHeight="0"
             sx={{
               transform: `translateX(${onState ? '100%' : '0'})`,
-              transitionProperty: acceptsInteraction ? 'transform' : 'none',
-              transitionDuration: '150ms',
+              transitionProperty: 'transform',
+              transitionDuration: TRANSITION_DURATION,
               '> svg': {
                 fill: 'currentcolor'
               }
             }}
           >
-            <Circle />
+            <CircleIcon size={size} />
           </Box>
         </Box>
         <Box
           aria-hidden="true"
           borderWidth="1"
           borderStyle="solid"
-          backgroundColor={onState ? (acceptsInteraction ? 'accent.emphasis' : 'neutral.emphasis') : 'canvas.subtle'}
+          backgroundColor={onState ? (acceptsInteraction ? 'accent.emphasis' : 'neutral.emphasis') : 'btn.bg'}
           borderColor={
             onState
               ? acceptsInteraction
@@ -269,15 +334,15 @@ const Switch: React.FC<SwitchProps> = ({
           zIndex={1}
           boxShadow={
             acceptsInteraction
-              ? colorScheme === 'light'
-                ? 'rgba(0, 0, 0, 0.12) 0px 2px 1px -1px, rgba(0, 0, 0, 0.1) 0px 1px 4px 0px, rgb(0, 0, 0, 0.08) 0px 1px 3px 0px'
-                : 'rgba(0, 0, 0, 1) 0px 2px 1px -1px, rgba(0, 0, 0, 0.8) 0px 1px 8px 0px, rgb(0, 0, 0, 0.6) 0px 1px 6px 0px'
+              ? `${theme?.shadows.btn.shadow}, ${!onState && theme?.shadows.btn.insetShadow}`
               : undefined
           }
+          className="Toggle-knob"
           sx={{
-            transitionProperty: acceptsInteraction ? 'transform, background-color, border-color' : 'none',
-            transitionDuration: '150ms',
-            transform: `translateX(${onState ? 'calc(100% + 1px)' : '-1px'})`
+            transitionProperty: 'transform',
+            transitionDuration: TRANSITION_DURATION,
+            transitionTimingFunction: EASE_OUT_QUAD_CURVE,
+            transform: `translateX(${onState ? '100%' : '0'})`
           }}
         />
       </SwitchButton>
