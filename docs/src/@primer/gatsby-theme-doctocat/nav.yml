@@ -65,8 +65,10 @@
       url: /CircleOcticon
     - title: CounterLabel
       url: /CounterLabel
-    - title: Details & useDetails
+    - title: Details
       url: /Details
+    - title: Dialog
+      url: /Dialog
     - title: FilteredSearch
       url: /FilteredSearch
     - title: FilterList
@@ -143,23 +145,23 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
-- title: Drafts
-  children:
+# - title: Drafts
+#   children:
 - title: Deprecated
   children:
-    - title: ActionList
+    - title: ActionList (legacy)
       url: /deprecated/ActionList
-    - title: ActionMenu
+    - title: ActionMenu (legacy)
       url: /deprecated/ActionMenu
     - title: BorderBox
       url: /deprecated/BorderBox
-    - title: Buttons
+    - title: Buttons (legacy)
       url: /deprecated/Buttons
     - title: ChoiceFieldset
       url: /deprecated/ChoiceFieldset
     - title: ChoiceInputField
       url: /deprecated/ChoiceInputField
-    - title: Dialog
+    - title: Dialog (legacy)
       url: /deprecated/Dialog
     - title: Dropdown
       url: /deprecated/Dropdown
