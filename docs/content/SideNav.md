@@ -114,11 +114,11 @@ It can also appear nested, as a sub navigation. Use margin/padding [System Props
 ```jsx live
 <SideNav bordered maxWidth={360}>
   <SideNav.Link href="#url">
-    <StyledOcticon mr={2} size={16} icon={PersonIcon} />
+    <StyledOcticon size={16} icon={PersonIcon} />
     <Text>Account</Text>
   </SideNav.Link>
   <SideNav.Link href="#url" selected>
-    <StyledOcticon mr={2} size={16} icon={OctofaceIcon} />
+    <StyledOcticon mr={2} size={16} icon={SmileyIcon} />
     <Text>Profile</Text>
   </SideNav.Link>
 

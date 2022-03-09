@@ -1,31 +1,33 @@
-import {cleanup, render as HTMLRender, act, fireEvent} from '@testing-library/react'
+import {cleanup, render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu} from '../ActionMenu'
-import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, SSRProvider, ThemeProvider} from '..'
-import {ItemProps} from '../ActionList/Item'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {SingleSelection, MixedSelection} from '../stories/ActionMenu/examples.stories'
+import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
-const items = [
-  {text: 'New file'},
-  {text: 'Copy link'},
-  {text: 'Edit file'},
-  {text: 'Delete file', variant: 'danger'}
-] as ItemProps[]
-
-const mockOnActivate = jest.fn()
-
-function SimpleActionMenu(): JSX.Element {
+function Example(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <SSRProvider>
         <BaseStyles>
-          <div id="something-else">X</div>
-          <ActionMenu onAction={mockOnActivate} anchorContent="Menu" items={items} />
-          <div id="portal-root"></div>
+          <ActionMenu>
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item>Copy link</ActionList.Item>
+                <ActionList.Item>Edit file</ActionList.Item>
+                <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
+                  Delete file
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
         </BaseStyles>
       </SSRProvider>
     </ThemeProvider>
@@ -33,18 +35,10 @@ function SimpleActionMenu(): JSX.Element {
 }
 
 describe('ActionMenu', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   behavesAsComponent({
-    Component: ActionMenu,
+    Component: ActionList,
     options: {skipAs: true, skipSx: true},
-    toRender: () => (
-      <SSRProvider>
-        <ActionMenu items={[]} />
-      </SSRProvider>
-    )
+    toRender: () => <Example />
   })
 
   checkExports('ActionMenu', {
@@ -52,85 +46,103 @@ describe('ActionMenu', () => {
     ActionMenu
   })
 
+  it('should open Menu on MenuButton click', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByText('Toggle Menu')
+    fireEvent.click(button)
+    expect(component.getByRole('menu')).toBeInTheDocument()
+    cleanup()
+  })
+
+  it('should open Menu on MenuButton keypress', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByText('Toggle Menu')
+
+    // We pass keycode here to navigate a implementation detail in react-testing-library
+    // https://github.com/testing-library/react-testing-library/issues/269#issuecomment-455854112
+    fireEvent.keyDown(button, {key: 'Enter', charCode: 13})
+    expect(component.getByRole('menu')).toBeInTheDocument()
+    cleanup()
+  })
+
+  it('should close Menu on selecting an action with click', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByText('Toggle Menu')
+
+    fireEvent.click(button)
+    const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
+    fireEvent.click(menuItems[0])
+    expect(component.queryByRole('menu')).toBeNull()
+
+    cleanup()
+  })
+
+  it('should close Menu on selecting an action with Enter', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByText('Toggle Menu')
+
+    fireEvent.click(button)
+    const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
+    fireEvent.keyPress(menuItems[0], {key: 'Enter', charCode: 13})
+    expect(component.queryByRole('menu')).toBeNull()
+
+    cleanup()
+  })
+
+  it('should not close Menu if event is prevented', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByText('Toggle Menu')
+
+    fireEvent.click(button)
+    const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
+    fireEvent.click(menuItems[3])
+    // menu should still be open
+    expect(component.getByRole('menu')).toBeInTheDocument()
+
+    cleanup()
+  })
+
+  it('should be able to select an Item with selectionVariant', async () => {
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <SingleSelection />
+      </ThemeProvider>
+    )
+    const button = component.getByLabelText('Select field type')
+    fireEvent.click(button)
+
+    // select first item by role, that would close the menu
+    fireEvent.click(component.getAllByRole('menuitemradio')[0])
+    expect(component.queryByRole('menu')).not.toBeInTheDocument()
+
+    // open menu again and check if the first option is checked
+    fireEvent.click(button)
+    expect(component.getAllByRole('menuitemradio')[0]).toHaveAttribute('aria-checked', 'true')
+    cleanup()
+  })
+
+  it('should assign the right roles with groups & mixed selectionVariant', async () => {
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <MixedSelection />
+      </ThemeProvider>
+    )
+    const button = component.getByLabelText('Select field type to group by')
+    fireEvent.click(button)
+
+    expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
+    expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
+
+    cleanup()
+  })
+
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<SimpleActionMenu />)
+    const {container} = HTMLRender(<Example />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
   })
 
-  it('should trigger the overlay on trigger click', async () => {
-    const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
-    expect(portalRoot).toBeNull()
-    const anchor = await menu.findByText('Menu')
-    act(() => {
-      fireEvent.click(anchor)
-    })
-    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
-    expect(portalRoot).toBeTruthy()
-    const itemText = items
-      .map((i: ItemProps) => {
-        if (i.hasOwnProperty('text')) {
-          return i.text
-        }
-      })
-      .join('')
-    expect(portalRoot?.textContent?.trim()).toEqual(itemText)
-  })
-
-  it('should dismiss the overlay on menuitem click', async () => {
-    const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
-    expect(portalRoot).toBeNull()
-    const anchor = await menu.findByText('Menu')
-    act(() => {
-      fireEvent.click(anchor)
-    })
-    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
-    expect(portalRoot).toBeTruthy()
-    const menuItem = await menu.queryByText(items[0].text!)
-    act(() => {
-      fireEvent.click(menuItem as Element)
-    })
-    expect(portalRoot?.textContent).toEqual('') // menu items are hidden
-  })
-
-  it('should dismiss the overlay on clicking outside overlay', async () => {
-    const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
-    expect(portalRoot).toBeNull()
-    const anchor = await menu.findByText('Menu')
-    act(() => {
-      fireEvent.click(anchor)
-    })
-    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
-    expect(portalRoot).toBeTruthy()
-    const somethingElse = (await menu.baseElement.querySelector('#something-else')) as HTMLElement
-    act(() => {
-      fireEvent.mouseDown(somethingElse)
-    })
-    expect(portalRoot?.textContent).toEqual('') // menu items are hidden
-  })
-
-  it('should pass correct values to onAction on menu click', async () => {
-    const menu = HTMLRender(<SimpleActionMenu />)
-    let portalRoot = await menu.baseElement.querySelector('#__primerPortalRoot__')
-    expect(portalRoot).toBeNull()
-    const anchor = await menu.findByText('Menu')
-    act(() => {
-      fireEvent.click(anchor)
-    })
-    portalRoot = menu.baseElement.querySelector('#__primerPortalRoot__')
-    expect(portalRoot).toBeTruthy()
-    const menuItem = (await portalRoot?.querySelector("[role='menuitem']")) as HTMLElement
-    act(() => {
-      fireEvent.click(menuItem)
-    })
-
-    // onAction has been called with correct argument
-    expect(mockOnActivate).toHaveBeenCalledTimes(1)
-    const arg = mockOnActivate.mock.calls[0][0]
-    expect(arg.text).toEqual(items[0].text)
-  })
+  checkStoriesForAxeViolations('ActionMenu/fixtures')
+  checkStoriesForAxeViolations('ActionMenu/examples')
 })

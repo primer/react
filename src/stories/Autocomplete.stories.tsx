@@ -5,7 +5,7 @@ import {BaseStyles, Box, Text, TextInput, ThemeProvider} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import {ButtonInvisible} from '../Button'
+import {ButtonInvisible} from '../deprecated/Button'
 
 type ItemMetadata = {
   fillColor: React.CSSProperties['backgroundColor']

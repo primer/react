@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid} from '..'
+import {Grid} from '../deprecated'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('Grid', () => {
   behavesAsComponent({Component: Grid})
 
-  checkExports('Grid', {
+  checkExports('deprecated/Grid', {
     default: Grid
   })
 

@@ -1,9 +1,9 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
-
-import {BaseStyles, Button, Box, ThemeProvider, useTheme} from '..'
+import {BaseStyles, Box, ThemeProvider, useTheme} from '..'
+import {Button} from '../deprecated'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
-import {ActionMenu} from '../ActionMenu'
+import {ActionMenu} from '../deprecated/ActionMenu'
 
 export default {
   title: 'Internal components/ConfirmationDialog',

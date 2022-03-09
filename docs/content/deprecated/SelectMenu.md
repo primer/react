@@ -3,13 +3,19 @@ title: SelectMenu
 status: Deprecated
 ---
 
+## Deprecation
+
+Use [ActionMenu](/ActionMenu) instead.
+
+---
+
 The `SelectMenu` components are a suite of components which can be combined together to make several different variations of our GitHub select menu. At it's most basic form, a select menu is comprised of a `SelectMenu` wrapper, which contains a `summary` component of your choice and a `Select.Modal` which contains the select menu content. Use `SelectMenu.List` to wrap items in the select menu, and `SelectMenu.Item` to wrap each item.
 
 Several additional components exist to provide even more functionality: `SelectMenu.Header`, `SelectMenu.Filter`, `SelectMenu.Tabs`, `SelectMenu.TabPanel` `SelectMenu.Footer` and `SelectMenu.Divider`.
 
 ## Basic Example
 
-```jsx live
+```jsx deprecated live
 <SelectMenu>
   <Button as="summary">Projects</Button>
   <SelectMenu.Modal>
@@ -28,7 +34,7 @@ Several additional components exist to provide even more functionality: `SelectM
 
 Main wrapper component for select menu.
 
-```jsx
+```jsx deprecated
 <SelectMenu>{/* all other sub components are wrapped here*/}</SelectMenu>
 ```
 
@@ -56,7 +62,7 @@ SelectMenu.MenuContext is a [context object](https://reactjs.org/docs/context.ht
 
 ### Example Usage
 
-```jsx
+```jsx deprecated
 import {SelectMenu, Button} from `@primer/react`
 import React, {useContext} from 'react'
 
@@ -83,7 +89,7 @@ const MyButton = () => {
 
 Used to wrap the content in a `SelectMenu`.
 
-```jsx
+```jsx deprecated
 <SelectMenu.Modal>{/* all menu content is wrapped in the modal*/}</SelectMenu.Modal>
 ```
 
@@ -91,7 +97,7 @@ Used to wrap the content in a `SelectMenu`.
 
 Use the `align='right'` prop to align the modal to the right. Note that this only modifies alignment for the modal, and not the SelectMenu itself. You will need to wrap the SelectMenu in a relatively positioned element for this to work properly.
 
-```jsx live
+```jsx deprecated live
 <Box position="relative" display="flex" justifyContent="flex-end">
   <SelectMenu>
     <Button as="summary">Projects</Button>
@@ -120,7 +126,7 @@ Use the `align='right'` prop to align the modal to the right. Note that this onl
 
 Used to wrap the select menu list content. All menu items **must** be wrapped in a SelectMenu.List in order for the accessibility keyboard handling to function properly. If you are using the `SelectMenu.TabPanel` you do not need to provide a `SelectMenu.List` as that component renders a `SelectMenu.List` as a wrapper.
 
-```jsx
+```jsx deprecated
 <SelectMenu.List>{/* all menu  list items are wrapped in the list*/}</SelectMenu.List>
 ```
 
@@ -136,7 +142,7 @@ Individual items in a select menu. SelectMenu.Item renders an anchor tag by defa
 
 You can use a `button` tag instead by utilizing the [`as` prop](/core-concepts#the-as-prop). Be sure to consider [which HTML element is the right choice](https://marcysutton.com/links-vs-buttons-in-modern-web-applications) for your usage of the component.
 
-```jsx
+```jsx deprecated
 <SelectMenu.Item href="/link/to/thing" selected={true}>
   {/* wraps an individual list item*/}
 </SelectMenu.Item>
@@ -154,7 +160,7 @@ You can use a `button` tag instead by utilizing the [`as` prop](/core-concepts#t
 
 Use a `SelectMenu.Filter` to add a filter UI to your select menu. Users are expected to implement their own filtering and manage the state of the `value` prop on the input. This gives users more flexibility over the type of filtering and type of content passed into each select menu item.
 
-```jsx live
+```jsx deprecated live
 <SelectMenu>
   <Button as="summary">Projects</Button>
   <SelectMenu.Modal>
@@ -192,7 +198,7 @@ Each `Select.Menu` tab will need to have an `index` prop. The first tab should b
 
 If you need access to the selected tab state, you can find it in the MenuContext object exported from `SelectMenu` as `MenuContext.selectedTab`.
 
-```jsx live
+```jsx deprecated live
 <SelectMenu>
   <Button as="summary">Projects</Button>
   <SelectMenu.Modal>
@@ -227,7 +233,7 @@ Used for each individual tab inside of a `SelectMenu.Tabs`. Be sure to set the `
 
 The `onClick` prop is optional and can be used for any events or data fetching you might need to trigger on tab clicks.
 
-```jsx
+```jsx deprecated
 <>
   <SelectMenu.Tab index={0} tabName="Repository" />
   <SelectMenu.Tab index={1} tabName="Organization" />
@@ -249,7 +255,7 @@ Wraps the content for each tab. Make sure to use the `tabName` prop to identify 
 
 **Note**: SelectMenu.TabPanel wraps content in a SelectMenu.List, so adding a SelectMenu.List manually is not necessary.
 
-```jsx
+```jsx deprecated
 <SelectMenu.TabPanel tabName="Repository">{/* Wraps content for each tab */}</SelectMenu.TabPanel>
 ```
 
@@ -264,7 +270,7 @@ Wraps the content for each tab. Make sure to use the `tabName` prop to identify 
 
 Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.List`.
 
-```jsx live
+```jsx deprecated live
 <SelectMenu>
   <Button as="summary">Projects</Button>
   <SelectMenu.Modal>
@@ -290,7 +296,7 @@ Use a `SelectMenu.Divider` to add information between items in a `SelectMenu.Lis
 
 Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
 
-```jsx live
+```jsx deprecated live
 <SelectMenu>
   <Button as="summary">Projects</Button>
   <SelectMenu.Modal>
@@ -316,7 +322,7 @@ Use a `SelectMenu.Footer` to add content to the bottom of the select menu.
 
 Use a `SelectMenu.Header` to add a header to the top of the select menu content.
 
-```jsx live
+```jsx deprecated live
 <SelectMenu>
   <Button as="summary">Projects</Button>
   <SelectMenu.Modal>
@@ -344,7 +350,7 @@ Use a `SelectMenu.LoadingAnimation` to add a loading animation inside of the Sel
 
 **Note**: You will need to handle showing/hiding the appropriate modal content for your application during the loading state. We recommend always showing the `SelectMenu.Filter` and `SelectMenu.Header` (if used) and hiding the rest of the modal content during the loading state.
 
-```jsx live
+```jsx deprecated live
 <SelectMenu>
   <Button as="summary">Projects</Button>
   <SelectMenu.Modal>

@@ -35,6 +35,10 @@
     #   url: /useOverlay
 - title: Components
   children:
+    - title: ActionList
+      url: /ActionList
+    - title: ActionMenu
+      url: /ActionMenu
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar
@@ -49,8 +53,8 @@
       url: /BranchName
     - title: Breadcrumbs
       url: /Breadcrumbs
-    - title: Buttons
-      url: /Buttons
+    - title: Button
+      url: /Button
     - title: Checkbox
       url: /Checkbox
     - title: CheckboxGroup
@@ -75,16 +79,22 @@
       url: /Header
     - title: Heading
       url: /Heading
+    - title: IconButton
+      url: /IconButton
     - title: Label
       url: /Label
     - title: LabelGroup
       url: /LabelGroup
     - title: Link
       url: /Link
+    - title: LinkButton
+      url: /LinkButton
     - title: Overlay
       url: /Overlay
     - title: Pagehead
       url: /Pagehead
+    - title: PageLayout
+      url: /PageLayout
     - title: Pagination
       url: /Pagination
     - title: PointerBox
@@ -135,31 +145,37 @@
       url: /UnderlineNav
 - title: Drafts
   children:
-    - title: Button v2
-      url: /drafts/Button2
-    - title: LinkButton
-      url: /drafts/LinkButton
-    - title: IconButton
-      url: /drafts/IconButton
-    - title: ActionList v2
-      url: /drafts/ActionList2
-    - title: ActionMenu v2
-      url: /drafts/ActionMenu2
 - title: Deprecated
   children:
+    - title: ActionList
+      url: /deprecated/ActionList
+    - title: ActionMenu
+      url: /deprecated/ActionMenu
     - title: BorderBox
       url: /deprecated/BorderBox
-    - title: Flex
-      url: /deprecated/Flex
-    - title: Grid
-      url: /deprecated/Grid
-    - title: Position
-      url: /deprecated/Position
+    - title: Buttons
+      url: /deprecated/Buttons
+    - title: ChoiceFieldset
+      url: /deprecated/ChoiceFieldset
+    - title: ChoiceInputField
+      url: /deprecated/ChoiceInputField
     - title: Dialog
       url: /deprecated/Dialog
     - title: Dropdown
       url: /deprecated/Dropdown
+    - title: DropdownMenu
+      url: /deprecated/DropdownMenu
+    - title: Flex
+      url: /deprecated/Flex
     - title: FormGroup
-      url: /FormGroup
+      url: /deprecated/FormGroup
+    - title: Grid
+      url: /deprecated/Grid
+    - title: InputField
+      url: /deprecated/InputField
+    - title: Label
+      url: /deprecated/Label
+    - title: Position
+      url: /deprecated/Position
     - title: SelectMenu
       url: /deprecated/SelectMenu

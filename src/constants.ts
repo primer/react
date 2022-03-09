@@ -42,21 +42,3 @@ export interface SystemBorderProps extends styledSystem.BorderProps, styledSyste
 export const LAYOUT = styledSystem.layout
 
 export type SystemLayoutProps = styledSystem.LayoutProps
-
-// Position props
-
-export const POSITION = styledSystem.position
-
-export type SystemPositionProps = styledSystem.PositionProps
-
-// Flex props
-
-export const FLEX = styledSystem.flexbox
-
-export type SystemFlexProps = styledSystem.FlexboxProps
-
-// Grid props
-
-export const GRID = styledSystem.grid
-
-export type SystemGridProps = styledSystem.GridProps

@@ -374,7 +374,11 @@ const InOverlayWithCustomScrollContainerRef = () => {
       height="xsmall"
       focusTrapSettings={{initialFocusRef: inputRef}}
       side="inside-top"
-      renderAnchor={props => <ButtonInvisible {...props}>Pick branches</ButtonInvisible>}
+      renderAnchor={props => (
+        <Button variant="invisible" {...props}>
+          Pick branches
+        </Button>
+      )}
     >
       <FormControl>
         <FormControl.Label visuallyHidden>Pick branches</FormControl.Label>
