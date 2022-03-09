@@ -159,7 +159,7 @@ See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMen
 
 ### Grid
 
-⚠️ `Grid` has been deprecated. Please use `ActionMenu` instead.
+⚠️ `Grid` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
 
 <table>
 <tr>
