@@ -18,52 +18,40 @@ We now support a variant property which takes values `primary`, `invisible`, `ou
 </tr>
 <tr>
 <td valign="top">
-    
+
 ```jsx
+import {ButtonPrimary, ButtonInvisible, ButtonOutline, ButtonDanger} from '@primer/react'
 
-import { ButtonPrimary, ButtonInvisible,
-ButtonOutline, ButtonDanger }
-from '@primer/react'
-
-<>
-  <ButtonPrimary> 
-    Primary Button 
-  </ButtonPrimary>
-  <ButtonInvisible>
-    Invisible Button 
-  </ButtonInvisible>
-  <ButtonOutline>
-    Outline Button
-  </ButtonOutline>
-  <ButtonDanger>
-    Danger Button
-  </ButtonDanger>
-</>
+function Example() {
+  return (
+    <>
+      <ButtonPrimary>Primary Button</ButtonPrimary>
+      <ButtonInvisible>Invisible Button</ButtonInvisible>
+      <ButtonOutline>Outline Button</ButtonOutline>
+      <ButtonDanger>Danger Button</ButtonDanger>
+    </>
+  )
+}
 ```
-    
+
  </td>
 <td valign="top">
-    
+
 ```jsx
+import {Button} from '@primer/react'
 
-import { Button } from '@primer/react'
-
-<>
-  <Button variant="primary">
-    Primary Button
-  </Button>
-  <Button variant="invisible">
-    Invisible Button
-  </Button>
-  <Button variant="outline">
-    Outline Button
-  </Button>
-  <Button variant="danger">
-    Danger Button
-  </Button>
-</>
+function Example() {
+  return (
+    <>
+      <Button variant="primary">Primary Button</Button>
+      <Button variant="invisible">Invisible Button</Button>
+      <Button variant="outline">Outline Button</Button>
+      <Button variant="danger">Danger Button</Button>
+    </>
+  )
+}
 ```
-    
+
 </td>
 </tr>
 </table>
