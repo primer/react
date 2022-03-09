@@ -1,5 +1,4 @@
 ---
-componentId: border_box
 title: BorderBox
 status: Deprecated
 ---

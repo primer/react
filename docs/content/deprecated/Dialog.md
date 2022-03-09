@@ -1,5 +1,5 @@
 ---
-title: Dialog
+title: Dialog (legacy)
 status: Deprecated
 ---
 
