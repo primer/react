@@ -1,5 +1,1081 @@
 # @primer/components
 
+## 35.0.0
+
+### Major Changes
+
+- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - `ActionList2` exported types are now prefixed with `ActionList`:
+
+  ```
+  ListProps → ActionListProps
+  GroupProps → ActionListGroupProps
+  ItemProps → ActionListItemProps
+  DescriptionProps → ActionListDescriptionProps
+  LeadingVisualProps → ActionListLeadingVisualProps,
+  TrailingVisualProps → ActionListTrailingVisualProps
+  ```
+
+  `ActionMenu2` exported types are now prefixed with `ActionMenu`:
+
+  ```
+  MenuButtonProps → ActionMenuButtonProps
+  MenuAnchorProps → ActionMenuAnchorProps
+  ```
+
+* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### ActionList
+
+  ActionList has been rewritten with a composable API, design updates and accessibility fixes.
+
+  See full list of props and examples: https://primer.style/react/ActionList
+
+  <table>
+  <tr>
+  <th> Before (v34)</th> <th> After (v35)</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <ActionList
+    items={[
+      {text: 'New file'},
+      {text: 'Copy link'},
+      {text: 'Edit file'},
+      ActionList.Divider,
+      {text: 'Delete file', variant: 'danger'}
+    ]}
+  />
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <ActionList>
+    <ActionList.Item>New file</ActionList.Item>
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Edit file</ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+  ```
+
+  </td>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <ActionList
+    showItemDividers
+    items={[
+      {
+        key: '0',
+        leadingVisual: LinkIcon,
+        text: 'github/primer'
+      },
+      {
+        key: '1',
+        leadingVisual: () => <Avatar src="https://github.com/mona.png" />,
+        text: 'mona',
+        description: 'Monalisa Octocat',
+        descriptionVariant: 'block'
+      },
+      {
+        key: '2',
+        leadingVisual: GearIcon,
+        text: 'View Settings',
+        trailingVisual: ArrowRightIcon
+      }
+    ]}
+  />
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <ActionList showDividers>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <LinkIcon />
+      </ActionList.LeadingVisual>
+      github/primer
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <Avatar src="https://github.com/mona.png" />
+      </ActionList.LeadingVisual>
+      mona
+      <ActionList.Description variant="block">Monalisa Octocat</ActionList.Description>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <GearIcon />
+      </ActionList.LeadingVisual>
+      View settings
+      <ActionList.TrailingVisual>
+        <ArrowRightIcon />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+  ```
+
+  </td>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <ActionList
+    groupMetadata={[
+      {groupId: '0', header: {title: 'Live query'}},
+      {groupId: '1', header: {title: 'Layout'}}
+    ]}
+    items={[
+      {key: '0', text: 'repo:github/github', groupId: '0'},
+      {key: '1', text: 'Table', groupId: '1'},
+      {key: '2', text: 'Board', groupId: '1'},
+      {key: '3', text: 'View settings'}
+    ]}
+  />
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <ActionList>
+    <ActionList.Group title="Live query">
+      <ActionList.Item>repo:github/github</ActionList.Item>
+    </ActionList.Group>
+    <ActionList.Divider />
+
+    <ActionList.Group title="Layout">
+      <ActionList.Item>Table</ActionList.Item>
+      <ActionList.Item>Board Description</ActionList.Item>
+    </ActionList.Group>
+    <ActionList.Divider />
+
+    <ActionList.Item>View settings</ActionList.Item>
+  </ActionList>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
+
+  ```js
+  import {ActionList} from '@primer/react/deprecated'
+  ```
+
+  You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
+
+- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### ActionMenu
+
+  ActionMenu has been rewritten with a composable API, design updates and accessibility fixes.
+
+  See full list of props and examples: https://primer.style/react/ActionMenu
+
+  Main changes:
+
+  1. Instead of using `items` prop, use `ActionList` inside `ActionMenu`
+  2. Instead of using `anchorContent` on `ActionMenu`, use `ActionMenu.Button` with `children`
+  3. Instead of using `onAction` prop on `ActionMenu`, use `onSelect` prop on `ActionList.Item`
+  4. Instead of using `groupMetadata` on `ActionMenu`, use `ActionList.Group`
+  5. Instead of `overlayProps` on `ActionMenu`, use `ActionMenu.Overlay`
+
+  <table>
+  <tr>
+  <th> Before (v34)</th> <th> After (v35)</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <ActionMenu
+    anchorContent="Menu"
+    onAction={fn}
+    items={[
+      {text: 'New file'},
+      {text: 'Copy link'},
+      {text: 'Edit file'},
+      ActionMenu.Divider,
+      {text: 'Delete file', variant: 'danger'}
+    ]}
+    overlayProps={{width: 'small'}}
+  />
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <ActionMenu>
+    <ActionMenu.Button>Menu</ActionMenu.Button>
+    <ActionMenu.Overlay width="small">
+      <ActionList>
+        <ActionList.Item onSelect={fn}>New file</ActionList.Item>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item>Edit file</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item variant="danger">Delete file</ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
+
+  ```js
+  import {ActionMenu} from '@primer/react/deprecated'
+  ```
+
+  You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
+
+* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### DropdownMenu
+
+  DropdownMenu has been deprecated in favor of ActionMenu with ActionList
+
+  See example with selection: https://primer.style/react/ActionMenu#with-selection
+
+  Migration guide:
+
+  1. Instead of using `items` prop, use `ActionList` inside `ActionMenu`
+  2. Use `selectionVariant="single"` on `ActionList` to set the right semantics for selection
+  3. Instead of using `selectedItem` prop, use `selected` prop on `ActionList.Item`
+  4. Instead of using `renderAnchor` and `placeholder` props on `DropdownMenu`, use `ActionMenu.Button` or `ActionMenu.Anchor`
+  5. Instead of using `onChange` prop on `DropdownMenu`, use `onSelect` prop on `ActionList.Item`
+  6. Instead of using `groupMetadata` on `DropdownMenu`, use `ActionList.Group`
+  7. Instead of `overlayProps` on `DropdownMenu`, use `ActionMenu.Overlay`
+
+  <table>
+  <tr>
+  <th> Before (v34)</th> <th> After (v35)</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```js
+  const fieldTypes = [
+    {key: 0, text: 'Text'},
+    {key: 1, text: 'Number'},
+    {key: 3, text: 'Date'},
+    {key: 4, text: 'Single select'},
+    {key: 5, text: 'Iteration'}
+  ]
+
+  const Example = () => {
+    const [selectedType, setSelectedType] = React.useState()
+
+    return (
+      <DropdownMenu
+        renderAnchor={({children, ...anchorProps}) => (
+          <ButtonInvisible {...anchorProps}>
+            {children} <GearIcon />
+          </ButtonInvisible>
+        )}
+        placeholder="Field type"
+        items={fieldTypes}
+        selectedItem={selectedType}
+        onChange={setSelectedType}
+        overlayProps={{width: 'medium'}}
+      />
+    )
+  }
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  const fieldTypes = [
+    {id: 0, text: 'Text'},
+    {id: 1, text: 'Number'},
+    {id: 3, text: 'Date'},
+    {id: 4, text: 'Single select'},
+    {id: 5, text: 'Iteration'}
+  ]
+
+  const Example = () => {
+    const [selectedType, setSelectedType] = React.useState()
+
+    render(
+      <ActionMenu>
+        <ActionMenu.Button aria-label="Select field type">{selectedType.name || 'Field type'}</ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="single">
+            {fieldTypes.map(type => (
+              <ActionList.Item
+                key={type.id}
+                selected={type.id === selectedType.id}
+                onSelect={() => setSelectedType(type)}
+              >
+                {type.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    )
+  }
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
+
+  ```js
+  import {DropdownMenu} from '@primer/react/deprecated'
+  ```
+
+  You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
+
+  ### drafts/DropdownMenu2
+
+  DropdownMenu2 has been removed in favor of ActionMenu with ActionList
+
+- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### Label
+
+  The Label component's API and visual design have been updated to be consistent with its counterpart in [Primer ViewComponents' Label component](https://primer.style/view-components/components/label).
+
+  Major changes in the new Label component:
+
+  - No more `medium` size - only `small` and `large`
+  - Labels are outlined by default, so the `outline` prop has been removed
+  - Custom text and background colors are discouraged, but still possible via the `sx` prop
+
+  If you were using the `Label` component to render issue/PR labels, use the [IssueLabelToken](https://primer.style/react/Token#issuelabeltoken) component instead.
+
+  <table>
+  <tr>
+  <th> Before (v34) </th> <th> After (v35) </th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  import {Label} from '@primer/react'
+
+  function Example() {
+    return (
+      <>
+        <Label outline>default</Label>
+        <Label variant="small" outline sx={{borderColor: 'danger.emphasis', color: 'danger.fg'}}>
+          danger
+        </Label>
+      </>
+    )
+  }
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  import {Label} from '@primer/react'
+
+  function Example() {
+    return (
+      <>
+        <Label>default</Label>
+        <Label size="small" variant="danger">
+          danger
+        </Label>
+      </>
+    )
+  }
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
+
+  ```js
+  import {Label} from '@primer/react/deprecated'
+  ```
+
+  You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
+
+* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### Button
+
+  Before `v35`, `Button` was a set of seven independent components. In `v35`, we've simplified the `Button` API.
+
+  #### Button variants
+
+  We now support a variant property which takes values `primary`, `invisible`, `outline` and `danger`
+
+  <table>
+  <tr>
+  <th> Before (v34)</th> <th> After (v35)</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  import {ButtonPrimary, ButtonInvisible, ButtonOutline, ButtonDanger} from '@primer/react'
+
+  function Example() {
+    return (
+      <>
+        <ButtonPrimary>Primary Button</ButtonPrimary>
+        <ButtonInvisible>Invisible Button</ButtonInvisible>
+        <ButtonOutline>Outline Button</ButtonOutline>
+        <ButtonDanger>Danger Button</ButtonDanger>
+      </>
+    )
+  }
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  import {Button} from '@primer/react'
+
+  function Example() {
+    return (
+      <>
+        <Button variant="primary">Primary Button</Button>
+        <Button variant="invisible">Invisible Button</Button>
+        <Button variant="outline">Outline Button</Button>
+        <Button variant="danger">Danger Button</Button>
+      </>
+    )
+  }
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  #### Leading and trailing icons
+
+  Previously including icons inside buttons required a lot of custom styling. In the new `Button` component, we now support first-class `leadingIcon` and `trailingIcon` props:
+
+  <table>
+  <tr>
+  <th> Before (v34)</th> <th> After (v35)</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <Button>
+    <SearchIcon />
+    Search
+  </Button>
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <Button leadingIcon={SearchIcon}>Search</Button>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  #### Icon buttons
+
+  Icon-only buttons are common in many applications. We now have a component designed for this use-case:
+
+  <table>
+  <tr>
+  <th> Before (v34)</th> <th> After (v35)</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <Button>
+    <XIcon />
+  </Button>
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <IconButton aria-label="Close button" icon={XIcon} />
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  #### Size property
+
+  Previously, we used a `variant` prop to set the size of buttons. We now have a prop called `size` which is more semantically correct.
+
+  <table>
+  <tr>
+  <th> Before (v34)</th> <th> After (v35)</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <Button variant="small">Small button</Button>
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <Button size="small">Small button</Button>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### ChoiceFieldset
+
+  The `CheckboxGroup` and `RadioGroup` components are replacing the `ChoiceFieldset` component.
+
+  `CheckboxGroup` and `RadioGroup` have the ability to render contextual content with your fieldset: labels, validation statuses, captions. They also handle the ARIA attributes that make the form controls accessible to assistive technology.
+
+  <table>
+  <tr>
+  <th> Before (v34)</th> <th> After (v35)</th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  import {ChoiceFieldset} from '@primer/react'
+
+  function Example() {
+    return (
+      <>
+        {/* Multi-select */}
+        <ChoiceFieldset>
+          <ChoiceFieldset.Legend>Preferred Primer component interface</ChoiceFieldset.Legend>
+          <ChoiceFieldset.List selectionVariant="multiple">
+            <ChoiceFieldset.Item value="figma">Figma library</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="css">Primer CSS</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="react">Primer React components</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="viewcomponents">Primer ViewComponents</ChoiceFieldset.Item>
+          </ChoiceFieldset.List>
+        </ChoiceFieldset>
+
+        {/* Single select */}
+        <ChoiceFieldset>
+          <ChoiceFieldset.Legend>Preferred Primer component interface</ChoiceFieldset.Legend>
+          <ChoiceFieldset.List>
+            <ChoiceFieldset.Item value="figma">Figma library</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="css">Primer CSS</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="react">Primer React components</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="viewcomponents">Primer ViewComponents</ChoiceFieldset.Item>
+          </ChoiceFieldset.List>
+        </ChoiceFieldset>
+      </>
+    )
+  }
+  ```
+
+  </td>
+  <td valign="top">
+
+  ```jsx
+  import {CheckboxGroup, RadioGroup, FormControl, Checkbox, Radio} from '@primer/react'
+
+  function Example() {
+    return (
+      <>
+        {/* Multi-select */}
+        <CheckboxGroup>
+          <CheckboxGroup.Label>Preferred Primer component interface</CheckboxGroup.Label>
+          <FormControl>
+            <Checkbox value="figma" />
+            <FormControl.Label>Figma</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Checkbox value="css" />
+            <FormControl.Label>CSS</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Checkbox value="react" />
+            <FormControl.Label>Primer React components</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Checkbox value="viewcomponents" />
+            <FormControl.Label>Primer ViewComponents</FormControl.Label>
+          </FormControl>
+        </CheckboxGroup>
+
+        {/* Single select */}
+        <RadioGroup name="preferred-primer">
+          <RadioGroup.Label>Preferred Primer component interface</RadioGroup.Label>
+          <FormControl>
+            <Radio value="figma" />
+            <FormControl.Label>Figma</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Radio value="css" />
+            <FormControl.Label>CSS</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Radio value="react" />
+            <FormControl.Label>Primer React components</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Radio value="viewcomponents" />
+            <FormControl.Label>Primer ViewComponents</FormControl.Label>
+          </FormControl>
+        </RadioGroup>
+      </>
+    )
+  }
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
+
+  ```js
+  import {ChoiceFieldset} from '@primer/react/deprecated'
+  ```
+
+  You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
+
+* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### PageLayout
+
+  `PageLayout` is being graduated from the `drafts` bundle to the `main` bundle.
+
+  To upgrade, rewrite your imports accordingly:
+
+  ```diff
+  - import {PageLayout} from '@primer/react/drafts'
+  + import {PageLayout} from '@primer/react'
+  ```
+
+- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### FormGroup, InputField, ChoiceInputField
+
+  The `FormControl` component is replacing the `FormGroup`, `InputField`, and `ChoiceInputField` components. It has the ability to render contextual content with your inputs: labels, validation statuses, captions. It also handles the ARIA attributes that make the form controls accessible to assistive technology.
+
+  <table>
+  <tr>
+  <th> Before (v34) </th> <th> After (v35) </th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  import {FormControl, Checkbox, TextInput} from '@primer/react'
+
+  function Example() {
+    return (
+      <>
+        <FormGroup>
+          <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
+          <TextInput id="example-text" />
+        </FormGroup>
+        {/* OR */}
+        <InputField>
+          <InputField.Label>Example text</InputField.Label>
+          <TextInput />
+        </InputField>
+        {/* OR */}
+        <ChoiceInputField>
+          <ChoiceInputField.Label>Example text</ChoiceInputField.Label>
+          <Checkbox />
+        </ChoiceInputField>
+      </>
+    )
+  }
+  ```
+
+  </td>
+  <td valign="top">
+
+  ```jsx
+  import {FormGroup, TextInput} from '@primer/react'
+
+  function Example() {
+    return (
+      <>
+        <FormControl>
+          <FormControl.Label>Example text</FormControl.Label>
+          <TextInput />
+        </FormControl>
+        {/* OR */}
+        <FormControl>
+          <FormControl.Label>Example text</FormControl.Label>
+          <Checkbox />
+        </FormControl>
+      </>
+    )
+  }
+  ```
+
+  </td>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  import {InputField, TextInput} from '@primer/react'
+
+  function Example() {
+    return (
+      <InputField>
+        <InputField.Label>Example text</InputField.Label>
+        <TextInput />
+      </InputField>
+    )
+  }
+  ```
+
+  </td>
+  <td valign="top">
+
+  ```jsx
+  import {FormControl, TextInput} from '@primer/react'
+
+  function Example() {
+    return (
+      <FormControl>
+        <FormControl.Label>Example text</FormControl.Label>
+        <TextInput />
+      </FormControl>
+    )
+  }
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
+
+  ```js
+  import {FormGroup, ChoiceInputField, InputField} from '@primer/react/deprecated'
+  ```
+
+  You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
+
+* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+
+  ### SelectMenu
+
+  ⚠️ `SelectMenu` has been deprecated. Please use `ActionMenu` instead.
+
+  <table>
+  <tr>
+  <th> Before </th> <th> After </th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <SelectMenu>
+    <Button as="summary">Projects</Button>
+    <SelectMenu.Modal>
+      <SelectMenu.Header>Projects</SelectMenu.Header>
+      <SelectMenu.List>
+        <SelectMenu.Item href="#">Primer React bugs</SelectMenu.Item>
+        <SelectMenu.Item href="#">Primer React roadmap</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 3</SelectMenu.Item>
+        <SelectMenu.Item href="#">Project 4</SelectMenu.Item>
+      </SelectMenu.List>
+    </SelectMenu.Modal>
+  </SelectMenu>
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <ActionMenu>
+    <ActionMenu.Button>Projects</ActionMenu.Button>
+    <ActionMenu.Overlay>
+      <ActionList showDividers>
+        <ActionList.Group title="Projects">
+          <ActionList.Item>Primer React bugs</ActionList.Item>
+          <ActionList.Item>Primer React roadmap</ActionList.Item>
+          <ActionList.Item>Project three</ActionList.Item>
+          <ActionList.Item>Project four</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMenu) for more migration examples.
+
+  ### Dropdown
+
+  ⚠️ `Dropdown` has been deprecated. Please use `ActionMenu` instead.
+
+  <table>
+  <tr>
+  <th> Before </th> <th> After </th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  const fieldTypes = [
+    {leadingVisual: TypographyIcon, text: 'Text'},
+    {leadingVisual: NumberIcon, text: 'Number'}
+  ]
+
+  const Example = () => {
+    const [selectedItem, setSelectedItem] = React.useState()
+
+    return (
+      <DropdownMenu
+        renderAnchor={({children, ...anchorProps}) => <ButtonInvisible {...anchorProps}>{children}</ButtonInvisible>}
+        placeholder="Select a field type"
+        items={fieldTypes}
+        selectedItem={selectedItem}
+        onChange={() => setSelectedIndex(index)}
+      />
+    )
+  }
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  const fieldTypes = [
+    {icon: <TypographyIcon />, name: 'Text'},
+    {icon: <NumberIcon />, name: 'Number'}
+  ]
+
+  const Example = () => {
+    const [selectedItem, setSelectedItem] = React.useState()
+
+    return (
+      <ActionMenu>
+        <ActionMenu.Button>{selectedItem ? selectedItem.name : 'Select a field type'}</ActionMenu.Button>
+        <ActionMenu.Overlay>
+          <ActionList selectionVariant="single">
+            {fieldTypes.map(field => (
+              <ActionList.Item onSelect={() => setSelectedItem(field)} key={field.name}>
+                <ActionList.LeadingVisual>{field.icon}</ActionList.LeadingVisual>
+                {field.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    )
+  }
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  See [https://primer.style/react/ActionMenu](https://primer.style/react/ActionMenu) for more migration examples.
+
+  ### Flex
+
+  ⚠️ `Flex` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+
+  <table>
+  <tr>
+  <th> Before </th> <th> After </th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <Flex flexWrap="nowrap">
+    <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
+      Item 1
+    </Box>
+  </Flex>
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <Box display="flex" flexWrap="nowrap">
+    <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
+      Item 1
+    </Box>
+  </Box>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  ### Grid
+
+  ⚠️ `Grid` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+
+  <table>
+  <tr>
+  <th> Before </th> <th> After </th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+    <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
+      1
+    </Box>
+    <Box p={3} color="fg.onEmphasis" bg="attention.emphasis">
+      2
+    </Box>
+  </Grid>
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+    <Box p={3} color="fg.onEmphasis" bg="accent.emphasis">
+      1
+    </Box>
+    <Box p={3} color="fg.onEmphasis" bg="attention.emphasis">
+      2
+    </Box>
+  </Box>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  ### BorderBox
+
+  ⚠️ `BorderBox` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+
+  <table>
+  <tr>
+  <th> Before </th> <th> After </th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <BorderBox>Item 1</BorderBox>
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>
+    Item 1
+  </Box>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+  ### Position
+
+  ⚠️ `Position` has been deprecated. Please use [`Box`](https://primer.style/react/Box) instead.
+
+  <table>
+  <tr>
+  <th> Before </th> <th> After </th>
+  </tr>
+  <tr>
+  <td valign="top">
+
+  ```jsx
+  <>
+    <Position position="absolute">...</Position>
+    <Absolute>...</Absolute>
+    <Relative>...</Relative>
+    <Fixed>...</Fixed>
+    <Sticky>...</Sticky>
+  </>
+  ```
+
+   </td>
+  <td valign="top">
+
+  ```jsx
+  <>
+    <Box position="absolute">...</Box>
+    <Box position="absolute">...</Box>
+    <Box position="relative">...</Box>
+    <Box position="fixed">...</Box>
+    <Box position="sticky">...</Box>
+  </>
+  ```
+
+  </td>
+  </tr>
+  </table>
+
+### Minor Changes
+
+- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - Add align prop on ActionMenu.Overlay to pass through to AnchoredOverlay
+
+### Patch Changes
+
+- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - ActionMenu.Button: Fix spacing between text and caret
+
+* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - - Update styles for default variant of Button's active state
+  - Use active state for Button when it is used to open an Overlay
+
+- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - Surfaced the following components and hooks from the root index:
+
+  - Portal
+  - AnchoredOverlay
+  - useFocusTrap
+  - useFocusZone (and types)
+  - sx (and types)
+  - ConfirmationDialogProps
+
+  These exports can now be imported from the root index, rather than from their nested subfolders.
+
+  E.g.
+
+  ```diff
+  - import { ConfirmationDialogProps } from '@primer/react/lib-esm/Dialog/ConfirmationDialog';
+  + import { ConfirmationDialogProps } from '@primer/react';
+  ```
+
 ## 34.7.1
 
 ### Patch Changes
