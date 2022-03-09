@@ -26,8 +26,10 @@ If you were using the `Label` component to render issue/PR labels, use the [Issu
 ```jsx
 import {Label} from "@primer/react"
 
-<Label outline>default</Label>
-<Label variant="small" outline sx={{borderColor: 'danger.emphasis', color: 'danger.fg'}}>danger</Label>
+<>
+  <Label outline>default</Label>
+  <Label variant="small" outline sx={{borderColor: 'danger.emphasis', color: 'danger.fg'}}>danger</Label>
+</>
 ```
 
  </td>
@@ -36,8 +38,10 @@ import {Label} from "@primer/react"
 ```jsx
 import {Label} from "@primer/react"
 
-<Label>default</Label>
-<Label size="small" variant="danger">danger</Label>
+<>
+  <Label>default</Label>
+  <Label size="small" variant="danger">danger</Label>
+</>
 ```
 
 </td>

@@ -25,18 +25,20 @@ import { ButtonPrimary, ButtonInvisible,
 ButtonOutline, ButtonDanger }
 from '@primer/react'
 
-<ButtonPrimary> 
+<>
+  <ButtonPrimary> 
     Primary Button 
-</ButtonPrimary>
-<ButtonInvisible>
+  </ButtonPrimary>
+  <ButtonInvisible>
     Invisible Button 
-</ButtonInvisible>
-<ButtonOutline>
+  </ButtonInvisible>
+  <ButtonOutline>
     Outline Button
-</ButtonOutline>
-<ButtonDanger>
+  </ButtonOutline>
+  <ButtonDanger>
     Danger Button
-</ButtonDanger>
+  </ButtonDanger>
+</>
 ```
     
  </td>
@@ -46,18 +48,20 @@ from '@primer/react'
 
 import { Button } from '@primer/react'
 
-<Button variant="primary">
+<>
+  <Button variant="primary">
     Primary Button
-</Button>
-<Button variant="invisible">
+  </Button>
+  <Button variant="invisible">
     Invisible Button
-</Button>
-<Button variant="outline">
+  </Button>
+  <Button variant="outline">
     Outline Button
-</Button>
-<Button variant="danger">
+  </Button>
+  <Button variant="danger">
     Danger Button
-</Button>
+  </Button>
+</>
 ```
     
 </td>
