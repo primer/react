@@ -104,6 +104,10 @@ function Example() {
 }
 ```
 
+</td>
+</tr>
+</table>
+
 To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
 
 ```js
