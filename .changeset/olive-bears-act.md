@@ -2,11 +2,15 @@
 '@primer/react': major
 ---
 
-The `FormControl` component will be used to deprecate the `FormGroup`, `InputField`, and `ChoiceInputField` components. It has the ability to render contextual content with your inputs: labels, validation statuses, captions. It also handles the ARIA attributes that make the form controls accessible to assistive technology.
+<br />
+
+### FormGroup, InputField, ChoiceInputField
+
+The `FormControl` component is replacing the `FormGroup`, `InputField`, and `ChoiceInputField` components. It has the ability to render contextual content with your inputs: labels, validation statuses, captions. It also handles the ARIA attributes that make the form controls accessible to assistive technology.
 
 <table>
 <tr>
-<th> Before </th> <th> After </th>
+<th> Before (v34) </th> <th> After (v35) </th>
 </tr>
 <tr>
 <td valign="top">
@@ -16,22 +20,22 @@ import {FormControl, Checkbox, TextInput} from "@primer/react"
 
 
 <FormGroup>
-    <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
-    <TextInput id="example-text" />
+  <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
+  <TextInput id="example-text" />
 </FormGroup>
 
 // OR
 
 <InputField>
-    <InputField.Label>Example text</InputField.Label>
-    <TextInput />
+  <InputField.Label>Example text</InputField.Label>
+  <TextInput />
 </InputField>
 
 // OR
 
 <ChoiceInputField>
-    <ChoiceInputField.Label>Example text</ChoiceInputField.Label>
-    <Checkbox />
+  <ChoiceInputField.Label>Example text</ChoiceInputField.Label>
+  <Checkbox />
 </ChoiceInputField>
 
 ```
@@ -83,6 +87,7 @@ import {FormControl} from '@primer/react'
 </td>
 </tr>
 </table>
+
 <table style="display: table">
 <tr><th>Migration steps to FormControl</th></tr>
 <tr>

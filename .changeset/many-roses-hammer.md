@@ -1,11 +1,15 @@
 ---
 '@primer/react': major
 ---
-### Button deprecation
 
-A new set of `Button` components brings a much needed update. Previously to `v35`, `Button` was a set of seven independent components. In `v35`, we now have common `Button` usage guidelines and more convenient API.
+<br />
+
+### Button
+
+Before `v35`, `Button` was a set of seven independent components. In `v35`, we now have common `Button` usage guidelines and a more convenient API.
 
 #### Button variants
+
 We now support a variant property which takes values `primary`, `invisible`, `outline` and `danger`
 
 <table>
@@ -17,10 +21,10 @@ We now support a variant property which takes values `primary`, `invisible`, `ou
     
 ```jsx
 
-import { ButtonPrimary, ButtonInvisible, 
-    ButtonOutline, ButtonDanger }
-    from '@primer/react'
-    
+import { ButtonPrimary, ButtonInvisible,
+ButtonOutline, ButtonDanger }
+from '@primer/react'
+
 <ButtonPrimary> 
     Primary Button 
 </ButtonPrimary>
@@ -41,7 +45,7 @@ import { ButtonPrimary, ButtonInvisible,
 ```jsx
 
 import { Button } from '@primer/react'
-    
+
 <Button variant="primary">
     Primary Button
 </Button>
@@ -60,10 +64,9 @@ import { Button } from '@primer/react'
 </tr>
 </table>
 
-### Leading and Trailing icons
+### Leading and trailing icons
 
-In the previous component, we allowed icon components to be direct children. This results in a lot of custom styling for the icon components.
-In the new one, we now have `leadinIcon` and `trailingIcon` properties.
+Previously including icons inside buttons required a lot of custom styling. In the new `Button` component, we now support first-class `leadingIcon` and `trailingIcon` props:
 
 <table>
 <tr>
@@ -92,7 +95,7 @@ In the new one, we now have `leadinIcon` and `trailingIcon` properties.
 
 ### Icon buttons
 
-Icon only buttons are common usages in products. So we now have a component for the specific usecase
+Icon-only buttons are common in many applications. We now have a component for this use-case:
 
 <table>
 <tr>
@@ -120,7 +123,7 @@ Icon only buttons are common usages in products. So we now have a component for 
 
 ### Size property
 
-Earlier we used `variant` to mean size property. Now we have a new property called `size` which is more semantically correct.
+Previously, we used a `variant` prop to set the size of buttons. We now have a prop called `size` which is more semantically correct.
 
 <table>
 <tr>

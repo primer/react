@@ -2,6 +2,10 @@
 '@primer/react': major
 ---
 
+<br />
+
+### Label
+
 The Label component's API and visual design have been updated to be consistent with its counterpart in [Primer ViewComponents' Label component](https://primer.style/view-components/components/label).
 
 Major changes in the new Label component:
@@ -14,7 +18,7 @@ If you were using the `Label` component to render issue/PR labels, use the [Issu
 
 <table>
 <tr>
-<th> Before </th> <th> After </th>
+<th> Before (v34) </th> <th> After (v35) </th>
 </tr>
 <tr>
 <td valign="top">
@@ -39,3 +43,11 @@ import {Label} from "@primer/react"
 </td>
 </tr>
 </table>
+
+To continue to use the deprecated API for now, change the import path to `@primer/react/deprecated`:
+
+```js
+import {Label} from '@primer/react/deprecated'
+```
+
+You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.

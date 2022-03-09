@@ -2,11 +2,13 @@
 '@primer/react': major
 ---
 
+<br />
+
 ### ChoiceFieldset and ChoiceFieldset
 
-The `CheckboxGroup` and `RadioGroup` components will be used to deprecate the `ChoiceFieldset` component. The deprecation of `ChoiceFieldset` also allows us to deprecate `ChoiceInputField`.
+The `CheckboxGroup` and `RadioGroup` components are replacing the `ChoiceFieldset` component. The deprecation of `ChoiceFieldset` also allows us to deprecate `ChoiceInputField`.
 
-`CheckboxGroup` and `RadioGroup` have the ability to render contextual content with your fieldset: labels, validation statuses, captions. It also handles the ARIA attributes that make the form controls accessible to assistive technology.
+`CheckboxGroup` and `RadioGroup` have the ability to render contextual content with your fieldset: labels, validation statuses, captions. They also handle the ARIA attributes that make the form controls accessible to assistive technology.
 
 <table>
 <tr>
