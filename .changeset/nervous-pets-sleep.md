@@ -53,7 +53,7 @@ function Example() {
 <td valign="top">
 
 ```jsx
-import {CheckboxGroup, RadioGroup, FormControl Checkbox, Radio} from '@primer/react'
+import {CheckboxGroup, RadioGroup, FormControl, Checkbox, Radio} from '@primer/react'
 
 function Example() {
   return (
