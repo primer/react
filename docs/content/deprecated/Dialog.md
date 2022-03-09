@@ -111,7 +111,7 @@ You can also pass any non-text content into the header:
             </Text>
             <Box display="flex" mt={3} justifyContent="flex-end">
               <Button sx={{mr: 1}}>Cancel</Button>
-              <ButtonDanger>Delete</ButtonDanger>
+              <Button variant="danger">Delete</Button>
             </Box>
           </Box>
         </Dialog>
