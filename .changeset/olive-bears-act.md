@@ -18,25 +18,26 @@ The `FormControl` component is replacing the `FormGroup`, `InputField`, and `Cho
 ```jsx
 import {FormControl, Checkbox, TextInput} from "@primer/react"
 
+<>
+  <FormGroup>
+    <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
+    <TextInput id="example-text" />
+  </FormGroup>
 
-<FormGroup>
-  <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
-  <TextInput id="example-text" />
-</FormGroup>
+  // OR
 
-// OR
+  <InputField>
+    <InputField.Label>Example text</InputField.Label>
+    <TextInput />
+  </InputField>
 
-<InputField>
-  <InputField.Label>Example text</InputField.Label>
-  <TextInput />
-</InputField>
+  // OR
 
-// OR
-
-<ChoiceInputField>
-  <ChoiceInputField.Label>Example text</ChoiceInputField.Label>
-  <Checkbox />
-</ChoiceInputField>
+  <ChoiceInputField>
+    <ChoiceInputField.Label>Example text</ChoiceInputField.Label>
+    <Checkbox />
+  </ChoiceInputField>
+</>
 
 ```
 
@@ -46,17 +47,19 @@ import {FormControl, Checkbox, TextInput} from "@primer/react"
 ```jsx
 import {FormGroup, TextInput} from "@primer/react"
 
-<FormControl>
-  <FormControl.Label>Example text</FormControl.Label>
-  <TextInput />
-</FormControl>
+<>
+  <FormControl>
+    <FormControl.Label>Example text</FormControl.Label>
+    <TextInput />
+  </FormControl>
 
-// OR
+  // OR
 
-<FormControl>
-  <FormControl.Label>Example text</FormControl.Label>
-  <Checkbox />
-</FormControl>
+  <FormControl>
+    <FormControl.Label>Example text</FormControl.Label>
+    <Checkbox />
+  </FormControl>
+</>
 
 ```
 

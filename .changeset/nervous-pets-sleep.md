@@ -20,49 +20,51 @@ The `CheckboxGroup` and `RadioGroup` components are replacing the `ChoiceFieldse
 ```jsx
 import {ChoiceFieldset} from "@primer/react"
 
-// Multi-select
-<ChoiceFieldset>
-  <ChoiceFieldset.Legend>
-    Preferred Primer component interface
-  </ChoiceFieldset.Legend>
+<>
+  // Multi-select
+  <ChoiceFieldset>
+    <ChoiceFieldset.Legend>
+      Preferred Primer component interface
+    </ChoiceFieldset.Legend>
 
-  <ChoiceFieldset.List selectionVariant="multiple">
-    <ChoiceFieldset.Item value="figma">
-      Figma library
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="css">
-      Primer CSS
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="react">
-      Primer React components
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="viewcomponents">
-      Primer ViewComponents
-    </ChoiceFieldset.Item>
-  </ChoiceFieldset.List>
-</ChoiceFieldset>
+    <ChoiceFieldset.List selectionVariant="multiple">
+      <ChoiceFieldset.Item value="figma">
+        Figma library
+      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="css">
+        Primer CSS
+      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="react">
+        Primer React components
+      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="viewcomponents">
+        Primer ViewComponents
+      </ChoiceFieldset.Item>
+    </ChoiceFieldset.List>
+  </ChoiceFieldset>
 
-// Single select
-<ChoiceFieldset>
-  <ChoiceFieldset.Legend>
-    Preferred Primer component interface
-  </ChoiceFieldset.Legend>
+  // Single select
+  <ChoiceFieldset>
+    <ChoiceFieldset.Legend>
+      Preferred Primer component interface
+    </ChoiceFieldset.Legend>
 
-  <ChoiceFieldset.List>
-    <ChoiceFieldset.Item value="figma">
-      Figma library
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="css">
-      Primer CSS
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="react">
-      Primer React components
-    </ChoiceFieldset.Item>
-    <ChoiceFieldset.Item value="viewcomponents">
-      Primer ViewComponents
-    </ChoiceFieldset.Item>
-  </ChoiceFieldset.List>
-</ChoiceFieldset>
+    <ChoiceFieldset.List>
+      <ChoiceFieldset.Item value="figma">
+        Figma library
+      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="css">
+        Primer CSS
+      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="react">
+        Primer React components
+      </ChoiceFieldset.Item>
+      <ChoiceFieldset.Item value="viewcomponents">
+        Primer ViewComponents
+      </ChoiceFieldset.Item>
+    </ChoiceFieldset.List>
+  </ChoiceFieldset>
+</>
 
 ```
 
@@ -72,51 +74,53 @@ import {ChoiceFieldset} from "@primer/react"
 ```jsx
 import {FormGroup, Checkbox} from "@primer/react"
 
-// Multi-select
-<CheckboxGroup>
-  <CheckboxGroup.Label>
-    Preferred Primer component interface
-  </CheckboxGroup.Label>
-  <FormControl>
-    <Checkbox value="figma" />
-    <FormControl.Label>Figma</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Checkbox value="css" />
-    <FormControl.Label>CSS</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Checkbox value="react" />
-    <FormControl.Label>Primer React components</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Checkbox value="viewcomponents" />
-    <FormControl.Label>Primer ViewComponents</FormControl.Label>
-  </FormControl>
-</CheckboxGroup>
+<>
+  // Multi-select
+  <CheckboxGroup>
+    <CheckboxGroup.Label>
+      Preferred Primer component interface
+    </CheckboxGroup.Label>
+    <FormControl>
+      <Checkbox value="figma" />
+      <FormControl.Label>Figma</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="css" />
+      <FormControl.Label>CSS</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="react" />
+      <FormControl.Label>Primer React components</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="viewcomponents" />
+      <FormControl.Label>Primer ViewComponents</FormControl.Label>
+    </FormControl>
+  </CheckboxGroup>
 
-// Single select
-<RadioGroup name="preferred-primer">
-  <RadioGroup.Label>
-    Preferred Primer component interface
-  </RadioGroup.Label>
-  <FormControl>
-    <Radio value="figma" />
-    <FormControl.Label>Figma</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Radio value="css" />
-    <FormControl.Label>CSS</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Radio value="react" />
-    <FormControl.Label>Primer React components</FormControl.Label>
-  </FormControl>
-  <FormControl>
-    <Radio value="viewcomponents" />
-    <FormControl.Label>Primer ViewComponents</FormControl.Label>
-  </FormControl>
-</RadioGroup>
+  // Single select
+  <RadioGroup name="preferred-primer">
+    <RadioGroup.Label>
+      Preferred Primer component interface
+    </RadioGroup.Label>
+    <FormControl>
+      <Radio value="figma" />
+      <FormControl.Label>Figma</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio value="css" />
+      <FormControl.Label>CSS</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio value="react" />
+      <FormControl.Label>Primer React components</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio value="viewcomponents" />
+      <FormControl.Label>Primer ViewComponents</FormControl.Label>
+    </FormControl>
+  </RadioGroup>
+</>
 ```
 
 </td>
