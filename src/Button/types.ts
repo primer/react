@@ -45,7 +45,7 @@ export type IconButtonProps = {
    * This is to be used if it is an icon-only button. Will make text visually hidden
    */
   icon: React.FunctionComponent<IconProps>
-  iconLabel: string
+  'aria-label': string
 } & ButtonBaseProps
 
 // adopted from React.AnchorHTMLAttributes

@@ -29,15 +29,9 @@ A separate component called `IconButton` is used if the action shows only an ico
 
 ```jsx live drafts
 <>
-  <IconButton icon={SearchIcon} size="small">
-    Search
-  </IconButton>
-  <IconButton sx={{ml: 2}} icon={SearchIcon}>
-    Search
-  </IconButton>
-  <IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
-    Search
-  </IconButton>
+  <IconButton aria-label="Search" icon={SearchIcon} size="small" />
+  <IconButton aria-label="Search" sx={{ml: 2}} icon={SearchIcon} />
+  <IconButton aria-label="Search" sx={{ml: 2}} icon={SearchIcon} size="large" />
 </>
 ```
 
