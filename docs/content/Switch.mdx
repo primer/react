@@ -72,15 +72,51 @@ render(Controlled)
 </Box>
 ```
 
-### Loading
+### Delayed toggle with loading state
 
-```jsx live
-<Box display="flex" maxWidth="300px">
-  <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
-    Notifications
-  </Box>
-  <Switch aria-labelledby="switchLabel" isLoading />
-</Box>
+```javascript noinline live
+const LoadingToggle = () => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isOn, setIsOn] = React.useState(false)
+
+  async function switchSlowly(currentOn) {
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    return await !currentOn
+  }
+
+  async function onClick() {
+    setIsLoading(!isLoading)
+    const newSwitchState = await switchSlowly(isOn)
+    setIsOn(newSwitchState)
+  }
+
+  const handleSwitchChange = React.useCallback(
+    on => {
+      setIsLoading(false)
+    },
+    [setIsLoading]
+  )
+
+  return (
+    <>
+      <Box display="flex" maxWidth="300px">
+        <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
+          Notifications
+        </Box>
+        <Switch
+          aria-labelledby="switchLabel"
+          isLoading={isLoading}
+          on={isOn}
+          onClick={onClick}
+          onChange={handleSwitchChange}
+        />
+      </Box>
+      <p>The switch is {isOn ? 'on' : 'off'}</p>
+    </>
+  )
+}
+
+render(LoadingToggle)
 ```
 
 ### Disabled

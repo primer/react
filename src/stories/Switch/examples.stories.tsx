@@ -71,21 +71,12 @@ export const Default = (args: Args) => (
 )
 Default.storyName = 'Default (uncontrolled)'
 
-// export const DisabledTest = (args: Args) => (
-//   <>
-//     <Switch />
-//     <Switch disabled />
-//     <Switch on />
-//     <Switch on disabled />
-//   </>
-// )
-
 export const Controlled = (args: Args) => {
   const [isOn, setIsOn] = React.useState(false)
 
-  const onClick = () => {
+  const onClick = React.useCallback(() => {
     setIsOn(!isOn)
-  }
+  }, [setIsOn, isOn])
 
   const handleSwitchChange = (on: boolean) => {
     action(`new switch "on" state: ${on}`)
@@ -93,7 +84,7 @@ export const Controlled = (args: Args) => {
 
   return (
     <>
-      <Box display="flex">
+      <Box display="flex" maxWidth="300px">
         <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
           Notifications
         </Box>
