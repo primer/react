@@ -44,8 +44,8 @@ exports[`renders consistently 1`] = `
   -webkit-transition-property: -webkit-transform;
   -webkit-transition-property: transform;
   transition-property: transform;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
 }
 
 .c7 > svg {
@@ -71,8 +71,8 @@ exports[`renders consistently 1`] = `
   -webkit-transition-property: -webkit-transform;
   -webkit-transition-property: transform;
   transition-property: transform;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
 }
 
 .c8 > svg {
@@ -90,15 +90,17 @@ exports[`renders consistently 1`] = `
   top: 0;
   bottom: 0;
   z-index: 1;
-  box-shadow: rgba(0,0,0,0.12) 0px 2px 1px -1px,rgba(0,0,0,0.1) 0px 1px 4px 0px,rgb(0,0,0,0.08) 0px 1px 3px 0px;
-  -webkit-transition-property: -webkit-transform,background-color,border-color;
-  -webkit-transition-property: transform,background-color,border-color;
-  transition-property: transform,background-color,border-color;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
-  -webkit-transform: translateX(-1px);
-  -ms-transform: translateX(-1px);
-  transform: translateX(-1px);
+  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+  -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
 }
 
 .c0 {
@@ -153,16 +155,17 @@ exports[`renders consistently 1`] = `
   padding: 0;
   -webkit-transition-property: background-color,border-color;
   transition-property: background-color,border-color;
-  -webkit-transition-delay: 50ms;
-  transition-delay: 50ms;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
-  background: rgba(175,184,193,0.2);
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+  -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  background: #ffffff;
   border-radius: 6px;
   display: block;
   height: 32px;
   width: 64px;
   position: relative;
+  outline-offset: 1px;
 }
 
 .c4:after {
@@ -173,25 +176,43 @@ exports[`renders consistently 1`] = `
   left: 0;
   width: 100%;
   height: 100%;
+  border-radius: 6px;
+}
+
+.c4:after {
   border-style: solid;
   border-width: 1px;
   border-color: rgba(27,31,36,0.15);
   opacity: 1;
-  border-radius: 6px;
 }
 
-.c4:hover,
-.c4:focus:focus-visible {
-  background-color: rgba(27,31,36,0.15);
+.c4:hover .Toggle-knob,
+.c4:focus:focus-visible .Toggle-knob {
+  background-color: #f3f4f6;
+  border-color: #d0d7de;
 }
 
-.c4:active:after {
-  background-color: rgba(27,31,36,0.15);
-  opacity: 0.5;
+.c4:active .Toggle-knob,
+.c4:active:focus-visible .Toggle-knob {
+  background-color: hsla(220,14%,93%,1);
 }
 
 .c4:disabled {
   cursor: not-allowed;
+}
+
+@media (pointer:coarse) {
+  .c4:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
 }
 
 <div
@@ -243,13 +264,13 @@ exports[`renders consistently 1`] = `
         color="accent.fg"
       >
         <svg
-          fill="none"
+          fill="currentColor"
           height="16"
+          viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clipRule="evenodd"
             d="M8 2a.75.75 0 0 1 .75.75v11.5a.75.75 0 0 1-1.5 0V2.75A.75.75 0 0 1 8 2Z"
             fillRule="evenodd"
           />
@@ -260,13 +281,13 @@ exports[`renders consistently 1`] = `
         color="fg.default"
       >
         <svg
-          fill="none"
+          fill="currentColor"
           height="16"
+          viewBox="0 0 16 16"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            clipRule="evenodd"
             d="M8 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z"
             fillRule="evenodd"
           />
@@ -275,7 +296,7 @@ exports[`renders consistently 1`] = `
     </div>
     <div
       aria-hidden="true"
-      className="c9"
+      className="c9 Toggle-knob"
       width="50%"
     />
   </button>
