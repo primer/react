@@ -8,8 +8,6 @@ storybook: '/react/storybook?path=/story/forms-text-input-with-tokens--default'
 ---
 
 import {TextInputWithTokens} from '@primer/react'
-import {PropsTable} from '../src/props-table'
-import {ComponentChecklist} from '../src/component-checklist'
 
 A `TextInputWithTokens` component supports all of the features of a [TextInput](/TextInput) component, but it can render a list of [Tokens](/Token) next to the area a user types in.
 
@@ -242,37 +240,37 @@ render(LeadingVisualExample)
 ## Props
 
 <PropsTable>
-  <PropsTable.Row required name="tokens" type="TokenProps[]" description="The array of tokens to render" />
-  <PropsTable.Row
+  <PropsTableRow required name="tokens" type="TokenProps[]" description="The array of tokens to render" />
+  <PropsTableRow
     required
     name="onTokenRemove"
     type="(tokenId: string|number) => void"
     description="The function that gets called when a token is removed"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="tokenComponent"
     type="React.ComponentType<any>"
     defaultValue="Token"
     description="The component used to render each token"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="maxHeight"
     type="React.CSSProperties['maxHeight']"
     description="The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="preventTokenWrapping"
     type="boolean"
     defaultValue="false"
     description="Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="size"
     type="'small' | 'medium' | 'large' | 'extralarge'"
     defaultValue="extralarge"
     description="The size of the tokens and text input"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="hideTokenRemoveButtons"
     type="boolean"
     defaultValue="false"
@@ -283,7 +281,7 @@ render(LeadingVisualExample)
     type="'error' | 'success' | 'warning'"
     description="Style the input to match the status"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="visibleTokenCount"
     type="number"
     description="The number of tokens to display before truncating"

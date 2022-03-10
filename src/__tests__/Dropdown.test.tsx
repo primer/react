@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dropdown} from '..'
+import {Dropdown} from '../deprecated'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('Dropdown', () => {
   behavesAsComponent({Component: Dropdown, toRender: () => <Dropdown>Hello!</Dropdown>})
 
-  checkExports('Dropdown', {
+  checkExports('deprecated/Dropdown', {
     default: Dropdown
   })
 

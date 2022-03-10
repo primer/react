@@ -18,12 +18,12 @@ You can now import Primer React from the main package module:
 
 ```javascript
 // using import syntax
-import {Box, Flex} from '@primer/react'
+import {Box} from '@primer/react'
 ```
 
 ```javascript
 // using require syntax
-const {Box, Flex} = require('@primer/react')
+const {Box} = require('@primer/react')
 ```
 
 ### Polyfills & Browser Support
@@ -41,13 +41,11 @@ Module bundlers that use ECMAScript modules (ESM) will automatically tree-shake 
 ```javascript
 // using import syntax
 import Box from '@primer/react/lib/Box'
-import Flex from '@primer/react/lib/Flex'
 ```
 
 ```javascript
 // using require syntax
 const Box = require('@primer/react/lib/Box')
-const Flex = require('@primer/react/lib/Flex')
 ```
 
 Note that the modules in the `lib` folder are CommonJS-style modules; if you're using ESM and a compatible module bundler, importing files individually from `lib` provides no benefit.
@@ -59,8 +57,8 @@ Primer React ships with a few libraries labeled as peer dependencies. These libr
 Primer React requires the following libraries to be installed along with it:
 
 - `styled-components` at version 4.0.0 or higher
-- `react` at versions 16.8.0 or higher
-- `react-dom` at versions 16.8.0 or higher
+- `react` at versions 17.x or higher
+- `react-dom` at versions 17.x or higher
 
 ## ThemeProvider
 
