@@ -1,7 +1,7 @@
 import React, {useState, ReactNode} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider, Text, FormControl} from '..'
+import {BaseStyles, Box, ThemeProvider, Text} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
 import {CalendarIcon, CheckIcon} from '@primer/octicons-react'
 
