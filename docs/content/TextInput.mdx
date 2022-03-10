@@ -59,72 +59,49 @@ const WithIconAndLoadingIndicator = () => {
 
   return (
     <>
-      <Box mb={5} display="flex" justifyContent="flex-end">
+      <Box mb={6}>
         <button type="button" onClick={toggleLoadingState}>
           Toggle loading state {isLoading ? 'off' : 'on'}
         </button>
       </Box>
 
-      <h3>No visual</h3>
-      <Box mb={2}>
-        <TextInput value="auto" isLoading={isLoading} />
-      </Box>
-      <Box mb={2}>
-        <TextInput value="leading" isLoading={isLoading} loaderPosition="leading" />
-      </Box>
-      <Box mb={5}>
-        <TextInput value="trailing" isLoading={isLoading} loaderPosition="trailing" />
+      <Text fontSize={3} mb={1} display="block">
+        No visual
+      </Text>
+      <Box mb={3}>
+        <TextInput isLoading={isLoading} />
       </Box>
 
-      <h3>Leading visual</h3>
-      <Box mb={2}>
-        <TextInput leadingVisual={SearchIcon} isLoading={isLoading} value="auto" />
-      </Box>
-      <Box mb={2}>
-        <TextInput leadingVisual={SearchIcon} isLoading={isLoading} loaderPosition="leading" value="leading" />
-      </Box>
-      <Box mb={5}>
-        <TextInput leadingVisual={SearchIcon} isLoading={isLoading} loaderPosition="trailing" value="trailing" />
+      <Text fontSize={3} mb={1} display="block">
+        Leading visual
+      </Text>
+      <Box mb={3}>
+        <TextInput leadingVisual={SearchIcon} isLoading={isLoading} />
       </Box>
 
-      <h3>Trailing visual</h3>
-      <Box mb={2}>
-        <TextInput trailingVisual={SearchIcon} isLoading={isLoading} value="auto" />
-      </Box>
-      <Box mb={2}>
-        <TextInput trailingVisual={SearchIcon} isLoading={isLoading} loaderPosition="leading" value="leading" />
-      </Box>
-      <Box mb={5}>
-        <TextInput trailingVisual={SearchIcon} isLoading={isLoading} loaderPosition="trailing" value="trailing" />
+      <Text fontSize={3} mb={1} display="block">
+        Trailing visual
+      </Text>
+      <Box mb={3}>
+        <TextInput trailingVisual={SearchIcon} isLoading={isLoading} />
       </Box>
 
-      <h3>Both visuals</h3>
-      <Box mb={2}>
-        <TextInput
-          size="small"
-          leadingVisual={SearchIcon}
-          trailingVisual={SearchIcon}
-          isLoading={isLoading}
-          value="auto"
-        />
+      <Text fontSize={3} mb={1} display="block">
+        Both visuals
+      </Text>
+      <Box mb={3}>
+        <TextInput leadingVisual={SearchIcon} trailingVisual={SearchIcon} isLoading={isLoading} />
       </Box>
-      <Box mb={2}>
+
+      <Text fontSize={3} mb={2} display="block">
+        Both visuals, position overriden
+      </Text>
+      <Box mb={3}>
         <TextInput
-          leadingVisual={SearchIcon}
-          trailingVisual={SearchIcon}
-          isLoading={isLoading}
-          loaderPosition="leading"
-          value="leading"
-        />
-      </Box>
-      <Box mb={2}>
-        <TextInput
-          size="large"
-          leadingVisual={SearchIcon}
-          trailingVisual={SearchIcon}
-          isLoading={isLoading}
           loaderPosition="trailing"
-          value="trailing"
+          leadingVisual={SearchIcon}
+          trailingVisual={SearchIcon}
+          isLoading={isLoading}
         />
       </Box>
     </>
@@ -195,7 +172,7 @@ render(<WithIconAndLoadingIndicator />)
   <PropsTableRow
     name="loaderPosition"
     type={"'auto' | 'leading' | 'trailing'"}
-    description={() => (
+    description={
       <>
         <div>Which position to render the loading indicator</div>
         <ul>
@@ -207,7 +184,7 @@ render(<WithIconAndLoadingIndicator />)
           <li>'trailing': at the end of the input</li>
         </ul>
       </>
-    )}
+    }
   />
   <PropsTableRow
     name="leadingVisual"
