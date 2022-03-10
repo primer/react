@@ -18,7 +18,7 @@ import {
   MarkGithubIcon,
   NoteIcon,
   NumberIcon,
-  OctofaceIcon,
+  SmileyIcon,
   PencilIcon,
   PersonIcon,
   ProjectIcon,
@@ -29,10 +29,12 @@ import {
   TypographyIcon,
   VersionsIcon,
   XIcon,
-  ZapIcon
+  ZapIcon,
+  TriangleDownIcon
 } from '@primer/octicons-react'
 import * as primerComponents from '@primer/react'
 import * as drafts from '@primer/react/drafts'
+import * as deprecated from '@primer/react/deprecated'
 import {Placeholder} from '@primer/react/Placeholder'
 import React from 'react'
 import {AnchoredOverlay} from '../../../../src/AnchoredOverlay'
@@ -51,6 +53,7 @@ export default function resolveScope(metastring) {
     ...doctocatComponents,
     ...primerComponents,
     ...(metastring.includes('drafts') ? drafts : {}),
+    ...(metastring.includes('deprecated') ? deprecated : {}),
     ReactRouterLink,
     State,
     CheckIcon,
@@ -58,7 +61,7 @@ export default function resolveScope(metastring) {
     ZapIcon,
     XIcon,
     DotIcon,
-    OctofaceIcon,
+    SmileyIcon,
     PersonIcon,
     MailIcon,
     GitCommitIcon,
@@ -83,6 +86,7 @@ export default function resolveScope(metastring) {
     IterationsIcon,
     NumberIcon,
     SingleSelectIcon,
+    TriangleDownIcon,
     Dialog2,
     ConfirmationDialog,
     useConfirm,

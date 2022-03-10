@@ -4,11 +4,3 @@
  *  But, they are published on npm and you can import them for experimentation/feedback.
  *  example: import {ActionList} from '@primer/react/drafts
  */
-
-// Components
-export * from '../ActionList2'
-export * from '../Button2'
-export * from '../ActionMenu2'
-export * from '../DropdownMenu2'
-export * from '../Label2'
-export * from '../PageLayout'

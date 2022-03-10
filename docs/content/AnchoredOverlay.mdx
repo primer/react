@@ -20,7 +20,11 @@ See also [Overlay positioning](/Overlay#positioning).
     const closeOverlay = React.useCallback(() => setIsOpen(false), [setIsOpen])
     return (
       <AnchoredOverlay
-        renderAnchor={anchorProps => <DropdownButton {...anchorProps}>Click me to open</DropdownButton>}
+        renderAnchor={anchorProps => (
+          <Button {...anchorProps} trailingIcon={TriangleDownIcon}>
+            Click me to open
+          </Button>
+        )}
         open={isOpen}
         onOpen={openOverlay}
         onClose={closeOverlay}

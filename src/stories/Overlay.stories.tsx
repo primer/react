@@ -5,26 +5,23 @@ import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react
 import {
   BaseStyles,
   Overlay,
-  Button,
-  ButtonInvisible,
-  ButtonPrimary,
   ButtonGroup,
   Text,
-  ButtonDanger,
   ThemeProvider,
   Box,
   StyledOcticon,
   Checkbox,
-  ChoiceInputField,
+  FormControl,
   TextInput,
-  ActionList,
   Link,
-  Label
+  Label,
+  ActionList,
+  ActionMenu
 } from '..'
+import {Button, ButtonInvisible, ButtonPrimary, ButtonDanger} from '../deprecated'
 import type {AnchorSide} from '@primer/behaviors'
-import {DropdownMenu, DropdownButton} from '../DropdownMenu'
-import {ActionMenu, ActionList as ActionList2} from '../drafts'
-import {ItemInput} from '../ActionList/List'
+import {DropdownMenu, DropdownButton} from '../deprecated/DropdownMenu'
+import {ItemInput} from '../deprecated/ActionList/List'
 
 export default {
   title: 'Internal components/Overlay',
@@ -279,14 +276,14 @@ export const NestedOverlays = () => {
                 Add to list
               </Text>
               <Box sx={{marginY: 1}}>
-                <ChoiceInputField>
-                  <ChoiceInputField.Label>My stack</ChoiceInputField.Label>
-                  <Checkbox />
-                </ChoiceInputField>
-                <ChoiceInputField>
-                  <ChoiceInputField.Label>Want to try</ChoiceInputField.Label>
-                  <Checkbox />
-                </ChoiceInputField>
+                <FormControl>
+                  <FormControl.Label>My stack</FormControl.Label>
+                  <Checkbox value="my-stack" />
+                </FormControl>
+                <FormControl>
+                  <FormControl.Label>Want to try</FormControl.Label>
+                  <Checkbox value="wanna-try" />
+                </FormControl>
               </Box>
             </Box>
             <ActionList.Divider />
@@ -367,13 +364,13 @@ export const MemexNestedOverlays = () => {
                   {duration}
                 </ActionMenu.Button>
                 <ActionMenu.Overlay>
-                  <ActionList2 selectionVariant="single">
+                  <ActionList selectionVariant="single">
                     {durations.map(item => (
-                      <ActionList2.Item key={item} selected={item === duration} onSelect={() => setDuration(item)}>
+                      <ActionList.Item key={item} selected={item === duration} onSelect={() => setDuration(item)}>
                         {item}
-                      </ActionList2.Item>
+                      </ActionList.Item>
                     ))}
-                  </ActionList2>
+                  </ActionList>
                 </ActionMenu.Overlay>
               </ActionMenu>
             </Box>
@@ -437,7 +434,7 @@ export const MemexIssueOverlay = () => {
         >
           <Box sx={{p: 4, height: '100vh'}}>
             <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 2}}>
-              <Label variant="xl">
+              <Label size="large">
                 <IssueDraftIcon /> Draft
               </Label>
               <Text sx={{fontSize: 1}}>opened 2 days ago,</Text>

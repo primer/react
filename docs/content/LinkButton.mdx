@@ -1,0 +1,107 @@
+---
+title: LinkButton
+status: Alpha
+source: https://github.com/primer/react/tree/main/src/Button2
+storybook: '/react/storybook?path=/story/composite-components-button2'
+description: It is a combination of a button and link. Use this to make your link look like a button.
+---
+
+## Usage
+
+### Installation
+
+```js
+import {LinkButton} from '@primer/react/drafts'
+```
+
+### Default
+
+The `LinkButton` can be considered an extension of `Button` component. It accepts all of the same props along with new link specific props like `to` and `href`.
+
+```jsx live drafts
+<LinkButton as="a" href="https://primer.style/">
+  Link to Primer
+</LinkButton>
+```
+
+### Other examples of using a LinkButton
+
+`LinkButton` also
+
+- supports the three different sizes. `small`, `medium`, `large`.
+- supports the different variants in [Button]('../Button2')
+- supports leadingIcon and trailingIcon
+
+```jsx live drafts
+<Box>
+  <LinkButton>Small link</LinkButton>
+  <LinkButton size="large" sx={{mt: 2}}>
+    Large link
+  </LinkButton>
+  <LinkButton variant="invisible" sx={{mt: 2}}>
+    Invisible link
+  </LinkButton>
+  <LinkButton variant="danger" sx={{mt: 2}}>
+    Danger link
+  </LinkButton>
+  <LinkButton trailingIcon={ArrowRightIcon} sx={{mt: 2}}>
+    Link with arrow
+  </LinkButton>
+</Box>
+```
+
+## API reference
+
+Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
+
+### Button
+
+<PropsTable>
+  <PropsTableRow name="children" required type="React.ReactNode" description="This will be the Button description." />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'primary' | 'danger' | 'outline' | 'invisible'"
+    description="Changes the look and feel of the button which is different for each variant"
+  />
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large'"
+    description="Changes the size of the icon button component"
+  />
+  <PropsTableRow
+    name="leadingIcon"
+    type="Component"
+    description="provide an octicon. It will be placed before the text of the button"
+  />
+  <PropsTableRow
+    name="trailingIcon"
+    type="Component"
+    description="provide an octicon. It will be placed after the text of the button"
+  />
+  <PropsTableRow
+    name="as"
+    type="Component | 'string'"
+    description="This will use the tag provided in the `as` property. Simultaneously will accept all the new props associated with the new component.For eg- If your `as` value is `ReactRouterLink`, then the prop `to` will be supported in this component "
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

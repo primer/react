@@ -1,5 +1,5 @@
 import React from 'react'
-import {Flex} from '..'
+import {Flex} from '../deprecated'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -9,7 +9,7 @@ expect.extend(toHaveNoViolations)
 describe('Flex', () => {
   behavesAsComponent({Component: Flex})
 
-  checkExports('Flex', {
+  checkExports('deprecated/Flex', {
     default: Flex
   })
 
