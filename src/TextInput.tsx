@@ -91,6 +91,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
         hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
         onClick={focusInput}
+        aria-live="polite"
+        aria-busy={isLoading}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
         <TextInputInnerVisualSlot

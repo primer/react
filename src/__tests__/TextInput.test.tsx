@@ -115,6 +115,18 @@ describe('TextInput', () => {
     ).toMatchSnapshot()
   })
 
+  it('indicates a busy status to assistive technology', () => {
+    const {container} = HTMLRender(
+      <>
+        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+        <label htmlFor="loadingInput">Search</label>
+        <TextInput isLoading id="loadingInput" />
+      </>
+    )
+
+    expect(container.querySelector('span[aria-busy=true]')).not.toBeNull()
+  })
+
   it('should call onChange prop with input value', () => {
     const onChangeMock = jest.fn()
     const component = mount(<TextInput onChange={onChangeMock} value="test" />)
