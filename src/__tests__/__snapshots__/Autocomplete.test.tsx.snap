@@ -94,6 +94,8 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -241,6 +243,8 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -423,6 +427,8 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -1368,6 +1374,8 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -2223,6 +2231,8 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3089,6 +3099,8 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4085,6 +4097,8 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
