@@ -323,7 +323,7 @@ const Switch: React.FC<SwitchProps> = ({
               ? 'border.default'
               : 'border.subtle'
           }
-          borderRadius="6px"
+          borderRadius={2}
           width="50%"
           position="absolute"
           top="0"
