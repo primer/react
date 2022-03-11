@@ -81,6 +81,18 @@ TextInput is a form component to add default styling to the native text input.
 <TextInput contrast aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
 ```
 
+## Monospace text input
+
+```jsx live
+<TextInput
+  monospace
+  aria-label="personal access token"
+  name="pat"
+  leadingVisual={CheckIcon}
+  placeholder="github_pat_abcdefg123456789"
+/>
+```
+
 ## Props
 
 ### TextInput
@@ -102,6 +114,12 @@ TextInput is a form component to add default styling to the native text input.
     type="boolean"
     defaultValue="false"
     description="Changes background color to a higher contrast color"
+  />
+  <PropsTableRow
+    name="monospace"
+    type="boolean"
+    defaultValue="false"
+    description="Shows input in monospace font"
   />
   <PropsTableRow name='size' type="'small' | 'medium' | 'large'"     description="Creates a smaller or larger input than the default." />
 
