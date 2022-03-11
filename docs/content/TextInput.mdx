@@ -145,6 +145,18 @@ render(<WithIconAndLoadingIndicator />)
 <TextInput contrast aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
 ```
 
+## Monospace text input
+
+```jsx live
+<TextInput
+  monospace
+  aria-label="personal access token"
+  name="pat"
+  leadingVisual={CheckIcon}
+  placeholder="github_pat_abcdefg123456789"
+/>
+```
+
 ## Props
 
 ### TextInput
@@ -163,62 +175,57 @@ render(<WithIconAndLoadingIndicator />)
     defaultValue="false"
     description="Changes background color to a higher contrast color"
   />
-  <PropsTableRow
-    name="size"
-    type="'small' | 'medium' | 'large'"
-    description="Creates a smaller or larger input than the default."
-  />
-  <PropsTableRow name="isLoading" type="boolean" description="Whether the to show a loading indicator in the input" />
-  <PropsTableRow
-    name="loaderPosition"
-    type={"'auto' | 'leading' | 'trailing'"}
-    description={
-      <>
-        <div>Which position to render the loading indicator</div>
-        <ul>
-          <li>
-            'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
-            beginning
-          </li>
-          <li>'leading': at the beginning of the input</li>
-          <li>'trailing': at the end of the input</li>
-        </ul>
-      </>
-    }
-  />
-  <PropsTableRow
-    name="leadingVisual"
-    type={<>string | React.ComponentType</>}
-    description={() => (
-      <>
-        <div>Which position to render the loading indicator</div>
-        <ul>
-          <li>
-            'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
-            beginning
-          </li>
-          <li>'leading': at the beginning of the input</li>
-          <li>'trailing': at the end of the input</li>
-        </ul>
-      </>
-    )}
-  />
-  <PropsTableRow
-    name="trailingVisual"
-    type={<>string | React.ComponentType</>}
-    description="Visual positioned on the right edge inside the input"
-  />
-  <PropsTableRow
-    name="validationStatus"
-    type="'error' | 'success' | 'warning'"
-    description="Style the input to match the status"
-  />
-  <PropsTableRow
-    name="variant"
-    type="'small' | 'medium' | 'large'"
-    description="(Use size) Creates a smaller or larger input than the default."
-    deprecated
-  />
+  <PropsTableRow name='size' type="'small' | 'medium' | 'large'"     description="Creates a smaller or larger input than the default." />
+
+{' '}
+<PropsTableRow name="isLoading" type="boolean" description="Whether the to show a loading indicator in the input" />
+<PropsTableRow
+  name="loaderPosition"
+  type={"'auto' | 'leading' | 'trailing'"}
+  description={
+    <>
+      <div>Which position to render the loading indicator</div>
+      <ul>
+        <li>
+          'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
+          beginning
+        </li>
+        <li>'leading': at the beginning of the input</li>
+        <li>'trailing': at the end of the input</li>
+      </ul>
+    </>
+  }
+/>
+<PropsTableRow
+  name="leadingVisual"
+  type={<>string | React.ComponentType</>}
+  description={() => (
+    <>
+      <div>Which position to render the loading indicator</div>
+      <ul>
+        <li>
+          'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
+          beginning
+        </li>
+        <li>'leading': at the beginning of the input</li>
+        <li>'trailing': at the end of the input</li>
+      </ul>
+    </>
+  )}
+/>
+<PropsTableRow name="monospace" type="boolean" defaultValue="false" description="Shows input in monospace font" />
+<PropsTableRow
+  name="trailingVisual"
+  type={<>string | React.ComponentType</>}
+  description="Visual positioned on the right edge inside the input"
+/>
+<PropsTableRow
+  name="validationStatus"
+  type="'error' | 'success' | 'warning'"
+  description="Style the input to match the status"
+/>
+<PropsTableRow name="variant" type="'small' | 'medium' | 'large'" description="(Use size) Creates a smaller or larger input than the default." deprecated />
+
   <PropsTableRow
     name="width"
     type={

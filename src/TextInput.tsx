@@ -29,7 +29,7 @@ export type TextInputNonPassthroughProps = {
   trailingVisual?: string | React.ComponentType<{className?: string}>
 } & Pick<
   ComponentProps<typeof TextInputWrapper>,
-  'block' | 'contrast' | 'disabled' | 'sx' | 'width' | 'maxWidth' | 'minWidth' | 'variant' | 'size'
+  'block' | 'contrast' | 'disabled' | 'monospace' | 'sx' | 'width' | 'maxWidth' | 'minWidth' | 'variant' | 'size'
 >
 
 // Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
@@ -51,6 +51,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       disabled,
       isLoading,
       loaderPosition,
+      monospace,
       validationStatus,
       sx: sxProp,
       size: sizeProp,
@@ -82,6 +83,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         validationStatus={validationStatus}
         contrast={contrast}
         disabled={disabled}
+        monospace={monospace}
         sx={sxProp}
         size={sizeProp}
         width={widthProp}

@@ -54,6 +54,13 @@ export default {
         type: 'radio'
       }
     },
+    monospace: {
+      name: 'Monospace',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
     variant: {
       name: 'Variants',
       options: ['small', 'medium', 'large'],
