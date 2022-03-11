@@ -304,9 +304,6 @@ const Switch: React.FC<SwitchProps> = ({
               transform: `translateX(${onState ? '100%' : '0'})`,
               transitionProperty: 'transform',
               transitionDuration: TRANSITION_DURATION,
-              '> svg': {
-                fill: 'currentcolor'
-              }
             }}
           >
             <CircleIcon size={size} />
