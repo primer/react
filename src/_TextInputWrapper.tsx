@@ -45,6 +45,7 @@ export type StyledBaseWrapperProps = {
   block?: boolean
   contrast?: boolean
   disabled?: boolean
+  monospace?: boolean
   validationStatus?: FormValidationStatus
 } & WidthProps &
   MinWidthProps &
@@ -103,6 +104,12 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       color: ${get('colors.primer.fg.disabled')};
       background-color: ${get('colors.input.disabledBg')};
       border-color: ${get('colors.border.default')};
+    `}
+
+    ${props =>
+    props.monospace &&
+    css`
+      font-family: ${get('fonts.mono')};
     `}
   
   ${props =>
