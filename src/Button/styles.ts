@@ -22,7 +22,11 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
-        backgroundColor: 'btn.disabledBg'
+        backgroundColor: 'btn.disabledBg',
+        '[data-component="ButtonCounter"]': {
+          backgroundColor: 'btn.disableBg',
+          color: 'primer.fg.disabled'
+        }
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.activeBg',
@@ -48,7 +52,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'btn.primary.disabledText',
-        backgroundColor: 'btn.primary.disabledBg'
+        backgroundColor: 'btn.primary.disabledBg',
+        '[data-component="ButtonCounter"]': {
+          color: 'btn.primary.disabledText'
+        }
       },
       '[data-component="ButtonCounter"]': {
         backgroundColor: 'btn.primary.counterBg',
@@ -89,6 +96,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.danger.disabledBg',
         borderColor: 'btn.danger.disabledBorder',
         '[data-component="ButtonCounter"]': {
+          color: 'btn.danger.disabledText',
           backgroundColor: 'btn.danger.disabledCounterBg'
         }
       },
@@ -119,7 +127,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.selectedBg'
       },
       '&:disabled': {
-        color: 'primer.fg.disabled'
+        color: 'primer.fg.disabled',
+        '[data-component="ButtonCounter"]': {
+          color: 'primer.fg.disabled'
+        }
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.selectedBg'
@@ -159,7 +170,8 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.outline.disabledBg',
         borderColor: 'btn.border',
         '[data-component="ButtonCounter"]': {
-          backgroundColor: 'btn.outline.disabledCounterBg'
+          backgroundColor: 'btn.outline.disabledCounterBg',
+          color: 'btn.outline.disabledText'
         }
       },
       '[data-component="ButtonCounter"]': {

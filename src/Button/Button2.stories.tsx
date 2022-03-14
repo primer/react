@@ -25,6 +25,12 @@ export default {
         type: 'radio',
         options: ['small', 'medium', 'large']
       }
+    },
+    disabled: {
+      control: {
+        type: 'boolean',
+        default: false
+      }
     }
   }
 } as Meta
@@ -151,9 +157,16 @@ export const blockButton = ({...args}: ButtonProps) => {
   )
 }
 
-export const disabledButton = ({...args}: ButtonProps) => {
+export const DisabledButton = ({...args}: ButtonProps) => {
+  const [count, setCount] = useState(0)
   return (
     <>
+      <Box mb={2}>
+        <Button disabled onClick={() => setCount(count + 1)} {...args}>
+          Watch
+          <Button.Counter>{count}</Button.Counter>
+        </Button>
+      </Box>
       <Box mb={2}>
         <Button disabled {...args}>
           Disabled
