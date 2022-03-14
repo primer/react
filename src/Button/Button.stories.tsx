@@ -193,7 +193,7 @@ export const DisabledButton = ({...args}: ButtonProps) => {
         </Button>
       </Box>
       <Box mb={2}>
-        <IconButton disabled icon={() => <XIcon />} iconLabel="Close" {...args} />
+        <IconButton disabled icon={() => <XIcon />} aria-label="Close" {...args} />
       </Box>
     </>
   )
