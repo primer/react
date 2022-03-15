@@ -16,7 +16,7 @@ storybook: '/react/storybook?path=/story/switch-examples--default'
   <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
     Notifications
   </Box>
-  <Switch aria-labelledby="switchLabel" />
+  <ToggleSwitch aria-labelledby="switchLabel" />
 </Box>
 ```
 
@@ -27,7 +27,7 @@ storybook: '/react/storybook?path=/story/switch-examples--default'
   <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
     Notifications
   </Box>
-  <Switch defaultOn aria-labelledby="switchLabel" />
+  <ToggleSwitch defaultChecked aria-labelledby="switchLabel" />
 </Box>
 ```
 
@@ -51,7 +51,7 @@ const Controlled = () => {
         <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
           Notifications
         </Box>
-        <Switch onClick={onClick} onChange={handleSwitchChange} on={isOn} aria-labelledby="switchLabel" />
+        <ToggleSwitch onClick={onClick} onChange={handleSwitchChange} checked={isOn} aria-labelledby="switchLabel" />
       </Box>
       <p>The switch is {isOn ? 'on' : 'off'}</p>
     </>
@@ -68,7 +68,7 @@ render(Controlled)
   <Box flexGrow={1} fontSize={1} fontWeight="bold" id="switchLabel">
     Notifications
   </Box>
-  <Switch aria-labelledby="switchLabel" size="small" />
+  <ToggleSwitch aria-labelledby="switchLabel" size="small" />
 </Box>
 ```
 
@@ -76,7 +76,7 @@ render(Controlled)
 
 ```javascript noinline live
 const LoadingToggle = () => {
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
   const [isOn, setIsOn] = React.useState(false)
 
   async function switchSlowly(currentOn) {
@@ -85,16 +85,16 @@ const LoadingToggle = () => {
   }
 
   async function onClick() {
-    setIsLoading(!isLoading)
+    setLoading(!loading)
     const newSwitchState = await switchSlowly(isOn)
     setIsOn(newSwitchState)
   }
 
   const handleSwitchChange = React.useCallback(
     on => {
-      setIsLoading(false)
+      setLoading(false)
     },
-    [setIsLoading]
+    [setLoading]
   )
 
   return (
@@ -103,10 +103,10 @@ const LoadingToggle = () => {
         <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
           Notifications
         </Box>
-        <Switch
+        <ToggleSwitch
           aria-labelledby="switchLabel"
-          isLoading={isLoading}
-          on={isOn}
+          loading={loading}
+          checked={isOn}
           onClick={onClick}
           onChange={handleSwitchChange}
         />
@@ -126,7 +126,7 @@ render(LoadingToggle)
   <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
     Notifications
   </Box>
-  <Switch aria-labelledby="switchLabel" disabled />
+  <ToggleSwitch aria-labelledby="switchLabel" disabled />
 </Box>
 ```
 
@@ -142,7 +142,7 @@ render(LoadingToggle)
       Notifications will be delivered via email and the GitHub notification center
     </Text>
   </Box>
-  <Switch aria-labelledby="switchLabel" aria-describedby="switchCaption" />
+  <ToggleSwitch aria-labelledby="switchLabel" aria-describedby="switchCaption" />
 </Box>
 ```
 
@@ -153,7 +153,7 @@ render(LoadingToggle)
   <Text fontSize={2} fontWeight="bold" id="switchLabel" display="block" mb={1}>
     Notifications
   </Text>
-  <Switch statusLabelPosition="end" aria-labelledby="switchLabel" />
+  <ToggleSwitch statusLabelPosition="end" aria-labelledby="switchLabel" />
 </>
 ```
 
@@ -173,10 +173,10 @@ render(LoadingToggle)
     required
     description="The id of the DOM node that labels the switch"
   />
-  <PropsTableRow name="defaultOn" type="boolean" description="Uncontrolled - whether the switch is turned on" />
+  <PropsTableRow name="defaultChecked" type="boolean" description="Uncontrolled - whether the switch is turned on" />
   <PropsTableRow name="disabled" type="boolean" description="Whether the switch is ready for user input" />
-  <PropsTableRow name="isLoading" type="boolean" description="Whether the switch is ready for user input" />
-  <PropsTableRow name="on" type="boolean" description="Whether the switch is turned on" />
+  <PropsTableRow name="loading" type="boolean" description="Whether the switch's value is being calculated" />
+  <PropsTableRow name="checked" type="boolean" description="Whether the switch is turned on" />
   <PropsTableRow
     name="onChange"
     type="(on: boolean) => void"
@@ -187,10 +187,11 @@ render(LoadingToggle)
     type="(e: MouseEvent) => void"
     description="The callback that is called when the switch is clicked"
   />
-  <PropsTableRow name="size" type="'small' | 'medium'" description="Size of the switch" />
+  <PropsTableRow name="size" type="'small' | 'medium'" defaultValue="medium" description="Size of the switch" />
   <PropsTableRow
     name="statusLabelPosition"
     type="'start' | 'end'"
+    defaultValue="start"
     description={
       <>
         <div>Whether the "on" and "off" labels should appear before or after the switch.</div>

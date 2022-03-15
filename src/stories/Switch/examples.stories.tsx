@@ -1,16 +1,16 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, Switch, Text, ThemeProvider} from '../../'
+import {BaseStyles, Box, ToggleSwitch, Text, ThemeProvider} from '../../'
 import {ComponentProps} from '../../utils/types'
 import {action} from '@storybook/addon-actions'
 
-type Args = ComponentProps<typeof Switch>
+type Args = ComponentProps<typeof ToggleSwitch>
 
 const excludedControlKeys = [
   'aria-describedby',
   'aria-labelledby',
-  'defaultOn',
+  'defaultChecked',
   'onChange',
   'onClick',
   'statusLabelPosition',
@@ -18,8 +18,8 @@ const excludedControlKeys = [
 ]
 
 export default {
-  title: 'Switch/examples',
-  component: Switch,
+  title: 'ToggleSwitch/examples',
+  component: ToggleSwitch,
   argTypes: {
     on: {
       defaultValue: undefined,
@@ -33,7 +33,7 @@ export default {
         type: 'boolean'
       }
     },
-    isLoading: {
+    loading: {
       defaultValue: false,
       control: {
         type: 'boolean'
@@ -66,7 +66,7 @@ export const Default = (args: Args) => (
     <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
       Notifications
     </Box>
-    <Switch {...args} aria-labelledby="switchLabel" />
+    <ToggleSwitch {...args} aria-labelledby="switchLabel" />
   </Box>
 )
 Default.storyName = 'Default (uncontrolled)'
@@ -88,7 +88,13 @@ export const Controlled = (args: Args) => {
         <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
           Notifications
         </Box>
-        <Switch onClick={onClick} onChange={handleSwitchChange} on={isOn} {...args} aria-labelledby="switchLabel" />
+        <ToggleSwitch
+          onClick={onClick}
+          onChange={handleSwitchChange}
+          checked={isOn}
+          {...args}
+          aria-labelledby="switchLabel"
+        />
       </Box>
       <p>The switch is {isOn ? 'on' : 'off'}</p>
     </>
@@ -101,7 +107,7 @@ export const StatusLabelPositionedAtEnd = (args: Args) => (
     <Text fontSize={2} fontWeight="bold" id="switchLabel" display="block" mb={1}>
       Notifications
     </Text>
-    <Switch statusLabelPosition="end" {...args} aria-labelledby="switchLabel" />
+    <ToggleSwitch statusLabelPosition="end" {...args} aria-labelledby="switchLabel" />
   </>
 )
 StatusLabelPositionedAtEnd.storyName = 'statusLabelPosition="end"'

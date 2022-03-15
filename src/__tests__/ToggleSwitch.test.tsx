@@ -1,24 +1,24 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
-import {Switch} from '..'
+import {ToggleSwitch} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
 
 const SWITCH_LABEL_TEXT = 'Switch label'
 
 behavesAsComponent({
-  Component: Switch,
+  Component: ToggleSwitch,
   options: {skipAs: true}
 })
-checkExports('Switch', {
-  default: Switch
+checkExports('ToggleSwitch', {
+  default: ToggleSwitch
 })
 it('renders a switch that is turned off', () => {
   const {getByLabelText} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
-      <Switch aria-labelledby="switchLabel" />
+      <ToggleSwitch aria-labelledby="switchLabel" />
     </>
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
@@ -29,7 +29,7 @@ it('renders a switch that is turned on', () => {
   const {getByLabelText} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
-      <Switch aria-labelledby="switchLabel" defaultOn />
+      <ToggleSwitch aria-labelledby="switchLabel" defaultChecked />
     </>
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
@@ -40,7 +40,7 @@ it('renders a switch that is disabled', () => {
   const {getByLabelText} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
-      <Switch aria-labelledby="switchLabel" disabled />
+      <ToggleSwitch aria-labelledby="switchLabel" disabled />
     </>
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
@@ -54,7 +54,7 @@ it("renders a switch who's state is loading", () => {
   const {getByLabelText, container} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
-      <Switch aria-labelledby="switchLabel" isLoading />
+      <ToggleSwitch aria-labelledby="switchLabel" loading />
     </>
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
@@ -70,7 +70,7 @@ it('switches from off to on uncontrolled', () => {
   const {getByLabelText} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
-      <Switch aria-labelledby="switchLabel" />
+      <ToggleSwitch aria-labelledby="switchLabel" />
     </>
   )
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
@@ -90,7 +90,7 @@ it('switches from off to on with a controlled prop', () => {
     return (
       <>
         <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
-        <Switch onClick={onClick} on={isOn} aria-labelledby="switchLabel" />
+        <ToggleSwitch onClick={onClick} checked={isOn} aria-labelledby="switchLabel" />
       </>
     )
   }
@@ -113,7 +113,7 @@ it('calls onChange when the switch is toggled', () => {
     return (
       <>
         <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
-        <Switch onClick={onClick} onChange={handleSwitchChange} on={isOn} aria-labelledby="switchLabel" />
+        <ToggleSwitch onClick={onClick} onChange={handleSwitchChange} checked={isOn} aria-labelledby="switchLabel" />
       </>
     )
   }

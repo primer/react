@@ -1,14 +1,14 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, Switch, Text, ThemeProvider} from '../../'
+import {BaseStyles, Box, ToggleSwitch, Text, ThemeProvider} from '../../'
 import {ComponentProps} from '../../utils/types'
 
-type Args = ComponentProps<typeof Switch>
+type Args = ComponentProps<typeof ToggleSwitch>
 
 export default {
-  title: 'Switch/fixtrues',
-  component: Switch,
+  title: 'ToggleSwitch/fixtrues',
+  component: ToggleSwitch,
   argTypes: {
     on: {
       defaultValue: undefined,
@@ -22,7 +22,7 @@ export default {
         type: 'boolean'
       }
     },
-    isLoading: {
+    loading: {
       defaultValue: false,
       control: {
         type: 'boolean'
@@ -37,7 +37,7 @@ export default {
   },
   parameters: {
     controls: {
-      exclude: ['aria-describedby', 'aria-labelledby', 'defaultOn', 'onChange', 'onClick', 'statusLabelPosition']
+      exclude: ['aria-describedby', 'aria-labelledby', 'defaultChecked', 'onChange', 'onClick', 'statusLabelPosition']
     }
   },
   decorators: [
@@ -58,7 +58,7 @@ export const Small = (args: Args) => (
     <Box fontSize={1} fontWeight="bold" id="switchLabel">
       Notifications
     </Box>
-    <Switch {...args} aria-labelledby="switchLabel" size="small" />
+    <ToggleSwitch {...args} aria-labelledby="switchLabel" size="small" />
   </>
 )
 
@@ -72,7 +72,7 @@ export const WithCaption = (args: Args) => (
         Notifications will be delivered via email and the GitHub notification center
       </Text>
     </Box>
-    <Switch {...args} aria-labelledby="switchLabel" aria-describedby="switchCaption" />
+    <ToggleSwitch {...args} aria-labelledby="switchLabel" aria-describedby="switchCaption" />
   </Box>
 )
 WithCaption.storyName = 'Associated with a caption'

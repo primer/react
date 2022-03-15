@@ -104,7 +104,6 @@ exports[`renders consistently 1`] = `
 }
 
 .c0 {
-  margin-bottom: 24px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -239,9 +238,9 @@ exports[`renders consistently 1`] = `
   <button
     aria-checked={false}
     aria-disabled={false}
+    checked={false}
     className="c4"
     disabled={false}
-    on={false}
     onClick={[Function]}
     role="switch"
     size="medium"

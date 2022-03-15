@@ -17,13 +17,13 @@ type SwitchProps = {
   /** The id of the DOM node that labels the switch */
   ['aria-labelledby']: string
   /** Uncontrolled - whether the switch is turned on */
-  defaultOn?: boolean
+  defaultChecked?: boolean
   /** Whether the switch is ready for user input */
   disabled?: boolean
   /** Whether the switch's value is being calculated */
-  isLoading?: boolean
+  loading?: boolean
   /** Whether the switch is turned on */
-  on?: boolean
+  checked?: boolean
   /** The callback that is called when the switch is toggled on or off */
   onChange?: (on: boolean) => void
   /** The callback that is called when the switch is clicked */
@@ -48,7 +48,7 @@ const sizeVariants = variant({
 
 type SwitchButtonProps = {
   disabled?: boolean
-  on: boolean
+  checked?: boolean
   size?: SwitchProps['size']
   isHighContrast: boolean
 } & SxProp
@@ -90,11 +90,11 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   transition-duration: ${TRANSITION_DURATION};
   transition-timing-function: ${EASE_OUT_QUAD_CURVE};
   background: ${props => {
-    if (props.disabled && props.on) {
+    if (props.disabled && props.checked) {
       return get('colors.canvas.subtle')
     }
 
-    return props.on ? get('colors.accent.subtle') : get('colors.canvas.default')
+    return props.checked ? get('colors.accent.subtle') : get('colors.canvas.default')
   }};
   border-radius: 6px;
   display: block;
@@ -132,14 +132,14 @@ const SwitchButton = styled.button<SwitchButtonProps>`
         &:after {
           border-style: solid;
           border-width: 1px;
-          border-color: ${props.on && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle')};
-          opacity: ${props.disabled ? '0.5' : props.on ? '0.2' : '1'};
+          border-color: ${props.checked && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle')};
+          opacity: ${props.disabled ? '0.5' : props.checked ? '0.2' : '1'};
         }
       `
     } else {
       return css`
         border-style: solid;
-        border-color: ${props.on && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle')};
+        border-color: ${props.checked && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle')};
         border-width: 1px;
         outline-offset: 2px;
 
@@ -147,7 +147,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
           left: -1px;
           top: -1px;
           bottom: -1px;
-          transform: translateX(${props.on ? 'calc(100% + 1px)' : '0'});
+          transform: translateX(${props.checked ? 'calc(100% + 1px)' : '0'});
         }
       `
     }
@@ -155,7 +155,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
 
   ${props => {
     if (!props.disabled) {
-      if (props.on) {
+      if (props.checked) {
         return css`
           &:hover,
           &:focus:focus-visible {
@@ -210,45 +210,44 @@ const hiddenTextStyles: BetterSystemStyleObject = {
 const Switch: React.FC<SwitchProps> = ({
   'aria-labelledby': ariaLabelledby,
   'aria-describedby': ariaDescribedby,
-  defaultOn,
+  defaultChecked,
   disabled,
-  isLoading,
-  on: onProp,
+  loading,
+  checked,
   onChange,
   onClick,
   size,
   statusLabelPosition,
   sx: sxProp
 }) => {
-  const isControlled = typeof defaultOn === 'undefined' && typeof onProp !== 'undefined'
+  const isControlled = typeof checked !== 'undefined'
   const {theme, colorScheme} = useTheme()
-  const [onState, setOnState] = useProvidedStateOrCreate<boolean>(onProp, onChange, Boolean(defaultOn))
-  const acceptsInteraction = !disabled && !isLoading
+  const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
+  const acceptsInteraction = !disabled && !loading
   const handleToggleClick: MouseEventHandler = useCallback(
     e => {
       if (!isControlled) {
-        setOnState(!onState)
+        setIsOn(!isOn)
       }
       onClick && onClick(e)
     },
-    [onClick, isControlled, onState, setOnState]
+    [onClick, isControlled, isOn, setIsOn]
   )
 
   useEffect(() => {
     if (onChange && isControlled) {
-      onChange(Boolean(onProp))
+      onChange(Boolean(checked))
     }
-  }, [onChange, onProp, isControlled])
+  }, [onChange, checked, isControlled])
 
   return (
     <Box
       display="inline-flex"
       alignItems="center"
       flexDirection={statusLabelPosition === 'start' ? 'row' : 'row-reverse'}
-      mb={4}
       sx={sxProp}
     >
-      {isLoading ? <Spinner size="small" /> : null}
+      {loading ? <Spinner size="small" /> : null}
       <Text
         color={acceptsInteraction ? 'fg.default' : 'fg.muted'}
         fontSize={size === 'small' ? 0 : 1}
@@ -256,10 +255,10 @@ const Switch: React.FC<SwitchProps> = ({
         aria-hidden="true"
         sx={{position: 'relative'}}
       >
-        <Box textAlign="right" sx={onState ? null : hiddenTextStyles}>
+        <Box textAlign="right" sx={isOn ? null : hiddenTextStyles}>
           On
         </Box>
-        <Box textAlign="right" sx={onState ? hiddenTextStyles : null}>
+        <Box textAlign="right" sx={isOn ? hiddenTextStyles : null}>
           Off
         </Box>
       </Text>
@@ -267,15 +266,15 @@ const Switch: React.FC<SwitchProps> = ({
         onClick={handleToggleClick}
         aria-labelledby={ariaLabelledby}
         aria-describedby={ariaDescribedby}
-        aria-checked={onState}
+        aria-checked={isOn}
         aria-disabled={!acceptsInteraction}
         role="switch"
-        on={onState}
+        checked={isOn}
         size={size}
         disabled={!acceptsInteraction}
         isHighContrast={Boolean(colorScheme?.includes('high_contrast'))}
       >
-        <VisuallyHidden>{onState ? 'On' : 'Off'}</VisuallyHidden>
+        <VisuallyHidden>{isOn ? 'On' : 'Off'}</VisuallyHidden>
         <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
           <Box
             flexGrow={1}
@@ -284,7 +283,7 @@ const Switch: React.FC<SwitchProps> = ({
             color={acceptsInteraction ? 'accent.fg' : 'fg.subtle'}
             lineHeight="0"
             sx={{
-              transform: `translateX(${onState ? '0' : '-100%'})`,
+              transform: `translateX(${isOn ? '0' : '-100%'})`,
               transitionProperty: 'transform',
               transitionDuration: TRANSITION_DURATION,
               '> svg': {
@@ -301,7 +300,7 @@ const Switch: React.FC<SwitchProps> = ({
             color={acceptsInteraction ? 'fg.default' : 'fg.subtle'}
             lineHeight="0"
             sx={{
-              transform: `translateX(${onState ? '100%' : '0'})`,
+              transform: `translateX(${isOn ? '100%' : '0'})`,
               transitionProperty: 'transform',
               transitionDuration: TRANSITION_DURATION,
               '> svg': {
@@ -316,9 +315,9 @@ const Switch: React.FC<SwitchProps> = ({
           aria-hidden="true"
           borderWidth="1"
           borderStyle="solid"
-          backgroundColor={onState ? (acceptsInteraction ? 'accent.emphasis' : 'neutral.emphasis') : 'btn.bg'}
+          backgroundColor={isOn ? (acceptsInteraction ? 'accent.emphasis' : 'neutral.emphasis') : 'btn.bg'}
           borderColor={
-            onState
+            isOn
               ? acceptsInteraction
                 ? 'accent.emphasis'
                 : 'neutral.emphasis'
@@ -333,16 +332,14 @@ const Switch: React.FC<SwitchProps> = ({
           bottom="0"
           zIndex={1}
           boxShadow={
-            acceptsInteraction
-              ? `${theme?.shadows.btn.shadow}, ${!onState && theme?.shadows.btn.insetShadow}`
-              : undefined
+            acceptsInteraction ? `${theme?.shadows.btn.shadow}, ${!isOn && theme?.shadows.btn.insetShadow}` : undefined
           }
           className="Toggle-knob"
           sx={{
             transitionProperty: 'transform',
             transitionDuration: TRANSITION_DURATION,
             transitionTimingFunction: EASE_OUT_QUAD_CURVE,
-            transform: `translateX(${onState ? '100%' : '0'})`
+            transform: `translateX(${isOn ? '100%' : '0'})`
           }}
         />
       </SwitchButton>
