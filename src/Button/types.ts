@@ -11,10 +11,7 @@ export type Size = 'small' | 'medium' | 'large'
 
 type StyledButtonProps = ComponentPropsWithRef<typeof StyledButton>
 
-interface ButtonA11yProps {
-  ariaLabel: string
-  ariaLabelledby: string
-}
+type ButtonA11yProps = {'aria-label': string; 'aria-labelby'?: never} | {'aria-label'?: never; 'aria-labelby': string}
 
 export type ButtonBaseProps = {
   /**
@@ -45,7 +42,7 @@ export type ButtonProps = {
   children: React.ReactNode
 } & ButtonBaseProps
 
-export type IconButtonProps = Partial<ButtonA11yProps> & {
+export type IconButtonProps = ButtonA11yProps & {
   icon: React.FunctionComponent<IconProps>
 } & ButtonBaseProps
 
