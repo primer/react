@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import type {AnchorSide} from '@primer/behaviors'
 import Portal, {registerPortalRoot} from '../Portal'
-import Button from '../Button'
+import {Button} from '../Button'
 
 export default {
   title: 'Hooks/useAnchoredPosition',

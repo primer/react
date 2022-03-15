@@ -1,7 +1,6 @@
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Box, BranchName, Heading, Link, SideNav, StateLabel, TabNav, Text} from '..'
-import {Button} from '../drafts'
+import {Box, BranchName, Heading, Link, SideNav, StateLabel, TabNav, Text, Button} from '..'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
 

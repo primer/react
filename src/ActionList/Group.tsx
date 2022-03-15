@@ -50,7 +50,7 @@ export const Group: React.FC<ActionListGroupProps> = ({
   return (
     <Box
       as="li"
-      role="none"
+      role={listRole ? 'none' : undefined}
       sx={{
         '&:not(:first-child)': {marginTop: 2},
         listStyle: 'none', // hide the ::marker inserted by browser's stylesheet

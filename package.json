@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "35.0.0",
+  "version": "35.0.1",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -44,6 +44,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
+    "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
     "prepare": "husky install"
