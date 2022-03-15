@@ -10,7 +10,6 @@ const comp = (
   <LabelGroup>
     <Label>Default label</Label>
     <Label>Darker gray label</Label>
-    <Label outline>Default outline label</Label>
   </LabelGroup>
 )
 

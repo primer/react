@@ -340,11 +340,7 @@ const LayoutToggleItem = ({
         }
       }}
     >
-      <FormControl.Label
-        htmlFor="layout-selector"
-        sx={{fontWeight: 'normal', cursor: 'pointer', px: 3, py: 2, mb: 0}}
-        {...props}
-      >
+      <FormControl.Label sx={{fontWeight: 'normal', cursor: 'pointer', px: 3, py: 2, mb: 0}} {...props}>
         <Box sx={{textAlign: 'center', flexDirection: 'column', m: 'auto', alignItems: 'center', display: 'flex'}}>
           <Icon size="medium" />
           <Text sx={{color: selected ? 'fg.default' : 'fg.muted', fontSize: 0}}>{children}</Text>
