@@ -1,7 +1,8 @@
-import React, {HTMLAttributes, ComponentPropsWithRef} from 'react'
+import React, {HTMLAttributes} from 'react'
 import styled from 'styled-components'
 import {IconProps} from '@primer/octicons-react'
 import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
 
 export const StyledButton = styled.button<SxProp>(sx)
 
@@ -9,7 +10,7 @@ export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outl
 
 export type Size = 'small' | 'medium' | 'large'
 
-type StyledButtonProps = ComponentPropsWithRef<typeof StyledButton>
+type StyledButtonProps = ComponentProps<typeof StyledButton>
 
 export type ButtonBaseProps = {
   /**
@@ -25,8 +26,7 @@ export type ButtonBaseProps = {
    */
   disabled?: boolean
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement> &
-  StyledButtonProps
+  HTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
   /**
@@ -38,7 +38,8 @@ export type ButtonProps = {
    */
   trailingIcon?: React.FunctionComponent<IconProps>
   children: React.ReactNode
-} & ButtonBaseProps
+} & ButtonBaseProps &
+  StyledButtonProps
 
 export type IconButtonProps = {
   /**
