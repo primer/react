@@ -1,8 +1,9 @@
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import classnames from 'classnames'
 import React from 'react'
-import {ComponentProps, Merge} from './utils/types'
-import UnstyledTextInput from './_UnstyledTextInput'
+import {Merge} from './utils/types'
 import TextInputWrapper, {StyledWrapperProps} from './_TextInputWrapper'
+import UnstyledTextInput from './_UnstyledTextInput'
 
 type NonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -24,11 +25,10 @@ type NonPassthroughProps = {
   | 'validationStatus'
 >
 
-// Note: using ComponentProps instead of ComponentPropsWithoutRef here would cause a type issue where `css` is a required prop.
-type TextInputInternalProps = Merge<React.ComponentPropsWithoutRef<'input'>, NonPassthroughProps>
+export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, NonPassthroughProps>
 
 // using forwardRef is important so that other components (ex. SelectMenu) can autofocus the input
-const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
+const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       icon: IconComponent,
@@ -87,7 +87,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       </TextInputWrapper>
     )
   }
-)
+) as PolymorphicForwardRefComponent<'input', TextInputProps>
 
 TextInput.defaultProps = {
   type: 'text'
@@ -95,5 +95,4 @@ TextInput.defaultProps = {
 
 TextInput.displayName = 'TextInput'
 
-export type TextInputProps = ComponentProps<typeof TextInput>
 export default TextInput
