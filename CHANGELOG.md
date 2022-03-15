@@ -1,5 +1,18 @@
 # @primer/components
 
+## 35.0.1
+
+### Patch Changes
+
+- [#1958](https://github.com/primer/react/pull/1958) [`be8f9014`](https://github.com/primer/react/commit/be8f9014cb532d122665c83a94035b0de8e0d300) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Add focus styles for Windows high contrast mode
+  ActionList: Fix incorrect role for ActionList.Group outside ActionMenu
+
+* [#1949](https://github.com/primer/react/pull/1949) [`e430bd8b`](https://github.com/primer/react/commit/e430bd8b635d8cb25e73e4301a0fedc6c60a1e3a) Thanks [@colebemis](https://github.com/colebemis)! - `FormControl` now accepts a `ref` prop
+
+- [#1960](https://github.com/primer/react/pull/1960) [`26c7784d`](https://github.com/primer/react/commit/26c7784d24a2c3d1e0b33457c42ac804ac1dcd64) Thanks [@colebemis](https://github.com/colebemis)! - Checkbox: `value` prop is now optional
+
+* [#1935](https://github.com/primer/react/pull/1935) [`40c93d8b`](https://github.com/primer/react/commit/40c93d8bad64e3e5c906f0140978b8991d15be92) Thanks [@pksjce](https://github.com/pksjce)! - Add monospace prop to textinput
+
 ## 35.0.0
 
 ### Major Changes
