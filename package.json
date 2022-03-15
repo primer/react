@@ -44,6 +44,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
+    "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
     "prepare": "husky install"
