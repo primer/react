@@ -15,7 +15,7 @@ import {
   XIcon
 } from '@primer/octicons-react'
 
-import {ThemeProvider} from '../..'
+import {Heading, ThemeProvider} from '../..'
 import {ActionList} from '../../ActionList'
 import BaseStyles from '../../BaseStyles'
 import Avatar from '../../Avatar'
@@ -49,9 +49,16 @@ export function WithLinks(): JSX.Element {
     <>
       <h1>With Links</h1>
 
-      <p>This pattern can be seen in the repository sidebar, containing a list of links</p>
+      <p>This pattern can be seen in the repository sidebar, containing a list of links. </p>
+      <p>
+        The heading &quot;Details&quot; is outside the ActionList and needs to have an <code>id</code> which is passed
+        to ActionList with <code>aria-labelledby</code>.
+      </p>
 
-      <ActionList>
+      <Heading as="h1" id="list-heading" sx={{fontSize: 1}}>
+        Details
+      </Heading>
+      <ActionList aria-labelledby="list-heading">
         <ActionList.LinkItem href="https://github.com/primer/react#readme">
           <ActionList.LeadingVisual>
             <BookIcon />
