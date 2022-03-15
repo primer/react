@@ -123,7 +123,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 6px;
+    border-radius: ${get('radii.2')};
   }
 
   ${props => {
@@ -303,9 +303,6 @@ const Switch: React.FC<SwitchProps> = ({
               transform: `translateX(${isOn ? '100%' : '0'})`,
               transitionProperty: 'transform',
               transitionDuration: TRANSITION_DURATION,
-              '> svg': {
-                fill: 'currentcolor'
-              }
             }}
           >
             <CircleIcon size={size} />
@@ -325,7 +322,7 @@ const Switch: React.FC<SwitchProps> = ({
               ? 'border.default'
               : 'border.subtle'
           }
-          borderRadius="6px"
+          borderRadius={2}
           width="50%"
           position="absolute"
           top="0"
