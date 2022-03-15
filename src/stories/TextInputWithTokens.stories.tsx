@@ -47,8 +47,8 @@ export default {
         type: 'boolean'
       }
     },
-    isLoading: {
-      name: 'isLoading',
+    loading: {
+      name: 'loading',
       defaultValue: false,
       control: {
         type: 'boolean'
@@ -138,26 +138,26 @@ WithTrailingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeig
 
 export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
-  const [isLoading, setIsLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
   const toggleLoadingState = () => {
-    setIsLoading(!isLoading)
+    setLoading(!loading)
   }
 
   return (
     <form>
       <Box mb={5} display="flex" justifyContent="flex-end">
         <button type="button" onClick={toggleLoadingState}>
-          Toggle loading state {isLoading ? 'off' : 'on'}
+          Toggle loading state {loading ? 'off' : 'on'}
         </button>
       </Box>
 
       <Box display="grid" sx={{gap: 3}}>
         <FormControl>
           <FormControl.Label>No visual</FormControl.Label>
-          <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} isLoading={isLoading} {...args} />
+          <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} loading={loading} {...args} />
         </FormControl>
 
         <FormControl>
@@ -165,7 +165,7 @@ export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
           <TextInputWithTokens
             tokens={tokens}
             onTokenRemove={onTokenRemove}
-            isLoading={isLoading}
+            loading={loading}
             leadingVisual={NumberIcon}
             {...args}
           />
@@ -176,7 +176,7 @@ export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
           <TextInputWithTokens
             tokens={tokens}
             onTokenRemove={onTokenRemove}
-            isLoading={isLoading}
+            loading={loading}
             leadingVisual={NumberIcon}
             trailingVisual={CheckIcon}
             {...args}
@@ -187,7 +187,7 @@ export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
   )
 }
 
-WithLoadingIndicator.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'isLoading']}}
+WithLoadingIndicator.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'loading']}}
 
 export const UsingIssueLabelTokens = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([

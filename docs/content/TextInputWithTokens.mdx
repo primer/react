@@ -250,29 +250,29 @@ const WithIconAndLoadingIndicator = () => {
     setDates(dates.filter(token => token.id !== tokenId))
   }
 
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [loading, setLoading] = React.useState(true)
   const toggleLoadingState = () => {
-    setIsLoading(!isLoading)
+    setLoading(!loading)
   }
 
   return (
     <>
       <Box mb={5} display="flex" justifyContent="flex-end">
         <button type="button" onClick={toggleLoadingState}>
-          Toggle loading state {isLoading ? 'off' : 'on'}
+          Toggle loading state {loading ? 'off' : 'on'}
         </button>
       </Box>
 
       <h3>No visual</h3>
       <Box mb={2}>
-        <TextInputWithTokens tokens={dates} onTokenRemove={onDateRemove} value="auto" isLoading={isLoading} />
+        <TextInputWithTokens tokens={dates} onTokenRemove={onDateRemove} value="auto" loading={loading} />
       </Box>
       <Box mb={2}>
         <TextInputWithTokens
           tokens={dates}
           onTokenRemove={onDateRemove}
           value="leading"
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
         />
       </Box>
@@ -281,7 +281,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           value="trailing"
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
         />
       </Box>
@@ -292,7 +292,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           leadingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           value="auto"
         />
       </Box>
@@ -301,7 +301,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           leadingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
           value="leading"
         />
@@ -311,7 +311,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           leadingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
           value="trailing"
         />
@@ -323,7 +323,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           value="auto"
         />
       </Box>
@@ -332,7 +332,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
           value="leading"
         />
@@ -342,7 +342,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
           value="trailing"
         />
@@ -356,7 +356,7 @@ const WithIconAndLoadingIndicator = () => {
           size="small"
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           value="auto"
         />
       </Box>
@@ -366,7 +366,7 @@ const WithIconAndLoadingIndicator = () => {
           onTokenRemove={onDateRemove}
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
           value="leading"
         />
@@ -378,7 +378,7 @@ const WithIconAndLoadingIndicator = () => {
           size="large"
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
           value="trailing"
         />

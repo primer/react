@@ -6,7 +6,7 @@ const TextInputInnerVisualSlot: React.FC<{
   /** Whether the input is expected to ever show a loading indicator */
   hasLoadingIndicator: boolean
   /** Whether the to show the loading indicator */
-  showLoadingIndicator: TextInputNonPassthroughProps['isLoading']
+  showLoadingIndicator: TextInputNonPassthroughProps['loading']
   /** Which side of this visual is being rendered */
   visualPosition: 'leading' | 'trailing'
 }> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition}) => {

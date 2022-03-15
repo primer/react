@@ -51,17 +51,17 @@ TextInput is a form component to add default styling to the native text input.
 
 ```javascript live noinline
 const WithIconAndLoadingIndicator = () => {
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [loading, setLoading] = React.useState(true)
 
   const toggleLoadingState = () => {
-    setIsLoading(!isLoading)
+    setLoading(!loading)
   }
 
   return (
     <>
       <Box mb={6}>
         <button type="button" onClick={toggleLoadingState}>
-          Toggle loading state {isLoading ? 'off' : 'on'}
+          Toggle loading state {loading ? 'off' : 'on'}
         </button>
       </Box>
 
@@ -69,40 +69,35 @@ const WithIconAndLoadingIndicator = () => {
         No visual
       </Text>
       <Box mb={3}>
-        <TextInput isLoading={isLoading} />
+        <TextInput loading={loading} />
       </Box>
 
       <Text fontSize={3} mb={1} display="block">
         Leading visual
       </Text>
       <Box mb={3}>
-        <TextInput leadingVisual={SearchIcon} isLoading={isLoading} />
+        <TextInput leadingVisual={SearchIcon} loading={loading} />
       </Box>
 
       <Text fontSize={3} mb={1} display="block">
         Trailing visual
       </Text>
       <Box mb={3}>
-        <TextInput trailingVisual={SearchIcon} isLoading={isLoading} />
+        <TextInput trailingVisual={SearchIcon} loading={loading} />
       </Box>
 
       <Text fontSize={3} mb={1} display="block">
         Both visuals
       </Text>
       <Box mb={3}>
-        <TextInput leadingVisual={SearchIcon} trailingVisual={SearchIcon} isLoading={isLoading} />
+        <TextInput leadingVisual={SearchIcon} trailingVisual={SearchIcon} loading={loading} />
       </Box>
 
       <Text fontSize={3} mb={2} display="block">
         Both visuals, position overriden
       </Text>
       <Box mb={3}>
-        <TextInput
-          loaderPosition="trailing"
-          leadingVisual={SearchIcon}
-          trailingVisual={SearchIcon}
-          isLoading={isLoading}
-        />
+        <TextInput loaderPosition="trailing" leadingVisual={SearchIcon} trailingVisual={SearchIcon} loading={loading} />
       </Box>
     </>
   )
@@ -178,7 +173,8 @@ render(<WithIconAndLoadingIndicator />)
   <PropsTableRow name='size' type="'small' | 'medium' | 'large'"     description="Creates a smaller or larger input than the default." />
 
 {' '}
-<PropsTableRow name="isLoading" type="boolean" description="Whether the to show a loading indicator in the input" />
+
+<PropsTableRow name="loading" type="boolean" description="Whether the to show a loading indicator in the input" />
 <PropsTableRow
   name="loaderPosition"
   type={"'auto' | 'leading' | 'trailing'"}
@@ -224,7 +220,12 @@ render(<WithIconAndLoadingIndicator />)
   type="'error' | 'success' | 'warning'"
   description="Style the input to match the status"
 />
-<PropsTableRow name="variant" type="'small' | 'medium' | 'large'" description="(Use size) Creates a smaller or larger input than the default." deprecated />
+<PropsTableRow
+  name="variant"
+  type="'small' | 'medium' | 'large'"
+  description="(Use size) Creates a smaller or larger input than the default."
+  deprecated
+/>
 
   <PropsTableRow
     name="width"

@@ -11,7 +11,7 @@ export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
   icon?: React.ComponentType<{className?: string}>
   /** Whether the to show a loading indicator in the input */
-  isLoading?: boolean
+  loading?: boolean
   /**
    * Which position to render the loading indicator
    * 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning
@@ -49,7 +49,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
       className,
       contrast,
       disabled,
-      isLoading,
+      loading,
       loaderPosition,
       monospace,
       validationStatus,
@@ -69,9 +69,9 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
     const showLeadingLoadingIndicator =
-      isLoading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
+      loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
     const showTrailingLoadingIndicator =
-      isLoading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
+      loading && (loaderPosition === 'trailing' || Boolean(loaderPosition === 'auto' && !LeadingVisual))
     const focusInput: MouseEventHandler = () => {
       inputRef.current?.focus()
     }
@@ -94,13 +94,13 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
         onClick={focusInput}
         aria-live="polite"
-        aria-busy={Boolean(isLoading)}
+        aria-busy={Boolean(loading)}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
         <TextInputInnerVisualSlot
           visualPosition="leading"
           showLoadingIndicator={showLeadingLoadingIndicator}
-          hasLoadingIndicator={typeof isLoading === 'boolean'}
+          hasLoadingIndicator={typeof loading === 'boolean'}
         >
           {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
@@ -108,7 +108,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputInternalProps>(
         <TextInputInnerVisualSlot
           visualPosition="trailing"
           showLoadingIndicator={showTrailingLoadingIndicator}
-          hasLoadingIndicator={typeof isLoading === 'boolean'}
+          hasLoadingIndicator={typeof loading === 'boolean'}
         >
           {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
         </TextInputInnerVisualSlot>

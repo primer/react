@@ -39,8 +39,8 @@ export default {
         type: 'boolean'
       }
     },
-    isLoading: {
-      name: 'isLoading',
+    loading: {
+      name: 'loading',
       defaultValue: false,
       control: {
         type: 'boolean'
@@ -161,51 +161,51 @@ export const WithTrailingIcon = (args: TextInputProps) => {
 }
 
 export const WithLoadingIndicator = () => {
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [loading, setLoading] = React.useState(true)
 
   const toggleLoadingState = () => {
-    setIsLoading(!isLoading)
+    setLoading(!loading)
   }
 
   return (
     <>
       <Box mb={5}>
         <button type="button" onClick={toggleLoadingState}>
-          Toggle loading state {isLoading ? 'off' : 'on'}
+          Toggle loading state {loading ? 'off' : 'on'}
         </button>
       </Box>
 
       <h3>No visual</h3>
       <Box mb={2}>
-        <TextInput value="auto" isLoading={isLoading} />
+        <TextInput value="auto" loading={loading} />
       </Box>
       <Box mb={2}>
-        <TextInput value="leading" isLoading={isLoading} loaderPosition="leading" />
+        <TextInput value="leading" loading={loading} loaderPosition="leading" />
       </Box>
       <Box mb={5}>
-        <TextInput value="trailing" isLoading={isLoading} loaderPosition="trailing" />
+        <TextInput value="trailing" loading={loading} loaderPosition="trailing" />
       </Box>
 
       <h3>Leading visual</h3>
       <Box mb={2}>
-        <TextInput leadingVisual={CalendarIcon} isLoading={isLoading} value="auto" />
+        <TextInput leadingVisual={CalendarIcon} loading={loading} value="auto" />
       </Box>
       <Box mb={2}>
-        <TextInput leadingVisual={CalendarIcon} isLoading={isLoading} loaderPosition="leading" value="leading" />
+        <TextInput leadingVisual={CalendarIcon} loading={loading} loaderPosition="leading" value="leading" />
       </Box>
       <Box mb={5}>
-        <TextInput leadingVisual={CalendarIcon} isLoading={isLoading} loaderPosition="trailing" value="trailing" />
+        <TextInput leadingVisual={CalendarIcon} loading={loading} loaderPosition="trailing" value="trailing" />
       </Box>
 
       <h3>Trailing visual</h3>
       <Box mb={2}>
-        <TextInput trailingVisual={CalendarIcon} isLoading={isLoading} value="auto" />
+        <TextInput trailingVisual={CalendarIcon} loading={loading} value="auto" />
       </Box>
       <Box mb={2}>
-        <TextInput trailingVisual={CalendarIcon} isLoading={isLoading} loaderPosition="leading" value="leading" />
+        <TextInput trailingVisual={CalendarIcon} loading={loading} loaderPosition="leading" value="leading" />
       </Box>
       <Box mb={5}>
-        <TextInput trailingVisual={CalendarIcon} isLoading={isLoading} loaderPosition="trailing" value="trailing" />
+        <TextInput trailingVisual={CalendarIcon} loading={loading} loaderPosition="trailing" value="trailing" />
       </Box>
 
       <h3>Both visuals</h3>
@@ -214,7 +214,7 @@ export const WithLoadingIndicator = () => {
           size="small"
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           value="auto"
         />
       </Box>
@@ -222,7 +222,7 @@ export const WithLoadingIndicator = () => {
         <TextInput
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
           value="leading"
         />
@@ -232,7 +232,7 @@ export const WithLoadingIndicator = () => {
           size="large"
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
           value="trailing"
         />
@@ -241,7 +241,7 @@ export const WithLoadingIndicator = () => {
   )
 }
 
-WithLoadingIndicator.parameters = {controls: {exclude: ['isLoading']}}
+WithLoadingIndicator.parameters = {controls: {exclude: ['loading']}}
 
 export const ContrastTextInput = (args: TextInputProps) => {
   const [value, setValue] = useState('')

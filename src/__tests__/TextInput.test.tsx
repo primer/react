@@ -84,30 +84,30 @@ describe('TextInput', () => {
     expect(
       render(
         <>
-          <TextInput isLoading />
+          <TextInput loading />
 
-          <TextInput isLoading loaderPosition="leading" />
+          <TextInput loading loaderPosition="leading" />
 
-          <TextInput isLoading loaderPosition="trailing" />
+          <TextInput loading loaderPosition="trailing" />
 
-          <TextInput isLoading leadingVisual={SearchIcon} />
+          <TextInput loading leadingVisual={SearchIcon} />
 
-          <TextInput isLoading leadingVisual={SearchIcon} loaderPosition="leading" />
+          <TextInput loading leadingVisual={SearchIcon} loaderPosition="leading" />
 
-          <TextInput isLoading leadingVisual={SearchIcon} loaderPosition="trailing" />
+          <TextInput loading leadingVisual={SearchIcon} loaderPosition="trailing" />
 
-          <TextInput isLoading trailingVisual={SearchIcon} />
+          <TextInput loading trailingVisual={SearchIcon} />
 
-          <TextInput isLoading trailingVisual={SearchIcon} loaderPosition="leading" />
+          <TextInput loading trailingVisual={SearchIcon} loaderPosition="leading" />
 
-          <TextInput isLoading trailingVisual={SearchIcon} loaderPosition="trailing" />
+          <TextInput loading trailingVisual={SearchIcon} loaderPosition="trailing" />
 
-          <TextInput isLoading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
+          <TextInput loading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
 
-          <TextInput isLoading leadingVisual={SearchIcon} trailingVisual={SearchIcon} loaderPosition="leading" />
+          <TextInput loading leadingVisual={SearchIcon} trailingVisual={SearchIcon} loaderPosition="leading" />
 
           <TextInput
-            isLoading
+            loading
             size="large"
             leadingVisual={SearchIcon}
             trailingVisual={SearchIcon}
@@ -123,7 +123,7 @@ describe('TextInput', () => {
       <>
         {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="loadingInput">Search</label>
-        <TextInput isLoading id="loadingInput" />
+        <TextInput loading id="loadingInput" />
       </>
     )
 

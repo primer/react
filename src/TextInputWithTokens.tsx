@@ -69,7 +69,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     icon: IconComponent,
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
-    isLoading,
+    loading,
     loaderPosition,
     contrast,
     className,
@@ -247,9 +247,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     extralarge: 'medium'
   }
   const showLeadingLoadingIndicator =
-    isLoading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
+    loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
   const showTrailingLoadingIndicator =
-    isLoading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
+    loading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
 
   return (
     <TextInputWrapper
@@ -295,7 +295,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
       <TextInputInnerVisualSlot
-        hasLoadingIndicator={typeof isLoading === 'boolean'}
+        hasLoadingIndicator={typeof loading === 'boolean'}
         visualPosition="leading"
         showLoadingIndicator={showLeadingLoadingIndicator}
       >
@@ -362,7 +362,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         ) : null}
       </Box>
       <TextInputInnerVisualSlot
-        hasLoadingIndicator={typeof isLoading === 'boolean'}
+        hasLoadingIndicator={typeof loading === 'boolean'}
         visualPosition="trailing"
         showLoadingIndicator={showTrailingLoadingIndicator}
       >
