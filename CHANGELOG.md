@@ -4,29 +4,11 @@
 
 ### Major Changes
 
-- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - `ActionList2` exported types are now prefixed with `ActionList`:
-
-  ```
-  ListProps → ActionListProps
-  GroupProps → ActionListGroupProps
-  ItemProps → ActionListItemProps
-  DescriptionProps → ActionListDescriptionProps
-  LeadingVisualProps → ActionListLeadingVisualProps,
-  TrailingVisualProps → ActionListTrailingVisualProps
-  ```
-
-  `ActionMenu2` exported types are now prefixed with `ActionMenu`:
-
-  ```
-  MenuButtonProps → ActionMenuButtonProps
-  MenuAnchorProps → ActionMenuAnchorProps
-  ```
-
-* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+- [#1893](https://github.com/primer/react/pull/1893) [`17ef5ef8`](https://github.com/primer/react/commit/17ef5ef8908cc9b4a9992c709518025184105082) Thanks [@siddharthkp](https://github.com/siddharthkp)! - <br />
 
   ### ActionList
 
-  ActionList has been rewritten with a composable API, design updates and accessibility fixes.
+  ⚠️ ActionList has been rewritten with a composable API, design updates and accessibility fixes.
 
   See full list of props and examples: https://primer.style/react/ActionList
 
@@ -175,11 +157,29 @@
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
 
-- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+* [#1883](https://github.com/primer/react/pull/1883) [`310e6553`](https://github.com/primer/react/commit/310e6553134cd333a96e67d434d3b07167d01ed1) Thanks [@siddharthkp](https://github.com/siddharthkp)! - `ActionList2` exported types are now prefixed with `ActionList`:
+
+  ```
+  ListProps → ActionListProps
+  GroupProps → ActionListGroupProps
+  ItemProps → ActionListItemProps
+  DescriptionProps → ActionListDescriptionProps
+  LeadingVisualProps → ActionListLeadingVisualProps,
+  TrailingVisualProps → ActionListTrailingVisualProps
+  ```
+
+  `ActionMenu2` exported types are now prefixed with `ActionMenu`:
+
+  ```
+  MenuButtonProps → ActionMenuButtonProps
+  MenuAnchorProps → ActionMenuAnchorProps
+  ```
+
+* [#1897](https://github.com/primer/react/pull/1897) [`d4023572`](https://github.com/primer/react/commit/d4023572804cf3d8ce6cd1e9480715ab855abefc) Thanks [@siddharthkp](https://github.com/siddharthkp)! - <br />
 
   ### ActionMenu
 
-  ActionMenu has been rewritten with a composable API, design updates and accessibility fixes.
+  ⚠️ ActionMenu has been rewritten with a composable API, design updates and accessibility fixes.
 
   See full list of props and examples: https://primer.style/react/ActionMenu
 
@@ -243,11 +243,11 @@
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
 
-* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+- [#1898](https://github.com/primer/react/pull/1898) [`d6d1ca4c`](https://github.com/primer/react/commit/d6d1ca4c7ecf5276dd94f1da00a56c783e67e8d8) Thanks [@siddharthkp](https://github.com/siddharthkp)! - <br />
 
   ### DropdownMenu
 
-  DropdownMenu has been deprecated in favor of ActionMenu with ActionList
+  ⚠️ DropdownMenu has been deprecated in favor of ActionMenu with ActionList
 
   See example with selection: https://primer.style/react/ActionMenu#with-selection
 
@@ -347,15 +347,15 @@
 
   ### drafts/DropdownMenu2
 
-  DropdownMenu2 has been removed in favor of ActionMenu with ActionList
+  ⚠️ DropdownMenu2 has been removed in favor of ActionMenu with ActionList
 
-- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+* [#1889](https://github.com/primer/react/pull/1889) [`e9b81fae`](https://github.com/primer/react/commit/e9b81fae792b5222fdb1ca9b8ed98a1d5981a2d5) Thanks [@mperrotti](https://github.com/mperrotti)! - <br />
 
   ### Label
 
   The Label component's API and visual design have been updated to be consistent with its counterpart in [Primer ViewComponents' Label component](https://primer.style/view-components/components/label).
 
-  Major changes in the new Label component:
+  ⚠️ Major changes in the new Label component:
 
   - No more `medium` size - only `small` and `large`
   - Labels are outlined by default, so the `outline` prop has been removed
@@ -415,7 +415,7 @@
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
 
-* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+- [#1908](https://github.com/primer/react/pull/1908) [`61404aed`](https://github.com/primer/react/commit/61404aed7fba293577b077183bd54d7caa9c5158) Thanks [@pksjce](https://github.com/pksjce)! - <br />
 
   ### Button
 
@@ -552,11 +552,11 @@
   </tr>
   </table>
 
-- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+* [#1900](https://github.com/primer/react/pull/1900) [`d61b28ad`](https://github.com/primer/react/commit/d61b28ad6dcec3da1e207a3094a8f7741f71bdb4) Thanks [@mperrotti](https://github.com/mperrotti)! - <br />
 
   ### ChoiceFieldset
 
-  The `CheckboxGroup` and `RadioGroup` components are replacing the `ChoiceFieldset` component.
+  ⚠️ The `CheckboxGroup` and `RadioGroup` components are replacing the `ChoiceFieldset` component.
 
   `CheckboxGroup` and `RadioGroup` have the ability to render contextual content with your fieldset: labels, validation statuses, captions. They also handle the ARIA attributes that make the form controls accessible to assistive technology.
 
@@ -666,7 +666,7 @@
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
 
-* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+- [#1882](https://github.com/primer/react/pull/1882) [`df757521`](https://github.com/primer/react/commit/df757521a7a088628d96deeb263fbd0f0aefd9ca) Thanks [@colebemis](https://github.com/colebemis)! - <br />
 
   ### PageLayout
 
@@ -679,11 +679,11 @@
   + import {PageLayout} from '@primer/react'
   ```
 
-- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+* [#1888](https://github.com/primer/react/pull/1888) [`f94dcd33`](https://github.com/primer/react/commit/f94dcd33ffa20eb86ed685412c057b8df30d860d) Thanks [@mperrotti](https://github.com/mperrotti)! - <br />
 
   ### FormGroup, InputField, ChoiceInputField
 
-  The `FormControl` component is replacing the `FormGroup`, `InputField`, and `ChoiceInputField` components. It has the ability to render contextual content with your inputs: labels, validation statuses, captions. It also handles the ARIA attributes that make the form controls accessible to assistive technology.
+  ⚠️ The `FormControl` component is replacing the `FormGroup`, `InputField`, and `ChoiceInputField` components. It has the ability to render contextual content with your inputs: labels, validation statuses, captions. It also handles the ARIA attributes that make the form controls accessible to assistive technology.
 
   <table>
   <tr>
@@ -786,7 +786,7 @@
 
   You can use the [one-time codemod](https://github.com/primer/react-migrate#readme) to change your import statements automatically.
 
-* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - <br />
+- [#1881](https://github.com/primer/react/pull/1881) [`8cd12439`](https://github.com/primer/react/commit/8cd12439703e39d38893e02df0ed84a45d846e55) Thanks [@pksjce](https://github.com/pksjce)! - <br />
 
   ### SelectMenu
 
@@ -1049,16 +1049,16 @@
 
 ### Minor Changes
 
-- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - Add align prop on ActionMenu.Overlay to pass through to AnchoredOverlay
+- [#1921](https://github.com/primer/react/pull/1921) [`561aad86`](https://github.com/primer/react/commit/561aad864c5b98514b0edef6c313cc9debedfe8d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Add align prop on ActionMenu.Overlay to pass through to AnchoredOverlay
 
 ### Patch Changes
 
-- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - ActionMenu.Button: Fix spacing between text and caret
+- [#1922](https://github.com/primer/react/pull/1922) [`b1d7b8c9`](https://github.com/primer/react/commit/b1d7b8c9eb829b93977c9ed6a0d9d423c756e588) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu.Button: Fix spacing between text and caret
 
-* [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - - Update styles for default variant of Button's active state
+* [#1915](https://github.com/primer/react/pull/1915) [`a98091c1`](https://github.com/primer/react/commit/a98091c13da9b9aadb2f061084628a5616c42a65) Thanks [@siddharthkp](https://github.com/siddharthkp)! - - Update styles for default variant of Button's active state
   - Use active state for Button when it is used to open an Overlay
 
-- [#1910](https://github.com/primer/react/pull/1910) [`e1e8d478`](https://github.com/primer/react/commit/e1e8d47845ad7879bd34e634319dd8c8745e1de0) Thanks [@colebemis](https://github.com/colebemis)! - Surfaced the following components and hooks from the root index:
+- [#1934](https://github.com/primer/react/pull/1934) [`33da6a0e`](https://github.com/primer/react/commit/33da6a0eeeae1cc65553ca19650b9c51e49ea2ec) Thanks [@rezrah](https://github.com/rezrah)! - Surfaced the following components and hooks from the root index:
 
   - Portal
   - AnchoredOverlay

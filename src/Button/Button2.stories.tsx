@@ -1,8 +1,8 @@
-import React, {useState, forwardRef} from 'react'
-import {Button, ButtonProps, IconButton, LinkButton} from '.'
-import {BaseStyles, ThemeProvider} from '..'
+import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import {XIcon, SearchIcon, EyeIcon, EyeClosedIcon, TriangleDownIcon, TriangleRightIcon} from '@primer/octicons-react'
+import React, {useState} from 'react'
+import {Button, ButtonProps, IconButton} from '.'
+import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 
 export default {
@@ -186,52 +186,52 @@ export const disabledButton = ({...args}: ButtonProps) => {
   )
 }
 
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a ref={ref} href={to} {...props} />
-  }
-)
+// type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+// const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
+//   ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
+//     // eslint-disable-next-line jsx-a11y/anchor-has-content
+//     return <a ref={ref} href={to} {...props} />
+//   }
+// )
 
-export const linkButton = ({...args}: ButtonProps) => {
-  return (
-    <>
-      <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" {...args}>
-          Link to Primer
-        </LinkButton>
-      </Box>
-      <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="danger" {...args}>
-          Link to Primer
-        </LinkButton>
-      </Box>
-      <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="primary" {...args}>
-          Link to Primer
-        </LinkButton>
-      </Box>
-      <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="outline" {...args}>
-          Link to Primer
-        </LinkButton>
-      </Box>
-      <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="invisible" {...args}>
-          Link to Primer
-        </LinkButton>
-      </Box>
-      <Box mb={2} display="flex">
-        <LinkButton href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
-          Link to Primer
-        </LinkButton>
-      </Box>
-      <Box mb={2} display="flex">
-        <LinkButton to="/dummy" as={ReactRouterLikeLink} variant="primary" trailingIcon={TriangleRightIcon} {...args}>
-          Link to Primer
-        </LinkButton>
-      </Box>
-    </>
-  )
-}
+// export const linkButton = ({...args}: ButtonProps) => {
+//   return (
+//     <>
+//       <Box mb={2} display="flex">
+//         <LinkButton href="https://primer.style/" {...args}>
+//           Link to Primer
+//         </LinkButton>
+//       </Box>
+//       <Box mb={2} display="flex">
+//         <LinkButton href="https://primer.style/" variant="danger" {...args}>
+//           Link to Primer
+//         </LinkButton>
+//       </Box>
+//       <Box mb={2} display="flex">
+//         <LinkButton href="https://primer.style/" variant="primary" {...args}>
+//           Link to Primer
+//         </LinkButton>
+//       </Box>
+//       <Box mb={2} display="flex">
+//         <LinkButton href="https://primer.style/" variant="outline" {...args}>
+//           Link to Primer
+//         </LinkButton>
+//       </Box>
+//       <Box mb={2} display="flex">
+//         <LinkButton href="https://primer.style/" variant="invisible" {...args}>
+//           Link to Primer
+//         </LinkButton>
+//       </Box>
+//       <Box mb={2} display="flex">
+//         <LinkButton href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+//           Link to Primer
+//         </LinkButton>
+//       </Box>
+//       <Box mb={2} display="flex">
+//         <LinkButton to="/dummy" as={ReactRouterLikeLink} variant="primary" trailingIcon={TriangleRightIcon} {...args}>
+//           Link to Primer
+//         </LinkButton>
+//       </Box>
+//     </>
+//   )
+// }
