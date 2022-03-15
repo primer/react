@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import {get} from './constants'
 import TextInputWrapper, {StyledWrapperProps} from './_TextInputWrapper'
 
-type SelectProps = Omit<
-  Omit<React.HTMLProps<HTMLSelectElement>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
+export type SelectProps = Omit<
+  Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 >
 
@@ -42,7 +42,7 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
 `
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({children, disabled, placeholder, size, required, validationStatus, ref: _propsRef, ...rest}: SelectProps, ref) => (
+  ({children, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
       sx={{
         position: 'relative'
