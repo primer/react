@@ -107,6 +107,7 @@ export const UsingTextInputWithTokens = (args: Args) => (
         {text: 'css-in-js', id: 1},
         {text: 'styled-system', id: 2}
       ]}
+      onTokenRemove={() => null}
     />
   </FormControl>
 )
