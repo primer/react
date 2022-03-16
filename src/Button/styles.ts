@@ -22,7 +22,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
-        backgroundColor: 'btn.disabledBg'
+        '[data-component=ButtonCounter]': {
+          color: 'inherit'
+        }
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.activeBg',
@@ -48,9 +50,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'btn.primary.disabledText',
-        backgroundColor: 'btn.primary.disabledBg'
+        backgroundColor: 'btn.primary.disabledBg',
+        '[data-component=ButtonCounter]': {
+          color: 'inherit'
+        }
       },
-      '[data-component="ButtonCounter"]': {
+      '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.primary.counterBg',
         color: 'btn.primary.text'
       },
@@ -68,7 +73,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.danger.hoverBg',
         borderColor: 'btn.danger.hoverBorder',
         boxShadow: `${theme?.shadows.btn.danger.hoverShadow}`,
-        '[data-component="ButtonCounter"]': {
+        '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.danger.hoverCounterBg',
           color: 'btn.danger.hoverText'
         }
@@ -88,11 +93,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'btn.danger.disabledText',
         backgroundColor: 'btn.danger.disabledBg',
         borderColor: 'btn.danger.disabledBorder',
-        '[data-component="ButtonCounter"]': {
+        '[data-component=ButtonCounter]': {
+          color: 'inherit',
           backgroundColor: 'btn.danger.disabledCounterBg'
         }
       },
-      '[data-component="ButtonCounter"]': {
+      '[data-component=ButtonCounter]': {
         color: 'btn.danger.text',
         backgroundColor: 'btn.danger.counterBg'
       },
@@ -119,7 +125,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.selectedBg'
       },
       '&:disabled': {
-        color: 'primer.fg.disabled'
+        color: 'primer.fg.disabled',
+        '[data-component=ButtonCounter]': {
+          color: 'inherit'
+        }
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.selectedBg'
@@ -136,9 +145,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.outline.hoverBg',
         borderColor: 'outline.hoverBorder',
         boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
-        '[data-component="ButtonCounter"]': {
+        '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.outline.hoverCounterBg',
-          color: 'btn.outline.hoverText'
+          color: 'inherit'
         }
       },
       // focus must come before :active so that the active box shadow overrides
@@ -158,11 +167,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'btn.outline.disabledText',
         backgroundColor: 'btn.outline.disabledBg',
         borderColor: 'btn.border',
-        '[data-component="ButtonCounter"]': {
-          backgroundColor: 'btn.outline.disabledCounterBg'
+        '[data-component=ButtonCounter]': {
+          backgroundColor: 'btn.outline.disabledCounterBg',
+          color: 'inherit'
         }
       },
-      '[data-component="ButtonCounter"]': {
+      '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.outline.counterBg',
         color: 'btn.outline.text'
       },
@@ -212,7 +222,7 @@ export const getSizeStyles = (size = 'medium', variant: VariantType = 'default',
     paddingY: `${paddingY}px`,
     paddingX: `${paddingX}px`,
     fontSize,
-    '[data-component="ButtonCounter"]': {
+    '[data-component=ButtonCounter]': {
       fontSize
     }
   }
