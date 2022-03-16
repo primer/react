@@ -7,12 +7,13 @@ import {Slot} from './slots'
 
 export type FormControlValidationProps = {
   variant: FormValidationStatus
+  id?: string
 } & SxProp
 
-const FormControlValidation: React.FC<FormControlValidationProps> = ({children, variant, sx}) => (
+const FormControlValidation: React.FC<FormControlValidationProps> = ({children, variant, sx, id}) => (
   <Slot name="Validation">
     {({validationMessageId}: FormControlContext) => (
-      <InputValidation validationStatus={variant} id={validationMessageId} sx={sx}>
+      <InputValidation validationStatus={variant} id={id || validationMessageId} sx={sx}>
         {children}
       </InputValidation>
     )}

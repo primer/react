@@ -11,10 +11,16 @@ export type Props = {
   visuallyHidden?: boolean
 } & SxProp
 
-const FormControlLabel: React.FC<Props> = ({children, visuallyHidden, sx}) => (
+const FormControlLabel: React.FC<{htmlFor?: string} & Props> = ({children, htmlFor, visuallyHidden, sx}) => (
   <Slot name="Label">
     {({disabled, id, required}: FormControlContext) => (
-      <InputLabel htmlFor={id} visuallyHidden={visuallyHidden} required={required} disabled={disabled} sx={sx}>
+      <InputLabel
+        htmlFor={htmlFor || id}
+        visuallyHidden={visuallyHidden}
+        required={required}
+        disabled={disabled}
+        sx={sx}
+      >
         {children}
       </InputLabel>
     )}

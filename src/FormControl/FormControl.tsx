@@ -24,6 +24,11 @@ export type FormControlProps = {
    * If true, the user must specify a value for the input before the owning form can be submitted
    */
   required?: boolean
+  /**
+   * The direction the content flows.
+   * Vertical layout is used by default, and horizontal layout is used for checkbox and radio inputs.
+   */
+  layout?: 'horizontal' | 'vertical'
 } & SxProp
 
 export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
@@ -32,7 +37,7 @@ export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 
 }
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
-  ({children, disabled: disabledProp, id: idProp, required, sx}, ref) => {
+  ({children, disabled: disabledProp, layout, id: idProp, required, sx}, ref) => {
     const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext?.disabled || disabledProp
@@ -56,20 +61,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const isChoiceInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
 
-    if (!InputComponent) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `To correctly render this field with the correct ARIA attributes passed to the input, please pass one of the component from @primer/react as a direct child of the FormControl component: ${expectedInputComponents.reduce(
-          (acc, componentName) => {
-            acc += `\n- ${componentName.displayName}`
-
-            return acc
-          },
-          ''
-        )}`,
-        'If you are using a custom input component, please be sure to follow WCAG guidelines to make your form control accessible.'
-      )
-    } else {
+    if (InputComponent) {
       if (inputProps?.id) {
         // eslint-disable-next-line no-console
         console.warn(
@@ -135,7 +127,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         {slots => {
           const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
 
-          return isChoiceInput ? (
+          return isChoiceInput || layout === 'horizontal' ? (
             <Box ref={ref} display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
               <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
                 {React.isValidElement(InputComponent) &&
@@ -183,13 +175,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               display="flex"
               flexDirection="column"
               width="100%"
-              sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}), ...sx}}
+              sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
             >
-              {React.Children.toArray(children).filter(
-                child =>
-                  React.isValidElement(child) &&
-                  !expectedInputComponents.some(inputComponent => child.type === inputComponent)
-              )}
               {slots.Label}
               {React.isValidElement(InputComponent) &&
                 React.cloneElement(InputComponent, {
@@ -199,6 +186,11 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   validationStatus,
                   ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
                 })}
+              {React.Children.toArray(children).filter(
+                child =>
+                  React.isValidElement(child) &&
+                  !expectedInputComponents.some(inputComponent => child.type === inputComponent)
+              )}
               {validationChild && <ValidationAnimationContainer show>{slots.Validation}</ValidationAnimationContainer>}
               {slots.Caption}
             </Box>
@@ -208,6 +200,10 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     )
   }
 )
+
+FormControl.defaultProps = {
+  layout: 'vertical'
+}
 
 export default Object.assign(FormControl, {
   Caption: FormControlCaption,
