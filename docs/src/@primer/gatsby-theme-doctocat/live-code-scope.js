@@ -12,13 +12,15 @@ const ReactRouterLink = ({to, ...props}) => {
   return <a href={to} {...props} />
 }
 
+delete octicons.default
+
 export default function resolveScope(metastring) {
   return {
     ...doctocatComponents,
     ...primerComponents,
-    ...octicons,
     ...(metastring.includes('drafts') ? drafts : {}),
     ...(metastring.includes('deprecated') ? deprecated : {}),
+    ...octicons,
     ReactRouterLink,
     State,
     Placeholder
