@@ -12,8 +12,8 @@ const ReactRouterLink = ({to, ...props}) => {
   return <a href={to} {...props} />
 }
 
-// don't attempt to export this below because octicons-react's default export is deprecated
-delete octicons.default
+// Exclude octicons-react's default export because it's deprecated
+const {default: _, ...octiconComponents} = octicons
 
 export default function resolveScope(metastring) {
   return {
