@@ -1,5 +1,4 @@
 ---
-componentId: form_group
 title: FormGroup
 status: Deprecated
 ---

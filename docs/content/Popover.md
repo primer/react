@@ -14,9 +14,9 @@ import {Popover} from '@primer/react'
 
 ```jxs live
 <Box position="relative">
-  <Text textAlign="center" display="block">
-    <ButtonPrimary>Hello!</ButtonPrimary>
-  </Text>
+  <Box justifyContent="center" display="flex">
+    <Button variant="primary">Hello!</Button>
+  </Box>
 
   <Popover relative open={true} caret="top">
     <Popover.Content sx={{mt: 2}}>
