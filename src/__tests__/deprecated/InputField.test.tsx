@@ -140,7 +140,7 @@ describe('InputField', () => {
                 {text: 'one', id: 1},
                 {text: 'two', id: 2}
               ]}
-              onRemove={onRemoveMock}
+              onTokenRemove={onRemoveMock}
             />
           </InputField>
         </SSRProvider>
