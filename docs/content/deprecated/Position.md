@@ -1,5 +1,4 @@
 ---
-componentId: position
 title: Position
 status: Deprecated
 ---
