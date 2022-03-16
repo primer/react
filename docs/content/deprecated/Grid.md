@@ -1,5 +1,4 @@
 ---
-componentId: grid
 title: Grid
 status: Deprecated
 ---
