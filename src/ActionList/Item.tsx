@@ -159,6 +159,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         }
       },
 
+      '@media (forced-colors: active)': {
+        ':focus': {
+          // we set color to be transparent and let the high contrast rules
+          // decide what color with contrast should that be corrected to
+          outline: 'solid 1px transparent !important'
+        }
+      },
+
       /** Divider styles */
       '[data-component="ActionList.Item--DividerContainer"]': {
         position: 'relative'
