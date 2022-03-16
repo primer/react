@@ -51,7 +51,10 @@ exports[`ActionMenu renders consistently 1`] = `
 .c1:disabled {
   cursor: default;
   color: #8c959f;
-  background-color: btn.disabledBg;
+}
+
+.c1:disabled [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c1:disabled svg {
@@ -74,7 +77,7 @@ exports[`ActionMenu renders consistently 1`] = `
   grid-area: trailingIcon;
 }
 
-.c1 [data-component="ButtonCounter"] {
+.c1 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
