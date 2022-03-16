@@ -44,8 +44,8 @@ When rendering an input other than a form component from Primer, you must manual
 - If there is a validation message, the input should be associated with the message by passing the message's ID to `aria-describedby`
 - If there is both a caption and a validation message, the input should be associated with the message by passing the both the validation message's ID and the caption's ID to `aria-describedby`
 - If the input's value is invalid, `aria-invalid={true}` should be passed to the input.
-- If the input is disabled, `disabled={true}` should be passed as true
-- If the input is required, `required={true}` should be passed as true
+- If the input is disabled, `disabled` should be passed.
+- If the input is required, `required` should be passed.
 
 When rendering a custom checkbox or radio component, you must also pass `layout="horizontal"` to the `FormControl` component.
 
