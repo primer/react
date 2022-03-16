@@ -85,7 +85,7 @@ It is recommended to use an octicon here.
 A separate component called `IconButton` is used if the action shows only an icon with no text. This button will remain square in shape.
 
 ```jsx live
-<IconButton icon={SearchIcon}>Search</IconButton>
+<IconButton aria-label="Search" icon={SearchIcon} />
 ```
 
 ### Different sized icon buttons
@@ -94,15 +94,9 @@ A separate component called `IconButton` is used if the action shows only an ico
 
 ```jsx live
 <>
-  <IconButton icon={SearchIcon} size="small">
-    Search
-  </IconButton>
-  <IconButton sx={{ml: 2}} icon={SearchIcon}>
-    Search
-  </IconButton>
-  <IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
-    Search
-  </IconButton>
+  <IconButton aria-label="Search" size="small" icon={SearchIcon}  />
+  <IconButton aria-label="Search" icon={SearchIcon} sx={{ml: 2}} />
+  <IconButton aria-label="Search" size="large" icon={SearchIcon} sx={{ml: 2}} />
 </>
 ```
 
