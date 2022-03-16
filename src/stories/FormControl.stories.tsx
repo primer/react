@@ -139,6 +139,23 @@ export const UsingRadioInput = (args: Args) => (
   </FormControl>
 )
 
+export const UsingCustomInput = (args: Args) => (
+  <FormControl {...args}>
+    <FormControl.Label htmlFor="custom-input">Name</FormControl.Label>
+    <input
+      type="text"
+      id="custom-input"
+      aria-describedby="custom-input-caption custom-input-validation"
+      disabled={args.disabled}
+      required={args.required}
+    />
+    <FormControl.Caption id="custom-input-caption">Your first name</FormControl.Caption>
+    <FormControl.Validation variant="success" id="custom-input-validation">
+      Not a valid name
+    </FormControl.Validation>
+  </FormControl>
+)
+
 export const WithLeadingVisual = (args: Args) => (
   <FormControl {...args}>
     <FormControl.Label>Selectable choice</FormControl.Label>

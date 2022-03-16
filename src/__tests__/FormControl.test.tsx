@@ -257,31 +257,6 @@ describe('FormControl', () => {
     })
 
     describe('warnings', () => {
-      it('should warn users if they do not pass an input', async () => {
-        render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>
-        )
-
-        expect(mockWarningFn).toHaveBeenCalled()
-      })
-      it('should warn users if they try to render a choice (checkbox or radio) input', async () => {
-        render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <Checkbox />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>
-        )
-
-        expect(mockWarningFn).toHaveBeenCalled()
-      })
       it('should log an error if a user does not pass a label', async () => {
         render(
           <SSRProvider>
