@@ -1,5 +1,5 @@
 import React from 'react'
-import Label from '../deprecated/Label'
+import Label from '../../deprecated/Label'
 
 export function shouldAcceptCallWithNoProps() {
   return <Label />
