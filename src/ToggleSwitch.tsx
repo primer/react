@@ -79,7 +79,6 @@ const LineIcon: React.FC<InnerIconProps> = ({size}) => (
 )
 
 const SwitchButton = styled.button<SwitchButtonProps>`
-  border: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -94,14 +93,20 @@ const SwitchButton = styled.button<SwitchButtonProps>`
       return get('colors.canvas.subtle')
     }
 
-    return props.checked ? get('colors.accent.subtle') : get('colors.canvas.default')
+    if (props.disabled && !props.checked) {
+      return get('colors.canvas.subtle')
+    }
+
+    return props.checked ? get('colors.accent.subtle') : get('colors.neutral.emphasis')
   }};
-  border-radius: 6px;
+  border-radius: ${get('radii.2')};
+  border-style: solid;
+  border-width: 1px;
   display: block;
   height: 32px;
   width: 64px;
+  outline-offset: 2px;
   position: relative;
-  outline-offset: 1px;
 
   @media (pointer: coarse) {
     &:before {
@@ -123,45 +128,20 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: ${get('radii.2')};
+    border-radius: calc(${get('radii.2')} - 1px); /* -1px to account for 1px border around the control */
   }
-
-  ${props => {
-    if (!props.isHighContrast) {
-      return css`
-        &:after {
-          border-style: solid;
-          border-width: 1px;
-          border-color: ${props.checked && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle')};
-          opacity: ${props.disabled ? '0.5' : props.checked ? '0.2' : '1'};
-        }
-      `
-    } else {
-      return css`
-        border-style: solid;
-        border-color: ${props.checked && !props.disabled ? get('colors.accent.fg') : get('colors.border.subtle')};
-        border-width: 1px;
-        outline-offset: 2px;
-
-        .Toggle-knob {
-          left: -1px;
-          top: -1px;
-          bottom: -1px;
-          transform: translateX(${props.checked ? 'calc(100% + 1px)' : '0'});
-        }
-      `
-    }
-  }}
 
   ${props => {
     if (!props.disabled) {
       if (props.checked) {
         return css`
+          border-color: ${get('colors.accent.fg')};
+
           &:hover,
           &:focus:focus-visible {
             :after {
               background-color: ${get('colors.accent.muted')};
-              opacity: 0.2;
+              opacity: ${props.isHighContrast ? 0.2 : 0.75};
             }
           }
 
@@ -169,17 +149,18 @@ const SwitchButton = styled.button<SwitchButtonProps>`
           &:active:focus-visible {
             :after {
               background-color: ${get('colors.accent.muted')};
-              opacity: 0.5;
+              opacity: ${props.isHighContrast ? 0.5 : 1};
             }
           }
         `
       } else {
         return css`
+          border-color: ${get('colors.border.subtle')};
+
           &:hover,
           &:focus:focus-visible {
             .Toggle-knob {
               background-color: ${get('colors.btn.hoverBg')};
-              border-color: ${get('colors.border.default')};
             }
           }
 
@@ -297,12 +278,12 @@ const Switch: React.FC<SwitchProps> = ({
             flexGrow={1}
             flexShrink={0}
             flexBasis="50%"
-            color={acceptsInteraction ? 'fg.default' : 'fg.subtle'}
+            color={acceptsInteraction ? 'fg.onEmphasis' : 'fg.subtle'}
             lineHeight="0"
             sx={{
               transform: `translateX(${isOn ? '100%' : '0'})`,
               transitionProperty: 'transform',
-              transitionDuration: TRANSITION_DURATION,
+              transitionDuration: TRANSITION_DURATION
             }}
           >
             <CircleIcon size={size} />
@@ -319,14 +300,14 @@ const Switch: React.FC<SwitchProps> = ({
                 ? 'accent.emphasis'
                 : 'neutral.emphasis'
               : acceptsInteraction
-              ? 'border.default'
+              ? 'neutral.emphasis'
               : 'border.subtle'
           }
           borderRadius={2}
           width="50%"
           position="absolute"
-          top="0"
-          bottom="0"
+          top="-1px"
+          bottom="-1px"
           zIndex={1}
           boxShadow={
             acceptsInteraction ? `${theme?.shadows.btn.shadow}, ${!isOn && theme?.shadows.btn.insetShadow}` : undefined
@@ -336,7 +317,7 @@ const Switch: React.FC<SwitchProps> = ({
             transitionProperty: 'transform',
             transitionDuration: TRANSITION_DURATION,
             transitionTimingFunction: EASE_OUT_QUAD_CURVE,
-            transform: `translateX(${isOn ? '100%' : '0'})`
+            transform: `translateX(${isOn ? 'calc(100% + 1px)' : '-1px'})`
           }}
         />
       </SwitchButton>

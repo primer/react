@@ -53,7 +53,7 @@ exports[`renders consistently 1`] = `
 }
 
 .c8 {
-  color: #24292f;
+  color: #ffffff;
   line-height: 0;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -75,20 +75,16 @@ exports[`renders consistently 1`] = `
   transition-duration: 80ms;
 }
 
-.c8 > svg {
-  fill: currentcolor;
-}
-
 .c9 {
   background-color: #f6f8fa;
   width: 50%;
   border-width: 1px;
   border-style: solid;
-  border-color: #d0d7de;
+  border-color: #6e7781;
   border-radius: 6px;
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -1px;
+  bottom: -1px;
   z-index: 1;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
   -webkit-transition-property: -webkit-transform;
@@ -98,9 +94,9 @@ exports[`renders consistently 1`] = `
   transition-duration: 80ms;
   -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
   transition-timing-function: cubic-bezier(0.5,1,0.89,1);
-  -webkit-transform: translateX(0);
-  -ms-transform: translateX(0);
-  transform: translateX(0);
+  -webkit-transform: translateX(-1px);
+  -ms-transform: translateX(-1px);
+  transform: translateX(-1px);
 }
 
 .c0 {
@@ -139,7 +135,6 @@ exports[`renders consistently 1`] = `
 }
 
 .c4 {
-  border: none;
   vertical-align: middle;
   cursor: pointer;
   -webkit-user-select: none;
@@ -158,13 +153,16 @@ exports[`renders consistently 1`] = `
   transition-duration: 80ms;
   -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
   transition-timing-function: cubic-bezier(0.5,1,0.89,1);
-  background: #ffffff;
+  background: #6e7781;
   border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
   display: block;
   height: 32px;
   width: 64px;
+  outline-offset: 2px;
   position: relative;
-  outline-offset: 1px;
+  border-color: rgba(27,31,36,0.15);
 }
 
 .c4:after {
@@ -175,20 +173,12 @@ exports[`renders consistently 1`] = `
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 6px;
-}
-
-.c4:after {
-  border-style: solid;
-  border-width: 1px;
-  border-color: rgba(27,31,36,0.15);
-  opacity: 1;
+  border-radius: calc(6px - 1px);
 }
 
 .c4:hover .Toggle-knob,
 .c4:focus:focus-visible .Toggle-knob {
   background-color: #f3f4f6;
-  border-color: #d0d7de;
 }
 
 .c4:active .Toggle-knob,
@@ -277,7 +267,7 @@ exports[`renders consistently 1`] = `
       </div>
       <div
         className="c8"
-        color="fg.default"
+        color="fg.onEmphasis"
       >
         <svg
           fill="currentColor"
