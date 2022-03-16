@@ -18,9 +18,9 @@ export default function resolveScope(metastring) {
   return {
     ...doctocatComponents,
     ...primerComponents,
+    ...octicons,
     ...(metastring.includes('drafts') ? drafts : {}),
     ...(metastring.includes('deprecated') ? deprecated : {}),
-    ...octicons,
     ReactRouterLink,
     State,
     Placeholder
