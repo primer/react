@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Checkbox, FormControl, Radio, useSSRSafeId} from '..'
+import {Box, useSSRSafeId} from '..'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroupLabel'
@@ -56,7 +56,6 @@ const CheckboxOrRadioGroup: React.FC<CheckboxOrRadioGroupProps> = ({
   required,
   sx
 }) => {
-  const expectedInputComponents = [Checkbox, Radio]
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel
   )
