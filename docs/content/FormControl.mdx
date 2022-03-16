@@ -91,6 +91,89 @@ const DifferentInputs = () => {
 render(DifferentInputs)
 ```
 
+### With a custom input
+
+<Note variant="warning">
+
+When rendering an input other than a form component from Primer, you must manually pass the attributes that make the form control accessible:
+
+- The input should have an ID
+- `FormControl.Label` should be associated with the text input by using `htmlFor`
+- If there is a caption, the input should be associated with the caption by passing the message's ID to `aria-describedby`
+- If there is a validation message, the input should be associated with the message by passing the message's ID to `aria-describedby`
+- If there is both a caption and a validation message, the input should be associated with the message by passing the both the validation message's ID and the caption's ID to `aria-describedby`. Example: `aria-describedby="caption-id validation-id"`
+- If the input's value is invalid, `aria-invalid={true}` should be passed to the input.
+- If the input is disabled, `disabled` should be passed.
+- If the input is required, `required` should be passed.
+
+When rendering a custom checkbox or radio component, you must also pass `layout="horizontal"` to the `FormControl` component.
+
+</Note>
+
+```javascript live noinline
+const CustomTextInput = props => <input type="text" {...props} />
+const CustomCheckboxInput = props => <input type="checkbox" {...props} />
+const FormControlWithCustomInput = () => {
+  const [value, setValue] = React.useState('mona lisa')
+  const [validationResult, setValidationResult] = React.useState()
+  const doesValueContainSpaces = inputValue => /\s/g.test(inputValue)
+  const handleInputChange = e => {
+    setValue(e.currentTarget.value)
+  }
+
+  React.useEffect(() => {
+    if (doesValueContainSpaces(value)) {
+      setValidationResult('noSpaces')
+    } else if (value) {
+      setValidationResult('validName')
+    }
+  }, [value])
+
+  return (
+    <Box display="grid" gridGap={3}>
+      <FormControl>
+        <FormControl.Label htmlFor="custom-input">GitHub handle</FormControl.Label>
+        <CustomTextInput
+          id="custom-input"
+          aria-describedby="custom-input-caption custom-input-validation"
+          aria-invalid={validationResult === 'noSpaces'}
+          onChange={handleInputChange}
+        />
+        {validationResult === 'noSpaces' && (
+          <FormControl.Validation id="custom-input-validation" variant="error">
+            GitHub handles cannot contain spaces
+          </FormControl.Validation>
+        )}
+        {validationResult === 'validName' && (
+          <FormControl.Validation id="custom-input-validation" variant="success">
+            Valid name
+          </FormControl.Validation>
+        )}
+        <FormControl.Caption id="custom-input-caption">
+          With or without "@". For example "monalisa" or "@monalisa"
+        </FormControl.Caption>
+      </FormControl>
+
+      <CheckboxGroup>
+        <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
+        <FormControl layout="horizontal">
+          <CustomCheckboxInput id="custom-checkbox-one" value="checkOne" />
+          <FormControl.Label htmlFor="custom-checkbox-one">Checkbox one</FormControl.Label>
+          <FormControl.Caption id="custom-checkbox-one-caption">Hint text for checkbox one</FormControl.Caption>
+        </FormControl>
+        <FormControl layout="horizontal">
+          <CustomCheckboxInput id="custom-checkbox-two" value="checkTwo" />
+          <FormControl.Label htmlFor="custom-checkbox-two">Checkbox two</FormControl.Label>
+          <FormControl.Caption id="custom-checkbox-two-caption">Hint text for checkbox two</FormControl.Caption>
+        </FormControl>
+      </CheckboxGroup>
+    </Box>
+  )
+}
+
+render(FormControlWithCustomInput)
+```
+
 ### With checkbox and radio inputs
 
 ```jsx live
