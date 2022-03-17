@@ -191,6 +191,7 @@ const Header: React.FC<PageLayoutHeaderProps> = ({
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
+      as="header"
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.header,
@@ -230,6 +231,7 @@ const contentWidths = {
 const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}}) => {
   return (
     <Box
+      as="main"
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.content,
@@ -286,6 +288,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   const computedDividerWhenNarrow = dividerWhenNarrow === 'inherit' ? divider : dividerWhenNarrow
   return (
     <Box
+      as="aside"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
@@ -344,6 +347,7 @@ const Footer: React.FC<PageLayoutFooterProps> = ({
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
+      as="footer"
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.footer,
