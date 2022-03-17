@@ -15,13 +15,20 @@ type AutocompleteOverlayInternalProps = {
    */
   overlayProps?: Partial<OverlayProps>
   children?: React.ReactNode
-} & Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
+} & Partial<OverlayProps> &
+  Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
 
-function AutocompleteOverlay({menuAnchorRef, overlayProps, children}: AutocompleteOverlayInternalProps) {
+function AutocompleteOverlay({
+  menuAnchorRef,
+  overlayProps: oldOverlayProps,
+  children,
+  ...newOverlayProps
+}: AutocompleteOverlayInternalProps) {
   const autocompleteContext = useContext(AutocompleteContext)
   if (autocompleteContext === null) {
     throw new Error('AutocompleteContext returned null values')
   }
+  const overlayProps = {...oldOverlayProps, ...newOverlayProps}
   const {inputRef, scrollContainerRef, selectedItemLength, setShowMenu, showMenu = false} = autocompleteContext
   const {floatingElementRef, position} = useAnchoredPosition(
     {
