@@ -185,6 +185,12 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   outline: none;
 }
 
+@media (forced-colors:active) {
+  .c2 {
+    outline: solid 1px transparent;
+  }
+}
+
 <div>
   <div
     class="c0"
