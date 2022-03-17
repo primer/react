@@ -114,7 +114,6 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhe
   const {padding} = React.useContext(PageLayoutContext)
   return (
     <Box
-      role="separator"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
@@ -156,7 +155,6 @@ const verticalDividerVariants = {
 const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
   return (
     <Box
-      role="separator"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
