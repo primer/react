@@ -2,21 +2,7 @@
 
 exports[`Autocomplete snapshots renders a custom empty state message 1`] = `
 Array [
-  .c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
+  .c0 {
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -87,6 +73,20 @@ Array [
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -102,6 +102,7 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
       data-component="input"
       id="autocompleteId"
@@ -148,21 +149,7 @@ Array [
 
 exports[`Autocomplete snapshots renders a loading state 1`] = `
 Array [
-  .c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
+  .c0 {
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -233,6 +220,20 @@ Array [
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -248,6 +249,7 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
       data-component="input"
       id="autocompleteId"
@@ -329,21 +331,7 @@ Array [
 
 exports[`Autocomplete snapshots renders a menu that contains an item to add to the menu 1`] = `
 Array [
-  .c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
+  .c0 {
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -414,6 +402,20 @@ Array [
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -429,6 +431,7 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
       data-component="input"
       id="autocompleteId"
@@ -1273,21 +1276,7 @@ Array [
 
 exports[`Autocomplete snapshots renders a multiselect input 1`] = `
 Array [
-  .c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
+  .c0 {
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -1358,6 +1347,20 @@ Array [
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1373,6 +1376,7 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
       data-component="input"
       id="autocompleteId"
@@ -2127,21 +2131,7 @@ Array [
 
 exports[`Autocomplete snapshots renders a multiselect input with selected menu items 1`] = `
 Array [
-  .c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
+  .c0 {
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -2212,6 +2202,20 @@ Array [
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -2227,6 +2231,7 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
       data-component="input"
       id="autocompleteId"
@@ -2992,21 +2997,7 @@ Array [
 
 exports[`Autocomplete snapshots renders a single select input 1`] = `
 Array [
-  .c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
+  .c0 {
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -3077,6 +3068,20 @@ Array [
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -3092,6 +3097,7 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
       data-component="input"
       id="autocompleteId"
@@ -3987,21 +3993,7 @@ Array [
 
 exports[`Autocomplete snapshots renders with an input value 1`] = `
 Array [
-  .c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
+  .c0 {
   font-size: 14px;
   line-height: 20px;
   color: #24292f;
@@ -4072,6 +4064,20 @@ Array [
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -4087,6 +4093,7 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
       data-component="input"
       id="autocompleteId"
