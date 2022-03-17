@@ -53,7 +53,7 @@ exports[`renders consistently 1`] = `
 }
 
 .c8 {
-  color: #ffffff;
+  color: #24292f;
   line-height: 0;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -73,30 +73,6 @@ exports[`renders consistently 1`] = `
   transition-property: transform;
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
-}
-
-.c9 {
-  background-color: #f6f8fa;
-  width: 50%;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #6e7781;
-  border-radius: 6px;
-  position: absolute;
-  top: -1px;
-  bottom: -1px;
-  z-index: 1;
-  box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
-  -webkit-transition-property: -webkit-transform;
-  -webkit-transition-property: transform;
-  transition-property: transform;
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-  -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
-  transition-timing-function: cubic-bezier(0.5,1,0.89,1);
-  -webkit-transform: translateX(-1px);
-  -ms-transform: translateX(-1px);
-  transform: translateX(-1px);
 }
 
 .c0 {
@@ -153,7 +129,6 @@ exports[`renders consistently 1`] = `
   transition-duration: 80ms;
   -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
   transition-timing-function: cubic-bezier(0.5,1,0.89,1);
-  background: #6e7781;
   border-radius: 6px;
   border-style: solid;
   border-width: 1px;
@@ -162,7 +137,8 @@ exports[`renders consistently 1`] = `
   width: 64px;
   outline-offset: 2px;
   position: relative;
-  border-color: rgba(27,31,36,0.15);
+  background: #ffffff;
+  border-color: #8c959f;
 }
 
 .c4:after {
@@ -186,8 +162,26 @@ exports[`renders consistently 1`] = `
   background-color: hsla(220,14%,93%,1);
 }
 
-.c4:disabled {
-  cursor: not-allowed;
+.c9 {
+  background-color: #f6f8fa;
+  border-color: rgba(27,31,36,0.15);
+  border-radius: calc(6px - 1px);
+  box-shadow: inset -1px 0px 0 0px #d0d7de,inset 0 1px 0 rgba(255,255,255,0.25);
+  width: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+  -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  z-index: 1;
 }
 
 @media (pointer:coarse) {
@@ -267,7 +261,7 @@ exports[`renders consistently 1`] = `
       </div>
       <div
         className="c8"
-        color="fg.onEmphasis"
+        color="fg.default"
       >
         <svg
           fill="currentColor"
@@ -285,8 +279,9 @@ exports[`renders consistently 1`] = `
     </div>
     <div
       aria-hidden="true"
+      checked={false}
       className="c9 Toggle-knob"
-      width="50%"
+      disabled={false}
     />
   </button>
 </div>

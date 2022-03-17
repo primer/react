@@ -155,7 +155,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
       return css`
         background: ${get('colors.canvas.default')};
         /* TODO: instead of using colors.scale.gray.4, create an accessible control border color token */
-        border-color: ${get('colors.scale.gray.4')};
+        border-color: #8c959f;
 
         &:hover,
         &:focus:focus-visible {
@@ -184,8 +184,8 @@ const ToggleKnob = styled(Box)<{checked?: boolean; disabled?: boolean} & SxProp>
   border-radius: calc(${get('radii.2')} - 1px); /* -1px to account for 1px border around the control */
   box-shadow: ${props =>
     props.disabled
-      ? `inset -1px 0px 0 0px ${props.theme.colors.border.default}`
-      : `inset -1px 0px 0 0px ${props.theme.colors.border.default}, ${props.theme.shadows.btn.insetShadow}`};
+      ? `inset -1px 0px 0 0px ${props.theme?.colors?.border.default}`
+      : `inset -1px 0px 0 0px ${props.theme?.colors?.border.default}, ${props.theme?.shadows?.btn.insetShadow}`};
   width: 50%;
   position: absolute;
   top: 0;
