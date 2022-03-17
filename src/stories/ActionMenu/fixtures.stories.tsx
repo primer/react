@@ -542,7 +542,10 @@ export function MemexAddColumn(): JSX.Element {
       <h1>Memex Add column</h1>
 
       <Box as="form" sx={{display: 'flex', flexDirection: 'column', width: 320}}>
-        <TextInput defaultValue="Estimate" aria-label="Field Name" sx={{mb: 2}} />
+        <FormControl>
+          <FormControl.Label visuallyHidden>Column name</FormControl.Label>
+          <TextInput defaultValue="Estimate" aria-label="Field Name" sx={{mb: 2}} />
+        </FormControl>
         <ActionMenu>
           <ActionMenu.Button
             aria-label="Select field type"
@@ -571,8 +574,11 @@ export function MemexAddColumn(): JSX.Element {
         <Text sx={{fontSize: 0, color: 'fg.muted', mt: 3, mb: 1}}>Options</Text>
 
         <Box sx={{display: 'flex', alignItems: 'center'}}>
-          <Text sx={{fontSize: 1, mr: 2}}>Duration:</Text>
-          <TextInput type="number" defaultValue="2" sx={{width: '6ch'}} />
+          <Text as="label" sx={{fontSize: 1, mr: 2}} htmlFor="duration">
+            Duration:
+          </Text>
+          <TextInput id="duration" type="number" defaultValue="2" sx={{width: '6ch'}} />
+
           <ActionMenu>
             <ActionMenu.Button
               id="duration"
