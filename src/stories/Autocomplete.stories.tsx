@@ -648,3 +648,36 @@ export const InOverlayWithCustomScrollContainerRef = () => {
     </AnchoredOverlay>
   )
 }
+
+// repro for: https://github.com/primer/react/issues/1971
+export const InsideAnchoredOverlay = () => {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const [isOpen, setIsOpen] = useState(false)
+  const handleOpen = () => {
+    setIsOpen(true)
+    inputRef.current && inputRef.current.focus()
+  }
+
+  return (
+    <>
+      <AnchoredOverlay
+        open={isOpen}
+        onOpen={handleOpen}
+        onClose={() => setIsOpen(false)}
+        width="large"
+        height="xsmall"
+        focusTrapSettings={{initialFocusRef: inputRef}}
+        side="inside-top"
+        renderAnchor={props => <ButtonInvisible {...props}>open overlay</ButtonInvisible>}
+      >
+        <Autocomplete>
+          <Autocomplete.Input block id="autocompleteInput" />
+          <Autocomplete.Overlay portalContainerName="custom-portal">
+            <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </AnchoredOverlay>
+    </>
+  )
+}
