@@ -104,6 +104,12 @@ exports[`ActionMenu renders consistently 1`] = `
   margin-right: -4px;
 }
 
+@media (forced-colors:active) {
+  .c1:focus {
+    outline: solid 1px transparent;
+  }
+}
+
 <div
   className="c0"
   color="fg.default"
