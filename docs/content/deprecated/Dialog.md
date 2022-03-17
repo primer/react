@@ -1,11 +1,11 @@
 ---
-title: Dialog
+title: Dialog (legacy)
 status: Deprecated
 ---
 
 ## Deprecation
 
-Use [Dialog2](/Dialog2) instead.
+Use the [new version of Dialog](/Dialog) instead.
 
 **Before**
 
@@ -23,7 +23,7 @@ Use [Dialog2](/Dialog2) instead.
 ```jsx deprecated
 {
   open && (
-    <Dialog2
+    <Dialog
       title="Dialog example"
       subtitle={
         <>
@@ -34,12 +34,10 @@ Use [Dialog2](/Dialog2) instead.
       onClose={() => setOpen(false)}
     >
       <Text fontFamily="sans-serif">Some content</Text>
-    </Dialog2>
+    </Dialog>
   )
 }
 ```
-
-import State from '../../components/State'
 
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
@@ -111,7 +109,7 @@ You can also pass any non-text content into the header:
             </Text>
             <Box display="flex" mt={3} justifyContent="flex-end">
               <Button sx={{mr: 1}}>Cancel</Button>
-              <ButtonDanger>Delete</ButtonDanger>
+              <Button variant="danger">Delete</Button>
             </Box>
           </Box>
         </Dialog>

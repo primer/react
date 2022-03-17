@@ -1,5 +1,6 @@
 ---
-title: Dialog v2
+title: Dialog
+componentId: dialog
 status: Alpha
 ---
 
@@ -53,7 +54,7 @@ By default, the Dialog component implements the design and interactions defined 
       <>
         <Button onClick={openDialog}>Open</Button>
         {isOpen && (
-          <Dialog2
+          <Dialog
             title="Dialog example"
             subtitle={
               <>
@@ -64,7 +65,7 @@ By default, the Dialog component implements the design and interactions defined 
             onClose={closeDialog}
           >
             <Text fontFamily="sans-serif">Some content</Text>
-          </Dialog2>
+          </Dialog>
         )}
       </>
     )
