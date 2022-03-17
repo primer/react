@@ -50,7 +50,7 @@ type SwitchButtonProps = {
   disabled?: boolean
   checked?: boolean
   size?: SwitchProps['size']
-  isHighContrast: boolean
+  isHighContrast?: boolean
 } & SxProp
 
 type InnerIconProps = {size?: SwitchProps['size']}
@@ -85,20 +85,9 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   appearance: none;
   text-decoration: none;
   padding: 0;
-  transition-property: ${props => (props.disabled ? 'none' : 'background-color, border-color')};
+  transition-property: background-color, border-color;
   transition-duration: ${TRANSITION_DURATION};
   transition-timing-function: ${EASE_OUT_QUAD_CURVE};
-  background: ${props => {
-    if (props.disabled && props.checked) {
-      return get('colors.canvas.subtle')
-    }
-
-    if (props.disabled && !props.checked) {
-      return get('colors.canvas.subtle')
-    }
-
-    return props.checked ? get('colors.accent.subtle') : get('colors.neutral.emphasis')
-  }};
   border-radius: ${get('radii.2')};
   border-style: solid;
   border-width: 1px;
@@ -132,55 +121,90 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   }
 
   ${props => {
-    if (!props.disabled) {
-      if (props.checked) {
-        return css`
-          border-color: ${get('colors.accent.fg')};
+    if (props.disabled) {
+      return css`
+        background: ${get('colors.canvas.subtle')};
+        border-color: ${get('colors.border.subtle')};
+        cursor: not-allowed;
+        transition-property: none;
+      `
+    }
 
-          &:hover,
-          &:focus:focus-visible {
-            :after {
-              background-color: ${get('colors.accent.muted')};
-              opacity: ${props.isHighContrast ? 0.2 : 0.75};
-            }
-          }
+    if (props.checked) {
+      return css`
+        background: ${get('colors.accent.subtle')};
+        border-color: ${get('colors.accent.fg')};
 
-          &:active,
-          &:active:focus-visible {
-            :after {
-              background-color: ${get('colors.accent.muted')};
-              opacity: ${props.isHighContrast ? 0.5 : 1};
-            }
+        &:hover,
+        &:focus:focus-visible {
+          :after {
+            background-color: ${get('colors.accent.muted')};
+            opacity: ${props.isHighContrast ? 0.2 : 0.75};
           }
-        `
-      } else {
-        return css`
-          border-color: ${get('colors.border.subtle')};
+        }
 
-          &:hover,
-          &:focus:focus-visible {
-            .Toggle-knob {
-              background-color: ${get('colors.btn.hoverBg')};
-            }
+        &:active,
+        &:active:focus-visible {
+          :after {
+            background-color: ${get('colors.accent.muted')};
+            opacity: ${props.isHighContrast ? 0.5 : 1};
           }
+        }
+      `
+    } else {
+      return css`
+        background: ${get('colors.canvas.default')};
+        /* TODO: instead of using colors.scale.gray.4, create an accessible control border color token */
+        border-color: ${get('colors.scale.gray.4')};
 
-          &:active,
-          &:active:focus-visible {
-            .Toggle-knob {
-              background-color: ${get('colors.btn.activeBg')};
-            }
+        &:hover,
+        &:focus:focus-visible {
+          .Toggle-knob {
+            background-color: ${get('colors.btn.hoverBg')};
           }
-        `
-      }
+        }
+
+        &:active,
+        &:active:focus-visible {
+          .Toggle-knob {
+            background-color: ${get('colors.btn.activeBg')};
+          }
+        }
+      `
     }
   }}
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-
   ${sx}
   ${sizeVariants}
+`
+
+const ToggleKnob = styled(Box)<{checked?: boolean; disabled?: boolean} & SxProp>`
+  background-color: ${get('colors.btn.bg')};
+  border-color: ${props => (props.disabled ? get('colors.border.default') : get('colors.border.subtle'))};
+  border-radius: calc(${get('radii.2')} - 1px); /* -1px to account for 1px border around the control */
+  box-shadow: ${props =>
+    props.disabled
+      ? `inset -1px 0px 0 0px ${props.theme.colors.border.default}`
+      : `inset -1px 0px 0 0px ${props.theme.colors.border.default}, ${props.theme.shadows.btn.insetShadow}`};
+  width: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transition-property: transform;
+  transition-duration: ${TRANSITION_DURATION};
+  transition-timing-function: ${EASE_OUT_QUAD_CURVE};
+  transform: ${props => `translateX(${props.checked ? '100%' : '0'})`};
+  z-index: 1;
+
+  ${props => {
+    if (props.checked) {
+      return css`
+        background-color: ${props.disabled ? get('colors.neutral.emphasis') : get('colors.accent.emphasis')};
+        border-color: ${props.disabled ? get('colors.accent.emphasis') : get('colors.neutral.emphasis')};
+        box-shadow: none;
+      `
+    }
+  }}
 `
 
 const hiddenTextStyles: BetterSystemStyleObject = {
@@ -202,7 +226,7 @@ const Switch: React.FC<SwitchProps> = ({
   sx: sxProp
 }) => {
   const isControlled = typeof checked !== 'undefined'
-  const {theme, colorScheme} = useTheme()
+  const {colorScheme} = useTheme()
   const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
   const acceptsInteraction = !disabled && !loading
   const handleToggleClick: MouseEventHandler = useCallback(
@@ -278,7 +302,7 @@ const Switch: React.FC<SwitchProps> = ({
             flexGrow={1}
             flexShrink={0}
             flexBasis="50%"
-            color={acceptsInteraction ? 'fg.onEmphasis' : 'fg.subtle'}
+            color={acceptsInteraction ? 'fg.default' : 'fg.subtle'}
             lineHeight="0"
             sx={{
               transform: `translateX(${isOn ? '100%' : '0'})`,
@@ -289,37 +313,7 @@ const Switch: React.FC<SwitchProps> = ({
             <CircleIcon size={size} />
           </Box>
         </Box>
-        <Box
-          aria-hidden="true"
-          borderWidth="1"
-          borderStyle="solid"
-          backgroundColor={isOn ? (acceptsInteraction ? 'accent.emphasis' : 'neutral.emphasis') : 'btn.bg'}
-          borderColor={
-            isOn
-              ? acceptsInteraction
-                ? 'accent.emphasis'
-                : 'neutral.emphasis'
-              : acceptsInteraction
-              ? 'neutral.emphasis'
-              : 'border.subtle'
-          }
-          borderRadius={2}
-          width="50%"
-          position="absolute"
-          top="-1px"
-          bottom="-1px"
-          zIndex={1}
-          boxShadow={
-            acceptsInteraction ? `${theme?.shadows.btn.shadow}, ${!isOn && theme?.shadows.btn.insetShadow}` : undefined
-          }
-          className="Toggle-knob"
-          sx={{
-            transitionProperty: 'transform',
-            transitionDuration: TRANSITION_DURATION,
-            transitionTimingFunction: EASE_OUT_QUAD_CURVE,
-            transform: `translateX(${isOn ? 'calc(100% + 1px)' : '-1px'})`
-          }}
-        />
+        <ToggleKnob aria-hidden="true" className="Toggle-knob" disabled={!acceptsInteraction} checked={isOn} />
       </SwitchButton>
     </Box>
   )
