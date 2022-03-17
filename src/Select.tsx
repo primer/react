@@ -24,11 +24,6 @@ const StyledSelect = styled.select`
   &:invalid {
     color: ${get('colors.fg.subtle')};
   }
-
-  /* For Firefox: reverts color of non-placeholder options in the dropdown */
-  &:invalid option:not(:first-child) {
-    color: ${get('colors.fg.default')};
-  }
 `
 
 const ArrowIndicatorSVG: React.FC<{className?: string}> = ({className}) => (
