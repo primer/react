@@ -262,14 +262,17 @@ exports[`Button styles icon only button to make it a square 1`] = `
 .c0:disabled {
   cursor: default;
   color: primer.fg.disabled;
-  background-color: btn.disabledBg;
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0:disabled svg {
   opacity: 0.6;
 }
 
-.c0 [data-component="ButtonCounter"] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
