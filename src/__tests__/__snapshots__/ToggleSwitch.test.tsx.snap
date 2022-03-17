@@ -48,10 +48,6 @@ exports[`renders consistently 1`] = `
   transition-duration: 80ms;
 }
 
-.c7 > svg {
-  fill: currentcolor;
-}
-
 .c8 {
   color: #24292f;
   line-height: 0;
@@ -195,6 +191,25 @@ exports[`renders consistently 1`] = `
     transform: translateY(-50%);
     top: 50%;
     min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .c4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+
+  .c4 * {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .c9 {
+    -webkit-transition: none;
+    transition: none;
   }
 }
 

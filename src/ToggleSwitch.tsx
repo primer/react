@@ -109,6 +109,14 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     }
   }
 
+  @media (prefers-reduced-motion) {
+    transition: none;
+
+    * {
+      transition: none;
+    }
+  }
+
   &:after {
     content: '';
     box-sizing: border-box;
@@ -195,6 +203,10 @@ const ToggleKnob = styled(Box)<{checked?: boolean; disabled?: boolean} & SxProp>
   transition-timing-function: ${EASE_OUT_QUAD_CURVE};
   transform: ${props => `translateX(${props.checked ? '100%' : '0'})`};
   z-index: 1;
+
+  @media (prefers-reduced-motion) {
+    transition: none;
+  }
 
   ${props => {
     if (props.checked) {
@@ -290,10 +302,7 @@ const Switch: React.FC<SwitchProps> = ({
             sx={{
               transform: `translateX(${isOn ? '0' : '-100%'})`,
               transitionProperty: 'transform',
-              transitionDuration: TRANSITION_DURATION,
-              '> svg': {
-                fill: 'currentcolor'
-              }
+              transitionDuration: TRANSITION_DURATION
             }}
           >
             <LineIcon size={size} />
