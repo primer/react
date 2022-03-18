@@ -93,6 +93,8 @@ describe('useMenuInitialFocus', () => {
     const {getByText} = render(<Component />)
 
     const button = getByText('open container')
+    button.focus() // browsers do this automatically on click, but tests don't
+    expect(button).toEqual(document.activeElement)
     fireEvent.click(button)
 
     await waitFor(() => {
