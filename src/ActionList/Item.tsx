@@ -161,8 +161,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
       '@media (forced-colors: active)': {
         ':focus': {
-          // we set color to be transparent and let the high contrast rules
-          // decide what color with contrast should that be corrected to
+          // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
           outline: 'solid 1px transparent !important'
         }
       },
