@@ -136,14 +136,19 @@ describe('ActionMenu', () => {
     cleanup()
   })
 
-  it('should keep focus on Button when menu is opened with click', () => {
+  it('should keep focus on Button when menu is opened with click', async () => {
     const component = HTMLRender(<Example />)
 
-    const button = component.getByText('Toggle Menu')
+    const button = component.getByRole('button')
+
+    button.focus() // browsers do this automatically on click, but tests don't
+    expect(button).toEqual(document.activeElement)
     fireEvent.click(button)
 
-    expect(component.queryByRole('menu')).toBeInTheDocument()
-    expect(button).toEqual(document.activeElement)
+    /** We use waitFor because the hook uses an effect with setTimeout
+     *  and we need to wait for that to happen in the next tick
+     */
+    await waitFor(() => expect(document.activeElement).toEqual(button))
 
     cleanup()
   })
@@ -152,6 +157,7 @@ describe('ActionMenu', () => {
     const component = HTMLRender(<Example />)
 
     const button = component.getByText('Toggle Menu')
+    button.focus() // browsers do this automatically on click, but tests don't
     fireEvent.click(button)
     expect(component.queryByRole('menu')).toBeInTheDocument()
 
