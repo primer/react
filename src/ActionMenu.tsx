@@ -132,9 +132,14 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
   useOnTabPress(containerRef, onClose)
 
   React.useEffect(() => {
+    // handle focus changes when keyboard navigation is activated
     const handler = (event: React.KeyboardEvent<HTMLElement>) => {
+      if (!open) return
+
       // TODO: Refactor hook to be just about focus, not initial focus
-      openWithFocus('anchor-key-press', event)
+      if (['ArrowDown', 'Space', 'Enter', 'ArrowUp'].includes(event.code)) {
+        openWithFocus('anchor-key-press', event)
+      }
     }
 
     anchorRef.current.addEventListener('keydown', handler)
