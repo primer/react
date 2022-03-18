@@ -78,6 +78,12 @@ const StyledOverlay = styled.div<StyledOverlayProps>`
   :focus {
     outline: none;
   }
+
+  @media (forced-colors: active) {
+    /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
+    outline: solid 1px transparent;
+  }
+
   ${sx};
 `
 type BaseOverlayProps = {
