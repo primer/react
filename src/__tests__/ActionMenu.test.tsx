@@ -136,6 +136,38 @@ describe('ActionMenu', () => {
     cleanup()
   })
 
+  it('should select first element when ArrowDown is pressed after opening Menu', () => {
+    const component = HTMLRender(<Example />)
+
+    const button = component.getByText('Toggle Menu')
+    fireEvent.click(button)
+    expect(component.queryByRole('menu')).toBeInTheDocument()
+
+    fireEvent.keyDown(button, {key: 'ArrowDown', code: 'ArrowDown'})
+    expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
+
+    cleanup()
+  })
+
+  it('should close the menu if Tab is pressed and move to next element', () => {
+    const component = HTMLRender(
+      <>
+        <Example />
+        <button>next focusable element</button>
+      </>
+    )
+    const button = component.getByText('Toggle Menu')
+    fireEvent.click(button)
+    expect(component.queryByRole('menu')).toBeInTheDocument()
+
+    fireEvent.keyDown(button, {key: 'Tab', code: 'Tab'})
+    expect(component.queryByRole('menu')).not.toBeInTheDocument()
+
+    expect(component.getByText('next focusable element')).toEqual(document.activeElement)
+
+    cleanup()
+  })
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Example />)
     const results = await axe(container)
