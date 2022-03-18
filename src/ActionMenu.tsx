@@ -72,7 +72,7 @@ const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnc
   }
 )
 
-const useOnTabPress = (containerRef: React.RefObject<HTMLElement>, onClose: MenuContextProps['onClose']) => {
+const useOnTabPress = (containerRef: React.RefObject<HTMLElement>, anchorRef, onClose: MenuContextProps['onClose']) => {
   React.useEffect(() => {
     const handler = (event: React.KeyboardEvent<HTMLElement>) => {
       if (event.code === 'Tab') {
@@ -84,7 +84,11 @@ const useOnTabPress = (containerRef: React.RefObject<HTMLElement>, onClose: Menu
     if (!container) return
 
     container.addEventListener('keydown', handler)
-    return () => container.removeEventListener('keydown', handler)
+    anchorRef.current.addEventListener('keydown', handler)
+    return () => {
+      container.removeEventListener('keydown', handler)
+      anchorRef.current.addEventListener('keydown', handler)
+    }
   })
 }
 
@@ -129,7 +133,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
   const containerRef = React.createRef<HTMLDivElement>()
   const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef, anchorRef)
   useTypeaheadFocus(open, containerRef, anchorRef)
-  useOnTabPress(containerRef, onClose)
+  useOnTabPress(containerRef, anchorRef, onClose)
 
   React.useEffect(() => {
     // handle focus changes when keyboard navigation is activated
