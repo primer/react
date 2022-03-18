@@ -4,7 +4,7 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export const TYPEAHEAD_TIMEOUT = 1000
 
-export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<HTMLElement>) => {
+export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<HTMLElement>, anchorRef) => {
   const containerRef = useProvidedRefOrCreate(providedRef)
 
   React.useEffect(() => {
@@ -83,8 +83,12 @@ export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<H
     }
 
     container.addEventListener('keydown', handler)
-    return () => container.removeEventListener('keydown', handler)
-  }, [open, containerRef])
+    anchorRef.current.addEventListener('keydown', handler)
+    return () => {
+      container.removeEventListener('keydown', handler)
+      anchorRef.current.removeEventListener('keydown', handler)
+    }
+  }, [open, containerRef, anchorRef])
 
   const isAlphabetKey = (event: KeyboardEvent) => {
     return event.key.length === 1 && /[a-z\d]/i.test(event.key)
