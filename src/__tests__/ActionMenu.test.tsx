@@ -136,6 +136,18 @@ describe('ActionMenu', () => {
     cleanup()
   })
 
+  it('should keep focus on Button when menu is opened with click', () => {
+    const component = HTMLRender(<Example />)
+
+    const button = component.getByText('Toggle Menu')
+    fireEvent.click(button)
+
+    expect(component.queryByRole('menu')).toBeInTheDocument()
+    expect(button).toEqual(document.activeElement)
+
+    cleanup()
+  })
+
   it('should select first element when ArrowDown is pressed after opening Menu', () => {
     const component = HTMLRender(<Example />)
 
@@ -143,7 +155,8 @@ describe('ActionMenu', () => {
     fireEvent.click(button)
     expect(component.queryByRole('menu')).toBeInTheDocument()
 
-    fireEvent.keyDown(button, {key: 'ArrowDown', code: 'ArrowDown'})
+    // button should be the active element
+    fireEvent.keyDown(document.activeElement!, {key: 'ArrowDown', code: 'ArrowDown'})
     expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
 
     cleanup()
