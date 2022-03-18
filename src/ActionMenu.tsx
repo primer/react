@@ -131,6 +131,16 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
   useTypeaheadFocus(open, containerRef)
   useOnTabPress(containerRef, onClose)
 
+  React.useEffect(() => {
+    const handler = (event: React.KeyboardEvent<HTMLElement>) => {
+      // TODO: Refactor hook to be just about focus, not initial focus
+      openWithFocus('anchor-key-press', event)
+    }
+
+    anchorRef.current.addEventListener('keydown', handler)
+    return () => anchorRef.current.removeEventListener('keydown', handler)
+  })
+
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
