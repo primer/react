@@ -111,7 +111,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
   >
 
   const containerRef = React.createRef<HTMLDivElement>()
-  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef)
+  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef, anchorRef)
   useTypeaheadFocus(open, containerRef)
 
   return (
