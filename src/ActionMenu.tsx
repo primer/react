@@ -72,6 +72,22 @@ const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnc
   }
 )
 
+const useOnTabPress = (containerRef: React.RefObject<HTMLElement>, onClose: MenuContextProps['onClose']) => {
+  React.useEffect(() => {
+    const handler = (event: React.KeyboardEvent<HTMLElement>) => {
+      if (event.code === 'Tab') {
+        onClose('escape') //TODO: Add tab out to the list
+      }
+    }
+
+    const container = containerRef.current
+    if (!container) return
+
+    container.addEventListener('keydown', handler)
+    return () => container.removeEventListener('keydown', handler)
+  })
+}
+
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
@@ -113,6 +129,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
   const containerRef = React.createRef<HTMLDivElement>()
   const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef, anchorRef)
   useTypeaheadFocus(open, containerRef)
+  useOnTabPress(containerRef, onClose)
 
   return (
     <AnchoredOverlay
