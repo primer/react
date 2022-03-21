@@ -72,24 +72,29 @@ const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnc
   }
 )
 
-const useOnTabPress = (containerRef: React.RefObject<HTMLElement>, anchorRef, onClose: MenuContextProps['onClose']) => {
+const useOnTabPress = (
+  containerRef: React.RefObject<HTMLElement>,
+  anchorRef: React.RefObject<HTMLElement>,
+  onClose: MenuContextProps['onClose']
+) => {
   React.useEffect(() => {
-    const handler = (event: React.KeyboardEvent<HTMLElement>) => {
-      if (event.code === 'Tab') {
+    const handler = (event: KeyboardEvent) => {
+      if (event.key === 'Tab') {
         onClose('escape') //TODO: Add tab out to the list
       }
     }
 
     const container = containerRef.current
-    if (!container) return
+    const anchor = anchorRef.current
+    if (!container || !anchor) return
 
     container.addEventListener('keydown', handler)
-    anchorRef.current.addEventListener('keydown', handler)
+    anchor.addEventListener('keydown', handler)
     return () => {
       container.removeEventListener('keydown', handler)
-      anchorRef.current.addEventListener('keydown', handler)
+      anchor.addEventListener('keydown', handler)
     }
-  })
+  }, [anchorRef, containerRef, onClose])
 }
 
 /** this component is syntactical sugar 🍭 */
@@ -146,9 +151,11 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', sx: pro
       }
     }
 
-    anchorRef.current.addEventListener('keydown', handler)
-    return () => anchorRef.current.removeEventListener('keydown', handler)
-  })
+    const anchor = anchorRef.current
+
+    anchor?.addEventListener('keydown', handler)
+    return () => anchor?.removeEventListener('keydown', handler)
+  }, [open, openWithFocus, anchorRef])
 
   return (
     <AnchoredOverlay
