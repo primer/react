@@ -133,8 +133,6 @@ exports[`renders consistently 1`] = `
   width: 64px;
   outline-offset: 2px;
   position: relative;
-  background: #ffffff;
-  border-color: #8c959f;
 }
 
 .c4:after {
@@ -160,13 +158,14 @@ exports[`renders consistently 1`] = `
 
 .c9 {
   background-color: #f6f8fa;
-  border-color: rgba(27,31,36,0.15);
+  border-width: 1px;
+  border-style: solid;
   border-radius: calc(6px - 1px);
-  box-shadow: inset -1px 0px 0 0px #d0d7de,inset 0 1px 0 rgba(255,255,255,0.25);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15),inset 0 1px 0 rgba(255,255,255,0.25);
   width: 50%;
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -1px;
+  bottom: -1px;
   -webkit-transition-property: -webkit-transform;
   -webkit-transition-property: transform;
   transition-property: transform;
@@ -174,9 +173,9 @@ exports[`renders consistently 1`] = `
   transition-duration: 80ms;
   -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
   transition-timing-function: cubic-bezier(0.5,1,0.89,1);
-  -webkit-transform: translateX(0);
-  -ms-transform: translateX(0);
-  transform: translateX(0);
+  -webkit-transform: translateX(-1px);
+  -ms-transform: translateX(-1px);
+  transform: translateX(-1px);
   z-index: 1;
 }
 
