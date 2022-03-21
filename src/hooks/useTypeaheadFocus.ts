@@ -6,16 +6,18 @@ export const TYPEAHEAD_TIMEOUT = 1000
 
 export const useTypeaheadFocus = (
   open: boolean,
-  providedContainerRef?: React.RefObject<HTMLElement>,
+  providedContainerRef: React.RefObject<HTMLElement>,
   providedAnchorRef?: React.RefObject<HTMLElement>
 ) => {
   const containerRef = useProvidedRefOrCreate(providedContainerRef)
   const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
 
   React.useEffect(() => {
-    if (!open || !containerRef.current) return
     const container = containerRef.current
-    const anchor = anchorRef?.current
+    const anchor = anchorRef.current
+
+    // anchor is optional, but container isn't
+    if (!open || !container) return
 
     let query = ''
     let timeout: number | undefined

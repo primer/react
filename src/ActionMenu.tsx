@@ -3,14 +3,14 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, useTypeaheadFocus} from './hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from './hooks'
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
 import {SxProp, merge} from './sx'
 
-type MenuContextProps = Pick<
+export type MenuContextProps = Pick<
   AnchoredOverlayProps,
   'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose' | 'anchorId'
 >
@@ -72,29 +72,6 @@ const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnc
   }
 )
 
-const useOnTabPress = (
-  containerRef: React.RefObject<HTMLElement>,
-  anchorRef: React.RefObject<HTMLElement>,
-  onClose: MenuContextProps['onClose']
-) => {
-  React.useEffect(() => {
-    const handler = (event: KeyboardEvent) => {
-      if (event.key === 'Tab' && typeof onClose === 'function') onClose('tab')
-    }
-
-    const container = containerRef.current
-    const anchor = anchorRef.current
-    if (!container || !anchor) return
-
-    container.addEventListener('keydown', handler)
-    anchor.addEventListener('keydown', handler)
-    return () => {
-      container.removeEventListener('keydown', handler)
-      anchor.addEventListener('keydown', handler)
-    }
-  }, [anchorRef, containerRef, onClose])
-}
-
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
 const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
@@ -134,9 +111,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', sx: pro
   >
 
   const containerRef = React.createRef<HTMLDivElement>()
-  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef, anchorRef)
-  useTypeaheadFocus(open, containerRef, anchorRef)
-  useOnTabPress(containerRef, anchorRef, onClose)
+  const {openWithFocus} = useMenuKeyboardNavigation(open, onOpen, onClose, containerRef, anchorRef)
 
   React.useEffect(() => {
     // handle focus changes when keyboard navigation is activated
