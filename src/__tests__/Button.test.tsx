@@ -10,9 +10,9 @@ expect.extend(toHaveNoViolations)
 describe('Button', () => {
   behavesAsComponent({Component: Button, options: {skipAs: true}})
 
-  it('renders a <button>', async () => {
+  it('renders a <button>', () => {
     const container = render(<Button>Default</Button>)
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button.textContent).toEqual('Default')
   })
 
@@ -23,76 +23,82 @@ describe('Button', () => {
     cleanup()
   })
 
-  it('preserves "onClick" prop', async () => {
+  it('preserves "onClick" prop', () => {
     const onClick = jest.fn()
     const container = render(<Button onClick={onClick}>Noop</Button>)
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     fireEvent.click(button)
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('respects width props', async () => {
+  it('respects width props', () => {
     const container = render(<Button sx={{width: 200}}>Block</Button>)
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button).toHaveStyleRule('width', '200px')
   })
 
-  it('respects the "disabled" prop', async () => {
+  it('respects the "disabled" prop', () => {
     const onClick = jest.fn()
     const container = render(
       <Button onClick={onClick} disabled>
         Disabled
       </Button>
     )
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button.hasAttribute('disabled')).toEqual(true)
     fireEvent.click(button)
     expect(onClick).toHaveBeenCalledTimes(0)
   })
 
-  it('respects the "variant" prop', async () => {
+  it('respects the "variant" prop', () => {
     const container = render(<Button size="small">Smol</Button>)
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button).toHaveStyleRule('font-size', '12px')
   })
 
-  it('respects the "fontSize" prop over the "variant" prop', async () => {
+  it('respects the "fontSize" prop over the "variant" prop', () => {
     const container = render(
       <Button size="small" sx={{fontSize: 20}}>
         Big Smol
       </Button>
     )
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button).toHaveStyleRule('font-size', '20px')
   })
 
-  it('styles primary button appropriately', async () => {
+  it('styles primary button appropriately', () => {
     const container = render(<Button variant="primary">Primary</Button>)
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button).toMatchSnapshot()
   })
 
-  it('styles invisible button appropriately', async () => {
+  it('styles invisible button appropriately', () => {
     const container = render(<Button variant="invisible">Invisible</Button>)
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button).toMatchSnapshot()
   })
 
-  it('styles danger button appropriately', async () => {
+  it('styles danger button appropriately', () => {
     const container = render(<Button variant="danger">Danger</Button>)
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button).toMatchSnapshot()
   })
 
-  it('styles outline button appropriately', async () => {
+  it('styles outline button appropriately', () => {
     const container = render(<Button variant="outline">Outline</Button>)
-    const button = await container.findByRole('button')
+    const button = container.getByRole('button')
     expect(button).toMatchSnapshot()
   })
 
-  it('styles icon only button to make it a square', async () => {
-    const container = render(<IconButton icon={SearchIcon} iconLabel="Search icon only button" />)
-    const IconOnlyButton = await container.findByRole('button')
+  it('styles icon only button to make it a square', () => {
+    const container = render(<IconButton icon={SearchIcon} aria-label="Search button" />)
+    const IconOnlyButton = container.getByRole('button')
     expect(IconOnlyButton).toHaveStyleRule('padding-right', '8px')
+    expect(IconOnlyButton).toMatchSnapshot()
+  })
+  it('makes sure icon button has an aria-label', () => {
+    const container = render(<IconButton icon={SearchIcon} aria-label="Search button" />)
+    const IconOnlyButton = container.getByLabelText('Search button')
+    expect(IconOnlyButton).toBeTruthy()
   })
 })

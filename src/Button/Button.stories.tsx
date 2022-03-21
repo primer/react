@@ -6,7 +6,7 @@ import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 
 export default {
-  title: 'Composite components/Button2',
+  title: 'Composite components/Button',
 
   decorators: [
     Story => {
@@ -75,19 +75,19 @@ export const iconButton = ({...args}: ButtonProps) => {
   return (
     <>
       <Box mb={2}>
-        <IconButton icon={XIcon} iconLabel="Close" {...args} />
+        <IconButton icon={XIcon} aria-label="Close" {...args} />
       </Box>
       <Box mb={2}>
-        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="invisible" sx={{mt: 2}} />
+        <IconButton icon={XIcon} aria-label="Close" {...args} variant="invisible" sx={{mt: 2}} />
       </Box>
       <Box mb={2}>
-        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="danger" />
+        <IconButton icon={XIcon} aria-label="Close" {...args} variant="danger" />
       </Box>
       <Box mb={2}>
-        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="primary" />
+        <IconButton icon={XIcon} aria-label="Close" {...args} variant="primary" />
       </Box>
       <Box mb={2}>
-        <IconButton icon={XIcon} iconLabel="Close" {...args} variant="outline" />
+        <IconButton icon={XIcon} aria-label="Close" {...args} variant="outline" />
       </Box>
     </>
   )
@@ -193,7 +193,7 @@ export const DisabledButton = ({...args}: ButtonProps) => {
         </Button>
       </Box>
       <Box mb={2}>
-        <IconButton disabled icon={() => <XIcon />} iconLabel="Close" {...args} />
+        <IconButton disabled icon={() => <XIcon />} aria-label="Close" {...args} />
       </Box>
     </>
   )
