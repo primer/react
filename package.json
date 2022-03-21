@@ -1,17 +1,24 @@
 {
   "name": "@primer/react",
-  "version": "34.7.0",
+  "version": "35.0.1",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
       "node": "./lib/index.js",
+      "require": "./lib/index.js",
       "default": "./lib-esm/index.js"
     },
     "./drafts": {
       "node": "./lib/drafts/index.js",
+      "require": "./lib/drafts/index.js",
       "default": "./lib-esm/drafts/index.js"
+    },
+    "./deprecated": {
+      "node": "./lib/deprecated/index.js",
+      "require": "./lib/deprecated/index.js",
+      "default": "./lib-esm/deprecated/index.js"
     },
     "./lib-esm/*": {
       "node": [
@@ -37,6 +44,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
+    "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
     "prepare": "husky install"
@@ -69,7 +77,7 @@
   "dependencies": {
     "@primer/behaviors": "1.1.0",
     "@primer/octicons-react": "16.1.1",
-    "@primer/primitives": "7.1.1",
+    "@primer/primitives": "7.5.1",
     "@radix-ui/react-polymorphic": "0.0.14",
     "@react-aria/ssr": "3.1.0",
     "@styled-system/css": "5.1.5",
@@ -88,14 +96,14 @@
   },
   "devDependencies": {
     "@babel/cli": "7.14.5",
-    "@babel/core": "7.17.5",
+    "@babel/core": "7.14.8",
     "@babel/eslint-parser": "7.15.7",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.16.0",
     "@babel/plugin-proposal-optional-chaining": "7.14.5",
     "@babel/plugin-transform-modules-commonjs": "7.14.5",
     "@babel/preset-react": "7.14.5",
     "@babel/preset-typescript": "7.15.0",
-    "@changesets/changelog-github": "0.4.0",
+    "@changesets/changelog-github": "0.4.3",
     "@changesets/cli": "2.17.0",
     "@github/prettier-config": "0.0.4",
     "@rollup/plugin-commonjs": "19.0.2",
@@ -131,13 +139,13 @@
     "babel-polyfill": "6.26.0",
     "chroma-js": "2.1.2",
     "chromatic": "6.1.0",
-    "concurrently": "7.0.0",
+    "concurrently": "6.4.0",
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
     "enzyme": "3.11.0",
     "eslint": "7.28.0",
     "eslint-plugin-github": "4.1.3",
-    "eslint-plugin-jest": "26.1.0",
+    "eslint-plugin-jest": "24.3.6",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-mdx": "1.15.1",
     "eslint-plugin-prettier": "3.4.0",

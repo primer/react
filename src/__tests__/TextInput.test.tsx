@@ -38,15 +38,18 @@ describe('TextInput', () => {
   })
 
   it('renders warning', () => {
-    expect(render(<TextInput name="zipcode" status="warning" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" validationStatus="warning" />)).toMatchSnapshot()
   })
 
   it('renders error', () => {
-    expect(render(<TextInput name="zipcode" status="error" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" validationStatus="error" />)).toMatchSnapshot()
   })
 
   it('renders contrast', () => {
-    expect(render(<TextInput name="zipcode" status="contrast" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" contrast />)).toMatchSnapshot()
+  })
+  it('renders monospace', () => {
+    expect(render(<TextInput name="zipcode" monospace />)).toMatchSnapshot()
   })
 
   it('renders placeholder', () => {
@@ -107,30 +110,30 @@ describe('TextInput', () => {
     expect(
       render(
         <>
-          <TextInput isLoading />
+          <TextInput loading />
 
-          <TextInput isLoading loaderPosition="leading" />
+          <TextInput loading loaderPosition="leading" />
 
-          <TextInput isLoading loaderPosition="trailing" />
+          <TextInput loading loaderPosition="trailing" />
 
-          <TextInput isLoading leadingVisual={SearchIcon} />
+          <TextInput loading leadingVisual={SearchIcon} />
 
-          <TextInput isLoading leadingVisual={SearchIcon} loaderPosition="leading" />
+          <TextInput loading leadingVisual={SearchIcon} loaderPosition="leading" />
 
-          <TextInput isLoading leadingVisual={SearchIcon} loaderPosition="trailing" />
+          <TextInput loading leadingVisual={SearchIcon} loaderPosition="trailing" />
 
-          <TextInput isLoading trailingVisual={SearchIcon} />
+          <TextInput loading trailingVisual={SearchIcon} />
 
-          <TextInput isLoading trailingVisual={SearchIcon} loaderPosition="leading" />
+          <TextInput loading trailingVisual={SearchIcon} loaderPosition="leading" />
 
-          <TextInput isLoading trailingVisual={SearchIcon} loaderPosition="trailing" />
+          <TextInput loading trailingVisual={SearchIcon} loaderPosition="trailing" />
 
-          <TextInput isLoading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
+          <TextInput loading size="small" leadingVisual={SearchIcon} trailingVisual={SearchIcon} />
 
-          <TextInput isLoading leadingVisual={SearchIcon} trailingVisual={SearchIcon} loaderPosition="leading" />
+          <TextInput loading leadingVisual={SearchIcon} trailingVisual={SearchIcon} loaderPosition="leading" />
 
           <TextInput
-            isLoading
+            loading
             size="large"
             leadingVisual={SearchIcon}
             trailingVisual={SearchIcon}
@@ -139,6 +142,18 @@ describe('TextInput', () => {
         </>
       )
     ).toMatchSnapshot()
+  })
+
+  it('indicates a busy status to assistive technology', () => {
+    const {container} = HTMLRender(
+      <>
+        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+        <label htmlFor="loadingInput">Search</label>
+        <TextInput loading id="loadingInput" />
+      </>
+    )
+
+    expect(container.querySelector('span[aria-busy=true]')).not.toBeNull()
   })
 
   it('should call onChange prop with input value', () => {

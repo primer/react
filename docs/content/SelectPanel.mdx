@@ -45,9 +45,9 @@ function DemoComponent() {
   return (
     <SelectPanel
       renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-        <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+        <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
           {children || 'Select Labels'}
-        </DropdownButton>
+        </Button>
       )}
       placeholderText="Filter Labels"
       open={open}

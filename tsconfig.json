@@ -7,7 +7,6 @@
     "jsx": "preserve",
     "declaration": true,
     "outDir": "./lib",
-    "emitDeclarationOnly": true,
     "strict": true,
     "moduleResolution": "node",
     "rootDirs": ["src"],

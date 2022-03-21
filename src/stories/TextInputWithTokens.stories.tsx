@@ -47,8 +47,8 @@ export default {
         type: 'boolean'
       }
     },
-    isLoading: {
-      name: 'isLoading',
+    loading: {
+      name: 'loading',
       defaultValue: false,
       control: {
         type: 'boolean'
@@ -109,7 +109,7 @@ export const Default = (args: TextInputWithTokensProps) => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
 
-  return <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} {...args} />
+  return <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} />
 }
 
 Default.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
@@ -120,7 +120,7 @@ export const WithLeadingVisual = (args: TextInputWithTokensProps) => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
 
-  return <TextInputWithTokens leadingVisual={NumberIcon} tokens={tokens} onTokenRemove={onTokenRemove} {...args} />
+  return <TextInputWithTokens {...args} leadingVisual={NumberIcon} tokens={tokens} onTokenRemove={onTokenRemove} />
 }
 
 WithLeadingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
@@ -131,55 +131,55 @@ export const WithTrailingVisual = (args: TextInputWithTokensProps) => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
 
-  return <TextInputWithTokens trailingVisual={CheckIcon} tokens={tokens} onTokenRemove={onTokenRemove} {...args} />
+  return <TextInputWithTokens {...args} trailingVisual={CheckIcon} tokens={tokens} onTokenRemove={onTokenRemove} />
 }
 
 WithTrailingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
 
 export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
-  const [isLoading, setIsLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
   const toggleLoadingState = () => {
-    setIsLoading(!isLoading)
+    setLoading(!loading)
   }
 
   return (
     <form>
       <Box mb={5} display="flex" justifyContent="flex-end">
         <button type="button" onClick={toggleLoadingState}>
-          Toggle loading state {isLoading ? 'off' : 'on'}
+          Toggle loading state {loading ? 'off' : 'on'}
         </button>
       </Box>
 
       <Box display="grid" sx={{gap: 3}}>
         <FormControl>
           <FormControl.Label>No visual</FormControl.Label>
-          <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} isLoading={isLoading} {...args} />
+          <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} loading={loading} />
         </FormControl>
 
         <FormControl>
           <FormControl.Label>Leading visual</FormControl.Label>
           <TextInputWithTokens
+            {...args}
             tokens={tokens}
             onTokenRemove={onTokenRemove}
-            isLoading={isLoading}
+            loading={loading}
             leadingVisual={NumberIcon}
-            {...args}
           />
         </FormControl>
 
         <FormControl>
           <FormControl.Label>Both visuals</FormControl.Label>
           <TextInputWithTokens
+            {...args}
             tokens={tokens}
             onTokenRemove={onTokenRemove}
-            isLoading={isLoading}
+            loading={loading}
             leadingVisual={NumberIcon}
             trailingVisual={CheckIcon}
-            {...args}
           />
         </FormControl>
       </Box>
@@ -187,7 +187,7 @@ export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
   )
 }
 
-WithLoadingIndicator.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'isLoading']}}
+WithLoadingIndicator.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'loading']}}
 
 export const UsingIssueLabelTokens = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([
@@ -200,7 +200,7 @@ export const UsingIssueLabelTokens = (args: TextInputWithTokensProps) => {
   }
 
   return (
-    <TextInputWithTokens tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} {...args} />
+    <TextInputWithTokens {...args} tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
   )
 }
 
@@ -214,7 +214,7 @@ export const MaxHeight = (args: TextInputWithTokensProps) => {
 
   return (
     <Box maxWidth="300px">
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} maxHeight="100px" {...args} />
+      <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} maxHeight="100px" />
     </Box>
   )
 }
@@ -229,6 +229,7 @@ export const Unstyled = (args: TextInputWithTokensProps) => {
 
   return (
     <TextInputWithTokens
+      {...args}
       tokens={tokens}
       onTokenRemove={onTokenRemove}
       // TODO: come up with a nicer way to unstyle an input component
@@ -241,7 +242,6 @@ export const Unstyled = (args: TextInputWithTokensProps) => {
           boxShadow: 'none'
         }
       }}
-      {...args}
     />
   )
 }

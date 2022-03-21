@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectMenu from '../SelectMenu'
+import SelectMenu from '../deprecated/SelectMenu'
 
 export function shouldAcceptCallWithNoProps() {
   return <SelectMenu />
@@ -14,7 +14,7 @@ export function shouldNotAcceptSystemProps() {
       <SelectMenu.List backgroundColor="lightgreen" />
       {/* @ts-expect-error system props should not be accepted */}
       <SelectMenu.Divider backgroundColor="lightgrey" />
-      {/* This will not error for now, but once TextInputProps is fixed, a ts-expect-error can be added */}
+      {/* @ts-expect-error system props should not be accepted */}
       <SelectMenu.Filter backgroundColor="lightpink" />
       {/* @ts-expect-error system props should not be accepted */}
       <SelectMenu.Footer backgroundColor="lightsalmon" />

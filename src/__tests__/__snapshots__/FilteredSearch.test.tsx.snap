@@ -12,7 +12,8 @@ exports[`FilteredSearch renders consistently 1`] = `
   align-items: stretch;
 }
 
-.c0 summary {
+.c0 summary,
+.c0 > button {
   border-radius: 0;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;

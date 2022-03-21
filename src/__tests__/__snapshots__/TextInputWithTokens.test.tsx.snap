@@ -39,21 +39,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -130,6 +115,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 .c0 > select {
   padding-left: 0;
   padding-right: 0;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c6 {
@@ -766,21 +766,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -857,6 +842,21 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c7 {
@@ -1166,21 +1166,6 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1272,6 +1257,21 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -1344,21 +1344,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1439,6 +1424,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c6 {
@@ -2023,21 +2023,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2121,6 +2106,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c6 {
@@ -2705,21 +2705,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2803,6 +2788,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c6 {
@@ -3387,21 +3387,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3478,6 +3463,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c6 {
@@ -4062,21 +4062,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4153,6 +4138,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c6 {
@@ -4737,21 +4737,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   margin-bottom: 0.25rem;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4830,6 +4815,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c6 {
@@ -5414,21 +5414,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5505,6 +5490,21 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c5 {
@@ -5806,21 +5806,6 @@ Array [
   position: relative;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5847,7 +5832,7 @@ Array [
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
-  padding-right: 12px;
+  padding-right: 0;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -5896,7 +5881,22 @@ Array [
 .c0 > input,
 .c0 > select {
   padding-left: 12px;
-  padding-right: 0;
+  padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c8 {
@@ -6530,21 +6530,6 @@ Array [
   position: relative;
 }
 
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c5:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -6570,7 +6555,7 @@ Array [
   padding-bottom: calc(12px / 2);
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
+  padding-left: 0;
   padding-right: 0;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -6619,8 +6604,23 @@ Array [
 
 .c0 > input,
 .c0 > select {
-  padding-left: 0;
+  padding-left: 12px;
   padding-right: 12px;
+}
+
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c5:focus {
+  outline: 0;
 }
 
 .c2 {
@@ -7298,21 +7298,6 @@ Array [
   position: relative;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -7339,7 +7324,7 @@ Array [
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
-  padding-right: 12px;
+  padding-right: 0;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -7388,7 +7373,22 @@ Array [
 .c0 > input,
 .c0 > select {
   padding-left: 12px;
-  padding-right: 0;
+  padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c8 {
@@ -8026,21 +8026,6 @@ Array [
   visibility: hidden;
 }
 
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -8117,6 +8102,21 @@ Array [
 .c0 > select {
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
 }
 
 .c10 {
@@ -8834,21 +8834,6 @@ Array [
   visibility: hidden;
 }
 
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -8925,6 +8910,21 @@ Array [
 .c0 > select {
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
 }
 
 .c10 {
@@ -9642,21 +9642,6 @@ Array [
   visibility: visible;
 }
 
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -9683,7 +9668,7 @@ Array [
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -9732,7 +9717,22 @@ Array [
 .c0 > input,
 .c0 > select {
   padding-left: 0;
-  padding-right: 0;
+  padding-right: 12px;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
 }
 
 .c10 {
@@ -10450,21 +10450,6 @@ Array [
   visibility: hidden;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -10541,6 +10526,21 @@ Array [
 .c0 > select {
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c9 {
@@ -11214,21 +11214,6 @@ Array [
   visibility: visible;
 }
 
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c5:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -11254,7 +11239,7 @@ Array [
   padding-bottom: calc(12px / 2);
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
+  padding-left: 0;
   padding-right: 12px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -11303,8 +11288,23 @@ Array [
 
 .c0 > input,
 .c0 > select {
-  padding-left: 0;
+  padding-left: 12px;
   padding-right: 0;
+}
+
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c5:focus {
+  outline: 0;
 }
 
 .c2 {
@@ -12022,21 +12022,6 @@ Array [
   visibility: hidden;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -12113,6 +12098,21 @@ Array [
 .c0 > select {
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c9 {
@@ -12788,21 +12788,6 @@ Array [
 
 .c10 {
   visibility: visible;
-}
-
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
 }
 
 .c0 {
@@ -12888,6 +12873,21 @@ Array [
 .c0 > select {
   padding-left: 0;
   padding-right: 0;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
 }
 
 .c3 {
@@ -13645,21 +13645,6 @@ Array [
   visibility: visible;
 }
 
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -13736,6 +13721,21 @@ Array [
 .c0 > select {
   padding-left: 0;
   padding-right: 0;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
 }
 
 .c3 {
@@ -14493,21 +14493,6 @@ Array [
   visibility: visible;
 }
 
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -14584,6 +14569,21 @@ Array [
 .c0 > select {
   padding-left: 0;
   padding-right: 0;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
 }
 
 .c3 {
@@ -15329,21 +15329,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -15420,6 +15405,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c6 {
@@ -16004,21 +16004,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -16095,6 +16080,21 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 .c4 {
@@ -16684,21 +16684,6 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -16775,6 +16760,21 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
 }
 
 @media (min-width:768px) {

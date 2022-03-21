@@ -62,6 +62,18 @@ type ThemeColors = {
     muted: string
     subtle: string
   }
+  open: {
+    fg: string
+    emphasis: string
+    muted: string
+    subtle: string
+  }
+  closed: {
+    fg: string
+    emphasis: string
+    muted: string
+    subtle: string
+  }
   done: {
     fg: string
     emphasis: string

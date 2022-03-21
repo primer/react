@@ -1,20 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInput renders 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -87,6 +73,20 @@ exports[`TextInput renders 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -94,6 +94,8 @@ exports[`TextInput renders 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -109,20 +111,6 @@ exports[`TextInput renders 1`] = `
 `;
 
 exports[`TextInput renders block 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -200,6 +188,20 @@ exports[`TextInput renders block 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -207,6 +209,8 @@ exports[`TextInput renders block 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -222,20 +226,6 @@ exports[`TextInput renders block 1`] = `
 `;
 
 exports[`TextInput renders consistently 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -308,6 +298,20 @@ exports[`TextInput renders consistently 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -315,6 +319,8 @@ exports[`TextInput renders consistently 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -329,20 +335,6 @@ exports[`TextInput renders consistently 1`] = `
 `;
 
 exports[`TextInput renders contrast 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -363,6 +355,7 @@ exports[`TextInput renders contrast 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  background-color: #f6f8fa;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
@@ -415,6 +408,20 @@ exports[`TextInput renders contrast 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -422,6 +429,8 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -437,20 +446,6 @@ exports[`TextInput renders contrast 1`] = `
 `;
 
 exports[`TextInput renders error 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -471,6 +466,7 @@ exports[`TextInput renders error 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  border-color: #cf222e;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
@@ -502,6 +498,11 @@ exports[`TextInput renders error 1`] = `
   padding: 12px;
 }
 
+.c0:focus-within {
+  border-color: #cf222e;
+  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
+}
+
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
@@ -523,6 +524,20 @@ exports[`TextInput renders error 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -530,6 +545,8 @@ exports[`TextInput renders error 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -545,20 +562,6 @@ exports[`TextInput renders error 1`] = `
 `;
 
 exports[`TextInput renders large 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -636,6 +639,20 @@ exports[`TextInput renders large 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -643,6 +660,8 @@ exports[`TextInput renders large 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
   size="large"
@@ -659,20 +678,6 @@ exports[`TextInput renders large 1`] = `
 `;
 
 exports[`TextInput renders leadingVisual 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -745,6 +750,20 @@ exports[`TextInput renders leadingVisual 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -752,6 +771,8 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -793,7 +814,79 @@ exports[`TextInput renders leadingVisual 1`] = `
 </span>
 `;
 
-exports[`TextInput renders placeholder 1`] = `
+exports[`TextInput renders monospace 1`] = `
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
 .c1 {
   border: 0;
   font-size: inherit;
@@ -808,6 +901,28 @@ exports[`TextInput renders placeholder 1`] = `
   outline: 0;
 }
 
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="zipcode"
+    type="text"
+  />
+</span>
+`;
+
+exports[`TextInput renders placeholder 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -880,6 +995,20 @@ exports[`TextInput renders placeholder 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -887,6 +1016,8 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -903,20 +1034,6 @@ exports[`TextInput renders placeholder 1`] = `
 `;
 
 exports[`TextInput renders small 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -996,6 +1113,20 @@ exports[`TextInput renders small 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1003,6 +1134,8 @@ exports[`TextInput renders small 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
   size="small"
@@ -1426,20 +1559,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
 `;
 
 exports[`TextInput renders trailingVisual 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1512,6 +1631,20 @@ exports[`TextInput renders trailingVisual 1`] = `
   padding-right: 0;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1519,6 +1652,8 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -1561,20 +1696,6 @@ exports[`TextInput renders trailingVisual 1`] = `
 `;
 
 exports[`TextInput renders warning 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1599,6 +1720,7 @@ exports[`TextInput renders warning 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+  border-color: #bf8700;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1647,6 +1769,25 @@ exports[`TextInput renders warning 1`] = `
   padding-right: 12px;
 }
 
+.c0:focus-within {
+  border-color: #bf8700;
+  box-shadow: 0 0 0 3px rgba(212,167,44,0.4);
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1654,6 +1795,8 @@ exports[`TextInput renders warning 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
@@ -1678,20 +1821,6 @@ Array [
   position: relative;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1764,6 +1893,20 @@ Array [
   padding-right: 0;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 .c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -1777,6 +1920,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -1834,20 +1979,6 @@ Array [
   position: relative;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1920,6 +2051,20 @@ Array [
   padding-right: 12px;
 }
 
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c3:focus {
+  outline: 0;
+}
+
 .c2 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -1939,6 +2084,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -2034,20 +2181,6 @@ Array [
   position: relative;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2120,6 +2253,20 @@ Array [
   padding-right: 0;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 .c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -2133,6 +2280,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -2194,20 +2343,6 @@ Array [
   visibility: hidden;
 }
 
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2280,6 +2415,20 @@ Array [
   padding-right: 12px;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -2304,6 +2453,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -2434,20 +2585,6 @@ Array [
   visibility: hidden;
 }
 
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2520,6 +2657,20 @@ Array [
   padding-right: 12px;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -2544,6 +2695,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -2674,20 +2827,6 @@ Array [
   visibility: visible;
 }
 
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2760,6 +2899,20 @@ Array [
   padding-right: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -2784,6 +2937,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -2914,20 +3069,6 @@ Array [
   visibility: hidden;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3000,6 +3141,20 @@ Array [
   padding-right: 0;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 .c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -3018,6 +3173,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3110,20 +3267,6 @@ Array [
   visibility: visible;
 }
 
-.c3 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c3:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3196,6 +3339,20 @@ Array [
   padding-right: 0;
 }
 
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c3:focus {
+  outline: 0;
+}
+
 .c2 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -3220,6 +3377,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3350,20 +3509,6 @@ Array [
   visibility: hidden;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3436,6 +3581,20 @@ Array [
   padding-right: 0;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 .c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -3454,6 +3613,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3548,20 +3709,6 @@ Array [
 
 .c5 {
   visibility: visible;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c0 {
@@ -3643,6 +3790,20 @@ Array [
   padding-right: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -3672,6 +3833,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
     size="small"
@@ -3838,20 +4001,6 @@ Array [
   visibility: visible;
 }
 
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3924,6 +4073,20 @@ Array [
   padding-right: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -3953,6 +4116,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4118,20 +4283,6 @@ Array [
   visibility: visible;
 }
 
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4209,6 +4360,20 @@ Array [
   padding-right: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
@@ -4238,6 +4403,8 @@ Array [
 }
 
 <span
+    aria-busy={true}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
     size="large"
@@ -4392,20 +4559,6 @@ Array [
 `;
 
 exports[`TextInput should render a password input 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4478,6 +4631,20 @@ exports[`TextInput should render a password input 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -4485,6 +4652,8 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >

@@ -1,4 +1,4 @@
-import styled, {css, DefaultTheme, FlattenInterpolation, ThemedCssFunction, ThemeProps} from 'styled-components'
+import styled, {css, FlattenInterpolation, ThemeProps} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
@@ -47,6 +47,7 @@ export type StyledBaseWrapperProps = {
   disabled?: boolean
   hasActions?: boolean
   isInputFocused?: boolean
+  monospace?: boolean
   validationStatus?: FormValidationStatus
 } & WidthProps &
   MinWidthProps &
@@ -130,6 +131,12 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       color: ${get('colors.primer.fg.disabled')};
       background-color: ${get('colors.input.disabledBg')};
       border-color: ${get('colors.border.default')};
+    `}
+
+    ${props =>
+    props.monospace &&
+    css`
+      font-family: ${get('fonts.mono')};
     `}
   
   ${props =>

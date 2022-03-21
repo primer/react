@@ -10,7 +10,7 @@ import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
 import userEvent from '@testing-library/user-event'
 import {AutocompleteMenuInternalProps} from '../Autocomplete/AutocompleteMenu'
-import {ItemProps} from '../ActionList'
+import {ItemProps} from '../deprecated/ActionList'
 import {MandateProps} from '../utils/types'
 expect.extend(toHaveNoViolations)
 

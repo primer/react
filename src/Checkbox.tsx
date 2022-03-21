@@ -30,7 +30,7 @@ export type CheckboxProps = {
    * A unique value that is never shown to the user.
    * Used during form submission and to identify which checkbox inputs are selected
    */
-  value: string
+  value?: string
 } & Exclude<InputHTMLAttributes<HTMLInputElement>, 'value'> &
   SxProp
 

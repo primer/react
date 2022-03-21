@@ -8,8 +8,6 @@ storybook: '/react/storybook?path=/story/forms-text-input-with-tokens--default'
 ---
 
 import {TextInputWithTokens} from '@primer/react'
-import {PropsTable} from '../src/props-table'
-import {ComponentChecklist} from '../src/component-checklist'
 
 A `TextInputWithTokens` component supports all of the features of a [TextInput](/TextInput) component, but it can render a list of [Tokens](/Token) next to the area a user types in.
 
@@ -252,29 +250,29 @@ const WithIconAndLoadingIndicator = () => {
     setDates(dates.filter(token => token.id !== tokenId))
   }
 
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [loading, setLoading] = React.useState(true)
   const toggleLoadingState = () => {
-    setIsLoading(!isLoading)
+    setLoading(!loading)
   }
 
   return (
     <>
       <Box mb={5} display="flex" justifyContent="flex-end">
         <button type="button" onClick={toggleLoadingState}>
-          Toggle loading state {isLoading ? 'off' : 'on'}
+          Toggle loading state {loading ? 'off' : 'on'}
         </button>
       </Box>
 
       <h3>No visual</h3>
       <Box mb={2}>
-        <TextInputWithTokens tokens={dates} onTokenRemove={onDateRemove} value="auto" isLoading={isLoading} />
+        <TextInputWithTokens tokens={dates} onTokenRemove={onDateRemove} value="auto" loading={loading} />
       </Box>
       <Box mb={2}>
         <TextInputWithTokens
           tokens={dates}
           onTokenRemove={onDateRemove}
           value="leading"
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
         />
       </Box>
@@ -283,7 +281,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           value="trailing"
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
         />
       </Box>
@@ -294,7 +292,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           leadingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           value="auto"
         />
       </Box>
@@ -303,7 +301,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           leadingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
           value="leading"
         />
@@ -313,7 +311,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           leadingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
           value="trailing"
         />
@@ -325,7 +323,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           value="auto"
         />
       </Box>
@@ -334,7 +332,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
           value="leading"
         />
@@ -344,7 +342,7 @@ const WithIconAndLoadingIndicator = () => {
           tokens={dates}
           onTokenRemove={onDateRemove}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
           value="trailing"
         />
@@ -358,7 +356,7 @@ const WithIconAndLoadingIndicator = () => {
           size="small"
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           value="auto"
         />
       </Box>
@@ -368,7 +366,7 @@ const WithIconAndLoadingIndicator = () => {
           onTokenRemove={onDateRemove}
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="leading"
           value="leading"
         />
@@ -380,7 +378,7 @@ const WithIconAndLoadingIndicator = () => {
           size="large"
           leadingVisual={CalendarIcon}
           trailingVisual={CalendarIcon}
-          isLoading={isLoading}
+          loading={loading}
           loaderPosition="trailing"
           value="trailing"
         />
@@ -395,37 +393,37 @@ render(<WithIconAndLoadingIndicator />)
 ## Props
 
 <PropsTable>
-  <PropsTable.Row required name="tokens" type="TokenProps[]" description="The array of tokens to render" />
-  <PropsTable.Row
+  <PropsTableRow required name="tokens" type="TokenProps[]" description="The array of tokens to render" />
+  <PropsTableRow
     required
     name="onTokenRemove"
     type="(tokenId: string|number) => void"
     description="The function that gets called when a token is removed"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="tokenComponent"
     type="React.ComponentType<any>"
     defaultValue="Token"
     description="The component used to render each token"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="maxHeight"
     type="React.CSSProperties['maxHeight']"
     description="The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="preventTokenWrapping"
     type="boolean"
     defaultValue="false"
     description="Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="size"
     type="'small' | 'medium' | 'large' | 'extralarge'"
     defaultValue="extralarge"
     description="The size of the tokens and text input"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="hideTokenRemoveButtons"
     type="boolean"
     defaultValue="false"
@@ -436,7 +434,7 @@ render(<WithIconAndLoadingIndicator />)
     type="'error' | 'success' | 'warning'"
     description="Style the input to match the status"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="visibleTokenCount"
     type="number"
     description="The number of tokens to display before truncating"

@@ -114,23 +114,23 @@ describe('TextInputWithTokens', () => {
     expect(
       render(
         <>
-          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} isLoading />
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading />
 
-          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} isLoading loaderPosition="leading" />
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading loaderPosition="leading" />
 
-          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} isLoading loaderPosition="trailing" />
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading loaderPosition="trailing" />
 
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             leadingVisual={MarkGithubIcon}
           />
 
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             leadingVisual={MarkGithubIcon}
             loaderPosition="leading"
           />
@@ -138,7 +138,7 @@ describe('TextInputWithTokens', () => {
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             leadingVisual={MarkGithubIcon}
             loaderPosition="trailing"
           />
@@ -146,14 +146,14 @@ describe('TextInputWithTokens', () => {
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             trailingVisual={MarkGithubIcon}
           />
 
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             trailingVisual={MarkGithubIcon}
             loaderPosition="leading"
           />
@@ -161,7 +161,7 @@ describe('TextInputWithTokens', () => {
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             trailingVisual={MarkGithubIcon}
             loaderPosition="trailing"
           />
@@ -169,7 +169,7 @@ describe('TextInputWithTokens', () => {
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             size="small"
             leadingVisual={MarkGithubIcon}
             trailingVisual={MarkGithubIcon}
@@ -178,7 +178,7 @@ describe('TextInputWithTokens', () => {
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             leadingVisual={MarkGithubIcon}
             trailingVisual={MarkGithubIcon}
             loaderPosition="leading"
@@ -187,7 +187,7 @@ describe('TextInputWithTokens', () => {
           <TextInputWithTokens
             tokens={mockTokens}
             onTokenRemove={onRemoveMock}
-            isLoading
+            loading
             size="large"
             leadingVisual={MarkGithubIcon}
             trailingVisual={MarkGithubIcon}

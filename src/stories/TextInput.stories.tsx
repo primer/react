@@ -39,8 +39,8 @@ export default {
         type: 'boolean'
       }
     },
-    isLoading: {
-      name: 'isLoading',
+    loading: {
+      name: 'loading',
       defaultValue: false,
       control: {
         type: 'boolean'
@@ -52,6 +52,13 @@ export default {
       options: ['auto', 'leading', 'trailing'],
       control: {
         type: 'radio'
+      }
+    },
+    monospace: {
+      name: 'Monospace',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
       }
     },
     variant: {
@@ -202,42 +209,88 @@ export const WithTrailingAction = (args: TextInputProps) => {
   )
 }
 
-export const WithLoadingIndicator = (args: TextInputProps) => {
-  const [isLoading, setIsLoading] = useState(true)
+export const WithLoadingIndicator = () => {
+  const [loading, setLoading] = React.useState(true)
 
   const toggleLoadingState = () => {
-    setIsLoading(!isLoading)
+    setLoading(!loading)
   }
 
   return (
-    <form>
-      <Box mb={5} display="flex" justifyContent="flex-end">
+    <>
+      <Box mb={5}>
         <button type="button" onClick={toggleLoadingState}>
-          Toggle loading state {isLoading ? 'off' : 'on'}
+          Toggle loading state {loading ? 'off' : 'on'}
         </button>
       </Box>
 
-      <Box display="grid" sx={{gap: 3}}>
-        <FormControl>
-          <FormControl.Label>No visual</FormControl.Label>
-          <TextInput isLoading={isLoading} {...args} />
-        </FormControl>
-
-        <FormControl>
-          <FormControl.Label>Leading visual</FormControl.Label>
-          <TextInput isLoading={isLoading} leadingVisual={CalendarIcon} {...args} />
-        </FormControl>
-
-        <FormControl>
-          <FormControl.Label>Both visuals</FormControl.Label>
-          <TextInput isLoading={isLoading} leadingVisual={CalendarIcon} trailingVisual={CalendarIcon} {...args} />
-        </FormControl>
+      <h3>No visual</h3>
+      <Box mb={2}>
+        <TextInput value="auto" loading={loading} />
       </Box>
-    </form>
+      <Box mb={2}>
+        <TextInput value="leading" loading={loading} loaderPosition="leading" />
+      </Box>
+      <Box mb={5}>
+        <TextInput value="trailing" loading={loading} loaderPosition="trailing" />
+      </Box>
+
+      <h3>Leading visual</h3>
+      <Box mb={2}>
+        <TextInput leadingVisual={CalendarIcon} loading={loading} value="auto" />
+      </Box>
+      <Box mb={2}>
+        <TextInput leadingVisual={CalendarIcon} loading={loading} loaderPosition="leading" value="leading" />
+      </Box>
+      <Box mb={5}>
+        <TextInput leadingVisual={CalendarIcon} loading={loading} loaderPosition="trailing" value="trailing" />
+      </Box>
+
+      <h3>Trailing visual</h3>
+      <Box mb={2}>
+        <TextInput trailingVisual={CalendarIcon} loading={loading} value="auto" />
+      </Box>
+      <Box mb={2}>
+        <TextInput trailingVisual={CalendarIcon} loading={loading} loaderPosition="leading" value="leading" />
+      </Box>
+      <Box mb={5}>
+        <TextInput trailingVisual={CalendarIcon} loading={loading} loaderPosition="trailing" value="trailing" />
+      </Box>
+
+      <h3>Both visuals</h3>
+      <Box mb={2}>
+        <TextInput
+          size="small"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          size="large"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+    </>
   )
 }
 
-WithLoadingIndicator.parameters = {controls: {exclude: ['isLoading']}}
+WithLoadingIndicator.parameters = {controls: {exclude: ['loading']}}
 
 export const ContrastTextInput = (args: TextInputProps) => {
   const [value, setValue] = useState('')
