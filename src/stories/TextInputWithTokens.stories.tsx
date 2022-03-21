@@ -157,29 +157,29 @@ export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
       <Box display="grid" sx={{gap: 3}}>
         <FormControl>
           <FormControl.Label>No visual</FormControl.Label>
-          <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} loading={loading} {...args} />
+          <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} loading={loading} />
         </FormControl>
 
         <FormControl>
           <FormControl.Label>Leading visual</FormControl.Label>
           <TextInputWithTokens
+            {...args}
             tokens={tokens}
             onTokenRemove={onTokenRemove}
             loading={loading}
             leadingVisual={NumberIcon}
-            {...args}
           />
         </FormControl>
 
         <FormControl>
           <FormControl.Label>Both visuals</FormControl.Label>
           <TextInputWithTokens
+            {...args}
             tokens={tokens}
             onTokenRemove={onTokenRemove}
             loading={loading}
             leadingVisual={NumberIcon}
             trailingVisual={CheckIcon}
-            {...args}
           />
         </FormControl>
       </Box>
