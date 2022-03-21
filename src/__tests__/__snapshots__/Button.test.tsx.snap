@@ -294,6 +294,12 @@ exports[`Button styles icon only button to make it a square 1`] = `
   border-color: btn.activeBorder;
 }
 
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
+}
+
 <button
   aria-label="Search button"
   class="c0"
