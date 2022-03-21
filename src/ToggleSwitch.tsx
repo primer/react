@@ -6,7 +6,6 @@ import {get} from './constants'
 import {useProvidedStateOrCreate} from './hooks'
 import sx, {BetterSystemStyleObject, SxProp} from './sx'
 import VisuallyHidden from './_VisuallyHidden'
-import {useTheme} from './ThemeProvider'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
@@ -50,7 +49,6 @@ type SwitchButtonProps = {
   disabled?: boolean
   checked?: boolean
   size?: SwitchProps['size']
-  isHighContrast?: boolean
 } & SxProp
 
 type InnerIconProps = {size?: SwitchProps['size']}
@@ -131,7 +129,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   ${props => {
     if (props.disabled) {
       return css`
-        background: ${get('colors.canvas.subtle')};
+        background-color: ${get('colors.canvas.subtle')};
         border-color: ${get('colors.border.subtle')};
         cursor: not-allowed;
         transition-property: none;
@@ -140,30 +138,23 @@ const SwitchButton = styled.button<SwitchButtonProps>`
 
     if (props.checked) {
       return css`
-        background: ${get('colors.accent.subtle')};
-        border-color: ${get('colors.accent.fg')};
+        background-color: ${get('colors.switchTrack.checked.bg')};
+        border-color: ${get('colors.switchTrack.checked.border')};
 
         &:hover,
         &:focus:focus-visible {
-          :after {
-            background-color: ${get('colors.accent.muted')};
-            opacity: ${props.isHighContrast ? 0.2 : 0.75};
-          }
+          background-color: ${get('colors.switchTrack.checked.hoverBg')};
         }
 
         &:active,
         &:active:focus-visible {
-          :after {
-            background-color: ${get('colors.accent.muted')};
-            opacity: ${props.isHighContrast ? 0.5 : 1};
-          }
+          background-color: ${get('colors.switchTrack.checked.activeBg')};
         }
       `
     } else {
       return css`
-        background: ${get('colors.canvas.default')};
-        /* TODO: instead of using colors.scale.gray.4, create an accessible control border color token */
-        border-color: #8c959f;
+        background-color: ${get('colors.switchTrack.bg')};
+        border-color: ${get('colors.switchTrack.border')};
 
         &:hover,
         &:focus:focus-visible {
@@ -186,22 +177,22 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   ${sizeVariants}
 `
 
-const ToggleKnob = styled(Box)<{checked?: boolean; disabled?: boolean} & SxProp>`
+const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
   background-color: ${get('colors.btn.bg')};
-  border-color: ${props => (props.disabled ? get('colors.border.default') : get('colors.border.subtle'))};
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${props => (props.disabled ? get('colors.border.default') : get('colors.switchTrack.border'))};
   border-radius: calc(${get('radii.2')} - 1px); /* -1px to account for 1px border around the control */
   box-shadow: ${props =>
-    props.disabled
-      ? `inset -1px 0px 0 0px ${props.theme?.colors?.border.default}`
-      : `inset -1px 0px 0 0px ${props.theme?.colors?.border.default}, ${props.theme?.shadows?.btn.insetShadow}`};
+    props.disabled ? 'none' : `${props.theme?.shadows?.shadow.medium}, ${props.theme?.shadows?.btn.insetShadow}`};
   width: 50%;
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -1px;
+  bottom: -1px;
   transition-property: transform;
   transition-duration: ${TRANSITION_DURATION};
   transition-timing-function: ${EASE_OUT_QUAD_CURVE};
-  transform: ${props => `translateX(${props.checked ? '100%' : '0'})`};
+  transform: ${props => `translateX(${props.checked ? 'calc(100% + 1px)' : '-1px'})`};
   z-index: 1;
 
   @media (prefers-reduced-motion) {
@@ -211,9 +202,13 @@ const ToggleKnob = styled(Box)<{checked?: boolean; disabled?: boolean} & SxProp>
   ${props => {
     if (props.checked) {
       return css`
-        background-color: ${props.disabled ? get('colors.neutral.emphasis') : get('colors.accent.emphasis')};
-        border-color: ${props.disabled ? get('colors.accent.emphasis') : get('colors.neutral.emphasis')};
-        box-shadow: none;
+        background-color: ${props.disabled
+          ? get('colors.switchKnob.checked.disabledBg')
+          : get('colors.switchKnob.checked.bg')};
+        border-color: ${props.disabled
+          ? get('colors.switchKnob.checked.disabledBg')
+          : get('colors.switchKnob.checked.bg')};
+        box-shadow: ${get('shadows.shadow.small')};
       `
     }
   }}
@@ -238,7 +233,6 @@ const Switch: React.FC<SwitchProps> = ({
   sx: sxProp
 }) => {
   const isControlled = typeof checked !== 'undefined'
-  const {colorScheme} = useTheme()
   const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
   const acceptsInteraction = !disabled && !loading
   const handleToggleClick: MouseEventHandler = useCallback(
@@ -289,7 +283,6 @@ const Switch: React.FC<SwitchProps> = ({
         checked={isOn}
         size={size}
         disabled={!acceptsInteraction}
-        isHighContrast={Boolean(colorScheme?.includes('high_contrast'))}
       >
         <VisuallyHidden>{isOn ? 'On' : 'Off'}</VisuallyHidden>
         <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
