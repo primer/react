@@ -159,7 +159,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
       onOpen={openWithFocus}
       onClose={onClose}
       align={align}
-      overlayProps={{usePortal: false, ...overlayProps}}
+      overlayProps={{usePortal: false, sx: {zIndex: 2}, ...overlayProps}}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
       focusTrapSettings={{disabled: true}}
     >

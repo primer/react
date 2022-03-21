@@ -63,7 +63,7 @@ const StyledOverlay = styled.div<StyledOverlayProps>`
   max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
   width: ${props => widthMap[props.width || 'auto']};
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
   animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
 
   @keyframes overlay-appear {
