@@ -4,12 +4,18 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export const TYPEAHEAD_TIMEOUT = 1000
 
-export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<HTMLElement>, anchorRef) => {
-  const containerRef = useProvidedRefOrCreate(providedRef)
+export const useTypeaheadFocus = (
+  open: boolean,
+  providedContainerRef?: React.RefObject<HTMLElement>,
+  providedAnchorRef?: React.RefObject<HTMLElement>
+) => {
+  const containerRef = useProvidedRefOrCreate(providedContainerRef)
+  const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
 
   React.useEffect(() => {
     if (!open || !containerRef.current) return
     const container = containerRef.current
+    const anchor = anchorRef?.current
 
     let query = ''
     let timeout: number | undefined
@@ -83,10 +89,10 @@ export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<H
     }
 
     container.addEventListener('keydown', handler)
-    anchorRef.current.addEventListener('keydown', handler)
+    anchor?.addEventListener('keydown', handler)
     return () => {
       container.removeEventListener('keydown', handler)
-      anchorRef.current.removeEventListener('keydown', handler)
+      anchor?.removeEventListener('keydown', handler)
     }
   }, [open, containerRef, anchorRef])
 
@@ -94,5 +100,5 @@ export const useTypeaheadFocus = (open: boolean, providedRef?: React.RefObject<H
     return event.key.length === 1 && /[a-z\d]/i.test(event.key)
   }
 
-  return {containerRef}
+  return {containerRef, anchorRef}
 }
