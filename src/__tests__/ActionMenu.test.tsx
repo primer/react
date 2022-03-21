@@ -1,4 +1,5 @@
 import {cleanup, render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
@@ -58,9 +59,7 @@ describe('ActionMenu', () => {
     const component = HTMLRender(<Example />)
     const button = component.getByText('Toggle Menu')
 
-    // We pass keycode here to navigate a implementation detail in react-testing-library
-    // https://github.com/testing-library/react-testing-library/issues/269#issuecomment-455854112
-    fireEvent.keyDown(button, {key: 'Enter', charCode: 13})
+    fireEvent.keyDown(button, {key: 'Enter'})
     expect(component.getByRole('menu')).toBeInTheDocument()
     cleanup()
   })
@@ -83,6 +82,9 @@ describe('ActionMenu', () => {
 
     fireEvent.click(button)
     const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
+
+    // We pass keycode here to navigate a implementation detail in react-testing-library
+    // https://github.com/testing-library/react-testing-library/issues/269#issuecomment-455854112
     fireEvent.keyPress(menuItems[0], {key: 'Enter', charCode: 13})
     expect(component.queryByRole('menu')).toBeNull()
 
@@ -138,12 +140,13 @@ describe('ActionMenu', () => {
 
   it('should keep focus on Button when menu is opened with click', async () => {
     const component = HTMLRender(<Example />)
-
     const button = component.getByRole('button')
 
-    button.focus() // browsers do this automatically on click, but tests don't
-    expect(button).toEqual(document.activeElement)
+    userEvent.tab() // tab into the story, this should focus on the first button
+    expect(button).toEqual(document.activeElement) // trust, but verify
+
     fireEvent.click(button)
+    expect(component.queryByRole('menu')).toBeInTheDocument()
 
     /** We use waitFor because the hook uses an effect with setTimeout
      *  and we need to wait for that to happen in the next tick
@@ -153,7 +156,7 @@ describe('ActionMenu', () => {
     cleanup()
   })
 
-  it('should select first element when ArrowDown is pressed after opening Menu', () => {
+  it('should select first element when ArrowDown is pressed after opening Menu with click', async () => {
     const component = HTMLRender(<Example />)
 
     const button = component.getByText('Toggle Menu')
@@ -163,26 +166,34 @@ describe('ActionMenu', () => {
 
     // button should be the active element
     fireEvent.keyDown(document.activeElement!, {key: 'ArrowDown', code: 'ArrowDown'})
-    expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
+
+    await waitFor(() => {
+      expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
+    })
 
     cleanup()
   })
 
-  it('should close the menu if Tab is pressed and move to next element', () => {
+  it('should close the menu if Tab is pressed and move to next element', async () => {
     const component = HTMLRender(
       <>
         <Example />
-        <button>next focusable element</button>
+        <input type="text" placeholder="next focusable element" />
       </>
     )
-    const button = component.getByText('Toggle Menu')
-    fireEvent.click(button)
+    const anchor = component.getByRole('button')
+
+    userEvent.tab() // tab into the story, this should focus on the first button
+    expect(anchor).toEqual(document.activeElement) // trust, but verify
+
+    fireEvent.keyDown(anchor, {key: 'Enter'})
     expect(component.queryByRole('menu')).toBeInTheDocument()
 
-    fireEvent.keyDown(button, {key: 'Tab', code: 'Tab'})
-    expect(component.queryByRole('menu')).not.toBeInTheDocument()
+    expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
 
-    expect(component.getByText('next focusable element')).toEqual(document.activeElement)
+    userEvent.tab()
+    expect(component.getByPlaceholderText('next focusable element')).toEqual(document.activeElement)
+    expect(component.queryByRole('menu')).not.toBeInTheDocument()
 
     cleanup()
   })
