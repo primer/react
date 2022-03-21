@@ -38,11 +38,11 @@ describe('TextInput', () => {
   })
 
   it('renders warning', () => {
-    expect(render(<TextInput name="zipcode" status="warning" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" validationStatus="warning" />)).toMatchSnapshot()
   })
 
   it('renders error', () => {
-    expect(render(<TextInput name="zipcode" status="error" />)).toMatchSnapshot()
+    expect(render(<TextInput name="zipcode" validationStatus="error" />)).toMatchSnapshot()
   })
 
   it('renders contrast', () => {

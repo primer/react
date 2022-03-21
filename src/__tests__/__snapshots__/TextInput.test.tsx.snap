@@ -1,20 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInput renders 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -86,6 +72,20 @@ exports[`TextInput renders 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -108,20 +108,6 @@ exports[`TextInput renders 1`] = `
 `;
 
 exports[`TextInput renders block 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -198,6 +184,20 @@ exports[`TextInput renders block 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -220,20 +220,6 @@ exports[`TextInput renders block 1`] = `
 `;
 
 exports[`TextInput renders consistently 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -305,6 +291,20 @@ exports[`TextInput renders consistently 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -326,20 +326,6 @@ exports[`TextInput renders consistently 1`] = `
 `;
 
 exports[`TextInput renders contrast 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -412,6 +398,20 @@ exports[`TextInput renders contrast 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -434,20 +434,6 @@ exports[`TextInput renders contrast 1`] = `
 `;
 
 exports[`TextInput renders error 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -468,6 +454,7 @@ exports[`TextInput renders error 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  border-color: #cf222e;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
@@ -499,6 +486,11 @@ exports[`TextInput renders error 1`] = `
   padding: 12px;
 }
 
+.c0:focus-within {
+  border-color: #cf222e;
+  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
+}
+
 .c0 >:not(:last-child) {
   margin-right: 8px;
 }
@@ -517,6 +509,20 @@ exports[`TextInput renders error 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -541,20 +547,6 @@ exports[`TextInput renders error 1`] = `
 `;
 
 exports[`TextInput renders large 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -631,6 +623,20 @@ exports[`TextInput renders large 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -654,20 +660,6 @@ exports[`TextInput renders large 1`] = `
 `;
 
 exports[`TextInput renders leadingVisual 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -739,6 +731,20 @@ exports[`TextInput renders leadingVisual 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -788,20 +794,6 @@ exports[`TextInput renders leadingVisual 1`] = `
 `;
 
 exports[`TextInput renders monospace 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -874,6 +866,20 @@ exports[`TextInput renders monospace 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -896,20 +902,6 @@ exports[`TextInput renders monospace 1`] = `
 `;
 
 exports[`TextInput renders placeholder 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -981,6 +973,20 @@ exports[`TextInput renders placeholder 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1004,20 +1010,6 @@ exports[`TextInput renders placeholder 1`] = `
 `;
 
 exports[`TextInput renders small 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1096,6 +1088,20 @@ exports[`TextInput renders small 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1119,20 +1125,6 @@ exports[`TextInput renders small 1`] = `
 `;
 
 exports[`TextInput renders trailingVisual 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1202,6 +1194,20 @@ exports[`TextInput renders trailingVisual 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -1253,20 +1259,6 @@ exports[`TextInput renders trailingVisual 1`] = `
 `;
 
 exports[`TextInput renders warning 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1291,6 +1283,7 @@ exports[`TextInput renders warning 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+  border-color: #bf8700;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1336,6 +1329,25 @@ exports[`TextInput renders warning 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0:focus-within {
+  border-color: #bf8700;
+  box-shadow: 0 0 0 3px rgba(212,167,44,0.4);
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -4071,20 +4083,6 @@ Array [
 `;
 
 exports[`TextInput should render a password input 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4154,6 +4152,20 @@ exports[`TextInput should render a password input 1`] = `
 .c0 > select {
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
 }
 
 @media (min-width:768px) {

@@ -159,6 +159,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         }
       },
 
+      '@media (forced-colors: active)': {
+        ':focus': {
+          // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
+          outline: 'solid 1px transparent !important'
+        }
+      },
+
       /** Divider styles */
       '[data-component="ActionList.Item--DividerContainer"]': {
         position: 'relative'

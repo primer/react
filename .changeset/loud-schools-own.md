@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Add monospace prop to textinput
+Fix `TextInput` types
