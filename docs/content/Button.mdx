@@ -2,26 +2,26 @@
 componentId: button
 title: Button
 status: Alpha
-source: https://github.com/primer/react/tree/main/src/Button2
-storybook: '/react/storybook?path=/story/composite-components-button2'
+source: https://github.com/primer/react/tree/main/src/Button
+storybook: '/react/storybook?path=/story/composite-components-button'
 description: Use button for the main actions on a page or form.
 ---
 
-import {Button, IconButton, LinkButton} from '@primer/react/drafts'
+import {Button, IconButton, LinkButton} from '@primer/react'
 
 ## Usage
 
 ### Installation
 
 ```js
-import {Button} from '@primer/react/drafts'
+import {Button} from '@primer/react'
 ```
 
 ### Default button
 
 This is the default variant for the `Button` component.
 
-```jsx live drafts
+```jsx live
 <Button>Default</Button>
 ```
 
@@ -29,7 +29,7 @@ This is the default variant for the `Button` component.
 
 The `danger` variant of `Button` is used to warn users about potentially destructive actions
 
-```jsx live drafts
+```jsx live
 <Button variant="danger">Danger</Button>
 ```
 
@@ -37,7 +37,7 @@ The `danger` variant of `Button` is used to warn users about potentially destruc
 
 The `outline` variant of `Button` is typically used as a secondary button
 
-```jsx live drafts
+```jsx live
 <Button variant="outline">Outline</Button>
 ```
 
@@ -45,7 +45,7 @@ The `outline` variant of `Button` is typically used as a secondary button
 
 The `invisible` variant of `Button` indicates that the action is a low priority one.
 
-```jsx live drafts
+```jsx live
 <Button variant="invisible">Invisible</Button>
 ```
 
@@ -53,7 +53,7 @@ The `invisible` variant of `Button` indicates that the action is a low priority 
 
 `Button` component supports three different sizes. `small`, `medium`, `large`.
 
-```jsx live drafts
+```jsx live
 <>
   <Button size="small">Search</Button>
   <Button sx={{mt: 2}}>Search</Button>
@@ -68,7 +68,7 @@ The `invisible` variant of `Button` indicates that the action is a low priority 
 We can place an icon inside the `Button` in either the leading or the trailing position to enhance the visual context.
 It is recommended to use an octicon here.
 
-```jsx live drafts
+```jsx live
 <>
   <Button leadingIcon={SearchIcon}>Search</Button>
   <Button trailingIcon={SearchIcon} sx={{mt: 2}}>
@@ -84,25 +84,19 @@ It is recommended to use an octicon here.
 
 A separate component called `IconButton` is used if the action shows only an icon with no text. This button will remain square in shape.
 
-```jsx live drafts
-<IconButton icon={SearchIcon}>Search</IconButton>
+```jsx live
+<IconButton aria-label="Search" icon={SearchIcon} />
 ```
 
 ### Different sized icon buttons
 
 `IconButton` also supports the three different sizes. `small`, `medium`, `large`.
 
-```jsx live drafts
+```jsx live
 <>
-  <IconButton icon={SearchIcon} size="small">
-    Search
-  </IconButton>
-  <IconButton sx={{ml: 2}} icon={SearchIcon}>
-    Search
-  </IconButton>
-  <IconButton sx={{ml: 2}} icon={SearchIcon} size="large">
-    Search
-  </IconButton>
+  <IconButton aria-label="Search" size="small" icon={SearchIcon} />
+  <IconButton aria-label="Search" icon={SearchIcon} sx={{ml: 2}} />
+  <IconButton aria-label="Search" size="large" icon={SearchIcon} sx={{ml: 2}} />
 </>
 ```
 
@@ -112,7 +106,7 @@ A common use case for primer is a button with a counter component which shows th
 We provide `Button.Counter` as a composite component which requires you to provide a number as child.
 The counter will match the `variant` styles of the parent button.
 
-```jsx live drafts
+```jsx live
 <Button>
   Watch
   <Button.Counter>1</Button.Counter>
@@ -124,7 +118,7 @@ The counter will match the `variant` styles of the parent button.
 A button can be styled in an appropriate manner using the `sx` prop. This may be to change width, or to add margins etc.
 Here's an example of a block button which takes 100% of available width. Checkout [styled-system](https://styled-system.com/) to see what you can send in an `sx` prop.
 
-```jsx live drafts
+```jsx live
 <Button sx={{width: '100%'}}>Block</Button>
 ```
 
