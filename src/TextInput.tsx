@@ -8,7 +8,7 @@ import {Merge} from './utils/types'
 import TextInputWrapper, {StyledWrapperProps} from './_TextInputWrapper'
 import UnstyledTextInput from './_UnstyledTextInput'
 
-type NonPassthroughProps = {
+export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
   icon?: React.ComponentType<{className?: string}>
   /** Whether the to show a loading indicator in the input */
