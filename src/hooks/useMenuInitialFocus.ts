@@ -17,7 +17,7 @@ export const useMenuInitialFocus = (
 
   const openWithFocus: Callback = (gesture, event) => {
     if (gesture === 'anchor-click') setOpeningKey('mouse-click')
-    if (gesture === 'anchor-key-press' && event) setOpeningKey((event as React.KeyboardEvent<HTMLElement>).code)
+    if (gesture === 'anchor-key-press' && event) setOpeningKey(event.code)
     if (typeof onOpen === 'function') onOpen(gesture, event)
   }
 

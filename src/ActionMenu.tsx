@@ -79,9 +79,7 @@ const useOnTabPress = (
 ) => {
   React.useEffect(() => {
     const handler = (event: KeyboardEvent) => {
-      if (event.key === 'Tab') {
-        onClose('escape') //TODO: Add tab out to the list
-      }
+      if (event.key === 'Tab' && typeof onClose === 'function') onClose('tab')
     }
 
     const container = containerRef.current
@@ -142,12 +140,12 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', sx: pro
 
   React.useEffect(() => {
     // handle focus changes when keyboard navigation is activated
-    const handler = (event: React.KeyboardEvent<HTMLElement>) => {
+    const handler = (event: KeyboardEvent) => {
       if (!open) return
 
       // TODO: Refactor hook to be just about focus, not initial focus
       if (['ArrowDown', 'Space', 'Enter', 'ArrowUp'].includes(event.code)) {
-        openWithFocus('anchor-key-press', event)
+        openWithFocus('anchor-key-press')
       }
     }
 
