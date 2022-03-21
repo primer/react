@@ -9,13 +9,15 @@ TextInput is a form component to add default styling to the native text input.
 
 **Note:** Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
 
-## Default example
+## Examples
+
+### Basic
 
 ```jsx live
 <TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
 ```
 
-## Text Input with icons
+### With icons
 
 ```jsx live
 <>
@@ -37,7 +39,7 @@ TextInput is a form component to add default styling to the native text input.
 </>
 ```
 
-## Text Input with text visuals
+### With text visuals
 
 ```jsx live
 <>
@@ -47,7 +49,7 @@ TextInput is a form component to add default styling to the native text input.
 </>
 ```
 
-## Text Input with visuals and loading indicators
+### With visuals and loading indicators
 
 ```javascript live noinline
 const WithIconAndLoadingIndicator = () => {
@@ -106,7 +108,7 @@ const WithIconAndLoadingIndicator = () => {
 render(<WithIconAndLoadingIndicator />)
 ```
 
-## Text Input with error and warning states
+### With error and warning states
 
 ```jsx live
 <>
@@ -128,19 +130,19 @@ render(<WithIconAndLoadingIndicator />)
 </>
 ```
 
-## Block text input
+### Block text input
 
 ```jsx live
 <TextInput block aria-label="Zipcode" name="zipcode" placeholder="560076" autoComplete="postal-code" />
 ```
 
-## Contrast text input
+### Contrast text input
 
 ```jsx live
 <TextInput contrast aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
 ```
 
-## Monospace text input
+### Monospace text input
 
 ```jsx live
 <TextInput
