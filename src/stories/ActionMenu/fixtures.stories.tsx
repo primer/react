@@ -535,16 +535,26 @@ export function MemexAddColumn(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const selectedType = fieldTypes[selectedIndex]
 
-  const [duration, setDuration] = React.useState(1)
+  const [durationUnit, setDurationUnit] = React.useState('weeks')
 
   return (
     <>
       <h1>Memex Add column</h1>
 
-      <Box as="form" sx={{display: 'flex', flexDirection: 'column', width: 200}}>
-        <TextInput defaultValue="Estimate" aria-label="Field Name" sx={{mb: 2}} />
+      <Box as="form" sx={{display: 'flex', flexDirection: 'column', width: 320}}>
+        <FormControl>
+          <FormControl.Label visuallyHidden>Column name</FormControl.Label>
+          <TextInput defaultValue="Estimate" aria-label="Field Name" sx={{mb: 2}} />
+        </FormControl>
         <ActionMenu>
-          <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+          <ActionMenu.Button
+            aria-label="Select field type"
+            leadingIcon={selectedType.icon}
+            sx={{
+              gridTemplateColumns: 'min-content 1fr min-content',
+              '[data-component="text"]': {textAlign: 'left'}
+            }}
+          >
             {selectedType.name}
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
@@ -564,22 +574,33 @@ export function MemexAddColumn(): JSX.Element {
         <Text sx={{fontSize: 0, color: 'fg.muted', mt: 3, mb: 1}}>Options</Text>
 
         <Box sx={{display: 'flex', alignItems: 'center'}}>
-          <Text sx={{fontSize: 1}}>Duration:</Text>
+          <Text as="label" sx={{fontSize: 1, mr: 2}} htmlFor="duration">
+            Duration:
+          </Text>
+          <TextInput id="duration" type="number" defaultValue="2" sx={{width: '6ch'}} />
+
           <ActionMenu>
             <ActionMenu.Button
               id="duration"
               aria-label="Select field type"
-              sx={{textAlign: 'left', ml: 2, flexGrow: 1}}
+              sx={{
+                textAlign: 'left',
+                ml: 2,
+                flexGrow: 1,
+                gridTemplateColumns: 'min-content 1fr min-content',
+                '[data-component="text"]': {textAlign: 'left'}
+              }}
             >
-              {duration} {duration > 1 ? 'weeks' : 'week'}
+              {durationUnit}
             </ActionMenu.Button>
             <ActionMenu.Overlay width="medium">
               <ActionList selectionVariant="single">
-                {[1, 2, 3, 4, 5, 6].map(weeks => (
-                  <ActionList.Item key={weeks} selected={duration === weeks} onSelect={() => setDuration(weeks)}>
-                    {weeks} {weeks > 1 ? 'weeks' : 'week'}
-                  </ActionList.Item>
-                ))}
+                <ActionList.Item selected={durationUnit === 'weeks'} onSelect={() => setDurationUnit('weeks')}>
+                  weeks
+                </ActionList.Item>
+                <ActionList.Item selected={durationUnit === 'days'} onSelect={() => setDurationUnit('days')}>
+                  days
+                </ActionList.Item>
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
