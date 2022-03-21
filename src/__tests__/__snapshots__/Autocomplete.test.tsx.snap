@@ -94,7 +94,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -241,7 +244,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -423,7 +429,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -1368,7 +1377,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -2223,7 +2235,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -3089,7 +3104,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -4085,7 +4103,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
