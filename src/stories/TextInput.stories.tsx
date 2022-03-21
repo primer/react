@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, ThemeProvider, Text} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
-import {CheckIcon} from '@primer/octicons-react'
+import {CalendarIcon, CheckIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Forms/Text Input',
@@ -37,6 +37,21 @@ export default {
       defaultValue: false,
       control: {
         type: 'boolean'
+      }
+    },
+    loading: {
+      name: 'loading',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
+    loaderPosition: {
+      name: 'loaderPosition',
+      defaultValue: 'auto',
+      options: ['auto', 'leading', 'trailing'],
+      control: {
+        type: 'radio'
       }
     },
     monospace: {
@@ -144,6 +159,89 @@ export const WithTrailingIcon = (args: TextInputProps) => {
     </form>
   )
 }
+
+export const WithLoadingIndicator = () => {
+  const [loading, setLoading] = React.useState(true)
+
+  const toggleLoadingState = () => {
+    setLoading(!loading)
+  }
+
+  return (
+    <>
+      <Box mb={5}>
+        <button type="button" onClick={toggleLoadingState}>
+          Toggle loading state {loading ? 'off' : 'on'}
+        </button>
+      </Box>
+
+      <h3>No visual</h3>
+      <Box mb={2}>
+        <TextInput value="auto" loading={loading} />
+      </Box>
+      <Box mb={2}>
+        <TextInput value="leading" loading={loading} loaderPosition="leading" />
+      </Box>
+      <Box mb={5}>
+        <TextInput value="trailing" loading={loading} loaderPosition="trailing" />
+      </Box>
+
+      <h3>Leading visual</h3>
+      <Box mb={2}>
+        <TextInput leadingVisual={CalendarIcon} loading={loading} value="auto" />
+      </Box>
+      <Box mb={2}>
+        <TextInput leadingVisual={CalendarIcon} loading={loading} loaderPosition="leading" value="leading" />
+      </Box>
+      <Box mb={5}>
+        <TextInput leadingVisual={CalendarIcon} loading={loading} loaderPosition="trailing" value="trailing" />
+      </Box>
+
+      <h3>Trailing visual</h3>
+      <Box mb={2}>
+        <TextInput trailingVisual={CalendarIcon} loading={loading} value="auto" />
+      </Box>
+      <Box mb={2}>
+        <TextInput trailingVisual={CalendarIcon} loading={loading} loaderPosition="leading" value="leading" />
+      </Box>
+      <Box mb={5}>
+        <TextInput trailingVisual={CalendarIcon} loading={loading} loaderPosition="trailing" value="trailing" />
+      </Box>
+
+      <h3>Both visuals</h3>
+      <Box mb={2}>
+        <TextInput
+          size="small"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInput
+          size="large"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+    </>
+  )
+}
+
+WithLoadingIndicator.parameters = {controls: {exclude: ['loading']}}
 
 export const ContrastTextInput = (args: TextInputProps) => {
   const [value, setValue] = useState('')
