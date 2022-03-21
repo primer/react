@@ -33,7 +33,6 @@ export type TextInputNonPassthroughProps = {
    * A visual that renders inside the input after the typing area
    */
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
-  // trailingAction?: React.ComponentType<{className?: string; onClick: MouseEventHandler}>
 } & Pick<
   StyledWrapperProps,
   | 'block'
