@@ -193,19 +193,7 @@ render(<WithIconAndLoadingIndicator />)
 <PropsTableRow
   name="leadingVisual"
   type={<>string | React.ComponentType</>}
-  description={() => (
-    <>
-      <div>Which position to render the loading indicator</div>
-      <ul>
-        <li>
-          'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
-          beginning
-        </li>
-        <li>'leading': at the beginning of the input</li>
-        <li>'trailing': at the end of the input</li>
-      </ul>
-    </>
-  )}
+  description="Visual positioned on the left edge inside the input"
 />
 <PropsTableRow name="monospace" type="boolean" defaultValue="false" description="Shows input in monospace font" />
 <PropsTableRow
