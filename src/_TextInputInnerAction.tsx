@@ -1,7 +1,7 @@
 import {IconProps} from '@primer/octicons-react'
 import React, {forwardRef, MouseEventHandler} from 'react'
 import {Box, Tooltip} from '.'
-import {Button, ButtonProps, IconButton} from './Button2'
+import {Button, ButtonProps, IconButton} from './Button'
 import {SxProp} from './sx'
 
 type TextInputActionProps = Omit<React.HTMLProps<HTMLButtonElement>, 'onClick' | 'children' | 'size'> & {

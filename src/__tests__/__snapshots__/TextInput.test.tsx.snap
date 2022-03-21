@@ -871,7 +871,8 @@ exports[`TextInput renders monospace 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -917,6 +918,8 @@ exports[`TextInput renders monospace 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -1156,87 +1159,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   display: inline-block;
 }
 
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 >:not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
 .c2 {
   border-radius: 6px;
   border: 0;
@@ -1276,11 +1198,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: #8c959f;
 }
 
+.c2:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
 .c2:disabled svg {
   opacity: 0.6;
 }
 
-.c2 [data-component="ButtonCounter"] {
+.c2 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1296,84 +1222,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  className="c0 TextInput-wrapper"
-  onClick={[Function]}
->
-  <input
-    className="c1"
-    data-component="input"
-    name="search"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    className="TextInput-action"
-  >
-    <button
-      aria-labelledby="react-aria7301725458-1"
-      className="c2"
-      onClick={[MockFunction]}
-      type="button"
-    >
-      <span
-        hidden={true}
-        id="react-aria7301725458-1"
-      >
-        iconLabel
-      </span>
-      <span
-        className="c3"
-      >
-        <svg
-          aria-hidden="true"
-          className="octicon octicon-search"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
-            }
-          }
-          fill="currentColor"
-          height={16}
-          role="img"
-          style={
-            Object {
-              "display": "inline-block",
-              "overflow": "visible",
-              "userSelect": "none",
-              "verticalAlign": "text-bottom",
-            }
-          }
-          viewBox="0 0 16 16"
-          width={16}
-        />
-      </span>
-    </button>
-  </span>
-</span>
-`;
-
-exports[`TextInput renders trailingAction text button 1`] = `
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
+.c2[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
 }
 
 .c0 {
@@ -1443,6 +1293,87 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding-right: 12px;
 }
 
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (forced-colors:active) {
+  .c2:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-action"
+  >
+    <button
+      className="c2"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="c3"
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-search"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={16}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 16 16"
+          width={16}
+        />
+      </span>
+    </button>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button 1`] = `
 .c2 {
   border-radius: 6px;
   border: 0;
@@ -1484,6 +1415,10 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: #8c959f;
 }
 
+.c2:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
 .c2:disabled svg {
   opacity: 0.6;
 }
@@ -1504,7 +1439,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   grid-area: trailingIcon;
 }
 
-.c2 [data-component="ButtonCounter"] {
+.c2 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
@@ -1520,6 +1455,97 @@ exports[`TextInput renders trailingAction text button 1`] = `
   background-color: hsla(220,14%,94%,1);
 }
 
+.c2[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (forced-colors:active) {
+  .c2:focus {
+    outline: solid 1px transparent;
+  }
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1527,6 +1553,8 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 <span
+  aria-busy={false}
+  aria-live="polite"
   className="c0 TextInput-wrapper"
   onClick={[Function]}
 >
