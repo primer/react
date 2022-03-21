@@ -31,6 +31,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     }
 
     if (icon && !iconLabel) {
+      // eslint-disable-next-line no-console
       console.warn('Use the `iconLabel` prop to provide an accessible label for assistive technology')
     }
 

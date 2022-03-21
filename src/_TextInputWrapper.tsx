@@ -1,4 +1,4 @@
-import styled, {css, FlattenInterpolation, ThemeProps} from 'styled-components'
+import styled, {css} from 'styled-components'
 import {maxWidth, MaxWidthProps, minWidth, MinWidthProps, variant, width, WidthProps} from 'styled-system'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
@@ -65,11 +65,9 @@ export type StyledWrapperProps = {
 const textInputBasePadding = '12px'
 export const textInputHorizPadding = textInputBasePadding
 
-const renderFocusStyles = (
-  hasActions: boolean,
-  isInputFocused: boolean,
-  focusStyles: FlattenInterpolation<ThemeProps<Record<string, unknown>>>
-) => {
+// TODO: figure out how to type a themed CSS function (e.g.: css`color: blue;`)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const renderFocusStyles = (hasActions: boolean, isInputFocused: boolean, focusStyles: any) => {
   if (hasActions) {
     return (
       isInputFocused &&
