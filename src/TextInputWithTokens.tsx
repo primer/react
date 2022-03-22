@@ -10,6 +10,7 @@ import Text from './Text'
 import {TextInputProps} from './TextInput'
 import Token from './Token/Token'
 import {TokenSizeKeys} from './Token/TokenBase'
+import TextInputInnerVisualSlot from './_TextInputInnerVisualSlot'
 import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from './_TextInputWrapper'
 import UnstyledTextInput from './_UnstyledTextInput'
 
@@ -67,6 +68,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     icon: IconComponent,
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
+    loading,
+    loaderPosition,
     contrast,
     className,
     block,
@@ -238,6 +241,10 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     large: 'medium',
     extralarge: 'medium'
   }
+  const showLeadingLoadingIndicator =
+    loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
+  const showTrailingLoadingIndicator =
+    loading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
 
   return (
     <TextInputWrapper
@@ -281,11 +288,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       }}
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
-      {LeadingVisual && !IconComponent && (
-        <span className="TextInput-icon">
-          {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
-        </span>
-      )}
+      <TextInputInnerVisualSlot
+        hasLoadingIndicator={typeof loading === 'boolean'}
+        visualPosition="leading"
+        showLoadingIndicator={showLeadingLoadingIndicator}
+      >
+        {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+      </TextInputInnerVisualSlot>
       <Box
         ref={containerRef as RefObject<HTMLDivElement>}
         display="flex"
@@ -346,11 +355,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           </Text>
         ) : null}
       </Box>
-      {TrailingVisual && (
-        <span className="TextInput-icon">
-          {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
-        </span>
-      )}
+      <TextInputInnerVisualSlot
+        hasLoadingIndicator={typeof loading === 'boolean'}
+        visualPosition="trailing"
+        showLoadingIndicator={showTrailingLoadingIndicator}
+      >
+        {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+      </TextInputInnerVisualSlot>
     </TextInputWrapper>
   )
 }
@@ -361,7 +372,8 @@ TextInputWithTokens.defaultProps = {
   tokenComponent: Token,
   size: 'extralarge',
   hideTokenRemoveButtons: false,
-  preventTokenWrapping: false
+  preventTokenWrapping: false,
+  loaderPosition: 'auto'
 }
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'

@@ -237,6 +237,159 @@ const LeadingVisualExample = () => {
 render(LeadingVisualExample)
 ```
 
+## With visuals and loading indicators
+
+```javascript live noinline
+const WithIconAndLoadingIndicator = () => {
+  const [dates, setDates] = React.useState([
+    {text: '01 Jan', id: 0},
+    {text: '01 Feb', id: 1},
+    {text: '01 Mar', id: 2}
+  ])
+  const onDateRemove = tokenId => {
+    setDates(dates.filter(token => token.id !== tokenId))
+  }
+
+  const [loading, setLoading] = React.useState(true)
+  const toggleLoadingState = () => {
+    setLoading(!loading)
+  }
+
+  return (
+    <>
+      <Box mb={5} display="flex" justifyContent="flex-end">
+        <button type="button" onClick={toggleLoadingState}>
+          Toggle loading state {loading ? 'off' : 'on'}
+        </button>
+      </Box>
+
+      <h3>No visual</h3>
+      <Box mb={2}>
+        <TextInputWithTokens tokens={dates} onTokenRemove={onDateRemove} value="auto" loading={loading} />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          value="leading"
+          loading={loading}
+          loaderPosition="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          value="trailing"
+          loading={loading}
+          loaderPosition="trailing"
+        />
+      </Box>
+
+      <h3>Leading visual</h3>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          leadingVisual={CalendarIcon}
+          loading={loading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          leadingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          leadingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+
+      <h3>Trailing visual</h3>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+
+      <h3>Both visuals</h3>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          size="small"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          size="large"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+    </>
+  )
+}
+
+render(<WithIconAndLoadingIndicator />)
+```
+
 ## Props
 
 <PropsTable>

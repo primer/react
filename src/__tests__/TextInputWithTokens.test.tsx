@@ -109,6 +109,95 @@ describe('TextInputWithTokens', () => {
     ).toMatchSnapshot()
   })
 
+  it('renders with a loading indicator', () => {
+    const onRemoveMock = jest.fn()
+    expect(
+      render(
+        <>
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading />
+
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading loaderPosition="leading" />
+
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading loaderPosition="trailing" />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            leadingVisual={MarkGithubIcon}
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            leadingVisual={MarkGithubIcon}
+            loaderPosition="leading"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            leadingVisual={MarkGithubIcon}
+            loaderPosition="trailing"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            trailingVisual={MarkGithubIcon}
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            trailingVisual={MarkGithubIcon}
+            loaderPosition="leading"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            trailingVisual={MarkGithubIcon}
+            loaderPosition="trailing"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            size="small"
+            leadingVisual={MarkGithubIcon}
+            trailingVisual={MarkGithubIcon}
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            leadingVisual={MarkGithubIcon}
+            trailingVisual={MarkGithubIcon}
+            loaderPosition="leading"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            size="large"
+            leadingVisual={MarkGithubIcon}
+            trailingVisual={MarkGithubIcon}
+            loaderPosition="trailing"
+          />
+        </>
+      )
+    ).toMatchSnapshot()
+  })
+
   it('focuses the previous token when keying ArrowLeft', () => {
     const onRemoveMock = jest.fn()
     const {getByLabelText, getByText} = HTMLRender(
