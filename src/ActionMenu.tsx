@@ -124,7 +124,11 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', sx: pro
       onOpen={openWithFocus}
       onClose={onClose}
       align={align}
-      overlayProps={{usePortal: false, sx: merge({zIndex: 2}, propsSx as SxProp), ...overlayProps}}
+      overlayProps={{
+        usePortal: false, // render inline for natural focus management
+        sx: merge({zIndex: 1}, propsSx as SxProp), // render above overlay contents (story/internal-components-overlay--memex-nested-overlays)
+        ...overlayProps
+      }}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
       focusTrapSettings={{disabled: true}}
     >
