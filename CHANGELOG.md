@@ -1,5 +1,31 @@
 # @primer/components
 
+## 35.1.0
+
+### Minor Changes
+
+- [#1942](https://github.com/primer/react/pull/1942) [`3f50ef54`](https://github.com/primer/react/commit/3f50ef543b8cea0306aba44bb44611f22dae657d) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds button element selector to FilteredSearch button styles
+
+* [#1920](https://github.com/primer/react/pull/1920) [`40ed423e`](https://github.com/primer/react/commit/40ed423ed546ed91b69bc7bcc8361fd1e41faa8c) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a loadings state to our text input components
+
+- [#1961](https://github.com/primer/react/pull/1961) [`767d4166`](https://github.com/primer/react/commit/767d4166ef3e76e8ea12b6eec2d1d22f45f8609c) Thanks [@simurai](https://github.com/simurai)! - Bump primer/primitives to `7.5.1`
+
+### Patch Changes
+
+- [#1970](https://github.com/primer/react/pull/1970) [`3b236044`](https://github.com/primer/react/commit/3b23604438b850557e7e3d0a0594a8cca119859b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu: Fix styles for windows high contrast mode
+
+* [#1981](https://github.com/primer/react/pull/1981) [`e9bb5956`](https://github.com/primer/react/commit/e9bb595680ff51a563260c020d1475102eba2535) Thanks [@mperrotti](https://github.com/mperrotti)! - Ensures select option text has acceptable contrast in Firefox when in dark mode
+
+- [#1945](https://github.com/primer/react/pull/1945) [`ef3b58a1`](https://github.com/primer/react/commit/ef3b58a1fdffc8d3f709c9f63e0ee70ee0f397ba) Thanks [@pksjce](https://github.com/pksjce)! - Icon button fixes: Removes iconLabel and adds aria-label to the type
+
+* [#1959](https://github.com/primer/react/pull/1959) [`2025036e`](https://github.com/primer/react/commit/2025036e552d8c8d02ed3139e5c8da4cb1546bb7) Thanks [@colebemis](https://github.com/colebemis)! - Fix `TextInput` types
+
+- [#1968](https://github.com/primer/react/pull/1968) [`1b01485a`](https://github.com/primer/react/commit/1b01485a282dc882aa7c8cc3a55fe736afdac029) Thanks [@mperrotti](https://github.com/mperrotti)! - Instead of rendering unexpected FormControl children before the rest of the content, we render them in the same spot we'd normally render a Primer input component
+
+* [#1967](https://github.com/primer/react/pull/1967) [`c83a06f0`](https://github.com/primer/react/commit/c83a06f00280ee2f8139d0cc3489242f1af46982) Thanks [@pksjce](https://github.com/pksjce)! - Add overlay props to Autocomplete.Overlay
+
+- [#1955](https://github.com/primer/react/pull/1955) [`77e123f4`](https://github.com/primer/react/commit/77e123f403df0669f492ac636de651506709bd9a) Thanks [@pksjce](https://github.com/pksjce)! - Add disabled color and backgroundColor to Button.Counter
+
 ## 35.0.1
 
 ### Patch Changes
