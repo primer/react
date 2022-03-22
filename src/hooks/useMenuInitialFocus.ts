@@ -35,7 +35,7 @@ export const useMenuInitialFocus = (
 
     if (openingKey === 'mouse-click') {
       if (anchorRef.current) anchorRef.current.focus()
-      else throw new Error('For focus management, please attach anchorRef') // TODO: improve error
+      else throw new Error('For focus management, please attach anchorRef')
     } else if (['ArrowDown', 'Space', 'Enter'].includes(openingKey)) {
       const firstElement = iterable.next().value
       /** We push imperative focus to the next tick to prevent React's batching */
