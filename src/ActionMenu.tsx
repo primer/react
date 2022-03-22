@@ -12,8 +12,10 @@ import {SxProp, merge} from './sx'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
-  'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose' | 'anchorId'
->
+  'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
+> & {
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
+}
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
 export type ActionMenuProps = {
