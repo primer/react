@@ -174,6 +174,24 @@ describe('ActionMenu', () => {
     cleanup()
   })
 
+  it('should select last element when ArrowUp is pressed after opening Menu with click', async () => {
+    const component = HTMLRender(<Example />)
+
+    const button = component.getByText('Toggle Menu')
+    button.focus() // browsers do this automatically on click, but tests don't
+    fireEvent.click(button)
+    expect(component.queryByRole('menu')).toBeInTheDocument()
+
+    // button should be the active element
+    fireEvent.keyDown(document.activeElement!, {key: 'ArrowUp', code: 'ArrowUp'})
+
+    await waitFor(() => {
+      expect(component.getAllByRole('menuitem').pop()).toEqual(document.activeElement)
+    })
+
+    cleanup()
+  })
+
   it('should close the menu if Tab is pressed and move to next element', async () => {
     const component = HTMLRender(
       <>
