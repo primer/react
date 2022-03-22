@@ -113,23 +113,6 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', sx: pro
   const containerRef = React.createRef<HTMLDivElement>()
   const {openWithFocus} = useMenuKeyboardNavigation(open, onOpen, onClose, containerRef, anchorRef)
 
-  React.useEffect(() => {
-    // handle focus changes when keyboard navigation is activated
-    const handler = (event: KeyboardEvent) => {
-      if (!open) return
-
-      // TODO: Refactor hook to be just about focus, not initial focus
-      if (['ArrowDown', 'Space', 'Enter', 'ArrowUp'].includes(event.code)) {
-        openWithFocus('anchor-key-press')
-      }
-    }
-
-    const anchor = anchorRef.current
-
-    anchor?.addEventListener('keydown', handler)
-    return () => anchor?.removeEventListener('keydown', handler)
-  }, [open, openWithFocus, anchorRef])
-
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
