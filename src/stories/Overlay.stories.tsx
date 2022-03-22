@@ -492,3 +492,52 @@ export const MemexIssueOverlay = () => {
     </>
   )
 }
+
+export const LongContentWithOverflow = ({anchorSide}: OverlayProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
+  const closeOverlay = () => setIsOpen(false)
+
+  return (
+    <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        open overlay
+      </Button>
+      {isOpen ? (
+        <Overlay
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          onEscape={closeOverlay}
+          onClickOutside={closeOverlay}
+          width="large"
+          height="small"
+          anchorSide={anchorSide}
+        >
+          <Box sx={{padding: 4, height: '100%', overflow: 'auto'}}>
+            <FormControl sx={{mb: 2}}>
+              <FormControl.Label>Field 1</FormControl.Label>
+              <TextInput placeholder="Field 1" />
+            </FormControl>
+            <FormControl sx={{mb: 2}}>
+              <FormControl.Label>Field 2</FormControl.Label>
+              <TextInput placeholder="Field 2" />
+            </FormControl>
+            <FormControl sx={{mb: 2}}>
+              <FormControl.Label>Field 3</FormControl.Label>
+              <TextInput placeholder="Field 3" />
+            </FormControl>
+            <FormControl sx={{mb: 2}}>
+              <FormControl.Label>Field 4</FormControl.Label>
+              <TextInput placeholder="Field 4" />
+            </FormControl>
+            <FormControl>
+              <FormControl.Label>Field 5</FormControl.Label>
+              <TextInput placeholder="Field 5" />
+            </FormControl>
+          </Box>
+        </Overlay>
+      ) : null}
+    </Box>
+  )
+}
