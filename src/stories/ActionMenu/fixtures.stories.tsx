@@ -11,7 +11,9 @@ import {
   ActionMenu,
   ActionList,
   Button,
-  IconButton
+  IconButton,
+  TabNav,
+  Checkbox
 } from '../..'
 import {
   ServerIcon,
@@ -699,6 +701,148 @@ export function TabTest(): JSX.Element {
         </ActionMenu.Overlay>
       </ActionMenu>
       <input type="text" placeholder="next focusable element" />
+    </>
+  )
+}
+
+export function InsideContainer(): JSX.Element {
+  const [open, setOpen] = React.useState(false)
+  const [fixed, setFixed] = React.useState(false)
+  const anchorRef = React.createRef<HTMLButtonElement>()
+
+  return (
+    <>
+      <h1>Inside a container with overflow:hidden & position:relative</h1>
+      <TabNav aria-label="Select view 1" sx={{nav: fixed ? {overflow: 'initial'} : {}}}>
+        <TabNav.Link selected>
+          <Box
+            sx={{
+              // relative so that the blue dot can be positioned absolutely
+              position: 'relative'
+            }}
+          >
+            <StyledOcticon icon={ProjectIcon} sx={{mr: 2}} />
+            <Text sx={{mr: 2}}>React</Text>
+            <Box
+              id="view-options-dirty-1"
+              sx={{
+                position: 'absolute',
+                top: '-1px',
+                right: '-3px',
+                height: '10px',
+                width: '10px',
+                borderRadius: 3,
+                backgroundColor: 'accent.fg',
+                boxShadow: 'rgb(255 255 255) 0px 0px 0px 2px'
+              }}
+            />
+            <ActionMenu>
+              <ActionMenu.Anchor aria-label="Open view options menu">
+                <IconButton
+                  icon={TriangleDownIcon}
+                  sx={{
+                    padding: '0 1px',
+                    lineHeight: '18px'
+                  }}
+                />
+              </ActionMenu.Anchor>
+
+              <ActionMenu.Overlay width="medium">
+                <ActionList>
+                  <ActionList.Item>
+                    <ActionList.LeadingVisual>
+                      <PencilIcon />
+                    </ActionList.LeadingVisual>
+                    Rename view
+                  </ActionList.Item>
+                  <ActionList.Item>
+                    <ActionList.LeadingVisual>
+                      <VersionsIcon />
+                    </ActionList.LeadingVisual>
+                    Save changes to new view
+                  </ActionList.Item>
+                  <ActionList.Item>
+                    <ActionList.LeadingVisual>
+                      <TrashIcon />
+                    </ActionList.LeadingVisual>
+                    Delete view
+                  </ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </Box>
+        </TabNav.Link>
+        <TabNav.Link>CSS</TabNav.Link>
+        <TabNav.Link>Rails</TabNav.Link>
+      </TabNav>
+      <FormControl sx={{p: 2}}>
+        <Checkbox checked={fixed} onChange={() => setFixed(!fixed)} />
+        <FormControl.Label sx={{fontWeight: 'normal'}}>
+          fix with override: <code>{`nav { overflow: initial; }`}</code>
+        </FormControl.Label>
+      </FormControl>
+      <br />
+      <br />
+      <br />
+      alternatively, Do not render Menu.Overlay inside <code>position:relative</code> by using external anchor
+      <TabNav aria-label="Select view 2">
+        <TabNav.Link selected>
+          <StyledOcticon icon={ProjectIcon} sx={{mr: 2}} />
+          <Text sx={{mr: 2}}>React</Text>
+
+          <Box as="span" css={{position: 'relative'}}>
+            <IconButton
+              aria-label="Open view options menu"
+              ref={anchorRef}
+              icon={TriangleDownIcon}
+              sx={{display: 'inline', padding: '0 1px', lineHeight: '18px'}}
+              onClick={() => setOpen(!open)}
+              aria-expanded={open}
+              aria-haspopup="true"
+            />
+            <Box
+              id="view-options-dirty-2"
+              sx={{
+                position: 'absolute',
+                top: '-1px',
+                right: '-3px',
+                height: '10px',
+                width: '10px',
+                borderRadius: 3,
+                backgroundColor: 'accent.fg',
+                boxShadow: 'rgb(255 255 255) 0px 0px 0px 2px'
+              }}
+            />
+          </Box>
+
+          <ActionMenu anchorRef={anchorRef} open={open} onOpenChange={setOpen}>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <PencilIcon />
+                  </ActionList.LeadingVisual>
+                  Rename view
+                </ActionList.Item>
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <VersionsIcon />
+                  </ActionList.LeadingVisual>
+                  Save changes to new view
+                </ActionList.Item>
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <TrashIcon />
+                  </ActionList.LeadingVisual>
+                  Delete view
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </TabNav.Link>
+        <TabNav.Link>CSS</TabNav.Link>
+        <TabNav.Link>Rails</TabNav.Link>
+      </TabNav>
     </>
   )
 }
