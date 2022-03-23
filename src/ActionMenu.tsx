@@ -125,7 +125,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', sx: pro
       onClose={onClose}
       align={align}
       overlayProps={{
-        usePortal: false, // render inline for natural focus management
+        renderInPortal: false, // render inline for natural focus management
         sx: merge({zIndex: 1}, propsSx as SxProp), // render above overlay contents (story/internal-components-overlay--memex-nested-overlays)
         ...overlayProps
       }}

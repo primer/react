@@ -100,7 +100,7 @@ type BaseOverlayProps = {
   preventFocusOnOpen?: boolean
   role?: AriaRole
   children?: React.ReactNode
-  usePortal?: boolean
+  renderInPortal?: boolean
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -138,7 +138,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       anchorSide,
       portalContainerName,
       preventFocusOnOpen,
-      usePortal = true,
+      renderInPortal = true,
       ...rest
     },
     forwardedRef
@@ -181,10 +181,10 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       )
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
-    const Container = usePortal ? Portal : React.Fragment
+    const Container = renderInPortal ? Portal : React.Fragment
 
     return (
-      <Container {...(usePortal ? {containerName: portalContainerName} : {})}>
+      <Container {...(renderInPortal ? {containerName: portalContainerName} : {})}>
         <StyledOverlay
           height={height}
           role={role}
