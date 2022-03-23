@@ -250,6 +250,12 @@ export const getBaseStyles = (theme?: Theme) => ({
   },
   '&:disabled svg': {
     opacity: '0.6'
+  },
+  '@media (forced-colors: active)': {
+    '&:focus': {
+      // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
+      outline: 'solid 1px transparent'
+    }
   }
 })
 
