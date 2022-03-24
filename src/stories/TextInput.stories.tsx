@@ -169,24 +169,6 @@ export const WithTrailingAction = (args: TextInputProps) => {
           />
         </FormControl>
         <FormControl>
-          <FormControl.Label>Icon action with tooltip</FormControl.Label>
-          <TextInput
-            trailingAction={
-              <TextInput.Action
-                onClick={() => {
-                  setValue('')
-                }}
-                icon={XCircleFillIcon}
-                aria-label="Clear input"
-                sx={{color: 'fg.subtle'}}
-              />
-            }
-            value={value}
-            onChange={handleChange}
-            {...args}
-          />
-        </FormControl>
-        <FormControl>
           <FormControl.Label>Text action</FormControl.Label>
           <TextInput
             trailingAction={

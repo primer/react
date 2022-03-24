@@ -128,22 +128,6 @@ render(<WithIconAndLoadingIndicator />)
     />
   </FormControl>
   <FormControl>
-    <FormControl.Label>Icon action with tooltip</FormControl.Label>
-    <TextInput
-      trailingAction={
-        <TextInput.Action
-          onClick={() => {
-            alert('clear input')
-          }}
-          icon={XIcon}
-          iconLabel="Clear input"
-          tooltipMessage="Clear"
-          sx={{color: 'fg.subtle'}}
-        />
-      }
-    />
-  </FormControl>
-  <FormControl>
     <FormControl.Label>Text action</FormControl.Label>
     <TextInput
       trailingAction={
