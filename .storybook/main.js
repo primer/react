@@ -8,10 +8,7 @@ module.exports = {
     ...(process.env.NODE_ENV === 'production' ? ['@whitespace/storybook-addon-html'] : [])
   ],
   babel: options => {
-    options.plugins.push([
-      'babel-plugin-open-source',
-      {editor: process.env.NODE_ENV === 'production' ? 'github' : 'vscode'}
-    ])
+    options.plugins.push(['open-source', {editor: process.env.NODE_ENV === 'production' ? 'github' : 'vscode'}])
     return options
   }
 }
