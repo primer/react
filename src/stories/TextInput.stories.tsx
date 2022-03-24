@@ -159,7 +159,7 @@ export const WithTrailingAction = (args: TextInputProps) => {
                   setValue('')
                 }}
                 icon={XCircleFillIcon}
-                iconLabel="Clear input"
+                aria-label="Clear input"
                 sx={{color: 'fg.subtle'}}
               />
             }
@@ -177,8 +177,7 @@ export const WithTrailingAction = (args: TextInputProps) => {
                   setValue('')
                 }}
                 icon={XCircleFillIcon}
-                iconLabel="Clear input"
-                tooltipMessage="Clear"
+                aria-label="Clear input"
                 sx={{color: 'fg.subtle'}}
               />
             }

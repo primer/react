@@ -1,62 +1,77 @@
+import React, {forwardRef} from 'react'
 import {IconProps} from '@primer/octicons-react'
-import React, {forwardRef, MouseEventHandler} from 'react'
-import {Box, Tooltip} from '.'
-import {Button, ButtonProps, IconButton} from './Button'
-import {SxProp} from './sx'
+import {Box, Button, IconButton, Tooltip} from '.'
+import {ButtonProps} from './Button'
+import {BetterSystemStyleObject, merge, SxProp} from './sx'
 
-type TextInputActionProps = Omit<React.HTMLProps<HTMLButtonElement>, 'onClick' | 'children' | 'size'> & {
-  children?: React.ReactNode
-  onClick: MouseEventHandler
+type TextInputActionProps = Omit<React.HTMLProps<HTMLButtonElement>, 'aria-label' | 'size'> & {
+  /** Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies. */
+  ['aria-label']?: string
+  /** The icon to render inside the button */
   icon?: React.FunctionComponent<IconProps>
-  iconLabel?: string
-  tooltipMessage?: string
+  /**
+   * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
+   */
   variant?: ButtonProps['variant']
 } & SxProp
 
-const buttonStyleOverrides = {
+const invisibleButtonStyleOverrides = {
   color: 'fg.default'
 }
 
-// TODO: modify this to _just_ render out a tooltip. No need for `wrapper`
-const ConditionalWrapper: React.FC<{
-  condition: boolean
-  wrapper: (children: React.ReactNode) => React.ReactNode
-}> = ({condition, wrapper, children}) => <>{condition ? wrapper(children) : children}</>
+const ConditionalTooltip: React.FC<{
+  ['aria-label']?: string
+  children: React.ReactNode
+}> = ({'aria-label': ariaLabel, children}) => (
+  <>
+    {ariaLabel ? (
+      <Tooltip
+        aria-label={ariaLabel}
+        sx={{
+          /* inline-block is used to ensure the tooltip dimensions don't
+             collapse when being used with `grid` or `inline` children */
+          display: 'inline-block'
+        }}
+      >
+        {children}
+      </Tooltip>
+    ) : (
+      children
+    )}
+  </>
+)
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
-  ({children, icon, iconLabel, sx: sxProp, tooltipMessage, variant, ...rest}, forwardedRef) => {
-    const sx = {
-      ...buttonStyleOverrides,
-      ...sxProp
-    }
+  ({'aria-label': ariaLabel, children, icon, sx: sxProp, variant, ...rest}, forwardedRef) => {
+    const sx =
+      variant === 'invisible' ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {}) : sxProp
 
-    if (icon && !iconLabel) {
+    if ((icon && !ariaLabel) || (!children && !ariaLabel)) {
       // eslint-disable-next-line no-console
-      console.warn('Use the `iconLabel` prop to provide an accessible label for assistive technology')
+      console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
     }
 
     return (
       <Box as="span" className="TextInput-action">
-        <ConditionalWrapper
-          condition={Boolean(tooltipMessage)}
-          wrapper={tooltipLabel => <Tooltip aria-label={tooltipMessage}>{tooltipLabel}</Tooltip>}
-        >
-          {icon && iconLabel ? (
+        {icon && !children ? (
+          <Tooltip aria-label={ariaLabel}>
             <IconButton
               variant={variant}
               type="button"
               icon={icon}
-              iconLabel={iconLabel}
+              aria-label={ariaLabel}
               sx={sx}
               {...rest}
               ref={forwardedRef}
             />
-          ) : (
+          </Tooltip>
+        ) : (
+          <ConditionalTooltip aria-label={ariaLabel}>
             <Button variant={variant} size="small" type="button" sx={sx} {...rest} ref={forwardedRef}>
               {children}
             </Button>
-          )}
-        </ConditionalWrapper>
+          </ConditionalTooltip>
+        )}
       </Box>
     )
   }

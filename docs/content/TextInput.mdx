@@ -319,6 +319,29 @@ render(<WithIconAndLoadingIndicator />)
   />
 </PropsTable>
 
+### TextInput.Action
+
+<PropsTable>
+  <PropsTableRow
+    name="aria-label"
+    type="string"
+    description="Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
+  />
+  <PropsTableRow name="icon" type="React.FunctionComponent" description="The icon to render inside the button" />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'primary' | 'invisible' | 'danger'"
+    description="Determine's the styles on a button"
+  />
+  <PropsTableBasePropRows
+    elementType="button"
+    refType="HTMLButtonElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
 ## Status
 
 <ComponentChecklist
