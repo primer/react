@@ -52,6 +52,7 @@ const LeadingVisualContainer = styled('span')<Pick<TokenBaseProps, 'size'>>`
     switch (props.size) {
       case 'large':
       case 'extralarge':
+      case 'xlarge':
         return css`
           margin-right: ${get('space.2')};
         `

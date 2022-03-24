@@ -59,7 +59,8 @@ const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
   small: 0,
   medium: 1,
   large: 1,
-  extralarge: 2
+  extralarge: 2,
+  xlarge: 2 // will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
 }
 
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
@@ -239,7 +240,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     small: 'small',
     medium: 'small',
     large: 'medium',
-    extralarge: 'medium'
+    extralarge: 'medium',
+    xlarge: 'medium' // will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
   }
   const showLeadingLoadingIndicator =
     loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
@@ -370,7 +372,7 @@ const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.defaultProps = {
   tokenComponent: Token,
-  size: 'extralarge',
+  size: 'xlarge',
   hideTokenRemoveButtons: false,
   preventTokenWrapping: false,
   loaderPosition: 'auto'

@@ -4,13 +4,18 @@ import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 
-export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'extralarge'
+// TODO: remove invalid "extralarge" size name in next breaking change
+// ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
+export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'extralarge' | 'xlarge'
+
+const xlargeSize = '32px'
 
 export const tokenSizes: Record<TokenSizeKeys, string> = {
   small: '16px',
   medium: '20px',
   large: '24px',
-  extralarge: '32px'
+  extralarge: xlargeSize,
+  xlarge: xlargeSize
 }
 
 export const defaultTokenSize: TokenSizeKeys = 'medium'
@@ -42,6 +47,16 @@ export interface TokenBaseProps
 
 export const isTokenInteractive = ({as = 'span', onClick, onFocus, tabIndex = -1}: TokenBaseProps) =>
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
+
+const xlargeVariantStyles = {
+  fontSize: 1,
+  height: tokenSizes.xlarge,
+  lineHeight: tokenSizes.xlarge,
+  paddingLeft: 3,
+  paddingRight: 3,
+  paddingTop: 0,
+  paddingBottom: 0
+}
 
 const variants = variant<
   {
@@ -87,15 +102,8 @@ const variants = variant<
       paddingTop: 0,
       paddingBottom: 0
     },
-    extralarge: {
-      fontSize: 1,
-      height: tokenSizes.extralarge,
-      lineHeight: tokenSizes.extralarge,
-      paddingLeft: 3,
-      paddingRight: 3,
-      paddingTop: 0,
-      paddingBottom: 0
-    }
+    extralarge: xlargeVariantStyles,
+    xlarge: xlargeVariantStyles
   }
 })
 
