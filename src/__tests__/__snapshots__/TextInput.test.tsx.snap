@@ -1290,7 +1290,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c0 > input,
 .c0 > select {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
 }
 
 .c1 {
@@ -1749,7 +1749,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c0 > input,
 .c0 > select {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
 }
 
 .c1 {
@@ -1962,7 +1962,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c0 > input,
 .c0 > select {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
 }
 
 .c1 {

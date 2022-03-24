@@ -45,7 +45,7 @@ export type StyledBaseWrapperProps = {
   block?: boolean
   contrast?: boolean
   disabled?: boolean
-  hasActions?: boolean
+  hasTrailingAction?: boolean
   isInputFocused?: boolean
   monospace?: boolean
   validationStatus?: FormValidationStatus
@@ -67,8 +67,8 @@ export const textInputHorizPadding = textInputBasePadding
 
 // TODO: figure out how to type a themed CSS function (e.g.: css`color: blue;`)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const renderFocusStyles = (hasActions: boolean, isInputFocused: boolean, focusStyles: any) => {
-  if (hasActions) {
+const renderFocusStyles = (hasTrailingAction: boolean, isInputFocused: boolean, focusStyles: any) => {
+  if (hasTrailingAction) {
     return (
       isInputFocused &&
       css`
@@ -104,7 +104,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
 
   ${props =>
     renderFocusStyles(
-      Boolean(props.hasActions),
+      Boolean(props.hasTrailingAction),
       Boolean(props.isInputFocused),
       css`
         border-color: ${get('colors.accent.emphasis')};
@@ -142,7 +142,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     css`
       border-color: ${get('colors.danger.emphasis')};
       ${renderFocusStyles(
-        Boolean(props.hasActions),
+        Boolean(props.hasTrailingAction),
         Boolean(props.isInputFocused),
         css`
           border-color: ${get('colors.danger.emphasis')};
@@ -157,7 +157,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     css`
       border-color: ${get('colors.success.emphasis')};
       ${renderFocusStyles(
-        Boolean(props.hasActions),
+        Boolean(props.hasTrailingAction),
         Boolean(props.isInputFocused),
         css`
           border-color: ${get('colors.success.emphasis')};
@@ -204,12 +204,12 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
   ${props =>
     css`
       padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
-      padding-right: ${props.hasTrailingVisual ? textInputHorizPadding : 0};
+      padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
 
       > input,
       > select {
         padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
-        padding-right: ${!props.hasTrailingVisual ? textInputHorizPadding : 0};
+        padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
       }
     `}
 
@@ -218,7 +218,7 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
     css`
       border-color: ${get('colors.attention.emphasis')};
       ${renderFocusStyles(
-        Boolean(props.hasActions),
+        Boolean(props.hasTrailingAction),
         Boolean(props.isInputFocused),
         css`
           border-color: ${get('colors.attention.emphasis')};
