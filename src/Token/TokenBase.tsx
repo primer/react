@@ -28,6 +28,10 @@ export interface TokenBaseProps
    */
   onRemove?: () => void
   /**
+   * Whether the remove button should be rendered in the token
+   */
+  hideRemoveButton?: boolean
+  /**
    * Whether the token is selected
    */
   isSelected?: boolean
