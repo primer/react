@@ -209,9 +209,11 @@ describe('ActionMenu', () => {
 
     expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
 
-    userEvent.tab()
-    expect(component.getByPlaceholderText('next focusable element')).toEqual(document.activeElement)
-    expect(component.queryByRole('menu')).not.toBeInTheDocument()
+    await waitFor(() => {
+      userEvent.tab()
+      expect(document.activeElement).toEqual(component.getByPlaceholderText('next focusable element'))
+      expect(component.queryByRole('menu')).not.toBeInTheDocument()
+    })
 
     cleanup()
   })
