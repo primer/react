@@ -11,9 +11,7 @@ import {
   ActionMenu,
   ActionList,
   Button,
-  IconButton,
-  TabNav,
-  Checkbox
+  IconButton
 } from '../..'
 import {
   ServerIcon,
