@@ -126,7 +126,16 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', sx: pro
       align={align}
       overlayProps={{
         renderInPortal: false, // render inline for natural focus management
-        sx: merge({zIndex: 1}, propsSx as SxProp), // render above overlay contents (story/internal-components-overlay--memex-nested-overlays)
+        sx: merge(
+          {
+            // why 11? for a lack of a better z-index strategy in the repo, I am following the popular layers approach,
+            // which leaves room for the application to claim the z-index "in between layers".
+            // inspiration: https://getbootstrap.com/docs/5.0/layout/z-index
+            // story: https://primer.style/react/storybook?path=/story/internal-components-overlay--memex-nested-overlays
+            zIndex: 11
+          },
+          propsSx as SxProp
+        ),
         ...overlayProps
       }}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
