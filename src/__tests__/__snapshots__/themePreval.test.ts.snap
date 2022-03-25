@@ -3,7 +3,7 @@
 exports[`snapshot theme-preval.js 1`] = `
 "// this file was prevaled
 // This file needs to be a JavaScript file using CommonJS to be compatible with preval
-// Cache bust: 2022-03-14 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+// Cache bust: 2022-03-24 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
 module.exports = {
   \\"theme\\": {
     \\"animation\\": {
@@ -351,6 +351,22 @@ module.exports = {
               \\"hoverBg\\": \\"rgba(255,235,233,0.64)\\",
               \\"activeBg\\": \\"#FFEBE9\\",
               \\"hoverText\\": \\"#cf222e\\"
+            }
+          },
+          \\"switchTrack\\": {
+            \\"bg\\": \\"#eaeef2\\",
+            \\"border\\": \\"#afb8c1\\",
+            \\"checked\\": {
+              \\"bg\\": \\"#ddf4ff\\",
+              \\"hoverBg\\": \\"#b6e3ff\\",
+              \\"activeBg\\": \\"#80ccff\\",
+              \\"border\\": \\"#54aeff\\"
+            }
+          },
+          \\"switchKnob\\": {
+            \\"checked\\": {
+              \\"bg\\": \\"#0969da\\",
+              \\"disabledBg\\": \\"#6e7781\\"
             }
           },
           \\"fg\\": {
@@ -818,6 +834,22 @@ module.exports = {
               \\"hoverText\\": \\"#ffffff\\"
             }
           },
+          \\"switchTrack\\": {
+            \\"bg\\": \\"#ffffff\\",
+            \\"border\\": \\"#20252C\\",
+            \\"checked\\": {
+              \\"bg\\": \\"#dff7ff\\",
+              \\"hoverBg\\": \\"#9cd7ff\\",
+              \\"activeBg\\": \\"#67b3fd\\",
+              \\"border\\": \\"#0349b4\\"
+            }
+          },
+          \\"switchKnob\\": {
+            \\"checked\\": {
+              \\"bg\\": \\"#0349b4\\",
+              \\"disabledBg\\": \\"#66707B\\"
+            }
+          },
           \\"fg\\": {
             \\"default\\": \\"#0E1116\\",
             \\"muted\\": \\"#0E1116\\",
@@ -1283,6 +1315,22 @@ module.exports = {
               \\"hoverText\\": \\"#b35900\\"
             }
           },
+          \\"switchTrack\\": {
+            \\"bg\\": \\"#eaeef2\\",
+            \\"border\\": \\"#afb8c1\\",
+            \\"checked\\": {
+              \\"bg\\": \\"#ddf4ff\\",
+              \\"hoverBg\\": \\"#b6e3ff\\",
+              \\"activeBg\\": \\"#80ccff\\",
+              \\"border\\": \\"#54aeff\\"
+            }
+          },
+          \\"switchKnob\\": {
+            \\"checked\\": {
+              \\"bg\\": \\"#0969da\\",
+              \\"disabledBg\\": \\"#6e7781\\"
+            }
+          },
           \\"fg\\": {
             \\"default\\": \\"#24292f\\",
             \\"muted\\": \\"#57606a\\",
@@ -1508,7 +1556,7 @@ module.exports = {
             \\"bg\\": \\"#0d1117\\",
             \\"guttersBg\\": \\"#0d1117\\",
             \\"guttermarkerText\\": \\"#0d1117\\",
-            \\"guttermarkerSubtleText\\": \\"#484f58\\",
+            \\"guttermarkerSubtleText\\": \\"#6e7681\\",
             \\"linenumberText\\": \\"#8b949e\\",
             \\"cursor\\": \\"#c9d1d9\\",
             \\"selectionBg\\": \\"rgba(56,139,253,0.4)\\",
@@ -1535,7 +1583,7 @@ module.exports = {
             \\"btnHoverIcon\\": \\"#c9d1d9\\",
             \\"btnHoverBg\\": \\"rgba(110,118,129,0.1)\\",
             \\"inputText\\": \\"#8b949e\\",
-            \\"inputPlaceholderText\\": \\"#484f58\\",
+            \\"inputPlaceholderText\\": \\"#6e7681\\",
             \\"inputFocusText\\": \\"#c9d1d9\\",
             \\"inputBg\\": \\"#161b22\\",
             \\"donutError\\": \\"#f85149\\",
@@ -1556,8 +1604,8 @@ module.exports = {
             \\"headerBorder\\": \\"#21262d\\",
             \\"headerIcon\\": \\"#8b949e\\",
             \\"lineText\\": \\"#8b949e\\",
-            \\"lineNumText\\": \\"#484f58\\",
-            \\"lineTimestampText\\": \\"#484f58\\",
+            \\"lineNumText\\": \\"#6e7681\\",
+            \\"lineTimestampText\\": \\"#6e7681\\",
             \\"lineHoverBg\\": \\"rgba(110,118,129,0.1)\\",
             \\"lineSelectedBg\\": \\"rgba(56,139,253,0.15)\\",
             \\"lineSelectedNumText\\": \\"#58a6ff\\",
@@ -1570,10 +1618,10 @@ module.exports = {
             \\"stepErrorText\\": \\"#f85149\\",
             \\"stepWarningText\\": \\"#d29922\\",
             \\"loglineText\\": \\"#8b949e\\",
-            \\"loglineNumText\\": \\"#484f58\\",
+            \\"loglineNumText\\": \\"#6e7681\\",
             \\"loglineDebugText\\": \\"#a371f7\\",
             \\"loglineErrorText\\": \\"#8b949e\\",
-            \\"loglineErrorNumText\\": \\"#484f58\\",
+            \\"loglineErrorNumText\\": \\"#6e7681\\",
             \\"loglineErrorBg\\": \\"rgba(248,81,73,0.15)\\",
             \\"loglineWarningText\\": \\"#8b949e\\",
             \\"loglineWarningNumText\\": \\"#d29922\\",
@@ -1730,7 +1778,7 @@ module.exports = {
             }
           },
           \\"underlinenav\\": {
-            \\"icon\\": \\"#484f58\\",
+            \\"icon\\": \\"#6e7681\\",
             \\"borderHover\\": \\"rgba(110,118,129,0.4)\\"
           },
           \\"actionListItem\\": {
@@ -1748,10 +1796,26 @@ module.exports = {
               \\"hoverText\\": \\"#ff7b72\\"
             }
           },
+          \\"switchTrack\\": {
+            \\"bg\\": \\"#010409\\",
+            \\"border\\": \\"#6e7681\\",
+            \\"checked\\": {
+              \\"bg\\": \\"rgba(31,111,235,0.35)\\",
+              \\"hoverBg\\": \\"rgba(31,111,235,0.5)\\",
+              \\"activeBg\\": \\"rgba(31,111,235,0.65)\\",
+              \\"border\\": \\"#58a6ff\\"
+            }
+          },
+          \\"switchKnob\\": {
+            \\"checked\\": {
+              \\"bg\\": \\"#1f6feb\\",
+              \\"disabledBg\\": \\"#484f58\\"
+            }
+          },
           \\"fg\\": {
             \\"default\\": \\"#c9d1d9\\",
             \\"muted\\": \\"#8b949e\\",
-            \\"subtle\\": \\"#484f58\\",
+            \\"subtle\\": \\"#6e7681\\",
             \\"onEmphasis\\": \\"#ffffff\\"
           },
           \\"canvas\\": {
@@ -1976,7 +2040,7 @@ module.exports = {
             \\"bg\\": \\"#22272e\\",
             \\"guttersBg\\": \\"#22272e\\",
             \\"guttermarkerText\\": \\"#22272e\\",
-            \\"guttermarkerSubtleText\\": \\"#545d68\\",
+            \\"guttermarkerSubtleText\\": \\"#636e7b\\",
             \\"linenumberText\\": \\"#768390\\",
             \\"cursor\\": \\"#adbac7\\",
             \\"selectionBg\\": \\"rgba(65,132,228,0.4)\\",
@@ -2003,7 +2067,7 @@ module.exports = {
             \\"btnHoverIcon\\": \\"#adbac7\\",
             \\"btnHoverBg\\": \\"rgba(99,110,123,0.1)\\",
             \\"inputText\\": \\"#768390\\",
-            \\"inputPlaceholderText\\": \\"#545d68\\",
+            \\"inputPlaceholderText\\": \\"#636e7b\\",
             \\"inputFocusText\\": \\"#adbac7\\",
             \\"inputBg\\": \\"#2d333b\\",
             \\"donutError\\": \\"#e5534b\\",
@@ -2024,8 +2088,8 @@ module.exports = {
             \\"headerBorder\\": \\"#373e47\\",
             \\"headerIcon\\": \\"#768390\\",
             \\"lineText\\": \\"#768390\\",
-            \\"lineNumText\\": \\"#545d68\\",
-            \\"lineTimestampText\\": \\"#545d68\\",
+            \\"lineNumText\\": \\"#636e7b\\",
+            \\"lineTimestampText\\": \\"#636e7b\\",
             \\"lineHoverBg\\": \\"rgba(99,110,123,0.1)\\",
             \\"lineSelectedBg\\": \\"rgba(65,132,228,0.15)\\",
             \\"lineSelectedNumText\\": \\"#539bf5\\",
@@ -2038,10 +2102,10 @@ module.exports = {
             \\"stepErrorText\\": \\"#e5534b\\",
             \\"stepWarningText\\": \\"#c69026\\",
             \\"loglineText\\": \\"#768390\\",
-            \\"loglineNumText\\": \\"#545d68\\",
+            \\"loglineNumText\\": \\"#636e7b\\",
             \\"loglineDebugText\\": \\"#986ee2\\",
             \\"loglineErrorText\\": \\"#768390\\",
-            \\"loglineErrorNumText\\": \\"#545d68\\",
+            \\"loglineErrorNumText\\": \\"#636e7b\\",
             \\"loglineErrorBg\\": \\"rgba(229,83,75,0.15)\\",
             \\"loglineWarningText\\": \\"#768390\\",
             \\"loglineWarningNumText\\": \\"#c69026\\",
@@ -2198,7 +2262,7 @@ module.exports = {
             }
           },
           \\"underlinenav\\": {
-            \\"icon\\": \\"#545d68\\",
+            \\"icon\\": \\"#636e7b\\",
             \\"borderHover\\": \\"rgba(99,110,123,0.4)\\"
           },
           \\"actionListItem\\": {
@@ -2216,10 +2280,26 @@ module.exports = {
               \\"hoverText\\": \\"#f47067\\"
             }
           },
+          \\"switchTrack\\": {
+            \\"bg\\": \\"#1c2128\\",
+            \\"border\\": \\"#636e7b\\",
+            \\"checked\\": {
+              \\"bg\\": \\"rgba(49,109,202,0.35)\\",
+              \\"hoverBg\\": \\"rgba(49,109,202,0.5)\\",
+              \\"activeBg\\": \\"rgba(49,109,202,0.65)\\",
+              \\"border\\": \\"#539bf5\\"
+            }
+          },
+          \\"switchKnob\\": {
+            \\"checked\\": {
+              \\"bg\\": \\"#316dca\\",
+              \\"disabledBg\\": \\"#545d68\\"
+            }
+          },
           \\"fg\\": {
             \\"default\\": \\"#adbac7\\",
             \\"muted\\": \\"#768390\\",
-            \\"subtle\\": \\"#545d68\\",
+            \\"subtle\\": \\"#636e7b\\",
             \\"onEmphasis\\": \\"#cdd9e5\\"
           },
           \\"canvas\\": {
@@ -2444,7 +2524,7 @@ module.exports = {
             \\"bg\\": \\"#0a0c10\\",
             \\"guttersBg\\": \\"#0a0c10\\",
             \\"guttermarkerText\\": \\"#0a0c10\\",
-            \\"guttermarkerSubtleText\\": \\"#7a828e\\",
+            \\"guttermarkerSubtleText\\": \\"#9ea7b3\\",
             \\"linenumberText\\": \\"#f0f3f6\\",
             \\"cursor\\": \\"#f0f3f6\\",
             \\"selectionBg\\": \\"rgba(64,158,255,0.4)\\",
@@ -2471,7 +2551,7 @@ module.exports = {
             \\"btnHoverIcon\\": \\"#f0f3f6\\",
             \\"btnHoverBg\\": \\"rgba(158,167,179,0.1)\\",
             \\"inputText\\": \\"#f0f3f6\\",
-            \\"inputPlaceholderText\\": \\"#7a828e\\",
+            \\"inputPlaceholderText\\": \\"#9ea7b3\\",
             \\"inputFocusText\\": \\"#f0f3f6\\",
             \\"inputBg\\": \\"#272b33\\",
             \\"donutError\\": \\"#ff6a69\\",
@@ -2492,8 +2572,8 @@ module.exports = {
             \\"headerBorder\\": \\"#7a828e\\",
             \\"headerIcon\\": \\"#f0f3f6\\",
             \\"lineText\\": \\"#f0f3f6\\",
-            \\"lineNumText\\": \\"#7a828e\\",
-            \\"lineTimestampText\\": \\"#7a828e\\",
+            \\"lineNumText\\": \\"#9ea7b3\\",
+            \\"lineTimestampText\\": \\"#9ea7b3\\",
             \\"lineHoverBg\\": \\"rgba(158,167,179,0.1)\\",
             \\"lineSelectedBg\\": \\"rgba(64,158,255,0.15)\\",
             \\"lineSelectedNumText\\": \\"#71b7ff\\",
@@ -2506,10 +2586,10 @@ module.exports = {
             \\"stepErrorText\\": \\"#ff6a69\\",
             \\"stepWarningText\\": \\"#f0b72f\\",
             \\"loglineText\\": \\"#f0f3f6\\",
-            \\"loglineNumText\\": \\"#7a828e\\",
+            \\"loglineNumText\\": \\"#9ea7b3\\",
             \\"loglineDebugText\\": \\"#b780ff\\",
             \\"loglineErrorText\\": \\"#f0f3f6\\",
-            \\"loglineErrorNumText\\": \\"#7a828e\\",
+            \\"loglineErrorNumText\\": \\"#9ea7b3\\",
             \\"loglineErrorBg\\": \\"rgba(255,106,105,0.15)\\",
             \\"loglineWarningText\\": \\"#f0f3f6\\",
             \\"loglineWarningNumText\\": \\"#f0b72f\\",
@@ -2684,10 +2764,26 @@ module.exports = {
               \\"hoverText\\": \\"#0a0c10\\"
             }
           },
+          \\"switchTrack\\": {
+            \\"bg\\": \\"#010409\\",
+            \\"border\\": \\"#7a828e\\",
+            \\"checked\\": {
+              \\"bg\\": \\"rgba(64,158,255,0.35)\\",
+              \\"hoverBg\\": \\"rgba(64,158,255,0.5)\\",
+              \\"activeBg\\": \\"rgba(64,158,255,0.65)\\",
+              \\"border\\": \\"#409eff\\"
+            }
+          },
+          \\"switchKnob\\": {
+            \\"checked\\": {
+              \\"bg\\": \\"#409eff\\",
+              \\"disabledBg\\": \\"#7a828e\\"
+            }
+          },
           \\"fg\\": {
             \\"default\\": \\"#f0f3f6\\",
             \\"muted\\": \\"#f0f3f6\\",
-            \\"subtle\\": \\"#7a828e\\",
+            \\"subtle\\": \\"#9ea7b3\\",
             \\"onEmphasis\\": \\"#0a0c10\\"
           },
           \\"canvas\\": {
@@ -2912,7 +3008,7 @@ module.exports = {
             \\"bg\\": \\"#0d1117\\",
             \\"guttersBg\\": \\"#0d1117\\",
             \\"guttermarkerText\\": \\"#0d1117\\",
-            \\"guttermarkerSubtleText\\": \\"#484f58\\",
+            \\"guttermarkerSubtleText\\": \\"#6e7681\\",
             \\"linenumberText\\": \\"#8b949e\\",
             \\"cursor\\": \\"#c9d1d9\\",
             \\"selectionBg\\": \\"rgba(56,139,253,0.4)\\",
@@ -2939,7 +3035,7 @@ module.exports = {
             \\"btnHoverIcon\\": \\"#c9d1d9\\",
             \\"btnHoverBg\\": \\"rgba(110,118,129,0.1)\\",
             \\"inputText\\": \\"#8b949e\\",
-            \\"inputPlaceholderText\\": \\"#484f58\\",
+            \\"inputPlaceholderText\\": \\"#6e7681\\",
             \\"inputFocusText\\": \\"#c9d1d9\\",
             \\"inputBg\\": \\"#161b22\\",
             \\"donutError\\": \\"#d47616\\",
@@ -2960,8 +3056,8 @@ module.exports = {
             \\"headerBorder\\": \\"#21262d\\",
             \\"headerIcon\\": \\"#8b949e\\",
             \\"lineText\\": \\"#8b949e\\",
-            \\"lineNumText\\": \\"#484f58\\",
-            \\"lineTimestampText\\": \\"#484f58\\",
+            \\"lineNumText\\": \\"#6e7681\\",
+            \\"lineTimestampText\\": \\"#6e7681\\",
             \\"lineHoverBg\\": \\"rgba(110,118,129,0.1)\\",
             \\"lineSelectedBg\\": \\"rgba(56,139,253,0.15)\\",
             \\"lineSelectedNumText\\": \\"#58a6ff\\",
@@ -2974,10 +3070,10 @@ module.exports = {
             \\"stepErrorText\\": \\"#d47616\\",
             \\"stepWarningText\\": \\"#d29922\\",
             \\"loglineText\\": \\"#8b949e\\",
-            \\"loglineNumText\\": \\"#484f58\\",
+            \\"loglineNumText\\": \\"#6e7681\\",
             \\"loglineDebugText\\": \\"#a371f7\\",
             \\"loglineErrorText\\": \\"#8b949e\\",
-            \\"loglineErrorNumText\\": \\"#484f58\\",
+            \\"loglineErrorNumText\\": \\"#6e7681\\",
             \\"loglineErrorBg\\": \\"rgba(212,118,22,0.15)\\",
             \\"loglineWarningText\\": \\"#8b949e\\",
             \\"loglineWarningNumText\\": \\"#d29922\\",
@@ -3134,7 +3230,7 @@ module.exports = {
             }
           },
           \\"underlinenav\\": {
-            \\"icon\\": \\"#484f58\\",
+            \\"icon\\": \\"#6e7681\\",
             \\"borderHover\\": \\"rgba(110,118,129,0.4)\\"
           },
           \\"actionListItem\\": {
@@ -3152,10 +3248,26 @@ module.exports = {
               \\"hoverText\\": \\"#ec8e2c\\"
             }
           },
+          \\"switchTrack\\": {
+            \\"bg\\": \\"#010409\\",
+            \\"border\\": \\"#6e7681\\",
+            \\"checked\\": {
+              \\"bg\\": \\"rgba(31,111,235,0.35)\\",
+              \\"hoverBg\\": \\"rgba(31,111,235,0.5)\\",
+              \\"activeBg\\": \\"rgba(31,111,235,0.65)\\",
+              \\"border\\": \\"#58a6ff\\"
+            }
+          },
+          \\"switchKnob\\": {
+            \\"checked\\": {
+              \\"bg\\": \\"#1f6feb\\",
+              \\"disabledBg\\": \\"#484f58\\"
+            }
+          },
           \\"fg\\": {
             \\"default\\": \\"#c9d1d9\\",
             \\"muted\\": \\"#8b949e\\",
-            \\"subtle\\": \\"#484f58\\",
+            \\"subtle\\": \\"#6e7681\\",
             \\"onEmphasis\\": \\"#ffffff\\"
           },
           \\"canvas\\": {

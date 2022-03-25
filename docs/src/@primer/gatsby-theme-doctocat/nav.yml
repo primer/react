@@ -123,6 +123,8 @@
       url: /StyledOcticon
     - title: SubNav
       url: /SubNav
+    - title: ToggleSwitch
+      url: /ToggleSwitch
     - title: TabNav
       url: /TabNav
     - title: Textarea
