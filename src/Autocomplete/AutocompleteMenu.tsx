@@ -23,7 +23,7 @@ function getDefaultItemFilter<T extends AutocompleteMenuItem>(filterValue: strin
   }
 }
 
-function getDefaultOnSelectionChange<T extends AutocompleteMenuItem>(
+function getdefaultCheckedSelectionChange<T extends AutocompleteMenuItem>(
   setInputValueFn: (value: string) => void
 ): OnSelectedChange<T> {
   return function (itemOrItems) {
@@ -160,7 +160,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
             const newSelectedItemIds = selectedItemIds.includes(item.id)
               ? otherSelectedItemIds
               : [...otherSelectedItemIds, item.id]
-            const onSelectedChangeFn = onSelectedChange ? onSelectedChange : getDefaultOnSelectionChange(setInputValue)
+            const onSelectedChangeFn = onSelectedChange
+              ? onSelectedChange
+              : getdefaultCheckedSelectionChange(setInputValue)
 
             onSelectedChangeFn(
               newSelectedItemIds.map(newSelectedItemId => getItemById(newSelectedItemId, items)) as T[]
