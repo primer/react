@@ -5,8 +5,9 @@ import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 
 // TODO: remove invalid "extralarge" size name in next breaking change
-// ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
-export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'extralarge' | 'xlarge'
+/** @deprecated 'extralarge' to be removed to align with size naming ADR https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md **/
+type ExtraLarge = 'extralarge'
+export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge' | ExtraLarge
 
 const xlargeSize = '32px'
 
