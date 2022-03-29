@@ -64,6 +64,49 @@ describe('TextInput', () => {
     expect(render(<TextInput name="search" placeholder={'Search'} trailingVisual={SearchIcon} />)).toMatchSnapshot()
   })
 
+  it('renders trailingAction text button', () => {
+    const handleAction = jest.fn()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
+        />
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders trailingAction text button with a tooltip', () => {
+    const handleAction = jest.fn()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          trailingAction={
+            <TextInput.Action onClick={handleAction} aria-label="Clear input">
+              Clear
+            </TextInput.Action>
+          }
+        />
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders trailingAction icon button', () => {
+    const handleAction = jest.fn()
+    expect(
+      render(
+        <TextInput
+          name="search"
+          placeholder={'Search'}
+          trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="iconLabel" />}
+        />
+      )
+    ).toMatchSnapshot()
+  })
+
   it('focuses the text input if you do not click the input element', () => {
     const {container, getByLabelText} = HTMLRender(
       <>

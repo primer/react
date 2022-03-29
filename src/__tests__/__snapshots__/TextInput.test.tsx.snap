@@ -56,7 +56,8 @@ exports[`TextInput renders 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -102,6 +103,8 @@ exports[`TextInput renders 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -168,7 +171,8 @@ exports[`TextInput renders block 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -214,6 +218,8 @@ exports[`TextInput renders block 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -275,7 +281,8 @@ exports[`TextInput renders consistently 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -320,6 +327,8 @@ exports[`TextInput renders consistently 1`] = `
   <input
     className="c1"
     data-component="input"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -382,7 +391,8 @@ exports[`TextInput renders contrast 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -428,6 +438,8 @@ exports[`TextInput renders contrast 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -495,7 +507,8 @@ exports[`TextInput renders error 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -541,6 +554,8 @@ exports[`TextInput renders error 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -607,7 +622,8 @@ exports[`TextInput renders large 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -654,6 +670,8 @@ exports[`TextInput renders large 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -715,7 +733,8 @@ exports[`TextInput renders leadingVisual 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -787,6 +806,8 @@ exports[`TextInput renders leadingVisual 1`] = `
     className="c1"
     data-component="input"
     name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
     placeholder="Search"
     type="text"
   />
@@ -850,7 +871,8 @@ exports[`TextInput renders monospace 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -896,6 +918,8 @@ exports[`TextInput renders monospace 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -957,7 +981,8 @@ exports[`TextInput renders placeholder 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1003,6 +1028,8 @@ exports[`TextInput renders placeholder 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     placeholder="560076"
     type="text"
   />
@@ -1072,7 +1099,8 @@ exports[`TextInput renders small 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1119,8 +1147,1107 @@ exports[`TextInput renders small 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
+</span>
+`;
+
+exports[`TextInput renders trailingAction icon button 1`] = `
+.c4 {
+  display: inline-block;
+}
+
+.c3 {
+  border-radius: 6px;
+  border: 0;
+  border-color: rgba(27,31,36,0.15);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  color: #24292f;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c3:focus {
+  outline: none;
+}
+
+.c3:disabled {
+  cursor: default;
+  color: #8c959f;
+}
+
+.c3:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c3:disabled svg {
+  opacity: 0.6;
+}
+
+.c3 [data-component=ButtonCounter] {
+  font-size: 14px;
+}
+
+.c3:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c3:focus:not([disabled]) {
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c3:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c3[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c2 {
+  position: relative;
+}
+
+.c2::before {
+  position: absolute;
+  z-index: 1000001;
+  display: none;
+  width: 0px;
+  height: 0px;
+  color: #24292f;
+  pointer-events: none;
+  content: '';
+  border: 6px solid transparent;
+  opacity: 0;
+}
+
+.c2::after {
+  position: absolute;
+  z-index: 1000000;
+  display: none;
+  padding: 0.5em 0.75em;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #ffffff;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  white-space: pre;
+  pointer-events: none;
+  content: attr(aria-label);
+  background: #24292f;
+  border-radius: 3px;
+  opacity: 0;
+}
+
+.c2:hover::before,
+.c2:active::before,
+.c2:focus::before,
+.c2:hover::after,
+.c2:active::after,
+.c2:focus::after {
+  display: inline-block;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.c2.tooltipped-no-delay:hover::before,
+.c2.tooltipped-no-delay:active::before,
+.c2.tooltipped-no-delay:focus::before,
+.c2.tooltipped-no-delay:hover::after,
+.c2.tooltipped-no-delay:active::after,
+.c2.tooltipped-no-delay:focus::after {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c2.tooltipped-multiline:hover::after,
+.c2.tooltipped-multiline:active::after,
+.c2.tooltipped-multiline:focus::after {
+  display: table-cell;
+}
+
+.c2.tooltipped-s::after,
+.c2.tooltipped-se::after,
+.c2.tooltipped-sw::after {
+  top: 100%;
+  right: 50%;
+  margin-top: 6px;
+}
+
+.c2.tooltipped-s::before,
+.c2.tooltipped-se::before,
+.c2.tooltipped-sw::before {
+  top: auto;
+  right: 50%;
+  bottom: -7px;
+  margin-right: -6px;
+  border-bottom-color: #24292f;
+}
+
+.c2.tooltipped-se::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c2.tooltipped-sw::after {
+  margin-right: -16px;
+}
+
+.c2.tooltipped-n::after,
+.c2.tooltipped-ne::after,
+.c2.tooltipped-nw::after {
+  right: 50%;
+  bottom: 100%;
+  margin-bottom: 6px;
+}
+
+.c2.tooltipped-n::before,
+.c2.tooltipped-ne::before,
+.c2.tooltipped-nw::before {
+  top: -7px;
+  right: 50%;
+  bottom: auto;
+  margin-right: -6px;
+  border-top-color: #24292f;
+}
+
+.c2.tooltipped-ne::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c2.tooltipped-nw::after {
+  margin-right: -16px;
+}
+
+.c2.tooltipped-s::after,
+.c2.tooltipped-n::after {
+  -webkit-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+.c2.tooltipped-w::after {
+  right: 100%;
+  bottom: 50%;
+  margin-right: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c2.tooltipped-w::before {
+  top: 50%;
+  bottom: 50%;
+  left: -7px;
+  margin-top: -6px;
+  border-left-color: #24292f;
+}
+
+.c2.tooltipped-e::after {
+  bottom: 50%;
+  left: 100%;
+  margin-left: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c2.tooltipped-e::before {
+  top: 50%;
+  right: -7px;
+  bottom: 50%;
+  margin-top: -6px;
+  border-right-color: #24292f;
+}
+
+.c2.tooltipped-multiline::after {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: pre-line;
+  border-collapse: separate;
+}
+
+.c2.tooltipped-multiline.tooltipped-s::after,
+.c2.tooltipped-multiline.tooltipped-n::after {
+  right: auto;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.c2.tooltipped-multiline.tooltipped-w::after,
+.c2.tooltipped-multiline.tooltipped-e::after {
+  right: 100%;
+}
+
+.c2.tooltipped-align-right-2::after {
+  right: 0;
+  margin-right: 0;
+}
+
+.c2.tooltipped-align-right-2::before {
+  right: 15px;
+}
+
+.c2.tooltipped-align-left-2::after {
+  left: 0;
+  margin-left: 0;
+}
+
+.c2.tooltipped-align-left-2::before {
+  left: 10px;
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-action"
+  >
+    <span
+      aria-label="iconLabel"
+      className="c2 tooltipped-n"
+      role="tooltip"
+    >
+      <button
+        aria-label="iconLabel"
+        className="c3"
+        onClick={[MockFunction]}
+        type="button"
+      >
+        <span
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          />
+        </span>
+      </button>
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button 1`] = `
+.c2 {
+  border-radius: 6px;
+  border: 0;
+  border-color: rgba(27,31,36,0.15);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 12px;
+  color: #24292f;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c2:focus {
+  outline: none;
+}
+
+.c2:disabled {
+  cursor: default;
+  color: #8c959f;
+}
+
+.c2:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c2:disabled svg {
+  opacity: 0.6;
+}
+
+.c2 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c2 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c2 [data-component="text"] {
+  grid-area: text;
+}
+
+.c2 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
+.c2 [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c2:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c2:focus:not([disabled]) {
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c2:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c2[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+@media (forced-colors:active) {
+  .c2:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-action"
+  >
+    <button
+      className="c2"
+      onClick={[MockFunction]}
+      size="small"
+      type="button"
+    >
+      <span
+        data-component="text"
+      >
+        Clear
+      </span>
+    </button>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
+.c3 {
+  border-radius: 6px;
+  border: 0;
+  border-color: rgba(27,31,36,0.15);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 12px;
+  color: #24292f;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c3:focus {
+  outline: none;
+}
+
+.c3:disabled {
+  cursor: default;
+  color: #8c959f;
+}
+
+.c3:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c3:disabled svg {
+  opacity: 0.6;
+}
+
+.c3 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c3 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c3 [data-component="text"] {
+  grid-area: text;
+}
+
+.c3 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
+.c3 [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c3:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c3:focus:not([disabled]) {
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c3:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c3[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c2 {
+  position: relative;
+  display: inline-block;
+}
+
+.c2::before {
+  position: absolute;
+  z-index: 1000001;
+  display: none;
+  width: 0px;
+  height: 0px;
+  color: #24292f;
+  pointer-events: none;
+  content: '';
+  border: 6px solid transparent;
+  opacity: 0;
+}
+
+.c2::after {
+  position: absolute;
+  z-index: 1000000;
+  display: none;
+  padding: 0.5em 0.75em;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #ffffff;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  white-space: pre;
+  pointer-events: none;
+  content: attr(aria-label);
+  background: #24292f;
+  border-radius: 3px;
+  opacity: 0;
+}
+
+.c2:hover::before,
+.c2:active::before,
+.c2:focus::before,
+.c2:hover::after,
+.c2:active::after,
+.c2:focus::after {
+  display: inline-block;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.c2.tooltipped-no-delay:hover::before,
+.c2.tooltipped-no-delay:active::before,
+.c2.tooltipped-no-delay:focus::before,
+.c2.tooltipped-no-delay:hover::after,
+.c2.tooltipped-no-delay:active::after,
+.c2.tooltipped-no-delay:focus::after {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c2.tooltipped-multiline:hover::after,
+.c2.tooltipped-multiline:active::after,
+.c2.tooltipped-multiline:focus::after {
+  display: table-cell;
+}
+
+.c2.tooltipped-s::after,
+.c2.tooltipped-se::after,
+.c2.tooltipped-sw::after {
+  top: 100%;
+  right: 50%;
+  margin-top: 6px;
+}
+
+.c2.tooltipped-s::before,
+.c2.tooltipped-se::before,
+.c2.tooltipped-sw::before {
+  top: auto;
+  right: 50%;
+  bottom: -7px;
+  margin-right: -6px;
+  border-bottom-color: #24292f;
+}
+
+.c2.tooltipped-se::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c2.tooltipped-sw::after {
+  margin-right: -16px;
+}
+
+.c2.tooltipped-n::after,
+.c2.tooltipped-ne::after,
+.c2.tooltipped-nw::after {
+  right: 50%;
+  bottom: 100%;
+  margin-bottom: 6px;
+}
+
+.c2.tooltipped-n::before,
+.c2.tooltipped-ne::before,
+.c2.tooltipped-nw::before {
+  top: -7px;
+  right: 50%;
+  bottom: auto;
+  margin-right: -6px;
+  border-top-color: #24292f;
+}
+
+.c2.tooltipped-ne::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c2.tooltipped-nw::after {
+  margin-right: -16px;
+}
+
+.c2.tooltipped-s::after,
+.c2.tooltipped-n::after {
+  -webkit-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+.c2.tooltipped-w::after {
+  right: 100%;
+  bottom: 50%;
+  margin-right: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c2.tooltipped-w::before {
+  top: 50%;
+  bottom: 50%;
+  left: -7px;
+  margin-top: -6px;
+  border-left-color: #24292f;
+}
+
+.c2.tooltipped-e::after {
+  bottom: 50%;
+  left: 100%;
+  margin-left: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c2.tooltipped-e::before {
+  top: 50%;
+  right: -7px;
+  bottom: 50%;
+  margin-top: -6px;
+  border-right-color: #24292f;
+}
+
+.c2.tooltipped-multiline::after {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: pre-line;
+  border-collapse: separate;
+}
+
+.c2.tooltipped-multiline.tooltipped-s::after,
+.c2.tooltipped-multiline.tooltipped-n::after {
+  right: auto;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.c2.tooltipped-multiline.tooltipped-w::after,
+.c2.tooltipped-multiline.tooltipped-e::after {
+  right: 100%;
+}
+
+.c2.tooltipped-align-right-2::after {
+  right: 0;
+  margin-right: 0;
+}
+
+.c2.tooltipped-align-right-2::before {
+  right: 15px;
+}
+
+.c2.tooltipped-align-left-2::after {
+  left: 0;
+  margin-left: 0;
+}
+
+.c2.tooltipped-align-left-2::before {
+  left: 10px;
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="TextInput-action"
+  >
+    <span
+      aria-label="Clear input"
+      className="c2 tooltipped-n"
+      role="tooltip"
+    >
+      <button
+        className="c3"
+        onClick={[MockFunction]}
+        size="small"
+        type="button"
+      >
+        <span
+          data-component="text"
+        >
+          Clear
+        </span>
+      </button>
+    </span>
+  </span>
 </span>
 `;
 
@@ -1180,7 +2307,8 @@ exports[`TextInput renders trailingVisual 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1226,6 +2354,8 @@ exports[`TextInput renders trailingVisual 1`] = `
     className="c1"
     data-component="input"
     name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
     placeholder="Search"
     type="text"
   />
@@ -1315,7 +2445,8 @@ exports[`TextInput renders warning 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1366,6 +2497,8 @@ exports[`TextInput renders warning 1`] = `
     className="c1"
     data-component="input"
     name="zipcode"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="text"
   />
 </span>
@@ -1436,7 +2569,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1487,6 +2621,8 @@ Array [
     <input
       className="c1"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -1591,7 +2727,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1686,6 +2823,8 @@ Array [
     <input
       className="c3"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -1790,7 +2929,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1841,6 +2981,8 @@ Array [
     <input
       className="c1"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -1949,7 +3091,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2080,6 +3223,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2188,7 +3333,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2319,6 +3465,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2427,7 +3575,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2558,6 +3707,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2666,7 +3817,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2722,6 +3874,8 @@ Array [
     <input
       className="c1"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -2861,7 +4015,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2961,6 +4116,8 @@ Array [
     <input
       className="c3"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -3100,7 +4257,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3156,6 +4314,8 @@ Array [
     <input
       className="c1"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -3306,7 +4466,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3443,6 +4604,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -3586,7 +4749,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3722,6 +4886,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -3870,7 +5036,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4007,6 +5174,8 @@ Array [
     <input
       className="c4"
       data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
       type="text"
     />
     <span
@@ -4138,7 +5307,8 @@ exports[`TextInput should render a password input 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4184,6 +5354,8 @@ exports[`TextInput should render a password input 1`] = `
     className="c1"
     data-component="input"
     name="password"
+    onBlur={[Function]}
+    onFocus={[Function]}
     type="password"
   />
 </span>
