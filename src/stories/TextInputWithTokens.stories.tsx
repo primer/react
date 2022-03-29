@@ -64,8 +64,8 @@ export default {
     },
     size: {
       name: 'size (token size)',
-      defaultValue: 'extralarge',
-      options: ['small', 'medium', 'large', 'extralarge'],
+      defaultValue: 'xlarge',
+      options: ['small', 'medium', 'large', 'xlarge'],
       control: {
         type: 'radio'
       }

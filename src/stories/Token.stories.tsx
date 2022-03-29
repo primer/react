@@ -15,6 +15,13 @@ export default {
   argTypes: {
     text: {
       defaultValue: 'Token'
+    },
+    size: {
+      defaultValue: 'medium',
+      control: {
+        options: ['small', 'medium', 'large', 'xlarge'],
+        type: 'radio'
+      }
     }
   },
   decorators: [
@@ -98,7 +105,7 @@ Interactive.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemo
 export const WithLeadingVisual = (args: Omit<TokenProps, 'ref'>) => {
   return (
     <ExampleCollectionContainer>
-      <Token {...args} leadingVisual={() => <GitBranchIcon />} />
+      <Token {...args} leadingVisual={GitBranchIcon} />
     </ExampleCollectionContainer>
   )
 }
