@@ -57,7 +57,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -207,7 +208,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -392,7 +394,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1340,7 +1343,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2198,7 +2202,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3067,7 +3072,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4066,7 +4072,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
