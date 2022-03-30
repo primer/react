@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 import {SmileyIcon, KebabHorizontalIcon, TriangleDownIcon} from '@primer/octicons-react'
 import {BaseStyles, Box, ThemeProvider, Text, IconButton, PageLayout, Heading, ActionMenu, ActionList} from '..'
 import {useAnchoredPosition} from '../hooks'
+import type {AnchorAlignment} from '@primer/behaviors'
 
 export default {
   title: 'Behaviors/anchoredPosition',
@@ -21,7 +22,7 @@ export default {
 
 type TooltipProps = {
   children: string
-  position?: {left: number; top: number}
+  position?: {left: number; top: number; anchorAlign: AnchorAlignment}
   defaultVisible?: boolean
 }
 const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({defaultVisible, position, children}, ref) => {
@@ -44,6 +45,28 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({defaultVisible,
         left: position?.left
       }}
     >
+      <Box
+        aria-hidden
+        sx={{
+          position: 'relative',
+          ':before': {
+            content: '""',
+            width: 0,
+            height: 0,
+            borderLeft: '5px solid transparent',
+            borderRight: '5px solid transparent',
+            borderBottom: '5px solid',
+            borderBottomColor: 'neutral.emphasisPlus',
+            position: 'absolute',
+            top: '-8px',
+            left: {
+              start: 0,
+              center: 'calc(50% - 8px)',
+              end: 'calc(100% - 8px)'
+            }[position?.anchorAlign || 'start']
+          }
+        }}
+      />
       {children}
     </Box>
   )
@@ -99,7 +122,7 @@ export const Tooltips = () => {
                 sx={{
                   mr: 2,
                   ':hover': {
-                    '[data-component=tooltip]': {visibility: 'visible'}
+                    '[data-component=tooltip]': {visibility: reactionsOpen ? 'hidden' : 'visible'}
                   }
                 }}
               >
