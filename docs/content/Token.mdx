@@ -55,7 +55,7 @@ All types of tokens may have the same interactive qualities as links or buttons.
     <Text fontSize={0} display="block" color="fg.subtle">
       With `leadingVisual` passed
     </Text>
-    <Token text="Default Token" leadingVisual={() => <span>✨</span>} />
+    <Token text="Default Token" leadingVisual={GitBranchIcon} />
   </div>
 
   <div>
@@ -81,36 +81,34 @@ All types of tokens may have the same interactive qualities as links or buttons.
         gap: 2
       }}
     >
-      <Token
-        size="small"
-        text="'small' Token"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
-      <Token
-        size="medium"
-        text="'medium' Token"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
-      <Token
-        size="large"
-        text="'large' Token (default)"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
-      <Token
-        size="extralarge"
-        text="'extralarge' Token"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
+      <Token size="small" text="'small' Token" />
+      <Token size="medium" text="'medium' Token" />
+      <Token size="large" text="'large' Token (default)" />
+      <Token size="xlarge" text="'xlarge' Token" />
     </Box>
   </div>
+</Box>
+```
+
+### With leadingVisual
+
+<Note variant="warning">
+  A <InlineCode>leadingVisual</InlineCode> should not be used with the <InlineCode>small</InlineCode> size option if
+  you're rendering an icon from Octicons
+</Note>
+
+```jsx live
+<Box
+  display="flex"
+  sx={{
+    alignItems: 'start',
+    flexDirection: 'column',
+    gap: 6
+  }}
+>
+  <Token size="medium" text="'medium' Token" leadingVisual={GitBranchIcon} />
+  <Token size="large" text="'large' Token (default)" leadingVisual={GitBranchIcon} />
+  <Token size="xlarge" text="'xlarge' Token" leadingVisual={GitBranchIcon} />
 </Box>
 ```
 
@@ -267,8 +265,8 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
       />
       <IssueLabelToken
         fillColor="#0366d6"
-        size="extralarge"
-        text="'extralarge' Token"
+        size="xlarge"
+        text="'xlarge' Token"
         onRemove={() => {
           console.log('remove me')
         }}
@@ -281,6 +279,11 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
 ### AvatarToken
 
 Tokens that represent GitHub users should use the `AvatarToken` component.
+
+<Note variant="warning">
+  This component should not be used with the <InlineCode>small</InlineCode> or <InlineCode>medium</InlineCode> size
+  option
+</Note>
 
 ```jsx live
 <Box
@@ -331,22 +334,6 @@ Tokens that represent GitHub users should use the `AvatarToken` component.
     >
       <AvatarToken
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
-        size="small"
-        text="'small' Token"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
-      <AvatarToken
-        avatarSrc="https://avatars.githubusercontent.com/mperrotti"
-        size="medium"
-        text="'medium' Token"
-        onRemove={() => {
-          console.log('remove me')
-        }}
-      />
-      <AvatarToken
-        avatarSrc="https://avatars.githubusercontent.com/mperrotti"
         size="large"
         text="'large' Token (default)"
         onRemove={() => {
@@ -355,8 +342,8 @@ Tokens that represent GitHub users should use the `AvatarToken` component.
       />
       <AvatarToken
         avatarSrc="https://avatars.githubusercontent.com/mperrotti"
-        size="extralarge"
-        text="'extralarge' Token"
+        size="xlarge"
+        text="'xlarge' Token"
         onRemove={() => {
           console.log('remove me')
         }}

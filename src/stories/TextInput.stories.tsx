@@ -1,9 +1,9 @@
-import React, {useState, ReactNode} from 'react'
+import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider, Text} from '..'
+import {BaseStyles, Box, ThemeProvider, FormControl} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
-import {CalendarIcon, CheckIcon} from '@primer/octicons-react'
+import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Forms/Text Input',
@@ -81,12 +81,6 @@ export default {
   }
 } as Meta
 
-const Label = ({htmlFor, children}: {htmlFor: string; children: ReactNode}) => (
-  <Text as="label" htmlFor={htmlFor} sx={{fontWeight: 600, fontSize: 14}}>
-    {children}
-  </Text>
-)
-
 export const Default = (args: TextInputProps) => {
   const [value, setValue] = useState('')
 
@@ -94,18 +88,12 @@ export const Default = (args: TextInputProps) => {
     setValue(event.target.value)
   }
 
-  const inputId = 'basic-text-input'
-
   return (
     <form>
-      <div className="form-group">
-        <div className="form-group-header">
-          <Label htmlFor={inputId}>Example label</Label>
-        </div>
-        <div className="form-group-body">
-          <TextInput id={inputId} value={value} onChange={handleChange} {...args} />
-        </div>
-      </div>
+      <FormControl>
+        <FormControl.Label>Example label</FormControl.Label>
+        <TextInput value={value} onChange={handleChange} {...args} />
+      </FormControl>
     </form>
   )
 }
@@ -117,16 +105,16 @@ export const WithLeadingVisual = (args: TextInputProps) => {
     setValue(event.target.value)
   }
 
-  const iconInputId = 'text-input-with-leading-icon'
-  const leadingTextId = 'text-input-with-leading-text'
-
   return (
     <form>
-      <Label htmlFor={iconInputId}>Example label</Label>
-      <TextInput leadingVisual={CheckIcon} id={iconInputId} value={value} onChange={handleChange} {...args} />
-      <br />
-      <Label htmlFor={leadingTextId}>Enter monies</Label>
-      <TextInput leadingVisual="$" id={leadingTextId} value={value} onChange={handleChange} {...args} />
+      <FormControl>
+        <FormControl.Label>Example label</FormControl.Label>
+        <TextInput leadingVisual={CheckIcon} value={value} onChange={handleChange} {...args} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Enter monies</FormControl.Label>
+        <TextInput leadingVisual="$" value={value} onChange={handleChange} {...args} />
+      </FormControl>
     </form>
   )
 }
@@ -138,24 +126,66 @@ export const WithTrailingIcon = (args: TextInputProps) => {
     setValue(event.target.value)
   }
 
-  const iconInputId = 'text-input-with-trailing-icon'
-  const trailingTextInputId = 'text-input-with-trailing-text'
+  return (
+    <form>
+      <FormControl>
+        <FormControl.Label>Example label</FormControl.Label>
+        <TextInput trailingVisual={CheckIcon} value={value} onChange={handleChange} {...args} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Enter monies</FormControl.Label>
+        <TextInput trailingVisual="minutes" value={value} onChange={handleChange} {...args} placeholder="200" />
+      </FormControl>
+    </form>
+  )
+}
+
+export const WithTrailingAction = (args: TextInputProps) => {
+  const [value, setValue] = useState('')
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value)
+  }
 
   return (
     <form>
-      <Label htmlFor={iconInputId}>Example label</Label>
-      <TextInput trailingVisual={CheckIcon} id={iconInputId} value={value} onChange={handleChange} {...args} />
-      <br />
-      <Label htmlFor={trailingTextInputId}>Time in minutes</Label>
-      <TextInput
-        trailingVisual="minutes"
-        id={trailingTextInputId}
-        value={value}
-        onChange={handleChange}
-        sx={{width: '150px'}}
-        {...args}
-        placeholder="200"
-      />
+      <Box display="grid" sx={{gap: 3}}>
+        <FormControl>
+          <FormControl.Label>Icon action</FormControl.Label>
+          <TextInput
+            trailingAction={
+              <TextInput.Action
+                onClick={() => {
+                  setValue('')
+                }}
+                icon={XCircleFillIcon}
+                aria-label="Clear input"
+                sx={{color: 'fg.subtle'}}
+              />
+            }
+            value={value}
+            onChange={handleChange}
+            {...args}
+          />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Text action</FormControl.Label>
+          <TextInput
+            trailingAction={
+              <TextInput.Action
+                onClick={() => {
+                  setValue('')
+                }}
+              >
+                Clear
+              </TextInput.Action>
+            }
+            value={value}
+            onChange={handleChange}
+            {...args}
+          />
+        </FormControl>
+      </Box>
     </form>
   )
 }
@@ -250,13 +280,12 @@ export const ContrastTextInput = (args: TextInputProps) => {
     setValue(event.target.value)
   }
 
-  const inputId = 'contrast-text-input'
-
   return (
     <form>
-      <Label htmlFor={inputId}>Example label</Label>
-      <br />
-      <TextInput contrast id={inputId} value={value} onChange={handleChange} {...args} />
+      <FormControl>
+        <FormControl.Label>Example label</FormControl.Label>
+        <TextInput contrast value={value} onChange={handleChange} {...args} />
+      </FormControl>
     </form>
   )
 }
@@ -268,13 +297,12 @@ export const Password = (args: TextInputProps) => {
     setValue(event.target.value)
   }
 
-  const inputId = 'basic-text-input-as-password'
-
   return (
     <form>
-      <Label htmlFor={inputId}>Password</Label>
-      <br />
-      <TextInput type="password" id={inputId} value={value} onChange={handleChange} {...args} />
+      <FormControl>
+        <FormControl.Label>Password</FormControl.Label>
+        <TextInput type="password" value={value} onChange={handleChange} {...args} />
+      </FormControl>
     </form>
   )
 }
@@ -286,20 +314,12 @@ export const TextInputInWarningState = (args: TextInputProps) => {
     setValue(event.target.value)
   }
 
-  const inputId = 'text-input-with-warning'
-
   return (
     <form>
-      <Label htmlFor={inputId}>Password</Label>
-      <br />
-      <TextInput
-        type="password"
-        id={inputId}
-        value={value}
-        validationStatus="warning"
-        onChange={handleChange}
-        {...args}
-      />
+      <FormControl>
+        <FormControl.Label>Password</FormControl.Label>
+        <TextInput type="password" value={value} validationStatus="warning" onChange={handleChange} {...args} />
+      </FormControl>
     </form>
   )
 }
