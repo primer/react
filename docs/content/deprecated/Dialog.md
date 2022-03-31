@@ -1,15 +1,15 @@
 ---
-title: Dialog
+title: Dialog (legacy)
 status: Deprecated
 ---
 
 ## Deprecation
 
-Use [Dialog2](/Dialog2) instead.
+Use the [new version of Dialog](/Dialog) instead.
 
 **Before**
 
-```jsx
+```jsx deprecated
 <Dialog isOpen={open} onDismiss={() => setOpen(false)} aria-labelledby="header-id">
   <Dialog.Header id="header-id">Title</Dialog.Header>
   <Box p={3}>
@@ -20,10 +20,10 @@ Use [Dialog2](/Dialog2) instead.
 
 **After**
 
-```jsx
+```jsx deprecated
 {
   open && (
-    <Dialog2
+    <Dialog
       title="Dialog example"
       subtitle={
         <>
@@ -34,12 +34,10 @@ Use [Dialog2](/Dialog2) instead.
       onClose={() => setOpen(false)}
     >
       <Text fontFamily="sans-serif">Some content</Text>
-    </Dialog2>
+    </Dialog>
   )
 }
 ```
-
-import State from '../../components/State'
 
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
@@ -59,7 +57,7 @@ If you're running into z-index issues or are rendering the component inside of a
 
 ### Examples
 
-```jsx live
+```jsx deprecated live
 <State default={false}>
   {([isOpen, setIsOpen]) => {
     const returnFocusRef = React.useRef(null)
@@ -87,7 +85,7 @@ If you're running into z-index issues or are rendering the component inside of a
 
 You can also pass any non-text content into the header:
 
-```jsx live
+```jsx deprecated live
 <State default={false}>
   {([isOpen, setIsOpen]) => {
     const returnFocusRef = React.useRef(null)
@@ -111,7 +109,7 @@ You can also pass any non-text content into the header:
             </Text>
             <Box display="flex" mt={3} justifyContent="flex-end">
               <Button sx={{mr: 1}}>Cancel</Button>
-              <ButtonDanger>Delete</ButtonDanger>
+              <Button variant="danger">Delete</Button>
             </Box>
           </Box>
         </Dialog>

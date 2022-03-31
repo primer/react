@@ -1,0 +1,305 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders consistently 1`] = `
+.c2 {
+  text-align: right;
+  visibility: hidden;
+  height: 0;
+}
+
+.c3 {
+  text-align: right;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c7 {
+  color: #0969da;
+  line-height: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+  -webkit-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c8 {
+  color: #24292f;
+  line-height: 0;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-flex-basis: 50%;
+  -ms-flex-preferred-size: 50%;
+  flex-basis: 50%;
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c1 {
+  font-size: 14px;
+  color: #24292f;
+  margin-left: 8px;
+  margin-right: 8px;
+  position: relative;
+}
+
+.c4 {
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transition-property: background-color,border-color;
+  transition-property: background-color,border-color;
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+  -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  display: block;
+  height: 32px;
+  width: 64px;
+  outline-offset: 2px;
+  position: relative;
+  background-color: #eaeef2;
+  border-color: #afb8c1;
+}
+
+.c4:after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(6px - 1px);
+}
+
+.c4:hover .Toggle-knob,
+.c4:focus:focus-visible .Toggle-knob {
+  background-color: #f3f4f6;
+}
+
+.c4:active .Toggle-knob,
+.c4:active:focus-visible .Toggle-knob {
+  background-color: hsla(220,14%,93%,1);
+}
+
+.c9 {
+  background-color: #f6f8fa;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #afb8c1;
+  border-radius: calc(6px - 1px);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15),inset 0 1px 0 rgba(255,255,255,0.25);
+  width: 50%;
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+  -webkit-transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  transition-timing-function: cubic-bezier(0.5,1,0.89,1);
+  -webkit-transform: translateX(-1px);
+  -ms-transform: translateX(-1px);
+  transform: translateX(-1px);
+  z-index: 1;
+}
+
+@media (pointer:coarse) {
+  .c4:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .c4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+
+  .c4 * {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .c9 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+<div
+  className="c0"
+  display="inline-flex"
+>
+  <span
+    aria-hidden="true"
+    className="c1"
+    color="fg.default"
+    fontSize={1}
+  >
+    <div
+      className="c2"
+    >
+      On
+    </div>
+    <div
+      className="c3"
+    >
+      Off
+    </div>
+  </span>
+  <button
+    aria-checked={false}
+    aria-disabled={false}
+    checked={false}
+    className="c4"
+    disabled={false}
+    onClick={[Function]}
+    role="switch"
+    size="medium"
+  >
+    <span
+      className="c5"
+    >
+      Off
+    </span>
+    <div
+      aria-hidden="true"
+      className="c6"
+      display="flex"
+      height="100%"
+      overflow="hidden"
+      width="100%"
+    >
+      <div
+        className="c7"
+        color="accent.fg"
+      >
+        <svg
+          fill="currentColor"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 2a.75.75 0 0 1 .75.75v11.5a.75.75 0 0 1-1.5 0V2.75A.75.75 0 0 1 8 2Z"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+      <div
+        className="c8"
+        color="fg.default"
+      >
+        <svg
+          fill="currentColor"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      checked={false}
+      className="c9 Toggle-knob"
+      disabled={false}
+    />
+  </button>
+</div>
+`;

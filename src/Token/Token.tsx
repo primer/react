@@ -12,10 +12,6 @@ export interface TokenProps extends TokenBaseProps {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   leadingVisual?: React.ComponentType<any>
-  /**
-   * Whether the remove button should be rendered in the token
-   */
-  hideRemoveButton?: boolean
 }
 
 const tokenBorderWidthPx = 1
@@ -52,6 +48,7 @@ const LeadingVisualContainer = styled('span')<Pick<TokenBaseProps, 'size'>>`
     switch (props.size) {
       case 'large':
       case 'extralarge':
+      case 'xlarge':
         return css`
           margin-right: ${get('space.2')};
         `

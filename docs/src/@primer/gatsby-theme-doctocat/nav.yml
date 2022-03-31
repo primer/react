@@ -35,6 +35,10 @@
     #   url: /useOverlay
 - title: Components
   children:
+    - title: ActionList
+      url: /ActionList
+    - title: ActionMenu
+      url: /ActionMenu
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar
@@ -49,8 +53,8 @@
       url: /BranchName
     - title: Breadcrumbs
       url: /Breadcrumbs
-    - title: Buttons
-      url: /Buttons
+    - title: Button
+      url: /Button
     - title: Checkbox
       url: /Checkbox
     - title: CheckboxGroup
@@ -61,8 +65,10 @@
       url: /CircleOcticon
     - title: CounterLabel
       url: /CounterLabel
-    - title: Details & useDetails
+    - title: Details
       url: /Details
+    - title: Dialog
+      url: /Dialog
     - title: FilteredSearch
       url: /FilteredSearch
     - title: FilterList
@@ -75,6 +81,8 @@
       url: /Header
     - title: Heading
       url: /Heading
+    - title: IconButton
+      url: /IconButton
     - title: Label
       url: /Label
     - title: LabelGroup
@@ -85,6 +93,8 @@
       url: /Overlay
     - title: Pagehead
       url: /Pagehead
+    - title: PageLayout
+      url: /PageLayout
     - title: Pagination
       url: /Pagination
     - title: PointerBox
@@ -113,6 +123,8 @@
       url: /StyledOcticon
     - title: SubNav
       url: /SubNav
+    - title: ToggleSwitch
+      url: /ToggleSwitch
     - title: TabNav
       url: /TabNav
     - title: Textarea
@@ -133,33 +145,39 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
-- title: Drafts
-  children:
-    - title: Button v2
-      url: /drafts/Button2
-    - title: LinkButton
-      url: /drafts/LinkButton
-    - title: IconButton
-      url: /drafts/IconButton
-    - title: ActionList v2
-      url: /drafts/ActionList2
-    - title: ActionMenu v2
-      url: /drafts/ActionMenu2
+# - title: Drafts
+#   children:
 - title: Deprecated
   children:
+    - title: ActionList (legacy)
+      url: /deprecated/ActionList
+    - title: ActionMenu (legacy)
+      url: /deprecated/ActionMenu
     - title: BorderBox
       url: /deprecated/BorderBox
-    - title: Flex
-      url: /deprecated/Flex
-    - title: Grid
-      url: /deprecated/Grid
-    - title: Position
-      url: /deprecated/Position
-    - title: Dialog
+    - title: Buttons (legacy)
+      url: /deprecated/Buttons
+    - title: ChoiceFieldset
+      url: /deprecated/ChoiceFieldset
+    - title: ChoiceInputField
+      url: /deprecated/ChoiceInputField
+    - title: Dialog (legacy)
       url: /deprecated/Dialog
     - title: Dropdown
       url: /deprecated/Dropdown
+    - title: DropdownMenu
+      url: /deprecated/DropdownMenu
+    - title: Flex
+      url: /deprecated/Flex
     - title: FormGroup
-      url: /FormGroup
+      url: /deprecated/FormGroup
+    - title: Grid
+      url: /deprecated/Grid
+    - title: InputField
+      url: /deprecated/InputField
+    - title: Label
+      url: /deprecated/Label
+    - title: Position
+      url: /deprecated/Position
     - title: SelectMenu
       url: /deprecated/SelectMenu

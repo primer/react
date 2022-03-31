@@ -1,72 +1,100 @@
-import styled, {css} from 'styled-components'
-import {borderColor, BorderColorProps, variant} from 'styled-system'
+import styled from 'styled-components'
+import {variant} from 'styled-system'
+import sx, {SxProp, BetterSystemStyleObject} from './sx'
 import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
 
-const outlineStyles = css`
-  margin-top: -1px; // offsets the 1px border
-  margin-bottom: -1px; // offsets the 1px border
-  color: ${get('colors.fg.muted')};
-  border: ${get('borderWidths.1')} solid ${get('colors.border.default')};
-  box-shadow: none;
-  ${borderColor};
+export type LabelProps = {
+  /** The color of the label */
+  variant?: LabelColorOptions
+  /** How large the label is rendered */
+  size?: LabelSizeKeys
+} & SxProp
+
+export type LabelColorOptions =
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'success'
+  | 'attention'
+  | 'severe'
+  | 'danger'
+  | 'done'
+  | 'sponsors'
+
+type LabelSizeKeys = 'small' | 'large'
+
+export const variants: Record<LabelColorOptions, BetterSystemStyleObject> = {
+  default: {
+    borderColor: 'border.default'
+  },
+  primary: {
+    borderColor: 'fg.default'
+  },
+  secondary: {
+    borderColor: 'border.muted',
+    color: 'fg.muted'
+  },
+  accent: {
+    borderColor: 'accent.emphasis',
+    color: 'accent.fg'
+  },
+  success: {
+    borderColor: 'success.emphasis',
+    color: 'success.fg'
+  },
+  attention: {
+    borderColor: 'attention.emphasis',
+    color: 'attention.fg'
+  },
+  severe: {
+    borderColor: 'severe.emphasis',
+    color: 'severe.fg'
+  },
+  danger: {
+    borderColor: 'danger.emphasis',
+    color: 'danger.fg'
+  },
+  done: {
+    borderColor: 'done.fg',
+    color: 'done.emphasis'
+  },
+  sponsors: {
+    borderColor: 'sponsors.fg',
+    color: 'sponsors.emphasis'
+  }
+}
+
+const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
+  small: {
+    height: '20px',
+    padding: '0 7px' // hard-coded to align with Primer ViewComponents and Primer CSS
+  },
+  large: {
+    height: '24px',
+    padding: '0 10px' // hard-coded to align with Primer ViewComponents and Primer CSS
+  }
+}
+
+const Label = styled.span<LabelProps>`
+  align-items: center;
   background-color: transparent;
-`
-
-const sizeVariant = variant({
-  variants: {
-    small: {
-      fontSize: 0,
-      lineHeight: '16px',
-      padding: '0px 8px'
-    },
-    medium: {
-      fontSize: 0,
-      lineHeight: '20px',
-      padding: '0 8px'
-    },
-    large: {
-      fontSize: 0,
-      lineHeight: '24px',
-      padding: '0 12px'
-    },
-    // corresponds to StateLabel fontSize/lineHeight/padding
-    xl: {
-      fontSize: 1,
-      lineHeight: '16px',
-      padding: '8px 12px'
-    }
-  }
-})
-
-const Label = styled.span<
-  {
-    variant?: 'small' | 'medium' | 'large' | 'xl'
-    dropshadow?: boolean
-    outline?: boolean
-  } & BorderColorProps &
-    SxProp
->`
-  display: inline-block;
-  font-weight: ${get('fontWeights.semibold')};
-  color: ${get('colors.fg.onEmphasis')};
-  border-radius: ${get('radii.3')};
-  background-color: ${get('colors.neutral.emphasis')};
-
-  &:hover {
-    text-decoration: none;
-  }
-
-  ${sizeVariant}
-  ${props => (props.dropshadow ? 'box-shadow: inset 0 -1px 0 rgba(27, 31, 35, 0.12)' : '')}
-  ${props => (props.outline ? outlineStyles : '')} // must be last to override other values
-  ${sx}
+  border-width: 1px;
+  border-radius: 999px;
+  border-style: solid;
+  display: inline-flex;
+  font-weight: ${get('fontWeights.bold')};
+  font-size: ${get('fontSizes.0')};
+  line-height: 1;
+  white-space: nowrap;
+  ${variant({variants})};
+  ${variant({prop: 'size', variants: sizes})};
+  ${sx};
 `
 
 Label.defaultProps = {
-  variant: 'medium'
+  size: 'small',
+  variant: 'default'
 }
 
-export type LabelProps = ComponentProps<typeof Label>
 export default Label

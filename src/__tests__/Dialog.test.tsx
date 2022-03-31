@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react'
-import {Dialog, Box, Text, Button} from '..'
+import {Dialog, Box, Text} from '..'
+import {Button} from '../deprecated'
 import {render as HTMLRender, cleanup, act, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'

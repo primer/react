@@ -7,7 +7,8 @@ const FilteredSearch = styled.div<SxProp>`
   display: flex;
   align-items: stretch;
 
-  summary {
+  summary,
+  > button {
     border-radius: 0;
     border-top-left-radius: ${get('radii.2')};
     border-bottom-left-radius: ${get('radii.2')};

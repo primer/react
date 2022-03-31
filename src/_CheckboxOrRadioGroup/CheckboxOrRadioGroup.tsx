@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Checkbox, FormControl, Radio, useSSRSafeId} from '..'
+import {Box, useSSRSafeId} from '..'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroupLabel'
@@ -56,7 +56,6 @@ const CheckboxOrRadioGroup: React.FC<CheckboxOrRadioGroupProps> = ({
   required,
   sx
 }) => {
-  const expectedInputComponents = [Checkbox, Radio]
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel
   )
@@ -69,25 +68,6 @@ const CheckboxOrRadioGroup: React.FC<CheckboxOrRadioGroupProps> = ({
   const id = useSSRSafeId(idProp)
   const validationMessageId = validationChild && `${id}-validationMessage`
   const captionId = captionChild && `${id}-caption`
-  const checkIfOnlyContainsChoiceInputs = () => {
-    const formControlComponentChildren = React.Children.toArray(children)
-      .filter(child => React.isValidElement(child) && child.type === FormControl)
-      .map(formControlComponent =>
-        React.isValidElement(formControlComponent) ? formControlComponent.props.children : []
-      )
-      .flat()
-
-    return Boolean(
-      React.Children.toArray(formControlComponentChildren).find(child =>
-        expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)
-      )
-    )
-  }
-
-  if (!checkIfOnlyContainsChoiceInputs()) {
-    // eslint-disable-next-line no-console
-    console.warn('Only `Checkbox` and `Radio` form controls should be used in a `CheckboxOrRadioGroup`.')
-  }
 
   if (!labelChild && !ariaLabelledby) {
     // eslint-disable-next-line no-console

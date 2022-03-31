@@ -45,6 +45,9 @@ export type StyledBaseWrapperProps = {
   block?: boolean
   contrast?: boolean
   disabled?: boolean
+  hasTrailingAction?: boolean
+  isInputFocused?: boolean
+  monospace?: boolean
   validationStatus?: FormValidationStatus
 } & WidthProps &
   MinWidthProps &
@@ -61,6 +64,24 @@ export type StyledWrapperProps = {
 
 const textInputBasePadding = '12px'
 export const textInputHorizPadding = textInputBasePadding
+
+// TODO: figure out how to type a themed CSS function (e.g.: css`color: blue;`)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const renderFocusStyles = (hasTrailingAction: boolean, isInputFocused: boolean, focusStyles: any) => {
+  if (hasTrailingAction) {
+    return (
+      isInputFocused &&
+      css`
+        ${focusStyles}
+      `
+    )
+  }
+  return css`
+    &:focus-within {
+      ${focusStyles}
+    }
+  `
+}
 
 export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   font-size: ${get('fontSizes.1')};
@@ -81,10 +102,15 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     color: ${get('colors.fg.subtle')};
   }
 
-  &:focus-within {
-    border-color: ${get('colors.accent.emphasis')};
-    box-shadow: ${get('shadows.primer.shadow.focus')};
-  }
+  ${props =>
+    renderFocusStyles(
+      Boolean(props.hasTrailingAction),
+      Boolean(props.isInputFocused),
+      css`
+        border-color: ${get('colors.accent.emphasis')};
+        box-shadow: ${get('shadows.primer.shadow.focus')};
+      `
+    )}
 
   > textarea {
     padding: ${textInputBasePadding};
@@ -104,15 +130,25 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       background-color: ${get('colors.input.disabledBg')};
       border-color: ${get('colors.border.default')};
     `}
+
+    ${props =>
+    props.monospace &&
+    css`
+      font-family: ${get('fonts.mono')};
+    `}
   
   ${props =>
     props.validationStatus === 'error' &&
     css`
       border-color: ${get('colors.danger.emphasis')};
-      &:focus-within {
-        border-color: ${get('colors.danger.emphasis')};
-        box-shadow: ${get('shadows.btn.danger.focusShadow')};
-      }
+      ${renderFocusStyles(
+        Boolean(props.hasTrailingAction),
+        Boolean(props.isInputFocused),
+        css`
+          border-color: ${get('colors.danger.emphasis')};
+          box-shadow: ${get('shadows.btn.danger.focusShadow')};
+        `
+      )}
     `}
 
 
@@ -120,10 +156,14 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     props.validationStatus === 'success' &&
     css`
       border-color: ${get('colors.success.emphasis')};
-      &:focus-within {
-        border-color: ${get('colors.success.emphasis')};
-        box-shadow: 0 0 0 3px ${get('colors.success.muted')};
-      }
+      ${renderFocusStyles(
+        Boolean(props.hasTrailingAction),
+        Boolean(props.isInputFocused),
+        css`
+          border-color: ${get('colors.success.emphasis')};
+          box-shadow: 0 0 0 3px ${get('colors.success.muted')};
+        `
+      )}
     `}
 
   ${props =>
@@ -154,7 +194,8 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
     margin-right: ${get('space.2')};
   }
 
-  .TextInput-icon {
+  .TextInput-icon,
+  .TextInput-action {
     align-self: center;
     color: ${get('colors.fg.muted')};
     flex-shrink: 0;
@@ -163,12 +204,12 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
   ${props =>
     css`
       padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
-      padding-right: ${props.hasTrailingVisual ? textInputHorizPadding : 0};
+      padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
 
       > input,
       > select {
         padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
-        padding-right: ${!props.hasTrailingVisual ? textInputHorizPadding : 0};
+        padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
       }
     `}
 
@@ -176,10 +217,14 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
     props.validationStatus === 'warning' &&
     css`
       border-color: ${get('colors.attention.emphasis')};
-      &:focus-within {
-        border-color: ${get('colors.attention.emphasis')};
-        box-shadow: 0 0 0 3px ${get('colors.attention.muted')};
-      }
+      ${renderFocusStyles(
+        Boolean(props.hasTrailingAction),
+        Boolean(props.isInputFocused),
+        css`
+          border-color: ${get('colors.attention.emphasis')};
+          box-shadow: 0 0 0 3px ${get('colors.attention.muted')};
+        `
+      )}
     `}
 
   ${sx};

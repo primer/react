@@ -1,16 +1,10 @@
-export {default} from './Button'
-export type {ButtonProps} from './Button'
-export {default as ButtonDanger} from './ButtonDanger'
-export type {ButtonDangerProps} from './ButtonDanger'
-export {default as ButtonGroup} from './ButtonGroup'
-export type {ButtonGroupProps} from './ButtonGroup'
-export {default as ButtonOutline} from './ButtonOutline'
-export type {ButtonOutlineProps} from './ButtonOutline'
-export {default as ButtonPrimary} from './ButtonPrimary'
-export type {ButtonPrimaryProps} from './ButtonPrimary'
-export {default as ButtonInvisible} from './ButtonInvisible'
-export type {ButtonInvisibleProps} from './ButtonInvisible'
-export {default as ButtonTableList} from './ButtonTableList'
-export type {ButtonTableListProps} from './ButtonTableList'
-export {default as ButtonClose} from './ButtonClose'
-export type {ButtonCloseProps} from './ButtonClose'
+import {ButtonComponent} from './Button'
+import {Counter} from './ButtonCounter'
+import {IconButton} from './IconButton'
+import {LinkButton} from './LinkButton'
+export type {ButtonProps, IconButtonProps} from './types'
+export {IconButton, LinkButton}
+
+export const Button = Object.assign(ButtonComponent, {
+  Counter
+})
