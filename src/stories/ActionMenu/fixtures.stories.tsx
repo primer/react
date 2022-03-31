@@ -678,3 +678,27 @@ export function TypeaheadTest(): JSX.Element {
     </>
   )
 }
+
+export function TabTest(): JSX.Element {
+  return (
+    <>
+      <h1>Story to test Tab</h1>
+
+      <ActionMenu>
+        <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>New file</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item>Copy link</ActionList.Item>
+            <ActionList.Item>Edit file</ActionList.Item>
+            <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
+              Delete file
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+      <input type="text" placeholder="next focusable element" />
+    </>
+  )
+}

@@ -108,6 +108,42 @@ const WithIconAndLoadingIndicator = () => {
 render(<WithIconAndLoadingIndicator />)
 ```
 
+### With trailing action
+
+```jsx live
+<Box display="grid" sx={{gap: 3}}>
+  <FormControl>
+    <FormControl.Label>Icon action</FormControl.Label>
+    <TextInput
+      trailingAction={
+        <TextInput.Action
+          onClick={() => {
+            alert('clear input')
+          }}
+          icon={XIcon}
+          aria-label="Clear input"
+          sx={{color: 'fg.subtle'}}
+        />
+      }
+    />
+  </FormControl>
+  <FormControl>
+    <FormControl.Label>Text action</FormControl.Label>
+    <TextInput
+      trailingAction={
+        <TextInput.Action
+          onClick={() => {
+            alert('clear input')
+          }}
+        >
+          Clear
+        </TextInput.Action>
+      }
+    />
+  </FormControl>
+</Box>
+```
+
 ### With error and warning states
 
 ```jsx live
@@ -160,61 +196,63 @@ render(<WithIconAndLoadingIndicator />)
 
 <PropsTable>
   <PropsTableRow name="aria-label" type="string" description="Allows input to be accessible." />
-  <PropsTableRow
-    name="block"
-    type="boolean"
-    defaultValue="false"
-    description="Creates a full-width input element"
-  />
+  <PropsTableRow name="block" type="boolean" defaultValue="false" description="Creates a full-width input element" />
   <PropsTableRow
     name="contrast"
     type="boolean"
     defaultValue="false"
     description="Changes background color to a higher contrast color"
   />
-  <PropsTableRow name='size' type="'small' | 'medium' | 'large'"     description="Creates a smaller or larger input than the default." />
-
-<PropsTableRow name="loading" type="boolean" description="Whether to show a loading indicator in the input" />
-<PropsTableRow
-  name="loaderPosition"
-  type="'auto' | 'leading' | 'trailing'"
-  description={
-    <>
-      <div>Which position to render the loading indicator</div>
-      <ul>
-        <li>
-          'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
-          beginning
-        </li>
-        <li>'leading': at the beginning of the input</li>
-        <li>'trailing': at the end of the input</li>
-      </ul>
-    </>
-  }
-/>
-<PropsTableRow
-  name="leadingVisual"
-  type={<>string | React.ComponentType</>}
-  description="Visual positioned on the left edge inside the input"
-/>
-<PropsTableRow name="monospace" type="boolean" defaultValue="false" description="Shows input in monospace font" />
-<PropsTableRow
-  name="trailingVisual"
-  type={<>string | React.ComponentType</>}
-  description="Visual positioned on the right edge inside the input"
-/>
-<PropsTableRow
-  name="validationStatus"
-  type="'error' | 'success' | 'warning'"
-  description="Style the input to match the status"
-/>
-<PropsTableRow
-  name="variant"
-  type="'small' | 'medium' | 'large'"
-  description="(Use size) Creates a smaller or larger input than the default."
-  deprecated
-/>
-
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large'"
+    description="Creates a smaller or larger input than the default."
+  />
+  <PropsTableRow name="loading" type="boolean" description="Whether to show a loading indicator in the input" />
+  <PropsTableRow
+    name="loaderPosition"
+    type="'auto' | 'leading' | 'trailing'"
+    description={
+      <>
+        <div>Which position to render the loading indicator</div>
+        <ul>
+          <li>
+            'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
+            beginning
+          </li>
+          <li>'leading': at the beginning of the input</li>
+          <li>'trailing': at the end of the input</li>
+        </ul>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="leadingVisual"
+    type={<>string | React.ComponentType</>}
+    description="Visual positioned on the left edge inside the input"
+  />
+  <PropsTableRow name="monospace" type="boolean" defaultValue="false" description="Shows input in monospace font" />
+  <PropsTableRow
+    name="trailingVisual"
+    type={<>string | React.ComponentType</>}
+    description="Visual positioned on the right edge inside the input"
+  />
+  <PropsTableRow
+    name="trailingAction"
+    type="React.ReactElement<HTMLProps<HTMLButtonElement>>"
+    description="A visual that renders inside the input after the typing area"
+  />
+  <PropsTableRow
+    name="validationStatus"
+    type="'error' | 'success' | 'warning'"
+    description="Style the input to match the status"
+  />
+  <PropsTableRow
+    name="variant"
+    type="'small' | 'medium' | 'large'"
+    description="(Use size) Creates a smaller or larger input than the default."
+    deprecated
+  />
   <PropsTableRow
     name="width"
     type={
@@ -261,6 +299,29 @@ render(<WithIconAndLoadingIndicator />)
     elementName="input"
     passthroughPropsLink={
       <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
+### TextInput.Action
+
+<PropsTable>
+  <PropsTableRow
+    name="aria-label"
+    type="string"
+    description="Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
+  />
+  <PropsTableRow name="icon" type="React.FunctionComponent" description="The icon to render inside the button" />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'primary' | 'invisible' | 'danger'"
+    description="Determine's the styles on a button"
+  />
+  <PropsTableBasePropRows
+    elementType="button"
+    refType="HTMLButtonElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes">MDN</Link>
     }
   />
 </PropsTable>

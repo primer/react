@@ -46,6 +46,9 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   display: block;
   color: #57606a;
   cursor: default;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 .c6 {
@@ -209,6 +212,9 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   display: block;
   color: #24292f;
   cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 .c7 {
@@ -396,6 +402,9 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   display: block;
   color: #24292f;
   cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 .c6 {
@@ -699,6 +708,9 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   display: block;
   color: #24292f;
   cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 .c1 {
@@ -894,6 +906,9 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   display: block;
   color: fg.default;
   cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 .c6 {
@@ -1137,6 +1152,9 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   display: block;
   color: fg.default;
   cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 .c6 {

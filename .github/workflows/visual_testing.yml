@@ -9,7 +9,7 @@ jobs:
   chromatic:
     name: Visual testing
     runs-on: ubuntu-latest
-    environment: visual-testing
+    environment: ${{ github.ref == 'refs/heads/main' && 'Preview' || 'needs-approval' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -28,6 +28,6 @@ jobs:
         uses: chromaui/action@v1
         with:
           buildScriptName: build:storybook
-          projectToken: 91e12320417c
+          projectToken: ${{ secrets.CHROMATIC_KEY }}
           autoAcceptChanges: github.ref == 'refs/heads/main'
           onlyChanged: true

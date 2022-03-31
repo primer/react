@@ -1,4 +1,4 @@
-import React, {MouseEventHandler} from 'react'
+import React, {MouseEventHandler, useCallback, useState} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import classnames from 'classnames'
 
@@ -7,6 +7,7 @@ import {useProvidedRefOrCreate} from './hooks'
 import {Merge} from './utils/types'
 import TextInputWrapper, {StyledWrapperProps} from './_TextInputWrapper'
 import UnstyledTextInput from './_UnstyledTextInput'
+import TextInputAction from './_TextInputInnerAction'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -28,6 +29,10 @@ export type TextInputNonPassthroughProps = {
    * A visual that renders inside the input after the typing area
    */
   trailingVisual?: string | React.ComponentType<{className?: string}>
+  /**
+   * A visual that renders inside the input after the typing area
+   */
+  trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
 } & Pick<
   StyledWrapperProps,
   | 'block'
@@ -52,6 +57,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       icon: IconComponent,
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
+      trailingAction,
       block,
       className,
       contrast,
@@ -62,6 +68,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       validationStatus,
       sx: sxProp,
       size: sizeProp,
+      onFocus,
+      onBlur,
       // start deprecated props
       width: widthProp,
       minWidth: minWidthProp,
@@ -72,6 +80,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     },
     ref
   ) => {
+    const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
     const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     // this class is necessary to style FilterSearch, plz no touchy!
     const wrapperClasses = classnames(className, 'TextInput-wrapper')
@@ -82,6 +91,20 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const focusInput: MouseEventHandler = () => {
       inputRef.current?.focus()
     }
+    const handleInputFocus = useCallback(
+      e => {
+        setIsInputFocused(true)
+        onFocus && onFocus(e)
+      },
+      [onFocus]
+    )
+    const handleInputBlur = useCallback(
+      e => {
+        setIsInputFocused(false)
+        onBlur && onBlur(e)
+      },
+      [onBlur]
+    )
 
     return (
       <TextInputWrapper
@@ -99,6 +122,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         variant={variantProp}
         hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
         hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
+        hasTrailingAction={Boolean(trailingAction)}
+        isInputFocused={isInputFocused}
         onClick={focusInput}
         aria-live="polite"
         aria-busy={Boolean(loading)}
@@ -111,7 +136,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         >
           {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
-        <UnstyledTextInput ref={inputRef} disabled={disabled} {...inputProps} data-component="input" />
+        <UnstyledTextInput
+          ref={inputRef}
+          disabled={disabled}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          {...inputProps}
+          data-component="input"
+        />
         <TextInputInnerVisualSlot
           visualPosition="trailing"
           showLoadingIndicator={showTrailingLoadingIndicator}
@@ -119,6 +151,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         >
           {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
         </TextInputInnerVisualSlot>
+        {trailingAction}
       </TextInputWrapper>
     )
   }
@@ -131,4 +164,6 @@ TextInput.defaultProps = {
 
 TextInput.displayName = 'TextInput'
 
-export default TextInput
+export default Object.assign(TextInput, {
+  Action: TextInputAction
+})
