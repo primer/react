@@ -75,7 +75,17 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+}
+
+.c0:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -186,8 +196,17 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  border-color: btn.danger.focusBorder;
-  box-shadow: undefined;
+  outline: none;
+}
+
+.c0:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -281,7 +300,17 @@ exports[`Button styles icon only button to make it a square 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: undefined;
+  outline: none;
+}
+
+.c0:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -400,7 +429,17 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: undefined;
+  outline: none;
+}
+
+.c0:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -516,8 +555,17 @@ exports[`Button styles outline button appropriately 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  border-color: btn.outline.focusBorder;
-  box-shadow: undefined;
+  outline: none;
+}
+
+.c0:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -630,7 +678,18 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: undefined;
+  outline: none;
+}
+
+.c0:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-offset: 0;
+  outline-color: accent.fg;
+  box-shadow: inset 0 0 0 2px;
 }
 
 .c0:active:not([disabled]) {

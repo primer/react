@@ -86,7 +86,17 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1:focus:not([disabled]) {
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+}
+
+.c1:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c1:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
 }
 
 .c1:active:not([disabled]) {
