@@ -558,12 +558,7 @@ export const WithCustomOverlayProps = () => {
       </Text>
       <Autocomplete>
         <Autocomplete.Input id="autocompleteInput" />
-        <Autocomplete.Overlay
-          overlayProps={{
-            width: 'large',
-            height: 'xsmall'
-          }}
-        >
+        <Autocomplete.Overlay width="large" height="xsmall">
           <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
         </Autocomplete.Overlay>
       </Autocomplete>

@@ -311,11 +311,7 @@ export function CustomItemChildren(): JSX.Element {
           items={[
             {
               leadingVisual: ArrowRightIcon,
-              children: (
-                <Label outline borderColor="success.emphasis">
-                  Choose this one
-                </Label>
-              ),
+              children: <Label>Choose this one</Label>,
               trailingIcon: ArrowLeftIcon
             }
           ]}

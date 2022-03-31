@@ -3,17 +3,19 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, useTypeaheadFocus} from './hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from './hooks'
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
 import {SxProp, merge} from './sx'
 
-type MenuContextProps = Pick<
+export type MenuContextProps = Pick<
   AnchoredOverlayProps,
-  'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose' | 'anchorId'
->
+  'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
+> & {
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
+}
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
 export type ActionMenuProps = {
@@ -111,8 +113,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
   >
 
   const containerRef = React.createRef<HTMLDivElement>()
-  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef)
-  useTypeaheadFocus(open, containerRef)
+  const {openWithFocus} = useMenuKeyboardNavigation(open, onOpen, onClose, containerRef, anchorRef)
 
   return (
     <AnchoredOverlay
@@ -125,6 +126,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
       align={align}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
+      focusTrapSettings={{disabled: true}}
     >
       <div ref={containerRef}>
         <ActionListContainerContext.Provider

@@ -11,6 +11,8 @@ export type Size = 'small' | 'medium' | 'large'
 
 type StyledButtonProps = ComponentPropsWithRef<typeof StyledButton>
 
+type ButtonA11yProps = {'aria-label': string; 'aria-labelby'?: never} | {'aria-label'?: never; 'aria-labelby': string}
+
 export type ButtonBaseProps = {
   /**
    * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
@@ -40,12 +42,8 @@ export type ButtonProps = {
   children: React.ReactNode
 } & ButtonBaseProps
 
-export type IconButtonProps = {
-  /**
-   * This is to be used if it is an icon-only button. Will make text visually hidden
-   */
+export type IconButtonProps = ButtonA11yProps & {
   icon: React.FunctionComponent<IconProps>
-  iconLabel: string
 } & ButtonBaseProps
 
 // adopted from React.AnchorHTMLAttributes

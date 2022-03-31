@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "35.0.0",
+  "version": "35.1.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -44,6 +44,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
+    "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
     "prepare": "husky install"
@@ -74,9 +75,9 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@primer/behaviors": "1.1.0",
+    "@primer/behaviors": "1.1.1",
     "@primer/octicons-react": "16.1.1",
-    "@primer/primitives": "7.1.1",
+    "@primer/primitives": "7.6.0",
     "@radix-ui/react-polymorphic": "0.0.14",
     "@react-aria/ssr": "3.1.0",
     "@styled-system/css": "5.1.5",
@@ -102,7 +103,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.14.5",
     "@babel/preset-react": "7.14.5",
     "@babel/preset-typescript": "7.15.0",
-    "@changesets/changelog-github": "0.4.0",
+    "@changesets/changelog-github": "0.4.3",
     "@changesets/cli": "2.17.0",
     "@github/prettier-config": "0.0.4",
     "@rollup/plugin-commonjs": "19.0.2",
