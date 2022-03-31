@@ -9,7 +9,7 @@ jobs:
   chromatic:
     name: Visual testing
     runs-on: ubuntu-latest
-    environment: visual-testing
+    environment: ${{ github.ref == 'refs/heads/main' && 'Preview' || 'needs-approval' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
