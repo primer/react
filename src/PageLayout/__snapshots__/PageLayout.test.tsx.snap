@@ -154,16 +154,15 @@ exports[`PageLayout renders condensed layout 1`] = `
     <div
       class="c1"
     >
-      <div
+      <header
         class="c2"
       >
         Header
         <div
           class="c3"
-          role="separator"
         />
-      </div>
-      <div
+      </header>
+      <main
         class="c4"
       >
         <div
@@ -171,33 +170,30 @@ exports[`PageLayout renders condensed layout 1`] = `
         >
           Content
         </div>
-      </div>
-      <div
+      </main>
+      <aside
         class="c6"
       >
         <div
           class="c7"
-          role="separator"
         />
         <div
           class="c8"
-          role="separator"
         />
         <div
           class="c9"
         >
           Pane
         </div>
-      </div>
-      <div
+      </aside>
+      <footer
         class="c10"
       >
         <div
           class="c7"
-          role="separator"
         />
         Footer
-      </div>
+      </footer>
     </div>
   </div>
 </div>
@@ -403,16 +399,15 @@ exports[`PageLayout renders default layout 1`] = `
     <div
       class="c1"
     >
-      <div
+      <header
         class="c2"
       >
         Header
         <div
           class="c3"
-          role="separator"
         />
-      </div>
-      <div
+      </header>
+      <main
         class="c4"
       >
         <div
@@ -420,33 +415,30 @@ exports[`PageLayout renders default layout 1`] = `
         >
           Content
         </div>
-      </div>
-      <div
+      </main>
+      <aside
         class="c6"
       >
         <div
           class="c7"
-          role="separator"
         />
         <div
           class="c8"
-          role="separator"
         />
         <div
           class="c9"
         >
           Pane
         </div>
-      </div>
-      <div
+      </aside>
+      <footer
         class="c10"
       >
         <div
           class="c7"
-          role="separator"
         />
         Footer
-      </div>
+      </footer>
     </div>
   </div>
 </div>
@@ -652,16 +644,15 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
     <div
       class="c1"
     >
-      <div
+      <header
         class="c2"
       >
         Header
         <div
           class="c3"
-          role="separator"
         />
-      </div>
-      <div
+      </header>
+      <main
         class="c4"
       >
         <div
@@ -669,33 +660,30 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
         >
           Content
         </div>
-      </div>
-      <div
+      </main>
+      <aside
         class="c6"
       >
         <div
           class="c3"
-          role="separator"
         />
         <div
           class="c7"
-          role="separator"
         />
         <div
           class="c8"
         >
           Pane
         </div>
-      </div>
-      <div
+      </aside>
+      <footer
         class="c9"
       >
         <div
           class="c10"
-          role="separator"
         />
         Footer
-      </div>
+      </footer>
     </div>
   </div>
 </div>
@@ -936,16 +924,15 @@ exports[`PageLayout renders with dividers 1`] = `
     <div
       class="c1"
     >
-      <div
+      <header
         class="c2"
       >
         Header
         <div
           class="c3"
-          role="separator"
         />
-      </div>
-      <div
+      </header>
+      <main
         class="c4"
       >
         <div
@@ -953,33 +940,30 @@ exports[`PageLayout renders with dividers 1`] = `
         >
           Content
         </div>
-      </div>
-      <div
+      </main>
+      <aside
         class="c6"
       >
         <div
           class="c7"
-          role="separator"
         />
         <div
           class="c8"
-          role="separator"
         />
         <div
           class="c9"
         >
           Pane
         </div>
-      </div>
-      <div
+      </aside>
+      <footer
         class="c10"
       >
         <div
           class="c11"
-          role="separator"
         />
         Footer
-      </div>
+      </footer>
     </div>
   </div>
 </div>

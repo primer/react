@@ -40,7 +40,10 @@ exports[`Button renders consistently 1`] = `
 .c0:disabled {
   cursor: default;
   color: #8c959f;
-  background-color: btn.disabledBg;
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0:disabled svg {
@@ -63,7 +66,7 @@ exports[`Button renders consistently 1`] = `
   grid-area: trailingIcon;
 }
 
-.c0 [data-component="ButtonCounter"] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -83,6 +86,12 @@ exports[`Button renders consistently 1`] = `
 .c0[aria-expanded=true] {
   background-color: hsla(220,14%,93%,1);
   border-color: rgba(27,31,36,0.15);
+}
+
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
 }
 
 <button
@@ -133,7 +142,8 @@ exports[`Button styles danger button appropriately 1`] = `
   border-color: btn.danger.disabledBorder;
 }
 
-.c0:disabled [data-component="ButtonCounter"] {
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
   background-color: btn.danger.disabledCounterBg;
 }
 
@@ -157,7 +167,7 @@ exports[`Button styles danger button appropriately 1`] = `
   grid-area: trailingIcon;
 }
 
-.c0 [data-component="ButtonCounter"] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
   color: btn.danger.text;
   background-color: btn.danger.counterBg;
@@ -170,7 +180,7 @@ exports[`Button styles danger button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0:hover:not([disabled]) [data-component="ButtonCounter"] {
+.c0:hover:not([disabled]) [data-component=ButtonCounter] {
   background-color: btn.danger.hoverCounterBg;
   color: btn.danger.hoverText;
 }
@@ -194,6 +204,12 @@ exports[`Button styles danger button appropriately 1`] = `
   border-color: btn.danger.selectedBorder;
 }
 
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
+}
+
 <button
   class="c0"
 >
@@ -201,6 +217,111 @@ exports[`Button styles danger button appropriately 1`] = `
     data-component="text"
   >
     Danger
+  </span>
+</button>
+`;
+
+exports[`Button styles icon only button to make it a square 1`] = `
+.c1 {
+  display: inline-block;
+}
+
+.c0 {
+  border-radius: 2;
+  border: 1px solid;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  color: btn.text;
+  background-color: btn.bg;
+  box-shadow: undefined,undefined;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:disabled {
+  cursor: default;
+  color: primer.fg.disabled;
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0 [data-component=ButtonCounter] {
+  font-size: 14px;
+}
+
+.c0:hover:not([disabled]) {
+  background-color: btn.hoverBg;
+}
+
+.c0:focus:not([disabled]) {
+  box-shadow: undefined;
+}
+
+.c0:active:not([disabled]) {
+  background-color: btn.activeBg;
+  border-color: btn.activeBorder;
+}
+
+.c0[aria-expanded=true] {
+  background-color: btn.activeBg;
+  border-color: btn.activeBorder;
+}
+
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+<button
+  aria-label="Search button"
+  class="c0"
+>
+  <span
+    class="c1"
+  >
+    <svg
+      aria-hidden="true"
+      class="octicon octicon-search"
+      fill="currentColor"
+      height="16"
+      role="img"
+      style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+        fill-rule="evenodd"
+      />
+    </svg>
   </span>
 </button>
 `;
@@ -246,6 +367,10 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: primer.fg.disabled;
 }
 
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
 .c0:disabled svg {
   opacity: 0.6;
 }
@@ -266,7 +391,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   grid-area: trailingIcon;
 }
 
-.c0 [data-component="ButtonCounter"] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -284,6 +409,12 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0[aria-expanded=true] {
   background-color: btn.selectedBg;
+}
+
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
 }
 
 <button
@@ -341,8 +472,9 @@ exports[`Button styles outline button appropriately 1`] = `
   border-color: btn.border;
 }
 
-.c0:disabled [data-component="ButtonCounter"] {
+.c0:disabled [data-component=ButtonCounter] {
   background-color: btn.outline.disabledCounterBg;
+  color: inherit;
 }
 
 .c0:disabled svg {
@@ -365,7 +497,7 @@ exports[`Button styles outline button appropriately 1`] = `
   grid-area: trailingIcon;
 }
 
-.c0 [data-component="ButtonCounter"] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
   background-color: btn.outline.counterBg;
   color: btn.outline.text;
@@ -378,9 +510,9 @@ exports[`Button styles outline button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0:hover:not([disabled]) [data-component="ButtonCounter"] {
+.c0:hover:not([disabled]) [data-component=ButtonCounter] {
   background-color: btn.outline.hoverCounterBg;
-  color: btn.outline.hoverText;
+  color: inherit;
 }
 
 .c0:focus:not([disabled]) {
@@ -400,6 +532,12 @@ exports[`Button styles outline button appropriately 1`] = `
   background-color: btn.outline.selectedBg;
   box-shadow: undefined;
   border-color: btn.outline.selectedBorder;
+}
+
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
 }
 
 <button
@@ -456,6 +594,10 @@ exports[`Button styles primary button appropriately 1`] = `
   background-color: btn.primary.disabledBg;
 }
 
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
 .c0:disabled svg {
   opacity: 0.6;
 }
@@ -476,7 +618,7 @@ exports[`Button styles primary button appropriately 1`] = `
   grid-area: trailingIcon;
 }
 
-.c0 [data-component="ButtonCounter"] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
   background-color: btn.primary.counterBg;
   color: btn.primary.text;
@@ -499,6 +641,12 @@ exports[`Button styles primary button appropriately 1`] = `
 .c0[aria-expanded=true] {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
+}
+
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
 }
 
 <button

@@ -24,7 +24,7 @@ type SelectMenuFilterInternalProps = {
 } & TextInputProps
 
 const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalProps>(
-  ({theme, value, sx: sxProp, ...rest}, forwardedRef) => {
+  ({value, sx: sxProp, ...rest}, forwardedRef) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const ref = forwardedRef ?? inputRef
     const {open} = useContext(MenuContext)
@@ -37,8 +37,8 @@ const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalPr
     }, [open])
 
     return (
-      <StyledForm theme={theme} sx={sxProp}>
-        <TextInput theme={theme} ref={ref} width="100%" block value={value} contrast {...rest} />
+      <StyledForm sx={sxProp}>
+        <TextInput ref={ref} width="100%" block value={value} contrast {...rest} />
       </StyledForm>
     )
   }
