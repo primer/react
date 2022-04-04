@@ -58,10 +58,8 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       ...fallbackFocus,
       '&:focus-visible:not([disabled])': {
-        outline: '2px solid',
-        outlineOffset: '0',
-        outlineColor: 'accent.fg',
-        boxShadow: 'inset 0 0 0 2px'
+        ...focusOutlineStyles,
+        boxShadow: 'inset 0 0 0 3px'
       },
       '&:active:not([disabled])': {
         backgroundColor: 'btn.primary.selectedBg',

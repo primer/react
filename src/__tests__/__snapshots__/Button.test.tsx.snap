@@ -687,9 +687,9 @@ exports[`Button styles primary button appropriately 1`] = `
 
 .c0:focus-visible:not([disabled]) {
   outline: 2px solid;
-  outline-offset: 0;
   outline-color: accent.fg;
-  box-shadow: inset 0 0 0 2px;
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 3px;
 }
 
 .c0:active:not([disabled]) {
