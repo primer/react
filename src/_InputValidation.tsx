@@ -28,6 +28,7 @@ const InputValidation: React.FC<Props> = ({children, id, validationStatus, sx}) 
   return (
     <Text
       fontSize={0}
+      fontWeight="bold"
       sx={{
         alignItems: 'center',
         color: fgColor,
