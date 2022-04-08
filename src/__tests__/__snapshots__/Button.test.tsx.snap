@@ -33,10 +33,6 @@ exports[`Button renders consistently 1`] = `
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
-.c0:focus {
-  outline: none;
-}
-
 .c0:disabled {
   cursor: default;
   color: #8c959f;
@@ -75,7 +71,19 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
+}
+
+.c0:focus:not([disabled]):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -131,10 +139,6 @@ exports[`Button styles danger button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0:focus {
-  outline: none;
-}
-
 .c0:disabled {
   cursor: default;
   color: btn.danger.disabledText;
@@ -186,8 +190,19 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  border-color: btn.danger.focusBorder;
-  box-shadow: undefined;
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
+}
+
+.c0:focus:not([disabled]):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -255,10 +270,6 @@ exports[`Button styles icon only button to make it a square 1`] = `
   box-shadow: undefined,undefined;
 }
 
-.c0:focus {
-  outline: none;
-}
-
 .c0:disabled {
   cursor: default;
   color: primer.fg.disabled;
@@ -281,7 +292,19 @@ exports[`Button styles icon only button to make it a square 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: undefined;
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
+}
+
+.c0:focus:not([disabled]):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -358,10 +381,6 @@ exports[`Button styles invisible button appropriately 1`] = `
   box-shadow: none;
 }
 
-.c0:focus {
-  outline: none;
-}
-
 .c0:disabled {
   cursor: default;
   color: primer.fg.disabled;
@@ -400,7 +419,19 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: undefined;
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
+}
+
+.c0:focus:not([disabled]):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -461,10 +492,6 @@ exports[`Button styles outline button appropriately 1`] = `
   background-color: btn.bg;
 }
 
-.c0:focus {
-  outline: none;
-}
-
 .c0:disabled {
   cursor: default;
   color: btn.outline.disabledText;
@@ -516,8 +543,19 @@ exports[`Button styles outline button appropriately 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  border-color: btn.outline.focusBorder;
-  box-shadow: undefined;
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
+}
+
+.c0:focus:not([disabled]):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
 }
 
 .c0:active:not([disabled]) {
@@ -584,10 +622,6 @@ exports[`Button styles primary button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0:focus {
-  outline: none;
-}
-
 .c0:disabled {
   cursor: default;
   color: btn.primary.disabledText;
@@ -630,7 +664,21 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 .c0:focus:not([disabled]) {
-  box-shadow: undefined;
+  box-shadow: inset 0 0 0 3px;
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
+}
+
+.c0:focus:not([disabled]):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: accent.fg;
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 3px;
 }
 
 .c0:active:not([disabled]) {

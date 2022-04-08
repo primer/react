@@ -2,6 +2,17 @@ import {VariantType} from './types'
 import {Theme} from '../ThemeProvider'
 
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
+const focusOutlineStyles = {
+  outline: '2px solid',
+  outlineColor: 'accent.fg',
+  outlineOffset: '-2px'
+}
+const fallbackFocus = {
+  ...focusOutlineStyles,
+  ':not(:focus-visible)': {
+    outline: 'solid 1px transparent'
+  }
+}
 
 export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
@@ -14,8 +25,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        boxShadow: `${theme?.shadows.btn.focusShadow}`
+        ...fallbackFocus
       },
+      '&:focus-visible:not([disabled])': focusOutlineStyles,
       '&:active:not([disabled])': {
         backgroundColor: 'btn.activeBg',
         borderColor: 'btn.activeBorder'
@@ -42,7 +54,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        boxShadow: `${theme?.shadows.btn.primary.focusShadow}`
+        boxShadow: 'inset 0 0 0 3px',
+        ...fallbackFocus
+      },
+      '&:focus-visible:not([disabled])': {
+        ...focusOutlineStyles,
+        boxShadow: 'inset 0 0 0 3px'
       },
       '&:active:not([disabled])': {
         backgroundColor: 'btn.primary.selectedBg',
@@ -80,9 +97,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        borderColor: 'btn.danger.focusBorder',
-        boxShadow: `${theme?.shadows.btn.danger.focusShadow}`
+        ...fallbackFocus
       },
+      '&:focus-visible:not([disabled])': focusOutlineStyles,
       '&:active:not([disabled])': {
         color: 'btn.danger.selectedText',
         backgroundColor: 'btn.danger.selectedBg',
@@ -119,8 +136,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        boxShadow: `${theme?.shadows.btn.focusShadow}`
+        ...fallbackFocus
       },
+      '&:focus-visible:not([disabled])': focusOutlineStyles,
       '&:active:not([disabled])': {
         backgroundColor: 'btn.selectedBg'
       },
@@ -152,10 +170,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        borderColor: 'btn.outline.focusBorder',
-        boxShadow: `${theme?.shadows.btn.outline.focusShadow}`
+        ...fallbackFocus
       },
-
+      '&:focus-visible:not([disabled])': focusOutlineStyles,
       '&:active:not([disabled])': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
@@ -242,9 +259,6 @@ export const getBaseStyles = (theme?: Theme) => ({
   userSelect: 'none',
   textDecoration: 'none',
   textAlign: 'center',
-  '&:focus': {
-    outline: 'none'
-  },
   '&:disabled': {
     cursor: 'default'
   },
