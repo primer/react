@@ -14,9 +14,9 @@ Please ensure these items are checked before merging.
   5. Verify unit tests and E2E tests pass
   6. Manually test critical paths (Tip: Use the provided tests project boards)
   7. Manually test release-specific bugfixes and/or features work as described
-- [ ] Successful integration in a vanilla CodeSandbox or StackBlitz (optional: if release contains build changes)
+- [ ] Successful integration in a vanilla CodeSandbox or StackBlitz
   - [ ] Succesfully rendered components updated in the release
-  - [ ] Tested in SPA and SSR apps if release contains build changes
+  - [ ] (optional) Tested in both SPA and SSR apps if release contains build changes
 
 ### 🤔 Sanity test
 
