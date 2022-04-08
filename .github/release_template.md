@@ -2,7 +2,7 @@
 
 Please ensure these items are checked before merging.
 
-### 💨 Smoke test
+### 🔎 Smoke test
 
 - [ ] All CI checks pass
 - [ ] Docs and Storybook open in a browser
