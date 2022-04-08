@@ -6,12 +6,7 @@ on:
 jobs:
   release-template:
     # Only run on Release Tracking branch
-
-    # The final trigger - Disabled for PR feedback
-    #if: ${{ github.head_ref == 'changeset-release/main' }}
-
-    # Enabled for PR testing only
-    if: ${{ github.head_ref == 'rezrah/add-testing-notes-to-release-tracking' }}
+    if: ${{ github.head_ref == 'changeset-release/main' }}
 
     runs-on: ubuntu-latest
     steps:
