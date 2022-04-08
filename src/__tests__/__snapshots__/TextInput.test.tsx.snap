@@ -1189,10 +1189,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   box-shadow: none;
 }
 
-.c3:focus {
-  outline: none;
-}
-
 .c3:disabled {
   cursor: default;
   color: #8c959f;
@@ -1215,10 +1211,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c3:focus:not([disabled]) {
-  outline: none;
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
 }
 
-.c3:not(:focus-visible) {
+.c3:focus:not([disabled]):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
@@ -1642,10 +1640,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   box-shadow: none;
 }
 
-.c2:focus {
-  outline: none;
-}
-
 .c2:disabled {
   cursor: default;
   color: #8c959f;
@@ -1684,10 +1678,12 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c2:focus:not([disabled]) {
-  outline: none;
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
 }
 
-.c2:not(:focus-visible) {
+.c2:focus:not([disabled]):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
@@ -1865,10 +1861,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   box-shadow: none;
 }
 
-.c3:focus {
-  outline: none;
-}
-
 .c3:disabled {
   cursor: default;
   color: #8c959f;
@@ -1907,10 +1899,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c3:focus:not([disabled]) {
-  outline: none;
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
 }
 
-.c3:not(:focus-visible) {
+.c3:focus:not([disabled]):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
