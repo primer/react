@@ -133,6 +133,8 @@ exports[`renders consistently 1`] = `
   width: 64px;
   outline-offset: 2px;
   position: relative;
+  background-color: #eaeef2;
+  border-color: #afb8c1;
 }
 
 .c4:after {
@@ -160,6 +162,7 @@ exports[`renders consistently 1`] = `
   background-color: #f6f8fa;
   border-width: 1px;
   border-style: solid;
+  border-color: #afb8c1;
   border-radius: calc(6px - 1px);
   box-shadow: 0 3px 6px rgba(140,149,159,0.15),inset 0 1px 0 rgba(255,255,255,0.25);
   width: 50%;
