@@ -17,7 +17,7 @@ Please ensure these items are checked before merging.
 
 ### 🤔 Sanity test
 
-- [ ] Any bugfixes in this release have resolved their corrosponding issues
-- [ ] Any new features in this release have been tested and verified to be compatible with GitHub Projects
+- [ ] All bugfixes in this release have resolved their corrosponding issues
+- [ ] All new features in this release have been tested and verified as compatible with GitHub Projects
 - [ ] No noticeable regressions have not been introduced as a result of changes in this release
 - [ ] Commit descriptions in the release accurately describe the changes applied
