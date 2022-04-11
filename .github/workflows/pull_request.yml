@@ -1,0 +1,41 @@
+name: Pull request
+
+on:
+  pull_request:
+
+jobs:
+  release-template:
+    # Only run on Release Tracking branch
+    if: ${{ github.head_ref == 'changeset-release/main' }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Get or Create Comment
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs')
+            const body = await fs.readFileSync('.github/release_template.md', 'utf8')
+            const result = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const botComments = result.data.filter(c => c.user.login == 'github-actions[bot]')
+            if (!botComments.length) {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body.replace('{{PR_AUTHOR}}', context.payload.sender.login)
+              })
+            }
