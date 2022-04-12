@@ -21,7 +21,9 @@ function getBorderRadius({size, square}: Pick<AvatarProps, 'size' | 'square'>) {
   }
 }
 
-export const Avatar: React.FC<AvatarProps> = ({size = 20, alt = '', square = false, sx = {}, ...props}) => {
+export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((props, ref) => {
+  const {size = 20, alt = '', square = false, sx = {}, ...rest} = props
+
   const styles = {
     display: 'inline-block',
     overflow: 'hidden',
@@ -31,7 +33,7 @@ export const Avatar: React.FC<AvatarProps> = ({size = 20, alt = '', square = fal
     height: size,
     borderRadius: getBorderRadius({size, square})
   }
-  return <Box as="img" alt={alt} sx={merge(styles, sx as SxProp)} {...props} />
-}
+  return <Box as="img" alt={alt} ref={ref} sx={merge(styles, sx as SxProp)} {...rest} />
+})
 
 export default Avatar

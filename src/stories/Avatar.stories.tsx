@@ -34,3 +34,9 @@ export function SquareAvatar(): JSX.Element {
 export function DefaultAltText(): JSX.Element {
   return <Avatar src="https://avatars.githubusercontent.com/primer" />
 }
+
+export function AcceptsRef(): JSX.Element {
+  const ref = React.useRef<HTMLImageElement>(null)
+
+  return <Avatar ref={ref} src="https://avatars.githubusercontent.com/primer" />
+}
