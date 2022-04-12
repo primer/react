@@ -1,7 +1,21 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {SmileyIcon, KebabHorizontalIcon, TriangleDownIcon} from '@primer/octicons-react'
-import {BaseStyles, Box, ThemeProvider, Text, IconButton, PageLayout, Heading, ActionMenu, ActionList} from '..'
+import {
+  BaseStyles,
+  Box,
+  ThemeProvider,
+  Text,
+  IconButton,
+  PageLayout,
+  Heading,
+  ActionMenu,
+  ActionList,
+  Avatar,
+  Label,
+  LabelProps,
+  Link
+} from '..'
 import {useAnchoredPosition} from '../hooks'
 import type {AnchorAlignment} from '@primer/behaviors'
 
@@ -39,6 +53,8 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({defaultVisible,
         paddingY: 1,
         paddingX: 2,
         width: 'fit-content',
+        maxWidth: '250px',
+        textAlign: 'center',
         position: 'absolute',
         zIndex: 2,
         top: position?.top,
@@ -71,6 +87,40 @@ const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({defaultVisible,
     </Box>
   )
 })
+
+const LabelWithTooltip: React.FC<LabelProps & {description: string; defaultVisible?: boolean}> = ({
+  description,
+  defaultVisible = false,
+  ...props
+}) => {
+  const labelRef = React.useRef<HTMLLinkElement>(null)
+  const tooltipRef = React.useRef<HTMLDivElement>(null)
+
+  const {position} = useAnchoredPosition({
+    side: 'outside-bottom',
+    align: 'center',
+    anchorElementRef: labelRef,
+    floatingElementRef: tooltipRef
+  })
+
+  return (
+    <Box
+      as="span"
+      sx={{
+        ':hover': {
+          '[data-component=tooltip]': {visibility: 'visible'}
+        }
+      }}
+    >
+      <Label {...props} ref={labelRef}>
+        {props.children}
+      </Label>
+      <Tooltip ref={tooltipRef} position={position} defaultVisible={defaultVisible}>
+        {description}
+      </Tooltip>
+    </Box>
+  )
+}
 
 export const Tooltips = () => {
   const [optionsOpen, setOptionsOpen] = React.useState(false)
@@ -178,6 +228,32 @@ export const Tooltips = () => {
                 </ActionMenu.Overlay>
               </ActionMenu>
             </Box>
+          </Box>
+          <Box sx={{display: 'flex', alignItems: 'center', gap: 1, my: 4}}>
+            <Avatar src="https://github.com/colebemis.png" /> <Text sx={{fontWeight: 'bold'}}>colebemis</Text>{' '}
+            <Text sx={{color: 'fg.muted'}}>added</Text>{' '}
+            <LabelWithTooltip variant="danger" description="Something isn't working">
+              bug
+            </LabelWithTooltip>
+            <LabelWithTooltip variant="sponsors" description="a vibrant hub of collaboration">
+              collab
+            </LabelWithTooltip>
+            <LabelWithTooltip
+              variant="danger"
+              description="Someone or something is preventing this from moving forward"
+            >
+              blocked
+            </LabelWithTooltip>
+            <LabelWithTooltip variant="accent" description="Pull requests that update a dependency file">
+              dependencies
+            </LabelWithTooltip>
+            <LabelWithTooltip
+              variant="accent"
+              description="Pull requests that update a dependency file"
+              defaultVisible={true}
+            >
+              dependencies
+            </LabelWithTooltip>
           </Box>
         </PageLayout.Content>
         <PageLayout.Pane>
