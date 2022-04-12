@@ -208,6 +208,10 @@ We use [changesets](https://github.com/atlassian/changesets) to managing version
 6. If you want to release more features, merge them into the main branch and changesets will update the release PR. Note that it does this via force-pushing, so you should not edit the release PR yourself.
 7. When you're ready to release, merge the release PR into the main branch and changesets will publish the new version to npm and create a GitHub Release.
 
+#### Flowchart
+
+[![changesets flowchart](https://user-images.githubusercontent.com/4608155/163011963-9de3e8a7-c4af-47ef-91d5-7c534f5066d7.png)](https://www.figma.com/file/UKFvby7MMwBWa7p9aly5JG/Next-major-release-workflow)
+
 ## Troubleshooting
 
 **`npm start` fails with an error like `gatsby: command not found`**
