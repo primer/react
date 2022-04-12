@@ -107,6 +107,7 @@ export const UsingTextInputWithTokens = (args: Args) => (
         {text: 'css-in-js', id: 1},
         {text: 'styled-system', id: 2}
       ]}
+      onTokenRemove={() => null}
     />
   </FormControl>
 )
@@ -136,6 +137,23 @@ export const UsingRadioInput = (args: Args) => (
   <FormControl {...args}>
     <Radio name="radioInput" value="choice" />
     <FormControl.Label>Selectable choice</FormControl.Label>
+  </FormControl>
+)
+
+export const UsingCustomInput = (args: Args) => (
+  <FormControl {...args}>
+    <FormControl.Label htmlFor="custom-input">Name</FormControl.Label>
+    <input
+      type="text"
+      id="custom-input"
+      aria-describedby="custom-input-caption custom-input-validation"
+      disabled={args.disabled}
+      required={args.required}
+    />
+    <FormControl.Caption id="custom-input-caption">Your first name</FormControl.Caption>
+    <FormControl.Validation variant="success" id="custom-input-validation">
+      Not a valid name
+    </FormControl.Validation>
   </FormControl>
 )
 

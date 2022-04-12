@@ -16,14 +16,13 @@ const StyledSelect = styled.select`
   outline: none;
   width: 100%;
 
+  option {
+    color: initial;
+  }
+
   /* colors the select input's placeholder text */
   &:invalid {
     color: ${get('colors.fg.subtle')};
-  }
-
-  /* For Firefox: reverts color of non-placeholder options in the dropdown */
-  &:invalid option:not(:first-child) {
-    color: ${get('colors.fg.default')};
   }
 `
 

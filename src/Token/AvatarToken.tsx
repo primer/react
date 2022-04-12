@@ -5,6 +5,7 @@ import {TokenBaseProps, defaultTokenSize, tokenSizes, TokenSizeKeys} from './Tok
 import Token from './Token'
 import {Avatar} from '..'
 
+// TODO: update props to only accept 'large' and 'xlarge' on the next breaking change
 export interface AvatarTokenProps extends TokenBaseProps {
   avatarSrc: string
 }

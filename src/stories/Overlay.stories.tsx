@@ -311,7 +311,7 @@ export const NestedOverlays = () => {
                   Create a list to organize your starred repositories.
                 </Text>
                 <TextInput placeholder="Name this list" sx={{mb: 2}} />
-                <TextInput as="textarea" placeholder="Write a description" rows="3" sx={{mb: 2, textarea: {p: 2}}} />
+                <TextInput as="textarea" placeholder="Write a description" rows={3} sx={{mb: 2, textarea: {p: 2}}} />
 
                 <ButtonPrimary onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}>Create</ButtonPrimary>
               </Box>

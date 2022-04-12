@@ -12,14 +12,16 @@ The FilteredSearch component helps style a Dropdown and a TextInput side-by-side
 
 ```jsx live
 <FilteredSearch>
-  <Dropdown>
-    <Dropdown.Button>Filter</Dropdown.Button>
-    <Dropdown.Menu direction="sw">
-      <Dropdown.Item>Item 1</Dropdown.Item>
-      <Dropdown.Item>Item 2</Dropdown.Item>
-      <Dropdown.Item>Item 3</Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
+  <ActionMenu>
+    <ActionMenu.Button as="summary">Filter</ActionMenu.Button>
+    <ActionMenu.Overlay>
+      <ActionList direction="sw">
+        <ActionList.Item>Item 1</ActionList.Item>
+        <ActionList.Item>Item 2</ActionList.Item>
+        <ActionList.Item>Item 3</ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
   <TextInput icon={SearchIcon} />
 </FilteredSearch>
 ```

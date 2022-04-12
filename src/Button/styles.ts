@@ -2,6 +2,17 @@ import {VariantType} from './types'
 import {Theme} from '../ThemeProvider'
 
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
+const focusOutlineStyles = {
+  outline: '2px solid',
+  outlineColor: 'accent.fg',
+  outlineOffset: '-2px'
+}
+const fallbackFocus = {
+  ...focusOutlineStyles,
+  ':not(:focus-visible)': {
+    outline: 'solid 1px transparent'
+  }
+}
 
 export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
@@ -14,15 +25,18 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        boxShadow: `${theme?.shadows.btn.focusShadow}`
+        ...fallbackFocus
       },
+      '&:focus-visible:not([disabled])': focusOutlineStyles,
       '&:active:not([disabled])': {
         backgroundColor: 'btn.activeBg',
         borderColor: 'btn.activeBorder'
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
-        backgroundColor: 'btn.disabledBg'
+        '[data-component=ButtonCounter]': {
+          color: 'inherit'
+        }
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.activeBg',
@@ -40,7 +54,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        boxShadow: `${theme?.shadows.btn.primary.focusShadow}`
+        boxShadow: 'inset 0 0 0 3px',
+        ...fallbackFocus
+      },
+      '&:focus-visible:not([disabled])': {
+        ...focusOutlineStyles,
+        boxShadow: 'inset 0 0 0 3px'
       },
       '&:active:not([disabled])': {
         backgroundColor: 'btn.primary.selectedBg',
@@ -48,9 +67,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'btn.primary.disabledText',
-        backgroundColor: 'btn.primary.disabledBg'
+        backgroundColor: 'btn.primary.disabledBg',
+        '[data-component=ButtonCounter]': {
+          color: 'inherit'
+        }
       },
-      '[data-component="ButtonCounter"]': {
+      '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.primary.counterBg',
         color: 'btn.primary.text'
       },
@@ -68,16 +90,16 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.danger.hoverBg',
         borderColor: 'btn.danger.hoverBorder',
         boxShadow: `${theme?.shadows.btn.danger.hoverShadow}`,
-        '[data-component="ButtonCounter"]': {
+        '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.danger.hoverCounterBg',
           color: 'btn.danger.hoverText'
         }
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        borderColor: 'btn.danger.focusBorder',
-        boxShadow: `${theme?.shadows.btn.danger.focusShadow}`
+        ...fallbackFocus
       },
+      '&:focus-visible:not([disabled])': focusOutlineStyles,
       '&:active:not([disabled])': {
         color: 'btn.danger.selectedText',
         backgroundColor: 'btn.danger.selectedBg',
@@ -88,11 +110,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'btn.danger.disabledText',
         backgroundColor: 'btn.danger.disabledBg',
         borderColor: 'btn.danger.disabledBorder',
-        '[data-component="ButtonCounter"]': {
+        '[data-component=ButtonCounter]': {
+          color: 'inherit',
           backgroundColor: 'btn.danger.disabledCounterBg'
         }
       },
-      '[data-component="ButtonCounter"]': {
+      '[data-component=ButtonCounter]': {
         color: 'btn.danger.text',
         backgroundColor: 'btn.danger.counterBg'
       },
@@ -113,13 +136,17 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        boxShadow: `${theme?.shadows.btn.focusShadow}`
+        ...fallbackFocus
       },
+      '&:focus-visible:not([disabled])': focusOutlineStyles,
       '&:active:not([disabled])': {
         backgroundColor: 'btn.selectedBg'
       },
       '&:disabled': {
-        color: 'primer.fg.disabled'
+        color: 'primer.fg.disabled',
+        '[data-component=ButtonCounter]': {
+          color: 'inherit'
+        }
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.selectedBg'
@@ -136,17 +163,16 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.outline.hoverBg',
         borderColor: 'outline.hoverBorder',
         boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
-        '[data-component="ButtonCounter"]': {
+        '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.outline.hoverCounterBg',
-          color: 'btn.outline.hoverText'
+          color: 'inherit'
         }
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        borderColor: 'btn.outline.focusBorder',
-        boxShadow: `${theme?.shadows.btn.outline.focusShadow}`
+        ...fallbackFocus
       },
-
+      '&:focus-visible:not([disabled])': focusOutlineStyles,
       '&:active:not([disabled])': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
@@ -158,11 +184,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'btn.outline.disabledText',
         backgroundColor: 'btn.outline.disabledBg',
         borderColor: 'btn.border',
-        '[data-component="ButtonCounter"]': {
-          backgroundColor: 'btn.outline.disabledCounterBg'
+        '[data-component=ButtonCounter]': {
+          backgroundColor: 'btn.outline.disabledCounterBg',
+          color: 'inherit'
         }
       },
-      '[data-component="ButtonCounter"]': {
+      '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.outline.counterBg',
         color: 'btn.outline.text'
       },
@@ -212,7 +239,7 @@ export const getSizeStyles = (size = 'medium', variant: VariantType = 'default',
     paddingY: `${paddingY}px`,
     paddingX: `${paddingX}px`,
     fontSize,
-    '[data-component="ButtonCounter"]': {
+    '[data-component=ButtonCounter]': {
       fontSize
     }
   }
@@ -232,14 +259,17 @@ export const getBaseStyles = (theme?: Theme) => ({
   userSelect: 'none',
   textDecoration: 'none',
   textAlign: 'center',
-  '&:focus': {
-    outline: 'none'
-  },
   '&:disabled': {
     cursor: 'default'
   },
   '&:disabled svg': {
     opacity: '0.6'
+  },
+  '@media (forced-colors: active)': {
+    '&:focus': {
+      // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
+      outline: 'solid 1px transparent'
+    }
   }
 })
 

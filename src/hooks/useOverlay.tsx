@@ -31,10 +31,10 @@ export const useOverlay = ({
   useOnOutsideClick({containerRef: overlayRef, ignoreClickRefs, onClickOutside})
 
   // We only want one overlay to close at a time
-  const preventedDefaultOnEscape: UseOverlaySettings['onEscape'] = event => {
+  const preventeddefaultCheckedEscape: UseOverlaySettings['onEscape'] = event => {
     onEscape(event)
     event.preventDefault()
   }
-  useOnEscapePress(preventedDefaultOnEscape)
+  useOnEscapePress(preventeddefaultCheckedEscape)
   return {ref: overlayRef}
 }

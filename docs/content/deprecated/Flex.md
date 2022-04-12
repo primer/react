@@ -1,5 +1,4 @@
 ---
-componentId: flex
 title: Flex
 status: Deprecated
 ---
