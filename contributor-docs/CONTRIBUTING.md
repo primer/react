@@ -210,7 +210,7 @@ We use [changesets](https://github.com/atlassian/changesets) to managing version
 
 #### Flowchart
 
-[![changesets flowchart](https://user-images.githubusercontent.com/4608155/158490229-c97c8ce4-bf49-40cb-926a-48832e10c280.png)](https://www.figma.com/file/UKFvby7MMwBWa7p9aly5JG/Next-major-release-workflow)
+[![changesets flowchart](https://user-images.githubusercontent.com/4608155/163011963-9de3e8a7-c4af-47ef-91d5-7c534f5066d7.png)](https://www.figma.com/file/UKFvby7MMwBWa7p9aly5JG/Next-major-release-workflow)
 
 ## Troubleshooting
 
