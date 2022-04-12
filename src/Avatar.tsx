@@ -1,9 +1,8 @@
-import styled from 'styled-components'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import React from 'react'
+import Box from './Box'
+import {SxProp, merge} from './sx'
 
-type StyledAvatarProps = {
+export type AvatarProps = {
   /** Sets the width and height of the avatar. */
   size?: number
   /** Sets the shape of the avatar to a square if true. If false, the avatar will be circular. */
@@ -14,7 +13,7 @@ type StyledAvatarProps = {
   alt?: string
 } & SxProp
 
-function getBorderRadius({size, square}: StyledAvatarProps) {
+function getBorderRadius({size, square}: Pick<AvatarProps, 'size' | 'square'>) {
   if (square) {
     return size && size <= 24 ? '4px' : '6px'
   } else {
@@ -22,23 +21,17 @@ function getBorderRadius({size, square}: StyledAvatarProps) {
   }
 }
 
-const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
-  height: props.size,
-  width: props.size
-}))<StyledAvatarProps>`
-  display: inline-block;
-  overflow: hidden; // Ensure page layout in Firefox should images fail to load
-  line-height: ${get('lineHeights.condensedUltra')};
-  vertical-align: middle;
-  border-radius: ${props => getBorderRadius(props)};
-  ${sx}
-`
-
-Avatar.defaultProps = {
-  size: 20,
-  alt: '',
-  square: false
+export const Avatar: React.FC<AvatarProps> = ({size = 20, alt = '', square = false, sx = {}, ...props}) => {
+  const styles = {
+    display: 'inline-block',
+    overflow: 'hidden',
+    lineHeight: 'condensedUltra',
+    verticalAlign: 'middle',
+    width: size,
+    height: size,
+    borderRadius: getBorderRadius({size, square})
+  }
+  return <Box as="img" alt={alt} sx={merge(styles, sx as SxProp)} {...props} />
 }
 
-export type AvatarProps = ComponentProps<typeof Avatar>
 export default Avatar

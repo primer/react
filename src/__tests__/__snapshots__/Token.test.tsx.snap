@@ -6,9 +6,9 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
-  border-radius: 50%;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .c5 {
@@ -166,10 +166,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
       <img
         alt=""
         className="c3"
-        height={16}
-        size={16}
         src="https://avatars.githubusercontent.com/mperrotti"
-        width={16}
       />
     </span>
   </span>
@@ -217,9 +214,9 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
-  border-radius: 50%;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .c5 {
@@ -377,10 +374,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
       <img
         alt=""
         className="c3"
-        height={20}
-        size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
-        width={20}
       />
     </span>
   </span>
@@ -428,9 +422,9 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
-  border-radius: 50%;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .c5 {
@@ -588,10 +582,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
       <img
         alt=""
         className="c3"
-        height={24}
-        size={24}
         src="https://avatars.githubusercontent.com/mperrotti"
-        width={24}
       />
     </span>
   </span>
@@ -639,9 +630,9 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
-  border-radius: 50%;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .c5 {
@@ -799,10 +790,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
       <img
         alt=""
         className="c3"
-        height={32}
-        size={32}
         src="https://avatars.githubusercontent.com/mperrotti"
-        width={32}
       />
     </span>
   </span>
@@ -850,9 +838,9 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
-  border-radius: 50%;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .c5 {
@@ -1010,10 +998,7 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
       <img
         alt=""
         className="c3"
-        height={32}
-        size={32}
         src="https://avatars.githubusercontent.com/mperrotti"
-        width={32}
       />
     </span>
   </span>
@@ -1144,9 +1129,9 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
-  border-radius: 50%;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .c4 {
@@ -1252,10 +1237,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
       <img
         alt=""
         className="c3"
-        height={20}
-        size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
-        width={20}
       />
     </span>
   </span>
@@ -1273,9 +1255,9 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
-  border-radius: 50%;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .c5 {
@@ -1433,10 +1415,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
       <img
         alt=""
         className="c3"
-        height={20}
-        size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
-        width={20}
       />
     </span>
   </span>
