@@ -155,7 +155,8 @@ function SxRow() {
       }
       description={
         <>
-          Style overrides to apply to the component. See also <Link href="/overriding-styles">overriding styles</Link>.
+          Style overrides to apply to the component. See also{' '}
+          <Link href="/react/overriding-styles">overriding styles</Link>.
         </>
       }
     />
