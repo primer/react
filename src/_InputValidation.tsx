@@ -29,7 +29,7 @@ const InputValidation: React.FC<Props> = ({children, id, validationStatus, sx}) 
     <Text
       sx={{
         fontSize: 0,
-        fontWeight: "bold",
+        fontWeight: 'bold',
         alignItems: 'center',
         color: fgColor,
         display: 'flex',

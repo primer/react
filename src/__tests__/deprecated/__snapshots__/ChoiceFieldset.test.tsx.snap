@@ -1051,8 +1051,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
         >
           <span
             class="c12"
-            font-size="0"
-            font-weight="bold"
           >
             <span
               aria-hidden="true"
@@ -1299,8 +1297,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
         >
           <span
             class="c12"
-            font-size="0"
-            font-weight="bold"
           >
             <span
               aria-hidden="true"
