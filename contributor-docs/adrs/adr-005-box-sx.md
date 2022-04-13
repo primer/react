@@ -6,11 +6,9 @@ Proposed
 
 ## Context
 
-There are multiple ways to create components within primer/react and composing components from primer/react.
+In Primer React and consuming applications, we use many different patterns for creating React components. Two common patterns are:
 
-The 2 popular methods are:
-
-1.  Creating components with styled-components
+1. Creating components with styled-components
 
     ```tsx
     const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
