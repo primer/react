@@ -23,7 +23,7 @@ In Primer React and consuming applications, we use many different patterns for c
     `
     ```
 
-    [show full code example →](https://github.com/primer/react/pull/2019/files?diff=split&w=0)
+    [Show full code example →](https://github.com/primer/react/pull/2019/files?diff=split&w=0)
 
 2.  Creating components with Box
 
