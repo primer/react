@@ -1,8 +1,15 @@
 import React from 'react'
 import Box from '../Box'
-import {merge} from '../sx'
+import {merge, SxProp} from '../sx'
 
-export const UnderlineNav = ({as = 'nav', align, sx: sxProp = {}, children}) => {
+export type UnderlineNavProps = {
+  as: 'nav' | 'div'
+  align?: 'right'
+  sx: SxProp
+  children: React.ReactNode
+}
+
+export const UnderlineNav = ({as = 'nav', align, sx: sxProp = {}, children}: UnderlineNavProps) => {
   const justifyContent = align === 'right' ? 'right' : 'space-between'
   const styles = {
     display: 'flex',
