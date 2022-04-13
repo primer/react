@@ -70,6 +70,7 @@ export const UnderlineNavLink = forwardRef(
           as={Component}
           href={href}
           selected={selected}
+          {...(selected ? {'aria-current': 'page'} : {})}
           sx={merge(linkStyles, sxProp as SxProp)}
           {...props}
           ref={forwardedRef}
