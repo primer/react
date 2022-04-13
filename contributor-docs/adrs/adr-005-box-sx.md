@@ -1,4 +1,4 @@
-# ADR 005: Using Box for building components
+# ADR 005: Use Box as a building block for all other components
 
 ## Status
 
@@ -47,7 +47,7 @@ In Primer React and consuming applications, we use many different patterns for c
     }
     ```
 
-    [show full code example →](https://github.com/primer/react/pull/2019/files?diff=split&w=0)
+    [Show full code example →](https://github.com/primer/react/pull/2019/files?diff=split&w=0)
 
 &nbsp;
 
@@ -56,7 +56,7 @@ In Primer React and consuming applications, we use many different patterns for c
 Prefer using method #2: Creating components with Box for the following reasons:
 
 - Better authoring experience with typescript. With Box, we can improve the API and autocomplete for consuming primitives.
-- The styling library used used is an implementation detail and we should be able to replace it. (Avoid leaky abstractions)
+- The styling library (i.e. styled-components) becomes an implementation detail and can be changed later with minimal breaking changes for consumers. (Avoids leaky abstractions)
 - We have had issues with exporting types, we can increase confidence by keeping the exported types close to what we author.
 
 &nbsp;
