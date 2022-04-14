@@ -97,26 +97,25 @@ export const ResponsiveNav = (args: UnderlineNavProps) => {
     }
     index = index + 1
   }
-
+  const Actions = () => {
+    return (
+      <ActionMenu>
+        <ActionMenu.Button>Hidden</ActionMenu.Button>
+        <ActionMenu.Overlay>
+          <ActionList>
+            {hideItems.map(item => (
+              <ActionList.Item key={item}>{item}</ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    )
+  }
   return (
-    <UnderlineNav ref={ref} {...args}>
+    <UnderlineNav {...(hideItems.length > 0 ? {actions: Actions} : {})} ref={ref} {...args}>
       {showItems.map(item => (
         <UnderlineNav.Link key={item}>{item}</UnderlineNav.Link>
       ))}
-      {hideItems.length > 0 && (
-        <UnderlineNav.Actions>
-          <ActionMenu>
-            <ActionMenu.Button>Hidden</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                {hideItems.map(item => (
-                  <ActionList.Item key={item}>{item}</ActionList.Item>
-                ))}
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </UnderlineNav.Actions>
-      )}
     </UnderlineNav>
   )
 }

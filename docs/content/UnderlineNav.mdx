@@ -1,0 +1,108 @@
+---
+componentId: underline_nav
+title: UnderlineNav
+status: Alpha
+---
+
+Use the UnderlineNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
+
+**Attention:** Make sure to properly label your `UnderlineNav` with an `aria-label` to provide context about the type of navigation contained in `UnderlineNav`.
+
+## Default example
+
+```jsx live
+<UnderlineNav aria-label="Main">
+  <UnderlineNav.Link href="#home" selected>
+    Home
+  </UnderlineNav.Link>
+  <UnderlineNav.Link href="#documentation">Documentation</UnderlineNav.Link>
+  <UnderlineNav.Link href="#support">Support</UnderlineNav.Link>
+</UnderlineNav>
+```
+
+## With icons
+
+```jsx live
+<UnderlineNav aria-label="Main">
+  <UnderlineNav.Link selected leadingIcon={HomeIcon}>
+    Home
+  </UnderlineNav.Link>
+  <UnderlineNav.Link>Documentation</UnderlineNav.Link>
+</UnderlineNav>
+```
+
+## With actions
+
+```jsx live
+<UnderlineNav aria-label="Main" actions={() => <Button>More</Button>}>
+  <UnderlineNav.Link selected leadingIcon={HomeIcon}>
+    Home
+  </UnderlineNav.Link>
+  <UnderlineNav.Link>Documentation</UnderlineNav.Link>
+</UnderlineNav>
+```
+
+## Props
+
+### UnderlineNav
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" description="Accessible label for the navigation"></PropsTableRow>
+  <PropsTableRow
+    name="align"
+    type="right | left"
+    defaultValue="left"
+    description="This property allows you to right align the whole navigation menu"
+  ></PropsTableRow>
+  <PropsTableRow
+    name="action"
+    type="React.ComponentType"
+    description="Add any additional action buttons or dropdowns to the far end of the navigation menu"
+  />
+  <PropsTableRow
+    name="as"
+    type="nav | div"
+    defaultValue="nav"
+    description="If it is the main menu, it should have the semantic nav tag. If it is not you can opt for the div tag"
+  />
+</PropsTable>
+
+### UnderlineNav.Link
+
+<PropsTable>
+  <PropsTableRow
+    name="as"
+    type="string | React.ComponentType"
+    description="This is required to convert the link item to a router component"
+  />
+  <PropsTableRow name="href" type="string" description="Link to navigate to upon selection" />
+  <PropsTableRow name="leadingIcon" type="Octicon" description="Add an icon before the nav link" />
+  <PropsTableRow
+    name="selected"
+    type="boolean"
+    default="false"
+    description='Adds active underline to the link item to denote it is selected. Also adds aria-current="page".'
+  />
+  <PropsTableRow name="onSelect" type="function" description="Function to be called on selection of the link item" />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
