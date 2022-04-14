@@ -21,7 +21,7 @@ function getBorderRadius({size, square}: Pick<AvatarProps, 'size' | 'square'>) {
   }
 }
 
-export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((props, ref) => {
+const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((props, ref) => {
   const {size = 20, alt = '', square = false, sx = {}, ...rest} = props
 
   const styles = {
@@ -36,4 +36,5 @@ export const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((props, re
   return <Box as="img" alt={alt} ref={ref} sx={merge(styles, sx as SxProp)} {...rest} />
 })
 
+Avatar.displayName = 'Avatar'
 export default Avatar

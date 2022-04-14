@@ -24,14 +24,16 @@ describe('Avatar', () => {
   it('renders small by default', () => {
     const size = 20
     const result = render(<Avatar src="primer.png" />)
-    expect(result.props.width).toEqual(size)
-    expect(result.props.height).toEqual(size)
+
+    expect(result).toHaveStyleRule('width', px(size))
+    expect(result).toHaveStyleRule('height', px(size))
   })
 
   it('respects the size prop', () => {
     const result = render(<Avatar size={40} src="primer.png" alt="github" />)
-    expect(result.props.width).toEqual(40)
-    expect(result.props.height).toEqual(40)
+
+    expect(result).toHaveStyleRule('width', '40px')
+    expect(result).toHaveStyleRule('height', '40px')
   })
 
   it('passes through the src prop', () => {
