@@ -59,25 +59,4 @@ Prefer using method #2: Creating components with Box for the following reasons:
 - The styling library (i.e. styled-components) becomes an implementation detail and can be changed later with minimal breaking changes for consumers. (Avoids leaky abstractions)
 - We have had issues with exporting types, we can increase confidence by keeping the exported types close to what we author.
 
-&nbsp;
-
-This conversation can be extended to overriding styles composing components and adding styles to them. We want to use the `sx` prop to add these styles.
-
-For example, `ActionMenu.Button` uses the `Button` component but adds Menu specific styles to it:
-
-```tsx
-const MenuButton = ({sx = {}, ...props}) => {
-  // additional styles for Button when used with ActionMenu
-  const styles = {
-    '[data-component=trailingIcon]': {marginX: -1}
-  }
-
-  return (
-    <Anchor>
-      <Button type="button" trailingIcon={TriangleDownIcon} sx={merge(styles, sx)} {...props} />
-    </Anchor>
-  )
-}
-```
-
 See diff for moving Avatar from approach 1 to 2: https://github.com/primer/react/pull/2019/files?diff=split&w=0
