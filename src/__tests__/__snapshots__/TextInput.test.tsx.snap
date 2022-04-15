@@ -1179,14 +1179,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 8px;
-  padding-right: 8px;
-  font-size: 14px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 12px;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
+  margin: 4px;
+  position: relative;
 }
 
 .c3:disabled {
@@ -1203,7 +1205,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c3 [data-component=ButtonCounter] {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .c3:hover:not([disabled]) {
@@ -1540,6 +1542,20 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   }
 }
 
+@media (pointer:fine) {
+  .c3:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1630,14 +1646,16 @@ exports[`TextInput renders trailingAction text button 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
   font-size: 12px;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
+  margin: 4px;
+  position: relative;
 }
 
 .c2:disabled {
@@ -1788,6 +1806,20 @@ exports[`TextInput renders trailingAction text button 1`] = `
   }
 }
 
+@media (pointer:fine) {
+  .c2:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1851,14 +1883,16 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
   font-size: 12px;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
+  margin: 4px;
+  position: relative;
 }
 
 .c3:disabled {
@@ -2226,6 +2260,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 @media (forced-colors:active) {
   .c3:focus {
     outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:fine) {
+  .c3:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
   }
 }
 

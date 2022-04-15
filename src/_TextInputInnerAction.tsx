@@ -16,7 +16,29 @@ type TextInputActionProps = Omit<React.HTMLProps<HTMLButtonElement>, 'aria-label
 } & SxProp
 
 const invisibleButtonStyleOverrides = {
-  color: 'fg.default'
+  color: 'fg.default',
+  margin: 1,
+  paddingTop: '2px',
+  paddingRight: '4px',
+  paddingBottom: '2px',
+  paddingLeft: '4px',
+  position: 'relative',
+
+  '@media (pointer: fine)': {
+    ':after': {
+      content: '""',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      transform: 'translateY(-50%)',
+      top: '50%',
+      minHeight: '44px'
+    }
+  }
+}
+
+const solidButtonStyleOverrides = {
+  margin: 1
 }
 
 const ConditionalTooltip: React.FC<{
@@ -44,7 +66,9 @@ const ConditionalTooltip: React.FC<{
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
   ({'aria-label': ariaLabel, children, icon, sx: sxProp, variant, ...rest}, forwardedRef) => {
     const sx =
-      variant === 'invisible' ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {}) : sxProp
+      variant === 'invisible'
+        ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {})
+        : merge<BetterSystemStyleObject>(solidButtonStyleOverrides, sxProp || {})
 
     if ((icon && !ariaLabel) || (!children && !ariaLabel)) {
       // eslint-disable-next-line no-console
@@ -60,6 +84,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
               type="button"
               icon={icon}
               aria-label={ariaLabel}
+              size="small"
               sx={sx}
               {...rest}
               ref={forwardedRef}
