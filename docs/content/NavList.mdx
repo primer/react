@@ -177,13 +177,17 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 ### With a heading
 
 ```jsx
-<h3 id="workflows-heading">Workflows</h3>
-<NavList aria-labelledby="workflows-heading">
-  <NavList.Item href="/" current>All workflows</NavList.Item>
-  <NavList.Item href="/ci">CI</NavList.Item>
-  <NavList.Item href="/deploy">Deploy</NavList.Item>
-  <NavList.Item href="/release">Release</NavList.Item>
-</NavList>
+<>
+  <h3 id="workflows-heading">Workflows</h3>
+  <NavList aria-labelledby="workflows-heading">
+    <NavList.Item href="/" current>
+      All workflows
+    </NavList.Item>
+    <NavList.Item href="/ci">CI</NavList.Item>
+    <NavList.Item href="/deploy">Deploy</NavList.Item>
+    <NavList.Item href="/release">Release</NavList.Item>
+  </NavList>
+</>
 ```
 
 <details>
