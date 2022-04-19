@@ -1,9 +1,6 @@
 name: Deploy
 on:
   pull_request:
-  push:
-    branches-ignore:
-      - 'main'
 
 permissions:
   contents: read
@@ -17,6 +14,6 @@ jobs:
     uses: primer/.github/.github/workflows/deploy_preview.yml@main
     with:
       node_version: 16
-      install: cd docs && npm run install
+      install: cd docs && npm ci
       build: cd docs && npm run build:preview
       output_dir: docs/public
