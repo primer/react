@@ -5,13 +5,14 @@ import {ButtonProps} from './Button'
 import {BetterSystemStyleObject, merge, SxProp} from './sx'
 
 type TextInputActionProps = Omit<React.HTMLProps<HTMLButtonElement>, 'aria-label' | 'size'> & {
-  /** @deprecated Text input action buttons will only use icon buttons */
+  /** @deprecated Text input action buttons should only use icon buttons */
   children?: React.ReactNode
   /** Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies. */
   ['aria-label']?: string
   /** The icon to render inside the button */
   icon?: React.FunctionComponent<IconProps>
   /**
+   * @deprecated Text input action buttons should only use the 'invisible' button variant
    * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
    */
   variant?: ButtonProps['variant']
