@@ -39,7 +39,7 @@ jobs:
 
       - name: Deploy with Pages
         if: ${{ steps.changeset-count.outputs.CHANGE_COUNT == 0 }}
-          uses: primer/.github/.github/workflows/deploy.yml@main
-          with:
-            build: cd docs && npm run build
-            output_dir: docs/public
+        uses: primer/.github/.github/workflows/deploy.yml@main
+        with:
+          build: cd docs && npm run build
+          output_dir: docs/public

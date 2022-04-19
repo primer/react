@@ -1,6 +1,9 @@
 name: Deploy
 on:
   pull_request:
+  push:
+    branches-ignore:
+      - 'main'
 
 permissions:
   contents: read
@@ -12,9 +15,7 @@ jobs:
     if: ${{ github.repository == 'primer/react' }}
     name: Preview
     runs-on: ubuntu-latest
-    steps:
-      - name: Deploy with Pages
-        uses: primer/.github/.github/workflows/deploy_preview.yml@main
-        with:
-          build: cd docs && npm run build:preview
-          output_dir: docs/public
+    uses: primer/.github/.github/workflows/deploy_preview.yml@main
+    with:
+      build: cd docs && npm run build:preview
+      output_dir: docs/public
