@@ -14,8 +14,9 @@ jobs:
   deploy-preview:
     if: ${{ github.repository == 'primer/react' }}
     name: Preview
-    runs-on: ubuntu-latest
-    uses: primer/.github/.github/workflows/deploy_preview.yml@main
-    with:
-      build: cd docs && npm run build:preview
-      output_dir: docs/public
+    steps:
+      - name: Create GitHub deployment
+        uses: primer/.github/.github/workflows/deploy_preview.yml@main
+        with:
+          build: cd docs && npm run build:preview
+          output_dir: docs/public
