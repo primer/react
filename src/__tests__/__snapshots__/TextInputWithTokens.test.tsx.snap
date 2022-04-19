@@ -6507,7 +6507,7 @@ Array [
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
-  padding-right: 0;
+  padding-right: 12px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -6556,7 +6556,7 @@ Array [
 .c0 > input,
 .c0 > select {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
 }
 
 .c3 {
@@ -7230,7 +7230,7 @@ Array [
   padding-bottom: calc(12px / 2);
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
+  padding-left: 12px;
   padding-right: 0;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -7279,7 +7279,7 @@ Array [
 
 .c0 > input,
 .c0 > select {
-  padding-left: 12px;
+  padding-left: 0;
   padding-right: 12px;
 }
 
@@ -7999,7 +7999,7 @@ Array [
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
-  padding-right: 0;
+  padding-right: 12px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -8048,7 +8048,7 @@ Array [
 .c0 > input,
 .c0 > select {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
 }
 
 .c3 {
@@ -10343,7 +10343,7 @@ Array [
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 12px;
-  padding-right: 0;
+  padding-right: 12px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -10392,7 +10392,7 @@ Array [
 .c0 > input,
 .c0 > select {
   padding-left: 0;
-  padding-right: 12px;
+  padding-right: 0;
 }
 
 .c6 {
@@ -11914,7 +11914,7 @@ Array [
   padding-bottom: calc(12px / 2);
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
+  padding-left: 12px;
   padding-right: 12px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
@@ -11963,7 +11963,7 @@ Array [
 
 .c0 > input,
 .c0 > select {
-  padding-left: 12px;
+  padding-left: 0;
   padding-right: 0;
 }
 
