@@ -13,8 +13,7 @@ import {
   ActionList,
   Avatar,
   Label,
-  LabelProps,
-  Link
+  LabelProps
 } from '..'
 import {useAnchoredPosition} from '../hooks'
 import type {AnchorAlignment} from '@primer/behaviors'
