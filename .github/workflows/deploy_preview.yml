@@ -16,6 +16,7 @@ jobs:
     name: Preview
     uses: primer/.github/.github/workflows/deploy_preview.yml@main
     with:
+      node_version: 16
       install: cd docs && npm run install
       build: cd docs && npm run build:preview
       output_dir: docs/public

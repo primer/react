@@ -28,19 +28,17 @@ jobs:
       - name: Log changeset count
         run: echo ${{ steps.changeset-count.outputs.change_count }}
 
-  deploy:
-    name: Production
-    needs: [guard]
-    #if: ${{ needs.guard.outputs.should_deploy == true }}
-    runs-on: ubuntu-latest
-    steps:
       # Log guard output for debugging purposes
       - name: Log guard output
         run: echo ${{ needs.guard.outputs.should_deploy }}
 
-      - name: Deploy with Pages
-        if: ${{ steps.changeset-count.outputs.CHANGE_COUNT == 0 }}
-        uses: primer/.github/.github/workflows/deploy.yml@main
-        with:
-          build: cd docs && npm run build
-          output_dir: docs/public
+  deploy:
+    name: Production
+    needs: [guard]
+    #if: ${{ needs.guard.outputs.should_deploy == true }}
+    uses: primer/.github/.github/workflows/deploy_preview.yml@main
+    with:
+      node_version: 16
+      install: cd docs && npm run install
+      build: cd docs && npm run build:preview
+      output_dir: docs/public
