@@ -27,7 +27,7 @@ const invisibleButtonStyleOverrides = {
   paddingLeft: '4px',
   position: 'relative',
 
-  '@media (pointer: fine)': {
+  '@media (pointer: coarse)': {
     ':after': {
       content: '""',
       position: 'absolute',
