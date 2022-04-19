@@ -50,7 +50,7 @@ export const primaryButton = (args: ButtonProps) => {
 export const dangerButton = (args: ButtonProps) => {
   return (
     <Button {...args} variant="danger">
-      Danger
+      Dangerous
     </Button>
   )
 }
