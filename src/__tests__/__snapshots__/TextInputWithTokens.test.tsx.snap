@@ -100,7 +100,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -320,7 +321,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -333,7 +334,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -368,7 +369,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -381,7 +382,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -416,7 +417,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -429,7 +430,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -464,7 +465,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -477,7 +478,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -512,7 +513,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -525,7 +526,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -560,7 +561,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -573,7 +574,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -608,7 +609,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -621,7 +622,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -656,7 +657,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -669,7 +670,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -826,7 +827,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1025,7 +1027,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1038,7 +1040,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1073,7 +1075,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1086,7 +1088,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1240,7 +1242,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1406,7 +1409,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -1600,7 +1604,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1613,7 +1617,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1648,7 +1652,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1661,7 +1665,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1696,7 +1700,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1709,7 +1713,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1744,7 +1748,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1757,7 +1761,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1792,7 +1796,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1805,7 +1809,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1840,7 +1844,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1853,7 +1857,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1888,7 +1892,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1901,7 +1905,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -1936,7 +1940,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -1949,7 +1953,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -2087,7 +2091,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -2768,7 +2773,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -3442,7 +3448,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4116,7 +4123,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4660,6 +4668,681 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         className="c6"
         onClick={[Function]}
         size="extralarge"
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={24}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 24 24"
+          width={24}
+        />
+      </span>
+    </span>
+  </div>
+</span>
+`;
+
+exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: -0.25rem;
+  margin-bottom: -0.25rem;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c1 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-left: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.c2 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c3 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c3:focus {
+  outline: 0;
+}
+
+.c6 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  margin-left: 8px;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.c6:hover,
+.c6:focus {
+  background-color: rgba(175,184,193,0.2);
+}
+
+.c6:active {
+  background-color: rgba(234,238,242,0.5);
+}
+
+.c5 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c5:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c5:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  className="c0"
+  onClick={[Function]}
+  size="medium"
+>
+  <div
+    className="c1"
+    display="flex"
+  >
+    <div
+      className="c2"
+    >
+      <input
+        aria-invalid="false"
+        className="c3"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+      />
+    </div>
+    <span
+      aria-label="zero, press backspace or delete to remove"
+      className="c4"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onRemove={[Function]}
+      size="xlarge"
+      tabIndex={0}
+    >
+      <span
+        className="c5"
+        onClick={[Function]}
+      >
+        zero
+      </span>
+      <span
+        aria-hidden="true"
+        className="c6"
+        onClick={[Function]}
+        size="xlarge"
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={24}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 24 24"
+          width={24}
+        />
+      </span>
+    </span>
+    <span
+      aria-label="one, press backspace or delete to remove"
+      className="c4"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onRemove={[Function]}
+      size="xlarge"
+      tabIndex={0}
+    >
+      <span
+        className="c5"
+        onClick={[Function]}
+      >
+        one
+      </span>
+      <span
+        aria-hidden="true"
+        className="c6"
+        onClick={[Function]}
+        size="xlarge"
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={24}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 24 24"
+          width={24}
+        />
+      </span>
+    </span>
+    <span
+      aria-label="two, press backspace or delete to remove"
+      className="c4"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onRemove={[Function]}
+      size="xlarge"
+      tabIndex={0}
+    >
+      <span
+        className="c5"
+        onClick={[Function]}
+      >
+        two
+      </span>
+      <span
+        aria-hidden="true"
+        className="c6"
+        onClick={[Function]}
+        size="xlarge"
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={24}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 24 24"
+          width={24}
+        />
+      </span>
+    </span>
+    <span
+      aria-label="three, press backspace or delete to remove"
+      className="c4"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onRemove={[Function]}
+      size="xlarge"
+      tabIndex={0}
+    >
+      <span
+        className="c5"
+        onClick={[Function]}
+      >
+        three
+      </span>
+      <span
+        aria-hidden="true"
+        className="c6"
+        onClick={[Function]}
+        size="xlarge"
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={24}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 24 24"
+          width={24}
+        />
+      </span>
+    </span>
+    <span
+      aria-label="four, press backspace or delete to remove"
+      className="c4"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onRemove={[Function]}
+      size="xlarge"
+      tabIndex={0}
+    >
+      <span
+        className="c5"
+        onClick={[Function]}
+      >
+        four
+      </span>
+      <span
+        aria-hidden="true"
+        className="c6"
+        onClick={[Function]}
+        size="xlarge"
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={24}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 24 24"
+          width={24}
+        />
+      </span>
+    </span>
+    <span
+      aria-label="five, press backspace or delete to remove"
+      className="c4"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onRemove={[Function]}
+      size="xlarge"
+      tabIndex={0}
+    >
+      <span
+        className="c5"
+        onClick={[Function]}
+      >
+        five
+      </span>
+      <span
+        aria-hidden="true"
+        className="c6"
+        onClick={[Function]}
+        size="xlarge"
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={24}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 24 24"
+          width={24}
+        />
+      </span>
+    </span>
+    <span
+      aria-label="six, press backspace or delete to remove"
+      className="c4"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onRemove={[Function]}
+      size="xlarge"
+      tabIndex={0}
+    >
+      <span
+        className="c5"
+        onClick={[Function]}
+      >
+        six
+      </span>
+      <span
+        aria-hidden="true"
+        className="c6"
+        onClick={[Function]}
+        size="xlarge"
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-x"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+            }
+          }
+          fill="currentColor"
+          height={24}
+          role="img"
+          style={
+            Object {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
+            }
+          }
+          viewBox="0 0 24 24"
+          width={24}
+        />
+      </span>
+    </span>
+    <span
+      aria-label="seven, press backspace or delete to remove"
+      className="c4"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onRemove={[Function]}
+      size="xlarge"
+      tabIndex={0}
+    >
+      <span
+        className="c5"
+        onClick={[Function]}
+      >
+        seven
+      </span>
+      <span
+        aria-hidden="true"
+        className="c6"
+        onClick={[Function]}
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -4792,7 +5475,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -4986,7 +5670,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -4999,7 +5683,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -5034,7 +5718,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5047,7 +5731,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -5082,7 +5766,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5095,7 +5779,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -5130,7 +5814,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5143,7 +5827,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -5178,7 +5862,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5191,7 +5875,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -5226,7 +5910,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5239,7 +5923,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -5274,7 +5958,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5287,7 +5971,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -5322,7 +6006,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5335,7 +6019,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -5466,7 +6150,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -5609,7 +6294,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5627,7 +6312,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5645,7 +6330,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5663,7 +6348,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5681,7 +6366,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5699,7 +6384,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5717,7 +6402,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5735,7 +6420,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -5857,7 +6542,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -6057,7 +6743,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6070,7 +6756,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6105,7 +6791,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6118,7 +6804,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6153,7 +6839,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6166,7 +6852,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6201,7 +6887,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6214,7 +6900,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6249,7 +6935,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6262,7 +6948,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6297,7 +6983,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6310,7 +6996,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6345,7 +7031,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6358,7 +7044,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6393,7 +7079,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6406,7 +7092,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6580,7 +7266,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -6824,7 +7511,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6837,7 +7524,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6872,7 +7559,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6885,7 +7572,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6920,7 +7607,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6933,7 +7620,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -6968,7 +7655,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -6981,7 +7668,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7016,7 +7703,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7029,7 +7716,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7064,7 +7751,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7077,7 +7764,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7112,7 +7799,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7125,7 +7812,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7160,7 +7847,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7173,7 +7860,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7347,7 +8034,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -7547,7 +8235,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7560,7 +8248,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7595,7 +8283,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7608,7 +8296,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7643,7 +8331,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7656,7 +8344,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7691,7 +8379,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7704,7 +8392,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7739,7 +8427,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7752,7 +8440,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7787,7 +8475,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7800,7 +8488,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7835,7 +8523,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7848,7 +8536,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -7883,7 +8571,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -7896,7 +8584,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -8074,7 +8762,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -8354,7 +9043,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -8367,7 +9056,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -8402,7 +9091,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -8415,7 +9104,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -8450,7 +9139,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -8463,7 +9152,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -8498,7 +9187,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -8511,7 +9200,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -8546,7 +9235,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -8559,7 +9248,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -8594,7 +9283,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -8607,7 +9296,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -8642,7 +9331,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -8655,7 +9344,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -8690,7 +9379,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -8703,814 +9392,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={24}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          />
-        </span>
-      </span>
-    </div>
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c1"
-        display="flex"
-      >
-        <svg
-          className="c10"
-          fill="none"
-          height="16px"
-          sx={
-            Object {
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-left: -0.25rem;
-  margin-bottom: -0.25rem;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c4 > * {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-left: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.c5 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c2 {
-  visibility: hidden;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 >:not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
-.c10 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c9 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-  position: relative;
-  z-index: 1;
-}
-
-.c9:hover,
-.c9:focus {
-  background-color: rgba(175,184,193,0.2);
-}
-
-.c9:active {
-  background-color: rgba(234,238,242,0.5);
-}
-
-.c8 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  overflow: visible;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: 1;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c8:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c8:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.c7 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-    className="c0"
-    onClick={[Function]}
-    size="medium"
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c1"
-        display="flex"
-      >
-        <div
-          className="c2"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-mark-github"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={16}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          />
-        </div>
-        <svg
-          className="c3"
-          fill="none"
-          height="32px"
-          sx={
-            Object {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-    <div
-      className="c4"
-      display="flex"
-    >
-      <div
-        className="c5"
-      >
-        <input
-          aria-invalid="false"
-          className="c6"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          type="text"
-        />
-      </div>
-      <span
-        aria-label="zero, press backspace or delete to remove"
-        className="c7"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onRemove={[Function]}
-        size="extralarge"
-        tabIndex={0}
-      >
-        <span
-          className="c8"
-          onClick={[Function]}
-        >
-          zero
-        </span>
-        <span
-          aria-hidden="true"
-          className="c9"
-          onClick={[Function]}
-          size="extralarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={24}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          />
-        </span>
-      </span>
-      <span
-        aria-label="one, press backspace or delete to remove"
-        className="c7"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onRemove={[Function]}
-        size="extralarge"
-        tabIndex={0}
-      >
-        <span
-          className="c8"
-          onClick={[Function]}
-        >
-          one
-        </span>
-        <span
-          aria-hidden="true"
-          className="c9"
-          onClick={[Function]}
-          size="extralarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={24}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          />
-        </span>
-      </span>
-      <span
-        aria-label="two, press backspace or delete to remove"
-        className="c7"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onRemove={[Function]}
-        size="extralarge"
-        tabIndex={0}
-      >
-        <span
-          className="c8"
-          onClick={[Function]}
-        >
-          two
-        </span>
-        <span
-          aria-hidden="true"
-          className="c9"
-          onClick={[Function]}
-          size="extralarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={24}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          />
-        </span>
-      </span>
-      <span
-        aria-label="three, press backspace or delete to remove"
-        className="c7"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onRemove={[Function]}
-        size="extralarge"
-        tabIndex={0}
-      >
-        <span
-          className="c8"
-          onClick={[Function]}
-        >
-          three
-        </span>
-        <span
-          aria-hidden="true"
-          className="c9"
-          onClick={[Function]}
-          size="extralarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={24}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          />
-        </span>
-      </span>
-      <span
-        aria-label="four, press backspace or delete to remove"
-        className="c7"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onRemove={[Function]}
-        size="extralarge"
-        tabIndex={0}
-      >
-        <span
-          className="c8"
-          onClick={[Function]}
-        >
-          four
-        </span>
-        <span
-          aria-hidden="true"
-          className="c9"
-          onClick={[Function]}
-          size="extralarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={24}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          />
-        </span>
-      </span>
-      <span
-        aria-label="five, press backspace or delete to remove"
-        className="c7"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onRemove={[Function]}
-        size="extralarge"
-        tabIndex={0}
-      >
-        <span
-          className="c8"
-          onClick={[Function]}
-        >
-          five
-        </span>
-        <span
-          aria-hidden="true"
-          className="c9"
-          onClick={[Function]}
-          size="extralarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={24}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          />
-        </span>
-      </span>
-      <span
-        aria-label="six, press backspace or delete to remove"
-        className="c7"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onRemove={[Function]}
-        size="extralarge"
-        tabIndex={0}
-      >
-        <span
-          className="c8"
-          onClick={[Function]}
-        >
-          six
-        </span>
-        <span
-          aria-hidden="true"
-          className="c9"
-          onClick={[Function]}
-          size="extralarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
-              }
-            }
-            fill="currentColor"
-            height={24}
-            role="img"
-            style={
-              Object {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          />
-        </span>
-      </span>
-      <span
-        aria-label="seven, press backspace or delete to remove"
-        className="c7"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onRemove={[Function]}
-        size="extralarge"
-        tabIndex={0}
-      >
-        <span
-          className="c8"
-          onClick={[Function]}
-        >
-          seven
-        </span>
-        <span
-          aria-hidden="true"
-          className="c9"
-          onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -9624,6 +9506,814 @@ Array [
 }
 
 .c2 {
+  visibility: hidden;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
+}
+
+.c10 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c9 {
+  background-color: transparent;
+  font-family: inherit;
+  color: currentColor;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding: 0;
+  -webkit-transform: translate(1px,-1px);
+  -ms-transform: translate(1px,-1px);
+  transform: translate(1px,-1px);
+  -webkit-align-self: baseline;
+  -ms-flex-item-align: baseline;
+  align-self: baseline;
+  border: 0;
+  border-radius: 999px;
+  margin-left: 8px;
+  height: 32px;
+  width: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.c9:hover,
+.c9:focus {
+  background-color: rgba(175,184,193,0.2);
+}
+
+.c9:active {
+  background-color: rgba(234,238,242,0.5);
+}
+
+.c8 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c8:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c8:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  position: relative;
+}
+
+.c7:hover {
+  background-color: rgba(175,184,193,0.2);
+  color: #24292f;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+    className="c0"
+    onClick={[Function]}
+    size="medium"
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c1"
+        display="flex"
+      >
+        <div
+          className="c2"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-mark-github"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={16}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          />
+        </div>
+        <svg
+          className="c3"
+          fill="none"
+          height="32px"
+          sx={
+            Object {
+              "height": "100%",
+              "left": 0,
+              "maxWidth": "100%",
+              "position": "absolute",
+              "top": 0,
+              "visibility": "visible",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+    <div
+      className="c4"
+      display="flex"
+    >
+      <div
+        className="c5"
+      >
+        <input
+          aria-invalid="false"
+          className="c6"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+        />
+      </div>
+      <span
+        aria-label="zero, press backspace or delete to remove"
+        className="c7"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onRemove={[Function]}
+        size="xlarge"
+        tabIndex={0}
+      >
+        <span
+          className="c8"
+          onClick={[Function]}
+        >
+          zero
+        </span>
+        <span
+          aria-hidden="true"
+          className="c9"
+          onClick={[Function]}
+          size="xlarge"
+          tabIndex={-1}
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-x"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={24}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 24 24"
+            width={24}
+          />
+        </span>
+      </span>
+      <span
+        aria-label="one, press backspace or delete to remove"
+        className="c7"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onRemove={[Function]}
+        size="xlarge"
+        tabIndex={0}
+      >
+        <span
+          className="c8"
+          onClick={[Function]}
+        >
+          one
+        </span>
+        <span
+          aria-hidden="true"
+          className="c9"
+          onClick={[Function]}
+          size="xlarge"
+          tabIndex={-1}
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-x"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={24}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 24 24"
+            width={24}
+          />
+        </span>
+      </span>
+      <span
+        aria-label="two, press backspace or delete to remove"
+        className="c7"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onRemove={[Function]}
+        size="xlarge"
+        tabIndex={0}
+      >
+        <span
+          className="c8"
+          onClick={[Function]}
+        >
+          two
+        </span>
+        <span
+          aria-hidden="true"
+          className="c9"
+          onClick={[Function]}
+          size="xlarge"
+          tabIndex={-1}
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-x"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={24}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 24 24"
+            width={24}
+          />
+        </span>
+      </span>
+      <span
+        aria-label="three, press backspace or delete to remove"
+        className="c7"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onRemove={[Function]}
+        size="xlarge"
+        tabIndex={0}
+      >
+        <span
+          className="c8"
+          onClick={[Function]}
+        >
+          three
+        </span>
+        <span
+          aria-hidden="true"
+          className="c9"
+          onClick={[Function]}
+          size="xlarge"
+          tabIndex={-1}
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-x"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={24}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 24 24"
+            width={24}
+          />
+        </span>
+      </span>
+      <span
+        aria-label="four, press backspace or delete to remove"
+        className="c7"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onRemove={[Function]}
+        size="xlarge"
+        tabIndex={0}
+      >
+        <span
+          className="c8"
+          onClick={[Function]}
+        >
+          four
+        </span>
+        <span
+          aria-hidden="true"
+          className="c9"
+          onClick={[Function]}
+          size="xlarge"
+          tabIndex={-1}
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-x"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={24}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 24 24"
+            width={24}
+          />
+        </span>
+      </span>
+      <span
+        aria-label="five, press backspace or delete to remove"
+        className="c7"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onRemove={[Function]}
+        size="xlarge"
+        tabIndex={0}
+      >
+        <span
+          className="c8"
+          onClick={[Function]}
+        >
+          five
+        </span>
+        <span
+          aria-hidden="true"
+          className="c9"
+          onClick={[Function]}
+          size="xlarge"
+          tabIndex={-1}
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-x"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={24}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 24 24"
+            width={24}
+          />
+        </span>
+      </span>
+      <span
+        aria-label="six, press backspace or delete to remove"
+        className="c7"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onRemove={[Function]}
+        size="xlarge"
+        tabIndex={0}
+      >
+        <span
+          className="c8"
+          onClick={[Function]}
+        >
+          six
+        </span>
+        <span
+          aria-hidden="true"
+          className="c9"
+          onClick={[Function]}
+          size="xlarge"
+          tabIndex={-1}
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-x"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={24}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 24 24"
+            width={24}
+          />
+        </span>
+      </span>
+      <span
+        aria-label="seven, press backspace or delete to remove"
+        className="c7"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onRemove={[Function]}
+        size="xlarge"
+        tabIndex={0}
+      >
+        <span
+          className="c8"
+          onClick={[Function]}
+        >
+          seven
+        </span>
+        <span
+          aria-hidden="true"
+          className="c9"
+          onClick={[Function]}
+          size="xlarge"
+          tabIndex={-1}
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-x"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+              }
+            }
+            fill="currentColor"
+            height={24}
+            role="img"
+            style={
+              Object {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 24 24"
+            width={24}
+          />
+        </span>
+      </span>
+    </div>
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c1"
+        display="flex"
+      >
+        <svg
+          className="c10"
+          fill="none"
+          height="16px"
+          sx={
+            Object {
+              "visibility": "hidden",
+            }
+          }
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      </div>
+    </span>
+  </span>,
+  .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-left: -0.25rem;
+  margin-bottom: -0.25rem;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c4 > * {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-left: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.c5 {
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c2 {
   visibility: visible;
 }
 
@@ -9688,7 +10378,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -9968,7 +10659,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -9981,7 +10672,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10016,7 +10707,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10029,7 +10720,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10064,7 +10755,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10077,7 +10768,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10112,7 +10803,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10125,7 +10816,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10160,7 +10851,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10173,7 +10864,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10208,7 +10899,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10221,7 +10912,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10256,7 +10947,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10269,7 +10960,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10304,7 +10995,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10317,7 +11008,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10495,7 +11186,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -10700,7 +11392,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10713,7 +11405,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10748,7 +11440,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10761,7 +11453,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10796,7 +11488,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10809,7 +11501,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10844,7 +11536,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10857,7 +11549,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10892,7 +11584,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10905,7 +11597,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10940,7 +11632,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -10953,7 +11645,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -10988,7 +11680,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11001,7 +11693,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11036,7 +11728,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11049,7 +11741,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11258,7 +11950,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -11507,7 +12200,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11520,7 +12213,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11555,7 +12248,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11568,7 +12261,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11603,7 +12296,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11616,7 +12309,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11651,7 +12344,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11664,7 +12357,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11699,7 +12392,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11712,7 +12405,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11747,7 +12440,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11760,7 +12453,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11795,7 +12488,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11808,7 +12501,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -11843,7 +12536,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -11856,7 +12549,7 @@ Array [
           aria-hidden="true"
           className="c8"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12065,7 +12758,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -12270,7 +12964,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -12283,7 +12977,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12318,7 +13012,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -12331,7 +13025,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12366,7 +13060,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -12379,7 +13073,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12414,7 +13108,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -12427,7 +13121,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12462,7 +13156,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -12475,7 +13169,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12510,7 +13204,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -12523,7 +13217,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12558,7 +13252,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -12571,7 +13265,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12606,7 +13300,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -12619,7 +13313,7 @@ Array [
           aria-hidden="true"
           className="c6"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -12839,7 +13533,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -13686,7 +14381,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -13971,7 +14667,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -13984,7 +14680,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -14019,7 +14715,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -14032,7 +14728,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -14067,7 +14763,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -14080,7 +14776,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -14115,7 +14811,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -14128,7 +14824,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -14163,7 +14859,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -14176,7 +14872,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -14211,7 +14907,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -14224,7 +14920,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -14259,7 +14955,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -14272,7 +14968,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -14307,7 +15003,7 @@ Array [
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         onRemove={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={0}
       >
         <span
@@ -14320,7 +15016,7 @@ Array [
           aria-hidden="true"
           className="c9"
           onClick={[Function]}
-          size="extralarge"
+          size="xlarge"
           tabIndex={-1}
         >
           <svg
@@ -14533,7 +15229,8 @@ Array [
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -15368,7 +16065,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -15562,7 +16260,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -15575,7 +16273,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -15610,7 +16308,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -15623,7 +16321,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -15658,7 +16356,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -15671,7 +16369,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -15706,7 +16404,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -15719,7 +16417,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -15754,7 +16452,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -15767,7 +16465,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -15802,7 +16500,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -15815,7 +16513,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -15850,7 +16548,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -15863,7 +16561,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -15898,7 +16596,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -15911,7 +16609,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16042,7 +16740,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -16241,7 +16940,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -16254,7 +16953,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16289,7 +16988,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -16302,7 +17001,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16337,7 +17036,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -16350,7 +17049,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16385,7 +17084,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -16398,7 +17097,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16433,7 +17132,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -16446,7 +17145,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16481,7 +17180,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -16494,7 +17193,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16529,7 +17228,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -16542,7 +17241,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16577,7 +17276,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       onRemove={[Function]}
-      size="extralarge"
+      size="xlarge"
       tabIndex={0}
     >
       <span
@@ -16590,7 +17289,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
         aria-hidden="true"
         className="c6"
         onClick={[Function]}
-        size="extralarge"
+        size="xlarge"
         tabIndex={-1}
       >
         <svg
@@ -16721,7 +17420,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   margin-right: 8px;
 }
 
-.c0 .TextInput-icon {
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;

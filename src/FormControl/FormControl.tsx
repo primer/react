@@ -174,7 +174,6 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               ref={ref}
               display="flex"
               flexDirection="column"
-              width="100%"
               sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
             >
               {slots.Label}
@@ -184,7 +183,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   required,
                   disabled,
                   validationStatus,
-                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
+                  ...InputComponent.props
                 })}
               {React.Children.toArray(children).filter(
                 child =>

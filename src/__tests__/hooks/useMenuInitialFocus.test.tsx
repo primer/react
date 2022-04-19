@@ -7,16 +7,11 @@ const Component = () => {
   const onOpen = () => setOpen(!open)
 
   const containerRef = React.createRef<HTMLDivElement>()
-  const anchorRef = React.createRef<HTMLButtonElement>()
-  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef, anchorRef)
+  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef)
 
   return (
     <>
-      <button
-        ref={anchorRef}
-        onClick={() => openWithFocus('anchor-click')}
-        onKeyDown={event => openWithFocus('anchor-key-press', event)}
-      >
+      <button onClick={() => setOpen(true)} onKeyDown={event => openWithFocus('anchor-key-press', event)}>
         open container
       </button>
       {open && (
@@ -86,19 +81,6 @@ describe('useMenuInitialFocus', () => {
       expect(firstButton).not.toEqual(document.activeElement)
       expect(thirdButton).not.toEqual(document.activeElement)
       expect(document.body).toEqual(document.activeElement)
-    })
-  })
-
-  it('should keep focus on trigger when opened with click', async () => {
-    const {getByText} = render(<Component />)
-
-    const button = getByText('open container')
-    button.focus() // browsers do this automatically on click, but tests don't
-    expect(button).toEqual(document.activeElement)
-    fireEvent.click(button)
-
-    await waitFor(() => {
-      expect(button).toEqual(document.activeElement)
     })
   })
 })

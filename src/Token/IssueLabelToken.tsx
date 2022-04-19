@@ -11,10 +11,6 @@ export interface IssueLabelTokenProps extends TokenBaseProps {
    * The color that corresponds to the label
    */
   fillColor?: string
-  /**
-   * Whether the remove button should be rendered in the token
-   */
-  hideRemoveButton?: boolean
 }
 
 const tokenBorderWidthPx = 1

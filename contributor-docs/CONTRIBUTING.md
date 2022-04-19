@@ -33,7 +33,7 @@ A common question asked about Primer Components is how to know what should be ad
 
 - Does the proposed component get used in more than one or two places across GitHub UI? A component that's only meant to be used in one place and doesn't have potential to be reused in many places probably should exist as a local component. An example of something like this might be a component that renders content specific to a single GitHub product.
 
-**In general, we tend to be pretty excited about 99% of feature proposals and contributions!** If you would like to get started with a component proposal, open an issue using the [component proposal template](https://github.com/primer/react/issues/new?template=new-component-proposal.md).
+**In general, we tend to be pretty excited about 99% of feature proposals and contributions!** If you would like to get started with a component proposal, open an issue using the [component proposal template](https://github.com/primer/react/issues/new?template=new_component_proposal_template.md).
 
 ## Discussing non-public features or products
 
@@ -207,6 +207,10 @@ We use [changesets](https://github.com/atlassian/changesets) to managing version
 5. The changeset action will automatically create a new PR that bumps the version number appropriately, creates or updates `CHANGELOG.md`, and shows the release notes that will be used in the GitHub Release notes.
 6. If you want to release more features, merge them into the main branch and changesets will update the release PR. Note that it does this via force-pushing, so you should not edit the release PR yourself.
 7. When you're ready to release, merge the release PR into the main branch and changesets will publish the new version to npm and create a GitHub Release.
+
+#### Flowchart
+
+[![changesets flowchart](https://user-images.githubusercontent.com/4608155/163011963-9de3e8a7-c4af-47ef-91d5-7c534f5066d7.png)](https://www.figma.com/file/UKFvby7MMwBWa7p9aly5JG/Next-major-release-workflow)
 
 ## Troubleshooting
 

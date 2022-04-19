@@ -21,6 +21,7 @@ const InputLabel: React.FC<Props & SxProp> = ({children, disabled, required, vis
         display: 'block',
         color: disabled ? 'fg.muted' : 'fg.default',
         cursor: disabled ? 'default' : 'pointer',
+        alignSelf: 'flex-start',
         ...sx
       }}
     >
