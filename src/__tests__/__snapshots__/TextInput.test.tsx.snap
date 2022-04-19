@@ -1542,7 +1542,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   }
 }
 
-@media (pointer:fine) {
+@media (pointer:coarse) {
   .c3:after {
     content: "";
     position: absolute;
@@ -1806,7 +1806,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   }
 }
 
-@media (pointer:fine) {
+@media (pointer:coarse) {
   .c2:after {
     content: "";
     position: absolute;
@@ -2263,7 +2263,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   }
 }
 
-@media (pointer:fine) {
+@media (pointer:coarse) {
   .c3:after {
     content: "";
     position: absolute;
