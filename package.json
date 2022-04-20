@@ -39,7 +39,9 @@
     "start": "concurrently npm:start:*",
     "start:docs": "cd docs && npm run develop",
     "start:storybook": "start-storybook -p 6006",
-    "build:storybook": "build-storybook",
+    "build:storybook": "script/build-storybook",
+    "build:docs": "script/build-docs",
+    "build:docs:preview": "script/build-docs preview",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
@@ -47,6 +49,7 @@
     "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
+    "postinstall": "cd docs && npm i",
     "prepare": "husky install"
   },
   "repository": "primer/react",

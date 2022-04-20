@@ -1,8 +1,15 @@
 name: Deploy
+
 on:
   push:
     branches:
-      - 'main'
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   guard:
     name: Guard
@@ -16,55 +23,21 @@ jobs:
 
       - id: changeset-count
         run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"
-        
+
       # Log changeset count for debugging purposes
       - name: Log changeset count
         run: echo ${{ steps.changeset-count.outputs.change_count }}
+
+      # Log guard output for debugging purposes
+      - name: Log guard output
+        run: echo ${{ needs.guard.outputs.should_deploy }}
 
   deploy:
     name: Production
     needs: [guard]
     #if: ${{ needs.guard.outputs.should_deploy == true }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      # Log guard output for debugging purposes
-      - name: Log guard output
-        run: echo ${{ needs.guard.outputs.should_deploy }}
-
-      - name: Create GitHub deployment
-        uses: chrnorm/deployment-action@v1.2.0
-        id: deployment
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment: Production
-
-      - name: Deploy with Vercel
-        if: ${{ steps.changeset-count.outputs.CHANGE_COUNT == 0 }}
-        uses: amondnet/vercel-action@v20
-        id: vercel-action
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-token: ${{ secrets.VERCEL_TOKEN_SHARED }}
-          vercel-args: '--prod'
-          github-comment: false
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID_SHARED }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-
-      - name: Update deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@v1.0.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          environment_url: ${{ steps.vercel-action.outputs.preview-url }}
-          state: 'success'
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-
-      - name: Update deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@v1.0.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          state: 'failure'
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    uses: primer/.github/.github/workflows/deploy.yml@main
+    with:
+      node_version: 16
+      build: npm run build:docs
+      output_dir: docs/public

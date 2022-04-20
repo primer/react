@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+if [ -n "$1" ]; then
+  cd docs && npm run build:preview && cd ../ && npm run build:storybook preview
+else
+  cd docs && npm run build && cd ../ && npm run build:storybook
+fi
+
+
+
