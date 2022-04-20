@@ -917,6 +917,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 
 .c12 {
   font-size: 12px;
+  font-weight: bold;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1050,7 +1051,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
         >
           <span
             class="c12"
-            font-size="0"
           >
             <span
               aria-hidden="true"
@@ -1163,6 +1163,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 
 .c12 {
   font-size: 12px;
+  font-weight: bold;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1296,7 +1297,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
         >
           <span
             class="c12"
-            font-size="0"
           >
             <span
               aria-hidden="true"
