@@ -36,7 +36,7 @@ jobs:
     name: Production
     needs: [guard]
     #if: ${{ needs.guard.outputs.should_deploy == true }}
-    uses: primer/.github/.github/workflows/deploy_preview.yml@main
+    uses: primer/.github/.github/workflows/deploy.yml@main
     with:
       node_version: 16
       build: npm run build:docs
