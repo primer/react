@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from './Box'
-import {SxProp, merge} from './sx'
+import {SxProp, merge, BetterSystemStyleObject} from './sx'
 
 export type AvatarProps = {
   /** Sets the width and height of the avatar. */
@@ -24,7 +24,7 @@ function getBorderRadius({size, square}: Pick<AvatarProps, 'size' | 'square'>) {
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((props, ref) => {
   const {size = 20, alt = '', square = false, sx = {}, ...rest} = props
 
-  const styles = {
+  const styles: BetterSystemStyleObject = {
     display: 'inline-block',
     overflow: 'hidden',
     lineHeight: 'condensedUltra',
@@ -33,7 +33,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>((props, ref) => {
     height: size,
     borderRadius: getBorderRadius({size, square})
   }
-  return <Box as="img" alt={alt} ref={ref} sx={merge(styles, sx as SxProp)} {...rest} />
+  return <Box as="img" alt={alt} ref={ref} sx={merge<BetterSystemStyleObject>(styles, sx)} {...rest} />
 })
 
 Avatar.displayName = 'Avatar'

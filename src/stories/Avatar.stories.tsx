@@ -40,3 +40,12 @@ export function AcceptsRef(): JSX.Element {
 
   return <Avatar ref={ref} src="https://avatars.githubusercontent.com/primer" />
 }
+
+export function AcceptsSxProp(): JSX.Element {
+  return (
+    <>
+      <Avatar sx={{marginRight: 4}} src="https://avatars.githubusercontent.com/primer" />
+      <span>text pushed to right because avatar has margin</span>
+    </>
+  )
+}
