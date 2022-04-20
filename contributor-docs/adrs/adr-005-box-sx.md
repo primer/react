@@ -29,7 +29,7 @@ In Primer React and consuming applications, we use many different patterns for c
 
     ```tsx
     const Avatar: React.FC<AvatarProps> = ({size = 20, alt = '', square = false, sx = {}, ...props}) => {
-      const styles = {
+      const styles:BetterSystemStyleObject = {
         display: 'inline-block',
         overflow: 'hidden',
         lineHeight: 'condensedUltra',
@@ -40,7 +40,7 @@ In Primer React and consuming applications, we use many different patterns for c
         <Box
           as="img"
           alt={alt}
-          sx={merge(styles, sx as SxProp)} // styles needs to merge with props.sx
+          sx={merge<BetterSystemStyleObject>(styles, sx)} // styles needs to merge with props.sx
           {...props}
         />
       )
