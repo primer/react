@@ -20,7 +20,6 @@ type TextInputActionProps = Omit<React.HTMLProps<HTMLButtonElement>, 'aria-label
 
 const invisibleButtonStyleOverrides = {
   color: 'fg.default',
-  margin: 1,
   paddingTop: '2px',
   paddingRight: '4px',
   paddingBottom: '2px',
@@ -38,10 +37,6 @@ const invisibleButtonStyleOverrides = {
       minHeight: '44px'
     }
   }
-}
-
-const solidButtonStyleOverrides = {
-  margin: 1
 }
 
 const ConditionalTooltip: React.FC<{
@@ -71,7 +66,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     const sx =
       variant === 'invisible'
         ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {})
-        : merge<BetterSystemStyleObject>(solidButtonStyleOverrides, sxProp || {})
+        : sxProp || {}
 
     if ((icon && !ariaLabel) || (!children && !ariaLabel)) {
       // eslint-disable-next-line no-console
@@ -79,7 +74,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     }
 
     return (
-      <Box as="span" className="TextInput-action">
+      <Box as="span" className="TextInput-action" margin={1}>
         {icon && !children ? (
           <Tooltip aria-label={ariaLabel}>
             <IconButton
