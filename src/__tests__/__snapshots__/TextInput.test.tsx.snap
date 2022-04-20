@@ -1187,7 +1187,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-bottom: 2px;
   padding-left: 4px;
   padding-right: 4px;
-  font-size: 12px;
+  font-size: 14px;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
