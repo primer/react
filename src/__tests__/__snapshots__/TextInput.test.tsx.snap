@@ -11,7 +11,6 @@ exports[`TextInput renders 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -25,6 +24,15 @@ exports[`TextInput renders 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -121,7 +129,6 @@ exports[`TextInput renders block 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -140,6 +147,15 @@ exports[`TextInput renders block 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -236,7 +252,6 @@ exports[`TextInput renders consistently 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -250,6 +265,15 @@ exports[`TextInput renders consistently 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -345,7 +369,6 @@ exports[`TextInput renders contrast 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -360,6 +383,15 @@ exports[`TextInput renders contrast 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -456,7 +488,6 @@ exports[`TextInput renders error 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -471,6 +502,15 @@ exports[`TextInput renders error 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -572,7 +612,6 @@ exports[`TextInput renders large 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -591,6 +630,15 @@ exports[`TextInput renders large 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -688,7 +736,6 @@ exports[`TextInput renders leadingVisual 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -702,6 +749,15 @@ exports[`TextInput renders leadingVisual 1`] = `
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -825,7 +881,6 @@ exports[`TextInput renders monospace 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -840,6 +895,15 @@ exports[`TextInput renders monospace 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -936,7 +1000,6 @@ exports[`TextInput renders placeholder 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -950,6 +1013,15 @@ exports[`TextInput renders placeholder 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1047,7 +1119,6 @@ exports[`TextInput renders small 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1068,6 +1139,15 @@ exports[`TextInput renders small 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1244,7 +1324,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1258,6 +1337,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1711,7 +1799,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1725,6 +1812,15 @@ exports[`TextInput renders trailingAction text button 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1932,7 +2028,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1946,6 +2041,15 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2286,7 +2390,6 @@ exports[`TextInput renders trailingVisual 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2300,6 +2403,15 @@ exports[`TextInput renders trailingVisual 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2423,7 +2535,6 @@ exports[`TextInput renders warning 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2438,6 +2549,15 @@ exports[`TextInput renders warning 1`] = `
   padding-left: 0;
   padding-right: 0;
   border-color: #bf8700;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2548,7 +2668,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2562,6 +2681,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2706,7 +2834,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2720,6 +2847,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2908,7 +3044,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2922,6 +3057,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3070,7 +3214,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3084,6 +3227,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3312,7 +3464,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3326,6 +3477,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3554,7 +3714,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3568,6 +3727,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3796,7 +3964,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3810,6 +3977,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3994,7 +4170,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4008,6 +4183,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -4236,7 +4420,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4250,6 +4433,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -4438,7 +4630,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4459,6 +4650,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -4728,7 +4928,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4742,6 +4941,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -5010,7 +5218,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5029,6 +5236,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -5286,7 +5502,6 @@ exports[`TextInput should render a password input 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5300,6 +5515,15 @@ exports[`TextInput should render a password input 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
