@@ -254,8 +254,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       className={className}
       contrast={contrast}
       disabled={disabled}
-      hasLeadingVisual={Boolean(LeadingVisual)}
-      hasTrailingVisual={Boolean(TrailingVisual)}
+      hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
+      hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
       width={widthProp}
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
