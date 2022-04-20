@@ -10,19 +10,22 @@ export type SelectProps = Omit<
 
 const StyledSelect = styled.select`
   appearance: none;
-  background-color: transparent;
+  background-color: inherit;
   border: 0;
   color: currentColor;
+  font-size: inherit;
   outline: none;
   width: 100%;
-
-  option {
-    color: initial;
-  }
 
   /* colors the select input's placeholder text */
   &:invalid {
     color: ${get('colors.fg.subtle')};
+  }
+
+  /* For Firefox: reverts color of non-placeholder options in the dropdown */
+  &:invalid option:not(:first-child):not(:disabled),
+  optgroup:not(:disabled) {
+    color: ${get('colors.fg.default')};
   }
 `
 
@@ -44,7 +47,8 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({children, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
       sx={{
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
       }}
       size={size}
       validationStatus={validationStatus}
