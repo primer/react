@@ -17,13 +17,13 @@ const StyledSelect = styled.select`
   width: 100%;
 
   /* colors the select input's placeholder text */
-  &:invalid {
+  &[data-hasplaceholder='true'] {
     color: ${get('colors.fg.subtle')};
   }
 
   /* Firefox hacks: */
   /* 1. Reverts color of non-placeholder options in the dropdown */
-  &:invalid option:not(:first-child):not(:disabled),
+  &[data-hasplaceholder='true'] option:not(:first-child):not(:disabled),
   optgroup:not(:disabled) {
     color: ${get('colors.fg.default')};
   }
@@ -76,11 +76,10 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     >
       <StyledSelect
         ref={ref}
-        required={required || Boolean(placeholder)}
+        required={required}
         disabled={disabled}
-        aria-required={required}
-        aria-disabled={disabled}
         aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+        data-hasplaceholder={Boolean(placeholder)}
         {...rest}
       >
         {placeholder && (
