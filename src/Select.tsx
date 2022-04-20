@@ -10,7 +10,6 @@ export type SelectProps = Omit<
 
 const StyledSelect = styled.select`
   appearance: none;
-  background-color: inherit;
   border: 0;
   color: currentColor;
   font-size: inherit;
@@ -22,10 +21,26 @@ const StyledSelect = styled.select`
     color: ${get('colors.fg.subtle')};
   }
 
-  /* For Firefox: reverts color of non-placeholder options in the dropdown */
+  /* Firefox hacks: */
+  /* 1. Reverts color of non-placeholder options in the dropdown */
   &:invalid option:not(:first-child):not(:disabled),
   optgroup:not(:disabled) {
     color: ${get('colors.fg.default')};
+  }
+
+  /* 2. Makes Firefox's native dropdown menu's background match the theme.
+
+        background-color should be 'transparent', but Firefox uses the background-color on 
+        <select> to determine the background color used for the dropdown menu.
+  */
+  background-color: inherit;
+
+  /* 3. Prevents visible overlap of partially transparent background colors.
+  
+     'colors.input.disabledBg' happens to be partially transparent in light mode, so we use a
+     transparent background-color on a disabled <select>. */
+  &:disabled {
+    background-color: transparent;
   }
 `
 
@@ -47,11 +62,17 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({children, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
       sx={{
+        overflow: 'hidden',
         position: 'relative',
-        overflow: 'hidden'
+        '@media screen and (-ms-high-contrast: active)': {
+          svg: {
+            fill: disabled ? 'GrayText' : 'FieldText'
+          }
+        }
       }}
       size={size}
       validationStatus={validationStatus}
+      disabled={disabled}
     >
       <StyledSelect
         ref={ref}
