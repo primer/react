@@ -49,7 +49,6 @@
     "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
-    "postinstall": "cd docs && npm i",
     "prepare": "husky install"
   },
   "repository": "primer/react",
