@@ -5,8 +5,8 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "pushd .. && npm install && popd && cross-env NODE_ENV=production gatsby build --prefix-paths && npm run build:storybook",
-    "build:storybook": "cd .. && ./script/build-storybook"
+    "build": "cross-env NODE_ENV=production gatsby build --prefix-paths",
+    "build:preview": "cross-env NODE_ENV=production gatsby build"
   },
   "engines": {
     "node": ">=12",
