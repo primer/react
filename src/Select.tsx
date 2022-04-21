@@ -42,6 +42,15 @@ const StyledSelect = styled.select`
   &:disabled {
     background-color: transparent;
   }
+
+  /* 4. Maintain dark bg color in Firefox on Windows high-contrast mode
+  
+     Firefox makes the <select>'s background color white when setting 'background-color: transparent;' */
+  @media screen and (forced-colors: active) {
+    &:disabled {
+      background-color: -moz-combobox;
+    }
+  }
 `
 
 const ArrowIndicatorSVG: React.FC<{className?: string}> = ({className}) => (
