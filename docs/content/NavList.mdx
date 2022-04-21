@@ -14,7 +14,7 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 
 ```jsx
 <NavList>
-  <NavList.Item href="/" current>
+  <NavList.Item href="/" aria-current="page">
     Dashboard
   </NavList.Item>
   <NavList.Item href="/pulls">Pull requests</NavList.Item>
@@ -41,7 +41,7 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 
 ```jsx
 <NavList>
-  <NavList.Item href="/" current>
+  <NavList.Item href="/" aria-current="page">
     <NavList.LeadingVisual>
       <HomeIcon />
     </NavList.LeadingVisual>
@@ -96,7 +96,7 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 
 ```jsx
 <NavList>
-  <NavList.Item href="/general" current>
+  <NavList.Item href="/general" aria-current="page">
     <NavList.LeadingVisual>#️⃣</NavList.LeadingVisual>
     General
   </NavList.Item>
@@ -145,7 +145,7 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 
 ```jsx
 <NavList>
-  <NavList.Item href="/inbox" current>
+  <NavList.Item href="/inbox" aria-current="page">
     Inbox
     <NavList.TrailingVisual>1,234</NavList.TrailingVisual>
   </NavList.Item>
@@ -180,7 +180,7 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 <>
   <h3 id="workflows-heading">Workflows</h3>
   <NavList aria-labelledby="workflows-heading">
-    <NavList.Item href="/" current>
+    <NavList.Item href="/" aria-current="page">
       All workflows
     </NavList.Item>
     <NavList.Item href="/ci">CI</NavList.Item>
@@ -211,7 +211,7 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 
 ```jsx
 <NavList aria-label="Security">
-  <NavList.Item href="/" current>
+  <NavList.Item href="/" aria-current="page">
     Overview
   </NavList.Item>
   <NavList.Item href="/policy">Security policy</NavList.Item>
@@ -239,7 +239,7 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 ```jsx
 <NavList>
   <NavList.Group title="Overview">
-    <NavList.Item href="/getting-started" current>
+    <NavList.Item href="/getting-started" aria-current="page">
       Getting started
     </NavList.Item>
   </NavList.Group>
@@ -356,7 +356,7 @@ function NavItem({to, children}) {
   const resolved = useResolvedPath(to)
   const isCurrent = useMatch({path: resolved.pathname, end: true})
   return (
-    <NavList.Item as={Link} to={to} current={isCurrent}>
+    <NavList.Item as={Link} to={to} aria-current={isCurrent ? 'page' : false}>
       {children}
     </NavList.Item>
   )
@@ -385,7 +385,7 @@ function NavItem({href, children}) {
   const isCurrent = router.asPath === href
   return (
     <Link href={href} passHref>
-      <NavList.Item current={isCurrent}>{children}</NavList.Item>
+      <NavList.Item aria-current={isCurrent ? 'page' : false}>{children}</NavList.Item>
     </Link>
   )
 }
@@ -428,14 +428,22 @@ function App() {
     }
   />
   <PropsTableRow
-    name="current"
-    type="boolean"
+    name="aria-current"
+    type={`| 'page'
+| 'step'
+| 'location'
+| 'date'
+| 'time'
+| true
+| false`}
     defaultValue="false"
     description={
       <>
-        Set <InlineCode>current</InlineCode> to <InlineCode>true</InlineCode> to indicate that the item represents the
-        current page. <InlineCode>current</InlineCode> should only be <InlineCode>true</InlineCode> for at most one item
-        or sub-item in a nav list.
+        Set <InlineCode>aria-current</InlineCode> to <InlineCode>"page"</InlineCode> to indicate that the item
+        represents the current page. Set <InlineCode>aria-current</InlineCode> to <InlineCode>"location"</InlineCode> to
+        indicate that the item represents the current location on a page. For more information about{' '}
+        <InlineCode>aria-current</InlineCode>, see{' '}
+        <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current">MDN</Link>.
       </>
     }
   />
