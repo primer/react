@@ -64,7 +64,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       sx={{
         overflow: 'hidden',
         position: 'relative',
-        '@media screen and (-ms-high-contrast: active)': {
+        '@media screen and (forced-colors: active)': {
           svg: {
             fill: disabled ? 'GrayText' : 'FieldText'
           }
