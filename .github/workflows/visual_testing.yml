@@ -22,12 +22,12 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci && cd docs && npm ci && cd ..
 
       - name: Chromatic
         uses: chromaui/action@v1
         with:
-          buildScriptName: build:storybook
+          buildScriptName: ${{ (github.ref == 'refs/heads/main' && 'build:docs') || 'build:docs:preview' }}
           projectToken: ${{ secrets.CHROMATIC_KEY }}
           autoAcceptChanges: github.ref == 'refs/heads/main'
           onlyChanged: true
