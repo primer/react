@@ -285,11 +285,19 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
   <NavList.Item href="/tags">Tags</NavList.Item>
   <NavList.Item>
     Actions
-    <NavList.SubItem href="/actions">General</NavList.SubItem>
-    <NavList.SubItem href="/actions/runners">Runners</NavList.SubItem>
+    <NavList.SubNav>
+      <NavList.Item href="/actions">General</NavList.Item>
+      <NavList.Item href="/actions/runners">Runners</NavList.Item>
+    </NavList.SubNav>
   </NavList.Item>
 </NavList>
 ```
+
+<Note variant="warning">
+
+If a `NavList.Item` contains a `NavList.SubNav`, the `NavList.Item` will render as a `<button>` and the `as` prop and `href` prop will be ignored.
+
+</Note>
 
 <details>
   <summary>Rendered HTML</summary>
@@ -422,7 +430,7 @@ function App() {
       <>
         The URL that the item navigates to. <InlineCode>href</InlineCode> is passed to the underlying{' '}
         <InlineCode>&lt;a&gt;</InlineCode> element. If <InlineCode>as</InlineCode> is specified, the component may need
-        different props. If the item contains sub-items, the item is rendered as a{' '}
+        different props. If the item contains a sub-nav, the item is rendered as a{' '}
         <InlineCode>&lt;button&gt;</InlineCode> and <InlineCode>href</InlineCode> is ignored.
       </>
     }
@@ -471,40 +479,11 @@ function App() {
   <PropsTableRefRow refType="HTMLElement" />
 </PropsTable>
 
-### NavList.SubItem
+### NavList.SubNav
 
 <PropsTable>
-  <PropsTableRow
-    name="href"
-    type="string"
-    description={
-      <>
-        The URL that the item navigates to. <InlineCode>href</InlineCode> is passed to the underlying{' '}
-        <InlineCode>&lt;a&gt;</InlineCode> element. If <InlineCode>as</InlineCode> is specified, the component may need
-        different props.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="current"
-    type="boolean"
-    defaultValue="false"
-    description={
-      <>
-        Set <InlineCode>current</InlineCode> to <InlineCode>true</InlineCode> to indicate that the item represents the
-        current page. <InlineCode>current</InlineCode> should only be <InlineCode>true</InlineCode> for at most one item
-        or sub-item in a nav list.
-      </>
-    }
-  />
-  <PropsTableBasePropRows
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
-    }
-    elementType="a"
-    isPolymorphic
-    refType="HTMLAnchorElement"
-  />
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
 </PropsTable>
 
 ### NavList.Group
