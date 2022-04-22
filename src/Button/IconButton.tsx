@@ -12,10 +12,6 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
     getBaseStyles(theme),
     getSizeStyles(size, variant, true),
     getVariantStyles(variant, theme),
-    // when `size !== 'medium'`, vertical alignment of the icon is thrown off
-    // because changing the font size draws an em-box that does not match the
-    // bounding box of the SVG
-    {fontSize: 1},
     sxProp as SxProp
   ])
   return (
