@@ -1208,7 +1208,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4 [data-component=ButtonCounter] {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .c4:hover:not([disabled]) {
