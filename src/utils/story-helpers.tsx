@@ -1,7 +1,6 @@
 import React from 'react'
 import {Box, ThemeProvider, theme, themeGet, BaseStyles} from '../index'
 import {createGlobalStyle} from 'styled-components'
-import {StoryContext} from '@storybook/addons'
 
 // set global theme styles for each story
 const GlobalStyle = createGlobalStyle`
@@ -17,6 +16,9 @@ const GlobalStyleMultiTheme = createGlobalStyle`
     padding: 0 !important;
   }
 `
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type StoryContext = Record<string, any>
 
 export const withThemeProvider = (Story: React.FC<StoryContext>, context: StoryContext) => {
   const {colorScheme} = context.globals
