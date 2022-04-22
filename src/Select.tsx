@@ -16,26 +16,15 @@ const StyledSelect = styled.select`
   outline: none;
   width: 100%;
 
-  /* colors the select input's placeholder text */
-  &[data-hasplaceholder='true'] {
-    color: ${get('colors.fg.subtle')};
-  }
-
   /* Firefox hacks: */
-  /* 1. Reverts color of non-placeholder options in the dropdown */
-  &[data-hasplaceholder='true'] option:not(:first-child):not(:disabled),
-  optgroup:not(:disabled) {
-    color: ${get('colors.fg.default')};
-  }
-
-  /* 2. Makes Firefox's native dropdown menu's background match the theme.
+  /* 1. Makes Firefox's native dropdown menu's background match the theme.
 
         background-color should be 'transparent', but Firefox uses the background-color on 
         <select> to determine the background color used for the dropdown menu.
   */
   background-color: inherit;
 
-  /* 3. Prevents visible overlap of partially transparent background colors.
+  /* 2. Prevents visible overlap of partially transparent background colors.
   
      'colors.input.disabledBg' happens to be partially transparent in light mode, so we use a
      transparent background-color on a disabled <select>. */
@@ -43,7 +32,7 @@ const StyledSelect = styled.select`
     background-color: transparent;
   }
 
-  /* 4. Maintain dark bg color in Firefox on Windows high-contrast mode
+  /* 3. Maintain dark bg color in Firefox on Windows high-contrast mode
   
      Firefox makes the <select>'s background color white when setting 'background-color: transparent;' */
   @media screen and (forced-colors: active) {
