@@ -1,9 +1,6 @@
 import {addons} from '@storybook/addons'
-import {withPerformance} from 'storybook-addon-performance'
-import {withThemeProvider, toolbarTypes} from '../src/utils/story-helpers'
 
-export const globalTypes = toolbarTypes
-export const decorators = [withThemeProvider, withPerformance]
+export * from '@primer/react-scripts/storybook/preview'
 
 addons.setConfig({
   // Some stories may set up keyboard event handlers, which can be interfered
@@ -13,6 +10,7 @@ addons.setConfig({
 
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},
+  // @whitespace/storybook-addon-html
   html: {
     root: '#html-addon-root',
     removeEmptyComments: true

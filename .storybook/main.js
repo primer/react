@@ -1,10 +1,12 @@
+const defaultConfig = require('@primer/react-scripts/storybook/main')
+
 module.exports = {
+  ...defaultConfig,
+
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-a11y',
-    '@storybook/addon-links',
-    {name: '@storybook/addon-essentials', options: {backgrounds: false}},
-    'storybook-addon-performance/register',
+    ...defaultConfig.addons,
+
     ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
       ? ['@whitespace/storybook-addon-html']
       : [])
