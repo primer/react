@@ -1,7 +1,6 @@
 import React from 'react'
 import {Box, ThemeProvider, theme, themeGet, BaseStyles} from '../index'
 import {createGlobalStyle} from 'styled-components'
-import {StoryContext} from '@storybook/addons/dist/ts3.9/public_api'
 
 // set global theme styles for each story
 const GlobalStyle = createGlobalStyle`
@@ -17,6 +16,10 @@ const GlobalStyleMultiTheme = createGlobalStyle`
     padding: 0 !important;
   }
 `
+
+// we don't import StoryContext from storybook because of exports that conflict
+// with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
+type StoryContext = Record<string, unknown> & {globals: {colorScheme: string}}
 
 export const withThemeProvider = (Story: React.FC<StoryContext>, context: StoryContext) => {
   const {colorScheme} = context.globals
