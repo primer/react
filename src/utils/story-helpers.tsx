@@ -37,6 +37,7 @@ export const withThemeProvider = (Story: React.FC<StoryContext>, context: StoryC
               <Box
                 sx={{
                   padding: '1rem',
+                  height: '100%',
                   backgroundColor: 'canvas.default',
                   color: 'fg.default'
                 }}
