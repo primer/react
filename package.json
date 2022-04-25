@@ -42,6 +42,7 @@
     "build:storybook": "script/build-storybook",
     "build:docs": "script/build-docs",
     "build:docs:preview": "script/build-docs preview",
+    "build:storybook:visual-testing": "build-storybook",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
