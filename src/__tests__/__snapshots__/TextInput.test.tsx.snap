@@ -1155,11 +1155,15 @@ exports[`TextInput renders small 1`] = `
 `;
 
 exports[`TextInput renders trailingAction icon button 1`] = `
-.c4 {
+.c2 {
+  margin: 4px;
+}
+
+.c5 {
   display: inline-block;
 }
 
-.c3 {
+.c4 {
   border-radius: 6px;
   border: 0;
   border-color: rgba(27,31,36,0.15);
@@ -1179,58 +1183,59 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
   font-size: 14px;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
+  position: relative;
 }
 
-.c3:disabled {
+.c4:disabled {
   cursor: default;
   color: #8c959f;
 }
 
-.c3:disabled [data-component=ButtonCounter] {
+.c4:disabled [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c3:disabled svg {
+.c4:disabled svg {
   opacity: 0.6;
 }
 
-.c3 [data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
-.c3:hover:not([disabled]) {
+.c4:hover:not([disabled]) {
   background-color: #f3f4f6;
 }
 
-.c3:focus:not([disabled]) {
+.c4:focus:not([disabled]) {
   outline: 2px solid;
   outline-color: #0969da;
   outline-offset: -2px;
 }
 
-.c3:focus:not([disabled]):not(:focus-visible) {
+.c4:focus:not([disabled]):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c3:focus-visible:not([disabled]) {
+.c4:focus-visible:not([disabled]) {
   outline: 2px solid;
   outline-color: #0969da;
   outline-offset: -2px;
 }
 
-.c3:active:not([disabled]) {
+.c4:active:not([disabled]) {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c3[aria-expanded=true] {
+.c4[aria-expanded=true] {
   background-color: hsla(220,14%,94%,1);
 }
 
@@ -1315,11 +1320,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   outline: 0;
 }
 
-.c2 {
+.c3 {
   position: relative;
 }
 
-.c2::before {
+.c3::before {
   position: absolute;
   z-index: 1000001;
   display: none;
@@ -1332,7 +1337,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   opacity: 0;
 }
 
-.c2::after {
+.c3::after {
   position: absolute;
   z-index: 1000000;
   display: none;
@@ -1358,12 +1363,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   opacity: 0;
 }
 
-.c2:hover::before,
-.c2:active::before,
-.c2:focus::before,
-.c2:hover::after,
-.c2:active::after,
-.c2:focus::after {
+.c3:hover::before,
+.c3:active::before,
+.c3:focus::before,
+.c3:hover::after,
+.c3:active::after,
+.c3:focus::after {
   display: inline-block;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1379,33 +1384,33 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   animation-delay: 0.4s;
 }
 
-.c2.tooltipped-no-delay:hover::before,
-.c2.tooltipped-no-delay:active::before,
-.c2.tooltipped-no-delay:focus::before,
-.c2.tooltipped-no-delay:hover::after,
-.c2.tooltipped-no-delay:active::after,
-.c2.tooltipped-no-delay:focus::after {
+.c3.tooltipped-no-delay:hover::before,
+.c3.tooltipped-no-delay:active::before,
+.c3.tooltipped-no-delay:focus::before,
+.c3.tooltipped-no-delay:hover::after,
+.c3.tooltipped-no-delay:active::after,
+.c3.tooltipped-no-delay:focus::after {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
-.c2.tooltipped-multiline:hover::after,
-.c2.tooltipped-multiline:active::after,
-.c2.tooltipped-multiline:focus::after {
+.c3.tooltipped-multiline:hover::after,
+.c3.tooltipped-multiline:active::after,
+.c3.tooltipped-multiline:focus::after {
   display: table-cell;
 }
 
-.c2.tooltipped-s::after,
-.c2.tooltipped-se::after,
-.c2.tooltipped-sw::after {
+.c3.tooltipped-s::after,
+.c3.tooltipped-se::after,
+.c3.tooltipped-sw::after {
   top: 100%;
   right: 50%;
   margin-top: 6px;
 }
 
-.c2.tooltipped-s::before,
-.c2.tooltipped-se::before,
-.c2.tooltipped-sw::before {
+.c3.tooltipped-s::before,
+.c3.tooltipped-se::before,
+.c3.tooltipped-sw::before {
   top: auto;
   right: 50%;
   bottom: -7px;
@@ -1413,27 +1418,27 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-bottom-color: #24292f;
 }
 
-.c2.tooltipped-se::after {
+.c3.tooltipped-se::after {
   right: auto;
   left: 50%;
   margin-left: -16px;
 }
 
-.c2.tooltipped-sw::after {
+.c3.tooltipped-sw::after {
   margin-right: -16px;
 }
 
-.c2.tooltipped-n::after,
-.c2.tooltipped-ne::after,
-.c2.tooltipped-nw::after {
+.c3.tooltipped-n::after,
+.c3.tooltipped-ne::after,
+.c3.tooltipped-nw::after {
   right: 50%;
   bottom: 100%;
   margin-bottom: 6px;
 }
 
-.c2.tooltipped-n::before,
-.c2.tooltipped-ne::before,
-.c2.tooltipped-nw::before {
+.c3.tooltipped-n::before,
+.c3.tooltipped-ne::before,
+.c3.tooltipped-nw::before {
   top: -7px;
   right: 50%;
   bottom: auto;
@@ -1441,24 +1446,24 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-top-color: #24292f;
 }
 
-.c2.tooltipped-ne::after {
+.c3.tooltipped-ne::after {
   right: auto;
   left: 50%;
   margin-left: -16px;
 }
 
-.c2.tooltipped-nw::after {
+.c3.tooltipped-nw::after {
   margin-right: -16px;
 }
 
-.c2.tooltipped-s::after,
-.c2.tooltipped-n::after {
+.c3.tooltipped-s::after,
+.c3.tooltipped-n::after {
   -webkit-transform: translateX(50%);
   -ms-transform: translateX(50%);
   transform: translateX(50%);
 }
 
-.c2.tooltipped-w::after {
+.c3.tooltipped-w::after {
   right: 100%;
   bottom: 50%;
   margin-right: 6px;
@@ -1467,7 +1472,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transform: translateY(50%);
 }
 
-.c2.tooltipped-w::before {
+.c3.tooltipped-w::before {
   top: 50%;
   bottom: 50%;
   left: -7px;
@@ -1475,7 +1480,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-left-color: #24292f;
 }
 
-.c2.tooltipped-e::after {
+.c3.tooltipped-e::after {
   bottom: 50%;
   left: 100%;
   margin-left: 6px;
@@ -1484,7 +1489,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transform: translateY(50%);
 }
 
-.c2.tooltipped-e::before {
+.c3.tooltipped-e::before {
   top: 50%;
   right: -7px;
   bottom: 50%;
@@ -1492,7 +1497,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-right-color: #24292f;
 }
 
-.c2.tooltipped-multiline::after {
+.c3.tooltipped-multiline::after {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -1502,8 +1507,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-collapse: separate;
 }
 
-.c2.tooltipped-multiline.tooltipped-s::after,
-.c2.tooltipped-multiline.tooltipped-n::after {
+.c3.tooltipped-multiline.tooltipped-s::after,
+.c3.tooltipped-multiline.tooltipped-n::after {
   right: auto;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -1511,32 +1516,46 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transform: translateX(-50%);
 }
 
-.c2.tooltipped-multiline.tooltipped-w::after,
-.c2.tooltipped-multiline.tooltipped-e::after {
+.c3.tooltipped-multiline.tooltipped-w::after,
+.c3.tooltipped-multiline.tooltipped-e::after {
   right: 100%;
 }
 
-.c2.tooltipped-align-right-2::after {
+.c3.tooltipped-align-right-2::after {
   right: 0;
   margin-right: 0;
 }
 
-.c2.tooltipped-align-right-2::before {
+.c3.tooltipped-align-right-2::before {
   right: 15px;
 }
 
-.c2.tooltipped-align-left-2::after {
+.c3.tooltipped-align-left-2::after {
   left: 0;
   margin-left: 0;
 }
 
-.c2.tooltipped-align-left-2::before {
+.c3.tooltipped-align-left-2::before {
   left: 10px;
 }
 
 @media (forced-colors:active) {
-  .c3:focus {
+  .c4:focus {
     outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:coarse) {
+  .c4:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
   }
 }
 
@@ -1562,21 +1581,21 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     type="text"
   />
   <span
-    className="TextInput-action"
+    className="c2 TextInput-action"
   >
     <span
       aria-label="iconLabel"
-      className="c2 tooltipped-n"
+      className="c3 tooltipped-n"
       role="tooltip"
     >
       <button
         aria-label="iconLabel"
-        className="c3"
+        className="c4"
         onClick={[MockFunction]}
         type="button"
       >
         <span
-          className="c4"
+          className="c5"
         >
           <svg
             aria-hidden="true"
@@ -1609,226 +1628,9 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 exports[`TextInput renders trailingAction text button 1`] = `
 .c2 {
-  border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
-  font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 12px;
-  padding-right: 12px;
-  font-size: 12px;
-  color: #24292f;
-  background-color: transparent;
-  box-shadow: none;
+  margin: 4px;
 }
 
-.c2:disabled {
-  cursor: default;
-  color: #8c959f;
-}
-
-.c2:disabled [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c2:disabled svg {
-  opacity: 0.6;
-}
-
-.c2 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c2 [data-component="leadingIcon"] {
-  grid-area: leadingIcon;
-}
-
-.c2 [data-component="text"] {
-  grid-area: text;
-}
-
-.c2 [data-component="trailingIcon"] {
-  grid-area: trailingIcon;
-}
-
-.c2 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c2:hover:not([disabled]) {
-  background-color: #f3f4f6;
-}
-
-.c2:focus:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c2:focus:not([disabled]):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c2:focus-visible:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c2:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
-}
-
-.c2[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c0::-webkit-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::-moz-placeholder {
-  color: #6e7781;
-}
-
-.c0:-ms-input-placeholder {
-  color: #6e7781;
-}
-
-.c0::placeholder {
-  color: #6e7781;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c0 >:not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0 .TextInput-icon,
-.c0 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0 > input,
-.c0 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-@media (forced-colors:active) {
-  .c2:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  aria-busy={false}
-  aria-live="polite"
-  className="c0 TextInput-wrapper"
-  onClick={[Function]}
->
-  <input
-    className="c1"
-    data-component="input"
-    name="search"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    className="TextInput-action"
-  >
-    <button
-      className="c2"
-      onClick={[MockFunction]}
-      size="small"
-      type="button"
-    >
-      <span
-        data-component="text"
-      >
-        Clear
-      </span>
-    </button>
-  </span>
-</span>
-`;
-
-exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c3 {
   border-radius: 6px;
   border: 0;
@@ -1851,14 +1653,15 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   text-align: center;
   display: grid;
   grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
   font-size: 12px;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
+  position: relative;
 }
 
 .c3:disabled {
@@ -2003,229 +1806,23 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   outline: 0;
 }
 
-.c2 {
-  position: relative;
-  display: inline-block;
-}
-
-.c2::before {
-  position: absolute;
-  z-index: 1000001;
-  display: none;
-  width: 0px;
-  height: 0px;
-  color: #24292f;
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
-  opacity: 0;
-}
-
-.c2::after {
-  position: absolute;
-  z-index: 1000000;
-  display: none;
-  padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: #ffffff;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
-  background: #24292f;
-  border-radius: 3px;
-  opacity: 0;
-}
-
-.c2:hover::before,
-.c2:active::before,
-.c2:focus::before,
-.c2:hover::after,
-.c2:active::after,
-.c2:focus::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-
-.c2.tooltipped-no-delay:hover::before,
-.c2.tooltipped-no-delay:active::before,
-.c2.tooltipped-no-delay:focus::before,
-.c2.tooltipped-no-delay:hover::after,
-.c2.tooltipped-no-delay:active::after,
-.c2.tooltipped-no-delay:focus::after {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c2.tooltipped-multiline:hover::after,
-.c2.tooltipped-multiline:active::after,
-.c2.tooltipped-multiline:focus::after {
-  display: table-cell;
-}
-
-.c2.tooltipped-s::after,
-.c2.tooltipped-se::after,
-.c2.tooltipped-sw::after {
-  top: 100%;
-  right: 50%;
-  margin-top: 6px;
-}
-
-.c2.tooltipped-s::before,
-.c2.tooltipped-se::before,
-.c2.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: #24292f;
-}
-
-.c2.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c2.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c2.tooltipped-n::after,
-.c2.tooltipped-ne::after,
-.c2.tooltipped-nw::after {
-  right: 50%;
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-.c2.tooltipped-n::before,
-.c2.tooltipped-ne::before,
-.c2.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: #24292f;
-}
-
-.c2.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c2.tooltipped-nw::after {
-  margin-right: -16px;
-}
-
-.c2.tooltipped-s::after,
-.c2.tooltipped-n::after {
-  -webkit-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
-}
-
-.c2.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c2.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
-}
-
-.c2.tooltipped-e::after {
-  bottom: 50%;
-  left: 100%;
-  margin-left: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c2.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
-  border-right-color: #24292f;
-}
-
-.c2.tooltipped-multiline::after {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 250px;
-  word-wrap: break-word;
-  white-space: pre-line;
-  border-collapse: separate;
-}
-
-.c2.tooltipped-multiline.tooltipped-s::after,
-.c2.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.c2.tooltipped-multiline.tooltipped-w::after,
-.c2.tooltipped-multiline.tooltipped-e::after {
-  right: 100%;
-}
-
-.c2.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c2.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
-.c2.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
-.c2.tooltipped-align-left-2::before {
-  left: 10px;
-}
-
 @media (forced-colors:active) {
   .c3:focus {
     outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:coarse) {
+  .c3:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
   }
 }
 
@@ -2251,15 +1848,475 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     type="text"
   />
   <span
-    className="TextInput-action"
+    className="c2 TextInput-action"
+  >
+    <button
+      className="c3"
+      onClick={[MockFunction]}
+      size="small"
+      type="button"
+    >
+      <span
+        data-component="text"
+      >
+        Clear
+      </span>
+    </button>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
+.c2 {
+  margin: 4px;
+}
+
+.c4 {
+  border-radius: 6px;
+  border: 0;
+  border-color: rgba(27,31,36,0.15);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 12px;
+  color: #24292f;
+  background-color: transparent;
+  box-shadow: none;
+  position: relative;
+}
+
+.c4:disabled {
+  cursor: default;
+  color: #8c959f;
+}
+
+.c4:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c4:disabled svg {
+  opacity: 0.6;
+}
+
+.c4 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c4 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c4 [data-component="text"] {
+  grid-area: text;
+}
+
+.c4 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
+.c4 [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4:hover:not([disabled]) {
+  background-color: #f3f4f6;
+}
+
+.c4:focus:not([disabled]) {
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
+}
+
+.c4:focus:not([disabled]):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c4:focus-visible:not([disabled]) {
+  outline: 2px solid;
+  outline-color: #0969da;
+  outline-offset: -2px;
+}
+
+.c4:active:not([disabled]) {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c4[aria-expanded=true] {
+  background-color: hsla(220,14%,94%,1);
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c3 {
+  position: relative;
+  display: inline-block;
+}
+
+.c3::before {
+  position: absolute;
+  z-index: 1000001;
+  display: none;
+  width: 0px;
+  height: 0px;
+  color: #24292f;
+  pointer-events: none;
+  content: '';
+  border: 6px solid transparent;
+  opacity: 0;
+}
+
+.c3::after {
+  position: absolute;
+  z-index: 1000000;
+  display: none;
+  padding: 0.5em 0.75em;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #ffffff;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  white-space: pre;
+  pointer-events: none;
+  content: attr(aria-label);
+  background: #24292f;
+  border-radius: 3px;
+  opacity: 0;
+}
+
+.c3:hover::before,
+.c3:active::before,
+.c3:focus::before,
+.c3:hover::after,
+.c3:active::after,
+.c3:focus::after {
+  display: inline-block;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.c3.tooltipped-no-delay:hover::before,
+.c3.tooltipped-no-delay:active::before,
+.c3.tooltipped-no-delay:focus::before,
+.c3.tooltipped-no-delay:hover::after,
+.c3.tooltipped-no-delay:active::after,
+.c3.tooltipped-no-delay:focus::after {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c3.tooltipped-multiline:hover::after,
+.c3.tooltipped-multiline:active::after,
+.c3.tooltipped-multiline:focus::after {
+  display: table-cell;
+}
+
+.c3.tooltipped-s::after,
+.c3.tooltipped-se::after,
+.c3.tooltipped-sw::after {
+  top: 100%;
+  right: 50%;
+  margin-top: 6px;
+}
+
+.c3.tooltipped-s::before,
+.c3.tooltipped-se::before,
+.c3.tooltipped-sw::before {
+  top: auto;
+  right: 50%;
+  bottom: -7px;
+  margin-right: -6px;
+  border-bottom-color: #24292f;
+}
+
+.c3.tooltipped-se::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c3.tooltipped-sw::after {
+  margin-right: -16px;
+}
+
+.c3.tooltipped-n::after,
+.c3.tooltipped-ne::after,
+.c3.tooltipped-nw::after {
+  right: 50%;
+  bottom: 100%;
+  margin-bottom: 6px;
+}
+
+.c3.tooltipped-n::before,
+.c3.tooltipped-ne::before,
+.c3.tooltipped-nw::before {
+  top: -7px;
+  right: 50%;
+  bottom: auto;
+  margin-right: -6px;
+  border-top-color: #24292f;
+}
+
+.c3.tooltipped-ne::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c3.tooltipped-nw::after {
+  margin-right: -16px;
+}
+
+.c3.tooltipped-s::after,
+.c3.tooltipped-n::after {
+  -webkit-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+.c3.tooltipped-w::after {
+  right: 100%;
+  bottom: 50%;
+  margin-right: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c3.tooltipped-w::before {
+  top: 50%;
+  bottom: 50%;
+  left: -7px;
+  margin-top: -6px;
+  border-left-color: #24292f;
+}
+
+.c3.tooltipped-e::after {
+  bottom: 50%;
+  left: 100%;
+  margin-left: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c3.tooltipped-e::before {
+  top: 50%;
+  right: -7px;
+  bottom: 50%;
+  margin-top: -6px;
+  border-right-color: #24292f;
+}
+
+.c3.tooltipped-multiline::after {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: pre-line;
+  border-collapse: separate;
+}
+
+.c3.tooltipped-multiline.tooltipped-s::after,
+.c3.tooltipped-multiline.tooltipped-n::after {
+  right: auto;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.c3.tooltipped-multiline.tooltipped-w::after,
+.c3.tooltipped-multiline.tooltipped-e::after {
+  right: 100%;
+}
+
+.c3.tooltipped-align-right-2::after {
+  right: 0;
+  margin-right: 0;
+}
+
+.c3.tooltipped-align-right-2::before {
+  right: 15px;
+}
+
+.c3.tooltipped-align-left-2::after {
+  left: 0;
+  margin-left: 0;
+}
+
+.c3.tooltipped-align-left-2::before {
+  left: 10px;
+}
+
+@media (forced-colors:active) {
+  .c4:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:coarse) {
+  .c4:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  aria-live="polite"
+  className="c0 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c1"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="c2 TextInput-action"
   >
     <span
       aria-label="Clear input"
-      className="c2 tooltipped-n"
+      className="c3 tooltipped-n"
       role="tooltip"
     >
       <button
-        className="c3"
+        className="c4"
         onClick={[MockFunction]}
         size="small"
         type="button"
