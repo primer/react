@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "35.1.0",
+  "version": "35.2.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -39,7 +39,10 @@
     "start": "concurrently npm:start:*",
     "start:docs": "cd docs && npm run develop",
     "start:storybook": "start-storybook -p 6006",
-    "build:storybook": "build-storybook",
+    "build:storybook": "script/build-storybook",
+    "build:docs": "script/build-docs",
+    "build:docs:preview": "script/build-docs preview",
+    "build:storybook:visual-testing": "build-storybook",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
@@ -95,7 +98,7 @@
     "styled-system": "5.1.5"
   },
   "devDependencies": {
-    "@babel/cli": "7.14.5",
+    "@babel/cli": "7.17.6",
     "@babel/core": "7.14.8",
     "@babel/eslint-parser": "7.15.7",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.16.0",

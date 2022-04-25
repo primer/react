@@ -186,13 +186,13 @@ If everything looks great, the design systems team member will approve the pull 
 
 ### Deploying
 
-All of our documentation sites use the [Now integration](https://github.com/organizations/primer/settings/installations/1007619) to deploy documentation changes whenever code is merged into main. The integration also creates a preview site every time you commit code to a branch. To view the preview site, navigate to the PR and find the comment from the `now` bot. This will include a link to the preview site for your branch.
+All of our documentation sites use GitHub Pages to deploy documentation changes whenever code is merged into main. The integration also creates a preview site every time you commit code to a branch. To view the preview site, navigate to the PR and find the comment from the `GitHub Actions` bot. This will include a link to the preview site for your branch.
 
 Once you merge your branch into main, any changes to the docs will automatically deploy. No further action is necessary.
 
 ### Path aliasing
 
-This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you alias this one to `primer-components.now.sh`.
+This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you alias this one to `https://primer.github.io/react/`.
 
 ### Publishing
 
@@ -207,6 +207,10 @@ We use [changesets](https://github.com/atlassian/changesets) to managing version
 5. The changeset action will automatically create a new PR that bumps the version number appropriately, creates or updates `CHANGELOG.md`, and shows the release notes that will be used in the GitHub Release notes.
 6. If you want to release more features, merge them into the main branch and changesets will update the release PR. Note that it does this via force-pushing, so you should not edit the release PR yourself.
 7. When you're ready to release, merge the release PR into the main branch and changesets will publish the new version to npm and create a GitHub Release.
+
+#### Flowchart
+
+[![changesets flowchart](https://user-images.githubusercontent.com/4608155/163011963-9de3e8a7-c4af-47ef-91d5-7c534f5066d7.png)](https://www.figma.com/file/UKFvby7MMwBWa7p9aly5JG/Next-major-release-workflow)
 
 ## Troubleshooting
 
