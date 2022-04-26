@@ -111,37 +111,21 @@ render(<WithIconAndLoadingIndicator />)
 ### With trailing action
 
 ```jsx live
-<Box display="grid" sx={{gap: 3}}>
-  <FormControl>
-    <FormControl.Label>Icon action</FormControl.Label>
-    <TextInput
-      trailingAction={
-        <TextInput.Action
-          onClick={() => {
-            alert('clear input')
-          }}
-          icon={XIcon}
-          aria-label="Clear input"
-          sx={{color: 'fg.subtle'}}
-        />
-      }
-    />
-  </FormControl>
-  <FormControl>
-    <FormControl.Label>Text action</FormControl.Label>
-    <TextInput
-      trailingAction={
-        <TextInput.Action
-          onClick={() => {
-            alert('clear input')
-          }}
-        >
-          Clear
-        </TextInput.Action>
-      }
-    />
-  </FormControl>
-</Box>
+<FormControl>
+  <FormControl.Label>Icon action</FormControl.Label>
+  <TextInput
+    trailingAction={
+      <TextInput.Action
+        onClick={() => {
+          alert('clear input')
+        }}
+        icon={XIcon}
+        aria-label="Clear input"
+        sx={{color: 'fg.subtle'}}
+      />
+    }
+  />
+</FormControl>
 ```
 
 ### With error and warning states
@@ -315,7 +299,8 @@ render(<WithIconAndLoadingIndicator />)
   <PropsTableRow
     name="variant"
     type="'default' | 'primary' | 'invisible' | 'danger'"
-    description="Determine's the styles on a button"
+    description="(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
+    deprecated
   />
   <PropsTableBasePropRows
     elementType="button"
