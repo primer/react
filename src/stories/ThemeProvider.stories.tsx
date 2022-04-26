@@ -8,6 +8,7 @@ import {createGlobalStyle} from 'styled-components'
 export default {
   title: 'Generic behaviors/ThemeProvider',
   component: ThemeProvider,
+  parameters: {disableThemeDecorator: true},
   argTypes: {
     theme: {
       table: {

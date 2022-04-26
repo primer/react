@@ -19,9 +19,12 @@ const GlobalStyleMultiTheme = createGlobalStyle`
 
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
-type StoryContext = Record<string, unknown> & {globals: {colorScheme: string}}
+type StoryContext = Record<string, unknown> & {globals: {colorScheme: string}; parameters: Record<string, unknown>}
 
 export const withThemeProvider = (Story: React.FC<StoryContext>, context: StoryContext) => {
+  // used for testing ThemeProvider.stories.tsx
+  if (context.parameters.disableThemeDecorator) return <Story {...context} />
+
   const {colorScheme} = context.globals
 
   if (colorScheme === 'all') {
