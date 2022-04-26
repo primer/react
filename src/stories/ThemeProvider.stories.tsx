@@ -8,6 +8,7 @@ import {createGlobalStyle} from 'styled-components'
 export default {
   title: 'Generic behaviors/ThemeProvider',
   component: ThemeProvider,
+  parameters: {disableThemeDecorator: true},
   argTypes: {
     theme: {
       table: {
@@ -97,8 +98,23 @@ export const Nested: Story<ThemeProviderProps> = args => {
   )
 }
 
-Nested.args = {
-  colorMode: 'day',
-  dayScheme: 'light',
-  nightScheme: 'dark_dimmed'
+const AutoContents = () => {
+  const {colorMode, resolvedColorMode} = useTheme()
+
+  return (
+    <Box sx={{padding: 10, backgroundColor: 'canvas.inset', color: 'fg.default'}}>
+      colorMode: {colorMode} <br />
+      resolvedColorMode: {resolvedColorMode} <br />
+    </Box>
+  )
+}
+
+export const Auto = () => {
+  return (
+    <ThemeProvider colorMode="auto">
+      <BaseStyles>
+        <AutoContents />
+      </BaseStyles>
+    </ThemeProvider>
+  )
 }
