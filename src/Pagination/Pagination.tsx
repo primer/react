@@ -38,9 +38,7 @@ const Page = styled.a`
     transition-duration: 0.1s;
   }
 
-  &:focus-visible {
-    ${getGlobalFocusStyles(0)};
-  }
+  ${getGlobalFocusStyles(0)};
 
   &:active {
     border-color: ${get('colors.border.muted')};

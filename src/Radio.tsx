@@ -3,6 +3,7 @@ import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext
 import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import {RadioGroupContext} from './RadioGroup'
+import getGlobalFocusStyles from './_getGlobalFocusStyles'
 
 export type RadioProps = {
   /**
@@ -41,6 +42,7 @@ const StyledRadio = styled.input`
   cursor: pointer;
 
   ${props => props.disabled && `cursor: not-allowed;`}
+  ${getGlobalFocusStyles(0)};
 
   ${sx}
 `

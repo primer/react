@@ -13,6 +13,16 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
   border-bottom: 0;
 }
 
+.c0:focus {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -6px;
+}
+
+.c0:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
 .c0:focus-visible {
   box-shadow: none;
   outline: 2px solid #0969da;

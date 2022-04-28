@@ -50,9 +50,7 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   border: 1px solid transparent;
   border-bottom: 0;
 
-  &:focus-visible {
-    ${getGlobalFocusStyles('-6px')};
-  }
+  ${getGlobalFocusStyles('-6px')};
 
   &:hover,
   &:focus {
