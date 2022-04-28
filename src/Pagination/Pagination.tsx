@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import globalFocusStyles from '../_globalFocusStyles'
 import {buildComponentData, buildPaginationModel} from './model'
 
 const Page = styled.a`
@@ -35,6 +36,11 @@ const Page = styled.a`
     border-color: ${get('colors.border.default')};
     outline: 0;
     transition-duration: 0.1s;
+  }
+
+  &:focus-visible {
+    ${globalFocusStyles};
+    outline-offset: 0;
   }
 
   &:active {

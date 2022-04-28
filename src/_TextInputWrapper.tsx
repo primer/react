@@ -65,20 +65,22 @@ export type StyledWrapperProps = {
 const textInputBasePadding = '12px'
 export const textInputHorizPadding = textInputBasePadding
 
-// TODO: figure out how to type a themed CSS function (e.g.: css`color: blue;`)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const renderFocusStyles = (hasTrailingAction: boolean, isInputFocused: boolean, focusStyles: any) => {
+const renderFocusStyles = (hasTrailingAction: boolean, isInputFocused: boolean) => {
   if (hasTrailingAction) {
     return (
       isInputFocused &&
       css`
-        ${focusStyles}
+        border-color: ${get('colors.accent.fg')};
+        outline: none;
+        box-shadow: inset 0 0 0 1px ${get('colors.accent.fg')};
       `
     )
   }
   return css`
     &:focus-within {
-      ${focusStyles}
+      border-color: ${get('colors.accent.fg')};
+      outline: none;
+      box-shadow: inset 0 0 0 1px ${get('colors.accent.fg')};
     }
   `
 }
@@ -102,15 +104,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     color: ${get('colors.fg.subtle')};
   }
 
-  ${props =>
-    renderFocusStyles(
-      Boolean(props.hasTrailingAction),
-      Boolean(props.isInputFocused),
-      css`
-        border-color: ${get('colors.accent.emphasis')};
-        box-shadow: ${get('shadows.primer.shadow.focus')};
-      `
-    )}
+  ${props => renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
 
   > textarea {
     padding: ${textInputBasePadding};
@@ -141,14 +135,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     props.validationStatus === 'error' &&
     css`
       border-color: ${get('colors.danger.emphasis')};
-      ${renderFocusStyles(
-        Boolean(props.hasTrailingAction),
-        Boolean(props.isInputFocused),
-        css`
-          border-color: ${get('colors.danger.emphasis')};
-          box-shadow: ${get('shadows.btn.danger.focusShadow')};
-        `
-      )}
+      ${renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
     `}
 
 
@@ -156,14 +143,6 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     props.validationStatus === 'success' &&
     css`
       border-color: ${get('colors.success.emphasis')};
-      ${renderFocusStyles(
-        Boolean(props.hasTrailingAction),
-        Boolean(props.isInputFocused),
-        css`
-          border-color: ${get('colors.success.emphasis')};
-          box-shadow: 0 0 0 3px ${get('colors.success.muted')};
-        `
-      )}
     `}
 
   ${props =>
