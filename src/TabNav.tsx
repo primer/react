@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
-import globalFocusStyles from './_globalFocusStyles'
+import getGlobalFocusStyles from './_getGlobalFocusStyles'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
@@ -51,8 +51,7 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   border-bottom: 0;
 
   &:focus-visible {
-    ${globalFocusStyles};
-    outline-offset: -6px;
+    ${getGlobalFocusStyles('-6px')};
   }
 
   &:hover,

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
-import globalFocusStyles from '../_globalFocusStyles'
+import getGlobalFocusStyles from '../_getGlobalFocusStyles'
 import {buildComponentData, buildPaginationModel} from './model'
 
 const Page = styled.a`
@@ -39,8 +39,7 @@ const Page = styled.a`
   }
 
   &:focus-visible {
-    ${globalFocusStyles};
-    outline-offset: 0;
+    ${getGlobalFocusStyles(0)};
   }
 
   &:active {
