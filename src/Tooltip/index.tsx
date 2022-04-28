@@ -1,4 +1,5 @@
 /**
+ * triangle position
  * Add animations & noDelay
  * wrap
  * add align?
@@ -18,9 +19,9 @@ export type TooltipProps = {
   text: string
   /** @deprecated Use `text` instead */
   'aria-label'?: string
-  /** Position relative to target */
+  /** Direction relative to target */
   direction?: TooltipDirection
-  /** Position relative to target */
+  /** Alignment relative to target */
   align?: TooltipAlign
   /** Use aria-describedby or aria-labelledby */
   type?: 'description' | 'label'
@@ -45,13 +46,19 @@ const alignToAnchorAlignment: Record<TooltipAlign, AnchorAlignment> = {left: 'st
 
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip: React.FC<TooltipProps> = ({text, children, direction = 'n', align, type = 'description'}) => {
+export const Tooltip: React.FC<TooltipProps> = ({
+  text,
+  children,
+  direction = 'n',
+  align,
+  type = 'description',
+  sx = {}
+}) => {
   const tooltipRef = React.useRef<HTMLDivElement>(null)
   const anchorElementRef = React.useRef<HTMLElement>(null)
 
   const {position} = useAnchoredPosition({
     side: directionToPosition[direction].side,
-    // maintain backward compatibility
     align: align ? alignToAnchorAlignment[align] : directionToPosition[direction].align,
     floatingElementRef: tooltipRef,
     anchorElementRef
@@ -71,18 +78,16 @@ export const Tooltip: React.FC<TooltipProps> = ({text, children, direction = 'n'
       }}
     >
       <TooltipContext.Provider value={{tooltipId}}>{child}</TooltipContext.Provider>
-      <FloatingTooltip id={tooltipId} ref={tooltipRef} position={position}>
-        {text}
-      </FloatingTooltip>
+      <FloatingTooltip id={tooltipId} text={text} ref={tooltipRef} position={position} sx={sx} />
     </Box>
   )
 }
 
 const FloatingTooltip = React.forwardRef<
   HTMLDivElement,
-  {id: string; children: string; position?: AnchorPosition} & SxProp
->(({id, children, position, sx = {}}, ref) => {
-  const styles = {
+  {id: string; text: string; position?: AnchorPosition} & SxProp
+>(({id, text, position, sx = {}}, ref) => {
+  const styles: BetterSystemStyleObject = {
     visibility: 'hidden',
     backgroundColor: 'neutral.emphasisPlus',
     color: 'fg.onEmphasis',
@@ -96,7 +101,48 @@ const FloatingTooltip = React.forwardRef<
     position: 'absolute',
     zIndex: 2,
     top: position?.top,
-    left: position?.left
+    left: position?.left,
+
+    ':before': {
+      content: '""',
+      width: 0,
+      height: 0,
+      border: '5px solid transparent',
+      position: 'absolute'
+    },
+
+    '&[data-side=outside-top]::before': {
+      borderTop: '5px solid',
+      borderTopColor: 'neutral.emphasisPlus',
+      top: '100%'
+    },
+    '&[data-side=outside-bottom]::before': {
+      borderBottom: '5px solid',
+      borderBottomColor: 'neutral.emphasisPlus',
+      top: '-10px'
+    },
+    '&[data-side=outside-left]::before': {
+      borderLeft: '5px solid',
+      borderLeftColor: 'neutral.emphasisPlus',
+      top: 'calc(50% - 5px)',
+      left: '100%'
+    },
+    '&[data-side=outside-right]::before': {
+      borderRight: '5px solid',
+      borderRightColor: 'neutral.emphasisPlus',
+      top: 'calc(50% - 5px)',
+      left: '-10px'
+    },
+
+    '&[data-align=start][data-side=outside-top]::before, &[data-align=start][data-side=outside-bottom]::before': {
+      left: '8px'
+    },
+    '&[data-align=center][data-side=outside-top]::before, &[data-align=center][data-side=outside-bottom]::before': {
+      left: 'calc(50% - 4px)'
+    },
+    '&[data-align=end][data-side=outside-top]::before, &[data-align=end][data-side=outside-bottom]::before': {
+      left: 'calc(100% - 16px)'
+    }
   }
 
   return (
@@ -105,31 +151,12 @@ const FloatingTooltip = React.forwardRef<
       id={id}
       aria-hidden
       data-component="tooltip"
+      data-side={position?.anchorSide}
+      data-align={position?.anchorAlign}
       ref={ref}
       sx={merge<BetterSystemStyleObject>(styles, sx)}
     >
-      <Box
-        sx={{
-          position: 'relative',
-          ':before': {
-            content: '""',
-            width: 0,
-            height: 0,
-            borderLeft: '5px solid transparent',
-            borderRight: '5px solid transparent',
-            borderBottom: '5px solid',
-            borderBottomColor: 'neutral.emphasisPlus',
-            position: 'absolute',
-            top: '-8px',
-            left: {
-              start: 0,
-              center: 'calc(50% - 8px)',
-              end: 'calc(100% - 8px)'
-            }[position?.anchorAlign || 'center']
-          }
-        }}
-      />
-      {children}
+      {text}
     </Box>
   )
 })

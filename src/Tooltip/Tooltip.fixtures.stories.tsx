@@ -22,38 +22,38 @@ export const Direction = () => {
   return (
     <Box
       sx={{
-        m: 10,
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gridTemplateRows: 'repeat(3, 1fr)',
-        gap: 4
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        marginY: '60px',
+        marginX: '400px', // make room for tooltips
+        '[data-component=tooltip]': {visibility: 'visible'} // see all tooltips
       }}
     >
-      <Tooltip direction="nw" text="Tooltip text">
+      <Tooltip direction="nw" text="Tooltip text can be really long and event take mutiple lines">
         <IssueLabel text="direction: nw" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="n" text="Tooltip text">
+      <Tooltip direction="n" text="Tooltip text can be really long and event take mutiple lines">
         <IssueLabel text="direction: n" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="ne" text="Tooltip text">
+      <Tooltip direction="ne" text="Tooltip text can be really long and event take mutiple lines">
         <IssueLabel text="direction: ne" fillColor="#0366d6" />
       </Tooltip>
 
-      <Tooltip direction="w" text="Tooltip text">
+      <Tooltip direction="w" text="Tooltip text can be really long and event take mutiple lines">
         <IssueLabel text="direction: w" fillColor="#0366d6" />
       </Tooltip>
-      <span />
-      <Tooltip direction="e" text="Tooltip text">
+      <Tooltip direction="e" text="Tooltip text can be really long and event take mutiple lines">
         <IssueLabel text="direction: e" fillColor="#0366d6" />
       </Tooltip>
 
-      <Tooltip direction="sw" text="Tooltip text">
+      <Tooltip direction="sw" text="Tooltip text can be really long and event take mutiple lines">
         <IssueLabel text="direction: sw" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="s" text="Tooltip text">
+      <Tooltip direction="s" text="Tooltip text can be really long and event take mutiple lines">
         <IssueLabel text="direction: s" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="se" text="Tooltip text">
+      <Tooltip direction="se" text="Tooltip text can be really long and event take mutiple lines">
         <IssueLabel text="direction: se" fillColor="#0366d6" />
       </Tooltip>
     </Box>
