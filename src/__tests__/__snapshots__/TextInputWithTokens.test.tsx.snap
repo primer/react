@@ -89,7 +89,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -816,7 +817,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1231,7 +1233,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1398,7 +1401,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2080,7 +2084,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2762,7 +2767,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3437,7 +3443,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4112,7 +4119,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4787,7 +4795,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5464,7 +5473,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6139,7 +6149,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6531,7 +6542,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -7255,7 +7267,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -8023,7 +8036,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -8751,7 +8765,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -9559,7 +9574,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -10367,7 +10383,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -11175,7 +11192,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -11939,7 +11957,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -12747,7 +12766,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -13522,7 +13542,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -14370,7 +14391,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -15218,7 +15240,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -16054,7 +16077,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -16729,7 +16753,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -17409,7 +17434,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
