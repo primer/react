@@ -37,17 +37,17 @@ exports[`UnderlineNav.Link adds activeClassName={SELECTED_CLASS} when it gets a 
   color: #24292f;
 }
 
-.c0:focus {
+.c0:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -8px;
 }
 
-.c0:focus:not(:focus-visible) {
+.c0:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c0:focus-visible {
+.c0:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -8px;
@@ -97,17 +97,17 @@ exports[`UnderlineNav.Link renders consistently 1`] = `
   color: #24292f;
 }
 
-.c0:focus {
+.c0:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -8px;
 }
 
-.c0:focus:not(:focus-visible) {
+.c0:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c0:focus-visible {
+.c0:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -8px;
@@ -155,17 +155,17 @@ exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
   color: #24292f;
 }
 
-.c0:focus {
+.c0:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -8px;
 }
 
-.c0:focus:not(:focus-visible) {
+.c0:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c0:focus-visible {
+.c0:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -8px;

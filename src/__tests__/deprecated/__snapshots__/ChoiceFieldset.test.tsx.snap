@@ -56,17 +56,17 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   cursor: not-allowed;
 }
 
-.c6:focus {
+.c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
 }
 
-.c6:focus:not(:focus-visible) {
+.c6:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c6:focus-visible {
+.c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
@@ -237,17 +237,17 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   cursor: pointer;
 }
 
-.c7:focus {
+.c7:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
 }
 
-.c7:focus:not(:focus-visible) {
+.c7:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c7:focus-visible {
+.c7:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
@@ -443,17 +443,17 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   cursor: pointer;
 }
 
-.c6:focus {
+.c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
 }
 
-.c6:focus:not(:focus-visible) {
+.c6:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c6:focus-visible {
+.c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
@@ -778,17 +778,17 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   cursor: pointer;
 }
 
-.c5:focus {
+.c5:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
 }
 
-.c5:focus:not(:focus-visible) {
+.c5:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible {
+.c5:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
@@ -979,17 +979,17 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   cursor: pointer;
 }
 
-.c6:focus {
+.c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
   outline-offset: 0;
 }
 
-.c6:focus:not(:focus-visible) {
+.c6:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c6:focus-visible {
+.c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
   outline-offset: 0;
@@ -1241,17 +1241,17 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   cursor: pointer;
 }
 
-.c6:focus {
+.c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
   outline-offset: 0;
 }
 
-.c6:focus:not(:focus-visible) {
+.c6:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c6:focus-visible {
+.c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
   outline-offset: 0;
