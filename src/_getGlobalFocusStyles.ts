@@ -9,7 +9,7 @@ const globalFocusStyle = css`
 
 const getGlobalFocusStyles = (outlineOffset?: CSSProperties['outlineOffset']) => css`
   /* fallback :focus state */
-  &:focus {
+  &:focus:not(:disabled) {
     ${globalFocusStyle};
     outline-offset: ${typeof outlineOffset === 'undefined' ? '2px' : outlineOffset};
 
@@ -20,7 +20,7 @@ const getGlobalFocusStyles = (outlineOffset?: CSSProperties['outlineOffset']) =>
   }
 
   /* default focus state */
-  &:focus-visible {
+  &:focus-visible:not(:disabled) {
     ${globalFocusStyle};
     outline-offset: ${typeof outlineOffset === 'undefined' ? '2px' : outlineOffset};
   }
