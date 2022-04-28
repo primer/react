@@ -1,0 +1,523 @@
+---
+title: NavList
+status: Draft
+description: Use nav list to render a vertical list of navigation links.
+---
+
+<Note variant="warning">Not implemented yet</Note>
+
+To render a horizontal list of navigation links, consider using [UnderlineNav](/UnderlineNav).
+
+## Examples
+
+### Simple
+
+```jsx
+<NavList>
+  <NavList.Item href="/" aria-current="page">
+    Dashboard
+  </NavList.Item>
+  <NavList.Item href="/pulls">Pull requests</NavList.Item>
+  <NavList.Item href="/issues">Issues</NavList.Item>
+</NavList>
+```
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<nav>
+  <ul role="list">
+    <li><a href="/" aria-current="page">Dashboard</a></li>
+    <li><a href="/about">Pull requests</a></li>
+    <li><a href="/contact">Issues</a></li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With leading icons
+
+```jsx
+<NavList>
+  <NavList.Item href="/" aria-current="page">
+    <NavList.LeadingVisual>
+      <HomeIcon />
+    </NavList.LeadingVisual>
+    Dashboard
+  </NavList.Item>
+  <NavList.Item href="/pulls">
+    <NavList.LeadingVisual>
+      <GitPullRequestIcon />
+    </NavList.LeadingVisual>
+    Pull requests
+  </NavList.Item>
+  <NavList.Item href="/issues">
+    <NavList.LeadingVisual>
+      <IssueOpenedIcon />
+    </NavList.LeadingVisual>
+    Issues
+  </NavList.Item>
+</NavList>
+```
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<nav>
+  <ul role="list">
+    <li>
+      <a href="/" aria-current="page">
+        <span><svg aria-hidden="true">...</svg></span>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a href="/pulls">
+        <span><svg aria-hidden="true">...</svg></span>
+        <span>Pull requests</span>
+      </a>
+    </li>
+    <li>
+      <a href="/issues">
+        <span><svg aria-hidden="true">...</svg></span>
+        <span>Issues</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With other leading visuals
+
+```jsx
+<NavList>
+  <NavList.Item href="/general" aria-current="page">
+    <NavList.LeadingVisual>#️⃣</NavList.LeadingVisual>
+    General
+  </NavList.Item>
+  <NavList.Item href="/q-a">
+    <NavList.LeadingVisual>🙏</NavList.LeadingVisual>
+    Q&A
+  </NavList.Item>
+  <NavList.Item href="/show-and-tell">
+    <NavList.LeadingVisual>🙌</NavList.LeadingVisual>
+    Show and tell
+  </NavList.Item>
+</NavList>
+```
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<nav>
+  <ul role="list">
+    <li>
+      <a href="/" aria-current="page">
+        <span>#️⃣</span>
+        <span>General</span>
+      </a>
+    </li>
+    <li>
+      <a href="/pulls">
+        <span>🙏</span>
+        <span>Q&A</span>
+      </a>
+    </li>
+    <li>
+      <a href="/issues">
+        <span>🙌</span>
+        <span>Show and tell</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With trailing visuals
+
+```jsx
+<NavList>
+  <NavList.Item href="/inbox" aria-current="page">
+    Inbox
+    <NavList.TrailingVisual>1,234</NavList.TrailingVisual>
+  </NavList.Item>
+  <NavList.Item href="/saved">Saved</NavList.Item>
+  <NavList.Item href="/done">Done</NavList.Item>
+</NavList>
+```
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<nav>
+  <ul role="list">
+    <li>
+      <a href="/inbox" aria-current="page">
+        <span>Inbox</span>
+        <span>1,234</span>
+      </a>
+    </li>
+    <li><a href="/saved">Saved</a></li>
+    <li><a href="/done">Done</a></li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With a heading
+
+```jsx
+<>
+  <h3 id="workflows-heading">Workflows</h3>
+  <NavList aria-labelledby="workflows-heading">
+    <NavList.Item href="/" aria-current="page">
+      All workflows
+    </NavList.Item>
+    <NavList.Item href="/ci">CI</NavList.Item>
+    <NavList.Item href="/deploy">Deploy</NavList.Item>
+    <NavList.Item href="/release">Release</NavList.Item>
+  </NavList>
+</>
+```
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<h3 id="workflows-heading">Workflows</h3>
+<nav aria-labelledby="workflows-heading">
+  <ul role="list">
+    <li><a href="/" aria-current="page">All workflows</a></li>
+    <li><a href="/ci">CI</a></li>
+    <li><a href="/deploy">Deploy</a></li>
+    <li><a href="/release">Release</a></li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With aria-label
+
+```jsx
+<NavList aria-label="Security">
+  <NavList.Item href="/" aria-current="page">
+    Overview
+  </NavList.Item>
+  <NavList.Item href="/policy">Security policy</NavList.Item>
+  <NavList.Item href="/advisories">Security advisories</NavList.Item>
+</NavList>
+```
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<nav aria-label="Security">
+  <ul role="list">
+    <li><a href="/" aria-current="page">Overview</a></li>
+    <li><a href="/policy">Security policy</a></li>
+    <li><a href="/advisories">Security advisories</a></li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With groups
+
+```jsx
+<NavList>
+  <NavList.Group title="Overview">
+    <NavList.Item href="/getting-started" aria-current="page">
+      Getting started
+    </NavList.Item>
+  </NavList.Group>
+  <NavList.Group title="Components">
+    <NavList.Item href="/Avatar">Avatar</NavList.Item>
+    <NavList.Item href="/Button">Button</NavList.Item>
+    <NavList.Item href="/Label">Label</NavList.Item>
+  </NavList.Group>
+</NavList>
+```
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<nav>
+  <ul role="list">
+    <li>
+      <div role="presentation" id="generated-id-1">Overview</div>
+      <ul role="list" aria-labelledby="generated-id-1">
+        <li><a href="/getting-started" aria-current="page">Getting started</a></li>
+      </ul>
+    </li>
+    <li>
+      <div role="presentation" id="generated-id-2">Components</div>
+      <ul role="list" aria-labelledby="generated-id-2">
+        <li><a href="/Avatar">Avatar</a></li>
+        <li><a href="/Button">Button</a></li>
+        <li><a href="/Label">Label</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With sub-items
+
+```jsx
+<NavList>
+  <NavList.Item href="/branches">Branches</NavList.Item>
+  <NavList.Item href="/tags">Tags</NavList.Item>
+  <NavList.Item>
+    Actions
+    <NavList.SubNav>
+      <NavList.Item href="/actions">General</NavList.Item>
+      <NavList.Item href="/actions/runners">Runners</NavList.Item>
+    </NavList.SubNav>
+  </NavList.Item>
+</NavList>
+```
+
+<Note variant="warning">
+
+If a `NavList.Item` contains a `NavList.SubNav`, the `NavList.Item` will render as a `<button>` and the `as` prop and `href` prop will be ignored.
+
+</Note>
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<nav>
+  <ul role="list">
+    <li><a href="/branches">Branches</a></li>
+    <li><a href="/tags">Tags</a></li>
+    <li>
+      <button id="generated-id-1" aria-expanded="false" aria-controls="generated-id-2">
+        <span>Actions</span>
+        <span><svg aria-hidden="true">...</svg></span>
+      </button>
+      <ul role="list" id="generated-id-2" aria-labelledby="generated-id-1">
+        <li><a href="/actions">General</a></li>
+        <li><a href="/actions/runners">Runners</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With a divider
+
+```jsx
+<NavList>
+  <NavList.Item href="/">Dashboard</NavList.Item>
+  <NavList.Item href="/pulls">Pull requests</NavList.Item>
+  <NavList.Item href="/issues">Issues</NavList.Item>
+  <NavList.Divider />
+  <NavList.Item href="/marketplace">Marketplace</NavList.Item>
+  <NavList.Item href="/explore">Explore</NavList.Item>
+</NavList>
+```
+
+<details>
+  <summary>Rendered HTML</summary>
+
+```html
+<nav>
+  <ul role="list">
+    <li><a href="/">Dashboard</a></li>
+    <li><a href="/pulls">Pull requests</a></li>
+    <li><a href="/issues">Issues</a></li>
+    <div role="separator"></div>
+    <li><a href="/marketplace">Marketplace</a></li>
+    <li><a href="/explore">Explore</a></li>
+  </ul>
+</nav>
+```
+
+</details>
+
+### With React Router
+
+```jsx
+import {Link, useMatch, useResolvedPath} from 'react-router-dom'
+import {NavList} from '@primer/react'
+
+function NavItem({to, children}) {
+  const resolved = useResolvedPath(to)
+  const isCurrent = useMatch({path: resolved.pathname, end: true})
+  return (
+    <NavList.Item as={Link} to={to} aria-current={isCurrent ? 'page' : false}>
+      {children}
+    </NavList.Item>
+  )
+}
+
+function App() {
+  return (
+    <NavList>
+      <NavItem to="/">Dashboard</NavItem>
+      <NavItem to="/pulls">Pull requests</NavItem>
+      <NavItem to="/issues">Issues</NavItem>
+    </NavList>
+  )
+}
+```
+
+### With Next.js
+
+```jsx
+import {useRouter} from 'next/router'
+import Link from 'next/link'
+import {NavList} from '@primer/react'
+
+function NavItem({href, children}) {
+  const router = useRouter()
+  const isCurrent = router.asPath === href
+  return (
+    <Link href={href} passHref>
+      <NavList.Item aria-current={isCurrent ? 'page' : false}>{children}</NavList.Item>
+    </Link>
+  )
+}
+
+function App() {
+  return (
+    <NavList>
+      <NavItem href="/">Dashboard</NavItem>
+      <NavItem href="/pulls">Pull requests</NavItem>
+      <NavItem href="/issues">Issues</NavItem>
+    </NavList>
+  )
+}
+```
+
+## Props
+
+### NavList
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="aria-labelledby" type="string" />
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.Item
+
+<PropsTable>
+  <PropsTableRow
+    name="href"
+    type="string"
+    description={
+      <>
+        The URL that the item navigates to. <InlineCode>href</InlineCode> is passed to the underlying{' '}
+        <InlineCode>&lt;a&gt;</InlineCode> element. If <InlineCode>as</InlineCode> is specified, the component may need
+        different props. If the item contains a sub-nav, the item is rendered as a{' '}
+        <InlineCode>&lt;button&gt;</InlineCode> and <InlineCode>href</InlineCode> is ignored.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="aria-current"
+    type={`| 'page'
+| 'step'
+| 'location'
+| 'date'
+| 'time'
+| true
+| false`}
+    defaultValue="false"
+    description={
+      <>
+        Set <InlineCode>aria-current</InlineCode> to <InlineCode>"page"</InlineCode> to indicate that the item
+        represents the current page. Set <InlineCode>aria-current</InlineCode> to <InlineCode>"location"</InlineCode> to
+        indicate that the item represents the current location on a page. For more information about{' '}
+        <InlineCode>aria-current</InlineCode>, see{' '}
+        <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current">MDN</Link>.
+      </>
+    }
+  />
+  <PropsTableBasePropRows
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
+    }
+    elementType="a"
+    isPolymorphic
+    refType="HTMLAnchorElement"
+  />
+</PropsTable>
+
+### NavList.LeadingVisual
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.TrailingVisual
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.SubNav
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.Group
+
+<PropsTable>
+  <PropsTableRow name="title" type="string" description="Title of the group." /> {/* Should `title` be required? */}
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.Divider
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
