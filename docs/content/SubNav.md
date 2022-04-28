@@ -64,7 +64,7 @@ This ensures that the NavLink gets `activeClassName='selected'`
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
-    <TextInput type="search" icon={SearchIcon} width={320} />
+    <TextInput type="search" leadingVisual={SearchIcon} width={320} />
   </FilteredSearch>
   <SubNav.Links>
     <SubNav.Link href="#home" selected>
