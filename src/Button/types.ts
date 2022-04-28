@@ -1,4 +1,4 @@
-import React, {HTMLAttributes} from 'react'
+import React, {HTMLAttributes, ComponentPropsWithRef} from 'react'
 import styled from 'styled-components'
 import {IconProps} from '@primer/octicons-react'
 import sx, {SxProp} from '../sx'
@@ -8,6 +8,8 @@ export const StyledButton = styled.button<SxProp>(sx)
 export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
 
 export type Size = 'small' | 'medium' | 'large'
+
+type StyledButtonProps = ComponentPropsWithRef<typeof StyledButton>
 
 type ButtonA11yProps = {'aria-label': string; 'aria-labelby'?: never} | {'aria-label'?: never; 'aria-labelby': string}
 
@@ -25,7 +27,8 @@ export type ButtonBaseProps = {
    */
   disabled?: boolean
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement>
+  HTMLAttributes<HTMLButtonElement> &
+  StyledButtonProps
 
 export type ButtonProps = {
   /**
