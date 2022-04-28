@@ -23,7 +23,8 @@
     "lib/**/*",
     "lib-*/**/*",
     "types/**/*",
-    "consumer-test/**/*"
+    "consumer-test/**/*",
+    "contributor-docs/adrs/*"
   ],
   "globals": {
     "__DEV__": "readonly"
