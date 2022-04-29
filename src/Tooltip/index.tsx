@@ -1,7 +1,4 @@
 /**
- * wrap - deprecate?
- * use React.ReactNode instead of element
- * backward compat for aria-label
  * tests!
  */
 
@@ -27,8 +24,8 @@ export type TooltipProps = {
   align?: TooltipAlign
   /** Use aria-describedby or aria-labelledby */
   type?: 'description' | 'label'
-  /** Tooltip target, single element */
-  children: React.ReactElement
+  /** Tooltip target */
+  children: React.ReactNode
   /** When set to true, tooltip appears without any delay */
   noDelay?: boolean
   /** @deprecated Always set to true now. */
@@ -74,7 +71,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
   })
 
   const tooltipId = useSSRSafeId()
-  const child = React.cloneElement(React.Children.only(children), {
+
+  if (!React.isValidElement(children)) return children
+  const child = React.cloneElement(children, {
     ref: anchorElementRef,
     [type === 'description' ? 'aria-describedby' : 'aria-labelledby']: tooltipId
   })
