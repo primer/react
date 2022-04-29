@@ -1,7 +1,3 @@
-/**
- * tests!
- */
-
 import React from 'react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import type {AnchorPosition, AnchorSide, AnchorAlignment} from '@primer/behaviors'
@@ -25,7 +21,7 @@ export type TooltipProps = {
   /** Use aria-describedby or aria-labelledby */
   type?: 'description' | 'label'
   /** Tooltip target */
-  children: React.ReactNode
+  children: React.ReactElement
   /** When set to true, tooltip appears without any delay */
   noDelay?: boolean
   /** @deprecated Always set to true now. */
@@ -72,7 +68,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   const tooltipId = useSSRSafeId()
 
-  if (!React.isValidElement(children)) return children
   const child = React.cloneElement(children, {
     ref: anchorElementRef,
     [type === 'description' ? 'aria-describedby' : 'aria-labelledby']: tooltipId
