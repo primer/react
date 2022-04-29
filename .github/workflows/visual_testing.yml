@@ -27,7 +27,7 @@ jobs:
       - name: Chromatic
         uses: chromaui/action@v1
         with:
-          buildScriptName: build:storybook
+          buildScriptName: build:storybook:visual-testing
           projectToken: ${{ secrets.CHROMATIC_KEY }}
           autoAcceptChanges: github.ref == 'refs/heads/main'
           onlyChanged: true

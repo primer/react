@@ -149,43 +149,24 @@ export const WithTrailingAction = (args: TextInputProps) => {
 
   return (
     <form>
-      <Box display="grid" sx={{gap: 3}}>
-        <FormControl>
-          <FormControl.Label>Icon action</FormControl.Label>
-          <TextInput
-            trailingAction={
-              <TextInput.Action
-                onClick={() => {
-                  setValue('')
-                }}
-                icon={XCircleFillIcon}
-                aria-label="Clear input"
-                sx={{color: 'fg.subtle'}}
-              />
-            }
-            value={value}
-            onChange={handleChange}
-            {...args}
-          />
-        </FormControl>
-        <FormControl>
-          <FormControl.Label>Text action</FormControl.Label>
-          <TextInput
-            trailingAction={
-              <TextInput.Action
-                onClick={() => {
-                  setValue('')
-                }}
-              >
-                Clear
-              </TextInput.Action>
-            }
-            value={value}
-            onChange={handleChange}
-            {...args}
-          />
-        </FormControl>
-      </Box>
+      <FormControl>
+        <FormControl.Label>Icon action</FormControl.Label>
+        <TextInput
+          trailingAction={
+            <TextInput.Action
+              onClick={() => {
+                setValue('')
+              }}
+              icon={XCircleFillIcon}
+              aria-label="Clear input"
+              sx={{color: 'fg.subtle'}}
+            />
+          }
+          value={value}
+          onChange={handleChange}
+          {...args}
+        />
+      </FormControl>
     </form>
   )
 }

@@ -230,6 +230,10 @@ export const getSizeStyles = (size = 'medium', variant: VariantType = 'default',
       fontSize = 1
   }
   if (iconOnly) {
+    // when `size !== 'medium'`, vertical alignment of the icon is thrown off
+    // because changing the font size draws an em-box that does not match the
+    // bounding box of the SVG
+    fontSize = 1
     paddingX = paddingY + 3 // to make it a square
   }
   if (variant === 'invisible') {
