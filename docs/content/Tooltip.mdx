@@ -139,12 +139,26 @@ Set direction of tooltip with `direction`. The tooltip is responsive and will au
     description="Sets where the tooltip renders in relation to the target"
   />
   <PropsTableRow name="align" deprecated type="left | right" description="Use direction instead. Alignment relative to target" />
-  <PropsTableRow name="noDelay" type="boolean" defaultValue={false} description={
-    <>When set to <InlineCode>true</InlienCode>, tooltip appears without any delay</>
-  } />
-  <PropsTableRow name="wrap" deprecated type="boolean" description={
-    <>Use to allow text within tooltip to wrap. Deprecated: always set to <InlineCode>true</InlineCode> now.</>
-  } />
+  <PropsTableRow
+    name="noDelay"
+    type="boolean"
+    defaultValue="false"
+    description={
+      <>
+        When set to <InlineCode>true</InlineCode>, tooltip appears without any delay
+      </>
+    }
+  />
+  <PropsTableRow
+    name="wrap"
+    type="boolean"
+    deprecated
+    description={
+      <>
+        Use to allow text within tooltip to wrap. Deprecated: always set to <InlineCode>true</InlineCode> now.
+      </>
+    }
+  />
   <PropsTableSxRow />
 </PropsTable>
 
@@ -162,7 +176,7 @@ Set direction of tooltip with `direction`. The tooltip is responsive and will au
     hasStorybookStories: true,
     designReviewed: false,
     a11yReviewed: false,
-    stableApi: false,
+    stableApi: true,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
     hasFigmaComponent: true
