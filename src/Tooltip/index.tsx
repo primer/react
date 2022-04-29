@@ -97,8 +97,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
 const FloatingTooltip = React.forwardRef<
   HTMLDivElement,
-  Pick<TooltipProps, 'text' | 'noDelay'> & {id: string; position?: AnchorPosition} & SxProp
->(({id, text, noDelay = false, position, sx = {}}, ref) => {
+  Pick<TooltipProps, 'text' | 'noDelay' | 'sx'> & {id: string; position?: AnchorPosition}
+>(({id, text, noDelay, position, sx = {}}, ref) => {
   const styles: BetterSystemStyleObject = {
     visibility: 'hidden',
     opacity: 0,

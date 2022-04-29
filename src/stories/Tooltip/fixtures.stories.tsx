@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {Box, Button, IssueLabelToken} from '..'
-import {Tooltip} from '.'
+import {MentionIcon} from '@primer/octicons-react'
+import {Box, Button, IssueLabelToken, Tooltip} from '../..'
 
 export default {title: 'Composite components/Tooltip/fixtures', component: Tooltip} as Meta
 
@@ -68,6 +68,40 @@ export const Delay = () => {
       </Tooltip>
       <Tooltip text="Shows up instantly" noDelay>
         <Button>no delay</Button>
+      </Tooltip>
+    </Box>
+  )
+}
+
+export const TypeLabel = () => {
+  return (
+    <Tooltip type="label" text="This label is attached with aria-labelledby instead of describedby">
+      <button>
+        <MentionIcon />
+      </button>
+    </Tooltip>
+  )
+}
+
+export const AcceptsSx = () => {
+  return (
+    <Tooltip text="Please dont actually do this" sx={{fontSize: 4}}>
+      <Button>Tooltip accepts sx prop</Button>
+    </Tooltip>
+  )
+}
+
+export const BackwardCompatibility = () => {
+  return (
+    <Box sx={{display: 'flex', gap: 1}}>
+      <Tooltip aria-label="Tooltip text">
+        <Button>Has tooltip with aria-label</Button>
+      </Tooltip>
+      <Tooltip align="right" text="wrap doesn't do anything, but shouldn't break either">
+        <Button>Has tooltip with align:right</Button>
+      </Tooltip>
+      <Tooltip wrap text="wrap doesn't do anything, but shouldn't break either">
+        <Button>Has tooltip with wrap</Button>
       </Tooltip>
     </Box>
   )

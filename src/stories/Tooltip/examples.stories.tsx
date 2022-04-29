@@ -1,8 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {CodeIcon, CrossReferenceIcon, ImageIcon, MentionIcon} from '@primer/octicons-react'
-import {IconButton, Box, IssueLabelToken} from '..'
-import {Tooltip} from '.'
+import {IconButton, Box, IssueLabelToken, Tooltip} from '../..'
 
 export default {title: 'Composite components/Tooltip/examples', component: Tooltip} as Meta
 

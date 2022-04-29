@@ -22,11 +22,10 @@ import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code
     borderRadius: 2,
     padding: 6,
     paddingTop: 8,
-    marginBottom: 3,
-    '[data-component=tooltip]': {visibility: 'visible'}
+    marginBottom: 3
   }}
 >
-  <Tooltip text="You have no unread notifications">
+  <Tooltip text="You have no unread notifications" sx={{visibility: 'visible', opacity: 1}}>
     <IconButton icon={BellIcon} aria-label="Notifications" />
   </Tooltip>
 </Box>
@@ -67,7 +66,7 @@ Set direction of tooltip with `direction`. The tooltip is responsive and will au
     flexDirection: 'column',
     gap: 8,
     marginY: 4,
-    '[data-component=tooltip]': {visibility: 'visible'}
+    '[data-component=tooltip]': {visibility: 'visible', opacity: 1}
   }}
 >
   <Box sx={{display: 'flex', justifyContent: 'space-between', gap: 1}}>
@@ -157,7 +156,7 @@ Set direction of tooltip with `direction`. The tooltip is responsive and will au
     noUnnecessaryDeps: true,
     adaptsToThemes: true,
     adaptsToScreenSizes: true,
-    fullTestCoverage: false,
+    fullTestCoverage: true,
     usedInProduction: true,
     usageExamplesDocumented: true,
     hasStorybookStories: true,
