@@ -30,30 +30,30 @@ export const Direction = () => {
         '[data-component=tooltip]': {visibility: 'visible'} // see all tooltips
       }}
     >
-      <Tooltip direction="nw" text="Tooltip text can be really long and event take mutiple lines">
+      <Tooltip direction="nw" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: nw" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="n" text="Tooltip text can be really long and event take mutiple lines">
+      <Tooltip direction="n" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: n" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="ne" text="Tooltip text can be really long and event take mutiple lines">
+      <Tooltip direction="ne" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: ne" fillColor="#0366d6" />
       </Tooltip>
 
-      <Tooltip direction="w" text="Tooltip text can be really long and event take mutiple lines">
+      <Tooltip direction="w" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: w" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="e" text="Tooltip text can be really long and event take mutiple lines">
+      <Tooltip direction="e" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: e" fillColor="#0366d6" />
       </Tooltip>
 
-      <Tooltip direction="sw" text="Tooltip text can be really long and event take mutiple lines">
+      <Tooltip direction="sw" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: sw" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="s" text="Tooltip text can be really long and event take mutiple lines">
+      <Tooltip direction="s" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: s" fillColor="#0366d6" />
       </Tooltip>
-      <Tooltip direction="se" text="Tooltip text can be really long and event take mutiple lines">
+      <Tooltip direction="se" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: se" fillColor="#0366d6" />
       </Tooltip>
     </Box>
