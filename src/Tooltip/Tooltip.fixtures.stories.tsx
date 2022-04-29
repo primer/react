@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {Box, IssueLabelToken} from '..'
+import {Box, Button, IssueLabelToken} from '..'
 import {Tooltip} from '.'
 
 export default {title: 'Composite components/Tooltip/fixtures', component: Tooltip} as Meta
@@ -55,6 +55,19 @@ export const Direction = () => {
       </Tooltip>
       <Tooltip direction="se" text="Tooltip text can be really long and even take mutiple lines">
         <IssueLabel text="direction: se" fillColor="#0366d6" />
+      </Tooltip>
+    </Box>
+  )
+}
+
+export const Delay = () => {
+  return (
+    <Box sx={{display: 'flex', gap: 1}}>
+      <Tooltip text="Waits 400ms before showing up">
+        <Button>default, with delay</Button>
+      </Tooltip>
+      <Tooltip text="Shows up instantly" noDelay>
+        <Button>no delay</Button>
       </Tooltip>
     </Box>
   )

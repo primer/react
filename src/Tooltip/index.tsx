@@ -1,8 +1,8 @@
 /**
- * triangle position
- * Add animations & noDelay
- * wrap
- * add align?
+ * wrap - deprecate?
+ * use React.ReactNode instead of element
+ * backward compat for aria-label
+ * tests!
  */
 
 import React from 'react'
@@ -14,19 +14,25 @@ import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 
 type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 type TooltipAlign = 'left' | 'right'
+
 export type TooltipProps = {
-  /** The text content of the tooltip. This should be brief and no longer than a sentence. */
-  text: string
+  /** The text content of the tooltip. This should be brief and no longer than a sentence.
+   *  Marked as optional to support backward compatibility with aria-label. */
+  text?: string
   /** @deprecated Use `text` instead */
   'aria-label'?: string
   /** Direction relative to target */
   direction?: TooltipDirection
-  /** Alignment relative to target */
+  /** @deprecated Use `direction` instead. Alignment relative to target. */
   align?: TooltipAlign
   /** Use aria-describedby or aria-labelledby */
   type?: 'description' | 'label'
   /** Tooltip target, single element */
   children: React.ReactElement
+  /** When set to true, tooltip appears without any delay */
+  noDelay?: boolean
+  /** @deprecated Always set to true now. */
+  wrap?: boolean
 } & SxProp
 
 // map tooltip direction to anchoredPosition props
@@ -52,13 +58,16 @@ export const Tooltip: React.FC<TooltipProps> = ({
   direction = 'n',
   align,
   type = 'description',
-  sx = {}
+  noDelay = false,
+  sx = {},
+  ...props
 }) => {
   const tooltipRef = React.useRef<HTMLDivElement>(null)
   const anchorElementRef = React.useRef<HTMLElement>(null)
 
   const {position} = useAnchoredPosition({
     side: directionToPosition[direction].side,
+    // support both algin and direction for backward compatibility
     align: align ? alignToAnchorAlignment[align] : directionToPosition[direction].align,
     floatingElementRef: tooltipRef,
     anchorElementRef
@@ -70,25 +79,38 @@ export const Tooltip: React.FC<TooltipProps> = ({
     [type === 'description' ? 'aria-describedby' : 'aria-labelledby']: tooltipId
   })
 
+  const tooltipText = text || props['aria-label']
+
   return (
     <Box
       as="span"
       sx={{
-        ':hover, :focus-within': {'[data-component=tooltip]': {visibility: 'visible'}}
+        ':hover, :focus-within': {'[data-component=tooltip]': {visibility: 'visible', opacity: 1}}
       }}
     >
       <TooltipContext.Provider value={{tooltipId}}>{child}</TooltipContext.Provider>
-      <FloatingTooltip id={tooltipId} text={text} ref={tooltipRef} position={position} sx={sx} />
+      <FloatingTooltip
+        id={tooltipId}
+        text={tooltipText}
+        noDelay={noDelay}
+        ref={tooltipRef}
+        position={position}
+        sx={sx}
+      />
     </Box>
   )
 }
 
 const FloatingTooltip = React.forwardRef<
   HTMLDivElement,
-  {id: string; text: string; position?: AnchorPosition} & SxProp
->(({id, text, position, sx = {}}, ref) => {
+  Pick<TooltipProps, 'text' | 'noDelay'> & {id: string; position?: AnchorPosition} & SxProp
+>(({id, text, noDelay = false, position, sx = {}}, ref) => {
   const styles: BetterSystemStyleObject = {
     visibility: 'hidden',
+    opacity: 0,
+    transition: 'opacity 100ms ease-in',
+    transitionDelay: noDelay ? '0ms' : '400ms',
+
     backgroundColor: 'neutral.emphasisPlus',
     color: 'fg.onEmphasis',
     borderRadius: 1,
