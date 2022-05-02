@@ -23,23 +23,23 @@ exports[`UnderlineNav.Link adds activeClassName={SELECTED_CLASS} when it gets a 
   transition: 0.2s ease;
 }
 
-.c0:hover .UnderlineNav-octicon,
-.c0:focus .UnderlineNav-octicon {
+.c0:hover .PRC-UnderlineNav-octicon,
+.c0:focus .PRC-UnderlineNav-octicon {
   color: #57606a;
 }
 
-.c0.selected {
+.c0.PRC-selected {
   color: #24292f;
   border-bottom-color: #FD8C73;
 }
 
-.c0.selected .UnderlineNav-octicon {
+.c0.PRC-selected .PRC-UnderlineNav-octicon {
   color: #24292f;
 }
 
 <div
   activeClassName="selected"
-  className="c0 UnderlineNav-item"
+  className="c0 PRC-UnderlineNav-item"
   to="#"
 />
 `;
@@ -67,22 +67,22 @@ exports[`UnderlineNav.Link renders consistently 1`] = `
   transition: 0.2s ease;
 }
 
-.c0:hover .UnderlineNav-octicon,
-.c0:focus .UnderlineNav-octicon {
+.c0:hover .PRC-UnderlineNav-octicon,
+.c0:focus .PRC-UnderlineNav-octicon {
   color: #57606a;
 }
 
-.c0.selected {
+.c0.PRC-selected {
   color: #24292f;
   border-bottom-color: #FD8C73;
 }
 
-.c0.selected .UnderlineNav-octicon {
+.c0.PRC-selected .PRC-UnderlineNav-octicon {
   color: #24292f;
 }
 
 <a
-  className="c0 UnderlineNav-item"
+  className="c0 PRC-UnderlineNav-item"
 />
 `;
 
@@ -109,22 +109,22 @@ exports[`UnderlineNav.Link respects the "selected" prop 1`] = `
   transition: 0.2s ease;
 }
 
-.c0:hover .UnderlineNav-octicon,
-.c0:focus .UnderlineNav-octicon {
+.c0:hover .PRC-UnderlineNav-octicon,
+.c0:focus .PRC-UnderlineNav-octicon {
   color: #57606a;
 }
 
-.c0.selected {
+.c0.PRC-selected {
   color: #24292f;
   border-bottom-color: #FD8C73;
 }
 
-.c0.selected .UnderlineNav-octicon {
+.c0.PRC-selected .PRC-UnderlineNav-octicon {
   color: #24292f;
 }
 
 <a
-  className="c0 UnderlineNav-item selected"
+  className="c0 PRC-UnderlineNav-item PRC-selected"
   selected={true}
 />
 `;
