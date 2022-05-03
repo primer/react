@@ -6,15 +6,19 @@ import {ActionList} from '../ActionList'
 
 export type NavListProps = {
   'aria-label'?: string
+  'aria-labelledby'?: string
+  // sx
 }
 
-const Root = React.forwardRef<HTMLElement, NavListProps>(({children}, ref) => {
-  return (
-    <nav ref={ref}>
-      <ActionList>{children}</ActionList>
-    </nav>
-  )
-})
+const Root = React.forwardRef<HTMLElement, NavListProps>(
+  ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, children}, ref) => {
+    return (
+      <nav ref={ref} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
+        <ActionList>{children}</ActionList>
+      </nav>
+    )
+  }
+)
 
 Root.displayName = 'NavList'
 
@@ -24,12 +28,34 @@ Root.displayName = 'NavList'
 export type NavListItemProps = {
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
+  // sx
 }
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({href, 'aria-current': ariaCurrent, children}, ref) => {
     return (
-      <ActionList.LinkItem ref={ref} href={href} aria-current={ariaCurrent}>
+      <ActionList.LinkItem
+        ref={ref}
+        href={href}
+        aria-current={ariaCurrent}
+        sx={{
+          position: 'relative',
+          '&[aria-current]': {
+            fontWeight: 'bold',
+            bg: 'actionListItem.default.selectedBg',
+            '&::after': {
+              position: 'absolute',
+              top: 'calc(50% - 12px)',
+              left: '-8px',
+              width: '4px',
+              height: '24px',
+              content: '""',
+              bg: 'accent.fg',
+              borderRadius: 2
+            }
+          }
+        }}
+      >
         {children}
       </ActionList.LinkItem>
     )
@@ -37,8 +63,48 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
 )
 
 // ----------------------------------------------------------------------------
+// NavList.LeadingVisual
+
+const LeadingVisual = ActionList.LeadingVisual
+
+LeadingVisual.displayName = 'NavList.LeadingVisual'
+
+// ----------------------------------------------------------------------------
+// NavList.TrailingVisual
+
+const TrailingVisual = ActionList.TrailingVisual
+
+TrailingVisual.displayName = 'NavList.TrailingVisual'
+
+// ----------------------------------------------------------------------------
+// NavList.Divider
+
+const Divider = ActionList.Divider
+
+Divider.displayName = 'NavList.Divider'
+
+// ----------------------------------------------------------------------------
+// NavList.Group
+
+type NavListGroupProps = React.PropsWithChildren<{
+  title?: string
+}>
+
+// TODO: Dividers between groups
+// TODO: Forward ref
+const Group = ({title, children}: NavListGroupProps) => {
+  return <ActionList.Group title={title}>{children}</ActionList.Group>
+}
+
+Group.displayName = 'NavList.Group'
+
+// ----------------------------------------------------------------------------
 // Export
 
 export const NavList = Object.assign(Root, {
-  Item
+  Item,
+  LeadingVisual,
+  TrailingVisual,
+  Divider,
+  Group
 })
