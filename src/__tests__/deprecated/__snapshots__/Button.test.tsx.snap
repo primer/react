@@ -298,7 +298,10 @@ exports[`ButtonDanger renders correct disabled styles 1`] = `
 
 exports[`ButtonGroup renders consistently 1`] = `
 .c0 {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   vertical-align: middle;
 }
 
@@ -344,7 +347,6 @@ exports[`ButtonGroup renders consistently 1`] = `
 
 <div
   className="c0"
-  display="inline-block"
 />
 `;
 
