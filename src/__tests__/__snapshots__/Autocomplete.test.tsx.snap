@@ -12,7 +12,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -26,6 +25,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -164,7 +172,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -178,6 +185,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -351,7 +367,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -365,6 +380,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1301,7 +1325,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1315,6 +1338,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2161,7 +2193,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2175,6 +2206,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3032,7 +3072,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3046,6 +3085,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -4033,7 +4081,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4047,6 +4094,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {

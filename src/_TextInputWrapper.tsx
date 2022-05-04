@@ -95,10 +95,18 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   border-radius: ${get('radii.2')};
   outline: none;
   box-shadow: ${get('shadows.primer.shadow.inset')};
-  cursor: text;
   display: inline-flex;
   align-items: stretch;
   min-height: 32px;
+
+  input,
+  textarea {
+    cursor: text;
+  }
+
+  select {
+    cursor: pointer;
+  }
 
   &::placeholder {
     color: ${get('colors.fg.subtle')};
@@ -119,10 +127,15 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   ${props =>
     props.disabled &&
     css`
-      cursor: not-allowed;
       color: ${get('colors.primer.fg.disabled')};
       background-color: ${get('colors.input.disabledBg')};
       border-color: ${get('colors.border.default')};
+
+      input,
+      textarea,
+      select {
+        cursor: not-allowed;
+      }
     `}
 
     ${props =>
