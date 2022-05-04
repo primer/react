@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import {get} from './constants'
 import TextInputWrapper, {StyledWrapperProps} from './_TextInputWrapper'
 
 export type SelectProps = Omit<
@@ -10,19 +9,35 @@ export type SelectProps = Omit<
 
 const StyledSelect = styled.select`
   appearance: none;
-  background-color: transparent;
   border: 0;
   color: currentColor;
+  font-size: inherit;
   outline: none;
   width: 100%;
 
-  option {
-    color: initial;
+  /* Firefox hacks: */
+  /* 1. Makes Firefox's native dropdown menu's background match the theme.
+
+        background-color should be 'transparent', but Firefox uses the background-color on 
+        <select> to determine the background color used for the dropdown menu.
+  */
+  background-color: inherit;
+
+  /* 2. Prevents visible overlap of partially transparent background colors.
+  
+     'colors.input.disabledBg' happens to be partially transparent in light mode, so we use a
+     transparent background-color on a disabled <select>. */
+  &:disabled {
+    background-color: transparent;
   }
 
-  /* colors the select input's placeholder text */
-  &:invalid {
-    color: ${get('colors.fg.subtle')};
+  /* 3. Maintain dark bg color in Firefox on Windows high-contrast mode
+  
+     Firefox makes the <select>'s background color white when setting 'background-color: transparent;' */
+  @media screen and (forced-colors: active) {
+    &:disabled {
+      background-color: -moz-combobox;
+    }
   }
 `
 
@@ -44,18 +59,24 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({children, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
       sx={{
-        position: 'relative'
+        overflow: 'hidden',
+        position: 'relative',
+        '@media screen and (forced-colors: active)': {
+          svg: {
+            fill: disabled ? 'GrayText' : 'FieldText'
+          }
+        }
       }}
       size={size}
       validationStatus={validationStatus}
+      disabled={disabled}
     >
       <StyledSelect
         ref={ref}
-        required={required || Boolean(placeholder)}
+        required={required}
         disabled={disabled}
-        aria-required={required}
-        aria-disabled={disabled}
         aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
+        data-hasplaceholder={Boolean(placeholder)}
         {...rest}
       >
         {placeholder && (
