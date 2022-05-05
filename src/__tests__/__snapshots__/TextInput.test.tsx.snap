@@ -11,7 +11,6 @@ exports[`TextInput renders 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -25,6 +24,15 @@ exports[`TextInput renders 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -45,7 +53,8 @@ exports[`TextInput renders 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -121,7 +130,6 @@ exports[`TextInput renders block 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -145,6 +153,15 @@ exports[`TextInput renders block 1`] = `
   padding-right: 0;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -163,7 +180,8 @@ exports[`TextInput renders block 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -239,7 +257,6 @@ exports[`TextInput renders consistently 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -253,6 +270,15 @@ exports[`TextInput renders consistently 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -273,7 +299,8 @@ exports[`TextInput renders consistently 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -348,7 +375,6 @@ exports[`TextInput renders contrast 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -363,6 +389,15 @@ exports[`TextInput renders contrast 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -383,7 +418,8 @@ exports[`TextInput renders contrast 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -459,7 +495,6 @@ exports[`TextInput renders error 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -474,6 +509,15 @@ exports[`TextInput renders error 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -494,7 +538,8 @@ exports[`TextInput renders error 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -502,8 +547,9 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #cf222e;
-  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 >:not(:last-child) {
@@ -575,7 +621,6 @@ exports[`TextInput renders large 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -596,6 +641,15 @@ exports[`TextInput renders large 1`] = `
   padding-right: 0;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -614,7 +668,8 @@ exports[`TextInput renders large 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -691,7 +746,6 @@ exports[`TextInput renders leadingVisual 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -705,6 +759,15 @@ exports[`TextInput renders leadingVisual 1`] = `
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -725,7 +788,8 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -828,7 +892,6 @@ exports[`TextInput renders monospace 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -843,6 +906,15 @@ exports[`TextInput renders monospace 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -863,7 +935,8 @@ exports[`TextInput renders monospace 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -939,7 +1012,6 @@ exports[`TextInput renders placeholder 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -953,6 +1025,15 @@ exports[`TextInput renders placeholder 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -973,7 +1054,8 @@ exports[`TextInput renders placeholder 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1050,7 +1132,6 @@ exports[`TextInput renders small 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1073,6 +1154,15 @@ exports[`TextInput renders small 1`] = `
   padding-right: 0;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -1091,7 +1181,8 @@ exports[`TextInput renders small 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1197,6 +1288,22 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   position: relative;
 }
 
+.c4:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c4:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c4:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
 .c4:disabled {
   cursor: default;
   color: #8c959f;
@@ -1218,22 +1325,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   background-color: #f3f4f6;
 }
 
-.c4:focus:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c4:focus:not([disabled]):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c4:focus-visible:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
 .c4:active:not([disabled]) {
   background-color: hsla(220,14%,94%,1);
 }
@@ -1252,7 +1343,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1266,6 +1356,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1667,6 +1766,22 @@ exports[`TextInput renders trailingAction text button 1`] = `
   position: relative;
 }
 
+.c3:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c3:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c3:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
 .c3:disabled {
   cursor: default;
   color: #8c959f;
@@ -1704,22 +1819,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   background-color: #f3f4f6;
 }
 
-.c3:focus:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c3:focus:not([disabled]):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c3:focus-visible:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
 .c3:active:not([disabled]) {
   background-color: hsla(220,14%,94%,1);
 }
@@ -1738,7 +1837,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1752,6 +1850,15 @@ exports[`TextInput renders trailingAction text button 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -1907,6 +2014,22 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   position: relative;
 }
 
+.c4:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c4:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c4:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
 .c4:disabled {
   cursor: default;
   color: #8c959f;
@@ -1944,22 +2067,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   background-color: #f3f4f6;
 }
 
-.c4:focus:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c4:focus:not([disabled]):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c4:focus-visible:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
 .c4:active:not([disabled]) {
   background-color: hsla(220,14%,94%,1);
 }
@@ -1978,7 +2085,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1992,6 +2098,15 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2346,7 +2461,6 @@ exports[`TextInput renders trailingVisual 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2360,6 +2474,15 @@ exports[`TextInput renders trailingVisual 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2380,7 +2503,8 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2483,7 +2607,6 @@ exports[`TextInput renders warning 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2498,6 +2621,15 @@ exports[`TextInput renders warning 1`] = `
   padding-left: 0;
   padding-right: 0;
   border-color: #bf8700;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2518,7 +2650,8 @@ exports[`TextInput renders warning 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2547,8 +2680,9 @@ exports[`TextInput renders warning 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #bf8700;
-  box-shadow: 0 0 0 3px rgba(212,167,44,0.4);
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c1 {
@@ -2608,7 +2742,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2622,6 +2755,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2642,7 +2784,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2766,7 +2909,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2780,6 +2922,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -2800,7 +2951,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2968,7 +3120,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2982,6 +3133,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3002,7 +3162,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3130,7 +3291,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3144,6 +3304,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3164,7 +3333,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3372,7 +3542,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3386,6 +3555,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3406,7 +3584,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3614,7 +3793,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3628,6 +3806,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3648,7 +3835,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3856,7 +4044,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3870,6 +4057,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -3890,7 +4086,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4054,7 +4251,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4068,6 +4264,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -4088,7 +4293,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4296,7 +4502,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4310,6 +4515,15 @@ Array [
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -4330,7 +4544,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4498,7 +4713,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4521,6 +4735,15 @@ Array [
   padding-right: 12px;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -4539,7 +4762,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4788,7 +5012,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4802,6 +5025,15 @@ Array [
   background-position: right 8px center;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -4822,7 +5054,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5070,7 +5303,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5091,6 +5323,15 @@ Array [
   padding-right: 12px;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -5109,7 +5350,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5346,7 +5588,6 @@ exports[`TextInput should render a password input 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5360,6 +5601,15 @@ exports[`TextInput should render a password input 1`] = `
   background-position: right 8px center;
   padding-left: 0;
   padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
 }
 
 .c0::-webkit-input-placeholder {
@@ -5380,7 +5630,8 @@ exports[`TextInput should render a password input 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {

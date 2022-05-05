@@ -1,5 +1,18 @@
 # @primer/components
 
+## 35.2.1
+
+### Patch Changes
+
+- [#2013](https://github.com/primer/react/pull/2013) [`5f6c5e22`](https://github.com/primer/react/commit/5f6c5e2249c9bb4c6a6b744755ea4607d10a0b74) Thanks [@mperrotti](https://github.com/mperrotti)! - 1. Fix a spacing issue with the loading spinner in a `TextInputWithTokens`
+  2. Bolds form validation text to be visually balanced with the icon
+
+* [#2053](https://github.com/primer/react/pull/2053) [`231c70b9`](https://github.com/primer/react/commit/231c70b9e3757840e0dc1baf53e5bfd9a679e953) Thanks [@langermank](https://github.com/langermank)! - Namespace UnderlineNav
+
+- [#2033](https://github.com/primer/react/pull/2033) [`0d7a871a`](https://github.com/primer/react/commit/0d7a871a64fb8770405d252ec88d7467d350a550) Thanks [@mperrotti](https://github.com/mperrotti)! - - Text input inner action's hover bg should not touch the text input edges
+  - Increases touch target area of the text input inner action button
+  - Deprecated `children` and `variant` props on the `TextInputInnerAction` component, but they're **still supported for now**.
+
 ## 35.2.0
 
 ### Minor Changes
