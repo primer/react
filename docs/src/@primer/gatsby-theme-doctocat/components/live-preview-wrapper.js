@@ -1,24 +1,33 @@
-import {BaseStyles, Box, ThemeProvider, useTheme} from '@primer/react'
-import {DropdownMenu, DropdownButton} from '@primer/react/deprecated'
 import React from 'react'
+import {ActionMenu, ActionList, BaseStyles, Box, ThemeProvider, useTheme} from '@primer/react'
 
 function ThemeSwitcher() {
   const {theme, dayScheme, setDayScheme} = useTheme()
-  const items = Object.keys(theme.colorSchemes).map(scheme => ({text: scheme.replace(/_/g, ' '), key: scheme}))
+  const items = Object.keys(theme.colorSchemes).map(scheme => ({name: scheme.replace(/_/g, ' '), key: scheme}))
   const selectedItem = React.useMemo(() => items.find(item => item.key === dayScheme), [items, dayScheme])
+  const itemsKeys = items.map(item => item.key)
+  const [selectedIndex, setSelectedIndex] = React.useState(itemsKeys.indexOf(dayScheme))
+
   return (
-    <DropdownMenu
-      renderAnchor={({children, ...anchorProps}) => (
-        <DropdownButton {...anchorProps} sx={{variant: 'small'}}>
-          {children}
-        </DropdownButton>
-      )}
-      items={items}
-      selectedItem={selectedItem}
-      onChange={item => {
-        setDayScheme(item.key)
-      }}
-    />
+    <ActionMenu>
+      <ActionMenu.Button aria-label="Select field type">{selectedItem?.name}</ActionMenu.Button>
+      <ActionMenu.Overlay width="medium">
+        <ActionList selectionVariant="single">
+          {items.map((type, index) => (
+            <ActionList.Item
+              key={index}
+              selected={index === selectedIndex}
+              onSelect={() => {
+                setSelectedIndex(index)
+                setDayScheme(items[index].key)
+              }}
+            >
+              {type.name}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+      </ActionMenu.Overlay>
+    </ActionMenu>
   )
 }
 

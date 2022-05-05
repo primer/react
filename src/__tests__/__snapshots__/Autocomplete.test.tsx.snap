@@ -54,7 +54,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -213,7 +214,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -407,7 +409,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1364,7 +1367,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2231,7 +2235,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3109,7 +3114,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4117,7 +4123,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {

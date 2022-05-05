@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
+import getGlobalFocusStyles from './_getGlobalFocusStyles'
 
 const ITEM_CLASS = 'PRC-UnderlineNav-item'
 const SELECTED_CLASS = 'PRC-selected'
@@ -86,7 +87,7 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
     color: ${get('colors.fg.default')};
     text-decoration: none;
     border-bottom-color: ${get('colors.neutral.muted')};
-    transition: 0.2s ease;
+    transition: border-bottom-color 0.2s ease;
 
     .PRC-UnderlineNav-octicon {
       color: ${get('colors.fg.muted')};
@@ -101,6 +102,8 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
       color: ${get('colors.fg.default')};
     }
   }
+
+  ${getGlobalFocusStyles('-8px')};
 
   ${sx};
 `
