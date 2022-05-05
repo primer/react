@@ -5,6 +5,7 @@ import {ActionList} from '../ActionList'
 // NavList
 
 export type NavListProps = {
+  children: React.ReactNode
   'aria-label'?: string
   'aria-labelledby'?: string
   // sx
@@ -26,6 +27,7 @@ Root.displayName = 'NavList'
 // NavList.Item
 
 export type NavListItemProps = {
+  children: React.ReactNode
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
   // sx
@@ -87,6 +89,7 @@ Divider.displayName = 'NavList.Divider'
 // NavList.Group
 
 type NavListGroupProps = React.PropsWithChildren<{
+  children: React.ReactNode
   title?: string
 }>
 
