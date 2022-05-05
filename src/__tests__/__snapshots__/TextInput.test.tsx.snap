@@ -53,7 +53,8 @@ exports[`TextInput renders 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -176,7 +177,8 @@ exports[`TextInput renders block 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -294,7 +296,8 @@ exports[`TextInput renders consistently 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -412,7 +415,8 @@ exports[`TextInput renders contrast 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -531,7 +535,8 @@ exports[`TextInput renders error 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -539,8 +544,9 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #cf222e;
-  box-shadow: 0 0 0 3px rgba(164,14,38,0.4);
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 >:not(:last-child) {
@@ -659,7 +665,8 @@ exports[`TextInput renders large 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -778,7 +785,8 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -924,7 +932,8 @@ exports[`TextInput renders monospace 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1042,7 +1051,8 @@ exports[`TextInput renders placeholder 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1168,7 +1178,8 @@ exports[`TextInput renders small 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1274,6 +1285,22 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   position: relative;
 }
 
+.c4:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c4:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c4:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
 .c4:disabled {
   cursor: default;
   color: #8c959f;
@@ -1293,22 +1320,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4:hover:not([disabled]) {
   background-color: #f3f4f6;
-}
-
-.c4:focus:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c4:focus:not([disabled]):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c4:focus-visible:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
 }
 
 .c4:active:not([disabled]) {
@@ -1752,6 +1763,22 @@ exports[`TextInput renders trailingAction text button 1`] = `
   position: relative;
 }
 
+.c3:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c3:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c3:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
 .c3:disabled {
   cursor: default;
   color: #8c959f;
@@ -1787,22 +1814,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c3:hover:not([disabled]) {
   background-color: #f3f4f6;
-}
-
-.c3:focus:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c3:focus:not([disabled]):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c3:focus-visible:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
 }
 
 .c3:active:not([disabled]) {
@@ -2000,6 +2011,22 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   position: relative;
 }
 
+.c4:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c4:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c4:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
 .c4:disabled {
   cursor: default;
   color: #8c959f;
@@ -2035,22 +2062,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4:hover:not([disabled]) {
   background-color: #f3f4f6;
-}
-
-.c4:focus:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c4:focus:not([disabled]):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c4:focus-visible:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
 }
 
 .c4:active:not([disabled]) {
@@ -2489,7 +2500,8 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2635,7 +2647,8 @@ exports[`TextInput renders warning 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2664,8 +2677,9 @@ exports[`TextInput renders warning 1`] = `
 }
 
 .c0:focus-within {
-  border-color: #bf8700;
-  box-shadow: 0 0 0 3px rgba(212,167,44,0.4);
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c1 {
@@ -2767,7 +2781,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2933,7 +2948,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3143,7 +3159,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3313,7 +3330,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3563,7 +3581,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3813,7 +3832,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4063,7 +4083,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4269,7 +4290,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4519,7 +4541,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4736,7 +4759,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5027,7 +5051,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5322,7 +5347,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5601,7 +5627,8 @@ exports[`TextInput should render a password input 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
