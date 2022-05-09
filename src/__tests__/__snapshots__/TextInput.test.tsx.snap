@@ -2157,7 +2157,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       className="c3"
     >
       <button
-        aria-describedby="react-aria6136880841-1"
+        aria-describedby="react-aria-1"
         className="c4"
         onClick={[MockFunction]}
         size="small"
@@ -2173,7 +2173,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
         aria-hidden={true}
         className="c5"
         data-component="tooltip"
-        id="react-aria6136880841-1"
+        id="react-aria-1"
         role="tooltip"
       >
         Clear input

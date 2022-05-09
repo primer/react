@@ -68,11 +68,13 @@ describe('TextInput', () => {
     const handleAction = jest.fn()
     expect(
       render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
-        />
+        <SSRProvider>
+          <TextInput
+            name="search"
+            placeholder={'Search'}
+            trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
+          />
+        </SSRProvider>
       )
     ).toMatchSnapshot()
   })
@@ -81,15 +83,17 @@ describe('TextInput', () => {
     const handleAction = jest.fn()
     expect(
       render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={
-            <TextInput.Action onClick={handleAction} aria-label="Clear input">
-              Clear
-            </TextInput.Action>
-          }
-        />
+        <SSRProvider>
+          <TextInput
+            name="search"
+            placeholder={'Search'}
+            trailingAction={
+              <TextInput.Action onClick={handleAction} aria-label="Clear input">
+                Clear
+              </TextInput.Action>
+            }
+          />
+        </SSRProvider>
       )
     ).toMatchSnapshot()
   })
