@@ -1,9 +1,10 @@
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useLayoutEffect, createRef, useContext} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {get} from '../constants'
 import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {UnderlineNavContext} from './UnderlineNavContext'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -35,6 +36,7 @@ export type UnderlineNavLinkProps = {
    *  Icon before the text
    */
   leadingIcon?: React.FunctionComponent<IconProps>
+  as?: React.ElementType
 } & SxProp &
   LinkProps
 
@@ -43,6 +45,12 @@ export const UnderlineNavLink = forwardRef(
     {sx: sxProp = {}, as: Component = 'a', href = '#', children, selected = false, leadingIcon: LeadingIcon, ...props},
     forwardedRef
   ) => {
+    const ref = forwardedRef ?? createRef()
+    const underlineNavContext = useContext(UnderlineNavContext)
+    useLayoutEffect(() => {
+      const domRect = ref?.current.getBoundingClientRect()
+      underlineNavContext.setChildSize({width: domRect.width})
+    }, [ref.current])
     const iconWrapStyles = {
       display: 'inline-block',
       marginRight: '8px'
@@ -73,7 +81,7 @@ export const UnderlineNavLink = forwardRef(
           {...(selected ? {'aria-current': 'page'} : {})}
           sx={merge(linkStyles, sxProp as SxProp)}
           {...props}
-          ref={forwardedRef}
+          ref={ref}
         >
           {LeadingIcon && (
             <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>

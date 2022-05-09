@@ -1,18 +1,22 @@
-import React, {forwardRef} from 'react'
+import React, {createRef, forwardRef, useCallback, useState} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
+import useResponsiveWrapper from './useNavResponsive'
+import type {ResponsiveProps} from './useNavResponsive'
+import {UnderlineNavContext} from './UnderlineNavContext'
 
 export type UnderlineNavProps = {
   label: string
-  as: 'nav' | 'div'
+  as: React.ElementType
+  overflow: 'auto' | 'menu' | 'scroll'
   align?: 'right'
   sx: SxProp
   children: React.ReactNode
-  actions?: React.ComponentType
 }
 
 export const UnderlineNav = forwardRef(
-  ({as = 'nav', align, label, sx: sxProp = {}, actions: Actions, children}: UnderlineNavProps, forwardedRef) => {
+  ({as = 'nav', overflow = 'auto', align, label, sx: sxProp = {}, children}: UnderlineNavProps, forwardedRef) => {
+    const newRef = forwardedRef ?? createRef()
     const flexDirection = align === 'right' ? 'row-reverse' : 'row'
     const styles = {
       display: 'flex',
@@ -31,17 +35,39 @@ export const UnderlineNav = forwardRef(
       alignSelf: 'center'
     }
 
+    const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({items: children})
+    const [showNav, setShowNav] = useState<boolean>(false)
+    const callback = useCallback(responsiveProps => {
+      setResponsiveProps(responsiveProps)
+      setShowNav(true)
+    }, [])
+
+    const actions = responsiveProps.actions
+    const [childSize, setChildSize] = useState<{width: number}>({width: 0})
+    const setSize = useCallback(sizeObj => {
+      if (childSize.width === 0) {
+        setChildSize(sizeObj)
+      }
+    }, [])
+    // do this for overflow
+    useResponsiveWrapper({
+      overflow,
+      children,
+      ref: newRef,
+      callback: setResponsiveProps,
+      childSize
+    })
+    // TODO - ensure horizontal scroll
     return (
-      <Box as={as} sx={merge(styles, sxProp)} aria-label={label} ref={forwardedRef}>
-        <Box as="ul" sx={ulStyles}>
-          {children}
-        </Box>
-        {Actions && (
-          <Box sx={actionStyles}>
-            <Actions />
+      <UnderlineNavContext.Provider value={{childSize, setChildSize: setSize}}>
+        <Box as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
+          <Box as="ul" sx={ulStyles}>
+            {responsiveProps.items}
           </Box>
-        )}
-      </Box>
+
+          {actions && <Box sx={actionStyles}>{actions}</Box>}
+        </Box>
+      </UnderlineNavContext.Provider>
     )
   }
 )

@@ -67,6 +67,15 @@ const items: string[] = [
 ]
 const initItemLength = items.length
 
+export const InternalResponsiveNav = (args: UnderlineNavProps) => {
+  return (
+    <UnderlineNav {...args}>
+      {items.map(item => (
+        <UnderlineNav.Link key={item}>{item}</UnderlineNav.Link>
+      ))}
+    </UnderlineNav>
+  )
+}
 export const ResponsiveNav = (args: UnderlineNavProps) => {
   const ref = useRef<HTMLDivElement>(null)
 
