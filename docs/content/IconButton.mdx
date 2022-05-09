@@ -35,6 +35,16 @@ A separate component called `IconButton` is used if the action shows only an ico
 </>
 ```
 
+### Customize description / tooltip text
+
+To add description for the button, wrap `IconButton` in a `Tooltip`. Make sure you pass `aria-label` to the button as well.
+
+```jsx live
+<Tooltip text="You have no unread notifications">
+  <IconButton icon={BellIcon} aria-label="Notifications" />
+</Tooltip>
+```
+
 ## API reference
 
 Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
