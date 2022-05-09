@@ -262,8 +262,13 @@ function App() {
 <PropsTable>
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="aria-labelledby" type="string" />
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLElement" />
+  <PropsTableBasePropRows
+    elementType="nav"
+    refType="HTMLElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#Attributes">MDN</Link>
+    }
+  />
 </PropsTable>
 
 ### NavList.Item

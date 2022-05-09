@@ -6,20 +6,16 @@ import {ActionList} from '../ActionList'
 
 export type NavListProps = {
   children: React.ReactNode
-  'aria-label'?: string
-  'aria-labelledby'?: string
   // sx
-}
+} & React.ComponentProps<'nav'>
 
-const Root = React.forwardRef<HTMLElement, NavListProps>(
-  ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, children}, ref) => {
-    return (
-      <nav ref={ref} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy}>
-        <ActionList>{children}</ActionList>
-      </nav>
-    )
-  }
-)
+const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+  return (
+    <nav ref={ref} {...props}>
+      <ActionList>{children}</ActionList>
+    </nav>
+  )
+})
 
 Root.displayName = 'NavList'
 
