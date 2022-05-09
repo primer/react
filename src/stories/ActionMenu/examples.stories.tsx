@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta, Story as StoryType} from '@storybook/react'
-import {within, fireEvent} from '@storybook/testing-library'
+import {within, fireEvent, waitFor} from '@storybook/testing-library'
 import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList} from '../..'
 import {
   GearIcon,
@@ -74,7 +74,9 @@ export const MenuWithActions: StoryType = () => {
 
 MenuWithActions.play = async ({canvasElement}) => {
   const canvas = within(canvasElement)
-  await fireEvent.click(canvas.getByRole('button'))
+  fireEvent.click(canvas.getByRole('button'))
+  // wait for menu to open
+  await waitFor(() => canvas.getAllByRole('menuitem'))
 }
 
 const fieldTypes = [
