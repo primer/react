@@ -20,7 +20,7 @@ const IssueLabel = React.forwardRef<HTMLAnchorElement, {text: string; fillColor:
 
 export const TokenWithTooltip = () => {
   return (
-    <Box sx={{display: 'flex', gap: 1}}>
+    <Box data-chromatic sx={{display: 'flex', gap: 1}}>
       <Tooltip text="Something isn't working">
         <IssueLabel text="bug" fillColor="#d73a4a" />
       </Tooltip>

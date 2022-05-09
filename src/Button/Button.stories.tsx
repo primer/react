@@ -108,9 +108,9 @@ export const iconButtonWithTooltip = ({...args}: ButtonProps) => {
             <IconButton icon={BellIcon} aria-label="Notifications" {...args} />
           </Tooltip>
         </span>
-        Custom tooltip side
+        Custom tooltip direction
         <span>
-          <Tooltip text="Notifications" side="right">
+          <Tooltip text="Notifications" direction="e">
             <IconButton icon={BellIcon} aria-label="Notifications" {...args} />
           </Tooltip>
         </span>
