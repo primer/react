@@ -1447,7 +1447,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       className="c3"
     >
       <button
-        aria-describedby="react-aria2834561391-2"
+        aria-describedby="react-aria5520601477-2"
         aria-label="iconLabel"
         className="c4"
         onClick={[MockFunction]}
@@ -1484,7 +1484,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
         aria-hidden={true}
         className="c6"
         data-component="tooltip"
-        id="react-aria2834561391-2"
+        id="react-aria5520601477-2"
         role="tooltip"
       >
         iconLabel
@@ -2042,7 +2042,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       className="c3"
     >
       <button
-        aria-describedby="react-aria2834561391-1"
+        aria-describedby="react-aria5520601477-1"
         className="c4"
         onClick={[MockFunction]}
         size="small"
@@ -2058,7 +2058,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
         aria-hidden={true}
         className="c5"
         data-component="tooltip"
-        id="react-aria2834561391-1"
+        id="react-aria5520601477-1"
         role="tooltip"
       >
         Clear input
