@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Text, Select, ThemeProvider} from '..'
+import {BaseStyles, Select, ThemeProvider, FormControl} from '..'
 import {SelectProps} from '../Select'
 
 export default {
@@ -57,19 +57,14 @@ export default {
       options: ['success', 'warning', 'error', undefined],
       control: {type: 'radio'}
     }
-  }
+  },
+  parameters: {controls: {exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused']}}
 } as Meta
 
-const Label = ({htmlFor, children}: {htmlFor: string; children: React.ReactNode}) => (
-  <Text as="label" htmlFor={htmlFor} sx={{display: 'block', fontWeight: 600, fontSize: 14}}>
-    {children}
-  </Text>
-)
-
 export const Default = (args: SelectProps) => (
-  <>
-    <Label htmlFor="selectInput">Choice</Label>
-    <Select id="selectInput" {...args}>
+  <FormControl disabled={args.disabled} required={args.required}>
+    <FormControl.Label>Choice</FormControl.Label>
+    <Select {...args}>
       <Select.Option value="one">Choice one</Select.Option>
       <Select.Option value="two">Choice two</Select.Option>
       <Select.Option value="three">Choice three</Select.Option>
@@ -77,13 +72,13 @@ export const Default = (args: SelectProps) => (
       <Select.Option value="five">Choice five</Select.Option>
       <Select.Option value="six">Choice six</Select.Option>
     </Select>
-  </>
+  </FormControl>
 )
 
 export const WithOptionGroups = (args: SelectProps) => (
-  <>
-    <Label htmlFor="selectInput">Choice</Label>
-    <Select id="selectInput" {...args}>
+  <FormControl disabled={args.disabled} required={args.required}>
+    <FormControl.Label>Choice</FormControl.Label>
+    <Select {...args}>
       <Select.OptGroup label="Group one">
         <Select.Option value="one">Choice one</Select.Option>
         <Select.Option value="two">Choice two</Select.Option>
@@ -95,13 +90,13 @@ export const WithOptionGroups = (args: SelectProps) => (
         <Select.Option value="six">Choice six</Select.Option>
       </Select.OptGroup>
     </Select>
-  </>
+  </FormControl>
 )
 
 export const WithAPlaceholder = (args: SelectProps) => (
-  <>
-    <Label htmlFor="selectInput">Choice</Label>
-    <Select placeholder="Pick a choice" id="selectInput" {...args}>
+  <FormControl disabled={args.disabled} required={args.required}>
+    <FormControl.Label>Choice</FormControl.Label>
+    <Select placeholder="Pick a choice" {...args}>
       <Select.Option value="one">Choice one</Select.Option>
       <Select.Option value="two">Choice two</Select.Option>
       <Select.Option value="three">Choice three</Select.Option>
@@ -109,5 +104,5 @@ export const WithAPlaceholder = (args: SelectProps) => (
       <Select.Option value="five">Choice five</Select.Option>
       <Select.Option value="six">Choice six</Select.Option>
     </Select>
-  </>
+  </FormControl>
 )

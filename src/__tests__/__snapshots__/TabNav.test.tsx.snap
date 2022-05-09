@@ -13,6 +13,22 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
   border-bottom: 0;
 }
 
+.c0:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -6px;
+}
+
+.c0:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -6px;
+}
+
 .c0:hover,
 .c0:focus {
   color: #24292f;
