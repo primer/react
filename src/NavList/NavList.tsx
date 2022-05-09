@@ -92,7 +92,13 @@ type NavListGroupProps = React.PropsWithChildren<{
 // TODO: Dividers between groups
 // TODO: Forward ref
 const Group = ({title, children}: NavListGroupProps) => {
-  return <ActionList.Group title={title}>{children}</ActionList.Group>
+  return (
+    <>
+      {/* Hide divider if the group is the first item in the list */}
+      <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
+      <ActionList.Group title={title}>{children}</ActionList.Group>
+    </>
+  )
 }
 
 Group.displayName = 'NavList.Group'
