@@ -1,5 +1,6 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import {Meta, Story as StoryType} from '@storybook/react'
+import {within, fireEvent} from '@storybook/testing-library'
 import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList} from '../..'
 import {
   GearIcon,
@@ -35,7 +36,7 @@ const meta: Meta = {
 }
 export default meta
 
-export function MenuWithActions(): JSX.Element {
+export const MenuWithActions: StoryType = () => {
   const [actionFired, fireAction] = React.useState('')
   const onSelect = (name: string) => fireAction(name)
 
@@ -69,6 +70,11 @@ export function MenuWithActions(): JSX.Element {
       </ActionMenu>
     </>
   )
+}
+
+MenuWithActions.play = async ({canvasElement}) => {
+  const canvas = within(canvasElement)
+  await fireEvent.click(canvas.getByRole('button'))
 }
 
 const fieldTypes = [

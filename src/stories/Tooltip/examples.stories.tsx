@@ -1,5 +1,6 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import {Meta, Story} from '@storybook/react'
+import {within, fireEvent} from '@storybook/testing-library'
 import {CodeIcon, CrossReferenceIcon, ImageIcon, MentionIcon} from '@primer/octicons-react'
 import {IconButton, Box, IssueLabelToken, Tooltip} from '../..'
 
@@ -37,7 +38,7 @@ export const TokenWithTooltip = () => {
   )
 }
 
-export const ButtonWithTooltip = () => {
+export const ButtonWithTooltip: Story = () => {
   return (
     <Box sx={{display: 'flex', gap: 1}}>
       <Tooltip text="Add code, <Cmd+e>">
@@ -58,4 +59,9 @@ export const ButtonWithTooltip = () => {
       </Tooltip>
     </Box>
   )
+}
+
+ButtonWithTooltip.play = async ({canvasElement}) => {
+  const canvas = within(canvasElement)
+  await fireEvent.focus(canvas.getByLabelText('Code'))
 }

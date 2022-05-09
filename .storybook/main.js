@@ -5,6 +5,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     'storybook-addon-performance/register',
+    '@storybook/addon-interactions',
     ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
       ? ['@whitespace/storybook-addon-html']
       : [])
