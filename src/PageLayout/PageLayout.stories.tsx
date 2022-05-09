@@ -1,8 +1,18 @@
-import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Box, BranchName, Heading, Link, SideNav, StateLabel, TabNav, Text, Button} from '..'
-import {Placeholder} from '../Placeholder'
-import {PageLayout} from './PageLayout'
+import {
+  Box,
+  BranchName,
+  Button,
+  Heading,
+  Link,
+  SideNav,
+  StateLabel,
+  TabNav,
+  Text
+  } from '..'
+import { Meta, Story } from '@storybook/react'
+import { PageLayout } from './PageLayout'
+import { Placeholder } from '../Placeholder'
 
 const meta: Meta = {
   title: 'Layout/PageLayout',
@@ -270,6 +280,20 @@ export const PullRequestPage = () => (
     </PageLayout.Header>
     <PageLayout.Content>
       <Box sx={{border: '1px solid', borderRadius: 2, borderColor: 'border.default', height: 200}}></Box>
+      <Box
+        sx={{
+          maxWidth: '100%',
+          overflowX: 'auto',
+          border: '1px solid',
+          whiteSpace: 'nowrap',
+          borderColor: 'border.default',
+          mt: 1,
+          p: 1
+        }}
+      >
+        This box has really long content. If it is too long, it will cause x overflow and should show a scrollbar. When
+        this overflows, it should not break to overall page layout!
+      </Box>
     </PageLayout.Content>
     <PageLayout.Pane>
       <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
