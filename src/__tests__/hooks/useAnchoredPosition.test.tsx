@@ -23,6 +23,7 @@ it('should should return a position', () => {
   expect(cb).toHaveBeenCalledTimes(2)
   expect(cb.mock.calls[1][0]['position']).toMatchInlineSnapshot(`
 Object {
+  "anchorAlign": "start",
   "anchorSide": "outside-bottom",
   "left": 0,
   "top": 4,
