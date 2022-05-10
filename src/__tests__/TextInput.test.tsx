@@ -1,5 +1,5 @@
 import React from 'react'
-import {TextInput} from '..'
+import {SSRProvider, TextInput} from '..'
 import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -68,11 +68,13 @@ describe('TextInput', () => {
     const handleAction = jest.fn()
     expect(
       render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
-        />
+        <SSRProvider>
+          <TextInput
+            name="search"
+            placeholder={'Search'}
+            trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
+          />
+        </SSRProvider>
       )
     ).toMatchSnapshot()
   })
@@ -81,15 +83,17 @@ describe('TextInput', () => {
     const handleAction = jest.fn()
     expect(
       render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={
-            <TextInput.Action onClick={handleAction} aria-label="Clear input">
-              Clear
-            </TextInput.Action>
-          }
-        />
+        <SSRProvider>
+          <TextInput
+            name="search"
+            placeholder={'Search'}
+            trailingAction={
+              <TextInput.Action onClick={handleAction} aria-label="Clear input">
+                Clear
+              </TextInput.Action>
+            }
+          />
+        </SSRProvider>
       )
     ).toMatchSnapshot()
   })
@@ -98,22 +102,24 @@ describe('TextInput', () => {
     const handleAction = jest.fn()
     expect(
       render(
-        <TextInput
-          name="search"
-          placeholder={'Search'}
-          trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="iconLabel" />}
-        />
+        <SSRProvider>
+          <TextInput
+            name="search"
+            placeholder={'Search'}
+            trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="iconLabel" />}
+          />
+        </SSRProvider>
       )
     ).toMatchSnapshot()
   })
 
   it('focuses the text input if you do not click the input element', () => {
     const {container, getByLabelText} = HTMLRender(
-      <>
+      <SSRProvider>
         {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="testInput">Search</label>
         <TextInput id="testInput" name="search" placeholder={'Search'} trailingVisual={SearchIcon} />
-      </>
+      </SSRProvider>
     )
 
     const icon = container.querySelector('svg')!

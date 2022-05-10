@@ -324,7 +324,7 @@ exports[`Button styles icon only button to make it a square 1`] = `
 }
 
 <button
-  aria-label="Search button"
+  aria-labelledby="react-aria-1"
   class="c0"
 >
   <span
