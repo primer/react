@@ -260,7 +260,7 @@ exports[`NavList renders a simple list 1`] = `
 `;
 
 exports[`NavList renders with groups 1`] = `
-.c7 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -275,7 +275,7 @@ exports[`NavList renders with groups 1`] = `
   min-width: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -283,14 +283,26 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c1 {
+  height: 1px;
+  background-color: rgba(208,215,222,0.48);
+  margin-top: calc(8px - 1px);
+  margin-bottom: 8px;
   list-style: none;
 }
 
-.c1:not(:first-child) {
-  margin-top: 8px;
+.c1:first-child {
+  display: none;
 }
 
 .c2 {
+  list-style: none;
+}
+
+.c2:not(:first-child) {
+  margin-top: 8px;
+}
+
+.c3 {
   padding-top: 6px;
   padding-bottom: 6px;
   padding-left: 16px;
@@ -300,7 +312,7 @@ exports[`NavList renders with groups 1`] = `
   color: #57606a;
 }
 
-.c3 {
+.c4 {
   padding-inline-start: 0;
 }
 
@@ -311,7 +323,7 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 8px;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -332,15 +344,15 @@ exports[`NavList renders with groups 1`] = `
   cursor: pointer;
 }
 
-.c5[aria-disabled] {
+.c6[aria-disabled] {
   cursor: not-allowed;
 }
 
-.c5 [data-component="ActionList.Item--DividerContainer"] {
+.c6 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c5 [data-component="ActionList.Item--DividerContainer"]::before {
+.c6 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -351,27 +363,27 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c5:not(:first-of-type) {
+.c6:not(:first-of-type) {
   --divider-color: rgba(208,215,222,0.48);
 }
 
-[data-component="ActionList.Divider"] + .c5 {
+[data-component="ActionList.Divider"] + .c6 {
   --divider-color: transparent !important;
 }
 
-.c5:hover:not([aria-disabled]),
-.c5:focus:not([aria-disabled]),
-.c5[data-focus-visible-added]:not([aria-disabled]) {
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
+.c6[data-focus-visible-added]:not([aria-disabled]) {
   --divider-color: transparent;
 }
 
-.c5:hover:not([aria-disabled]) + .c4,
-.c5:focus:not([aria-disabled]) + .c5,
-.c5[data-focus-visible-added] + li {
+.c6:hover:not([aria-disabled]) + .c5,
+.c6:focus:not([aria-disabled]) + .c6,
+.c6[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c6 {
+.c7 {
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -392,12 +404,12 @@ exports[`NavList renders with groups 1`] = `
   position: relative;
 }
 
-.c6:hover {
+.c7:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c6:is(button) {
+.c7:is(button) {
   display: inline-block;
   padding: 0;
   font-size: inherit;
@@ -414,18 +426,18 @@ exports[`NavList renders with groups 1`] = `
   appearance: none;
 }
 
-.c6:hover {
+.c7:hover {
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c6[aria-current] {
+.c7[aria-current] {
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
 
-.c6[aria-current]::after {
+.c7[aria-current]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -437,31 +449,31 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c5:hover:not([aria-disabled]) {
+  .c6:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
     color: #24292f;
   }
 
-  .c5:focus:not([data-focus-visible-added]) {
+  .c6:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c5[data-focus-visible-added] {
+  .c6[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
   }
 
-  .c5:active:not([aria-disabled]) {
+  .c6:active:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.48);
     color: #24292f;
   }
 }
 
 @media (forced-colors:active) {
-  .c5:focus {
+  .c6:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -472,11 +484,16 @@ exports[`NavList renders with groups 1`] = `
       class="c0"
     >
       <li
+        aria-hidden="true"
         class="c1"
+        data-component="ActionList.Divider"
+      />
+      <li
+        class="c2"
       >
         <div
           aria-hidden="true"
-          class="c2"
+          class="c3"
           role="presentation"
         >
           <span
@@ -487,23 +504,23 @@ exports[`NavList renders with groups 1`] = `
         </div>
         <ul
           aria-labelledby="react-aria-1"
-          class="c3"
+          class="c4"
         >
           <li
             aria-labelledby="react-aria-2 "
-            class="c4 c5"
+            class="c5 c6"
           >
             <a
               aria-current="page"
-              class="c6"
+              class="c7"
               href="/getting-started"
             >
               <div
-                class="c7"
+                class="c8"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c8"
+                  class="c9"
                   id="react-aria-2"
                 >
                   Getting started
@@ -514,11 +531,16 @@ exports[`NavList renders with groups 1`] = `
         </ul>
       </li>
       <li
+        aria-hidden="true"
         class="c1"
+        data-component="ActionList.Divider"
+      />
+      <li
+        class="c2"
       >
         <div
           aria-hidden="true"
-          class="c2"
+          class="c3"
           role="presentation"
         >
           <span
@@ -529,22 +551,22 @@ exports[`NavList renders with groups 1`] = `
         </div>
         <ul
           aria-labelledby="react-aria-5"
-          class="c3"
+          class="c4"
         >
           <li
             aria-labelledby="react-aria-6 "
-            class="c4 c5"
+            class="c5 c6"
           >
             <a
-              class="c6"
+              class="c7"
               href="/Avatar"
             >
               <div
-                class="c7"
+                class="c8"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c8"
+                  class="c9"
                   id="react-aria-6"
                 >
                   Avatar
