@@ -79,7 +79,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
     <Box
       as="span"
       sx={{
-        ':hover, :focus-within': {'[data-component=tooltip]': {visibility: 'visible', opacity: 1}}
+        ':hover, :focus-within': {'[data-component=tooltip]': {visibility: 'visible', opacity: 1}},
+        lineHeight: 1 // we don't want the span wrapper to cause misalignment
       }}
     >
       <TooltipContext.Provider value={{tooltipId}}>{child}</TooltipContext.Provider>

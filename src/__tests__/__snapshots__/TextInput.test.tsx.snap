@@ -1250,6 +1250,10 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   margin: 4px;
 }
 
+.c3 {
+  line-height: 1;
+}
+
 .c3:hover [data-component=tooltip],
 .c3:focus-within [data-component=tooltip] {
   visibility: visible;
@@ -1844,6 +1848,10 @@ exports[`TextInput renders trailingAction text button 1`] = `
 exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c2 {
   margin: 4px;
+}
+
+.c3 {
+  line-height: 1;
 }
 
 .c3:hover [data-component=tooltip],
