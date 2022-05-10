@@ -4,7 +4,7 @@ title: Tooltip
 status: Alpha
 source: https://github.com/primer/react/tree/main/src/Tooltip
 storybook: '/react/storybook?path=/story/composite-components-tooltip'
-description: The Tooltip component adds a tooltip to add context to elements on the page.
+description: Use tooltips to add context to elements on the page.
 ---
 
 Tooltip only appears on mouse hover or keyboard focus and contain a label or description text. Use tooltips sparingly and as a last resort. [Consider these alternatives](https://primer.style/design/accessibility/tooltip-alternatives).
@@ -30,7 +30,7 @@ import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code
   </Tooltip>
 </Box>
 
-When using a tooltip, follow the provided guidelines to avoid accessibility issues.
+When using a tooltip, follow the provided guidelines to avoid accessibility issues:
 
 - Tooltip text should be brief and to the point.
 - Tooltips should contain only **non-essential text**. Tooltips can easily be missed and are not accessible on touch devices so never use tooltips to convey critical information.
@@ -71,13 +71,13 @@ Set direction of tooltip with `direction`. The tooltip is responsive and will au
 >
   <Box sx={{display: 'flex', justifyContent: 'space-between', gap: 1}}>
     <Tooltip direction="nw" text="Tooltip text">
-      <Button>North West</Button>
+      <Button>North west</Button>
     </Tooltip>
     <Tooltip direction="n" text="Tooltip text">
       <Button>North</Button>
     </Tooltip>
     <Tooltip direction="ne" text="Tooltip text">
-      <Button>North East</Button>
+      <Button>North east</Button>
     </Tooltip>
   </Box>
   <Box sx={{display: 'flex', justifyContent: 'space-between', gap: 1}}>
@@ -90,19 +90,21 @@ Set direction of tooltip with `direction`. The tooltip is responsive and will au
   </Box>
   <Box sx={{display: 'flex', justifyContent: 'space-between', gap: 1}}>
     <Tooltip direction="sw" text="Tooltip text">
-      <Button>South West</Button>
+      <Button>South west</Button>
     </Tooltip>
     <Tooltip direction="s" text="Tooltip text">
       <Button>South</Button>
     </Tooltip>
     <Tooltip direction="se" text="Tooltip text">
-      <Button>South East</Button>
+      <Button>South east</Button>
     </Tooltip>
   </Box>
 </Box>
 ```
 
 ## Props
+
+### Tooltip
 
 <PropsTable>
   <PropsTableRow name="children" required type="React.ReactNode" description="Tooltip target, single element" />
@@ -124,8 +126,8 @@ Set direction of tooltip with `direction`. The tooltip is responsive and will au
   />
   <PropsTableRow
     name="type"
-    type="description | label"
-    defaultValue="description"
+    type="'description' | 'label'"
+    defaultValue="'description'"
     description={
       <>
         Use <InlineCode>aria-describedby</InlineCode> or <InlineCode>aria-labelledby</InlineCode>
@@ -134,11 +136,11 @@ Set direction of tooltip with `direction`. The tooltip is responsive and will au
   />
   <PropsTableRow
     name="direction"
-    type="nw | n | ne | e | se | s | sw | w"
-    defaultValue="n"
+    type="'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'"
+    defaultValue="'n'"
     description="Sets where the tooltip renders in relation to the target"
   />
-  <PropsTableRow name="align" deprecated type="left | right" description="Use direction instead. Alignment relative to target" />
+  <PropsTableRow name="align" deprecated type="'left' | 'right'" description="Use direction instead. Alignment relative to target" />
   <PropsTableRow
     name="noDelay"
     type="boolean"
