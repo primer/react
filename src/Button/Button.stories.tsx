@@ -1,9 +1,10 @@
-import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
+import {BellIcon, EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useState} from 'react'
 import {Button, ButtonProps, IconButton} from '.'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
+import {Tooltip} from '../Tooltip'
 
 export default {
   title: 'Composite components/Button',
@@ -88,6 +89,35 @@ export const iconButton = ({...args}: ButtonProps) => {
       </Box>
       <Box mb={2}>
         <IconButton icon={XIcon} aria-label="Close" {...args} variant="outline" />
+      </Box>
+    </>
+  )
+}
+
+export const iconButtonWithTooltip = ({...args}: ButtonProps) => {
+  return (
+    <>
+      <Box sx={{mt: 4, display: 'grid', gridTemplateColumns: '1fr 1fr', rowGap: 2}}>
+        Default tooltip
+        <span>
+          <IconButton icon={BellIcon} aria-label="Notifications" {...args} />
+        </span>
+        Custom tooltip text
+        <span>
+          <Tooltip text="You have no unread notifications">
+            <IconButton icon={BellIcon} aria-label="Notifications" {...args} />
+          </Tooltip>
+        </span>
+        Custom tooltip direction
+        <span>
+          <Tooltip text="Notifications" direction="e">
+            <IconButton icon={BellIcon} aria-label="Notifications" {...args} />
+          </Tooltip>
+        </span>
+        Disable tooltip
+        <span>
+          <IconButton icon={BellIcon} aria-label="Notifications" disableTooltip {...args} />
+        </span>
       </Box>
     </>
   )
