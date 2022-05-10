@@ -1,0 +1,582 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavList renders a simple list 1`] = `
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c5 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c0 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+}
+
+.c2[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c2 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c2 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c2:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c2 {
+  --divider-color: transparent !important;
+}
+
+.c2:hover:not([aria-disabled]),
+.c2:focus:not([aria-disabled]),
+.c2[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c2:hover:not([aria-disabled]) + .c1,
+.c2:focus:not([aria-disabled]) + .c2,
+.c2[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  position: relative;
+}
+
+.c3:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c3:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c3:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3[aria-current] {
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c3[aria-current]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c2:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c2:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c2[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c2:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c2:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+<div>
+  <nav>
+    <ul
+      class="c0"
+    >
+      <li
+        aria-labelledby="react-aria-1 "
+        class="c1 c2"
+      >
+        <a
+          aria-current="page"
+          class="c3"
+          href="/"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="c5"
+              id="react-aria-1"
+            >
+              Home
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        aria-labelledby="react-aria-4 "
+        class="c1 c2"
+      >
+        <a
+          class="c3"
+          href="/about"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="c5"
+              id="react-aria-4"
+            >
+              About
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        aria-labelledby="react-aria-7 "
+        class="c1 c2"
+      >
+        <a
+          class="c3"
+          href="/contact"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="c5"
+              id="react-aria-7"
+            >
+              Contact
+            </span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList renders with groups 1`] = `
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c9 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c1 {
+  height: 1px;
+  background-color: rgba(208,215,222,0.48);
+  margin-top: calc(8px - 1px);
+  margin-bottom: 8px;
+  list-style: none;
+}
+
+.c1:first-child {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+}
+
+.c2:not(:first-child) {
+  margin-top: 8px;
+}
+
+.c3 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #57606a;
+}
+
+.c4 {
+  padding-inline-start: 0;
+}
+
+.c0 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+}
+
+.c6[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c6:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c6 {
+  --divider-color: transparent !important;
+}
+
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
+.c6[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c6:hover:not([aria-disabled]) + .c5,
+.c6:focus:not([aria-disabled]) + .c6,
+.c6[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c7 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  position: relative;
+}
+
+.c7:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c7:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c7:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c7[aria-current] {
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c7[aria-current]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c6:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c6:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c6[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c6:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c6:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+<div>
+  <nav>
+    <ul
+      class="c0"
+    >
+      <li
+        aria-hidden="true"
+        class="c1"
+        data-component="ActionList.Divider"
+      />
+      <li
+        class="c2"
+      >
+        <div
+          aria-hidden="true"
+          class="c3"
+          role="presentation"
+        >
+          <span
+            id="react-aria-1"
+          >
+            Overview
+          </span>
+        </div>
+        <ul
+          aria-labelledby="react-aria-1"
+          class="c4"
+        >
+          <li
+            aria-labelledby="react-aria-2 "
+            class="c5 c6"
+          >
+            <a
+              aria-current="page"
+              class="c7"
+              href="/getting-started"
+            >
+              <div
+                class="c8"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="c9"
+                  id="react-aria-2"
+                >
+                  Getting started
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li
+        aria-hidden="true"
+        class="c1"
+        data-component="ActionList.Divider"
+      />
+      <li
+        class="c2"
+      >
+        <div
+          aria-hidden="true"
+          class="c3"
+          role="presentation"
+        >
+          <span
+            id="react-aria-5"
+          >
+            Components
+          </span>
+        </div>
+        <ul
+          aria-labelledby="react-aria-5"
+          class="c4"
+        >
+          <li
+            aria-labelledby="react-aria-6 "
+            class="c5 c6"
+          >
+            <a
+              class="c7"
+              href="/Avatar"
+            >
+              <div
+                class="c8"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="c9"
+                  id="react-aria-6"
+                >
+                  Avatar
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
