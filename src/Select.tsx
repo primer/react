@@ -72,7 +72,6 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       disabled={disabled}
       size={size}
       validationStatus={validationStatus}
-      disabled={disabled}
     >
       <StyledSelect
         ref={ref}
