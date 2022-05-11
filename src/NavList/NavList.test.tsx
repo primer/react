@@ -41,3 +41,25 @@ describe('NavList', () => {
     expect(container).toMatchSnapshot()
   })
 })
+
+describe('NavList.Item', () => {
+  it.todo('passes aria-current prop to the underlying <a> element')
+
+  it.todo('has active styles if aria-current is set')
+})
+
+describe('NavList.Item with NavList.SubNav', () => {
+  it.todo('renders as a button')
+
+  it.todo('ignores aria-current prop')
+
+  it.todo('shows SubNav by default if SubNav contains the current item')
+
+  it.todo('hides SubNav by default if SubNav does not contain the current item')
+
+  it.todo('toggles visiblility of SubNav when clicked')
+
+  it.todo('has active styles if SubNav contains the current item and is closed')
+
+  it.todo('does not have active styles if SubNav contains the current item and is open')
+})
