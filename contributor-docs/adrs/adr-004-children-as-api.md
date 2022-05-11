@@ -83,13 +83,13 @@ render(
 
 ### Tradeoffs of this approach / When not to use children
 
-Our goal isn't to put all content inside children though. Composition offers flexibility to the consumer of the component, this flexibility, however, can also lead to inconsistencies.
+Our goal isn't to put all content inside children though. Composition offers flexibility to the consumer of the component; this flexibility, however, can also lead to inconsistencies.
 
 <img width="375" alt="image 6" src="https://user-images.githubusercontent.com/1863771/144945216-6237084d-3d97-45c7-9505-6aed473afb03.png">
 
 ```jsx
 <Flash variant="success">
-  // oh oh, we don't know if that color or icon size is the right choice!
+  // uh oh, we don't know if that color or icon size is the right choice!
   <CheckIcon size={20} color="success.emphasis" /> Changes saved!
 </Flash>
 
@@ -98,13 +98,13 @@ Our goal isn't to put all content inside children though. Composition offers fle
 </Flash>
 ```
 
-_Note: We need to assume good intent here, developers using the components aren’t trying to break the system. They are either trying to implement something that the system’s happy path does not support OR there are multiple ways of doing something with primer and they have unintentionally picked the approach that is not recommended._
+_Note: We need to assume good intent here, developers using the components aren’t trying to break the system. They are either trying to implement something that the system’s happy path does not support OR there are multiple ways of doing something with Primer and they have unintentionally picked the approach that is not recommended._
 
 <br/>
 
 The general wisdom is to _Make the right (recommended) thing easy to do and the wrong (not recommended) hard to do_. When going off the happy path, developers should feel some friction, some weight, code that “feels hacky” or feels like a workaround.
 
-In the above case, if we want to make the recommended path easier and other paths harder, we can change the API to look something like this -
+In the above case, if we want to make the recommended path easier and other paths harder, we can change the API to look something like this:
 
 ```jsx
 <Flash variant="success" icon={CheckIcon}>
@@ -114,7 +114,7 @@ In the above case, if we want to make the recommended path easier and other path
 
 We are still using `children` for text content, but we have moved the `icon` back as a prop with reduced flexibility.
 
-When intentionally going off the happy path, developers can still drop down an abstraction level add an `Icon` to `children`, they would have to pick up the additional effort of setting compatible color, size and margin themselves. However, when it’s unintentional, it would feel like way too much work that the component should be doing automatically.
+When intentionally going off the happy path, developers can still drop down an abstraction level to add an `Icon` to `children`, though they would have to pick up the additional effort of setting compatible color, size and margin themselves. However, when it’s unintentional, it would feel like way too much work that the component should be doing automatically.
 
 ```jsx
 <Flash variant="success">
@@ -215,19 +215,18 @@ _Sidenote: On the surface it looks we have also removed the `sx` prop for the Ic
 
 <br/>
 
-We use this pattern as well in `NewButton`, `Button.Counter` is a restricted version of `CounterLabel` that automatically adjusts based on the variant and size of a `Button`:
+We use this pattern as well in `Button`, `Button.Counter` is a restricted version of `CounterLabel` that automatically adjusts based on the variant and size of a `Button`:
 
 <img width="184" alt="image 8" src="https://user-images.githubusercontent.com/1863771/144945218-5154b8a1-8854-4335-926c-08a4ffac6d9d.png">
 
 ```jsx
-<NewButton>
-  Watch <NewButton.Counter>1</NewButton.Counter>
-</NewButton>
+<Button>
+  Watch <Button.Counter>1</Button.Counter>
+</Button>
 
-<NewButton variant="primary">
-  Upvote <NewButton.Counter>1</NewButton.Counter>
-</NewButton>
-```
+<Button variant="primary">
+  Upvote <Button.Counter>1</Button.Counter>
+</Button>
 
 <br/>
 
@@ -319,7 +318,7 @@ _Sidenote: It’s tempting to change `icon` to `Flash.Icon` here so that it’s 
 
 <br/>
 
-We use this pattern in `ActionList v2` :
+We use this pattern in `ActionList` :
 
 <img width="484" alt="actionlist" src="https://user-images.githubusercontent.com/1863771/144945215-253e2af5-37ae-40d8-bc1c-7a75780428be.png">
 
@@ -342,7 +341,7 @@ We use this pattern in `ActionList v2` :
 
 <br/>
 
-### Case study with NewButton:
+### Case study with Button:
 
 <img width="195" alt="image 12" src="https://user-images.githubusercontent.com/1863771/145045540-9c5326ee-60f8-4678-aca3-46a754ce16bb.png">
 
@@ -377,7 +376,7 @@ But, we want to discourage customising the Icon’s color and size in the applic
 <Button leadingIcon={EyeIcon}>Watch</Button>
 // over these:
 <Button><EyeIcon/> Watch</Button>
-<Button leadingIcon={<EyeIcon/>} Watch</Button>
+<Button leadingIcon={<EyeIcon/>}>Watch</Button>
 ```
 
 
