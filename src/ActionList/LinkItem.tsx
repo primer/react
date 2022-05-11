@@ -18,9 +18,9 @@ type LinkProps = {
 }
 
 // LinkItem does not support selected, variants, etc.
-export type ActionListLinkItemProps = Pick<ActionListItemProps, 'children' | 'sx'> & LinkProps
+export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx'> & LinkProps
 
-export const LinkItem = React.forwardRef(({sx = {}, as: Component, ...props}, forwardedRef) => {
+export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...props}, forwardedRef) => {
   const styles = {
     // occupy full size of Item
     paddingX: 2,
@@ -36,6 +36,7 @@ export const LinkItem = React.forwardRef(({sx = {}, as: Component, ...props}, fo
 
   return (
     <Item
+      active={active}
       sx={{paddingY: 0, paddingX: 0}}
       _PrivateItemWrapper={({children}) => (
         <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
