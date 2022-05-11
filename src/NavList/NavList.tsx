@@ -10,9 +10,9 @@ import StyledOcticon from '../StyledOcticon'
 
 export type NavListProps = {
   children: React.ReactNode
-  // sx
 } & React.ComponentProps<'nav'>
 
+// TODO: sx prop
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <nav ref={ref} {...props}>
@@ -30,16 +30,17 @@ export type NavListItemProps = {
   children: React.ReactNode
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
-  // sx
 }
 
 const ItemContext = React.createContext<{depth: number}>({depth: 0})
 
+// TODO: sx prop
+// TODO: as prop
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({href, 'aria-current': ariaCurrent, children}, ref) => {
     const {depth} = React.useContext(ItemContext)
 
-    // TODO: Test two-level nav list
+    // TODO: Test this error case
     if (depth > 1) {
       // eslint-disable-next-line no-console
       console.error('NavList only supports one level of nesting')
@@ -55,8 +56,17 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     )
 
     // Render ItemWithSubNav if SubNav is present
-    if (subNav) {
-      return <ItemWithSubNav subNav={subNav}>{childrenWithoutSubNav}</ItemWithSubNav>
+    if (subNav && isValidElement(subNav)) {
+      // Search SubNav children for current Item
+      const currentItem = React.Children.toArray(subNav.props.children).find(
+        child => isValidElement(child) && child.props['aria-current']
+      )
+
+      return (
+        <ItemWithSubNav subNav={subNav} subNavContainsCurrentItem={Boolean(currentItem)}>
+          {childrenWithoutSubNav}
+        </ItemWithSubNav>
+      )
     }
 
     return (
@@ -64,24 +74,11 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         ref={ref}
         href={href}
         aria-current={ariaCurrent}
+        active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={{
-          position: 'relative',
           paddingLeft: depth === 1 ? 5 : null, // Indent sub-items
           fontSize: depth === 1 ? 0 : null, // Reduce font size of sub-items
-          '&[aria-current]': {
-            fontWeight: depth === 0 ? 'bold' : null, // Sub-items don't get bolded
-            bg: 'actionListItem.default.selectedBg',
-            '&::after': {
-              position: 'absolute',
-              top: 'calc(50% - 12px)',
-              left: '-8px',
-              width: '4px',
-              height: '24px',
-              content: '""',
-              bg: 'accent.fg',
-              borderRadius: 2
-            }
-          }
+          fontWeight: depth === 1 ? 'normal' : null // Sub-items don't get bolded
         }}
       >
         {children}
@@ -98,29 +95,36 @@ Item.displayName = 'NavList.Item'
 type ItemWithSubNavProps = {
   children: React.ReactNode
   subNav: React.ReactNode
-  // sx
+  subNavContainsCurrentItem: boolean
 }
 
-const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string}>({buttonId: '', subNavId: ''})
+const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string}>({
+  buttonId: '',
+  subNavId: ''
+})
 
-// TODO: Forward ref
-function ItemWithSubNav({children, subNav}: ItemWithSubNavProps) {
+// TODO: sx prop
+// TODO: ref prop
+// TODO: Animate open/close transition
+function ItemWithSubNav({children, subNav, subNavContainsCurrentItem}: ItemWithSubNavProps) {
   const buttonId = useSSRSafeId()
   const subNavId = useSSRSafeId()
-  const subNavRef = React.useRef<HTMLDivElement>(null)
-  const [isOpen, setIsOpen] = React.useState(false)
-  // TODO: Check if subNav contains aria-current
-  // TODO: Animation
+  // SubNav starts open if current item is in it
+  const [isOpen, setIsOpen] = React.useState(subNavContainsCurrentItem)
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId}}>
       <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
-        {/* TODO: parent of aria-current should be bold, and have active styles if closed */}
         <ActionList.Item
-          role="button"
+          role="button" // Is this the best way to make ActionList.Item a button?
           id={buttonId}
           aria-expanded={isOpen}
           aria-controls={subNavId}
+          // When the subNav is closed, how should we indicated that the subNav contains the current item?
+          active={!isOpen && subNavContainsCurrentItem}
           onSelect={() => setIsOpen(open => !open)}
+          sx={{
+            fontWeight: subNavContainsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
+          }}
         >
           {children}
           {/* What happens if the user provides a TrailingVisual? */}
@@ -134,7 +138,7 @@ function ItemWithSubNav({children, subNav}: ItemWithSubNavProps) {
           </ActionList.TrailingVisual>
         </ActionList.Item>
 
-        {isOpen ? <div ref={subNavRef}>{subNav}</div> : null}
+        {isOpen ? subNav : null}
       </Box>
     </ItemWithSubNavContext.Provider>
   )
@@ -145,11 +149,11 @@ function ItemWithSubNav({children, subNav}: ItemWithSubNavProps) {
 
 type NavListSubNavProps = {
   children: React.ReactNode
-  // sx
 }
 
-// SubNav must be a direct child of an Item
-// TODO: Forward ref
+// TODO: sx prop
+// TODO: ref prop
+// NOTE: SubNav must be a direct child of an Item
 const SubNav = ({children}: NavListSubNavProps) => {
   const {buttonId, subNavId} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(ItemContext)
@@ -199,8 +203,8 @@ type NavListGroupProps = React.PropsWithChildren<{
   title?: string
 }>
 
-// TODO: Dividers between groups
-// TODO: Forward ref
+// TODO: sx prop
+// TODO: ref prop
 const Group = ({title, children}: NavListGroupProps) => {
   return (
     <>
