@@ -11,6 +11,21 @@ const meta: Meta = {
   }
 }
 
+export const Simple: Story = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item href="#" aria-current="page">
+          Item 1
+        </NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
 export const SubItems: Story = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
