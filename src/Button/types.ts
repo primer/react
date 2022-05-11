@@ -48,6 +48,8 @@ export type ButtonProps = {
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.FunctionComponent<IconProps>
+  'aria-label': string
+  disableTooltip?: boolean
 } & ButtonBaseProps
 
 // adopted from React.AnchorHTMLAttributes
