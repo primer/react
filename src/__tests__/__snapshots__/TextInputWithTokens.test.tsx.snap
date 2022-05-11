@@ -49,7 +49,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -71,6 +70,15 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -89,7 +97,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -776,7 +785,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -798,6 +806,15 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -816,7 +833,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1176,7 +1194,6 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1213,6 +1230,15 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   width: 100%;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -1231,7 +1257,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1354,7 +1381,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1380,6 +1406,15 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   overflow: auto;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -1398,7 +1433,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2033,7 +2069,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2062,6 +2097,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -2080,7 +2124,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2715,7 +2760,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2744,6 +2788,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -2762,7 +2815,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3397,7 +3451,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3419,6 +3472,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -3437,7 +3499,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4072,7 +4135,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4094,6 +4156,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -4112,7 +4183,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4747,7 +4819,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4769,6 +4840,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -4787,7 +4867,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5422,7 +5503,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5446,6 +5526,15 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   overflow: auto;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -5464,7 +5553,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6099,7 +6189,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -6121,6 +6210,15 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -6139,7 +6237,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6491,7 +6590,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -6513,6 +6611,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -6531,7 +6638,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -7215,7 +7323,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -7237,6 +7344,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -7255,7 +7371,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -7983,7 +8100,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -8005,6 +8121,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -8023,7 +8148,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -8711,7 +8837,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -8733,6 +8858,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -8751,7 +8885,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -9519,7 +9654,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -9541,6 +9675,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -9559,7 +9702,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -10327,7 +10471,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -10349,6 +10492,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -10367,7 +10519,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -11135,7 +11288,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -11157,6 +11309,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -11175,7 +11336,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -11899,7 +12061,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -11921,6 +12082,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -11939,7 +12109,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -12707,7 +12878,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -12729,6 +12899,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -12747,7 +12926,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -13475,7 +13655,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -13504,6 +13683,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -13522,7 +13710,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -14330,7 +14519,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -14352,6 +14540,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -14370,7 +14567,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -15178,7 +15376,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -15200,6 +15397,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -15218,7 +15424,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -16014,7 +16221,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -16036,6 +16242,15 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -16054,7 +16269,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -16689,7 +16905,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -16711,6 +16926,15 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -16729,7 +16953,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -17369,7 +17594,6 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -17391,6 +17615,15 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -17409,7 +17642,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {

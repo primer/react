@@ -44,6 +44,22 @@ exports[`ActionMenu renders consistently 1`] = `
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
 }
 
+.c1:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
+.c1:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c1:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+}
+
 .c1:disabled {
   cursor: default;
   color: #8c959f;
@@ -79,22 +95,6 @@ exports[`ActionMenu renders consistently 1`] = `
 
 .c1:hover:not([disabled]) {
   background-color: #f3f4f6;
-}
-
-.c1:focus:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
-}
-
-.c1:focus:not([disabled]):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c1:focus-visible:not([disabled]) {
-  outline: 2px solid;
-  outline-color: #0969da;
-  outline-offset: -2px;
 }
 
 .c1:active:not([disabled]) {

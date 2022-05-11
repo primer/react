@@ -4,6 +4,7 @@ import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext
 import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from './CheckboxGroup'
+import getGlobalFocusStyles from './_getGlobalFocusStyles'
 
 export type CheckboxProps = {
   /**
@@ -38,6 +39,7 @@ const StyledCheckbox = styled.input`
   cursor: pointer;
 
   ${props => props.disabled && `cursor: not-allowed;`}
+  ${getGlobalFocusStyles(0)};
 
   ${sx}
 `
