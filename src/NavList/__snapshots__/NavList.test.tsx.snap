@@ -31,6 +31,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c2 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -49,6 +50,8 @@ exports[`NavList renders a simple list 1`] = `
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
 }
 
 .c2[aria-disabled] {
@@ -90,6 +93,78 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent;
 }
 
+.c2::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c6 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+}
+
+.c6[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c6:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c6 {
+  --divider-color: transparent !important;
+}
+
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
+.c6[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c6:hover:not([aria-disabled]) + .c1,
+.c6:focus:not([aria-disabled]) + .c6,
+.c6[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 .c3 {
   color: #0969da;
   -webkit-text-decoration: none;
@@ -108,7 +183,6 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  position: relative;
 }
 
 .c3:hover {
@@ -139,22 +213,6 @@ exports[`NavList renders a simple list 1`] = `
   text-decoration: none;
 }
 
-.c3[aria-current] {
-  font-weight: 600;
-  background-color: rgba(208,215,222,0.24);
-}
-
-.c3[aria-current]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: #0969da;
-  border-radius: 6px;
-}
-
 @media (hover:hover) and (pointer:fine) {
   .c2:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -181,6 +239,36 @@ exports[`NavList renders a simple list 1`] = `
 
 @media (forced-colors:active) {
   .c2:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c6:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c6:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c6[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c6:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c6:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -214,7 +302,7 @@ exports[`NavList renders a simple list 1`] = `
       </li>
       <li
         aria-labelledby="react-aria-4 "
-        class="c1 c2"
+        class="c1 c6"
       >
         <a
           class="c3"
@@ -235,7 +323,7 @@ exports[`NavList renders a simple list 1`] = `
       </li>
       <li
         aria-labelledby="react-aria-7 "
-        class="c1 c2"
+        class="c1 c6"
       >
         <a
           class="c3"
@@ -324,6 +412,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -342,6 +431,8 @@ exports[`NavList renders with groups 1`] = `
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
 }
 
 .c6[aria-disabled] {
@@ -383,6 +474,78 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent;
 }
 
+.c6::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c10 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+}
+
+.c10[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c10:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c10 {
+  --divider-color: transparent !important;
+}
+
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
+.c10[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c10:hover:not([aria-disabled]) + .c5,
+.c10:focus:not([aria-disabled]) + .c10,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 .c7 {
   color: #0969da;
   -webkit-text-decoration: none;
@@ -401,7 +564,6 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  position: relative;
 }
 
 .c7:hover {
@@ -432,22 +594,6 @@ exports[`NavList renders with groups 1`] = `
   text-decoration: none;
 }
 
-.c7[aria-current] {
-  font-weight: 600;
-  background-color: rgba(208,215,222,0.24);
-}
-
-.c7[aria-current]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: #0969da;
-  border-radius: 6px;
-}
-
 @media (hover:hover) and (pointer:fine) {
   .c6:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -474,6 +620,36 @@ exports[`NavList renders with groups 1`] = `
 
 @media (forced-colors:active) {
   .c6:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c10:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c10:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c10[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c10:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c10:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -555,7 +731,7 @@ exports[`NavList renders with groups 1`] = `
         >
           <li
             aria-labelledby="react-aria-6 "
-            class="c5 c6"
+            class="c5 c10"
           >
             <a
               class="c7"
