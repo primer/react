@@ -62,4 +62,6 @@ describe('NavList.Item with NavList.SubNav', () => {
   it.todo('has active styles if SubNav contains the current item and is closed')
 
   it.todo('does not have active styles if SubNav contains the current item and is open')
+
+  it.todo('prints an error if Item contains multiple nested SubNavs')
 })
