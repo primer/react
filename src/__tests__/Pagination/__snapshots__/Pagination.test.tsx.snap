@@ -43,6 +43,22 @@ exports[`Pagination renders consistently 1`] = `
   transition-duration: 0.1s;
 }
 
+.c2:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c2:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c2:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
 .c2:active {
   border-color: hsla(210,18%,87%,1);
 }

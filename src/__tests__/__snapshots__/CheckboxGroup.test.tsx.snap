@@ -45,6 +45,22 @@ exports[`CheckboxGroup renders consistently 1`] = `
   cursor: pointer;
 }
 
+.c5:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c5:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c5:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
 <div>
   <fieldset
     className="c0"

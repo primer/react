@@ -62,7 +62,8 @@ export const TrailingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
               height: '20px', // match height of text row
               flexShrink: 0,
               color: getVariantStyles(variant, disabled).annotationColor,
-              marginLeft: 2
+              marginLeft: 2,
+              fontWeight: 'initial'
             },
             sx as SxProp
           )}
