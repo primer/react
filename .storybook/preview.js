@@ -71,6 +71,9 @@ export const globalTypes = {
 
 // context.globals.X references items in globalTypes
 const withThemeProvider = (Story, context) => {
+  // used for testing ThemeProvider.stories.tsx
+  if (context.parameters.disableThemeDecorator) return <Story {...context} />
+
   if (context.globals.colorMode === 'all') {
     return (
       <Wrapper>
