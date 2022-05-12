@@ -163,6 +163,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       width: '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
+      marginY: 'unset',
 
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
