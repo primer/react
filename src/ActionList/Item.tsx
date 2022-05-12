@@ -3,7 +3,7 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'
-import sx, {merge, SxProp} from '../sx'
+import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
@@ -249,7 +249,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         {slots => (
           <LiBox
             ref={forwardedRef}
-            sx={merge(styles, sxProp as SxProp)}
+            sx={merge<BetterSystemStyleObject>(styles, sxProp)}
             onClick={clickHandler}
             onKeyPress={keyPressHandler}
             aria-disabled={disabled ? true : undefined}
