@@ -43,9 +43,23 @@ describe('NavList', () => {
 })
 
 describe('NavList.Item', () => {
-  it.todo('passes aria-current prop to the underlying <a> element')
+  it('passes aria-current prop to the underlying link', () => {
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item href="/" aria-current="page">
+          Home
+        </NavList.Item>
+        <NavList.Item href="/about">About</NavList.Item>
+        <NavList.Item href="/contact">Contact</NavList.Item>
+      </NavList>
+    )
 
-  it.todo('has active styles if aria-current is set')
+    const homeLink = getByRole('link', {name: 'Home'})
+    const aboutLink = getByRole('link', {name: 'About'})
+
+    expect(homeLink).toHaveAttribute('aria-current', 'page')
+    expect(aboutLink).not.toHaveAttribute('aria-current')
+  })
 })
 
 describe('NavList.Item with NavList.SubNav', () => {

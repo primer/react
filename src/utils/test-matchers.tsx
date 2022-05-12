@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
 import React from 'react'
