@@ -32,20 +32,11 @@ export type NavListItemProps = {
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
 }
 
-const ItemContext = React.createContext<{depth: number}>({depth: 0})
-
 // TODO: sx prop
 // TODO: as prop
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({href, 'aria-current': ariaCurrent, children}, ref) => {
-    const {depth} = React.useContext(ItemContext)
-
-    // TODO: Test this error case
-    if (depth > 1) {
-      // eslint-disable-next-line no-console
-      console.error('NavList only supports one level of nesting')
-      return null
-    }
+    const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
@@ -56,7 +47,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     )
 
     // Render ItemWithSubNav if SubNav is present
-    if (subNav && isValidElement(subNav)) {
+    if (subNav && isValidElement(subNav) && depth < 1) {
       // Search SubNav children for current Item
       const currentItem = React.Children.toArray(subNav.props.children).find(
         child => isValidElement(child) && child.props['aria-current']
@@ -76,9 +67,9 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={{
-          paddingLeft: depth === 1 ? 5 : null, // Indent sub-items
-          fontSize: depth === 1 ? 0 : null, // Reduce font size of sub-items
-          fontWeight: depth === 1 ? 'normal' : null // Sub-items don't get bolded
+          paddingLeft: depth > 0 ? 5 : null, // Indent sub-items
+          fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
+          fontWeight: depth > 0 ? 'normal' : null // Sub-items don't get bolded
         }}
       >
         {children}
@@ -111,6 +102,7 @@ function ItemWithSubNav({children, subNav, subNavContainsCurrentItem}: ItemWithS
   const subNavId = useSSRSafeId()
   // SubNav starts open if current item is in it
   const [isOpen, setIsOpen] = React.useState(subNavContainsCurrentItem)
+
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId}}>
       <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
@@ -151,24 +143,32 @@ type NavListSubNavProps = {
   children: React.ReactNode
 }
 
+const SubNavContext = React.createContext<{depth: number}>({depth: 0})
+
 // TODO: sx prop
 // TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
 const SubNav = ({children}: NavListSubNavProps) => {
   const {buttonId, subNavId} = React.useContext(ItemWithSubNavContext)
-  const {depth} = React.useContext(ItemContext)
+  const {depth} = React.useContext(SubNavContext)
 
   if (!buttonId || !subNavId) {
     // eslint-disable-next-line no-console
     console.error('NavList.SubNav must be a child of a NavList.Item')
   }
 
+  if (depth > 0) {
+    // eslint-disable-next-line no-console
+    console.error('NavList.SubNav only supports one level of nesting')
+    return null
+  }
+
   return (
-    <ItemContext.Provider value={{depth: depth + 1}}>
+    <SubNavContext.Provider value={{depth: depth + 1}}>
       <Box as="ul" id={subNavId} aria-labelledby={buttonId} sx={{padding: 0, margin: 0}}>
         {children}
       </Box>
-    </ItemContext.Provider>
+    </SubNavContext.Provider>
   )
 }
 
