@@ -50,6 +50,14 @@ exports[`NavList renders a simple list 1`] = `
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
@@ -124,6 +132,14 @@ exports[`NavList renders a simple list 1`] = `
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
 }
 
 .c6[aria-disabled] {
@@ -431,6 +447,14 @@ exports[`NavList renders with groups 1`] = `
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
@@ -505,6 +529,14 @@ exports[`NavList renders with groups 1`] = `
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
 }
 
 .c10[aria-disabled] {
@@ -843,6 +875,14 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
@@ -927,6 +967,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent;
 }
 
+.c17:hover:not([aria-disabled]) + .c2,
+.c17:focus:not([aria-disabled]) + .c17,
+.c17[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 .c3 {
   position: relative;
   display: -webkit-box;
@@ -947,6 +993,14 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
   font-weight: 600;
 }
 
@@ -989,9 +1043,9 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent;
 }
 
-.c17:hover:not([aria-disabled]) + .c2,
-.c17:focus:not([aria-disabled]) + .c17,
-.c17[data-focus-visible-added] + li {
+.c18:hover:not([aria-disabled]) + .c2,
+.c18:focus:not([aria-disabled]) + .c18,
+.c18[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1114,12 +1168,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         aria-labelledby="react-aria-1"
         class="c1"
       >
-        <div
+        <button
           aria-controls="react-aria-2"
           aria-expanded="true"
           aria-labelledby="react-aria-1 "
           class="c2 c3"
-          role="button"
           tabindex="0"
         >
           <div
@@ -1156,7 +1209,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
               </span>
             </div>
           </div>
-        </div>
+        </button>
         <ul
           aria-labelledby="react-aria-1"
           class="c9"
@@ -1294,6 +1347,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent;
 }
 
+.c16:hover:not([aria-disabled]) + .c2,
+.c16:focus:not([aria-disabled]) + .c16,
+.c16[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 .c3 {
   position: relative;
   display: -webkit-box;
@@ -1314,6 +1373,14 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
@@ -1407,12 +1474,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         aria-labelledby="react-aria-1"
         class="c1"
       >
-        <div
+        <button
           aria-controls="react-aria-2"
           aria-expanded="false"
           aria-labelledby="react-aria-1 "
           class="c2 c3"
-          role="button"
           tabindex="0"
         >
           <div
@@ -1449,7 +1515,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
               </span>
             </div>
           </div>
-        </div>
+        </button>
       </li>
     </ul>
   </nav>

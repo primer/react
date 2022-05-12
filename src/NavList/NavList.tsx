@@ -115,14 +115,13 @@ function ItemWithSubNav({children, subNav, subNavContainsCurrentItem}: ItemWithS
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId}}>
       <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
         <ActionList.Item
-          as="div" // TODO: as="button"
-          role="button" // Is this the best way to make ActionList.Item a button?
+          as="button"
           id={buttonId}
           aria-expanded={isOpen}
           aria-controls={subNavId}
           // When the subNav is closed, how should we indicated that the subNav contains the current item?
           active={!isOpen && subNavContainsCurrentItem}
-          onSelect={() => setIsOpen(open => !open)}
+          onClick={() => setIsOpen(open => !open)}
           sx={{
             fontWeight: subNavContainsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
           }}

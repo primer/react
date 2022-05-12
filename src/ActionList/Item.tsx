@@ -156,6 +156,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       cursor: 'pointer',
       '&[aria-disabled]': {cursor: 'not-allowed'},
 
+      // Button reset styles (to support as="button")
+      appearance: 'none',
+      background: 'unset',
+      border: 'unset',
+      width: '100%',
+      fontFamily: 'unset',
+      textAlign: 'unset',
+
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
