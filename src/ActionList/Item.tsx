@@ -55,7 +55,9 @@ export type ActionListItemProps = {
    * Is the `Item` is currently selected?
    */
   selected?: boolean
-  // TODO: Document `active` prop
+  /**
+   * Indicate whether the item is active. There should never be more than one active item.
+   */
   active?: boolean
   /**
    * Style variations associated with various `Item` types.
