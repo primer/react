@@ -132,7 +132,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&::after': {
         position: 'absolute',
         top: 'calc(50% - 12px)',
-        left: '-8px',
+        left: -2,
         width: '4px',
         height: '24px',
         content: '""',
