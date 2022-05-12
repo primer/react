@@ -58,6 +58,8 @@ exports[`NavList renders a simple list 1`] = `
   width: 100%;
   font-family: unset;
   text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
@@ -140,6 +142,8 @@ exports[`NavList renders a simple list 1`] = `
   width: 100%;
   font-family: unset;
   text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
 }
 
 .c6[aria-disabled] {
@@ -455,6 +459,8 @@ exports[`NavList renders with groups 1`] = `
   width: 100%;
   font-family: unset;
   text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
@@ -537,6 +543,8 @@ exports[`NavList renders with groups 1`] = `
   width: 100%;
   font-family: unset;
   text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
 }
 
 .c10[aria-disabled] {
@@ -883,6 +891,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   width: 100%;
   font-family: unset;
   text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
@@ -1001,6 +1011,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   width: 100%;
   font-family: unset;
   text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
   font-weight: 600;
 }
 
@@ -1381,6 +1393,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   width: 100%;
   font-family: unset;
   text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
   font-weight: 600;
   background-color: rgba(208,215,222,0.24);
 }
