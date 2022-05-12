@@ -115,6 +115,7 @@ function ItemWithSubNav({children, subNav, subNavContainsCurrentItem}: ItemWithS
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId}}>
       <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
         <ActionList.Item
+          as="div" // TODO: as="button"
           role="button" // Is this the best way to make ActionList.Item a button?
           id={buttonId}
           aria-expanded={isOpen}

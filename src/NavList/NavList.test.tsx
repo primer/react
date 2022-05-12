@@ -1,4 +1,4 @@
-import {render} from '@testing-library/react'
+import {render, fireEvent} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider, SSRProvider} from '..'
 import {NavList} from './NavList'
@@ -63,19 +63,135 @@ describe('NavList.Item', () => {
 })
 
 describe('NavList.Item with NavList.SubNav', () => {
-  it.todo('renders as a button')
+  function NavListWithSubNav() {
+    return (
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">
+          Item 2
+          <NavList.SubNav>
+            <NavList.Item href="#">Sub Item 1</NavList.Item>
+            <NavList.Item href="#">Sub Item 2</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    )
+  }
 
-  it.todo('ignores aria-current prop')
+  function NavListWithCurrentSubNav() {
+    return (
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">
+          Item 2
+          <NavList.SubNav>
+            <NavList.Item href="#" aria-current="page">
+              Sub Item 1
+            </NavList.Item>
+            <NavList.Item href="#">Sub Item 2</NavList.Item>
+          </NavList.SubNav>
+        </NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    )
+  }
 
-  it.todo('shows SubNav by default if SubNav contains the current item')
+  it('renders as a button', () => {
+    const {queryByRole} = render(<NavListWithSubNav />)
+    const itemWithSubNav = queryByRole('button', {name: 'Item 2'})
+    expect(itemWithSubNav).toBeInTheDocument()
+  })
 
-  it.todo('hides SubNav by default if SubNav does not contain the current item')
+  it('ignores aria-current prop', () => {
+    const {queryByRole} = render(<NavListWithSubNav />)
+    const itemWithSubNav = queryByRole('button', {name: 'Item 2'})
+    expect(itemWithSubNav).not.toHaveAttribute('aria-current')
+  })
 
-  it.todo('toggles visiblility of SubNav when clicked')
+  it('shows SubNav by default if SubNav contains the current item', () => {
+    const {queryByRole} = render(<NavListWithCurrentSubNav />)
+    const subNav = queryByRole('list', {name: 'Item 2'})
+    expect(subNav).toBeVisible()
+  })
 
-  it.todo('has active styles if SubNav contains the current item and is closed')
+  it('hides SubNav by default if SubNav does not contain the current item', () => {
+    const {queryByRole} = render(<NavListWithSubNav />)
+    const subNav = queryByRole('list', {name: 'Item 2'})
+    expect(subNav).toBeNull()
+  })
 
-  it.todo('does not have active styles if SubNav contains the current item and is open')
+  it('toggles visiblility of SubNav when clicked', () => {
+    const {getByRole, queryByRole} = render(<NavListWithSubNav />)
+    const itemWithSubNav = getByRole('button', {name: 'Item 2'})
+
+    // Starts closed
+    expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
+
+    // Click to open
+    fireEvent.click(itemWithSubNav)
+    expect(queryByRole('list', {name: 'Item 2'})).toBeVisible()
+
+    // Click to close
+    fireEvent.click(itemWithSubNav)
+    expect(queryByRole('list', {name: 'Item 2'})).toBeNull()
+  })
+
+  it('has active styles if SubNav contains the current item and is closed', () => {
+    const {container, getByRole, queryByRole} = render(
+      <ThemeProvider>
+        <SSRProvider>
+          <NavList>
+            <NavList.Item>
+              Item
+              <NavList.SubNav>
+                <NavList.Item href="#" aria-current="page">
+                  Sub Item
+                </NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList>
+        </SSRProvider>
+      </ThemeProvider>
+    )
+
+    const button = getByRole('button')
+
+    // Starts open
+    expect(queryByRole('list', {name: 'Item'})).toBeVisible()
+
+    // Click to close
+    fireEvent.click(button)
+    expect(queryByRole('list', {name: 'Item'})).toBeNull()
+
+    // Snapshot styles
+    expect(container).toMatchSnapshot()
+  })
+
+  it('does not have active styles if SubNav contains the current item and is open', () => {
+    const {container, queryByRole} = render(
+      <ThemeProvider>
+        <SSRProvider>
+          <NavList>
+            <NavList.Item>
+              Item
+              <NavList.SubNav>
+                <NavList.Item href="#" aria-current="page">
+                  Sub Item
+                </NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList>
+        </SSRProvider>
+      </ThemeProvider>
+    )
+
+    // Starts open
+    expect(queryByRole('list', {name: 'Item'})).toBeVisible()
+
+    // Snapshot styles
+    expect(container).toMatchSnapshot()
+  })
 
   it.todo('prints an error if Item contains multiple nested SubNavs')
 })
