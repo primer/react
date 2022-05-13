@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Fix ButtonGroup layout bug
+Fixes layout bug with ButtonGroup by changing the `display` property from `inline-block` to `inline-flex`
