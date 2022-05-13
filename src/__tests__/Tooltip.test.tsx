@@ -1,52 +1,45 @@
 import React from 'react'
-import Tooltip, {TooltipProps} from '../Tooltip'
-import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
+import 'babel-polyfill'
+import {Tooltip, TooltipContext} from '../Tooltip'
+import {SSRProvider} from '..'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
-describe('Tooltip', () => {
-  behavesAsComponent({Component: Tooltip})
+const Fixture = () => {
+  return (
+    <SSRProvider>
+      <Tooltip text="tooltip text">
+        <button>Save</button>
+      </Tooltip>
+    </SSRProvider>
+  )
+}
 
-  checkExports('Tooltip', {
-    default: Tooltip
+describe('Tooltip', () => {
+  behavesAsComponent({
+    Component: Tooltip,
+    options: {skipAs: true, skipSx: true},
+    toRender: () => <Fixture />
   })
 
+  checkExports('Tooltip', {default: undefined, Tooltip, TooltipContext})
+
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Tooltip text="hi" />)
+    const {container} = HTMLRender(<Fixture />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
     cleanup()
   })
 
-  it('renders a <span> with the "tooltipped" class', () => {
-    expect(render(<Tooltip />).type).toEqual('span')
-    expect(renderClasses(<Tooltip />)).toContain('tooltipped-n')
+  it('tooltip should not be visible by default', () => {
+    const component = HTMLRender(<Fixture />)
+    expect(component.getByText('tooltip text')).not.toBeVisible()
+    cleanup()
   })
 
-  it('respects the "align" prop', () => {
-    expect(rendersClass(<Tooltip align="left" />, 'tooltipped-align-left-2')).toBe(true)
-    expect(rendersClass(<Tooltip align="right" />, 'tooltipped-align-right-2')).toBe(true)
-  })
-
-  it('respects the "direction" prop', () => {
-    for (const direction of Tooltip.directions) {
-      expect(
-        rendersClass(<Tooltip direction={direction as TooltipProps['direction']} />, `tooltipped-${direction}`)
-      ).toBe(true)
-    }
-  })
-
-  it('respects the "noDelay" prop', () => {
-    expect(rendersClass(<Tooltip noDelay />, 'tooltipped-no-delay')).toBe(true)
-  })
-
-  it('respects the "text" prop', () => {
-    expect(render(<Tooltip text="hi" />).props['aria-label']).toEqual('hi')
-  })
-
-  it('respects the "wrap" prop', () => {
-    expect(rendersClass(<Tooltip wrap />, 'tooltipped-multiline')).toBe(true)
-  })
+  checkStoriesForAxeViolations('Tooltip/fixtures')
+  checkStoriesForAxeViolations('Tooltip/examples')
 })
