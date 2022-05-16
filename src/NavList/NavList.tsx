@@ -1,4 +1,5 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React, {isValidElement} from 'react'
 import {ActionList} from '../ActionList'
@@ -33,9 +34,8 @@ export type NavListItemProps = {
 }
 
 // TODO: sx prop
-// TODO: as prop
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({href, 'aria-current': ariaCurrent, children}, ref) => {
+  ({'aria-current': ariaCurrent, children, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -63,7 +63,6 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     return (
       <ActionList.LinkItem
         ref={ref}
-        href={href}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={{
@@ -71,12 +70,13 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
           fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
           fontWeight: depth > 0 ? 'normal' : null // Sub-items don't get bolded
         }}
+        {...props}
       >
         {children}
       </ActionList.LinkItem>
     )
   }
-)
+) as PolymorphicForwardRefComponent<'a', NavListItemProps>
 
 Item.displayName = 'NavList.Item'
 

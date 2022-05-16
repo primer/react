@@ -60,6 +60,56 @@ describe('NavList.Item', () => {
     expect(homeLink).toHaveAttribute('aria-current', 'page')
     expect(aboutLink).not.toHaveAttribute('aria-current')
   })
+
+  it('is compatiable with React-Router-like link components', () => {
+    type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+
+    const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(({to, ...props}, ref) => {
+      // eslint-disable-next-line jsx-a11y/anchor-has-content
+      return <a ref={ref} href={to} {...props} />
+    })
+
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item as={ReactRouterLikeLink} to={'/'} aria-current="page">
+          React Router link
+        </NavList.Item>
+      </NavList>
+    )
+
+    const link = getByRole('link', {name: 'React Router link'})
+
+    expect(link).toHaveAttribute('aria-current', 'page')
+    expect(link).toHaveAttribute('href', '/')
+  })
+
+  it('is compatible with NextJS-like link components', () => {
+    type NextJSLinkProps = {href: string; children: React.ReactNode}
+
+    const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
+      ({href, children}, ref): React.ReactElement => {
+        const child = React.Children.only(children)
+        const childProps = {
+          ref,
+          href
+        }
+        return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
+      }
+    )
+
+    const {getByRole} = render(
+      <NavList>
+        <NextJSLikeLink href="/">
+          <NavList.Item aria-current="page">NextJS link</NavList.Item>
+        </NextJSLikeLink>
+      </NavList>
+    )
+
+    const link = getByRole('link', {name: 'NextJS link'})
+
+    expect(link).toHaveAttribute('href', '/')
+    expect(link).toHaveAttribute('aria-current', 'page')
+  })
 })
 
 describe('NavList.Item with NavList.SubNav', () => {
