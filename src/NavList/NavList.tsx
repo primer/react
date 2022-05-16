@@ -38,7 +38,7 @@ export type NavListItemProps = {
 
 // TODO: as prop
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({href, 'aria-current': ariaCurrent, children, sx: sxProp}, ref) => {
+  ({href, 'aria-current': ariaCurrent, children, sx: sxProp = {}}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -102,7 +102,7 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, subNavContainsCurrentItem, sx: sxProp}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, subNavContainsCurrentItem, sx: sxProp = {}}: ItemWithSubNavProps) {
   const buttonId = useSSRSafeId()
   const subNavId = useSSRSafeId()
   // SubNav starts open if current item is in it
@@ -155,7 +155,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
 // TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
-const SubNav = ({children, sx: sxProp}: NavListSubNavProps) => {
+const SubNav = ({children, sx: sxProp = {}}: NavListSubNavProps) => {
   const {buttonId, subNavId} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 
@@ -222,7 +222,7 @@ type NavListGroupProps = {
 } & SxProp
 
 // TODO: ref prop
-const Group = ({title, children, sx: sxProp}: NavListGroupProps) => {
+const Group = ({title, children, sx: sxProp = {}}: NavListGroupProps) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
