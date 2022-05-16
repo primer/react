@@ -1,0 +1,65 @@
+---
+title: ButtonGroup
+componentId: button_group
+status: Alpha
+source: https://github.com/primer/react/tree/main/src/ButtonGroup
+---
+
+```js
+import {ButtonGroup} from '@primer/react'
+```
+
+## Examples
+
+### Default
+
+```jsx live
+<ButtonGroup>
+  <Button>Button 1</Button>
+  <Button>Button 2</Button>
+  <Button>Button 3</Button>
+</ButtonGroup>
+```
+
+### With icon buttons
+
+```jsx live
+<ButtonGroup>
+  <IconButton aria-label="Zoom out" icon={DashIcon} />
+  <IconButton aria-label="Zoom in" icon={PlusIcon} />
+</ButtonGroup>
+```
+
+## Props
+
+### ButtonGroup
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLDivElement" />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
+
+## Related components
+
+- [Button](/Button)
