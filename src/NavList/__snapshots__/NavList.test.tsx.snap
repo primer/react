@@ -31,6 +31,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c2 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -49,6 +50,18 @@ exports[`NavList renders a simple list 1`] = `
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
 }
 
 .c2[aria-disabled] {
@@ -90,6 +103,88 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent;
 }
 
+.c2::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c6 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+}
+
+.c6[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c6 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c6:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c6 {
+  --divider-color: transparent !important;
+}
+
+.c6:hover:not([aria-disabled]),
+.c6:focus:not([aria-disabled]),
+.c6[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c6:hover:not([aria-disabled]) + .c1,
+.c6:focus:not([aria-disabled]) + .c6,
+.c6[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 .c3 {
   color: #0969da;
   -webkit-text-decoration: none;
@@ -108,7 +203,6 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  position: relative;
 }
 
 .c3:hover {
@@ -139,22 +233,6 @@ exports[`NavList renders a simple list 1`] = `
   text-decoration: none;
 }
 
-.c3[aria-current] {
-  font-weight: 600;
-  background-color: rgba(208,215,222,0.24);
-}
-
-.c3[aria-current]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: #0969da;
-  border-radius: 6px;
-}
-
 @media (hover:hover) and (pointer:fine) {
   .c2:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -181,6 +259,36 @@ exports[`NavList renders a simple list 1`] = `
 
 @media (forced-colors:active) {
   .c2:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c6:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c6:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c6[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c6:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c6:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -214,7 +322,7 @@ exports[`NavList renders a simple list 1`] = `
       </li>
       <li
         aria-labelledby="react-aria-4 "
-        class="c1 c2"
+        class="c1 c6"
       >
         <a
           class="c3"
@@ -235,7 +343,7 @@ exports[`NavList renders a simple list 1`] = `
       </li>
       <li
         aria-labelledby="react-aria-7 "
-        class="c1 c2"
+        class="c1 c6"
       >
         <a
           class="c3"
@@ -324,6 +432,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6 {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -342,6 +451,18 @@ exports[`NavList renders with groups 1`] = `
   transition: background 33.333ms linear;
   color: #24292f;
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
 }
 
 .c6[aria-disabled] {
@@ -383,6 +504,88 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent;
 }
 
+.c6::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c10 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+}
+
+.c10[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c10:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c10 {
+  --divider-color: transparent !important;
+}
+
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
+.c10[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c10:hover:not([aria-disabled]) + .c5,
+.c10:focus:not([aria-disabled]) + .c10,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
 .c7 {
   color: #0969da;
   -webkit-text-decoration: none;
@@ -401,7 +604,6 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   border-radius: 6px;
   color: inherit;
-  position: relative;
 }
 
 .c7:hover {
@@ -432,22 +634,6 @@ exports[`NavList renders with groups 1`] = `
   text-decoration: none;
 }
 
-.c7[aria-current] {
-  font-weight: 600;
-  background-color: rgba(208,215,222,0.24);
-}
-
-.c7[aria-current]::after {
-  position: absolute;
-  top: calc(50% - 12px);
-  left: -8px;
-  width: 4px;
-  height: 24px;
-  content: "";
-  background-color: #0969da;
-  border-radius: 6px;
-}
-
 @media (hover:hover) and (pointer:fine) {
   .c6:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -474,6 +660,36 @@ exports[`NavList renders with groups 1`] = `
 
 @media (forced-colors:active) {
   .c6:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c10:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c10:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c10[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c10:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c10:focus {
     outline: solid 1px transparent !important;
   }
 }
@@ -555,7 +771,7 @@ exports[`NavList renders with groups 1`] = `
         >
           <li
             aria-labelledby="react-aria-6 "
-            class="c5 c6"
+            class="c5 c10"
           >
             <a
               class="c7"
@@ -575,6 +791,745 @@ exports[`NavList renders with groups 1`] = `
             </a>
           </li>
         </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav contains the current item and is open 1`] = `
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c1 {
+  list-style: none;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c9 {
+  padding: 0;
+  margin: 0;
+}
+
+.c7 {
+  height: 20px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #57606a;
+  margin-left: 8px;
+  font-weight: initial;
+}
+
+.c8 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.c0 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c10 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c10[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c10:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c10 {
+  --divider-color: transparent !important;
+}
+
+.c10:hover:not([aria-disabled]),
+.c10:focus:not([aria-disabled]),
+.c10[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c10:hover:not([aria-disabled]) + .c2,
+.c10:focus:not([aria-disabled]) + .c10,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c10::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+.c12:hover:not([aria-disabled]) + .c2,
+.c12:focus:not([aria-disabled]) + .c12,
+.c12[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c13:hover:not([aria-disabled]) + .c2,
+.c13:focus:not([aria-disabled]) + .c13,
+.c13[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c14:hover:not([aria-disabled]) + .c2,
+.c14:focus:not([aria-disabled]) + .c14,
+.c14[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c15:hover:not([aria-disabled]) + .c2,
+.c15:focus:not([aria-disabled]) + .c15,
+.c15[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c16:hover:not([aria-disabled]) + .c2,
+.c16:focus:not([aria-disabled]) + .c16,
+.c16[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c17:hover:not([aria-disabled]) + .c2,
+.c17:focus:not([aria-disabled]) + .c17,
+.c17[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+}
+
+.c3[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c3:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
+}
+
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c3:hover:not([aria-disabled]) + .c2,
+.c3:focus:not([aria-disabled]) + .c3,
+.c3[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c18:hover:not([aria-disabled]) + .c2,
+.c18:focus:not([aria-disabled]) + .c18,
+.c18[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c11 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 32px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.c11:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c11:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c11:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c10:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c10:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c10[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c10:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c10:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c3:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c3:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c3[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c3:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+<div>
+  <nav>
+    <ul
+      class="c0"
+    >
+      <li
+        aria-labelledby="react-aria-1"
+        class="c1"
+      >
+        <button
+          aria-controls="react-aria-2"
+          aria-expanded="true"
+          aria-labelledby="react-aria-1 "
+          class="c2 c3"
+          tabindex="0"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <div
+              class="c5"
+            >
+              <span
+                class="c6"
+                id="react-aria-1"
+              >
+                Item
+              </span>
+              <span
+                class="c7"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="c8"
+                  fill="currentColor"
+                  height="16"
+                  role="img"
+                  style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M12.78 6.22a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06 0L3.22 7.28a.75.75 0 011.06-1.06L8 9.94l3.72-3.72a.75.75 0 011.06 0z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </button>
+        <ul
+          aria-labelledby="react-aria-1"
+          class="c9"
+          id="react-aria-2"
+        >
+          <li
+            aria-labelledby="react-aria-3 "
+            class="c2 c10"
+          >
+            <a
+              aria-current="page"
+              class="c11"
+              href="#"
+            >
+              <div
+                class="c4"
+                data-component="ActionList.Item--DividerContainer"
+              >
+                <span
+                  class="c6"
+                  id="react-aria-3"
+                >
+                  Sub Item
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
+
+exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains the current item and is closed 1`] = `
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c6 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c1 {
+  list-style: none;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c7 {
+  height: 20px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #57606a;
+  margin-left: 8px;
+  font-weight: initial;
+}
+
+.c8 {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+.c0 {
+  margin: 0;
+  padding-inline-start: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.c9:hover:not([aria-disabled]) + .c2,
+.c9:focus:not([aria-disabled]) + .c9,
+.c9[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c10:hover:not([aria-disabled]) + .c2,
+.c10:focus:not([aria-disabled]) + .c10,
+.c10[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c11:hover:not([aria-disabled]) + .c2,
+.c11:focus:not([aria-disabled]) + .c11,
+.c11[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c12:hover:not([aria-disabled]) + .c2,
+.c12:focus:not([aria-disabled]) + .c12,
+.c12[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c13:hover:not([aria-disabled]) + .c2,
+.c13:focus:not([aria-disabled]) + .c13,
+.c13[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c14:hover:not([aria-disabled]) + .c2,
+.c14:focus:not([aria-disabled]) + .c14,
+.c14[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c15:hover:not([aria-disabled]) + .c2,
+.c15:focus:not([aria-disabled]) + .c15,
+.c15[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c16:hover:not([aria-disabled]) + .c2,
+.c16:focus:not([aria-disabled]) + .c16,
+.c16[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  line-height: 20px;
+  min-height: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 6px;
+  -webkit-transition: background 33.333ms linear;
+  transition: background 33.333ms linear;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: unset;
+  border: unset;
+  width: 100%;
+  font-family: unset;
+  text-align: unset;
+  margin-top: unset;
+  margin-bottom: unset;
+  font-weight: 600;
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c3[aria-disabled] {
+  cursor: not-allowed;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"] {
+  position: relative;
+}
+
+.c3 [data-component="ActionList.Item--DividerContainer"]::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: -7px;
+  border: 0 solid;
+  border-top-width: 0;
+  border-color: var(--divider-color,transparent);
+}
+
+.c3:not(:first-of-type) {
+  --divider-color: rgba(208,215,222,0.48);
+}
+
+[data-component="ActionList.Divider"] + .c3 {
+  --divider-color: transparent !important;
+}
+
+.c3:hover:not([aria-disabled]),
+.c3:focus:not([aria-disabled]),
+.c3[data-focus-visible-added]:not([aria-disabled]) {
+  --divider-color: transparent;
+}
+
+.c3:hover:not([aria-disabled]) + .c2,
+.c3:focus:not([aria-disabled]) + .c3,
+.c3[data-focus-visible-added] + li {
+  --divider-color: transparent;
+}
+
+.c3::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: #0969da;
+  border-radius: 6px;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .c3:hover:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.32);
+    color: #24292f;
+  }
+
+  .c3:focus:not([data-focus-visible-added]) {
+    background-color: rgba(208,215,222,0.24);
+    color: #24292f;
+    outline: none;
+  }
+
+  .c3[data-focus-visible-added] {
+    outline: none;
+    border: 2 solid;
+    box-shadow: 0 0 0 2px #0969da;
+  }
+
+  .c3:active:not([aria-disabled]) {
+    background-color: rgba(208,215,222,0.48);
+    color: #24292f;
+  }
+}
+
+@media (forced-colors:active) {
+  .c3:focus {
+    outline: solid 1px transparent !important;
+  }
+}
+
+<div>
+  <nav>
+    <ul
+      class="c0"
+    >
+      <li
+        aria-labelledby="react-aria-1"
+        class="c1"
+      >
+        <button
+          aria-controls="react-aria-2"
+          aria-expanded="false"
+          aria-labelledby="react-aria-1 "
+          class="c2 c3"
+          tabindex="0"
+        >
+          <div
+            class="c4"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <div
+              class="c5"
+            >
+              <span
+                class="c6"
+                id="react-aria-1"
+              >
+                Item
+              </span>
+              <span
+                class="c7"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="c8"
+                  fill="currentColor"
+                  height="16"
+                  role="img"
+                  style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <path
+                    d="M12.78 6.22a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06 0L3.22 7.28a.75.75 0 011.06-1.06L8 9.94l3.72-3.72a.75.75 0 011.06 0z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </button>
       </li>
     </ul>
   </nav>

@@ -135,16 +135,16 @@ import {NavList} from '@primer/react/drafts'
 
 ### With sub-items
 
-<Note variant="danger">Not implemented yet</Note>
-
-```jsx
+```jsx live drafts
 <NavList>
   <NavList.Item href="/branches">Branches</NavList.Item>
   <NavList.Item href="/tags">Tags</NavList.Item>
   <NavList.Item>
     Actions
     <NavList.SubNav>
-      <NavList.Item href="/actions">General</NavList.Item>
+      <NavList.Item href="/actions" aria-current="page">
+        General
+      </NavList.Item>
       <NavList.Item href="/actions/runners">Runners</NavList.Item>
     </NavList.SubNav>
   </NavList.Item>
@@ -156,30 +156,6 @@ import {NavList} from '@primer/react/drafts'
 If a `NavList.Item` contains a `NavList.SubNav`, the `NavList.Item` will render as a `<button>` and the `as` prop and `href` prop will be ignored.
 
 </Note>
-
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav>
-  <ul role="list">
-    <li><a href="/branches">Branches</a></li>
-    <li><a href="/tags">Tags</a></li>
-    <li>
-      <button id="generated-id-1" aria-expanded="false" aria-controls="generated-id-2">
-        <span>Actions</span>
-        <span><svg aria-hidden="true">...</svg></span>
-      </button>
-      <ul role="list" id="generated-id-2" aria-labelledby="generated-id-1">
-        <li><a href="/actions">General</a></li>
-        <li><a href="/actions/runners">Runners</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-```
-
-</details>
 
 ### With a divider
 

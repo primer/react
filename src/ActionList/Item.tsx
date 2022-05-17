@@ -1,15 +1,15 @@
-import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
+import React from 'react'
 import styled from 'styled-components'
-import {useTheme} from '../ThemeProvider'
 import Box, {BoxProps} from '../Box'
-import sx, {SxProp, merge} from '../sx'
+import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import {useTheme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import {AriaRole} from '../utils/types'
-import {ListContext, ActionListProps} from './List'
-import {GroupContext, ActionListGroupProps} from './Group'
 import {ActionListContainerContext} from './ActionListContainerContext'
+import {ActionListGroupProps, GroupContext} from './Group'
+import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 
 export const getVariantStyles = (
@@ -56,6 +56,10 @@ export type ActionListItemProps = {
    */
   selected?: boolean
   /**
+   * Indicate whether the item is active. There should never be more than one active item.
+   */
+  active?: boolean
+  /**
    * Style variations associated with various `Item` types.
    *
    * - `"default"` - An action `Item`.
@@ -96,6 +100,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       variant = 'default',
       disabled = false,
       selected = undefined,
+      active = false,
       onSelect,
       sx: sxProp = {},
       id,
@@ -123,7 +128,23 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const {theme} = useTheme()
 
+    const activeStyles = {
+      fontWeight: 'bold',
+      bg: 'actionListItem.default.selectedBg',
+      '&::after': {
+        position: 'absolute',
+        top: 'calc(50% - 12px)',
+        left: -2,
+        width: '4px',
+        height: '24px',
+        content: '""',
+        bg: 'accent.fg',
+        borderRadius: 2
+      }
+    }
+
     const styles = {
+      position: 'relative',
       display: 'flex',
       paddingX: 2,
       fontSize: 1,
@@ -136,6 +157,15 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       color: getVariantStyles(variant, disabled).color,
       cursor: 'pointer',
       '&[aria-disabled]': {cursor: 'not-allowed'},
+
+      // Button reset styles (to support as="button")
+      appearance: 'none',
+      background: 'unset',
+      border: 'unset',
+      width: '100%',
+      fontFamily: 'unset',
+      textAlign: 'unset',
+      marginY: 'unset',
 
       '@media (hover: hover) and (pointer: fine)': {
         ':hover:not([aria-disabled])': {
@@ -190,7 +220,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
       '&:hover:not([aria-disabled]) + &, &:focus:not([aria-disabled]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent'
-      }
+      },
+      ...(active ? activeStyles : {})
     }
 
     const clickHandler = React.useCallback(
@@ -229,7 +260,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         {slots => (
           <LiBox
             ref={forwardedRef}
-            sx={merge(styles, sxProp as SxProp)}
+            sx={merge<BetterSystemStyleObject>(styles, sxProp)}
             onClick={clickHandler}
             onKeyPress={keyPressHandler}
             aria-disabled={disabled ? true : undefined}
