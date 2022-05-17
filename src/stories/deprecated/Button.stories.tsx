@@ -66,7 +66,7 @@ export const closeButton = (args: ButtonStyleProps) => (
   <ButtonClose {...args} onClick={() => alert('button clicked.')} />
 )
 export const buttonGroup = (args: StrictButtonStyleProps) => (
-  <ButtonGroup display="block" my={2}>
+  <ButtonGroup>
     <Button {...args}>Button 1</Button>
     <Button {...args}>Button 2</Button>
     <Button {...args}>Button 3</Button>
