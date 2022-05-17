@@ -304,6 +304,6 @@ describe('NavList.Item with NavList.SubNav', () => {
     )
 
     const currentLink = queryByRole('link', {name: 'Current'})
-    expect(currentLink).toBeInTheDocument()
+    expect(currentLink).toBeVisible()
   })
 })
