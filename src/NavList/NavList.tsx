@@ -49,22 +49,20 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav) && depth < 1) {
       // Search SubNav children for current Item
-      const currentItem = React.Children.toArray(subNav.props.children).find(
-        (child) => {
-          if (!isValidElement(child)) return false
+      const currentItem = React.Children.toArray(subNav.props.children).find(child => {
+        if (!isValidElement(child)) return false
 
-          // when direct child is SubNav.Item
-          if (child.type === Item) return child.props['aria-current']
+        // when direct child is SubNav.Item
+        if (child.type === Item) return child.props['aria-current']
 
-          // when direct child isn't SubNav.Item,
-          // it's probably a NextJSLikeLink, go one level deeper
-          const wrappedItem = child.props.children
-          if (typeof wrappedItem === 'object') return wrappedItem.props['aria-current']
+        // when direct child isn't SubNav.Item,
+        // it's probably a NextJSLikeLink, go one level deeper
+        const wrappedItem = child.props.children
+        if (typeof wrappedItem === 'object') return wrappedItem.props['aria-current']
 
-          // we don't recognise this API usage
-          return false
-        }
-      )
+        // we don't recognise this API usage
+        return false
+      })
 
       return (
         <ItemWithSubNav subNav={subNav} subNavContainsCurrentItem={Boolean(currentItem)}>
