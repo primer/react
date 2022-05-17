@@ -5,6 +5,7 @@ import React, {isValidElement} from 'react'
 import {ActionList} from '../ActionList'
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
+import {useProvidedRefOrCreate} from '../hooks'
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -13,10 +14,34 @@ export type NavListProps = {
   children: React.ReactNode
 } & React.ComponentProps<'nav'>
 
+const useWarningForMissingAriaCurrent = containerRef => {
+  React.useEffect(
+    function checkForAriaCurrentOnMount() {
+      const ariaCurrentEl = containerRef.current?.querySelector('[aria-current]')
+
+      if (!ariaCurrentEl)
+        throw new Error(`
+aria-current not found on NavList.Item
+
+To create an accessible navigation, it is required to add aria-current to the current anchor element.
+
+See https://primer.style/react/NavList#accessibilty for more info
+
+If you are extending NavList.Item to create a navigation element, make sure you are passing aria-current at the site of usage.
+See https://primer.style/react/NavList#extend for more info.
+      `)
+    },
+    [containerRef]
+  )
+}
+
 // TODO: sx prop
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+  const ensureRef = useProvidedRefOrCreate(ref)
+  useWarningForMissingAriaCurrent(ensureRef)
+
   return (
-    <nav ref={ref} {...props}>
+    <nav ref={ensureRef} {...props}>
       <ActionList>{children}</ActionList>
     </nav>
   )
@@ -52,13 +77,20 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
       const currentItem = React.Children.toArray(subNav.props.children).find(child => {
         if (!isValidElement(child)) return false
 
-        // when direct child is SubNav.Item
+        // if direct child is SubNav.Item
         if (child.type === Item) return child.props['aria-current']
+        //
+        // if direct child isn't SubNav.Item
+        // it's either a custom NavItem or a NextJSLikeLink
 
-        // when direct child isn't SubNav.Item,
-        // it's probably a NextJSLikeLink, go one level deeper
-        const wrappedItem = child.props.children
-        if (typeof wrappedItem === 'object') return wrappedItem.props['aria-current']
+        // custom NavItem requires aria-current on the direct child
+        if (child.props['aria-current']) return true
+
+        // for NextJSLikeLink, go one level deeper
+        if (typeof child.props.children === 'object') {
+          const wrappedItem = child.props.children
+          return wrappedItem.props['aria-current']
+        }
 
         // we don't recognise this API usage
         return false
