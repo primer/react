@@ -1,0 +1,190 @@
+---
+title: SegmentedControl
+status: Draft
+description: Used to select an option from a short list and immediately apply the selection
+---
+
+## Examples
+
+### Simple
+
+```jsx live drafts
+<SegmentedControl aria-label="File view">
+  <SegmentedControl.Item>Preview</SegmentedControl.Item>
+  <SegmentedControl.Item>Raw</SegmentedControl.Item>
+  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+</SegmentedControl>
+```
+
+### With icons and labels
+
+```jsx live drafts
+<SegmentedControl aria-label="File view">
+  <SegmentedControl.Item leadingIcon={EyeIcon}>Preview</SegmentedControl.Item>
+  <SegmentedControl.Item leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Item>
+  <SegmentedControl.Item leadingIcon={PeopleIcon}>Blame</SegmentedControl.Item>
+</SegmentedControl>
+```
+
+### With icons only
+
+```jsx live drafts
+<SegmentedControl aria-label="File view">
+  <SegmentedControl.IconItem icon={EyeIcon} aria-label="Preview" />
+  <SegmentedControl.IconItem icon={FileCodeIcon} aria-label="Raw" />
+  <SegmentedControl.IconItem icon={PeopleIcon} aria-label="Blame" />
+</SegmentedControl>
+```
+
+### With labels hidden on smaller viewports
+
+```jsx live drafts
+<SegmentedControl aria-label="File view" hideLabels={{narrow: false, large: true}}>
+  <SegmentedControl.Item leadingIcon={EyeIcon}>Preview</SegmentedControl.Item>
+  <SegmentedControl.Item leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Item>
+  <SegmentedControl.Item leadingIcon={PeopleIcon}>Blame</SegmentedControl.Item>
+</SegmentedControl>
+```
+
+### Convert to a dropdown on smaller viewports
+
+```jsx live drafts
+<SegmentedControl aria-label="File view" asDropdown={{narrow: true, large: false}}>
+  <SegmentedControl.Item leadingIcon={EyeIcon}>Preview</SegmentedControl.Item>
+  <SegmentedControl.Item leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Item>
+  <SegmentedControl.Item leadingIcon={PeopleIcon}>Blame</SegmentedControl.Item>
+</SegmentedControl>
+```
+
+### Fill width of parent
+
+```jsx live drafts
+<SegmentedControl block aria-label="File view">
+  <SegmentedControl.Item>Preview</SegmentedControl.Item>
+  <SegmentedControl.Item>Raw</SegmentedControl.Item>
+  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+</SegmentedControl>
+```
+
+### In a loading state
+
+```jsx live drafts
+<SegmentedControl loading aria-label="File view">
+  <SegmentedControl.Item>Preview</SegmentedControl.Item>
+  <SegmentedControl.Item>Raw</SegmentedControl.Item>
+  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+</SegmentedControl>
+```
+
+### With a label and caption on the left
+
+```jsx live drafts
+<Box display="flex">
+  <Box flexGrow={1}>
+    <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
+      File view
+    </Text>
+    <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
+      Change the way the file is viewed
+    </Text>
+  </Box>
+  <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
+    <SegmentedControl.Item>Preview</SegmentedControl.Item>
+    <SegmentedControl.Item>Raw</SegmentedControl.Item>
+    <SegmentedControl.Item>Blame</SegmentedControl.Item>
+  </SegmentedControl>
+</Box>
+```
+
+### With a label above and caption below
+
+```jsx live drafts
+<FormControl>
+  <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
+  <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
+    <SegmentedControl.Item>Preview</SegmentedControl.Item>
+    <SegmentedControl.Item>Raw</SegmentedControl.Item>
+    <SegmentedControl.Item>Blame</SegmentedControl.Item>
+  </SegmentedControl>
+  <FormControl.Caption id="scCaption-horiz">Change the way the file is viewed</FormControl.Caption>
+</FormControl>
+```
+
+### With something besides the first option selected
+
+```jsx live drafts
+<SegmentedControl aria-label="File view">
+  <SegmentedControl.Item>Preview</SegmentedControl.Item>
+  <SegmentedControl.Item selected>Raw</SegmentedControl.Item>
+  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+</SegmentedControl>
+```
+
+### With a selection change handler
+
+```jsx live drafts
+<SegmentedControl
+  aria-label="File view"
+  onChange={selectedIndex => {
+    alert(`Segment ${selectedIndex}`)
+  }}
+>
+  <SegmentedControl.Item>Preview</SegmentedControl.Item>
+  <SegmentedControl.Item>Raw</SegmentedControl.Item>
+  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+</SegmentedControl>
+```
+
+## Props
+
+### SegmentedControl
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="aria-labelledby" type="string" />
+  <PropsTableRow name="aria-describedby" type="string" />
+  <PropsTableRow name="block" type="boolean" description="Whether the control fills the width of its parent" />
+  <PropsTableRow name="loading" type="boolean" description="Whether the selected segment is being calculated" />
+  <PropsTableRow
+    name="onChange"
+    type="(selectedIndex?: number) => void"
+    description="The handler that gets called when a segment is selected"
+  />
+</PropsTable>
+
+### SegmentedControl.Item
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="leadingIcon" type="Component" description="The leading icon comes before item label" />
+  <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
+</PropsTable>
+
+### SegmentedControl.IconItem
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="icon" type="Component" description="The icon that represents the segmented control item" />
+  <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
