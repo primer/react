@@ -38,7 +38,7 @@ export function DefaultAltText(): JSX.Element {
 export function AcceptsRef(): JSX.Element {
   const ref = React.useRef<HTMLImageElement>(null)
 
-  return <Avatar ref={ref} src="https://avatars.githubusercontent.com/primer" />
+  return <Avatar ref={ref} src="https://avatars.githubusercontent.com/primer" data-test-id="avatar" />
 }
 
 export function AcceptsSxProp(): JSX.Element {

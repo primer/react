@@ -11,7 +11,8 @@ export type AvatarProps = {
   src: string
   /** Provide alt text when the Avatar is used without the user's name next to it. */
   alt?: string
-} & SxProp
+} & SxProp &
+  Omit<React.ComponentProps<'img'>, 'ref'>
 
 function getBorderRadius({size, square}: Pick<AvatarProps, 'size' | 'square'>) {
   if (square) {
