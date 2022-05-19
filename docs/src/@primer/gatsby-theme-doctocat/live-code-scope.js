@@ -3,6 +3,7 @@ import * as octicons from '@primer/octicons-react'
 import * as primerComponents from '@primer/react'
 import * as drafts from '@primer/react/drafts'
 import * as deprecated from '@primer/react/deprecated'
+import {Dialog} from '@primer/react/Dialog/Dialog'
 import {Placeholder} from '@primer/react/Placeholder'
 import React from 'react'
 import State from '../../../components/State'
@@ -24,6 +25,7 @@ export default function resolveScope(metastring) {
     ...(metastring.includes('deprecated') ? deprecated : {}),
     ReactRouterLink,
     State,
-    Placeholder
+    Placeholder,
+    Dialog
   }
 }
