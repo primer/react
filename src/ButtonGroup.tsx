@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import Box from './Box'
 import {get} from './constants'
 import sx from './sx'
 import {ComponentProps} from './utils/types'
 
-const ButtonGroup = styled(Box)`
+const ButtonGroup = styled.div`
+  display: inline-flex;
   vertical-align: middle;
 
   && > * {
@@ -46,10 +46,6 @@ const ButtonGroup = styled(Box)`
 
   ${sx};
 `
-
-ButtonGroup.defaultProps = {
-  display: 'inline-block'
-}
 
 export type ButtonGroupProps = ComponentProps<typeof ButtonGroup>
 export default ButtonGroup

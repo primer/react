@@ -162,7 +162,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: '100%',
+      width: 'calc(100% - 16px)',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
