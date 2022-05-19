@@ -163,6 +163,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     css`
       width: 100%;
       display: flex;
+      align-self: stretch;
     `}
       
   // Ensures inputs don' t zoom on mobile but are body-font size on desktop

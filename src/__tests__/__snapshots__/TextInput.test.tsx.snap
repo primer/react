@@ -144,6 +144,9 @@ exports[`TextInput renders block 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;

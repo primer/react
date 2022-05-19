@@ -294,7 +294,9 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 <div>
-  <nav>
+  <nav
+    class=""
+  >
     <ul
       class="c0"
     >
@@ -695,7 +697,9 @@ exports[`NavList renders with groups 1`] = `
 }
 
 <div>
-  <nav>
+  <nav
+    class=""
+  >
     <ul
       class="c0"
     >
@@ -1172,7 +1176,9 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 <div>
-  <nav>
+  <nav
+    class=""
+  >
     <ul
       class="c0"
     >
@@ -1480,7 +1486,9 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 <div>
-  <nav>
+  <nav
+    class=""
+  >
     <ul
       class="c0"
     >
