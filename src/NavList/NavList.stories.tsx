@@ -26,7 +26,7 @@ export const Simple: Story = () => (
   </PageLayout>
 )
 
-export const SubItems: Story = () => (
+export const WithSubItems: Story = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -41,6 +41,63 @@ export const SubItems: Story = () => (
           </NavList.SubNav>
         </NavList.Item>
         <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(({to, ...props}, ref) => {
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  return <a ref={ref} href={to} {...props} />
+})
+
+export const WithReactRouterLink = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item as={ReactRouterLikeLink} to="#" aria-current="page">
+          Item 1
+        </NavList.Item>
+        <NavList.Item as={ReactRouterLikeLink} to="#">
+          Item 2
+        </NavList.Item>
+        <NavList.Item as={ReactRouterLikeLink} to="#">
+          Item 3
+        </NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+type NextJSLinkProps = {href: string; children: React.ReactNode}
+
+const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
+  ({href, children}, ref): React.ReactElement => {
+    const child = React.Children.only(children)
+    const childProps = {
+      ref,
+      href
+    }
+    return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
+  }
+)
+
+export const WithNextJSLink = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NextJSLikeLink href="#">
+          <NavList.Item aria-current="page">Item 1</NavList.Item>
+        </NextJSLikeLink>
+        <NextJSLikeLink href="#">
+          <NavList.Item>Item 2</NavList.Item>
+        </NextJSLikeLink>
+        <NextJSLikeLink href="#">
+          <NavList.Item>Item 3</NavList.Item>
+        </NextJSLikeLink>
       </NavList>
     </PageLayout.Pane>
     <PageLayout.Content></PageLayout.Content>

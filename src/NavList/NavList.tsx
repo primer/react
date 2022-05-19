@@ -1,4 +1,5 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
@@ -36,9 +37,8 @@ export type NavListItemProps = {
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
 } & SxProp
 
-// TODO: as prop
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({href, 'aria-current': ariaCurrent, children, sx: sxProp = {}}, ref) => {
+  ({'aria-current': ariaCurrent, children, sx: sxProp = {}, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -51,13 +51,8 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
 
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav) && depth < 1) {
-      // Search SubNav children for current Item
-      const currentItem = React.Children.toArray(subNav.props.children).find(
-        child => isValidElement(child) && child.props['aria-current']
-      )
-
       return (
-        <ItemWithSubNav subNav={subNav} subNavContainsCurrentItem={Boolean(currentItem)} sx={sxProp}>
+        <ItemWithSubNav subNav={subNav} sx={sxProp}>
           {childrenWithoutSubNav}
         </ItemWithSubNav>
       )
@@ -66,7 +61,6 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     return (
       <ActionList.LinkItem
         ref={ref}
-        href={href}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={merge<SxProp['sx']>(
@@ -77,12 +71,13 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
           },
           sxProp
         )}
+        {...props}
       >
         {children}
       </ActionList.LinkItem>
     )
   }
-)
+) as PolymorphicForwardRefComponent<'a', NavListItemProps>
 
 Item.displayName = 'NavList.Item'
 
@@ -92,24 +87,36 @@ Item.displayName = 'NavList.Item'
 type ItemWithSubNavProps = {
   children: React.ReactNode
   subNav: React.ReactNode
-  subNavContainsCurrentItem: boolean
 } & SxProp
 
-const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string}>({
+const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
   buttonId: '',
-  subNavId: ''
+  subNavId: '',
+  isOpen: false
 })
 
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, subNavContainsCurrentItem, sx: sxProp = {}}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps) {
   const buttonId = useSSRSafeId()
   const subNavId = useSSRSafeId()
-  // SubNav starts open if current item is in it
-  const [isOpen, setIsOpen] = React.useState(subNavContainsCurrentItem)
+  const [isOpen, setIsOpen] = React.useState(false)
+  const subNavRef = React.useRef<HTMLDivElement>(null)
+  const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
+
+  React.useLayoutEffect(() => {
+    if (subNavRef.current) {
+      // Check if SubNav contains current item
+      const currentItem = subNavRef.current.querySelector('[aria-current]')
+      if (currentItem && currentItem.getAttribute('aria-current') !== 'false') {
+        setContainsCurrentItem(true)
+        setIsOpen(true)
+      }
+    }
+  }, [subNav])
 
   return (
-    <ItemWithSubNavContext.Provider value={{buttonId, subNavId}}>
+    <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
       <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
         <ActionList.Item
           as="button"
@@ -117,11 +124,11 @@ function ItemWithSubNav({children, subNav, subNavContainsCurrentItem, sx: sxProp
           aria-expanded={isOpen}
           aria-controls={subNavId}
           // When the subNav is closed, how should we indicated that the subNav contains the current item?
-          active={!isOpen && subNavContainsCurrentItem}
+          active={!isOpen && containsCurrentItem}
           onClick={() => setIsOpen(open => !open)}
           sx={merge<SxProp['sx']>(
             {
-              fontWeight: subNavContainsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
+              fontWeight: containsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
             },
             sxProp
           )}
@@ -138,7 +145,7 @@ function ItemWithSubNav({children, subNav, subNavContainsCurrentItem, sx: sxProp
           </ActionList.TrailingVisual>
         </ActionList.Item>
 
-        {isOpen ? subNav : null}
+        <div ref={subNavRef}>{subNav}</div>
       </Box>
     </ItemWithSubNavContext.Provider>
   )
@@ -156,7 +163,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 // TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
 const SubNav = ({children, sx: sxProp = {}}: NavListSubNavProps) => {
-  const {buttonId, subNavId} = React.useContext(ItemWithSubNavContext)
+  const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 
   if (!buttonId || !subNavId) {
@@ -179,7 +186,8 @@ const SubNav = ({children, sx: sxProp = {}}: NavListSubNavProps) => {
         sx={merge<SxProp['sx']>(
           {
             padding: 0,
-            margin: 0
+            margin: 0,
+            display: isOpen ? 'block' : 'none'
           },
           sxProp
         )}
