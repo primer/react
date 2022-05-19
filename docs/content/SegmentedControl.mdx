@@ -10,9 +10,9 @@ description: Used to select an option from a short list and immediately apply th
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Item>Preview</SegmentedControl.Item>
-  <SegmentedControl.Item>Raw</SegmentedControl.Item>
-  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
@@ -20,9 +20,9 @@ description: Used to select an option from a short list and immediately apply th
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Item leadingIcon={EyeIcon}>Preview</SegmentedControl.Item>
-  <SegmentedControl.Item leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Item>
-  <SegmentedControl.Item leadingIcon={PeopleIcon}>Blame</SegmentedControl.Item>
+  <SegmentedControl.Button leadingIcon={EyeIcon}>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
@@ -30,16 +30,16 @@ description: Used to select an option from a short list and immediately apply th
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.IconItem icon={EyeIcon} aria-label="Preview" />
-  <SegmentedControl.IconItem icon={FileCodeIcon} aria-label="Raw" />
-  <SegmentedControl.IconItem icon={PeopleIcon} aria-label="Blame" />
+  <SegmentedControl.IconButton icon={EyeIcon} aria-label="Preview" />
+  <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />
+  <SegmentedControl.IconButton icon={PeopleIcon} aria-label="Blame" />
 </SegmentedControl>
 ```
 
 ### With labels hidden on smaller viewports
 
 ```jsx live drafts
-<SegmentedControl aria-label="File view" hideLabels={{narrow: false, large: true}}>
+<SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'none'}}>
   <SegmentedControl.Item leadingIcon={EyeIcon}>Preview</SegmentedControl.Item>
   <SegmentedControl.Item leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Item>
   <SegmentedControl.Item leadingIcon={PeopleIcon}>Blame</SegmentedControl.Item>
@@ -49,7 +49,7 @@ description: Used to select an option from a short list and immediately apply th
 ### Convert to a dropdown on smaller viewports
 
 ```jsx live drafts
-<SegmentedControl aria-label="File view" asDropdown={{narrow: true, large: false}}>
+<SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'none'}}>
   <SegmentedControl.Item leadingIcon={EyeIcon}>Preview</SegmentedControl.Item>
   <SegmentedControl.Item leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Item>
   <SegmentedControl.Item leadingIcon={PeopleIcon}>Blame</SegmentedControl.Item>
@@ -60,9 +60,9 @@ description: Used to select an option from a short list and immediately apply th
 
 ```jsx live drafts
 <SegmentedControl block aria-label="File view">
-  <SegmentedControl.Item>Preview</SegmentedControl.Item>
-  <SegmentedControl.Item>Raw</SegmentedControl.Item>
-  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
@@ -70,9 +70,9 @@ description: Used to select an option from a short list and immediately apply th
 
 ```jsx live drafts
 <SegmentedControl loading aria-label="File view">
-  <SegmentedControl.Item>Preview</SegmentedControl.Item>
-  <SegmentedControl.Item>Raw</SegmentedControl.Item>
-  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
@@ -89,9 +89,9 @@ description: Used to select an option from a short list and immediately apply th
     </Text>
   </Box>
   <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
-    <SegmentedControl.Item>Preview</SegmentedControl.Item>
-    <SegmentedControl.Item>Raw</SegmentedControl.Item>
-    <SegmentedControl.Item>Blame</SegmentedControl.Item>
+    <SegmentedControl.Button>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
 </Box>
 ```
@@ -102,9 +102,9 @@ description: Used to select an option from a short list and immediately apply th
 <FormControl>
   <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
   <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
-    <SegmentedControl.Item>Preview</SegmentedControl.Item>
-    <SegmentedControl.Item>Raw</SegmentedControl.Item>
-    <SegmentedControl.Item>Blame</SegmentedControl.Item>
+    <SegmentedControl.Button>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
   <FormControl.Caption id="scCaption-horiz">Change the way the file is viewed</FormControl.Caption>
 </FormControl>
@@ -114,9 +114,9 @@ description: Used to select an option from a short list and immediately apply th
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Item>Preview</SegmentedControl.Item>
-  <SegmentedControl.Item selected>Raw</SegmentedControl.Item>
-  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button selected>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
@@ -129,9 +129,9 @@ description: Used to select an option from a short list and immediately apply th
     alert(`Segment ${selectedIndex}`)
   }}
 >
-  <SegmentedControl.Item>Preview</SegmentedControl.Item>
-  <SegmentedControl.Item>Raw</SegmentedControl.Item>
-  <SegmentedControl.Item>Blame</SegmentedControl.Item>
+  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
@@ -152,7 +152,7 @@ description: Used to select an option from a short list and immediately apply th
   />
 </PropsTable>
 
-### SegmentedControl.Item
+### SegmentedControl.Button
 
 <PropsTable>
   <PropsTableRow name="aria-label" type="string" />
@@ -160,7 +160,7 @@ description: Used to select an option from a short list and immediately apply th
   <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
 </PropsTable>
 
-### SegmentedControl.IconItem
+### SegmentedControl.IconButton
 
 <PropsTable>
   <PropsTableRow name="aria-label" type="string" />
