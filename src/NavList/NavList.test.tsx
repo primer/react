@@ -3,6 +3,26 @@ import React from 'react'
 import {ThemeProvider, SSRProvider} from '..'
 import {NavList} from './NavList'
 
+type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+
+const ReactRouterLikeLink = React.forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(({to, ...props}, ref) => {
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  return <a ref={ref} href={to} {...props} />
+})
+
+type NextJSLinkProps = {href: string; children: React.ReactNode}
+
+const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
+  ({href, children}, ref): React.ReactElement => {
+    const child = React.Children.only(children)
+    const childProps = {
+      ref,
+      href
+    }
+    return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
+  }
+)
+
 describe('NavList', () => {
   it('renders a simple list', () => {
     const {container} = render(
@@ -59,6 +79,36 @@ describe('NavList.Item', () => {
 
     expect(homeLink).toHaveAttribute('aria-current', 'page')
     expect(aboutLink).not.toHaveAttribute('aria-current')
+  })
+
+  it('is compatiable with React-Router-like link components', () => {
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item as={ReactRouterLikeLink} to={'/'} aria-current="page">
+          React Router link
+        </NavList.Item>
+      </NavList>
+    )
+
+    const link = getByRole('link', {name: 'React Router link'})
+
+    expect(link).toHaveAttribute('aria-current', 'page')
+    expect(link).toHaveAttribute('href', '/')
+  })
+
+  it('is compatible with NextJS-like link components', () => {
+    const {getByRole} = render(
+      <NavList>
+        <NextJSLikeLink href="/">
+          <NavList.Item aria-current="page">NextJS link</NavList.Item>
+        </NextJSLikeLink>
+      </NavList>
+    )
+
+    const link = getByRole('link', {name: 'NextJS link'})
+
+    expect(link).toHaveAttribute('href', '/')
+    expect(link).toHaveAttribute('aria-current', 'page')
   })
 })
 
@@ -226,5 +276,34 @@ describe('NavList.Item with NavList.SubNav', () => {
     fireEvent.click(item)
 
     expect(consoleSpy).toHaveBeenCalled()
+  })
+
+  it('is compatiable with React-Router-like link components', () => {
+    function NavLink({href, children}: {href: string; children: React.ReactNode}) {
+      // In a real app, you'd check if the href matches the url of the current page. For testing purposes, we'll use the text of the link to determine if it's current
+      const isCurrent = children === 'Current'
+      return (
+        <NavList.Item as={ReactRouterLikeLink} to={href} aria-current={isCurrent ? 'page' : false}>
+          {children}
+        </NavList.Item>
+      )
+    }
+
+    const {queryByRole} = render(
+      <NavList>
+        <NavLink href="/">Item 1</NavLink>
+        <NavList.Item>
+          Item 2
+          <NavList.SubNav>
+            <NavLink href="/sub-item-1">Current</NavLink>
+            <NavLink href="/sub-item-2">Sub item 2</NavLink>
+          </NavList.SubNav>
+        </NavList.Item>
+        <NavLink href="/">Item 3</NavLink>
+      </NavList>
+    )
+
+    const currentLink = queryByRole('link', {name: 'Current'})
+    expect(currentLink).toBeVisible()
   })
 })
