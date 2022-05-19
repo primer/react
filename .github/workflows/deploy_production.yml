@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - siddharthkp/uncomment-deploy-guard
+      - main
 
 permissions:
   contents: read
