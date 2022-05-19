@@ -1,4 +1,4 @@
-import {KeyboardEvent} from 'react'
+import React, {KeyboardEvent} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
@@ -50,7 +50,14 @@ export interface TokenBaseProps
   size?: TokenSizeKeys
 }
 
-export const isTokenInteractive = ({as = 'span', onClick, onFocus, tabIndex = -1}: TokenBaseProps) =>
+type TokenElements = HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement
+
+export const isTokenInteractive = ({
+  as = 'span',
+  onClick,
+  onFocus,
+  tabIndex = -1
+}: Pick<TokenBaseProps, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 
 const xlargeVariantStyles = {
@@ -112,16 +119,7 @@ const variants = variant<
   }
 })
 
-const TokenBase = styled.span.attrs<TokenBaseProps>(({text, onRemove, onKeyDown}) => ({
-  onKeyDown: (event: KeyboardEvent<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>) => {
-    onKeyDown && onKeyDown(event)
-
-    if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
-      onRemove()
-    }
-  },
-  'aria-label': onRemove ? `${text}, press backspace or delete to remove` : undefined
-}))<TokenBaseProps & SxProp>`
+const StyledTokenBase = styled.span<SxProp>`
   align-items: center;
   border-radius: 999px;
   cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
@@ -129,10 +127,31 @@ const TokenBase = styled.span.attrs<TokenBaseProps>(({text, onRemove, onKeyDown}
   font-weight: ${get('fontWeights.bold')};
   font-family: inherit;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   ${variants}
   ${sx}
 `
+
+const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
+  ({text, onRemove, onKeyDown, id, ...rest}, forwardedRef) => {
+    return (
+      <StyledTokenBase
+        onKeyDown={(event: KeyboardEvent<TokenElements>) => {
+          onKeyDown && onKeyDown(event)
+
+          if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+            onRemove()
+          }
+        }}
+        aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
+        id={id?.toString()}
+        {...rest}
+        ref={forwardedRef}
+      />
+    )
+  }
+)
 
 TokenBase.defaultProps = {
   as: 'span',
