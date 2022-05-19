@@ -1363,7 +1363,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   appearance: none;
   background: unset;
   border: unset;
-  width: 100%;
+  width: calc(100% - 16px);
   font-family: unset;
   text-align: unset;
   margin-top: unset;
