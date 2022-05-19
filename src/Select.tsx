@@ -56,7 +56,7 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
 `
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({children, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
+  ({block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
       sx={{
         overflow: 'hidden',
@@ -67,9 +67,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           }
         }
       }}
+      block={block}
+      contrast={contrast}
+      disabled={disabled}
       size={size}
       validationStatus={validationStatus}
-      disabled={disabled}
     >
       <StyledSelect
         ref={ref}
