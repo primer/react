@@ -37,9 +37,8 @@ export type NavListItemProps = {
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
 } & SxProp
 
-
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({href, 'aria-current': ariaCurrent, children, sx: sxProp = {}}, ref) => {
+  ({'aria-current': ariaCurrent, children, sx: sxProp = {}, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -52,7 +51,11 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
 
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav) && depth < 1) {
-      return <ItemWithSubNav subNav={subNav} sx={sxProp}>{childrenWithoutSubNav}</ItemWithSubNav>
+      return (
+        <ItemWithSubNav subNav={subNav} sx={sxProp}>
+          {childrenWithoutSubNav}
+        </ItemWithSubNav>
+      )
     }
 
     return (
@@ -68,6 +71,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
           },
           sxProp
         )}
+        {...props}
       >
         {children}
       </ActionList.LinkItem>
@@ -124,7 +128,7 @@ function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps
           onClick={() => setIsOpen(open => !open)}
           sx={merge<SxProp['sx']>(
             {
-              fontWeight: subNavContainsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
+              fontWeight: containsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
             },
             sxProp
           )}
@@ -183,7 +187,7 @@ const SubNav = ({children, sx: sxProp = {}}: NavListSubNavProps) => {
           {
             padding: 0,
             margin: 0,
-           display: isOpen ? 'block' : 'none'
+            display: isOpen ? 'block' : 'none'
           },
           sxProp
         )}
