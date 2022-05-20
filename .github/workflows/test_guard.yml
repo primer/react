@@ -27,10 +27,26 @@ jobs:
       - name: Log changeset count
         run: echo ${{ steps.changeset-count.outputs.change_count }}
 
-  deploy:
-    name: Production
+  log:
+    name: Log
     needs: guard
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{needs.guard.outputs.change_count}}
       - run: echo ${{needs.guard.outputs.should_deploy}}
+
+  run1:
+    name: Run1
+    needs: guard
+    runs-on: ubuntu-latest
+    if: ${{ needs.guard.outputs.should_deploy == 'true' }}
+    steps:
+      - run: echo 'this will run'
+
+  run2:
+    name: Run2
+    needs: guard
+    runs-on: ubuntu-latest
+    if: ${{ needs.guard.outputs.should_deploy == true }}
+    steps:
+      - run: echo 'this will run'
