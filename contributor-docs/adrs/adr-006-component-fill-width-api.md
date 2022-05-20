@@ -6,7 +6,7 @@ Proposed
 
 ## Context
 
-By default, components like [Button](https://primer.style/react/Button) and [TextInput](https://primer.style/react/TextInput) are layed out inline, and are only do not fill the width of their parent. However, there are some layouts where these components fill the width of their parent for better ergonomics or to raise its level of hierarchy on the page.
+By default, components like [Button](https://primer.style/react/Button) and [TextInput](https://primer.style/react/TextInput) are displayed inline, and do not expand to fill the width of their parent. However, there are some layouts where these components fill the width of their parent for better ergonomics or to raise its level of hierarchy on the page.
 
 Currently, we have 2 ways to make a component fill its parent's width:
 
