@@ -7,15 +7,11 @@ storybook: '/react/storybook?path=/story/composite-components-button'
 description: Use button for the main actions on a page or form.
 ---
 
-import {Button, IconButton, LinkButton} from '@primer/react'
-
-## Usage
-
-### Installation
-
 ```js
 import {Button} from '@primer/react'
 ```
+
+## Examples
 
 ### Default button
 
@@ -122,7 +118,7 @@ Here's an example of a block button which takes 100% of available width. Checkou
 <Button sx={{width: '100%'}}>Block</Button>
 ```
 
-## API reference
+## Props
 
 Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
 
@@ -165,7 +161,7 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
   <PropsTableSxRow />
 </PropsTable>
 
-## Component status
+## Status
 
 <ComponentChecklist
   items={{
@@ -174,7 +170,7 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
     adaptsToThemes: true,
     adaptsToScreenSizes: true,
     fullTestCoverage: true,
-    usedInProduction: false,
+    usedInProduction: true,
     usageExamplesDocumented: true,
     designReviewed: false,
     a11yReviewed: false,
@@ -184,3 +180,7 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
     hasFigmaComponent: false
   }}
 />
+
+## Related components
+
+- [ButtonGroup](/ButtonGroup)

@@ -249,7 +249,7 @@ export const NestedOverlays = () => {
       <div>
         primary overlay open: {String(listOverlayOpen)}, secondary overlay open: {String(createListOverlayOpen)}
       </div>
-      <ButtonGroup display="block" my={2}>
+      <ButtonGroup>
         <Button>Star</Button>
         <Button
           aria-label="Add this repository to a list"
@@ -332,7 +332,7 @@ export const MemexNestedOverlays = () => {
 
   return (
     <div>
-      <ButtonGroup display="block" my={2}>
+      <ButtonGroup>
         <Button>Add iteration</Button>
         <Button
           aria-label="Add custom iteration"

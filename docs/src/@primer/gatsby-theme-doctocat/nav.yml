@@ -55,6 +55,8 @@
       url: /Breadcrumbs
     - title: Button
       url: /Button
+    - title: ButtonGroup
+      url: /ButtonGroup
     - title: Checkbox
       url: /Checkbox
     - title: CheckboxGroup

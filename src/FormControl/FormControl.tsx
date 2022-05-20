@@ -174,6 +174,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               ref={ref}
               display="flex"
               flexDirection="column"
+              alignItems="flex-start"
               sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
             >
               {slots.Label}
