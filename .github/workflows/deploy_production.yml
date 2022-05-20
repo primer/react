@@ -17,6 +17,7 @@ jobs:
     outputs:
       # To avoid deploying documentation for unrelease changes, we check the number of changeset files.
       # If it's 0, we deploy.
+      change_count: ${{ steps.changeset-count.outputs.change_count }}
       should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 }}
     steps:
       - uses: actions/checkout@v2
@@ -35,10 +36,12 @@ jobs:
   deploy:
     name: Production
     needs: [guard]
-    if: ${{ needs.guard.outputs.should_deploy == true }}
-    uses: primer/.github/.github/workflows/deploy.yml@main
-    with:
-      node_version: 16
-      install: npm ci && cd docs && npm ci && cd ..
-      build: npm run build:docs
-      output_dir: docs/public
+    steps:
+      - run echo ${{needs.guard.outputs.change_count}} ${{needs.guard.outputs.should_deploy}}
+    # if: ${{ needs.guard.outputs.should_deploy == true }}
+    # uses: primer/.github/.github/workflows/deploy.yml@main
+    # with:
+    #   node_version: 16
+    #   install: npm ci && cd docs && npm ci && cd ..
+    #   build: npm run build:docs
+    #   output_dir: docs/public
