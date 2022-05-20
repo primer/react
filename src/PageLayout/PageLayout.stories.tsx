@@ -1,18 +1,8 @@
 import React from 'react'
-import {
-  Box,
-  BranchName,
-  Button,
-  Heading,
-  Link,
-  SideNav,
-  StateLabel,
-  TabNav,
-  Text
-  } from '..'
-import { Meta, Story } from '@storybook/react'
-import { PageLayout } from './PageLayout'
-import { Placeholder } from '../Placeholder'
+import {Box, BranchName, Button, Heading, Link, SideNav, StateLabel, TabNav, Text} from '..'
+import {Meta, Story} from '@storybook/react'
+import {PageLayout} from './PageLayout'
+import {Placeholder} from '../Placeholder'
 
 const meta: Meta = {
   title: 'Layout/PageLayout',
@@ -287,8 +277,9 @@ export const PullRequestPage = () => (
           border: '1px solid',
           whiteSpace: 'nowrap',
           borderColor: 'border.default',
-          mt: 1,
-          p: 1
+          mt: 3,
+          p: 3,
+          borderRadius: 2
         }}
       >
         This box has really long content. If it is too long, it will cause x overflow and should show a scrollbar. When
