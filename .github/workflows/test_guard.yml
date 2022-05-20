@@ -34,7 +34,7 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               state: 'success',
-              context: 'Test / Guard (push)',
+              context: 'Is it because of duplicate?',
               description: 'Will skip Test/Run because there are changesets',
             })
 
