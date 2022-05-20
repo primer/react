@@ -4,9 +4,14 @@ on:
   push:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+  checks: write
+  deployments: write
+  pull-requests: write
+  statuses: write
+  
 
 jobs:
   guard:
@@ -34,7 +39,7 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               state: 'success',
-              context: 'Is it because of duplicate?',
+              context: 'Context goes here',
               description: 'Will skip Test/Run because there are changesets',
             })
 
