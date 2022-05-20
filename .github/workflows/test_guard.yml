@@ -41,7 +41,7 @@ jobs:
             })
             console.log(data)
       - name: Update reason for skipping
-        uses: actions/github-script@v4.0.2
+        uses: actions/github-script@v6.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
