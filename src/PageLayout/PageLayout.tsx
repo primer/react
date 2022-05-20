@@ -1,6 +1,6 @@
 import React from 'react'
-import { BetterSystemStyleObject, merge, SxProp } from '../sx'
-import { Box } from '..'
+import {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import {Box} from '..'
 
 const REGION_ORDER = {
   header: 0,
