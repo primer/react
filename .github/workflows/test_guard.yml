@@ -39,9 +39,14 @@ jobs:
     name: Run1
     needs: guard
     runs-on: ubuntu-latest
-    if: ${{ needs.guard.outputs.should_deploy == 'true' }}
     steps:
-      - run: echo 'this will run'
+      - name: Log
+        if: ${{ needs.guard.outputs.should_deploy != 'true' }}
+        run: echo "::notice skipping because should_deploy is false"
+      - name: Run the command
+        if: ${{ needs.guard.outputs.should_deploy == 'true' }}
+        run: echo 'this will run'
+
 
   run2:
     name: Run2
