@@ -2,44 +2,30 @@
 title: NavList
 status: Draft
 description: Use nav list to render a vertical list of navigation links.
+source: https://github.com/primer/react/tree/main/src/NavList
 ---
 
-<Note variant="warning">Not implemented yet</Note>
-
-To render a horizontal list of navigation links, consider using [UnderlineNav](/UnderlineNav).
+```js
+import {NavList} from '@primer/react/drafts'
+```
 
 ## Examples
 
 ### Simple
 
-```jsx
+```jsx live drafts
 <NavList>
   <NavList.Item href="/" aria-current="page">
-    Dashboard
+    Home
   </NavList.Item>
-  <NavList.Item href="/pulls">Pull requests</NavList.Item>
-  <NavList.Item href="/issues">Issues</NavList.Item>
+  <NavList.Item href="/about">About</NavList.Item>
+  <NavList.Item href="/contact">Contact</NavList.Item>
 </NavList>
 ```
 
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav>
-  <ul role="list">
-    <li><a href="/" aria-current="page">Dashboard</a></li>
-    <li><a href="/about">Pull requests</a></li>
-    <li><a href="/contact">Issues</a></li>
-  </ul>
-</nav>
-```
-
-</details>
-
 ### With leading icons
 
-```jsx
+```jsx live drafts
 <NavList>
   <NavList.Item href="/" aria-current="page">
     <NavList.LeadingVisual>
@@ -62,88 +48,34 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 </NavList>
 ```
 
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav>
-  <ul role="list">
-    <li>
-      <a href="/" aria-current="page">
-        <span><svg aria-hidden="true">...</svg></span>
-        <span>Dashboard</span>
-      </a>
-    </li>
-    <li>
-      <a href="/pulls">
-        <span><svg aria-hidden="true">...</svg></span>
-        <span>Pull requests</span>
-      </a>
-    </li>
-    <li>
-      <a href="/issues">
-        <span><svg aria-hidden="true">...</svg></span>
-        <span>Issues</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-```
-
-</details>
-
 ### With other leading visuals
 
-```jsx
+```jsx live drafts
 <NavList>
   <NavList.Item href="/general" aria-current="page">
-    <NavList.LeadingVisual>#️⃣</NavList.LeadingVisual>
+    <NavList.LeadingVisual>
+      <span aria-hidden>#️⃣</span>
+    </NavList.LeadingVisual>
     General
   </NavList.Item>
   <NavList.Item href="/q-a">
-    <NavList.LeadingVisual>🙏</NavList.LeadingVisual>
+    <NavList.LeadingVisual>
+      <span aria-hidden>🙏</span>
+    </NavList.LeadingVisual>
     Q&A
   </NavList.Item>
   <NavList.Item href="/show-and-tell">
-    <NavList.LeadingVisual>🙌</NavList.LeadingVisual>
+    <NavList.LeadingVisual>
+      <span aria-hidden>🙌</span>
+    </NavList.LeadingVisual>
     Show and tell
   </NavList.Item>
 </NavList>
 ```
 
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav>
-  <ul role="list">
-    <li>
-      <a href="/" aria-current="page">
-        <span>#️⃣</span>
-        <span>General</span>
-      </a>
-    </li>
-    <li>
-      <a href="/pulls">
-        <span>🙏</span>
-        <span>Q&A</span>
-      </a>
-    </li>
-    <li>
-      <a href="/issues">
-        <span>🙌</span>
-        <span>Show and tell</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-```
-
-</details>
-
 ### With trailing visuals
 
-```jsx
+```jsx live drafts
 <NavList>
   <NavList.Item href="/inbox" aria-current="page">
     Inbox
@@ -154,31 +86,13 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 </NavList>
 ```
 
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav>
-  <ul role="list">
-    <li>
-      <a href="/inbox" aria-current="page">
-        <span>Inbox</span>
-        <span>1,234</span>
-      </a>
-    </li>
-    <li><a href="/saved">Saved</a></li>
-    <li><a href="/done">Done</a></li>
-  </ul>
-</nav>
-```
-
-</details>
-
 ### With a heading
 
-```jsx
+```jsx live drafts
 <>
-  <h3 id="workflows-heading">Workflows</h3>
+  <Heading as="h3" id="workflows-heading" sx={{fontSize: 2}}>
+    Workflows
+  </Heading>
   <NavList aria-labelledby="workflows-heading">
     <NavList.Item href="/" aria-current="page">
       All workflows
@@ -190,26 +104,9 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 </>
 ```
 
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<h3 id="workflows-heading">Workflows</h3>
-<nav aria-labelledby="workflows-heading">
-  <ul role="list">
-    <li><a href="/" aria-current="page">All workflows</a></li>
-    <li><a href="/ci">CI</a></li>
-    <li><a href="/deploy">Deploy</a></li>
-    <li><a href="/release">Release</a></li>
-  </ul>
-</nav>
-```
-
-</details>
-
 ### With aria-label
 
-```jsx
+```jsx live drafts
 <NavList aria-label="Security">
   <NavList.Item href="/" aria-current="page">
     Overview
@@ -219,24 +116,9 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 </NavList>
 ```
 
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav aria-label="Security">
-  <ul role="list">
-    <li><a href="/" aria-current="page">Overview</a></li>
-    <li><a href="/policy">Security policy</a></li>
-    <li><a href="/advisories">Security advisories</a></li>
-  </ul>
-</nav>
-```
-
-</details>
-
 ### With groups
 
-```jsx
+```jsx live drafts
 <NavList>
   <NavList.Group title="Overview">
     <NavList.Item href="/getting-started" aria-current="page">
@@ -251,42 +133,18 @@ To render a horizontal list of navigation links, consider using [UnderlineNav](/
 </NavList>
 ```
 
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav>
-  <ul role="list">
-    <li>
-      <div role="presentation" id="generated-id-1">Overview</div>
-      <ul role="list" aria-labelledby="generated-id-1">
-        <li><a href="/getting-started" aria-current="page">Getting started</a></li>
-      </ul>
-    </li>
-    <li>
-      <div role="presentation" id="generated-id-2">Components</div>
-      <ul role="list" aria-labelledby="generated-id-2">
-        <li><a href="/Avatar">Avatar</a></li>
-        <li><a href="/Button">Button</a></li>
-        <li><a href="/Label">Label</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-```
-
-</details>
-
 ### With sub-items
 
-```jsx
+```jsx live drafts
 <NavList>
   <NavList.Item href="/branches">Branches</NavList.Item>
   <NavList.Item href="/tags">Tags</NavList.Item>
   <NavList.Item>
     Actions
     <NavList.SubNav>
-      <NavList.Item href="/actions">General</NavList.Item>
+      <NavList.Item href="/actions" aria-current="page">
+        General
+      </NavList.Item>
       <NavList.Item href="/actions/runners">Runners</NavList.Item>
     </NavList.SubNav>
   </NavList.Item>
@@ -299,35 +157,13 @@ If a `NavList.Item` contains a `NavList.SubNav`, the `NavList.Item` will render 
 
 </Note>
 
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav>
-  <ul role="list">
-    <li><a href="/branches">Branches</a></li>
-    <li><a href="/tags">Tags</a></li>
-    <li>
-      <button id="generated-id-1" aria-expanded="false" aria-controls="generated-id-2">
-        <span>Actions</span>
-        <span><svg aria-hidden="true">...</svg></span>
-      </button>
-      <ul role="list" id="generated-id-2" aria-labelledby="generated-id-1">
-        <li><a href="/actions">General</a></li>
-        <li><a href="/actions/runners">Runners</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-```
-
-</details>
-
 ### With a divider
 
-```jsx
+```jsx live drafts
 <NavList>
-  <NavList.Item href="/">Dashboard</NavList.Item>
+  <NavList.Item href="/" aria-current="page">
+    Dashboard
+  </NavList.Item>
   <NavList.Item href="/pulls">Pull requests</NavList.Item>
   <NavList.Item href="/issues">Issues</NavList.Item>
   <NavList.Divider />
@@ -335,24 +171,6 @@ If a `NavList.Item` contains a `NavList.SubNav`, the `NavList.Item` will render 
   <NavList.Item href="/explore">Explore</NavList.Item>
 </NavList>
 ```
-
-<details>
-  <summary>Rendered HTML</summary>
-
-```html
-<nav>
-  <ul role="list">
-    <li><a href="/">Dashboard</a></li>
-    <li><a href="/pulls">Pull requests</a></li>
-    <li><a href="/issues">Issues</a></li>
-    <div role="separator"></div>
-    <li><a href="/marketplace">Marketplace</a></li>
-    <li><a href="/explore">Explore</a></li>
-  </ul>
-</nav>
-```
-
-</details>
 
 ### With React Router
 
@@ -416,8 +234,13 @@ function App() {
 <PropsTable>
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="aria-labelledby" type="string" />
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLElement" />
+  <PropsTableBasePropRows
+    elementType="nav"
+    refType="HTMLElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#Attributes">MDN</Link>
+    }
+  />
 </PropsTable>
 
 ### NavList.Item
@@ -506,10 +329,10 @@ function App() {
 <ComponentChecklist
   items={{
     propsDocumented: true,
-    noUnnecessaryDeps: false,
-    adaptsToThemes: false,
-    adaptsToScreenSizes: false,
-    fullTestCoverage: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
     usedInProduction: false,
     usageExamplesDocumented: true,
     hasStorybookStories: false,

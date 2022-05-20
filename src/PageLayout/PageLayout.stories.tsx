@@ -1,6 +1,6 @@
 import React from 'react'
-import {Box, BranchName, Button, Heading, Link, SideNav, StateLabel, TabNav, Text} from '..'
-import {Meta, Story} from '@storybook/react'
+import {Box, BranchName, Button, Heading, Link, StateLabel, TabNav, Text} from '..'
+import {NavList} from '../NavList'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 
@@ -310,21 +310,14 @@ export const PullRequestPage = () => (
 export const SettingsPage = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
-      {/* TODO: Replace with NavigationList when it's ready */}
-      <SideNav bordered aria-label="Main">
-        <SideNav.Link href="#">
-          <Text>Profile</Text>
-        </SideNav.Link>
-        <SideNav.Link selected href="#">
-          <Text>Account</Text>
-        </SideNav.Link>
-        <SideNav.Link href="#">
-          <Text>Emails</Text>
-        </SideNav.Link>
-        <SideNav.Link href="#">
-          <Text>Notifications</Text>
-        </SideNav.Link>
-      </SideNav>
+      <NavList aria-label="main">
+        <NavList.Item href="#">Profile</NavList.Item>
+        <NavList.Item href="#" aria-current="page">
+          Account
+        </NavList.Item>
+        <NavList.Item href="#">Emails</NavList.Item>
+        <NavList.Item href="#">Notifications</NavList.Item>
+      </NavList>
     </PageLayout.Pane>
     <PageLayout.Content>
       <Heading as="h2" sx={{fontSize: 4, fontWeight: 'normal', color: 'danger.fg', mb: 2}}>
