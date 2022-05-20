@@ -32,5 +32,5 @@ jobs:
     needs: guard
     runs-on: ubuntu-latest
     steps:
-      - run: echo needs.guard.outputs.change_count
-      - run: echo needs.guard.outputs.should_deploy
+      - run: echo ${{needs.guard.outputs.change_count}}
+      - run: echo ${{needs.guard.outputs.should_deploy}}
