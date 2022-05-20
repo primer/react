@@ -39,7 +39,7 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               state: 'success',
-              context: 'Context goes here',
+              context: 'Test / Guard (push)',
               description: 'Will skip Test/Run because there are changesets',
             })
 
