@@ -24,15 +24,6 @@ jobs:
       # Log changeset count for debugging purposes
       - name: Log changeset count
         run: echo ${{ steps.changeset-count.outputs.change_count }}
-
-  run:
-    name: Run
-    needs: guard
-    if: ${{ needs.guard.outputs.should_deploy == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run the command
-        run: echo 'this will run'
       - name: Output canary version
         uses: actions/github-script@v4.0.2
         with:
@@ -42,6 +33,15 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               state: 'success',
-              context: 'Test / Run1 (push)',
-              description: 'Skipping Test/Run because there are changesets',
+              context: 'Test / Guard (push)',
+              description: 'Will skip Test/Run because there are changesets',
             })
+
+  run:
+    name: Run
+    needs: guard
+    if: ${{ needs.guard.outputs.should_deploy == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run the command
+        run: echo 'this will run'
