@@ -19,39 +19,17 @@ jobs:
       should_deploy: ${{ steps.changeset-count.outputs.change_count == 0 }}
     steps:
       - uses: actions/checkout@v2
-
       - id: changeset-count
         run: echo "::set-output name=change_count::$(ls .changeset/*.md | grep -v README | wc -l | xargs)"
-
       # Log changeset count for debugging purposes
       - name: Log changeset count
         run: echo ${{ steps.changeset-count.outputs.change_count }}
-
-  log:
-    name: Log
-    needs: guard
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{needs.guard.outputs.change_count}}
-      - run: echo ${{needs.guard.outputs.should_deploy}}
 
   run1:
     name: Run1
     needs: guard
     runs-on: ubuntu-latest
     steps:
-      - name: Log
-        if: ${{ needs.guard.outputs.should_deploy != 'true' }}
-        run: echo "::notice skipping because should_deploy is false"
       - name: Run the command
         if: ${{ needs.guard.outputs.should_deploy == 'true' }}
         run: echo 'this will run'
-
-
-  run2:
-    name: Run2
-    needs: guard
-    runs-on: ubuntu-latest
-    if: ${{ needs.guard.outputs.should_deploy == true }}
-    steps:
-      - run: echo 'this will run'
