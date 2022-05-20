@@ -1,7 +1,6 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
-import styled, {css} from 'styled-components'
-import {get} from '../constants'
-import sx, {SxProp} from '../sx'
+import {Box} from '..'
+import {merge, SxProp} from '../sx'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
@@ -16,53 +15,33 @@ export interface TokenProps extends TokenBaseProps {
 
 const tokenBorderWidthPx = 1
 
-const DefaultTokenStyled = styled(TokenBase)<TokenProps & {isTokenInteractive: boolean} & SxProp>`
-  background-color: ${get('colors.neutral.subtle')};
-  border-color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.border.subtle'))};
-  border-style: solid;
-  border-width: ${tokenBorderWidthPx}px;
-  color: ${props => (props.isSelected ? get('colors.fg.default') : get('colors.fg.muted'))};
-  max-width: 100%;
-  padding-right: ${props => (!props.hideRemoveButton ? 0 : undefined)};
-  position: relative;
-  ${sx}
-
-  ${props => {
-    if (props.isTokenInteractive) {
-      return css`
-        &:hover {
-          background-color: ${get('colors.neutral.muted')};
-          box-shadow: ${get('colors.shadow.medium')};
-          color: ${get('colors.fg.default')};
-        }
-      `
-    }
-  }}
-`
-
-const LeadingVisualContainer = styled('span')<Pick<TokenBaseProps, 'size'>>`
-  flex-shrink: 0;
-  line-height: 0;
-
-  ${props => {
-    switch (props.size) {
-      case 'large':
-      case 'extralarge':
-      case 'xlarge':
-        return css`
-          margin-right: ${get('space.2')};
-        `
-      default:
-        return css`
-          margin-right: ${get('space.1')};
-        `
-    }
-  }}
-`
+const LeadingVisualContainer: React.FC<Pick<TokenBaseProps, 'size'>> = ({children, size}) => (
+  <Box
+    sx={{
+      flexShrink: 0,
+      lineHeight: 0,
+      marginRight: size && ['large', 'extralarge', 'xlarge'].includes(size) ? 2 : 1
+    }}
+  >
+    {children}
+  </Box>
+)
 
 const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement, TokenProps & SxProp>(
   (props, forwardedRef) => {
-    const {as, onRemove, id, leadingVisual: LeadingVisual, text, size, hideRemoveButton, href, onClick, ...rest} = props
+    const {
+      as,
+      onRemove,
+      id,
+      leadingVisual: LeadingVisual,
+      text,
+      size,
+      hideRemoveButton,
+      href,
+      onClick,
+      sx: sxProp = {},
+      ...rest
+    } = props
     const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
     const onRemoveClick: MouseEventHandler = e => {
       e.stopPropagation()
@@ -73,15 +52,35 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
       href,
       onClick
     }
+    const sx = merge(
+      {
+        backgroundColor: 'neutral.subtle',
+        borderColor: props.isSelected ? 'fg.default' : 'border.subtle',
+        borderStyle: 'solid',
+        borderWidth: `${tokenBorderWidthPx}px`,
+        color: props.isSelected ? 'fg.default' : 'fg.muted',
+        maxWidth: '100%',
+        paddingRight: !(hideRemoveButton || !onRemove) ? 0 : undefined,
+        ...(isTokenInteractive(props)
+          ? {
+              '&:hover': {
+                backgroundColor: 'neutral.muted',
+                boxShadow: 'shadow.medium',
+                color: 'fg.default'
+              }
+            }
+          : {})
+      },
+      sxProp as SxProp
+    )
 
     return (
-      <DefaultTokenStyled
+      <TokenBase
         onRemove={onRemove}
-        hideRemoveButton={hideRemoveButton || !onRemove}
         id={id?.toString()}
         text={text}
         size={size}
-        isTokenInteractive={isTokenInteractive(props)}
+        sx={sx}
         {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
         {...rest}
         ref={forwardedRef}
@@ -109,7 +108,7 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
             }
           />
         ) : null}
-      </DefaultTokenStyled>
+      </TokenBase>
     )
   }
 )
