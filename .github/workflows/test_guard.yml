@@ -28,8 +28,8 @@ jobs:
   run1:
     name: Run1
     needs: guard
+    if: ${{ needs.guard.outputs.should_deploy == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Run the command
-        if: ${{ needs.guard.outputs.should_deploy == 'true' }}
         run: echo 'this will run'
