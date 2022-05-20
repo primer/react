@@ -30,7 +30,7 @@ jobs:
       - name: Log changeset count
         run: echo ${{ steps.changeset-count.outputs.change_count }}
       - name: Update reason for skipping
-        uses: actions/github-script@v6.1.0
+        uses: actions/github-script@v4.0.2
         with:
           script: |
             github.repos.createCommitStatus({
