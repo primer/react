@@ -239,7 +239,7 @@ const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx
           flexBasis: 0,
           flexGrow: 1,
           flexShrink: 1,
-          minWidth: 1
+          minWidth: 1 // Hack to prevent overflowing content from pushing the pane region to the next line
         },
         sx
       )}
