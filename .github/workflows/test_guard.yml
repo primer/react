@@ -29,21 +29,9 @@ jobs:
       # Log changeset count for debugging purposes
       - name: Log changeset count
         run: echo ${{ steps.changeset-count.outputs.change_count }}
-      - name: List statuses  
-        uses: actions/github-script@v4.0.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const data = await github.checks.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: context.runId,
-            })
-            console.log(data)
       - name: Update reason for skipping
         uses: actions/github-script@v6.1.0
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             github.repos.createCommitStatus({
               owner: context.repo.owner,
