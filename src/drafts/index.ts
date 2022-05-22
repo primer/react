@@ -5,3 +5,4 @@
  *  example: import {ActionList} from '@primer/react/drafts
  */
 export * from '../NavList'
+export * from '../Dialog/Dialog'
