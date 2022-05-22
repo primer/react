@@ -1,23 +1,28 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React, {isValidElement} from 'react'
+import styled from 'styled-components'
 import {ActionList} from '../ActionList'
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
+import sx, {merge, SxProp} from '../sx'
 
 // ----------------------------------------------------------------------------
 // NavList
 
 export type NavListProps = {
   children: React.ReactNode
-} & React.ComponentProps<'nav'>
+} & SxProp &
+  React.ComponentProps<'nav'>
 
-// TODO: sx prop
+const NavBox = styled.nav<SxProp>(sx)
+
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
-    <nav ref={ref} {...props}>
+    <NavBox {...props} ref={ref}>
       <ActionList>{children}</ActionList>
-    </nav>
+    </NavBox>
   )
 })
 
@@ -30,12 +35,10 @@ export type NavListItemProps = {
   children: React.ReactNode
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
-}
+} & SxProp
 
-// TODO: sx prop
-// TODO: as prop
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({href, 'aria-current': ariaCurrent, children}, ref) => {
+  ({'aria-current': ariaCurrent, children, sx: sxProp = {}, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -48,13 +51,8 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
 
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav) && depth < 1) {
-      // Search SubNav children for current Item
-      const currentItem = React.Children.toArray(subNav.props.children).find(
-        child => isValidElement(child) && child.props['aria-current']
-      )
-
       return (
-        <ItemWithSubNav subNav={subNav} subNavContainsCurrentItem={Boolean(currentItem)}>
+        <ItemWithSubNav subNav={subNav} sx={sxProp}>
           {childrenWithoutSubNav}
         </ItemWithSubNav>
       )
@@ -63,20 +61,23 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     return (
       <ActionList.LinkItem
         ref={ref}
-        href={href}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
-        sx={{
-          paddingLeft: depth > 0 ? 5 : null, // Indent sub-items
-          fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
-          fontWeight: depth > 0 ? 'normal' : null // Sub-items don't get bolded
-        }}
+        sx={merge<SxProp['sx']>(
+          {
+            paddingLeft: depth > 0 ? 5 : null, // Indent sub-items
+            fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
+            fontWeight: depth > 0 ? 'normal' : null // Sub-items don't get bolded
+          },
+          sxProp
+        )}
+        {...props}
       >
         {children}
       </ActionList.LinkItem>
     )
   }
-)
+) as PolymorphicForwardRefComponent<'a', NavListItemProps>
 
 Item.displayName = 'NavList.Item'
 
@@ -86,25 +87,36 @@ Item.displayName = 'NavList.Item'
 type ItemWithSubNavProps = {
   children: React.ReactNode
   subNav: React.ReactNode
-  subNavContainsCurrentItem: boolean
-}
+} & SxProp
 
-const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string}>({
+const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
   buttonId: '',
-  subNavId: ''
+  subNavId: '',
+  isOpen: false
 })
 
-// TODO: sx prop
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, subNavContainsCurrentItem}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps) {
   const buttonId = useSSRSafeId()
   const subNavId = useSSRSafeId()
-  // SubNav starts open if current item is in it
-  const [isOpen, setIsOpen] = React.useState(subNavContainsCurrentItem)
+  const [isOpen, setIsOpen] = React.useState(false)
+  const subNavRef = React.useRef<HTMLDivElement>(null)
+  const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
+
+  React.useLayoutEffect(() => {
+    if (subNavRef.current) {
+      // Check if SubNav contains current item
+      const currentItem = subNavRef.current.querySelector('[aria-current]')
+      if (currentItem && currentItem.getAttribute('aria-current') !== 'false') {
+        setContainsCurrentItem(true)
+        setIsOpen(true)
+      }
+    }
+  }, [subNav])
 
   return (
-    <ItemWithSubNavContext.Provider value={{buttonId, subNavId}}>
+    <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
       <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
         <ActionList.Item
           as="button"
@@ -112,11 +124,14 @@ function ItemWithSubNav({children, subNav, subNavContainsCurrentItem}: ItemWithS
           aria-expanded={isOpen}
           aria-controls={subNavId}
           // When the subNav is closed, how should we indicated that the subNav contains the current item?
-          active={!isOpen && subNavContainsCurrentItem}
+          active={!isOpen && containsCurrentItem}
           onClick={() => setIsOpen(open => !open)}
-          sx={{
-            fontWeight: subNavContainsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
-          }}
+          sx={merge<SxProp['sx']>(
+            {
+              fontWeight: containsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
+            },
+            sxProp
+          )}
         >
           {children}
           {/* What happens if the user provides a TrailingVisual? */}
@@ -130,7 +145,7 @@ function ItemWithSubNav({children, subNav, subNavContainsCurrentItem}: ItemWithS
           </ActionList.TrailingVisual>
         </ActionList.Item>
 
-        {isOpen ? subNav : null}
+        <div ref={subNavRef}>{subNav}</div>
       </Box>
     </ItemWithSubNavContext.Provider>
   )
@@ -141,15 +156,14 @@ function ItemWithSubNav({children, subNav, subNavContainsCurrentItem}: ItemWithS
 
 type NavListSubNavProps = {
   children: React.ReactNode
-}
+} & SxProp
 
 const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
-// TODO: sx prop
 // TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
-const SubNav = ({children}: NavListSubNavProps) => {
-  const {buttonId, subNavId} = React.useContext(ItemWithSubNavContext)
+const SubNav = ({children, sx: sxProp = {}}: NavListSubNavProps) => {
+  const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 
   if (!buttonId || !subNavId) {
@@ -165,7 +179,19 @@ const SubNav = ({children}: NavListSubNavProps) => {
 
   return (
     <SubNavContext.Provider value={{depth: depth + 1}}>
-      <Box as="ul" id={subNavId} aria-labelledby={buttonId} sx={{padding: 0, margin: 0}}>
+      <Box
+        as="ul"
+        id={subNavId}
+        aria-labelledby={buttonId}
+        sx={merge<SxProp['sx']>(
+          {
+            padding: 0,
+            margin: 0,
+            display: isOpen ? 'block' : 'none'
+          },
+          sxProp
+        )}
+      >
         {children}
       </Box>
     </SubNavContext.Provider>
@@ -198,19 +224,20 @@ Divider.displayName = 'NavList.Divider'
 // ----------------------------------------------------------------------------
 // NavList.Group
 
-type NavListGroupProps = React.PropsWithChildren<{
+type NavListGroupProps = {
   children: React.ReactNode
   title?: string
-}>
+} & SxProp
 
-// TODO: sx prop
 // TODO: ref prop
-const Group = ({title, children}: NavListGroupProps) => {
+const Group = ({title, children, sx: sxProp = {}}: NavListGroupProps) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group title={title}>{children}</ActionList.Group>
+      <ActionList.Group title={title} sx={sxProp}>
+        {children}
+      </ActionList.Group>
     </>
   )
 }
