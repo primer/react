@@ -271,6 +271,21 @@ export const PullRequestPage = () => (
     </PageLayout.Header>
     <PageLayout.Content>
       <Box sx={{border: '1px solid', borderRadius: 2, borderColor: 'border.default', height: 200}}></Box>
+      <Box
+        sx={{
+          maxWidth: '100%',
+          overflowX: 'auto',
+          border: '1px solid',
+          whiteSpace: 'nowrap',
+          borderColor: 'border.default',
+          mt: 3,
+          p: 3,
+          borderRadius: 2
+        }}
+      >
+        This box has really long content. If it is too long, it will cause x overflow and should show a scrollbar. When
+        this overflows, it should not break to overall page layout!
+      </Box>
     </PageLayout.Content>
     <PageLayout.Pane>
       <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
