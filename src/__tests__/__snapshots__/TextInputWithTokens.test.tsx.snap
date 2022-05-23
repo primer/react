@@ -49,7 +49,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -71,6 +70,15 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -89,7 +97,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -130,6 +139,45 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -222,44 +270,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -320,7 +330,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -368,7 +377,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -416,7 +424,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -464,7 +471,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -512,7 +518,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -560,7 +565,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -608,7 +612,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -656,7 +659,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -776,7 +778,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -798,6 +799,15 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -816,7 +826,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -862,6 +873,45 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 .c7 {
   font-size: 16px;
   color: #57606a;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -954,44 +1004,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1026,7 +1038,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1074,7 +1085,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1176,7 +1186,6 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1191,6 +1200,9 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -1213,6 +1225,15 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   width: 100%;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -1231,7 +1252,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1354,7 +1376,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1380,6 +1401,15 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   overflow: auto;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -1398,7 +1428,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -1439,6 +1470,45 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -1531,44 +1601,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1603,7 +1635,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1651,7 +1682,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1699,7 +1729,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1747,7 +1776,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1795,7 +1823,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1843,7 +1870,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1891,7 +1917,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -1939,7 +1964,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -2033,7 +2057,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2062,6 +2085,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -2080,7 +2112,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2121,6 +2154,45 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 16px;
+  line-height: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -2213,44 +2285,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -2285,7 +2319,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="small"
       tabIndex={0}
     >
@@ -2333,7 +2366,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="small"
       tabIndex={0}
     >
@@ -2381,7 +2413,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="small"
       tabIndex={0}
     >
@@ -2429,7 +2460,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="small"
       tabIndex={0}
     >
@@ -2477,7 +2507,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="small"
       tabIndex={0}
     >
@@ -2525,7 +2554,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="small"
       tabIndex={0}
     >
@@ -2573,7 +2601,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="small"
       tabIndex={0}
     >
@@ -2621,7 +2648,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="small"
       tabIndex={0}
     >
@@ -2715,7 +2741,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -2744,6 +2769,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -2762,7 +2796,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -2803,6 +2838,45 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -2895,44 +2969,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -2967,7 +3003,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="medium"
       tabIndex={0}
     >
@@ -3015,7 +3050,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="medium"
       tabIndex={0}
     >
@@ -3063,7 +3097,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="medium"
       tabIndex={0}
     >
@@ -3111,7 +3144,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="medium"
       tabIndex={0}
     >
@@ -3159,7 +3191,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="medium"
       tabIndex={0}
     >
@@ -3207,7 +3238,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="medium"
       tabIndex={0}
     >
@@ -3255,7 +3285,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="medium"
       tabIndex={0}
     >
@@ -3303,7 +3332,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="medium"
       tabIndex={0}
     >
@@ -3397,7 +3425,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -3419,6 +3446,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -3437,7 +3473,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -3478,6 +3515,45 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -3570,44 +3646,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -3642,7 +3680,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="large"
       tabIndex={0}
     >
@@ -3690,7 +3727,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="large"
       tabIndex={0}
     >
@@ -3738,7 +3774,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="large"
       tabIndex={0}
     >
@@ -3786,7 +3821,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="large"
       tabIndex={0}
     >
@@ -3834,7 +3868,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="large"
       tabIndex={0}
     >
@@ -3882,7 +3915,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="large"
       tabIndex={0}
     >
@@ -3930,7 +3962,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="large"
       tabIndex={0}
     >
@@ -3978,7 +4009,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="large"
       tabIndex={0}
     >
@@ -4072,7 +4102,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4094,6 +4123,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -4112,7 +4150,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4153,6 +4192,45 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -4245,44 +4323,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -4317,7 +4357,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="extralarge"
       tabIndex={0}
     >
@@ -4365,7 +4404,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="extralarge"
       tabIndex={0}
     >
@@ -4413,7 +4451,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="extralarge"
       tabIndex={0}
     >
@@ -4461,7 +4498,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="extralarge"
       tabIndex={0}
     >
@@ -4509,7 +4545,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="extralarge"
       tabIndex={0}
     >
@@ -4557,7 +4592,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="extralarge"
       tabIndex={0}
     >
@@ -4605,7 +4639,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="extralarge"
       tabIndex={0}
     >
@@ -4653,7 +4686,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="extralarge"
       tabIndex={0}
     >
@@ -4747,7 +4779,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4769,6 +4800,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -4787,7 +4827,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -4828,6 +4869,45 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -4920,44 +5000,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -4992,7 +5034,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5040,7 +5081,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5088,7 +5128,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5136,7 +5175,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5184,7 +5222,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5232,7 +5269,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5280,7 +5316,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5328,7 +5363,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5422,7 +5456,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -5446,6 +5479,15 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   overflow: auto;
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -5464,7 +5506,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -5505,6 +5548,45 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -5597,44 +5679,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -5669,7 +5713,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5717,7 +5760,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5765,7 +5807,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5813,7 +5854,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5861,7 +5901,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5909,7 +5948,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -5957,7 +5995,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6005,7 +6042,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6099,7 +6135,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -6121,6 +6156,15 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -6139,7 +6183,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6182,6 +6227,44 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   outline: 0;
 }
 
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
+}
+
 .c5 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -6221,43 +6304,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -6293,7 +6339,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6311,7 +6356,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6329,7 +6373,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6347,7 +6390,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6365,7 +6407,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6383,7 +6424,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6401,7 +6441,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6419,7 +6458,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -6491,7 +6529,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -6513,6 +6550,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -6531,7 +6577,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -6578,6 +6625,45 @@ Array [
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -6670,44 +6756,6 @@ Array [
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -6742,7 +6790,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -6790,7 +6837,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -6838,7 +6884,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -6886,7 +6931,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -6934,7 +6978,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -6982,7 +7025,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7030,7 +7072,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7078,7 +7119,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7215,7 +7255,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -7237,6 +7276,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -7255,7 +7303,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -7308,6 +7357,45 @@ Array [
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c6:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c8 {
@@ -7400,44 +7488,6 @@ Array [
   bottom: 0;
 }
 
-.c6 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c6:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -7510,7 +7560,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7558,7 +7607,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7606,7 +7654,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7654,7 +7701,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7702,7 +7748,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7750,7 +7795,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7798,7 +7842,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7846,7 +7889,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -7983,7 +8025,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -8005,6 +8046,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -8023,7 +8073,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -8070,6 +8121,45 @@ Array [
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -8162,44 +8252,6 @@ Array [
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -8234,7 +8286,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -8282,7 +8333,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -8330,7 +8380,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -8378,7 +8427,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -8426,7 +8474,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -8474,7 +8521,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -8522,7 +8568,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -8570,7 +8615,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -8711,7 +8755,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -8733,6 +8776,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -8751,7 +8803,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -8809,6 +8862,45 @@ Array [
   max-width: 100%;
   visibility: visible;
   left: 0;
+}
+
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c7:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c9 {
@@ -8899,44 +8991,6 @@ Array [
   top: 0;
   right: 0;
   bottom: 0;
-}
-
-.c7 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
 }
 
 @media (min-width:768px) {
@@ -9042,7 +9096,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9090,7 +9143,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9138,7 +9190,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9186,7 +9237,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9234,7 +9284,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9282,7 +9331,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9330,7 +9378,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9378,7 +9425,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9519,7 +9565,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -9541,6 +9586,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -9559,7 +9613,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -9617,6 +9672,45 @@ Array [
   max-width: 100%;
   visibility: visible;
   left: 0;
+}
+
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c7:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c9 {
@@ -9707,44 +9801,6 @@ Array [
   top: 0;
   right: 0;
   bottom: 0;
-}
-
-.c7 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
 }
 
 @media (min-width:768px) {
@@ -9850,7 +9906,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9898,7 +9953,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9946,7 +10000,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -9994,7 +10047,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10042,7 +10094,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10090,7 +10141,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10138,7 +10188,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10186,7 +10235,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10327,7 +10375,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -10349,6 +10396,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -10367,7 +10423,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -10425,6 +10482,45 @@ Array [
   max-width: 100%;
   visibility: hidden;
   left: 0;
+}
+
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c7:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c9 {
@@ -10515,44 +10611,6 @@ Array [
   top: 0;
   right: 0;
   bottom: 0;
-}
-
-.c7 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
 }
 
 @media (min-width:768px) {
@@ -10658,7 +10716,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10706,7 +10763,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10754,7 +10810,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10802,7 +10857,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10850,7 +10904,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10898,7 +10951,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10946,7 +10998,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -10994,7 +11045,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11135,7 +11185,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -11157,6 +11206,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -11175,7 +11233,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -11227,6 +11286,45 @@ Array [
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -11319,44 +11417,6 @@ Array [
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -11391,7 +11451,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11439,7 +11498,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11487,7 +11545,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11535,7 +11592,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11583,7 +11639,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11631,7 +11686,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11679,7 +11733,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11727,7 +11780,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -11899,7 +11951,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -11921,6 +11972,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -11939,7 +11999,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -11997,6 +12058,45 @@ Array [
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c6:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c8 {
@@ -12089,44 +12189,6 @@ Array [
   bottom: 0;
 }
 
-.c6 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c6:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -12199,7 +12261,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -12247,7 +12308,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -12295,7 +12355,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -12343,7 +12402,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -12391,7 +12449,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -12439,7 +12496,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -12487,7 +12543,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -12535,7 +12590,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -12707,7 +12761,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -12729,6 +12782,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -12747,7 +12809,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -12799,6 +12862,45 @@ Array [
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -12891,44 +12993,6 @@ Array [
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -12963,7 +13027,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -13011,7 +13074,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -13059,7 +13121,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -13107,7 +13168,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -13155,7 +13215,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -13203,7 +13262,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -13251,7 +13309,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -13299,7 +13356,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -13475,7 +13531,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -13504,6 +13559,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -13522,7 +13586,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -13585,6 +13650,45 @@ Array [
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 16px;
+  line-height: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c7:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c9 {
@@ -13675,44 +13779,6 @@ Array [
   top: 0;
   right: 0;
   bottom: 0;
-}
-
-.c7 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
 }
 
 @media (min-width:768px) {
@@ -13818,7 +13884,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="small"
         tabIndex={0}
       >
@@ -13866,7 +13931,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="small"
         tabIndex={0}
       >
@@ -13914,7 +13978,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="small"
         tabIndex={0}
       >
@@ -13962,7 +14025,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="small"
         tabIndex={0}
       >
@@ -14010,7 +14072,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="small"
         tabIndex={0}
       >
@@ -14058,7 +14119,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="small"
         tabIndex={0}
       >
@@ -14106,7 +14166,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="small"
         tabIndex={0}
       >
@@ -14154,7 +14213,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="small"
         tabIndex={0}
       >
@@ -14330,7 +14388,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -14352,6 +14409,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -14370,7 +14436,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -14433,6 +14500,45 @@ Array [
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c7:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c9 {
@@ -14523,44 +14629,6 @@ Array [
   top: 0;
   right: 0;
   bottom: 0;
-}
-
-.c7 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
 }
 
 @media (min-width:768px) {
@@ -14666,7 +14734,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -14714,7 +14781,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -14762,7 +14828,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -14810,7 +14875,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -14858,7 +14922,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -14906,7 +14969,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -14954,7 +15016,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -15002,7 +15063,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="xlarge"
         tabIndex={0}
       >
@@ -15178,7 +15238,6 @@ Array [
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -15200,6 +15259,15 @@ Array [
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -15218,7 +15286,8 @@ Array [
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -15281,6 +15350,45 @@ Array [
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c7 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c7:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c9 {
@@ -15371,44 +15479,6 @@ Array [
   top: 0;
   right: 0;
   bottom: 0;
-}
-
-.c7 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c7:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
 }
 
 @media (min-width:768px) {
@@ -15514,7 +15584,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="large"
         tabIndex={0}
       >
@@ -15562,7 +15631,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="large"
         tabIndex={0}
       >
@@ -15610,7 +15678,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="large"
         tabIndex={0}
       >
@@ -15658,7 +15725,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="large"
         tabIndex={0}
       >
@@ -15706,7 +15772,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="large"
         tabIndex={0}
       >
@@ -15754,7 +15819,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="large"
         tabIndex={0}
       >
@@ -15802,7 +15866,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="large"
         tabIndex={0}
       >
@@ -15850,7 +15913,6 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
-        onRemove={[Function]}
         size="large"
         tabIndex={0}
       >
@@ -16014,7 +16076,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -16036,6 +16097,15 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -16054,7 +16124,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -16095,6 +16166,45 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c3:focus {
   outline: 0;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
+.c4:hover {
+  background-color: rgba(175,184,193,0.2);
+  box-shadow: 0 3px 6px rgba(140,149,159,0.15);
+  color: #24292f;
 }
 
 .c6 {
@@ -16187,44 +16297,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   bottom: 0;
 }
 
-.c4 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
-.c4:hover {
-  background-color: rgba(175,184,193,0.2);
-  color: #24292f;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -16259,7 +16331,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16307,7 +16378,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16355,7 +16425,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16403,7 +16472,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16451,7 +16519,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16499,7 +16566,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16547,7 +16613,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16595,7 +16660,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16689,7 +16753,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -16711,6 +16774,15 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -16729,7 +16801,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {
@@ -16787,6 +16860,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 14px;
   height: 32px;
@@ -16939,7 +17013,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -16987,7 +17060,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -17035,7 +17107,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -17083,7 +17154,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -17131,7 +17201,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -17179,7 +17248,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -17227,7 +17295,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -17275,7 +17342,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
-      onRemove={[Function]}
       size="xlarge"
       tabIndex={0}
     >
@@ -17369,7 +17435,6 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   border-radius: 6px;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -17391,6 +17456,15 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   padding-bottom: calc(12px / 2);
 }
 
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
 .c0::-webkit-input-placeholder {
   color: #6e7781;
 }
@@ -17409,7 +17483,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0:focus-within {
   border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
 }
 
 .c0 > textarea {

@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Token components AvatarToken renders all sizes 1`] = `
+.c1 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: 4px;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -9,6 +17,40 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 16px;
+  line-height: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  padding-left: 4px;
 }
 
 .c5 {
@@ -99,49 +141,6 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-  padding-left: 4px;
-}
-
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
 .c2 {
   --spacing: calc(4px * 2);
   display: block;
@@ -153,12 +152,10 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="small"
 >
-  <span
+  <div
     className="c1"
-    size="small"
   >
     <span
       className="c2"
@@ -172,7 +169,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
         width={16}
       />
     </span>
-  </span>
+  </div>
   <span
     className="c4"
   >
@@ -212,6 +209,14 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 2`] = `
+.c1 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: 4px;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -220,6 +225,40 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  padding-left: 4px;
 }
 
 .c5 {
@@ -310,49 +349,6 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-  padding-left: 4px;
-}
-
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
 .c2 {
   --spacing: calc(4px * 2);
   display: block;
@@ -364,12 +360,10 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="medium"
 >
-  <span
+  <div
     className="c1"
-    size="medium"
   >
     <span
       className="c2"
@@ -383,7 +377,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
         width={20}
       />
     </span>
-  </span>
+  </div>
   <span
     className="c4"
   >
@@ -423,6 +417,14 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 3`] = `
+.c1 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: 8px;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -431,6 +433,40 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  padding-left: 4px;
 }
 
 .c5 {
@@ -521,49 +557,6 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-  padding-left: 4px;
-}
-
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 8px;
-}
-
 .c2 {
   --spacing: calc(4px * 2);
   display: block;
@@ -575,12 +568,10 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="large"
 >
-  <span
+  <div
     className="c1"
-    size="large"
   >
     <span
       className="c2"
@@ -594,7 +585,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
         width={24}
       />
     </span>
-  </span>
+  </div>
   <span
     className="c4"
   >
@@ -634,6 +625,14 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 4`] = `
+.c1 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: 8px;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -642,6 +641,40 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  padding-left: 4px;
 }
 
 .c5 {
@@ -732,49 +765,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-  padding-left: 4px;
-}
-
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 8px;
-}
-
 .c2 {
   --spacing: calc(4px * 2);
   display: block;
@@ -786,12 +776,10 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="extralarge"
 >
-  <span
+  <div
     className="c1"
-    size="extralarge"
   >
     <span
       className="c2"
@@ -805,7 +793,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
         width={32}
       />
     </span>
-  </span>
+  </div>
   <span
     className="c4"
   >
@@ -845,6 +833,14 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 `;
 
 exports[`Token components AvatarToken renders all sizes 5`] = `
+.c1 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: 8px;
+}
+
 .c3 {
   display: inline-block;
   overflow: hidden;
@@ -853,6 +849,40 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+  padding-left: 4px;
 }
 
 .c5 {
@@ -943,49 +973,6 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-  padding-left: 4px;
-}
-
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 8px;
-}
-
 .c2 {
   --spacing: calc(4px * 2);
   display: block;
@@ -997,12 +984,10 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="xlarge"
 >
-  <span
+  <div
     className="c1"
-    size="xlarge"
   >
     <span
       className="c2"
@@ -1016,7 +1001,7 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
         width={32}
       />
     </span>
-  </span>
+  </div>
   <span
     className="c4"
   >
@@ -1056,6 +1041,38 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
 `;
 
 exports[`Token components AvatarToken renders consistently 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+}
+
 .c1 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -1095,6 +1112,36 @@ exports[`Token components AvatarToken renders consistently 1`] = `
   bottom: 0;
 }
 
+<span
+  className="c0"
+  onKeyDown={[Function]}
+  size="medium"
+>
+  <span
+    className="c1"
+  />
+</span>
+`;
+
+exports[`Token components AvatarToken renders isSelected 1`] = `
+.c1 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: 4px;
+}
+
+.c3 {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1110,6 +1157,7 @@ exports[`Token components AvatarToken renders consistently 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -1119,34 +1167,12 @@ exports[`Token components AvatarToken renders consistently 1`] = `
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
+  border-color: #24292f;
   border-style: solid;
   border-width: 1px;
-  color: #57606a;
+  color: #24292f;
   max-width: 100%;
-  position: relative;
-}
-
-<span
-  className="c0"
-  onKeyDown={[Function]}
-  size="medium"
->
-  <span
-    className="c1"
-  />
-</span>
-`;
-
-exports[`Token components AvatarToken renders isSelected 1`] = `
-.c3 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
+  padding-left: 4px;
 }
 
 .c4 {
@@ -1188,6 +1214,61 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   bottom: 0;
 }
 
+.c2 {
+  --spacing: calc(4px * 2);
+  display: block;
+  height: calc(20px - var(--spacing));
+  width: calc(20px - var(--spacing));
+}
+
+<span
+  className="c0"
+  onKeyDown={[Function]}
+  size="medium"
+>
+  <div
+    className="c1"
+  >
+    <span
+      className="c2"
+    >
+      <img
+        alt=""
+        className="c3"
+        height={20}
+        size={20}
+        src="https://avatars.githubusercontent.com/mperrotti"
+        width={20}
+      />
+    </span>
+  </div>
+  <span
+    className="c4"
+  >
+    token
+  </span>
+</span>
+`;
+
+exports[`Token components AvatarToken renders with a remove button 1`] = `
+.c1 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: 4px;
+}
+
+.c3 {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1203,6 +1284,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -1211,71 +1293,14 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   padding-right: 8px;
   padding-top: 0;
   padding-bottom: 0;
-  padding-left: 4px;
   background-color: rgba(234,238,242,0.5);
-  border-color: #24292f;
+  border-color: rgba(27,31,36,0.15);
   border-style: solid;
   border-width: 1px;
-  color: #24292f;
+  color: #57606a;
   max-width: 100%;
-  position: relative;
+  padding-right: 0;
   padding-left: 4px;
-}
-
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
-.c2 {
-  --spacing: calc(4px * 2);
-  display: block;
-  height: calc(20px - var(--spacing));
-  width: calc(20px - var(--spacing));
-}
-
-<span
-  className="c0"
-  onKeyDown={[Function]}
-  size="medium"
->
-  <span
-    className="c1"
-    size="medium"
-  >
-    <span
-      className="c2"
-    >
-      <img
-        alt=""
-        className="c3"
-        height={20}
-        size={20}
-        src="https://avatars.githubusercontent.com/mperrotti"
-        width={20}
-      />
-    </span>
-  </span>
-  <span
-    className="c4"
-  >
-    token
-  </span>
-</span>
-`;
-
-exports[`Token components AvatarToken renders with a remove button 1`] = `
-.c3 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
 }
 
 .c5 {
@@ -1366,49 +1391,6 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-  padding-left: 4px;
-}
-
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
 .c2 {
   --spacing: calc(4px * 2);
   display: block;
@@ -1420,12 +1402,10 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="medium"
 >
-  <span
+  <div
     className="c1"
-    size="medium"
   >
     <span
       className="c2"
@@ -1439,7 +1419,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
         width={20}
       />
     </span>
-  </span>
+  </div>
   <span
     className="c4"
   >
@@ -1494,6 +1474,7 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 16px;
@@ -1614,7 +1595,6 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="small"
 >
   <span
@@ -1671,6 +1651,7 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -1791,7 +1772,6 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="medium"
 >
   <span
@@ -1848,6 +1828,7 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 24px;
@@ -1968,7 +1949,6 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="large"
 >
   <span
@@ -2025,6 +2005,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 14px;
   height: 32px;
@@ -2145,7 +2126,6 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="extralarge"
 >
   <span
@@ -2202,6 +2182,7 @@ exports[`Token components IssueLabelToken renders all sizes 5`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 14px;
   height: 32px;
@@ -2322,7 +2303,6 @@ exports[`Token components IssueLabelToken renders all sizes 5`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="xlarge"
 >
   <span
@@ -2364,6 +2344,38 @@ exports[`Token components IssueLabelToken renders all sizes 5`] = `
 `;
 
 exports[`Token components IssueLabelToken renders consistently 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+}
+
 .c1 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -2403,38 +2415,6 @@ exports[`Token components IssueLabelToken renders consistently 1`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  position: relative;
-}
-
 <span
   className="c0"
   onKeyDown={[Function]}
@@ -2462,6 +2442,7 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -2582,7 +2563,6 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="medium"
 >
   <span
@@ -2639,6 +2619,7 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -2759,7 +2740,6 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="medium"
 >
   <span
@@ -2816,6 +2796,7 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -2929,6 +2910,7 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -3049,7 +3031,6 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="medium"
 >
   <span
@@ -3091,6 +3072,39 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 `;
 
 exports[`Token components Token renders all sizes 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 16px;
+  line-height: 16px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
 .c2 {
   background-color: transparent;
   font-family: inherit;
@@ -3179,44 +3193,10 @@ exports[`Token components Token renders all sizes 1`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="small"
 >
   <span
@@ -3258,6 +3238,39 @@ exports[`Token components Token renders all sizes 1`] = `
 `;
 
 exports[`Token components Token renders all sizes 2`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
 .c2 {
   background-color: transparent;
   font-family: inherit;
@@ -3346,44 +3359,10 @@ exports[`Token components Token renders all sizes 2`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="medium"
 >
   <span
@@ -3425,6 +3404,39 @@ exports[`Token components Token renders all sizes 2`] = `
 `;
 
 exports[`Token components Token renders all sizes 3`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
 .c2 {
   background-color: transparent;
   font-family: inherit;
@@ -3513,44 +3525,10 @@ exports[`Token components Token renders all sizes 3`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 24px;
-  line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="large"
 >
   <span
@@ -3592,6 +3570,39 @@ exports[`Token components Token renders all sizes 3`] = `
 `;
 
 exports[`Token components Token renders all sizes 4`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
 .c2 {
   background-color: transparent;
   font-family: inherit;
@@ -3680,44 +3691,10 @@ exports[`Token components Token renders all sizes 4`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="extralarge"
 >
   <span
@@ -3759,6 +3736,39 @@ exports[`Token components Token renders all sizes 4`] = `
 `;
 
 exports[`Token components Token renders all sizes 5`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+  padding-right: 0;
+}
+
 .c2 {
   background-color: transparent;
   font-family: inherit;
@@ -3847,44 +3857,10 @@ exports[`Token components Token renders all sizes 5`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="xlarge"
 >
   <span
@@ -3926,45 +3902,6 @@ exports[`Token components Token renders all sizes 5`] = `
 `;
 
 exports[`Token components Token renders consistently 1`] = `
-.c1 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  overflow: visible;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: 1;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c1:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c1:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -3980,6 +3917,7 @@ exports[`Token components Token renders consistently 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -3994,21 +3932,8 @@ exports[`Token components Token renders consistently 1`] = `
   border-width: 1px;
   color: #57606a;
   max-width: 100%;
-  position: relative;
 }
 
-<span
-  className="c0"
-  onKeyDown={[Function]}
-  size="medium"
->
-  <span
-    className="c1"
-  />
-</span>
-`;
-
-exports[`Token components Token renders isSelected 1`] = `
 .c1 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -4048,6 +3973,18 @@ exports[`Token components Token renders isSelected 1`] = `
   bottom: 0;
 }
 
+<span
+  className="c0"
+  onKeyDown={[Function]}
+  size="medium"
+>
+  <span
+    className="c1"
+  />
+</span>
+`;
+
+exports[`Token components Token renders isSelected 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -4063,6 +4000,7 @@ exports[`Token components Token renders isSelected 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -4077,7 +4015,45 @@ exports[`Token components Token renders isSelected 1`] = `
   border-width: 1px;
   color: #24292f;
   max-width: 100%;
-  position: relative;
+}
+
+.c1 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  width: auto;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+  line-height: 1;
+  color: currentColor;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:is(a,button,[tabIndex='0']) {
+  cursor: pointer;
+}
+
+.c1:is(a,button,[tabIndex='0']):after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
 
 <span
@@ -4094,6 +4070,46 @@ exports[`Token components Token renders isSelected 1`] = `
 `;
 
 exports[`Token components Token renders with a leadingVisual 1`] = `
+.c1 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 0;
+  margin-right: 4px;
+}
+
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 999px;
+  cursor: auto;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgba(234,238,242,0.5);
+  border-color: rgba(27,31,36,0.15);
+  border-style: solid;
+  border-width: 1px;
+  color: #57606a;
+  max-width: 100%;
+}
+
 .c2 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -4133,6 +4149,31 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   bottom: 0;
 }
 
+<span
+  className="c0"
+  onKeyDown={[Function]}
+  size="medium"
+>
+  <div
+    className="c1"
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "blue",
+        }
+      }
+    />
+  </div>
+  <span
+    className="c2"
+  >
+    token
+  </span>
+</span>
+`;
+
+exports[`Token components Token renders with a remove button 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -4148,6 +4189,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   font-family: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   font-size: 12px;
   height: 20px;
@@ -4162,43 +4204,9 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   border-width: 1px;
   color: #57606a;
   max-width: 100%;
-  position: relative;
+  padding-right: 0;
 }
 
-.c1 {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 0;
-  margin-right: 4px;
-}
-
-<span
-  className="c0"
-  onKeyDown={[Function]}
-  size="medium"
->
-  <span
-    className="c1"
-    size="medium"
-  >
-    <div
-      style={
-        Object {
-          "backgroundColor": "blue",
-        }
-      }
-    />
-  </span>
-  <span
-    className="c2"
-  >
-    token
-  </span>
-</span>
-`;
-
-exports[`Token components Token renders with a remove button 1`] = `
 .c2 {
   background-color: transparent;
   font-family: inherit;
@@ -4287,44 +4295,10 @@ exports[`Token components Token renders with a remove button 1`] = `
   bottom: 0;
 }
 
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: auto;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: rgba(234,238,242,0.5);
-  border-color: rgba(27,31,36,0.15);
-  border-style: solid;
-  border-width: 1px;
-  color: #57606a;
-  max-width: 100%;
-  padding-right: 0;
-  position: relative;
-}
-
 <span
   aria-label="token, press backspace or delete to remove"
   className="c0"
   onKeyDown={[Function]}
-  onRemove={[MockFunction]}
   size="medium"
 >
   <span

@@ -13,29 +13,29 @@ exports[`UnderlineNav renders consistently 1`] = `
   border-bottom: 1px solid hsla(210,18%,87%,1);
 }
 
-.c0.UnderlineNav--right {
+.c0.PRC-UnderlineNav--right {
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
-.c0.UnderlineNav--right .UnderlineNav-item {
+.c0.PRC-UnderlineNav--right .PRC-UnderlineNav-item {
   margin-right: 0;
   margin-left: 16px;
 }
 
-.c0.UnderlineNav--right .UnderlineNav-actions {
+.c0.PRC-UnderlineNav--right .PRC-UnderlineNav-actions {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
 }
 
-.c0.UnderlineNav--full {
+.c0.PRC-UnderlineNav--full {
   display: block;
 }
 
-.c0 .UnderlineNav-body {
+.c0 .PRC-UnderlineNav-body {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -43,17 +43,17 @@ exports[`UnderlineNav renders consistently 1`] = `
   margin-bottom: -1px;
 }
 
-.c0 .UnderlineNav-actions {
+.c0 .PRC-UnderlineNav-actions {
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
 }
 
 <nav
-  className="c0 UnderlineNav"
+  className="c0 PRC-UnderlineNav"
 >
   <div
-    className="UnderlineNav-body"
+    className="PRC-UnderlineNav-body"
   />
 </nav>
 `;

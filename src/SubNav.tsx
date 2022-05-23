@@ -96,7 +96,7 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   &:focus {
     text-decoration: none;
     background-color: ${get('colors.canvas.subtle')};
-    transition: 0.2s ease;
+    transition: background-color 0.2s ease;
 
     .SubNav-octicon {
       color: ${get('colors.fg.muted')};

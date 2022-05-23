@@ -298,6 +298,12 @@ render(<SelectFields />)
     description="Indicate whether the item is selected. Only applies to items that can be selected."
   />
   <PropsTableRow
+    name="active"
+    type="boolean"
+    defaultValue="false"
+    description="Indicate whether the item is active. There should never be more than one active item."
+  />
+  <PropsTableRow
     name="disabled"
     type="boolean"
     defaultValue="false"
@@ -324,6 +330,12 @@ render(<SelectFields />)
     name="children"
     required
     type="React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual"
+  />
+  <PropsTableRow
+    name="active"
+    type="boolean"
+    defaultValue="false"
+    description="Indicate whether the item is active. There should never be more than one active item."
   />
   <PropsTableBasePropRows
     elementType="a"

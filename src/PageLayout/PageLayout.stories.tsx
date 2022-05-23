@@ -1,6 +1,7 @@
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Box, BranchName, Heading, Link, SideNav, StateLabel, TabNav, Text, Button} from '..'
+import {Box, BranchName, Button, Heading, Link, StateLabel, TabNav, Text} from '..'
+import {NavList} from '../NavList'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
 
@@ -270,6 +271,21 @@ export const PullRequestPage = () => (
     </PageLayout.Header>
     <PageLayout.Content>
       <Box sx={{border: '1px solid', borderRadius: 2, borderColor: 'border.default', height: 200}}></Box>
+      <Box
+        sx={{
+          maxWidth: '100%',
+          overflowX: 'auto',
+          border: '1px solid',
+          whiteSpace: 'nowrap',
+          borderColor: 'border.default',
+          mt: 3,
+          p: 3,
+          borderRadius: 2
+        }}
+      >
+        This box has really long content. If it is too long, it will cause x overflow and should show a scrollbar. When
+        this overflows, it should not break to overall page layout!
+      </Box>
     </PageLayout.Content>
     <PageLayout.Pane>
       <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
@@ -295,21 +311,14 @@ export const PullRequestPage = () => (
 export const SettingsPage = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
-      {/* TODO: Replace with NavigationList when it's ready */}
-      <SideNav bordered aria-label="Main">
-        <SideNav.Link href="#">
-          <Text>Profile</Text>
-        </SideNav.Link>
-        <SideNav.Link selected href="#">
-          <Text>Account</Text>
-        </SideNav.Link>
-        <SideNav.Link href="#">
-          <Text>Emails</Text>
-        </SideNav.Link>
-        <SideNav.Link href="#">
-          <Text>Notifications</Text>
-        </SideNav.Link>
-      </SideNav>
+      <NavList aria-label="main">
+        <NavList.Item href="#">Profile</NavList.Item>
+        <NavList.Item href="#" aria-current="page">
+          Account
+        </NavList.Item>
+        <NavList.Item href="#">Emails</NavList.Item>
+        <NavList.Item href="#">Notifications</NavList.Item>
+      </NavList>
     </PageLayout.Pane>
     <PageLayout.Content>
       <Heading as="h2" sx={{fontSize: 4, fontWeight: 'normal', color: 'danger.fg', mb: 2}}>
