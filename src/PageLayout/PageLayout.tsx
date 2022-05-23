@@ -1,6 +1,6 @@
 import React from 'react'
-import {Box} from '..'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import {Box} from '..'
 
 const REGION_ORDER = {
   header: 0,
@@ -238,7 +238,8 @@ const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx
           // than the pane region on wide viewports if its contents are too wide.
           flexBasis: 0,
           flexGrow: 1,
-          flexShrink: 1
+          flexShrink: 1,
+          minWidth: 1 // Hack to prevent overflowing content from pushing the pane region to the next line
         },
         sx
       )}
