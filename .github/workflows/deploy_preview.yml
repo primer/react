@@ -8,12 +8,24 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-preview:
-    if: ${{ github.repository == 'primer/react' }}
-    name: Preview
-    uses: primer/.github/.github/workflows/deploy_preview.yml@main
-    with:
-      node_version: 16
-      install: npm ci && cd docs && npm ci && cd ..
-      build: npm run build:docs:preview
-      output_dir: docs/public
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v2
+        with:
+          version: 16
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci && cd docs && npm ci && cd ..
+
+      - name: Build docs
+        run: cd docs && npm run build:preview
+        env:
+          GITHUB_TOKEN: ${{ secrets.gh_token }}
