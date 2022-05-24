@@ -28,6 +28,7 @@ exports[`PageLayout renders condensed layout 1`] = `
   -webkit-flex-shrink: 1;
   -ms-flex-negative: 1;
   flex-shrink: 1;
+  min-width: 1px;
 }
 
 .c5 {
@@ -246,6 +247,7 @@ exports[`PageLayout renders default layout 1`] = `
   -webkit-flex-shrink: 1;
   -ms-flex-negative: 1;
   flex-shrink: 1;
+  min-width: 1px;
 }
 
 .c5 {
@@ -491,6 +493,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
   -webkit-flex-shrink: 1;
   -ms-flex-negative: 1;
   flex-shrink: 1;
+  min-width: 1px;
 }
 
 .c5 {
@@ -729,6 +732,7 @@ exports[`PageLayout renders with dividers 1`] = `
   -webkit-flex-shrink: 1;
   -ms-flex-negative: 1;
   flex-shrink: 1;
+  min-width: 1px;
 }
 
 .c5 {

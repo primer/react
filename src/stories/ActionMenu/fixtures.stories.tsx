@@ -269,7 +269,6 @@ export function MemexTableMenu(): JSX.Element {
           width: 200,
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center',
           p: 2,
           border: '1px solid',
           borderColor: 'border.default'
