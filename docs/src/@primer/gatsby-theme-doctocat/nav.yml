@@ -1,5 +1,4 @@
-- title: About
-  url: /getting-started
+- title: Introduction
   children:
     - title: Getting started
       url: /getting-started
