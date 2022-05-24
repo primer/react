@@ -2,7 +2,7 @@ import React from 'react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import type {AnchorPosition, AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import Box from '../Box'
-import {useAnchoredPosition, useProvidedRefOrCreate} from '../hooks'
+import {useAnchoredPosition} from '../hooks'
 import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 
 type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
@@ -21,7 +21,7 @@ export type TooltipProps = {
   /** Use aria-describedby or aria-labelledby */
   type?: 'description' | 'label'
   /** Tooltip target */
-  children: React.ReactElement & {ref?: React.RefObject<HTMLElement>}
+  children: React.ReactElement
   /** When set to true, tooltip appears without any delay */
   noDelay?: boolean
   /** @deprecated Always set to true now. */
@@ -55,16 +55,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
   sx = {},
   ...props
 }) => {
-  const tooltipId = useSSRSafeId()
-
-  const childRef = children.ref
-  const anchorElementRef = useProvidedRefOrCreate(childRef)
   const tooltipRef = React.useRef<HTMLDivElement>(null)
-
-  const child = React.cloneElement(children, {
-    ref: anchorElementRef,
-    [type === 'description' ? 'aria-describedby' : 'aria-labelledby']: tooltipId
-  })
+  const anchorElementRef = React.useRef<HTMLElement>(null)
 
   const {position} = useAnchoredPosition({
     side: directionToPosition[direction].side,
@@ -72,6 +64,13 @@ export const Tooltip: React.FC<TooltipProps> = ({
     align: align ? alignToAnchorAlignment[align] : directionToPosition[direction].align,
     floatingElementRef: tooltipRef,
     anchorElementRef
+  })
+
+  const tooltipId = useSSRSafeId()
+
+  const child = React.cloneElement(children, {
+    ref: anchorElementRef,
+    [type === 'description' ? 'aria-describedby' : 'aria-labelledby']: tooltipId
   })
 
   const tooltipText = text || props['aria-label']
