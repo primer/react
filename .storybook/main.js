@@ -6,7 +6,7 @@ module.exports = {
     {name: '@storybook/addon-essentials', options: {backgrounds: false}},
     'storybook-addon-performance/register',
     ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
-      ? ['@whitespace/storybook-addon-html']
+      ? ['@whitespace/storybook-addon-html', 'storybook-addon-turbo-build']
       : [])
   ],
   babel: options => {
