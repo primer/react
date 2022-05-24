@@ -3,11 +3,10 @@ import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, IconButton} from '..'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {SingleSelection, MixedSelection} from '../stories/ActionMenu/examples.stories'
 import '@testing-library/jest-dom'
-import {TriangleDownIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {
@@ -134,32 +133,6 @@ describe('ActionMenu', () => {
     expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
     expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
 
-    cleanup()
-  })
-
-  it('should open Menu on MenuAnchor click with IconButton', async () => {
-    const component = HTMLRender(
-      <ThemeProvider theme={theme}>
-        <SSRProvider>
-          <BaseStyles>
-            <ActionMenu>
-              <ActionMenu.Anchor>
-                <IconButton aria-label="Toggle Menu" icon={TriangleDownIcon} />
-              </ActionMenu.Anchor>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                  <ActionList.Item>Copy link</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </SSRProvider>
-      </ThemeProvider>
-    )
-    const button = component.getByLabelText('Toggle Menu')
-    fireEvent.click(button)
-    expect(component.getByRole('menu')).toBeInTheDocument()
     cleanup()
   })
 
