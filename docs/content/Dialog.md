@@ -1,43 +1,7 @@
 ---
-title: Dialog (legacy)
-status: Deprecated
+title: Dialog
+status: Alpha
 ---
-
-## Deprecation
-
-Use the [new version of Dialog](/Dialog) instead.
-
-**Before**
-
-```jsx deprecated
-<Dialog isOpen={open} onDismiss={() => setOpen(false)} aria-labelledby="header-id">
-  <Dialog.Header id="header-id">Title</Dialog.Header>
-  <Box p={3}>
-    <Text fontFamily="sans-serif">Some content</Text>
-  </Box>
-</Dialog>
-```
-
-**After**
-
-```jsx deprecated
-{
-  open && (
-    <Dialog
-      title="Dialog example"
-      subtitle={
-        <>
-          This is a <b>description</b> of the dialog.
-        </>
-      }
-      footerButtons={[{content: 'Ok', onClick: () => setOpen(false)}]}
-      onClose={() => setOpen(false)}
-    >
-      <Text fontFamily="sans-serif">Some content</Text>
-    </Dialog>
-  )
-}
-```
 
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
@@ -57,7 +21,7 @@ If you're running into z-index issues or are rendering the component inside of a
 
 ### Examples
 
-```jsx deprecated live
+```jsx live
 <State default={false}>
   {([isOpen, setIsOpen]) => {
     const returnFocusRef = React.useRef(null)
@@ -85,7 +49,7 @@ If you're running into z-index issues or are rendering the component inside of a
 
 You can also pass any non-text content into the header:
 
-```jsx deprecated live
+```jsx live
 <State default={false}>
   {([isOpen, setIsOpen]) => {
     const returnFocusRef = React.useRef(null)
