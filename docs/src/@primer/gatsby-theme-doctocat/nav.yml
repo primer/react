@@ -146,8 +146,10 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
-# - title: Drafts
-#   children:
+- title: Drafts
+  children:
+    - title: Dialog v2
+      url: /drafts/Dialog
 - title: Deprecated
   children:
     - title: ActionList (legacy)
@@ -162,8 +164,6 @@
       url: /deprecated/ChoiceFieldset
     - title: ChoiceInputField
       url: /deprecated/ChoiceInputField
-    - title: Dialog (legacy)
-      url: /deprecated/Dialog
     - title: Dropdown
       url: /deprecated/Dropdown
     - title: DropdownMenu
