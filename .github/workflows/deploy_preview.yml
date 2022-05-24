@@ -29,3 +29,6 @@ jobs:
         run: cd docs && npm run build:preview
         env:
           GITHUB_TOKEN: ${{ secrets.gh_token }}
+          
+      - name: Build storybook
+        run: npm run build:storybook preview
