@@ -4,10 +4,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-links',
     {name: '@storybook/addon-essentials', options: {backgrounds: false}},
-    'storybook-addon-performance/register',
-    ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
-      ? ['@whitespace/storybook-addon-html']
-      : [])
+    'storybook-addon-performance/register'
   ],
   babel: options => {
     options.plugins.push(['open-source', {editor: process.env.NODE_ENV === 'production' ? 'github' : 'vscode'}])
