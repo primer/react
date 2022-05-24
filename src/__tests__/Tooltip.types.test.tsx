@@ -1,7 +1,8 @@
 import React from 'react'
-import Tooltip from '../Tooltip'
+import {Tooltip} from '../Tooltip'
 
-export function shouldAcceptCallWithNoProps() {
+export function shouldNotAcceptCallWithMissingProps() {
+  // @ts-expect-error props missing
   return <Tooltip />
 }
 
