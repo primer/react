@@ -156,6 +156,7 @@ export function GroupsAndDescription(): JSX.Element {
         <ActionMenu>
           <ActionMenu.Button
             aria-label="Milestone"
+            aria-describedby="selected-milestone"
             variant="invisible"
             trailingIcon={GearIcon}
             sx={{
@@ -209,11 +210,11 @@ export function GroupsAndDescription(): JSX.Element {
           </ActionMenu.Overlay>
         </ActionMenu>
         {selectedMilestone ? (
-          <Text as="div" color="fg.muted" sx={{fontSize: 1, mt: 2}}>
+          <Text as="div" id="selected-milestone" color="fg.muted" sx={{fontSize: 1, mt: 2}}>
             {selectedMilestone.name}
           </Text>
         ) : (
-          <Text as="div" color="fg.muted" sx={{fontSize: 1, mt: 2}}>
+          <Text as="div" id="selected-milestone" color="fg.muted" sx={{fontSize: 1, mt: 2}}>
             No milestone
           </Text>
         )}
