@@ -39,6 +39,6 @@ jobs:
             github.actions.createWorkflowDispatch({
               owner: 'primer',
               repo: 'react',
-              workflow_id: 'test-action.yml',
+              workflow_id: '.github/workflows/test-action.yml',
               ref: 'test-rc-action'
             });
