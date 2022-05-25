@@ -1,7 +1,7 @@
 name: Test
 on:
   push:
-    branches: 
+    branches:
       - 'changeset-release/main'
       - 'test-rc-action'
 
@@ -14,7 +14,6 @@ jobs:
     name: Hi
     runs-on: ubuntu-latest
     steps:
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -22,11 +21,13 @@ jobs:
 
       - name: Trigger a workflow
         uses: actions/github-script@v4.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
           script: |
             github.actions.createWorkflowDispatch({
               'primer',
               'react',
               'test-action.yml',
-              'test-rc-action',
+              'test-rc-action'
             });
