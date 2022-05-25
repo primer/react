@@ -26,8 +26,8 @@ jobs:
         with:
           script: |
             github.actions.createWorkflowDispatch({
-              'primer',
-              'react',
-              'test-action.yml',
-              'test-rc-action'
+              owner: 'primer',
+              repo: 'react',
+              workflow_id: 'test-action.yml',
+              ref: 'test-rc-action'
             });
