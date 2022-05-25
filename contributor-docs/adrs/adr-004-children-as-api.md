@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed
+Approved 2022-05-10
 
 <br/>
 
@@ -133,23 +133,23 @@ _Sidenote: We might want to name this prop `leadingIcon`, even if there is no `t
 
 <br/>
 
-You can see this pattern used in `NewButton`:
+You can see this pattern used in `Button`:
 
 The icon gets its color and margin based on the variant and size of the `Button`. This is the happy path we want folks to be on, so we ask for the icon component instead of asking the developer to render the icon.
 
 <img width="141" alt="image 9" src="https://user-images.githubusercontent.com/1863771/144945219-a853ed1c-f21d-412e-a388-6d74ec436645.png">
 
 ```jsx
-<NewButton leadingIcon={SearchIcon}>Search</NewButton>
-<NewButton leadingIcon={SearchIcon} variant="primary" size="large">Search</NewButton>
+<Button leadingIcon={SearchIcon}>Search</Button>
+<Button leadingIcon={SearchIcon} variant="primary" size="large">Search</Button>
 ```
 
 ```jsx
 // we prefer this:
-<NewButton leadingIcon={SearchIcon}>Search</NewButton>
+<Button leadingIcon={SearchIcon}>Search</Button>
 // over these:
-<NewButton><SearchIcon/> Search</NewButton>
-<NewButton leadingIcon={<SearchIcon/>}>Search</NewButton>
+<Button><SearchIcon/> Search</Button>
+<Button leadingIcon={<SearchIcon/>}>Search<Button>
 ```
 
 <br/>
