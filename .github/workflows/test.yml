@@ -37,5 +37,5 @@ jobs:
           owner: primer
           repo: react
           ref: ${{ github.ref }}
-          workflow_file_name: 'test-action.yml'
+          workflow_file_name: 'blob/test-rc-action/.github/workflows/test-action.yml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
