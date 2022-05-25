@@ -12,7 +12,7 @@ description: Use a segmented control to let users select an option from a short 
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
   <SegmentedControl.Button>Raw</SegmentedControl.Button>
   <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
@@ -22,7 +22,9 @@ description: Use a segmented control to let users select an option from a short 
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Button leadingIcon={EyeIcon}>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+    Preview
+  </SegmentedControl.Button>
   <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
   <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
 </SegmentedControl>
@@ -32,7 +34,7 @@ description: Use a segmented control to let users select an option from a short 
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.IconButton icon={EyeIcon} aria-label="Preview" />
+  <SegmentedControl.IconButton selected icon={EyeIcon} aria-label="Preview" />
   <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />
   <SegmentedControl.IconButton icon={PeopleIcon} aria-label="Blame" />
 </SegmentedControl>
@@ -42,9 +44,11 @@ description: Use a segmented control to let users select an option from a short 
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'none'}}>
-  <SegmentedControl.Item leadingIcon={EyeIcon}>Preview</SegmentedControl.Item>
-  <SegmentedControl.Item leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Item>
-  <SegmentedControl.Item leadingIcon={PeopleIcon}>Blame</SegmentedControl.Item>
+  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+    Preview
+  </SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
@@ -52,9 +56,11 @@ description: Use a segmented control to let users select an option from a short 
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'none'}}>
-  <SegmentedControl.Item leadingIcon={EyeIcon}>Preview</SegmentedControl.Item>
-  <SegmentedControl.Item leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Item>
-  <SegmentedControl.Item leadingIcon={PeopleIcon}>Blame</SegmentedControl.Item>
+  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+    Preview
+  </SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
@@ -62,7 +68,7 @@ description: Use a segmented control to let users select an option from a short 
 
 ```jsx live drafts
 <SegmentedControl fullWidth aria-label="File view">
-  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
   <SegmentedControl.Button>Raw</SegmentedControl.Button>
   <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
@@ -72,7 +78,7 @@ description: Use a segmented control to let users select an option from a short 
 
 ```jsx live drafts
 <SegmentedControl loading aria-label="File view">
-  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
   <SegmentedControl.Button>Raw</SegmentedControl.Button>
   <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
@@ -91,7 +97,7 @@ description: Use a segmented control to let users select an option from a short 
     </Text>
   </Box>
   <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
-    <SegmentedControl.Button>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
     <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
@@ -104,7 +110,7 @@ description: Use a segmented control to let users select an option from a short 
 <FormControl>
   <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
   <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
-    <SegmentedControl.Button>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
     <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
@@ -116,7 +122,7 @@ description: Use a segmented control to let users select an option from a short 
 
 ```jsx live drafts
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
   <SegmentedControl.Button selected>Raw</SegmentedControl.Button>
   <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
@@ -152,6 +158,17 @@ description: Use a segmented control to let users select an option from a short 
     type="(selectedIndex?: number) => void"
     description="The handler that gets called when a segment is selected"
   />
+  <PropsTableRow
+    name="variant"
+    type="{
+      narrow?: 'hideLabels' | 'dropdown',
+      regular?: 'hideLabels' | 'dropdown',
+      wide?: 'hideLabels' | 'dropdown'
+    }"
+    description="Configure alternative ways to render the control when it gets rendered in tight spaces"
+  />
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLDivElement" />
 </PropsTable>
 
 ### SegmentedControl.Button
@@ -170,6 +187,8 @@ description: Use a segmented control to let users select an option from a short 
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="icon" type="Component" description="The icon that represents the segmented control item" />
   <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLButtonElement" />
 </PropsTable>
 
 ## Status
