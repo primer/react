@@ -1,0 +1,35 @@
+name: Test
+on:
+  pull_request:
+    branch: 
+      - changeset-release/main
+      - test-rc-action
+
+permissions:
+  contents: read
+
+jobs:
+  say-hi:
+    if: ${{ github.repository == 'primer/react' }}
+    name: Hi
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Trigger a workflow
+        uses: actions/github-script@v4.0.2
+        with:
+          script: |
+          github.actions.createWorkflowDispatch({
+            'primer',
+            'react',
+            'test-action.yml',
+            'test-rc-action',
+          });
+          
