@@ -1,10 +1,14 @@
 ---
-title: Dialog
+title: Dialog v2
 componentId: dialog
-status: Alpha
+status: Draft
 ---
 
-import State from '../components/State'
+```js
+import {Dialog} from '@primer/react/drafts'
+```
+
+import State from '../../components/State'
 
 The dialog component the Primer implementation of the ARIA design pattern [Dialog](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal). A dialog is a type of overlay that can be used for confirming actions, asking for disambiguation, and presenting small forms. They generally allow the user to focus on a quick task without having to navigate to a different page.
 
@@ -45,7 +49,7 @@ By default, the Dialog component implements the design and interactions defined 
 
 ### Example
 
-```jsx live
+```jsx live drafts
 <State default={false}>
   {([isOpen, setIsOpen]) => {
     const openDialog = React.useCallback(() => setIsOpen(true), [setIsOpen])

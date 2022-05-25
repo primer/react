@@ -41,7 +41,7 @@ const invisibleButtonStyleOverrides = {
 
 const ConditionalTooltip: React.FC<{
   ['aria-label']?: string
-  children: React.ReactElement
+  children: React.ReactNode
 }> = ({'aria-label': ariaLabel, children}) => (
   <>
     {ariaLabel ? (
