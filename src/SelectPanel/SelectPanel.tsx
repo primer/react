@@ -1,7 +1,11 @@
 import React, {useCallback, useMemo} from 'react'
+import styled from 'styled-components'
+import {get} from '../constants'
 import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import {OverlayProps} from '../Overlay'
+import sx, {SxProp} from '../sx'
 import {ItemInput} from '../deprecated/ActionList/List'
+import Box from '../Box'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DropdownButton} from '../deprecated/DropdownMenu'
 import {ItemProps} from '../deprecated/ActionList'
@@ -10,6 +14,7 @@ import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -26,6 +31,7 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
   ) => void
+  title: string
   placeholder?: string
   overlayProps?: Partial<OverlayProps>
 }
@@ -35,6 +41,13 @@ export type SelectPanelProps = SelectPanelBaseProps &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
+
+const Title = styled.h1<SxProp>`
+  font-size: ${get('fontSizes.1')};
+  font-weight: ${get('fontWeights.bold')};
+  margin: 0; /* override default margin */
+  ${sx};
+`
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected']
@@ -52,6 +65,7 @@ export function SelectPanel({
   onOpenChange,
   renderAnchor = props => <DropdownButton {...props} />,
   anchorRef: externalAnchorRef,
+  title,
   placeholder,
   selected,
   onSelectedChange,
@@ -60,7 +74,7 @@ export function SelectPanel({
   items,
   textInputProps,
   overlayProps,
-  sx,
+  sx: sxProp,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -129,6 +143,7 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
+  const titleId = useSSRSafeId()
   const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {
     initialFocusRef: inputRef
@@ -153,19 +168,23 @@ export function SelectPanel({
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
+      <Box px={3} pt={2}>
+        <Title id={titleId}>{title}</Title>
+      </Box>
       <FilteredActionList
         filterValue={filterValue}
         onFilterChange={onFilterChange}
         {...listProps}
         role="listbox"
         aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+        aria-labelledby={titleId}
         selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
         items={itemsToRender}
         textInputProps={extendedTextInputProps}
         inputRef={inputRef}
         // inheriting height and maxHeight ensures that the FilteredActionList is never taller
         // than the Overlay (which would break scrolling the items)
-        sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+        sx={{...sxProp, height: 'inherit', maxHeight: 'inherit'}}
       />
     </AnchoredOverlay>
   )

@@ -49,6 +49,7 @@ function DemoComponent() {
           {children || 'Select Labels'}
         </Button>
       )}
+      title="Select Labels"
       placeholderText="Filter Labels"
       open={open}
       onOpenChange={setOpen}
@@ -57,7 +58,7 @@ function DemoComponent() {
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       showItemDividers={true}
-      overlayProps={{width: 'small', height: 'xsmall'}}
+      overlayProps={{width: 'small', height: 'small'}}
     />
   )
 }

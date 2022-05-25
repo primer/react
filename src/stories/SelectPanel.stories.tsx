@@ -73,6 +73,7 @@ export function MultiSelectStory(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select Labels"
         placeholderText="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -81,7 +82,7 @@ export function MultiSelectStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'small', height: 'small'}}
       />
     </>
   )
@@ -104,6 +105,7 @@ export function SingleSelectStory(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         placeholderText="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -112,7 +114,7 @@ export function SingleSelectStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'small', height: 'small'}}
       />
     </>
   )
@@ -133,6 +135,7 @@ export function ExternalAnchorStory(): JSX.Element {
         Custom: {selected?.text || 'Click Me'}
       </DropdownButton>
       <SelectPanel
+        title="Select a Label"
         renderAnchor={null}
         anchorRef={buttonRef}
         placeholderText="Filter Labels"
@@ -143,7 +146,7 @@ export function ExternalAnchorStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'small', height: 'small'}}
       />
     </>
   )
@@ -166,6 +169,7 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         placeholderText="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -198,6 +202,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         placeholderText="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -206,7 +211,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        overlayProps={{width: 'small', height: 'initial', maxHeight: 'small'}}
       />
     </>
   )
@@ -242,6 +247,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         placeholderText="Filter Labels"
         open={open}
         onOpenChange={onOpenChange}
@@ -251,7 +257,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
+        overlayProps={{width: 'small', height, maxHeight: 'small'}}
       />
     </>
   )
@@ -275,6 +281,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         placeholderText="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -283,7 +290,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'small', height: 'small'}}
       />
       <div
         style={{
@@ -317,6 +324,7 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         placeholderText="Filter Labels"
         open={openA}
         onOpenChange={setOpenA}
@@ -334,6 +342,7 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         placeholderText="Filter Labels"
         open={openB}
         onOpenChange={setOpenB}
