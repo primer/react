@@ -6,11 +6,33 @@ Approved 2022-05-10
 
 <br/>
 
-_Note: These are in no way rules, these should be treated as a starting point for API conversations._
-
-_Note #2: Consumer is used multiple times on this page. It refers to the developers consuming the component API and not end users._
+_Note: Consumer is used multiple times on this page. It refers to the developers consuming the component API and not end users._
 
 <br/>
+
+## Decision:
+
+
+1. Prefer using children for “content”
+
+2. For composite components, the API should be decided by how much customisation is available for children.
+
+For components that have design decisions baked in, should use strict props. For example, the color of the icon inside a Button component is decided by the `variant` prop on the Button. The API does not allow for changing that.
+
+```jsx
+<Button variant="danger" leadingIcon={TrashIcon}>Delete branch</Button>
+```
+
+On the other hand, if we want consumers to have more control over children, a composite API is the better choice.
+
+```jsx
+<ActionList.Item>
+  <ActionList.LeadingVisual>
+    <Avatar src="https://github.com/mona.png" />
+  <ActionList.LeadingVisual>
+  mona
+</ActionList.Item>
+```
 
 ## Prefer using children for “content”
 
