@@ -31,14 +31,14 @@ jobs:
         with:
           node-version: 16
 
-      - name: Trigger a workflow
-        uses: actions/github-script@v4.0.2
+      - name: Dispatch workflow
+        uses: octokit/request-action@v2.x
+        id: dispatch
         with:
-          github-token: ${{ secrets.github_token }}
-          script: |
-            github.actions.createWorkflowDispatch({
-              owner: 'primer',
-              repo: 'react',
-              workflow_id: '.github/workflows/test-action.yml',
-              ref: 'test-rc-action'
-            });
+          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+          ref: ${{ github.ref }}
+          owner: primer
+          repo: react
+          workflow_id: test-action.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GHAE_BOT_PAT_TOKEN }}
