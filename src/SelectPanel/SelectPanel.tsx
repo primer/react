@@ -158,8 +158,9 @@ export function SelectPanel({
         onFilterChange={onFilterChange}
         {...listProps}
         role="listbox"
-        items={itemsToRender}
+        aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
         selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+        items={itemsToRender}
         textInputProps={extendedTextInputProps}
         inputRef={inputRef}
         // inheriting height and maxHeight ensures that the FilteredActionList is never taller

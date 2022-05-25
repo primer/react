@@ -2,104 +2,226 @@
 
 exports[`Tooltip renders consistently 1`] = `
 .c0 {
-  line-height: 1;
+  position: relative;
 }
 
-.c0:hover [data-component=tooltip],
-.c0:focus-within [data-component=tooltip] {
-  visibility: visible;
-  opacity: 1;
-}
-
-.c1 {
-  visibility: hidden;
+.c0::before {
+  position: absolute;
+  z-index: 1000001;
+  display: none;
+  width: 0px;
+  height: 0px;
+  color: #24292f;
+  pointer-events: none;
+  content: '';
+  border: 6px solid transparent;
   opacity: 0;
-  -webkit-transition: opacity 100ms ease-in;
-  transition: opacity 100ms ease-in;
-  -webkit-transition-delay: 400ms;
-  transition-delay: 400ms;
-  background-color: #24292f;
+}
+
+.c0::after {
+  position: absolute;
+  z-index: 1000000;
+  display: none;
+  padding: 0.5em 0.75em;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
   color: #ffffff;
-  border-radius: 3px;
-  font-size: 12px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  max-width: 250px;
   text-align: center;
-  position: absolute;
-  z-index: 2;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  word-wrap: break-word;
+  white-space: pre;
+  pointer-events: none;
+  content: attr(aria-label);
+  background: #24292f;
+  border-radius: 3px;
+  opacity: 0;
 }
 
-.c1:before {
-  content: "";
-  width: 0;
-  height: 0;
-  border: 5px solid transparent;
-  position: absolute;
+.c0:hover::before,
+.c0:active::before,
+.c0:focus::before,
+.c0:hover::after,
+.c0:active::after,
+.c0:focus::after {
+  display: inline-block;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 
-.c1[data-side=outside-top]::before {
-  border-top: 5px solid;
-  border-top-color: #24292f;
+.c0.tooltipped-no-delay:hover::before,
+.c0.tooltipped-no-delay:active::before,
+.c0.tooltipped-no-delay:focus::before,
+.c0.tooltipped-no-delay:hover::after,
+.c0.tooltipped-no-delay:active::after,
+.c0.tooltipped-no-delay:focus::after {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c0.tooltipped-multiline:hover::after,
+.c0.tooltipped-multiline:active::after,
+.c0.tooltipped-multiline:focus::after {
+  display: table-cell;
+}
+
+.c0.tooltipped-s::after,
+.c0.tooltipped-se::after,
+.c0.tooltipped-sw::after {
   top: 100%;
+  right: 50%;
+  margin-top: 6px;
 }
 
-.c1[data-side=outside-bottom]::before {
-  border-bottom: 5px solid;
+.c0.tooltipped-s::before,
+.c0.tooltipped-se::before,
+.c0.tooltipped-sw::before {
+  top: auto;
+  right: 50%;
+  bottom: -7px;
+  margin-right: -6px;
   border-bottom-color: #24292f;
-  top: -10px;
 }
 
-.c1[data-side=outside-left]::before {
-  border-left: 5px solid;
+.c0.tooltipped-se::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c0.tooltipped-sw::after {
+  margin-right: -16px;
+}
+
+.c0.tooltipped-n::after,
+.c0.tooltipped-ne::after,
+.c0.tooltipped-nw::after {
+  right: 50%;
+  bottom: 100%;
+  margin-bottom: 6px;
+}
+
+.c0.tooltipped-n::before,
+.c0.tooltipped-ne::before,
+.c0.tooltipped-nw::before {
+  top: -7px;
+  right: 50%;
+  bottom: auto;
+  margin-right: -6px;
+  border-top-color: #24292f;
+}
+
+.c0.tooltipped-ne::after {
+  right: auto;
+  left: 50%;
+  margin-left: -16px;
+}
+
+.c0.tooltipped-nw::after {
+  margin-right: -16px;
+}
+
+.c0.tooltipped-s::after,
+.c0.tooltipped-n::after {
+  -webkit-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+}
+
+.c0.tooltipped-w::after {
+  right: 100%;
+  bottom: 50%;
+  margin-right: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.c0.tooltipped-w::before {
+  top: 50%;
+  bottom: 50%;
+  left: -7px;
+  margin-top: -6px;
   border-left-color: #24292f;
-  top: calc(50% - 5px);
+}
+
+.c0.tooltipped-e::after {
+  bottom: 50%;
   left: 100%;
+  margin-left: 6px;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
 }
 
-.c1[data-side=outside-right]::before {
-  border-right: 5px solid;
+.c0.tooltipped-e::before {
+  top: 50%;
+  right: -7px;
+  bottom: 50%;
+  margin-top: -6px;
   border-right-color: #24292f;
-  top: calc(50% - 5px);
-  left: -10px;
 }
 
-.c1[data-align=start][data-side=outside-top]::before,
-.c1[data-align=start][data-side=outside-bottom]::before {
-  left: 8px;
+.c0.tooltipped-multiline::after {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 250px;
+  word-wrap: break-word;
+  white-space: pre-line;
+  border-collapse: separate;
 }
 
-.c1[data-align=center][data-side=outside-top]::before,
-.c1[data-align=center][data-side=outside-bottom]::before {
-  left: calc(50% - 4px);
+.c0.tooltipped-multiline.tooltipped-s::after,
+.c0.tooltipped-multiline.tooltipped-n::after {
+  right: auto;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
-.c1[data-align=end][data-side=outside-top]::before,
-.c1[data-align=end][data-side=outside-bottom]::before {
-  left: calc(100% - 16px);
+.c0.tooltipped-multiline.tooltipped-w::after,
+.c0.tooltipped-multiline.tooltipped-e::after {
+  right: 100%;
+}
+
+.c0.tooltipped-align-right-2::after {
+  right: 0;
+  margin-right: 0;
+}
+
+.c0.tooltipped-align-right-2::before {
+  right: 15px;
+}
+
+.c0.tooltipped-align-left-2::after {
+  left: 0;
+  margin-left: 0;
+}
+
+.c0.tooltipped-align-left-2::before {
+  left: 10px;
 }
 
 <span
-  className="c0"
->
-  <button
-    aria-describedby="react-aria-1"
-  >
-    Save
-  </button>
-  <div
-    aria-hidden={true}
-    className="c1"
-    data-component="tooltip"
-    id="react-aria-1"
-    role="tooltip"
-  >
-    tooltip text
-  </div>
-</span>
+  className="c0 tooltipped-n"
+  role="tooltip"
+/>
 `;
