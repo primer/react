@@ -260,7 +260,7 @@ We use this pattern as well in `Button`, `Button.Counter` is a restricted versio
 
 Another place where composite patterns lead to aesthetic predictable APIs is when we want to expose customisation options for internal components.
 
-For Example, `ActionMenu` accepts `overlayProps` and `anchorContent` to pass it down to the implementation details:
+For Example, [legacy ActionMenu](https://primer.style/react/deprecated/ActionMenu) accepted `overlayProps` and `anchorContent` to pass it down to the implementation details:
 
 <img width="337" alt="image 10" src="https://user-images.githubusercontent.com/1863771/144945221-b6a4e7f0-5134-4485-bfd0-1e4b2e77a70e.png">
 
