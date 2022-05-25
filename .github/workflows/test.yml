@@ -35,7 +35,6 @@ jobs:
         uses: convictional/trigger-workflow-and-wait@v1.6.1
         with:
           owner: primer
-          repo: react
-          ref: ${{ github.ref }}
-          workflow_file_name: 'blob/test-rc-action/.github/workflows/test-action.yml'
+          repo: react-scripts
+          workflow_file_name: 'tmp-test.yml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
