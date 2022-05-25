@@ -1,6 +1,6 @@
 name: Test
 on:
-  pull_request:
+  push:
     branch: 
       - changeset-release/main
       - test-rc-action
