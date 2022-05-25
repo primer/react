@@ -32,13 +32,10 @@ jobs:
           node-version: 16
 
       - name: Dispatch workflow
-        uses: octokit/request-action@v2.x
-        id: dispatch
+        uses: convictional/trigger-workflow-and-wait@v1.6.1
         with:
-          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-          ref: ${{ github.ref }}
           owner: primer
           repo: react
-          workflow_id: test-action.yaml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GHAE_BOT_PAT_TOKEN }}
+          ref: ${{ github.ref }}
+          workflow_file_name: 'test-action.yml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
