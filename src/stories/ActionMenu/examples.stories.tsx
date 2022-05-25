@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList} from '../..'
+import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList, StyledOcticon} from '../..'
 import {
   GearIcon,
   MilestoneIcon,
@@ -80,17 +80,16 @@ const fieldTypes = [
 ]
 
 export function SingleSelection(): JSX.Element {
-  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const [selectedIndex, setSelectedIndex] = React.useState(1)
   const selectedType = fieldTypes[selectedIndex]
   return (
     <>
-      <h1>Single Selection</h1>
-
-      <p>This pattern has a single section with the selected value shown in the button</p>
+      <h1>Single Selection - with aria-describedby</h1>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
-          {selectedType.name}
+        <ActionMenu.Button aria-label="Field type" aria-describedby="selected-value">
+          <Text sx={{color: 'fg.muted', fontWeight: 'normal'}}>Field type:</Text>{' '}
+          <StyledOcticon icon={selectedType.icon} /> <span id="selected-value">{selectedType.name}</span>
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
           <ActionList selectionVariant="single">
@@ -98,6 +97,7 @@ export function SingleSelection(): JSX.Element {
               <ActionList.Item
                 key={index}
                 selected={index === selectedIndex}
+                id={index === selectedIndex ? 'selected-item' : undefined}
                 onSelect={() => setSelectedIndex(index)}
                 disabled={index === 3}
               >
