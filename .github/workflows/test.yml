@@ -2,8 +2,8 @@ name: Test
 on:
   push:
     branches: 
-      - changeset-release/main
-      - test-rc-action
+      - 'changeset-release/main'
+      - 'test-rc-action'
 
 permissions:
   contents: read
