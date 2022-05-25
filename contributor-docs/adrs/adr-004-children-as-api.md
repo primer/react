@@ -36,7 +36,7 @@ On the other hand, if we want consumers to have more control over children, a co
 
 ## Prefer using children for “content”
 
-With React, `children` is the out-of-the-box way for putting _content_ inside your component. By using `children` instead of our own custom prop, we can make the API “predictable” for its consumers.
+With React, `children` is the out-of-the-box way for putting [phrasing content](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#phrasing_content) inside your component. By using `children` instead of our own custom prop, we can make the API “predictable” for its consumers.
 
 <img width="373" alt="image" src="https://user-images.githubusercontent.com/1863771/144945223-70c4c800-5827-4985-9f18-0ab416eba058.png">
 
