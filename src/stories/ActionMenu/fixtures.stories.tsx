@@ -207,9 +207,9 @@ export function CustomAnchor(): JSX.Element {
       <h2>Last option activated: {actionFired}</h2>
       <ActionMenu>
         <ActionMenu.Anchor>
-          <summary style={{cursor: 'pointer'}} aria-label="Open column options">
+          <button aria-label="Open column options">
             <KebabHorizontalIcon />
-          </summary>
+          </button>
         </ActionMenu.Anchor>
         <ActionMenu.Overlay>
           <ActionList>
