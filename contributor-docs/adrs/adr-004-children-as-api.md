@@ -223,14 +223,6 @@ It can be tempting to "future proof" our API and adopt this pattern early, but w
 
 _Note: We might want to name this component `Flash.LeadingIcon`, even if there is no `trailingIcon`. We should try to keep the names consistent across components with the same behavior, but that should not be a deciding factor in making the choice between prop or child component._
 
-_Sidenote: On the surface it looks we have also removed the `sx` prop for the Icon but because the `sx` prop supports nesting, there is always a way to override styles for better or worse:_
-
-```jsx
-<Flash variant="success" icon={CheckIcon} sx={{svg: {path: {fill: 'lime'}}}}>
-  Changes saved!
-</Flash>
-```
-
 <br/>
 
 ---
