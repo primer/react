@@ -1,7 +1,7 @@
 name: Test
 on:
   push:
-    branch: 
+    branches: 
       - changeset-release/main
       - test-rc-action
 
