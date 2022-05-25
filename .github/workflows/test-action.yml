@@ -1,0 +1,13 @@
+name: Test Action
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  say-hi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Hi"
