@@ -89,7 +89,7 @@ export function SingleSelection(): JSX.Element {
       <p>This pattern has a single section with the selected value shown in the button</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon}>
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -122,7 +122,7 @@ export function SingleSelectionWithPlaceholder(): JSX.Element {
       <p>This pattern has a placeholder in menu button when no value is selected yet</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon}>
           {selectedType.name || 'Pick a field type'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -155,7 +155,7 @@ export function GroupsAndDescription(): JSX.Element {
       <Box sx={{width: 200}}>
         <ActionMenu>
           <ActionMenu.Button
-            aria-label="Select a milestone"
+            aria-label="Milestone"
             variant="invisible"
             trailingIcon={GearIcon}
             sx={{
@@ -251,7 +251,7 @@ export function MultipleSelection(): JSX.Element {
       <Box sx={{width: 200}}>
         <ActionMenu>
           <ActionMenu.Button
-            aria-label="Select assignees"
+            aria-label="Assignees"
             variant="invisible"
             trailingIcon={GearIcon}
             sx={{
@@ -312,10 +312,7 @@ export function MixedSelection(): JSX.Element {
       </p>
 
       <ActionMenu>
-        <ActionMenu.Button
-          aria-label="Select field type to group by"
-          leadingIcon={selectedOption && selectedOption.icon}
-        >
+        <ActionMenu.Button aria-label="Group by" leadingIcon={selectedOption && selectedOption.icon}>
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
