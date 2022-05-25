@@ -115,11 +115,13 @@ export function SingleSelectionWithInlineLabel(): JSX.Element {
   const selectedType = fieldTypes[selectedIndex]
   return (
     <>
-      <h1>Single Selection - with aria-describedby</h1>
+      <h1>Single Selection - with inline label</h1>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" aria-describedby="selected-value">
-          <Text sx={{color: 'fg.muted', fontWeight: 'normal'}}>Field type:</Text>{' '}
+        <ActionMenu.Button aria-labelledby="menu-label" aria-describedby="selected-value">
+          <Text sx={{color: 'fg.muted', fontWeight: 'normal'}} id="menu-label">
+            Field type:
+          </Text>{' '}
           <StyledOcticon icon={selectedType.icon} /> <span id="selected-value">{selectedType.name}</span>
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
