@@ -14,8 +14,6 @@ jobs:
     name: Hi
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -26,10 +24,9 @@ jobs:
         uses: actions/github-script@v4.0.2
         with:
           script: |
-          github.actions.createWorkflowDispatch({
-            'primer',
-            'react',
-            'test-action.yml',
-            'test-rc-action',
-          });
-          
+            github.actions.createWorkflowDispatch({
+              'primer',
+              'react',
+              'test-action.yml',
+              'test-rc-action',
+            });
