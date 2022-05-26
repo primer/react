@@ -1,0 +1,213 @@
+---
+title: SegmentedControl
+status: Draft
+description: Use a segmented control to let users select an option from a short list and immediately apply the selection
+---
+
+<Note variant="warning">Not implemented yet</Note>
+
+## Examples
+
+### Simple
+
+```jsx live drafts
+<SegmentedControl aria-label="File view">
+  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
+### With icons and labels
+
+```jsx live drafts
+<SegmentedControl aria-label="File view">
+  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+    Preview
+  </SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
+### With icons only
+
+```jsx live drafts
+<SegmentedControl aria-label="File view">
+  <SegmentedControl.IconButton selected icon={EyeIcon} aria-label="Preview" />
+  <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />
+  <SegmentedControl.IconButton icon={PeopleIcon} aria-label="Blame" />
+</SegmentedControl>
+```
+
+### With labels hidden on smaller viewports
+
+```jsx live drafts
+<SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'none'}}>
+  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+    Preview
+  </SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
+### Convert to a dropdown on smaller viewports
+
+```jsx live drafts
+<SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'none'}}>
+  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+    Preview
+  </SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
+### Fill width of parent
+
+```jsx live drafts
+<SegmentedControl fullWidth aria-label="File view">
+  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
+### In a loading state
+
+```jsx live drafts
+<SegmentedControl loading aria-label="File view">
+  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
+### With a label and caption on the left
+
+```jsx live drafts
+<Box display="flex">
+  <Box flexGrow={1}>
+    <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
+      File view
+    </Text>
+    <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
+      Change the way the file is viewed
+    </Text>
+  </Box>
+  <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
+    <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
+  </SegmentedControl>
+</Box>
+```
+
+### With a label above and caption below
+
+```jsx live drafts
+<FormControl>
+  <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
+  <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
+    <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button>Raw</SegmentedControl.Button>
+    <SegmentedControl.Button>Blame</SegmentedControl.Button>
+  </SegmentedControl>
+  <FormControl.Caption id="scCaption-horiz">Change the way the file is viewed</FormControl.Caption>
+</FormControl>
+```
+
+### With something besides the first option selected
+
+```jsx live drafts
+<SegmentedControl aria-label="File view">
+  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button selected>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
+### With a selection change handler
+
+```jsx live drafts
+<SegmentedControl
+  aria-label="File view"
+  onChange={selectedIndex => {
+    alert(`Segment ${selectedIndex}`)
+  }}
+>
+  <SegmentedControl.Button>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
+## Props
+
+### SegmentedControl
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="aria-labelledby" type="string" />
+  <PropsTableRow name="aria-describedby" type="string" />
+  <PropsTableRow name="fullWidth" type="boolean" description="Whether the control fills the width of its parent" />
+  <PropsTableRow name="loading" type="boolean" description="Whether the selected segment is being calculated" />
+  <PropsTableRow
+    name="onChange"
+    type="(selectedIndex?: number) => void"
+    description="The handler that gets called when a segment is selected"
+  />
+  <PropsTableRow
+    name="variant"
+    type="{
+      narrow?: 'hideLabels' | 'dropdown',
+      regular?: 'hideLabels' | 'dropdown',
+      wide?: 'hideLabels' | 'dropdown'
+    }"
+    description="Configure alternative ways to render the control when it gets rendered in tight spaces"
+  />
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLDivElement" />
+</PropsTable>
+
+### SegmentedControl.Button
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="leadingIcon" type="Component" description="The leading icon comes before item label" />
+  <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLButtonElement" />
+</PropsTable>
+
+### SegmentedControl.IconButton
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="icon" type="Component" description="The icon that represents the segmented control item" />
+  <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLButtonElement" />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
