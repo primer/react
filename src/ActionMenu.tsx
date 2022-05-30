@@ -7,14 +7,16 @@ import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, u
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
+import Text from './Text'
+import StyledOcticon from './StyledOcticon'
 import {MandateProps} from './utils/types'
 import {SxProp, merge} from './sx'
 
 type MenuContextProps = Pick<
   AnchoredOverlayProps,
   'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose' | 'anchorId'
->
-const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
+> & {includeLabel: boolean}
+const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, includeLabel: false, open: false})
 
 export type ActionMenuProps = {
   /**
@@ -45,6 +47,7 @@ const Menu: React.FC<ActionMenuProps> = ({
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const anchorId = useSSRSafeId()
+  let includeLabel = false
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
 
   // 🚨 Hack for good API!
@@ -52,6 +55,7 @@ const Menu: React.FC<ActionMenuProps> = ({
   // with additional props for accessibility
   const contents = React.Children.map(children, child => {
     if (child.type === MenuButton || child.type === Anchor) {
+      includeLabel = child.props.includeLabel
       renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       return null
     }
@@ -59,7 +63,9 @@ const Menu: React.FC<ActionMenuProps> = ({
   })
 
   return (
-    <MenuContext.Provider value={{anchorRef, renderAnchor, anchorId, open: combinedOpenState, onOpen, onClose}}>
+    <MenuContext.Provider
+      value={{anchorRef, renderAnchor, anchorId, includeLabel, open: combinedOpenState, onOpen, onClose}}
+    >
       {contents}
     </MenuContext.Provider>
   )
@@ -73,9 +79,11 @@ const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnc
 )
 
 /** this component is syntactical sugar 🍭 */
-export type ActionMenuButtonProps = ButtonProps
+export type ActionMenuButtonProps = ButtonProps & {includeLabel: boolean}
 const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
-  ({sx: sxProp = {}, ...props}, anchorRef) => {
+  ({sx: sxProp = {}, includeLabel = false, 'aria-label': ariaLabel, leadingIcon, ...props}, anchorRef) => {
+    const {anchorId} = React.useContext(MenuContext)
+
     return (
       <Anchor ref={anchorRef}>
         <Button
@@ -88,8 +96,20 @@ const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonPro
             },
             sxProp as SxProp
           )}
+          aria-label={includeLabel ? undefined : ariaLabel}
+          aria-labelledby={includeLabel ? `${anchorId}-purpose ${anchorId}-divider ${anchorId}-value` : undefined}
+          leadingVisual={includeLabel ? undefined : leadingIcon}
           {...props}
-        />
+        >
+          {includeLabel ? (
+            <Text sx={{color: 'fg.muted', fontWeight: 'normal', mr: 1}}>
+              <span id={`${anchorId}-purpose`}>{ariaLabel}</span>
+              {props.children && <span id={`${anchorId}-divider`}>:</span>}
+            </Text>
+          ) : null}
+          {leadingIcon && <StyledOcticon icon={leadingIcon} sx={{mr: 2}} />}
+          <span id={`${anchorId}-value`}>{props.children}</span>
+        </Button>
       </Anchor>
     )
   }
@@ -105,10 +125,9 @@ type MenuOverlayProps = Partial<OverlayProps> &
 const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...overlayProps}) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
-  const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
-    MenuContextProps,
-    'anchorRef'
-  >
+  const {anchorRef, renderAnchor, anchorId, includeLabel, open, onOpen, onClose} = React.useContext(
+    MenuContext
+  ) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.createRef<HTMLDivElement>()
   const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef)
@@ -131,7 +150,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            listLabelledBy: anchorId,
+            listLabelledBy: includeLabel ? `${anchorId}-purpose` : anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: onClose
           }}
