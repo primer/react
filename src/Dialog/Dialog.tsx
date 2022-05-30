@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
-import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../Button'
+import Button, {ButtonPrimary, ButtonDanger, ButtonProps} from '../deprecated/Button'
 import Box from '../Box'
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -9,7 +9,7 @@ import sx, {SxProp} from '../sx'
 import StyledOcticon from '../StyledOcticon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '../behaviors/focusZone'
+import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
 import {useCombinedRefs} from '../hooks/useCombinedRefs'
 import {useSSRSafeId} from '@react-aria/ssr'
@@ -314,17 +314,18 @@ const Header = styled.div.attrs<SxProp>({as: 'header'})`
   flex-shrink: 0;
 `
 
-const Title = styled.div<SxProp>`
+const Title = styled.h1<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
-
+  margin: 0; /* override default margin */
   ${sx};
 `
 
-const Subtitle = styled.div<SxProp>`
+const Subtitle = styled.h2<SxProp>`
   font-size: ${get('fontSizes.0')};
-  margin-top: ${get('space.1')};
   color: ${get('colors.fg.muted')};
+  margin: 0; /* override default margin */
+  margin-top: ${get('space.1')};
 
   ${sx};
 `

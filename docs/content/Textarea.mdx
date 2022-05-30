@@ -1,0 +1,189 @@
+---
+componentId: textarea
+title: Textarea
+description: Use Textarea for multi-line text input form fields
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/Textarea.tsx
+storybook: /react/storybook?path=/story/forms-textarea--default
+---
+
+import {Textarea} from '@primer/react'
+
+<Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
+  <Textarea />
+</Box>
+
+```js
+import {Textarea} from '@primer/react'
+```
+
+## Examples
+
+<Note variant="warning">
+
+Textarea components **must always** be accompanied by a corresponding label to improve support for assistive
+technologies. Examples below are provided for conciseness and may not reflect accessibility best practices.
+
+Use the [FormControl](/FormControl) component to render a Textarea with a corresponding label.
+
+</Note>
+
+### Controlled mode
+
+```javascript live noinline
+const TextareaExample = () => {
+  // Running in controlled mode (recommended)
+  const [value, setValue] = React.useState('')
+
+  const handleChange = event => {
+    setValue(event.target.value)
+  }
+
+  return <Textarea placeholder="Enter a description" onChange={handleChange} value={value} />
+}
+
+render(<TextareaExample />)
+```
+
+### Uncontrolled mode
+
+```javascript live noinline
+const TextareaExample = () => {
+  const ref = React.useRef()
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    if (!ref.current.value) {
+      alert(`Enter a value into the Textarea and press submit`)
+      return
+    }
+
+    alert(`Current Textarea value: ${ref.current.value}`)
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Textarea
+        cols={40}
+        rows={8}
+        ref={ref}
+        defaultValue="Set the initial state in uncontrolled mode using the defaultValue prop"
+      />
+      <br />
+      <Button type="submit">Submit</Button>
+    </form>
+  )
+}
+
+render(<TextareaExample />)
+```
+
+### Displaying form validation state
+
+```jsx live
+<>
+  <Box as="label" htmlFor="success-state" sx={{display: 'block'}}>
+    Success state:
+  </Box>
+  <Textarea id="success-state" validationStatus="success" />
+  <Box as="label" htmlFor="error-state" sx={{display: 'block', mt: 5}}>
+    Error state:
+  </Box>
+  <Textarea id="error-state" validationStatus="error" />
+</>
+```
+
+### Inactive
+
+```jsx live
+<>
+  <Textarea disabled>This text is inactive</Textarea>
+</>
+```
+
+### Resize
+
+By default, `Textarea` can be resized by the user vertically and horizontally. Resizing can be prevented by setting `resize` to `none`
+
+```jsx live
+<Textarea cols={40} resize="none" />
+```
+
+### Custom styling
+
+```jsx live
+<>
+  <Textarea sx={{marginBottom: 2}} />
+  <p>Custom styles like `margin` and `padding` can be applied using the `sx` prop</p>
+</>
+```
+
+## Props
+
+### Textarea
+
+<PropsTable>
+  <PropsTableRow
+    name="required"
+    type="boolean"
+    description="Indicates to the user and assistive technologies that the field value is required"
+  />
+  <PropsTableRow
+    name="cols"
+    type="number"
+    description="Specifies the visible width of a text area."
+  />
+  <PropsTableRow
+    name="rows"
+    type="number"
+    description="Specifies the visible height of a text area."
+  />
+  <PropsTableRow
+    name="block"
+    type="boolean"
+    defaultValue="false"
+    description="Expands with width of the component to fill the parent elements"
+  />
+  <PropsTableRow
+    name="resize"
+    type="'both' | 'horizontal' | 'vertical' | 'none'"
+    defaultValue="'both'"
+    description="Changes background color to a higher contrast color"
+  />
+  <PropsTableRow name="validationStatus"  
+    type="'success' | 'error' | undefined" 
+    description="Style the textarea to match the current form validation status"
+  />
+  <PropsTableRefRow
+    elementType="textarea"
+    refType="HTMLTextAreaElement"
+  />
+  <PropsTablePassthroughPropsRow
+    elementName="textarea"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attributes">MDN</Link>
+    }
+  />
+
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

@@ -1,4 +1,5 @@
 import AvatarStack from '../AvatarStack'
+import Avatar from '../Avatar'
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {ThemeProvider} from '..'
@@ -27,10 +28,10 @@ export default meta
 export function AvatarStackStory(): JSX.Element {
   return (
     <AvatarStack>
-      <img src="https://avatars.githubusercontent.com/primer" alt="" />
-      <img src="https://avatars.githubusercontent.com/github" alt="" />
-      <img src="https://avatars.githubusercontent.com/primer" alt="" />
-      <img src="https://avatars.githubusercontent.com/github" alt="" />
+      <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
+      <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />
+      <Avatar alt="Atom logo" src="https://avatars.githubusercontent.com/atom" />
+      <Avatar alt="GitHub Desktop logo" src="https://avatars.githubusercontent.com/desktop" />
     </AvatarStack>
   )
 }

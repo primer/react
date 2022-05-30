@@ -1,11 +1,11 @@
 import classnames from 'classnames'
-// eslint-disable-next-line import/no-namespace
-import * as History from 'history'
+import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
+import getGlobalFocusStyles from './_getGlobalFocusStyles'
 
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
@@ -33,7 +33,7 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
 }
 
 type StyledTabNavLinkProps = {
-  to?: History.LocationDescriptor
+  to?: To
   selected?: boolean
 } & SxProp
 
@@ -49,6 +49,8 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   background-color: transparent;
   border: 1px solid transparent;
   border-bottom: 0;
+
+  ${getGlobalFocusStyles('-6px')};
 
   &:hover,
   &:focus {

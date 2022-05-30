@@ -1,4 +1,4 @@
-import {Box, StyledOcticon, Link, Text} from '@primer/components'
+import {Box, StyledOcticon, Link, Text} from '@primer/react'
 import {H3} from '@primer/gatsby-theme-doctocat/src/components/heading'
 import {CheckCircleFillIcon, CircleIcon, SkipIcon} from '@primer/octicons-react'
 import React from 'react'

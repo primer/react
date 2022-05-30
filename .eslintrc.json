@@ -23,6 +23,7 @@
     "lib/**/*",
     "lib-*/**/*",
     "types/**/*",
+    "consumer-test/**/*",
     "contributor-docs/adrs/*"
   ],
   "globals": {
@@ -131,7 +132,8 @@
         "jsx-a11y/label-has-for": 0,
         "@typescript-eslint/no-unnecessary-condition": 0,
         "@typescript-eslint/no-unused-vars": 0,
-        "primer-react/no-deprecated-colors": ["error", {"skipImportCheck": true}]
+        "primer-react/no-deprecated-colors": ["error", {"skipImportCheck": true}],
+        "no-redeclare": 0
       }
     }
   ]

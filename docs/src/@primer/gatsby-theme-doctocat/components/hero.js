@@ -1,4 +1,4 @@
-import {Box, Heading, Text, ThemeProvider} from '@primer/components'
+import {Box, Heading, Text, ThemeProvider} from '@primer/react'
 import React from 'react'
 import {Container} from '@primer/gatsby-theme-doctocat'
 import heroIllustration from '../primer-components-hero.svg'

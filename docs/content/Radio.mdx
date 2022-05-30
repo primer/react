@@ -1,0 +1,107 @@
+---
+componentId: radio
+title: Radio
+description: Use radios when a user needs to select one option from a list
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/Radio.tsx
+storybook: '/react/storybook?path=/story/forms-radio-button--default'
+---
+
+## Examples
+
+<Note variant="warning">
+
+**Use [FormControl](/FormControl) to render a standard radio input field.** This component is only meant to be used in the case that you're building a custom radio that is not yet supported by Primer (For example: the color mode selection in [Appearance settings](https://github.com/settings/appearance))
+
+If you do use this component to build a custom radio, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
+
+</Note>
+
+```jsx live
+<>
+  <Radio value="one" name="radio-group-name" />
+  <Radio value="two" name="radio-group-name" />
+  <Radio disabled value="three" name="radio-group-name" />
+</>
+```
+
+<Note>
+
+Please use a [Checkbox](/Checkbox) if the user needs to select more than one option in a list
+
+</Note>
+
+## Grouping Radio components
+
+Use the `name` prop to group together related `Radio` components in a list.
+
+If you're not building something custom, you should use the [ChoiceFieldset](/ChoiceFieldset) component to render a group of radio inputs.
+
+```jsx live
+<form>
+  <FormControl>
+    <Radio value="1" name="radio-example" />
+    <FormControl.Label>Radio 1</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Radio value="2" name="radio-example" />
+    <FormControl.Label>Radio 2</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Radio value="3" name="radio-example" />
+    <FormControl.Label>Radio 3</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Radio value="4" name="radio-example" />
+    <FormControl.Label>Radio 4</FormControl.Label>
+  </FormControl>
+</form>
+```
+
+## Props
+
+<PropsTable>
+  <PropsTableRow name="value" type="string" required description="A unique value that is never shown to the user" />
+  <PropsTableRow name="name" type="string" required description="Required for grouping multiple radios" />
+  <PropsTableRow name="checked" type="boolean" description="Modifies true/false value of the native radio" />
+  <PropsTableRow name="defaultChecked" type="boolean" description="Selects the radio by default in uncontrolled mode" />
+  <PropsTableRow
+    name="onChange"
+    type="(event: React.ChangeEvent) => void"
+    description="A callback function that is triggered when the input state has been changed"
+  />
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    description="Modifies the native disabled state of the native checkbox"
+  />
+  <PropsTableBasePropRows
+    elementType="input"
+    refType="HTMLInputElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#additional_attributes">
+        MDN
+      </Link>
+    }
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

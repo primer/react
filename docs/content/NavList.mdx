@@ -1,0 +1,346 @@
+---
+title: NavList
+status: Draft
+description: Use nav list to render a vertical list of navigation links.
+source: https://github.com/primer/react/tree/main/src/NavList
+---
+
+```js
+import {NavList} from '@primer/react/drafts'
+```
+
+## Examples
+
+### Simple
+
+```jsx live drafts
+<NavList>
+  <NavList.Item href="/" aria-current="page">
+    Home
+  </NavList.Item>
+  <NavList.Item href="/about">About</NavList.Item>
+  <NavList.Item href="/contact">Contact</NavList.Item>
+</NavList>
+```
+
+### With leading icons
+
+```jsx live drafts
+<NavList>
+  <NavList.Item href="/" aria-current="page">
+    <NavList.LeadingVisual>
+      <HomeIcon />
+    </NavList.LeadingVisual>
+    Dashboard
+  </NavList.Item>
+  <NavList.Item href="/pulls">
+    <NavList.LeadingVisual>
+      <GitPullRequestIcon />
+    </NavList.LeadingVisual>
+    Pull requests
+  </NavList.Item>
+  <NavList.Item href="/issues">
+    <NavList.LeadingVisual>
+      <IssueOpenedIcon />
+    </NavList.LeadingVisual>
+    Issues
+  </NavList.Item>
+</NavList>
+```
+
+### With other leading visuals
+
+```jsx live drafts
+<NavList>
+  <NavList.Item href="/general" aria-current="page">
+    <NavList.LeadingVisual>
+      <span aria-hidden>#️⃣</span>
+    </NavList.LeadingVisual>
+    General
+  </NavList.Item>
+  <NavList.Item href="/q-a">
+    <NavList.LeadingVisual>
+      <span aria-hidden>🙏</span>
+    </NavList.LeadingVisual>
+    Q&A
+  </NavList.Item>
+  <NavList.Item href="/show-and-tell">
+    <NavList.LeadingVisual>
+      <span aria-hidden>🙌</span>
+    </NavList.LeadingVisual>
+    Show and tell
+  </NavList.Item>
+</NavList>
+```
+
+### With trailing visuals
+
+```jsx live drafts
+<NavList>
+  <NavList.Item href="/inbox" aria-current="page">
+    Inbox
+    <NavList.TrailingVisual>1,234</NavList.TrailingVisual>
+  </NavList.Item>
+  <NavList.Item href="/saved">Saved</NavList.Item>
+  <NavList.Item href="/done">Done</NavList.Item>
+</NavList>
+```
+
+### With a heading
+
+```jsx live drafts
+<>
+  <Heading as="h3" id="workflows-heading" sx={{fontSize: 2}}>
+    Workflows
+  </Heading>
+  <NavList aria-labelledby="workflows-heading">
+    <NavList.Item href="/" aria-current="page">
+      All workflows
+    </NavList.Item>
+    <NavList.Item href="/ci">CI</NavList.Item>
+    <NavList.Item href="/deploy">Deploy</NavList.Item>
+    <NavList.Item href="/release">Release</NavList.Item>
+  </NavList>
+</>
+```
+
+### With aria-label
+
+```jsx live drafts
+<NavList aria-label="Security">
+  <NavList.Item href="/" aria-current="page">
+    Overview
+  </NavList.Item>
+  <NavList.Item href="/policy">Security policy</NavList.Item>
+  <NavList.Item href="/advisories">Security advisories</NavList.Item>
+</NavList>
+```
+
+### With groups
+
+```jsx live drafts
+<NavList>
+  <NavList.Group title="Overview">
+    <NavList.Item href="/getting-started" aria-current="page">
+      Getting started
+    </NavList.Item>
+  </NavList.Group>
+  <NavList.Group title="Components">
+    <NavList.Item href="/Avatar">Avatar</NavList.Item>
+    <NavList.Item href="/Button">Button</NavList.Item>
+    <NavList.Item href="/Label">Label</NavList.Item>
+  </NavList.Group>
+</NavList>
+```
+
+### With sub-items
+
+```jsx live drafts
+<NavList>
+  <NavList.Item href="/branches">Branches</NavList.Item>
+  <NavList.Item href="/tags">Tags</NavList.Item>
+  <NavList.Item>
+    Actions
+    <NavList.SubNav>
+      <NavList.Item href="/actions" aria-current="page">
+        General
+      </NavList.Item>
+      <NavList.Item href="/actions/runners">Runners</NavList.Item>
+    </NavList.SubNav>
+  </NavList.Item>
+</NavList>
+```
+
+<Note variant="warning">
+
+If a `NavList.Item` contains a `NavList.SubNav`, the `NavList.Item` will render as a `<button>` and the `as` prop and `href` prop will be ignored.
+
+</Note>
+
+### With a divider
+
+```jsx live drafts
+<NavList>
+  <NavList.Item href="/" aria-current="page">
+    Dashboard
+  </NavList.Item>
+  <NavList.Item href="/pulls">Pull requests</NavList.Item>
+  <NavList.Item href="/issues">Issues</NavList.Item>
+  <NavList.Divider />
+  <NavList.Item href="/marketplace">Marketplace</NavList.Item>
+  <NavList.Item href="/explore">Explore</NavList.Item>
+</NavList>
+```
+
+### With React Router
+
+```jsx
+import {Link, useMatch, useResolvedPath} from 'react-router-dom'
+import {NavList} from '@primer/react'
+
+function NavItem({to, children}) {
+  const resolved = useResolvedPath(to)
+  const isCurrent = useMatch({path: resolved.pathname, end: true})
+  return (
+    <NavList.Item as={Link} to={to} aria-current={isCurrent ? 'page' : false}>
+      {children}
+    </NavList.Item>
+  )
+}
+
+function App() {
+  return (
+    <NavList>
+      <NavItem to="/">Dashboard</NavItem>
+      <NavItem to="/pulls">Pull requests</NavItem>
+      <NavItem to="/issues">Issues</NavItem>
+    </NavList>
+  )
+}
+```
+
+### With Next.js
+
+```jsx
+import {useRouter} from 'next/router'
+import Link from 'next/link'
+import {NavList} from '@primer/react'
+
+function NavItem({href, children}) {
+  const router = useRouter()
+  const isCurrent = router.asPath === href
+  return (
+    <Link href={href} passHref>
+      <NavList.Item aria-current={isCurrent ? 'page' : false}>{children}</NavList.Item>
+    </Link>
+  )
+}
+
+function App() {
+  return (
+    <NavList>
+      <NavItem href="/">Dashboard</NavItem>
+      <NavItem href="/pulls">Pull requests</NavItem>
+      <NavItem href="/issues">Issues</NavItem>
+    </NavList>
+  )
+}
+```
+
+## Props
+
+### NavList
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="aria-labelledby" type="string" />
+  <PropsTableBasePropRows
+    elementType="nav"
+    refType="HTMLElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#Attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
+### NavList.Item
+
+<PropsTable>
+  <PropsTableRow
+    name="href"
+    type="string"
+    description={
+      <>
+        The URL that the item navigates to. <InlineCode>href</InlineCode> is passed to the underlying{' '}
+        <InlineCode>&lt;a&gt;</InlineCode> element. If <InlineCode>as</InlineCode> is specified, the component may need
+        different props. If the item contains a sub-nav, the item is rendered as a{' '}
+        <InlineCode>&lt;button&gt;</InlineCode> and <InlineCode>href</InlineCode> is ignored.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="aria-current"
+    type={`| 'page'
+| 'step'
+| 'location'
+| 'date'
+| 'time'
+| true
+| false`}
+    defaultValue="false"
+    description={
+      <>
+        Set <InlineCode>aria-current</InlineCode> to <InlineCode>"page"</InlineCode> to indicate that the item
+        represents the current page. Set <InlineCode>aria-current</InlineCode> to <InlineCode>"location"</InlineCode> to
+        indicate that the item represents the current location on a page. For more information about{' '}
+        <InlineCode>aria-current</InlineCode>, see{' '}
+        <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current">MDN</Link>.
+      </>
+    }
+  />
+  <PropsTableBasePropRows
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
+    }
+    elementType="a"
+    isPolymorphic
+    refType="HTMLAnchorElement"
+  />
+</PropsTable>
+
+### NavList.LeadingVisual
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.TrailingVisual
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.SubNav
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.Group
+
+<PropsTable>
+  <PropsTableRow name="title" type="string" description="Title of the group." /> {/* Should `title` be required? */}
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+### NavList.Divider
+
+<PropsTable>
+  <PropsTableSxRow />
+  <PropsTableRefRow refType="HTMLElement" />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

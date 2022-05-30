@@ -1,0 +1,82 @@
+---
+title: IconButton
+componentId: icon_button
+status: Alpha
+source: https://github.com/primer/react/tree/main/src/Button
+storybook: '/react/storybook?path=/story/composite-components-button'
+description: An accessible button component with no text and only icon.
+---
+
+## Usage
+
+### Installation
+
+```js
+import {IconButton} from '@primer/react'
+```
+
+### Icon only button
+
+A separate component called `IconButton` is used if the action shows only an icon with no text. This button will remain square in shape.
+
+```jsx live
+<IconButton aria-label="Search" icon={SearchIcon} />
+```
+
+### Different sized icon buttons
+
+`IconButton` also supports the three different sizes. `small`, `medium`, `large`.
+
+```jsx live
+<>
+  <IconButton aria-label="Search" icon={SearchIcon} size="small" />
+  <IconButton aria-label="Search" sx={{ml: 2}} icon={SearchIcon} />
+  <IconButton aria-label="Search" sx={{ml: 2}} icon={SearchIcon} size="large" />
+</>
+```
+
+## API reference
+
+Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
+
+### Button
+
+<PropsTable>
+  <PropsTableRow name="children" required type="React.ReactNode" description="This will be the Button description." />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'primary' | 'danger' | 'outline' | 'invisible'"
+    description="Changes the look and feel of the button which is different for each variant"
+  />
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large'"
+    description="Changes the size of the icon button component"
+  />
+  <PropsTableRow
+    name="icon"
+    type="Component"
+    description="provide an octicon. It will be placed in the center of the button"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Component status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

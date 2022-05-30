@@ -1,4 +1,5 @@
 ---
+componentId: circle_octicon
 title: CircleOcticon
 status: Alpha
 ---

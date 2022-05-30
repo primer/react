@@ -6,6 +6,7 @@ import 'babel-polyfill'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken} from '../Token'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
+import {MarkGithubIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
 const mockTokens = [
@@ -91,6 +92,109 @@ describe('TextInputWithTokens', () => {
     const onRemoveMock = jest.fn()
     expect(
       render(<TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} visibleTokenCount={2} />)
+    ).toMatchSnapshot()
+  })
+
+  it('renders a leadingVisual and trailingVisual', () => {
+    const onRemoveMock = jest.fn()
+    expect(
+      render(
+        <TextInputWithTokens
+          leadingVisual={MarkGithubIcon}
+          trailingVisual={MarkGithubIcon}
+          tokens={mockTokens}
+          onTokenRemove={onRemoveMock}
+        />
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders with a loading indicator', () => {
+    const onRemoveMock = jest.fn()
+    expect(
+      render(
+        <>
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading />
+
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading loaderPosition="leading" />
+
+          <TextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} loading loaderPosition="trailing" />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            leadingVisual={MarkGithubIcon}
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            leadingVisual={MarkGithubIcon}
+            loaderPosition="leading"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            leadingVisual={MarkGithubIcon}
+            loaderPosition="trailing"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            trailingVisual={MarkGithubIcon}
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            trailingVisual={MarkGithubIcon}
+            loaderPosition="leading"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            trailingVisual={MarkGithubIcon}
+            loaderPosition="trailing"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            size="small"
+            leadingVisual={MarkGithubIcon}
+            trailingVisual={MarkGithubIcon}
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            leadingVisual={MarkGithubIcon}
+            trailingVisual={MarkGithubIcon}
+            loaderPosition="leading"
+          />
+
+          <TextInputWithTokens
+            tokens={mockTokens}
+            onTokenRemove={onRemoveMock}
+            loading
+            size="large"
+            leadingVisual={MarkGithubIcon}
+            trailingVisual={MarkGithubIcon}
+            loaderPosition="trailing"
+          />
+        </>
+      )
     ).toMatchSnapshot()
   })
 

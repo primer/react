@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+[ -z "$HUSKY_ENABLED" ] && exit 0 
+
+npx lint-staged

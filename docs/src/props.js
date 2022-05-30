@@ -1,6 +1,6 @@
-import {Flash} from '@primer/components'
 import {H3} from '@primer/gatsby-theme-doctocat/src/components/heading'
 import Paragraph from '@primer/gatsby-theme-doctocat/src/components/paragraph'
+import {Flash} from '@primer/react'
 import {graphql, useStaticQuery} from 'gatsby'
 import React from 'react'
 import {PropsTable} from './props-table'

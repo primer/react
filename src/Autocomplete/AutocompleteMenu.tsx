@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
-import {ActionList, ItemProps} from '../ActionList'
+import {scrollIntoView} from '@primer/behaviors'
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
+import {ActionList, ItemProps} from '../deprecated/ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {ComponentProps, MandateProps} from '../utils/types'
-import {Box, Spinner} from '../'
+import {Box, Spinner, useSSRSafeId} from '../'
 import {AutocompleteContext} from './AutocompleteContext'
 import {PlusIcon} from '@primer/octicons-react'
-import {uniqueId} from '../utils/uniqueId'
-import {scrollIntoViewingArea} from '../behaviors/scrollIntoViewingArea'
+import VisuallyHidden from '../_VisuallyHidden'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
@@ -14,6 +15,7 @@ type AutocompleteMenuItem = MandateProps<ItemProps, 'id'>
 const getDefaultSortFn =
   (isItemSelectedFn: (itemId: string | number) => boolean) => (itemIdA: string | number, itemIdB: string | number) =>
     isItemSelectedFn(itemIdA) === isItemSelectedFn(itemIdB) ? 0 : isItemSelectedFn(itemIdA) ? -1 : 1
+const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 function getDefaultItemFilter<T extends AutocompleteMenuItem>(filterValue: string) {
   return function (item: T, _i: number) {
@@ -21,7 +23,7 @@ function getDefaultItemFilter<T extends AutocompleteMenuItem>(filterValue: strin
   }
 }
 
-function getDefaultOnSelectionChange<T extends AutocompleteMenuItem>(
+function getdefaultCheckedSelectionChange<T extends AutocompleteMenuItem>(
   setInputValueFn: (value: string) => void
 ): OnSelectedChange<T> {
   return function (itemOrItems) {
@@ -143,6 +145,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   const listContainerRef = useRef<HTMLDivElement>(null)
   const [highlightedItem, setHighlightedItem] = useState<T>()
   const [sortedItemIds, setSortedItemIds] = useState<Array<number | string>>(items.map(({id: itemId}) => itemId))
+  const generatedUniqueId = useSSRSafeId(id)
 
   const selectableItems = useMemo(
     () =>
@@ -157,7 +160,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
             const newSelectedItemIds = selectedItemIds.includes(item.id)
               ? otherSelectedItemIds
               : [...otherSelectedItemIds, item.id]
-            const onSelectedChangeFn = onSelectedChange ? onSelectedChange : getDefaultOnSelectionChange(setInputValue)
+            const onSelectedChangeFn = onSelectedChange
+              ? onSelectedChange
+              : getdefaultCheckedSelectionChange(setInputValue)
 
             onSelectedChangeFn(
               newSelectedItemIds.map(newSelectedItemId => getItemById(newSelectedItemId, items)) as T[]
@@ -216,7 +221,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
               leadingVisual: () => <PlusIcon />,
               onAction: (item: T) => {
                 // TODO: make it possible to pass a leadingVisual when using `addNewItem`
-                addNewItem.handleAddItem({...item, id: item.id || uniqueId(), leadingVisual: undefined})
+                addNewItem.handleAddItem({...item, id: item.id || generatedUniqueId, leadingVisual: undefined})
 
                 if (selectionVariant === 'multiple') {
                   setInputValue('')
@@ -227,7 +232,14 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           ]
         : [])
     ],
-    [sortedAndFilteredItemsToRender, addNewItem, setAutocompleteSuggestion, selectionVariant, setInputValue]
+    [
+      sortedAndFilteredItemsToRender,
+      addNewItem,
+      setAutocompleteSuggestion,
+      selectionVariant,
+      setInputValue,
+      generatedUniqueId
+    ]
   )
 
   useFocusZone(
@@ -248,9 +260,9 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         }
 
         if (current && customScrollContainerRef && customScrollContainerRef.current && directlyActivated) {
-          scrollIntoViewingArea(current, customScrollContainerRef.current)
+          scrollIntoView(current, customScrollContainerRef.current, menuScrollMargins)
         } else if (current && scrollContainerRef.current && directlyActivated) {
-          scrollIntoViewingArea(current, scrollContainerRef.current)
+          scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
         }
       }
     },
@@ -287,24 +299,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   }, [selectedItemIds, setSelectedItemLength])
 
   return (
-    <Box
-      sx={
-        !showMenu
-          ? {
-              // visually hides this label for sighted users
-              position: 'absolute',
-              width: '1px',
-              height: '1px',
-              padding: '0',
-              margin: '-1px',
-              overflow: 'hidden',
-              clip: 'rect(0, 0, 0, 0)',
-              whiteSpace: 'nowrap',
-              borderWidth: '0'
-            }
-          : {}
-      }
-    >
+    <VisuallyHidden isVisible={showMenu}>
       {loading ? (
         <Box p={3} display="flex" justifyContent="center">
           <Spinner />
@@ -326,7 +321,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           )}
         </div>
       )}
-    </Box>
+    </VisuallyHidden>
   )
 }
 

@@ -8,9 +8,10 @@ const BranchName = styled.a<SxProp>`
   padding: 2px 6px;
   font-size: ${get('fontSizes.0')};
   font-family: ${get('fonts.mono')};
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.accent.fg')};
   background-color: ${get('colors.accent.subtle')};
   border-radius: ${get('radii.2')};
+  text-decoration: none;
 
   ${sx};
 `

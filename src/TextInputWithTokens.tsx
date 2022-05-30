@@ -1,25 +1,25 @@
-import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
+import {FocusKeys} from '@primer/behaviors'
+import {isFocusable} from '@primer/behaviors/utils'
 import {omit} from '@styled-system/props'
-import {FocusKeys} from './behaviors/focusZone'
+import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
+import Box from './Box'
+import {useProvidedRefOrCreate} from './hooks'
 import {useCombinedRefs} from './hooks/useCombinedRefs'
 import {useFocusZone} from './hooks/useFocusZone'
-import {ComponentProps} from './utils/types'
+import Text from './Text'
+import {TextInputProps} from './TextInput'
 import Token from './Token/Token'
 import {TokenSizeKeys} from './Token/TokenBase'
-import {TextInputProps} from './TextInput'
-import {useProvidedRefOrCreate} from './hooks'
+import TextInputInnerVisualSlot from './_TextInputInnerVisualSlot'
+import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from './_TextInputWrapper'
 import UnstyledTextInput from './_UnstyledTextInput'
-import TextInputWrapper from './_TextInputWrapper'
-import Box from './Box'
-import Text from './Text'
-import {isFocusable} from './utils/iterateFocusableElements'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<any>
 
 // NOTE: if these props or their JSDoc comments are updated, be sure to also update
 // the prop table in docs/content/TextInputTokens.mdx
-type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactComponent> = {
+export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponent = typeof Token> = {
   /**
    * The array of tokens to render
    */
@@ -42,7 +42,7 @@ type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactCompone
    */
   preventTokenWrapping?: boolean
   /**
-   * The size of the tokens
+   * The size of the tokens and text input
    */
   size?: TokenSizeKeys
   /**
@@ -53,24 +53,28 @@ type TextInputWithTokensInternalProps<TokenComponentType extends AnyReactCompone
    * The number of tokens to display before truncating
    */
   visibleTokenCount?: number
-} & TextInputProps
+} & Omit<TextInputProps, 'size'>
 
 const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
   small: 0,
   medium: 1,
   large: 1,
-  extralarge: 2
+  extralarge: 2,
+  xlarge: 2 // will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
 }
 
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
 function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactComponent>(
   {
     icon: IconComponent,
+    leadingVisual: LeadingVisual,
+    trailingVisual: TrailingVisual,
+    loading,
+    loaderPosition,
     contrast,
     className,
     block,
     disabled,
-    theme,
     sx: sxProp,
     tokens,
     onTokenRemove,
@@ -82,13 +86,11 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     width: widthProp,
     minWidth: minWidthProp,
     maxWidth: maxWidthProp,
-    variant: variantProp,
+    validationStatus,
+    variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
     ...rest
-  }: TextInputWithTokensInternalProps<TokenComponentType> & {
-    selectedTokenIndex: number | undefined
-    setSelectedTokenIndex: React.Dispatch<React.SetStateAction<number | undefined>>
-  },
+  }: TextInputWithTokensProps<TokenComponentType>,
   externalRef: React.ForwardedRef<HTMLInputElement>
 ) {
   const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
@@ -132,7 +134,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const handleTokenRemove = (tokenId: string | number) => {
     onTokenRemove(tokenId)
 
-    // HACK: wait a tick for the the token node to be removed from the DOM
+    // HACK: wait a tick for the token node to be removed from the DOM
     setTimeout(() => {
       const nextElementToFocus = containerRef.current?.children[selectedTokenIndex || 0] as HTMLElement | undefined
 
@@ -234,6 +236,17 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   }
 
   const visibleTokens = tokensAreTruncated ? tokens.slice(0, visibleTokenCount) : tokens
+  const inputSizeMap: Record<TokenSizeKeys, TextInputSizes> = {
+    small: 'small',
+    medium: 'small',
+    large: 'medium',
+    extralarge: 'medium',
+    xlarge: 'medium' // will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
+  }
+  const showLeadingLoadingIndicator =
+    loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
+  const showTrailingLoadingIndicator =
+    loading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
 
   return (
     <TextInputWrapper
@@ -241,14 +254,18 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       className={className}
       contrast={contrast}
       disabled={disabled}
-      hasIcon={!!IconComponent}
-      theme={theme}
+      hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
+      hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
       width={widthProp}
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
-      variant={variantProp}
+      size={size && inputSizeMap[size]}
+      validationStatus={validationStatus}
+      variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
       sx={{
+        paddingLeft: textInputHorizPadding,
+        py: `calc(${textInputHorizPadding} / 2)`,
         ...(block
           ? {
               display: 'flex',
@@ -272,6 +289,14 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         ...sxProp
       }}
     >
+      {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
+      <TextInputInnerVisualSlot
+        hasLoadingIndicator={typeof loading === 'boolean'}
+        visualPosition="leading"
+        showLoadingIndicator={showLeadingLoadingIndicator}
+      >
+        {typeof LeadingVisual === 'function' ? <LeadingVisual /> : LeadingVisual}
+      </TextInputInnerVisualSlot>
       <Box
         ref={containerRef as RefObject<HTMLDivElement>}
         display="flex"
@@ -295,7 +320,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             flexGrow: 1
           }}
         >
-          {IconComponent && <IconComponent className="TextInput-icon" />}
           <UnstyledTextInput
             ref={combinedInputRef}
             disabled={disabled}
@@ -304,6 +328,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             onKeyDown={handleInputKeyDown}
             type="text"
             sx={{height: '100%'}}
+            aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
             {...inputPropsRest}
           />
         </Box>
@@ -332,6 +357,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           </Text>
         ) : null}
       </Box>
+      <TextInputInnerVisualSlot
+        hasLoadingIndicator={typeof loading === 'boolean'}
+        visualPosition="trailing"
+        showLoadingIndicator={showTrailingLoadingIndicator}
+      >
+        {typeof TrailingVisual === 'function' ? <TrailingVisual /> : TrailingVisual}
+      </TextInputInnerVisualSlot>
     </TextInputWrapper>
   )
 }
@@ -340,12 +372,12 @@ const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.defaultProps = {
   tokenComponent: Token,
-  size: 'extralarge',
+  size: 'xlarge',
   hideTokenRemoveButtons: false,
-  preventTokenWrapping: false
+  preventTokenWrapping: false,
+  loaderPosition: 'auto'
 }
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
 
-export type TextInputWithTokensProps = ComponentProps<typeof TextInputWithTokens>
 export default TextInputWithTokens

@@ -4,7 +4,7 @@ import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useSSRSafeId} from '@react-aria/ssr'
-import {PositionSettings} from '../behaviors/anchoredPosition'
+import type {PositionSettings} from '@primer/behaviors'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -17,6 +17,11 @@ interface AnchoredOverlayPropsWithAnchor {
    * An override to the internal ref that will be spread on to the renderAnchor
    */
   anchorRef?: React.RefObject<HTMLElement>
+
+  /**
+   * An override to the internal id that will be spread on to the renderAnchor
+   */
+  anchorId?: string
 }
 
 interface AnchoredOverlayPropsWithoutAnchor {
@@ -31,6 +36,10 @@ interface AnchoredOverlayPropsWithoutAnchor {
    * When renderAnchor is null this can be used to make an anchor that is detached from ActionMenu.
    */
   anchorRef: React.RefObject<HTMLElement>
+  /**
+   * An override to the internal id that will be spread on to the renderAnchor
+   */
+  anchorId?: string
 }
 
 export type AnchoredOverlayWrapperAnchorProps =
@@ -46,7 +55,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently closed and an "open gesture" is detected.
    */
-  onOpen?: (gesture: 'anchor-click' | 'anchor-key-press') => unknown
+  onOpen?: (gesture: 'anchor-click' | 'anchor-key-press', event?: React.KeyboardEvent<HTMLElement>) => unknown
 
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
@@ -80,6 +89,7 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
 export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
   renderAnchor,
   anchorRef: externalAnchorRef,
+  anchorId: externalAnchorId,
   children,
   open,
   onOpen,
@@ -94,7 +104,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const anchorId = useSSRSafeId()
+  const anchorId = useSSRSafeId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])
@@ -103,7 +113,7 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
     (event: React.KeyboardEvent<HTMLElement>) => {
       if (!event.defaultPrevented) {
         if (!open && ['ArrowDown', 'ArrowUp', ' ', 'Enter'].includes(event.key)) {
-          onOpen?.('anchor-key-press')
+          onOpen?.('anchor-key-press', event)
           event.preventDefault()
         }
       }
@@ -154,8 +164,8 @@ export const AnchoredOverlay: React.FC<AnchoredOverlayProps> = ({
         renderAnchor({
           ref: anchorRef,
           id: anchorId,
-          'aria-labelledby': anchorId,
           'aria-haspopup': 'true',
+          'aria-expanded': open,
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown

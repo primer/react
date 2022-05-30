@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Link, Label} from '@primer/components'
+import {Box, Link, Label} from '@primer/react'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 
@@ -59,7 +59,9 @@ function Row({name, type, defaultValue, description, required, deprecated}) {
         ) : null}
       </Box>
       <Box as="td" fontFamily="mono" fontSize={1} verticalAlign="top">
-        {type}
+        <Box as="pre" fontFamily="inherit" fontSize="inherit" margin={0} sx={{whiteSpace: 'pre-wrap'}}>
+          {type}
+        </Box>
       </Box>
       <Box as="td" fontFamily="mono" fontSize={1} verticalAlign="top">
         {defaultValue}
@@ -76,7 +78,7 @@ function BasePropRows({passthroughPropsLink, elementType, isPolymorphic, refType
     <>
       <SxRow />
       {isPolymorphic && <AsRow defaultElementType={elementType} />}
-      <RefRow refType={refType} isPolymorphic={isPolymorphic} />
+      {refType && <RefRow refType={refType} isPolymorphic={isPolymorphic} />}
       <PassthroughPropsRow
         passthroughPropsLink={passthroughPropsLink}
         elementName={elementType}
@@ -105,10 +107,12 @@ function PassthroughPropsRow({elementName, isPolymorphic, passthroughPropsLink})
 }
 
 function AsRow({defaultElementType}) {
+  // Element is a component if the first letter is uppercase (e.g. Button)
+  const isComponent = defaultElementType[0].toUpperCase() === defaultElementType[0]
   return (
     <Row
       name="as"
-      defaultValue={`"${defaultElementType}"`}
+      defaultValue={isComponent ? defaultElementType : `"${defaultElementType}"`}
       type={
         <Link href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L73">
           React.ElementType
@@ -151,7 +155,8 @@ function SxRow() {
       }
       description={
         <>
-          Style overrides to apply to the component. See also <Link href="/overriding-styles">overriding styles</Link>.
+          Style overrides to apply to the component. See also{' '}
+          <Link href="/react/overriding-styles">overriding styles</Link>.
         </>
       }
     />

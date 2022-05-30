@@ -2,7 +2,88 @@
 
 exports[`Autocomplete snapshots renders a custom empty state message 1`] = `
 Array [
-  .c1 {
+  .c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -16,46 +97,6 @@ Array [
   outline: 0;
 }
 
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -63,7 +104,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -71,7 +115,10 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
+      data-component="input"
+      id="autocompleteId"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -82,7 +129,11 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
+  .c1 {
+  padding: 16px;
+}
+
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -95,11 +146,7 @@ Array [
   border-width: 0;
 }
 
-.c1 {
-  padding: 16px;
-}
-
-<div
+<span
     className="c0"
   >
     <div>
@@ -109,13 +156,94 @@ Array [
         No results
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
 exports[`Autocomplete snapshots renders a loading state 1`] = `
 Array [
-  .c1 {
+  .c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -129,46 +257,6 @@ Array [
   outline: 0;
 }
 
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -176,7 +264,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -184,7 +275,10 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
+      data-component="input"
+      id="autocompleteId"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -195,20 +289,7 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c1 {
+  .c1 {
   padding: 16px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -220,12 +301,25 @@ Array [
   justify-content: center;
 }
 
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .c2 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
 }
 
-<div
+<span
     className="c0"
   >
     <div
@@ -257,13 +351,94 @@ Array [
         />
       </svg>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
 exports[`Autocomplete snapshots renders a menu that contains an item to add to the menu 1`] = `
 Array [
-  .c1 {
+  .c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -277,46 +452,6 @@ Array [
   outline: 0;
 }
 
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -324,7 +459,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -332,7 +470,10 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
+      data-component="input"
+      id="autocompleteId"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -539,7 +680,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -1168,13 +1309,94 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
 exports[`Autocomplete snapshots renders a multiselect input 1`] = `
 Array [
-  .c1 {
+  .c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -1188,46 +1410,6 @@ Array [
   outline: 0;
 }
 
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1235,7 +1417,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -1243,7 +1428,10 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
+      data-component="input"
+      id="autocompleteId"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -1413,7 +1601,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -1989,13 +2177,94 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
 exports[`Autocomplete snapshots renders a multiselect input with selected menu items 1`] = `
 Array [
-  .c1 {
+  .c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -2009,46 +2278,6 @@ Array [
   outline: 0;
 }
 
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -2056,7 +2285,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -2064,7 +2296,10 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
+      data-component="input"
+      id="autocompleteId"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -2245,7 +2480,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -2821,13 +3056,94 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
 exports[`Autocomplete snapshots renders a single select input 1`] = `
 Array [
-  .c1 {
+  .c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -2841,46 +3157,6 @@ Array [
   outline: 0;
 }
 
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -2888,7 +3164,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -2896,7 +3175,10 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
+      data-component="input"
+      id="autocompleteId"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -3034,7 +3316,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -3340,7 +3622,7 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
@@ -3477,7 +3759,7 @@ Array [
   }
 }
 
-<div
+<span
     className="c0"
   >
     <div>
@@ -3783,13 +4065,94 @@ Array [
         </div>
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;
 
 exports[`Autocomplete snapshots renders with an input value 1`] = `
 Array [
-  .c1 {
+  .c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0::-webkit-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::-moz-placeholder {
+  color: #6e7781;
+}
+
+.c0:-ms-input-placeholder {
+  color: #6e7781;
+}
+
+.c0::placeholder {
+  color: #6e7781;
+}
+
+.c0:focus-within {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: inset 0 0 0 1px #0969da;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c0 >:not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 .TextInput-icon,
+.c0 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #57606a;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c0 > input,
+.c0 > select {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -3803,46 +4166,6 @@ Array [
   outline: 0;
 }
 
-.c0 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 34px;
-  font-size: 14px;
-  line-height: 20px;
-  color: #24292f;
-  vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(208,215,222,0.2);
-  cursor: text;
-  padding: 6px 12px;
-}
-
-.c0 .TextInput-icon {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: #57606a;
-  margin: 0 8px;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c0:focus-within {
-  border-color: #0969da;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -3850,7 +4173,10 @@ Array [
 }
 
 <span
+    aria-busy={false}
+    aria-live="polite"
     className="c0 TextInput-wrapper"
+    onClick={[Function]}
   >
     <input
       aria-autocomplete="both"
@@ -3858,7 +4184,10 @@ Array [
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
+      autoComplete="off"
       className="c1"
+      data-component="input"
+      id="autocompleteId"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -3869,7 +4198,11 @@ Array [
       type="text"
     />
   </span>,
-  .c0 {
+  .c1 {
+  padding: 16px;
+}
+
+.c0 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -3882,11 +4215,7 @@ Array [
   border-width: 0;
 }
 
-.c1 {
-  padding: 16px;
-}
-
-<div
+<span
     className="c0"
   >
     <div>
@@ -3896,6 +4225,6 @@ Array [
         No selectable options
       </div>
     </div>
-  </div>,
+  </span>,
 ]
 `;

@@ -1,0 +1,186 @@
+---
+componentId: button
+title: Button
+status: Alpha
+source: https://github.com/primer/react/tree/main/src/Button
+storybook: '/react/storybook?path=/story/composite-components-button'
+description: Use button for the main actions on a page or form.
+---
+
+```js
+import {Button} from '@primer/react'
+```
+
+## Examples
+
+### Default button
+
+This is the default variant for the `Button` component.
+
+```jsx live
+<Button>Default</Button>
+```
+
+### Danger button
+
+The `danger` variant of `Button` is used to warn users about potentially destructive actions
+
+```jsx live
+<Button variant="danger">Danger</Button>
+```
+
+### Outline button
+
+The `outline` variant of `Button` is typically used as a secondary button
+
+```jsx live
+<Button variant="outline">Outline</Button>
+```
+
+### Invisible button
+
+The `invisible` variant of `Button` indicates that the action is a low priority one.
+
+```jsx live
+<Button variant="invisible">Invisible</Button>
+```
+
+### Different sized buttons
+
+`Button` component supports three different sizes. `small`, `medium`, `large`.
+
+```jsx live
+<>
+  <Button size="small">Search</Button>
+  <Button sx={{mt: 2}}>Search</Button>
+  <Button sx={{mt: 2}} size="large">
+    Search
+  </Button>
+</>
+```
+
+### Appending an icon
+
+We can place an icon inside the `Button` in either the leading or the trailing position to enhance the visual context.
+It is recommended to use an octicon here.
+
+```jsx live
+<>
+  <Button leadingIcon={SearchIcon}>Search</Button>
+  <Button trailingIcon={SearchIcon} sx={{mt: 2}}>
+    Search
+  </Button>
+  <Button leadingIcon={SearchIcon} trailingIcon={CheckIcon} sx={{mt: 2}}>
+    Search
+  </Button>
+</>
+```
+
+### Icon only button
+
+A separate component called `IconButton` is used if the action shows only an icon with no text. This button will remain square in shape.
+
+```jsx live
+<IconButton aria-label="Search" icon={SearchIcon} />
+```
+
+### Different sized icon buttons
+
+`IconButton` also supports the three different sizes. `small`, `medium`, `large`.
+
+```jsx live
+<>
+  <IconButton aria-label="Search" size="small" icon={SearchIcon} />
+  <IconButton aria-label="Search" icon={SearchIcon} sx={{ml: 2}} />
+  <IconButton aria-label="Search" size="large" icon={SearchIcon} sx={{ml: 2}} />
+</>
+```
+
+### Counter component
+
+A common use case for primer is a button with a counter component which shows the child count value.
+We provide `Button.Counter` as a composite component which requires you to provide a number as child.
+The counter will match the `variant` styles of the parent button.
+
+```jsx live
+<Button>
+  Watch
+  <Button.Counter>1</Button.Counter>
+</Button>
+```
+
+### Styling a button
+
+A button can be styled in an appropriate manner using the `sx` prop. This may be to change width, or to add margins etc.
+Here's an example of a block button which takes 100% of available width. Checkout [styled-system](https://styled-system.com/) to see what you can send in an `sx` prop.
+
+```jsx live
+<Button sx={{width: '100%'}}>Block</Button>
+```
+
+## Props
+
+Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
+
+### Button
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode"
+    description="Button description along with other components like Counter could be used here."
+  />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'primary' | 'danger' | 'outline' | 'invisible'"
+    description="Changes the look and feel of the button which is different for each variant"
+  />
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large'"
+    description="Changes the size of the button component"
+  />
+  <PropsTableRow
+    name="leadingIcon"
+    type="Component"
+    description="provide an octicon. It will be placed before the button text"
+  />
+  <PropsTableRow
+    name="trailingIcon"
+    type="Component"
+    description="provide an octicon. It will be placed after the button text"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### Button.Counter
+
+<PropsTable>
+  <PropsTableRow name="children" required type="number" description="The counter value as a number" />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
+
+## Related components
+
+- [ButtonGroup](/ButtonGroup)

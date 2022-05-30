@@ -1,41 +1,41 @@
 import classnames from 'classnames'
-// eslint-disable-next-line import/no-namespace
-import * as History from 'history'
+import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
+import getGlobalFocusStyles from './_getGlobalFocusStyles'
 
-const ITEM_CLASS = 'UnderlineNav-item'
-const SELECTED_CLASS = 'selected'
+const ITEM_CLASS = 'PRC-UnderlineNav-item'
+const SELECTED_CLASS = 'PRC-selected'
 
 const UnderlineNavBase = styled.nav<SxProp>`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid ${get('colors.border.muted')};
-  &.UnderlineNav--right {
+  &.PRC-UnderlineNav--right {
     justify-content: flex-end;
 
-    .UnderlineNav-item {
+    .PRC-UnderlineNav-item {
       margin-right: 0;
       margin-left: ${get('space.3')};
     }
 
-    .UnderlineNav-actions {
+    .PRC-UnderlineNav-actions {
       flex: 1 1 auto;
     }
   }
-  &.UnderlineNav--full {
+  &.PRC-UnderlineNav--full {
     display: block;
   }
 
-  .UnderlineNav-body {
+  .PRC-UnderlineNav-body {
     display: flex;
     margin-bottom: -1px;
   }
 
-  .UnderlineNav-actions {
+  .PRC-UnderlineNav-actions {
     align-self: center;
   }
 
@@ -50,17 +50,22 @@ export type UnderlineNavProps = {
 } & ComponentProps<typeof UnderlineNavBase>
 
 function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
-  const classes = classnames(className, 'UnderlineNav', align && `UnderlineNav--${align}`, full && 'UnderlineNav--full')
+  const classes = classnames(
+    className,
+    'PRC-UnderlineNav',
+    align && `PRC-UnderlineNav--${align}`,
+    full && 'PRC-UnderlineNav--full'
+  )
   return (
     <UnderlineNavBase className={classes} aria-label={label} theme={theme} {...rest}>
-      <div className="UnderlineNav-body">{children}</div>
-      {actions && <div className="UnderlineNav-actions">{actions}</div>}
+      <div className="PRC-UnderlineNav-body">{children}</div>
+      {actions && <div className="PRC-UnderlineNav-actions">{actions}</div>}
     </UnderlineNavBase>
   )
 }
 
 type StyledUnderlineNavLinkProps = {
-  to?: History.LocationDescriptor
+  to?: To
   selected?: boolean
 } & SxProp
 
@@ -82,21 +87,23 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
     color: ${get('colors.fg.default')};
     text-decoration: none;
     border-bottom-color: ${get('colors.neutral.muted')};
-    transition: 0.2s ease;
+    transition: border-bottom-color 0.2s ease;
 
-    .UnderlineNav-octicon {
+    .PRC-UnderlineNav-octicon {
       color: ${get('colors.fg.muted')};
     }
   }
 
-  &.selected {
+  &.PRC-selected {
     color: ${get('colors.fg.default')};
     border-bottom-color: ${get('colors.primer.border.active')};
 
-    .UnderlineNav-octicon {
+    .PRC-UnderlineNav-octicon {
       color: ${get('colors.fg.default')};
     }
   }
+
+  ${getGlobalFocusStyles('-8px')};
 
   ${sx};
 `

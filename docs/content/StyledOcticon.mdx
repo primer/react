@@ -1,0 +1,78 @@
+---
+description: Use StyledOcticon to render an Octicon as a component.
+title: StyledOcticon
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/StyledOcticon.tsx
+componentId: styled_octicon
+---
+
+## Example
+
+```jsx live
+<>
+  <StyledOcticon icon={CheckIcon} size={32} color="success.fg" sx={{mr: 2}} />
+  <StyledOcticon icon={XIcon} size={32} color="danger.fg" />
+</>
+```
+
+## Props
+
+<PropsTable>
+  <PropsTableRow
+    name="ariaLabel"
+    type="string"
+    description="Specifies the aria-label attribute, which is read verbatim by screen readers "
+  />
+  <PropsTableRow
+    name="icon"
+    type="Component"
+    description={
+      <>
+        Checks the input by default in uncontrolled modeName of the <Link href="https://primer.style/octicons/">Octicon component</Link> used in the 
+      </>
+    }
+  />
+  <PropsTableRow
+    name="color"
+    type="string"
+    description={
+      <>
+        Sets an override color for the Octicon. Compatible with colors from the <Link href="https://primer.style/primitives/colors">Primer color system</Link>." 
+      </>  
+    }
+  />
+  <PropsTableRow
+    name="size"
+    defaultValue="16"
+    type="number"
+    description="Sets the uniform `width` and `height` of the SVG element"    
+  />
+  <PropsTableRow 
+    name="verticalAlign"
+    defaultValue="text-bottom"
+    type="string"
+    description="Sets the `vertical-align` CSS property"
+  />
+  <PropsTableSxRow />
+
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

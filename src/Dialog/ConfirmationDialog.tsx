@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import Box from '../Box'
 import {ThemeProvider, useTheme, ThemeProviderProps} from '../ThemeProvider'
-import {FocusKeys} from '../behaviors/focusZone'
+import {FocusKeys} from '@primer/behaviors'
 import {get} from '../constants'
 import {Dialog, DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
 import {useFocusZone} from '../hooks/useFocusZone'
@@ -45,11 +45,12 @@ const StyledConfirmationHeader = styled.header`
   display: flex;
   flex-direction: row;
 `
-const StyledTitle = styled(Box)`
+const StyledTitle = styled(Box).attrs({as: 'h1'})`
   font-size: ${get('fontSizes.3')};
   font-weight: ${get('fontWeights.bold')};
   padding: 6px ${get('space.2')};
   flex-grow: 1;
+  margin: 0; /* override default margin */
 `
 const ConfirmationHeader: React.FC<DialogHeaderProps> = ({title, onClose, dialogLabelId}) => {
   const onCloseClick = useCallback(() => {

@@ -41,8 +41,8 @@ exports[`SubNav.Link adds activeClassName={SELECTED_CLASS} when it gets a "to" p
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #f6f8fa;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .c0:hover .SubNav-octicon,
@@ -108,8 +108,8 @@ exports[`SubNav.Link renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #f6f8fa;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .c0:hover .SubNav-octicon,
@@ -173,8 +173,8 @@ exports[`SubNav.Link respects the "selected" prop 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: #f6f8fa;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .c0:hover .SubNav-octicon,

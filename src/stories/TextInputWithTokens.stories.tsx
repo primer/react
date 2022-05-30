@@ -1,9 +1,12 @@
 import React, {useCallback, useState} from 'react'
 import {Meta} from '@storybook/react'
+import {CheckIcon, NumberIcon} from '@primer/octicons-react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
-import TextInputWithTokens from '../TextInputWithTokens'
+import {BaseStyles, Box, FormControl, ThemeProvider} from '..'
+import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import IssueLabelToken from '../Token/IssueLabelToken'
+
+const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent']
 
 export default {
   title: 'Forms/Text Input with Tokens',
@@ -30,7 +33,61 @@ export default {
         </ThemeProvider>
       )
     }
-  ]
+  ],
+  argTypes: {
+    maxHeight: {
+      defaultValue: undefined,
+      control: {
+        type: 'text'
+      }
+    },
+    preventTokenWrapping: {
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
+    loading: {
+      name: 'loading',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
+    loaderPosition: {
+      name: 'loaderPosition',
+      defaultValue: 'auto',
+      options: ['auto', 'leading', 'trailing'],
+      control: {
+        type: 'radio'
+      }
+    },
+    size: {
+      name: 'size (token size)',
+      defaultValue: 'xlarge',
+      options: ['small', 'medium', 'large', 'xlarge'],
+      control: {
+        type: 'radio'
+      }
+    },
+    hideTokenRemoveButtons: {
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
+    visibleTokenCount: {
+      defaultValue: undefined,
+      control: {
+        type: 'number'
+      }
+    },
+    validationStatus: {
+      options: ['warning', 'error', 'success', undefined],
+      control: {type: 'radio'}
+    }
+  },
+  parameters: {controls: {exclude: excludedControls}}
 } as Meta
 
 const mockTokens = [
@@ -46,16 +103,93 @@ const mockTokens = [
   {text: 'twentyone', id: 21}
 ]
 
-export const Default = () => {
+export const Default = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
 
-  return <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />
+  return <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} />
 }
 
-export const UsingIssueLabelTokens = () => {
+Default.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
+
+export const WithLeadingVisual = (args: TextInputWithTokensProps) => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return <TextInputWithTokens {...args} leadingVisual={NumberIcon} tokens={tokens} onTokenRemove={onTokenRemove} />
+}
+
+WithLeadingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
+
+export const WithTrailingVisual = (args: TextInputWithTokensProps) => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return <TextInputWithTokens {...args} trailingVisual={CheckIcon} tokens={tokens} onTokenRemove={onTokenRemove} />
+}
+
+WithTrailingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
+
+export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
+  const [loading, setLoading] = useState(true)
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+  const toggleLoadingState = () => {
+    setLoading(!loading)
+  }
+
+  return (
+    <form>
+      <Box mb={5} display="flex" justifyContent="flex-end">
+        <button type="button" onClick={toggleLoadingState}>
+          Toggle loading state {loading ? 'off' : 'on'}
+        </button>
+      </Box>
+
+      <Box display="grid" sx={{gap: 3}}>
+        <FormControl>
+          <FormControl.Label>No visual</FormControl.Label>
+          <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} loading={loading} />
+        </FormControl>
+
+        <FormControl>
+          <FormControl.Label>Leading visual</FormControl.Label>
+          <TextInputWithTokens
+            {...args}
+            tokens={tokens}
+            onTokenRemove={onTokenRemove}
+            loading={loading}
+            leadingVisual={NumberIcon}
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormControl.Label>Both visuals</FormControl.Label>
+          <TextInputWithTokens
+            {...args}
+            tokens={tokens}
+            onTokenRemove={onTokenRemove}
+            loading={loading}
+            leadingVisual={NumberIcon}
+            trailingVisual={CheckIcon}
+          />
+        </FormControl>
+      </Box>
+    </form>
+  )
+}
+
+WithLoadingIndicator.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'loading']}}
+
+export const UsingIssueLabelTokens = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([
     {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
     {text: 'bug', id: 2, fillColor: '#d73a4a'},
@@ -65,26 +199,14 @@ export const UsingIssueLabelTokens = () => {
     setTokens(tokens.filter(token => token.id !== tokenId))
   }
 
-  return <TextInputWithTokens tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
-}
-
-export const TokenSizeVariants = () => {
-  const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
-  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
-    setTokens(tokens.filter(token => token.id !== tokenId))
-  }
-
   return (
-    <Box display="flex" flexDirection="column" sx={{gap: '1em'}}>
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="small" />
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="medium" />
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="large" />
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="extralarge" />
-    </Box>
+    <TextInputWithTokens {...args} tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
   )
 }
 
-export const MaxHeight = () => {
+UsingIssueLabelTokens.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
+
+export const MaxHeight = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState(mockTokens)
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -92,45 +214,14 @@ export const MaxHeight = () => {
 
   return (
     <Box maxWidth="300px">
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} maxHeight="100px" />
+      <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} maxHeight="100px" />
     </Box>
   )
 }
 
 MaxHeight.storyName = 'maxHeight 200px'
 
-export const TokenWrappingPrevented = () => {
-  const [tokens, setTokens] = useState(mockTokens)
-  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
-    setTokens(tokens.filter(token => token.id !== tokenId))
-  }
-
-  return (
-    <Box maxWidth="500px">
-      <TextInputWithTokens preventTokenWrapping block tokens={tokens} onTokenRemove={onTokenRemove} />
-    </Box>
-  )
-}
-
-export const TokenRemoveButtonsHidden = () => {
-  const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
-  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
-    setTokens(tokens.filter(token => token.id !== tokenId))
-  }
-
-  return <TextInputWithTokens hideTokenRemoveButtons tokens={tokens} onTokenRemove={onTokenRemove} />
-}
-
-export const WithVisibleTokenCount = () => {
-  const [tokens, setTokens] = useState([...mockTokens].slice(0, 5))
-  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
-    setTokens(tokens.filter(token => token.id !== tokenId))
-  }
-
-  return <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} visibleTokenCount={2} />
-}
-
-export const Unstyled = () => {
+export const Unstyled = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -138,6 +229,7 @@ export const Unstyled = () => {
 
   return (
     <TextInputWithTokens
+      {...args}
       tokens={tokens}
       onTokenRemove={onTokenRemove}
       // TODO: come up with a nicer way to unstyle an input component
@@ -153,3 +245,5 @@ export const Unstyled = () => {
     />
   )
 }
+
+Unstyled.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'validationStatus']}}

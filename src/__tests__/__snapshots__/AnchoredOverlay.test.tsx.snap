@@ -80,8 +80,8 @@ exports[`AnchoredOverlay renders consistently 1`] = `
   fontFamily="normal"
 >
   <button
+    aria-expanded={false}
     aria-haspopup="true"
-    aria-labelledby="react-aria-1"
     className="c1"
     id="react-aria-1"
     onClick={[Function]}
@@ -185,6 +185,12 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   outline: none;
 }
 
+@media (forced-colors:active) {
+  .c2 {
+    outline: solid 1px transparent;
+  }
+}
+
 <div>
   <div
     class="c0"
@@ -193,8 +199,8 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
     font-family="normal"
   >
     <button
+      aria-expanded="true"
       aria-haspopup="true"
-      aria-labelledby="react-aria-1"
       class="c1"
       id="react-aria-1"
       tabindex="0"
@@ -216,6 +222,11 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
           style="top: 4px; left: 0px; --styled-overlay-visibility: visible;"
           width="auto"
         >
+          <span
+            aria-hidden="true"
+            class="sentinel"
+            tabindex="0"
+          />
           <button
             class="focus-visible"
             data-focus-visible-added=""
@@ -224,6 +235,11 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
           >
             Focusable Child
           </button>
+          <span
+            aria-hidden="true"
+            class="sentinel"
+            tabindex="0"
+          />
         </div>
       </div>
     </div>

@@ -1,0 +1,93 @@
+---
+componentId: circle_badge
+title: CircleBadge
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/CircleBadge.tsx
+---
+
+```js
+import {CircleBadge} from '@primer/react'
+```
+
+Use CircleBadge to visually connect logos of third party services like in marketplace. Use CircleBadge.Icon to add an Octicon to the CircleBadge.
+
+## Examples
+
+```jsx live
+<CircleBadge>
+  <CircleBadge.Icon icon={ZapIcon} />
+</CircleBadge>
+```
+
+## Props
+
+### CircleBadge
+
+<PropsTable>
+  <PropsTableRow
+    name="variant"
+    type="'small' | 'medium' | 'large'"
+    defaultValue="'medium'"
+    description={
+      <>
+        Creates a smaller or larger badge. Has no effect if the <InlineCode>size</InlineCode> prop is set
+      </>
+    }
+  />
+  <PropsTableRow
+    name="size"
+    type="number"
+    description={
+      <>
+        Sets the size of the badge in pixels. Overrides the <InlineCode>variant</InlineCode> prop when set
+      </>
+    }
+  />
+  <PropsTableRow
+    name="inline"
+    type="boolean"
+    defaultValue="false"
+    description={
+      <>
+        Styles the badge to <InlineCode>display: inline</InlineCode>
+      </>
+    }
+  />
+  <PropsTableBasePropRows elementType="div" isPolymorphic refType="HTMLDivElement" />
+</PropsTable>
+
+### CircleBadge.Icon
+
+<PropsTable>
+  <PropsTableAsRow defaultElementType="StyledOcticon" />
+  <PropsTablePassthroughPropsRow
+    elementName="StyledOcticon"
+    isPolymorphic
+    passthroughPropsLink={
+      <>
+        the <Link href="/StyledOcticon">StyledOcticon docs</Link>
+      </>
+    }
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

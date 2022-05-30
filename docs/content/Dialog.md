@@ -1,9 +1,7 @@
 ---
 title: Dialog
-status: Deprecated
+status: Alpha
 ---
-
-import State from '../components/State'
 
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
@@ -75,7 +73,7 @@ You can also pass any non-text content into the header:
             </Text>
             <Box display="flex" mt={3} justifyContent="flex-end">
               <Button sx={{mr: 1}}>Cancel</Button>
-              <ButtonDanger>Delete</ButtonDanger>
+              <Button variant="danger">Delete</Button>
             </Box>
           </Box>
         </Dialog>

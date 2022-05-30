@@ -1,81 +1,29 @@
-import React from 'react'
-import * as primerComponents from '@primer/components'
-import * as drafts from '@primer/components/drafts'
 import * as doctocatComponents from '@primer/gatsby-theme-doctocat'
-import {
-  CheckIcon,
-  ZapIcon,
-  XIcon,
-  SearchIcon,
-  DotIcon,
-  OctofaceIcon,
-  PersonIcon,
-  MailIcon,
-  GitCommitIcon,
-  FlameIcon,
-  MarkGithubIcon,
-  NoteIcon,
-  ProjectIcon,
-  FilterIcon,
-  GearIcon,
-  TypographyIcon,
-  VersionsIcon,
-  LinkIcon,
-  LawIcon,
-  StarIcon,
-  AlertIcon,
-  ArrowRightIcon,
-  KebabHorizontalIcon,
-  PencilIcon,
-  ArchiveIcon,
-  TrashIcon
-} from '@primer/octicons-react'
+import * as octicons from '@primer/octicons-react'
+import * as primerComponents from '@primer/react'
+import * as drafts from '@primer/react/drafts'
+import * as deprecated from '@primer/react/deprecated'
+import {Placeholder} from '@primer/react/Placeholder'
+import React from 'react'
 import State from '../../../components/State'
-import {Dialog as Dialog2} from '../../../../src/Dialog/Dialog'
-import {AnchoredOverlay} from '../../../../src/AnchoredOverlay'
-import {ConfirmationDialog, useConfirm} from '../../../../src/Dialog/ConfirmationDialog'
-import {SelectPanel} from '../../../../src/SelectPanel/SelectPanel'
 
 const ReactRouterLink = ({to, ...props}) => {
   // eslint-disable-next-line jsx-a11y/anchor-has-content
   return <a href={to} {...props} />
 }
 
-export default {
-  ...doctocatComponents,
-  ...primerComponents,
-  drafts,
-  ReactRouterLink,
-  State,
-  CheckIcon,
-  SearchIcon,
-  ZapIcon,
-  XIcon,
-  DotIcon,
-  OctofaceIcon,
-  PersonIcon,
-  MailIcon,
-  GitCommitIcon,
-  FlameIcon,
-  MarkGithubIcon,
-  NoteIcon,
-  ProjectIcon,
-  FilterIcon,
-  GearIcon,
-  TypographyIcon,
-  VersionsIcon,
-  LinkIcon,
-  LawIcon,
-  StarIcon,
-  AlertIcon,
-  ArrowRightIcon,
-  KebabHorizontalIcon,
-  PencilIcon,
-  ArchiveIcon,
-  TrashIcon,
-  Dialog2,
-  ConfirmationDialog,
-  useConfirm,
-  AnchoredOverlay,
-  SelectPanel
+// Exclude octicons-react's default export because it's deprecated
+const {default: _, ...octiconComponents} = octicons
+
+export default function resolveScope(metastring) {
+  return {
+    ...doctocatComponents,
+    ...primerComponents,
+    ...octiconComponents,
+    ...(metastring.includes('drafts') ? drafts : {}),
+    ...(metastring.includes('deprecated') ? deprecated : {}),
+    ReactRouterLink,
+    State,
+    Placeholder
+  }
 }

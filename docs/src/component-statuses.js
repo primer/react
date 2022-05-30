@@ -1,5 +1,5 @@
 import componentMetadata from '@primer/component-metadata'
-import {Link} from '@primer/components'
+import {Link} from '@primer/react'
 import StatusLabel from '@primer/gatsby-theme-doctocat/src/components/status-label'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import {graphql, Link as GatsbyLink, useStaticQuery} from 'gatsby'

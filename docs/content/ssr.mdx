@@ -7,7 +7,7 @@ title: Server-side rendering with Primer React
 Some Primer components generate their own DOM IDs. Those IDs must be isomorphic (so that server-side rendering and client-side rendering yield the same ID, avoiding hydration issues) and unique across the DOM. We use [@react-aria/ssr](https://react-spectrum.adobe.com/react-aria/ssr.html) to generate those IDs. In client-only rendering, this doesn't require any additional work. In SSR contexts, you must wrap your application with at least one `SSRProvider`:
 
 ```
-import {SSRProvider} from '@primer/components';
+import {SSRProvider} from '@primer/react';
 
 function App() {
   return (

@@ -1,4 +1,5 @@
 ---
+componentId: tab_nav
 title: TabNav
 status: Alpha
 ---

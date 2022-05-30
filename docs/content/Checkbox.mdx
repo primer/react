@@ -1,0 +1,148 @@
+---
+title: Checkbox
+description: Use checkboxes to toggle between checked and unchecked states in a list or as a standalone form field
+status: Alpha
+source: https://github.com/primer/react/blob/main/src/Checkbox.tsx
+storybook: '/react/storybook?path=/story/forms-checkbox--default'
+componentId: checkbox
+---
+
+## Examples
+
+<Note variant="warning">
+
+**Use [FormControl](/FormControl) to display an accessible checkbox form field**. This `Checkbox` component is intended only as an ingredient for other custom components, or as a drop-in replacement for native HTML checkboxes outside of form use-cases.
+
+If you do use this component to build a custom checkbox, it should always be accompanied by a corresponding `<label>` to improve support for assistive technologies.
+
+</Note>
+
+The `Checkbox` component can be used in controlled and uncontrolled modes.
+
+```jsx live
+<form>
+  <FormControl>
+    <Checkbox id="default-checkbox" />
+    <FormControl.Label>Default checkbox</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox id="always-checked-checkbox" checked />
+    <FormControl.Label>Always checked</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox id="always-unchecked-checkbox" />
+    <FormControl.Label>Always unchecked</FormControl.Label>
+  </FormControl>
+  <FormControl disabled>
+    <Checkbox id="inactive-checkbox" checked />
+    <FormControl.Label>Inactive</FormControl.Label>
+  </FormControl>
+</form>
+```
+
+<Note variant="warning">
+  Checkbox components should always be accompanied by a corresponding label to improve support for assistive
+  technologies.
+</Note>
+
+## Indeterminate
+
+An `indeterminate` checkbox state should be used if the input value is neither true nor false. This can be useful in situations where you are required to display an incomplete state, or one that is dependent on other input selections to determine a value.
+
+```jsx live
+<form>
+  <FormControl>
+    <Checkbox onChange={() => {}} indeterminate={true} />
+    <FormControl.Label>Default checkbox</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox checked={true} onChange={() => {}} />
+    <FormControl.Label>Checkbox 1</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox checked={false} onChange={() => {}} />
+    <FormControl.Label>Checkbox 2</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox checked={false} onChange={() => {}} />
+    <FormControl.Label>Checkbox 3</FormControl.Label>
+  </FormControl>
+  <FormControl>
+    <Checkbox checked={false} onChange={() => {}} />
+    <FormControl.Label>Checkbox 4</FormControl.Label>
+  </FormControl>
+</form>
+```
+
+## Props
+
+<PropsTable>
+  <PropsTableRow
+    name="checked"
+    type="boolean"
+    description="Modifies true/false value of the native checkbox"
+  />
+  <PropsTableRow
+    name="defaultChecked"
+    type="boolean"
+    description="Checks the input by default in uncontrolled mode"
+  />
+  <PropsTableRow
+    name="onChange"
+    type="(event: React.ChangeEvent) => void"
+    description="A callback function that is triggered when the checked state has been changed"    
+  />
+  <PropsTableRow
+    name="disabled"
+    type="boolean"
+    description="Modifies the native disabled state of the native checkbox"    
+  />
+  <PropsTableRow
+    name="indeterminate"
+    type="boolean"
+    defaultValue="false"
+    description={
+      <>
+        Applies an{' '}
+        <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate">
+          indeterminate state
+        </Link>{' '}
+        to the checkbox
+      </>
+    }
+  />
+  <PropsTableBasePropRows
+    elementType="input"
+    refType="HTMLInputElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#additional_attributes">
+        MDN
+      </Link>
+    }
+  />
+
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
+
+## Related components
+
+- [CheckboxInputField](/CheckboxInputField)

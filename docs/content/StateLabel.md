@@ -1,4 +1,5 @@
 ---
+componentId: state_label
 title: StateLabel
 status: Alpha
 ---
