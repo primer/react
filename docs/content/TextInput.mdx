@@ -9,13 +9,15 @@ TextInput is a form component to add default styling to the native text input.
 
 **Note:** Don't forget to set `aria-label` to make the TextInput accessible to screen reader users.
 
-## Default example
+## Examples
+
+### Basic
 
 ```jsx live
 <TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
 ```
 
-## Text Input with icons
+### With icons
 
 ```jsx live
 <>
@@ -37,7 +39,7 @@ TextInput is a form component to add default styling to the native text input.
 </>
 ```
 
-## Text Input with text visuals
+### With text visuals
 
 ```jsx live
 <>
@@ -47,7 +49,86 @@ TextInput is a form component to add default styling to the native text input.
 </>
 ```
 
-## Text Input with error and warning states
+### With visuals and loading indicators
+
+```javascript live noinline
+const WithIconAndLoadingIndicator = () => {
+  const [loading, setLoading] = React.useState(true)
+
+  const toggleLoadingState = () => {
+    setLoading(!loading)
+  }
+
+  return (
+    <>
+      <Box mb={6}>
+        <button type="button" onClick={toggleLoadingState}>
+          Toggle loading state {loading ? 'off' : 'on'}
+        </button>
+      </Box>
+
+      <Text fontSize={3} mb={1} display="block">
+        No visual
+      </Text>
+      <Box mb={3}>
+        <TextInput loading={loading} />
+      </Box>
+
+      <Text fontSize={3} mb={1} display="block">
+        Leading visual
+      </Text>
+      <Box mb={3}>
+        <TextInput leadingVisual={SearchIcon} loading={loading} />
+      </Box>
+
+      <Text fontSize={3} mb={1} display="block">
+        Trailing visual
+      </Text>
+      <Box mb={3}>
+        <TextInput trailingVisual={SearchIcon} loading={loading} />
+      </Box>
+
+      <Text fontSize={3} mb={1} display="block">
+        Both visuals
+      </Text>
+      <Box mb={3}>
+        <TextInput leadingVisual={SearchIcon} trailingVisual={SearchIcon} loading={loading} />
+      </Box>
+
+      <Text fontSize={3} mb={2} display="block">
+        Both visuals, position overriden
+      </Text>
+      <Box mb={3}>
+        <TextInput loaderPosition="trailing" leadingVisual={SearchIcon} trailingVisual={SearchIcon} loading={loading} />
+      </Box>
+    </>
+  )
+}
+
+render(<WithIconAndLoadingIndicator />)
+```
+
+### With trailing action
+
+```jsx live
+<FormControl>
+  <FormControl.Label>Icon action</FormControl.Label>
+  <TextInput
+    trailingAction={
+      <TextInput.Action
+        onClick={() => {
+          alert('clear input')
+        }}
+        icon={XIcon}
+        aria-label="Clear input"
+        sx={{color: 'fg.subtle'}}
+      />
+    }
+  />
+</FormControl>
+```
+
+### With error and warning states
 
 ```jsx live
 <>
@@ -69,16 +150,28 @@ TextInput is a form component to add default styling to the native text input.
 </>
 ```
 
-## Block text input
+### Block text input
 
 ```jsx live
 <TextInput block aria-label="Zipcode" name="zipcode" placeholder="560076" autoComplete="postal-code" />
 ```
 
-## Contrast text input
+### Contrast text input
 
 ```jsx live
 <TextInput contrast aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
+```
+
+### Monospace text input
+
+```jsx live
+<TextInput
+  monospace
+  aria-label="personal access token"
+  name="pat"
+  leadingVisual={CheckIcon}
+  placeholder="github_pat_abcdefg123456789"
+/>
 ```
 
 ## Props
@@ -87,43 +180,63 @@ TextInput is a form component to add default styling to the native text input.
 
 <PropsTable>
   <PropsTableRow name="aria-label" type="string" description="Allows input to be accessible." />
-  <PropsTableRow
-    name="block"
-    type="boolean"
-    defaultValue="false"
-    description={
-      <>
-        Creates a full width input element
-      </>
-    }
-  />
+  <PropsTableRow name="block" type="boolean" defaultValue="false" description="Creates a full-width input element" />
   <PropsTableRow
     name="contrast"
     type="boolean"
     defaultValue="false"
     description="Changes background color to a higher contrast color"
   />
-  <PropsTableRow name='size' type="'small' | 'medium' | 'large'"     description="Creates a smaller or larger input than the default." />
-
-<PropsTableRow
-  name="leadingVisual"
-  type={<>string | React.ComponentType</>}
-  description="Visual positioned on the left edge inside the input"
-/>
-<PropsTableRow
-  name="trailingVisual"
-  type={<>string | React.ComponentType</>}
-  description="Visual positioned on the right edge inside the input"
-/>
-<PropsTableRow name="validationStatus" type="'warning' | 'error'" description="Style the input to match the status" />
-
-<PropsTableRow
-  name="variant"
-  type="'small' | 'medium' | 'large'"
-  description="(Use size) Creates a smaller or larger input than the default."
-  deprecated
-/>
-
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large'"
+    description="Creates a smaller or larger input than the default."
+  />
+  <PropsTableRow name="loading" type="boolean" description="Whether to show a loading indicator in the input" />
+  <PropsTableRow
+    name="loaderPosition"
+    type="'auto' | 'leading' | 'trailing'"
+    description={
+      <>
+        <div>Which position to render the loading indicator</div>
+        <ul>
+          <li>
+            'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the
+            beginning
+          </li>
+          <li>'leading': at the beginning of the input</li>
+          <li>'trailing': at the end of the input</li>
+        </ul>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="leadingVisual"
+    type={<>string | React.ComponentType</>}
+    description="Visual positioned on the left edge inside the input"
+  />
+  <PropsTableRow name="monospace" type="boolean" defaultValue="false" description="Shows input in monospace font" />
+  <PropsTableRow
+    name="trailingVisual"
+    type={<>string | React.ComponentType</>}
+    description="Visual positioned on the right edge inside the input"
+  />
+  <PropsTableRow
+    name="trailingAction"
+    type="React.ReactElement<HTMLProps<HTMLButtonElement>>"
+    description="A visual that renders inside the input after the typing area"
+  />
+  <PropsTableRow
+    name="validationStatus"
+    type="'error' | 'success' | 'warning'"
+    description="Style the input to match the status"
+  />
+  <PropsTableRow
+    name="variant"
+    type="'small' | 'medium' | 'large'"
+    description="(Use size) Creates a smaller or larger input than the default."
+    deprecated
+  />
   <PropsTableRow
     name="width"
     type={
@@ -170,6 +283,30 @@ TextInput is a form component to add default styling to the native text input.
     elementName="input"
     passthroughPropsLink={
       <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes">MDN</Link>
+    }
+  />
+</PropsTable>
+
+### TextInput.Action
+
+<PropsTable>
+  <PropsTableRow
+    name="aria-label"
+    type="string"
+    description="Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
+  />
+  <PropsTableRow name="icon" type="React.FunctionComponent" description="The icon to render inside the button" />
+  <PropsTableRow
+    name="variant"
+    type="'default' | 'primary' | 'invisible' | 'danger'"
+    description="(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
+    deprecated
+  />
+  <PropsTableBasePropRows
+    elementType="button"
+    refType="HTMLButtonElement"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes">MDN</Link>
     }
   />
 </PropsTable>

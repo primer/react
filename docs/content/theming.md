@@ -33,7 +33,7 @@ import deepmerge from 'deepmerge'
 
 const customTheme = deepmerge(theme, {
   fonts: {
-    mono: 'Monolisa, monospace'
+    mono: 'MonoLisa, monospace'
   }
 })
 
@@ -50,7 +50,7 @@ Some components may break if your custom theme does not include all the same key
 
 ## Referencing theme values
 
-You can reference theme values in your application using [system props](/system-props), the [`sx` prop](/overriding-styles), the `themeGet` function, or the `useTheme` hook.
+You can reference theme values in your application using the [`sx` prop](/overriding-styles), the `themeGet` function, or the `useTheme` hook.
 
 <Note variant="warning">
 
@@ -100,7 +100,7 @@ See the [Styled System Reference Table](https://styled-system.com/table) for a c
 
 ### themeGet
 
-The `themeGet` function is a convienient way to reference theme values in styled-components template literals:
+The `themeGet` function is a convenient way to reference theme values in styled-components template literals:
 
 ```js
 import {themeGet} from '@primer/react'
@@ -174,6 +174,16 @@ function Example() {
   const {setColorMode} = useTheme()
   return <button onClick={() => setColorMode('auto')}>Activate auto mode</button>
 }
+```
+
+#### `preventSSRMismatch` prop
+
+If you are doing server-side rendering, pass the `preventSSRMismatch` prop to ensure the rendered output from the server and browser match even when they resolve "auto" color mode differently.
+
+```jsx
+<ThemeProvider colorMode="auto" preventSSRMismatch>
+  ...
+</ThemeProvider>
 ```
 
 ### Setting color schemes

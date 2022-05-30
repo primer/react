@@ -1,4 +1,4 @@
-import {Location} from 'history'
+import {To} from 'history'
 
 import {get} from './constants'
 import styled, {css} from 'styled-components'
@@ -54,7 +54,7 @@ const SideNav = styled(SideNavBase)<SxProp>`
   ${sx};
 `
 type StyledSideNavLinkProps = {
-  to?: Location
+  to?: To
   selected?: boolean
   variant?: 'full' | 'normal'
 }

@@ -1,10 +1,10 @@
 import React, {useCallback, useMemo} from 'react'
 import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import {OverlayProps} from '../Overlay'
-import {ItemInput} from '../ActionList/List'
+import {ItemInput} from '../deprecated/ActionList/List'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
-import {DropdownButton} from '../DropdownMenu'
-import {ItemProps} from '../ActionList'
+import {DropdownButton} from '../deprecated/DropdownMenu'
+import {ItemProps} from '../deprecated/ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
 import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
@@ -158,8 +158,9 @@ export function SelectPanel({
         onFilterChange={onFilterChange}
         {...listProps}
         role="listbox"
-        items={itemsToRender}
+        aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
         selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+        items={itemsToRender}
         textInputProps={extendedTextInputProps}
         inputRef={inputRef}
         // inheriting height and maxHeight ensures that the FilteredActionList is never taller

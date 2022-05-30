@@ -1,5 +1,4 @@
-- title: About
-  url: /getting-started
+- title: Introduction
   children:
     - title: Getting started
       url: /getting-started
@@ -35,6 +34,10 @@
     #   url: /useOverlay
 - title: Components
   children:
+    - title: ActionList
+      url: /ActionList
+    - title: ActionMenu
+      url: /ActionMenu
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar
@@ -49,46 +52,50 @@
       url: /BranchName
     - title: Breadcrumbs
       url: /Breadcrumbs
-    - title: Buttons
-      url: /Buttons
+    - title: Button
+      url: /Button
+    - title: ButtonGroup
+      url: /ButtonGroup
     - title: Checkbox
       url: /Checkbox
-    - title: ChoiceFieldset
-      url: /ChoiceFieldset
-    - title: ChoiceInputField
-      url: /ChoiceInputField
+    - title: CheckboxGroup
+      url: /CheckboxGroup
     - title: CircleBadge
       url: /CircleBadge
     - title: CircleOcticon
       url: /CircleOcticon
     - title: CounterLabel
       url: /CounterLabel
-    - title: Details & useDetails
+    - title: Details
       url: /Details
+    - title: Dialog
+      url: /Dialog
     - title: FilteredSearch
       url: /FilteredSearch
     - title: FilterList
       url: /FilterList
     - title: Flash
       url: /Flash
-    - title: FormGroup
-      url: /FormGroup
+    - title: FormControl
+      url: /FormControl
     - title: Header
       url: /Header
     - title: Heading
       url: /Heading
-    - title: InputField
-      url: /InputField
+    - title: IconButton
+      url: /IconButton
     - title: Label
       url: /Label
     - title: LabelGroup
       url: /LabelGroup
     - title: Link
       url: /Link
-    # - title: Overlay
-    #   url: /Overlay
+    - title: Overlay
+      url: /Overlay
     - title: Pagehead
       url: /Pagehead
+    - title: PageLayout
+      url: /PageLayout
     - title: Pagination
       url: /Pagination
     - title: PointerBox
@@ -101,6 +108,8 @@
       url: /ProgressBar
     - title: Radio
       url: /Radio
+    - title: RadioGroup
+      url: /RadioGroup
     - title: Select
       url: /Select
     - title: SelectPanel
@@ -115,8 +124,12 @@
       url: /StyledOcticon
     - title: SubNav
       url: /SubNav
+    - title: ToggleSwitch
+      url: /ToggleSwitch
     - title: TabNav
       url: /TabNav
+    - title: Textarea
+      url: /Textarea
     - title: Text
       url: /Text
     - title: TextInput
@@ -133,19 +146,39 @@
       url: /Truncate
     - title: UnderlineNav
       url: /UnderlineNav
+- title: Drafts
+  children:
+    - title: Dialog v2
+      url: /drafts/Dialog
 - title: Deprecated
   children:
+    - title: ActionList (legacy)
+      url: /deprecated/ActionList
+    - title: ActionMenu (legacy)
+      url: /deprecated/ActionMenu
     - title: BorderBox
       url: /deprecated/BorderBox
-    - title: Flex
-      url: /deprecated/Flex
-    - title: Grid
-      url: /deprecated/Grid
-    - title: Position
-      url: /deprecated/Position
-    - title: Dialog
-      url: /deprecated/Dialog
+    - title: Buttons (legacy)
+      url: /deprecated/Buttons
+    - title: ChoiceFieldset
+      url: /deprecated/ChoiceFieldset
+    - title: ChoiceInputField
+      url: /deprecated/ChoiceInputField
     - title: Dropdown
       url: /deprecated/Dropdown
+    - title: DropdownMenu
+      url: /deprecated/DropdownMenu
+    - title: Flex
+      url: /deprecated/Flex
+    - title: FormGroup
+      url: /deprecated/FormGroup
+    - title: Grid
+      url: /deprecated/Grid
+    - title: InputField
+      url: /deprecated/InputField
+    - title: Label
+      url: /deprecated/Label
+    - title: Position
+      url: /deprecated/Position
     - title: SelectMenu
       url: /deprecated/SelectMenu

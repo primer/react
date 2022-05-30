@@ -1,9 +1,36 @@
 {
   "name": "@primer/react",
-  "version": "34.1.0",
+  "version": "35.2.2",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
+  "exports": {
+    ".": {
+      "node": "./lib/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib-esm/index.js"
+    },
+    "./drafts": {
+      "node": "./lib/drafts/index.js",
+      "require": "./lib/drafts/index.js",
+      "default": "./lib-esm/drafts/index.js"
+    },
+    "./deprecated": {
+      "node": "./lib/deprecated/index.js",
+      "require": "./lib/deprecated/index.js",
+      "default": "./lib-esm/deprecated/index.js"
+    },
+    "./lib-esm/*": {
+      "node": [
+        "./lib/*.js",
+        "./lib/*/index.js"
+      ],
+      "default": [
+        "./lib-esm/*.js",
+        "./lib-esm/*/index.js"
+      ]
+    }
+  },
   "typings": "lib/index.d.ts",
   "sideEffects": false,
   "scripts": {
@@ -12,11 +39,15 @@
     "start": "concurrently npm:start:*",
     "start:docs": "cd docs && npm run develop",
     "start:storybook": "start-storybook -p 6006",
-    "build:storybook": "build-storybook",
+    "build:storybook": "script/build-storybook",
+    "build:docs": "script/build-docs",
+    "build:docs:preview": "script/build-docs preview",
+    "build:storybook:visual-testing": "build-storybook",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:update": "npm run test -- --updateSnapshot",
+    "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
     "prepare": "husky install"
@@ -34,6 +65,7 @@
     "lib",
     "lib-esm",
     "index.d.ts",
+    "drafts/package.json",
     "!lib/__tests__",
     "!lib/stories",
     "!lib-esm/__tests__",
@@ -41,10 +73,14 @@
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=7"
+  },
   "dependencies": {
-    "@primer/behaviors": "^1.0.2",
+    "@primer/behaviors": "1.1.1",
     "@primer/octicons-react": "16.1.1",
-    "@primer/primitives": "7.1.1",
+    "@primer/primitives": "7.6.0",
     "@radix-ui/react-polymorphic": "0.0.14",
     "@react-aria/ssr": "3.1.0",
     "@styled-system/css": "5.1.5",
@@ -58,30 +94,32 @@
     "color2k": "1.2.4",
     "deepmerge": "4.2.2",
     "focus-visible": "5.2.0",
+    "history": "5.0.0",
     "styled-system": "5.1.5"
   },
   "devDependencies": {
-    "@babel/cli": "7.14.5",
+    "@babel/cli": "7.17.6",
     "@babel/core": "7.14.8",
     "@babel/eslint-parser": "7.15.7",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.16.0",
-    "@babel/plugin-proposal-optional-chaining": "7.14.5",
+    "@babel/plugin-proposal-optional-chaining": "7.16.7",
     "@babel/plugin-transform-modules-commonjs": "7.14.5",
     "@babel/preset-react": "7.14.5",
     "@babel/preset-typescript": "7.15.0",
-    "@changesets/changelog-github": "0.4.0",
+    "@changesets/changelog-github": "0.4.3",
     "@changesets/cli": "2.17.0",
     "@github/prettier-config": "0.0.4",
     "@rollup/plugin-commonjs": "19.0.2",
     "@rollup/plugin-node-resolve": "13.0.5",
     "@size-limit/preset-big-lib": "7.0.3",
-    "@storybook/addon-a11y": "6.4.9",
-    "@storybook/addon-actions": "^6.4.9",
-    "@storybook/addon-essentials": "6.4.9",
-    "@storybook/addon-links": "^6.4.9",
-    "@storybook/react": "6.4.9",
-    "@testing-library/dom": "7.31.2",
-    "@testing-library/react": "11.2.7",
+    "@storybook/addon-a11y": "6.4.19",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/react": "6.4.19",
+    "@testing-library/dom": "8.13.0",
+    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/react": "12.1.5",
     "@testing-library/react-hooks": "7.0.2",
     "@testing-library/user-event": "13.1.9",
     "@types/chroma-js": "2.1.3",
@@ -99,6 +137,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-macros": "3.1.0",
+    "babel-plugin-open-source": "1.3.2",
     "babel-plugin-preval": "5.0.0",
     "babel-plugin-styled-components": "2.0.2",
     "babel-plugin-transform-replace-expressions": "0.2.0",
@@ -115,7 +154,7 @@
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-mdx": "1.15.1",
     "eslint-plugin-prettier": "3.4.0",
-    "eslint-plugin-primer-react": "0.7.0",
+    "eslint-plugin-primer-react": "0.7.4",
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "4.2.0",
     "front-matter": "4.0.2",
@@ -140,9 +179,10 @@
     "semver": "7.3.5",
     "size-limit": "7.0.3",
     "storybook-addon-performance": "0.16.1",
+    "storybook-addon-turbo-build": "1.1.0",
     "styled-components": "4.4.1",
     "ts-toolbelt": "9.6.0",
-    "typescript": "4.4.4"
+    "typescript": "4.5.4"
   },
   "peerDependencies": {
     "react": "^17.0.0",

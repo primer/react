@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import {Location} from 'history'
+import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
@@ -58,7 +58,7 @@ const SubNavLinks = styled.div<SubNavLinksProps>`
 `
 
 type StyledSubNavLinkProps = {
-  to?: Location
+  to?: To
   selected?: boolean
 } & SxProp
 
@@ -96,7 +96,7 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   &:focus {
     text-decoration: none;
     background-color: ${get('colors.canvas.subtle')};
-    transition: 0.2s ease;
+    transition: background-color 0.2s ease;
 
     .SubNav-octicon {
       color: ${get('colors.fg.muted')};

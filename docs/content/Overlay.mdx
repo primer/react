@@ -1,12 +1,19 @@
 ---
-componentId: overlay
 title: Overlay
+description: Use Overlay to provide a flexible floating surface for displaying transient content such as menus, selection options, dialogs, and more.
+componentId: overlay
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/Overlay.tsx
+storybook: '/react/storybook?path=/story/internal-components-overlay--dropdown-overlay'
 ---
 
-An `Overlay` is a flexible floating surface, used to display transient content such as menus, selection options, dialogs, and more. Overlays use shadows to express elevation. The `Overlay` component handles all behaviors needed by overlay UIs as well as the common styles that all overlays should have. `Overlay` is the base component for many of our overlay-type components.
+```js
+import {Overlay} from '@primer/react'
+```
 
-Behaviors include:
+The `Overlay` component handles all behaviors needed by overlay UIs as well as the common styles that all overlays should have. `Overlay` is the base component for many of our overlay-type components. Overlays use shadows to express elevation.
+
+**Behaviors include:**
 
 - Rendering the overlay in a React Portal so that it always renders on top of other content on the page
 - Trapping focus
@@ -15,25 +22,10 @@ Behaviors include:
 - Focusing either user provided element, or the first focusable element in the container when it is opened
 - Returning focus to an element when container is closed
 
-## Accessibility considerations
-
-- The `Overlay` must either have:
-  - A value set for the `aria-labelledby` attribute that refers to a visible title.
-  - An `aria-label` attribute
-- If the `Overlay` should also have a longer description, use `aria-describedby`
-- The `Overlay` component has a `role="dialog"` set on it, if you are using `Overlay` for alerts, you can pass in `role="alertdialog"` instead. Please read the [W3C guidelines](https://www.w3.org/TR/wai-aria-1.1/#alertdialog) to determine which role is best for your use case
-- The `Overlay` component has `aria-modal` set to `true` by default and should not be overridden as all `Overlay`s behave as modals.
-
-See the W3C accessibility recommendations for modals [here](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_roles_states_props).
-
-## Positioning
-
-`Overlay` renders its `children` within a div positioned absolutely within a portal within the default portal root. The overlay will not update its positioning if the portal root's positioning changes (e.g., if the portal root is statically positioned after some DOM element that dynamically resizes). You may consider [customizing the portal or specifying a different portal root](/Portal#customizing-the-portal-root) to achieve different positioning behavior.
-
-## Default example
+## Example
 
 ```javascript live noinline
-const Demo = () => {
+const Example = () => {
   // you must manage your own open state
   const [isOpen, setIsOpen] = React.useState(false)
   const noButtonRef = React.useRef(null)
@@ -64,24 +56,208 @@ const Demo = () => {
   )
 }
 
-render(<Demo />)
+render(<Example />)
 ```
 
-## Component props
+## Accessibility considerations
 
-| Name                | Type                                                           |   Default   | Description                                                                                                                                                                                                                                                                                                                   |
-| :------------------ | :------------------------------------------------------------- | :---------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ignoreClickRefs     | `React.RefObject<HTMLElement> []`                              | `undefined` | Optional. An array of ref objects to ignore clicks on in the `onOutsideClick` behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the `Overlay` to prevent the `Overlay` from being toggled twice.                                                                          |
-| initialFocusRef     | `React.RefObject<HTMLElement>`                                 | `undefined` | Optional. Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused.                                                                                                                                                                    |
-| anchorRef           | `React.RefObject<HTMLElement>`                                 | `undefined` | Required. Element the `Overlay` should be anchored to.                                                                                                                                                                                                                                                                        |
-| returnFocusRef      | `React.RefObject<HTMLElement>`                                 | `undefined` | Required. Ref for the element to focus when the `Overlay` is closed.                                                                                                                                                                                                                                                          |
-| onClickOutside      | `function`                                                     | `undefined` | Required. Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`.                                                                                                                                                                                    |
-| onEscape            | `function`                                                     | `undefined` | Required. Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`.                                                                                                                                                                                                |
-| width               | `'small' │ 'medium' │ 'large' │ 'xlarge' │ 'xxlarge' │ 'auto'` |   `auto`    | Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.   |
-| height              | `'xsmall', 'small', 'medium', 'large', 'xlarge', 'auto'`       |   `auto`    | Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`. |
-| visibility          | `'visible', 'hidden'`                                          |  `visible`  | Sets the visibility of the `Overlay`.                                                                                                                                                                                                                                                                                         |
-| anchorSide          | `AnchorSide`                                                   |  undefined  | Optional. If provided, the Overlay will slide into position from the side of the anchor with a brief animation                                                                                                                                                                                                                |
-| top                 | `number`                                                       |      0      | Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`).                                                                                                                                                                                                                           |
-| left                | `number`                                                       |      0      | Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`).                                                                                                                                                                                                                         |
-| portalContainerName | `string`                                                       | `undefined` | Optional. If defined, Overlays will be rendered in the named portal. See also `Portal`.                                                                                                                                                                                                                                       |
-| sx                  | SystemStyleObject                                              |     {}      | Style to be applied to the component                                                                                                                                                                                                                                                                                          |
+- The `Overlay` must either have:
+  - A value set for the `aria-labelledby` attribute that refers to a visible title.
+  - An `aria-label` attribute
+- If the `Overlay` should also have a longer description, use `aria-describedby`
+- The `Overlay` component has a `role="dialog"` set on it, if you are using `Overlay` for alerts, you can pass in `role="alertdialog"` instead. Please read the [W3C guidelines](https://www.w3.org/TR/wai-aria-1.1/#alertdialog) to determine which role is best for your use case
+- The `Overlay` component has `aria-modal` set to `true` by default and should not be overridden as all `Overlay`s behave as modals.
+
+See the W3C accessibility recommendations for modals [here](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_roles_states_props).
+
+## Positioning
+
+`Overlay` renders its `children` within a div positioned absolutely within a portal within the default portal root. The overlay will not update its positioning if the portal root's positioning changes (e.g., if the portal root is statically positioned after some DOM element that dynamically resizes). You may consider [customizing the portal or specifying a different portal root](/Portal#customizing-the-portal-root) to achieve different positioning behavior.
+
+## Props
+
+### Overlay
+
+<PropsTable>
+  <PropsTableRow
+    required
+    name="anchorRef"
+    type="React.RefObject<HTMLElement>"
+    description={
+      <>
+        Element the <InlineCode>Overlay</InlineCode> should be anchored to.
+      </>
+    }
+  />
+  <PropsTableRow
+    required
+    name="returnFocusRef"
+    type="React.RefObject<HTMLElement>"
+    description={
+      <>
+        Ref for the element to focus when the <InlineCode>Overlay</InlineCode> is closed.
+      </>
+    }
+  />
+  <PropsTableRow
+    required
+    name="onClickOutside"
+    type="function"
+    description={
+      <>
+        Function to call when clicking outside of the <InlineCode>Overlay</InlineCode>. Typically this function sets the{' '}
+        <InlineCode>Overlay</InlineCode> visibility state to <InlineCode>false</InlineCode>.
+      </>
+    }
+  />
+  <PropsTableRow
+    required
+    name="onEscape"
+    type="function"
+    description={
+      <>
+        Function to call when user presses <InlineCode>Escape</InlineCode>. Typically this function sets the{' '}
+        <InlineCode>Overlay</InlineCode> visibility state to <InlineCode>false</InlineCode>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="ignoreClickRefs"
+    type="React.RefObject<HTMLElement> []"
+    description={
+      <>
+        An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore
+        clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being
+        toggled twice.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="initialFocusRef"
+    type="React.RefObject<HTMLElement>"
+    description={
+      <>
+        Ref for the element to focus when the <InlineCode>Overlay</InlineCode> is opened. If nothing is provided, the
+        first focusable element in the <InlineCode>Overlay</InlineCode> body is focused.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="width"
+    type={`| 'small' 
+| 'medium' 
+| 'large' 
+| 'xlarge' 
+| 'xxlarge' 
+| 'auto'`}
+    defaultValue="'auto'"
+    description={
+      <>
+        Sets the width of the <InlineCode>Overlay</InlineCode>, pick from our set list of widths, or pass{' '}
+        <InlineCode>auto</InlineCode> to automatically set the width based on the content of the{' '}
+        <InlineCode>Overlay</InlineCode>. <InlineCode>small</InlineCode> corresponds to <InlineCode>256px</InlineCode>,{' '}
+        <InlineCode>medium</InlineCode> corresponds to <InlineCode>320px</InlineCode>, <InlineCode>large</InlineCode>{' '}
+        corresponds to <InlineCode>480px</InlineCode>, <InlineCode>xlarge</InlineCode> corresponds to{' '}
+        <InlineCode>640px</InlineCode>, <InlineCode>xxlarge</InlineCode> corresponds to <InlineCode>960px</InlineCode>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="height"
+    type={`| 'xsmall' 
+| 'small' 
+| 'medium' 
+| 'large' 
+| 'xlarge' 
+| 'auto'`}
+    defaultValue="'auto'"
+    description={
+      <>
+        Sets the height of the <InlineCode>Overlay</InlineCode>, pick from our set list of heights, or pass{' '}
+        <InlineCode>auto</InlineCode> to automatically set the height based on the content of the{' '}
+        <InlineCode>Overlay</InlineCode>. <InlineCode>xsmall</InlineCode> corresponds to <InlineCode>192px</InlineCode>,{' '}
+        <InlineCode>small</InlineCode> corresponds to <InlineCode>256px</InlineCode>, <InlineCode>medium</InlineCode>{' '}
+        corresponds to <InlineCode>320px</InlineCode>, <InlineCode>large</InlineCode> corresponds to{' '}
+        <InlineCode>432px</InlineCode>, <InlineCode>xlarge</InlineCode> corresponds to <InlineCode>600px</InlineCode>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="visibility"
+    type={`| 'visible' 
+| 'hidden'`}
+    defaultValue="'visible'"
+    description={
+      <>
+        Sets the visibility of the <InlineCode>Overlay</InlineCode>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="anchorSide"
+    type={`| 'inside-top' 
+| 'inside-bottom' 
+| 'inside-left' 
+| 'inside-right' 
+| 'inside-center' 
+| 'outside-top' 
+| 'outside-bottom' 
+| 'outside-left' 
+| 'outside-right'`}
+    description={
+      <>If provided, the Overlay will slide into position from the side of the anchor with a brief animation</>
+    }
+  />
+  <PropsTableRow
+    name="top"
+    type="number"
+    defaultValue={0}
+    description={
+      <>
+        Vertical position of the overlay, relative to its closest positioned ancestor (often its
+        <InlineCode>Portal</InlineCode>).
+      </>
+    }
+  />
+  <PropsTableRow
+    name="left"
+    type="number"
+    defaultValue={0}
+    description={
+      <>
+        Horizontal position of the overlay, relative to its closest positioned ancestor (often its{' '}
+        <InlineCode>Portal</InlineCode>).
+      </>
+    }
+  />
+  <PropsTableRow
+    name="portalContainerName"
+    type="string"
+    description={
+      <>
+        If defined, Overlays will be rendered in the named portal. See also <InlineCode>Portal</InlineCode>.
+      </>
+    }
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

@@ -1,34 +1,40 @@
 import React from 'react'
-import {Label} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
+import Label, {variants, LabelColorOptions} from '../Label'
+import {renderStyles} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
 describe('Label', () => {
-  behavesAsComponent({Component: Label})
-
-  checkExports('Label', {
-    default: Label
+  it('renders text node child', () => {
+    const container = render(<Label>Default</Label>)
+    const label = container.baseElement
+    expect(label.textContent).toEqual('Default')
   })
+  it('default size is rendered as "small"', () => {
+    const expectedStyles = {
+      height: '20px',
+      padding: '0 7px'
+    }
+    const defaultStyles = renderStyles(<Label />)
 
-  it('renders a <span>', () => {
-    expect(render(<Label />).type).toEqual('span')
+    expect(defaultStyles).toEqual(expect.objectContaining(expectedStyles))
   })
+  it('default variant is rendered as "default"', () => {
+    const expectedStyles = {
+      ['border-color']: '#d0d7de'
+    }
+    const defaultStyles = renderStyles(<Label />)
 
+    expect(defaultStyles).toEqual(expect.objectContaining(expectedStyles))
+  })
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Label>hello</Label>)
-    const results = await axe(container)
-    expect(results).toHaveNoViolations()
-    cleanup()
-  })
-
-  it('respects the "outline" prop', () => {
-    expect(render(<Label outline />)).toMatchSnapshot()
-  })
-
-  it('respects the "variant" prop', () => {
-    expect(render(<Label variant="xl" />)).toMatchSnapshot()
+    for (const variant in variants) {
+      const {container} = render(<Label variant={variant as LabelColorOptions}>Default</Label>)
+      const results = await axe(container)
+      expect(results).toHaveNoViolations()
+      cleanup()
+    }
   })
 })

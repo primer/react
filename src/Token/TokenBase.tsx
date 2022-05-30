@@ -1,16 +1,22 @@
-import {KeyboardEvent} from 'react'
+import React, {KeyboardEvent} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
 
-export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'extralarge'
+// TODO: remove invalid "extralarge" size name in next breaking change
+/** @deprecated 'extralarge' to be removed to align with size naming ADR https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md **/
+type ExtraLarge = 'extralarge'
+export type TokenSizeKeys = 'small' | 'medium' | 'large' | 'xlarge' | ExtraLarge
+
+const xlargeSize = '32px'
 
 export const tokenSizes: Record<TokenSizeKeys, string> = {
   small: '16px',
   medium: '20px',
   large: '24px',
-  extralarge: '32px'
+  extralarge: xlargeSize,
+  xlarge: xlargeSize
 }
 
 export const defaultTokenSize: TokenSizeKeys = 'medium'
@@ -22,6 +28,10 @@ export interface TokenBaseProps
    * The function that gets called when a user clicks the remove button, or keys "Backspace" or "Delete" when focused on the token
    */
   onRemove?: () => void
+  /**
+   * Whether the remove button should be rendered in the token
+   */
+  hideRemoveButton?: boolean
   /**
    * Whether the token is selected
    */
@@ -40,8 +50,25 @@ export interface TokenBaseProps
   size?: TokenSizeKeys
 }
 
-export const isTokenInteractive = ({as = 'span', onClick, onFocus, tabIndex = -1}: TokenBaseProps) =>
+type TokenElements = HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement
+
+export const isTokenInteractive = ({
+  as = 'span',
+  onClick,
+  onFocus,
+  tabIndex = -1
+}: Pick<TokenBaseProps, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
+
+const xlargeVariantStyles = {
+  fontSize: 1,
+  height: tokenSizes.xlarge,
+  lineHeight: tokenSizes.xlarge,
+  paddingLeft: 3,
+  paddingRight: 3,
+  paddingTop: 0,
+  paddingBottom: 0
+}
 
 const variants = variant<
   {
@@ -87,28 +114,12 @@ const variants = variant<
       paddingTop: 0,
       paddingBottom: 0
     },
-    extralarge: {
-      fontSize: 1,
-      height: tokenSizes.extralarge,
-      lineHeight: tokenSizes.extralarge,
-      paddingLeft: 3,
-      paddingRight: 3,
-      paddingTop: 0,
-      paddingBottom: 0
-    }
+    extralarge: xlargeVariantStyles,
+    xlarge: xlargeVariantStyles
   }
 })
 
-const TokenBase = styled.span.attrs<TokenBaseProps>(({text, onRemove, onKeyDown}) => ({
-  onKeyDown: (event: KeyboardEvent<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>) => {
-    onKeyDown && onKeyDown(event)
-
-    if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
-      onRemove()
-    }
-  },
-  'aria-label': onRemove ? `${text}, press backspace or delete to remove` : undefined
-}))<TokenBaseProps & SxProp>`
+const StyledTokenBase = styled.span<SxProp>`
   align-items: center;
   border-radius: 999px;
   cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
@@ -116,10 +127,31 @@ const TokenBase = styled.span.attrs<TokenBaseProps>(({text, onRemove, onKeyDown}
   font-weight: ${get('fontWeights.bold')};
   font-family: inherit;
   text-decoration: none;
+  position: relative;
   white-space: nowrap;
   ${variants}
   ${sx}
 `
+
+const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
+  ({text, onRemove, onKeyDown, id, ...rest}, forwardedRef) => {
+    return (
+      <StyledTokenBase
+        onKeyDown={(event: KeyboardEvent<TokenElements>) => {
+          onKeyDown && onKeyDown(event)
+
+          if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+            onRemove()
+          }
+        }}
+        aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
+        id={id?.toString()}
+        {...rest}
+        ref={forwardedRef}
+      />
+    )
+  }
+)
 
 TokenBase.defaultProps = {
   as: 'span',

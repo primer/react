@@ -5,15 +5,16 @@
   "scripts": {
     "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "build": "pushd .. && npm install && popd && cross-env NODE_ENV=production gatsby build --prefix-paths && npm run build:storybook",
-    "build:storybook": "cd .. && ./script/build-storybook"
+    "build": "cross-env NODE_ENV=production gatsby build --prefix-paths",
+    "build:preview": "cross-env NODE_ENV=production gatsby build"
   },
   "engines": {
-    "node": ">= 10.x"
+    "node": ">=12",
+    "npm": ">=7"
   },
   "dependencies": {
-    "@primer/gatsby-theme-doctocat": "^3.1.0",
-    "@primer/octicons-react": "^10.0.0",
+    "@primer/gatsby-theme-doctocat": "^4.0.0",
+    "@primer/octicons-react": "^16.1.0",
     "@primer/primitives": "4.1.0",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",

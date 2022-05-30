@@ -1,18 +1,20 @@
 ---
-componentId: pointer_box
 title: PointerBox
+description: A customisable, bordered Box with a caret pointer
+componentId: pointer_box
 status: Alpha
+source: https://github.com/primer/react/blob/main/src/PointerBox.tsx
 ---
 
-PointerBox is a [BorderBox](./BorderBox) component with a caret added to it.
-
-## Default example
+## Examples
 
 ```jsx live
-<PointerBox m={4} p={2} minHeight={100} bg="success.subtle" borderColor="success.emphasis">
+<PointerBox minHeight={100} sx={{m: 4, p: 2, bg: 'success.subtle', borderColor: 'success.emphasis'}}>
   PointerBox
 </PointerBox>
 ```
+
+### Caret position
 
 ```javascript live noinline
 function PointerBoxDemo(props) {
@@ -24,10 +26,13 @@ function PointerBoxDemo(props) {
         Caret Position
       </Heading>
       <CaretSelector current={pos} onChange={setPos} />
-      <Box position="relative" pt={4}>
-        <PointerBox m={4} p={2} minHeight={100} bg="success.subtle" borderColor="success.emphasis" caret={pos}>
-          {' '}
-          Content{' '}
+      <Box position="relative">
+        <PointerBox
+          minHeight={100}
+          caret={pos}
+          sx={{m: 4, p: 2, bg: 'success.subtle', borderColor: 'success.emphasis'}}
+        >
+          Content
         </PointerBox>
       </Box>
     </Box>
@@ -49,9 +54,8 @@ function CaretSelector(props) {
     'top-right',
     'bottom-right'
   ].map(dir => (
-    <label>
+    <label key={dir}>
       <input
-        key={dir}
         type="radio"
         name="caret"
         value={dir}
@@ -72,12 +76,48 @@ function CaretSelector(props) {
 render(<PointerBoxDemo />)
 ```
 
-## System props
+## Props
 
-PointerBox components get `COMMON`, `LAYOUT`, `BORDER`, and `FLEX` system props. Read our [System Props](/system-props) doc page for a full list of available props.
+<PropsTable>
+  <PropsTableRow
+    name="caret"
+    type={`| 'top'
+| 'top-left'
+| 'top-right'
+| 'right'
+| 'right-top'
+| 'right-bottom'
+| 'bottom'
+| 'bottom-left'
+| 'bottom-right'
+| 'left'
+| 'left-top'
+| 'left-bottom'`}
+    defaultValue="'bottom'"
+    description="Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
+  />
+</PropsTable>
 
-## Component props
+## Status
 
-| Name  | Type   | Default | Description                                                                                                                                                                                                                                                  |
-| :---- | :----- | :-----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| caret | String | bottom  | Sets the location of the caret. The format is `[edge]-[position on edge]`. For example, `right-top` will position the caret on the top of the right edge of the box. Use `top`, `right`, `bottom`, or `left` to position a caret in the center of that edge. |
+<ComponentChecklist
+items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
+
+## Related components
+
+- [Popover](/Popover)

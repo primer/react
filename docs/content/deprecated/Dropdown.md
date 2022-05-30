@@ -3,6 +3,12 @@ title: Dropdown
 status: Deprecated
 ---
 
+## Deprecation
+
+Use [ActionMenu](/ActionMenu) instead.
+
+---
+
 The Dropdown component is a lightweight context menu for housing navigation and actions.
 
 Use `Dropdown.Button` as the trigger for the dropdown, or use a custom `summary` element if you would like. **You must use a `summary` tag in order for the dropdown to behave properly!**. You should also add `aria-haspopup="true"` to custom dropdown triggers for accessibility purposes. You can use the `Dropdown.Caret` component to add a caret to a custom dropdown trigger.
@@ -11,7 +17,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 
 ## Default example
 
-```jsx live
+```jsx live deprecated
 <Dropdown>
   <Dropdown.Button>Dropdown</Dropdown.Button>
   <Dropdown.Menu direction="sw">
@@ -24,7 +30,7 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 
 ## With custom button
 
-```jsx live
+```jsx live deprecated
 <Dropdown>
   <summary>
     Dropdown

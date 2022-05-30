@@ -1,14 +1,18 @@
 ---
-compnoentId: pagination
 title: Pagination
+componentId: pagination
+description: Use Pagination to display a sequence of links that allow navigation to discrete, related pages.
+source: https://github.com/primer/react/blob/main/src/Pagination/Pagination.tsx
 status: Alpha
 ---
 
 import State from '../components/State'
 
-Use the pagination component to create a connected set of links that lead to related pages (for example, previous, next, or page numbers).
+```js
+import {Pagination} from '@primer/react'
+```
 
-## Basic example
+## Examples
 
 The pagination component only requires two properties to render: `pageCount`, which is the total number of pages, and `currentPage`, which is the currently selected page number (which should be managed by the consuming application).
 
@@ -45,7 +49,7 @@ By default, clicking a link in the pagination component will cause the browser t
 </State>
 ```
 
-## Customizing link URLs
+### Customizing link URLs
 
 To customize the URL generated for each link, you can pass a function to the `hrefBuilder` property. The function should take a page number as an argument and return a URL to use for the link.
 
@@ -74,7 +78,7 @@ type HrefBuilder = (page: number) => string
 </State>
 ```
 
-## Customizing which pages are shown
+### Customizing which pages are shown
 
 Two props control how many links are displayed in the pagination container at any given time. `marginPageCount` controls how many pages are guaranteed to be displayed on the left and right of the component; `surroundingPageCount` controls how many pages will be displayed to the left and right of the current page.
 
@@ -129,19 +133,6 @@ To hide all the page numbers and create a simple pagination container with just 
 </State>
 ```
 
-## Component props
-
-| Name                 | Type              |  Default   | Description                                                            |
-| :------------------- | :---------------- | :--------: | :--------------------------------------------------------------------- |
-| currentPage          | Number            |            | **Required.** The currently selected page.                             |
-| hrefBuilder          | Function          | `#${page}` | A function to generate links based on page number.                     |
-| marginPageCount      | Number            |     1      | How many pages to always show at the left and right of the component.  |
-| onPageChange         | Function          |   no-op    | Called with event and page number when a page is clicked.              |
-| pageCount            | Number            |            | **Required.** The total number of pages.                               |
-| showPages            | Boolean           |   `true`   | Whether or not to show the individual page links.                      |
-| surroundingPageCount | Number            |     2      | How many pages to display on each side of the currently selected page. |
-| sx                   | SystemStyleObject |     {}     | Style to be applied to the component                                   |
-
 ## Theming
 
 The following snippet shows the properties in the theme that control the styling of the pagination component:
@@ -178,3 +169,73 @@ export default {
   }
 }
 ```
+
+## Props
+
+### Pagination
+
+<PropsTable>
+  <PropsTableRow
+    name="currentPage"
+    type="number"
+    description="The currently selected page."
+    required
+  />
+  <PropsTableRow
+    name="pageCount"
+    type="number"
+    description="The total number of pages."
+    required
+  />
+  <PropsTableRow
+    name="hrefBuilder"
+    type="function"
+    description="A function to generate links based on page number."
+  />
+  <PropsTableRow
+    name="marginPageCount"
+    type="number"
+    defaultValue={1}
+    description="How many pages to always show at the left and right of the component."
+  />
+  <PropsTableRow
+    name="onPageChange"
+    type="function"
+    defaultValue="no-op"
+    description="Called with event and page number when a page is clicked."
+  />
+  <PropsTableRow
+    name="showPages"
+    type="boolean"
+    defaultValue="true"
+    description="Whether or not to show the individual page links."
+  />
+  <PropsTableRow
+    name="surroundingPageCount"
+    type="number"
+    defaultValue="2"
+    description="How many pages to display on each side of the currently selected page."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

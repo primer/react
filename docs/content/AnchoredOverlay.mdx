@@ -20,7 +20,11 @@ See also [Overlay positioning](/Overlay#positioning).
     const closeOverlay = React.useCallback(() => setIsOpen(false), [setIsOpen])
     return (
       <AnchoredOverlay
-        renderAnchor={anchorProps => <DropdownButton {...anchorProps}>Click me to open</DropdownButton>}
+        renderAnchor={anchorProps => (
+          <Button {...anchorProps} trailingIcon={TriangleDownIcon}>
+            Click me to open
+          </Button>
+        )}
         open={isOpen}
         onOpen={openOverlay}
         onClose={closeOverlay}
@@ -82,6 +86,11 @@ See also [Overlay positioning](/Overlay#positioning).
     }
   />
   <PropsTableRow
+    name="anchorId"
+    type="string"
+    description="An override to the internal id that will be passed to the anchor."
+  />
+  <PropsTableRow
     name="side"
     type={`| 'inside-top' 
 | 'inside-bottom' 
@@ -99,7 +108,7 @@ See also [Overlay positioning](/Overlay#positioning).
     name="overlayProps"
     type={
       <>
-        Partial&lt;<Link href="/Overlay#props">OverlayProps</Link>&gt;
+        Partial&lt;<Link href="/react/Overlay#props">OverlayProps</Link>&gt;
       </>
     }
     description={
@@ -112,7 +121,7 @@ See also [Overlay positioning](/Overlay#positioning).
     name="focusTrapSettings"
     type={
       <>
-        Partial&lt;<Link href="/focusTrap#focustraphooksettings-interface">FocusTrapHookSettings</Link>&gt;
+        Partial&lt;<Link href="/react/focusTrap#focustraphooksettings-interface">FocusTrapHookSettings</Link>&gt;
       </>
     }
     description={
@@ -125,7 +134,7 @@ See also [Overlay positioning](/Overlay#positioning).
     name="focusZoneSettings"
     type={
       <>
-        Partial&lt;<Link href="/focusZone#focuszonehooksettings-interface">FocusZoneHookSettings</Link>&gt;
+        Partial&lt;<Link href="/react/focusZone#focuszonehooksettings-interface">FocusZoneHookSettings</Link>&gt;
       </>
     }
     description={

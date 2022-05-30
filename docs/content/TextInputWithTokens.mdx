@@ -8,8 +8,6 @@ storybook: '/react/storybook?path=/story/forms-text-input-with-tokens--default'
 ---
 
 import {TextInputWithTokens} from '@primer/react'
-import {PropsTable} from '../src/props-table'
-import {ComponentChecklist} from '../src/component-checklist'
 
 A `TextInputWithTokens` component supports all of the features of a [TextInput](/TextInput) component, but it can render a list of [Tokens](/Token) next to the area a user types in.
 
@@ -29,12 +27,10 @@ const BasicExample = () => {
   }
 
   return (
-    <>
-      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
-        Basic example tokens
-      </Box>
-      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} id="inputWithTokens-basic" />
-    </>
+    <FormControl>
+      <FormControl.Label>Basic example tokens</FormControl.Label>
+      <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} />
+    </FormControl>
   )
 }
 
@@ -57,17 +53,10 @@ const UsingIssueLabelTokens = () => {
   }
 
   return (
-    <>
-      <Box as="label" display="block" htmlFor="inputWithTokens-issueLabels">
-        Issue labels
-      </Box>
-      <TextInputWithTokens
-        tokenComponent={IssueLabelToken}
-        tokens={tokens}
-        onTokenRemove={onTokenRemove}
-        id="inputWithTokens-issueLabels"
-      />
-    </>
+    <FormControl>
+      <FormControl.Label>Issue labels</FormControl.Label>
+      <TextInputWithTokens tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
+    </FormControl>
   )
 }
 
@@ -94,16 +83,10 @@ const VisibleTokenCountExample = () => {
 
   return (
     <Box maxWidth="500px">
-      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
-        Tokens truncated after 2
-      </Box>
-      <TextInputWithTokens
-        visibleTokenCount={2}
-        block
-        tokens={tokens}
-        onTokenRemove={onTokenRemove}
-        id="inputWithTokens-basic"
-      />
+      <FormControl>
+        <FormControl.Label>Tokens truncated after 2</FormControl.Label>
+        <TextInputWithTokens visibleTokenCount={2} block tokens={tokens} onTokenRemove={onTokenRemove} />
+      </FormControl>
     </Box>
   )
 }
@@ -131,16 +114,16 @@ const PreventTokenWrappingExample = () => {
 
   return (
     <Box maxWidth="500px">
-      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
-        Tokens on one line
-      </Box>
-      <TextInputWithTokens
-        preventTokenWrapping
-        block
-        tokens={tokens}
-        onTokenRemove={onTokenRemove}
-        id="inputWithTokens-basic"
-      />
+      <FormControl>
+        <FormControl.Label>Tokens on one line</FormControl.Label>
+        <TextInputWithTokens
+          preventTokenWrapping
+          block
+          tokens={tokens}
+          onTokenRemove={onTokenRemove}
+          id="inputWithTokens-basic"
+        />
+      </FormControl>
     </Box>
   )
 }
@@ -168,16 +151,16 @@ const MaxHeightExample = () => {
 
   return (
     <Box maxWidth="500px">
-      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
-        Tokens restricted to a max height
-      </Box>
-      <TextInputWithTokens
-        maxHeight="50px"
-        block
-        tokens={tokens}
-        onTokenRemove={onTokenRemove}
-        id="inputWithTokens-basic"
-      />
+      <FormControl>
+        <FormControl.Label>Tokens restricted to a max height</FormControl.Label>
+        <TextInputWithTokens
+          maxHeight="50px"
+          block
+          tokens={tokens}
+          onTokenRemove={onTokenRemove}
+          id="inputWithTokens-basic"
+        />
+      </FormControl>
     </Box>
   )
 }
@@ -185,41 +168,273 @@ const MaxHeightExample = () => {
 render(MaxHeightExample)
 ```
 
+### With an error validation status
+
+```javascript live noinline
+const ErrorExample = () => {
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2}
+  ])
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <>
+      <Box as="label" display="block" htmlFor="inputWithTokens-basic">
+        Basic example tokens
+      </Box>
+      <TextInputWithTokens
+        tokens={tokens}
+        onTokenRemove={onTokenRemove}
+        id="inputWithTokens-basic"
+        validationStatus="error"
+      />
+    </>
+  )
+}
+
+render(ErrorExample)
+```
+
+### With leading and trailing visuals
+
+```javascript live noinline
+const LeadingVisualExample = () => {
+  const [dates, setDates] = React.useState([
+    {text: '01 Jan', id: 0},
+    {text: '01 Feb', id: 1},
+    {text: '01 Mar', id: 2}
+  ])
+  const [tokens, setTokens] = React.useState([
+    {text: 'zero', id: 0},
+    {text: 'one', id: 1},
+    {text: 'two', id: 2}
+  ])
+  const onDateRemove = tokenId => {
+    setDates(dates.filter(token => token.id !== tokenId))
+  }
+  const onTokenRemove = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <>
+      <FormControl>
+        <FormControl.Label>Dates</FormControl.Label>
+        <TextInputWithTokens leadingVisual={CalendarIcon} tokens={dates} onTokenRemove={onDateRemove} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Tokens</FormControl.Label>
+        <TextInputWithTokens trailingVisual={CheckIcon} tokens={tokens} onTokenRemove={onTokenRemove} />
+      </FormControl>
+    </>
+  )
+}
+
+render(LeadingVisualExample)
+```
+
+## With visuals and loading indicators
+
+```javascript live noinline
+const WithIconAndLoadingIndicator = () => {
+  const [dates, setDates] = React.useState([
+    {text: '01 Jan', id: 0},
+    {text: '01 Feb', id: 1},
+    {text: '01 Mar', id: 2}
+  ])
+  const onDateRemove = tokenId => {
+    setDates(dates.filter(token => token.id !== tokenId))
+  }
+
+  const [loading, setLoading] = React.useState(true)
+  const toggleLoadingState = () => {
+    setLoading(!loading)
+  }
+
+  return (
+    <>
+      <Box mb={5} display="flex" justifyContent="flex-end">
+        <button type="button" onClick={toggleLoadingState}>
+          Toggle loading state {loading ? 'off' : 'on'}
+        </button>
+      </Box>
+
+      <h3>No visual</h3>
+      <Box mb={2}>
+        <TextInputWithTokens tokens={dates} onTokenRemove={onDateRemove} value="auto" loading={loading} />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          value="leading"
+          loading={loading}
+          loaderPosition="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          value="trailing"
+          loading={loading}
+          loaderPosition="trailing"
+        />
+      </Box>
+
+      <h3>Leading visual</h3>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          leadingVisual={CalendarIcon}
+          loading={loading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          leadingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          leadingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+
+      <h3>Trailing visual</h3>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={5}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+
+      <h3>Both visuals</h3>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          size="small"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          value="auto"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="leading"
+          value="leading"
+        />
+      </Box>
+      <Box mb={2}>
+        <TextInputWithTokens
+          tokens={dates}
+          onTokenRemove={onDateRemove}
+          size="large"
+          leadingVisual={CalendarIcon}
+          trailingVisual={CalendarIcon}
+          loading={loading}
+          loaderPosition="trailing"
+          value="trailing"
+        />
+      </Box>
+    </>
+  )
+}
+
+render(<WithIconAndLoadingIndicator />)
+```
+
 ## Props
 
 <PropsTable>
-  <PropsTable.Row required name="tokens" type="TokenProps[]" description="The array of tokens to render" />
-  <PropsTable.Row
+  <PropsTableRow required name="tokens" type="TokenProps[]" description="The array of tokens to render" />
+  <PropsTableRow
     required
     name="onTokenRemove"
     type="(tokenId: string|number) => void"
     description="The function that gets called when a token is removed"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="tokenComponent"
     type="React.ComponentType<any>"
     defaultValue="Token"
     description="The component used to render each token"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="maxHeight"
     type="React.CSSProperties['maxHeight']"
     description="The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
   />
-  <PropsTable.Row
+  <PropsTableRow
     name="preventTokenWrapping"
     type="boolean"
     defaultValue="false"
     description="Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
   />
-  <PropsTable.Row name="size" type="TokenSizeKeys" defaultValue="extralarge" description="The size of the tokens" />
-  <PropsTable.Row
+  <PropsTableRow
+    name="size"
+    type="'small' | 'medium' | 'large' | 'xlarge'"
+    defaultValue="xlarge"
+    description="The size of the tokens and text input"
+  />
+  <PropsTableRow
     name="hideTokenRemoveButtons"
     type="boolean"
     defaultValue="false"
     description="Whether the remove buttons should be rendered in the tokens"
   />
-  <PropsTable.Row
+  <PropsTableRow
+    name="validationStatus"
+    type="'error' | 'success' | 'warning'"
+    description="Style the input to match the status"
+  />
+  <PropsTableRow
     name="visibleTokenCount"
     type="number"
     description="The number of tokens to display before truncating"

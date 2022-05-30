@@ -1,7 +1,7 @@
 import {themeGet} from '..'
 
 describe('themeGet', () => {
-  it('acccepts theme prop', () => {
+  it('accepts theme prop', () => {
     expect(themeGet('example')({theme: {example: 'test'}})).toBe('test')
   })
 
