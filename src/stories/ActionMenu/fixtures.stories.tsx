@@ -655,10 +655,10 @@ export function OverlayProps(): JSX.Element {
   )
 }
 
-export function TypeaheadTest(): JSX.Element {
+export function MnemonicsTest(): JSX.Element {
   return (
     <>
-      <h1>Story to test typeahead</h1>
+      <h1>Menu mnemonics</h1>
 
       <ActionMenu>
         <ActionMenu.Button>Menu</ActionMenu.Button>

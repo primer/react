@@ -1,0 +1,65 @@
+import React from 'react'
+import {iterateFocusableElements} from '@primer/behaviors/utils'
+import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
+
+/*
+ * A mnemonic indicates to the user which key to press (single)
+ * to activate a command or navigate to a component
+ * typically appearing in a menu title, menu item, or the text of a button.
+ */
+
+export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLElement>) => {
+  const containerRef = useProvidedRefOrCreate(providedRef)
+
+  React.useEffect(() => {
+    if (!open || !containerRef.current) return
+    const container = containerRef.current
+
+    const handler = (event: KeyboardEvent) => {
+      // skip if a TextInput has focus
+      const activeElement = document.activeElement as HTMLElement
+      if (activeElement.tagName === 'INPUT') return
+
+      // skip if used with modifier to preserve shortcuts like ⌘ + F
+      const hasModifier = event.ctrlKey || event.altKey || event.metaKey
+      if (hasModifier) return
+
+      // skip if it's not a alphabet key
+      if (!isAlphabetKey(event)) return
+
+      // if this is a typeahead event, don't propagate outside of menu
+      event.stopPropagation()
+
+      const query = event.key.toLowerCase()
+
+      let elementToFocus: HTMLElement | undefined
+
+      const focusableItems = [...iterateFocusableElements(container)]
+
+      const itemsStartingWithKey = focusableItems.filter(item => {
+        return item.textContent?.toLowerCase().trim().startsWith(query)
+      })
+
+      const currentActiveIndex = itemsStartingWithKey.indexOf(activeElement)
+
+      // If the last element is already selected, cycle through the list
+      if (currentActiveIndex === itemsStartingWithKey.length - 1) {
+        elementToFocus = itemsStartingWithKey[0]
+      } else {
+        elementToFocus = itemsStartingWithKey.find((item, index) => {
+          return index > currentActiveIndex
+        })
+      }
+      elementToFocus?.focus()
+    }
+
+    container.addEventListener('keydown', handler)
+    return () => container.removeEventListener('keydown', handler)
+  }, [open, containerRef])
+
+  const isAlphabetKey = (event: KeyboardEvent) => {
+    return event.key.length === 1 && /[a-z\d]/i.test(event.key)
+  }
+
+  return {containerRef}
+}
