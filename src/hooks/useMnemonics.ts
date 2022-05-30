@@ -19,6 +19,9 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
       const focusableItems = [...iterateFocusableElements(container)]
 
       focusableItems.map(item => {
+        // if item already has aria-keyshortcuts defined by user, skip
+        if (item.getAttribute('aria-keyshortcuts')) return
+
         const firstLetter = item.textContent?.toLowerCase()[0]
         if (firstLetter) item.setAttribute('aria-keyshortcuts', firstLetter)
       })
@@ -52,17 +55,21 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
 
         const focusableItems = [...iterateFocusableElements(container)]
 
-        const itemsStartingWithKey = focusableItems.filter(item => {
-          return item.textContent?.toLowerCase().trim().startsWith(query)
+        const itemsMatchingKey = focusableItems.filter(item => {
+          const keyshortcuts = item
+            .getAttribute('aria-keyshortcuts')
+            ?.split(' ')
+            .map(shortcut => shortcut.toLowerCase())
+          return keyshortcuts && keyshortcuts.includes(query)
         })
 
-        const currentActiveIndex = itemsStartingWithKey.indexOf(activeElement)
+        const currentActiveIndex = itemsMatchingKey.indexOf(activeElement)
 
         // If the last element is already selected, cycle through the list
-        if (currentActiveIndex === itemsStartingWithKey.length - 1) {
-          elementToFocus = itemsStartingWithKey[0]
+        if (currentActiveIndex === itemsMatchingKey.length - 1) {
+          elementToFocus = itemsMatchingKey[0]
         } else {
-          elementToFocus = itemsStartingWithKey.find((item, index) => {
+          elementToFocus = itemsMatchingKey.find((item, index) => {
             return index > currentActiveIndex
           })
         }

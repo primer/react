@@ -24,6 +24,9 @@ const Fixture = ({
         <button onKeyDown={onSelect}>third button</button>
         <button disabled>fourth button is disabled</button>
         <button onKeyDown={onSelect}>button 5</button>
+        <button onKeyDown={onSelect} aria-keyshortcuts="6 E">
+          button 6
+        </button>
         <span>not focusable</span>
       </div>
     </>
@@ -75,14 +78,34 @@ describe('useTypeaheadFocus', () => {
     expect(getByText('button 1')).toEqual(document.activeElement)
   })
 
+  it('User defined aria-keyshortcuts: Should catch all shortcuts defined by user', () => {
+    const {getByTestId, getByText} = render(<Fixture />)
+    const container = getByTestId('container')
+
+    fireEvent.keyDown(container, {key: '6', code: '6'})
+    expect(getByText('button 6')).toEqual(document.activeElement)
+
+    // send focus elsewhere
+    fireEvent.keyDown(container, {key: 't', code: 't'})
+    expect(getByText('third button')).toEqual(document.activeElement)
+
+    fireEvent.keyDown(container, {key: 'e', code: 'e'})
+    expect(getByText('button 6')).toEqual(document.activeElement)
+  })
+
   it('aria-keyshortcuts: it should add aria-keyshortcuts to focusable items', () => {
     const {getByText} = render(<Fixture />)
 
     expect(getByText('button 1')).toHaveAttribute('aria-keyshortcuts', 'b')
     expect(getByText('Button 2')).toHaveAttribute('aria-keyshortcuts', 'b')
     expect(getByText('third button')).toHaveAttribute('aria-keyshortcuts', 't')
-    expect(getByText('fourth button is disabled')).not.toHaveAttribute('aria-keyshortcuts')
     expect(getByText('button 5')).toHaveAttribute('aria-keyshortcuts', 'b')
+
+    // don't overwrite aria-keyshortcuts if it's already defined
+    expect(getByText('button 6')).toHaveAttribute('aria-keyshortcuts', '6 E')
+
+    // not focusable items should not have aria-keyshortcuts
+    expect(getByText('fourth button is disabled')).not.toHaveAttribute('aria-keyshortcuts')
     expect(getByText('not focusable')).not.toHaveAttribute('aria-keyshortcuts')
   })
 

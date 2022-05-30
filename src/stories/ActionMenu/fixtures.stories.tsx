@@ -671,6 +671,24 @@ export function MnemonicsTest(): JSX.Element {
             </ActionList.Group>
             <ActionList.Item>Order</ActionList.Item>
             <ActionList.Item>Group</ActionList.Item>
+            <ActionList.Item aria-keyshortcuts="e">
+              User defined
+              <ActionList.TrailingVisual>
+                <Box
+                  as="span"
+                  sx={{
+                    backgroundColor: 'canvas.default',
+                    border: '1px solid',
+                    borderColor: 'border.default',
+                    borderRadius: 2,
+                    padding: '2px 6px',
+                    fontSize: 0
+                  }}
+                >
+                  e
+                </Box>
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
             <ActionList.Item disabled>Disabled</ActionList.Item>
           </ActionList>
         </ActionMenu.Overlay>
