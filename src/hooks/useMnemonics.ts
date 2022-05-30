@@ -11,51 +11,69 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLElement>) => {
   const containerRef = useProvidedRefOrCreate(providedRef)
 
-  React.useEffect(() => {
-    if (!open || !containerRef.current) return
-    const container = containerRef.current
-
-    const handler = (event: KeyboardEvent) => {
-      // skip if a TextInput has focus
-      const activeElement = document.activeElement as HTMLElement
-      if (activeElement.tagName === 'INPUT') return
-
-      // skip if used with modifier to preserve shortcuts like ⌘ + F
-      const hasModifier = event.ctrlKey || event.altKey || event.metaKey
-      if (hasModifier) return
-
-      // skip if it's not a alphabet key
-      if (!isAlphabetKey(event)) return
-
-      // if this is a typeahead event, don't propagate outside of menu
-      event.stopPropagation()
-
-      const query = event.key.toLowerCase()
-
-      let elementToFocus: HTMLElement | undefined
+  React.useEffect(
+    function addAriaKeyshortcuts() {
+      if (!open || !containerRef.current) return
+      const container = containerRef.current
 
       const focusableItems = [...iterateFocusableElements(container)]
 
-      const itemsStartingWithKey = focusableItems.filter(item => {
-        return item.textContent?.toLowerCase().trim().startsWith(query)
+      focusableItems.map(item => {
+        const firstLetter = item.textContent?.toLowerCase()[0]
+        if (firstLetter) item.setAttribute('aria-keyshortcuts', firstLetter)
       })
+    },
+    [open, containerRef]
+  )
 
-      const currentActiveIndex = itemsStartingWithKey.indexOf(activeElement)
+  React.useEffect(
+    function handleKeyDown() {
+      if (!open || !containerRef.current) return
+      const container = containerRef.current
 
-      // If the last element is already selected, cycle through the list
-      if (currentActiveIndex === itemsStartingWithKey.length - 1) {
-        elementToFocus = itemsStartingWithKey[0]
-      } else {
-        elementToFocus = itemsStartingWithKey.find((item, index) => {
-          return index > currentActiveIndex
+      const handler = (event: KeyboardEvent) => {
+        // skip if a TextInput has focus
+        const activeElement = document.activeElement as HTMLElement
+        if (activeElement.tagName === 'INPUT') return
+
+        // skip if used with modifier to preserve shortcuts like ⌘ + F
+        const hasModifier = event.ctrlKey || event.altKey || event.metaKey
+        if (hasModifier) return
+
+        // skip if it's not a alphabet key
+        if (!isAlphabetKey(event)) return
+
+        // if this is a typeahead event, don't propagate outside of menu
+        event.stopPropagation()
+
+        const query = event.key.toLowerCase()
+
+        let elementToFocus: HTMLElement | undefined
+
+        const focusableItems = [...iterateFocusableElements(container)]
+
+        const itemsStartingWithKey = focusableItems.filter(item => {
+          return item.textContent?.toLowerCase().trim().startsWith(query)
         })
-      }
-      elementToFocus?.focus()
-    }
 
-    container.addEventListener('keydown', handler)
-    return () => container.removeEventListener('keydown', handler)
-  }, [open, containerRef])
+        const currentActiveIndex = itemsStartingWithKey.indexOf(activeElement)
+
+        // If the last element is already selected, cycle through the list
+        if (currentActiveIndex === itemsStartingWithKey.length - 1) {
+          elementToFocus = itemsStartingWithKey[0]
+        } else {
+          elementToFocus = itemsStartingWithKey.find((item, index) => {
+            return index > currentActiveIndex
+          })
+        }
+        elementToFocus?.focus()
+      }
+
+      container.addEventListener('keydown', handler)
+      return () => container.removeEventListener('keydown', handler)
+    },
+    [open, containerRef]
+  )
 
   const isAlphabetKey = (event: KeyboardEvent) => {
     return event.key.length === 1 && /[a-z\d]/i.test(event.key)

@@ -75,6 +75,17 @@ describe('useTypeaheadFocus', () => {
     expect(getByText('button 1')).toEqual(document.activeElement)
   })
 
+  it('aria-keyshortcuts: it should add aria-keyshortcuts to focusable items', () => {
+    const {getByText} = render(<Fixture />)
+
+    expect(getByText('button 1')).toHaveAttribute('aria-keyshortcuts', 'b')
+    expect(getByText('Button 2')).toHaveAttribute('aria-keyshortcuts', 'b')
+    expect(getByText('third button')).toHaveAttribute('aria-keyshortcuts', 't')
+    expect(getByText('fourth button is disabled')).not.toHaveAttribute('aria-keyshortcuts')
+    expect(getByText('button 5')).toHaveAttribute('aria-keyshortcuts', 'b')
+    expect(getByText('not focusable')).not.toHaveAttribute('aria-keyshortcuts')
+  })
+
   it('Space: when user presses Space, it should select the option', () => {
     const mockFunction = jest.fn()
     const {getByTestId, getByText} = render(<Fixture onSelect={mockFunction} />)
