@@ -219,7 +219,9 @@ render(<Example />)
 
 ### With External Anchor
 
-To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor:
+To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor.
+
+Make sure to add `aria-label` to `ActionList` with the purpose of the menu, example: "File options".
 
 ```javascript live noinline
 const Example = () => {
@@ -232,7 +234,7 @@ const Example = () => {
         {open ? 'Close Menu' : 'Open Menu'}
       </Button>
 
-      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
+      <ActionMenu aria-label="File options" open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
         <ActionMenu.Overlay>
           <ActionList>
             <ActionList.Item>Copy link</ActionList.Item>
@@ -259,7 +261,7 @@ const handleEscape = () => alert('you hit escape!')
 
 render(
   <ActionMenu>
-    <ActionMenu.Button>Open Actions Menu</ActionMenu.Button>
+    <ActionMenu.Button>Actions Menu</ActionMenu.Button>
     <ActionMenu.Overlay width="medium" onEscape={handleEscape}>
       <ActionList>
         <ActionList.Item>
