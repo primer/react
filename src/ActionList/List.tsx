@@ -22,6 +22,9 @@ export type ActionListProps = {
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+
+  'aria-label'?: string
+  'aria-labelledby'?: string
 } & SxProp
 
 type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'>
@@ -51,8 +54,11 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       <ListBox
         sx={merge(styles, sxProp as SxProp)}
         role={role || listRole}
-        aria-labelledby={listLabelledBy}
         {...props}
+        aria-labelledby={
+          /* give user defined aria labels preference over automatic label (listLabelledBy) */
+          props['aria-labelledby'] || (props['aria-label'] ? undefined : listLabelledBy)
+        }
         ref={forwardedRef}
       >
         <ListContext.Provider

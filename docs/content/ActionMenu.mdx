@@ -189,8 +189,90 @@ const Example = () => {
   const selectedType = fieldTypes[selectedIndex]
 
   return (
+    <>
+      <Heading as="h2" sx={{fontSize: 1, mb: 2}}>
+        Field type:
+      </Heading>
+      <ActionMenu>
+        <ActionMenu.Button aria-label={`Field type: ${selectedType.name}`} leadingIcon={selectedType.icon}>
+          {selectedType.name}
+        </ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="single" aria-label="Field type">
+            {fieldTypes.map((type, index) => (
+              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+                <ActionList.LeadingVisual>
+                  <type.icon />
+                </ActionList.LeadingVisual>
+                {type.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
+
+render(<Example />)
+```
+
+## Accessibility
+
+### Single Selection
+
+It is recommended to have a visual label for `ActionMenu.Button`. This can either be an external label or an inline label.
+
+For external label, it's important to add an `aria-label` to `ActionMenu.Button` which contains both the purpose and current selected value, example: _"Field type: Number"_. In addition to that, you must add `aria-label` to the `ActionList` with the purpose of the menu, example: _"Field type"_.
+
+Alternatively, you can add an inline label by adding `label`, example: _"Field type"_ on `ActionMenu.Button` instead of `aria-label` which will add `aria-label` on the button and `aria-labelledby` on the menu for you.
+
+```javascript live noinline
+const fieldTypes = [
+  {icon: TypographyIcon, name: 'Text'},
+  {icon: NumberIcon, name: 'Number'},
+  {icon: CalendarIcon, name: 'Date'},
+  {icon: SingleSelectIcon, name: 'Single select'},
+  {icon: IterationsIcon, name: 'Iteration'}
+]
+
+const ExternalLabel = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState(1)
+  const selectedType = fieldTypes[selectedIndex]
+
+  return (
+    <>
+      <Heading as="h2" sx={{fontSize: 1, mb: 2}}>
+        Field type:
+      </Heading>
+      <ActionMenu>
+        <ActionMenu.Button aria-label={`Field type: ${selectedType.name}`} leadingIcon={selectedType.icon}>
+          {selectedType.name}
+        </ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="single" aria-label="Field type">
+            {fieldTypes.map((type, index) => (
+              <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
+                <ActionList.LeadingVisual>
+                  <type.icon />
+                </ActionList.LeadingVisual>
+                {type.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
+
+const InlineLabel = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState(1)
+  const selectedType = fieldTypes[selectedIndex]
+
+  return (
     <ActionMenu>
-      <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+      <ActionMenu.Button label="Field type" leadingIcon={selectedType.icon}>
         {selectedType.name}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
@@ -209,7 +291,16 @@ const Example = () => {
   )
 }
 
-render(<Example />)
+render(
+  <div style={{display: 'flex', alignItems: 'end'}}>
+    <div style={{width: '50%'}}>
+      <ExternalLabel />
+    </div>
+    <div style={{width: '50%'}}>
+      <InlineLabel />
+    </div>
+  </div>
+)
 ```
 
 ### With External Anchor
@@ -326,8 +417,8 @@ render(
 
 <PropsTable>
   <PropsTableRow name="children" required type="React.ReactElement" />
-  <PropsTableRow name="aria-label" required type="string" />
-  <PropsTableRow name="includeLabel" type="boolean" />
+  <PropsTableRow name="aria-label" type="string" description="Label for button, also used to label the menu" />
+  <PropsTableRow name="label" type="string" description="Add an inline label, as a replacement for aria-label" />
   <PropsTablePassthroughPropsRow
     elementName="Button"
     isPolymorphic

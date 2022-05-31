@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList, StyledOcticon} from '../..'
+import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList, StyledOcticon, Heading} from '../..'
 import {
   GearIcon,
   MilestoneIcon,
@@ -84,14 +84,17 @@ export function SingleSelection(): JSX.Element {
   const selectedType = fieldTypes[selectedIndex]
   return (
     <>
-      <h1>Single Selection - with label</h1>
+      <h2>Single Selection with external label</h2>
 
+      <Heading as="h3" sx={{fontSize: 1, mb: 2}}>
+        Field type:
+      </Heading>
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" includeLabel leadingIcon={selectedType.icon}>
+        <ActionMenu.Button aria-label={`Field type: ${selectedType.name}`} leadingIcon={selectedType.icon}>
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
-          <ActionList selectionVariant="single">
+          <ActionList selectionVariant="single" aria-label="Field type">
             {fieldTypes.map((type, index) => (
               <ActionList.Item
                 key={index}
@@ -107,10 +110,10 @@ export function SingleSelection(): JSX.Element {
         </ActionMenu.Overlay>
       </ActionMenu>
 
-      <h2>Single Selection - without label</h2>
+      <h2>Single Selection with inline label</h2>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon}>
+        <ActionMenu.Button label="Field type" leadingIcon={selectedType.icon}>
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -144,7 +147,7 @@ export function SingleSelectionWithPlaceholder(): JSX.Element {
       <p>This pattern has a placeholder in menu button when no value is selected yet</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" includeLabel leadingIcon={selectedType.icon}>
+        <ActionMenu.Button label="Field type" leadingIcon={selectedType.icon}>
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -334,7 +337,7 @@ export function MixedSelection(): JSX.Element {
       </p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Group by" includeLabel leadingIcon={selectedOption && selectedOption.icon}>
+        <ActionMenu.Button label="Group by" leadingIcon={selectedOption && selectedOption.icon}>
           {selectedOption && selectedOption.text}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
