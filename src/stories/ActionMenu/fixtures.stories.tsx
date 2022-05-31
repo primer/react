@@ -11,7 +11,8 @@ import {
   ActionMenu,
   ActionList,
   Button,
-  IconButton
+  IconButton,
+  Heading
 } from '../..'
 import {
   ServerIcon,
@@ -207,7 +208,7 @@ export function CustomAnchor(): JSX.Element {
       <h2>Last option activated: {actionFired}</h2>
       <ActionMenu>
         <ActionMenu.Anchor>
-          <summary style={{cursor: 'pointer'}} aria-label="Open column options">
+          <summary style={{cursor: 'pointer'}} aria-label="Column options">
             <KebabHorizontalIcon />
           </summary>
         </ActionMenu.Anchor>
@@ -497,6 +498,9 @@ export function MemexIteration(): JSX.Element {
     <>
       <h1>Memex Iteration Menu</h1>
 
+      <Heading as="h3" id="purpose" sx={{fontSize: 1}}>
+        Iteration duration
+      </Heading>
       <ActionMenu>
         <ActionMenu.Button
           variant="invisible"
@@ -505,12 +509,12 @@ export function MemexIteration(): JSX.Element {
             color: 'fg.muted',
             ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
           }}
-          aria-label="Select iteration duration"
+          aria-label={`Iteration duration: ${duration} ${duration > 1 ? 'weeks' : 'week'}`}
         >
           {duration} {duration > 1 ? 'weeks' : 'week'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
-          <ActionList selectionVariant="single">
+          <ActionList selectionVariant="single" aria-labelledby="purpose">
             {[1, 2, 3, 4, 5, 6].map(weeks => (
               <ActionList.Item key={weeks} selected={duration === weeks} onSelect={() => setDuration(weeks)}>
                 {weeks} {weeks > 1 ? 'weeks' : 'week'}
@@ -548,7 +552,7 @@ export function MemexAddColumn(): JSX.Element {
         </FormControl>
         <ActionMenu>
           <ActionMenu.Button
-            aria-label="Select field type"
+            aria-label={`Field type: ${selectedType.name}`}
             leadingIcon={selectedType.icon}
             sx={{
               gridTemplateColumns: 'min-content 1fr min-content',
@@ -558,7 +562,7 @@ export function MemexAddColumn(): JSX.Element {
             {selectedType.name}
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
-            <ActionList selectionVariant="single">
+            <ActionList selectionVariant="single" aria-label="Field type">
               {fieldTypes.map((type, index) => (
                 <ActionList.Item
                   key={index}
@@ -582,7 +586,7 @@ export function MemexAddColumn(): JSX.Element {
           <ActionMenu>
             <ActionMenu.Button
               id="duration"
-              aria-label="Select field type"
+              aria-label={`Duration unit: ${durationUnit}`}
               sx={{
                 textAlign: 'left',
                 ml: 2,
@@ -594,7 +598,7 @@ export function MemexAddColumn(): JSX.Element {
               {durationUnit}
             </ActionMenu.Button>
             <ActionMenu.Overlay width="medium">
-              <ActionList selectionVariant="single">
+              <ActionList selectionVariant="single" aria-label="Duration unit">
                 <ActionList.Item selected={durationUnit === 'weeks'} onSelect={() => setDurationUnit('weeks')}>
                   weeks
                 </ActionList.Item>
