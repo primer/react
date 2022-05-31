@@ -498,7 +498,7 @@ export function MemexIteration(): JSX.Element {
     <>
       <h1>Memex Iteration Menu</h1>
 
-      <Heading as="h3" id="purpose" sx={{fontSize: 1}}>
+      <Heading as="h1" id="purpose" sx={{fontSize: 1}}>
         Iteration duration
       </Heading>
       <ActionMenu>

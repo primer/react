@@ -56,7 +56,11 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
         role={role || listRole}
         {...props}
         aria-labelledby={
-          /* give user defined aria labels preference over automatic label (listLabelledBy) */
+          /* 
+            Give preference to user defined aria labels over automatic label.
+            aria-labelledby has higher specificity than aria-label,
+            that's why we set our aria-labelledby to undefined
+          */
           props['aria-labelledby'] || (props['aria-label'] ? undefined : listLabelledBy)
         }
         ref={forwardedRef}

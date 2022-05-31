@@ -106,9 +106,11 @@ const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonPro
                 {props.children && <span id={`${anchorId}-divider`}>:</span>}
               </Text>
               {leadingIcon && <StyledOcticon icon={leadingIcon} sx={{mr: 2}} />}
+              {props.children && <span id={`${anchorId}-value`}>{props.children}</span>}
             </>
-          ) : null}
-          {props.children && <span id={`${anchorId}-value`}>{props.children}</span>}
+          ) : (
+            props.children
+          )}
         </Button>
       </Anchor>
     )
