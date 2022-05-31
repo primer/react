@@ -83,55 +83,56 @@ export function SingleSelection(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(1)
   const selectedType = fieldTypes[selectedIndex]
   return (
-    <div style={{display: 'flex'}}>
-      <div>
-        <Heading as="h3" sx={{fontSize: 1, mb: 2}}>
-          Field type:
-        </Heading>
-        <ActionMenu>
-          <ActionMenu.Button aria-label={`Field type: ${selectedType.name}`} leadingIcon={selectedType.icon}>
-            {selectedType.name}
-          </ActionMenu.Button>
-          <ActionMenu.Overlay width="medium">
-            <ActionList selectionVariant="single" aria-label="Field type">
-              {fieldTypes.map((type, index) => (
-                <ActionList.Item
-                  key={index}
-                  selected={index === selectedIndex}
-                  id={index === selectedIndex ? 'selected-item' : undefined}
-                  onSelect={() => setSelectedIndex(index)}
-                  disabled={index === 3}
-                >
-                  <type.icon /> {type.name}
-                </ActionList.Item>
-              ))}
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </div>
-      <div>
-        <ActionMenu>
-          <ActionMenu.Button label="Field type" leadingIcon={selectedType.icon}>
-            {selectedType.name}
-          </ActionMenu.Button>
-          <ActionMenu.Overlay width="medium">
-            <ActionList selectionVariant="single">
-              {fieldTypes.map((type, index) => (
-                <ActionList.Item
-                  key={index}
-                  selected={index === selectedIndex}
-                  id={index === selectedIndex ? 'selected-item' : undefined}
-                  onSelect={() => setSelectedIndex(index)}
-                  disabled={index === 3}
-                >
-                  <type.icon /> {type.name}
-                </ActionList.Item>
-              ))}
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </div>
-    </div>
+    <>
+      <h2>Single Selection with external label</h2>
+
+      <Heading as="h3" sx={{fontSize: 1, mb: 2}}>
+        Field type:
+      </Heading>
+      <ActionMenu>
+        <ActionMenu.Button aria-label={`Field type: ${selectedType.name}`} leadingIcon={selectedType.icon}>
+          {selectedType.name}
+        </ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="single" aria-label="Field type">
+            {fieldTypes.map((type, index) => (
+              <ActionList.Item
+                key={index}
+                selected={index === selectedIndex}
+                id={index === selectedIndex ? 'selected-item' : undefined}
+                onSelect={() => setSelectedIndex(index)}
+                disabled={index === 3}
+              >
+                <type.icon /> {type.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+
+      <h2>Single Selection with inline label</h2>
+
+      <ActionMenu>
+        <ActionMenu.Button label="Field type" leadingIcon={selectedType.icon}>
+          {selectedType.name}
+        </ActionMenu.Button>
+        <ActionMenu.Overlay width="medium">
+          <ActionList selectionVariant="single">
+            {fieldTypes.map((type, index) => (
+              <ActionList.Item
+                key={index}
+                selected={index === selectedIndex}
+                id={index === selectedIndex ? 'selected-item' : undefined}
+                onSelect={() => setSelectedIndex(index)}
+                disabled={index === 3}
+              >
+                <type.icon /> {type.name}
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
   )
 }
 
