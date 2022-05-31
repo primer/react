@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList, StyledOcticon, Heading} from '../..'
+import {ThemeProvider, BaseStyles, Box, Text, Avatar, ActionMenu, ActionList, Heading} from '../..'
 import {
   GearIcon,
   MilestoneIcon,
