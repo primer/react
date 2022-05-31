@@ -289,11 +289,13 @@ render(
 
 ### Single Selection
 
-It is recommended to have a visual label for `ActionMenu.Button`. This can either be an external label or an inline label.
+For menus with selection, it's common to show the selected value in the button. To give context to the user, it's important to show the purpose of the menu as well.
 
-If you have an external label, it's important to add an `aria-label` to `ActionMenu.Button` which contains both the purpose and current selected value, example: _"Field type: Number"_. In addition to that, you must add `aria-label` to the `ActionList` with the purpose of the menu, example: _"Field type"_.
+Visually, this can be an external label above the button or an inline label inside the button. In both cases, the label for screen readers should have both purpose and value, example: "Field type: Number".
 
-Alternatively, you can add an inline label by adding `label`, example: _"Field type"_ on `ActionMenu.Button` instead of `aria-label` which will add `aria-label` on the button and `aria-labelledby` on the menu for you.
+If you have an external label, you can achieve that by adding an `aria-label` to `ActionMenu.Button` which contains both the purpose and current selected value, example: _"Field type: Number"_. In addition to that, you must also add `aria-label` to the `ActionList` with the purpose of the menu, example: _"Field type"_.
+
+Alternatively, you can add an inline label by passing `label` to `ActionMenu.Button` instead of `aria-label`, example: _"Field type"_, which will add the correct `aria-label` (_Field type: Number_) on the button and `aria-labelledby` (_Field type_) on the menu for you.
 
 ```javascript live noinline
 const fieldTypes = [
