@@ -61,7 +61,7 @@ export function ActionsStory(): JSX.Element {
       <h1>Actions</h1>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Open Actions Menu" trailingIcon={null}>
+        <ActionMenu.Button aria-label="Actions Menu" trailingIcon={null}>
           <ServerIcon />
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -115,7 +115,7 @@ export function ExternalAnchor(): JSX.Element {
 
       <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
         <ActionMenu.Overlay>
-          <ActionList>
+          <ActionList aria-label="File options">
             <ActionList.Item onSelect={() => onSelect('Copy link')}>
               Copy link
               <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>

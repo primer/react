@@ -217,6 +217,72 @@ const Example = () => {
 render(<Example />)
 ```
 
+### With External Anchor
+
+To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor:
+
+```javascript live noinline
+const Example = () => {
+  const [open, setOpen] = React.useState(false)
+  const anchorRef = React.createRef()
+
+  return (
+    <>
+      <Button ref={anchorRef} aria-haspopup="true" aria-expanded={open} onClick={() => setOpen(!open)}>
+        {open ? 'Close Menu' : 'Open Menu'}
+      </Button>
+
+      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>Copy link</ActionList.Item>
+            <ActionList.Item>Quote reply</ActionList.Item>
+            <ActionList.Item>Edit comment</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger">Delete file</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </>
+  )
+}
+
+render(<Example />)
+```
+
+### With Overlay Props
+
+To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`:
+
+```javascript live noinline
+const handleEscape = () => alert('you hit escape!')
+
+render(
+  <ActionMenu>
+    <ActionMenu.Button>Open Actions Menu</ActionMenu.Button>
+    <ActionMenu.Overlay width="medium" onEscape={handleEscape}>
+      <ActionList>
+        <ActionList.Item>
+          Open current Codespace
+          <ActionList.Description variant="block">
+            Your existing Codespace will be opened to its previous state, and you&apos;ll be asked to manually switch to
+            new-branch.
+          </ActionList.Description>
+          <ActionList.TrailingVisual>⌘O</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item>
+          Create new Codespace
+          <ActionList.Description variant="block">
+            Create a brand new Codespace with a fresh image and checkout this branch.
+          </ActionList.Description>
+          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
+)
+```
+
 ## Accessibility
 
 ### Single Selection
@@ -300,72 +366,6 @@ render(
       <InlineLabel />
     </div>
   </div>
-)
-```
-
-### With External Anchor
-
-To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`. Make sure you add `aria-expanded` and `aria-haspopup` to the external anchor:
-
-```javascript live noinline
-const Example = () => {
-  const [open, setOpen] = React.useState(false)
-  const anchorRef = React.createRef()
-
-  return (
-    <>
-      <Button ref={anchorRef} aria-haspopup="true" aria-expanded={open} onClick={() => setOpen(!open)}>
-        {open ? 'Close Menu' : 'Open Menu'}
-      </Button>
-
-      <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
-        <ActionMenu.Overlay>
-          <ActionList>
-            <ActionList.Item>Copy link</ActionList.Item>
-            <ActionList.Item>Quote reply</ActionList.Item>
-            <ActionList.Item>Edit comment</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item variant="danger">Delete file</ActionList.Item>
-          </ActionList>
-        </ActionMenu.Overlay>
-      </ActionMenu>
-    </>
-  )
-}
-
-render(<Example />)
-```
-
-### With Overlay Props
-
-To create an anchor outside of the menu, you need to switch to controlled mode for the menu and pass it as `anchorRef` to `ActionMenu`:
-
-```javascript live noinline
-const handleEscape = () => alert('you hit escape!')
-
-render(
-  <ActionMenu>
-    <ActionMenu.Button>Open Actions Menu</ActionMenu.Button>
-    <ActionMenu.Overlay width="medium" onEscape={handleEscape}>
-      <ActionList>
-        <ActionList.Item>
-          Open current Codespace
-          <ActionList.Description variant="block">
-            Your existing Codespace will be opened to its previous state, and you&apos;ll be asked to manually switch to
-            new-branch.
-          </ActionList.Description>
-          <ActionList.TrailingVisual>⌘O</ActionList.TrailingVisual>
-        </ActionList.Item>
-        <ActionList.Item>
-          Create new Codespace
-          <ActionList.Description variant="block">
-            Create a brand new Codespace with a fresh image and checkout this branch.
-          </ActionList.Description>
-          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-        </ActionList.Item>
-      </ActionList>
-    </ActionMenu.Overlay>
-  </ActionMenu>
 )
 ```
 
