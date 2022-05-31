@@ -768,6 +768,11 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   flex-grow: 1;
 }
 
+.c7 {
+  font-size: 16px;
+  color: #57606a;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -868,11 +873,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c3:focus {
   outline: 0;
-}
-
-.c7 {
-  font-size: 16px;
-  color: #57606a;
 }
 
 .c4 {
