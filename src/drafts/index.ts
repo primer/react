@@ -4,3 +4,5 @@
  *  But, they are published on npm and you can import them for experimentation/feedback.
  *  example: import {ActionList} from '@primer/react/drafts
  */
+export * from '../NavList'
+export * from '../Dialog/Dialog'

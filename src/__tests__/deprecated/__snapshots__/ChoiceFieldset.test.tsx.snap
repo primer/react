@@ -56,6 +56,22 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   cursor: not-allowed;
 }
 
+.c6:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c6:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c6:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -219,6 +235,22 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 
 .c7 {
   cursor: pointer;
+}
+
+.c7:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c7:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c7:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
 }
 
 .c3 {
@@ -409,6 +441,22 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 
 .c6 {
   cursor: pointer;
+}
+
+.c6:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c6:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c6:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
 }
 
 .c10 {
@@ -730,6 +778,22 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   cursor: pointer;
 }
 
+.c5:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c5:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c5:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
 .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -915,8 +979,25 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   cursor: pointer;
 }
 
+.c6:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: 0;
+}
+
+.c6:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c6:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: 0;
+}
+
 .c12 {
   font-size: 12px;
+  font-weight: bold;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1050,7 +1131,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
         >
           <span
             class="c12"
-            font-size="0"
           >
             <span
               aria-hidden="true"
@@ -1161,8 +1241,25 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   cursor: pointer;
 }
 
+.c6:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: 0;
+}
+
+.c6:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c6:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: 0;
+}
+
 .c12 {
   font-size: 12px;
+  font-weight: bold;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1296,7 +1393,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
         >
           <span
             class="c12"
-            font-size="0"
           >
             <span
               aria-hidden="true"

@@ -1,5 +1,70 @@
 # @primer/components
 
+## 35.2.2
+
+### Patch Changes
+
+- [#2058](https://github.com/primer/react/pull/2058) [`ab30f14a`](https://github.com/primer/react/commit/ab30f14a3ff70a2d6146366f777ebfd5f1907ff3) Thanks [@colebemis](https://github.com/colebemis)! - Add draft of `NavList` component
+
+* [#2038](https://github.com/primer/react/pull/2038) [`1c2eeb9c`](https://github.com/primer/react/commit/1c2eeb9c4a1370db5555a089c7e99f06d49ac043) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes accessibility bugs in the Select component.
+
+- [#2076](https://github.com/primer/react/pull/2076) [`05301033`](https://github.com/primer/react/commit/053010337a13559bef7caa308adf8196c6bb77c1) Thanks [@colebemis](https://github.com/colebemis)! - Draft `NavList.Item` now accepts an `as` prop, allowing it to be rendered as a Next.js or React Router link
+
+* [#2082](https://github.com/primer/react/pull/2082) [`3252b74c`](https://github.com/primer/react/commit/3252b74c852a0743ff2dacc42ffc6c9bd1ca68ba) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes broken links in the documentation
+
+- [#2075](https://github.com/primer/react/pull/2075) [`56dbbd32`](https://github.com/primer/react/commit/56dbbd3200a110fac3828ba39b25884ad9a5fdb3) Thanks [@colebemis](https://github.com/colebemis)! - Fix overflow issues in `PageLayout.Content`
+
+  | Before                                                                                                                                    | After                                                                                                                                     |
+  | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+  | <img width="1224" alt="image" src="https://user-images.githubusercontent.com/3026298/167502059-81e0ef9e-2fd6-40fe-b1f1-708368286578.png"> | <img width="1247" alt="image" src="https://user-images.githubusercontent.com/3026298/167502084-1c4f247e-2713-4419-8f4c-bb1a20e24dca.png"> |
+
+* [#2087](https://github.com/primer/react/pull/2087) [`b319b29d`](https://github.com/primer/react/commit/b319b29df6fca39bbdbce918fcebe1ff4e445e8c) Thanks [@mperrotti](https://github.com/mperrotti)! - Prevents the `onRemove` prop from being passed through to the HTML element from Token, AvatarToken, and IssueToken.
+
+- [#2077](https://github.com/primer/react/pull/2077) [`30f93ffb`](https://github.com/primer/react/commit/30f93ffb6669700d682b97de7143ddaa0380d7c2) Thanks [@colebemis](https://github.com/colebemis)! - Adds support for the `sx` prop on the draft implementation of `NavList` and all its subcomponents (e.g., `NavList.Item`)
+
+* [#2050](https://github.com/primer/react/pull/2050) [`0f9edcac`](https://github.com/primer/react/commit/0f9edcaca4973c9e998362004e7d549989b59c6f) Thanks [@mperrotti](https://github.com/mperrotti)! - Finishes updating components with the global focus styles defined in Primer CSS ([this PR](https://github.com/primer/css/pull/1744))
+
+- [#2054](https://github.com/primer/react/pull/2054) [`a682735f`](https://github.com/primer/react/commit/a682735f6e0a112718e5d4ed619216fc89e5980f) Thanks [@colebemis](https://github.com/colebemis)! - Fixes layout bug with ButtonGroup by changing the `display` property from `inline-block` to `inline-flex`
+
+* [#2064](https://github.com/primer/react/pull/2064) [`62d90af8`](https://github.com/primer/react/commit/62d90af8a078ea283459e2d88b669f6fd66bfa46) Thanks [@colebemis](https://github.com/colebemis)! - Add support for sub-items in draft implementation of NavList
+
+- [#2057](https://github.com/primer/react/pull/2057) [`c8f7e235`](https://github.com/primer/react/commit/c8f7e2352fe17de6ae8766e9220cec095fa977da) Thanks [@mperrotti](https://github.com/mperrotti)! - - adds [`color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme) style to inputs so they get the correct user-agent dark/light styles
+  - crops ToggleSwitch knob's shadow inside the toggle switch boundaries
+  - changes FormControl styles to prevent `<select>`, `<textarea>`, `<input>` from filling the parent's width when the `block` prop has not been passed to the input component
+
+* [#2048](https://github.com/primer/react/pull/2048) [`4e15985b`](https://github.com/primer/react/commit/4e15985b5d2c7c64ec507e2e362d509f3acd79d8) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ThemeProvider: Bug fix, in `colorMode=auto`, the theme now syncs with system changes.
+
+## 35.2.1
+
+### Patch Changes
+
+- [#2013](https://github.com/primer/react/pull/2013) [`5f6c5e22`](https://github.com/primer/react/commit/5f6c5e2249c9bb4c6a6b744755ea4607d10a0b74) Thanks [@mperrotti](https://github.com/mperrotti)! - 1. Fix a spacing issue with the loading spinner in a `TextInputWithTokens`
+  2. Bolds form validation text to be visually balanced with the icon
+
+* [#2053](https://github.com/primer/react/pull/2053) [`231c70b9`](https://github.com/primer/react/commit/231c70b9e3757840e0dc1baf53e5bfd9a679e953) Thanks [@langermank](https://github.com/langermank)! - Namespace UnderlineNav
+
+- [#2033](https://github.com/primer/react/pull/2033) [`0d7a871a`](https://github.com/primer/react/commit/0d7a871a64fb8770405d252ec88d7467d350a550) Thanks [@mperrotti](https://github.com/mperrotti)! - - Text input inner action's hover bg should not touch the text input edges
+  - Increases touch target area of the text input inner action button
+  - Deprecated `children` and `variant` props on the `TextInputInnerAction` component, but they're **still supported for now**.
+
+## 35.2.0
+
+### Minor Changes
+
+- [#1947](https://github.com/primer/react/pull/1947) [`edc85c96`](https://github.com/primer/react/commit/edc85c96c6c70adebbc4af1e2d05a913f249f2d3) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds the option to render a trailing action inside of the TextInput component
+
+* [#1933](https://github.com/primer/react/pull/1933) [`ae7650f1`](https://github.com/primer/react/commit/ae7650f1b6551b56effabe420ec4531804e97e7c) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a toggle switch component
+
+### Patch Changes
+
+- [#1973](https://github.com/primer/react/pull/1973) [`adbcd3bf`](https://github.com/primer/react/commit/adbcd3bf37334b867bd159c012d69aa9722ebbf3) Thanks [@colebemis](https://github.com/colebemis)! - The `PageLayout` component now renders [HTML5 landmark elements](https://web.dev/use-landmarks/) (`header`, `aside`, `footer`) to improve the navigation experience for people using assistive technologies (like screen readers)
+
+* [#1998](https://github.com/primer/react/pull/1998) [`cd8a5bb3`](https://github.com/primer/react/commit/cd8a5bb31b1d2a6a2c1b21c7342371cf1657e429) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates the API for token components to align with our size-naming ADR, avatar guidelines, and icon guidelines
+
+- [#2002](https://github.com/primer/react/pull/2002) [`3ebc1bb0`](https://github.com/primer/react/commit/3ebc1bb048f788b5c0ad3ede8e7430e1a26435b6) Thanks [@dgreif](https://github.com/dgreif)! - Update `@primer/behaviors` for better ESM compatibility
+
+* [#2007](https://github.com/primer/react/pull/2007) [`a8b3ed16`](https://github.com/primer/react/commit/a8b3ed16e59c40c45ff4843df491838afb6931a1) Thanks [@pksjce](https://github.com/pksjce)! - Add button focus styles
+
 ## 35.1.0
 
 ### Minor Changes

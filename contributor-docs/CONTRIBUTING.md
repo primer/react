@@ -186,13 +186,13 @@ If everything looks great, the design systems team member will approve the pull 
 
 ### Deploying
 
-All of our documentation sites use the [Now integration](https://github.com/organizations/primer/settings/installations/1007619) to deploy documentation changes whenever code is merged into main. The integration also creates a preview site every time you commit code to a branch. To view the preview site, navigate to the PR and find the comment from the `now` bot. This will include a link to the preview site for your branch.
+All of our documentation sites use GitHub Pages to deploy documentation changes whenever code is merged into main. The integration also creates a preview site every time you commit code to a branch. To view the preview site, navigate to the PR and find the comment from the `GitHub Actions` bot. This will include a link to the preview site for your branch.
 
 Once you merge your branch into main, any changes to the docs will automatically deploy. No further action is necessary.
 
 ### Path aliasing
 
-This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you alias this one to `primer-components.now.sh`.
+This site is served as a subdirectory of [primer.style] using a [path alias](https://zeit.co/docs/features/path-aliases) configured in that repo's [`rules.json`](https://github.com/primer/primer.style/tree/master/rules.json). If you change the production deployment URL for this app, you will also need to change it there and re-deploy that app; otherwise, Now will automatically route requests from [primer.style/components](https://primer.style/components/) to the new deployment whenever you alias this one to `https://primer.github.io/react/`.
 
 ### Publishing
 

@@ -73,7 +73,7 @@ describe('Select', () => {
     const placeholderOption = getByText('Pick a choice')
     const select = getByLabelText('Choice')
 
-    expect(select).not.toHaveAttribute('aria-required')
+    expect(select).not.toHaveAttribute('required')
 
     expect(placeholderOption).toBeDefined()
     expect(placeholderOption.tagName.toLowerCase()).toBe('option')
@@ -102,7 +102,7 @@ describe('Select', () => {
     const placeholderOption = getByText('Pick a choice')
     const select = getByLabelText('Choice')
 
-    expect(select).toHaveAttribute('aria-required')
+    expect(select).toHaveAttribute('required')
 
     expect(placeholderOption).toBeDefined()
     expect(placeholderOption.tagName.toLowerCase()).toBe('option')
@@ -130,7 +130,7 @@ describe('Select', () => {
 
     const select = getByLabelText('Choice')
 
-    expect(select).toHaveAttribute('aria-disabled')
+    expect(select).toHaveAttribute('disabled')
     expect(select).toHaveAttribute('disabled')
   })
 })
