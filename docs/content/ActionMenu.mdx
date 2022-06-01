@@ -293,7 +293,7 @@ For menus with selection, it's common to show the selected value in the button. 
 
 Visually, this can be an external label above the button or an inline label inside the button. In both cases, the label for screen readers should have both purpose and value, example: "Field type: Number".
 
-If you have an external label, you can achieve that by adding an `aria-label` to `ActionMenu.Button` which contains both the purpose and current selected value, example: _"Field type: Number"_. In addition to that, you must also add `aria-label` to the `ActionList` with the purpose of the menu, example: _"Field type"_.
+If you have an external label, you can achieve that by adding an `aria-label` to `ActionMenu.Button` which contains both the purpose and current selected value, example: _"Field type: Number"_. In addition to that, you must also add `aria-labelledby` to the `ActionList` with the id of the external label to indicate the purpose of the menu.
 
 Alternatively, you can add an inline label by passing `label` to `ActionMenu.Button` instead of `aria-label`, example: _"Field type"_, which will add the correct `aria-label` (_Field type: Number_) on the button and `aria-labelledby` (_Field type_) on the menu for you.
 
@@ -312,15 +312,15 @@ const ExternalLabel = () => {
 
   return (
     <>
-      <Heading as="h2" sx={{fontSize: 1, mb: 2}}>
-        Field type:
+      <Heading as="h2" id="purpose" sx={{fontSize: 1, mb: 2}}>
+        Field type
       </Heading>
       <ActionMenu>
         <ActionMenu.Button aria-label={`Field type: ${selectedType.name}`} leadingIcon={selectedType.icon}>
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
-          <ActionList selectionVariant="single" aria-label="Field type">
+          <ActionList selectionVariant="single" aria-labelledby="purpose">
             {fieldTypes.map((type, index) => (
               <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
                 <ActionList.LeadingVisual>
