@@ -5,6 +5,7 @@ module.exports = {
   ...defaultConfig,
   addons: [
     ...defaultConfig.addons,
+
     ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
       ? ['@whitespace/storybook-addon-html']
       : [])
