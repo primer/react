@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, Text, ThemeProvider} from '../../'
-import SegmentedControl from '../../SegmentedControl'
+import SegmentedControl from '.'
 
 export default {
   title: 'SegmentedControl/fixtures',
