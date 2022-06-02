@@ -14,7 +14,16 @@ const segmentData = [
 
 // TODO: improve test coverage
 describe('SegmentedControl', () => {
-  behavesAsComponent({Component: SegmentedControl})
+  behavesAsComponent({
+    Component: SegmentedControl,
+    toRender: () => (
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button>Raw</SegmentedControl.Button>
+        <SegmentedControl.Button>Blame</SegmentedControl.Button>
+      </SegmentedControl>
+    )
+  })
 
   checkExports('SegmentedControl', {
     default: SegmentedControl
@@ -125,5 +134,5 @@ describe('SegmentedControl', () => {
   })
 })
 
-checkStoriesForAxeViolations('SegmentedControl/examples')
-checkStoriesForAxeViolations('SegmentedControl/fixtures')
+checkStoriesForAxeViolations('examples', '../SegmentedControl/')
+checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
