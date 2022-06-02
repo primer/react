@@ -30,7 +30,11 @@ const SegmentedControlButton: React.FC<SegmentedControlButtonProps> = ({
   return (
     <SegmentedControlButtonStyled aria-pressed={selected} sx={mergedSx} {...rest}>
       <span className="segmentedControl-content">
-        <Box mr={1}>{LeadingIcon && <LeadingIcon />}</Box>
+        {LeadingIcon && (
+          <Box mr={1}>
+            <LeadingIcon />
+          </Box>
+        )}
         <Box className="segmentedControl-text">{children}</Box>
       </span>
     </SegmentedControlButtonStyled>

@@ -9,6 +9,7 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps) =>
   color: 'currentColor',
   cursor: 'pointer',
   flexGrow: 1,
+  fontFamily: 'inherit',
   fontWeight: props?.selected ? 'bold' : 'normal',
   marginTop: '-1px',
   marginBottom: '-1px',
@@ -76,6 +77,18 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps) =>
       pointerEvents: 'none',
       userSelect: 'none',
       visibility: 'hidden'
+    }
+  },
+
+  '@media (pointer: coarse)': {
+    ':before': {
+      content: '""',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      transform: 'translateY(-50%)',
+      top: '50%',
+      minHeight: '44px'
     }
   }
 })
