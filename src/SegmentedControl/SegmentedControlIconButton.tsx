@@ -1,7 +1,7 @@
 import React, {HTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
-import {Box} from '..'
-import {merge, SxProp} from '../sx'
+import styled from 'styled-components'
+import sx, {merge, SxProp} from '../sx'
 import getSegmentedControlButtonStyles from './getSegmentedControlStyles'
 
 export type SegmentedControlIconButtonProps = {
@@ -13,24 +13,28 @@ export type SegmentedControlIconButtonProps = {
 } & SxProp &
   HTMLAttributes<HTMLButtonElement>
 
-// TODO: Try and get this to work without `fowardRef`
-// Without it, the whole `<Box /> is marked as a very cryptic type error
-//
+const SegmentedControlIconButtonStyled = styled.button`
+  ${sx};
+`
+
 // TODO: get tooltips working:
 // - by default, the tooltip shows the `ariaLabel` content
 // - allow users to pass custom tooltip text
-export const SegmentedControlIconButton = React.forwardRef<HTMLButtonElement, SegmentedControlIconButtonProps>(
-  ({icon: Icon, selected, sx: sxProp = {}, ...rest}, forwardedRef) => {
-    const sx = merge(getSegmentedControlButtonStyles({selected}), sxProp as SxProp)
+export const SegmentedControlIconButton: React.FC<SegmentedControlIconButtonProps> = ({
+  icon: Icon,
+  selected,
+  sx: sxProp = {},
+  ...rest
+}) => {
+  const mergedSx = merge(getSegmentedControlButtonStyles({selected}), sxProp as SxProp)
 
-    return (
-      <Box as="button" aria-pressed={selected} sx={sx} {...rest} ref={forwardedRef}>
-        <span className="segmentedControl-content">
-          <Icon />
-        </span>
-      </Box>
-    )
-  }
-)
+  return (
+    <SegmentedControlIconButtonStyled aria-pressed={selected} sx={mergedSx} {...rest}>
+      <span className="segmentedControl-content">
+        <Icon />
+      </span>
+    </SegmentedControlIconButtonStyled>
+  )
+}
 
 export default SegmentedControlIconButton

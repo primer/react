@@ -1,7 +1,8 @@
 import React, {HTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
+import styled from 'styled-components'
 import {Box} from '..'
-import {merge, SxProp} from '../sx'
+import sx, {merge, SxProp} from '../sx'
 import getSegmentedControlButtonStyles from './getSegmentedControlStyles'
 
 export type SegmentedControlButtonProps = {
@@ -13,21 +14,27 @@ export type SegmentedControlButtonProps = {
 } & SxProp &
   HTMLAttributes<HTMLButtonElement>
 
-// TODO: Try and get this to work without `fowardRef`
-// Without it, the whole `<Box /> is marked as a very cryptic type error
-const SegmentedControlButton = React.forwardRef<HTMLButtonElement, SegmentedControlButtonProps>(
-  ({children, leadingIcon: LeadingIcon, selected, sx: sxProp = {}, ...rest}, forwardedRef) => {
-    const sx = merge(getSegmentedControlButtonStyles({selected, children}), sxProp as SxProp)
+const SegmentedControlButtonStyled = styled.button`
+  ${sx};
+`
 
-    return (
-      <Box as="button" aria-pressed={selected} sx={sx} {...rest} ref={forwardedRef}>
-        <span className="segmentedControl-content">
-          <Box mr={1}>{LeadingIcon && <LeadingIcon />}</Box>
-          <Box className="segmentedControl-text">{children}</Box>
-        </span>
-      </Box>
-    )
-  }
-)
+const SegmentedControlButton: React.FC<SegmentedControlButtonProps> = ({
+  children,
+  leadingIcon: LeadingIcon,
+  selected,
+  sx: sxProp = {},
+  ...rest
+}) => {
+  const mergedSx = merge(getSegmentedControlButtonStyles({selected, children}), sxProp as SxProp)
+
+  return (
+    <SegmentedControlButtonStyled aria-pressed={selected} sx={mergedSx} {...rest}>
+      <span className="segmentedControl-content">
+        <Box mr={1}>{LeadingIcon && <LeadingIcon />}</Box>
+        <Box className="segmentedControl-text">{children}</Box>
+      </span>
+    </SegmentedControlButtonStyled>
+  )
+}
 
 export default SegmentedControlButton
