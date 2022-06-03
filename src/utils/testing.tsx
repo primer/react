@@ -245,9 +245,9 @@ export function checkExports(path: string, exports: Record<any, any>): void {
 }
 
 expect.extend(toHaveNoViolations)
-export function checkStoriesForAxeViolations(name: string) {
+export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const stories = require(`../stories/${name}.stories`)
+  const stories = require(`${storyDir || '../stories/'}${name}.stories`)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- _meta
   const {default: _meta, ...Stories} = stories
