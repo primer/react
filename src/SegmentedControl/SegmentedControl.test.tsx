@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {checkExports} from '../utils/testing'
 import SegmentedControl from './'
 
 const segmentData = [
