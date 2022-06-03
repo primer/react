@@ -3,7 +3,11 @@ import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 // import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-// import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {
+  // behavesAsComponent,
+  //  checkExports,
+  checkStoriesForAxeViolations
+} from '../utils/testing'
 // import SegmentedControl from './'
 
 // const segmentData = [
@@ -27,10 +31,6 @@ describe('SegmentedControl', () => {
   // checkExports('SegmentedControl', {
   //   default: SegmentedControl
   // })
-
-  it('passes if the tests are fake', () => {
-    expect(true).toBe(true)
-  })
   // it('renders with a selected segment', () => {
   //   const {getByText} = render(
   //     <SegmentedControl aria-label="File view">
@@ -121,5 +121,5 @@ describe('SegmentedControl', () => {
   // })
 })
 
-// checkStoriesForAxeViolations('examples', '../SegmentedControl/')
-// checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
+checkStoriesForAxeViolations('examples', '../SegmentedControl/')
+checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
