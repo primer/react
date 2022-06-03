@@ -134,5 +134,5 @@ describe('SegmentedControl', () => {
   })
 })
 
-// checkStoriesForAxeViolations('examples', '../SegmentedControl/')
-// checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
+checkStoriesForAxeViolations('examples', '../SegmentedControl/')
+checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
