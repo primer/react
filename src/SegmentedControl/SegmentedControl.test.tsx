@@ -27,94 +27,94 @@ describe('SegmentedControl', () => {
   checkExports('SegmentedControl', {
     default: SegmentedControl
   })
-  // it('renders with a selected segment', () => {
-  //   const {getByText} = render(
-  //     <SegmentedControl aria-label="File view">
-  //       {segmentData.map(({label}, index) => (
-  //         <SegmentedControl.Button selected={index === 1} key={label}>
-  //           {label}
-  //         </SegmentedControl.Button>
-  //       ))}
-  //     </SegmentedControl>
-  //   )
-  //   const selectedButton = getByText('Raw').closest('button')
-  //   expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
-  // })
-  // it('renders the first segment as selected if no child has the `selected` prop passed', () => {
-  //   const {getByText} = render(
-  //     <SegmentedControl aria-label="File view">
-  //       {segmentData.map(({label}) => (
-  //         <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
-  //       ))}
-  //     </SegmentedControl>
-  //   )
-  //   const selectedButton = getByText('Preview').closest('button')
-  //   expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
-  // })
-  // it('renders segments with segment labels that have leading icons', () => {
-  //   const {getByLabelText} = render(
-  //     <SegmentedControl aria-label="File view">
-  //       {segmentData.map(({label, icon}, index) => (
-  //         <SegmentedControl.Button selected={index === 0} leadingIcon={icon} key={label}>
-  //           {label}
-  //         </SegmentedControl.Button>
-  //       ))}
-  //     </SegmentedControl>
-  //   )
-  //   for (const datum of segmentData) {
-  //     const iconEl = getByLabelText(datum.iconLabel)
-  //     expect(iconEl).toBeDefined()
-  //   }
-  // })
-  // it('renders segments with accessible icon-only labels', () => {
-  //   const {getByLabelText} = render(
-  //     <SegmentedControl aria-label="File view">
-  //       {segmentData.map(({label, icon}) => (
-  //         <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
-  //       ))}
-  //     </SegmentedControl>
-  //   )
-  //   for (const datum of segmentData) {
-  //     const labelledButton = getByLabelText(datum.label)
-  //     expect(labelledButton).toBeDefined()
-  //   }
-  // })
-  // it('calls onChange with index of clicked segment button', () => {
-  //   const handleChange = jest.fn()
-  //   const {getByText} = render(
-  //     <SegmentedControl aria-label="File view" onChange={handleChange}>
-  //       {segmentData.map(({label}, index) => (
-  //         <SegmentedControl.Button selected={index === 0} key={label}>
-  //           {label}
-  //         </SegmentedControl.Button>
-  //       ))}
-  //     </SegmentedControl>
-  //   )
-  //   const buttonToClick = getByText('Raw').closest('button')
-  //   expect(handleChange).not.toHaveBeenCalled()
-  //   if (buttonToClick) {
-  //     userEvent.click(buttonToClick)
-  //   }
-  //   expect(handleChange).toHaveBeenCalledWith(1)
-  // })
-  // it('calls segment button onClick if it is passed', () => {
-  //   const handleClick = jest.fn()
-  //   const {getByText} = render(
-  //     <SegmentedControl aria-label="File view">
-  //       {segmentData.map(({label}, index) => (
-  //         <SegmentedControl.Button selected={index === 0} onClick={index === 1 ? handleClick : undefined} key={label}>
-  //           {label}
-  //         </SegmentedControl.Button>
-  //       ))}
-  //     </SegmentedControl>
-  //   )
-  //   const buttonToClick = getByText('Raw').closest('button')
-  //   expect(handleClick).not.toHaveBeenCalled()
-  //   if (buttonToClick) {
-  //     userEvent.click(buttonToClick)
-  //   }
-  //   expect(handleClick).toHaveBeenCalled()
-  // })
+  it('renders with a selected segment', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button selected={index === 1} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+    const selectedButton = getByText('Raw').closest('button')
+    expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
+  })
+  it('renders the first segment as selected if no child has the `selected` prop passed', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label}) => (
+          <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+    const selectedButton = getByText('Preview').closest('button')
+    expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
+  })
+  it('renders segments with segment labels that have leading icons', () => {
+    const {getByLabelText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}, index) => (
+          <SegmentedControl.Button selected={index === 0} leadingIcon={icon} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+    for (const datum of segmentData) {
+      const iconEl = getByLabelText(datum.iconLabel)
+      expect(iconEl).toBeDefined()
+    }
+  })
+  it('renders segments with accessible icon-only labels', () => {
+    const {getByLabelText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label, icon}) => (
+          <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
+        ))}
+      </SegmentedControl>
+    )
+    for (const datum of segmentData) {
+      const labelledButton = getByLabelText(datum.label)
+      expect(labelledButton).toBeDefined()
+    }
+  })
+  it('calls onChange with index of clicked segment button', () => {
+    const handleChange = jest.fn()
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view" onChange={handleChange}>
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button selected={index === 0} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+    const buttonToClick = getByText('Raw').closest('button')
+    expect(handleChange).not.toHaveBeenCalled()
+    if (buttonToClick) {
+      userEvent.click(buttonToClick)
+    }
+    expect(handleChange).toHaveBeenCalledWith(1)
+  })
+  it('calls segment button onClick if it is passed', () => {
+    const handleClick = jest.fn()
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button selected={index === 0} onClick={index === 1 ? handleClick : undefined} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+    const buttonToClick = getByText('Raw').closest('button')
+    expect(handleClick).not.toHaveBeenCalled()
+    if (buttonToClick) {
+      userEvent.click(buttonToClick)
+    }
+    expect(handleClick).toHaveBeenCalled()
+  })
 })
 
 checkStoriesForAxeViolations('examples', '../SegmentedControl/')
