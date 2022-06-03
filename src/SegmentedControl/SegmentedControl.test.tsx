@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {checkExports} from '../utils/testing'
+import {checkStoriesForAxeViolations} from '../utils/testing'
 import SegmentedControl from './'
 
 const segmentData = [
@@ -24,9 +24,9 @@ describe('SegmentedControl', () => {
   //     </SegmentedControl>
   //   )
   // })
-  checkExports('SegmentedControl', {
-    default: SegmentedControl
-  })
+  // checkExports('SegmentedControl', {
+  //   default: SegmentedControl
+  // })
 
   it('renders with a selected segment', () => {
     const {getByText} = render(
@@ -118,5 +118,5 @@ describe('SegmentedControl', () => {
   })
 })
 
-// checkStoriesForAxeViolations('examples', '../SegmentedControl/')
-// checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
+checkStoriesForAxeViolations('examples', '../SegmentedControl/')
+checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
