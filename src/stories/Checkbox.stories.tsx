@@ -1,8 +1,9 @@
-import React, {useLayoutEffect, useRef, useState} from 'react'
+import React, {useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
 import {BaseStyles, Box, Checkbox, CheckboxProps, Text, ThemeProvider} from '..'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {action} from '@storybook/addon-actions'
 import {get} from '../constants'
 
