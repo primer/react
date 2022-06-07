@@ -30,6 +30,7 @@ const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
 // TODO: implement `variant` prop for responsive behavior
 // TODO: implement `loading` prop
 // TODO: log a warning if no `ariaLabel` or `ariaLabelledBy` prop is passed
+// TODO: implement keyboard behavior to move focus using the arrow keys
 const SegmentedControl: React.FC<SegmentedControlProps> = ({
   children,
   fullWidth,
@@ -52,7 +53,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
   )
 
   return (
-    <Box role="group" sx={sx} {...rest}>
+    <Box role="toolbar" sx={sx} {...rest}>
       {React.Children.map(children, (child, i) => {
         if (React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
           return React.cloneElement(child, {

@@ -28,7 +28,7 @@ const SegmentedControlButton: React.FC<SegmentedControlButtonProps> = ({
   const mergedSx = merge(getSegmentedControlButtonStyles({selected, children}), sxProp as SxProp)
 
   return (
-    <SegmentedControlButtonStyled aria-pressed={selected} sx={mergedSx} {...rest}>
+    <SegmentedControlButtonStyled aria-current={selected} sx={mergedSx} {...rest}>
       <span className="segmentedControl-content">
         {LeadingIcon && (
           <Box mr={1}>
