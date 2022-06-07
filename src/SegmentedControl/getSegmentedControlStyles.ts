@@ -1,10 +1,13 @@
+import {get} from '../constants'
 import {SegmentedControlButtonProps} from './SegmentedControlButton'
 
 const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps) => ({
   '--segmented-control-button-inner-padding': '12px', // TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available
+  '--segmented-control-button-bg-inset': '4px',
+  '--segmented-control-outer-radius': get('radii.2')(props),
   backgroundColor: 'transparent',
   borderColor: 'transparent',
-  borderRadius: 2,
+  borderRadius: 'var(--segmented-control-outer-radius)',
   borderWidth: 0,
   color: 'currentColor',
   cursor: 'pointer',
@@ -13,7 +16,7 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps) =>
   fontWeight: props?.selected ? 'bold' : 'normal',
   marginTop: '-1px',
   marginBottom: '-1px',
-  padding: props?.selected ? 0 : 'calc(var(--segmented-control-button-inner-padding) / 2)',
+  padding: props?.selected ? 0 : 'var(--segmented-control-button-bg-inset)',
   position: 'relative',
 
   '.segmentedControl-content': {
@@ -22,16 +25,20 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps) =>
     borderColor: props?.selected ? '#8c959f' : 'transparent', // TODO: use a functional primitive for the selected border color when it is available
     borderStyle: 'solid',
     borderWidth: 1,
-    borderRadius: 2,
+    borderRadius: props?.selected
+      ? 'var(--segmented-control-outer-radius)'
+      : // innerRadius = outerRadius - distance/2
+        // https://stackoverflow.com/questions/2932146/math-problem-determine-the-corner-radius-of-an-inner-border-based-on-outer-corn
+        'calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2)',
     display: 'flex',
     height: '100%',
     justifyContent: 'center',
     paddingLeft: props?.selected
       ? 'var(--segmented-control-button-inner-padding)'
-      : 'calc(var(--segmented-control-button-inner-padding) / 2)',
+      : 'calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset))',
     paddingRight: props?.selected
       ? 'var(--segmented-control-button-inner-padding)'
-      : 'calc(var(--segmented-control-button-inner-padding) / 2)'
+      : 'calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset))'
   },
 
   svg: {
@@ -39,11 +46,11 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps) =>
   },
 
   ':hover .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'rgba(0,0,0,0.08)'
+    backgroundColor: props?.selected ? undefined : 'actionListItem.default.hoverBg' // TODO: replace with a functional primitive
   },
 
   ':active .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'rgba(0,0,0,0.12)'
+    backgroundColor: props?.selected ? undefined : 'actionListItem.default.activeBg' // TODO: replace with a functional primitive
   },
 
   ':first-child': {
