@@ -1,10 +1,10 @@
-import React from 'react'
+import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-// import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import React from 'react'
 import SegmentedControl from '.' // TODO: update import when we move this to the global index
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 const segmentData = [
   {label: 'Preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
@@ -14,20 +14,20 @@ const segmentData = [
 
 // TODO: improve test coverage
 describe('SegmentedControl', () => {
-  //   behavesAsComponent({
-  //     Component: SegmentedControl,
-  //     toRender: () => (
-  //       <SegmentedControl aria-label="File view">
-  //         <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
-  //         <SegmentedControl.Button>Raw</SegmentedControl.Button>
-  //         <SegmentedControl.Button>Blame</SegmentedControl.Button>
-  //       </SegmentedControl>
-  //     )
-  //   })
+  behavesAsComponent({
+    Component: SegmentedControl,
+    toRender: () => (
+      <SegmentedControl aria-label="File view">
+        <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button>Raw</SegmentedControl.Button>
+        <SegmentedControl.Button>Blame</SegmentedControl.Button>
+      </SegmentedControl>
+    )
+  })
 
-  //   checkExports('SegmentedControl', {
-  //     default: SegmentedControl
-  //   })
+  checkExports('SegmentedControl', {
+    default: SegmentedControl
+  })
 
   it('renders with a selected segment', () => {
     const {getByText} = render(
