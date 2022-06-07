@@ -42,7 +42,7 @@ describe('SegmentedControl', () => {
 
     const selectedButton = getByText('Raw').closest('button')
 
-    expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
+    expect(selectedButton?.getAttribute('aria-current')).toBe('true')
   })
 
   it('renders the first segment as selected if no child has the `selected` prop passed', () => {
@@ -56,7 +56,7 @@ describe('SegmentedControl', () => {
 
     const selectedButton = getByText('Preview').closest('button')
 
-    expect(selectedButton?.getAttribute('aria-pressed')).toBe('true')
+    expect(selectedButton?.getAttribute('aria-current')).toBe('true')
   })
 
   it('renders segments with segment labels that have leading icons', () => {

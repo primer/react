@@ -16,9 +16,11 @@ exports[`SegmentedControl renders consistently 1`] = `
 
 .c1 {
   --segmented-control-button-inner-padding: 12px;
+  --segmented-control-button-bg-inset: 4px;
+  --segmented-control-outer-radius: 6px;
   background-color: transparent;
   border-color: transparent;
-  border-radius: 6px;
+  border-radius: var(--segmented-control-outer-radius);
   border-width: 0;
   color: currentColor;
   cursor: pointer;
@@ -44,7 +46,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   border-color: #8c959f;
   border-style: solid;
   border-width: 1px;
-  border-radius: 6px;
+  border-radius: var(--segmented-control-outer-radius);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -100,9 +102,11 @@ exports[`SegmentedControl renders consistently 1`] = `
 
 .c2 {
   --segmented-control-button-inner-padding: 12px;
+  --segmented-control-button-bg-inset: 4px;
+  --segmented-control-outer-radius: 6px;
   background-color: transparent;
   border-color: transparent;
-  border-radius: 6px;
+  border-radius: var(--segmented-control-outer-radius);
   border-width: 0;
   color: currentColor;
   cursor: pointer;
@@ -114,7 +118,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   font-weight: 400;
   margin-top: -1px;
   margin-bottom: -1px;
-  padding: calc(var(--segmented-control-button-inner-padding) / 2);
+  padding: var(--segmented-control-button-bg-inset);
   position: relative;
   --separator-color: #d0d7de;
 }
@@ -128,7 +132,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   border-color: transparent;
   border-style: solid;
   border-width: 1px;
-  border-radius: 6px;
+  border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -138,8 +142,8 @@ exports[`SegmentedControl renders consistently 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding-left: calc(var(--segmented-control-button-inner-padding) / 2);
-  padding-right: calc(var(--segmented-control-button-inner-padding) / 2);
+  padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+  padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
 }
 
 .c2 svg {
@@ -147,11 +151,11 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c2:hover .segmentedControl-content {
-  background-color: rgba(0,0,0,0.08);
+  background-color: rgba(208,215,222,0.32);
 }
 
 .c2:active .segmentedControl-content {
-  background-color: rgba(0,0,0,0.12);
+  background-color: rgba(208,215,222,0.48);
 }
 
 .c2:first-child {
@@ -192,9 +196,11 @@ exports[`SegmentedControl renders consistently 1`] = `
 
 .c3 {
   --segmented-control-button-inner-padding: 12px;
+  --segmented-control-button-bg-inset: 4px;
+  --segmented-control-outer-radius: 6px;
   background-color: transparent;
   border-color: transparent;
-  border-radius: 6px;
+  border-radius: var(--segmented-control-outer-radius);
   border-width: 0;
   color: currentColor;
   cursor: pointer;
@@ -206,7 +212,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   font-weight: 400;
   margin-top: -1px;
   margin-bottom: -1px;
-  padding: calc(var(--segmented-control-button-inner-padding) / 2);
+  padding: var(--segmented-control-button-bg-inset);
   position: relative;
   --separator-color: #d0d7de;
 }
@@ -220,7 +226,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   border-color: transparent;
   border-style: solid;
   border-width: 1px;
-  border-radius: 6px;
+  border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -230,8 +236,8 @@ exports[`SegmentedControl renders consistently 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  padding-left: calc(var(--segmented-control-button-inner-padding) / 2);
-  padding-right: calc(var(--segmented-control-button-inner-padding) / 2);
+  padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+  padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
 }
 
 .c3 svg {
@@ -239,11 +245,11 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c3:hover .segmentedControl-content {
-  background-color: rgba(0,0,0,0.08);
+  background-color: rgba(208,215,222,0.32);
 }
 
 .c3:active .segmentedControl-content {
-  background-color: rgba(0,0,0,0.12);
+  background-color: rgba(208,215,222,0.48);
 }
 
 .c3:first-child {
@@ -327,10 +333,10 @@ exports[`SegmentedControl renders consistently 1`] = `
 <div
   aria-label="File view"
   className="c0"
-  role="group"
+  role="toolbar"
 >
   <button
-    aria-pressed={true}
+    aria-current={true}
     className="c1"
   >
     <span
@@ -344,7 +350,7 @@ exports[`SegmentedControl renders consistently 1`] = `
     </span>
   </button>
   <button
-    aria-pressed={false}
+    aria-current={false}
     className="c2"
   >
     <span
@@ -358,7 +364,7 @@ exports[`SegmentedControl renders consistently 1`] = `
     </span>
   </button>
   <button
-    aria-pressed={false}
+    aria-current={false}
     className="c3"
   >
     <span
