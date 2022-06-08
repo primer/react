@@ -1,7 +1,7 @@
 import {get} from '../constants'
 import {SegmentedControlButtonProps} from './SegmentedControlButton'
 
-const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps) => ({
+const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {isIconOnly?: boolean}) => ({
   '--segmented-control-button-inner-padding': '12px', // TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available
   '--segmented-control-button-bg-inset': '4px',
   '--segmented-control-outer-radius': get('radii.2')(props),
@@ -18,6 +18,7 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps) =>
   marginBottom: '-1px',
   padding: props?.selected ? 0 : 'var(--segmented-control-button-bg-inset)',
   position: 'relative',
+  width: props?.isIconOnly ? 'var(--primer-control-medium-size, 32px)' : undefined,
 
   '.segmentedControl-content': {
     alignItems: 'center',

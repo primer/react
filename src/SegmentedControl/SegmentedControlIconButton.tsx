@@ -26,7 +26,7 @@ export const SegmentedControlIconButton: React.FC<SegmentedControlIconButtonProp
   sx: sxProp = {},
   ...rest
 }) => {
-  const mergedSx = merge(getSegmentedControlButtonStyles({selected}), sxProp as SxProp)
+  const mergedSx = merge(getSegmentedControlButtonStyles({selected, isIconOnly: true}), sxProp as SxProp)
 
   return (
     <SegmentedControlIconButtonStyled aria-pressed={selected} sx={mergedSx} {...rest}>
