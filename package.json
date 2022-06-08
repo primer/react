@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "@primer/behaviors": "^1.1.1",
-    "@primer/octicons-react": "^16.1.1",
+    "@primer/octicons-react": "^17.3.0",
     "@primer/primitives": "^7.6.0",
     "@radix-ui/react-polymorphic": "^0.0.14",
     "@react-aria/ssr": "^3.1.0",
