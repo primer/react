@@ -26,7 +26,8 @@ describe('SegmentedControl', () => {
   })
 
   checkExports('SegmentedControl', {
-    default: SegmentedControl
+    default: undefined,
+    SegmentedControl
   })
 
   it('renders with a selected segment', () => {
