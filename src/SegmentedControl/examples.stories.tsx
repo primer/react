@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
 import {ComponentProps} from '../utils/types'
-import SegmentedControl from '.'
+import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 
 type Args = ComponentProps<typeof SegmentedControl>

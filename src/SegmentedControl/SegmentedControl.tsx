@@ -31,13 +31,7 @@ const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
 // TODO: implement `loading` prop
 // TODO: log a warning if no `ariaLabel` or `ariaLabelledBy` prop is passed
 // TODO: implement keyboard behavior to move focus using the arrow keys
-const SegmentedControl: React.FC<SegmentedControlProps> = ({
-  children,
-  fullWidth,
-  onChange,
-  sx: sxProp = {},
-  ...rest
-}) => {
+const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, sx: sxProp = {}, ...rest}) => {
   const {theme} = useTheme()
   const selectedChildren = React.Children.toArray(children).map(
     child =>
@@ -75,7 +69,9 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
   )
 }
 
-export default Object.assign(SegmentedControl, {
+Root.displayName = 'SegmentedControl'
+
+export const SegmentedControl = Object.assign(Root, {
   Button,
   IconButton: SegmentedControlIconButton
 })
