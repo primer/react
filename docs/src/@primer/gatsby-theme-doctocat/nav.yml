@@ -90,6 +90,8 @@
       url: /LabelGroup
     - title: Link
       url: /Link
+    - title: NavList
+      url: /NavList
     - title: Overlay
       url: /Overlay
     - title: Pagehead
