@@ -10,25 +10,27 @@ import getGlobalFocusStyles from './_getGlobalFocusStyles'
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
-const TabNavBase = styled.div<SxProp>`
-  margin-top: 0;
-  border-bottom: 1px solid ${get('colors.border.default')};
-  ${sx}
-`
-
-const TabNavBody = styled.nav`
+const TabNavTabList = styled.div<SxProp>`
   display: flex;
   margin-bottom: -1px;
   overflow: auto;
 `
 
-export type TabNavProps = ComponentProps<typeof TabNavBase>
+const TabNavBody = styled.nav`
+  margin-top: 0;
+  border-bottom: 1px solid ${get('colors.border.default')};
+  ${sx}
+`
+
+export type TabNavProps = ComponentProps<typeof TabNavTabList>
 
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   return (
-    <TabNavBase {...rest}>
-      <TabNavBody aria-label={ariaLabel}>{children}</TabNavBody>
-    </TabNavBase>
+    <TabNavBody aria-label={ariaLabel}>
+      <TabNavTabList role="tablist" {...rest}>
+        {children}
+      </TabNavTabList>
+    </TabNavBody>
   )
 }
 
@@ -39,7 +41,8 @@ type StyledTabNavLinkProps = {
 
 const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  role: 'tab'
 }))<StyledTabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
