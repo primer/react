@@ -79,6 +79,7 @@
   },
   "dependencies": {
     "@github/combobox-nav": "2.0.2",
+    "@koddsson/textarea-caret": "4.0.1",
     "@primer/behaviors": "^1.1.1",
     "@primer/octicons-react": "^17.3.0",
     "@primer/primitives": "^7.6.0",
