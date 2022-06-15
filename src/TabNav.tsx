@@ -14,7 +14,7 @@ const TabNavBase = styled.div<SxProp>`
   ${sx}
 `
 
-const TabNavTabList = styled.div<SxProp>`
+const TabNavTabList = styled.div`
   display: flex;
   margin-bottom: -1px;
   overflow: auto;
@@ -25,7 +25,7 @@ const TabNavNav = styled.nav`
   border-bottom: 1px solid ${get('colors.border.default')};
 `
 
-export type TabNavProps = ComponentProps<typeof TabNavTabList>
+export type TabNavProps = ComponentProps<typeof TabNavBase>
 
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   return (
