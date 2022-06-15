@@ -1,9 +1,27 @@
-import React, {createRef, forwardRef, useCallback, useState} from 'react'
+import React, {createRef, forwardRef, useCallback, useState, useContext, useLayoutEffect} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
-import useResponsiveWrapper from './useNavResponsive'
-import type {ResponsiveProps} from './useNavResponsive'
 import {UnderlineNavContext} from './UnderlineNavContext'
+import {ActionMenu} from '../ActionMenu'
+import ActionList from '../ActionList'
+
+/*
+Todo:
+1. Convert context to have array of all items
+2. Convert UnderlineNav.Link to ActionList.Item
+3. Calculate combined width of items to be 65% of total width available
+*/
+type Overflow = 'auto' | 'menu' | 'scroll'
+type ResponsiveProps = {
+  items: Array<React.ReactNode>
+  actions: Array<React.ReactNode>
+}
+
+export type {ResponsiveProps}
+
+function getValidChildren(children: React.ReactNode) {
+  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
+}
 
 export type UnderlineNavProps = {
   label: string
@@ -35,7 +53,7 @@ export const UnderlineNav = forwardRef(
       alignSelf: 'center'
     }
 
-    const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({items: children})
+    const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({items: children, actions: []})
     const [showNav, setShowNav] = useState<boolean>(false)
     const callback = useCallback(responsiveProps => {
       setResponsiveProps(responsiveProps)
@@ -43,29 +61,49 @@ export const UnderlineNav = forwardRef(
     }, [])
 
     const actions = responsiveProps.actions
-    const [childSize, setChildSize] = useState<{width: number}>({width: 0})
-    const setSize = useCallback(sizeObj => {
-      if (childSize.width === 0) {
-        setChildSize(sizeObj)
-      }
-    }, [])
+    const [childSize, setChildSize] = useState({width: 0})
     // do this for overflow
-    useResponsiveWrapper({
-      overflow,
-      children,
-      ref: newRef,
-      callback: setResponsiveProps,
-      childSize
-    })
+    useLayoutEffect(() => {
+      const domRect = newRef?.current.getBoundingClientRect()
+      const width = domRect?.width || 0
+      const childArray = getValidChildren(children)
+      const childArraySize = childArray.length
+      if (childSize.width === 0) {
+        callback({items: childArray, actions: []})
+      }
+
+      // do this only for overflow
+      const numberOfChildrenPossible =
+        childArraySize * childSize.width > width ? childArraySize : Math.abs(width / childSize.width) / 2
+      const items = []
+      const actions = []
+
+      childArray.forEach((child, index) => {
+        if (index < numberOfChildrenPossible) {
+          items.push(child)
+        } else {
+          actions.push(child)
+        }
+      })
+      callback({items, actions})
+    }, [newRef.current, childSize])
+
     // TODO - ensure horizontal scroll
     return (
-      <UnderlineNavContext.Provider value={{childSize, setChildSize: setSize}}>
+      <UnderlineNavContext.Provider value={{childSize, setChildSize}}>
         <Box as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
           <Box as="ul" sx={ulStyles}>
             {responsiveProps.items}
           </Box>
 
-          {actions && <Box sx={actionStyles}>{actions}</Box>}
+          {actions.length > 0 && (
+            <ActionMenu>
+              <ActionMenu.Button>Hidden</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>{actions}</ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          )}
         </Box>
       </UnderlineNavContext.Provider>
     )
