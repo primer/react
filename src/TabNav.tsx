@@ -10,27 +10,30 @@ import getGlobalFocusStyles from './_getGlobalFocusStyles'
 const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
+const TabNavBase = styled.div<SxProp>`
+  ${sx}
+`
+
 const TabNavTabList = styled.div<SxProp>`
   display: flex;
   margin-bottom: -1px;
   overflow: auto;
 `
 
-const TabNavBody = styled.nav`
+const TabNavNav = styled.nav`
   margin-top: 0;
   border-bottom: 1px solid ${get('colors.border.default')};
-  ${sx}
 `
 
 export type TabNavProps = ComponentProps<typeof TabNavTabList>
 
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   return (
-    <TabNavBody aria-label={ariaLabel}>
-      <TabNavTabList role="tablist" {...rest}>
-        {children}
-      </TabNavTabList>
-    </TabNavBody>
+    <TabNavBase {...rest}>
+      <TabNavNav aria-label={ariaLabel}>
+        <TabNavTabList role="tablist">{children}</TabNavTabList>
+      </TabNavNav>
+    </TabNavBase>
   )
 }
 
