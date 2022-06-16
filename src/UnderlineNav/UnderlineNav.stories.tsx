@@ -55,8 +55,8 @@ export const rightAlign = (args: UnderlineNavProps) => {
 
 const items: string[] = [
   'Item 1',
-  'Item 2',
-  'Item 3',
+  'Looooong Item',
+  'Looooooonger item',
   'Item 4',
   'Item 5',
   'Item 6',

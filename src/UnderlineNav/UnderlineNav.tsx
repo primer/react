@@ -23,6 +23,20 @@ function getValidChildren(children: React.ReactNode) {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
+function calculatePossibleItems(childWidthArray, width) {
+  let breakpoint = childWidthArray.length - 1
+  let sumsOfChildWidth = 0
+  for (const [index, childWidth] of childWidthArray.entries()) {
+    if (sumsOfChildWidth > 0.5 * width) {
+      breakpoint = index
+      break
+    } else {
+      sumsOfChildWidth = sumsOfChildWidth + childWidth.width
+    }
+  }
+  return breakpoint
+}
+
 export type UnderlineNavProps = {
   label: string
   as: React.ElementType
@@ -61,36 +75,41 @@ export const UnderlineNav = forwardRef(
     }, [])
 
     const actions = responsiveProps.actions
-    const [childSize, setChildSize] = useState({width: 0})
+    const [childWidthArray, setChildWidthArray] = useState([])
+    const setChildrenWidth = useCallback(size => {
+      setChildWidthArray(arr => {
+        const newArr = [...arr, size]
+        return newArr
+      })
+    }, [])
     // do this for overflow
     useLayoutEffect(() => {
       const domRect = newRef?.current.getBoundingClientRect()
       const width = domRect?.width || 0
       const childArray = getValidChildren(children)
       const childArraySize = childArray.length
-      if (childSize.width === 0) {
+      if (childWidthArray.length === 0) {
         callback({items: childArray, actions: []})
       }
 
       // do this only for overflow
-      const numberOfChildrenPossible =
-        childArraySize * childSize.width > width ? childArraySize : Math.abs(width / childSize.width) / 2
+      const numberOfItemsPossible = calculatePossibleItems(childWidthArray, width)
       const items = []
       const actions = []
 
       childArray.forEach((child, index) => {
-        if (index < numberOfChildrenPossible) {
+        if (index < numberOfItemsPossible) {
           items.push(child)
         } else {
           actions.push(child)
         }
       })
       callback({items, actions})
-    }, [newRef.current, childSize])
+    }, [newRef.current, childWidthArray.length])
 
     // TODO - ensure horizontal scroll
     return (
-      <UnderlineNavContext.Provider value={{childSize, setChildSize}}>
+      <UnderlineNavContext.Provider value={{setChildrenWidth}}>
         <Box as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
           <Box as="ul" sx={ulStyles}>
             {responsiveProps.items}

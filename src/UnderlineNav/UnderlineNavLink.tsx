@@ -49,7 +49,7 @@ export const UnderlineNavLink = forwardRef(
     const underlineNavContext = useContext(UnderlineNavContext)
     useLayoutEffect(() => {
       const domRect = ref?.current.getBoundingClientRect()
-      underlineNavContext.setChildSize({width: domRect.width})
+      underlineNavContext.setChildrenWidth({width: domRect.width})
     }, [ref.current])
     const iconWrapStyles = {
       display: 'inline-block',
