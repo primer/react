@@ -1,0 +1,71 @@
+---
+componentId: inline_autocomplete
+title: InlineAutocomplete
+status: Experimental
+description: Provides inline auto completion suggestions for an input or textarea.
+source: https://github.com/primer/react/tree/main/src/InlineAutocomplete
+storybook: '/react/storybook?path=/story/forms-inlineautocomplete--default'
+---
+
+import {InlineAutocomplete} from '@primer/react'
+
+The `InlineAutocomplete` component extends an `Input` or `Textarea` component to provide inline suggestions, similar to those provided by a code editor.
+
+## Examples
+
+<Note variant="warning">
+
+Input components **must always** be accompanied by a corresponding label to improve support for assistive
+technologies. Examples below are provided for conciseness and may not reflect accessibility best practices.
+
+`InlineAutocomplete` can be used with the [`FormControl`](/FormControl) component to render a corresponding label.
+
+</Note>
+
+### Simple Example
+
+```javascript live noinline
+const hashtags = ['javascript', 'typescript', 'css', 'html', 'webassembly']
+
+const EmojiPickerExample = () => {
+  const [suggestions, setSuggestions] = React.useState([])
+
+  const onShowSuggestions = ({trigger}) => setSuggestions(hashtags.filter(tag => tag.includes(trigger)))
+
+  const onHideSuggestions = () => setSuggestions([])
+
+  return (
+    <InlineAutocomplete
+      triggers={[{triggerChar: '#'}]}
+      suggestions={suggestions}
+      onShowSuggestions={onShowSuggestions}
+      onHideSuggestions={onHideSuggestions}
+    >
+      <Textarea />
+    </InlineAutocomplete>
+  )
+}
+
+render(EmojiPickerExample)
+```
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

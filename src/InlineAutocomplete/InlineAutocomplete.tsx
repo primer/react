@@ -65,11 +65,6 @@ const noop = () => {
 
 /**
  * Shows suggestions to complete the current word/phrase the user is actively typing.
- * This is different from your standard combobox because the pattern is not 'select an item
- * from a list', it's more 'suggest typing hints'.
- *
- * This component accepts a single child that has props compatible with either
- * `<input>` or `<textarea>`.
  */
 const InlineAutocomplete = ({
   triggers,
