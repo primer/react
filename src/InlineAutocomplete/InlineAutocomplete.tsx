@@ -39,6 +39,13 @@ export interface InlineAutocompleteProps {
   sx?: Omit<BetterSystemStyleObject, 'position'>
   // Typing this as such makes it look like a compatible child internally, but it isn't actually
   // enforced externally so we have to resort to a runtime assertion.
+  /**
+   * An `input` or `textarea` compatible component to extend. A compatible component is any
+   * component that forwards a ref and props to an underlying `input` or `textarea` element,
+   * including but not limited to `Input`, `TextArea`, `input`, `textarea`, `styled.input`,
+   * and `styled.textarea`. If the child is not compatible, a runtime `TypeError` will be
+   * thrown.
+   */
   children: TextInputCompatibleChild
 }
 
@@ -53,7 +60,7 @@ const getSelectionStart = (element: TextInputElement) => {
 }
 
 const noop = () => {
-  /* noop */
+  // don't do anything
 }
 
 /**

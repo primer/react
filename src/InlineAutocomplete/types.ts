@@ -10,7 +10,7 @@ export interface Trigger {
    */
   multiWord?: boolean
   /**
-   * Control whether the trigger character is kept when inserting a suggestion.
+   * Control whether the trigger character is retained when inserting a suggestion.
    * @default true
    */
   keepTriggerCharOnCommit?: boolean
@@ -32,7 +32,10 @@ export type Suggestion =
        * across all currently visible suggestions.
        */
       value: string
-      /** Optional key. If not provided, the `value` will be used. Setting a `key` allows for non-unique `value`s. */
+      /**
+       * Optional key. If not provided, the `value` will be used. Setting a `key` allows
+       * for non-unique `value`s.
+       */
       key?: string
       /** This should return an `ActionList.Item` instance. A `key` is not necessary. */
       render: (props: ActionListItemProps) => React.ReactNode
