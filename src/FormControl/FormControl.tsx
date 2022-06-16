@@ -9,6 +9,7 @@ import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import {SxProp} from '../sx'
 import CheckboxOrRadioGroupContext from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupContext'
+import InlineAutocomplete from '../InlineAutocomplete'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -38,7 +39,16 @@ export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout, id: idProp, required, sx}, ref) => {
-    const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
+    const expectedInputComponents = [
+      Autocomplete,
+      Checkbox,
+      Radio,
+      Select,
+      TextInput,
+      TextInputWithTokens,
+      Textarea,
+      InlineAutocomplete
+    ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext?.disabled || disabledProp
     const id = useSSRSafeId(idProp)

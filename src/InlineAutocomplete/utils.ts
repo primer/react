@@ -62,6 +62,11 @@ export const getCharacterCoordinates = (
 
   let coords = getCaretCoordinates(input, index)
 
+  // The library calls parseInt on the computed line-height of the element, failing to account for
+  // the possibility of it being 'normal' (another bug). In that case, fall back to a rough guess
+  // of 1.2 based on MDN: "Desktop browsers use a default value of roughly 1.2".
+  if (isNaN(coords.height)) coords.height = parseInt(getComputedStyle(input).fontSize) * 1.2
+
   // For some single-line inputs, the rightmost character can be accidentally wrapped even with the
   // wordWrap fix above. If this happens, go back to the last usable index
   let adjustedIndex = index

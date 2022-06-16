@@ -77,8 +77,10 @@ const InlineAutocomplete = ({
   onShowSuggestions,
   onHideSuggestions,
   sx,
-  children
-}: InlineAutocompleteProps) => {
+  children,
+  // Forward accessibility props so it works with FormControl
+  ...forwardProps
+}: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
   const inputRef = useCombinedRefs(children.ref)
   const externalInput = requireChildrenToBeInput(children, inputRef)
 
@@ -152,6 +154,7 @@ const InlineAutocomplete = ({
   }
 
   const input = cloneElement(externalInput, {
+    ...forwardProps,
     onBlur: augmentHandler(externalInput.props.onBlur, onBlur),
     onKeyDown: augmentHandler(externalInput.props.onKeyDown, onKeyDown),
     onChange: augmentHandler(externalInput.props.onChange, onChange),
