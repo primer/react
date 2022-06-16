@@ -54,14 +54,3 @@ export type TextInputCompatibleChild = React.ReactElement<
   JSX.IntrinsicElements['textarea'] | JSX.IntrinsicElements['input']
 > &
   React.RefAttributes<HTMLInputElement & HTMLTextAreaElement>
-
-/**
- * Shared common suggestions hooks provide reusable logic for calculating 'standard'
- * suggestions in a mixable way.
- */
-export type SuggestionsHookResult = [
-  /** The trigger to register with the `InlineAutocomplete` component. */
-  trigger: Trigger,
-  /** A function that will calculate the suggestions to show based on a query. */
-  calculateSuggestions: (query: string) => Suggestions
-]
