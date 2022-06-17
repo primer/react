@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
 export type ActionListProps = {
   /**
@@ -47,25 +48,30 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       selectionVariant: containerSelectionVariant // TODO: Remove after DropdownMenu2 deprecation
     } = React.useContext(ActionListContainerContext)
 
+    const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
+
     return (
-      <ListBox
-        sx={merge(styles, sxProp as SxProp)}
-        role={role || listRole}
-        aria-labelledby={listLabelledBy}
-        {...props}
-        ref={forwardedRef}
-      >
-        <ListContext.Provider
-          value={{
-            variant,
-            selectionVariant: selectionVariant || containerSelectionVariant,
-            showDividers,
-            role: role || listRole
-          }}
+      <div ref={containerRef as React.RefObject<HTMLDivElement>}>
+        <ListBox
+          sx={merge(styles, sxProp as SxProp)}
+          role={role || listRole}
+          aria-labelledby={listLabelledBy}
+          aria-multiselectable={containerSelectionVariant === 'multiple'}
+          {...props}
+          ref={forwardedRef}
         >
-          {props.children}
-        </ListContext.Provider>
-      </ListBox>
+          <ListContext.Provider
+            value={{
+              variant,
+              selectionVariant: selectionVariant || containerSelectionVariant,
+              showDividers,
+              role: role || listRole
+            }}
+          >
+            {props.children}
+          </ListContext.Provider>
+        </ListBox>
+      </div>
     )
   }
 ) as PolymorphicForwardRefComponent<'ul', ActionListProps>
