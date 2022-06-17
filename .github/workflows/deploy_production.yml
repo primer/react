@@ -38,7 +38,7 @@ jobs:
     if: ${{ needs.guard.outputs.should_deploy == 'true' }}
     uses: primer/.github/.github/workflows/deploy.yml@main
     with:
-      node_version: 16
+      node_version: 14
       install: npm ci && cd docs && npm ci && cd ..
       build: npm run build:docs
       output_dir: docs/public
