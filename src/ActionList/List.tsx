@@ -1,10 +1,10 @@
-import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp, merge} from '../sx'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
+import sx, {merge, SxProp} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
-import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
 export type ActionListProps = {
   /**

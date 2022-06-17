@@ -277,6 +277,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             tabIndex={-1} // Since we're using the useFocus hook for the whole ActionList, all non-iteractive ActionListItem need to have tabindex="-1" (See iterate-focusable-elements.ts in primer/behavior)
             aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
             aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
+            aria-selected={selected} // option should never have checkboxes (so no aria-checked)
             role={role || itemRole}
             {...{[ariaSelectionAttribute]: selected}}
             {...props}
