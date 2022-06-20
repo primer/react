@@ -255,6 +255,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
+    // 'aria-selected' is not allowed when using role === 'menuitemcheckbox' || role === 'menuitemradio'
+    // 'aria-selected' is not allowed at the same time as 'aria-checked'
+    let ariaSelectionAttribute = 'aria-selected'
+    if (selectionAttribute) {
+      ariaSelectionAttribute = selectionAttribute
+    }
+    if (props.hasOwnProperty('aria-checked') || role === 'menuitemcheckbox' || role === 'menuitemradio') {
+      ariaSelectionAttribute = 'aria-checked'
+    }
+
     return (
       <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         {slots => (
@@ -267,9 +277,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             tabIndex={-1} // Since we're using the useFocus hook for the whole ActionList, all non-iteractive ActionListItem need to have tabindex="-1" (See iterate-focusable-elements.ts in primer/behavior)
             aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
             aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
-            aria-selected={selected} // option should never have checkboxes (so no aria-checked)
             role={role || itemRole}
-            {...(selectionAttribute && {[selectionAttribute]: selected})} // Remove?
+            {...{[ariaSelectionAttribute]: selected}}
             {...props}
           >
             <ItemWrapper>

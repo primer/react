@@ -56,7 +56,6 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
           sx={merge(styles, sxProp as SxProp)}
           role={role || listRole}
           aria-labelledby={listLabelledBy}
-          aria-multiselectable={containerSelectionVariant === 'multiple'}
           {...props}
           ref={forwardedRef}
         >
