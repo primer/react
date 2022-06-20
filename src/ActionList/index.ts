@@ -10,6 +10,7 @@ export type {ActionListProps} from './List'
 export type {ActionListGroupProps} from './Group'
 export type {ActionListItemProps} from './Item'
 export type {ActionListLinkItemProps} from './LinkItem'
+export type {ActionListDividerProps} from './Divider'
 export type {ActionListDescriptionProps} from './Description'
 export type {ActionListLeadingVisualProps, ActionListTrailingVisualProps} from './Visuals'
 

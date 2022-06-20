@@ -4,11 +4,12 @@ import {get} from '../constants'
 import {Theme} from '../ThemeProvider'
 import {SxProp, merge} from '../sx'
 
+export type ActionListDividerProps = SxProp
+
 /**
  * Visually separates `Item`s or `Group`s in an `ActionList`.
  */
-
-export const Divider: React.FC<SxProp> = ({sx = {}}) => {
+export const Divider: React.FC<ActionListDividerProps> = ({sx = {}}) => {
   return (
     <Box
       as="li"
