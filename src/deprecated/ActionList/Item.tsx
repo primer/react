@@ -97,7 +97,7 @@ export interface ItemProps extends SxProp {
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
 
   /**
    * An id associated with this item.  Should be unique between items
@@ -170,7 +170,7 @@ const MainContent = styled.div`
   flex-grow: 1;
 `
 
-const StyledItem = styled.div<
+const StyledItem = styled.li<
   {
     variant: ItemProps['variant']
     showDivider: ItemProps['showDivider']
@@ -476,6 +476,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
       </DividedContent>
     </StyledItem>
   )
-}) as PolymorphicForwardRefComponent<'div', ItemProps>
+}) as PolymorphicForwardRefComponent<'li', ItemProps>
 
 Item.displayName = 'ActionList.Item'
