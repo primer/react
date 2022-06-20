@@ -71,7 +71,9 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
       {items.map(item => (
-        <UnderlineNav.Link key={item}>{item}</UnderlineNav.Link>
+        <UnderlineNav.Link key={item} leadingIcon={EyeIcon}>
+          {item}
+        </UnderlineNav.Link>
       ))}
     </UnderlineNav>
   )

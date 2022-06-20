@@ -3,13 +3,13 @@ import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
-import ActionList from '../ActionList'
+import {ActionList} from '../ActionList'
 
 /*
 Todo:
-1. Convert context to have array of all items
+1. Convert context to have array of all items = done
 2. Convert UnderlineNav.Link to ActionList.Item
-3. Calculate combined width of items to be 65% of total width available
+3. Calculate combined width of items to be 50% of total width available - done
 */
 type Overflow = 'auto' | 'menu' | 'scroll'
 type ResponsiveProps = {
@@ -101,7 +101,7 @@ export const UnderlineNav = forwardRef(
         if (index < numberOfItemsPossible) {
           items.push(child)
         } else {
-          actions.push(child)
+          actions.push(child.props)
         }
       })
       callback({items, actions})
@@ -119,7 +119,16 @@ export const UnderlineNav = forwardRef(
             <ActionMenu>
               <ActionMenu.Button>Hidden</ActionMenu.Button>
               <ActionMenu.Overlay>
-                <ActionList>{actions}</ActionList>
+                <ActionList>
+                  {actions.map((action, index) => {
+                    const {children, ...props} = action
+                    return (
+                      <ActionList.Item key={index} {...props}>
+                        {children}
+                      </ActionList.Item>
+                    )
+                  })}
+                </ActionList>
               </ActionMenu.Overlay>
             </ActionMenu>
           )}
