@@ -52,7 +52,7 @@ You can also manually show/hide the content using the `setOpen` function returne
       <Details {...getDetailsProps()}>
         <Button as="summary">Delete item</Button>
         Are you sure?
-        <ButtonDanger onClick={() => setOpen(false)}>Yes I'm sure</ButtonDanger>
+        <Button variant="danger" onClick={() => setOpen(false)}>Yes I'm sure</Button>
       </Details>
     )
   }}
