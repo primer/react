@@ -1,5 +1,28 @@
 # @primer/components
 
+## 35.3.0
+
+### Minor Changes
+
+- [#2112](https://github.com/primer/react/pull/2112) [`74e1d138`](https://github.com/primer/react/commit/74e1d1386bc6bb6326c3c2b64b5e31146f9cc56b) Thanks [@colebemis](https://github.com/colebemis)! - [NavList](https://primer.style/NavList) is ready to use. You can now import it from the main bundle:
+
+  ```js
+  import {NavList} from '@primer/react'
+  ```
+
+### Patch Changes
+
+- [#2083](https://github.com/primer/react/pull/2083) [`ea69ccd6`](https://github.com/primer/react/commit/ea69ccd6b5255e70251889ffc2434e975a9c8184) Thanks [@ty-v1](https://github.com/ty-v1)! - Export new Dialog component from the `@primer/react/drafts` bundle:
+
+  ```diff
+  - import {Dialog} from '@primer/react/lib-esm/Dialog/Dialog'
+  + import {Dialog} from '@primer/react/drafts'
+  ```
+
+* [#2117](https://github.com/primer/react/pull/2117) [`6e3532cf`](https://github.com/primer/react/commit/6e3532cf8ca11f6edc08e101d9cea4df6a1655ce) Thanks [@dgreif](https://github.com/dgreif)! - Allow minor version updates for production dependencies
+
+- [#2095](https://github.com/primer/react/pull/2095) [`db5e629c`](https://github.com/primer/react/commit/db5e629c667203728d4256d4b6b549b9d3962e9d) Thanks [@hectahertz](https://github.com/hectahertz)! - Communicate the SelectPanel multi-select capability to assistive technologies.
+
 ## 35.2.2
 
 ### Patch Changes
