@@ -6,20 +6,78 @@ import {ComponentProps} from '../utils/types'
 import Autocomplete from '../Autocomplete'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
-type Args = ComponentProps<typeof FormControl>
+type FormControlArgs = Pick<ComponentProps<typeof FormControl>, 'required' | 'disabled'>
+type FormControlLabelArgs = ComponentProps<typeof FormControl.Label> & {labelChildren?: React.ReactNode}
+type FormControlCaptionArgs = ComponentProps<typeof FormControl.Label> & {captionChildren?: React.ReactNode}
+type FormControlValidationMessageArgs = ComponentProps<typeof FormControl.Validation> & {
+  validationChildren?: React.ReactNode
+}
+type Args = FormControlArgs & FormControlLabelArgs & FormControlCaptionArgs & FormControlValidationMessageArgs
+
+const excludedControlKeys = ['id', 'sx', 'layout']
+
+const validationControlKeys = ['variant', 'validationChildren']
 
 export default {
   title: 'Forms/FormControl',
   component: FormControl,
   argTypes: {
+    // FormControl
     required: {
       defaultValue: false
     },
     disabled: {
       defaultValue: false
+    },
+
+    // FormControl.Label
+    labelChildren: {
+      name: 'children',
+      type: 'string',
+      defaultValue: '',
+      table: {
+        category: 'FormControl.Label'
+      }
+    },
+    visuallyHidden: {
+      defaultValue: false,
+      type: 'boolean',
+      table: {
+        category: 'FormControl.Label'
+      }
+    },
+
+    // FormControl.Caption
+    captionChildren: {
+      name: 'children',
+      type: 'string',
+      defaultValue: '',
+      table: {
+        category: 'FormControl.Caption'
+      }
+    },
+
+    // FormControl.Validation
+    validationChildren: {
+      name: 'children',
+      type: 'string',
+      defaultValue: '',
+      table: {
+        category: 'FormControl.Validation'
+      }
+    },
+    variant: {
+      defaultValue: 'error',
+      control: {
+        type: 'radio',
+        options: ['error', 'success', 'warning']
+      },
+      table: {
+        category: 'FormControl.Validation'
+      }
     }
   },
-  parameters: {controls: {exclude: ['id']}},
+  parameters: {controls: {exclude: excludedControlKeys}},
   decorators: [
     Story => {
       return (
@@ -33,50 +91,45 @@ export default {
   ]
 } as Meta
 
-export const TextInputFormControl = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label>Name</FormControl.Label>
-    <TextInput />
-  </FormControl>
-)
+const getArgsByChildComponent = ({
+  captionChildren,
+  disabled,
+  labelChildren,
+  required,
+  validationChildren,
+  variant,
+  visuallyHidden
+}: Args) => ({
+  parentArgs: {disabled, required},
+  labelArgs: {visuallyHidden, children: labelChildren},
+  captionArgs: {children: captionChildren},
+  validationArgs: {children: validationChildren, variant}
+})
 
-export const WithAVisuallyHiddenLabel = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label visuallyHidden>Name</FormControl.Label>
-    <TextInput />
-  </FormControl>
-)
+export const TextInputStory = (args: Args) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getArgsByChildComponent(args)
 
-export const WithCaption = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label>Name</FormControl.Label>
-    <TextInput />
-    <FormControl.Caption>Hint: your first name</FormControl.Caption>
-  </FormControl>
-)
-export const WithValidation = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label>Name</FormControl.Label>
-    <TextInput />
-    <FormControl.Validation variant="error">Your first name cannot contain spaces</FormControl.Validation>
-  </FormControl>
-)
-WithValidation.parameters = {controls: {exclude: ['id']}}
-
-export const WithValidationAndCaption = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label>Name</FormControl.Label>
-    <TextInput />
-    <FormControl.Validation variant="error">Your first name cannot contain spaces</FormControl.Validation>
-    <FormControl.Caption>Hint: your first name</FormControl.Caption>
-  </FormControl>
-)
-WithValidationAndCaption.parameters = {controls: {exclude: ['id']}}
-
-export const UsingAutocompleteInput = (args: Args) => {
   return (
-    <FormControl {...args}>
-      <FormControl.Label>Tags</FormControl.Label>
+    <FormControl {...parentArgs}>
+      <FormControl.Label {...labelArgs} />
+      <TextInput />
+      {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      {validationArgs.children && <FormControl.Validation {...validationArgs} />}
+    </FormControl>
+  )
+}
+
+TextInputStory.storyName = 'Text Input'
+TextInputStory.args = {
+  labelChildren: 'Name'
+}
+
+export const AutocompleteInput = (args: Args) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getArgsByChildComponent(args)
+
+  return (
+    <FormControl {...parentArgs}>
+      <FormControl.Label {...labelArgs} />
       <Autocomplete>
         <Autocomplete.Input block />
         <Autocomplete.Overlay>
@@ -94,88 +147,139 @@ export const UsingAutocompleteInput = (args: Args) => {
           />
         </Autocomplete.Overlay>
       </Autocomplete>
+      {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      {validationArgs.children && <FormControl.Validation {...validationArgs} />}
     </FormControl>
   )
 }
 
-export const UsingTextInputWithTokens = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label>Tags</FormControl.Label>
-    <TextInputWithTokens
-      tokens={[
-        {text: 'css', id: 0},
-        {text: 'css-in-js', id: 1},
-        {text: 'styled-system', id: 2}
-      ]}
-      onTokenRemove={() => null}
-    />
-  </FormControl>
-)
+AutocompleteInput.args = {
+  labelChildren: 'Tags'
+}
 
-export const UsingSelectInput = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label>Preferred Primer component interface</FormControl.Label>
-    <Select>
-      <Select.Option value="figma">Figma</Select.Option>
-      <Select.Option value="css">Primer CSS</Select.Option>
-      <Select.Option value="prc">Primer React components</Select.Option>
-      <Select.Option value="pvc">Primer ViewComponents</Select.Option>
-    </Select>
-  </FormControl>
-)
+export const TextInputWithTokensStory = (args: Args) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getArgsByChildComponent(args)
 
-UsingTextInputWithTokens.storyName = 'Using TextInputWithTokens Input'
+  return (
+    <FormControl {...parentArgs}>
+      <FormControl.Label {...labelArgs} />
+      <TextInputWithTokens
+        tokens={[
+          {text: 'css', id: 0},
+          {text: 'css-in-js', id: 1},
+          {text: 'styled-system', id: 2}
+        ]}
+        onTokenRemove={() => null}
+      />
+      {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      {validationArgs.children && <FormControl.Validation {...validationArgs} />}
+    </FormControl>
+  )
+}
 
-export const UsingCheckboxInput = (args: Args) => (
-  <FormControl {...args}>
-    <Checkbox />
-    <FormControl.Label>Selectable choice</FormControl.Label>
-  </FormControl>
-)
+TextInputWithTokensStory.storyName = 'TextInputWithTokens Input'
+TextInputWithTokensStory.args = {
+  labelChildren: 'Tags'
+}
 
-export const UsingRadioInput = (args: Args) => (
-  <FormControl {...args}>
-    <Radio name="radioInput" value="choice" />
-    <FormControl.Label>Selectable choice</FormControl.Label>
-  </FormControl>
-)
+export const SelectInput = (args: Args) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getArgsByChildComponent(args)
 
-export const UsingCustomInput = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label htmlFor="custom-input">Name</FormControl.Label>
-    <input
-      type="text"
-      id="custom-input"
-      aria-describedby="custom-input-caption custom-input-validation"
-      disabled={args.disabled}
-      required={args.required}
-    />
-    <FormControl.Caption id="custom-input-caption">Your first name</FormControl.Caption>
-    <FormControl.Validation variant="success" id="custom-input-validation">
-      Not a valid name
-    </FormControl.Validation>
-  </FormControl>
-)
+  return (
+    <FormControl {...parentArgs}>
+      <FormControl.Label {...labelArgs} />
+      <Select>
+        <Select.Option value="figma">Figma</Select.Option>
+        <Select.Option value="css">Primer CSS</Select.Option>
+        <Select.Option value="prc">Primer React components</Select.Option>
+        <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+      </Select>
+      {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      {validationArgs.children && <FormControl.Validation {...validationArgs} />}
+    </FormControl>
+  )
+}
 
-export const WithLeadingVisual = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label>Selectable choice</FormControl.Label>
-    <FormControl.LeadingVisual>
-      <MarkGithubIcon />
-    </FormControl.LeadingVisual>
-    <Checkbox />
-  </FormControl>
-)
+SelectInput.args = {
+  labelChildren: 'Preferred Primer component interface'
+}
+
+export const CheckboxInput = (args: Args) => {
+  const {parentArgs, labelArgs, captionArgs} = getArgsByChildComponent(args)
+
+  return (
+    <FormControl {...parentArgs}>
+      <Checkbox />
+      <FormControl.Label {...labelArgs} />
+      {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+    </FormControl>
+  )
+}
+
+CheckboxInput.parameters = {controls: {exclude: [...excludedControlKeys, ...validationControlKeys]}}
+CheckboxInput.args = {
+  labelChildren: 'Selectable choice'
+}
+
+export const RadioInput = (args: Args) => {
+  const {parentArgs, labelArgs, captionArgs} = getArgsByChildComponent(args)
+
+  return (
+    <FormControl {...parentArgs}>
+      <Radio name="radioInput" value="choice" />
+      <FormControl.Label {...labelArgs} />
+      {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+    </FormControl>
+  )
+}
+
+RadioInput.parameters = {controls: {exclude: [...excludedControlKeys, ...validationControlKeys]}}
+RadioInput.args = {
+  labelChildren: 'Selectable choice'
+}
+
+export const WithLeadingVisual = (args: Args) => {
+  const {parentArgs, labelArgs, captionArgs} = getArgsByChildComponent(args)
+
+  return (
+    <FormControl {...parentArgs}>
+      <FormControl.Label {...labelArgs} />
+      <FormControl.LeadingVisual>
+        <MarkGithubIcon />
+      </FormControl.LeadingVisual>
+      <Checkbox />
+      {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+    </FormControl>
+  )
+}
+
 WithLeadingVisual.storyName = 'With LeadingVisual'
+WithLeadingVisual.args = {
+  labelChildren: 'Selectable choice'
+}
+WithLeadingVisual.parameters = {controls: {exclude: [...excludedControlKeys, ...validationControlKeys]}}
 
-export const WithCaptionAndLeadingVisual = (args: Args) => (
-  <FormControl {...args}>
-    <FormControl.Label>Selectable choice</FormControl.Label>
-    <FormControl.LeadingVisual>
-      <MarkGithubIcon />
-    </FormControl.LeadingVisual>
-    <Checkbox />
-    <FormControl.Caption>This is an arbitrary choice</FormControl.Caption>
-  </FormControl>
-)
-WithCaptionAndLeadingVisual.storyName = 'With Caption and LeadingVisual'
+export const CustomInput = (args: Args) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getArgsByChildComponent(args)
+
+  return (
+    <FormControl {...parentArgs}>
+      <FormControl.Label htmlFor="custom-input" {...labelArgs} />
+      <input
+        type="text"
+        id="custom-input"
+        aria-describedby="custom-input-caption custom-input-validation"
+        disabled={parentArgs.disabled}
+        required={parentArgs.required}
+      />
+      {captionArgs.children && <FormControl.Caption id="custom-input-caption" {...captionArgs} />}
+      {validationArgs.children && <FormControl.Validation id="custom-input-validation" {...validationArgs} />}
+    </FormControl>
+  )
+}
+
+CustomInput.args = {
+  labelChildren: 'Name',
+  variant: 'error',
+  validationChildren: 'Not a valid name'
+}
