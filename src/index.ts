@@ -41,6 +41,7 @@ export type {
   ActionListGroupProps,
   ActionListItemProps,
   ActionListLinkItemProps,
+  ActionListDividerProps,
   ActionListDescriptionProps,
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps
@@ -95,6 +96,16 @@ export {default as LabelGroup} from './LabelGroup'
 export type {LabelGroupProps} from './LabelGroup'
 export {default as Link} from './Link'
 export type {LinkProps} from './Link'
+export {NavList} from './NavList'
+export type {
+  NavListProps,
+  NavListItemProps,
+  NavListSubNavProps,
+  NavListGroupProps,
+  NavListLeadingVisualProps,
+  NavListTrailingVisualProps,
+  NavListDividerProps
+} from './NavList'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
 export {default as Pagehead} from './Pagehead'
