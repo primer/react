@@ -317,6 +317,16 @@ function App() {
   <PropsTableRow name="title" type="string" description="Title of the group." /> {/* Should `title` be required? */}
   <PropsTableSxRow />
   <PropsTableRefRow refType="HTMLElement" />
+  <PropsTableBasePropRows
+    passthroughPropsLink={
+      <>
+        the <Link href="/ActionList#actionlistgroup">ActionList.Group docs</Link>
+      </>
+    }
+    elementType="a"
+    isPolymorphic
+    refType="HTMLAnchorElement"
+  />
 </PropsTable>
 
 ### NavList.Divider
