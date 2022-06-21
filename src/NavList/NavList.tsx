@@ -240,13 +240,14 @@ export type NavListGroupProps = {
   title?: string
 } & SxProp
 
+const defaultSx = {}
 // TODO: ref prop
-const Group = ({title, children, sx: sxProp = {}}: NavListGroupProps) => {
+const Group: React.VFC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group title={title} sx={sxProp}>
+      <ActionList.Group {...props} title={title} sx={sxProp}>
         {children}
       </ActionList.Group>
     </>
