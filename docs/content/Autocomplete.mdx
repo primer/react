@@ -599,7 +599,7 @@ export function AutocompleteWithContextInternal() {
   }
 
   const {setShowMenu, showMenu} = autocompleteContext
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef < HTMLInputElement > null
   const [filterText, setFilterText] = useState('')
 
   useEffect(() => {
@@ -607,7 +607,7 @@ export function AutocompleteWithContextInternal() {
       // keep the menu open
       setShowMenu(true)
     }
-  }, [showMenu])
+  }, [showMenu, setShowMenu])
 
   const change = event => setFilterText?.(event.target.value)
 
