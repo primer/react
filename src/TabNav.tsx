@@ -11,15 +11,18 @@ const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
 const TabNavBase = styled.div<SxProp>`
-  margin-top: 0;
-  border-bottom: 1px solid ${get('colors.border.default')};
   ${sx}
 `
 
-const TabNavBody = styled.nav`
+const TabNavTabList = styled.div`
   display: flex;
   margin-bottom: -1px;
   overflow: auto;
+`
+
+const TabNavNav = styled.nav`
+  margin-top: 0;
+  border-bottom: 1px solid ${get('colors.border.default')};
 `
 
 export type TabNavProps = ComponentProps<typeof TabNavBase>
@@ -27,7 +30,9 @@ export type TabNavProps = ComponentProps<typeof TabNavBase>
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   return (
     <TabNavBase {...rest}>
-      <TabNavBody aria-label={ariaLabel}>{children}</TabNavBody>
+      <TabNavNav aria-label={ariaLabel}>
+        <TabNavTabList role="tablist">{children}</TabNavTabList>
+      </TabNavNav>
     </TabNavBase>
   )
 }
@@ -39,7 +44,8 @@ type StyledTabNavLinkProps = {
 
 const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  role: 'tab'
 }))<StyledTabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
