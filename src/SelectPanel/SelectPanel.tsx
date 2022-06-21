@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useMemo, useState} from 'react'
 import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import {OverlayProps} from '../Overlay'
 import {ItemInput} from '../deprecated/ActionList/List'
@@ -11,6 +11,7 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
 import styled from 'styled-components'
+import {Button} from '../Button'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -85,6 +86,13 @@ export function SelectPanel({
     [externalOnFilterChange, setInternalFilterValue]
   )
 
+  const selectedItems = React.useMemo(
+    () => (Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]),
+    [selected]
+  )
+
+  const [finalItemsSelected, setFinalItemsSelected] = useState(selectedItems)
+
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
   const onClose = useCallback(
@@ -99,52 +107,80 @@ export function SelectPanel({
       return null
     }
 
-    const selectedItems = Array.isArray(selected) ? selected : [...(selected ? [selected] : [])]
-
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
         children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
       })
     }
-  }, [placeholder, renderAnchor, selected])
+  }, [placeholder, renderAnchor, selectedItems])
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? selected.includes(item) : selected === item
-
       return {
         ...item,
         role: 'option',
-        selected: 'selected' in item && item.selected === undefined ? undefined : isItemSelected,
+        selected: 'selected' in item && item.selected === undefined ? undefined : finalItemsSelected.includes(item),
         onAction: (itemFromAction, event) => {
+          // eslint-disable-next-line no-console
+          console.debug('onAction', itemFromAction)
+
           item.onAction?.(itemFromAction, event)
 
           if (event.defaultPrevented) {
             return
           }
+          // eslint-disable-next-line no-console
+          console.debug('after defaultprevented')
 
           if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
-            const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
+            // eslint-disable-next-line no-console
+            console.debug('on if')
+            const otherSelectedItems = finalItemsSelected.filter(selectedItem => selectedItem !== item)
+            const newSelectedItems = finalItemsSelected.includes(item)
+              ? otherSelectedItems
+              : [...otherSelectedItems, item]
 
-            const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
-            multiSelectOnChange(newSelectedItems)
-            return
+            // eslint-disable-next-line no-console
+            console.debug('calling set')
+            // eslint-disable-next-line no-console
+            console.debug({newSelectedItems})
+            setFinalItemsSelected(newSelectedItems)
+          } else {
+            // single select
+            setFinalItemsSelected(finalItemsSelected.includes(item) ? [] : [item])
           }
-
-          // single select
-          const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
-          singleSelectOnChange(item === selected ? undefined : item)
-          onClose('selection')
         }
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected])
+  }, [items, selected, setFinalItemsSelected, finalItemsSelected])
+
+  // eslint-disable-next-line no-console
+  React.useEffect(() => console.debug({finalItemsSelected}), [finalItemsSelected])
+
+  const onSaveClickHandler = React.useCallback(() => {
+    // eslint-disable-next-line no-console
+    console.debug('onSaveClickHandler - finalItemsSelected', finalItemsSelected)
+    // eslint-disable-next-line no-console
+    console.debug('onSaveClickHandler - selectedItems', selectedItems)
+    if (isMultiSelectVariant(selected)) {
+      const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
+      multiSelectOnChange(finalItemsSelected)
+    } else {
+      const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
+      singleSelectOnChange(finalItemsSelected.length > 0 ? finalItemsSelected[0] : undefined)
+    }
+  }, [finalItemsSelected, onSelectedChange, selected, selectedItems])
+
+  const onCancelClickHandler = React.useCallback(() => {
+    setFinalItemsSelected(selectedItems)
+    onClose('escape')
+  }, [onClose, selectedItems])
 
   const inputRef = React.useRef<HTMLInputElement>(null)
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
   const focusTrapSettings = {
-    initialFocusRef: inputRef
+    initialFocusRef: buttonRef
   }
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
@@ -169,6 +205,10 @@ export function SelectPanel({
       <SrOnly aria-atomic="true" aria-live={items.length <= 0 ? 'assertive' : 'polite'}>
         {items.length <= 0 ? 'No results found' : `${items.length} ${items.length <= 1 ? 'result' : 'results'} found`}
       </SrOnly>
+      <Button ref={buttonRef} onClick={onSaveClickHandler}>
+        Save
+      </Button>
+      <Button onClick={onCancelClickHandler}>Cancel</Button>
       <FilteredActionList
         filterValue={filterValue}
         onFilterChange={onFilterChange}
