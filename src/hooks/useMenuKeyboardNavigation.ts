@@ -72,10 +72,12 @@ const useMoveFocusToMenuItem = (
       const iterable = iterateFocusableElements(container)
 
       if (event.key === 'ArrowDown') {
+        event.preventDefault() // prevent scroll event
         const firstElement = iterable.next().value
         /** We push imperative focus to the next tick to prevent React's batching */
         setTimeout(() => firstElement?.focus())
       } else if (event.key === 'ArrowUp') {
+        event.preventDefault() // prevent scroll event
         const elements = [...iterable]
         const lastElement = elements[elements.length - 1]
         setTimeout(() => lastElement.focus())
