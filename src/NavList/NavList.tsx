@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import {
   ActionList,
   ActionListDividerProps,
-  ActionListGroupProps,
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps
 } from '../ActionList'
@@ -236,8 +235,9 @@ Divider.displayName = 'NavList.Divider'
 // ----------------------------------------------------------------------------
 // NavList.Group
 
-export type NavListGroupProps = Omit<ActionListGroupProps, 'selectionVariant' | 'variant' | 'auxiliaryText'> & {
+export type NavListGroupProps = {
   children: React.ReactNode
+  title?: string
 } & SxProp
 
 const defaultSx = {}
