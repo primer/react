@@ -83,3 +83,78 @@ export const toolbarTypes = {
     }
   }
 }
+
+export const inputWrapperArgTypes: Record<string, unknown> = {
+  block: {
+    defaultValue: false,
+    type: 'boolean'
+  },
+  contrast: {
+    defaultValue: false,
+    type: 'boolean'
+  },
+  disabled: {
+    defaultValue: false,
+    type: 'boolean'
+  },
+  placeholder: {
+    defaultValue: '',
+    type: 'string'
+  },
+  inputSize: {
+    name: 'size',
+    defaultValue: 'medium',
+    options: ['small', 'medium', 'large'],
+    control: {type: 'radio'}
+  },
+  validationStatus: {
+    options: ['warning', 'error', 'success', undefined],
+    control: {type: 'radio'}
+  }
+}
+
+const textInputArgTypesUnsorted: Record<string, unknown> = {
+  ...inputWrapperArgTypes,
+  loading: {
+    defaultValue: false,
+    type: 'boolean'
+  },
+  loaderPosition: {
+    defaultValue: 'auto',
+    options: ['auto', 'leading', 'trailing'],
+    control: {
+      type: 'radio'
+    }
+  },
+  monospace: {
+    defaultValue: false,
+    type: 'boolean'
+  }
+}
+
+// Alphabetize and optionally categorize the props
+export const getTextInputArgTypes = (category?: string) =>
+  Object.keys(textInputArgTypesUnsorted)
+    .sort()
+    .reduce<Record<string, unknown>>((obj, key) => {
+      obj[key] = category
+        ? {
+            // have to do weird type casting so we can spread the object
+            ...(textInputArgTypesUnsorted[key] as {[key: string]: unknown}),
+            table: {
+              category
+            }
+          }
+        : textInputArgTypesUnsorted[key]
+      return obj
+    }, {})
+
+export const textInputExcludedControlKeys = [
+  'as',
+  'icon',
+  'leadingVisual',
+  'sx',
+  'trailingVisual',
+  'trailingAction',
+  'variant'
+]

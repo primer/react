@@ -5,8 +5,9 @@ import {CheckIcon, NumberIcon} from '@primer/octicons-react'
 import {BaseStyles, Box, FormControl, ThemeProvider} from '..'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import IssueLabelToken from '../Token/IssueLabelToken'
+import {getTextInputArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
 
-const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent']
+const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', 'size', ...textInputExcludedControlKeys]
 
 export default {
   title: 'Forms/Text Input with Tokens',
@@ -35,32 +36,18 @@ export default {
     }
   ],
   argTypes: {
+    hideTokenRemoveButtons: {
+      defaultValue: false,
+      type: 'boolean'
+    },
     maxHeight: {
-      defaultValue: undefined,
-      control: {
-        type: 'text'
-      }
+      type: 'string',
+      defaultValue: 'none',
+      description: 'Any valid value for the CSS max-height property'
     },
     preventTokenWrapping: {
       defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    loading: {
-      name: 'loading',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    loaderPosition: {
-      name: 'loaderPosition',
-      defaultValue: 'auto',
-      options: ['auto', 'leading', 'trailing'],
-      control: {
-        type: 'radio'
-      }
+      type: 'boolean'
     },
     size: {
       name: 'size (token size)',
@@ -70,22 +57,11 @@ export default {
         type: 'radio'
       }
     },
-    hideTokenRemoveButtons: {
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
     visibleTokenCount: {
-      defaultValue: undefined,
-      control: {
-        type: 'number'
-      }
+      defaultValue: 999,
+      type: 'number'
     },
-    validationStatus: {
-      options: ['warning', 'error', 'success', undefined],
-      control: {type: 'radio'}
-    }
+    ...getTextInputArgTypes('Text input props')
   },
   parameters: {controls: {exclude: excludedControls}}
 } as Meta
@@ -112,8 +88,6 @@ export const Default = (args: TextInputWithTokensProps) => {
   return <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} />
 }
 
-Default.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
-
 export const WithLeadingVisual = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
@@ -133,8 +107,6 @@ export const WithTrailingVisual = (args: TextInputWithTokensProps) => {
 
   return <TextInputWithTokens {...args} trailingVisual={CheckIcon} tokens={tokens} onTokenRemove={onTokenRemove} />
 }
-
-WithTrailingVisual.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
 
 export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
@@ -187,7 +159,7 @@ export const WithLoadingIndicator = (args: TextInputWithTokensProps) => {
   )
 }
 
-WithLoadingIndicator.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'loading']}}
+WithLoadingIndicator.parameters = {controls: {exclude: [...excludedControls, 'loading']}}
 
 export const UsingIssueLabelTokens = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([
@@ -203,23 +175,6 @@ export const UsingIssueLabelTokens = (args: TextInputWithTokensProps) => {
     <TextInputWithTokens {...args} tokenComponent={IssueLabelToken} tokens={tokens} onTokenRemove={onTokenRemove} />
   )
 }
-
-UsingIssueLabelTokens.parameters = {controls: {exclude: [excludedControls, 'maxHeight']}}
-
-export const MaxHeight = (args: TextInputWithTokensProps) => {
-  const [tokens, setTokens] = useState(mockTokens)
-  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
-    setTokens(tokens.filter(token => token.id !== tokenId))
-  }
-
-  return (
-    <Box maxWidth="300px">
-      <TextInputWithTokens {...args} tokens={tokens} onTokenRemove={onTokenRemove} maxHeight="100px" />
-    </Box>
-  )
-}
-
-MaxHeight.storyName = 'maxHeight 200px'
 
 export const Unstyled = (args: TextInputWithTokensProps) => {
   const [tokens, setTokens] = useState([...mockTokens].slice(0, 2))
@@ -246,4 +201,4 @@ export const Unstyled = (args: TextInputWithTokensProps) => {
   )
 }
 
-Unstyled.parameters = {controls: {exclude: [excludedControls, 'maxHeight', 'validationStatus']}}
+Unstyled.parameters = {controls: {exclude: [...excludedControls, 'maxHeight', 'validationStatus']}}

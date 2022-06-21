@@ -4,6 +4,7 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, Box, ThemeProvider, FormControl} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
+import {getTextInputArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
 
 export default {
   title: 'Forms/Text Input',
@@ -19,66 +20,8 @@ export default {
       )
     }
   ],
-  argTypes: {
-    sx: {
-      table: {
-        disable: true
-      }
-    },
-    block: {
-      name: 'Block',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    disabled: {
-      name: 'Disabled',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    loading: {
-      name: 'loading',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    loaderPosition: {
-      name: 'loaderPosition',
-      defaultValue: 'auto',
-      options: ['auto', 'leading', 'trailing'],
-      control: {
-        type: 'radio'
-      }
-    },
-    monospace: {
-      name: 'Monospace',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    variant: {
-      name: 'Variants',
-      options: ['small', 'medium', 'large'],
-      control: {type: 'radio'}
-    },
-    validationStatus: {
-      name: 'Validation Status',
-      options: ['warning', 'error', 'success', undefined],
-      control: {type: 'radio'}
-    },
-    placeholder: {
-      name: 'Placeholder',
-      defaultValue: 'Hello!',
-      control: {
-        type: 'text'
-      }
-    }
-  }
+  parameters: {controls: {exclude: textInputExcludedControlKeys}},
+  argTypes: getTextInputArgTypes()
 } as Meta
 
 export const Default = (args: TextInputProps) => {
