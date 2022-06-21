@@ -46,15 +46,11 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
 
 <a
   className="c0 TabNav-item"
+  role="tab"
 />
 `;
 
 exports[`TabNav renders consistently 1`] = `
-.c0 {
-  margin-top: 0;
-  border-bottom: 1px solid #d0d7de;
-}
-
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -64,11 +60,21 @@ exports[`TabNav renders consistently 1`] = `
   overflow: auto;
 }
 
+.c0 {
+  margin-top: 0;
+  border-bottom: 1px solid #d0d7de;
+}
+
 <div
-  className="c0"
+  className=""
 >
   <nav
-    className="c1"
-  />
+    className="c0"
+  >
+    <div
+      className="c1"
+      role="tablist"
+    />
+  </nav>
 </div>
 `;
