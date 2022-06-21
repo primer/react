@@ -323,7 +323,9 @@ describe('Autocomplete', () => {
     })
 
     it('allows the value to be 0', () => {
-      const {getByDisplayValue} = HTMLRender(<LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} inputProps={{value: 0}} />)
+      const {getByDisplayValue} = HTMLRender(
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} inputProps={{value: 0}} />
+      )
 
       expect(getByDisplayValue('0')).toBeDefined()
     })
