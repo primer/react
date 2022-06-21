@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 
 import {BaseStyles, Box, Textarea, TextareaProps, ThemeProvider} from '..'
+import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
 
 const StyledForm = styled.form`
   padding: 20px;
@@ -30,23 +31,36 @@ export default {
     }
   ],
   argTypes: {
+    block: {
+      defaultValue: false,
+      type: 'boolean'
+    },
+    cols: {
+      defaultValue: DEFAULT_TEXTAREA_COLS,
+      type: 'number'
+    },
+    disabled: {
+      defaultValue: false,
+      type: 'boolean'
+    },
+    resize: {
+      defaultValue: DEFAULT_TEXTAREA_RESIZE,
+      options: ['none', 'both', 'horizontal', 'vertical'],
+      control: {type: 'radio'}
+    },
+    rows: {
+      defaultValue: DEFAULT_TEXTAREA_ROWS,
+      type: 'number'
+    },
     sx: {
       table: {
         disable: true
       }
     },
     validationStatus: {
-      name: 'Validation Status',
       defaultValue: undefined,
-      options: ['success', 'error', undefined],
+      options: ['error', 'success', 'warning'],
       control: {type: 'radio'}
-    },
-    disabled: {
-      name: 'Disabled',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
     }
   }
 } as Meta
