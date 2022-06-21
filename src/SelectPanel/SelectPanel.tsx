@@ -10,6 +10,7 @@ import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
+import styled from 'styled-components'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -46,6 +47,18 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
   disabled: true
 }
+
+// sr-only
+const SrOnly = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+`
 
 export function SelectPanel({
   open,
@@ -153,6 +166,9 @@ export function SelectPanel({
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
+      <SrOnly aria-atomic="true" aria-live={items.length <= 0 ? 'assertive' : 'polite'}>
+        {items.length <= 0 ? 'No results found' : `${items.length} ${items.length <= 1 ? 'result' : 'results'} found`}
+      </SrOnly>
       <FilteredActionList
         filterValue={filterValue}
         onFilterChange={onFilterChange}
