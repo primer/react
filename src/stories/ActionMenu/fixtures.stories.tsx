@@ -32,7 +32,8 @@ import {
   NumberIcon,
   SingleSelectIcon,
   TypographyIcon,
-  IconProps
+  IconProps,
+  IssueOpenedIcon
 } from '@primer/octicons-react'
 
 const meta: Meta = {
@@ -605,6 +606,60 @@ export function MemexAddColumn(): JSX.Element {
             </ActionMenu.Overlay>
           </ActionMenu>
         </Box>
+      </Box>
+    </>
+  )
+}
+
+export function MemexKeyboardShortcut(): JSX.Element {
+  const [open, setOpen] = React.useState(false)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+
+  React.useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if (event.code === 'Backslash' && event.shiftKey) {
+        setOpen(true)
+        anchorRef.current?.focus() // move focus to anchor button
+      }
+    }
+
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  })
+
+  return (
+    <>
+      <h1>Memex Table Menu</h1>
+      <p>The menu can also be opened with a keyboard shortcut - `Shift + \`</p>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 2,
+          p: 2,
+          alignItems: 'center',
+          border: '1px solid',
+          borderColor: 'border.default'
+        }}
+      >
+        <IconButton
+          ref={anchorRef}
+          onClick={() => setOpen(!open)}
+          icon={TriangleDownIcon}
+          aria-label="Open Estimate column options menu"
+          sx={{padding: 0}}
+        />
+
+        <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>Archive</ActionList.Item>
+              <ActionList.Item variant="danger">Delete from project</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+        <Text sx={{color: 'fg.muted', mr: 4}}>1</Text>
+        <StyledOcticon sx={{color: 'open.fg'}} icon={IssueOpenedIcon} />
+        <Text>Produce ag-Grid staging demo</Text>
       </Box>
     </>
   )
