@@ -108,7 +108,7 @@ export const inputWrapperArgTypes: Record<string, unknown> = {
     control: {type: 'radio'}
   },
   validationStatus: {
-    options: ['warning', 'error', 'success', undefined],
+    options: ['warning', 'error', 'success'],
     control: {type: 'radio'}
   }
 }
