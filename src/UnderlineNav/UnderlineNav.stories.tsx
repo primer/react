@@ -65,7 +65,6 @@ const items: string[] = [
   'Item 9',
   'Item 10'
 ]
-const initItemLength = items.length
 
 export const InternalResponsiveNav = (args: UnderlineNavProps) => {
   return (
@@ -78,54 +77,14 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
     </UnderlineNav>
   )
 }
-export const ResponsiveNav = (args: UnderlineNavProps) => {
-  const ref = useRef<HTMLDivElement>(null)
 
-  const [itemLength, setItemLength] = useState<number>(initItemLength)
-  const [width, setWidth] = useState<number>(0)
-  useEffect(() => {
-    if (ref.current) {
-      setWidth(ref.current.offsetWidth)
-    }
-  }, [])
-  const updateItemLength = useCallback(() => {
-    if (window.innerWidth < width) {
-      const singleItemWidth = width / initItemLength
-      setItemLength(window.innerWidth / singleItemWidth)
-    } else {
-      setItemLength(initItemLength)
-    }
-  }, [width])
-  useResizeObserver(updateItemLength)
-  const showItems: string[] = []
-  const hideItems: string[] = []
-  let index = 0
-  for (const item of items) {
-    if (index < itemLength) {
-      showItems.push(item)
-    } else {
-      hideItems.push(item)
-    }
-    index = index + 1
-  }
-  const Actions = () => {
-    return (
-      <ActionMenu>
-        <ActionMenu.Button>Hidden</ActionMenu.Button>
-        <ActionMenu.Overlay>
-          <ActionList>
-            {hideItems.map(item => (
-              <ActionList.Item key={item}>{item}</ActionList.Item>
-            ))}
-          </ActionList>
-        </ActionMenu.Overlay>
-      </ActionMenu>
-    )
-  }
+export const HorizontalScrollNav = (args: UnderlineNavProps) => {
   return (
-    <UnderlineNav {...(hideItems.length > 0 ? {actions: Actions} : {})} ref={ref} {...args}>
-      {showItems.map(item => (
-        <UnderlineNav.Link key={item}>{item}</UnderlineNav.Link>
+    <UnderlineNav {...args} overflow="scroll">
+      {items.map(item => (
+        <UnderlineNav.Link key={item} leadingIcon={EyeIcon}>
+          {item}
+        </UnderlineNav.Link>
       ))}
     </UnderlineNav>
   )
