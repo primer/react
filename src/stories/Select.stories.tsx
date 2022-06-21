@@ -21,44 +21,32 @@ export default {
   argTypes: {
     block: {
       defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
+      type: 'boolean'
     },
     contrast: {
       defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
+      type: 'boolean'
     },
     disabled: {
       defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
+      type: 'boolean'
     },
     required: {
       defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    sx: {
-      table: {
-        disable: true
-      }
+      type: 'boolean'
     },
     size: {
       defaultValue: 'medium',
       options: ['small', 'medium', 'large'],
       control: {type: 'radio'}
     },
-    validationStatus: {
-      options: ['success', 'warning', 'error', undefined],
-      control: {type: 'radio'}
+    sx: {
+      table: {
+        disable: true
+      }
     }
   },
-  parameters: {controls: {exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused']}}
+  parameters: {controls: {exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused', 'sx']}}
 } as Meta
 
 export const Default = (args: SelectProps) => (
