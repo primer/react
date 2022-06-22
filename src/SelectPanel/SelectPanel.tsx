@@ -225,7 +225,7 @@ export function SelectPanel({
       open={open}
       onOpen={onOpen}
       onClose={onClose}
-      overlayProps={{...overlayProps, onKeyPress: overlayKeyPressHandler}}
+      overlayProps={{...overlayProps, onKeyPress: overlayKeyPressHandler, role: 'dialog'}}
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
@@ -239,8 +239,6 @@ export function SelectPanel({
       <Box px={3} pt={2}>
         <Title id={titleId}>{title}</Title>
       </Box>
-      <Button onClick={onSaveClickHandler}>Save</Button>
-      <Button onClick={onCancelClickHandler}>Cancel</Button>
       <FilteredActionList
         filterValue={filterValue}
         onFilterChange={onFilterChange}
@@ -256,6 +254,10 @@ export function SelectPanel({
         // than the Overlay (which would break scrolling the items)
         sx={{...sxProp, height: 'inherit', maxHeight: 'inherit'}}
       />
+      <Box display="flex" alignItems="center">
+        <Button onClick={onCancelClickHandler}>Cancel</Button>
+        <Button onClick={onSaveClickHandler}>Save</Button>
+      </Box>
     </AnchoredOverlay>
   )
 }
