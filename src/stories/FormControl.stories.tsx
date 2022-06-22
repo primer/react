@@ -8,7 +8,7 @@ import {MarkGithubIcon} from '@primer/octicons-react'
 
 type FormControlArgs = Pick<ComponentProps<typeof FormControl>, 'required' | 'disabled'>
 type FormControlLabelArgs = ComponentProps<typeof FormControl.Label> & {labelChildren?: React.ReactNode}
-type FormControlCaptionArgs = ComponentProps<typeof FormControl.Label> & {captionChildren?: React.ReactNode}
+type FormControlCaptionArgs = ComponentProps<typeof FormControl.Caption> & {captionChildren?: React.ReactNode}
 type FormControlValidationMessageArgs = ComponentProps<typeof FormControl.Validation> & {
   validationChildren?: React.ReactNode
 }
