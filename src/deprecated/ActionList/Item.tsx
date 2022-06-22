@@ -362,8 +362,9 @@ export const Item = React.forwardRef((itemProps, ref) => {
       }
       onKeyPress?.(event)
 
-      if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
+      if (!event.defaultPrevented && [' '].includes(event.key)) {
         onAction?.(itemProps, event)
+        event.preventDefault()
       }
     },
     [onAction, disabled, itemProps, onKeyPress]

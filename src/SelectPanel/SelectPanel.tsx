@@ -208,6 +208,16 @@ export function SelectPanel({
     }
   }, [textInputProps, inputLabel])
 
+  const overlayKeyPressHandler = useCallback(
+    event => {
+      if (!event.defaultPrevented && ['Enter'].includes(event.key)) {
+        onSaveClickHandler()
+        event.preventDefault()
+      }
+    },
+    [onSaveClickHandler]
+  )
+
   return (
     <AnchoredOverlay
       renderAnchor={renderMenuAnchor}
@@ -215,7 +225,7 @@ export function SelectPanel({
       open={open}
       onOpen={onOpen}
       onClose={onClose}
-      overlayProps={overlayProps}
+      overlayProps={{...overlayProps, onKeyPress: overlayKeyPressHandler}}
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
