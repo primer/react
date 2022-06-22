@@ -13,6 +13,10 @@ import {useProvidedRefOrCreate} from '../hooks'
 import styled from 'styled-components'
 import {Button} from '../Button'
 import {SearchIcon} from '@primer/octicons-react'
+import sx, {SxProp} from '../sx'
+import {get} from '../constants'
+import Box from '../Box'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -29,6 +33,7 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
   ) => void
+  title: string
   inputLabel: string
   overlayProps?: Partial<OverlayProps>
 }
@@ -62,11 +67,19 @@ const SrOnly = styled.span`
   border: 0;
 `
 
+const Title = styled.h1<SxProp>`
+  font-size: ${get('fontSizes.1')};
+  font-weight: ${get('fontWeights.bold')};
+  margin: 0; /* override default margin */
+  ${sx};
+`
+
 export function SelectPanel({
   open,
   onOpenChange,
   renderAnchor = props => <DropdownButton {...props} />,
   anchorRef: externalAnchorRef,
+  title,
   inputLabel,
   selected,
   onSelectedChange,
@@ -75,7 +88,7 @@ export function SelectPanel({
   items,
   textInputProps,
   overlayProps,
-  sx,
+  sx: sxProp,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -180,6 +193,7 @@ export function SelectPanel({
   }, [onClose, selectedItems])
 
   const inputRef = React.useRef<HTMLInputElement>(null)
+  const titleId = useSSRSafeId()
   const focusTrapSettings = {
     initialFocusRef: inputRef
   }
@@ -208,6 +222,9 @@ export function SelectPanel({
       <SrOnly aria-atomic="true" aria-live={items.length <= 0 ? 'assertive' : 'polite'}>
         {items.length <= 0 ? 'No matching items' : `${items.length} matching ${items.length <= 1 ? 'item' : 'items'}`}
       </SrOnly>
+      <Box px={3} pt={2}>
+        <Title id={titleId}>{title}</Title>
+      </Box>
       <Button onClick={onSaveClickHandler}>Save</Button>
       <Button onClick={onCancelClickHandler}>Cancel</Button>
       <FilteredActionList
@@ -216,13 +233,14 @@ export function SelectPanel({
         {...listProps}
         role="listbox"
         aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+        aria-labelledby={titleId}
         selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
         items={itemsToRender}
         textInputProps={extendedTextInputProps}
         inputRef={inputRef}
         // inheriting height and maxHeight ensures that the FilteredActionList is never taller
         // than the Overlay (which would break scrolling the items)
-        sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+        sx={{...sxProp, height: 'inherit', maxHeight: 'inherit'}}
       />
     </AnchoredOverlay>
   )

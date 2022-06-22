@@ -9,6 +9,7 @@ exports[`ActionList renders consistently 1`] = `
 .c0 {
   font-size: 14px;
   line-height: 20px;
+  padding-inline-start: 0;
 }
 
 .c0[data-has-active-descendant],
@@ -17,12 +18,14 @@ exports[`ActionList renders consistently 1`] = `
   --item-hover-divider-border-color-override: hsla(210,18%,87%,1);
 }
 
-<div
-  className="c0"
->
-  <div
-    className="c1"
-  />
+<div>
+  <ul
+    className="c0"
+  >
+    <div
+      className="c1"
+    />
+  </ul>
 </div>
 `;
 
@@ -201,7 +204,7 @@ exports[`ActionList.Item renders consistently 1`] = `
   }
 }
 
-<div
+<li
   className="c0 c1"
   onClick={[Function]}
   onKeyPress={[Function]}
@@ -219,5 +222,5 @@ exports[`ActionList.Item renders consistently 1`] = `
       }
     />
   </div>
-</div>
+</li>
 `;

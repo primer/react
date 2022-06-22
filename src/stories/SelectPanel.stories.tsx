@@ -1,12 +1,12 @@
-import type {OverlayProps} from '../Overlay'
 import {Meta} from '@storybook/react'
 import React, {useRef, useState} from 'react'
 import {theme, ThemeProvider} from '..'
-import {ItemInput} from '../deprecated/ActionList/List'
 import BaseStyles from '../BaseStyles'
-import {DropdownButton} from '../deprecated/DropdownMenu'
-import {SelectPanel} from '../SelectPanel'
 import Box from '../Box'
+import {ItemInput} from '../deprecated/ActionList/List'
+import {DropdownButton} from '../deprecated/DropdownMenu'
+import type {OverlayProps} from '../Overlay'
+import {SelectPanel} from '../SelectPanel'
 
 const meta: Meta = {
   title: 'Composite components/SelectPanel',
@@ -73,6 +73,7 @@ export function MultiSelectStory(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select Labels"
         inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -104,6 +105,7 @@ export function SingleSelectStory(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -135,6 +137,7 @@ export function ExternalAnchorStory(): JSX.Element {
       <SelectPanel
         renderAnchor={null}
         anchorRef={buttonRef}
+        title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -166,6 +169,7 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -198,6 +202,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -242,6 +247,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
         onOpenChange={onOpenChange}
@@ -275,6 +281,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
@@ -317,6 +324,7 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         inputLabel="Filter Labels"
         open={openA}
         onOpenChange={setOpenA}
@@ -334,6 +342,7 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
+        title="Select a Label"
         inputLabel="Filter Labels"
         open={openB}
         onOpenChange={setOpenB}
