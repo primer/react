@@ -12,6 +12,7 @@ import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOver
 import {useProvidedRefOrCreate} from '../hooks'
 import styled from 'styled-components'
 import {Button} from '../Button'
+import {SearchIcon} from '@primer/octicons-react'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -28,7 +29,7 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
   ) => void
-  placeholder?: string
+  inputLabel: string
   overlayProps?: Partial<OverlayProps>
 }
 
@@ -66,7 +67,7 @@ export function SelectPanel({
   onOpenChange,
   renderAnchor = props => <DropdownButton {...props} />,
   anchorRef: externalAnchorRef,
-  placeholder,
+  inputLabel,
   selected,
   onSelectedChange,
   filterValue: externalFilterValue,
@@ -110,10 +111,10 @@ export function SelectPanel({
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
+        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : inputLabel
       })
     }
-  }, [placeholder, renderAnchor, selectedItems])
+  }, [inputLabel, renderAnchor, selectedItems])
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
@@ -170,7 +171,8 @@ export function SelectPanel({
       const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
       singleSelectOnChange(finalItemsSelected.length > 0 ? finalItemsSelected[0] : undefined)
     }
-  }, [finalItemsSelected, onSelectedChange, selected, selectedItems])
+    onClose('selection')
+  }, [finalItemsSelected, onSelectedChange, onClose, selected, selectedItems])
 
   const onCancelClickHandler = React.useCallback(() => {
     setFinalItemsSelected(selectedItems)
@@ -178,18 +180,19 @@ export function SelectPanel({
   }, [onClose, selectedItems])
 
   const inputRef = React.useRef<HTMLInputElement>(null)
-  const buttonRef = React.useRef<HTMLButtonElement>(null)
   const focusTrapSettings = {
-    initialFocusRef: buttonRef
+    initialFocusRef: inputRef
   }
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
       sx: {m: 2},
       contrast: true,
+      leadingVisual: SearchIcon,
+      'aria-label': inputLabel,
       ...textInputProps
     }
-  }, [textInputProps])
+  }, [textInputProps, inputLabel])
 
   return (
     <AnchoredOverlay
@@ -203,11 +206,9 @@ export function SelectPanel({
       focusZoneSettings={focusZoneSettings}
     >
       <SrOnly aria-atomic="true" aria-live={items.length <= 0 ? 'assertive' : 'polite'}>
-        {items.length <= 0 ? 'No results found' : `${items.length} ${items.length <= 1 ? 'result' : 'results'} found`}
+        {items.length <= 0 ? 'No matching items' : `${items.length} matching ${items.length <= 1 ? 'item' : 'items'}`}
       </SrOnly>
-      <Button ref={buttonRef} onClick={onSaveClickHandler}>
-        Save
-      </Button>
+      <Button onClick={onSaveClickHandler}>Save</Button>
       <Button onClick={onCancelClickHandler}>Cancel</Button>
       <FilteredActionList
         filterValue={filterValue}

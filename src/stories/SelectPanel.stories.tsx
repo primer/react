@@ -69,11 +69,11 @@ export function MultiSelectStory(): JSX.Element {
       <div>Please select labels that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -100,11 +100,11 @@ export function SingleSelectStory(): JSX.Element {
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -135,7 +135,7 @@ export function ExternalAnchorStory(): JSX.Element {
       <SelectPanel
         renderAnchor={null}
         anchorRef={buttonRef}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -162,11 +162,11 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -194,11 +194,11 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -238,11 +238,11 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={open}
         onOpenChange={onOpenChange}
         loading={filteredItems.length === 0}
@@ -271,11 +271,11 @@ export function SelectPanelAboveTallBody(): JSX.Element {
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -313,11 +313,11 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
       <h2>With height:medium</h2>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={openA}
         onOpenChange={setOpenA}
         items={filteredItems}
@@ -330,11 +330,11 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
       <h2>With height:auto, maxheight:medium</h2>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </DropdownButton>
         )}
-        placeholderText="Filter Labels"
+        inputLabel="Filter Labels"
         open={openB}
         onOpenChange={setOpenB}
         items={filteredItems}

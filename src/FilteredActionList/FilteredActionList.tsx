@@ -21,7 +21,7 @@ export interface FilteredActionListProps
     ListPropsBase,
     SxProp {
   loading?: boolean
-  placeholderText: string
+  placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
