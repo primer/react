@@ -103,19 +103,27 @@ export const toolbarTypes = {
 export const inputWrapperArgTypes: Record<string, unknown> = {
   block: {
     defaultValue: false,
-    type: 'boolean'
+    control: {
+      type: 'boolean'
+    }
   },
   contrast: {
     defaultValue: false,
-    type: 'boolean'
+    control: {
+      type: 'boolean'
+    }
   },
   disabled: {
     defaultValue: false,
-    type: 'boolean'
+    control: {
+      type: 'boolean'
+    }
   },
   placeholder: {
     defaultValue: '',
-    type: 'string'
+    control: {
+      type: 'text'
+    }
   },
   inputSize: {
     name: 'size',
@@ -133,7 +141,9 @@ const textInputArgTypesUnsorted: Record<string, unknown> = {
   ...inputWrapperArgTypes,
   loading: {
     defaultValue: false,
-    type: 'boolean'
+    control: {
+      type: 'boolean'
+    }
   },
   loaderPosition: {
     defaultValue: 'auto',
@@ -144,7 +154,9 @@ const textInputArgTypesUnsorted: Record<string, unknown> = {
   },
   monospace: {
     defaultValue: false,
-    type: 'boolean'
+    control: {
+      type: 'boolean'
+    }
   }
 }
 
@@ -174,3 +186,46 @@ export const textInputExcludedControlKeys = [
   'trailingAction',
   'variant'
 ]
+
+export const textInputWithTokensArgTypes = {
+  hideTokenRemoveButtons: {
+    defaultValue: false,
+    type: 'boolean',
+    table: {
+      category: 'TextInputWithTokens props'
+    }
+  },
+  maxHeight: {
+    type: 'string',
+    defaultValue: 'none',
+    description: 'Any valid value for the CSS max-height property',
+    table: {
+      category: 'TextInputWithTokens props'
+    }
+  },
+  preventTokenWrapping: {
+    defaultValue: false,
+    type: 'boolean',
+    table: {
+      category: 'TextInputWithTokens props'
+    }
+  },
+  size: {
+    name: 'size (token size)',
+    defaultValue: 'xlarge',
+    options: ['small', 'medium', 'large', 'xlarge'],
+    control: {
+      type: 'radio'
+    },
+    table: {
+      category: 'TextInputWithTokens props'
+    }
+  },
+  visibleTokenCount: {
+    defaultValue: 999,
+    type: 'number',
+    table: {
+      category: 'TextInputWithTokens props'
+    }
+  }
+}

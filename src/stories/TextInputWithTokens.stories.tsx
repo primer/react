@@ -5,7 +5,7 @@ import {CheckIcon, NumberIcon} from '@primer/octicons-react'
 import {BaseStyles, Box, FormControl, ThemeProvider} from '..'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import IssueLabelToken from '../Token/IssueLabelToken'
-import {getTextInputArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
+import {getTextInputArgTypes, textInputExcludedControlKeys, textInputWithTokensArgTypes} from '../utils/story-helpers'
 
 const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', 'size', ...textInputExcludedControlKeys]
 
@@ -36,32 +36,8 @@ export default {
     }
   ],
   argTypes: {
-    hideTokenRemoveButtons: {
-      defaultValue: false,
-      type: 'boolean'
-    },
-    maxHeight: {
-      type: 'string',
-      defaultValue: 'none',
-      description: 'Any valid value for the CSS max-height property'
-    },
-    preventTokenWrapping: {
-      defaultValue: false,
-      type: 'boolean'
-    },
-    size: {
-      name: 'size (token size)',
-      defaultValue: 'xlarge',
-      options: ['small', 'medium', 'large', 'xlarge'],
-      control: {
-        type: 'radio'
-      }
-    },
-    visibleTokenCount: {
-      defaultValue: 999,
-      type: 'number'
-    },
-    ...getTextInputArgTypes('Text input props')
+    ...textInputWithTokensArgTypes,
+    ...getTextInputArgTypes('TextInput props')
   },
   parameters: {controls: {exclude: excludedControls}}
 } as Meta
