@@ -11,8 +11,8 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
 import styled from 'styled-components'
-import {Button} from '../Button'
-import {SearchIcon} from '@primer/octicons-react'
+import {Button, IconButton} from '../Button'
+import {SearchIcon, XIcon} from '@primer/octicons-react'
 import sx, {SxProp} from '../sx'
 import {get} from '../constants'
 import Box from '../Box'
@@ -238,8 +238,9 @@ export function SelectPanel({
             ? 'No matching items'
             : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
         </SrOnly>
-        <Box px={3} pt={3}>
+        <Box display="flex" alignItems="center" justifyContent="space-between" px={3} pt={2}>
           <Title id={titleId}>{title}</Title>
+          <IconButton icon={XIcon} aria-label="Close" variant="invisible" onClick={onCancelClickHandler} />
         </Box>
         <FilteredActionList
           filterValue={filterValue}
