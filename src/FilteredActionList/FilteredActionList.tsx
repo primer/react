@@ -111,7 +111,7 @@ export function FilteredActionList({
           aria-describedby={inputDescriptionTextId}
           {...textInputProps}
         />
-        <SrOnly id={inputDescriptionTextId}>Results will be filtered as you type</SrOnly>
+        <SrOnly id={inputDescriptionTextId}>Items will be filtered as you type</SrOnly>
       </StyledHeader>
       <Box ref={scrollContainerRef} overflow="auto">
         {loading ? (

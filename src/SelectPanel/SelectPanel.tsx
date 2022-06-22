@@ -230,7 +230,11 @@ export function SelectPanel({
       focusZoneSettings={focusZoneSettings}
     >
       <SrOnly aria-atomic="true" aria-live={items.length <= 0 ? 'assertive' : 'polite'}>
-        {items.length <= 0 ? 'No matching items' : `${items.length} matching ${items.length <= 1 ? 'item' : 'items'}`}
+        {filterValue === ''
+          ? 'Showing all items'
+          : items.length <= 0
+          ? 'No matching items'
+          : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
       </SrOnly>
       <Box px={3} pt={2}>
         <Title id={titleId}>{title}</Title>
