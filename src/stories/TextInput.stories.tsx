@@ -6,6 +6,8 @@ import TextInput, {TextInputProps} from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import {getTextInputArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
 
+type Args = TextInputProps & {inputSize?: 'small' | 'medium' | 'large'}
+
 export default {
   title: 'Forms/Text Input',
   component: TextInput,
@@ -24,7 +26,7 @@ export default {
   argTypes: getTextInputArgTypes()
 } as Meta
 
-export const Default = (args: TextInputProps) => {
+export const Default = ({inputSize, ...args}: Args) => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +37,13 @@ export const Default = (args: TextInputProps) => {
     <form>
       <FormControl>
         <FormControl.Label>Example label</FormControl.Label>
-        <TextInput value={value} onChange={handleChange} {...args} />
+        <TextInput value={value} onChange={handleChange} {...args} size={inputSize} />
       </FormControl>
     </form>
   )
 }
 
-export const WithLeadingVisual = (args: TextInputProps) => {
+export const WithLeadingVisual = ({inputSize, ...args}: Args) => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,17 +54,17 @@ export const WithLeadingVisual = (args: TextInputProps) => {
     <form>
       <FormControl>
         <FormControl.Label>Example label</FormControl.Label>
-        <TextInput leadingVisual={CheckIcon} value={value} onChange={handleChange} {...args} />
+        <TextInput leadingVisual={CheckIcon} value={value} onChange={handleChange} {...args} size={inputSize} />
       </FormControl>
       <FormControl>
         <FormControl.Label>Enter monies</FormControl.Label>
-        <TextInput leadingVisual="$" value={value} onChange={handleChange} {...args} />
+        <TextInput leadingVisual="$" value={value} onChange={handleChange} {...args} size={inputSize} />
       </FormControl>
     </form>
   )
 }
 
-export const WithTrailingIcon = (args: TextInputProps) => {
+export const WithTrailingIcon = ({inputSize, ...args}: Args) => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,17 +75,24 @@ export const WithTrailingIcon = (args: TextInputProps) => {
     <form>
       <FormControl>
         <FormControl.Label>Example label</FormControl.Label>
-        <TextInput trailingVisual={CheckIcon} value={value} onChange={handleChange} {...args} />
+        <TextInput trailingVisual={CheckIcon} value={value} onChange={handleChange} {...args} size={inputSize} />
       </FormControl>
       <FormControl>
         <FormControl.Label>Enter monies</FormControl.Label>
-        <TextInput trailingVisual="minutes" value={value} onChange={handleChange} {...args} placeholder="200" />
+        <TextInput
+          trailingVisual="minutes"
+          value={value}
+          onChange={handleChange}
+          {...args}
+          size={inputSize}
+          placeholder="200"
+        />
       </FormControl>
     </form>
   )
 }
 
-export const WithTrailingAction = (args: TextInputProps) => {
+export const WithTrailingAction = ({inputSize, ...args}: Args) => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,6 +117,7 @@ export const WithTrailingAction = (args: TextInputProps) => {
           value={value}
           onChange={handleChange}
           {...args}
+          size={inputSize}
         />
       </FormControl>
     </form>
@@ -197,7 +207,7 @@ export const WithLoadingIndicator = () => {
 
 WithLoadingIndicator.parameters = {controls: {exclude: ['loading']}}
 
-export const ContrastTextInput = (args: TextInputProps) => {
+export const ContrastTextInput = ({inputSize, ...args}: Args) => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,13 +218,13 @@ export const ContrastTextInput = (args: TextInputProps) => {
     <form>
       <FormControl>
         <FormControl.Label>Example label</FormControl.Label>
-        <TextInput contrast value={value} onChange={handleChange} {...args} />
+        <TextInput contrast value={value} onChange={handleChange} {...args} size={inputSize} />
       </FormControl>
     </form>
   )
 }
 
-export const Password = (args: TextInputProps) => {
+export const Password = ({inputSize, ...args}: Args) => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -225,13 +235,13 @@ export const Password = (args: TextInputProps) => {
     <form>
       <FormControl>
         <FormControl.Label>Password</FormControl.Label>
-        <TextInput type="password" value={value} onChange={handleChange} {...args} />
+        <TextInput type="password" value={value} onChange={handleChange} {...args} size={inputSize} />
       </FormControl>
     </form>
   )
 }
 
-export const TextInputInWarningState = (args: TextInputProps) => {
+export const TextInputInWarningState = ({inputSize, ...args}: Args) => {
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -242,7 +252,14 @@ export const TextInputInWarningState = (args: TextInputProps) => {
     <form>
       <FormControl>
         <FormControl.Label>Password</FormControl.Label>
-        <TextInput type="password" value={value} validationStatus="warning" onChange={handleChange} {...args} />
+        <TextInput
+          type="password"
+          value={value}
+          validationStatus="warning"
+          onChange={handleChange}
+          {...args}
+          size={inputSize}
+        />
       </FormControl>
     </form>
   )
