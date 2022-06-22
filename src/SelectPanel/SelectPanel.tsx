@@ -229,34 +229,46 @@ export function SelectPanel({
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
     >
-      <SrOnly aria-atomic="true" aria-live={items.length <= 0 ? 'assertive' : 'polite'}>
-        {filterValue === ''
-          ? 'Showing all items'
-          : items.length <= 0
-          ? 'No matching items'
-          : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
-      </SrOnly>
-      <Box px={3} pt={2}>
-        <Title id={titleId}>{title}</Title>
-      </Box>
-      <FilteredActionList
-        filterValue={filterValue}
-        onFilterChange={onFilterChange}
-        {...listProps}
-        role="listbox"
-        aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-        aria-labelledby={titleId}
-        selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-        items={itemsToRender}
-        textInputProps={extendedTextInputProps}
-        inputRef={inputRef}
-        // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-        // than the Overlay (which would break scrolling the items)
-        sx={{...sxProp, height: 'inherit', maxHeight: 'inherit'}}
-      />
-      <Box display="flex" alignItems="center">
-        <Button onClick={onCancelClickHandler}>Cancel</Button>
-        <Button onClick={onSaveClickHandler}>Save</Button>
+      {/* inheriting height and maxHeight ensures that the content is never taller than the Overlay (which would break scrolling the items) */}
+      <Box display="flex" flexDirection="column" height="inherit" maxHeight="inherit">
+        <SrOnly aria-atomic="true" aria-live={items.length <= 0 ? 'assertive' : 'polite'}>
+          {filterValue === ''
+            ? 'Showing all items'
+            : items.length <= 0
+            ? 'No matching items'
+            : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
+        </SrOnly>
+        <Box px={3} pt={3}>
+          <Title id={titleId}>{title}</Title>
+        </Box>
+        <FilteredActionList
+          filterValue={filterValue}
+          onFilterChange={onFilterChange}
+          {...listProps}
+          role="listbox"
+          aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+          aria-labelledby={titleId}
+          selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+          items={itemsToRender}
+          textInputProps={extendedTextInputProps}
+          inputRef={inputRef}
+          sx={{...sxProp, flex: '1 1 auto'}}
+        />
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="flex-end"
+          gridGap="8px"
+          padding="16px"
+          borderTopColor="border.default"
+          borderTopWidth={1}
+          borderTopStyle="solid"
+        >
+          <Button onClick={onCancelClickHandler}>Cancel</Button>
+          <Button variant="primary" onClick={onSaveClickHandler}>
+            Save
+          </Button>
+        </Box>
       </Box>
     </AnchoredOverlay>
   )

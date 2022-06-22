@@ -5,7 +5,6 @@ import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 import {ItemInput} from '../deprecated/ActionList/List'
 import {DropdownButton} from '../deprecated/DropdownMenu'
-import type {OverlayProps} from '../Overlay'
 import {SelectPanel} from '../SelectPanel'
 
 const meta: Meta = {
@@ -55,6 +54,20 @@ const items = [
   {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
   {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
   {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7}
+  /*   {leadingVisual: getColorCircle('#a2eeef'), text: '1-enhancement', id: 21},
+  {leadingVisual: getColorCircle('#d73a4a'), text: '1-bug', id: 22},
+  {leadingVisual: getColorCircle('#0cf478'), text: '1-good first issue', id: 23},
+  {leadingVisual: getColorCircle('#ffd78e'), text: '1-design', id: 24},
+  {leadingVisual: getColorCircle('#ff0000'), text: '1-blocker', id: 25},
+  {leadingVisual: getColorCircle('#a4f287'), text: '1-backend', id: 26},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: '1-frontend', id: 27},
+  {leadingVisual: getColorCircle('#a2eeef'), text: '2-enhancement', id: 31},
+  {leadingVisual: getColorCircle('#d73a4a'), text: '2-bug', id: 32},
+  {leadingVisual: getColorCircle('#0cf478'), text: '2-good first issue', id: 33},
+  {leadingVisual: getColorCircle('#ffd78e'), text: '2-design', id: 34},
+  {leadingVisual: getColorCircle('#ff0000'), text: '2-blocker', id: 35},
+  {leadingVisual: getColorCircle('#a4f287'), text: '2-backend', id: 36},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: '2-frontend', id: 37} */
 ]
 
 export function MultiSelectStory(): JSX.Element {
@@ -82,7 +95,7 @@ export function MultiSelectStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'large'}}
       />
     </>
   )
@@ -114,7 +127,7 @@ export function SingleSelectStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'large'}}
       />
     </>
   )
@@ -146,14 +159,14 @@ export function ExternalAnchorStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'large'}}
       />
     </>
   )
 }
 ExternalAnchorStory.storyName = 'With External Anchor'
 
-export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element {
+export function SelectPanelWithOverflowingItemsStory(): JSX.Element {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
@@ -178,14 +191,14 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
     </>
   )
 }
-SelectPanelHeightInitialWithOverflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Overflowing Items'
+SelectPanelWithOverflowingItemsStory.storyName = 'SelectPanel, Overflowing Items'
 
-export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Element {
+export function SelectPanelWithUnderflowingItemsStory(): JSX.Element {
   const underflowingItems = [items[0], items[1]]
   const [selected, setSelected] = React.useState<ItemInput | undefined>(underflowingItems[0])
   const [filter, setFilter] = React.useState('')
@@ -211,14 +224,14 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
     </>
   )
 }
-SelectPanelHeightInitialWithUnderflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Underflowing Items'
+SelectPanelWithUnderflowingItemsStory.storyName = 'SelectPanel, Underflowing Items'
 
-export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.Element {
+export function SelectPanelWithUnderflowingItemsAfterFetch(): JSX.Element {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
   const [filter, setFilter] = React.useState('')
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
@@ -227,13 +240,11 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
     [fetchedItems, filter]
   )
   const [open, setOpen] = useState(false)
-  const [height, setHeight] = useState<OverlayProps['height']>('auto')
 
   const onOpenChange = () => {
     setOpen(!open)
     setTimeout(() => {
       setFetchedItems([items[0], items[1]])
-      setHeight('initial')
     }, 1500)
   }
 
@@ -257,13 +268,12 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
     </>
   )
 }
-SelectPanelHeightInitialWithUnderflowingItemsAfterFetch.storyName =
-  'SelectPanel, Height: Initial, Underflowing Items (After Fetch)'
+SelectPanelWithUnderflowingItemsAfterFetch.storyName = 'SelectPanel, Underflowing Items (After Fetch)'
 
 export function SelectPanelAboveTallBody(): JSX.Element {
   const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
@@ -290,7 +300,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
       <div
         style={{
@@ -305,58 +315,3 @@ export function SelectPanelAboveTallBody(): JSX.Element {
   )
 }
 SelectPanelAboveTallBody.storyName = 'SelectPanel, Above a Tall Body'
-
-export function SelectPanelHeightAndScroll(): JSX.Element {
-  const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
-  const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(longItems[0])
-  const [selectedB, setSelectedB] = React.useState<ItemInput | undefined>(longItems[0])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = longItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  const [openA, setOpenA] = useState(false)
-  const [openB, setOpenB] = useState(false)
-
-  return (
-    <>
-      <h2>With height:medium</h2>
-      <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        title="Select a Label"
-        inputLabel="Filter Labels"
-        open={openA}
-        onOpenChange={setOpenA}
-        items={filteredItems}
-        selected={selectedA}
-        onSelectedChange={setSelectedA}
-        onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{height: 'medium'}}
-      />
-      <h2>With height:auto, maxheight:medium</h2>
-      <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        title="Select a Label"
-        inputLabel="Filter Labels"
-        open={openB}
-        onOpenChange={setOpenB}
-        items={filteredItems}
-        selected={selectedB}
-        onSelectedChange={setSelectedB}
-        onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{
-          height: 'auto',
-          maxHeight: 'medium'
-        }}
-      />
-    </>
-  )
-}
-SelectPanelHeightAndScroll.storyName = 'SelectPanel, Height and Scroll'
