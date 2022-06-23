@@ -1,6 +1,6 @@
-import React, {createRef, forwardRef, useCallback, useState, useLayoutEffect} from 'react'
+import React, {useRef, forwardRef, useCallback, useState, useLayoutEffect, MutableRefObject} from 'react'
 import Box from '../Box'
-import {merge, SxProp} from '../sx'
+import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
@@ -19,9 +19,20 @@ Todo:
 8. write tests
 */
 
-const overflowEffect = (newRef, childArray, childWidthArray, callback) => {
-  const domRect = newRef.getBoundingClientRect()
-  const width = domRect?.width || 0
+type Overflow = 'auto' | 'menu' | 'scroll'
+type ChildWidthArray = Array<{width: number}>
+type ResponsiveProps = {
+  items: Array<React.ReactElement>
+  actions: Array<React.ReactElement>
+}
+const overflowEffect = (
+  newRef: MutableRefObject<HTMLElement>,
+  childArray: Array<React.ReactElement>,
+  childWidthArray: ChildWidthArray,
+  callback: (props: ResponsiveProps) => void
+) => {
+  const domRect = newRef.current.getBoundingClientRect()
+  const width = domRect.width || 0
 
   if (childWidthArray.length === 0) {
     callback({items: childArray, actions: []})
@@ -29,22 +40,18 @@ const overflowEffect = (newRef, childArray, childWidthArray, callback) => {
 
   // do this only for overflow
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, width)
-  const items = []
-  const actions = []
+  const items: Array<React.ReactElement> = []
+  const actions: Array<React.ReactElement> = []
 
-  childArray.forEach((child, index) => {
+  // eslint-disable-next-line github/array-foreach
+  childArray.forEach((child: React.ReactElement, index: number) => {
     if (index < numberOfItemsPossible) {
       items.push(child)
     } else {
-      actions.push(child.props)
+      actions.push(child)
     }
   })
   callback({items, actions})
-}
-type Overflow = 'auto' | 'menu' | 'scroll'
-type ResponsiveProps = {
-  items: Array<React.ReactNode>
-  actions: Array<React.ReactNode>
 }
 
 export type {ResponsiveProps}
@@ -53,7 +60,7 @@ function getValidChildren(children: React.ReactNode) {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
-function calculatePossibleItems(childWidthArray, width) {
+function calculatePossibleItems(childWidthArray: ChildWidthArray, width: number) {
   let breakpoint = childWidthArray.length - 1
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
@@ -78,7 +85,8 @@ export type UnderlineNavProps = {
 
 export const UnderlineNav = forwardRef(
   ({as = 'nav', overflow = 'auto', align, label, sx: sxProp = {}, children}: UnderlineNavProps, forwardedRef) => {
-    const newRef = forwardedRef ?? createRef()
+    const backupRef = useRef<HTMLElement>(null)
+    const newRef = forwardedRef ?? backupRef
     const flexDirection = align === 'right' ? 'row-reverse' : 'row'
     const styles = {
       display: 'flex',
@@ -93,50 +101,58 @@ export const UnderlineNav = forwardRef(
       display: 'flex',
       listStyle: 'none',
       padding: '0',
-      margin: '0',
-      ...overflowStyles
+      margin: '0'
     }
 
-    const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({items: children, actions: []})
-    const callback = useCallback(responsiveProps => {
-      setResponsiveProps(responsiveProps)
+    const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
+      items: getValidChildren(children),
+      actions: []
+    })
+
+    const callback = useCallback((props: ResponsiveProps) => {
+      setResponsiveProps(props)
     }, [])
 
     const actions = responsiveProps.actions
-    const [childWidthArray, setChildWidthArray] = useState([])
+    const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const setChildrenWidth = useCallback(size => {
       setChildWidthArray(arr => {
         const newArr = [...arr, size]
         return newArr
       })
     }, [])
-    // do this for overflow
-    const childArray = getValidChildren(children)
+
     useLayoutEffect(() => {
       if (overflow === 'auto' || overflow === 'menu') {
-        overflowEffect(newRef?.current, childArray, childWidthArray, callback)
+        const childArray = getValidChildren(children)
+        overflowEffect(newRef as MutableRefObject<HTMLElement>, childArray, childWidthArray, callback)
       }
-    }, [newRef?.current, childWidthArray.length])
+    }, [childWidthArray.length, overflow, newRef, callback, children, childWidthArray])
 
-    useResizeObserver(() => overflowEffect(newRef?.current, childArray, childWidthArray, callback))
-    // TODO - ensure horizontal scroll
+    useResizeObserver(() => {
+      if (overflow === 'auto' || overflow === 'menu') {
+        const childArray = getValidChildren(children)
+        overflowEffect(newRef as MutableRefObject<HTMLElement>, childArray, childWidthArray, callback)
+      }
+    })
+
     return (
       <UnderlineNavContext.Provider value={{setChildrenWidth}}>
         <Box as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
-          <Box as="ul" sx={ulStyles}>
+          <Box as="ul" sx={merge<BetterSystemStyleObject>(overflowStyles, ulStyles)}>
             {responsiveProps.items}
           </Box>
 
           {actions.length > 0 && (
             <ActionMenu>
-              <ActionMenu.Button>Hidden</ActionMenu.Button>
+              <ActionMenu.Button>More</ActionMenu.Button>
               <ActionMenu.Overlay>
                 <ActionList>
                   {actions.map((action, index) => {
-                    const {children, ...props} = action
+                    const {children: actionElementChildren, ...actionElementProps} = action.props
                     return (
-                      <ActionList.Item key={index} {...props}>
-                        {children}
+                      <ActionList.Item key={index} {...actionElementProps}>
+                        {actionElementChildren}
                       </ActionList.Item>
                     )
                   })}

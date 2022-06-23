@@ -1,4 +1,4 @@
-import React, {forwardRef, useLayoutEffect, createRef, useContext} from 'react'
+import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {get} from '../constants'
@@ -45,12 +45,13 @@ export const UnderlineNavLink = forwardRef(
     {sx: sxProp = {}, as: Component = 'a', href = '#', children, selected = false, leadingIcon: LeadingIcon, ...props},
     forwardedRef
   ) => {
-    const ref = forwardedRef ?? createRef()
-    const underlineNavContext = useContext(UnderlineNavContext)
+    const backupRef = useRef<HTMLElement>(null)
+    const ref = forwardedRef ?? backupRef
+    const {setChildrenWidth} = useContext(UnderlineNavContext)
     useLayoutEffect(() => {
-      const domRect = ref?.current.getBoundingClientRect()
-      underlineNavContext.setChildrenWidth({width: domRect.width})
-    }, [ref.current])
+      const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+      setChildrenWidth({width: domRect.width})
+    }, [ref, setChildrenWidth])
     const iconWrapStyles = {
       display: 'inline-block',
       marginRight: '8px'

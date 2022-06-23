@@ -1,9 +1,8 @@
-import React, {useRef, useEffect, useState, useCallback} from 'react'
+import React from 'react'
 import {EyeIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import UnderlineNav, {UnderlineNavProps} from '.'
-import {BaseStyles, ThemeProvider, ActionList, ActionMenu} from '..'
-import {useResizeObserver} from '../hooks/useResizeObserver'
+import UnderlineNav, {UnderlineNavProps} from './index'
+import {BaseStyles, ThemeProvider} from '..'
 
 export default {
   title: 'Layout/UnderlineNav',
