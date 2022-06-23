@@ -21,7 +21,7 @@ export interface FilteredActionListProps
     ListPropsBase,
     SxProp {
   loading?: boolean
-  placeholderText: string
+  placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
@@ -31,6 +31,18 @@ export interface FilteredActionListProps
 const StyledHeader = styled.div`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   z-index: 1;
+`
+
+// sr-only
+const SrOnly = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 `
 
 export function FilteredActionList({
@@ -58,6 +70,7 @@ export function FilteredActionList({
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useSSRSafeId()
+  const inputDescriptionTextId = useSSRSafeId()
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
@@ -95,8 +108,10 @@ export function FilteredActionList({
           placeholder={placeholderText}
           aria-label={placeholderText}
           aria-controls={listId}
+          aria-describedby={inputDescriptionTextId}
           {...textInputProps}
         />
+        <SrOnly id={inputDescriptionTextId}>Items will be filtered as you type</SrOnly>
       </StyledHeader>
       <Box ref={scrollContainerRef} overflow="auto">
         {loading ? (
