@@ -5,7 +5,6 @@ import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
 import {ActionList} from '../deprecated/ActionList'
 import Spinner from '../Spinner'
-import {useFocusZone} from '../hooks/useFocusZone'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -56,7 +55,6 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useSSRSafeId()
@@ -72,28 +70,6 @@ export function FilteredActionList({
       }
     },
     [activeDescendantRef]
-  )
-
-  useFocusZone(
-    {
-      containerRef: listContainerRef,
-      focusOutBehavior: 'wrap',
-      focusableElementFilter: element => {
-        return !(element instanceof HTMLInputElement)
-      },
-      activeDescendantFocus: inputRef,
-      onActiveDescendantChanged: (current, previous, directlyActivated) => {
-        activeDescendantRef.current = current
-
-        if (current && scrollContainerRef.current && directlyActivated) {
-          scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
-        }
-      }
-    },
-    [
-      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading
-    ]
   )
 
   useEffect(() => {
@@ -128,7 +104,7 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList items={items} {...listProps} role="listbox" id={listId} />
         )}
       </Box>
     </Box>
