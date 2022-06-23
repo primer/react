@@ -13,12 +13,14 @@ function SimpleActionList(): JSX.Element {
     <ThemeProvider theme={theme}>
       <BaseStyles>
         <ActionList
+          role="listbox"
+          aria-label="Select an item"
           items={[
-            {text: 'New file'},
+            {text: 'New file', role: 'option'},
             ActionList.Divider,
-            {text: 'Copy link'},
-            {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'}
+            {text: 'Copy link', role: 'option'},
+            {text: 'Edit file', role: 'option'},
+            {text: 'Delete file', variant: 'danger', role: 'option'}
           ]}
         />
       </BaseStyles>
