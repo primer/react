@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Checkbox, RadioGroup, FormControl, ThemeProvider} from '../../'
+import {BaseStyles, RadioGroup, FormControl, ThemeProvider} from '../../'
 import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 import Radio from '../../Radio'
 
