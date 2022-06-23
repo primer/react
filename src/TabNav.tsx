@@ -3,6 +3,7 @@ import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
+import {FocusKeys, useFocusZone} from './hooks/useFocusZone'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 import getGlobalFocusStyles from './_getGlobalFocusStyles'
@@ -28,8 +29,11 @@ const TabNavNav = styled.nav`
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
+  const {containerRef: navRef} = useFocusZone({
+    bindKeys: FocusKeys.ArrowHorizontal
+  })
   return (
-    <TabNavBase {...rest}>
+    <TabNavBase {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
       <TabNavNav aria-label={ariaLabel}>
         <TabNavTabList role="tablist">{children}</TabNavTabList>
       </TabNavNav>
