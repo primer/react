@@ -49,7 +49,8 @@ type StyledTabNavLinkProps = {
 const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
-  role: 'tab'
+  role: 'tab',
+  'aria-selected': props.selected ? true : false
 }))<StyledTabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
