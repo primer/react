@@ -157,6 +157,7 @@ description: Use a segmented control to let users select an option from a short 
     name="onChange"
     type="(selectedIndex?: number) => void"
     description="The handler that gets called when a segment is selected"
+    required
   />
   <PropsTableRow
     name="variant"
@@ -174,7 +175,6 @@ description: Use a segmented control to let users select an option from a short 
 ### SegmentedControl.Button
 
 <PropsTable>
-  <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="leadingIcon" type="Component" description="The leading icon comes before item label" />
   <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
   <PropsTableSxRow />
@@ -184,8 +184,13 @@ description: Use a segmented control to let users select an option from a short 
 ### SegmentedControl.IconButton
 
 <PropsTable>
-  <PropsTableRow name="aria-label" type="string" />
-  <PropsTableRow name="icon" type="Component" description="The icon that represents the segmented control item" />
+  <PropsTableRow name="aria-label" type="string" required />
+  <PropsTableRow
+    name="icon"
+    type="Component"
+    description="The icon that represents the segmented control item"
+    required
+  />
   <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
   <PropsTableSxRow />
   <PropsTableRefRow refType="HTMLButtonElement" />
