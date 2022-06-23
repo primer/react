@@ -218,7 +218,7 @@ export const Default = (args: Args) => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick a tag</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel">Pick a tag</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input {...textInputArgs} size={textInputArgs.inputSize} />
         <Autocomplete.Overlay {...overlayArgs}>
@@ -226,6 +226,7 @@ export const Default = (args: Args) => {
             items={items}
             selectedItemIds={isMultiselect ? selectedItemIds : []}
             onSelectedChange={isMultiselect ? onSelectedChange : undefined}
+            aria-labelledby="autocompleteLabel"
             {...menuArgs}
           />
         </Autocomplete.Overlay>
@@ -266,7 +267,7 @@ export const WithTokenInput = (args: Args) => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick a tag</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel">Pick a tag</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input
           as={TextInputTokens}
@@ -280,6 +281,7 @@ export const WithTokenInput = (args: Args) => {
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
             selectionVariant="multiple"
+            aria-labelledby="autocompleteLabel"
             {...overlayArgs}
           />
         </Autocomplete.Overlay>
@@ -348,7 +350,7 @@ export const AddNewItem = (args: Args) => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick tags</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel">Pick tags</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input
           as={TextInputTokens}
@@ -377,6 +379,7 @@ export const AddNewItem = (args: Args) => {
             items={localItemsState}
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
+            aria-labelledby="autocompleteLabel"
             {...menuArgs}
           />
         </Autocomplete.Overlay>
@@ -409,15 +412,15 @@ export const CustomSearchFilterFn = (args: Args) => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick tags</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel">Pick tags</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input onChange={handleChange} {...textInputArgs} size={textInputArgs.inputSize} />
         <Autocomplete.Overlay {...overlayArgs}>
           <Autocomplete.Menu
             items={items}
             selectedItemIds={[]}
-            aria-labelledby="autocompleteLabel"
             filterFn={customFilterFn}
+            aria-labelledby="autocompleteLabel"
             {...menuArgs}
           />
         </Autocomplete.Overlay>
@@ -445,16 +448,16 @@ export const CustomSortAfterMenuClose = (args: Args) => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick tags</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel">Pick tags</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input {...textInputArgs} size={textInputArgs.inputSize} />
         <Autocomplete.Overlay {...overlayArgs}>
           <Autocomplete.Menu
             items={items}
             selectedItemIds={selectedItemIds}
-            aria-labelledby="autocompleteLabel"
             onSelectedChange={onSelectedChange}
             sortOnCloseFn={customSortFn}
+            aria-labelledby="autocompleteLabel"
             {...menuArgs}
           />
         </Autocomplete.Overlay>
@@ -474,15 +477,15 @@ export const WithCallbackWhenOverlayOpenStateChanges = (args: Args) => {
   return (
     <Box display="flex" sx={{gap: '1em'}}>
       <FormControl>
-        <FormControl.Label>Pick tags</FormControl.Label>
+        <FormControl.Label id="autocompleteLabel">Pick tags</FormControl.Label>
         <Autocomplete>
           <Autocomplete.Input {...textInputArgs} size={textInputArgs.inputSize} />
           <Autocomplete.Overlay {...overlayArgs}>
             <Autocomplete.Menu
               items={items}
               selectedItemIds={[]}
-              aria-labelledby="autocompleteLabel"
               onOpenChange={onOpenChange}
+              aria-labelledby="autocompleteLabel"
               {...menuArgs}
             />
           </Autocomplete.Overlay>
@@ -506,15 +509,15 @@ export const AsyncLoadingOfItems = (args: Args) => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick tags</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel">Pick tags</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input {...textInputArgs} size={textInputArgs.inputSize} />
         <Autocomplete.Overlay {...overlayArgs}>
           <Autocomplete.Menu
             items={loadedItems}
             selectedItemIds={[]}
-            aria-labelledby="autocompleteLabel"
             onOpenChange={onOpenChange}
+            aria-labelledby="autocompleteLabel"
             {...menuArgs}
             loading={loadedItems.length === 0}
           />
@@ -530,10 +533,10 @@ export const RenderingTheMenuOutsideAnOverlay = (args: Args) => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick tags</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel">Pick tags</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input {...textInputArgs} size={textInputArgs.inputSize} />
-        <Autocomplete.Menu items={items} selectedItemIds={[]} {...menuArgs} />
+        <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" {...menuArgs} />
       </Autocomplete>
     </FormControl>
   )
@@ -559,7 +562,9 @@ export const CustomOverlayMenuAnchor = (args: Args) => {
 
   return (
     <FormControl>
-      <FormControl.Label htmlFor="autocompleteInput">Pick tags</FormControl.Label>
+      <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel">
+        Pick tags
+      </FormControl.Label>
       <Box {...anchorWrapperStyles} ref={menuAnchorRef as React.RefObject<HTMLDivElement>}>
         <Autocomplete>
           <Autocomplete.Input
@@ -578,7 +583,7 @@ export const CustomOverlayMenuAnchor = (args: Args) => {
             size={textInputArgs.inputSize}
           />
           <Autocomplete.Overlay menuAnchorRef={menuAnchorRef} {...overlayArgs}>
-            <Autocomplete.Menu items={items} selectedItemIds={[]} {...menuArgs} />
+            <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" {...menuArgs} />
           </Autocomplete.Overlay>
         </Autocomplete>
       </Box>
@@ -611,7 +616,7 @@ export const InOverlayWithCustomScrollContainerRef = (args: Args) => {
       side="inside-top"
       renderAnchor={props => <ButtonInvisible {...props}>open overlay</ButtonInvisible>}
     >
-      <FormControl.Label htmlFor="autocompleteInput" visuallyHidden>
+      <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel" visuallyHidden>
         Pick tags
       </FormControl.Label>
       <Autocomplete>
@@ -640,6 +645,7 @@ export const InOverlayWithCustomScrollContainerRef = (args: Args) => {
               items={items}
               selectedItemIds={[]}
               customScrollContainerRef={scrollContainerRef}
+              aria-labelledby="autocompleteLabel"
               {...menuArgs}
             />
           </Box>
