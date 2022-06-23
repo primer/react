@@ -14,9 +14,15 @@ Todo:
 4. fix the dropdown button - done
 5. figure out horizontal scroll - done
 6. Overflow on resize - done
-7. Performance is wack!
-7. pass typescript
-8. write tests
+7. pass typescript - done
+8. Performance is wack! Resize Observer exceeds limit
+9. Test for long strings not wrapping sometimes.
+10. Test for mobile device support.
+11. Add api for Overflow button?
+12. Do we need icons in overflow dropdown? Currently not supported.
+12. Write out a proper storybook with tab selection using this nav.
+13. Write up documentation
+14. Demo video.
 */
 
 type Overflow = 'auto' | 'menu' | 'scroll'
