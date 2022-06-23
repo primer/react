@@ -223,7 +223,7 @@ export function SelectPanel({
             ? 'No matching items'
             : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
         </SrOnly>
-        <Box display="flex" alignItems="center" justifyContent="space-between" px={3} pt={2}>
+        <Box display="flex" alignItems="center" justifyContent="space-between" pl={3} pr={2} pt={2}>
           <Title id={titleId}>{title}</Title>
           <IconButton icon={XIcon} aria-label="Close" variant="invisible" onClick={onCancelClickHandler} />
         </Box>
