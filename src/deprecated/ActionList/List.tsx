@@ -110,6 +110,8 @@ const ListBox = styled.ul`
    */
   line-height: 20px;
   padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 
   &[${hasActiveDescendantAttribute}], &:focus-within {
     --item-hover-bg-override: none;

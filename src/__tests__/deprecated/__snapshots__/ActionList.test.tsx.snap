@@ -4,12 +4,16 @@ exports[`ActionList renders consistently 1`] = `
 .c1 {
   margin-top: 8px;
   margin-bottom: 8px;
+  list-style: none;
+  padding-inline-start: 0;
 }
 
 .c0 {
   font-size: 14px;
   line-height: 20px;
   padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .c0[data-has-active-descendant],
@@ -22,9 +26,14 @@ exports[`ActionList renders consistently 1`] = `
   <ul
     className="c0"
   >
-    <div
-      className="c1"
-    />
+    <li
+      role="presentation"
+    >
+      <ul
+        className="c1"
+        role="group"
+      />
+    </li>
   </ul>
 </div>
 `;
