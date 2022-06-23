@@ -18,7 +18,7 @@ interface ActionMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListP
   /**
    * A callback that triggers both on clicks and keyboard events. This callback will be overridden by item level `onAction` callbacks.
    */
-  onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
+  onAction?: (props: ItemProps, event?: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
 
   /**
    * If defined, will control the open/closed state of the overlay. Must be used in conjuction with `setOpen`.
