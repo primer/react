@@ -172,10 +172,13 @@ export function SelectPanel({
     onClose('selection')
   }, [finalItemsSelected, onSelectedChange, onClose, selected])
 
-  const onCancelClickHandler = React.useCallback(() => {
-    setFinalItemsSelected(selectedItems)
-    onClose('escape')
-  }, [onClose, selectedItems])
+  const onCancelClickHandler = React.useCallback(
+    (gesture?: 'anchor-click' | 'click-outside' | 'escape') => {
+      setFinalItemsSelected(selectedItems)
+      onClose(gesture ?? 'escape')
+    },
+    [onClose, selectedItems]
+  )
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   const titleId = useSSRSafeId()
@@ -209,7 +212,7 @@ export function SelectPanel({
       anchorRef={anchorRef}
       open={open}
       onOpen={onOpen}
-      onClose={onClose}
+      onClose={onCancelClickHandler}
       overlayProps={{...overlayProps, onKeyPress: overlayKeyPressHandler, role: 'dialog', 'aria-labelledby': titleId}}
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}

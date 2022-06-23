@@ -67,13 +67,10 @@ export function MultiSelectStory(): JSX.Element {
       <h1>Multi Select Panel</h1>
       <div>Please select labels that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Labels</DropdownButton>}
         title="Select Labels"
         inputLabel="Filter Labels"
+        placeholderText="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -99,11 +96,7 @@ export function SingleSelectStory(): JSX.Element {
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
@@ -131,7 +124,7 @@ export function ExternalAnchorStory(): JSX.Element {
     <>
       <h1>Select Panel With External Anchor</h1>
       <DropdownButton ref={buttonRef} onClick={() => setOpen(!open)}>
-        Custom: {selected?.text || 'Click Me'}
+        Select a Label
       </DropdownButton>
       <SelectPanel
         renderAnchor={null}
@@ -163,11 +156,7 @@ export function SelectPanelWithOverflowingItemsStory(): JSX.Element {
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
@@ -196,11 +185,7 @@ export function SelectPanelWithUnderflowingItemsStory(): JSX.Element {
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
@@ -239,11 +224,7 @@ export function SelectPanelWithUnderflowingItemsAfterFetch(): JSX.Element {
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
@@ -272,11 +253,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={`${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
         open={open}
