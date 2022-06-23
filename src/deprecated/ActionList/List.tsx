@@ -12,7 +12,7 @@ import {Merge} from '../../utils/types/Merge'
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 
 export type ItemInput =
-  | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
+  | Merge<React.ComponentPropsWithoutRef<'li'>, ItemProps>
   | ((Partial<ItemProps> & {renderItem: RenderItemFn}) & {key?: Key})
 
 /**
@@ -100,7 +100,7 @@ function isGroupedListProps(props: ListProps): props is GroupedListProps {
  */
 export type ListProps = ListPropsBase | GroupedListProps
 
-const StyledList = styled.div`
+const ListBox = styled.ul`
   font-size: ${get('fontSizes.1')};
   /* 14px font-size * 1.428571429 = 20px line height
    *
@@ -108,6 +108,9 @@ const StyledList = styled.div`
    * hardcoded '20px'
    */
   line-height: 20px;
+  padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 
   &[${hasActiveDescendantAttribute}], &:focus-within {
     --item-hover-bg-override: none;
@@ -143,7 +146,7 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
 /**
  * Lists `Item`s, either grouped or ungrouped, with a `Divider` between each `Group`.
  */
-export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
+export const List = React.forwardRef<HTMLUListElement, ListProps>((props, forwardedRef): JSX.Element => {
   // Get `sx` prop values for `List` children matching the given `List` style variation.
   const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(props.variant)
 
@@ -227,7 +230,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
   }
 
   return (
-    <StyledList {...props} ref={forwardedRef}>
+    <ListBox {...props} ref={forwardedRef}>
       {groups.map(({header, ...groupProps}, index) => {
         const hasFilledHeader = header?.variant === 'filled'
         const shouldShowDivider = index > 0 && !hasFilledHeader
@@ -251,7 +254,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
           </React.Fragment>
         )
       })}
-    </StyledList>
+    </ListBox>
   )
 })
 
