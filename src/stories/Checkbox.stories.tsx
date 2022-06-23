@@ -4,11 +4,17 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, Box, Checkbox, CheckboxProps, ThemeProvider} from '..'
 import {action} from '@storybook/addon-actions'
 import FormControl from '../FormControl'
+import {
+  FormControlArgs,
+  formControlArgTypesWithoutValidation,
+  getFormControlArgsByChildComponent
+} from '../utils/story-helpers'
+import {MarkGithubIcon} from '@primer/octicons-react'
 
 const excludedControlKeys = ['required', 'value', 'validationStatus', 'sx']
 
 export default {
-  title: 'Forms/Checkbox',
+  title: 'Forms/Form Controls/Checkbox',
   component: Checkbox,
   decorators: [
     Story => {
@@ -29,37 +35,57 @@ export default {
         type: 'boolean'
       }
     },
-    disabled: {
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
     indeterminate: {
       defaultValue: false,
       control: {
         type: 'boolean'
       }
-    }
+    },
+    ...formControlArgTypesWithoutValidation
   }
 } as Meta
 
-// TODO: simplify example to not have a caption and use FormControl to render it
-export const Default = ({value: _value, checked, disabled, ...args}: CheckboxProps) => {
+export const Default = ({value: _value, checked, ...args}: FormControlArgs<CheckboxProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
+
   return (
     <Box as="form" sx={{p: 3}}>
-      <FormControl id="controlled-checkbox" disabled={disabled}>
+      <FormControl {...parentArgs}>
         <Checkbox value="default" checked={checked} {...args} />
-        <FormControl.Label>Default checkbox</FormControl.Label>
-        <FormControl.Caption>
-          Always unchecked unless `checked` is set to true in Storybook controls
-        </FormControl.Caption>
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>
     </Box>
   )
 }
+Default.args = {
+  labelChildren: 'Default checkbox',
+  captionChildren: 'Always unchecked unless `checked` is set to true in Storybook controls'
+}
 
-export const Controlled = ({value: _value, disabled, ...args}: CheckboxProps) => {
+export const WithLeadingVisual = ({value: _value, checked, ...args}: FormControlArgs<CheckboxProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
+
+  return (
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <FormControl.LeadingVisual>
+          <MarkGithubIcon />
+        </FormControl.LeadingVisual>
+        <Checkbox value="default" checked={checked} {...args} />
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      </FormControl>
+    </Box>
+  )
+}
+WithLeadingVisual.args = {
+  labelChildren: 'Default checkbox',
+  captionChildren: 'Always unchecked unless `checked` is set to true in Storybook controls'
+}
+
+export const Controlled = (args: FormControlArgs<CheckboxProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
   const [isChecked, setChecked] = useState<boolean>(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,20 +95,22 @@ export const Controlled = ({value: _value, disabled, ...args}: CheckboxProps) =>
 
   return (
     <Box as="form" sx={{p: 3}}>
-      <FormControl id="controlled-checkbox" disabled={disabled}>
+      <FormControl {...parentArgs}>
         <Checkbox value="default" onChange={handleChange} checked={isChecked} {...args} />
-        <FormControl.Label>Controlled checkbox</FormControl.Label>
-        <FormControl.Caption>Checked attribute is controlled by React state update on change</FormControl.Caption>
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>
     </Box>
   )
 }
-
 Controlled.parameters = {controls: {exclude: [...excludedControlKeys, 'checked']}}
+Controlled.args = {
+  labelChildren: 'Controlled checkbox',
+  captionChildren: 'Checked attribute is controlled by React state update on change'
+}
 
-// TODO: Move to a docs example?
-// doesn't pass `checked` prop from controls
-export const Uncontrolled = ({value: _value, checked: _checked, disabled, ...args}: CheckboxProps) => {
+export const Uncontrolled = (args: FormControlArgs<CheckboxProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
   const checkboxRef = useRef<HTMLInputElement | null>(null)
 
   useLayoutEffect(() => {
@@ -93,13 +121,16 @@ export const Uncontrolled = ({value: _value, checked: _checked, disabled, ...arg
 
   return (
     <Box as="form" sx={{p: 3}}>
-      <FormControl id="uncontrolled-checkbox" disabled={disabled}>
-        <Checkbox value="uncontrolled-checkbox" id="uncontrolled-checkbox" ref={checkboxRef} {...args} />
-        <FormControl.Label>Uncontrolled checkbox</FormControl.Label>
-        <FormControl.Caption>Checked attribute is set in a useLayoutEffect hook</FormControl.Caption>
+      <FormControl {...parentArgs}>
+        <Checkbox ref={checkboxRef} {...args} />
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>
     </Box>
   )
 }
-
 Uncontrolled.parameters = {controls: {exclude: [...excludedControlKeys, 'checked']}}
+Uncontrolled.args = {
+  labelChildren: 'Uncontrolled checkbox',
+  captionChildren: 'Checked attribute is set in a useLayoutEffect hook'
+}

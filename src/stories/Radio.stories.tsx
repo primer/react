@@ -1,13 +1,16 @@
-import React, {ChangeEvent, useState} from 'react'
+import React from 'react'
 import {Meta} from '@storybook/react'
-import styled from 'styled-components'
-import {BaseStyles, Box, FormControl, Radio, RadioProps, Text, ThemeProvider} from '..'
-import {get} from '../constants'
+import {BaseStyles, Box, FormControl, Radio, RadioProps, ThemeProvider} from '..'
+import {
+  FormControlArgs,
+  formControlArgTypesWithoutValidation,
+  getFormControlArgsByChildComponent
+} from '../utils/story-helpers'
 
 const excludedControlKeys = ['required', 'value', 'name', 'validationStatus', 'sx']
 
 export default {
-  title: 'Forms/Radio',
+  title: 'Forms/Form Controls/Radio',
   component: Radio,
   decorators: [
     Story => {
@@ -22,48 +25,29 @@ export default {
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
   argTypes: {
-    disabled: {
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
     checked: {
       defaultValue: false,
       control: {
         type: 'boolean'
       }
-    }
+    },
+    ...formControlArgTypesWithoutValidation
   }
 } as Meta
 
-const StyledLabel = styled.label`
-  user-select: none;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 18px;
-  margin-left: 8px;
-  display: flex;
-  cursor: pointer;
+export const Default = ({value: _value, ...args}: FormControlArgs<RadioProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
 
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &[aria-disabled='true'] {
-    pointer-events: none;
-    cursor: not-allowed;
-    color: ${get('colors.primer.fg.disabled')};
-  }
-`
-
-export const Default = ({disabled, value: _value, ...args}: RadioProps) => {
   return (
     <Box as="form" sx={{p: 3}}>
-      <FormControl id="default-radio-id" disabled={disabled}>
+      <FormControl {...parentArgs}>
         <Radio name="default-radio-name" value="default" {...args} />
-        <FormControl.Label>Default radio button</FormControl.Label>
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
       </FormControl>
     </Box>
   )
+}
+Default.args = {
+  labelChildren: 'Default radio button'
 }
