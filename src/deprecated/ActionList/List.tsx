@@ -6,8 +6,9 @@ import {Divider} from './Divider'
 import styled from 'styled-components'
 import {get} from '../../constants'
 import {SystemCssProperties} from '@styled-system/css'
-import {hasActiveDescendantAttribute} from '@primer/behaviors'
+import {FocusKeys, hasActiveDescendantAttribute} from '@primer/behaviors'
 import {Merge} from '../../utils/types/Merge'
+import {useFocusZone} from '../../hooks/useFocusZone'
 
 type RenderItemFn = (props: ItemProps) => React.ReactElement
 
@@ -229,32 +230,36 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>((props, forwar
     groups = [...groupMap.values()]
   }
 
+  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown})
+
   return (
-    <ListBox {...props} ref={forwardedRef}>
-      {groups.map(({header, ...groupProps}, index) => {
-        const hasFilledHeader = header?.variant === 'filled'
-        const shouldShowDivider = index > 0 && !hasFilledHeader
-        return (
-          <React.Fragment key={groupProps.groupId}>
-            {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
-            {renderGroup({
-              sx: {
-                ...(index === 0 && firstGroupStyle),
-                ...(index === groups.length - 1 && lastGroupStyle),
-                ...(index > 0 && !shouldShowDivider && {mt: 2})
-              },
-              ...(header && {
-                header: {
-                  ...header,
-                  sx: {...headerStyle, ...header.sx}
-                }
-              }),
-              ...groupProps
-            })}
-          </React.Fragment>
-        )
-      })}
-    </ListBox>
+    <div ref={containerRef as React.RefObject<HTMLDivElement>}>
+      <ListBox {...props} ref={forwardedRef}>
+        {groups.map(({header, ...groupProps}, index) => {
+          const hasFilledHeader = header?.variant === 'filled'
+          const shouldShowDivider = index > 0 && !hasFilledHeader
+          return (
+            <React.Fragment key={groupProps.groupId}>
+              {shouldShowDivider ? <Divider key={`${groupProps.groupId}-divider`} /> : null}
+              {renderGroup({
+                sx: {
+                  ...(index === 0 && firstGroupStyle),
+                  ...(index === groups.length - 1 && lastGroupStyle),
+                  ...(index > 0 && !shouldShowDivider && {mt: 2})
+                },
+                ...(header && {
+                  header: {
+                    ...header,
+                    sx: {...headerStyle, ...header.sx}
+                  }
+                }),
+                ...groupProps
+              })}
+            </React.Fragment>
+          )
+        })}
+      </ListBox>
+    </div>
   )
 })
 
