@@ -11,5 +11,12 @@
   // See also:
   //   - https://github.com/primer/react/issues/1163
   //   - https://github.com/primer/react/issues/1849
-  "exclude": ["**/*.stories.tsx", "script/**/*.ts", "src/__tests__/", "src/utils/test-*.tsx", "src/utils/testing.tsx"]
+  "exclude": [
+    "**/*.stories.tsx",
+    "**/*.test.tsx",
+    "script/**/*.ts",
+    "src/__tests__/",
+    "src/utils/test-*.tsx",
+    "src/utils/testing.tsx"
+  ]
 }
