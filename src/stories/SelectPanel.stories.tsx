@@ -54,20 +54,6 @@ const items = [
   {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
   {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
   {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7}
-  /*   {leadingVisual: getColorCircle('#a2eeef'), text: '1-enhancement', id: 21},
-  {leadingVisual: getColorCircle('#d73a4a'), text: '1-bug', id: 22},
-  {leadingVisual: getColorCircle('#0cf478'), text: '1-good first issue', id: 23},
-  {leadingVisual: getColorCircle('#ffd78e'), text: '1-design', id: 24},
-  {leadingVisual: getColorCircle('#ff0000'), text: '1-blocker', id: 25},
-  {leadingVisual: getColorCircle('#a4f287'), text: '1-backend', id: 26},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: '1-frontend', id: 27},
-  {leadingVisual: getColorCircle('#a2eeef'), text: '2-enhancement', id: 31},
-  {leadingVisual: getColorCircle('#d73a4a'), text: '2-bug', id: 32},
-  {leadingVisual: getColorCircle('#0cf478'), text: '2-good first issue', id: 33},
-  {leadingVisual: getColorCircle('#ffd78e'), text: '2-design', id: 34},
-  {leadingVisual: getColorCircle('#ff0000'), text: '2-blocker', id: 35},
-  {leadingVisual: getColorCircle('#a4f287'), text: '2-backend', id: 36},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: '2-frontend', id: 37} */
 ]
 
 export function MultiSelectStory(): JSX.Element {
