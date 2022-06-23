@@ -12,6 +12,10 @@ jobs:
     if: ${{ github.repository == 'primer/react' }}
     name: Preview
     uses: primer/.github/.github/workflows/deploy_preview.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     with:
       node_version: 14
       install: npm ci && cd docs && npm ci && cd ..
