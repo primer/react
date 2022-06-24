@@ -49,6 +49,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     } = React.useContext(ActionListContainerContext)
 
     const {containerRef} = useFocusZone({
+      focusOutBehavior: 'wrap',
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown
     })
 
