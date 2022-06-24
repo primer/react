@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {RefObject, useCallback, useRef} from 'react'
 import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import {Box, useTheme} from '..'
 import {merge, SxProp} from '../sx'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
 type SegmentedControlProps = {
   'aria-label'?: string
@@ -28,10 +29,16 @@ const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
 })
 
 // TODO: implement `variant` prop for responsive behavior
-// TODO: implement `loading` prop
-// TODO: log a warning if no `ariaLabel` or `ariaLabelledBy` prop is passed
-// TODO: implement keyboard behavior to move focus using the arrow keys
-const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, sx: sxProp = {}, ...rest}) => {
+const Root: React.FC<SegmentedControlProps> = ({
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
+  children,
+  fullWidth,
+  onChange,
+  sx: sxProp = {},
+  ...rest
+}) => {
+  const segmentedControlContainerRef = useRef<HTMLSpanElement>(null)
   const {theme} = useTheme()
   const selectedChildren = React.Children.toArray(children).map(
     child =>
@@ -45,9 +52,38 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
     }),
     sxProp as SxProp
   )
+  const focusInStrategy = useCallback(() => {
+    if (segmentedControlContainerRef.current) {
+      const buttons = Array.from(segmentedControlContainerRef.current.querySelectorAll('button'))
+      return buttons[selectedIndex]
+    }
+  }, [segmentedControlContainerRef, selectedIndex])
+
+  useFocusZone(
+    {
+      containerRef: segmentedControlContainerRef,
+      bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+      focusInStrategy
+    },
+    [selectedIndex]
+  )
+
+  if (!ariaLabel && !ariaLabelledby) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Use the `aria-label` or `aria-labelledby` prop to provide an accessible label for assistive technology'
+    )
+  }
 
   return (
-    <Box role="toolbar" sx={sx} {...rest}>
+    <Box
+      role="toolbar"
+      sx={sx}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledby}
+      ref={segmentedControlContainerRef as RefObject<HTMLDivElement>}
+      {...rest}
+    >
       {React.Children.map(children, (child, i) => {
         if (React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
           return React.cloneElement(child, {
