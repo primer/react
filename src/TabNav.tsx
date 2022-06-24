@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import {To} from 'history'
-import React from 'react'
+import React, {useRef} from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
 import {FocusKeys, useFocusZone} from './hooks/useFocusZone'
@@ -29,8 +29,18 @@ const TabNavNav = styled.nav`
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
+  const customContainerRef = useRef<HTMLElement>(null)
+  const customStrategy = React.useCallback(() => {
+    if (customContainerRef.current) {
+      const tab = Array.from(customContainerRef.current.querySelectorAll<HTMLElement>('a.selected'))
+      return tab[0]
+    }
+  }, [customContainerRef])
   const {containerRef: navRef} = useFocusZone({
-    bindKeys: FocusKeys.ArrowHorizontal
+    containerRef: customContainerRef,
+    bindKeys: FocusKeys.ArrowHorizontal,
+    focusOutBehavior: 'wrap',
+    focusInStrategy: customStrategy
   })
   return (
     <TabNavBase {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
