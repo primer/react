@@ -75,6 +75,4 @@ const theme = {
   colorSchemes
 }
 
-module.exports = {
-  theme
-}
+module.exports = theme
