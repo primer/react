@@ -86,7 +86,6 @@ export function SelectPanel({
   )
 
   const [finalItemsSelected, setFinalItemsSelected] = useState(selectedItems)
-  React.useEffect(() => setFinalItemsSelected(selectedItems), [selectedItems])
 
   // Refresh the selected items state when the prop changes.
   // This is necessary because sometimes the selected items need to be fetched async.
