@@ -100,6 +100,7 @@ export function SelectPanel({
   )
 
   const [finalItemsSelected, setFinalItemsSelected] = useState(selectedItems)
+  React.useEffect(() => setFinalItemsSelected(selectedItems), [selectedItems])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
