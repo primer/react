@@ -2,6 +2,7 @@ import React, {useCallback, useMemo, useState} from 'react'
 import {FilteredActionList, FilteredActionListProps} from '../FilteredActionList'
 import {OverlayProps} from '../Overlay'
 import {ItemInput} from '../deprecated/ActionList/List'
+import Heading from '../Heading'
 import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DropdownButton} from '../deprecated/DropdownMenu'
 import {ItemProps} from '../deprecated/ActionList'
@@ -65,13 +66,6 @@ const SrOnly = styled.span`
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
-`
-
-const Title = styled.h1<SxProp>`
-  font-size: ${get('fontSizes.1')};
-  font-weight: ${get('fontWeights.bold')};
-  margin: 0; /* override default margin */
-  ${sx};
 `
 
 export function SelectPanel({
@@ -227,7 +221,7 @@ export function SelectPanel({
             : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
         </SrOnly>
         <Box display="flex" alignItems="center" justifyContent="space-between" pl={3} pr={2} pt={2}>
-          <Title id={titleId}>{title}</Title>
+          <Heading as="h1" id={titleId} sx={{fontSize: 1}}>{title}</Heading>
           <IconButton icon={XIcon} aria-label="Close" variant="invisible" onClick={onCancelClickHandler} />
         </Box>
         <FilteredActionList
