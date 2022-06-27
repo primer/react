@@ -44,7 +44,11 @@ function DemoComponent() {
 
   return (
     <SelectPanel
-      renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Labels</DropdownButton>}
+      renderAnchor={({...anchorProps}) => (
+        <Button trailingIcon={TriangleDownIcon} {...anchorProps}>
+          Select Labels
+        </Button>
+      )}
       title="Select Items"
       inputLabel="Select Items"
       open={open}
