@@ -1,0 +1,381 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentedControl renders consistently 1`] = `
+.c0 {
+  background-color: #eaeef2;
+  border-color: #d0d7de;
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 32px;
+}
+
+.c1 {
+  --segmented-control-button-inner-padding: 12px;
+  --segmented-control-button-bg-inset: 4px;
+  --segmented-control-outer-radius: 6px;
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: var(--segmented-control-outer-radius);
+  border-width: 0;
+  color: currentColor;
+  cursor: pointer;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-family: inherit;
+  font-weight: 600;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  padding: 0;
+  position: relative;
+  --separator-color: transparent;
+}
+
+.c1 .segmentedControl-content {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #f6f8fa;
+  border-color: #8c959f;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--segmented-control-outer-radius);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-left: var(--segmented-control-button-inner-padding);
+  padding-right: var(--segmented-control-button-inner-padding);
+}
+
+.c1 svg {
+  fill: #57606a;
+}
+
+.c1:first-child {
+  margin-left: -1px;
+}
+
+.c1:last-child {
+  margin-right: -1px;
+}
+
+.c1:not(:last-child) {
+  margin-right: 1px;
+}
+
+.c1:not(:last-child):after {
+  background-color: var(--separator-color);
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+}
+
+.c1 .segmentedControl-text:after {
+  content: "Preview";
+  display: block;
+  font-weight: 600;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  visibility: hidden;
+}
+
+.c2 {
+  --segmented-control-button-inner-padding: 12px;
+  --segmented-control-button-bg-inset: 4px;
+  --segmented-control-outer-radius: 6px;
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: var(--segmented-control-outer-radius);
+  border-width: 0;
+  color: currentColor;
+  cursor: pointer;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-family: inherit;
+  font-weight: 400;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  padding: var(--segmented-control-button-bg-inset);
+  position: relative;
+  --separator-color: #d0d7de;
+}
+
+.c2 .segmentedControl-content {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+  padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+}
+
+.c2 svg {
+  fill: #57606a;
+}
+
+.c2:hover .segmentedControl-content {
+  background-color: rgba(208,215,222,0.32);
+}
+
+.c2:active .segmentedControl-content {
+  background-color: rgba(208,215,222,0.48);
+}
+
+.c2:first-child {
+  margin-left: -1px;
+}
+
+.c2:last-child {
+  margin-right: -1px;
+}
+
+.c2:not(:last-child) {
+  margin-right: 1px;
+}
+
+.c2:not(:last-child):after {
+  background-color: var(--separator-color);
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+}
+
+.c2 .segmentedControl-text:after {
+  content: "Raw";
+  display: block;
+  font-weight: 600;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  visibility: hidden;
+}
+
+.c3 {
+  --segmented-control-button-inner-padding: 12px;
+  --segmented-control-button-bg-inset: 4px;
+  --segmented-control-outer-radius: 6px;
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: var(--segmented-control-outer-radius);
+  border-width: 0;
+  color: currentColor;
+  cursor: pointer;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-family: inherit;
+  font-weight: 400;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  padding: var(--segmented-control-button-bg-inset);
+  position: relative;
+  --separator-color: #d0d7de;
+}
+
+.c3 .segmentedControl-content {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: calc(var(--segmented-control-outer-radius) - var(--segmented-control-button-bg-inset) / 2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-left: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+  padding-right: calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset));
+}
+
+.c3 svg {
+  fill: #57606a;
+}
+
+.c3:hover .segmentedControl-content {
+  background-color: rgba(208,215,222,0.32);
+}
+
+.c3:active .segmentedControl-content {
+  background-color: rgba(208,215,222,0.48);
+}
+
+.c3:first-child {
+  margin-left: -1px;
+}
+
+.c3:last-child {
+  margin-right: -1px;
+}
+
+.c3:not(:last-child) {
+  margin-right: 1px;
+}
+
+.c3:not(:last-child):after {
+  background-color: var(--separator-color);
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+}
+
+.c3 .segmentedControl-text:after {
+  content: "Blame";
+  display: block;
+  font-weight: 600;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  visibility: hidden;
+}
+
+@media (pointer:coarse) {
+  .c1:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (pointer:coarse) {
+  .c2:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (pointer:coarse) {
+  .c3:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+<div
+  aria-label="File view"
+  className="c0"
+  role="toolbar"
+>
+  <button
+    aria-current={true}
+    className="c1"
+  >
+    <span
+      className="segmentedControl-content"
+    >
+      <div
+        className="segmentedControl-text"
+      >
+        Preview
+      </div>
+    </span>
+  </button>
+  <button
+    aria-current={false}
+    className="c2"
+  >
+    <span
+      className="segmentedControl-content"
+    >
+      <div
+        className="segmentedControl-text"
+      >
+        Raw
+      </div>
+    </span>
+  </button>
+  <button
+    aria-current={false}
+    className="c3"
+  >
+    <span
+      className="segmentedControl-content"
+    >
+      <div
+        className="segmentedControl-text"
+      >
+        Blame
+      </div>
+    </span>
+  </button>
+</div>
+`;
