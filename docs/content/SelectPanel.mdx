@@ -44,11 +44,7 @@ function DemoComponent() {
 
   return (
     <SelectPanel
-      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-        <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-          {children || 'Select Labels'}
-        </Button>
-      )}
+      renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Labels</DropdownButton>}
       title="Select Items"
       inputLabel="Select Items"
       open={open}
