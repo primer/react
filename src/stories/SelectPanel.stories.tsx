@@ -203,7 +203,7 @@ export function SelectPanelWithUnderflowingItemsStory(): JSX.Element {
 SelectPanelWithUnderflowingItemsStory.storyName = 'SelectPanel, Underflowing Items'
 
 export function SelectPanelWithUnderflowingItemsAfterFetch(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[1])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(undefined)
   const [filter, setFilter] = React.useState('')
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
   const filteredItems = React.useMemo(
@@ -216,6 +216,7 @@ export function SelectPanelWithUnderflowingItemsAfterFetch(): JSX.Element {
     setOpen(!open)
     setTimeout(() => {
       setFetchedItems([items[0], items[1]])
+      setSelected(items[1]) // Sometimes the selected items need to be fetched async too.
     }, 1500)
   }
 

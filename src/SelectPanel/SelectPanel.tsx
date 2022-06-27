@@ -87,6 +87,10 @@ export function SelectPanel({
 
   const [finalItemsSelected, setFinalItemsSelected] = useState(selectedItems)
 
+  // Refresh the selected items state when the prop changes.
+  // This is necessary because sometimes the selected items need to be fetched async.
+  React.useEffect(() => setFinalItemsSelected(selectedItems), [selectedItems])
+
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
   const onClose = useCallback(
