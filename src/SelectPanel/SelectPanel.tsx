@@ -11,13 +11,11 @@ import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
-import styled from 'styled-components'
 import {Button, IconButton} from '../Button'
 import {SearchIcon, XIcon} from '@primer/octicons-react'
-import sx, {SxProp} from '../sx'
-import {get} from '../constants'
 import Box from '../Box'
 import {useSSRSafeId} from '@react-aria/ssr'
+import VisuallyHidden from '../_VisuallyHidden'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -55,18 +53,6 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
   disabled: true
 }
-
-// sr-only
-const SrOnly = styled.span`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-`
 
 export function SelectPanel({
   open,
@@ -213,15 +199,17 @@ export function SelectPanel({
     >
       {/* inheriting height and maxHeight ensures that the content is never taller than the Overlay (which would break scrolling the items) */}
       <Box display="flex" flexDirection="column" height="inherit" maxHeight="inherit">
-        <SrOnly aria-atomic="true" aria-live="polite">
+        <VisuallyHidden aria-atomic="true" aria-live="polite">
           {filterValue === ''
             ? 'Showing all items'
             : items.length <= 0
             ? 'No matching items'
             : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
-        </SrOnly>
+        </VisuallyHidden>
         <Box display="flex" alignItems="center" justifyContent="space-between" pl={3} pr={2} pt={2}>
-          <Heading as="h1" id={titleId} sx={{fontSize: 1}}>{title}</Heading>
+          <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+            {title}
+          </Heading>
           <IconButton icon={XIcon} aria-label="Close" variant="invisible" onClick={onCancelClickHandler} />
         </Box>
         <FilteredActionList
