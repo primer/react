@@ -57,7 +57,7 @@ const items = [
 ]
 
 export function MultiSelectStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[2], items[4]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -86,7 +86,7 @@ export function MultiSelectStory(): JSX.Element {
 MultiSelectStory.storyName = 'Multi Select'
 
 export function SingleSelectStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[2])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -114,7 +114,7 @@ export function SingleSelectStory(): JSX.Element {
 SingleSelectStory.storyName = 'Single Select'
 
 export function ExternalAnchorStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[1])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -146,7 +146,7 @@ export function ExternalAnchorStory(): JSX.Element {
 ExternalAnchorStory.storyName = 'With External Anchor'
 
 export function SelectPanelWithOverflowingItemsStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[3])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -175,7 +175,7 @@ SelectPanelWithOverflowingItemsStory.storyName = 'SelectPanel, Overflowing Items
 
 export function SelectPanelWithUnderflowingItemsStory(): JSX.Element {
   const underflowingItems = [items[0], items[1]]
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(underflowingItems[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(underflowingItems[1])
   const [filter, setFilter] = React.useState('')
   const filteredItems = underflowingItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -203,7 +203,7 @@ export function SelectPanelWithUnderflowingItemsStory(): JSX.Element {
 SelectPanelWithUnderflowingItemsStory.storyName = 'SelectPanel, Underflowing Items'
 
 export function SelectPanelWithUnderflowingItemsAfterFetch(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[1])
   const [filter, setFilter] = React.useState('')
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
   const filteredItems = React.useMemo(
@@ -243,7 +243,7 @@ export function SelectPanelWithUnderflowingItemsAfterFetch(): JSX.Element {
 SelectPanelWithUnderflowingItemsAfterFetch.storyName = 'SelectPanel, Underflowing Items (After Fetch)'
 
 export function SelectPanelAboveTallBody(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[1])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)

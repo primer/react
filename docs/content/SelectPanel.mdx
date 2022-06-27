@@ -37,7 +37,7 @@ const items = [
 ]
 
 function DemoComponent() {
-  const [selected, setSelected] = React.useState([items[0], items[1]])
+  const [selected, setSelected] = React.useState([items[2], items[4]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = React.useState(false)
