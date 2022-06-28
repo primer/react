@@ -6,3 +6,4 @@
  */
 export * from '../NavList'
 export * from '../Dialog/Dialog'
+export * from '../SegmentedControl'
