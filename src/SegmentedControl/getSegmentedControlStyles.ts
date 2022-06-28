@@ -1,6 +1,29 @@
 import {get} from '../constants'
 import {SegmentedControlButtonProps} from './SegmentedControlButton'
 
+export const directChildLayoutAdjustments = {
+  ':first-child': {
+    marginLeft: '-1px'
+  },
+
+  ':last-child': {
+    marginRight: '-1px'
+  }
+}
+
+export const borderedSegment = {
+  marginRight: '1px',
+  ':after': {
+    backgroundColor: 'var(--separator-color)',
+    content: '""',
+    position: 'absolute',
+    right: '-2px',
+    top: 2,
+    bottom: 2,
+    width: '1px'
+  }
+}
+
 const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {isIconOnly?: boolean}) => ({
   '--segmented-control-button-inner-padding': '12px', // TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available
   '--segmented-control-button-bg-inset': '4px',
@@ -18,7 +41,10 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
   marginBottom: '-1px',
   padding: props?.selected ? 0 : 'var(--segmented-control-button-bg-inset)',
   position: 'relative',
-  width: props?.isIconOnly ? 'var(--primer-control-medium-size, 32px)' : undefined,
+  ...(props?.isIconOnly && {
+    height: 'var(--primer-control-medium-size, 32px)',
+    width: 'var(--primer-control-medium-size, 32px)'
+  }),
 
   '.segmentedControl-content': {
     alignItems: 'center',
@@ -54,26 +80,12 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
     backgroundColor: props?.selected ? undefined : 'actionListItem.default.activeBg' // TODO: replace with a functional primitive
   },
 
-  ':first-child': {
-    marginLeft: '-1px'
-  },
-
-  ':last-child': {
-    marginRight: '-1px'
-  },
-
-  ':not(:last-child)': {
-    marginRight: '1px',
-    ':after': {
-      backgroundColor: 'var(--separator-color)',
-      content: '""',
-      position: 'absolute',
-      right: '-2px',
-      top: 2,
-      bottom: 2,
-      width: '1px'
-    }
-  },
+  // Icon-only buttons render the button inside of an element rendered by the Tooltip component.
+  // This breaks `:first-child` and `:last-child` selectors on buttons because the button is the only child inside of the element rendered by the Tooltip component.
+  ...(!props?.isIconOnly && {
+    ...directChildLayoutAdjustments,
+    ':not(:last-child)': borderedSegment
+  }),
 
   '.segmentedControl-text': {
     ':after': {
