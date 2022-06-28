@@ -38,7 +38,7 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   }, [customContainerRef])
   const {containerRef: navRef} = useFocusZone({
     containerRef: customContainerRef,
-    bindKeys: FocusKeys.ArrowHorizontal,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusOutBehavior: 'wrap',
     focusInStrategy: customStrategy
   })
