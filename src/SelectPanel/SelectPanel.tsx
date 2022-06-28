@@ -156,13 +156,18 @@ export function SelectPanel({
     onClose('selection')
   }, [finalItemsSelected, onSelectedChange, onClose, selected])
 
-  const onCancelClickHandler = React.useCallback(
+  const onCloseOverlay = React.useCallback(
     (gesture?: 'anchor-click' | 'click-outside' | 'escape') => {
       setFinalItemsSelected(selectedItems)
       onClose(gesture ?? 'escape')
     },
     [onClose, selectedItems]
   )
+
+  const onCloseClickHandler = React.useCallback(() => {
+    setFinalItemsSelected(selectedItems)
+    onClose('escape')
+  }, [onClose, selectedItems])
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   const titleId = useSSRSafeId()
@@ -196,7 +201,7 @@ export function SelectPanel({
       anchorRef={anchorRef}
       open={open}
       onOpen={onOpen}
-      onClose={onCancelClickHandler}
+      onClose={onCloseOverlay}
       overlayProps={{...overlayProps, onKeyPress: overlayKeyPressHandler, role: 'dialog', 'aria-labelledby': titleId}}
       focusTrapSettings={focusTrapSettings}
       focusZoneSettings={focusZoneSettings}
@@ -214,7 +219,7 @@ export function SelectPanel({
           <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
             {title}
           </Heading>
-          <IconButton icon={XIcon} aria-label="Close" variant="invisible" onClick={onCancelClickHandler} />
+          <IconButton icon={XIcon} aria-label="Close" variant="invisible" onClick={onCloseClickHandler} />
         </Box>
         <FilteredActionList
           filterValue={filterValue}
@@ -239,7 +244,7 @@ export function SelectPanel({
           borderTopWidth={1}
           borderTopStyle="solid"
         >
-          <Button onClick={onCancelClickHandler}>Cancel</Button>
+          <Button onClick={onCloseClickHandler}>Cancel</Button>
           <Button variant="primary" onClick={onSaveClickHandler}>
             Save
           </Button>
