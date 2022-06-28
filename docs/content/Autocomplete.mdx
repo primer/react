@@ -579,6 +579,64 @@ const MultiSelectAddNewItem = () => {
 render(<MultiSelectAddNewItem />)
 ```
 
+#### Rendered with `Autocomplete.Context`
+
+The `Autocomplete.Context` can be used to control the menu open/closed state and customize certain `Autocomplete` behaviors
+
+```javascript live noinline
+export function AutocompleteWithContext() {
+  return (
+    <Autocomplete>
+      <AutocompleteWithContextInternal />
+    </Autocomplete>
+  )
+}
+
+export function AutocompleteWithContextInternal() {
+  const autocompleteContext = useContext(Autocomplete.Context)
+  if (autocompleteContext === null) {
+    throw new Error('AutocompleteContext returned null values')
+  }
+
+  const {setShowMenu, showMenu} = autocompleteContext
+  const inputRef = useRef < HTMLInputElement > null
+  const [filterText, setFilterText] = useState('')
+
+  useEffect(() => {
+    if (!showMenu) {
+      // keep the menu open
+      setShowMenu(true)
+    }
+  }, [showMenu, setShowMenu])
+
+  const change = event => setFilterText?.(event.target.value)
+
+  return (
+    <Autocomplete.Context.Provider
+      value={{...autocompleteContext, autocompleteSuggestion: '', setAutocompleteSuggestion: () => false}}
+    >
+      <Autocomplete.Input ref={inputRef} value={filterText} onChange={change} />
+      <Autocomplete.Overlay>
+        <Autocomplete.Menu
+          items={[
+            {text: 'main', id: 0},
+            {text: 'autocomplete-tests', id: 1},
+            {text: 'a11y-improvements', id: 2},
+            {text: 'button-bug-fixes', id: 3},
+            {text: 'radio-input-component', id: 4},
+            {text: 'release-1.0.0', id: 5},
+            {text: 'text-input-implementation', id: 6},
+            {text: 'visual-design-tweaks', id: 7}
+          ]}
+          selectedItemIds={[]}
+          selectionVariant="single"
+        />
+      </Autocomplete.Overlay>
+    </Autocomplete.Context.Provider>
+  )
+}
+```
+
 ## Props
 
 ### Autocomplete.Input
