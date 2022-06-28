@@ -146,9 +146,7 @@ const AutocompleteInput = React.forwardRef(
     }, [autocompleteSuggestion, inputValue, inputRef, isMenuDirectlyActivated])
 
     useEffect(() => {
-      if (value) {
-        setInputValue(value.toString())
-      }
+      setInputValue(typeof value !== 'undefined' ? value.toString() : '')
     }, [value, setInputValue])
 
     return (
