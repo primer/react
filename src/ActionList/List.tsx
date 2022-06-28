@@ -1,7 +1,8 @@
-import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp, merge} from '../sx'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
+import sx, {merge, SxProp} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 
@@ -47,25 +48,32 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       selectionVariant: containerSelectionVariant // TODO: Remove after DropdownMenu2 deprecation
     } = React.useContext(ActionListContainerContext)
 
+    const {containerRef} = useFocusZone({
+      focusOutBehavior: 'wrap',
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown
+    })
+
     return (
-      <ListBox
-        sx={merge(styles, sxProp as SxProp)}
-        role={role || listRole}
-        aria-labelledby={listLabelledBy}
-        {...props}
-        ref={forwardedRef}
-      >
-        <ListContext.Provider
-          value={{
-            variant,
-            selectionVariant: selectionVariant || containerSelectionVariant,
-            showDividers,
-            role: role || listRole
-          }}
+      <div ref={containerRef as React.RefObject<HTMLDivElement>}>
+        <ListBox
+          sx={merge(styles, sxProp as SxProp)}
+          role={role || listRole}
+          aria-labelledby={listLabelledBy}
+          {...props}
+          ref={forwardedRef}
         >
-          {props.children}
-        </ListContext.Provider>
-      </ListBox>
+          <ListContext.Provider
+            value={{
+              variant,
+              selectionVariant: selectionVariant || containerSelectionVariant,
+              showDividers,
+              role: role || listRole
+            }}
+          >
+            {props.children}
+          </ListContext.Provider>
+        </ListBox>
+      </div>
     )
   }
 ) as PolymorphicForwardRefComponent<'ul', ActionListProps>
