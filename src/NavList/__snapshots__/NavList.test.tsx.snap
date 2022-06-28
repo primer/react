@@ -297,74 +297,82 @@ exports[`NavList renders a simple list 1`] = `
   <nav
     class=""
   >
-    <ul
-      class="c0"
-    >
-      <li
-        aria-labelledby="react-aria-1 "
-        class="c1 c2"
+    <div>
+      <ul
+        class="c0"
       >
-        <a
-          aria-current="page"
-          class="c3"
-          href="/"
+        <li
+          aria-labelledby="react-aria-1 "
+          class="c1 c2"
+          tabindex="0"
         >
-          <div
-            class="c4"
-            data-component="ActionList.Item--DividerContainer"
+          <a
+            aria-current="page"
+            class="c3"
+            href="/"
+            tabindex="-1"
           >
-            <span
-              class="c5"
-              id="react-aria-1"
+            <div
+              class="c4"
+              data-component="ActionList.Item--DividerContainer"
             >
-              Home
-            </span>
-          </div>
-        </a>
-      </li>
-      <li
-        aria-labelledby="react-aria-4 "
-        class="c1 c6"
-      >
-        <a
-          class="c3"
-          href="/about"
+              <span
+                class="c5"
+                id="react-aria-1"
+              >
+                Home
+              </span>
+            </div>
+          </a>
+        </li>
+        <li
+          aria-labelledby="react-aria-4 "
+          class="c1 c6"
+          tabindex="-1"
         >
-          <div
-            class="c4"
-            data-component="ActionList.Item--DividerContainer"
+          <a
+            class="c3"
+            href="/about"
+            tabindex="-1"
           >
-            <span
-              class="c5"
-              id="react-aria-4"
+            <div
+              class="c4"
+              data-component="ActionList.Item--DividerContainer"
             >
-              About
-            </span>
-          </div>
-        </a>
-      </li>
-      <li
-        aria-labelledby="react-aria-7 "
-        class="c1 c6"
-      >
-        <a
-          class="c3"
-          href="/contact"
+              <span
+                class="c5"
+                id="react-aria-4"
+              >
+                About
+              </span>
+            </div>
+          </a>
+        </li>
+        <li
+          aria-labelledby="react-aria-7 "
+          class="c1 c6"
+          tabindex="-1"
         >
-          <div
-            class="c4"
-            data-component="ActionList.Item--DividerContainer"
+          <a
+            class="c3"
+            href="/contact"
+            tabindex="-1"
           >
-            <span
-              class="c5"
-              id="react-aria-7"
+            <div
+              class="c4"
+              data-component="ActionList.Item--DividerContainer"
             >
-              Contact
-            </span>
-          </div>
-        </a>
-      </li>
-    </ul>
+              <span
+                class="c5"
+                id="react-aria-7"
+              >
+                Contact
+              </span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </div>
 `;
@@ -700,103 +708,109 @@ exports[`NavList renders with groups 1`] = `
   <nav
     class=""
   >
-    <ul
-      class="c0"
-    >
-      <li
-        aria-hidden="true"
-        class="c1"
-        data-component="ActionList.Divider"
-      />
-      <li
-        class="c2"
+    <div>
+      <ul
+        class="c0"
       >
-        <div
+        <li
           aria-hidden="true"
-          class="c3"
-          role="presentation"
+          class="c1"
+          data-component="ActionList.Divider"
+        />
+        <li
+          class="c2"
         >
-          <span
-            id="react-aria-1"
+          <div
+            aria-hidden="true"
+            class="c3"
+            role="presentation"
           >
-            Overview
-          </span>
-        </div>
-        <ul
-          aria-labelledby="react-aria-1"
-          class="c4"
-        >
-          <li
-            aria-labelledby="react-aria-2 "
-            class="c5 c6"
-          >
-            <a
-              aria-current="page"
-              class="c7"
-              href="/getting-started"
+            <span
+              id="react-aria-1"
             >
-              <div
-                class="c8"
-                data-component="ActionList.Item--DividerContainer"
+              Overview
+            </span>
+          </div>
+          <ul
+            aria-labelledby="react-aria-1"
+            class="c4"
+          >
+            <li
+              aria-labelledby="react-aria-2 "
+              class="c5 c6"
+              tabindex="0"
+            >
+              <a
+                aria-current="page"
+                class="c7"
+                href="/getting-started"
+                tabindex="-1"
               >
-                <span
-                  class="c9"
-                  id="react-aria-2"
+                <div
+                  class="c8"
+                  data-component="ActionList.Item--DividerContainer"
                 >
-                  Getting started
-                </span>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li
-        aria-hidden="true"
-        class="c1"
-        data-component="ActionList.Divider"
-      />
-      <li
-        class="c2"
-      >
-        <div
+                  <span
+                    class="c9"
+                    id="react-aria-2"
+                  >
+                    Getting started
+                  </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li
           aria-hidden="true"
-          class="c3"
-          role="presentation"
+          class="c1"
+          data-component="ActionList.Divider"
+        />
+        <li
+          class="c2"
         >
-          <span
-            id="react-aria-5"
+          <div
+            aria-hidden="true"
+            class="c3"
+            role="presentation"
           >
-            Components
-          </span>
-        </div>
-        <ul
-          aria-labelledby="react-aria-5"
-          class="c4"
-        >
-          <li
-            aria-labelledby="react-aria-6 "
-            class="c5 c10"
-          >
-            <a
-              class="c7"
-              href="/Avatar"
+            <span
+              id="react-aria-5"
             >
-              <div
-                class="c8"
-                data-component="ActionList.Item--DividerContainer"
+              Components
+            </span>
+          </div>
+          <ul
+            aria-labelledby="react-aria-5"
+            class="c4"
+          >
+            <li
+              aria-labelledby="react-aria-6 "
+              class="c5 c10"
+              tabindex="-1"
+            >
+              <a
+                class="c7"
+                href="/Avatar"
+                tabindex="-1"
               >
-                <span
-                  class="c9"
-                  id="react-aria-6"
+                <div
+                  class="c8"
+                  data-component="ActionList.Item--DividerContainer"
                 >
-                  Avatar
-                </span>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+                  <span
+                    class="c9"
+                    id="react-aria-6"
+                  >
+                    Avatar
+                  </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </nav>
 </div>
 `;
@@ -1186,87 +1200,90 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   <nav
     class=""
   >
-    <ul
-      class="c0"
-    >
-      <li
-        aria-labelledby="react-aria-1"
-        class="c1"
+    <div>
+      <ul
+        class="c0"
       >
-        <button
-          aria-controls="react-aria-2"
-          aria-expanded="true"
-          aria-labelledby="react-aria-1 "
-          class="c2 c3"
-          tabindex="0"
+        <li
+          aria-labelledby="react-aria-1"
+          class="c1"
         >
-          <div
-            class="c4"
-            data-component="ActionList.Item--DividerContainer"
+          <button
+            aria-controls="react-aria-2"
+            aria-expanded="true"
+            aria-labelledby="react-aria-1 "
+            class="c2 c3"
+            tabindex="0"
           >
             <div
-              class="c5"
+              class="c4"
+              data-component="ActionList.Item--DividerContainer"
             >
-              <span
-                class="c6"
-                id="react-aria-1"
+              <div
+                class="c5"
               >
-                Item
-              </span>
-              <span
-                class="c7"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="c8"
-                  fill="currentColor"
-                  height="16"
-                  role="img"
-                  style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
-                  viewBox="0 0 16 16"
-                  width="16"
+                <span
+                  class="c6"
+                  id="react-aria-1"
                 >
-                  <path
-                    d="M12.78 6.22a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06 0L3.22 7.28a.75.75 0 011.06-1.06L8 9.94l3.72-3.72a.75.75 0 011.06 0z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </div>
-        </button>
-        <div>
-          <ul
-            aria-labelledby="react-aria-1"
-            class="c9"
-            id="react-aria-2"
-          >
-            <li
-              aria-labelledby="react-aria-3 "
-              class="c2 c10"
-            >
-              <a
-                aria-current="page"
-                class="c11"
-                href="#"
-              >
-                <div
-                  class="c4"
-                  data-component="ActionList.Item--DividerContainer"
+                  Item
+                </span>
+                <span
+                  class="c7"
                 >
-                  <span
-                    class="c6"
-                    id="react-aria-3"
+                  <svg
+                    aria-hidden="true"
+                    class="c8"
+                    fill="currentColor"
+                    height="16"
+                    role="img"
+                    style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                    viewBox="0 0 16 16"
+                    width="16"
                   >
-                    Sub Item
-                  </span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
+                    <path
+                      d="M12.78 6.22a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06 0L3.22 7.28a.75.75 0 011.06-1.06L8 9.94l3.72-3.72a.75.75 0 011.06 0z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </button>
+          <div>
+            <ul
+              aria-labelledby="react-aria-1"
+              class="c9"
+              id="react-aria-2"
+            >
+              <li
+                aria-labelledby="react-aria-3 "
+                class="c2 c10"
+                tabindex="-1"
+              >
+                <a
+                  aria-current="page"
+                  class="c11"
+                  href="#"
+                >
+                  <div
+                    class="c4"
+                    data-component="ActionList.Item--DividerContainer"
+                  >
+                    <span
+                      class="c6"
+                      id="react-aria-3"
+                    >
+                      Sub Item
+                    </span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
   </nav>
 </div>
 `;
@@ -1668,87 +1685,90 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   <nav
     class=""
   >
-    <ul
-      class="c0"
-    >
-      <li
-        aria-labelledby="react-aria-1"
-        class="c1"
+    <div>
+      <ul
+        class="c0"
       >
-        <button
-          aria-controls="react-aria-2"
-          aria-expanded="false"
-          aria-labelledby="react-aria-1 "
-          class="c2 c3"
-          tabindex="0"
+        <li
+          aria-labelledby="react-aria-1"
+          class="c1"
         >
-          <div
-            class="c4"
-            data-component="ActionList.Item--DividerContainer"
+          <button
+            aria-controls="react-aria-2"
+            aria-expanded="false"
+            aria-labelledby="react-aria-1 "
+            class="c2 c3"
+            tabindex="0"
           >
             <div
-              class="c5"
+              class="c4"
+              data-component="ActionList.Item--DividerContainer"
             >
-              <span
-                class="c6"
-                id="react-aria-1"
+              <div
+                class="c5"
               >
-                Item
-              </span>
-              <span
-                class="c7"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="c8"
-                  fill="currentColor"
-                  height="16"
-                  role="img"
-                  style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
-                  viewBox="0 0 16 16"
-                  width="16"
+                <span
+                  class="c6"
+                  id="react-aria-1"
                 >
-                  <path
-                    d="M12.78 6.22a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06 0L3.22 7.28a.75.75 0 011.06-1.06L8 9.94l3.72-3.72a.75.75 0 011.06 0z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </div>
-          </div>
-        </button>
-        <div>
-          <ul
-            aria-labelledby="react-aria-1"
-            class="c9"
-            id="react-aria-2"
-          >
-            <li
-              aria-labelledby="react-aria-3 "
-              class="c2 c10"
-            >
-              <a
-                aria-current="page"
-                class="c11"
-                href="#"
-              >
-                <div
-                  class="c4"
-                  data-component="ActionList.Item--DividerContainer"
+                  Item
+                </span>
+                <span
+                  class="c7"
                 >
-                  <span
-                    class="c6"
-                    id="react-aria-3"
+                  <svg
+                    aria-hidden="true"
+                    class="c8"
+                    fill="currentColor"
+                    height="16"
+                    role="img"
+                    style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+                    viewBox="0 0 16 16"
+                    width="16"
                   >
-                    Sub Item
-                  </span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
+                    <path
+                      d="M12.78 6.22a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06 0L3.22 7.28a.75.75 0 011.06-1.06L8 9.94l3.72-3.72a.75.75 0 011.06 0z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </button>
+          <div>
+            <ul
+              aria-labelledby="react-aria-1"
+              class="c9"
+              id="react-aria-2"
+            >
+              <li
+                aria-labelledby="react-aria-3 "
+                class="c2 c10"
+                tabindex="-1"
+              >
+                <a
+                  aria-current="page"
+                  class="c11"
+                  href="#"
+                >
+                  <div
+                    class="c4"
+                    data-component="ActionList.Item--DividerContainer"
+                  >
+                    <span
+                      class="c6"
+                      id="react-aria-3"
+                    >
+                      Sub Item
+                    </span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
   </nav>
 </div>
 `;
