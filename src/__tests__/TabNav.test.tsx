@@ -115,7 +115,6 @@ describe('TabNav', () => {
   it('moves focus to selected tab when TabNav regains focus', () => {
     const {getByText, getByRole} = HTMLRender(tabNavMarkup)
     const middleTab = getByText('Middle')
-    // const lastTab = getByText('Last')
     const button = getByRole('button')
 
     userEvent.click(button)
