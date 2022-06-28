@@ -5,6 +5,7 @@ import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import sx, {merge, SxProp} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
 export type ActionListProps = {
   /**
