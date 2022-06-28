@@ -32,8 +32,8 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   const customContainerRef = useRef<HTMLElement>(null)
   const customStrategy = React.useCallback(() => {
     if (customContainerRef.current) {
-      const tabs = Array.from(customContainerRef.current.querySelectorAll<HTMLElement>('a[aria-selected]'))
-      return tab[0]
+      const tabs = Array.from(customContainerRef.current.querySelectorAll<HTMLElement>('a[aria-selected=true]'))
+      return tabs[0]
     }
   }, [customContainerRef])
   const {containerRef: navRef} = useFocusZone({
@@ -60,7 +60,7 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
-  'aria-selected': props.selected
+  'aria-selected': !!props.selected
 }))<StyledTabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
