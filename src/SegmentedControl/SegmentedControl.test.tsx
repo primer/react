@@ -159,38 +159,17 @@ describe('SegmentedControl', () => {
 
     expect(document.activeElement?.id).not.toEqual(initialFocusButtonNode.id)
 
-    userEvent.tab()
-    userEvent.tab()
+    userEvent.tab() // focus the button before the segmented control
+    userEvent.tab() // move focus into the segmented control
 
     expect(document.activeElement?.id).toEqual(initialFocusButtonNode.id)
   })
 
-  it('focuses the next button when keying ArrowRight', () => {
+  it('focuses the previous button when keying ArrowLeft, and the next button when keying ArrowRight', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, id}, index) => (
-          <SegmentedControl.Button selected={index === 0} key={label} id={id}>
-            {label}
-          </SegmentedControl.Button>
-        ))}
-      </SegmentedControl>
-    )
-    const initialFocusButtonNode = getByRole('button', {name: segmentData[1].label})
-    const nextFocusButtonNode = getByRole('button', {name: segmentData[2].label})
-
-    expect(document.activeElement?.id).not.toEqual(nextFocusButtonNode.id)
-
-    fireEvent.focus(initialFocusButtonNode)
-    // fireEvent.keyDown(initialFocusButtonNode, {key: 'ArrowRight'})
-
-    expect(document.activeElement?.id).toEqual(nextFocusButtonNode.id)
-  })
-
-  it('focuses the previous button when keying ArrowLeft', () => {
-    const {getByRole} = render(
-      <SegmentedControl aria-label="File view">
-        {segmentData.map(({label, id}, index) => (
-          <SegmentedControl.Button selected={index === 0} key={label} id={id}>
+          <SegmentedControl.Button selected={index === 1} key={label} id={id}>
             {label}
           </SegmentedControl.Button>
         ))}
@@ -205,6 +184,10 @@ describe('SegmentedControl', () => {
     fireEvent.keyDown(initialFocusButtonNode, {key: 'ArrowLeft'})
 
     expect(document.activeElement?.id).toEqual(nextFocusButtonNode.id)
+
+    fireEvent.keyDown(initialFocusButtonNode, {key: 'ArrowRight'})
+
+    expect(document.activeElement?.id).toEqual(initialFocusButtonNode.id)
   })
 
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
