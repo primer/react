@@ -181,12 +181,12 @@ describe('SegmentedControl', () => {
     expect(document.activeElement?.id).not.toEqual(nextFocusButtonNode.id)
 
     fireEvent.focus(initialFocusButtonNode)
-    fireEvent.keyDown(initialFocusButtonNode, {key: 'ArrowRight'})
+    // fireEvent.keyDown(initialFocusButtonNode, {key: 'ArrowRight'})
 
     expect(document.activeElement?.id).toEqual(nextFocusButtonNode.id)
   })
 
-  it('focuses the next button when keying ArrowLeft', () => {
+  it('focuses the previous button when keying ArrowLeft', () => {
     const {getByRole} = render(
       <SegmentedControl aria-label="File view">
         {segmentData.map(({label, id}, index) => (
