@@ -116,8 +116,7 @@
       url: /Select
     - title: SelectPanel
       url: /SelectPanel
-    - title: SideNav
-      url: /SideNav
+
     - title: Spinner
       url: /Spinner
     - title: StateLabel
@@ -184,3 +183,5 @@
       url: /deprecated/Position
     - title: SelectMenu
       url: /deprecated/SelectMenu
+    - title: SideNav
+      url: /deprecated/SideNav

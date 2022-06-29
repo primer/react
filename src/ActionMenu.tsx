@@ -3,7 +3,7 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, useTypeaheadFocus} from './hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, useMnemonics} from './hooks'
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
@@ -112,7 +112,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
 
   const containerRef = React.createRef<HTMLDivElement>()
   const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef)
-  useTypeaheadFocus(open, containerRef)
+  useMnemonics(open, containerRef)
 
   return (
     <AnchoredOverlay
