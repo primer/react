@@ -655,10 +655,10 @@ export function OverlayProps(): JSX.Element {
   )
 }
 
-export function TypeaheadTest(): JSX.Element {
+export function MnemonicsTest(): JSX.Element {
   return (
     <>
-      <h1>Story to test typeahead</h1>
+      <h1>Menu mnemonics</h1>
 
       <ActionMenu>
         <ActionMenu.Button>Menu</ActionMenu.Button>
@@ -671,6 +671,24 @@ export function TypeaheadTest(): JSX.Element {
             </ActionList.Group>
             <ActionList.Item>Order</ActionList.Item>
             <ActionList.Item>Group</ActionList.Item>
+            <ActionList.Item aria-keyshortcuts="e">
+              User defined
+              <ActionList.TrailingVisual>
+                <Box
+                  as="span"
+                  sx={{
+                    backgroundColor: 'canvas.default',
+                    border: '1px solid',
+                    borderColor: 'border.default',
+                    borderRadius: 2,
+                    padding: '2px 6px',
+                    fontSize: 0
+                  }}
+                >
+                  e
+                </Box>
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
             <ActionList.Item disabled>Disabled</ActionList.Item>
           </ActionList>
         </ActionMenu.Overlay>
