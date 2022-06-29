@@ -3,7 +3,7 @@ import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import {Box, useTheme} from '..'
 import {merge, SxProp} from '../sx'
-import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
+import {FocusKeys, FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 
 type SegmentedControlProps = {
   'aria-label'?: string
@@ -52,20 +52,35 @@ const Root: React.FC<SegmentedControlProps> = ({
     }),
     sxProp as SxProp
   )
-  const focusInStrategy = useCallback(() => {
+  const focusInStrategy: FocusZoneHookSettings['focusInStrategy'] = useCallback(() => {
     if (segmentedControlContainerRef.current) {
       const buttons = Array.from(segmentedControlContainerRef.current.querySelectorAll('button'))
       return buttons[selectedIndex]
     }
   }, [segmentedControlContainerRef, selectedIndex])
 
+  // TODO: eliminate the need for a custom `getNextFocusable`
+  // We need a custom `getNextFocusable` because after selecting a button, `useFocusZone`
+  // does not correctly move focus to the next or previous button.
+  // This doesn't happen if we don't pass any dependencies to `useFocusZone`, but we need to
+  // pass `focusInStrategy` as a dependency so that the selected button gets focus first.
+  const getNextFocusable: FocusZoneHookSettings['getNextFocusable'] = (direction, from) => {
+    if (segmentedControlContainerRef.current) {
+      const buttons = Array.from(segmentedControlContainerRef.current.querySelectorAll('button'))
+      const nextIndex = buttons.indexOf(from as HTMLButtonElement) + (direction === 'previous' ? -1 : 1)
+
+      return buttons[nextIndex]
+    }
+  }
+
   useFocusZone(
     {
       containerRef: segmentedControlContainerRef,
       bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-      focusInStrategy
+      focusInStrategy,
+      getNextFocusable
     },
-    [selectedIndex]
+    [focusInStrategy]
   )
 
   if (!ariaLabel && !ariaLabelledby) {
