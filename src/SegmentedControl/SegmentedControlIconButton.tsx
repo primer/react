@@ -2,8 +2,9 @@ import React, {HTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import sx, {merge, SxProp} from '../sx'
-import getSegmentedControlButtonStyles, {
+import {
   borderedSegment,
+  getSegmentedControlButtonStyles,
   directChildLayoutAdjustments
 } from './getSegmentedControlStyles'
 import Tooltip from '../Tooltip'
@@ -15,7 +16,7 @@ export type SegmentedControlIconButtonProps = {
   /** Whether the segment is selected */
   selected?: boolean
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement>
+  HTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlIconButtonStyled = styled.button`
   ${sx};

@@ -24,7 +24,9 @@ export const borderedSegment = {
   }
 }
 
-const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {isIconOnly?: boolean}) => ({
+export const getSegmentedControlButtonStyles = (
+  props?: Partial<Pick<SegmentedControlButtonProps, 'children' | 'selected'>> & {isIconOnly?: boolean}
+) => ({
   '--segmented-control-button-inner-padding': '12px', // TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available
   '--segmented-control-button-bg-inset': '4px',
   '--segmented-control-outer-radius': get('radii.2')(props),
@@ -112,5 +114,3 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
     }
   }
 })
-
-export default getSegmentedControlButtonStyles

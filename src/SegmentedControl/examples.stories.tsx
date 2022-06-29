@@ -2,13 +2,42 @@ import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider} from '..'
-import {ComponentProps} from '../utils/types'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 
-type Args = ComponentProps<typeof SegmentedControl>
+type ResponsiveVariantOptions = 'dropdown' | 'hideLabels'
+type Args = {
+  fullWidth?: boolean
+  variantAtNarrow: ResponsiveVariantOptions
+  variantAtNarrowLandscape: ResponsiveVariantOptions
+  variantAtRegular: ResponsiveVariantOptions
+  variantAtWide: ResponsiveVariantOptions
+  variantAtPortrait: ResponsiveVariantOptions
+  variantAtLandscape: ResponsiveVariantOptions
+}
 
-const excludedControlKeys = ['aria-label', 'onChange', 'sx']
+const excludedControlKeys = ['aria-label', 'onChange', 'sx', 'variant']
+
+const variantOptions = ['dropdown', 'hideLabels', undefined]
+
+const parseVarientFromArgs = (args: Args) => {
+  const {
+    variantAtNarrow,
+    variantAtNarrowLandscape,
+    variantAtRegular,
+    variantAtWide,
+    variantAtPortrait,
+    variantAtLandscape
+  } = args
+  return {
+    narrow: variantAtNarrow,
+    narrowLandscape: variantAtNarrowLandscape,
+    regular: variantAtRegular,
+    wide: variantAtWide,
+    portrait: variantAtPortrait,
+    atLandscape: variantAtLandscape
+  }
+}
 
 export default {
   title: 'SegmentedControl/examples',
@@ -20,10 +49,52 @@ export default {
         type: 'boolean'
       }
     },
-    loading: {
-      defaultValue: false,
+    variantAtNarrow: {
+      name: 'variant.narrow',
+      defaultValue: undefined,
       control: {
-        type: 'boolean'
+        type: 'radio',
+        options: variantOptions
+      }
+    },
+    variantAtNarrowLandscape: {
+      name: 'variant.narrowLandscape',
+      defaultValue: undefined,
+      control: {
+        type: 'radio',
+        options: variantOptions
+      }
+    },
+    variantAtRegular: {
+      name: 'variant.regular',
+      defaultValue: undefined,
+      control: {
+        type: 'radio',
+        options: variantOptions
+      }
+    },
+    variantAtWide: {
+      name: 'variant.wide',
+      defaultValue: undefined,
+      control: {
+        type: 'radio',
+        options: variantOptions
+      }
+    },
+    variantAtPortrait: {
+      name: 'variant.portrait',
+      defaultValue: undefined,
+      control: {
+        type: 'radio',
+        options: variantOptions
+      }
+    },
+    variantAtLandscape: {
+      name: 'variant.Landscape',
+      defaultValue: undefined,
+      control: {
+        type: 'radio',
+        options: variantOptions
       }
     }
   },
@@ -42,7 +113,7 @@ export default {
 } as Meta
 
 export const Default = (args: Args) => (
-  <SegmentedControl aria-label="File view" {...args}>
+  <SegmentedControl aria-label="File view" {...args} variant={parseVarientFromArgs(args)}>
     <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
     <SegmentedControl.Button>Blame</SegmentedControl.Button>
@@ -56,7 +127,7 @@ export const Controlled = (args: Args) => {
   }
 
   return (
-    <SegmentedControl aria-label="File view" onChange={handleChange} {...args}>
+    <SegmentedControl aria-label="File view" onChange={handleChange} {...args} variant={parseVarientFromArgs(args)}>
       <SegmentedControl.Button selected={selectedIndex === 0}>Preview</SegmentedControl.Button>
       <SegmentedControl.Button selected={selectedIndex === 1}>Raw</SegmentedControl.Button>
       <SegmentedControl.Button selected={selectedIndex === 2}>Blame</SegmentedControl.Button>
@@ -65,7 +136,7 @@ export const Controlled = (args: Args) => {
 }
 
 export const WithIconsAndLabels = (args: Args) => (
-  <SegmentedControl aria-label="File view" {...args}>
+  <SegmentedControl aria-label="File view" {...args} variant={parseVarientFromArgs(args)}>
     <SegmentedControl.Button selected leadingIcon={EyeIcon}>
       Preview
     </SegmentedControl.Button>
@@ -75,7 +146,7 @@ export const WithIconsAndLabels = (args: Args) => (
 )
 
 export const IconsOnly = (args: Args) => (
-  <SegmentedControl aria-label="File view" {...args}>
+  <SegmentedControl aria-label="File view" {...args} variant={parseVarientFromArgs(args)}>
     <SegmentedControl.IconButton selected icon={EyeIcon} aria-label="Preview" />
     <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />
     <SegmentedControl.IconButton icon={PeopleIcon} aria-label="Blame" />
