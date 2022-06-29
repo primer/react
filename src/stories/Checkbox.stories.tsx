@@ -1,7 +1,8 @@
-import React, {useLayoutEffect, useRef, useState} from 'react'
+import React, {useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, Checkbox, CheckboxProps, ThemeProvider} from '..'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {action} from '@storybook/addon-actions'
 import FormControl from '../FormControl'
 import {

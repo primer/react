@@ -125,13 +125,11 @@ exports[`ActionMenu renders consistently 1`] = `
   fontFamily="normal"
 >
   <button
-    aria-expanded={false}
     aria-haspopup="true"
     className="c1"
     id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}
-    tabIndex={0}
     type="button"
   >
     <span
