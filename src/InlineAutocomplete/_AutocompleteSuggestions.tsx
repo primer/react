@@ -40,7 +40,7 @@ const SuggestionListItem = ({suggestion}: {suggestion: Suggestion}) => {
     }
   }
 
-  return <>{typeof suggestion === 'string' ? <ActionList.Item {...sharedProps} /> : suggestion.render(sharedProps)}</>
+  return typeof suggestion === 'string' ? <ActionList.Item {...sharedProps} /> : suggestion.render(sharedProps)
 }
 
 /**

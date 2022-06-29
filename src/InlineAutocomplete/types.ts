@@ -37,8 +37,8 @@ export type Suggestion =
        * for non-unique `value`s.
        */
       key?: string
-      /** This should return an `ActionList.Item` instance. A `key` is not necessary. */
-      render: (props: ActionListItemProps) => React.ReactNode
+      /** This must return an `ActionList.Item` instance. */
+      render: (props: ActionListItemProps) => React.ReactElement
     }
 
 export type Suggestions = Array<Suggestion> | 'loading'
