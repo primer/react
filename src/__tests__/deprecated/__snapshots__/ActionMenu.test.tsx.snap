@@ -68,13 +68,11 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 <button
-  aria-expanded={false}
   aria-haspopup="true"
   aria-label="menu"
   className="c0"
   id="react-aria-1"
   onClick={[Function]}
   onKeyDown={[Function]}
-  tabIndex={0}
 />
 `;
