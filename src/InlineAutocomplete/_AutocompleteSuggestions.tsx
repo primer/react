@@ -71,7 +71,6 @@ const AutocompleteSuggestions = ({
   // Setup keyboard navigation
   useCombobox({
     // Even though the list is visible when loading, we don't want to do keyboard binding in that case
-    // TODO: Verify accessibility
     isOpen: visible && suggestions !== 'loading',
     listElement: list,
     inputElement: inputRef.current,
