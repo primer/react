@@ -4,6 +4,9 @@ import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './co
 import {useTheme} from './ThemeProvider'
 import {ComponentProps} from './utils/types'
 
+// load polyfill for :focus-visible
+import 'focus-visible'
+
 const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   * { box-sizing: border-box; }
   body { margin: 0; }
@@ -35,9 +38,6 @@ export type BaseStylesProps = ComponentProps<typeof Base>
 function BaseStyles(props: BaseStylesProps) {
   const {children, ...rest} = props
   const {colorScheme} = useTheme()
-
-  // load polyfill for :focus-visible
-  require('focus-visible')
 
   return (
     <Base {...rest} data-portal-root>

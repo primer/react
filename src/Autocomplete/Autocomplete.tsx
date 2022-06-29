@@ -97,6 +97,7 @@ export type {AutocompleteInputProps} from './AutocompleteInput'
 export type {AutocompleteMenuProps} from './AutocompleteMenu'
 export type {AutocompleteOverlayProps} from './AutocompleteOverlay'
 export default Object.assign(Autocomplete, {
+  Context: AutocompleteContext,
   Input: AutocompleteInput,
   Menu: AutocompleteMenu,
   Overlay: AutocompleteOverlay
