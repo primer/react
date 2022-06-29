@@ -207,9 +207,9 @@ export function CustomAnchor(): JSX.Element {
       <h2>Last option activated: {actionFired}</h2>
       <ActionMenu>
         <ActionMenu.Anchor>
-          <summary style={{cursor: 'pointer'}} aria-label="Open column options">
+          <button aria-label="Open column options">
             <KebabHorizontalIcon />
-          </summary>
+          </button>
         </ActionMenu.Anchor>
         <ActionMenu.Overlay>
           <ActionList>
@@ -505,7 +505,7 @@ export function MemexIteration(): JSX.Element {
             color: 'fg.muted',
             ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
           }}
-          aria-label="Select iteration duration"
+          aria-label="Iteration duration"
         >
           {duration} {duration > 1 ? 'weeks' : 'week'}
         </ActionMenu.Button>
@@ -548,7 +548,7 @@ export function MemexAddColumn(): JSX.Element {
         </FormControl>
         <ActionMenu>
           <ActionMenu.Button
-            aria-label="Select field type"
+            aria-label="Field type"
             leadingIcon={selectedType.icon}
             sx={{
               gridTemplateColumns: 'min-content 1fr min-content',
@@ -582,7 +582,7 @@ export function MemexAddColumn(): JSX.Element {
           <ActionMenu>
             <ActionMenu.Button
               id="duration"
-              aria-label="Select field type"
+              aria-label="Field type"
               sx={{
                 textAlign: 'left',
                 ml: 2,

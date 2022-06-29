@@ -108,7 +108,7 @@ describe('ActionMenu', () => {
         <SingleSelection />
       </ThemeProvider>
     )
-    const button = component.getByLabelText('Select field type')
+    const button = component.getByLabelText('Field type')
     fireEvent.click(button)
 
     // select first item by role, that would close the menu
@@ -127,7 +127,7 @@ describe('ActionMenu', () => {
         <MixedSelection />
       </ThemeProvider>
     )
-    const button = component.getByLabelText('Select field type to group by')
+    const button = component.getByLabelText('Group by')
     fireEvent.click(button)
 
     expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
