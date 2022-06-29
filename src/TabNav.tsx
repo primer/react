@@ -1,8 +1,9 @@
 import classnames from 'classnames'
 import {To} from 'history'
-import React from 'react'
+import React, {useRef} from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
+import {FocusKeys, useFocusZone} from './hooks/useFocusZone'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 import getGlobalFocusStyles from './_getGlobalFocusStyles'
@@ -11,23 +12,41 @@ const ITEM_CLASS = 'TabNav-item'
 const SELECTED_CLASS = 'selected'
 
 const TabNavBase = styled.div<SxProp>`
-  margin-top: 0;
-  border-bottom: 1px solid ${get('colors.border.default')};
   ${sx}
 `
 
-const TabNavBody = styled.nav`
+const TabNavTabList = styled.div`
   display: flex;
   margin-bottom: -1px;
   overflow: auto;
 `
 
+const TabNavNav = styled.nav`
+  margin-top: 0;
+  border-bottom: 1px solid ${get('colors.border.default')};
+`
+
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
+  const customContainerRef = useRef<HTMLElement>(null)
+  const customStrategy = React.useCallback(() => {
+    if (customContainerRef.current) {
+      const tabs = Array.from(customContainerRef.current.querySelectorAll<HTMLElement>('a[aria-selected=true]'))
+      return tabs[0]
+    }
+  }, [customContainerRef])
+  const {containerRef: navRef} = useFocusZone({
+    containerRef: customContainerRef,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    focusOutBehavior: 'wrap',
+    focusInStrategy: customStrategy
+  })
   return (
-    <TabNavBase {...rest}>
-      <TabNavBody aria-label={ariaLabel}>{children}</TabNavBody>
+    <TabNavBase {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
+      <TabNavNav aria-label={ariaLabel}>
+        <TabNavTabList role="tablist">{children}</TabNavTabList>
+      </TabNavNav>
     </TabNavBase>
   )
 }
@@ -39,7 +58,9 @@ type StyledTabNavLinkProps = {
 
 const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
+  role: 'tab',
+  'aria-selected': !!props.selected
 }))<StyledTabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
