@@ -3,7 +3,12 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/r
 import {useSSRSafeId} from '@react-aria/ssr'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
-import {ActionList} from '../ActionList'
+import {
+  ActionList,
+  ActionListDividerProps,
+  ActionListLeadingVisualProps,
+  ActionListTrailingVisualProps
+} from '../ActionList'
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
@@ -154,7 +159,7 @@ function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps
 // ----------------------------------------------------------------------------
 // NavList.SubNav
 
-type NavListSubNavProps = {
+export type NavListSubNavProps = {
   children: React.ReactNode
 } & SxProp
 
@@ -203,12 +208,16 @@ SubNav.displayName = 'NavList.SubNav'
 // ----------------------------------------------------------------------------
 // NavList.LeadingVisual
 
+export type NavListLeadingVisualProps = ActionListLeadingVisualProps
+
 const LeadingVisual = ActionList.LeadingVisual
 
 LeadingVisual.displayName = 'NavList.LeadingVisual'
 
 // ----------------------------------------------------------------------------
 // NavList.TrailingVisual
+
+export type NavListTrailingVisualProps = ActionListTrailingVisualProps
 
 const TrailingVisual = ActionList.TrailingVisual
 
@@ -217,6 +226,8 @@ TrailingVisual.displayName = 'NavList.TrailingVisual'
 // ----------------------------------------------------------------------------
 // NavList.Divider
 
+export type NavListDividerProps = ActionListDividerProps
+
 const Divider = ActionList.Divider
 
 Divider.displayName = 'NavList.Divider'
@@ -224,18 +235,19 @@ Divider.displayName = 'NavList.Divider'
 // ----------------------------------------------------------------------------
 // NavList.Group
 
-type NavListGroupProps = {
+export type NavListGroupProps = {
   children: React.ReactNode
   title?: string
 } & SxProp
 
+const defaultSx = {}
 // TODO: ref prop
-const Group = ({title, children, sx: sxProp = {}}: NavListGroupProps) => {
+const Group: React.VFC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group title={title} sx={sxProp}>
+      <ActionList.Group {...props} title={title} sx={sxProp}>
         {children}
       </ActionList.Group>
     </>
