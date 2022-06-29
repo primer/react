@@ -73,7 +73,7 @@ export const Default = () => {
         onShowSuggestions={onShowSuggestions}
         onHideSuggestions={onHideSuggestions}
       >
-        <Textarea id="input" />
+        <Textarea />
       </InlineAutocomplete>
     </FormControl>
   )
