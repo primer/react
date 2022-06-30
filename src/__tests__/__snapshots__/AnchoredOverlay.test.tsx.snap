@@ -85,6 +85,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
     id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}
+    tabIndex={0}
   >
     Anchor Button
   </button>
@@ -201,6 +202,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
       aria-haspopup="true"
       class="c1"
       id="react-aria-1"
+      tabindex="0"
     >
       Anchor Button
     </button>
