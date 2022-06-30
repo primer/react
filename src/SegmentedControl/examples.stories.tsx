@@ -4,6 +4,7 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider} from '..'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import Box from '../Box'
 
 type ResponsiveVariantOptions = 'dropdown' | 'hideLabels'
 type Args = {
@@ -136,19 +137,27 @@ export const Controlled = (args: Args) => {
 }
 
 export const WithIconsAndLabels = (args: Args) => (
-  <SegmentedControl aria-label="File view" {...args} variant={parseVarientFromArgs(args)}>
-    <SegmentedControl.Button selected leadingIcon={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
-    <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
-  </SegmentedControl>
+  // padding needed to show Tooltip
+  // there is a separate initiative to change Tooltip to get positioned with useAnchoredPosition
+  <Box pt={5}>
+    <SegmentedControl aria-label="File view" {...args} variant={parseVarientFromArgs(args)}>
+      <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button leadingIcon={PeopleIcon}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  </Box>
 )
 
 export const IconsOnly = (args: Args) => (
-  <SegmentedControl aria-label="File view" {...args} variant={parseVarientFromArgs(args)}>
-    <SegmentedControl.IconButton selected icon={EyeIcon} aria-label="Preview" />
-    <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />
-    <SegmentedControl.IconButton icon={PeopleIcon} aria-label="Blame" />
-  </SegmentedControl>
+  // padding needed to show Tooltip
+  // there is a separate initiative to change Tooltip to get positioned with useAnchoredPosition
+  <Box pt={5}>
+    <SegmentedControl aria-label="File view" {...args} variant={parseVarientFromArgs(args)}>
+      <SegmentedControl.IconButton selected icon={EyeIcon} aria-label="Preview" />
+      <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />
+      <SegmentedControl.IconButton icon={PeopleIcon} aria-label="Blame" />
+    </SegmentedControl>
+  </Box>
 )
