@@ -32,7 +32,9 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   const customContainerRef = useRef<HTMLElement>(null)
   const customStrategy = React.useCallback(() => {
     if (customContainerRef.current) {
-      const tabs = Array.from(customContainerRef.current.querySelectorAll<HTMLElement>('a[aria-selected=true]'))
+      const tabs = Array.from(
+        customContainerRef.current.querySelectorAll<HTMLElement>('[role=tab][aria-selected=true]')
+      )
       return tabs[0]
     }
   }, [customContainerRef])
@@ -60,7 +62,8 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
-  'aria-selected': !!props.selected
+  'aria-selected': !!props.selected,
+  tabIndex: -1
 }))<StyledTabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
