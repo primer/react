@@ -12,8 +12,8 @@ permissions:
 
 jobs:
   deploy:
-    name: Production
-    uses: primer/.github/.github/workflows/deploy.yml@main
+    name: Preview
+    uses: primer/.github/.github/workflows/deploy_preview.yml@main
     with:
       node_version: 14
       install: yarn && cd docs && yarn
