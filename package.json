@@ -140,6 +140,7 @@
     "babel-plugin-open-source": "1.3.2",
     "babel-plugin-preval": "5.0.0",
     "babel-plugin-styled-components": "2.0.2",
+    "babel-plugin-transform-commonjs": "1.1.6",
     "babel-plugin-transform-replace-expressions": "0.2.0",
     "babel-polyfill": "6.26.0",
     "chroma-js": "2.1.2",
