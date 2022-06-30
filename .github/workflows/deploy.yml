@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches:
+    branches-ignore:
       - main
 
 permissions:
@@ -13,7 +13,6 @@ permissions:
 jobs:
   deploy:
     name: Production
-    needs: [guard]
     uses: primer/.github/.github/workflows/deploy.yml@main
     with:
       node_version: 14
