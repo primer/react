@@ -17,5 +17,5 @@ jobs:
     with:
       node_version: 14
       install: yarn && cd docs && yarn
-      build: npm run build
+      build: cd docs && npm run build
       output_dir: docs/public
