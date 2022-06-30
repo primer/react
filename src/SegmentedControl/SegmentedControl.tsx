@@ -146,10 +146,7 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
         // Render the 'hideLabels' variant of the SegmentedControlButton
         if (React.isValidElement<SegmentedControlButtonProps>(child) && child.type === Button && shouldHideLabels) {
           const {'aria-label': ariaLabel, leadingIcon, children: childPropsChildren, ...restChildProps} = child.props
-          if (!childPropsChildren && !ariaLabel) {
-            // eslint-disable-next-line no-console
-            console.warn('A `children` or `aria-label` prop is required when hiding visible labels')
-          } else if (!leadingIcon) {
+          if (!leadingIcon) {
             // eslint-disable-next-line no-console
             console.warn('A `leadingIcon` prop is required when hiding visible labels')
           } else {

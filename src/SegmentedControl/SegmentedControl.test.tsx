@@ -1,10 +1,12 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import {render} from '@testing-library/react'
+import {render, fireEvent, waitFor} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {SegmentedControl} from '.' // TODO: update import when we move this to the global index
+import theme from '../theme'
+import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 
 const segmentData = [
   {label: 'Preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
@@ -14,6 +16,30 @@ const segmentData = [
 
 // TODO: improve test coverage
 describe('SegmentedControl', () => {
+  const mockWarningFn = jest.fn()
+
+  beforeAll(() => {
+    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(), // deprecated
+      removeListener: jest.fn(), // deprecated
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn()
+    }))
+  })
+
   behavesAsComponent({
     Component: SegmentedControl,
     toRender: () => (
@@ -44,6 +70,39 @@ describe('SegmentedControl', () => {
     const selectedButton = getByText('Raw').closest('button')
 
     expect(selectedButton?.getAttribute('aria-current')).toBe('true')
+  })
+
+  it('renders the dropdown variant', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'dropdown'}}>
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button selected={index === 1} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+    const button = getByText(segmentData[1].label)
+
+    expect(button).toBeInTheDocument()
+    expect(button.closest('button')?.getAttribute('aria-haspopup')).toBe('true')
+  })
+
+  it('renders the hideLabels variant', () => {
+    const {getByLabelText} = render(
+      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'hideLabels'}}>
+        {segmentData.map(({label, icon}, index) => (
+          <SegmentedControl.Button leadingIcon={icon} selected={index === 1} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+
+    for (const datum of segmentData) {
+      const labelledButton = getByLabelText(datum.label)
+      expect(labelledButton).toBeDefined()
+    }
   })
 
   it('renders the first segment as selected if no child has the `selected` prop passed', () => {
@@ -133,7 +192,82 @@ describe('SegmentedControl', () => {
     }
     expect(handleClick).toHaveBeenCalled()
   })
+
+  it('calls onChange with index of clicked segment button when using the dropdown variant', async () => {
+    const handleChange = jest.fn()
+    const component = render(
+      <ThemeProvider theme={theme}>
+        <SSRProvider>
+          <BaseStyles>
+            <SegmentedControl
+              aria-label="File view"
+              onChange={handleChange}
+              variant={{narrow: 'dropdown', regular: 'dropdown'}}
+            >
+              {segmentData.map(({label}, index) => (
+                <SegmentedControl.Button selected={index === 0} key={label}>
+                  {label}
+                </SegmentedControl.Button>
+              ))}
+            </SegmentedControl>
+          </BaseStyles>
+        </SSRProvider>
+      </ThemeProvider>
+    )
+    const button = component.getByText(segmentData[0].label)
+
+    fireEvent.click(button)
+    expect(handleChange).not.toHaveBeenCalled()
+    const menuItems = await waitFor(() => component.getAllByRole('menuitemradio'))
+    fireEvent.click(menuItems[1])
+
+    expect(handleChange).toHaveBeenCalledWith(1)
+  })
+
+  it('calls segment button onClick if it is passed when using the dropdown variant', async () => {
+    const handleClick = jest.fn()
+    const component = render(
+      <ThemeProvider theme={theme}>
+        <SSRProvider>
+          <BaseStyles>
+            <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'dropdown'}}>
+              {segmentData.map(({label}, index) => (
+                <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
+                  {label}
+                </SegmentedControl.Button>
+              ))}
+            </SegmentedControl>
+          </BaseStyles>
+        </SSRProvider>
+      </ThemeProvider>
+    )
+    const button = component.getByText(segmentData[0].label)
+
+    fireEvent.click(button)
+    expect(handleClick).not.toHaveBeenCalled()
+    const menuItems = await waitFor(() => component.getAllByRole('menuitemradio'))
+    fireEvent.click(menuItems[1])
+
+    expect(handleClick).toHaveBeenCalled()
+  })
+
+  it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
+    const consoleSpy = jest.spyOn(global.console, 'warn')
+
+    render(
+      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'hideLabels'}}>
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button selected={index === 1} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+
+    expect(consoleSpy).toHaveBeenCalled()
+  })
 })
 
-checkStoriesForAxeViolations('examples', '../SegmentedControl/')
+// TODO: uncomment these tests after we fix a11y for the Tooltip component
+// checkStoriesForAxeViolations('examples', '../SegmentedControl/')
 checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
