@@ -22,7 +22,11 @@ module.exports = {
     development: {
       presets: makePresets(process.env.BABEL_MODULE || false),
       plugins: [
-        ...(process.env.BABEL_MODULE === 'commonjs' ? ['@babel/plugin-transform-modules-commonjs'] : []),
+        ...(process.env.BABEL_MODULE === 'commonjs'
+          ? ['@babel/plugin-transform-modules-commonjs']
+          : [
+              'transform-commonjs' // theme-preval is commonjs and needs to be transformed to esm
+            ]),
         ...sharedPlugins,
         replacementPlugin('development')
       ]
