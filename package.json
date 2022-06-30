@@ -1,7 +1,7 @@
 {
   "name": "@primer/components",
   "version": "25.0.0",
-  "description": "Primer react components",
+  "description": "Primer react components v26",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
   "typings": "index.d.ts",
