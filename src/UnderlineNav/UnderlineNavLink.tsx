@@ -1,6 +1,6 @@
 import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject} from 'react'
 import Box from '../Box'
-import {merge, SxProp} from '../sx'
+import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {get} from '../constants'
 import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
@@ -57,6 +57,10 @@ export const UnderlineNavLink = forwardRef(
       marginRight: '8px'
     }
 
+    const textStyles: BetterSystemStyleObject = {
+      whiteSpace: 'nowrap'
+    }
+
     const linkStyles = {
       display: 'inline-flex',
       color: 'fg.default',
@@ -89,7 +93,11 @@ export const UnderlineNavLink = forwardRef(
               <LeadingIcon />
             </Box>
           )}
-          {children && <span data-component="text">{children}</span>}
+          {children && (
+            <Box as="span" data-component="text" sx={textStyles}>
+              {children}
+            </Box>
+          )}
         </Box>
       </Box>
     )

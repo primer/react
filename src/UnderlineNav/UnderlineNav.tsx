@@ -1,4 +1,4 @@
-import React, {useRef, forwardRef, useCallback, useState, useLayoutEffect, MutableRefObject} from 'react'
+import React, {useRef, forwardRef, useCallback, useState, useLayoutEffect, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -15,14 +15,15 @@ Todo:
 5. figure out horizontal scroll - done
 6. Overflow on resize - done
 7. pass typescript - done
-8. Performance is wack! Resize Observer exceeds limit
-9. Test for long strings not wrapping sometimes.
-10. Test for mobile device support.
+8. Performance is wack! Resize Observer exceeds limit - done
+9. Test for long strings not wrapping sometimes. - done
+10. Test for mobile device support. - seems good
 11. Add api for Overflow button?
-12. Do we need icons in overflow dropdown? Currently not supported.
-12. Write out a proper storybook with tab selection using this nav.
-13. Write up documentation
-14. Demo video.
+12. Do we need icons in overflow dropdown? Currently not supported. - not doing
+13. Test out and fix selection and highlight
+14. Write out a proper storybook with tab selection using this nav.
+15. Write up documentation
+16. Demo video.
 */
 
 type Overflow = 'auto' | 'menu' | 'scroll'
@@ -136,11 +137,14 @@ export const UnderlineNav = forwardRef(
     }, [childWidthArray.length, overflow, newRef, callback, children, childWidthArray])
 
     useResizeObserver(() => {
-      if (overflow === 'auto' || overflow === 'menu') {
-        const childArray = getValidChildren(children)
-        overflowEffect(newRef as MutableRefObject<HTMLElement>, childArray, childWidthArray, callback)
-      }
-    })
+      // This prevents "ResizeObserver loop limit exceeded" error. Not sure if to debounce or is this enough
+      requestAnimationFrame(() => {
+        if (overflow === 'auto' || overflow === 'menu') {
+          const childArray = getValidChildren(children)
+          overflowEffect(newRef as MutableRefObject<HTMLElement>, childArray, childWidthArray, callback)
+        }
+      })
+    }, newRef as RefObject<HTMLElement>)
 
     return (
       <UnderlineNavContext.Provider value={{setChildrenWidth}}>
