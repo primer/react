@@ -35,7 +35,7 @@ status: Draft
   <SplitPageLayout.Header>
     <Placeholder label="Header" height={64} />
   </SplitPageLayout.Header>
-  <SplitPageLayout.Pane visible={{narrow: false}}>
+  <SplitPageLayout.Pane hidden={{narrow: true}}>
     <Placeholder label="Pane" height={120} />
   </SplitPageLayout.Pane>
   <SplitPageLayout.Content>
@@ -57,7 +57,7 @@ status: Draft
   <SplitPageLayout.Pane>
     <Placeholder label="Pane" height={120} />
   </SplitPageLayout.Pane>
-  <SplitPageLayout.Content visible={{narrow: false}}>
+  <SplitPageLayout.Content hidden={{narrow: true}}>
     <Placeholder label="Content" height={240} />
   </SplitPageLayout.Content>
   <SplitPageLayout.Footer>
@@ -179,10 +179,10 @@ status: Draft
     defaultValue="'line'"
   />
   <PropsTableRow
-    name="visible"
+    name="hidden"
     type={`ResponsiveValue<boolean>`}
-    defaultValue="true"
-    description="Whether the header is visible."
+    defaultValue="false"
+    description="Whether the header is hidden."
   />
   <PropsTableRow
     name="padding"
@@ -207,10 +207,10 @@ status: Draft
     description="The maximum width of the content region."
   />
   <PropsTableRow
-    name="visible"
+    name="hidden"
     type={`ResponsiveValue<boolean>`}
-    defaultValue="true"
-    description="Whether the content is visible."
+    defaultValue="false"
+    description="Whether the content is hidden."
   />
   <PropsTableRow
     name="padding"
@@ -249,10 +249,10 @@ status: Draft
     defaultValue="'line'"
   />
   <PropsTableRow
-    name="visible"
+    name="hidden"
     type={`ResponsiveValue<boolean>`}
-    defaultValue="true"
-    description="Whether the pane is visible."
+    defaultValue="false"
+    description="Whether the pane is hidden."
   />
   <PropsTableRow
     name="padding"
@@ -276,10 +276,10 @@ status: Draft
     defaultValue="'line'"
   />
   <PropsTableRow
-    name="visible"
+    name="hidden"
     type={`ResponsiveValue<boolean>`}
-    defaultValue="true"
-    description="Whether the footer is visible."
+    defaultValue="false"
+    description="Whether the footer is hidden."
   />
   <PropsTableRow
     name="padding"
