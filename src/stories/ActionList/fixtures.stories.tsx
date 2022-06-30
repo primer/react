@@ -208,7 +208,7 @@ export function DisabledStory(): JSX.Element {
     <>
       <h1>Disabled Items</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="single" showDividers role="menu" aria-label="Select a project">
+        <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
           {projects.map((project, index) => (
             <ActionList.Item
               key={index}
@@ -836,7 +836,7 @@ export function ChildWithSideEffects(): JSX.Element {
     <>
       <h1>Child with side effects</h1>
       <ErsatzOverlay>
-        <ActionList selectionVariant="multiple" role="listbox" aria-label="Select assignees">
+        <ActionList selectionVariant="multiple" role="listbox" aria-label="Assignees">
           <ActionList.Item selected={selected} onSelect={() => setSelected(!selected)} role="option">
             <ActionList.LeadingVisual>
               <Avatar src={`https://avatars.githubusercontent.com/${user.login}`} />

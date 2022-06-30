@@ -45,8 +45,10 @@ exports[`TabNav TabNav.Link renders consistently 1`] = `
 }
 
 <a
+  aria-selected={false}
   className="c0 TabNav-item"
   role="tab"
+  tabIndex={-1}
 />
 `;
 
