@@ -16,6 +16,6 @@ jobs:
     uses: primer/.github/.github/workflows/deploy.yml@main
     with:
       node_version: 14
-      install: npm ci && cd docs && npm ci
+      install: yarn && cd docs && yarn
       build: npm run build
       output_dir: docs/public
