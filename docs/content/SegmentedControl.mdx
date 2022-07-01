@@ -162,9 +162,12 @@ description: Use a segmented control to let users select an option from a short 
   <PropsTableRow
     name="variant"
     type="{
-      narrow?: 'hideLabels' | 'dropdown',
-      regular?: 'hideLabels' | 'dropdown',
-      wide?: 'hideLabels' | 'dropdown'
+      narrowLandscape?: 'hideLabels' | 'dropdown' | 'none',
+      narrow?: 'hideLabels' | 'dropdown' | 'none',
+      regular?: 'hideLabels' | 'dropdown' | 'none',
+      wide?: 'hideLabels' | 'dropdown' | 'none',
+      portrait?: 'hideLabels' | 'dropdown' | 'none',
+      landscape?: 'hideLabels' | 'dropdown' | 'none'
     }"
     description="Configure alternative ways to render the control when it gets rendered in tight spaces"
   />

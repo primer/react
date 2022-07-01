@@ -19,7 +19,7 @@ type Args = {
 
 const excludedControlKeys = ['aria-label', 'onChange', 'sx', 'variant']
 
-const variantOptions = ['dropdown', 'hideLabels', undefined]
+const variantOptions = ['dropdown', 'hideLabels', 'none', undefined]
 
 const parseVarientFromArgs = (args: Args) => {
   const {
@@ -36,7 +36,7 @@ const parseVarientFromArgs = (args: Args) => {
     regular: variantAtRegular,
     wide: variantAtWide,
     portrait: variantAtPortrait,
-    atLandscape: variantAtLandscape
+    landscape: variantAtLandscape
   }
 }
 

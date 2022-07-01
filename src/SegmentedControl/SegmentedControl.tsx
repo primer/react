@@ -14,7 +14,7 @@ type SegmentedControlProps = {
   fullWidth?: boolean
   /** The handler that gets called when a segment is selected */
   onChange?: (selectedIndex: number) => void // TODO: consider making onChange required if we force this component to be controlled
-  variant?: Partial<Record<ViewportRangeKeys, 'hideLabels' | 'dropdown'>>
+  variant?: Partial<Record<ViewportRangeKeys, 'hideLabels' | 'dropdown' | 'none'>>
 } & SxProp
 
 const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
@@ -34,8 +34,13 @@ const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
 // TODO: implement keyboard behavior to move focus using the arrow keys
 const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, sx: sxProp = {}, variant, ...rest}) => {
   const {theme} = useTheme()
-  const matchesMedia = useMatchMedia(Object.keys(variant || {}) as ViewportRangeKeys[])
-  const matchesMediaKeys = matchesMedia ? (Object.keys(matchesMedia) as ViewportRangeKeys[]) : []
+  const mediaQueryMatches = useMatchMedia(Object.keys(variant || {}) as ViewportRangeKeys[])
+  const mediaQueryMatchesKeys = mediaQueryMatches
+    ? (Object.keys(mediaQueryMatches) as ViewportRangeKeys[]).filter(
+        viewportRangeKey => typeof mediaQueryMatches === 'object' && mediaQueryMatches[viewportRangeKey]
+      )
+    : []
+  // const mediaQueryMatchesKeys = mediaQueryMatches ? (Object.keys(mediaQueryMatches) as ViewportRangeKeys[]) : []
   const selectedSegments = React.Children.toArray(children).map(
     child =>
       React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) && child.props.selected
@@ -73,19 +78,37 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
     sxProp as SxProp
   )
 
-  const shouldHideLabels = matchesMediaKeys.some(size => {
-    if (matchesMedia && variant && typeof matchesMedia === 'object') {
-      return matchesMedia[size] && variant[size] === 'hideLabels'
+  // Since we can have multiple media query matches for `variant` (e.g.: 'regular' and 'wide'),
+  // we need to pick which variant we actually show.
+  const getVariantToRender = () => {
+    // If no variant was passed, return 'none'
+    if (!variant) {
+      return 'none'
     }
-  })
 
-  const shouldRenderDropdown = matchesMediaKeys.some(size => {
-    if (matchesMedia && variant && typeof matchesMedia === 'object') {
-      return matchesMedia[size] && variant[size] === 'dropdown'
+    // Prioritize viewport range keys that override the 'regular' range in order of
+    // priorty from lowest to highest
+    // Orientation keys beat 'wide' because they are more specific.
+    const viewportRangeKeysByPriority: ViewportRangeKeys[] = ['wide', 'portrait', 'landscape']
+
+    // Filter the viewport range keys to only include those that:
+    // - are in the priority list
+    // - have a variant set
+    const variantPriorityKeys = mediaQueryMatchesKeys.filter(key => {
+      return viewportRangeKeysByPriority.includes(key) && variant[key]
+    })
+
+    // If we have to pick from multiple variants and one or more of them overrides 'regular',
+    // use the last key from the filtered list.
+    if (mediaQueryMatchesKeys.length > 1 && variantPriorityKeys.length) {
+      return variant[variantPriorityKeys[variantPriorityKeys.length - 1]]
     }
-  })
 
-  return shouldRenderDropdown ? (
+    // Otherwise, use the variant for the first matching media query
+    return typeof mediaQueryMatches === 'object' && variant[mediaQueryMatchesKeys[0]]
+  }
+
+  return getVariantToRender() === 'dropdown' ? (
     // Render the 'dropdown' variant of the SegmentedControlButton or SegmentedControlIconButton
     <ActionMenu>
       <ActionMenu.Button leadingIcon={getChildIcon(selectedChild)}>{getChildText(selectedChild)}</ActionMenu.Button>
@@ -123,9 +146,10 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
       </ActionMenu.Overlay>
     </ActionMenu>
   ) : (
+    // Render a segmented control
     <Box role="toolbar" sx={sx} {...rest}>
       {React.Children.map(children, (child, index) => {
-        // Not a valid child element - render nothing
+        // Not a valid child element - skip rendering child
         if (!React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
           return null
         }
@@ -144,7 +168,11 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
         }
 
         // Render the 'hideLabels' variant of the SegmentedControlButton
-        if (React.isValidElement<SegmentedControlButtonProps>(child) && child.type === Button && shouldHideLabels) {
+        if (
+          getVariantToRender() === 'hideLabels' &&
+          React.isValidElement<SegmentedControlButtonProps>(child) &&
+          child.type === Button
+        ) {
           const {'aria-label': ariaLabel, leadingIcon, children: childPropsChildren, ...restChildProps} = child.props
           if (!leadingIcon) {
             // eslint-disable-next-line no-console
@@ -168,7 +196,7 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
           }
         }
 
-        // Default - render the children as-is, but add the shared child props
+        // Render the children as-is and add the shared child props
         return React.cloneElement(child, sharedChildProps)
       })}
     </Box>
