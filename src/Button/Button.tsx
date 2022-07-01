@@ -1,17 +1,16 @@
 import React, {forwardRef} from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
 
-const ButtonComponent = forwardRef(
-  ({children, as: As = 'button', ...props}, forwardedRef): JSX.Element => {
+const ButtonComponent = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({children, ...props}, forwardedRef): JSX.Element => {
     return (
-      <ButtonBase ref={forwardedRef} as={As} {...props}>
+      <ButtonBase ref={forwardedRef} as="button" {...props}>
         {children}
       </ButtonBase>
     )
   }
-) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
+)
 
 ButtonComponent.displayName = 'Button'
 
