@@ -1,5 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
+import MatchMediaMock from 'jest-matchmedia-mock'
 import {render, fireEvent, waitFor} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
@@ -7,6 +8,8 @@ import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '..
 import {SegmentedControl} from '.' // TODO: update import when we move this to the global index
 import theme from '../theme'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
+import {act} from 'react-test-renderer'
+import {viewportRanges} from '../hooks/useMatchMedia'
 
 const segmentData = [
   {label: 'Preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
@@ -14,30 +17,20 @@ const segmentData = [
   {label: 'Blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />}
 ]
 
+let matchMedia: MatchMediaMock
+
 // TODO: improve test coverage
 describe('SegmentedControl', () => {
   const mockWarningFn = jest.fn()
 
   beforeAll(() => {
     jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
+    matchMedia = new MatchMediaMock()
   })
 
   afterAll(() => {
     jest.clearAllMocks()
-  })
-
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: jest.fn().mockImplementation(query => ({
-      matches: true,
-      media: query,
-      onchange: null,
-      addListener: jest.fn(), // deprecated
-      removeListener: jest.fn(), // deprecated
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn()
-    }))
+    matchMedia.clear()
   })
 
   behavesAsComponent({
@@ -73,8 +66,12 @@ describe('SegmentedControl', () => {
   })
 
   it('renders the dropdown variant', () => {
+    act(() => {
+      matchMedia.useMediaQuery(viewportRanges.narrow)
+    })
+
     const {getByText} = render(
-      <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'dropdown'}}>
+      <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 1} key={label}>
             {label}
@@ -89,8 +86,12 @@ describe('SegmentedControl', () => {
   })
 
   it('renders the hideLabels variant', () => {
+    act(() => {
+      matchMedia.useMediaQuery(viewportRanges.narrow)
+    })
+
     const {getByLabelText} = render(
-      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'hideLabels'}}>
+      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label, icon}, index) => (
           <SegmentedControl.Button leadingIcon={icon} selected={index === 1} key={label}>
             {label}
@@ -194,16 +195,15 @@ describe('SegmentedControl', () => {
   })
 
   it('calls onChange with index of clicked segment button when using the dropdown variant', async () => {
+    act(() => {
+      matchMedia.useMediaQuery(viewportRanges.narrow)
+    })
     const handleChange = jest.fn()
     const component = render(
       <ThemeProvider theme={theme}>
         <SSRProvider>
           <BaseStyles>
-            <SegmentedControl
-              aria-label="File view"
-              onChange={handleChange}
-              variant={{narrow: 'dropdown', regular: 'dropdown'}}
-            >
+            <SegmentedControl aria-label="File view" onChange={handleChange} variant={{narrow: 'dropdown'}}>
               {segmentData.map(({label}, index) => (
                 <SegmentedControl.Button selected={index === 0} key={label}>
                   {label}
@@ -225,12 +225,15 @@ describe('SegmentedControl', () => {
   })
 
   it('calls segment button onClick if it is passed when using the dropdown variant', async () => {
+    act(() => {
+      matchMedia.useMediaQuery(viewportRanges.narrow)
+    })
     const handleClick = jest.fn()
     const component = render(
       <ThemeProvider theme={theme}>
         <SSRProvider>
           <BaseStyles>
-            <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'dropdown'}}>
+            <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
               {segmentData.map(({label}, index) => (
                 <SegmentedControl.Button selected={index === 0} key={label} onClick={handleClick}>
                   {label}
@@ -252,10 +255,13 @@ describe('SegmentedControl', () => {
   })
 
   it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
+    act(() => {
+      matchMedia.useMediaQuery(viewportRanges.narrow)
+    })
     const consoleSpy = jest.spyOn(global.console, 'warn')
 
     render(
-      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'hideLabels'}}>
+      <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label}, index) => (
           <SegmentedControl.Button selected={index === 1} key={label}>
             {label}
