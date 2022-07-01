@@ -230,7 +230,7 @@ export const List = React.forwardRef<HTMLUListElement, ListProps>((props, forwar
     groups = [...groupMap.values()]
   }
 
-  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown})
+  const {containerRef} = useFocusZone({bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd})
 
   return (
     <div ref={containerRef as React.RefObject<HTMLDivElement>}>
