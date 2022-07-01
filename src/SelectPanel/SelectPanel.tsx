@@ -142,9 +142,6 @@ export function SelectPanel({
     })
   }, [items, selected, setFinalItemsSelected, finalItemsSelected])
 
-  // eslint-disable-next-line no-console
-  React.useEffect(() => console.debug({finalItemsSelected}), [finalItemsSelected])
-
   const onSaveClickHandler = React.useCallback(() => {
     if (isMultiSelectVariant(selected)) {
       const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
