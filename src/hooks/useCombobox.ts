@@ -61,14 +61,6 @@ export const useCombobox = <T>({
     [list]
   )
 
-  const selectFirstItem = useCallback(() => {
-    if (list) {
-      const optionElements = getOptionElements()
-      optionElements.shift()?.setAttribute('aria-selected', 'true')
-      for (const el of optionElements) el.setAttribute('aria-selected', 'false')
-    }
-  }, [list, getOptionElements])
-
   const onCommit = useCallback(
     (e: Event) => {
       const nativeEvent = e as Event & {target: HTMLElement}
@@ -119,7 +111,7 @@ export const useCombobox = <T>({
         comboboxInstance.stop()
       }
     },
-    [isOpen, comboboxInstance, selectFirstItem]
+    [isOpen, comboboxInstance]
   )
 
   useEffect(
@@ -139,10 +131,10 @@ export const useCombobox = <T>({
       option.addEventListener('mousedown', onOptionMouseDown)
     }
 
-    selectFirstItem()
+    comboboxInstance?.navigate(1) // select first item
 
     return () => {
       for (const option of optionElements) option.removeEventListener('mousedown', onOptionMouseDown)
     }
-  }, [getOptionElements, optionIdPrefix, options, selectFirstItem, onOptionMouseDown])
+  }, [getOptionElements, optionIdPrefix, options, comboboxInstance, onOptionMouseDown])
 }
