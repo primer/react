@@ -17,7 +17,15 @@ type Args = {
   variantAtLandscape: ResponsiveVariantOptions
 }
 
-const excludedControlKeys = ['aria-label', 'onChange', 'sx', 'variant']
+const excludedControlKeys = [
+  'aria-label',
+  'onChange',
+  'sx',
+  'variant',
+  'aria-label',
+  'aria-labelledby',
+  'aria-describedby'
+]
 
 const variantOptions = ['dropdown', 'hideLabels', 'none', undefined]
 
