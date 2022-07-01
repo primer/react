@@ -13,7 +13,7 @@ type SegmentedControlProps = {
   /** Whether the control fills the width of its parent */
   fullWidth?: boolean
   /** The handler that gets called when a segment is selected */
-  onChange?: (selectedIndex: number) => void // TODO: consider making onChange required if we force this component to be controlled
+  onChange?: (selectedIndex: number) => void
   variant?: Partial<Record<ViewportRangeKeys, 'hideLabels' | 'dropdown' | 'none'>>
 } & SxProp
 

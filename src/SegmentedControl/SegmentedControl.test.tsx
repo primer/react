@@ -19,7 +19,6 @@ const segmentData = [
 
 let matchMedia: MatchMediaMock
 
-// TODO: improve test coverage
 describe('SegmentedControl', () => {
   const mockWarningFn = jest.fn()
 
