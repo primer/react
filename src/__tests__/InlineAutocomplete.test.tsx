@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
-import {fireEvent, render, within} from '@testing-library/react'
+import React, {useLayoutEffect, useState} from 'react'
+import {fireEvent, render, within, screen, waitFor, act} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions, Trigger} from '../InlineAutocomplete'
 import FormControl from '../FormControl'
 import {ActionList} from '../ActionList'
 import Textarea from '../Textarea'
+import ThemeProvider from '../ThemeProvider'
 
 const label = 'Inline Autocomplete'
 
@@ -28,7 +29,8 @@ const UncontrolledInlineAutocomplete = ({loading = false}: {loading?: boolean}) 
   const [suggestions, setSuggestions] = useState<Suggestions>([])
 
   const showUserSuggestions = (query: string) => {
-    setSuggestions(users.filter(user => user.includes(query)))
+    const matchingUsers = users.filter(user => user.includes(query))
+    setSuggestions(matchingUsers)
   }
 
   const showEmojiSuggestions = (query: string) => {
@@ -74,19 +76,41 @@ const UncontrolledInlineAutocomplete = ({loading = false}: {loading?: boolean}) 
     }
   }
 
+  useLayoutEffect(() => {
+    // combobox-nav attempts to filter out 'hidden' options by checking if the option has an
+    // offsetHeight or width > 0. In JSDom, all elements have offsetHeight = offsetWidth = 0,
+    // so we need to override at least one to make the class recognize that any options exist.
+    for (const option of document.querySelectorAll('[role=option]'))
+      Object.defineProperty(option, 'offsetHeight', {
+        get: () => 1
+      })
+  })
+
   return (
-    <FormControl>
-      <FormControl.Label>{label}</FormControl.Label>
-      <InlineAutocomplete
-        suggestions={suggestions}
-        onShowSuggestions={onShowSuggestions}
-        onHideSuggestions={() => setSuggestions([])}
-        triggers={triggers}
-      >
-        <Textarea />
-      </InlineAutocomplete>
-    </FormControl>
+    <ThemeProvider>
+      <FormControl>
+        <FormControl.Label>{label}</FormControl.Label>
+        <InlineAutocomplete
+          suggestions={suggestions}
+          onShowSuggestions={onShowSuggestions}
+          onHideSuggestions={() => setSuggestions([])}
+          triggers={triggers}
+        >
+          <Textarea />
+        </InlineAutocomplete>
+      </FormControl>
+      <button>Button</button> {/* gives us another focuseable element to tab to */}
+      <div id="__primerPortalRoot__" />
+    </ThemeProvider>
   )
+}
+
+const type = (input: HTMLElement, text: string) => {
+  // The `act` call _shouldn't_ be necessary, but it doesn't work without it - we don't see any
+  // events after the first `setSuggestions` call. Maybe this is a bug with user-event v13? It
+  // doesn't seem to happen in v14+.
+  // Extracted the workaround into a function to make it easy to swap out later.
+  act(() => userEvent.type(input, text))
 }
 
 describe('InlineAutocomplete', () => {
@@ -106,159 +130,174 @@ describe('InlineAutocomplete', () => {
   it('does not show suggestions when typing and not triggered', () => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
-    userEvent.type(getByLabelText(label), 'hello world')
+    type(getByLabelText(label), 'hello world')
 
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('shows suggestions when triggered', () => {
-    const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
-
-    const input = getByLabelText(label)
-    userEvent.type(input, 'hello @')
-
-    expect(queryByRole('listbox')).toBeVisible()
-    expect(input).toHaveAttribute('aria-expanded', 'true')
-  })
-
-  it('updates suggestions upon typing', () => {
     const {getByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello @')
+    type(input, 'hello @')
 
+    expect(getByRole('listbox')).toBeVisible()
+    expect(input).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('applies correct ARIA roles when list is open', () => {
+    const {getByLabelText} = render(<UncontrolledInlineAutocomplete />)
+
+    const input = getByLabelText(label)
+    type(input, 'hello @')
+
+    expect(input).toHaveAttribute('aria-expanded', 'true')
+    expect(input).toHaveAttribute('role', 'combobox')
+    expect(input).toHaveAttribute('aria-controls')
+    expect(input).toHaveAttribute('aria-autocomplete', 'list')
+    expect(input).toHaveAttribute('aria-haspopup', 'listbox')
+  })
+
+  it('updates suggestions upon typing more characters', () => {
+    const {getByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
+
+    const input1 = getByLabelText(label)
+    type(input1, 'hello @pr')
     const list = getByRole('listbox')
-    const items = () => within(list).queryAllByRole('option')
-
-    expect(items()).toHaveLength(3)
-
-    userEvent.type(input, 'mona')
-    expect(items()).toHaveLength(1)
+    expect(within(list).queryAllByRole('option')).toHaveLength(1)
   })
 
   it('hides suggestions on Escape', () => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello @')
+    type(input, 'hello @')
+    expect(queryByRole('listbox')).toBeVisible()
     userEvent.keyboard('{Escape}')
 
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('hides suggestions when no results match', () => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello @xyz')
+    type(input, 'hello @')
+    expect(queryByRole('listbox')).toBeVisible()
+    userEvent.keyboard('xyz')
 
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('hides suggestions when there is a space immediately after the trigger', () => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'see # ')
+    type(input, 'see #')
+    expect(queryByRole('listbox')).toBeVisible()
+    userEvent.keyboard(' ')
 
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('hides suggestions when the input is clicked', () => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello @')
+    type(input, 'hello @')
+    expect(queryByRole('listbox')).toBeVisible()
     userEvent.click(input)
 
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('hides suggestions when the page is clicked', () => {
     const {queryByRole, getByLabelText, container} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello @')
+    type(input, 'hello @')
+    expect(queryByRole('listbox')).toBeVisible()
     userEvent.click(container)
 
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('hides suggestions when input is blurred', () => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello @')
+    type(input, 'hello @')
+    // eslint-disable-next-line github/no-blur
     fireEvent.blur(input)
 
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('hides suggestions when trigger character is deleted', () => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello @')
+    type(input, 'hello @')
+    expect(queryByRole('listbox')).toBeVisible()
     userEvent.keyboard('{Backspace}')
 
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it.each(['{Enter}', ' '])('for single-word triggers: hides suggestions when "%s" pressed', key => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello @')
+    type(input, 'hello @')
 
     expect(queryByRole('listbox')).toBeVisible()
     userEvent.keyboard(key)
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it.each(['.', '{Enter}'])('for multi-word triggers: hides suggestions when "%s" pressed', key => {
     const {queryByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'see #')
+    type(input, 'see #')
 
     expect(queryByRole('listbox')).toBeVisible()
     userEvent.keyboard(key)
-    expect(queryByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('allows space in query for multi-word triggers', () => {
-    const {queryByRole, getByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
+    const {getByRole, getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'hello #fails to')
+    type(input, 'see #fails to')
 
-    expect(queryByRole('listbox')).toBeVisible()
     expect(within(getByRole('listbox')).queryAllByRole('option')).toHaveLength(1)
   })
 
-  it.each(['{Enter}', '{Tab}'])('applies the first suggestion on "%s" keypress without losing focus', key => {
-    const {getByLabelText, getByRole, findByRole} = render(<UncontrolledInlineAutocomplete />)
+  it('applies the first suggestion on Enter key press', () => {
+    const {getByLabelText, getByRole, queryByRole} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, `hello @`)
+    type(input, `hello @`)
 
     const list = getByRole('listbox')
     expect(input).toHaveAttribute('aria-activedescendant', expect.stringContaining('option-0'))
     expect(within(list).queryAllByRole('option')[0]).toHaveAttribute('aria-selected', 'true')
-    expect(within(list).queryAllByRole('option')[1]).toHaveAttribute('aria-selected', 'false')
 
-    userEvent.keyboard(key)
+    userEvent.keyboard('{Enter}')
 
-    expect(input).toHaveValue('hello @monalisa')
+    expect(input).toHaveValue('hello @monalisa ')
     expect(input).toHaveFocus()
-    expect(findByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('selects a suggestion with arrow keys', () => {
-    const {getByLabelText, getByRole, findByRole} = render(<UncontrolledInlineAutocomplete />)
+    const {getByLabelText, getByRole, queryByRole} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, `hello @`)
+    type(input, 'hello @')
+
     userEvent.keyboard('{ArrowDown}')
 
     expect(input).toHaveFocus()
@@ -269,64 +308,65 @@ describe('InlineAutocomplete', () => {
 
     expect(input).toHaveValue('hello @github ')
     expect(input).toHaveFocus()
-    expect(findByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('applies a suggestion when clicked', () => {
-    const {getByLabelText, getByRole, findByRole} = render(<UncontrolledInlineAutocomplete />)
+    const {getByLabelText, getByRole, queryByRole} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, `hello @`)
+    type(input, `hello @`)
 
     const option = within(getByRole('listbox')).queryAllByRole('option')[2]
     userEvent.click(option)
 
     expect(input).toHaveValue('hello @primer ')
     expect(input).toHaveFocus()
-    expect(findByRole('listbox')).not.toBeVisible()
+    expect(queryByRole('listbox')).not.toBeInTheDocument()
   })
 
   it('applies the value of the suggestion when different from the display text', () => {
     const {getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'please see #updates')
+    type(input, 'please see #updates')
     userEvent.keyboard('{Enter}')
 
     expect(input).toHaveValue('please see #3 ')
   })
 
-  it('replaces the trigger character when `keepTriggerCharOnCommit` is false', () => {
+  it('deletes the trigger character when `keepTriggerCharOnCommit` is false', () => {
     const {getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'Hello! :sm')
+    type(input, 'Hello! :sm')
     userEvent.keyboard('{Enter}')
 
+    // if the trigger character was not deleted, the value would be "Hello! ::smile:"
     expect(input).toHaveValue('Hello! :smile: ')
   })
 
   it('shows a loading indicator and allows tabbing away when loading', () => {
-    const {getByLabelText, getByRole} = render(<UncontrolledInlineAutocomplete />)
+    const {getByLabelText, getByRole} = render(<UncontrolledInlineAutocomplete loading />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'please see #')
+    type(input, 'please see #')
 
     const list = getByRole('listbox')
     expect(within(list).queryAllByRole('option')).toHaveLength(0)
 
-    userEvent.keyboard('{Tab}')
+    userEvent.tab()
 
     expect(input).not.toHaveFocus()
   })
 
-  it('queries based on the last trigger character', () => {
+  it('queries based on the last trigger character found', () => {
     const {getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    userEvent.type(input, 'Hello! @:')
+    type(input, 'Hello! #test :')
     userEvent.keyboard('{Enter}')
 
-    expect(input).toHaveValue('Hello! @:heart: ')
+    expect(input).toHaveValue('Hello! #test :heart: ')
   })
 })
