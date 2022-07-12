@@ -18,7 +18,15 @@ export default {
       )
     }
   ],
-  argTypes: {}
+  argTypes: {
+    loading: {
+      name: 'Loading',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    }
+  }
 } as Meta
 
 interface User {
@@ -44,10 +52,15 @@ const UserSuggestion = ({user, ...props}: {user: User} & ActionListItemProps) =>
   </ActionList.Item>
 )
 
-export const Default = () => {
+export const Default = ({loading}: {loading: boolean}) => {
   const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
   const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    if (loading) {
+      setSuggestions('loading')
+      return
+    }
+
     const filteredUsers = sampleUsers.filter(
       user =>
         user.login.toLowerCase().includes(event.query.toLowerCase()) ||

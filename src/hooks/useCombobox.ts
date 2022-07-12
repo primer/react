@@ -131,7 +131,7 @@ export const useCombobox = <T>({
       option.addEventListener('mousedown', onOptionMouseDown)
     }
 
-    comboboxInstance?.navigate(1) // select first item
+    if (optionElements.length >= 1) comboboxInstance?.navigate(1) // select first item
 
     return () => {
       for (const option of optionElements) option.removeEventListener('mousedown', onOptionMouseDown)
