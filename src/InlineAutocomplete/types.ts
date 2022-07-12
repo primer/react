@@ -1,6 +1,6 @@
 import {ActionListItemProps} from '../ActionList'
 
-export interface Trigger {
+export type Trigger = {
   /** A single character that can cause the suggestion list to open. */
   triggerChar: string
   /**
@@ -16,7 +16,7 @@ export interface Trigger {
   keepTriggerCharOnCommit?: boolean
 }
 
-export interface ShowSuggestionsEvent {
+export type ShowSuggestionsEvent = {
   /** The trigger that caused this query. */
   trigger: Trigger
   /** The query string. */
@@ -43,7 +43,7 @@ export type Suggestion =
 
 export type Suggestions = Array<Suggestion> | 'loading'
 
-export interface Coordinates {
+export type Coordinates = {
   top: number
   left: number
 }

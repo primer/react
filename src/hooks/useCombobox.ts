@@ -2,14 +2,14 @@ import Combobox from '@github/combobox-nav'
 import {useSSRSafeId} from '@react-aria/ssr'
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
 
-export interface ComboboxCommitEvent<T> {
+export type ComboboxCommitEvent<T> = {
   /** The underlying `combobox-commit` event. */
   nativeEvent: Event & {target: HTMLElement}
   /** The option that was committed. */
   option: T
 }
 
-interface UseComboboxSettings<T> {
+type UseComboboxSettings<T> = {
   /** When open, the combobox will start listening for keyboard events. */
   isOpen: boolean
   /**

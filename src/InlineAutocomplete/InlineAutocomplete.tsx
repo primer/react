@@ -13,7 +13,7 @@ import {
 } from './utils'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
 
-export interface InlineAutocompleteProps {
+export type InlineAutocompleteProps = {
   /** Register the triggers that can cause suggestions to appear. */
   triggers: Array<Trigger>
   /**

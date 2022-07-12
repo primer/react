@@ -48,9 +48,9 @@ const SyntheticChangeEvent = <Element extends HTMLElement>(
   })
 })
 
-interface UseSyntheticChangeSettings<
+type UseSyntheticChangeSettings<
   Element extends HTMLTextAreaElement | HTMLInputElement = HTMLTextAreaElement | HTMLInputElement
-> {
+> = {
   /** Ref to the input element to change. */
   inputRef: React.RefObject<Element>
   /**

@@ -8,7 +8,7 @@ import Overlay from '../Overlay'
 import {Suggestion, Suggestions, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'
 
-interface AutoCompleteSuggestionsProps {
+type AutoCompleteSuggestionsProps = {
   suggestions: Suggestions | null
   portalName?: string
   // make top/left primitives instead of a Coordinates object to avoid extra re-renders
