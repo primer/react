@@ -2,6 +2,7 @@ import React, {cloneElement, useRef} from 'react'
 import Box from '../Box'
 import {useCombinedRefs} from '../hooks/useCombinedRefs'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
+import Portal from '../Portal'
 import {BetterSystemStyleObject} from '../sx'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
@@ -9,6 +10,7 @@ import {
   augmentHandler,
   calculateSuggestionsQuery,
   getAbsoluteCharacterCoordinates,
+  getSuggestionValue,
   requireChildrenToBeInput
 } from './utils'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
@@ -156,6 +158,32 @@ const InlineAutocomplete = ({
     ref: inputRef
   })
 
+  /**
+   * Even thoughn we apply all the correct aria attributes, screen readers don't fully
+   * support this use case and so they don't have a native way to indicate to the user when
+   * there are suggestions available. So we use some hidden text with aria-live to politely
+   * indicate what's available and how to use it.
+   *
+   * This text should be consistent and the important info should be first, because users
+   * will hear it as they type - if they have heard the message before they should be able
+   * to recognize it and quickly apply the first suggestion without listening to the rest
+   * of the message.
+   *
+   * When screen reader users navigate using arrow keys, the `aria-activedescendant` will
+   * change and will be read out so we don't need to handle that interaction here.
+   */
+  const suggestionsDescription = !suggestionsVisible
+    ? // We could say "No suggestions available" but it would confusingly be read on first render. Better to not say anything and avoid annoying the user.
+      ''
+    : suggestions === 'loading'
+    ? 'Loading autocomplete suggestions…'
+    : suggestions.length === 1
+    ? // It's important to include both Enter and Tab because we are telling the user that we are hijacking these keys:
+      `1 autocomplete suggestion available: "${getSuggestionValue(suggestions[0])}". Press Enter or Tab to insert it.`
+    : `${suggestions.length} autocomplete suggestions available. The first is "${getSuggestionValue(
+        suggestions[0]
+      )}"; press Enter or Tab to insert it.`
+
   return (
     // Try to get as close as possible to making the container 'invisible' by making it shrink
     // tight to child input
@@ -170,6 +198,13 @@ const InlineAutocomplete = ({
         left={suggestionsOffset.left}
         visible={suggestionsVisible}
       />
+
+      <Portal>
+        {/* This should NOT be linked to the input with aria-describedby or screen readers may not read the live updates. */}
+        <span aria-live="polite" aria-atomic style={{clipPath: 'circle(0)'}}>
+          {suggestionsDescription}
+        </span>
+      </Portal>
     </Box>
   )
 }

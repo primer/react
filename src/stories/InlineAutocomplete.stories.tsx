@@ -47,8 +47,7 @@ const UserSuggestion = ({user, ...props}: {user: User} & ActionListItemProps) =>
     <ActionList.LeadingVisual>
       <Avatar src={user.avatar} square={user.type === 'organization'} />
     </ActionList.LeadingVisual>
-    {user.name}
-    <ActionList.Description>{user.login}</ActionList.Description>
+    {user.name} <ActionList.Description>{user.login}</ActionList.Description>
   </ActionList.Item>
 )
 

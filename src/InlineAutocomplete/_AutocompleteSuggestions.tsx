@@ -78,7 +78,7 @@ const AutocompleteSuggestions = ({
     options: Array.isArray(suggestions) ? suggestions : []
   })
 
-  return visible ? (
+  return (
     <Overlay
       onEscape={onClose}
       onClickOutside={onClose}
@@ -86,6 +86,7 @@ const AutocompleteSuggestions = ({
       preventFocusOnOpen
       portalContainerName={portalName}
       sx={{position: 'fixed'}}
+      visibility={visible ? 'visible' : 'hidden'}
       {...{top, left}}
     >
       <ActionList selectionVariant="single" ref={setList}>
@@ -98,8 +99,6 @@ const AutocompleteSuggestions = ({
         )}
       </ActionList>
     </Overlay>
-  ) : (
-    <></>
   )
 }
 AutocompleteSuggestions.displayName = 'SuggestionList'

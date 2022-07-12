@@ -129,9 +129,8 @@ export const useCombobox = <T>({
       if (!option.id || option.id.startsWith(optionIdPrefix)) option.id = `${optionIdPrefix}-${i}`
       option.setAttribute('data-combobox-list-index', i.toString())
       option.addEventListener('mousedown', onOptionMouseDown)
+      if (i === 0) option.setAttribute('aria-selected', 'true')
     }
-
-    if (optionElements.length >= 1) comboboxInstance?.navigate(1) // select first item
 
     return () => {
       for (const option of optionElements) option.removeEventListener('mousedown', onOptionMouseDown)
