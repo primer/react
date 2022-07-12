@@ -159,8 +159,8 @@ const InlineAutocomplete = ({
   })
 
   /**
-   * Even thoughn we apply all the correct aria attributes, screen readers don't fully
-   * support this use case and so they don't have a native way to indicate to the user when
+   * Even thoughn we apply all the aria attributes, screen readers don't fully support this
+   * dynamic use case and so they don't have a native way to indicate to the user when
    * there are suggestions available. So we use some hidden text with aria-live to politely
    * indicate what's available and how to use it.
    *
@@ -173,8 +173,7 @@ const InlineAutocomplete = ({
    * change and will be read out so we don't need to handle that interaction here.
    */
   const suggestionsDescription = !suggestionsVisible
-    ? // We could say "No suggestions available" but it would confusingly be read on first render. Better to not say anything and avoid annoying the user.
-      ''
+    ? ''
     : suggestions === 'loading'
     ? 'Loading autocomplete suggestions…'
     : suggestions.length === 1
@@ -185,8 +184,7 @@ const InlineAutocomplete = ({
       )}"; press Enter or Tab to insert it.`
 
   return (
-    // Try to get as close as possible to making the container 'invisible' by making it shrink
-    // tight to child input
+    // Try to get as close as possible to making the container 'invisible' by making it shrink tight to child input
     <Box sx={{display: 'inline-block', '& > *': {width: '100%'}, ...sx, position: 'relative'}}>
       {input}
       <AutocompleteSuggestions
@@ -200,8 +198,9 @@ const InlineAutocomplete = ({
       />
 
       <Portal>
-        {/* This should NOT be linked to the input with aria-describedby or screen readers may not read the live updates. */}
-        <span aria-live="polite" aria-atomic style={{clipPath: 'circle(0)'}}>
+        {/* This should NOT be linked to the input with aria-describedby or screen readers may not read the live updates.
+        The assertive live attribute ensures the suggestions are read instead of the input label, which voiceover will try to re-read when the role changes. */}
+        <span aria-live="assertive" aria-atomic style={{clipPath: 'circle(0)'}}>
           {suggestionsDescription}
         </span>
       </Portal>

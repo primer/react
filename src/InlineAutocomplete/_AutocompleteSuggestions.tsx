@@ -78,7 +78,12 @@ const AutocompleteSuggestions = ({
     options: Array.isArray(suggestions) ? suggestions : []
   })
 
-  return (
+  // Conditional rendering appears wrong at first - it means that we are reconstructing the
+  // Combobox instance every time the suggestions appear. But this is what we want - otherwise
+  // the textarea would always have the `combobox` role, which is incorrect (a textarea should
+  // not technically ever be a combobox). We compromise by dynamically applying the combobox
+  // role only when suggestions are available.
+  return visible ? (
     <Overlay
       onEscape={onClose}
       onClickOutside={onClose}
@@ -86,7 +91,6 @@ const AutocompleteSuggestions = ({
       preventFocusOnOpen
       portalContainerName={portalName}
       sx={{position: 'fixed'}}
-      visibility={visible ? 'visible' : 'hidden'}
       {...{top, left}}
     >
       <ActionList selectionVariant="single" ref={setList}>
@@ -99,6 +103,8 @@ const AutocompleteSuggestions = ({
         )}
       </ActionList>
     </Overlay>
+  ) : (
+    <></>
   )
 }
 AutocompleteSuggestions.displayName = 'SuggestionList'

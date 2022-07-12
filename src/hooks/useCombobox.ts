@@ -78,7 +78,6 @@ export const useCombobox = <T>({
   useEffect(
     function initializeComboboxInstance() {
       if (input && list) {
-        // The Combobox constructor sets the input role but not the list role
         if (!list.getAttribute('role')) list.setAttribute('role', 'listbox')
 
         const cb = new Combobox(input, list)

@@ -145,17 +145,17 @@ describe('InlineAutocomplete', () => {
     expect(input).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('applies correct ARIA attributes', () => {
+  it('does not apply ARIA attributes when no suggestions are available', () => {
     const {getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
-    type(input, 'hello @')
+    type(input, 'hello')
 
-    expect(input).toHaveAttribute('aria-expanded', 'false')
-    expect(input).toHaveAttribute('role', 'combobox')
-    expect(input).toHaveAttribute('aria-controls')
-    expect(input).toHaveAttribute('aria-autocomplete', 'list')
-    expect(input).toHaveAttribute('aria-haspopup', 'listbox')
+    expect(input).not.toHaveAttribute('role')
+    expect(input).not.toHaveAttribute('aria-expanded')
+    expect(input).not.toHaveAttribute('aria-controls')
+    expect(input).not.toHaveAttribute('aria-autocomplete')
+    expect(input).not.toHaveAttribute('aria-haspopup')
     expect(input).not.toHaveAttribute('aria-activedescendant')
   })
 
@@ -302,7 +302,7 @@ describe('InlineAutocomplete', () => {
     type(input, `hello @`)
 
     const list = getByRole('listbox')
-    expect(input).toHaveAttribute('aria-activedescendant', expect.stringContaining('option-0'))
+    expect(input).not.toHaveAttribute('aria-activedescendant')
     expect(within(list).queryAllByRole('option')[0]).toHaveAttribute('aria-selected', 'true')
 
     userEvent.keyboard('{Enter}')
@@ -367,13 +367,14 @@ describe('InlineAutocomplete', () => {
   })
 
   it('shows a loading indicator and allows tabbing away when loading', () => {
-    const {getByLabelText, getByRole} = render(<UncontrolledInlineAutocomplete loading />)
+    const {getByLabelText, getByRole, queryByText} = render(<UncontrolledInlineAutocomplete loading />)
 
     const input = getByLabelText(label)
     type(input, 'please see #')
 
     const list = getByRole('listbox')
     expect(within(list).queryAllByRole('option')).toHaveLength(0)
+    expect(queryByText('Loading autocomplete suggestions…')).toBeInTheDocument()
 
     userEvent.tab()
 
@@ -381,15 +382,13 @@ describe('InlineAutocomplete', () => {
   })
 
   it('queries based on the last trigger character found', () => {
-    const {getByLabelText, queryByText} = render(<UncontrolledInlineAutocomplete />)
+    const {getByLabelText} = render(<UncontrolledInlineAutocomplete />)
 
     const input = getByLabelText(label)
     type(input, 'Hello! #test :')
     userEvent.keyboard('{Enter}')
 
     expect(input).toHaveValue('Hello! #test :heart: ')
-
-    expect(queryByText('Loading autocomplete suggestions…')).toBeInTheDocument()
   })
 
   it('reads out an accessible message when the suggestions become available and change', () => {
@@ -402,7 +401,7 @@ describe('InlineAutocomplete', () => {
       '3 autocomplete suggestions available. The first is "monalisa"; press Enter or Tab to insert it.'
     )!
     expect(statusMessage).toBeInTheDocument()
-    expect(statusMessage).toHaveAttribute('aria-live', 'polite')
+    expect(statusMessage).toHaveAttribute('aria-live', 'assertive')
 
     userEvent.keyboard('gith')
     expect(statusMessage).toHaveTextContent(
