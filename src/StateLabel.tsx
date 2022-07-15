@@ -2,6 +2,7 @@ import {
   GitMergeIcon,
   GitPullRequestIcon,
   IssueClosedIcon,
+  SkipIcon,
   IssueDraftIcon,
   IssueOpenedIcon,
   QuestionIcon
@@ -18,6 +19,7 @@ const octiconMap = {
   issueOpened: IssueOpenedIcon,
   pullOpened: GitPullRequestIcon,
   issueClosed: IssueClosedIcon,
+  issueClosedNotPlanned: SkipIcon,
   pullClosed: GitPullRequestIcon,
   pullMerged: GitMergeIcon,
   draft: GitPullRequestIcon,
@@ -28,7 +30,11 @@ const colorVariants = variant({
   prop: 'status',
   variants: {
     issueClosed: {
-      backgroundColor: 'danger.emphasis',
+      backgroundColor: 'done.emphasis',
+      color: 'fg.onEmphasis'
+    },
+    issueClosedNotPlanned: {
+      backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis'
     },
     pullClosed: {
