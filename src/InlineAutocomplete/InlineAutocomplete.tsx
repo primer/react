@@ -176,12 +176,10 @@ const InlineAutocomplete = ({
     ? ''
     : suggestions === 'loading'
     ? 'Loading autocomplete suggestions…'
-    : suggestions.length === 1
-    ? // It's important to include both Enter and Tab because we are telling the user that we are hijacking these keys:
-      `1 autocomplete suggestion available: "${getSuggestionValue(suggestions[0])}". Press Enter or Tab to insert it.`
-    : `${suggestions.length} autocomplete suggestions available. The first is "${getSuggestionValue(
-        suggestions[0]
-      )}"; press Enter or Tab to insert it.`
+    : // It's important to include both Enter and Tab because we are telling the user that we are hijacking these keys:
+      `${suggestions.length} autocomplete ${
+        suggestions.length === 1 ? 'suggestion' : 'suggestions'
+      } available; "${getSuggestionValue(suggestions[0])}" is highlighted. Press Enter or Tab to insert.`
 
   return (
     // Try to get as close as possible to making the container 'invisible' by making it shrink tight to child input
