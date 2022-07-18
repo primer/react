@@ -71,11 +71,14 @@ const useMatchMedia = (viewportRange: ViewportRangeKeys | ViewportRangeKeys[]) =
       }
     }
 
-    // if a single string was passed for viewport range, just update dispatch an update to that viewport range
+    // if a single string was passed for viewport range, just dispatch an update to that viewport range
     if (typeof viewportRange === 'string' && state[viewportRange] !== mediaQueries[viewportRange]?.matches) {
       dispatch({type: viewportRange, payload: mediaQueries[viewportRange]?.matches})
     }
 
+    // if a responsive object was passed for viewport range:
+    // - add matchMedia event listeners to all viewport ranges
+    // - dispatch updates to all viewport ranges
     for (const rangeKey of Object.keys(mediaQueries) as ViewportRangeKeys[]) {
       mediaQueries[rangeKey as ViewportRangeKeys]?.addEventListener(
         'change',
@@ -87,6 +90,7 @@ const useMatchMedia = (viewportRange: ViewportRangeKeys | ViewportRangeKeys[]) =
       }
     }
 
+    // remove matchMedia event listeners on unmount
     return () => {
       for (const rangeKey of Object.keys(mediaQueries)) {
         mediaQueries[rangeKey as ViewportRangeKeys]?.removeEventListener(

@@ -14,6 +14,7 @@ type SegmentedControlProps = {
   fullWidth?: boolean
   /** The handler that gets called when a segment is selected */
   onChange?: (selectedIndex: number) => void
+  /** Configure alternative ways to render the control when it gets rendered in tight spaces */
   variant?: Partial<Record<ViewportRangeKeys, 'hideLabels' | 'dropdown' | 'none'>>
 } & SxProp
 
