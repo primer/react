@@ -15,6 +15,8 @@ import {
   getTextInputArgTypes,
   textInputWithTokensArgTypes
 } from '../utils/story-helpers'
+import {within, userEvent} from '@storybook/testing-library'
+import {expect} from '@storybook/jest'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>
@@ -248,6 +250,15 @@ export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
       </FormControl>
     </Box>
   )
+}
+
+Default.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+
+  const inputBox = await canvas.getByTestId('autocompleteInput')
+  await userEvent.click(inputBox)
+  const firstAutoCompleteOption = canvas.getByText('css')
+  await expect(firstAutoCompleteOption).toBeInTheDocument()
 }
 
 export const WithTokenInput = (args: FormControlArgs<AutocompleteArgs>) => {
