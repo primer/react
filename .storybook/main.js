@@ -11,7 +11,6 @@ module.exports = {
       ? ['@whitespace/storybook-addon-html']
       : [])
   ],
-  taticDirs: ['../docs/public/storybook'],
   babel: options => {
     options.plugins.push(['open-source', {editor: process.env.NODE_ENV === 'production' ? 'github' : 'vscode'}])
     return options
