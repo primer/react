@@ -36,6 +36,7 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
 
   return (
     <Item
+      data-component="ActionList.LinkItem"
       active={active}
       sx={{paddingY: 0, paddingX: 0}}
       _PrivateItemWrapper={({children}) => (

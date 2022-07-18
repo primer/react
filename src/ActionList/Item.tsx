@@ -259,6 +259,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
         {slots => (
           <LiBox
+            data-component="ActionList.Item"
             ref={forwardedRef}
             sx={merge<BetterSystemStyleObject>(styles, sxProp)}
             onClick={clickHandler}

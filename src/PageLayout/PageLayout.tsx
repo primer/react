@@ -52,11 +52,16 @@ const Root: React.FC<PageLayoutProps> = ({
   rowGap = 'normal',
   columnGap = 'normal',
   children,
-  sx = {}
+  sx = {},
+  ...props
 }) => {
   return (
     <PageLayoutContext.Provider value={{padding, rowGap, columnGap}}>
-      <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}>
+      <Box
+        data-component="PageLayout"
+        sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
+        {...props}
+      >
         <Box
           sx={{
             maxWidth: containerWidths[containerWidth],
@@ -184,7 +189,8 @@ const Header: React.FC<PageLayoutHeaderProps> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   children,
-  sx = {}
+  sx = {},
+  ...props
 }) => {
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
@@ -198,6 +204,7 @@ const Header: React.FC<PageLayoutHeaderProps> = ({
         },
         sx
       )}
+      {...props}
     >
       {children}
       <HorizontalDivider
@@ -226,10 +233,11 @@ const contentWidths = {
   xlarge: '1280px'
 }
 
-const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}}) => {
+const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}, ...props}) => {
   return (
     <Box
       as="main"
+      data-component="PageLayout.Content"
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.content,
@@ -243,6 +251,7 @@ const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx
         },
         sx
       )}
+      {...props}
     >
       <Box sx={{width: '100%', maxWidth: contentWidths[width], marginX: 'auto'}}>{children}</Box>
     </Box>
@@ -280,7 +289,8 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   children,
-  sx = {}
+  sx = {},
+  ...props
 }) => {
   const {rowGap, columnGap} = React.useContext(PageLayoutContext)
   const computedPositionWhenNarrow = positionWhenNarrow === 'inherit' ? position : positionWhenNarrow
@@ -288,6 +298,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   return (
     <Box
       as="aside"
+      data-component="PageLayout.Pane"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
@@ -309,6 +320,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
           sx
         )
       }
+      {...props}
     >
       {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
       <HorizontalDivider
@@ -341,12 +353,14 @@ const Footer: React.FC<PageLayoutFooterProps> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   children,
-  sx = {}
+  sx = {},
+  ...props
 }) => {
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
       as="footer"
+      data-component="PageLayout.Footer"
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.footer,
@@ -355,6 +369,7 @@ const Footer: React.FC<PageLayoutFooterProps> = ({
         },
         sx
       )}
+      {...props}
     >
       <HorizontalDivider
         variant={divider}

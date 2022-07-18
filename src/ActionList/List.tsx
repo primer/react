@@ -54,6 +54,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
         aria-labelledby={listLabelledBy}
         {...props}
         ref={forwardedRef}
+        data-component="ActionList"
       >
         <ListContext.Provider
           value={{
