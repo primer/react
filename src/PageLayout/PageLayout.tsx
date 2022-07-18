@@ -1,6 +1,7 @@
 import React from 'react'
-import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Box} from '..'
+import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 
 const REGION_ORDER = {
   header: 0,
@@ -260,6 +261,7 @@ export type PageLayoutPaneProps = {
   width?: keyof typeof paneWidths
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 const panePositions = {
@@ -279,9 +281,11 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   width = 'medium',
   divider = 'none',
   dividerWhenNarrow = 'inherit',
+  hidden = false,
   children,
   sx = {}
 }) => {
+  const isHidden = useResponsiveValue(hidden, false)
   const {rowGap, columnGap} = React.useContext(PageLayoutContext)
   const computedPositionWhenNarrow = positionWhenNarrow === 'inherit' ? position : positionWhenNarrow
   const computedDividerWhenNarrow = dividerWhenNarrow === 'inherit' ? divider : dividerWhenNarrow
@@ -293,7 +297,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
         merge<BetterSystemStyleObject>(
           {
             order: panePositions[computedPositionWhenNarrow],
-            display: 'flex',
+            display: isHidden ? 'none' : 'flex',
             flexDirection: computedPositionWhenNarrow === 'end' ? 'column' : 'column-reverse',
             width: '100%',
             marginX: 0,
