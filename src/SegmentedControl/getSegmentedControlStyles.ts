@@ -38,6 +38,7 @@ export const getSegmentedControlButtonStyles = (
   cursor: 'pointer',
   flexGrow: 1,
   fontFamily: 'inherit',
+  fontSize: 1,
   fontWeight: props?.selected ? 'bold' : 'normal',
   marginTop: '-1px',
   marginBottom: '-1px',
