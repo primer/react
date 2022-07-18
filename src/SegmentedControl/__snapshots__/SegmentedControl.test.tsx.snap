@@ -29,6 +29,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-family: inherit;
+  font-size: 14px;
   font-weight: 600;
   margin-top: -1px;
   margin-bottom: -1px;
@@ -115,6 +116,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-family: inherit;
+  font-size: 14px;
   font-weight: 400;
   margin-top: -1px;
   margin-bottom: -1px;
@@ -209,6 +211,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-family: inherit;
+  font-size: 14px;
   font-weight: 400;
   margin-top: -1px;
   margin-bottom: -1px;
