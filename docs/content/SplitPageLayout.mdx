@@ -1,0 +1,313 @@
+---
+title: SplitPageLayout
+componentId: split_page_layout
+status: Draft
+description: Provides structure for a split page layout, including independent scrolling for the pane and content regions. Useful for responsive list/detail patterns, when an item in the pane updates the page content on selection.
+---
+
+<Note variant="warning">Not implemented yet</Note>
+
+## Examples
+
+### Default
+
+```jsx
+<SplitPageLayout>
+  <SplitPageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </SplitPageLayout.Header>
+  <SplitPageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </SplitPageLayout.Pane>
+  <SplitPageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </SplitPageLayout.Content>
+  <SplitPageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </SplitPageLayout.Footer>
+</SplitPageLayout>
+```
+
+### With pane hidden on narrow viewports
+
+```jsx
+<SplitPageLayout>
+  <SplitPageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </SplitPageLayout.Header>
+  <SplitPageLayout.Pane hidden={{narrow: true}}>
+    <Placeholder label="Pane" height={120} />
+  </SplitPageLayout.Pane>
+  <SplitPageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </SplitPageLayout.Content>
+  <SplitPageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </SplitPageLayout.Footer>
+</SplitPageLayout>
+```
+
+### With content hidden on narrow viewports
+
+```jsx
+<SplitPageLayout>
+  <SplitPageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </SplitPageLayout.Header>
+  <SplitPageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </SplitPageLayout.Pane>
+  <SplitPageLayout.Content hidden={{narrow: true}}>
+    <Placeholder label="Content" height={240} />
+  </SplitPageLayout.Content>
+  <SplitPageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </SplitPageLayout.Footer>
+</SplitPageLayout>
+```
+
+### Without dividers
+
+```jsx
+<SplitPageLayout>
+  <SplitPageLayout.Header divider="none">
+    <Placeholder label="Header" height={64} />
+  </SplitPageLayout.Header>
+  <SplitPageLayout.Pane divider="none">
+    <Placeholder label="Pane" height={120} />
+  </SplitPageLayout.Pane>
+  <SplitPageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </SplitPageLayout.Content>
+  <SplitPageLayout.Footer divider="none">
+    <Placeholder label="Footer" height={64} />
+  </SplitPageLayout.Footer>
+</SplitPageLayout>
+```
+
+### With pane on right
+
+```jsx
+<SplitPageLayout>
+  <SplitPageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </SplitPageLayout.Header>
+  <SplitPageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </SplitPageLayout.Content>
+  <SplitPageLayout.Pane position="end">
+    <Placeholder label="Pane" height={120} />
+  </SplitPageLayout.Pane>
+  <SplitPageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </SplitPageLayout.Footer>
+</SplitPageLayout>
+```
+
+### Without padding
+
+```jsx
+<SplitPageLayout>
+  <SplitPageLayout.Header padding="none">
+    <Placeholder label="Header" height={64} />
+  </SplitPageLayout.Header>
+  <SplitPageLayout.Pane padding="none">
+    <Placeholder label="Pane" height={120} />
+  </SplitPageLayout.Pane>
+  <SplitPageLayout.Content padding="none">
+    <Placeholder label="Content" height={240} />
+  </SplitPageLayout.Content>
+  <SplitPageLayout.Footer padding="none">
+    <Placeholder label="Footer" height={64} />
+  </SplitPageLayout.Footer>
+</SplitPageLayout>
+```
+
+### Without header or footer
+
+```jsx
+<SplitPageLayout>
+  <SplitPageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </SplitPageLayout.Pane>
+  <SplitPageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </SplitPageLayout.Content>
+</SplitPageLayout>
+```
+
+### With non-sticky pane
+
+```jsx
+<SplitPageLayout>
+  <SplitPageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </SplitPageLayout.Header>
+  <SplitPageLayout.Pane sticky={false}>
+    <Placeholder label="Pane" height={120} />
+  </SplitPageLayout.Pane>
+  <SplitPageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </SplitPageLayout.Content>
+  <SplitPageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </SplitPageLayout.Footer>
+</SplitPageLayout>
+```
+
+## Props
+
+### SplitPageLayout
+
+<PropsTable>
+  <PropsTableSxRow />
+</PropsTable>
+
+### SplitPageLayout.Header
+
+<PropsTable>
+  <PropsTableRow
+    name="divider"
+    // TODO: Document ResponsiveValue
+    // This prop accepts a viewport range map (i.e. {regular: ..., narrow: ...}) in addition to a single value.
+    // The `regular` and `wide` keys of the viewport range map can be 'none' or 'line'.
+    // The `narrow` key of the viewport range map can be 'none' or 'line' or 'filled'.
+    type={`ResponsiveValue<
+  'none' | 'line',
+  'none' | 'line' | 'filled'
+>`}
+    defaultValue="'line'"
+  />
+  <PropsTableRow
+    name="hidden"
+    type={`ResponsiveValue<boolean>`}
+    defaultValue="false"
+    description="Whether the header is hidden."
+  />
+  <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'normal'
+| 'condensed'`}
+    defaultValue="'normal'"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### SplitPageLayout.Content
+
+<PropsTable>
+  <PropsTableRow
+    name="width"
+    type={`| 'full'
+| 'medium'
+| 'large'
+| 'xlarge'`}
+    defaultValue="'xlarge'"
+    description="The maximum width of the content region."
+  />
+  <PropsTableRow
+    name="hidden"
+    type={`ResponsiveValue<boolean>`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'normal'
+| 'condensed'`}
+    defaultValue="'normal'"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### SplitPageLayout.Pane
+
+<PropsTable>
+  <PropsTableRow
+    name="position"
+    type={`ResponsiveValue<
+  'start' | 'end'
+>`}
+    defaultValue="'start'"
+  />
+  <PropsTableRow
+    name="width"
+    type={`| 'small'
+| 'medium'
+| 'large'`}
+    defaultValue="'medium'"
+    description="The width of the pane."
+  />
+  <PropsTableRow
+    name="divider"
+    type={`ResponsiveValue<
+  'none' | 'line',
+  'none' | 'line' | 'filled'
+>`}
+    defaultValue="'line'"
+  />
+  <PropsTableRow
+    name="hidden"
+    type={`ResponsiveValue<boolean>`}
+    defaultValue="false"
+    description="Whether the pane is hidden."
+  />
+  <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'normal'
+| 'condensed'`}
+    defaultValue="'normal'"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### SplitPageLayout.Footer
+
+<PropsTable>
+  <PropsTableRow
+    name="divider"
+    type={`ResponsiveValue<
+  'none' | 'line',
+  'none' | 'line' | 'filled'
+>`}
+    defaultValue="'line'"
+  />
+  <PropsTableRow
+    name="hidden"
+    type={`ResponsiveValue<boolean>`}
+    defaultValue="false"
+    description="Whether the footer is hidden."
+  />
+  <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'normal'
+| 'condensed'`}
+    defaultValue="'normal'"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

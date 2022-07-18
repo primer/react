@@ -49,6 +49,7 @@ export const Group: React.FC<ActionListGroupProps> = ({
 
   return (
     <Box
+      data-component="ActionList.Group"
       as="li"
       role={listRole ? 'none' : undefined}
       sx={{

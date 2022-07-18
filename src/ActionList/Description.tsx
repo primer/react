@@ -29,19 +29,23 @@ export const Description: React.FC<ActionListDescriptionProps> = ({variant = 'in
       {({blockDescriptionId, inlineDescriptionId, disabled}: ItemContext) =>
         variant === 'block' ? (
           <Box
+            data-component="ActionList.Description"
             as="span"
             sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
             id={blockDescriptionId}
+            {...props}
           >
             {props.children}
           </Box>
         ) : (
           <Truncate
+            data-component="ActionList.Description"
             id={inlineDescriptionId}
             sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
             title={props.children as string}
             inline={true}
             maxWidth="100%"
+            {...props}
           >
             {props.children}
           </Truncate>

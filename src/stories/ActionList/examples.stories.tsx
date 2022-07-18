@@ -156,7 +156,7 @@ export function MultipleSelection(): JSX.Element {
 
       <p>This pattern appears in issues and pull requests to pick multiple assignees</p>
 
-      <ActionList selectionVariant="multiple" showDividers role="listbox" aria-label="Select assignees">
+      <ActionList selectionVariant="multiple" showDividers role="listbox" aria-label="Assignees">
         {users.map(user => (
           <ActionList.Item
             role="option"
@@ -192,7 +192,7 @@ export function Groups(): JSX.Element {
 
       <p>Grouped content with labels and description. This patterns appears in pull requests to pick a reviewer.</p>
 
-      <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Select reviewers">
+      <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
         <ActionList.Group title="Suggestions">
           {users.slice(0, 2).map(user => (
             <ActionList.Item
@@ -328,12 +328,7 @@ export function AsyncListWithSpinner(): JSX.Element {
       {results.length === 0 ? (
         <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
       ) : null}
-      <ActionList
-        selectionVariant="single"
-        role="listbox"
-        aria-label="Select a branch"
-        sx={{height: 208, overflow: 'auto'}}
-      >
+      <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
         {loading ? (
           <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
             <Spinner />
