@@ -1,5 +1,59 @@
 # @primer/components
 
+## 35.4.0
+
+### Minor Changes
+
+- [#2108](https://github.com/primer/react/pull/2108) [`e5be3db3`](https://github.com/primer/react/commit/e5be3db3112db20efef5e49ebe89ea3af17fd486) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a draft component to render a basic segmented control.
+
+* [#2139](https://github.com/primer/react/pull/2139) [`f17446e0`](https://github.com/primer/react/commit/f17446e0dbfb9021291207972ece47e90a5656e0) Thanks [@owenniblock](https://github.com/owenniblock)! - Changes focus rules of TabNav to match WAI-ARIA rules for tablist
+
+### Patch Changes
+
+- [#2099](https://github.com/primer/react/pull/2099) [`40da598e`](https://github.com/primer/react/commit/40da598e8d41b688eba53f4c594bff66b269f5f4) Thanks [@siddharthkp](https://github.com/siddharthkp)! - AnchoredOverlay: `aria-expanded` attribute is removed from anchor when overlay is not open
+
+* [#2155](https://github.com/primer/react/pull/2155) [`003cbcf0`](https://github.com/primer/react/commit/003cbcf0e5530d580636e4ce09e539317a95dc73) Thanks [@mperrotti](https://github.com/mperrotti)! - Update Checkbox component to useIsomorphicLayoutEffect instead of useLayoutEffect to support SSR
+
+- [#2154](https://github.com/primer/react/pull/2154) [`96ad635b`](https://github.com/primer/react/commit/96ad635b3063af03e31fcac06cfe8bdea248d0d3) Thanks [@mperrotti](https://github.com/mperrotti)! - Allow "falsely/empty" Autocomplete.Input values
+
+* [#2153](https://github.com/primer/react/pull/2153) [`ce45de30`](https://github.com/primer/react/commit/ce45de308f1aaaf760a8e3f18ee39f20610f896b) Thanks [@willglas](https://github.com/willglas)! - Add AutocompleteContext to Autocomplete component exports
+
+- [#2105](https://github.com/primer/react/pull/2105) [`c7bbd06f`](https://github.com/primer/react/commit/c7bbd06fd7c67690ed7a612737f79662444d388b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu: Replace typeahead behavior with single key mnemonics
+
+* [#2125](https://github.com/primer/react/pull/2125) [`78dc8134`](https://github.com/primer/react/commit/78dc8134b1d38c6826766f2f85ae943e8b1a8088) Thanks [@owenniblock](https://github.com/owenniblock)! - Adds roles of tablist and tab to the TabNav component, required rearranging the HTML elements to be semantically correct
+
+- [#2149](https://github.com/primer/react/pull/2149) [`b3a98bac`](https://github.com/primer/react/commit/b3a98baccc19a77d16b8c42f7873073070f24b89) Thanks [@dgreif](https://github.com/dgreif)! - Converted commonjs `require` of `focus-visible` to an esm `import`
+
+* [#2120](https://github.com/primer/react/pull/2120) [`53713b2f`](https://github.com/primer/react/commit/53713b2f3ab7dd7084ce3e602c01c3f66ccd7579) Thanks [@colebemis](https://github.com/colebemis)! - Deprecate SideNav in favor of [NavList](https://primer.style/NavList).
+
+  ## Before
+
+  ```jsx
+  <SideNav aria-label="Main">
+    <SideNav.Link href="/" selected>
+      Home
+    </SideNav.Link>
+    <SideNav.Link href="/about">About</SideNav.Link>
+    <SideNav.Link href="/contact">Contact</SideNav.Link>
+  </SideNav>
+  ```
+
+  ## After
+
+  ```jsx
+  <NavList aria-label="Main">
+    <NavList.Item href="/" aria-current="page">
+      Home
+    </NavList.Item>
+    <NavList.Item href="/about">About</NavList.Item>
+    <NavList.Item href="/contact">Contact</NavList.Item>
+  </NavList>
+  ```
+
+- [#2133](https://github.com/primer/react/pull/2133) [`65fcd9f2`](https://github.com/primer/react/commit/65fcd9f23de939014351f8e135f912cfa00f71a3) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Passthrough ActionList.Group props from NavList.Group
+
+* [#2158](https://github.com/primer/react/pull/2158) [`ac92de47`](https://github.com/primer/react/commit/ac92de477f6d7a5527f32dd55d3082318c800d7d) Thanks [@owenniblock](https://github.com/owenniblock)! - Fixes issue when tabs are not links
+
 ## 35.3.0
 
 ### Minor Changes
