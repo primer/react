@@ -16,3 +16,6 @@ export type {
   Suggestions,
   Trigger
 } from '../InlineAutocomplete'
+
+export {default as MarkdownViewer} from '../MarkdownViewer'
+export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from '../MarkdownViewer'

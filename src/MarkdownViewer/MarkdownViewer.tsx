@@ -1,4 +1,4 @@
-import React, {DOMAttributes, useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import React, {DOMAttributes, useCallback, useEffect, useRef, useState} from 'react'
 import {Spinner} from '..'
 import Box from '../Box'
 
@@ -57,7 +57,7 @@ const createRenderedContainer = (html: string): HTMLDivElement => {
   return div
 }
 
-export const MarkdownViewer = ({
+const MarkdownViewer = ({
   dangerousRenderedHTML,
   loading = false,
   markdownValue = '',
@@ -117,3 +117,5 @@ export const MarkdownViewer = ({
     />
   )
 }
+
+export default MarkdownViewer
