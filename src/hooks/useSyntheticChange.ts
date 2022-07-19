@@ -74,7 +74,7 @@ type UseSyntheticChangeSettings<
  * text if it was inside the `replaceRange` before. Can be a single number for a caret location
  * or two numbers for a selection range.
  */
-type SyntheticChangeEmitter = (
+export type SyntheticChangeEmitter = (
   insertValue: string,
   replaceRange?: [startIndexInclusive: number, endIndexExclusive: number],
   newSelection?: number | [number, number]
