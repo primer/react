@@ -1,5 +1,35 @@
-import {ForwardedRef, useRef} from 'react'
+import {ForwardedRef, useCallback, useEffect, useMemo, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+
+/**
+ * Ref that can perform a side effect on change while also providing access to the current
+ * value through `.current`.
+ */
+const useObservableRef = <T>(initialValue: T, onChange: (value: T) => void) => {
+  const onChangeRef = useRef(onChange)
+  onChangeRef.current = onChange
+
+  return useMemo(
+    () =>
+      new Proxy<React.MutableRefObject<T>>(
+        {current: initialValue},
+        {
+          set(target, prop, value) {
+            if (prop === 'current') {
+              target[prop] = value
+              onChangeRef.current(value)
+              return true
+            }
+            return false
+          }
+        }
+      ),
+    // This dependency array MUST be empty because ref objects are guarunteed to be constant
+    // and we don't need to track initialValue
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
+}
 
 /**
  * Creates a ref by combining multiple constituent refs. The ref returned by this hook
@@ -10,31 +40,24 @@ import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
  * @param refs
  */
 export function useCombinedRefs<T>(...refs: (ForwardedRef<T> | null | undefined)[]) {
-  const combinedRef = useRef<T | null>(null)
-
-  useLayoutEffect(() => {
-    function setRefs(current: T | null = null) {
+  const syncRefs = useCallback(
+    (value: T | null) => {
       for (const ref of refs) {
-        if (!ref) {
-          return
-        }
+        if (!ref) continue
+
         if (typeof ref === 'function') {
-          ref(current)
+          ref(value ?? null)
         } else {
-          ref.current = current
+          ref.current = value ?? null
         }
       }
-    }
+    },
+    [refs]
+  )
 
-    setRefs(combinedRef.current)
+  const targetRef = useObservableRef<T | null>(null, syncRefs)
 
-    return () => {
-      // ensure the refs get updated on unmount
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      setRefs(combinedRef.current)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...refs, combinedRef.current])
+  useEffect(() => syncRefs(targetRef.current), [syncRefs, targetRef])
 
-  return combinedRef
+  return targetRef
 }
