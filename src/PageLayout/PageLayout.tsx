@@ -57,11 +57,7 @@ const Root: React.FC<PageLayoutProps> = ({
 }) => {
   return (
     <PageLayoutContext.Provider value={{padding, rowGap, columnGap}}>
-      <Box
-        data-component="PageLayout"
-        sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
-        {...props}
-      >
+      <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)} {...props}>
         <Box
           sx={{
             maxWidth: containerWidths[containerWidth],
@@ -237,7 +233,6 @@ const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx
   return (
     <Box
       as="main"
-      data-component="PageLayout.Content"
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.content,
@@ -298,7 +293,6 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   return (
     <Box
       as="aside"
-      data-component="PageLayout.Pane"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
@@ -360,7 +354,6 @@ const Footer: React.FC<PageLayoutFooterProps> = ({
   return (
     <Box
       as="footer"
-      data-component="PageLayout.Footer"
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.footer,
