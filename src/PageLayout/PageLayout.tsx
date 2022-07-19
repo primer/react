@@ -57,7 +57,7 @@ const Root: React.FC<PageLayoutProps> = ({
 }) => {
   return (
     <PageLayoutContext.Provider value={{padding, rowGap, columnGap}}>
-      <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)} {...props}>
+      <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}>
         <Box
           sx={{
             maxWidth: containerWidths[containerWidth],
@@ -185,8 +185,7 @@ const Header: React.FC<PageLayoutHeaderProps> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   children,
-  sx = {},
-  ...props
+  sx = {}
 }) => {
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
@@ -200,7 +199,6 @@ const Header: React.FC<PageLayoutHeaderProps> = ({
         },
         sx
       )}
-      {...props}
     >
       {children}
       <HorizontalDivider
@@ -229,7 +227,7 @@ const contentWidths = {
   xlarge: '1280px'
 }
 
-const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}, ...props}) => {
+const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}}) => {
   return (
     <Box
       as="main"
@@ -246,7 +244,6 @@ const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx
         },
         sx
       )}
-      {...props}
     >
       <Box sx={{width: '100%', maxWidth: contentWidths[width], marginX: 'auto'}}>{children}</Box>
     </Box>
@@ -284,8 +281,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   children,
-  sx = {},
-  ...props
+  sx = {}
 }) => {
   const {rowGap, columnGap} = React.useContext(PageLayoutContext)
   const computedPositionWhenNarrow = positionWhenNarrow === 'inherit' ? position : positionWhenNarrow
@@ -314,7 +310,6 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
           sx
         )
       }
-      {...props}
     >
       {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
       <HorizontalDivider
@@ -347,8 +342,7 @@ const Footer: React.FC<PageLayoutFooterProps> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   children,
-  sx = {},
-  ...props
+  sx = {}
 }) => {
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
@@ -362,7 +356,6 @@ const Footer: React.FC<PageLayoutFooterProps> = ({
         },
         sx
       )}
-      {...props}
     >
       <HorizontalDivider
         variant={divider}

@@ -32,7 +32,6 @@ export const Description: React.FC<ActionListDescriptionProps> = ({variant = 'in
             as="span"
             sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
             id={blockDescriptionId}
-            {...props}
           >
             {props.children}
           </Box>
@@ -43,7 +42,6 @@ export const Description: React.FC<ActionListDescriptionProps> = ({variant = 'in
             title={props.children as string}
             inline={true}
             maxWidth="100%"
-            {...props}
           >
             {props.children}
           </Truncate>
