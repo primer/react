@@ -52,8 +52,7 @@ const Root: React.FC<PageLayoutProps> = ({
   rowGap = 'normal',
   columnGap = 'normal',
   children,
-  sx = {},
-  ...props
+  sx = {}
 }) => {
   return (
     <PageLayoutContext.Provider value={{padding, rowGap, columnGap}}>
