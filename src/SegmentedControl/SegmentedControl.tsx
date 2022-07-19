@@ -6,6 +6,8 @@ import {merge, SxProp} from '../sx'
 import useMatchMedia from '../hooks/useMatchMedia'
 import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 
+type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
+
 type SegmentedControlProps = {
   'aria-label'?: string
   'aria-labelledby'?: string
@@ -15,7 +17,7 @@ type SegmentedControlProps = {
   /** The handler that gets called when a segment is selected */
   onChange?: (selectedIndex: number) => void
   /** Configure alternative ways to render the control when it gets rendered in tight spaces */
-  variant?: Partial<Record<ViewportRangeKeys, 'hideLabels' | 'dropdown' | 'none'>>
+  variant?: 'default' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
 } & SxProp
 
 const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
@@ -35,13 +37,13 @@ const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
 // TODO: implement keyboard behavior to move focus using the arrow keys
 const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, sx: sxProp = {}, variant, ...rest}) => {
   const {theme} = useTheme()
-  const mediaQueryMatches = useMatchMedia(Object.keys(variant || {}) as ViewportRangeKeys[])
+  const mediaQueryMatches = useMatchMedia(Object.keys(variant || {}) as WidthOnlyViewportRangeKeys[])
   const mediaQueryMatchesKeys = mediaQueryMatches
-    ? (Object.keys(mediaQueryMatches) as ViewportRangeKeys[]).filter(
+    ? (Object.keys(mediaQueryMatches) as WidthOnlyViewportRangeKeys[]).filter(
         viewportRangeKey => typeof mediaQueryMatches === 'object' && mediaQueryMatches[viewportRangeKey]
       )
     : []
-  // const mediaQueryMatchesKeys = mediaQueryMatches ? (Object.keys(mediaQueryMatches) as ViewportRangeKeys[]) : []
+
   const selectedSegments = React.Children.toArray(children).map(
     child =>
       React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) && child.props.selected
@@ -82,9 +84,9 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
   // Since we can have multiple media query matches for `variant` (e.g.: 'regular' and 'wide'),
   // we need to pick which variant we actually show.
   const getVariantToRender = () => {
-    // If no variant was passed, return 'none'
-    if (!variant) {
-      return 'none'
+    // If no variant was passed, return 'default'
+    if (!variant || variant === 'default') {
+      return 'default'
     }
 
     // Prioritize viewport range keys that override the 'regular' range in order of
@@ -205,6 +207,10 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
 }
 
 Root.displayName = 'SegmentedControl'
+
+Root.defaultProps = {
+  variant: 'default'
+}
 
 export const SegmentedControl = Object.assign(Root, {
   Button,
