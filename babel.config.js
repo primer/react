@@ -27,7 +27,7 @@ module.exports = {
           : process.env.STORYBOOK
           ? []
           : [
-              // theme-preval is commonjs and needs to be transformed to esm
+              'transform-commonjs' // theme-preval is commonjs and needs to be transformed to esm
             ]),
         ...sharedPlugins,
         replacementPlugin('development')

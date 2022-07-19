@@ -214,10 +214,47 @@ const autocompleteStoryMeta: Meta = {
   }
 } as Meta
 
+<<<<<<< HEAD
 export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
   const isMultiselect = menuArgs.selectionVariant === 'multiple'
+=======
+export const SingleSelect = () => {
+  return (
+    <>
+      <Text
+        fontWeight="bold"
+        fontSize={1}
+        as="label"
+        display="block"
+        htmlFor="autocompleteInput"
+        id="autocompleteLabel"
+      >
+        Single select autocomplete
+      </Text>
+      <Autocomplete>
+        <Autocomplete.Input block data-testid="autocompleteInput" />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu items={items} selectedItemIds={[]} aria-labelledby="autocompleteLabel" />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </>
+  )
+}
+
+SingleSelect.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const inputBox = await canvas.getByTestId('autocompleteInput')
+  await userEvent.click(inputBox)
+  const firstAutoCompleteOption = canvas.getByText('css')
+  await expect(firstAutoCompleteOption).toBeInTheDocument()
+  await userEvent.type(firstAutoCompleteOption, '{enter}')
+  await expect(inputBox).toHaveValue('css')
+}
+
+export const MultiSelect = () => {
+>>>>>>> 46dd7994 (A more complete autocomplete test)
   const [selectedItemIds, setSelectedItemIds] = useState<Array<string | number>>([])
   const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
     if (!Array.isArray(newlySelectedItems)) {
