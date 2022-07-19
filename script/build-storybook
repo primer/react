@@ -9,7 +9,7 @@ else
 fi
 
 # Build storybook inside docs
-./node_modules/.bin/build-storybook -o docs/public/storybook -s docs/public/static
+STORYBOOK=true ./node_modules/.bin/build-storybook -o docs/public/storybook -s docs/public/static
 
 # Remove manager-head after build to not interfere with dev builds
 rm .storybook/manager-head.html
