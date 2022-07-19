@@ -43,12 +43,14 @@ const getResponsivePropVariant = (
     | Props['alignWrap']
     | Props['direction']
     | Props['gap']
+    | Props['spread']
     | Props['showDivider']
     | Props['wrap'],
+  propName: 'align' | 'alignWrap' | 'direction' | 'gap' | 'showDivider' | 'spread' | 'wrap',
   viewportRange?: 'narrow' | 'regular'
 ) => {
-  if (viewportRange && typeof propToCheck === 'object' && propToCheck[viewportRange]) {
-    return propToCheck[viewportRange]
+  if (viewportRange && typeof propToCheck === 'object') {
+    return propToCheck[viewportRange] ? propToCheck[viewportRange] : defaultStackProps[propName]
   }
 
   return typeof propToCheck === 'object' ? propToCheck.regular : propToCheck
@@ -67,22 +69,22 @@ const Stack: React.FC<Props> = ({
   wrap
 }) => {
   const narrowVariants = {
-    align: getResponsivePropVariant(align, 'narrow'),
-    alignWrap: getResponsivePropVariant(alignWrap, 'narrow'),
-    direction: getResponsivePropVariant(direction, 'narrow'),
-    gap: getResponsivePropVariant(gap, 'narrow'),
-    showDivider: getResponsivePropVariant(showDivider, 'narrow'),
-    spread: getResponsivePropVariant(spread, 'narrow'),
-    wrap: getResponsivePropVariant(wrap, 'narrow')
+    align: getResponsivePropVariant(align, 'align', 'narrow'),
+    alignWrap: getResponsivePropVariant(alignWrap, 'alignWrap', 'narrow'),
+    direction: getResponsivePropVariant(direction, 'direction', 'narrow'),
+    gap: getResponsivePropVariant(gap, 'gap', 'narrow'),
+    showDivider: getResponsivePropVariant(showDivider, 'showDivider', 'narrow'),
+    spread: getResponsivePropVariant(spread, 'spread', 'narrow'),
+    wrap: getResponsivePropVariant(wrap, 'wrap', 'narrow')
   }
   const regularVariants = {
-    align: getResponsivePropVariant(align),
-    alignWrap: getResponsivePropVariant(alignWrap),
-    direction: getResponsivePropVariant(direction),
-    gap: getResponsivePropVariant(gap),
-    showDivider: getResponsivePropVariant(showDivider),
-    spread: getResponsivePropVariant(spread),
-    wrap: getResponsivePropVariant(wrap)
+    align: getResponsivePropVariant(direction, 'direction'),
+    alignWrap: getResponsivePropVariant(alignWrap, 'alignWrap'),
+    direction: getResponsivePropVariant(direction, 'direction'),
+    gap: getResponsivePropVariant(gap, 'gap'),
+    showDivider: getResponsivePropVariant(showDivider, 'showDivider'),
+    spread: getResponsivePropVariant(spread, 'spread'),
+    wrap: getResponsivePropVariant(wrap, 'wrap')
   }
   const gapValues = ['condensed', 'normal', 'normal', 'spacious']
   const customGapValues = {
@@ -99,10 +101,10 @@ const Stack: React.FC<Props> = ({
     <Box
       className={classNames('Stack', {
         [`Stack--align-${regularVariants.align}-whenRegular`]: align,
-        [`Stack--align-${narrowVariants.align}-whenRegular`]: narrowVariants.align,
+        [`Stack--align-${narrowVariants.align}-whenNarrow`]: narrowVariants.align,
 
         [`Stack--alignWrap-${regularVariants.alignWrap}-whenRegular`]: alignWrap,
-        [`Stack--alignWrap-${narrowVariants.alignWrap}-whenRegular`]: narrowVariants.alignWrap,
+        [`Stack--alignWrap-${narrowVariants.alignWrap}-whenNarrow`]: narrowVariants.alignWrap,
 
         [`Stack--dir-${regularVariants.direction}-whenRegular`]: direction,
         [`Stack--dir-${narrowVariants.direction}-whenNarrow`]: narrowVariants.direction,

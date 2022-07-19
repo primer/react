@@ -1,0 +1,335 @@
+---
+title: Stack
+status: Draft
+description: A Stack evenly spaces it's children vertically or horizontally.
+---
+
+## Examples
+
+### Simple
+
+```jsx live drafts
+<Stack>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    One
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Two
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Three
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Four
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Five
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Six
+  </Box>
+</Stack>
+```
+
+### Inline flow
+
+```jsx live drafts
+<Stack direction="inline">
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    One
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Two
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Three
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Four
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Five
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Six
+  </Box>
+</Stack>
+```
+
+### Center aligned children
+
+<Stack align="center">
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    One
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Two
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Three
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Four
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Five
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Six
+  </Box>
+</Stack>
+
+### With dividers
+
+<Stack showDivider>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    One
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Two
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Three
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Four
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Five
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Six
+  </Box>
+</Stack>
+
+### Inline flow with wrapping
+
+<Stack direction="inline" wrap="wrap">
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    One
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Two
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Three
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Four
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Five
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Six
+  </Box>
+</Stack>
+
+### Center alignment for wrapped items
+
+<Stack align="start" alignWrap="center" direction="inline" wrap="wrap">
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    One
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Two
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Three
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Four
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Five
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Six
+  </Box>
+</Stack>
+
+### Center-justified items
+
+<Stack spread="center" direction="inline" wrap="wrap">
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    One
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Two
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Three
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Four
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Five
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Six
+  </Box>
+</Stack>
+
+### Responsive prop values
+
+Stack at `narrow`, inline at `regular`
+
+<Stack direction={{narrow: 'inline'}}>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    One
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Two
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Three
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Four
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Five
+  </Box>
+  <Box backgroundColor="#ddf4ff" borderRadius={2} color="fg.default" py={1} px={3}>
+    Six
+  </Box>
+</Stack>
+
+## Props
+
+### SegmentedControl
+
+<PropsTable>
+  <PropsTableRow
+    name="align"
+    type="'stretch' | 'start' | 'center' | 'end' | 'baseline' |
+    {
+      narrow: 'stretch' | 'start' | 'center' | 'end' | 'baseline',
+      regular: 'stretch' | 'start' | 'center' | 'end' | 'baseline'
+    }"
+    defaultValue="'stretch'"
+    description={
+      <>
+        <span>Sets the alignment between items in the cross-axis of the specified direction. For example:</span>
+        <ul>
+          <li>
+            If `direction` is set to `block` (stacks vertically), it controls the horizontal alignment (left, center,
+            right).
+          </li>
+          <li>
+            If `direction` is set to `inline` (stacks horizontally), it controls the vertical alignment (top, center,
+            bottom).
+          </li>
+        </ul>
+        <div>This property behavior is equivalent to the `align-items` Flexbox property.</div>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="alignWrap"
+    type="'start' | 'center' | 'end' | 'distribute' | 'distributeEvenly' |
+    {
+      narrow: 'start' | 'center' | 'end' | 'distribute' | 'distributeEvenly',
+      regular: 'start' | 'center' | 'end' | 'distribute' | 'distributeEvenly'
+    }"
+    defaultValue="'start'"
+    description="Sets how stack lines are distributed, if they `wrap` into multiple lines. This has equivalent behavior to the `align-content` Flexbox property."
+  />
+  <PropsTableRow
+    name="direction"
+    type="'inline' | 'block' |
+    {
+      narrow: 'inline' | 'block',
+      regular: 'inline' | 'block'
+    }"
+    defaultValue="'block'"
+    description="Sets how elements inside `Stack` are placed, either horizontally (`inline`) or vertically (`block`). This property follows the writing mode."
+  />
+  <PropsTableRow
+    name="gap"
+    type="'none' | 'condensed' | 'normal' | 'spacious' |
+    {
+      narrow: 'none' | 'condensed' | 'normal' | 'spacious',
+      regular: 'none' | 'condensed' | 'normal' | 'spacious'
+    }"
+    defaultValue="'normal'"
+    description={
+      <div>
+        <span>Sets the spacing gap between items. All sizes are rendered in `rem` units.</span>
+        <ul>
+          <li>'none': 0</li>
+          <li>'condensed': 'var(--primer-stack-gap-condensed, 8px)',</li>
+          <li>'normal': 'var(--primer-stack-gap-normal, 16px)' (default)</li>
+          <li>
+            'spacious': 'var(--primer-stack-gap-spacious, 24px)' (on regular viewports, otherwise it appears as 'normal'
+            on narrow viewports)
+          </li>
+          <li>
+            'custom': set a custom size. When using with a framework such as ViewComponent or React, a custom value can
+            be passed directly to the property.
+          </li>
+        </ul>
+      </div>
+    }
+  />
+  <PropsTableRow
+    name="spread"
+    type="'start' | 'center' | 'end' | 'distribute' | 'distributeEvenly' |
+    {
+      narrow: 'start' | 'center' | 'end' | 'distribute' | 'distributeEvenly',
+      regular: 'start' | 'center' | 'end' | 'distribute' | 'distributeEvenly'
+    }"
+    defaultValue="'start'"
+    description="Sets how stack lines are distributed, if they `wrap` into multiple lines. This has equivalent behavior to the `align-content` Flexbox property."
+  />
+  <PropsTableRow
+    name="wrap"
+    type="'wrap' | 'nowrap' |
+    {
+      narrow: 'wrap' | 'nowrap',
+      regular: 'wrap' | 'nowrap'
+    }"
+    defaultValue="'nowrap'"
+    description="Sets whether items are forced onto one line or can wrap onto multiple lines."
+  />
+  <PropsTableRow
+    name="showDivider"
+    type="boolean |
+    {
+      narrow: boolean,
+      regular: boolean
+    }"
+    defaultValue="'nowrap'"
+    description={
+      <>
+        <div>Whether a divider between items is shown or not.</div>
+
+        <div>_Note: the presence of a divider duplicates the \`gap\` between items._</div>
+      </>
+    }
+
+/>
+
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

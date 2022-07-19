@@ -14,6 +14,8 @@ type Args = StackProps & {
   narrowSpread: StackProps['spread']
   narrowWrap: StackProps['wrap']
   gapCustom: string
+  _height: string
+  _width: string
 }
 
 const StackChild: React.FC<{bgColor?: string; textColor?: string}> = ({bgColor, textColor, children}) => (
@@ -120,6 +122,8 @@ export default {
         category: 'Narrow viewport properties'
       }
     },
+
+    // Align
 
     align: {
       options: ['stretch', 'start', 'center', 'end', 'baseline'],
@@ -317,11 +321,12 @@ export const Default = ({
           ? {narrow: narrowAlignWrap, regular: alignWrap}
           : alignWrap
       }
-      direction={
-        typeof narrowDirection === 'string' && typeof direction === 'string'
-          ? {narrow: narrowDirection, regular: direction}
-          : direction
-      }
+      direction={{regular: 'inline'}}
+      // direction={
+      //   typeof narrowDirection === 'string' && typeof direction === 'string'
+      //     ? {narrow: narrowDirection, regular: direction}
+      //     : direction
+      // }
       // TODO: get rid of this type assertion
       gap={getGapProp() as ComponentProps<typeof Stack>['gap']}
       showDivider={
