@@ -170,12 +170,3 @@ export type {TextareaProps} from './Textarea'
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'
-
-export {default as InlineAutocomplete} from './InlineAutocomplete'
-export type {
-  InlineAutocompleteProps,
-  ShowSuggestionsEvent,
-  Suggestion,
-  Suggestions,
-  Trigger
-} from './InlineAutocomplete'
