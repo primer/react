@@ -17,7 +17,7 @@ type MimeType = `${TopLevelMimeType}/${string}`
 export type FileType = `.${string}` | MimeType
 
 interface CommonFileSelectProps {
-  acceptedFileTypes: Array<FileType>
+  acceptedFileTypes?: Array<FileType>
 }
 
 export interface SingleFileSelectProps extends CommonFileSelectProps {
@@ -75,8 +75,8 @@ const fileTypeMatcher = (fileType: FileType): ((file: File) => boolean) => {
 }
 
 function useOnSelectFiles(props: FileSelectProps) {
-  const matchers = useMemo(() => props.acceptedFileTypes.map(fileTypeMatcher), [props.acceptedFileTypes])
-  const isAcceptableFile = useCallback((file: File) => matchers.some(m => m(file)), [matchers])
+  const matchers = useMemo(() => props.acceptedFileTypes?.map(fileTypeMatcher), [props.acceptedFileTypes])
+  const isAcceptableFile = useCallback((file: File) => matchers?.some(m => m(file)) ?? true, [matchers])
 
   return useCallback(
     function onSelectFiles(files: FileList): boolean {
@@ -153,7 +153,7 @@ export function useClickFileSelect(props: FileSelectProps): ClickTargetProps {
       const fileInput = document.createElement('input')
       fileInput.setAttribute('type', 'file')
       fileInput.setAttribute('multiple', multi ? 'true' : 'false')
-      fileInput.setAttribute('accept', acceptedFileTypes.join(', '))
+      if (acceptedFileTypes) fileInput.setAttribute('accept', acceptedFileTypes.join(', '))
       fileInput.style.display = 'none'
       fileInput.addEventListener('change', onInputChange)
 
