@@ -142,10 +142,10 @@ See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways 
 
 ### TypeScript support
 
-Primer React is written in TypeScript. We include type definitions in our built artifacts. To check types, run the `typecheck` script:
+Primer React is written in TypeScript. We include type definitions in our built artifacts. To check types, run the `type-check` test script:
 
 ```
-npm run typecheck
+npm run test:type-check
 ```
 
 ### Additional resources

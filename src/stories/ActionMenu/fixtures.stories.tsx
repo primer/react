@@ -217,9 +217,9 @@ export function CustomAnchor(): JSX.Element {
       <h2>Last option activated: {actionFired}</h2>
       <ActionMenu>
         <ActionMenu.Anchor>
-          <summary style={{cursor: 'pointer'}} aria-label="Open column options">
+          <button aria-label="Open column options">
             <KebabHorizontalIcon />
-          </summary>
+          </button>
         </ActionMenu.Anchor>
         <ActionMenu.Overlay>
           <ActionList>
@@ -515,7 +515,7 @@ export function MemexIteration(): JSX.Element {
             color: 'fg.muted',
             ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
           }}
-          aria-label="Select iteration duration"
+          aria-label="Iteration duration"
         >
           {duration} {duration > 1 ? 'weeks' : 'week'}
         </ActionMenu.Button>
@@ -558,7 +558,7 @@ export function MemexAddColumn(): JSX.Element {
         </FormControl>
         <ActionMenu>
           <ActionMenu.Button
-            aria-label="Select field type"
+            aria-label="Field type"
             leadingIcon={selectedType.icon}
             sx={{
               gridTemplateColumns: 'min-content 1fr min-content',
@@ -592,7 +592,7 @@ export function MemexAddColumn(): JSX.Element {
           <ActionMenu>
             <ActionMenu.Button
               id="duration"
-              aria-label="Select field type"
+              aria-label="Field type"
               sx={{
                 textAlign: 'left',
                 ml: 2,
@@ -716,10 +716,10 @@ export function OverlayProps(): JSX.Element {
   )
 }
 
-export function TypeaheadTest(): JSX.Element {
+export function MnemonicsTest(): JSX.Element {
   return (
     <>
-      <h1>Story to test typeahead</h1>
+      <h1>Menu mnemonics</h1>
 
       <ActionMenu>
         <ActionMenu.Button>Menu</ActionMenu.Button>
@@ -732,6 +732,24 @@ export function TypeaheadTest(): JSX.Element {
             </ActionList.Group>
             <ActionList.Item>Order</ActionList.Item>
             <ActionList.Item>Group</ActionList.Item>
+            <ActionList.Item aria-keyshortcuts="e">
+              User defined
+              <ActionList.TrailingVisual>
+                <Box
+                  as="span"
+                  sx={{
+                    backgroundColor: 'canvas.default',
+                    border: '1px solid',
+                    borderColor: 'border.default',
+                    borderRadius: 2,
+                    padding: '2px 6px',
+                    fontSize: 0
+                  }}
+                >
+                  e
+                </Box>
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
             <ActionList.Item disabled>Disabled</ActionList.Item>
           </ActionList>
         </ActionMenu.Overlay>

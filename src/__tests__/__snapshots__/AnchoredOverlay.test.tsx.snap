@@ -80,7 +80,6 @@ exports[`AnchoredOverlay renders consistently 1`] = `
   fontFamily="normal"
 >
   <button
-    aria-expanded={false}
     aria-haspopup="true"
     className="c1"
     id="react-aria-1"

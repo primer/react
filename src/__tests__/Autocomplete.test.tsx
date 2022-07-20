@@ -321,6 +321,14 @@ describe('Autocomplete', () => {
       inputNode && userEvent.type(inputNode, '{esc}')
       expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
     })
+
+    it('allows the value to be 0', () => {
+      const {getByDisplayValue} = HTMLRender(
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} inputProps={{value: 0}} />
+      )
+
+      expect(getByDisplayValue('0')).toBeDefined()
+    })
   })
 
   describe('Autocomplete.Menu', () => {
