@@ -1,46 +1,9 @@
 import {useCallback, useEffect, useMemo, useRef} from 'react'
-
-/**
- * Groups:
- *  0. Leading whitespace
- *  1. Delimeter
- *  2. Item number (optional)
- *     - Note that we don't have item letter - we don't do autocomplete for lettered lists like (a, b, c) or (i, ii, iii) because it's too complex
- *  3. Task box (optional)
- *  4. Everything following
- */
-const listItemRegex = /^(\s*)([*-]|(\d+)\.)\s(?:(\[[\sx]\])\s)?(.*)/i
-
-type ListItem = {
-  leadingWhitespace: string
-  text: string
-  delimeter: '-' | '*' | number
-  taskBox: '[ ]' | '[x]' | null
-}
+import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useListEditing'
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
 
-const parseListItem = (line: string): ListItem | null => {
-  const result = listItemRegex.exec(line)
-  if (!result) return null
-  const [, leadingWhitespace = '', fullDelimeter, itemNumberStr = '', taskBox = null, text] = result
-  const itemNumber = Number.parseInt(itemNumberStr, 10)
-  const delimeter = Number.isNaN(itemNumber) ? (fullDelimeter as '*' | '-') : itemNumber
-
-  return {
-    leadingWhitespace,
-    text,
-    delimeter,
-    taskBox: taskBox as '[ ]' | '[x]' | null
-  }
-}
-
 const isTaskListItem = (item: ListItem | null): item is TaskListItem => typeof item?.taskBox === 'string'
-
-const listItemToString = (item: ListItem) =>
-  `${item.leadingWhitespace}${typeof item.delimeter === 'number' ? `${item.delimeter}.` : item.delimeter}${
-    item.taskBox ? ` ${item.taskBox}` : ''
-  } ${item.text}`
 
 const toggleTaskListItem = (item: TaskListItem): TaskListItem => ({
   ...item,
