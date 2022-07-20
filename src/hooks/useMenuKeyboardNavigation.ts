@@ -20,8 +20,6 @@ export const useMenuKeyboardNavigation = (
   useMenuInitialFocus(open, containerRef, anchorRef)
   useTypeaheadFocus(open, containerRef, anchorRef)
   useCloseMenuOnTab(open, onClose, containerRef, anchorRef)
-
-  // TODO: menu only opens once, this is the problem
   useMoveFocusToMenuItem(open, containerRef, anchorRef)
 }
 
@@ -71,12 +69,14 @@ const useMoveFocusToMenuItem = (
       const iterable = iterateFocusableElements(container)
 
       if (event.key === 'ArrowDown') {
-        event.preventDefault() // prevent scroll event
+        // TODO: does commenting this out break anything?
+        // event.preventDefault() // prevent scroll event
         const firstElement = iterable.next().value
         /** We push imperative focus to the next tick to prevent React's batching */
         setTimeout(() => firstElement?.focus())
       } else if (event.key === 'ArrowUp') {
-        event.preventDefault() // prevent scroll event
+        // TODO: does commenting this out break anything?
+        // event.preventDefault() // prevent scroll event
         const elements = [...iterable]
         const lastElement = elements[elements.length - 1]
         setTimeout(() => lastElement.focus())

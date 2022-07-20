@@ -111,8 +111,12 @@ export function ExternalAnchor(): JSX.Element {
         <Button
           ref={anchorRef}
           onClick={() => setOpen(!open)}
-          // aria-expanded={open} aria-haspopup="true"
-          // TODO: This should happen from AnchoredOverlay?
+          onKeyDown={(event: KeyboardEvent) => {
+            // TODO: This should happen from AnchoredOverlay?
+            if (['ArrowDown', 'ArrowUp'].includes(event.code)) setOpen(true)
+          }}
+          aria-expanded={open} // TODO: This should happen from AnchoredOverlay?
+          aria-haspopup="true" // TODO: This should happen from AnchoredOverlay?
         >
           {open ? 'Close Menu' : 'Open Menu'}
         </Button>
@@ -622,10 +626,7 @@ export function MemexKeyboardShortcut(): JSX.Element {
 
   React.useEffect(() => {
     const handler = (event: KeyboardEvent) => {
-      if (event.code === 'Backslash' && event.shiftKey) {
-        setOpen(true)
-        anchorRef.current?.focus() // move focus to anchor button
-      }
+      if (event.code === 'Backslash' && event.shiftKey) setOpen(true)
     }
 
     window.addEventListener('keydown', handler)
