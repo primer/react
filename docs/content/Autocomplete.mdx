@@ -4,7 +4,7 @@ title: Autocomplete
 status: Alpha
 description: Used to render a text input that allows a user to quickly filter through a list of options to pick one or more values.
 source: https://github.com/primer/react/tree/main/src/Autocomplete
-storybook: '/react/storybook?path=/story/forms-autocomplete--single-select'
+storybook: '/react/storybook?path=/story/form-controls-autocomplete--default'
 ---
 
 import {Autocomplete} from '@primer/react'
@@ -56,7 +56,7 @@ A function may be passed to the `filterFn` prop if this default filtering behavi
 
 ```jsx live
 <FormControl>
-  <FormControl.Label>Pick a branch</FormControl.Label>
+  <FormControl.Label id="autocompleteLabel-basic">Pick a branch</FormControl.Label>
   <Autocomplete>
     <Autocomplete.Input />
     <Autocomplete.Overlay>
@@ -72,6 +72,7 @@ A function may be passed to the `filterFn` prop if this default filtering behavi
           {text: 'visual-design-tweaks', id: 7}
         ]}
         selectedItemIds={[]}
+        aria-labelledby="autocompleteLabel-basic"
       />
     </Autocomplete.Overlay>
   </Autocomplete>
@@ -114,7 +115,7 @@ const CustomTextInputExample = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick options</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel-customInput">Pick options</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input as={TextInputWithTokens} tokens={tokens} onTokenRemove={onTokenRemove} />
         <Autocomplete.Overlay>
@@ -132,6 +133,7 @@ const CustomTextInputExample = () => {
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
             selectionVariant="multiple"
+            aria-labelledby="autocompleteLabel-customInput"
           />
         </Autocomplete.Overlay>
       </Autocomplete>
@@ -146,7 +148,7 @@ render(<CustomTextInputExample />)
 
 ```jsx live
 <FormControl>
-  <FormControl.Label>Pick a branch</FormControl.Label>
+  <FormControl.Label id="autocompleteLabel-withoutOverlay">Pick a branch</FormControl.Label>
   <Autocomplete>
     <Autocomplete.Input />
     <Autocomplete.Menu
@@ -161,6 +163,7 @@ render(<CustomTextInputExample />)
         {text: 'visual-design-tweaks', id: 7}
       ]}
       selectedItemIds={[]}
+      aria-labelledby="autocompleteLabel-withoutOverlay"
     />
   </Autocomplete>
 </FormControl>
@@ -221,7 +224,7 @@ const CustomRenderedItemExample = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick labels</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel-customRenderedItem">Pick labels</FormControl.Label>
       <Autocomplete>
         <Autocomplete.Input
           as={TextInputWithTokens}
@@ -248,7 +251,7 @@ const CustomRenderedItemExample = () => {
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
             selectionVariant="multiple"
-            aria-labelledby="autocompleteLabel-issueLabels"
+            aria-labelledby="autocompleteLabel-customRenderedItem"
           />
         </Autocomplete.Overlay>
       </Autocomplete>
@@ -279,9 +282,9 @@ const CustomSortAfterMenuClose = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick branches</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel-sortAfterClose">Pick branches</FormControl.Label>
       <Autocomplete>
-        <Autocomplete.Input id="autocompleteInput-sortAfterClose" />
+        <Autocomplete.Input />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
@@ -323,9 +326,9 @@ const CustomSearchFilter = () => {
 
   return (
     <FormControl>
-      <FormControl.Label>Pick a branch</FormControl.Label>
+      <FormControl.Label id="autocompleteLabel-customFilter">Pick a branch</FormControl.Label>
       <Autocomplete>
-        <Autocomplete.Input id="autocompleteInput-customFilter" onChange={handleChange} />
+        <Autocomplete.Input onChange={handleChange} />
         <Autocomplete.Overlay>
           <Autocomplete.Menu
             items={[
@@ -382,7 +385,9 @@ const InOverlayWithCustomScrollContainerRef = () => {
       )}
     >
       <FormControl>
-        <FormControl.Label visuallyHidden>Pick branches</FormControl.Label>
+        <FormControl.Label visuallyHidden id="autocompleteLabel-withCustomScrollRef">
+          Pick branches
+        </FormControl.Label>
         <Autocomplete>
           <Box display="flex" flexDirection="column" height="100%">
             <Box
@@ -424,7 +429,7 @@ const InOverlayWithCustomScrollContainerRef = () => {
                 ]}
                 selectedItemIds={[]}
                 customScrollContainerRef={scrollContainerRef}
-                aria-labelledby="autocompleteLabel"
+                aria-labelledby="autocompleteLabel-withCustomScrollRef"
               />
             </Box>
           </Box>
@@ -465,14 +470,14 @@ const MultiSelect = () => {
   return (
     <Box display="flex" flexDirection="column" sx={{gap: '1em'}}>
       <FormControl>
-        <FormControl.Label>Pick branches</FormControl.Label>
+        <FormControl.Label id="autocompleteLabel-multiselect">Pick branches</FormControl.Label>
         <Autocomplete>
-          <Autocomplete.Input id="autocompleteInput" />
+          <Autocomplete.Input />
           <Autocomplete.Overlay>
             <Autocomplete.Menu
               items={items}
               selectedItemIds={selectedItemIds}
-              aria-labelledby="autocompleteLabel"
+              aria-labelledby="autocompleteLabel-multiselect"
               onSelectedChange={onSelectedChange}
               selectionVariant="multiple"
             />
@@ -535,9 +540,9 @@ const MultiSelectAddNewItem = () => {
   return (
     <Box display="flex" flexDirection="column" sx={{gap: '1em'}}>
       <FormControl>
-        <FormControl.Label>Pick or add branches</FormControl.Label>
+        <FormControl.Label id="autocompleteLabel-addItem">Pick or add branches</FormControl.Label>
         <Autocomplete>
-          <Autocomplete.Input onChange={handleChange} id="autocompleteInput" />
+          <Autocomplete.Input onChange={handleChange} />
           <Autocomplete.Overlay>
             <Autocomplete.Menu
               addNewItem={
@@ -559,7 +564,7 @@ const MultiSelectAddNewItem = () => {
               selectedItemIds={selectedItemIds}
               onSelectedChange={onSelectedChange}
               selectionVariant="multiple"
-              aria-labelledby="autocompleteLabel"
+              aria-labelledby="autocompleteLabel-addItem"
             />
           </Autocomplete.Overlay>
         </Autocomplete>
