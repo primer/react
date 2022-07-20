@@ -1,19 +1,64 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, Checkbox, CheckboxGroup, FormControl, ThemeProvider} from '../../'
-import {ComponentProps} from '../../utils/types'
-
-type Args = ComponentProps<typeof CheckboxGroup>
+import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 
 export default {
   title: 'Forms/CheckboxGroup/examples',
   component: CheckboxGroup,
   argTypes: {
+    // CheckboxGroup
     disabled: {
-      defaultValue: false
+      defaultValue: false,
+      type: 'boolean'
     },
     required: {
-      defaultValue: false
+      defaultValue: false,
+      type: 'boolean'
+    },
+
+    // CheckboxGroup.Label
+    labelChildren: {
+      defaultValue: 'Choices',
+      type: 'string',
+      table: {
+        category: 'CheckboxGroup.Label'
+      }
+    },
+    visuallyHidden: {
+      defaultValue: false,
+      type: 'boolean',
+      table: {
+        category: 'CheckboxGroup.Label'
+      }
+    },
+
+    // CheckboxGroup.Caption
+    captionChildren: {
+      defaultValue: '',
+      type: 'string',
+      table: {
+        category: 'CheckboxGroup.Caption'
+      }
+    },
+
+    // CheckboxGroup.Validation
+    validationChildren: {
+      defaultValue: '',
+      type: 'string',
+      table: {
+        category: 'CheckboxGroup.Validation'
+      }
+    },
+    variant: {
+      defaultValue: 'error',
+      control: {
+        type: 'radio',
+        options: ['error', 'success', 'warning']
+      },
+      table: {
+        category: 'CheckboxGroup.Validation'
+      }
     }
   },
   parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange', 'sx']}},
@@ -30,40 +75,36 @@ export default {
   ]
 } as Meta
 
-export const Basic = (args: Args) => (
-  <CheckboxGroup {...args}>
-    <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
-    <FormControl>
-      <Checkbox value="one" checked />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
-  </CheckboxGroup>
-)
+export const Default = ({
+  disabled,
+  required,
+  labelChildren,
+  visuallyHidden,
+  captionChildren,
+  validationChildren,
+  variant
+}: CheckboxOrRadioGroupArgs) => {
+  const parentArgs = {disabled, required}
+  const labelArgs = {children: labelChildren, visuallyHidden}
+  const validationArgs = {children: validationChildren, variant}
 
-export const WithCaptionAndValidation = (args: Args) => (
-  <CheckboxGroup {...args}>
-    <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
-    <CheckboxGroup.Caption>You can pick any or all of these choices</CheckboxGroup.Caption>
-    <FormControl>
-      <Checkbox value="one" />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="two" />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
-    <CheckboxGroup.Validation variant="error">Your choices are wrong</CheckboxGroup.Validation>
-  </CheckboxGroup>
-)
+  return (
+    <CheckboxGroup {...parentArgs}>
+      {labelArgs.children && <CheckboxGroup.Label {...labelArgs} />}
+      {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
+      <FormControl>
+        <Checkbox value="one" defaultChecked />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+      {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
+    </CheckboxGroup>
+  )
+}

@@ -38,7 +38,7 @@
     "build": "./script/build",
     "start": "concurrently npm:start:*",
     "start:docs": "cd docs && npm run develop",
-    "start:storybook": "start-storybook -p 6006",
+    "start:storybook": "STORYBOOK=true start-storybook -p 6006",
     "build:storybook": "script/build-storybook",
     "build:docs": "script/build-docs",
     "build:docs:preview": "script/build-docs preview",

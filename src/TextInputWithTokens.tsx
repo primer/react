@@ -351,7 +351,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
               />
             ))
           : null}
-        {tokensAreTruncated ? (
+        {tokensAreTruncated && tokens.length - visibleTokens.length ? (
           <Text color="fg.muted" fontSize={size && overflowCountFontSizeMap[size]}>
             +{tokens.length - visibleTokens.length}
           </Text>
