@@ -17,9 +17,15 @@ export const useMenuInitialFocus = (
     function inferOpeningKey() {
       const anchorElement = anchorRef.current
 
-      const clickHandler = () => setOpeningGesture('mouse-click')
+      const clickHandler = (event: MouseEvent) => {
+        // event.detail === 0 means onClick was fired by Enter/Space key
+        // https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
+        if (event.detail !== 0) setOpeningGesture('mouse-click')
+      }
       const keydownHandler = (event: KeyboardEvent) => {
-        if (['ArrowDown', 'ArrowUp', 'Space', 'Enter'].includes(event.code)) setOpeningGesture(event.key)
+        if (['Space', 'Enter', 'ArrowDown', 'ArrowUp'].includes(event.code)) {
+          setOpeningGesture(event.code)
+        }
       }
 
       anchorElement?.addEventListener('click', clickHandler)
