@@ -25,6 +25,13 @@ export default {
       control: {
         type: 'boolean'
       }
+    },
+    tabInsertsSuggestions: {
+      name: '`Tab` Key Inserts Suggestions',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
     }
   }
 } as Meta
@@ -51,7 +58,12 @@ const UserSuggestion = ({user, ...props}: {user: User} & ActionListItemProps) =>
   </ActionList.Item>
 )
 
-export const Default = ({loading}: {loading: boolean}) => {
+type ArgProps = {
+  loading: boolean
+  tabInsertsSuggestions: boolean
+}
+
+export const Default = ({loading, tabInsertsSuggestions}: ArgProps) => {
   const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
   const onShowSuggestions = (event: ShowSuggestionsEvent) => {
@@ -84,6 +96,7 @@ export const Default = ({loading}: {loading: boolean}) => {
         suggestions={suggestions}
         onShowSuggestions={onShowSuggestions}
         onHideSuggestions={onHideSuggestions}
+        tabInsertsSuggestions={tabInsertsSuggestions}
       >
         <Textarea />
       </InlineAutocomplete>

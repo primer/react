@@ -18,6 +18,7 @@ type AutoCompleteSuggestionsProps = {
   onCommit: (suggestion: string) => void
   inputRef: React.RefObject<TextInputElement>
   visible: boolean
+  tabInsertsSuggestions: boolean
 }
 
 const LoadingIndicator = () => (
@@ -55,7 +56,8 @@ const AutocompleteSuggestions = ({
   onClose,
   onCommit: externalOnCommit,
   inputRef,
-  visible
+  visible,
+  tabInsertsSuggestions
 }: AutoCompleteSuggestionsProps) => {
   // It seems wierd to use state instead of a ref here, but because the list is inside an
   // AnchoredOverlay it is not always mounted - so we want to reinitialize the Combobox when it mounts
@@ -75,7 +77,8 @@ const AutocompleteSuggestions = ({
     listElement: list,
     inputElement: inputRef.current,
     onCommit,
-    options: Array.isArray(suggestions) ? suggestions : []
+    options: Array.isArray(suggestions) ? suggestions : [],
+    tabInsertsSuggestions
   })
 
   // Conditional rendering appears wrong at first - it means that we are reconstructing the

@@ -33,6 +33,13 @@ export type InlineAutocompleteProps = {
    */
   suggestions: Suggestions | null
   /**
+   * If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just
+   * `Enter`. This may be expected behavior for users used to IDEs, but use caution when
+   * hijacking browser tabbing capability.
+   * @default false
+   */
+  tabInsertsSuggestions?: boolean
+  /**
    * The `AutocompleteTextarea` has a container for positioning the suggestions overlay.
    * This can break some layouts (ie, if the editor must expand with `flex: 1` to fill space)
    * so you can override container styles here. Usually this should not be necessary.
@@ -75,6 +82,7 @@ const InlineAutocomplete = ({
   onHideSuggestions,
   sx,
   children,
+  tabInsertsSuggestions = false,
   // Forward accessibility props so it works with FormControl
   ...forwardProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
@@ -179,7 +187,9 @@ const InlineAutocomplete = ({
     : // It's important to include both Enter and Tab because we are telling the user that we are hijacking these keys:
       `${suggestions.length} autocomplete ${
         suggestions.length === 1 ? 'suggestion' : 'suggestions'
-      } available; "${getSuggestionValue(suggestions[0])}" is highlighted. Press Enter or Tab to insert.`
+      } available; "${getSuggestionValue(suggestions[0])}" is highlighted. Press ${
+        tabInsertsSuggestions ? 'Enter or Tab' : 'Enter'
+      } to insert.`
 
   return (
     // Try to get as close as possible to making the container 'invisible' by making it shrink tight to child input
@@ -193,6 +203,7 @@ const InlineAutocomplete = ({
         top={suggestionsOffset.top}
         left={suggestionsOffset.left}
         visible={suggestionsVisible}
+        tabInsertsSuggestions={tabInsertsSuggestions}
       />
 
       <Portal>

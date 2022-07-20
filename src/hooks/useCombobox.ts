@@ -30,6 +30,13 @@ type UseComboboxSettings<T> = {
    * and attributes).
    */
   options: Array<T>
+  /**
+   * If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just
+   * `Enter`. This may be expected behavior for users used to IDEs, but use caution when
+   * hijacking browser tabbing capability.
+   * @default false
+   */
+  tabInsertsSuggestions?: boolean
 }
 
 /**
@@ -46,7 +53,8 @@ export const useCombobox = <T>({
   listElement: list,
   inputElement: input,
   onCommit: externalOnCommit,
-  options
+  options,
+  tabInsertsSuggestions = false
 }: UseComboboxSettings<T>) => {
   const id = useSSRSafeId()
   const optionIdPrefix = `combobox-${id}__option`
@@ -80,7 +88,7 @@ export const useCombobox = <T>({
       if (input && list) {
         if (!list.getAttribute('role')) list.setAttribute('role', 'listbox')
 
-        const cb = new Combobox(input, list)
+        const cb = new Combobox(input, list, {tabInsertsSuggestions})
         if (isOpenRef.current) cb.start()
 
         // By using state instead of a ref here, we trigger the toggleKeyboardEventHandling
@@ -94,7 +102,7 @@ export const useCombobox = <T>({
         }
       }
     },
-    [input, list]
+    [input, list, tabInsertsSuggestions]
   )
 
   useEffect(
