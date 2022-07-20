@@ -2,24 +2,39 @@ import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
-type Gesture = 'anchor-click' | 'anchor-key-press'
-type Callback = (gesture: Gesture, event?: React.KeyboardEvent<HTMLElement>) => unknown
-
 export const useMenuInitialFocus = (
   open: boolean,
-  onOpen?: Callback,
   providedContainerRef?: React.RefObject<HTMLElement>,
   providedAnchorRef?: React.RefObject<HTMLElement>
 ) => {
   const containerRef = useProvidedRefOrCreate(providedContainerRef)
   const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
-  const [openingKey, setOpeningKey] = React.useState<string | undefined>(undefined)
 
-  const openWithFocus: Callback = (gesture, event) => {
-    if (gesture === 'anchor-click') setOpeningKey('mouse-click')
-    if (gesture === 'anchor-key-press' && event) setOpeningKey(event.code)
-    if (typeof onOpen === 'function') onOpen(gesture, event)
-  }
+  /**
+   * We need to pick the first element to focus based on how the menu was opened,
+   * however, we need to wait for the menu to be open to set focus.
+   * This is why we use set openingKey in state and have 2 effects
+   */
+  const [openingGesture, setOpeningGesture] = React.useState<string | undefined>(undefined)
+
+  React.useEffect(
+    function inferOpeningKey() {
+      const clickHandler = () => setOpeningGesture('mouse-click')
+      const keydownHandler = (event: KeyboardEvent) => {
+        if (['ArrowDown', 'ArrowUp', 'Space', 'Enter'].includes(event.code)) setOpeningGesture(event.key)
+      }
+
+      const anchorElement = anchorRef.current
+
+      anchorElement?.addEventListener('click', clickHandler)
+      anchorElement?.addEventListener('keydown', keydownHandler)
+      return () => {
+        anchorElement?.removeEventListener('click', clickHandler)
+        anchorElement?.removeEventListener('keydown', keydownHandler)
+      }
+    },
+    [anchorRef]
+  )
 
   /**
    * Pick the first element to focus based on the key used to open the Menu
@@ -27,25 +42,26 @@ export const useMenuInitialFocus = (
    * ArrowDown | Space | Enter: first element
    * ArrowUp: last element
    */
-  React.useEffect(() => {
-    if (!open) return
-    if (!openingKey || !containerRef.current) return
+  React.useEffect(
+    function moveFocusOnOpen() {
+      if (!open) return
+      if (!openingGesture || !containerRef.current) return
 
-    const iterable = iterateFocusableElements(containerRef.current)
+      const iterable = iterateFocusableElements(containerRef.current)
 
-    if (openingKey === 'mouse-click') {
-      if (anchorRef.current) anchorRef.current.focus()
-      else throw new Error('For focus management, please attach anchorRef')
-    } else if (['ArrowDown', 'Space', 'Enter'].includes(openingKey)) {
-      const firstElement = iterable.next().value
-      /** We push imperative focus to the next tick to prevent React's batching */
-      setTimeout(() => firstElement?.focus())
-    } else if (['ArrowUp'].includes(openingKey)) {
-      const elements = [...iterable]
-      const lastElement = elements[elements.length - 1]
-      setTimeout(() => lastElement.focus())
-    }
-  }, [open, openingKey, containerRef, anchorRef])
-
-  return {containerRef, anchorRef, openWithFocus}
+      if (openingGesture === 'mouse-click') {
+        if (anchorRef.current) anchorRef.current.focus()
+        else throw new Error('For focus management, please attach anchorRef')
+      } else if (['ArrowDown', 'Space', 'Enter'].includes(openingGesture)) {
+        const firstElement = iterable.next().value
+        /** We push imperative focus to the next tick to prevent React's batching */
+        setTimeout(() => firstElement?.focus())
+      } else if ('ArrowUp' === openingGesture) {
+        const elements = [...iterable]
+        const lastElement = elements[elements.length - 1]
+        setTimeout(() => lastElement.focus())
+      }
+    },
+    [open, openingGesture, containerRef, anchorRef]
+  )
 }

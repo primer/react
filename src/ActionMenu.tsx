@@ -113,7 +113,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
   >
 
   const containerRef = React.createRef<HTMLDivElement>()
-  const {openWithFocus} = useMenuKeyboardNavigation(open, onOpen, onClose, containerRef, anchorRef)
+  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
 
   return (
     <AnchoredOverlay
@@ -121,7 +121,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
       renderAnchor={renderAnchor}
       anchorId={anchorId}
       open={open}
-      onOpen={openWithFocus}
+      onOpen={onOpen}
       onClose={onClose}
       align={align}
       overlayProps={overlayProps}

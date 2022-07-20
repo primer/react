@@ -13,17 +13,16 @@ import {MenuContextProps} from '../ActionMenu'
  */
 export const useMenuKeyboardNavigation = (
   open: boolean,
-  onOpen: MenuContextProps['onOpen'],
   onClose: MenuContextProps['onClose'],
   containerRef: React.RefObject<HTMLElement>,
   anchorRef: React.RefObject<HTMLElement>
 ) => {
-  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef, anchorRef)
+  useMenuInitialFocus(open, containerRef, anchorRef)
   useTypeaheadFocus(open, containerRef, anchorRef)
   useCloseMenuOnTab(open, onClose, containerRef, anchorRef)
-  useMoveFocusToMenuItem(open, containerRef, anchorRef)
 
-  return {openWithFocus}
+  // TODO: menu only opens once, this is the problem
+  useMoveFocusToMenuItem(open, containerRef, anchorRef)
 }
 
 /**
