@@ -4,15 +4,10 @@ import {useCombinedRefs} from '../hooks/useCombinedRefs'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import Portal from '../Portal'
 import {BetterSystemStyleObject} from '../sx'
+import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
-import {
-  augmentHandler,
-  calculateSuggestionsQuery,
-  getAbsoluteCharacterCoordinates,
-  getSuggestionValue,
-  requireChildrenToBeInput
-} from './utils'
+import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
 
 export type InlineAutocompleteProps = {

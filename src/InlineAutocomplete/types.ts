@@ -43,11 +43,6 @@ export type Suggestion =
 
 export type Suggestions = Array<Suggestion> | 'loading'
 
-export type Coordinates = {
-  top: number
-  left: number
-}
-
 export type TextInputElement = HTMLInputElement | HTMLTextAreaElement
 
 export type TextInputCompatibleChild = React.ReactElement<
