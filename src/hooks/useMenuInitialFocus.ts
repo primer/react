@@ -1,15 +1,11 @@
 import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
-import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 
 export const useMenuInitialFocus = (
   open: boolean,
-  providedContainerRef?: React.RefObject<HTMLElement>,
-  providedAnchorRef?: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLElement>,
+  anchorRef: React.RefObject<HTMLElement>
 ) => {
-  const containerRef = useProvidedRefOrCreate(providedContainerRef)
-  const anchorRef = useProvidedRefOrCreate(providedAnchorRef)
-
   /**
    * We need to pick the first element to focus based on how the menu was opened,
    * however, we need to wait for the menu to be open to set focus.
@@ -19,12 +15,12 @@ export const useMenuInitialFocus = (
 
   React.useEffect(
     function inferOpeningKey() {
+      const anchorElement = anchorRef.current
+
       const clickHandler = () => setOpeningGesture('mouse-click')
       const keydownHandler = (event: KeyboardEvent) => {
         if (['ArrowDown', 'ArrowUp', 'Space', 'Enter'].includes(event.code)) setOpeningGesture(event.key)
       }
-
-      const anchorElement = anchorRef.current
 
       anchorElement?.addEventListener('click', clickHandler)
       anchorElement?.addEventListener('keydown', keydownHandler)
