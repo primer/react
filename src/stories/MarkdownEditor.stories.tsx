@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
-import {MarkdownEditor} from '../MarkdownEditor/MarkdownEditor'
+import {MarkdownEditor} from '../MarkdownEditor'
 import ThemeProvider from '../ThemeProvider'
 import BaseStyles from '../BaseStyles'
 import {Button} from '../Button'
