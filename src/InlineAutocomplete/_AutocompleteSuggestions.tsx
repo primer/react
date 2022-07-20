@@ -35,7 +35,10 @@ const SuggestionListItem = ({suggestion}: {suggestion: Suggestion}) => {
     children: value,
     role: 'option',
     sx: {
-      '&[aria-selected="true"]': {
+      '&[aria-selected]': {
+        backgroundColor: 'actionListItem.default.activeBg'
+      },
+      '&[data-combobox-option-default]:not([aria-selected])': {
         backgroundColor: 'actionListItem.default.selectedBg'
       }
     }
@@ -78,7 +81,8 @@ const AutocompleteSuggestions = ({
     inputElement: inputRef.current,
     onCommit,
     options: Array.isArray(suggestions) ? suggestions : [],
-    tabInsertsSuggestions
+    tabInsertsSuggestions,
+    defaultFirstOption: true
   })
 
   // Conditional rendering appears wrong at first - it means that we are reconstructing the
