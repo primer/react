@@ -9,3 +9,10 @@ export const getSelectedLineRange = (textarea: HTMLTextAreaElement): [number, nu
 
   return [start, end]
 }
+
+export const markdownComment = (text: string) => `<!-- ${text.replaceAll('--', '\\-\\-')} -->`
+
+export const markdownLink = (text: string, url: string) =>
+  `[${text.replaceAll('[', '\\[').replaceAll(']', '\\]')}](${url.replaceAll('(', '\\(').replaceAll(')', '\\)')})`
+
+export const markdownImage = (altText: string, url: string) => `!${markdownLink(altText, url)}`

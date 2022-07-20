@@ -1,15 +1,15 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {FileType, UnifiedFileSelectResult, useUnifiedFileSelect} from '../hooks'
 import {SyntheticChangeEmitter} from '../hooks/useSyntheticChange'
-import {comment, image, link} from './markdown-builders'
+import {markdownComment, markdownImage, markdownLink} from './utils'
 
-const placeholder = (file: File) => comment(`Uploading "${file.name}"...`)
+const placeholder = (file: File) => markdownComment(`Uploading "${file.name}"...`)
 
 const markdown = (file: File, url: string | null) => {
-  if (!url) return comment(`Failed to upload "${file.name}"`)
+  if (!url) return markdownComment(`Failed to upload "${file.name}"`)
   if (file.type.startsWith('video/')) return url
-  if (file.type.startsWith('image/')) return image('Image', url)
-  return link(file.name, url)
+  if (file.type.startsWith('image/')) return markdownImage('Image', url)
+  return markdownLink(file.name, url)
 }
 
 type UploadProgress = [current: number, total: number]
