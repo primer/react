@@ -1,7 +1,6 @@
 import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
 import {useMenuInitialFocus} from './useMenuInitialFocus'
-import {useTypeaheadFocus} from './useTypeaheadFocus'
 import {useMnemonics} from './useMnemonics'
 import {MenuContextProps} from '../ActionMenu'
 
@@ -19,10 +18,9 @@ export const useMenuKeyboardNavigation = (
   anchorRef: React.RefObject<HTMLElement>
 ) => {
   useMenuInitialFocus(open, containerRef, anchorRef)
-  useTypeaheadFocus(open, containerRef, anchorRef)
+  useMnemonics(open, containerRef)
   useCloseMenuOnTab(open, onClose, containerRef, anchorRef)
   useMoveFocusToMenuItem(open, containerRef, anchorRef)
-  useMnemonics(open, containerRef)
 }
 
 /**
