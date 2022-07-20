@@ -17,6 +17,9 @@ type UseDynamicTextareaHeightSettings = {
  * will be respected.
  *
  * Returns an object to spread to the component's `sx` prop.
+ *
+ * NOTE: for the most accurate results, be sure that the `lineHeight` of the element is
+ * explicitly set in CSS.
  */
 export const useDynamicTextareaHeight = ({
   minHeightLines,
@@ -40,7 +43,8 @@ export const useDynamicTextareaHeight = ({
     setHeight(`${getCharacterCoordinates(element, element.value.length, false).top}px`)
     element.style.paddingTop = pt
 
-    const lineHeight = computedStyles.lineHeight
+    const lineHeight =
+      computedStyles.lineHeight === 'normal' ? `1.2 * ${computedStyles.fontSize}` : computedStyles.lineHeight
     setMinHeight(`calc(${minHeightLines} * ${lineHeight})`)
     setMaxHeight(`calc(${maxHeightLines} * ${lineHeight})`)
     // `value` is an unnecessary dependency but it enables us to recalculate as the user types

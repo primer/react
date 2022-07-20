@@ -118,6 +118,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
             boxShadow: isDraggedOver ? 'primer.shadow.focus' : 'none',
             display: visible ? undefined : 'none',
             '& textarea': {
+              lineHeight: 1.2,
               resize: fullHeight ? 'none' : 'vertical',
               p: 2,
               fontFamily: monospace ? 'mono' : 'normal',

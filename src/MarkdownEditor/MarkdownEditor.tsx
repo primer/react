@@ -57,7 +57,7 @@ export type MarkdownEditorProps = SxProp & {
    * @default 35
    */
   maxHeightLines?: number
-  /** Accessible label for the editor. */
+  /** Accessible label for the editor. This will not be visible. */
   label?: string
   /**
    * Accepts Markdown and returns rendered HTML. To prevent XSS attacks,
