@@ -1,11 +1,11 @@
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
-export function useResizeObserver(callback: () => void) {
+export function useResizeObserver(callback: () => void, element?: Element | null) {
   useLayoutEffect(() => {
     const observer = new window.ResizeObserver(() => callback())
-    observer.observe(document.documentElement)
+    observer.observe(element ?? document.documentElement)
     return () => {
       observer.disconnect()
     }
-  }, [callback])
+  }, [callback, element])
 }
