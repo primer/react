@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
-import {MarkdownEditor} from '../MarkdownEditor'
+import {Emoji, Entity, MarkdownEditor, Reference} from '../MarkdownEditor'
 import ThemeProvider from '../ThemeProvider'
 import BaseStyles from '../BaseStyles'
 import {Button} from '../Button'
@@ -71,6 +71,43 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 const fakeFileUrl = (file: File) => `https://image-store.example/file/${encodeURIComponent(file.name)}`
 
+const mentionChoices: Entity[] = [
+  {identifier: 'monalisa', name: 'Monalisa Octocat'},
+  {identifier: 'github', name: 'GitHub'},
+  {identifier: 'primer', name: 'Primer'}
+]
+
+const emojiChoices: Emoji[] = [
+  {name: '+1', character: '👍'},
+  {name: '-1', character: '👎'},
+  {name: 'heart', character: '❤️'},
+  {name: 'wave', character: '👋'},
+  {name: 'raised_hands', character: '🙌'},
+  {name: 'pray', character: '🙏'},
+  {name: 'clap', character: '👏'},
+  {name: 'ok_hand', character: '👌'},
+  {name: 'point_up', character: '☝️'},
+  {name: 'point_down', character: '👇'},
+  {name: 'point_left', character: '👈'},
+  {name: 'point_right', character: '👉'},
+  {name: 'raised_hand', character: '✋'},
+  {name: 'thumbsup', character: '👍'},
+  {name: 'thumbsdown', character: '👎'}
+]
+
+const referenceChoices: Reference[] = [
+  {id: '1', titleText: 'Add logging functionality', titleHtml: 'Add logging functionality'},
+  {
+    id: '2',
+    titleText: 'Error: `Failed to install` when installing',
+    titleHtml: 'Error: <code>Failed to install</code> when installing'
+  },
+  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'}
+]
+
+const caseInsensitiveIncludes = (haystack: string, needle: string) =>
+  haystack.toLowerCase().includes(needle.toLowerCase())
+
 export const Default = ({disabled, fullHeight, monospace, minHeightLines, maxHeightLines}: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -97,6 +134,22 @@ export const Default = ({disabled, fullHeight, monospace, minHeightLines, maxHei
         await delay(0.0002 * file.size + 500)
         return {file, url: fakeFileUrl(file)}
       }}
+      onSuggestEmojis={query => emojiChoices.filter(emoji => caseInsensitiveIncludes(emoji.name, query)).slice(0, 5)}
+      onSuggestMentions={query =>
+        mentionChoices
+          .filter(
+            entity => caseInsensitiveIncludes(entity.name, query) || caseInsensitiveIncludes(entity.identifier, query)
+          )
+          .slice(0, 5)
+      }
+      onSuggestReferences={query =>
+        referenceChoices
+          .filter(
+            reference =>
+              caseInsensitiveIncludes(reference.titleText, query) || caseInsensitiveIncludes(reference.id, query)
+          )
+          .slice(0, 5)
+      }
       actionButtons={
         <>
           <Button variant="danger" onClick={() => setValue('')} size="small">

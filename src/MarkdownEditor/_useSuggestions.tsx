@@ -98,7 +98,7 @@ export const useMentionSuggestions = (settings: UseSuggestionsSettings<Entity>) 
 export type Reference = {
   titleHtml: string
   titleText: string
-  number: string
+  id: string
   iconHtml?: string
 }
 
@@ -110,7 +110,7 @@ const referencesTrigger: Trigger = {
 }
 
 const refenceToSuggestion = (reference: Reference): Suggestion => ({
-  value: reference.number.toString(),
+  value: reference.id,
   render: props => (
     <ActionList.Item {...props} sx={{...props.sx, '& > span:first-child': {display: 'none'}}}>
       {reference.iconHtml && (
@@ -130,7 +130,7 @@ const refenceToSuggestion = (reference: Reference): Suggestion => ({
       >
         <span dangerouslySetInnerHTML={{__html: reference.titleHtml}} />
       </Text>{' '}
-      <ActionList.Description>#{reference.number}</ActionList.Description>
+      <ActionList.Description>#{reference.id}</ActionList.Description>
     </ActionList.Item>
   )
 })
