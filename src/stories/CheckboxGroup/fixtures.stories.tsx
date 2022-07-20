@@ -102,7 +102,6 @@ export const WithExternalLabel = ({
         {labelChildren} {parentArgs.required && '*'}
       </Box>
       <CheckboxGroup aria-labelledby="choiceHeading" {...parentArgs}>
-        {labelChildren && <CheckboxGroup.Label>{labelChildren}</CheckboxGroup.Label>}
         {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
         <FormControl>
           <Checkbox />

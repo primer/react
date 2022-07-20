@@ -102,7 +102,6 @@ export const WithExternalLabel = ({
         {labelChildren} {parentArgs.required && '*'}
       </Box>
       <RadioGroup aria-labelledby="choiceHeading" name="externalLabelRadioGroup" {...parentArgs}>
-        {labelChildren && <RadioGroup.Label>{labelChildren}</RadioGroup.Label>}
         {captionChildren && <RadioGroup.Caption>{captionChildren}</RadioGroup.Caption>}
         <FormControl>
           <Radio value="choiceOne" />
