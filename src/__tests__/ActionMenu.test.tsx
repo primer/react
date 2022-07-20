@@ -145,7 +145,7 @@ describe('ActionMenu', () => {
     userEvent.tab() // tab into the story, this should focus on the first button
     expect(button).toEqual(document.activeElement) // trust, but verify
 
-    fireEvent.click(button)
+    userEvent.click(button)
     expect(component.queryByRole('menu')).toBeInTheDocument()
 
     /** We use waitFor because the hook uses an effect with setTimeout
