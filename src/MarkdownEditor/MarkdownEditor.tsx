@@ -36,7 +36,10 @@ export type MarkdownEditorProps = SxProp & {
    * input further, ie when it takes the full height of the viewport.
    */
   fullHeight?: boolean
-  /** Any additional buttons to show in the editor. */
+  /**
+   * Any additional buttons to show in the editor. Buttons should be `size="small"` for
+   * optimal display. If there are multiple buttons, wrap them in a fragment.
+   */
   actionButtons?: React.ReactNode
   /** ID of the describing element. */
   describedBy?: string

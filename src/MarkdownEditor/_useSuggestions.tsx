@@ -64,32 +64,33 @@ export const useEmojiSuggestions = (settings: UseSuggestionsSettings<Emoji>) =>
 
 // --- mentions ---
 
-export type Entity = {
-  name: string
+/** Could be a user, team, or organization - anything that can be mentioned. */
+export type Mentionable = {
+  description: string
   /** The ID of the team or the login of the user. Do not include the `@` symbol. */
   identifier: string
 }
 
-export type MentionSuggestionHandler = SuggestionHandler<Entity>
+export type MentionSuggestionHandler = SuggestionHandler<Mentionable>
 
 const mentionTrigger: Trigger = {
   triggerChar: '@'
 }
 
-const entityToSuggestion = (entity: Entity): Suggestion => ({
-  value: entity.identifier,
+const mentionableToSuggestion = (mentionable: Mentionable): Suggestion => ({
+  value: mentionable.identifier,
   render: props => (
     <ActionList.Item {...props} sx={{...props.sx, '& > span': {display: 'none'}}}>
-      <Text sx={{fontWeight: 'bold'}}>{entity.identifier}</Text>{' '}
-      <ActionList.Description>{entity.name}</ActionList.Description>
+      <Text sx={{fontWeight: 'bold'}}>{mentionable.identifier}</Text>{' '}
+      <ActionList.Description>{mentionable.description}</ActionList.Description>
     </ActionList.Item>
   )
 })
 
-export const useMentionSuggestions = (settings: UseSuggestionsSettings<Entity>) =>
+export const useMentionSuggestions = (settings: UseSuggestionsSettings<Mentionable>) =>
   useSuggestions({
     ...settings,
-    convertSuggestion: entityToSuggestion,
+    convertSuggestion: mentionableToSuggestion,
     trigger: mentionTrigger
   })
 

@@ -2,7 +2,7 @@ export * from './MarkdownEditor'
 
 export {
   Emoji,
-  Entity,
+  Mentionable,
   Reference,
   EmojiSuggestionHandler,
   ReferenceSuggestionHandler,

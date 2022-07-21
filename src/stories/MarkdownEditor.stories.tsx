@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
-import {Emoji, Entity, MarkdownEditor, Reference} from '../MarkdownEditor'
+import {Emoji, Mentionable, MarkdownEditor, Reference} from '../MarkdownEditor'
 import ThemeProvider from '../ThemeProvider'
 import BaseStyles from '../BaseStyles'
 import {Button} from '../Button'
@@ -79,10 +79,10 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 const fakeFileUrl = (file: File) => `https://image-store.example/file/${encodeURIComponent(file.name)}`
 
-const mentionChoices: Entity[] = [
-  {identifier: 'monalisa', name: 'Monalisa Octocat'},
-  {identifier: 'github', name: 'GitHub'},
-  {identifier: 'primer', name: 'Primer'}
+const mentionChoices: Mentionable[] = [
+  {identifier: 'monalisa', description: 'Monalisa Octocat'},
+  {identifier: 'github', description: 'GitHub'},
+  {identifier: 'primer', description: 'Primer'}
 ]
 
 const emojiChoices: Emoji[] = [
@@ -147,7 +147,8 @@ export const Default = ({disabled, fullHeight, monospace, minHeightLines, maxHei
       onSuggestMentions={query =>
         mentionChoices
           .filter(
-            entity => caseInsensitiveIncludes(entity.name, query) || caseInsensitiveIncludes(entity.identifier, query)
+            entity =>
+              caseInsensitiveIncludes(entity.description, query) || caseInsensitiveIncludes(entity.identifier, query)
           )
           .slice(0, 5)
       }
