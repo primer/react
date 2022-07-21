@@ -8,6 +8,8 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import MarkdownViewer from '../MarkdownViewer'
 import {SxProp} from '../sx'
+import InputLabel from '../_InputLabel'
+import VisuallyHidden from '../_VisuallyHidden'
 import {MarkdownEditorFooter} from './_MarkdownEditorFooter'
 import {MarkdownInput} from './_MarkdownEditorInput'
 import {MarkdownToolbar} from './_MarkdownToolbar'
@@ -57,8 +59,10 @@ export type MarkdownEditorProps = SxProp & {
    * @default 35
    */
   maxHeightLines?: number
-  /** Accessible label for the editor. This will not be visible. */
-  label?: string
+  /** Accessible label for the editor. */
+  label: string
+  /** Control whether the label is hidden. */
+  hideLabel?: boolean
   /**
    * Accepts Markdown and returns rendered HTML. To prevent XSS attacks,
    * the HTML should be sanitized and/or come from a trusted source.
@@ -121,7 +125,8 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
       onSuggestReferences,
       onUploadFile,
       acceptedFileTypes,
-      monospace = false
+      monospace = false,
+      hideLabel = false
     },
     ref
   ) => {
@@ -177,7 +182,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
     const toolbarRef = useRef<MarkdownToolbar>(null)
 
     // use state instead of ref since we need to recalculate when the element mounts
-    const containerRef = useRef<HTMLFieldSetElement & HTMLDivElement>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
     const [condensed, setCondensed] = useState(false)
     const onResize = useCallback(
       // it's fine that this isn't debounced because calling setCondensed with the current value will not trigger a render
@@ -217,103 +222,109 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
     )
 
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          borderColor: 'border.default',
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderRadius: 2,
-          p: 2,
-          height: fullHeight ? '100%' : undefined,
-          minInlineSize: 'auto',
-          bg: 'canvas.default',
-          ...sx
-        }}
-        ref={containerRef}
-        as="fieldset"
-        aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
+      <fieldset
         disabled={disabled}
+        aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
+        style={{appearance: 'none', border: 'none'}}
       >
-        <legend style={a11yOnlyStyle}>{label ?? 'Markdown editor'}</legend>
-        <span style={a11yOnlyStyle} id={descriptionId} aria-live="polite">
-          {label && `Markdown editor: `}
-          {view === 'preview' ? 'Preview mode selected' : 'Edit mode selected'}
-        </span>
+        <InputLabel as="legend" sx={{cursor: 'default', mb: 1}} visuallyHidden={hideLabel}>
+          {label}
+        </InputLabel>
 
-        <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
-          <ViewSwitch
-            selectedView={view}
-            onViewSelect={setView}
-            condensed={condensed}
-            disabled={fileHandler.uploadProgress !== null}
-            onLoadPreview={loadPreview}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            borderColor: 'border.default',
+            borderWidth: 1,
+            borderStyle: 'solid',
+            borderRadius: 2,
+            p: 2,
+            height: fullHeight ? '100%' : undefined,
+            minInlineSize: 'auto',
+            bg: 'canvas.default',
+            ...sx
+          }}
+          ref={containerRef}
+        >
+          <VisuallyHidden id={descriptionId} aria-live="polite">
+            Markdown input:
+            {view === 'preview' ? 'Preview mode selected' : 'Edit mode selected'}
+          </VisuallyHidden>
+
+          <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
+            <ViewSwitch
+              selectedView={view}
+              onViewSelect={setView}
+              condensed={condensed}
+              disabled={fileHandler.uploadProgress !== null}
+              onLoadPreview={loadPreview}
+            />
+
+            <Box sx={{display: 'flex'}}>
+              {view === 'edit' && (
+                <MarkdownToolbar forInputId={id} disabled={disabled} ref={toolbarRef} condensed={condensed} />
+              )}
+            </Box>
+          </Box>
+
+          <MarkdownInput
+            value={value}
+            onChange={onInputChange}
+            onSuggestEmojis={onSuggestEmojis}
+            onSuggestReferences={onSuggestReferences}
+            onSuggestMentions={onSuggestMentions}
+            disabled={disabled}
+            placeholder={placeholder}
+            id={id}
+            maxLength={maxLength}
+            ref={inputRef}
+            fullHeight={fullHeight}
+            isDraggedOver={fileHandler.isDraggedOver}
+            minHeightLines={minHeightLines}
+            maxHeightLines={maxHeightLines}
+            visible={view === 'edit'}
+            monospace={monospace}
+            {...inputCompositionProps}
+            {...fileHandler.pasteTargetProps}
+            {...fileHandler.dropTargetProps}
           />
 
-          <Box sx={{display: 'flex'}}>
-            {view === 'edit' && (
-              <MarkdownToolbar forInputId={id} disabled={disabled} ref={toolbarRef} condensed={condensed} />
-            )}
-          </Box>
-        </Box>
+          {view === 'preview' && (
+            <Box
+              sx={{
+                p: 1,
+                overflow: 'auto',
+                height: fullHeight ? '100%' : undefined,
+                minHeight: inputHeight.current,
+                boxSizing: 'border-box'
+              }}
+              aria-live="polite"
+            >
+              <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
+              <MarkdownViewer
+                dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
+                loading={html === null}
+                openLinksInNewTab
+              />
+            </Box>
+          )}
 
-        <MarkdownInput
-          value={value}
-          onChange={onInputChange}
-          onSuggestEmojis={onSuggestEmojis}
-          onSuggestReferences={onSuggestReferences}
-          onSuggestMentions={onSuggestMentions}
-          disabled={disabled}
-          placeholder={placeholder}
-          id={id}
-          maxLength={maxLength}
-          ref={inputRef}
-          fullHeight={fullHeight}
-          isDraggedOver={fileHandler.isDraggedOver}
-          minHeightLines={minHeightLines}
-          maxHeightLines={maxHeightLines}
-          visible={view === 'edit'}
-          monospace={monospace}
-          {...inputCompositionProps}
-          {...fileHandler.pasteTargetProps}
-          {...fileHandler.dropTargetProps}
-        />
-
-        {view === 'preview' && (
-          <Box
-            sx={{
-              p: 1,
-              overflow: 'auto',
-              height: fullHeight ? '100%' : undefined,
-              minHeight: inputHeight.current,
-              boxSizing: 'border-box'
+          <MarkdownEditorFooter
+            actionButtons={actionButtons}
+            condensed={condensed}
+            fileDraggedOver={fileHandler.isDraggedOver}
+            fileUploadProgress={fileHandler.uploadProgress}
+            uploadButtonProps={{
+              disabled,
+              ...fileHandler.clickTargetProps
             }}
-            aria-live="polite"
-          >
-            <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
-            <MarkdownViewer
-              dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
-              loading={html === null}
-              openLinksInNewTab
-            />
-          </Box>
-        )}
-
-        <MarkdownEditorFooter
-          actionButtons={actionButtons}
-          condensed={condensed}
-          fileDraggedOver={fileHandler.isDraggedOver}
-          fileUploadProgress={fileHandler.uploadProgress}
-          uploadButtonProps={{
-            disabled,
-            ...fileHandler.clickTargetProps
-          }}
-          errorMessage={fileHandler.errorMessage}
-          previewMode={view === 'preview'}
-        />
-      </Box>
+            errorMessage={fileHandler.errorMessage}
+            previewMode={view === 'preview'}
+          />
+        </Box>
+      </fieldset>
     )
   }
 )

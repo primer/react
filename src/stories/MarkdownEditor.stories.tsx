@@ -55,6 +55,13 @@ export default {
       control: {
         type: 'number'
       }
+    },
+    hideLabel: {
+      name: 'Hide Label',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
     }
   }
 } as Meta
@@ -65,6 +72,7 @@ type ArgProps = {
   monospace: boolean
   minHeightLines: number
   maxHeightLines: number
+  hideLabel: boolean
 }
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -108,7 +116,7 @@ const referenceChoices: Reference[] = [
 const caseInsensitiveIncludes = (haystack: string, needle: string) =>
   haystack.toLowerCase().includes(needle.toLowerCase())
 
-export const Default = ({disabled, fullHeight, monospace, minHeightLines, maxHeightLines}: ArgProps) => {
+export const Default = ({disabled, fullHeight, monospace, minHeightLines, maxHeightLines, hideLabel}: ArgProps) => {
   const [value, setValue] = useState('')
 
   const onSubmit = () => alert('Submitted')
@@ -125,6 +133,7 @@ export const Default = ({disabled, fullHeight, monospace, minHeightLines, maxHei
       maxHeightLines={maxHeightLines}
       placeholder="Enter some Markdown..."
       label="Markdown Editor Example"
+      hideLabel={hideLabel}
       onRenderPreview={async () => {
         await delay(500)
         return 'Previewing Markdown is not supported in this example.'
