@@ -3,7 +3,7 @@ title: Checkbox
 description: Use checkboxes to toggle between checked and unchecked states in a list or as a standalone form field
 status: Alpha
 source: https://github.com/primer/react/blob/main/src/Checkbox.tsx
-storybook: '/react/storybook?path=/story/forms-checkbox--default'
+storybook: '/react/storybook?path=/story/form-controls-checkbox--default'
 componentId: checkbox
 ---
 
@@ -88,14 +88,9 @@ An `indeterminate` checkbox state should be used if the input value is neither t
     description="Checks the input by default in uncontrolled mode"
   />
   <PropsTableRow
-    name="onChange"
-    type="(event: React.ChangeEvent) => void"
-    description="A callback function that is triggered when the checked state has been changed"    
-  />
-  <PropsTableRow
     name="disabled"
     type="boolean"
-    description="Modifies the native disabled state of the native checkbox"    
+    description="Modifies the native disabled state of the native checkbox"
   />
   <PropsTableRow
     name="indeterminate"
@@ -108,6 +103,31 @@ An `indeterminate` checkbox state should be used if the input value is neither t
           indeterminate state
         </Link>{' '}
         to the checkbox
+      </>
+    }
+  />
+  <PropsTableRow
+    name="onChange"
+    type="(event: React.ChangeEvent) => void"
+    description="A callback function that is triggered when the checked state has been changed"
+  />
+  <PropsTableRow
+    name="validationStatus"
+    type="'error' | 'success' | 'warning'"
+    description={
+      <>
+        Only used to inform ARIA attributes.<br />
+        Individual checkboxes do not have validation styles.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="value"
+    type="string"
+    description={
+      <>
+        A unique value that is never shown to the user.<br />
+        Used during form submission and to identify which checkbox inputs are selected.
       </>
     }
   />

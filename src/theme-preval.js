@@ -1,6 +1,6 @@
 // @preval
 // This file needs to be a JavaScript file using CommonJS to be compatible with preval
-// Cache bust: 2022-03-24 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+// Cache bust: 2022-07-20 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
 
 const {default: primitives} = require('@primer/primitives')
 const {partitionColors, fontStack, omitScale} = require('./utils/theme')
@@ -75,6 +75,4 @@ const theme = {
   colorSchemes
 }
 
-module.exports = {
-  theme
-}
+module.exports = theme

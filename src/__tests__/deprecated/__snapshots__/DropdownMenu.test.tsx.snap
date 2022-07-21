@@ -77,6 +77,7 @@ exports[`DropdownMenu renders consistently 1`] = `
   id="react-aria-1"
   onClick={[Function]}
   onKeyDown={[Function]}
+  tabIndex={0}
   type="button"
 >
   <svg
