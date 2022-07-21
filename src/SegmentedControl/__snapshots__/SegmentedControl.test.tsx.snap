@@ -86,6 +86,10 @@ exports[`SegmentedControl renders consistently 1`] = `
   width: 1px;
 }
 
+.c1:focus:focus-visible:not(:last-child):after {
+  width: 0;
+}
+
 .c1 .segmentedControl-text:after {
   content: "Preview";
   display: block;
@@ -180,6 +184,10 @@ exports[`SegmentedControl renders consistently 1`] = `
   width: 1px;
 }
 
+.c2:focus:focus-visible:not(:last-child):after {
+  width: 0;
+}
+
 .c2 .segmentedControl-text:after {
   content: "Raw";
   display: block;
@@ -272,6 +280,10 @@ exports[`SegmentedControl renders consistently 1`] = `
   top: 8px;
   bottom: 8px;
   width: 1px;
+}
+
+.c3:focus:focus-visible:not(:last-child):after {
+  width: 0;
 }
 
 .c3 .segmentedControl-text:after {
