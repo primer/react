@@ -2,7 +2,7 @@ import React from 'react'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import {MarkdownViewer} from '../MarkdownViewer/MarkdownViewer'
+import MarkdownViewer from '../MarkdownViewer'
 
 describe('MarkdownViewer', () => {
   describe('task list interaction', () => {
@@ -94,6 +94,7 @@ text after list`
   describe('link interception', () => {
     it('makes all links open in a new tab when enabled', () => {
       const {getByRole} = render(
+        // eslint-disable-next-line github/unescaped-html-literal
         <MarkdownViewer dangerousRenderedHTML={{__html: '<a href="https://example.com">link</a>'}} openLinksInNewTab />
       )
       const link = getByRole('link') as HTMLAnchorElement
@@ -104,6 +105,7 @@ text after list`
       const onLinkClick = jest.fn()
       const {getByRole} = render(
         <MarkdownViewer
+          // eslint-disable-next-line github/unescaped-html-literal
           dangerousRenderedHTML={{__html: '<a href="https://example.com">link</a>'}}
           onLinkClick={onLinkClick}
         />
