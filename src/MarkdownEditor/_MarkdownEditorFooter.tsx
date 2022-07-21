@@ -84,7 +84,7 @@ const MarkdownSupportedHint = ({condensed}: {condensed: boolean}) => (
     leadingIcon={MarkdownIcon}
     variant="invisible"
     size="small"
-    sx={{color: 'fg.default', fontWeight: 'normal', px: 2}}
+    sx={{color: 'inherit', fontWeight: 'normal', px: 2}}
     href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax"
     target="_blank"
     // The markdown editor aria-description already describes it as Markdown editor, so it's

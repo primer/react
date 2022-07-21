@@ -8,7 +8,6 @@ import Box from '../Box'
 
 export default {
   title: 'Forms/MarkdownEditor',
-  component: MarkdownEditor,
   decorators: [
     Story => {
       return (
@@ -62,6 +61,13 @@ export default {
       control: {
         type: 'boolean'
       }
+    },
+    required: {
+      name: 'Required',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
     }
   }
 } as Meta
@@ -73,6 +79,7 @@ type ArgProps = {
   minHeightLines: number
   maxHeightLines: number
   hideLabel: boolean
+  required: boolean
 }
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -116,7 +123,15 @@ const referenceChoices: Reference[] = [
 const caseInsensitiveIncludes = (haystack: string, needle: string) =>
   haystack.toLowerCase().includes(needle.toLowerCase())
 
-export const Default = ({disabled, fullHeight, monospace, minHeightLines, maxHeightLines, hideLabel}: ArgProps) => {
+export const Default = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required
+}: ArgProps) => {
   const [value, setValue] = useState('')
 
   const onSubmit = () => alert('Submitted')
@@ -170,6 +185,7 @@ export const Default = ({disabled, fullHeight, monospace, minHeightLines, maxHei
           </Button>
         </>
       }
+      required={required}
     />
   )
 }

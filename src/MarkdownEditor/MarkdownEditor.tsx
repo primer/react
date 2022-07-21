@@ -88,6 +88,10 @@ export type MarkdownEditorProps = SxProp & {
   acceptedFileTypes?: FileType[]
   /** Control whether the editor font is monospace. */
   monospace?: boolean
+  /** Control whether the input is required. */
+  required?: boolean
+  /** The name that will be given to the `textarea`. */
+  name?: string
 }
 
 export interface MarkdownEditor {
@@ -129,7 +133,9 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
       onUploadFile,
       acceptedFileTypes,
       monospace = false,
-      hideLabel = false
+      hideLabel = false,
+      required = false,
+      name
     },
     ref
   ) => {
@@ -230,7 +236,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
         aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
         style={{appearance: 'none', border: 'none'}}
       >
-        <InputLabel as="legend" sx={{cursor: 'default', mb: 1}} visuallyHidden={hideLabel}>
+        <InputLabel as="legend" sx={{cursor: 'default', mb: 1}} visuallyHidden={hideLabel} required={required}>
           {label}
         </InputLabel>
 
@@ -247,6 +253,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
             height: fullHeight ? '100%' : undefined,
             minInlineSize: 'auto',
             bg: 'canvas.default',
+            color: disabled ? 'fg.subtle' : 'fg.default',
             ...sx
           }}
           ref={containerRef}
@@ -289,6 +296,8 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
             maxHeightLines={maxHeightLines}
             visible={view === 'edit'}
             monospace={monospace}
+            required={required}
+            name={name}
             {...inputCompositionProps}
             {...fileHandler.pasteTargetProps}
             {...fileHandler.dropTargetProps}
