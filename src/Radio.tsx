@@ -32,7 +32,7 @@ export type RadioProps = {
    */
   required?: boolean
   /**
-   * Indicates whether the radio button validation state is non-standard
+   * Only used to inform ARIA attributes. Individual radio inputs do not have validation styles.
    */
   validationStatus?: FormValidationStatus
 } & InputHTMLAttributes<HTMLInputElement> &

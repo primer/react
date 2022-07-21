@@ -25,7 +25,7 @@ export type CheckboxProps = {
    */
   required?: boolean
   /**
-   * Indicates whether the checkbox validation state
+   * Only used to inform ARIA attributes. Individual checkboxes do not have validation styles.
    */
   validationStatus?: FormValidationStatus
   /**
