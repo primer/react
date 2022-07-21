@@ -75,6 +75,11 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
     }
   },
 
+  // fixes an issue where the focus outline shows over the pseudo-element
+  ':focus:focus-visible:not(:last-child):after': {
+    width: 0
+  },
+
   '.segmentedControl-text': {
     ':after': {
       content: `"${props?.children}"`,
