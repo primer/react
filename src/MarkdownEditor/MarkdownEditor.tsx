@@ -62,8 +62,8 @@ export type MarkdownEditorProps = SxProp & {
    * @default 35
    */
   maxHeightLines?: number
-  /** Accessible label for the editor. */
-  label: string
+  /** Accessible label for the editor. A label is required, though it can be hidden with `hideLabel`. */
+  label: React.ReactNode
   /** Control whether the label is hidden. */
   hideLabel?: boolean
   /**
