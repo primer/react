@@ -6,7 +6,7 @@ import BaseStyles from '../BaseStyles'
 import {Button} from '../Button'
 import Box from '../Box'
 
-export default {
+const meta: Meta = {
   title: 'Forms/MarkdownEditor',
   decorators: [
     Story => {
@@ -19,6 +19,20 @@ export default {
       )
     }
   ],
+  parameters: {
+    controls: {
+      include: [
+        'Disabled',
+        'Full Height',
+        'Monospace Font',
+        'Minimum Height (Lines)',
+        'Maximum Height (Lines)',
+        'Hide Label',
+        'rRquired'
+      ]
+    }
+  },
+  component: MarkdownEditor,
   argTypes: {
     disabled: {
       name: 'Disabled',
@@ -68,9 +82,14 @@ export default {
       control: {
         type: 'boolean'
       }
+    },
+    onSubmit: {
+      action: 'submitted'
     }
   }
-} as Meta
+}
+
+export default meta
 
 type ArgProps = {
   disabled: boolean
@@ -80,6 +99,7 @@ type ArgProps = {
   maxHeightLines: number
   hideLabel: boolean
   required: boolean
+  onSubmit: () => void
 }
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -130,11 +150,10 @@ export const Default = ({
   minHeightLines,
   maxHeightLines,
   hideLabel,
-  required
+  required,
+  onSubmit
 }: ArgProps) => {
   const [value, setValue] = useState('')
-
-  const onSubmit = () => alert('Submitted')
 
   return (
     <MarkdownEditor
