@@ -6,6 +6,7 @@ import {toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
+import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
 
 expect.extend(toHaveNoViolations)
 
@@ -14,10 +15,16 @@ describe('Textarea', () => {
     jest.resetAllMocks()
     cleanup()
   })
-  behavesAsComponent({Component: Textarea, options: {skipAs: true}})
+  behavesAsComponent({
+    Component: Textarea,
+    options: {skipAs: true}
+  })
 
   checkExports('Textarea', {
-    default: Textarea
+    default: Textarea,
+    DEFAULT_TEXTAREA_ROWS,
+    DEFAULT_TEXTAREA_COLS,
+    DEFAULT_TEXTAREA_RESIZE
   })
 
   it('renders a valid textarea input', () => {
