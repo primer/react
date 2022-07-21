@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
-import {Meta} from '@storybook/react'
-import {Emoji, Mentionable, MarkdownEditor, Reference} from '../MarkdownEditor'
-import ThemeProvider from '../ThemeProvider'
+import {GitPullRequestIcon} from '@primer/octicons-react'
+import React, {Meta} from '@storybook/react'
+import {useState} from 'react'
 import BaseStyles from '../BaseStyles'
-import {Button} from '../Button'
 import Box from '../Box'
+import {Button} from '../Button'
+import MarkdownEditor, {Emoji, Mentionable, Reference} from '../MarkdownEditor'
+import ThemeProvider from '../ThemeProvider'
 
 const meta: Meta = {
   title: 'Forms/MarkdownEditor',
@@ -205,6 +206,11 @@ export const Default = ({
         </>
       }
       required={required}
-    />
+    >
+      <MarkdownEditor.Toolbar>
+        <MarkdownEditor.ToolbarButton icon={GitPullRequestIcon} />
+        <MarkdownEditor.DefaultToolbarButtons />
+      </MarkdownEditor.Toolbar>
+    </MarkdownEditor>
   )
 }

@@ -8,11 +8,14 @@ import {useResizeObserver} from '../hooks/useResizeObserver'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import MarkdownViewer from '../MarkdownViewer'
 import {SxProp} from '../sx'
+import createSlots from '../utils/create-slots'
 import InputLabel from '../_InputLabel'
 import VisuallyHidden from '../_VisuallyHidden'
+import {FormattingTools} from './FormattingTools'
+import {MarkdownEditorContext} from './MarkdownEditorContext'
+import {CoreToolbar, DefaultToolbarButtons} from './Toolbar'
 import {MarkdownEditorFooter} from './_MarkdownEditorFooter'
 import {MarkdownInput} from './_MarkdownEditorInput'
-import {MarkdownToolbar} from './_MarkdownToolbar'
 import {FileUploadResult, useFileHandling} from './_useFileHandling'
 import {useIndenting} from './_useIndenting'
 import {useListEditing} from './_useListEditing'
@@ -92,6 +95,7 @@ export type MarkdownEditorProps = SxProp & {
   required?: boolean
   /** The name that will be given to the `textarea`. */
   name?: string
+  children?: React.ReactNode
 }
 
 export interface MarkdownEditor {
@@ -105,15 +109,18 @@ const a11yOnlyStyle = {clipPath: 'Circle(0)', position: 'absolute'} as const
 
 const CONDENSED_WIDTH_THRESHOLD = 675
 
+const {Slot, Slots} = createSlots(['Toolbar'])
+export const MarkdownEditorSlot = Slot
+
 /**
  * Markdown textarea with controls & keyboard shortcuts.
  */
-export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
+const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
   (
     {
       value,
       onChange,
-      disabled,
+      disabled = false,
       placeholder,
       maxLength,
       actionButtons,
@@ -135,7 +142,8 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
       monospace = false,
       hideLabel = false,
       required = false,
-      name
+      name,
+      children
     },
     ref
   ) => {
@@ -188,7 +196,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
     const listEditor = useListEditing({emitChange})
     const indenter = useIndenting({emitChange})
 
-    const toolbarRef = useRef<MarkdownToolbar>(null)
+    const formattingToolsRef = useRef<FormattingTools>(null)
 
     // use state instead of ref since we need to recalculate when the element mounts
     const containerRef = useRef<HTMLDivElement>(null)
@@ -206,19 +214,19 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
 
     const inputCompositionProps = useIgnoreKeyboardActionsWhileComposing(
       (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        const toolbar = toolbarRef.current
+        const format = formattingToolsRef.current
         if (disabled) return
 
         if (isMacOS() ? e.metaKey : e.ctrlKey) {
           if (e.key === 'Enter') onPrimaryAction?.()
-          else if (e.key === 'b') toolbar?.bold()
-          else if (e.key === 'i') toolbar?.italic()
-          else if (e.shiftKey && e.key === '.') toolbar?.quote()
-          else if (e.key === 'e') toolbar?.code()
-          else if (e.key === 'k') toolbar?.link()
-          else if (e.key === '8') toolbar?.unorderedList()
-          else if (e.shiftKey && e.key === '7') toolbar?.orderedList()
-          else if (e.shiftKey && e.key === 'l') toolbar?.taskList()
+          else if (e.key === 'b') format?.bold()
+          else if (e.key === 'i') format?.italic()
+          else if (e.shiftKey && e.key === '.') format?.quote()
+          else if (e.key === 'e') format?.code()
+          else if (e.key === 'k') format?.link()
+          else if (e.key === '8') format?.unorderedList()
+          else if (e.shiftKey && e.key === '7') format?.orderedList()
+          else if (e.shiftKey && e.key === 'l') format?.taskList()
           else return
 
           e.preventDefault()
@@ -231,113 +239,127 @@ export const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
     )
 
     return (
-      <fieldset
-        disabled={disabled}
-        aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
-        style={{appearance: 'none', border: 'none'}}
-      >
-        <InputLabel as="legend" sx={{cursor: 'default', mb: 1}} visuallyHidden={hideLabel} required={required}>
-          {label}
-        </InputLabel>
-
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            borderColor: 'border.default',
-            borderWidth: 1,
-            borderStyle: 'solid',
-            borderRadius: 2,
-            p: 2,
-            height: fullHeight ? '100%' : undefined,
-            minInlineSize: 'auto',
-            bg: 'canvas.default',
-            color: disabled ? 'fg.subtle' : 'fg.default',
-            ...sx
-          }}
-          ref={containerRef}
-        >
-          <VisuallyHidden id={descriptionId} aria-live="polite">
-            Markdown input:
-            {view === 'preview' ? 'Preview mode selected' : 'Edit mode selected'}
-          </VisuallyHidden>
-
-          <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
-            <ViewSwitch
-              selectedView={view}
-              onViewSelect={setView}
-              condensed={condensed}
-              disabled={fileHandler.uploadProgress !== null}
-              onLoadPreview={loadPreview}
-            />
-
-            <Box sx={{display: 'flex'}}>
-              {view === 'edit' && (
-                <MarkdownToolbar forInputId={id} disabled={disabled} ref={toolbarRef} condensed={condensed} />
-              )}
-            </Box>
-          </Box>
-
-          <MarkdownInput
-            value={value}
-            onChange={onInputChange}
-            onSuggestEmojis={onSuggestEmojis}
-            onSuggestReferences={onSuggestReferences}
-            onSuggestMentions={onSuggestMentions}
-            disabled={disabled}
-            placeholder={placeholder}
-            id={id}
-            maxLength={maxLength}
-            ref={inputRef}
-            fullHeight={fullHeight}
-            isDraggedOver={fileHandler.isDraggedOver}
-            minHeightLines={minHeightLines}
-            maxHeightLines={maxHeightLines}
-            visible={view === 'edit'}
-            monospace={monospace}
-            required={required}
-            name={name}
-            {...inputCompositionProps}
-            {...fileHandler.pasteTargetProps}
-            {...fileHandler.dropTargetProps}
-          />
-
-          {view === 'preview' && (
-            <Box
-              sx={{
-                p: 1,
-                overflow: 'auto',
-                height: fullHeight ? '100%' : undefined,
-                minHeight: inputHeight.current,
-                boxSizing: 'border-box'
-              }}
-              aria-live="polite"
+      <Slots>
+        {slots => (
+          <MarkdownEditorContext.Provider value={{disabled, formattingToolsRef, condensed}}>
+            <fieldset
+              disabled={disabled}
+              aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
+              style={{appearance: 'none', border: 'none'}}
             >
-              <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
-              <MarkdownViewer
-                dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
-                loading={html === null}
-                openLinksInNewTab
-              />
-            </Box>
-          )}
+              <FormattingTools ref={formattingToolsRef} forInputId={id} />
+              <div style={{display: 'none'}}>{children}</div>
 
-          <MarkdownEditorFooter
-            actionButtons={actionButtons}
-            condensed={condensed}
-            fileDraggedOver={fileHandler.isDraggedOver}
-            fileUploadProgress={fileHandler.uploadProgress}
-            uploadButtonProps={{
-              disabled,
-              ...fileHandler.clickTargetProps
-            }}
-            errorMessage={fileHandler.errorMessage}
-            previewMode={view === 'preview'}
-          />
-        </Box>
-      </fieldset>
+              <InputLabel as="legend" sx={{cursor: 'default', mb: 1}} visuallyHidden={hideLabel} required={required}>
+                {label}
+              </InputLabel>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '100%',
+                  borderColor: 'border.default',
+                  borderWidth: 1,
+                  borderStyle: 'solid',
+                  borderRadius: 2,
+                  p: 2,
+                  height: fullHeight ? '100%' : undefined,
+                  minInlineSize: 'auto',
+                  bg: 'canvas.default',
+                  color: disabled ? 'fg.subtle' : 'fg.default',
+                  ...sx
+                }}
+                ref={containerRef}
+              >
+                <VisuallyHidden id={descriptionId} aria-live="polite">
+                  Markdown input:
+                  {view === 'preview' ? 'Preview mode selected' : 'Edit mode selected'}
+                </VisuallyHidden>
+
+                <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
+                  <ViewSwitch
+                    selectedView={view}
+                    onViewSelect={setView}
+                    condensed={condensed}
+                    disabled={fileHandler.uploadProgress !== null}
+                    onLoadPreview={loadPreview}
+                  />
+
+                  <Box sx={{display: 'flex'}}>
+                    {view === 'edit' &&
+                      (slots.Toolbar ?? (
+                        <CoreToolbar>
+                          <DefaultToolbarButtons />
+                        </CoreToolbar>
+                      ))}
+                  </Box>
+                </Box>
+
+                <MarkdownInput
+                  value={value}
+                  onChange={onInputChange}
+                  onSuggestEmojis={onSuggestEmojis}
+                  onSuggestReferences={onSuggestReferences}
+                  onSuggestMentions={onSuggestMentions}
+                  disabled={disabled}
+                  placeholder={placeholder}
+                  id={id}
+                  maxLength={maxLength}
+                  ref={inputRef}
+                  fullHeight={fullHeight}
+                  isDraggedOver={fileHandler.isDraggedOver}
+                  minHeightLines={minHeightLines}
+                  maxHeightLines={maxHeightLines}
+                  visible={view === 'edit'}
+                  monospace={monospace}
+                  required={required}
+                  name={name}
+                  {...inputCompositionProps}
+                  {...fileHandler.pasteTargetProps}
+                  {...fileHandler.dropTargetProps}
+                />
+
+                {view === 'preview' && (
+                  <Box
+                    sx={{
+                      p: 1,
+                      overflow: 'auto',
+                      height: fullHeight ? '100%' : undefined,
+                      minHeight: inputHeight.current,
+                      boxSizing: 'border-box'
+                    }}
+                    aria-live="polite"
+                  >
+                    <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
+                    <MarkdownViewer
+                      dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
+                      loading={html === null}
+                      openLinksInNewTab
+                    />
+                  </Box>
+                )}
+
+                <MarkdownEditorFooter
+                  actionButtons={actionButtons}
+                  condensed={condensed}
+                  fileDraggedOver={fileHandler.isDraggedOver}
+                  fileUploadProgress={fileHandler.uploadProgress}
+                  uploadButtonProps={{
+                    disabled,
+                    ...fileHandler.clickTargetProps
+                  }}
+                  errorMessage={fileHandler.errorMessage}
+                  previewMode={view === 'preview'}
+                />
+              </Box>
+            </fieldset>
+          </MarkdownEditorContext.Provider>
+        )}
+      </Slots>
     )
   }
 )
 MarkdownEditor.displayName = 'MarkdownEditor'
+
+export default MarkdownEditor

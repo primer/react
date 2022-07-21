@@ -1,4 +1,10 @@
-export * from './MarkdownEditor'
+import _MarkdownEditor from './MarkdownEditor'
+import {DefaultToolbarButtons, Toolbar, ToolbarButton} from './Toolbar'
+
+export {MarkdownEditorProps} from './MarkdownEditor'
+
+const MarkdownEditor = Object.assign(_MarkdownEditor, {Toolbar, ToolbarButton, DefaultToolbarButtons})
+export default MarkdownEditor
 
 export {
   Emoji,
