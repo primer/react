@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Adds support for a resonsive 'variant' prop to the SegmentedControl component
+Adds support for a responsive 'variant' prop to the SegmentedControl component
