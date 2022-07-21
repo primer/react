@@ -1,14 +1,21 @@
 import React, {useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
-import styled from 'styled-components'
 
-import {BaseStyles, Box, Checkbox, CheckboxProps, Text, ThemeProvider} from '..'
+import {BaseStyles, Box, Checkbox, CheckboxProps, ThemeProvider} from '..'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {action} from '@storybook/addon-actions'
-import {get} from '../constants'
+import FormControl from '../FormControl'
+import {
+  FormControlArgs,
+  formControlArgTypesWithoutValidation,
+  getFormControlArgsByChildComponent
+} from '../utils/story-helpers'
+import {MarkGithubIcon} from '@primer/octicons-react'
+
+const excludedControlKeys = ['required', 'value', 'validationStatus', 'sx']
 
 export default {
-  title: 'Forms/Checkbox',
+  title: 'Forms/Form Controls/Checkbox',
   component: Checkbox,
   decorators: [
     Story => {
@@ -21,36 +28,65 @@ export default {
       )
     }
   ],
+  parameters: {controls: {exclude: excludedControlKeys}},
   argTypes: {
-    sx: {
-      table: {
-        disable: true
-      }
-    },
-    disabled: {
-      name: 'Disabled',
+    checked: {
       defaultValue: false,
       control: {
         type: 'boolean'
       }
-    }
+    },
+    indeterminate: {
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
+    ...formControlArgTypesWithoutValidation
   }
 } as Meta
 
-const StyledLabel = styled.label`
-  user-select: none;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 18px;
-  margin-left: 16px;
-`
+export const Default = ({value: _value, checked, ...args}: FormControlArgs<CheckboxProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
 
-const StyledSubLabel = styled(Text)`
-  color: ${get('colors.fg.muted')};
-  font-size: 13px;
-`
+  return (
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <Checkbox value="default" checked={checked} {...args} />
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      </FormControl>
+    </Box>
+  )
+}
+Default.args = {
+  labelChildren: 'Default checkbox',
+  captionChildren: 'Always unchecked unless `checked` is set to true in Storybook controls'
+}
 
-export const Default = ({value: _value, ...args}: CheckboxProps) => {
+export const WithLeadingVisual = ({value: _value, checked, ...args}: FormControlArgs<CheckboxProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
+
+  return (
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <FormControl.LeadingVisual>
+          <MarkGithubIcon />
+        </FormControl.LeadingVisual>
+        <Checkbox value="default" checked={checked} {...args} />
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      </FormControl>
+    </Box>
+  )
+}
+WithLeadingVisual.args = {
+  labelChildren: 'Default checkbox',
+  captionChildren: 'Always unchecked unless `checked` is set to true in Storybook controls'
+}
+
+export const Controlled = (args: FormControlArgs<CheckboxProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
   const [isChecked, setChecked] = useState<boolean>(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,107 +95,43 @@ export const Default = ({value: _value, ...args}: CheckboxProps) => {
   }
 
   return (
-    <>
-      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
-        <Checkbox value="default" id="controlled-checkbox" onChange={handleChange} checked={isChecked} {...args} />
-        <StyledLabel htmlFor="controlled-checkbox">
-          <Text sx={{display: 'block'}}>Default checkbox</Text>
-          <StyledSubLabel>controlled</StyledSubLabel>
-        </StyledLabel>
-      </Box>
-      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
-        <Checkbox value="alwaysChecked" id="always-checked-checkbox" checked {...args} />
-        <StyledLabel htmlFor="always-checked-checkbox">
-          <Text sx={{display: 'block'}}>Always checked</Text>
-          <StyledSubLabel>checked=&quot;true&quot;</StyledSubLabel>
-        </StyledLabel>
-      </Box>
-      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
-        <Checkbox value="alwaysUnchecked" id="always-unchecked-checkbox" checked={false} {...args} />
-        <StyledLabel htmlFor="always-unchecked-checkbox">
-          <Text sx={{display: 'block'}}>Always unchecked</Text>
-          <StyledSubLabel>checked=&quot;false&quot;</StyledSubLabel>
-        </StyledLabel>
-      </Box>
-      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
-        <Checkbox value="inactive" id="disabled-checkbox" disabled checked={false} />
-        <StyledLabel htmlFor="disabled-checkbox">
-          <Text sx={{display: 'block'}}>Inactive</Text>
-          <StyledSubLabel>disabled=&quot;true&quot;</StyledSubLabel>
-        </StyledLabel>
-      </Box>
-    </>
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <Checkbox value="default" onChange={handleChange} checked={isChecked} {...args} />
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      </FormControl>
+    </Box>
   )
 }
+Controlled.parameters = {controls: {exclude: [...excludedControlKeys, 'checked']}}
+Controlled.args = {
+  labelChildren: 'Controlled checkbox',
+  captionChildren: 'Checked attribute is controlled by React state update on change'
+}
 
-export const Uncontrolled = ({value: _value, ...args}: CheckboxProps) => {
+export const Uncontrolled = (args: FormControlArgs<CheckboxProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
   const checkboxRef = useRef<HTMLInputElement | null>(null)
 
   useLayoutEffect(() => {
     if (checkboxRef.current) {
-      checkboxRef.current.checked = true
+      checkboxRef.current.checked = false
     }
   }, [])
 
   return (
-    <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
-      <Checkbox value="uncontrolled-checkbox" id="uncontrolled-checkbox" ref={checkboxRef} {...args} />
-      <StyledLabel htmlFor="uncontrolled-checkbox">
-        <Text sx={{display: 'block'}}>Uncontrolled checkbox</Text>
-        <StyledSubLabel>Checked by default</StyledSubLabel>
-      </StyledLabel>
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <Checkbox ref={checkboxRef} {...args} />
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      </FormControl>
     </Box>
   )
 }
-
-export const Indeterminate = ({value: _value, ...args}: CheckboxProps) => {
-  const [checkboxes, setCheckboxes] = useState<boolean[]>([false, false, false, false])
-
-  const handleChange = (_: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const newCheckboxes = [...checkboxes]
-    newCheckboxes[index] = !checkboxes[index]
-    setCheckboxes(newCheckboxes)
-  }
-
-  const handleIndeterminateChange = () => {
-    if (checkboxes.every(checkbox => checkbox)) {
-      return setCheckboxes(checkboxes.map(() => false))
-    }
-
-    const newCheckboxes = checkboxes.map(() => true)
-    setCheckboxes(newCheckboxes)
-  }
-
-  return (
-    <>
-      <Box as="form" sx={{p: 3, display: 'flex', alignItems: 'flex-start'}}>
-        <Checkbox
-          value="indeterminate-checkbox"
-          id="indeterminate-checkbox"
-          checked={checkboxes.every(Boolean)}
-          onChange={handleIndeterminateChange}
-          indeterminate={!checkboxes.every(Boolean)}
-        />
-        <StyledLabel htmlFor="controlled-checkbox">
-          <Text sx={{display: 'block'}}>Default checkbox</Text>
-          <StyledSubLabel>controlled</StyledSubLabel>
-        </StyledLabel>
-      </Box>
-
-      {checkboxes.map((field, index) => (
-        <Box key={`sub-checkbox-${index}`} as="form" sx={{p: 1, pl: 7, display: 'flex', alignItems: 'flex-start'}}>
-          <Checkbox
-            value={`sub-checkbox-${index}`}
-            id={`sub-checkbox-${index}`}
-            checked={checkboxes[index]}
-            onChange={event => handleChange(event, index)}
-            {...args}
-          />
-          <StyledLabel htmlFor={`sub-checkbox-${index}`}>
-            <Text sx={{display: 'block'}}>Checkbox {index + 1}</Text>
-          </StyledLabel>
-        </Box>
-      ))}
-    </>
-  )
+Uncontrolled.parameters = {controls: {exclude: [...excludedControlKeys, 'checked']}}
+Uncontrolled.args = {
+  labelChildren: 'Uncontrolled checkbox',
+  captionChildren: 'Checked attribute is set in a useLayoutEffect hook'
 }

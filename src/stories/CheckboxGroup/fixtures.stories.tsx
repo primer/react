@@ -1,22 +1,69 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, Box, Checkbox, CheckboxGroup, FormControl, ThemeProvider} from '../../'
-import {ComponentProps} from '../../utils/types'
+import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 
-type Args = ComponentProps<typeof CheckboxGroup>
+const excludedControlKeys = ['aria-labelledby', 'id', 'onChange', 'sx', 'visuallyHidden']
 
 export default {
   title: 'Forms/CheckboxGroup/fixtures',
   component: CheckboxGroup,
   argTypes: {
+    // CheckboxGroup
     disabled: {
-      defaultValue: false
+      defaultValue: false,
+      type: 'boolean'
     },
     required: {
-      defaultValue: false
+      defaultValue: false,
+      type: 'boolean'
+    },
+
+    // CheckboxGroup.Label
+    labelChildren: {
+      defaultValue: 'Choices',
+      type: 'string',
+      table: {
+        category: 'CheckboxGroup.Label'
+      }
+    },
+    visuallyHidden: {
+      defaultValue: false,
+      type: 'boolean',
+      table: {
+        category: 'CheckboxGroup.Label'
+      }
+    },
+
+    // CheckboxGroup.Caption
+    captionChildren: {
+      defaultValue: '',
+      type: 'string',
+      table: {
+        category: 'CheckboxGroup.Caption'
+      }
+    },
+
+    // CheckboxGroup.Validation
+    validationChildren: {
+      defaultValue: '',
+      type: 'string',
+      table: {
+        category: 'CheckboxGroup.Validation'
+      }
+    },
+    variant: {
+      defaultValue: 'error',
+      control: {
+        type: 'radio',
+        options: ['error', 'success', 'warning']
+      },
+      table: {
+        category: 'CheckboxGroup.Validation'
+      }
     }
   },
-  parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange', 'sx']}},
+  parameters: {controls: {exclude: excludedControlKeys}},
   decorators: [
     Story => {
       return (
@@ -30,20 +77,68 @@ export default {
   ]
 } as Meta
 
-export const WithExternalLabel = (args: Args) => (
-  <>
-    <Box
-      id="choiceHeading"
-      borderBottomWidth="1px"
-      borderBottomStyle="solid"
-      borderBottomColor="border.default"
-      pb={2}
-      mb={3}
-      fontSize={3}
-    >
-      Choices
-    </Box>
-    <CheckboxGroup aria-labelledby="choiceHeading" {...args}>
+export const WithExternalLabel = ({
+  disabled,
+  required,
+  labelChildren,
+  captionChildren,
+  validationChildren,
+  variant
+}: CheckboxOrRadioGroupArgs) => {
+  const parentArgs = {disabled, required}
+  const validationArgs = {children: validationChildren, variant}
+
+  return (
+    <>
+      <Box
+        id="choiceHeading"
+        borderBottomWidth="1px"
+        borderBottomStyle="solid"
+        borderBottomColor="border.default"
+        pb={2}
+        mb={3}
+        fontSize={3}
+      >
+        {labelChildren} {parentArgs.required && '*'}
+      </Box>
+      <CheckboxGroup aria-labelledby="choiceHeading" {...parentArgs}>
+        {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
+        <FormControl>
+          <Checkbox />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+        {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
+      </CheckboxGroup>
+    </>
+  )
+}
+WithExternalLabel.parameters = {controls: {exclude: [...excludedControlKeys, 'visuallyHidden']}}
+
+export const WithHiddenLabel = ({
+  disabled,
+  required,
+  labelChildren,
+  visuallyHidden,
+  captionChildren,
+  validationChildren,
+  variant
+}: CheckboxOrRadioGroupArgs) => {
+  const parentArgs = {disabled, required}
+  const labelArgs = {children: labelChildren, visuallyHidden}
+  const validationArgs = {children: validationChildren, variant}
+
+  return (
+    <CheckboxGroup {...parentArgs}>
+      {labelArgs.children && <CheckboxGroup.Label {...labelArgs} />}
+      {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
       <FormControl>
         <Checkbox />
         <FormControl.Label>Choice one</FormControl.Label>
@@ -56,24 +151,10 @@ export const WithExternalLabel = (args: Args) => (
         <Checkbox />
         <FormControl.Label>Choice three</FormControl.Label>
       </FormControl>
+      {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
     </CheckboxGroup>
-  </>
-)
-
-export const WithHiddenLabel = (args: Args) => (
-  <CheckboxGroup {...args}>
-    <CheckboxGroup.Label visuallyHidden>Choices</CheckboxGroup.Label>
-    <FormControl>
-      <Checkbox />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
-  </CheckboxGroup>
-)
+  )
+}
+WithHiddenLabel.args = {
+  visuallyHidden: true
+}

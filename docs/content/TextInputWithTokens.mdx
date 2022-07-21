@@ -4,7 +4,7 @@ title: TextInputWithTokens
 status: Alpha
 description: Used to show multiple values in one field
 source: https://github.com/primer/react/tree/main/src/TextInputWithTokens.tsx
-storybook: '/react/storybook?path=/story/forms-text-input-with-tokens--default'
+storybook: '/react/storybook?path=/story/forms-form-controls-text-input-with-tokens--default'
 ---
 
 import {TextInputWithTokens} from '@primer/react'
@@ -439,6 +439,11 @@ render(<WithIconAndLoadingIndicator />)
     type="number"
     description="The number of tokens to display before truncating"
   />
+  <PropsTablePassthroughPropsRow
+    elementName="TextInput"
+    isPolymorphic
+    passthroughPropsLink={<Link href="/react/TextInput">TextInput docs</Link>}
+  />
 </PropsTable>
 
 ### Adding and removing tokens
@@ -464,6 +469,7 @@ There is no function that gets called to "add" a token, so the user needs to be 
     fullTestCoverage: true,
     usedInProduction: false,
     usageExamplesDocumented: true,
+    hasStorybookStories: true,
     designReviewed: false,
     a11yReviewed: false,
     stableApi: false,
