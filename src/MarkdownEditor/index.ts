@@ -1,6 +1,7 @@
 import _MarkdownEditor from './MarkdownEditor'
 import {DefaultToolbarButtons, Toolbar, ToolbarButton} from './Toolbar'
 import {ActionButton, Actions} from './Actions'
+import {Label} from './Label'
 
 export {MarkdownEditorProps} from './MarkdownEditor'
 
@@ -9,7 +10,8 @@ const MarkdownEditor = Object.assign(_MarkdownEditor, {
   ToolbarButton,
   DefaultToolbarButtons,
   ActionButton,
-  Actions
+  Actions,
+  Label
 })
 export default MarkdownEditor
 

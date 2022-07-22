@@ -9,7 +9,6 @@ import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import MarkdownViewer from '../MarkdownViewer'
 import {SxProp} from '../sx'
 import createSlots from '../utils/create-slots'
-import InputLabel from '../_InputLabel'
 import VisuallyHidden from '../_VisuallyHidden'
 import {FormattingTools} from './FormattingTools'
 import {MarkdownEditorContext} from './MarkdownEditorContext'
@@ -60,10 +59,6 @@ export type MarkdownEditorProps = SxProp & {
    * @default 35
    */
   maxHeightLines?: number
-  /** Accessible label for the editor. A label is required, though it can be hidden with `hideLabel`. */
-  label: React.ReactNode
-  /** Control whether the label is hidden. */
-  hideLabel?: boolean
   /**
    * Accepts Markdown and returns rendered HTML. To prevent XSS attacks,
    * the HTML should be sanitized and/or come from a trusted source.
@@ -90,7 +85,7 @@ export type MarkdownEditorProps = SxProp & {
   required?: boolean
   /** The name that will be given to the `textarea`. */
   name?: string
-  children?: React.ReactNode
+  children: React.ReactNode
 }
 
 export interface MarkdownEditor {
@@ -104,7 +99,7 @@ const a11yOnlyStyle = {clipPath: 'Circle(0)', position: 'absolute'} as const
 
 const CONDENSED_WIDTH_THRESHOLD = 675
 
-const {Slot, Slots} = createSlots(['Toolbar', 'Actions'])
+const {Slot, Slots} = createSlots(['Toolbar', 'Actions', 'Label'])
 export const MarkdownEditorSlot = Slot
 
 /**
@@ -127,14 +122,12 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
       onChangeViewMode: controlledSetViewMode,
       minHeightLines = 5,
       maxHeightLines = 35,
-      label,
       onSuggestEmojis,
       onSuggestMentions,
       onSuggestReferences,
       onUploadFile,
       acceptedFileTypes,
       monospace = false,
-      hideLabel = false,
       required = false,
       name,
       children
@@ -236,7 +229,7 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
     return (
       <Slots context={{}}>
         {slots => (
-          <MarkdownEditorContext.Provider value={{disabled, formattingToolsRef, condensed}}>
+          <MarkdownEditorContext.Provider value={{disabled, formattingToolsRef, condensed, required}}>
             <fieldset
               disabled={disabled}
               aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
@@ -245,9 +238,7 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
               <FormattingTools ref={formattingToolsRef} forInputId={id} />
               <div style={{display: 'none'}}>{children}</div>
 
-              <InputLabel as="legend" sx={{cursor: 'default', mb: 1}} visuallyHidden={hideLabel} required={required}>
-                {label}
-              </InputLabel>
+              {slots.Label}
 
               <Box
                 sx={{

@@ -3,7 +3,9 @@ import React, {Meta} from '@storybook/react'
 import {useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
+import FormControl from '../FormControl'
 import MarkdownEditor, {Emoji, Mentionable, Reference} from '../MarkdownEditor'
+import TextInput from '../TextInput'
 import ThemeProvider from '../ThemeProvider'
 
 const meta: Meta = {
@@ -171,8 +173,6 @@ export const Default = ({
       minHeightLines={minHeightLines}
       maxHeightLines={maxHeightLines}
       placeholder="Enter some Markdown..."
-      label="Markdown Editor Example"
-      hideLabel={hideLabel}
       onRenderPreview={async () => {
         await delay(500)
         return 'Previewing Markdown is not supported in this example.'
@@ -201,6 +201,8 @@ export const Default = ({
       }
       required={required}
     >
+      <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
+
       <MarkdownEditor.Toolbar>
         <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} />
         <MarkdownEditor.DefaultToolbarButtons />
@@ -217,3 +219,9 @@ export const Default = ({
     </MarkdownEditor>
   )
 }
+
+export const FormControlStory = () => (
+  <FormControl>
+    <TextInput />
+  </FormControl>
+)
