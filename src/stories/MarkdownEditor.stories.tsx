@@ -30,7 +30,8 @@ const meta: Meta = {
         'Minimum Height (Lines)',
         'Maximum Height (Lines)',
         'Hide Label',
-        'rRquired'
+        'Rquired',
+        'Enable File Uploads'
       ]
     }
   },
@@ -85,10 +86,19 @@ const meta: Meta = {
         type: 'boolean'
       }
     },
+    fileUploadsEnabled: {
+      name: 'Enable File Uploads',
+      defaultValue: true,
+      control: {
+        type: 'boolean'
+      }
+    },
     onSubmit: {
+      name: 'onSubmit',
       action: 'submitted'
     },
     onDiffClick: {
+      name: 'onDiffClick',
       action: 'diff-clicked'
     }
   }
@@ -104,6 +114,7 @@ type ArgProps = {
   maxHeightLines: number
   hideLabel: boolean
   required: boolean
+  fileUploadsEnabled: boolean
   onSubmit: () => void
   onDiffClick: () => void
 }
@@ -157,10 +168,17 @@ export const Default = ({
   maxHeightLines,
   hideLabel,
   required,
+  fileUploadsEnabled,
   onSubmit,
   onDiffClick
 }: ArgProps) => {
   const [value, setValue] = useState('')
+
+  const onUploadFile = async (file: File) => {
+    // 0.5 - 5 seconds depending on file size up to about 20 MB
+    await delay(0.0002 * file.size + 500)
+    return {file, url: fakeFileUrl(file)}
+  }
 
   return (
     <MarkdownEditor
@@ -177,11 +195,7 @@ export const Default = ({
         await delay(500)
         return 'Previewing Markdown is not supported in this example.'
       }}
-      onUploadFile={async file => {
-        // 0.5 - 5 seconds depending on file size up to about 20 MB
-        await delay(0.0002 * file.size + 500)
-        return {file, url: fakeFileUrl(file)}
-      }}
+      onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
       onSuggestEmojis={query => emojiChoices.filter(emoji => caseInsensitiveIncludes(emoji.name, query)).slice(0, 5)}
       onSuggestMentions={query =>
         mentionChoices

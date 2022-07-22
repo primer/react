@@ -16,38 +16,38 @@ type MimeType = `${TopLevelMimeType}/${string}`
 /** @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept#unique_file_type_specifiers */
 export type FileType = `.${string}` | MimeType
 
-interface CommonFileSelectProps {
+type CommonFileSelectProps = {
   acceptedFileTypes?: Array<FileType>
 }
 
-export interface SingleFileSelectProps extends CommonFileSelectProps {
+export type SingleFileSelectProps = CommonFileSelectProps & {
   onSelect: (accepted?: File, rejected?: File) => void
   multi?: false
 }
 
-export interface MultiFileSelectProps extends CommonFileSelectProps {
+export type MultiFileSelectProps = CommonFileSelectProps & {
   onSelect: (accepted: Array<File>, rejected: Array<File>) => void
   multi: true
 }
 
 export type FileSelectProps = SingleFileSelectProps | MultiFileSelectProps
 
-interface PasteTargetProps {
+type PasteTargetProps = {
   onPaste: React.ClipboardEventHandler
 }
 
-interface ClickTargetProps {
+type ClickTargetProps = {
   onClick: React.MouseEventHandler
 }
 
-interface DropTargetProps {
+type DropTargetProps = {
   onDragEnter: React.DragEventHandler
   onDragLeave: React.DragEventHandler
   onDrop: React.DragEventHandler
   onDragOver: React.DragEventHandler
 }
 
-export interface UnifiedFileSelectResult {
+export type UnifiedFileSelectResult = {
   pasteTargetProps: PasteTargetProps
   clickTargetProps: ClickTargetProps
   dropTargetProps: DropTargetProps

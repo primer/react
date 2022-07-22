@@ -17,7 +17,7 @@ export const Footer = ({
 }: {
   actionButtons: React.ReactNode
   uploadButtonProps: Partial<ButtonProps> | null
-  fileUploadProgress: [number, number] | null
+  fileUploadProgress?: [number, number]
   fileDraggedOver: boolean
   errorMessage?: string
   previewMode: boolean

@@ -26,6 +26,12 @@ export type MarkdownEditorProps = SxProp & {
   value: string
   /** Called when the value changes. */
   onChange: (newMarkdown: string) => void
+  /**
+   * Accepts Markdown and returns rendered HTML. To prevent XSS attacks,
+   * the HTML should be sanitized and/or come from a trusted source.
+   */
+  onRenderPreview: (markdown: string) => Promise<string>
+  children: React.ReactNode
   /** Disable the editor and all related buttons. Users can still switch between preview & edit modes. */
   disabled?: boolean
   /** Placeholder text to show when the editor is empty. By default, no placeholder will be shown. */
@@ -59,19 +65,17 @@ export type MarkdownEditorProps = SxProp & {
    * @default 35
    */
   maxHeightLines?: number
-  /**
-   * Accepts Markdown and returns rendered HTML. To prevent XSS attacks,
-   * the HTML should be sanitized and/or come from a trusted source.
-   */
-  onRenderPreview: (markdown: string) => Promise<string>
   /** Returns an ordered list of emoji suggestions matching a query. */
   onSuggestEmojis?: EmojiSuggestionHandler
   /** Returns an ordered list of mention suggestions matching a query. */
   onSuggestMentions?: MentionSuggestionHandler
   /** Returns an ordered list of reference suggestions matching a query. */
   onSuggestReferences?: ReferenceSuggestionHandler
-  /** Uploads a file to a hosting service and returns the URL. */
-  onUploadFile: (file: File) => Promise<FileUploadResult>
+  /**
+   * Uploads a file to a hosting service and returns the URL. If not provided, file uploads
+   * will be disabled.
+   */
+  onUploadFile?: (file: File) => Promise<FileUploadResult>
   /**
    * Array of allowed file types. If `onUploadFile` is defined but this array is not, all
    * file types will be accepted. You can still reject file types by rejecting the `onUploadFile`
@@ -85,7 +89,6 @@ export type MarkdownEditorProps = SxProp & {
   required?: boolean
   /** The name that will be given to the `textarea`. */
   name?: string
-  children: React.ReactNode
 }
 
 export interface MarkdownEditor {
@@ -273,7 +276,7 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
                   <ViewSwitch
                     selectedView={view}
                     onViewSelect={setView}
-                    disabled={fileHandler.uploadProgress !== null}
+                    disabled={fileHandler?.uploadProgress !== undefined}
                     onLoadPreview={loadPreview}
                   />
 
@@ -299,7 +302,7 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
                   maxLength={maxLength}
                   ref={inputRef}
                   fullHeight={fullHeight}
-                  isDraggedOver={fileHandler.isDraggedOver}
+                  isDraggedOver={fileHandler?.isDraggedOver ?? false}
                   minHeightLines={minHeightLines}
                   maxHeightLines={maxHeightLines}
                   visible={view === 'edit'}
@@ -307,8 +310,8 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
                   required={required}
                   name={name}
                   {...inputCompositionProps}
-                  {...fileHandler.pasteTargetProps}
-                  {...fileHandler.dropTargetProps}
+                  {...fileHandler?.pasteTargetProps}
+                  {...fileHandler?.dropTargetProps}
                 />
 
                 {view === 'preview' && (
@@ -333,10 +336,10 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
 
                 <Footer
                   actionButtons={slots.Actions}
-                  fileDraggedOver={fileHandler.isDraggedOver}
-                  fileUploadProgress={fileHandler.uploadProgress}
-                  uploadButtonProps={fileHandler.clickTargetProps}
-                  errorMessage={fileHandler.errorMessage}
+                  fileDraggedOver={fileHandler?.isDraggedOver ?? false}
+                  fileUploadProgress={fileHandler?.uploadProgress}
+                  uploadButtonProps={fileHandler?.clickTargetProps ?? null}
+                  errorMessage={fileHandler?.errorMessage}
                   previewMode={view === 'preview'}
                 />
               </Box>

@@ -14,9 +14,9 @@ const markdown = (file: File, url: string | null) => {
 
 type UploadProgress = [current: number, total: number]
 
-interface UseFileHandlingResult extends UnifiedFileSelectResult {
+type UseFileHandlingResult = UnifiedFileSelectResult & {
   errorMessage?: string
-  uploadProgress: UploadProgress | null
+  uploadProgress?: UploadProgress
 }
 
 type UseFileHandlingProps = {
@@ -25,7 +25,7 @@ type UseFileHandlingProps = {
   emitChange: SyntheticChangeEmitter
   disabled?: boolean
   value: string
-  onUploadFile: (file: File) => Promise<FileUploadResult>
+  onUploadFile?: (file: File) => Promise<FileUploadResult>
   acceptedFileTypes?: FileType[]
 }
 
@@ -54,7 +54,7 @@ export const useFileHandling = ({
   disabled,
   onUploadFile,
   acceptedFileTypes
-}: UseFileHandlingProps): UseFileHandlingResult => {
+}: UseFileHandlingProps): UseFileHandlingResult | null => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
 
   const errorVisibleForEnoughTime = useRef(false)
@@ -82,13 +82,13 @@ export const useFileHandling = ({
     if (types.size > 0) setErrorMessage(`File type${types.size > 1 ? 's' : ''} not allowed: ${[...types].join(', ')}`)
   }, [])
 
-  const [uploadProgress, setUploadProgress] = useState<UploadProgress | null>(null)
+  const [uploadProgress, setUploadProgress] = useState<UploadProgress | undefined>(undefined)
 
   const uploadFiles = useCallback(
     (files: Array<File>): Array<Promise<OptFileUploadResult>> =>
       files.map(async file => {
         try {
-          return await onUploadFile(file)
+          return (await onUploadFile?.(file)) ?? {file, url: null}
         } catch (e) {
           return {file, url: null}
         }
@@ -132,7 +132,7 @@ export const useFileHandling = ({
           })
         )
 
-        setUploadProgress(null)
+        setUploadProgress(undefined)
       }
       setRejectedFiles(rejected)
     },
@@ -163,5 +163,5 @@ export const useFileHandling = ({
     }
   }
 
-  return {...fileSelect, errorMessage, uploadProgress}
+  return onUploadFile ? {...fileSelect, errorMessage, uploadProgress} : null
 }
