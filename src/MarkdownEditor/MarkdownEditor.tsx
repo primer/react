@@ -238,8 +238,9 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
       }
     )
 
+    // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
     return (
-      <Slots>
+      <Slots context={{}}>
         {slots => (
           <MarkdownEditorContext.Provider value={{disabled, formattingToolsRef, condensed}}>
             <fieldset
