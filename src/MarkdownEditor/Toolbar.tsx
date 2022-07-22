@@ -37,6 +37,7 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
     />
   )
 })
+ToolbarButton.displayName = 'MarkdownEditor.ToolbarButton'
 
 export const DefaultToolbarButtons = () => {
   const {condensed, formattingToolsRef} = useContext(MarkdownEditorContext)
@@ -107,6 +108,7 @@ export const DefaultToolbarButtons = () => {
     )
   )
 }
+DefaultToolbarButtons.displayName = 'MarkdownEditor.DefaultToolbarButtons'
 
 export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
   const {condensed} = useContext(MarkdownEditorContext)
@@ -137,3 +139,4 @@ export const Toolbar = ({children}: {children?: React.ReactNode}) => (
     <CoreToolbar>{children}</CoreToolbar>
   </MarkdownEditorSlot>
 )
+Toolbar.displayName = 'MarkdownEditor.Toolbar'
