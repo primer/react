@@ -50,7 +50,7 @@ export const Default = (args: Args) => (
 )
 
 export const Controlled = (args: Args) => {
-  const [selectedIndex, setSelectedIndex] = useState(1)
+  const [selectedIndex, setSelectedIndex] = useState(0)
   const handleChange = (i: number) => {
     setSelectedIndex(i)
   }
