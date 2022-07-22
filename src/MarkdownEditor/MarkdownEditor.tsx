@@ -40,7 +40,7 @@ export type MarkdownEditorProps = SxProp & {
    */
   fullHeight?: boolean
   /** ID of the describing element. */
-  describedBy?: string
+  'aria-describedby'?: string
   /** Optionally control the view mode. If uncontrolled, leave this `undefined`. */
   viewMode?: MarkdownViewMode
   /** If `viewMode` is controlled, this will be called on change. */
@@ -118,7 +118,7 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
       disabled = false,
       placeholder,
       maxLength,
-      describedBy,
+      'aria-describedby': describedBy,
       fullHeight,
       onRenderPreview,
       sx,
