@@ -3,25 +3,36 @@ import {DefaultToolbarButtons, Toolbar, ToolbarButton} from './Toolbar'
 import {ActionButton, Actions} from './Actions'
 import {Label} from './Label'
 
-export {MarkdownEditorProps} from './MarkdownEditor'
-
 const MarkdownEditor = Object.assign(_MarkdownEditor, {
+  /** REQUIRED: An accessible label for the editor. */
+  Label,
+  /**
+   * An optional custom toolbar. The toolbar should contain `ToolbarButton`s before
+   * and/or after a `DefaultToolbarButtons` instance. To create groups of buttons, wrap
+   * them in an unstyled `Box`.
+   */
   Toolbar,
+  /**
+   * A custom toolbar button. This takes `IconButton` props. Every toolbar button should
+   * have an `aria-label` defined.
+   */
   ToolbarButton,
+  /**
+   * The full set of default toolbar buttons. This is all the basic formatting tools in a
+   * standardized order.
+   */
   DefaultToolbarButtons,
-  ActionButton,
+  /**
+   * Optionally define a set of custom buttons to show in the editor footer. Often if you
+   * are defining custom buttons you should also wrap the editor in a `<form>`. This
+   * component should only contain `ActionButton`s.
+   */
   Actions,
-  Label
+  /** A button to show in the editor footer. */
+  ActionButton
 })
 export default MarkdownEditor
 
-export {
-  Emoji,
-  Mentionable,
-  Reference,
-  EmojiSuggestionHandler,
-  ReferenceSuggestionHandler,
-  MentionSuggestionHandler
-} from './_useSuggestions'
+export {MarkdownEditorProps} from './MarkdownEditor'
+export {Emoji, Mentionable, Reference} from './_useSuggestions'
 export {FileUploadResult} from './_useFileHandling'
-export {MarkdownViewMode} from './_ViewSwitch'
