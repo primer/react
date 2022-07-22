@@ -1,12 +1,16 @@
-import React, {ChangeEvent, useState} from 'react'
+import React from 'react'
 import {Meta} from '@storybook/react'
-import styled from 'styled-components'
+import {BaseStyles, Box, FormControl, Radio, RadioProps, ThemeProvider} from '..'
+import {
+  FormControlArgs,
+  formControlArgTypesWithoutValidation,
+  getFormControlArgsByChildComponent
+} from '../utils/story-helpers'
 
-import {BaseStyles, Box, Radio, RadioProps, Text, ThemeProvider} from '..'
-import {get} from '../constants'
+const excludedControlKeys = ['required', 'value', 'name', 'validationStatus', 'sx']
 
 export default {
-  title: 'Forms/Radio',
+  title: 'Forms/Form Controls/Radio',
   component: Radio,
   decorators: [
     Story => {
@@ -19,108 +23,31 @@ export default {
       )
     }
   ],
+  parameters: {controls: {exclude: excludedControlKeys}},
   argTypes: {
-    sx: {
-      table: {
-        disable: true
-      }
-    },
-    disabled: {
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
     checked: {
       defaultValue: false,
       control: {
         type: 'boolean'
       }
-    }
+    },
+    ...formControlArgTypesWithoutValidation
   }
 } as Meta
 
-const StyledLabel = styled.label`
-  user-select: none;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 18px;
-  margin-left: 8px;
-  display: flex;
-  cursor: pointer;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &[aria-disabled='true'] {
-    pointer-events: none;
-    cursor: not-allowed;
-    color: ${get('colors.primer.fg.disabled')};
-  }
-`
-
-export const Default = ({disabled, checked}: RadioProps) => {
-  const [isSelected, setSelected] = useState<boolean>(checked || false)
-  const handleChange = () => {
-    setSelected(!isSelected)
-  }
+export const Default = ({value: _value, ...args}: FormControlArgs<RadioProps>) => {
+  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
 
   return (
-    <>
-      <Box as="form" p={3} sx={{display: 'flex', alignItems: 'flex-start'}}>
-        <Radio
-          id="default-radio"
-          value="default"
-          name="default"
-          disabled={disabled}
-          checked={isSelected}
-          onChange={handleChange}
-        />
-        <StyledLabel htmlFor="default-radio" aria-disabled={disabled}>
-          Default radio button
-        </StyledLabel>
-      </Box>
-    </>
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <Radio name="default-radio-name" value="default" {...args} />
+        <FormControl.Label {...labelArgs} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+      </FormControl>
+    </Box>
   )
 }
-
-export const MultipleRadios = ({disabled}: RadioProps) => {
-  const [activeSelection, setActiveSelection] = useState<'yes' | 'no' | undefined>()
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target.value as 'yes' | 'no'
-    setActiveSelection(target)
-  }
-
-  return (
-    <>
-      <Box as="form" p={3} sx={{display: 'inline-flex', alignItems: 'flex-start'}}>
-        <StyledLabel htmlFor="yes-radio" aria-disabled={disabled}>
-          <Radio
-            id="yes-radio"
-            onChange={handleChange}
-            checked={activeSelection === 'yes'}
-            value="yes"
-            name="Choice"
-            disabled={disabled}
-          />
-          <Text sx={{marginLeft: 2}}>Yes</Text>
-        </StyledLabel>
-      </Box>
-      <Box as="form" p={3} sx={{display: 'inline-flex', alignItems: 'flex-start'}}>
-        <StyledLabel htmlFor="no-radio" aria-disabled={disabled}>
-          <Radio
-            id="no-radio"
-            onChange={handleChange}
-            checked={activeSelection === 'no'}
-            value="no"
-            name="Choice"
-            disabled={disabled}
-          />
-          <Text sx={{marginLeft: 2}}>No</Text>
-        </StyledLabel>
-      </Box>
-    </>
-  )
+Default.args = {
+  labelChildren: 'Default radio button'
 }
