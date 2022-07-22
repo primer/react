@@ -1,9 +1,8 @@
-import {GitPullRequestIcon} from '@primer/octicons-react'
+import {DiffIcon} from '@primer/octicons-react'
 import React, {Meta} from '@storybook/react'
 import {useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
-import {Button} from '../Button'
 import MarkdownEditor, {Emoji, Mentionable, Reference} from '../MarkdownEditor'
 import ThemeProvider from '../ThemeProvider'
 
@@ -86,6 +85,9 @@ const meta: Meta = {
     },
     onSubmit: {
       action: 'submitted'
+    },
+    onDiffClick: {
+      action: 'diff-clicked'
     }
   }
 }
@@ -101,6 +103,7 @@ type ArgProps = {
   hideLabel: boolean
   required: boolean
   onSubmit: () => void
+  onDiffClick: () => void
 }
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -152,7 +155,8 @@ export const Default = ({
   maxHeightLines,
   hideLabel,
   required,
-  onSubmit
+  onSubmit,
+  onDiffClick
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -195,22 +199,21 @@ export const Default = ({
           )
           .slice(0, 5)
       }
-      actionButtons={
-        <>
-          <Button variant="danger" onClick={() => setValue('')} size="small">
-            Reset
-          </Button>
-          <Button variant="primary" onClick={onSubmit} size="small">
-            Submit
-          </Button>
-        </>
-      }
       required={required}
     >
       <MarkdownEditor.Toolbar>
-        <MarkdownEditor.ToolbarButton icon={GitPullRequestIcon} />
+        <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} />
         <MarkdownEditor.DefaultToolbarButtons />
       </MarkdownEditor.Toolbar>
+
+      <MarkdownEditor.Actions>
+        <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
+          Reset
+        </MarkdownEditor.ActionButton>
+        <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
+          Submit
+        </MarkdownEditor.ActionButton>
+      </MarkdownEditor.Actions>
     </MarkdownEditor>
   )
 }
