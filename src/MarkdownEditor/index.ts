@@ -33,6 +33,6 @@ const MarkdownEditor = Object.assign(_MarkdownEditor, {
 })
 export default MarkdownEditor
 
-export {MarkdownEditorProps} from './MarkdownEditor'
-export {Emoji, Mentionable, Reference} from './_useSuggestions'
-export {FileUploadResult} from './_useFileHandling'
+export type {MarkdownEditorProps} from './MarkdownEditor'
+export type {Emoji, Mentionable, Reference} from './_useSuggestions'
+export type {FileUploadResult} from './_useFileHandling'
