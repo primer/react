@@ -10,7 +10,7 @@ type LabelProps = SxProp & {
 }
 
 const Legend = forwardRef<HTMLLegendElement, LabelProps>(({sx, ...props}, ref) => {
-  // using context and definining a Slot in the same component causes an infinite loop
+  // using context and definining a Slot in the same component causes an infinite loop, so these must be separate
   const {disabled, required} = useContext(MarkdownEditorContext)
 
   return (
@@ -30,3 +30,4 @@ export const Label = forwardRef<HTMLLegendElement, LabelProps>(({...props}, ref)
     <Legend ref={ref} {...props} />
   </MarkdownEditorSlot>
 ))
+Label.displayName = 'MarkdownEditor.Label'
