@@ -12,7 +12,7 @@ import {
   QuoteIcon,
   TasklistIcon
 } from '@primer/octicons-react'
-import React, {forwardRef, useContext, useRef} from 'react'
+import React, {forwardRef, memo, useContext, useRef} from 'react'
 
 import '@github/markdown-toolbar-element'
 import {isMacOS} from '@primer/behaviors/dist/esm/utils'
@@ -20,7 +20,7 @@ import Box from '../Box'
 import {IconButton, IconButtonProps} from '../Button'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {MarkdownEditorSlot} from './MarkdownEditor'
-import {MarkdownEditorContext} from './MarkdownEditorContext'
+import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
   const {disabled} = useContext(MarkdownEditorContext)
@@ -39,7 +39,7 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
 })
 ToolbarButton.displayName = 'MarkdownEditor.ToolbarButton'
 
-export const DefaultToolbarButtons = () => {
+export const DefaultToolbarButtons = memo(() => {
   const {condensed, formattingToolsRef} = useContext(MarkdownEditorContext)
 
   const cmdOrCtrl = isMacOS() ? 'Cmd' : 'Ctrl'
@@ -107,7 +107,7 @@ export const DefaultToolbarButtons = () => {
       </>
     )
   )
-}
+})
 DefaultToolbarButtons.displayName = 'MarkdownEditor.DefaultToolbarButtons'
 
 export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {

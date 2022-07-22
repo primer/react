@@ -1,6 +1,6 @@
 import {isMacOS} from '@primer/behaviors/dist/esm/utils'
 import {useSSRSafeId} from '@react-aria/ssr'
-import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState} from 'react'
+import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react'
 import Box from '../Box'
 import {FileType} from '../hooks'
 import {useIgnoreKeyboardActionsWhileComposing} from '../hooks/useIgnoreKeyboardActionsWhileComposing'
@@ -10,11 +10,11 @@ import MarkdownViewer from '../MarkdownViewer'
 import {SxProp} from '../sx'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
-import {FormattingTools} from './FormattingTools'
-import {MarkdownEditorContext} from './MarkdownEditorContext'
+import {FormattingTools} from './_FormattingTools'
+import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {CoreToolbar, DefaultToolbarButtons} from './Toolbar'
-import {MarkdownEditorFooter} from './_MarkdownEditorFooter'
-import {MarkdownInput} from './_MarkdownEditorInput'
+import {Footer} from './_Footer'
+import {MarkdownInput} from './_MarkdownInput'
 import {FileUploadResult, useFileHandling} from './_useFileHandling'
 import {useIndenting} from './_useIndenting'
 import {useListEditing} from './_useListEditing'
@@ -225,11 +225,17 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
       }
     )
 
+    // If we don't memoize the context object, every child will rerender on every render even if memoized
+    const context = useMemo(
+      () => ({disabled, formattingToolsRef, condensed, required}),
+      [disabled, formattingToolsRef, condensed, required]
+    )
+
     // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
     return (
       <Slots context={{}}>
         {slots => (
-          <MarkdownEditorContext.Provider value={{disabled, formattingToolsRef, condensed, required}}>
+          <MarkdownEditorContext.Provider value={context}>
             <fieldset
               disabled={disabled}
               aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
@@ -267,7 +273,6 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
                   <ViewSwitch
                     selectedView={view}
                     onViewSelect={setView}
-                    condensed={condensed}
                     disabled={fileHandler.uploadProgress !== null}
                     onLoadPreview={loadPreview}
                   />
@@ -326,15 +331,11 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
                   </Box>
                 )}
 
-                <MarkdownEditorFooter
+                <Footer
                   actionButtons={slots.Actions}
-                  condensed={condensed}
                   fileDraggedOver={fileHandler.isDraggedOver}
                   fileUploadProgress={fileHandler.uploadProgress}
-                  uploadButtonProps={{
-                    disabled,
-                    ...fileHandler.clickTargetProps
-                  }}
+                  uploadButtonProps={fileHandler.clickTargetProps}
                   errorMessage={fileHandler.errorMessage}
                   previewMode={view === 'preview'}
                 />

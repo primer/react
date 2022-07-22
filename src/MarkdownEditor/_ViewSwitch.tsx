@@ -1,21 +1,25 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {EyeIcon, PencilIcon} from '@primer/octicons-react'
 
 import Box from '../Box'
 import {Button, IconButton} from '../Button'
+import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 export type MarkdownViewMode = 'preview' | 'edit'
 
 type ViewSwitchProps = {
   selectedView: MarkdownViewMode
   onViewSelect?: (view: MarkdownViewMode) => void
-  condensed: boolean
   disabled?: boolean
   /** Called when the preview should be loaded. */
   onLoadPreview: () => void
 }
 
-export const ViewSwitch = ({selectedView, onViewSelect, condensed, disabled, onLoadPreview}: ViewSwitchProps) => {
+// no point in memoizing this component because onLoadPreview depends on value, so it would still re-render on every change
+export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}: ViewSwitchProps) => {
+  // don't get disabled from context - the switch is not disabled when the editor is disabled
+  const {condensed} = useContext(MarkdownEditorContext)
+
   const {label, icon, ...sharedProps} =
     selectedView === 'preview'
       ? {

@@ -1,6 +1,8 @@
 import {createContext, RefObject} from 'react'
-import {FormattingTools} from './FormattingTools'
+import {FormattingTools} from './_FormattingTools'
 
+// For performance, the properties in context MUST NOT be values that change often - every time
+// any of the properties change, all components including memoized ones will be re-rendered
 type MarkdownEditorContextProps = {
   disabled: boolean
   condensed: boolean
