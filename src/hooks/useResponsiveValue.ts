@@ -1,7 +1,5 @@
 import {useMedia} from './useMedia'
 
-// TODO: Write tests for this hook
-
 export type ResponsiveValue<TRegular, TNarrow = TRegular, TWide = TRegular> = {
   narrow?: TNarrow // Applies when viewport is < 768px
   regular?: TRegular // Applies when viewports is >= 768px
@@ -29,11 +27,12 @@ export function isResponsiveValue(value: any): value is ResponsiveValue<any> {
 
 /**
  * Resolves responsive values based on the current viewport width.
- * For example, if the current viewport width is less than 768px, the value of `{regular: 'foo', narrow: 'bar'}` this hook will return `'bar'`.
+ * For example, if the current viewport width is narrow (less than 768px), the value of `{regular: 'foo', narrow: 'bar'}` will resolve to `'bar'`.
  */
 export function useResponsiveValue<T, F>(value: T, fallback: F): FlattenResponsiveValue<T> | F {
   // Check viewport size
   // TODO: Get these breakpoint values from primer/primitives
+  // TODO: What are the performance implications of creating media query listeners in this hook?
   const isNarrowViewport = useMedia('(max-width: 767px)') // < 768px
   const isRegularViewport = useMedia('(min-width: 768px)') // >= 768px
   const isWideViewport = useMedia('(min-width: 1400px)') // >= 1400px
