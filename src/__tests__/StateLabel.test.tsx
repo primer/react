@@ -34,6 +34,7 @@ describe('StateLabel', () => {
   it('respects the status prop', () => {
     expect(render(<StateLabel status="issueOpened" />)).toMatchSnapshot()
     expect(render(<StateLabel status="issueClosed" />)).toMatchSnapshot()
+    expect(render(<StateLabel status="issueClosedNotPlanned" />)).toMatchSnapshot()
     expect(render(<StateLabel status="pullMerged" />)).toMatchSnapshot()
   })
 
