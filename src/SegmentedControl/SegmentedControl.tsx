@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import {ActionList, ActionMenu, Box, useTheme} from '..'
 import {merge, SxProp} from '../sx'
 import useMatchMedia from '../hooks/useMatchMedia'
 import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
+import {FocusKeys, FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 
 type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
 
@@ -33,9 +34,17 @@ const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
   height: '32px' // TODO: use primitive `primer.control.medium.size` when it is available
 })
 
-// TODO: log a warning if no `ariaLabel` or `ariaLabelledBy` prop is passed
-// TODO: implement keyboard behavior to move focus using the arrow keys
-const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, sx: sxProp = {}, variant, ...rest}) => {
+const Root: React.FC<SegmentedControlProps> = ({
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
+  children,
+  fullWidth,
+  onChange,
+  sx: sxProp = {},
+  variant,
+  ...rest
+}) => {
+  const segmentedControlContainerRef = useRef<HTMLSpanElement>(null)
   const {theme} = useTheme()
   const mediaQueryMatches = useMatchMedia(Object.keys(variant || {}) as WidthOnlyViewportRangeKeys[])
   const mediaQueryMatchesKeys = mediaQueryMatches
@@ -80,6 +89,32 @@ const Root: React.FC<SegmentedControlProps> = ({children, fullWidth, onChange, s
     }),
     sxProp as SxProp
   )
+
+  const focusInStrategy: FocusZoneHookSettings['focusInStrategy'] = () => {
+    if (segmentedControlContainerRef.current) {
+      // we need to use type assertion because querySelector returns "Element", not "HTMLElement"
+      type SelectedButton = HTMLButtonElement | undefined
+
+      const selectedButton = segmentedControlContainerRef.current.querySelector(
+        'button[aria-current="true"]'
+      ) as SelectedButton
+
+      return selectedButton
+    }
+  }
+
+  useFocusZone({
+    containerRef: segmentedControlContainerRef,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    focusInStrategy
+  })
+
+  if (!ariaLabel && !ariaLabelledby) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Use the `aria-label` or `aria-labelledby` prop to provide an accessible label for assistive technology'
+    )
+  }
 
   // Since we can have multiple media query matches for `variant` (e.g.: 'regular' and 'wide'),
   // we need to pick which variant we actually show.
