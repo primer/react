@@ -6,7 +6,7 @@ import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import Box from '../Box'
 
-type ResponsiveVariantOptions = 'dropdown' | 'hideLabels'
+type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default'
 type Args = {
   fullWidth?: boolean
   variantAtNarrow: ResponsiveVariantOptions
@@ -27,7 +27,7 @@ const excludedControlKeys = [
   'aria-describedby'
 ]
 
-const variantOptions = ['dropdown', 'hideLabels', 'none', undefined]
+const variantOptions = ['dropdown', 'hideLabels', 'default']
 
 const parseVarientFromArgs = (args: Args) => {
   const {
@@ -60,7 +60,7 @@ export default {
     },
     variantAtNarrow: {
       name: 'variant.narrow',
-      defaultValue: undefined,
+      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions
@@ -68,7 +68,7 @@ export default {
     },
     variantAtNarrowLandscape: {
       name: 'variant.narrowLandscape',
-      defaultValue: undefined,
+      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions
@@ -76,7 +76,7 @@ export default {
     },
     variantAtRegular: {
       name: 'variant.regular',
-      defaultValue: undefined,
+      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions
@@ -84,7 +84,7 @@ export default {
     },
     variantAtWide: {
       name: 'variant.wide',
-      defaultValue: undefined,
+      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions
@@ -92,7 +92,7 @@ export default {
     },
     variantAtPortrait: {
       name: 'variant.portrait',
-      defaultValue: undefined,
+      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions
@@ -100,7 +100,7 @@ export default {
     },
     variantAtLandscape: {
       name: 'variant.Landscape',
-      defaultValue: undefined,
+      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions
