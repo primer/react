@@ -1,10 +1,12 @@
+import React from 'react'
 import {ResponsiveValue, useResponsiveValue} from '../../hooks/useResponsiveValue'
 
-export function shouldAcceptNonResponsiveValues() {
+export function ShouldAcceptNonResponsiveValues() {
   const value: string = useResponsiveValue('test', 'fallback')
+  return <div>{value}</div>
 }
 
-export function shouldFlattenResponsiveValueTypes() {
+export function ShouldFlattenResponsiveValueTypes() {
   const responsiveValue: ResponsiveValue<
     // regular options
     'a' | 'b',
@@ -16,4 +18,5 @@ export function shouldFlattenResponsiveValueTypes() {
   }
 
   const value: 'a' | 'b' | 'c' = useResponsiveValue(responsiveValue, 'b')
+  return <div>{value}</div>
 }
