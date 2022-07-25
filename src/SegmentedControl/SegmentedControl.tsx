@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {RefObject, useRef} from 'react'
 import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import {ActionList, ActionMenu, Box, useTheme} from '..'
@@ -185,7 +185,14 @@ const Root: React.FC<SegmentedControlProps> = ({
     </ActionMenu>
   ) : (
     // Render a segmented control
-    <Box role="toolbar" sx={sx} {...rest}>
+    <Box
+      role="toolbar"
+      sx={sx}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledby}
+      ref={segmentedControlContainerRef as RefObject<HTMLDivElement>}
+      {...rest}
+    >
       {React.Children.map(children, (child, index) => {
         // Not a valid child element - skip rendering child
         if (!React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child)) {
@@ -211,14 +218,19 @@ const Root: React.FC<SegmentedControlProps> = ({
           React.isValidElement<SegmentedControlButtonProps>(child) &&
           child.type === Button
         ) {
-          const {'aria-label': ariaLabel, leadingIcon, children: childPropsChildren, ...restChildProps} = child.props
+          const {
+            'aria-label': childAriaLabel,
+            leadingIcon,
+            children: childPropsChildren,
+            ...restChildProps
+          } = child.props
           if (!leadingIcon) {
             // eslint-disable-next-line no-console
             console.warn('A `leadingIcon` prop is required when hiding visible labels')
           } else {
             return (
               <SegmentedControlIconButton
-                aria-label={ariaLabel || childPropsChildren}
+                aria-label={childAriaLabel || childPropsChildren}
                 icon={leadingIcon}
                 sx={
                   {
