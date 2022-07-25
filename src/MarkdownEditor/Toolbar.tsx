@@ -15,7 +15,7 @@ import {
 import React, {forwardRef, memo, useContext, useRef} from 'react'
 
 import '@github/markdown-toolbar-element'
-import {isMacOS} from '@primer/behaviors/dist/esm/utils'
+import {isMacOS} from '@primer/behaviors/utils'
 import Box from '../Box'
 import {IconButton, IconButtonProps} from '../Button'
 import {useFocusZone} from '../hooks/useFocusZone'

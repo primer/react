@@ -1,4 +1,4 @@
-import {isMacOS} from '@primer/behaviors/dist/esm/utils'
+import {isMacOS} from '@primer/behaviors/utils'
 import {CompositionEventHandler, KeyboardEventHandler, useCallback, useMemo, useRef} from 'react'
 
 /**

@@ -1,4 +1,4 @@
-import {isMacOS} from '@primer/behaviors/dist/esm/utils'
+import {isMacOS} from '@primer/behaviors/utils'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react'
 import Box from '../Box'
