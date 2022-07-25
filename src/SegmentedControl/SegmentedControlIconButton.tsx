@@ -17,9 +17,13 @@ const SegmentedControlIconButtonStyled = styled.button`
   ${sx};
 `
 
-// TODO: get tooltips working:
+// TODO: implement desired tooltip behavior:
 // - by default, the tooltip shows the `ariaLabel` content
 // - allow users to pass custom tooltip text
+//
+// This is blocked by the Tooltip component not being accessible
+// See Slack thread: https://github.slack.com/archives/C02NUUQ9C30/p1656444474509599
+//
 export const SegmentedControlIconButton: React.FC<SegmentedControlIconButtonProps> = ({
   icon: Icon,
   selected,

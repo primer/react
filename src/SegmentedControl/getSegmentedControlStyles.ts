@@ -18,12 +18,12 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
   marginBottom: '-1px',
   padding: props?.selected ? 0 : 'var(--segmented-control-button-bg-inset)',
   position: 'relative',
-  width: props?.isIconOnly ? 'var(--primer-control-medium-size, 32px)' : undefined,
+  width: props?.isIconOnly ? '32px' : undefined, // TODO: use primitive `control.medium.size` when it is available
 
   '.segmentedControl-content': {
     alignItems: 'center',
     backgroundColor: props?.selected ? 'btn.bg' : 'transparent',
-    borderColor: props?.selected ? '#8c959f' : 'transparent', // TODO: use a functional primitive for the selected border color when it is available
+    borderColor: props?.selected ? 'segmentedControl.button.selected.border' : 'transparent',
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: props?.selected
@@ -47,11 +47,11 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
   },
 
   ':hover .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'actionListItem.default.hoverBg' // TODO: replace with a functional primitive
+    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.hover.bg'
   },
 
   ':active .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'actionListItem.default.activeBg' // TODO: replace with a functional primitive
+    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.active.bg'
   },
 
   ':first-child': {
