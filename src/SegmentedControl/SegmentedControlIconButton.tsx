@@ -25,6 +25,9 @@ const SegmentedControlIconButtonStyled = styled.button`
 // TODO: update this component to be accessible when we update the Tooltip component
 // - we wouldn't render tooltip content inside a pseudoelement
 // - users can pass custom tooltip text in addition to `ariaLabel`
+//
+// See Slack thread: https://github.slack.com/archives/C02NUUQ9C30/p1656444474509599
+//
 export const SegmentedControlIconButton: React.FC<SegmentedControlIconButtonProps> = ({
   'aria-label': ariaLabel,
   icon: Icon,
@@ -46,7 +49,7 @@ export const SegmentedControlIconButton: React.FC<SegmentedControlIconButtonProp
         ':not(:last-child) button': borderedSegment
       }}
     >
-      <SegmentedControlIconButtonStyled aria-pressed={selected} sx={mergedSx} {...rest}>
+      <SegmentedControlIconButtonStyled aria-label={ariaLabel} aria-pressed={selected} sx={mergedSx} {...rest}>
         <span className="segmentedControl-content">
           <Icon />
         </span>
