@@ -22,16 +22,13 @@ type SegmentedControlProps = {
 } & SxProp
 
 const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
-  // TODO: update color primitive name(s) to use different primitives:
-  // - try to use general 'control' primitives (e.g.: https://primer.style/primitives/spacing#ui-control)
-  // - when that's not possible, use specific to segmented controls
-  backgroundColor: 'switchTrack.bg', // TODO: update primitive when it is available
+  backgroundColor: 'segmentedControl.bg',
   borderColor: 'border.default',
   borderRadius: 2,
   borderStyle: 'solid',
   borderWidth: 1,
   display: props?.fullWidth ? 'flex' : 'inline-flex',
-  height: '32px' // TODO: use primitive `primer.control.medium.size` when it is available
+  height: '32px' // TODO: use primitive `control.medium.size` when it is available
 })
 
 const Root: React.FC<SegmentedControlProps> = ({
