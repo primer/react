@@ -15,7 +15,7 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 
-const Basic = () => {
+const Basic = ({autoFocusButton = 'confirm'}: {autoFocusButton?: 'confirm' | 'cancel'}) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -32,6 +32,7 @@ const Basic = () => {
               onClose={onDialogClose}
               cancelButtonContent="Secondary"
               confirmButtonContent="Primary"
+              autoFocusButton={autoFocusButton}
             >
               Lorem ipsum dolor sit Pippin good dog.
             </ConfirmationDialog>
@@ -102,6 +103,26 @@ describe('ConfirmationDialog', () => {
     })
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
+    cleanup()
+  })
+
+  it('focuses the primary action when opened with autoFocusButton set to confirm', async () => {
+    const {getByText} = HTMLRender(<Basic autoFocusButton="confirm" />)
+    act(() => {
+      fireEvent.click(getByText('Show dialog'))
+    })
+    expect(getByText('Primary')).toEqual(document.activeElement)
+    expect(getByText('Secondary')).not.toEqual(document.activeElement)
+    cleanup()
+  })
+
+  it('focuses the secondary action when opened with autoFocusButton set to cancel', async () => {
+    const {getByText} = HTMLRender(<Basic autoFocusButton="cancel" />)
+    act(() => {
+      fireEvent.click(getByText('Show dialog'))
+    })
+    expect(getByText('Primary')).not.toEqual(document.activeElement)
+    expect(getByText('Secondary')).toEqual(document.activeElement)
     cleanup()
   })
 

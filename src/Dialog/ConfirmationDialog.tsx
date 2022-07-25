@@ -38,6 +38,9 @@ export interface ConfirmationDialogProps {
    * The type of button to use for the confirm button. Default: Button.
    */
   confirmButtonType?: 'normal' | 'primary' | 'danger'
+
+  /** The button initially focused when the ConfirmationDialog is opened. Default: "confirm" */
+  autoFocusButton?: 'confirm' | 'cancel'
 }
 
 const StyledConfirmationHeader = styled.header`
@@ -107,7 +110,8 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
     cancelButtonContent = 'Cancel',
     confirmButtonContent = 'OK',
     confirmButtonType = 'normal',
-    children
+    children,
+    autoFocusButton = 'confirm'
   } = props
 
   const onCancelButtonClick = useCallback(() => {
@@ -118,13 +122,14 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = props => {
   }, [onClose])
   const cancelButton: DialogButtonProps = {
     content: cancelButtonContent,
-    onClick: onCancelButtonClick
+    onClick: onCancelButtonClick,
+    autoFocus: autoFocusButton === 'cancel'
   }
   const confirmButton: DialogButtonProps = {
     content: confirmButtonContent,
     buttonType: confirmButtonType,
     onClick: onConfirmButtonClick,
-    autoFocus: true
+    autoFocus: autoFocusButton === 'confirm'
   }
   const footerButtons = [cancelButton, confirmButton]
   return (
