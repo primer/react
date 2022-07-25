@@ -1,6 +1,6 @@
 import {act, render} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
-import {ResponsiveValue, useResponsiveValue} from '../../hooks/useResponsiveValue'
+import {ResponsiveValue, useResponsiveValue, viewportRanges} from '../../hooks/useResponsiveValue'
 import React from 'react'
 
 let matchMedia: MatchMediaMock
@@ -32,7 +32,7 @@ it('returns narrow value when viewport is narrow', () => {
 
   // Set narrow viewport
   act(() => {
-    matchMedia.useMediaQuery('(max-width: 767px)')
+    matchMedia.useMediaQuery(viewportRanges.narrow)
   })
 
   const {getByText} = render(<Component />)
@@ -51,7 +51,7 @@ it('returns wide value when viewport is wide', () => {
 
   // Set wide viewport
   act(() => {
-    matchMedia.useMediaQuery('(min-width: 1400px)')
+    matchMedia.useMediaQuery(viewportRanges.wide)
   })
 
   const {getByText} = render(<Component />)
@@ -70,7 +70,7 @@ it('returns regular value when viewport is regular', () => {
 
   // Set regular viewport
   act(() => {
-    matchMedia.useMediaQuery('(min-width: 768px)')
+    matchMedia.useMediaQuery(viewportRanges.regular)
   })
 
   const {getByText} = render(<Component />)
@@ -90,14 +90,10 @@ it('returns fallback when no value is defined for current viewport', () => {
 
   // Set regular viewport
   act(() => {
-    matchMedia.useMediaQuery('(min-width: 768px)')
+    matchMedia.useMediaQuery(viewportRanges.regular)
   })
 
   const {getByText} = render(<Component />)
 
   expect(getByText('fallbackValue')).toBeInTheDocument()
 })
-
-// types
-// different types per viewport
-// exclude viewport range

@@ -1,9 +1,21 @@
 import {useMedia} from './useMedia'
 
+// This file contains utilities for working with responsive values.
+
+// The viewport range values from @primer/primtives don't work in Chrome
+// because they use `em` units inside `calc()` (e.g., calc(48em - 0.02px)).
+// As a temporary workaround, we're hardcoding the viewport ranges in `px` units.
+// TODO: Use viewport range tokens from @primer/primitives
+export const viewportRanges = {
+  narrow: '(max-width: calc(768px - 0.02px))', // < 768px
+  regular: '(min-width: 768px)', // >= 768px
+  wide: '(min-width: 1400px)' // >= 1400px
+}
+
 export type ResponsiveValue<TRegular, TNarrow = TRegular, TWide = TRegular> = {
-  narrow?: TNarrow // Applies when viewport is < 768px
-  regular?: TRegular // Applies when viewports is >= 768px
-  wide?: TWide // Applies when viewports is >= 1400px
+  narrow?: TNarrow // Applies when viewport is narrow
+  regular?: TRegular // Applies when viewports is regular
+  wide?: TWide // Applies when viewports is wide
 }
 
 /**
@@ -28,14 +40,18 @@ export function isResponsiveValue(value: any): value is ResponsiveValue<any> {
 /**
  * Resolves responsive values based on the current viewport width.
  * For example, if the current viewport width is narrow (less than 768px), the value of `{regular: 'foo', narrow: 'bar'}` will resolve to `'bar'`.
+ *
+ * @example
+ * const value = useResponsiveValue({regular: 'foo', narrow: 'bar'})
+ * console.log(value) // 'bar'
  */
+// TODO: Improve SRR support
 export function useResponsiveValue<T, F>(value: T, fallback: F): FlattenResponsiveValue<T> | F {
   // Check viewport size
-  // TODO: Get these breakpoint values from primer/primitives
-  // TODO: What are the performance implications of creating media query listeners in this hook?
-  const isNarrowViewport = useMedia('(max-width: 767px)') // < 768px
-  const isRegularViewport = useMedia('(min-width: 768px)') // >= 768px
-  const isWideViewport = useMedia('(min-width: 1400px)') // >= 1400px
+  // TODO: What is the performance cost of creating media query listeners in this hook?
+  const isNarrowViewport = useMedia(viewportRanges.narrow)
+  const isRegularViewport = useMedia(viewportRanges.regular)
+  const isWideViewport = useMedia(viewportRanges.wide)
 
   if (isResponsiveValue(value)) {
     // If we've reached this line, we know that value is a responsive value
