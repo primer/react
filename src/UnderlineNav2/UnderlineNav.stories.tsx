@@ -21,7 +21,7 @@ export default {
   argTypes: {}
 } as Meta
 
-export const defaultNav = (args: UnderlineNavProps) => {
+export const DefaultNav = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
       <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
@@ -66,10 +66,17 @@ const items: string[] = [
 ]
 
 export const InternalResponsiveNav = (args: UnderlineNavProps) => {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
+
   return (
     <UnderlineNav {...args}>
-      {items.map(item => (
-        <UnderlineNav.Link key={item} leadingIcon={EyeIcon}>
+      {items.map((item, index) => (
+        <UnderlineNav.Link
+          key={item}
+          leadingIcon={EyeIcon}
+          selected={index === selectedIndex}
+          onSelect={() => setSelectedIndex(index)}
+        >
           {item}
         </UnderlineNav.Link>
       ))}

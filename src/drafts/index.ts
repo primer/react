@@ -16,4 +16,4 @@ export type {
   Suggestions,
   Trigger
 } from './InlineAutocomplete'
-export * from '../UnderlineNav'
+export * from '../UnderlineNav2'

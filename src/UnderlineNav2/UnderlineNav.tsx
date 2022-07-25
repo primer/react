@@ -18,9 +18,9 @@ Todo:
 8. Performance is wack! Resize Observer exceeds limit - done
 9. Test for long strings not wrapping sometimes. - done
 10. Test for mobile device support. - seems good
-11. Add api for Overflow button?
+11. Add api for Overflow button? - maybe later
 12. Do we need icons in overflow dropdown? Currently not supported. - not doing
-13. Test out and fix selection and highlight
+13. Test out and fix selection and highlight - A11y q about hover state.
 14. Write out a proper storybook with tab selection using this nav.
 15. Write up documentation
 16. Demo video.
@@ -98,8 +98,8 @@ export const UnderlineNav = forwardRef(
     const styles = {
       display: 'flex',
       justifyContent: 'space-between',
-      boxShadow: 'inset 0 -1px 0',
-      boxShadowColor: 'fg.muted',
+      borderBottom: '1px solid',
+      borderBottomColor: 'border.muted',
       flexDirection,
       alignItems: 'center'
     }
@@ -108,7 +108,8 @@ export const UnderlineNav = forwardRef(
       display: 'flex',
       listStyle: 'none',
       padding: '0',
-      margin: '0'
+      margin: '0',
+      marginBottom: '-1px'
     }
 
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
