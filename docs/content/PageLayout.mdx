@@ -131,8 +131,6 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 
 ### PageLayout
 
-<!-- TODO: Responsive variants -->
-
 <PropsTable>
   <PropsTableRow
     name="containerWidth"
@@ -185,6 +183,17 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 | 'filled'`}
     defaultValue="'inherit'"
   />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    defaultValue="false"
+    description="Whether the header is hidden."
+  />
   <PropsTableSxRow />
 </PropsTable>
 
@@ -199,6 +208,17 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 | 'xlarge'`}
     defaultValue="'full'"
     description="The maximum width of the content region."
+  />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    defaultValue="false"
+    description="Whether the content is hidden."
   />
   <PropsTableSxRow />
 </PropsTable>
@@ -271,6 +291,17 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 | 'line'
 | 'filled'`}
     defaultValue="'inherit'"
+  />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    defaultValue="false"
+    description="Whether the footer is hidden."
   />
   <PropsTableSxRow />
 </PropsTable>

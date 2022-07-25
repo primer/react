@@ -179,18 +179,22 @@ const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenN
 export type PageLayoutHeaderProps = {
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 const Header: React.FC<PageLayoutHeaderProps> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
+  hidden = false,
   children,
   sx = {}
 }) => {
+  const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
       as="header"
+      hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.header,
@@ -217,6 +221,7 @@ Header.displayName = 'PageLayout.Header'
 
 export type PageLayoutContentProps = {
   width?: keyof typeof contentWidths
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 // TODO: Account for pane width when centering content
@@ -227,10 +232,12 @@ const contentWidths = {
   xlarge: '1280px'
 }
 
-const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}}) => {
+const Content: React.FC<PageLayoutContentProps> = ({width = 'full', hidden = false, children, sx = {}}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
       as="main"
+      hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.content,
@@ -339,18 +346,22 @@ Pane.displayName = 'PageLayout.Pane'
 export type PageLayoutFooterProps = {
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 const Footer: React.FC<PageLayoutFooterProps> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
+  hidden = false,
   children,
   sx = {}
 }) => {
+  const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
       as="footer"
+      hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.footer,
