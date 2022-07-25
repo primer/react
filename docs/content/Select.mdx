@@ -4,7 +4,7 @@ title: Select
 description: Use a select input when a user needs to select one option from a long list
 status: Alpha
 source: https://github.com/primer/react/blob/main/src/Select.tsx
-storybook: '/react/storybook?path=/story/forms-select--default'
+storybook: '/react/storybook?path=/story/forms-form-controls-select--default'
 ---
 
 import {Select, Text} from '@primer/react'
@@ -66,7 +66,7 @@ import {Select, Text} from '@primer/react'
     name="block"
     type="boolean"
     defaultValue="false"
-    description={<>Creates a full width input element</>}
+    description="Creates a full width input element"
   />
   <PropsTableRow
     name="contrast"
@@ -75,11 +75,19 @@ import {Select, Text} from '@primer/react'
     description="Changes background color to a higher contrast color"
   />
   <PropsTableRow
+    name="placeholder"
+    type="string"
+    description={<>
+      Placeholder text to show when no option is selected. <br />
+      This option is hidden from the dropdown menu when the 'required' prop is set
+    </>}
+  />
+  <PropsTableRow
     name="size"
     type="'small' | 'medium' | 'large'"
     description="Creates a smaller or larger input than the default."
   />
-  <PropsTableRow name="validationStatus" type="'warning' | 'error'" description="Style the input to match the status" />
+  <PropsTableRow name="validationStatus" type="'error' | 'success' | 'warning'" description="Style the input to match the status" />
   <PropsTablePassthroughPropsRow
     elementName="select"
     passthroughPropsLink={

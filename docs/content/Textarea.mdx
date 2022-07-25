@@ -4,7 +4,7 @@ title: Textarea
 description: Use Textarea for multi-line text input form fields
 status: Alpha
 source: https://github.com/primer/react/blob/main/src/Textarea.tsx
-storybook: /react/storybook?path=/story/forms-textarea--default
+storybook: '/react/storybook?path=/story/forms-form-controls--textarea-story'
 ---
 
 import {Textarea} from '@primer/react'
@@ -158,10 +158,13 @@ By default, `Textarea` can be resized by the user vertically and horizontally. R
     elementType="textarea"
     refType="HTMLTextAreaElement"
   />
-  <PropsTablePassthroughPropsRow
-    elementName="textarea"
+  <PropsTableBasePropRows
+    elementType="input"
+    refType="HTMLTextareaElement"
     passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attributes">MDN</Link>
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attributes">
+        MDN
+      </Link>
     }
   />
 

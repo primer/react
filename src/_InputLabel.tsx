@@ -9,12 +9,13 @@ interface Props extends React.HTMLProps<HTMLLabelElement> {
   visuallyHidden?: boolean
 }
 
-const InputLabel: React.FC<Props & SxProp> = ({children, disabled, required, visuallyHidden, htmlFor, sx}) => {
+const InputLabel: React.FC<Props & SxProp> = ({children, disabled, htmlFor, id, required, visuallyHidden, sx}) => {
   return (
     <VisuallyHidden
       isVisible={!visuallyHidden}
       as="label"
       htmlFor={htmlFor}
+      id={id}
       sx={{
         fontWeight: 'bold',
         fontSize: 1,

@@ -7,8 +7,11 @@ export type SelectProps = Omit<
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 >
 
+const arrowRightOffset = '4px'
+
 const StyledSelect = styled.select`
   appearance: none;
+  border-radius: inherit;
   border: 0;
   color: currentColor;
   font-size: inherit;
@@ -20,8 +23,13 @@ const StyledSelect = styled.select`
 
         background-color should be 'transparent', but Firefox uses the background-color on 
         <select> to determine the background color used for the dropdown menu.
+
+     2. Adds 1px margins to the <select> so the background color doesn't hide the focus outline created with an inset box-shadow.
   */
   background-color: inherit;
+  margin-top: 1px;
+  margin-left: 1px;
+  margin-bottom: 1px;
 
   /* 2. Prevents visible overlap of partially transparent background colors.
   
@@ -50,7 +58,7 @@ const ArrowIndicatorSVG: React.FC<{className?: string}> = ({className}) => (
 const ArrowIndicator = styled(ArrowIndicatorSVG)`
   pointer-events: none;
   position: absolute;
-  right: 4px;
+  right: ${arrowRightOffset};
   top: 50%;
   transform: translateY(-50%);
 `
