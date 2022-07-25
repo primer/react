@@ -49,7 +49,7 @@ export const SegmentedControlIconButton: React.FC<SegmentedControlIconButtonProp
         ':not(:last-child) button': borderedSegment
       }}
     >
-      <SegmentedControlIconButtonStyled aria-label={ariaLabel} aria-pressed={selected} sx={mergedSx} {...rest}>
+      <SegmentedControlIconButtonStyled aria-pressed={selected} sx={mergedSx} {...rest}>
         <span className="segmentedControl-content">
           <Icon />
         </span>
