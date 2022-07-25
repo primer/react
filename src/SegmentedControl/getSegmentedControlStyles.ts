@@ -45,14 +45,14 @@ export const getSegmentedControlButtonStyles = (
   padding: props?.selected ? 0 : 'var(--segmented-control-button-bg-inset)',
   position: 'relative',
   ...(props?.isIconOnly && {
-    height: 'var(--primer-control-medium-size, 32px)',
-    width: 'var(--primer-control-medium-size, 32px)'
+    height: '32px', // TODO: use primitive `control.medium.size` when it is available
+    width: '32px' // TODO: use primitive `control.medium.size` when it is available
   }),
 
   '.segmentedControl-content': {
     alignItems: 'center',
     backgroundColor: props?.selected ? 'btn.bg' : 'transparent',
-    borderColor: props?.selected ? '#8c959f' : 'transparent', // TODO: use a functional primitive for the selected border color when it is available
+    borderColor: props?.selected ? 'segmentedControl.button.selected.border' : 'transparent',
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: props?.selected
@@ -76,11 +76,11 @@ export const getSegmentedControlButtonStyles = (
   },
 
   ':hover .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'actionListItem.default.hoverBg' // TODO: replace with a functional primitive
+    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.hover.bg'
   },
 
   ':active .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'actionListItem.default.activeBg' // TODO: replace with a functional primitive
+    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.active.bg'
   },
 
   // Icon-only buttons render the button inside of an element rendered by the Tooltip component.
