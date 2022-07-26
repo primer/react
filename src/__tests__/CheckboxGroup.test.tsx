@@ -91,7 +91,8 @@ describe('CheckboxGroup', () => {
 
     expect(requiredIndicator).toBeInTheDocument()
   })
-  it('calls onChange handlers passed to CheckboxGroup and Checkbox', () => {
+  it('calls onChange handlers passed to CheckboxGroup and Checkbox', async () => {
+    const user = userEvent.setup()
     const handleParentChange = jest.fn()
     const handleCheckboxChange = jest.fn()
     const {getByLabelText} = render(
@@ -115,11 +116,12 @@ describe('CheckboxGroup', () => {
 
     expect(handleParentChange).not.toHaveBeenCalled()
     expect(handleCheckboxChange).not.toHaveBeenCalled()
-    userEvent.click(checkbox)
+    await user.click(checkbox)
     expect(handleParentChange).toHaveBeenCalled()
     expect(handleCheckboxChange).toHaveBeenCalled()
   })
-  it('calls onChange handler on CheckboxGroup with selected values', () => {
+  it('calls onChange handler on CheckboxGroup with selected values', async () => {
+    const user = userEvent.setup()
     const handleParentChange = jest.fn()
     const {getByLabelText} = render(
       <CheckboxGroup onChange={handleParentChange}>
@@ -142,7 +144,7 @@ describe('CheckboxGroup', () => {
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
 
     expect(handleParentChange).not.toHaveBeenCalled()
-    userEvent.click(checkbox)
+    await user.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
       ['two', 'one'],
       expect.objectContaining({
@@ -151,7 +153,7 @@ describe('CheckboxGroup', () => {
         })
       })
     )
-    userEvent.click(checkbox)
+    await user.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
       ['two'],
       expect.objectContaining({
