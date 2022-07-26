@@ -100,26 +100,28 @@ describe('TabNav', () => {
     expect(firstTab).toHaveFocus()
   })
 
-  it('moves focus away from TabNav when pressing tab', () => {
+  it('moves focus away from TabNav when pressing tab', async () => {
+    const user = userEvent.setup()
     const {getByText, getByRole} = HTMLRender(tabNavMarkup)
     const middleTab = getByText('Middle')
     const button = getByRole('button')
 
-    userEvent.click(middleTab)
+    await user.click(middleTab)
     expect(middleTab).toHaveFocus()
-    userEvent.tab()
+    await user.tab()
 
     expect(button).toHaveFocus()
   })
 
-  it('moves focus to selected tab when TabNav regains focus', () => {
+  it('moves focus to selected tab when TabNav regains focus', async () => {
+    const user = userEvent.setup()
     const {getByText, getByRole} = HTMLRender(tabNavMarkup)
     const middleTab = getByText('Middle')
     const button = getByRole('button')
 
-    userEvent.click(button)
+    await user.click(button)
     expect(button).toHaveFocus()
-    userEvent.tab({shift: true})
+    await user.tab({shift: true})
 
     expect(middleTab).toHaveFocus()
   })
