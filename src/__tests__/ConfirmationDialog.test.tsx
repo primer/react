@@ -15,7 +15,7 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 
 expect.extend(toHaveNoViolations)
 
-const Basic = ({autoFocusButton = 'confirm'}: {autoFocusButton?: 'confirm' | 'cancel'}) => {
+const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
@@ -32,7 +32,7 @@ const Basic = ({autoFocusButton = 'confirm'}: {autoFocusButton?: 'confirm' | 'ca
               onClose={onDialogClose}
               cancelButtonContent="Secondary"
               confirmButtonContent="Primary"
-              autoFocusButton={autoFocusButton}
+              confirmButtonType={confirmButtonType}
             >
               Lorem ipsum dolor sit Pippin good dog.
             </ConfirmationDialog>
@@ -96,7 +96,7 @@ describe('ConfirmationDialog', () => {
     cleanup()
   })
 
-  it('focuses the primary action when opened', async () => {
+  it('focuses the primary action when opened and the confirmButtonType is not set', async () => {
     const {getByText} = HTMLRender(<Basic />)
     act(() => {
       fireEvent.click(getByText('Show dialog'))
@@ -106,8 +106,8 @@ describe('ConfirmationDialog', () => {
     cleanup()
   })
 
-  it('focuses the primary action when opened with autoFocusButton set to confirm', async () => {
-    const {getByText} = HTMLRender(<Basic autoFocusButton="confirm" />)
+  it('focuses the primary action when opened and the confirmButtonType is not danger', async () => {
+    const {getByText} = HTMLRender(<Basic confirmButtonType="primary" />)
     act(() => {
       fireEvent.click(getByText('Show dialog'))
     })
@@ -116,8 +116,8 @@ describe('ConfirmationDialog', () => {
     cleanup()
   })
 
-  it('focuses the secondary action when opened with autoFocusButton set to cancel', async () => {
-    const {getByText} = HTMLRender(<Basic autoFocusButton="cancel" />)
+  it('focuses the secondary action when opened and the confirmButtonType is danger', async () => {
+    const {getByText} = HTMLRender(<Basic confirmButtonType="danger" />)
     act(() => {
       fireEvent.click(getByText('Show dialog'))
     })
