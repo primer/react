@@ -76,6 +76,25 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 </PageLayout>
 ```
 
+### With pane hidden on narrow viewports
+
+```jsx live
+<PageLayout>
+  <PageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane position="start" hidden={{narrow: true}}>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
 ### With condensed spacing
 
 ```jsx live
@@ -111,8 +130,6 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ## Props
 
 ### PageLayout
-
-<!-- TODO: Responsive variants -->
 
 <PropsTable>
   <PropsTableRow
@@ -166,6 +183,17 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 | 'filled'`}
     defaultValue="'inherit'"
   />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    defaultValue="false"
+    description="Whether the header is hidden."
+  />
   <PropsTableSxRow />
 </PropsTable>
 
@@ -180,6 +208,17 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 | 'xlarge'`}
     defaultValue="'full'"
     description="The maximum width of the content region."
+  />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    defaultValue="false"
+    description="Whether the content is hidden."
   />
   <PropsTableSxRow />
 </PropsTable>
@@ -222,6 +261,17 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 | 'filled'`}
     defaultValue="'inherit'"
   />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    defaultValue="false"
+    description="Whether the pane is hidden."
+  />
   <PropsTableSxRow />
 </PropsTable>
 
@@ -241,6 +291,17 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 | 'line'
 | 'filled'`}
     defaultValue="'inherit'"
+  />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    defaultValue="false"
+    description="Whether the footer is hidden."
   />
   <PropsTableSxRow />
 </PropsTable>

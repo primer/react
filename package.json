@@ -162,6 +162,7 @@
     "husky": "7.0.4",
     "jest": "27.4.5",
     "jest-axe": "5.0.1",
+    "jest-matchmedia-mock": "1.1.0",
     "jest-styled-components": "6.3.4",
     "jest-matchmedia-mock": "1.1.0",
     "jscodeshift": "0.13.0",
