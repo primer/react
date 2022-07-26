@@ -44,72 +44,75 @@ export const DefaultToolbarButtons = memo(() => {
 
   const cmdOrCtrl = isMacOS() ? 'Cmd' : 'Ctrl'
 
+  // Important: do not replace `() => ref.current?.format()` with `ref.current?.format` - it will refer to an outdated ref.current!
   return (
-    formattingToolsRef.current && (
-      <>
+    <>
+      <Box>
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.header()}
+          icon={HeadingIcon}
+          aria-label="Add header text"
+        />
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.bold()}
+          icon={BoldIcon}
+          aria-label={`Bold (${cmdOrCtrl} + B)`}
+        />
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.italic()}
+          icon={ItalicIcon}
+          aria-label={`Italic (${cmdOrCtrl} + I)`}
+        />
+      </Box>
+      <Box>
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.quote()}
+          icon={QuoteIcon}
+          aria-label={`Insert a quote (${cmdOrCtrl} + Shift + .)`}
+        />
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.code()}
+          icon={CodeIcon}
+          aria-label={`Insert code (${cmdOrCtrl} + E)`}
+        />
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.link()}
+          icon={LinkIcon}
+          aria-label={`Add a link (${cmdOrCtrl} + K)`}
+        />
+      </Box>
+      <Box>
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.unorderedList()}
+          icon={ListUnorderedIcon}
+          aria-label={`Add a bulleted list (${cmdOrCtrl} + 8)`}
+        />
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.orderedList()}
+          icon={ListOrderedIcon}
+          aria-label={`Add a numbered list (${cmdOrCtrl} + Shift + 7)`}
+        />
+        <ToolbarButton
+          onClick={() => formattingToolsRef.current?.taskList()}
+          icon={TasklistIcon}
+          aria-label={`Add a task list (${cmdOrCtrl} + Shift + L)`}
+        />
+      </Box>
+      {!condensed && (
         <Box>
-          <ToolbarButton onClick={formattingToolsRef.current.header} icon={HeadingIcon} aria-label="Add header text" />
           <ToolbarButton
-            onClick={formattingToolsRef.current.bold}
-            icon={BoldIcon}
-            aria-label={`Bold (${cmdOrCtrl} + B)`}
+            onClick={() => formattingToolsRef.current?.mention()}
+            icon={MentionIcon}
+            aria-label="Mention a user or team (@)"
           />
           <ToolbarButton
-            onClick={formattingToolsRef.current.italic}
-            icon={ItalicIcon}
-            aria-label={`Italic (${cmdOrCtrl} + I)`}
+            onClick={() => formattingToolsRef.current?.reference()}
+            icon={CrossReferenceIcon}
+            aria-label="Reference an issue, pull request, or discussion (#)"
           />
         </Box>
-        <Box>
-          <ToolbarButton
-            onClick={formattingToolsRef.current.quote}
-            icon={QuoteIcon}
-            aria-label={`Insert a quote (${cmdOrCtrl} + Shift + .)`}
-          />
-          <ToolbarButton
-            onClick={formattingToolsRef.current.code}
-            icon={CodeIcon}
-            aria-label={`Insert code (${cmdOrCtrl} + E)`}
-          />
-          <ToolbarButton
-            onClick={formattingToolsRef.current.link}
-            icon={LinkIcon}
-            aria-label={`Add a link (${cmdOrCtrl} + K)`}
-          />
-        </Box>
-        <Box>
-          <ToolbarButton
-            onClick={formattingToolsRef.current.unorderedList}
-            icon={ListUnorderedIcon}
-            aria-label={`Add a bulleted list (${cmdOrCtrl} + 8)`}
-          />
-          <ToolbarButton
-            onClick={formattingToolsRef.current.orderedList}
-            icon={ListOrderedIcon}
-            aria-label={`Add a numbered list (${cmdOrCtrl} + Shift + 7)`}
-          />
-          <ToolbarButton
-            onClick={formattingToolsRef.current.taskList}
-            icon={TasklistIcon}
-            aria-label={`Add a task list (${cmdOrCtrl} + Shift + L)`}
-          />
-        </Box>
-        {!condensed && (
-          <Box>
-            <ToolbarButton
-              onClick={formattingToolsRef.current.mention}
-              icon={MentionIcon}
-              aria-label="Mention a user or team (@)"
-            />
-            <ToolbarButton
-              onClick={formattingToolsRef.current.reference}
-              icon={CrossReferenceIcon}
-              aria-label="Reference an issue, pull request, or discussion (#)"
-            />
-          </Box>
-        )}
-      </>
-    )
+      )}
+    </>
   )
 })
 DefaultToolbarButtons.displayName = 'MarkdownEditor.DefaultToolbarButtons'
