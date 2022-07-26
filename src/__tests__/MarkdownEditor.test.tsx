@@ -318,4 +318,38 @@ describe('MarkdownEditor', () => {
       expect(input.value).toBe('- list item, composition: やあ! this is more text\n- this is the next list item')
     })
   })
+
+  describe('indenting', () => {
+    it('indents selected text on Tab', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      const input = getInput()
+      await user.type(input, 'hello\n  world\nhello')
+      await user.type(input, '{Tab}', {initialSelectionStart: 3, initialSelectionEnd: 14})
+      expect(input.value).toBe(`  hello\n    world\n  hello`)
+    })
+
+    it('dedents space-indented text on Shift+Tab', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      const input = getInput()
+      await user.type(input, '  hello\n    world\n  hello')
+      await user.type(input, '{Shift>}{Tab}{/Shift}', {initialSelectionStart: 3, initialSelectionEnd: 22})
+      expect(input.value).toBe(`hello\n  world\nhello`)
+    })
+
+    it('dedents tab-indented text on Shift+Tab', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      const input = getInput()
+      await user.type(input, '\thello\n\t\tworld\n\thello')
+      await user.type(input, '{Shift>}{Tab}{/Shift}', {initialSelectionStart: 3, initialSelectionEnd: 22})
+      expect(input.value).toBe(`hello\n\tworld\nhello`)
+    })
+
+    it('does not indent if no text is selected', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      const input = getInput()
+      await user.type(input, '  hello\n    world\n  hello{Tab}')
+      expect(input.value).toBe(`  hello\n    world\n  hello`)
+      expect(input).not.toHaveFocus()
+    })
+  })
 })
