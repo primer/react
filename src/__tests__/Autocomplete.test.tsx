@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from '../utils/testing'
-import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
@@ -267,7 +267,7 @@ describe('Autocomplete', () => {
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
     })
 
-    it('closes the menu when the input is blurred', () => {
+    it('closes the menu when the input is blurred', async () => {
       const {getByLabelText} = HTMLRender(<LabelledAutocomplete menuProps={{items: [], selectedItemIds: []}} />)
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
@@ -278,9 +278,7 @@ describe('Autocomplete', () => {
       fireEvent.blur(inputNode)
 
       // wait a tick for blur to finish
-      setTimeout(() => {
-        expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      }, 0)
+      await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).not.toBe('true'))
     })
 
     it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {
@@ -306,10 +304,10 @@ describe('Autocomplete', () => {
       expect(getByDisplayValue('zero')).toBeDefined()
       expect((inputNode as HTMLInputElement).selectionStart).toBe(2)
       expect((inputNode as HTMLInputElement).selectionEnd).toBe(4)
-      inputNode && (await user.type(inputNode, '{backspace}'))
+      inputNode && (await user.keyboard('{backspace}'))
       expect((inputNode as HTMLInputElement).selectionStart).toBe(2)
       expect(getByDisplayValue('ze')).toBeDefined()
-      inputNode && (await user.type(inputNode, 'r'))
+      inputNode && (await user.keyboard('r'))
       expect((inputNode as HTMLInputElement).selectionStart).toBe(3)
       expect((inputNode as HTMLInputElement).selectionEnd).toBe(4)
       expect(getByDisplayValue('zero')).toBeDefined()
@@ -323,7 +321,7 @@ describe('Autocomplete', () => {
       expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
       inputNode && (await user.type(inputNode, 'ze'))
       expect(inputNode?.getAttribute('aria-expanded')).toBe('true')
-      inputNode && (await user.type(inputNode, '{esc}'))
+      inputNode && (await user.keyboard('{escape}'))
       expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
     })
 
@@ -367,9 +365,7 @@ describe('Autocomplete', () => {
       }
 
       // wait a tick for blur to finish
-      setTimeout(() => {
-        expect(sortOnCloseFnMock).toHaveBeenCalledTimes(mockItems.length)
-      }, 0)
+      await waitFor(() => expect(sortOnCloseFnMock).toHaveBeenCalled())
     })
 
     it("calls onOpenChange with the menu's open state", async () => {
