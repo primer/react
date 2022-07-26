@@ -44,7 +44,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   -ms-flex-align: center;
   align-items: center;
   background-color: #f6f8fa;
-  border-color: #8c959f;
+  border-color: #6e7781;
   border-style: solid;
   border-width: 1px;
   border-radius: var(--segmented-control-outer-radius);
@@ -157,11 +157,11 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c2:hover .segmentedControl-content {
-  background-color: rgba(208,215,222,0.32);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c2:active .segmentedControl-content {
-  background-color: rgba(208,215,222,0.48);
+  background-color: rgba(175,184,193,0.4);
 }
 
 .c2:first-child {
@@ -256,11 +256,11 @@ exports[`SegmentedControl renders consistently 1`] = `
 }
 
 .c3:hover .segmentedControl-content {
-  background-color: rgba(208,215,222,0.32);
+  background-color: rgba(175,184,193,0.2);
 }
 
 .c3:active .segmentedControl-content {
-  background-color: rgba(208,215,222,0.48);
+  background-color: rgba(175,184,193,0.4);
 }
 
 .c3:first-child {
