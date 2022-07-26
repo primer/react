@@ -19,7 +19,7 @@ describe('useIgnoreKeyboardActionsWhileComposing', () => {
     render(<textarea {...result.current} />)
 
     const textarea = screen.getByRole('textbox')
-    await userEvent.type(textarea, 'ime composition')
+    userEvent.type(textarea, 'ime composition')
 
     expect(screen.getByRole('textbox')).toHaveValue('ime composition')
   })
@@ -32,7 +32,7 @@ describe('useIgnoreKeyboardActionsWhileComposing', () => {
 
     const textarea = screen.getByRole('textbox')
     fireEvent.compositionStart(textarea)
-    await userEvent.type(textarea, 'ime composition')
+    userEvent.type(textarea, 'ime composition')
     fireEvent.compositionEnd(textarea)
 
     expect(screen.getByRole('textbox')).toHaveValue('ime composition')
@@ -47,7 +47,7 @@ describe('useIgnoreKeyboardActionsWhileComposing', () => {
 
     const textarea = screen.getByRole('textbox')
     fireEvent.compositionStart(textarea)
-    await userEvent.type(textarea, 'ime composition')
+    userEvent.type(textarea, 'ime composition')
     fireEvent.compositionEnd(textarea)
     onKeyDown.mockReset()
     fireEvent.keyDown(textarea, {keyCode: 229})
@@ -64,7 +64,7 @@ describe('useIgnoreKeyboardActionsWhileComposing', () => {
 
     const textarea = screen.getByRole('textbox')
     fireEvent.compositionStart(textarea)
-    await userEvent.type(textarea, 'ime composition')
+    userEvent.type(textarea, 'ime composition')
     fireEvent.compositionEnd(textarea)
     onKeyDown.mockReset()
     fireEvent.keyDown(textarea, {keyCode: 229})
@@ -81,7 +81,7 @@ describe('useIgnoreKeyboardActionsWhileComposing', () => {
 
     const textarea = screen.getByRole('textbox')
     fireEvent.compositionStart(textarea)
-    await userEvent.type(textarea, 'ime composition')
+    userEvent.type(textarea, 'ime composition')
     onKeyDown.mockReset()
     fireEvent.keyDown(textarea, {keyCode: 229})
     fireEvent.compositionEnd(textarea)
@@ -98,9 +98,9 @@ describe('useIgnoreKeyboardActionsWhileComposing', () => {
 
     const textarea = screen.getByRole('textbox')
     fireEvent.compositionStart(textarea)
-    await userEvent.type(textarea, 'ime composition')
+    userEvent.type(textarea, 'ime composition')
     onKeyDown.mockReset()
-    await userEvent.type(textarea, '{enter}')
+    userEvent.type(textarea, '{enter}')
 
     expect(onKeyDown).not.toHaveBeenCalled()
   })
@@ -113,10 +113,10 @@ describe('useIgnoreKeyboardActionsWhileComposing', () => {
 
     const textarea = screen.getByRole('textbox')
     fireEvent.compositionStart(textarea)
-    await userEvent.type(textarea, 'ime composition')
+    userEvent.type(textarea, 'ime composition')
     fireEvent.compositionEnd(textarea)
     onKeyDown.mockReset()
-    await userEvent.type(textarea, '{enter}')
+    userEvent.type(textarea, '{enter}')
 
     expect(onKeyDown).toHaveBeenCalled()
   })
