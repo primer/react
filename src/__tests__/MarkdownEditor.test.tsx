@@ -39,12 +39,17 @@ const render = async (ui: React.ReactElement) => {
 
   const getToolbar = () => result.getByRole('toolbar')
 
+  const getFooter = () => result.getByRole('footer')
+
   const getToolbarButton = (label: string) => within(getToolbar()).getByLabelText(label)
+
+  const queryForUploadButton = () =>
+    result.queryByText('Add files') || result.queryByText('Paste, drop, or click to add files')
 
   // Wait for the double render caused by slots to complete
   await waitFor(() => result.getByText('Test Editor'))
 
-  return {...result, getInput, getToolbar, getToolbarButton, user}
+  return {...result, getInput, getToolbar, getToolbarButton, user, queryForUploadButton, getFooter}
 }
 
 describe('MarkdownEditor', () => {
@@ -350,6 +355,102 @@ describe('MarkdownEditor', () => {
       await user.type(input, '  hello\n    world\n  hello{Tab}')
       expect(input.value).toBe(`  hello\n    world\n  hello`)
       expect(input).not.toHaveFocus()
+    })
+  })
+
+  describe('file attachment', () => {
+    const imageFile = (name: string) => new File(['foo'], `${name}.png`, {type: 'image/png'})
+
+    const mockUrl = (file: File) => `https://example.com/${encodeURIComponent(file.name)}`
+
+    const mockUploadFile = async (file: File) => ({file, url: mockUrl(file)})
+
+    describe('upload button', () => {
+      it('is not rendered by default', async () => {
+        const {queryForUploadButton} = await render(<UncontrolledEditor />)
+        expect(queryForUploadButton()).not.toBeInTheDocument()
+      })
+
+      it('is rendered when a file upload handler is provided', async () => {
+        const {queryForUploadButton} = await render(<UncontrolledEditor onUploadFile={mockUploadFile} />)
+        expect(queryForUploadButton()).toBeInTheDocument()
+      })
+
+      it('is hidden in preview mode', async () => {
+        const {queryForUploadButton} = await render(<UncontrolledEditor viewMode="preview" />)
+        expect(queryForUploadButton()).not.toBeInTheDocument()
+      })
+
+      it('shows drop message on drag over', async () => {
+        const {queryForUploadButton, getInput} = await render(<UncontrolledEditor onUploadFile={mockUploadFile} />)
+        const input = getInput()
+        const button = queryForUploadButton()
+
+        fireEvent.dragEnter(input, {dataTransfer: {items: [{kind: 'file'}]}})
+        expect(button).toHaveTextContent('Drop to add files')
+        fireEvent.dragLeave(input)
+        expect(button).not.toHaveTextContent('Drop to add files')
+      })
+
+      // Can't test clicking it and selecting a file because there's not a real file select dialog we can interact with
+    })
+
+    describe.each<['drop' | 'paste', string]>([
+      ['drop', 'dataTransfer'],
+      ['paste', 'clipboardData']
+    ])('selecting files by %s', (method, dataKey) => {
+      const expectFilesToBeAdded = async (onChangeMock: jest.Mock, ...files: Array<File>) => {
+        for (const file of files) {
+          await waitFor(() =>
+            expect(onChangeMock).toHaveBeenCalledWith(expect.stringContaining(`Uploading "${file.name}"...`))
+          )
+        }
+
+        for (const file of files) {
+          await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(expect.stringContaining(mockUrl(file))))
+        }
+      }
+
+      // eslint-disable-next-line jest/expect-expect
+      it('can add a single file', async () => {
+        const onChange = jest.fn()
+        const {getInput} = await render(<UncontrolledEditor onUploadFile={mockUploadFile} onChange={onChange} />)
+        const input = getInput()
+
+        const file = imageFile('example')
+        fireEvent[method](input, {[dataKey]: {files: [file], types: ['Files']}})
+
+        await expectFilesToBeAdded(onChange, file)
+      })
+
+      // eslint-disable-next-line jest/expect-expect
+      it('can add multiple files', async () => {
+        const onChange = jest.fn()
+        const {getInput} = await render(<UncontrolledEditor onUploadFile={mockUploadFile} onChange={onChange} />)
+        const input = getInput()
+
+        const fileA = imageFile('a')
+        const fileB = imageFile('b')
+        fireEvent[method](input, {[dataKey]: {files: [fileA, fileB], types: ['Files']}})
+
+        await expectFilesToBeAdded(onChange, fileA, fileB)
+      })
+
+      it('rejects disallows file types while accepting allowed ones', async () => {
+        const onChange = jest.fn()
+        const {getInput, getFooter} = await render(
+          <UncontrolledEditor onUploadFile={mockUploadFile} onChange={onChange} acceptedFileTypes={['image/*']} />
+        )
+        const input = getInput()
+
+        const fileA = new File(['foo'], 'a.app', {type: 'application/app'})
+        const fileB = imageFile('b')
+        fireEvent[method](input, {[dataKey]: {files: [fileA, fileB], types: ['Files']}})
+
+        await expectFilesToBeAdded(onChange, fileB)
+
+        expect(getFooter()).toHaveTextContent(expect.stringContaining('File type not allowed: .app'))
+      })
     })
   })
 })
