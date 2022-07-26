@@ -102,6 +102,7 @@ text after list`
     })
 
     it('calls onLinkClick on link click', async () => {
+      const user = userEvent.setup()
       const onLinkClick = jest.fn()
       const {getByRole} = render(
         <MarkdownViewer
@@ -111,7 +112,7 @@ text after list`
         />
       )
       const link = getByRole('link') as HTMLAnchorElement
-      userEvent.click(link)
+      await user.click(link)
       expect(onLinkClick).toHaveBeenCalled()
     })
   })
