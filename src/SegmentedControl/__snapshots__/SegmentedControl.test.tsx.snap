@@ -353,6 +353,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   <button
     aria-current={true}
     className="c1"
+    onClick={[Function]}
   >
     <span
       className="segmentedControl-content"
@@ -367,6 +368,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   <button
     aria-current={false}
     className="c2"
+    onClick={[Function]}
   >
     <span
       className="segmentedControl-content"
@@ -381,6 +383,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   <button
     aria-current={false}
     className="c3"
+    onClick={[Function]}
   >
     <span
       className="segmentedControl-content"

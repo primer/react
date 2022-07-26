@@ -1,4 +1,4 @@
-import React, {RefObject, useRef} from 'react'
+import React, {RefObject, useRef, useState} from 'react'
 import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import {ActionList, ActionMenu, Box, useTheme} from '..'
@@ -43,24 +43,30 @@ const Root: React.FC<SegmentedControlProps> = ({
 }) => {
   const segmentedControlContainerRef = useRef<HTMLSpanElement>(null)
   const {theme} = useTheme()
+  const isUncontrolled =
+    onChange === undefined ||
+    React.Children.toArray(children).every(
+      child => React.isValidElement<SegmentedControlButtonProps>(child) && child.props.selected === undefined
+    )
+  const selectedSegments = React.Children.toArray(children).map(
+    child =>
+      React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) && child.props.selected
+  )
+  const hasSelectedButton = selectedSegments.some(isSelected => isSelected)
+  const selectedIndexExternal = hasSelectedButton ? selectedSegments.indexOf(true) : 0
+  const [selectedIndexInternalState, setSelectedIndexInternalState] = useState<number>(selectedIndexExternal)
+  const selectedIndex = isUncontrolled ? selectedIndexInternalState : selectedIndexExternal
+  const selectedChild = React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(
+    React.Children.toArray(children)[selectedIndex]
+  )
+    ? React.Children.toArray(children)[selectedIndex]
+    : undefined
   const mediaQueryMatches = useMatchMedia(Object.keys(variant || {}) as WidthOnlyViewportRangeKeys[])
   const mediaQueryMatchesKeys = mediaQueryMatches
     ? (Object.keys(mediaQueryMatches) as WidthOnlyViewportRangeKeys[]).filter(
         viewportRangeKey => typeof mediaQueryMatches === 'object' && mediaQueryMatches[viewportRangeKey]
       )
     : []
-
-  const selectedSegments = React.Children.toArray(children).map(
-    child =>
-      React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) && child.props.selected
-  )
-  const hasSelectedButton = selectedSegments.some(isSelected => isSelected)
-  const selectedIndex = hasSelectedButton ? selectedSegments.indexOf(true) : 0
-  const selectedChild = React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(
-    React.Children.toArray(children)[selectedIndex]
-  )
-    ? React.Children.toArray(children)[selectedIndex]
-    : undefined
   const getChildIcon = (childArg: React.ReactNode) => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
@@ -160,18 +166,11 @@ const Root: React.FC<SegmentedControlProps> = ({
               <ActionList.Item
                 key={`segmented-control-action-btn-${index}`}
                 selected={index === selectedIndex}
-                onSelect={
-                  onChange
-                    ? (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                        onChange(index)
-                        // TODO: figure out a way around the typecasting
-                        child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
-                      }
-                    : // TODO: figure out a way around the typecasting
-                      (child.props.onClick as (
-                        event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
-                      ) => void)
-                }
+                onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                  isUncontrolled && setSelectedIndexInternalState(index)
+                  onChange && onChange(index)
+                  child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
+                }}
               >
                 {ChildIcon && <ChildIcon />} {getChildText(child)}
               </ActionList.Item>
@@ -199,9 +198,13 @@ const Root: React.FC<SegmentedControlProps> = ({
           onClick: onChange
             ? (event: React.MouseEvent<HTMLButtonElement>) => {
                 onChange(index)
+                isUncontrolled && setSelectedIndexInternalState(index)
                 child.props.onClick && child.props.onClick(event)
               }
-            : child.props.onClick,
+            : (event: React.MouseEvent<HTMLButtonElement>) => {
+                child.props.onClick && child.props.onClick(event)
+                isUncontrolled && setSelectedIndexInternalState(index)
+              },
           selected: index === selectedIndex,
           sx: {
             '--separator-color':

@@ -174,6 +174,26 @@ describe('SegmentedControl', () => {
     expect(handleChange).toHaveBeenCalledWith(1)
   })
 
+  it('changes selection to the clicked segment even without onChange being passed', () => {
+    const {getByText} = render(
+      <SegmentedControl aria-label="File view">
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button selected={index === 0} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>
+    )
+
+    const buttonToClick = getByText('Raw').closest('button')
+
+    expect(buttonToClick?.getAttribute('aria-current')).toBe('false')
+    if (buttonToClick) {
+      userEvent.click(buttonToClick)
+    }
+    expect(buttonToClick?.getAttribute('aria-current')).toBe('true')
+  })
+
   it('calls segment button onClick if it is passed', () => {
     const handleClick = jest.fn()
     const {getByText} = render(
