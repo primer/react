@@ -18,6 +18,7 @@ export type ThemeProviderProps = {
   dayScheme?: string
   nightScheme?: string
   preventSSRMismatch?: boolean
+  children?: React.ReactNode
 }
 
 const ThemeContext = React.createContext<{
