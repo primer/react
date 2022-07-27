@@ -6,7 +6,15 @@ import {BaseStyles, ThemeProvider} from '..'
 
 export default {
   title: 'Layout/UnderlineNav',
-
+  argTypes: {
+    align: {
+      defaultValue: 'left',
+      control: {
+        type: 'radio',
+        options: ['left', 'right']
+      }
+    }
+  },
   decorators: [
     Story => {
       return (
@@ -17,8 +25,7 @@ export default {
         </ThemeProvider>
       )
     }
-  ],
-  argTypes: {}
+  ]
 } as Meta
 
 export const DefaultNav = (args: UnderlineNavProps) => {

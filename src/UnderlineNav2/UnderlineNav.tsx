@@ -1,4 +1,4 @@
-import React, {useRef, forwardRef, useCallback, useState, useLayoutEffect, MutableRefObject, RefObject} from 'react'
+import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -91,13 +91,12 @@ export const UnderlineNav = forwardRef(
   ({as = 'nav', overflow = 'auto', align, label, sx: sxProp = {}, children}: UnderlineNavProps, forwardedRef) => {
     const backupRef = useRef<HTMLElement>(null)
     const newRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
-    const flexDirection = align === 'right' ? 'row-reverse' : 'row'
     const styles = {
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: align === 'right' ? 'flex-end' : 'space-between',
       borderBottom: '1px solid',
       borderBottomColor: 'border.muted',
-      flexDirection,
+      align: 'row',
       alignItems: 'center'
     }
     const overflowStyles = overflow === 'scroll' ? {overflowX: 'auto', whiteSpace: 'nowrap'} : {}
@@ -126,15 +125,6 @@ export const UnderlineNav = forwardRef(
         return newArr
       })
     }, [])
-
-    useLayoutEffect(() => {
-      if (overflow === 'auto' || overflow === 'menu') {
-        const childArray = getValidChildren(children)
-        const domRect = newRef.current.getBoundingClientRect()
-        const width = domRect.width || 0
-        overflowEffect(width, childArray, childWidthArray, callback)
-      }
-    }, [childWidthArray.length, overflow, newRef, callback, children, childWidthArray])
 
     // resizeObserver calls this function infinitely without a useCallback
     const resizeObserverCallback = useCallback(
