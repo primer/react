@@ -4,7 +4,7 @@ import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 // https://gist.github.com/strothj/708afcf4f01dd04de8f49c92e88093c3
 export type ResizeObserverCallback = (entries: ResizeObserverEntry[]) => void
 
-export interface ResizeObserveEntry {
+export interface ResizeObserverEntry {
   contentRect: DOMRectReadOnly
 }
 

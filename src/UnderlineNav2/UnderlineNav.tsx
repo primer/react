@@ -4,7 +4,7 @@ import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
-import {useResizeObserver} from '../hooks/useResizeObserver'
+import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 
 /*
 Todo:
@@ -33,14 +33,11 @@ type ResponsiveProps = {
   actions: Array<React.ReactElement>
 }
 const overflowEffect = (
-  newRef: MutableRefObject<HTMLElement>,
+  width: number,
   childArray: Array<React.ReactElement>,
   childWidthArray: ChildWidthArray,
   callback: (props: ResponsiveProps) => void
 ) => {
-  const domRect = newRef.current.getBoundingClientRect()
-  const width = domRect.width || 0
-
   if (childWidthArray.length === 0) {
     callback({items: childArray, actions: []})
   }
@@ -93,7 +90,7 @@ export type UnderlineNavProps = {
 export const UnderlineNav = forwardRef(
   ({as = 'nav', overflow = 'auto', align, label, sx: sxProp = {}, children}: UnderlineNavProps, forwardedRef) => {
     const backupRef = useRef<HTMLElement>(null)
-    const newRef = forwardedRef ?? backupRef
+    const newRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const flexDirection = align === 'right' ? 'row-reverse' : 'row'
     const styles = {
       display: 'flex',
@@ -133,19 +130,24 @@ export const UnderlineNav = forwardRef(
     useLayoutEffect(() => {
       if (overflow === 'auto' || overflow === 'menu') {
         const childArray = getValidChildren(children)
-        overflowEffect(newRef as MutableRefObject<HTMLElement>, childArray, childWidthArray, callback)
+        const domRect = newRef.current.getBoundingClientRect()
+        const width = domRect.width || 0
+        overflowEffect(width, childArray, childWidthArray, callback)
       }
     }, [childWidthArray.length, overflow, newRef, callback, children, childWidthArray])
 
-    useResizeObserver(() => {
-      // This prevents "ResizeObserver loop limit exceeded" error. Not sure if to debounce or is this enough
-      requestAnimationFrame(() => {
+    // resizeObserver calls this function infinitely without a useCallback
+    const resizeObserverCallback = useCallback(
+      (resizeObserverEntries: ResizeObserverEntry[]) => {
         if (overflow === 'auto' || overflow === 'menu') {
           const childArray = getValidChildren(children)
-          overflowEffect(newRef as MutableRefObject<HTMLElement>, childArray, childWidthArray, callback)
+          const navWidth = resizeObserverEntries[0].contentRect.width
+          overflowEffect(navWidth, childArray, childWidthArray, callback)
         }
-      })
-    }, newRef as RefObject<HTMLElement>)
+      },
+      [callback, childWidthArray, children, overflow]
+    )
+    useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
 
     return (
       <UnderlineNavContext.Provider value={{setChildrenWidth}}>
