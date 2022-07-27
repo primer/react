@@ -101,9 +101,13 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   )
 )
 
-const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => <option {...props} />
+const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
+  <option {...props} />
+)
 
-const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => <optgroup {...props} />
+const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => (
+  <optgroup {...props} />
+)
 
 export default Object.assign(Select, {
   Option,

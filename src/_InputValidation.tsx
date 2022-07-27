@@ -9,7 +9,10 @@ type Props = {
   validationStatus?: FormValidationStatus
 } & SxProp
 
-const validationIconMap: Record<NonNullable<Props['validationStatus']>, React.ComponentType<React.PropsWithChildren<IconProps>>> = {
+const validationIconMap: Record<
+  NonNullable<Props['validationStatus']>,
+  React.ComponentType<React.PropsWithChildren<IconProps>>
+> = {
   success: CheckCircleFillIcon,
   error: AlertFillIcon,
   warning: AlertFillIcon

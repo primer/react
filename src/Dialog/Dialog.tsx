@@ -213,7 +213,13 @@ const StyledDialog = styled.div<StyledDialogProps>`
   ${sx};
 `
 
-const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({dialogLabelId, title, subtitle, dialogDescriptionId, onClose}) => {
+const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
+  dialogLabelId,
+  title,
+  subtitle,
+  dialogDescriptionId,
+  onClose
+}) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])

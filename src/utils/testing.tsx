@@ -171,7 +171,7 @@ export function getClassName(node: React.ReactElement) {
 
 export function getClasses(node: React.ReactElement) {
   const className = getClassName(node)
-  return className ? className.trim().split(/ +/) : [];
+  return className ? className.trim().split(/ +/) : []
 }
 
 export async function loadCSS(path: string) {

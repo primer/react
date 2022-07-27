@@ -23,7 +23,9 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
   /**
    * The array of tokens to render
    */
-  tokens: TokenComponentType extends React.ComponentType<React.PropsWithChildren<infer TokenProps>> ? TokenProps[] : never
+  tokens: TokenComponentType extends React.ComponentType<React.PropsWithChildren<infer TokenProps>>
+    ? TokenProps[]
+    : never
   /**
    * The function that gets called when a token is removed
    */

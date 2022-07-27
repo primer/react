@@ -111,7 +111,11 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  variantWhenNarrow = 'inherit',
+  sx = {}
+}) => {
   const {padding} = React.useContext(PageLayoutContext)
   return (
     <Box
@@ -153,7 +157,11 @@ const verticalDividerVariants = {
   }
 }
 
-const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  variantWhenNarrow = 'inherit',
+  sx = {}
+}) => {
   return (
     <Box
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -232,7 +240,12 @@ const contentWidths = {
   xlarge: '1280px'
 }
 
-const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({width = 'full', hidden = false, children, sx = {}}) => {
+const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+  width = 'full',
+  hidden = false,
+  children,
+  sx = {}
+}) => {
   const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
