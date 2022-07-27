@@ -41,16 +41,16 @@ export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
-  leadingIcon?: React.FunctionComponent<IconProps>
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /**
    * The trailing icon comes after button content
    */
-  trailingIcon?: React.FunctionComponent<IconProps>
+  trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   children: React.ReactNode
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.FunctionComponent<IconProps>
+  icon: React.FunctionComponent<React.PropsWithChildren<IconProps>>
 } & ButtonBaseProps
 
 // adopted from React.AnchorHTMLAttributes

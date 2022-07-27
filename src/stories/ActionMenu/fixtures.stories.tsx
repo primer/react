@@ -39,7 +39,7 @@ const meta: Meta = {
   title: 'Composite components/ActionMenu/fixtures',
   component: ActionMenu,
   decorators: [
-    (Story: React.ComponentType): JSX.Element => (
+    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
       <ThemeProvider>
         <BaseStyles>
           <Story />
@@ -310,7 +310,7 @@ const LayoutToggleItem = ({
 }: {
   selected: boolean
   children: React.ReactNode
-  Icon: React.ComponentType<IconProps>
+  Icon: React.ComponentType<React.PropsWithChildren<IconProps>>
 }) => {
   return (
     <FormControl

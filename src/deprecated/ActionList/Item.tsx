@@ -42,13 +42,13 @@ export interface ItemProps extends SxProp {
   /**
    * Icon (or similar) positioned before `Item` text.
    */
-  leadingVisual?: React.FunctionComponent<IconProps>
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
 
   /**
    * @deprecated Use `trailingVisual` instead
    * Icon (or similar) positioned after `Item` text.
    */
-  trailingIcon?: React.FunctionComponent<IconProps>
+  trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
 
   /**
    * @deprecated Use `trailingVisual` instead
