@@ -1,5 +1,5 @@
 ---
-"@primer/react": patch
+"@primer/react": minor
 ---
 
 * Updated the `divider` prop in `PageLayout.Header`, `PageLayout.Pane`, and `PageLayout.Footer` to use the new responsive prop API introduced in https://github.com/primer/react/pull/2174.
