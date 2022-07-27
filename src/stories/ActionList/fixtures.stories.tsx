@@ -39,7 +39,7 @@ const meta: Meta = {
   title: 'Composite components/ActionList/fixtures',
   component: ActionList,
   decorators: [
-    (Story: React.ComponentType): JSX.Element => (
+    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
       <ThemeProvider>
         <BaseStyles>
           <Story />
@@ -158,7 +158,7 @@ const labels = [
   {name: 'good first issue', color: '#7057ff', description: 'Good for newcomers'}
 ]
 
-const LabelColor: React.FC<{color: string}> = ({color}) => (
+const LabelColor: React.FC<React.PropsWithChildren<{color: string}>> = ({color}) => (
   <Box sx={{backgroundColor: color, width: '14px', height: '14px', borderRadius: 3}} />
 )
 
@@ -810,7 +810,7 @@ export function ChildWithInternalState(): JSX.Element {
 }
 ChildWithInternalState.storyName = 'Child with internal state'
 
-const StatefulChild: React.FC = props => {
+const StatefulChild: React.FC<React.PropsWithChildren<unknown>> = props => {
   const [nameVisible, setNameVisibility] = React.useState(false)
   const toggle = () => {
     setNameVisibility(!nameVisible)
@@ -992,7 +992,7 @@ type SortableItemProps = {
   onSelect: ActionListItemProps['onSelect']
   reorder: ({optionToMove, moveAfterOption}: {optionToMove: Option; moveAfterOption: Option}) => void
 }
-const SortableItem: React.FC<SortableItemProps> = ({option, role, onSelect, reorder}) => {
+const SortableItem: React.FC<React.PropsWithChildren<SortableItemProps>> = ({option, role, onSelect, reorder}) => {
   const [{isDragging}, dragRef] = useDrag(() => ({
     type: 'ITEM',
     item: option,

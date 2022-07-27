@@ -27,10 +27,10 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
    *  When all the children have mounted = registered themselves in slot,
    *  we re-render the parent component to render with slots
    */
-  const Slots: React.FC<{
+  const Slots: React.FC<React.PropsWithChildren<{
     context?: ContextProps['context']
     children: (slots: Slots) => React.ReactNode
-  }> = ({context = {}, children}) => {
+  }>> = ({context = {}, children}) => {
     // initialise slots
     const slotsDefinition: Slots = {}
     slotNames.map(name => (slotsDefinition[name] = null))
@@ -76,10 +76,10 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
     )
   }
 
-  const Slot: React.FC<{
+  const Slot: React.FC<React.PropsWithChildren<{
     name: SlotNames
     children: React.ReactNode
-  }> = ({name, children}) => {
+  }>> = ({name, children}) => {
     const {registerSlot, unregisterSlot, context} = React.useContext(SlotsContext)
 
     React.useEffect(() => {

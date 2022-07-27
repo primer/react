@@ -10,7 +10,7 @@ export type CheckboxOrRadioGroupValidationProps = {
   variant: FormValidationStatus
 } & SxProp
 
-const CheckboxOrRadioGroupValidation: React.FC<CheckboxOrRadioGroupValidationProps> = ({children, variant, sx}) => (
+const CheckboxOrRadioGroupValidation: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupValidationProps>> = ({children, variant, sx}) => (
   <Slot name="Validation">
     {({validationMessageId = ''}: CheckboxOrRadioGroupContext) => (
       <InputValidation validationStatus={variant} id={validationMessageId} sx={sx}>

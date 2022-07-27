@@ -2,11 +2,11 @@ import {Box} from '.'
 import React from 'react'
 
 /** Private component used to render placeholders in storybook and documentation examples  */
-export const Placeholder: React.FC<{
+export const Placeholder: React.FC<React.PropsWithChildren<{
   width?: number | string
   height: number | string
   label?: string
-}> = ({width, height, label}) => {
+}>> = ({width, height, label}) => {
   return (
     <Box
       sx={{

@@ -6,7 +6,7 @@ import {ActionListItemProps} from './Item'
 import {LeadingVisualContainer} from './Visuals'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
-export const Selection: React.FC<SelectionProps> = ({selected}) => {
+export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
   const {selectionVariant: listSelectionVariant} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 

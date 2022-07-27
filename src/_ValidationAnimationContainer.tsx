@@ -20,7 +20,7 @@ const fadeIn = keyframes`
 const AnimatedElement = styled.div<Props>`
   animation: ${props => props.show && css`170ms ${fadeIn} cubic-bezier(0.44, 0.74, 0.36, 1);`};
 `
-const ValidationAnimationContainer: React.FC<Props> = ({show, children}) => {
+const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children}) => {
   const [shouldRender, setRender] = useState(show)
 
   useEffect(() => {

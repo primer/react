@@ -171,7 +171,7 @@ export function getClassName(node: React.ReactElement) {
 
 export function getClasses(node: React.ReactElement) {
   const className = getClassName(node)
-  return className ? className.trim().split(/ +/) : []
+  return className ? className.trim().split(/ +/) : [];
 }
 
 export async function loadCSS(path: string) {
@@ -202,7 +202,7 @@ interface Options {
 
 interface BehavesAsComponent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Component: React.ComponentType<any>
+  Component: React.ComponentType<React.PropsWithChildren<any>>
   toRender?: () => React.ReactElement
   options?: Options
 }

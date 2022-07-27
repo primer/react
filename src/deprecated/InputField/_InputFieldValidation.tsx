@@ -3,6 +3,6 @@ export interface InputFieldValidationProps {
   validationKey: string
 }
 
-const InputFieldValidation: React.FC<InputFieldValidationProps> = ({children}) => <>{children}</>
+const InputFieldValidation: React.FC<React.PropsWithChildren<InputFieldValidationProps>> = ({children}) => <>{children}</>
 
 export default InputFieldValidation

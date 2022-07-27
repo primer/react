@@ -81,7 +81,7 @@ export type ActionListItemProps = {
   /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
-  _PrivateItemWrapper?: React.FC
+  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<unknown>>
 } & SxProp
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
@@ -302,7 +302,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
 Item.displayName = 'ActionList.Item'
 
-const ConditionalBox: React.FC<{if: boolean} & BoxProps> = props => {
+const ConditionalBox: React.FC<React.PropsWithChildren<{if: boolean} & BoxProps>> = props => {
   const {if: condition, ...rest} = props
 
   if (condition) return <Box {...rest}>{props.children}</Box>

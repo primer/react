@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event'
 import ChoiceFieldset, {Item, ChoiceFieldsetProps} from '../../deprecated/ChoiceFieldset'
 import {ChoiceFieldsetListProps} from '../../deprecated/ChoiceFieldset/ChoiceFieldsetList'
 
-const SelectableChoicelistFieldset: React.FC<ChoiceFieldsetProps & ChoiceFieldsetListProps> = ({
+const SelectableChoicelistFieldset: React.FC<React.PropsWithChildren<ChoiceFieldsetProps & ChoiceFieldsetListProps>> = ({
   onSelect,
   selectionVariant,
   selected = []
