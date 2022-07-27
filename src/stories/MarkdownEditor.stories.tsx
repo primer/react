@@ -28,7 +28,7 @@ const meta: Meta = {
         'Minimum Height (Lines)',
         'Maximum Height (Lines)',
         'Hide Label',
-        'Rquired',
+        'Required',
         'Enable File Uploads'
       ]
     }

@@ -3,6 +3,8 @@ import {DefaultToolbarButtons, Toolbar, ToolbarButton} from './Toolbar'
 import {ActionButton, Actions} from './Actions'
 import {Label} from './Label'
 
+export type {MarkdownEditorHandle} from './MarkdownEditor'
+
 const MarkdownEditor = Object.assign(_MarkdownEditor, {
   /** REQUIRED: An accessible label for the editor. */
   Label,

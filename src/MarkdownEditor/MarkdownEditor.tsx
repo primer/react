@@ -92,7 +92,7 @@ export type MarkdownEditorProps = SxProp & {
   name?: string
 }
 
-export interface MarkdownEditor {
+export interface MarkdownEditorHandle {
   /** Focus on the markdown textarea (has no effect in preview mode). */
   focus: (options?: FocusOptions) => void
   /** Scroll to the editor. */
@@ -109,7 +109,7 @@ export const MarkdownEditorSlot = Slot
 /**
  * Markdown textarea with controls & keyboard shortcuts.
  */
-const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
+const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
   (
     {
       value,
@@ -248,7 +248,9 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
         {slots => (
           <MarkdownEditorContext.Provider value={context}>
             <fieldset
-              disabled={disabled}
+              aria-disabled={
+                disabled /* if we set disabled={true}, we can't enable the buttons that should be enabled */
+              }
               aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
               style={{appearance: 'none', border: 'none'}}
             >
@@ -277,7 +279,7 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
               >
                 <VisuallyHidden id={descriptionId} aria-live="polite">
                   Markdown input:
-                  {view === 'preview' ? 'Preview mode selected' : 'Edit mode selected'}
+                  {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
                 </VisuallyHidden>
 
                 <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">

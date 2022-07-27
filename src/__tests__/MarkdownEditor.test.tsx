@@ -1,20 +1,20 @@
 import {DiffAddedIcon} from '@primer/octicons-react'
 import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {useRef, useState} from 'react'
-import MarkdownEditor, {MarkdownEditorProps} from '../MarkdownEditor'
+import React, {forwardRef, useState} from 'react'
+import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps} from '../MarkdownEditor'
 import ThemeProvider from '../ThemeProvider'
 
 type UncontrolledEditorProps = Omit<MarkdownEditorProps, 'value' | 'onChange' | 'onRenderPreview' | 'children'> &
-  Partial<Pick<MarkdownEditorProps, 'onChange' | 'onRenderPreview' | 'children'>>
+  Partial<Pick<MarkdownEditorProps, 'onChange' | 'onRenderPreview' | 'children'>> & {
+    hideLabel?: boolean
+  }
 
-const UncontrolledEditor = (props: UncontrolledEditorProps) => {
+const UncontrolledEditor = forwardRef<MarkdownEditorHandle, UncontrolledEditorProps>((props, forwardedRef) => {
   const [value, setValue] = useState('')
-  const input = useRef<HTMLTextAreaElement>(null)
 
   const handleChange = (v: string) => {
     props.onChange?.(v)
-    if (input.current) input.current.value = v
     setValue(v)
   }
 
@@ -22,14 +22,20 @@ const UncontrolledEditor = (props: UncontrolledEditorProps) => {
 
   return (
     <ThemeProvider>
-      <MarkdownEditor ref={input} onRenderPreview={onRenderPreview} {...props} value={value} onChange={handleChange}>
-        <MarkdownEditor.Label>Test Editor</MarkdownEditor.Label>
+      <MarkdownEditor
+        ref={forwardedRef}
+        onRenderPreview={onRenderPreview}
+        {...props}
+        value={value}
+        onChange={handleChange}
+      >
+        <MarkdownEditor.Label visuallyHidden={props.hideLabel}>Test Editor</MarkdownEditor.Label>
 
         {props.children}
       </MarkdownEditor>
     </ThemeProvider>
   )
-}
+})
 
 const render = async (ui: React.ReactElement) => {
   const result = _render(ui)
@@ -41,20 +47,26 @@ const render = async (ui: React.ReactElement) => {
 
   const getFooter = () => result.getByRole('contentinfo')
 
-  const getToolbarButton = (label: string) => within(getToolbar()).getByLabelText(label)
+  const getToolbarButton = (label: string) => within(getToolbar()).getByRole('button', {name: label})
+
+  const getActionButton = (label: string) => within(getFooter()).getByRole('button', {name: label})
 
   const getViewSwitch = () => {
-    const button = result.queryByText('Preview') || result.queryByText('Edit')
+    const button = result.queryByRole('button', {name: 'Preview'}) || result.queryByRole('button', {name: 'Edit'})
     if (!button) throw new Error('View switch button not found')
     return button
   }
 
-  const queryForPreview = () => result.queryByText('Rendered Markdown Preview')?.parentElement ?? null
+  const queryForPreview = () =>
+    result.queryByRole('heading', {name: 'Rendered Markdown Preview'})?.parentElement ?? null
 
-  const getPreview = () => result.getByText('Rendered Markdown Preview').parentElement!
+  const getPreview = () => result.getByRole('heading', {name: 'Rendered Markdown Preview'}).parentElement!
+
+  const getEditorContainer = () => result.getByRole('group')
 
   const queryForUploadButton = () =>
-    result.queryByText('Add files') || result.queryByText('Paste, drop, or click to add files')
+    result.queryByRole('button', {name: 'Add files'}) ||
+    result.queryByRole('button', {name: 'Paste, drop, or click to add files'})
 
   // Wait for the double render caused by slots to complete
   await waitFor(() => result.getByText('Test Editor'))
@@ -69,7 +81,9 @@ const render = async (ui: React.ReactElement) => {
     getFooter,
     getViewSwitch,
     getPreview,
-    queryForPreview
+    queryForPreview,
+    getActionButton,
+    getEditorContainer
   }
 }
 
@@ -135,10 +149,12 @@ describe('MarkdownEditor', () => {
     expect(onPrimaryAction).toBeCalled()
   })
 
-  it('forwards ref to the textarea element', async () => {
-    const ref: React.RefObject<HTMLTextAreaElement> = {current: null}
-    await render(<UncontrolledEditor ref={ref} />)
-    expect(ref.current).toBeInstanceOf(HTMLTextAreaElement)
+  it('forwards imperative handle ref', async () => {
+    const ref: React.RefObject<MarkdownEditorHandle> = {current: null}
+    const {getInput} = await render(<UncontrolledEditor ref={ref} />)
+
+    ref.current?.focus()
+    expect(getInput()).toHaveFocus()
   })
 
   it('enables the textarea by default', async () => {
@@ -151,9 +167,10 @@ describe('MarkdownEditor', () => {
     expect(getInput()).toBeDisabled()
   })
 
-  it('disables the container when disabled', async () => {
+  it('aria-disables the container when disabled', async () => {
     const {getEditorContainer} = await render(<UncontrolledEditor disabled />)
-    expect(getEditorContainer()).toBeDisabled()
+    expect(getEditorContainer()).not.toBeDisabled()
+    expect(getEditorContainer()).toHaveAttribute('aria-disabled', 'true')
   })
 
   it('does not require the textarea by default', async () => {
@@ -179,11 +196,6 @@ describe('MarkdownEditor', () => {
   it('sets the textarea name when provided', async () => {
     const {getInput} = await render(<UncontrolledEditor name="Name" />)
     expect(getInput()).toHaveAttribute('name', 'Name')
-  })
-
-  it('renders the textarea in monospace font when enabled', async () => {
-    const {getInput} = await render(<UncontrolledEditor monospace />)
-    expect(getInput()).toHaveStyle('font-family: monospace')
   })
 
   describe('action buttons', () => {
@@ -226,80 +238,54 @@ describe('MarkdownEditor', () => {
   })
 
   describe('toolbar', () => {
-  it('renders custom toolbar buttons', async () => {
-    const {getToolbarButton} = await render(
-      <UncontrolledEditor>
-        <MarkdownEditor.Toolbar>
-          <MarkdownEditor.ToolbarButton icon={DiffAddedIcon} aria-label="Test Button" />
-        </MarkdownEditor.Toolbar>
-      </UncontrolledEditor>
-    )
-
-    expect(() => getToolbarButton('Test Button')).not.toThrow()
-  })
-
-  it('maintains focus on input by default when custom toolbar buttons are clicked', async () => {
-    const onClick = jest.fn()
-    const {getInput, getToolbarButton, user} = await render(
-      <UncontrolledEditor>
-        <MarkdownEditor.Toolbar>
-          <MarkdownEditor.ToolbarButton icon={DiffAddedIcon} aria-label="Test Button" onClick={onClick} />
-        </MarkdownEditor.Toolbar>
-      </UncontrolledEditor>
-    )
-
-    const input = getInput()
-    await user.type(input, 'text')
-    await user.click(getToolbarButton('Test Button'))
-
-    expect(input).toHaveFocus()
-    expect(onClick).toHaveBeenCalled()
-  })
-
-  describe('toolbar keyboard navigation', () => {
-    it('navigates between buttons using arrow keys / home & end', async () => {
-      const {getToolbarButton, getToolbar, user} = await render(<UncontrolledEditor />)
-
-      const boldButton = getToolbarButton('Bold (Ctrl + B)')
-      const italicButton = getToolbarButton('Italic (Ctrl + I)')
-
-      boldButton.focus()
-      await user.keyboard('{ArrowRight}')
-      expect(italicButton).toHaveFocus()
-      await user.keyboard('{ArrowLeft}')
-      expect(boldButton).toHaveFocus()
-
-      const toolbar = getToolbar()
-      const buttons = within(toolbar).getAllByRole('button')
-
-      await user.keyboard('{Home}')
-      expect(buttons[0]).toHaveFocus()
-      await user.keyboard('{End}')
-      expect(buttons[buttons.length - 1]).toHaveFocus()
-    })
-
-    it('allows skipping past toolbar with Tab', async () => {
-      const {getToolbar, getInput, user} = await render(<UncontrolledEditor />)
-
-      const toolbar = getToolbar()
-      const buttons = within(toolbar).getAllByRole('button')
-
-      buttons[0].focus()
-      await user.tab()
-
-      expect(getInput()).toHaveFocus()
-
-      await user.tab({shift: true})
-
-      expect(buttons[buttons.length - 1]).toHaveFocus()
-    })
-
-    it('includes custom buttons', async () => {
-      const {getToolbarButton, user} = await render(
+    it('renders custom toolbar buttons', async () => {
+      const {getToolbarButton} = await render(
         <UncontrolledEditor>
           <MarkdownEditor.Toolbar>
+            <MarkdownEditor.ToolbarButton icon={DiffAddedIcon} aria-label="Test Button" />
+          </MarkdownEditor.Toolbar>
+        </UncontrolledEditor>
+      )
+
+      expect(() => getToolbarButton('Test Button')).not.toThrow()
+    })
+
+    it('forwards custom toolbar button refs', async () => {
+      const ref: React.RefObject<HTMLButtonElement> = {current: null}
+      await render(
+        <UncontrolledEditor>
+          <MarkdownEditor.Toolbar>
+            <MarkdownEditor.ToolbarButton ref={ref} icon={DiffAddedIcon} aria-label="Test Button" />
+          </MarkdownEditor.Toolbar>
+        </UncontrolledEditor>
+      )
+      expect(ref.current).toBeInstanceOf(HTMLButtonElement)
+    })
+
+    it('maintains focus on input by default when custom toolbar buttons are clicked', async () => {
+      const onClick = jest.fn()
+      const {getInput, getToolbarButton, user} = await render(
+        <UncontrolledEditor>
+          <MarkdownEditor.Toolbar>
+            <MarkdownEditor.ToolbarButton icon={DiffAddedIcon} aria-label="Test Button" onClick={onClick} />
+          </MarkdownEditor.Toolbar>
+        </UncontrolledEditor>
+      )
+
+      const input = getInput()
+      await user.type(input, 'text')
+      await user.click(getToolbarButton('Test Button'))
+
+      expect(input).toHaveFocus()
+      expect(onClick).toHaveBeenCalled()
+    })
+
+    it('disables buttons when editor is disabled (unless explicitly overridden)', async () => {
+      const {getToolbarButton} = await render(
+        <UncontrolledEditor disabled>
+          <MarkdownEditor.Toolbar>
             <MarkdownEditor.ToolbarButton aria-label="Test Button A" icon={DiffAddedIcon} />
-            <MarkdownEditor.ToolbarButton aria-label="Test Button B" icon={DiffAddedIcon} />
+            <MarkdownEditor.ToolbarButton aria-label="Test Button B" icon={DiffAddedIcon} disabled={false} />
             <MarkdownEditor.DefaultToolbarButtons />
           </MarkdownEditor.Toolbar>
         </UncontrolledEditor>
@@ -307,10 +293,69 @@ describe('MarkdownEditor', () => {
 
       const a = getToolbarButton('Test Button A')
       const b = getToolbarButton('Test Button B')
+      const bold = getToolbarButton('Bold (Ctrl + B)')
 
-      b.focus()
-      await user.keyboard('{ArrowLeft}')
-      expect(a).toHaveFocus()
+      expect(a).toBeDisabled()
+      expect(b).not.toBeDisabled()
+      expect(bold).toBeDisabled()
+    })
+
+    describe('keyboard navigation', () => {
+      it('navigates between buttons using arrow keys / home & end', async () => {
+        const {getToolbarButton, getToolbar, user} = await render(<UncontrolledEditor />)
+
+        const boldButton = getToolbarButton('Bold (Ctrl + B)')
+        const italicButton = getToolbarButton('Italic (Ctrl + I)')
+
+        boldButton.focus()
+        await user.keyboard('{ArrowRight}')
+        expect(italicButton).toHaveFocus()
+        await user.keyboard('{ArrowLeft}')
+        expect(boldButton).toHaveFocus()
+
+        const toolbar = getToolbar()
+        const buttons = within(toolbar).getAllByRole('button')
+
+        await user.keyboard('{Home}')
+        expect(buttons[0]).toHaveFocus()
+        await user.keyboard('{End}')
+        expect(buttons[buttons.length - 1]).toHaveFocus()
+      })
+
+      it('allows skipping past toolbar with Tab', async () => {
+        const {getToolbar, getInput, user} = await render(<UncontrolledEditor />)
+
+        const toolbar = getToolbar()
+        const buttons = within(toolbar).getAllByRole('button')
+
+        buttons[0].focus()
+        await user.tab()
+
+        expect(getInput()).toHaveFocus()
+
+        await user.tab({shift: true})
+
+        expect(buttons[buttons.length - 1]).toHaveFocus()
+      })
+
+      it('includes custom buttons', async () => {
+        const {getToolbarButton, user} = await render(
+          <UncontrolledEditor>
+            <MarkdownEditor.Toolbar>
+              <MarkdownEditor.ToolbarButton aria-label="Test Button A" icon={DiffAddedIcon} />
+              <MarkdownEditor.ToolbarButton aria-label="Test Button B" icon={DiffAddedIcon} />
+              <MarkdownEditor.DefaultToolbarButtons />
+            </MarkdownEditor.Toolbar>
+          </UncontrolledEditor>
+        )
+
+        const a = getToolbarButton('Test Button A')
+        const b = getToolbarButton('Test Button B')
+
+        b.focus()
+        await user.keyboard('{ArrowLeft}')
+        expect(a).toHaveFocus()
+      })
     })
   })
 
@@ -493,6 +538,11 @@ describe('MarkdownEditor', () => {
         expect(queryForUploadButton()).not.toBeInTheDocument()
       })
 
+      it('is disabled when editor is disabled', async () => {
+        const {queryForUploadButton} = await render(<UncontrolledEditor onUploadFile={mockUploadFile} disabled />)
+        expect(queryForUploadButton()).toBeDisabled()
+      })
+
       it('shows drop message on drag over', async () => {
         const {queryForUploadButton, getInput} = await render(<UncontrolledEditor onUploadFile={mockUploadFile} />)
         const input = getInput()
@@ -619,6 +669,11 @@ describe('MarkdownEditor', () => {
       expect(queryForPreview()).not.toBeInTheDocument()
     })
 
+    it('does not disable the preview button when the editor is disabled', async () => {
+      const {getViewSwitch} = await render(<UncontrolledEditor disabled />)
+      expect(getViewSwitch()).not.toBeDisabled()
+    })
+
     describe('fetching', () => {
       it('prefetches the preview when the view switch is focused', async () => {
         const renderPreviewMock = jest.fn()
@@ -672,6 +727,63 @@ describe('MarkdownEditor', () => {
         const link = await waitFor(() => within(getPreview()).getByText('Link'))
         expect(link).toHaveAttribute('target', '_blank')
       })
+    })
+  })
+
+  describe('accessible labelling', () => {
+    it('renders editor as a labelled group', async () => {
+      const {getEditorContainer} = await render(<UncontrolledEditor />)
+
+      const container = getEditorContainer()
+      expect(container).toBeInstanceOf(HTMLFieldSetElement)
+      expect(container).toHaveAccessibleName('Test Editor')
+    })
+
+    it('hides, but still renders, the label when hidden', async () => {
+      const {getByText, getEditorContainer} = await render(<UncontrolledEditor hideLabel />)
+
+      const container = getEditorContainer()
+      expect(container).toHaveAccessibleName('Test Editor')
+
+      const legend = getByText('Test Editor')
+      expect(legend).toHaveStyle('clip: rect(0,0,0,0)')
+    })
+
+    it('labels the main input', async () => {
+      const {getInput} = await render(<UncontrolledEditor />)
+      expect(getInput()).toHaveAccessibleName('Markdown value')
+    })
+
+    it('labels the toolbar', async () => {
+      const {getToolbar} = await render(<UncontrolledEditor />)
+      expect(getToolbar()).toHaveAccessibleName('Formatting tools')
+    })
+
+    it('labels all the default formatting buttons', async () => {
+      const {getToolbar} = await render(<UncontrolledEditor />)
+      const buttons = within(getToolbar()).getAllByRole('button')
+      for (const button of buttons) expect(button).toHaveAccessibleName()
+    })
+
+    it('renders and updates the accessible description when changing from view to edit mode', async () => {
+      const {getEditorContainer, rerender} = await render(<UncontrolledEditor viewMode="edit" />)
+      expect(getEditorContainer()).toHaveAccessibleDescription('Markdown input: edit mode selected.')
+
+      rerender(<UncontrolledEditor viewMode="preview" />)
+
+      expect(getEditorContainer()).toHaveAccessibleDescription('Markdown input: preview mode selected.')
+    })
+
+    it('appends any custom describedby IDs to the default set', async () => {
+      const {getEditorContainer} = await render(
+        <>
+          <p id="example-description">Example description.</p>
+          <UncontrolledEditor viewMode="edit" aria-describedby="example-description" />
+        </>
+      )
+
+      const container = getEditorContainer()
+      expect(container).toHaveAccessibleDescription('Markdown input: edit mode selected. Example description.')
     })
   })
 })
