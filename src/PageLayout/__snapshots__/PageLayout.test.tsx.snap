@@ -115,7 +115,6 @@ exports[`PageLayout renders condensed layout 1`] = `
   .c3 {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    display: none;
   }
 }
 
@@ -138,13 +137,6 @@ exports[`PageLayout renders condensed layout 1`] = `
   .c7 {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    display: none;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c8 {
-    display: none;
   }
 }
 
@@ -315,7 +307,6 @@ exports[`PageLayout renders default layout 1`] = `
   .c3 {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    display: none;
   }
 }
 
@@ -352,7 +343,6 @@ exports[`PageLayout renders default layout 1`] = `
   .c7 {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    display: none;
   }
 }
 
@@ -361,12 +351,6 @@ exports[`PageLayout renders default layout 1`] = `
     margin-left: -24px;
     margin-right: -24px;
     margin-bottom: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c8 {
-    display: none;
   }
 }
 
@@ -561,7 +545,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
   .c3 {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    display: none;
   }
 }
 
@@ -577,7 +560,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
   .c10 {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    display: none;
   }
 }
 
@@ -586,12 +568,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
     margin-left: -24px;
     margin-right: -24px;
     margin-bottom: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c7 {
-    display: none;
   }
 }
 
@@ -718,6 +694,13 @@ exports[`PageLayout renders with dividers 1`] = `
   margin-bottom: 16px;
 }
 
+.c3 {
+  margin-left: -16px;
+  margin-right: -16px;
+  display: none;
+  margin-top: 16px;
+}
+
 .c4 {
   -webkit-order: 2;
   -ms-flex-order: 2;
@@ -742,25 +725,22 @@ exports[`PageLayout renders with dividers 1`] = `
   margin-right: auto;
 }
 
-.c9 {
+.c10 {
+  margin-left: -16px;
+  margin-right: -16px;
+  display: none;
+  margin-bottom: 16px;
+}
+
+.c8 {
   width: 100%;
 }
 
-.c10 {
+.c9 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
   width: 100%;
-  margin-top: 16px;
-}
-
-.c3 {
-  margin-left: -16px;
-  margin-right: -16px;
-  display: block;
-  height: 8px;
-  background-color: #f6f8fa;
-  box-shadow: inset 0 -1px 0 0 #d0d7de,inset 0 1px 0 0 #d0d7de;
   margin-top: 16px;
 }
 
@@ -782,28 +762,9 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 .c7 {
-  margin-left: -16px;
-  margin-right: -16px;
-  display: block;
-  height: 8px;
-  background-color: #f6f8fa;
-  box-shadow: inset 0 -1px 0 0 #d0d7de,inset 0 1px 0 0 #d0d7de;
-  margin-top: 16px;
-}
-
-.c8 {
   height: 100%;
   display: none;
   margin-left: 16px;
-}
-
-.c11 {
-  margin-left: -16px;
-  margin-right: -16px;
-  display: block;
-  height: 1px;
-  background-color: #d0d7de;
-  margin-bottom: 16px;
 }
 
 @media screen and (min-width:1012px) {
@@ -819,30 +780,9 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c9 {
-    width: 256px;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c9 {
-    width: 296px;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c10 {
-    margin-top: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
   .c3 {
     margin-left: 0 !important;
     margin-right: 0 !important;
-    display: block;
-    height: 1px;
-    background-color: #d0d7de;
   }
 }
 
@@ -850,6 +790,39 @@ exports[`PageLayout renders with dividers 1`] = `
   .c3 {
     margin-left: -24px;
     margin-right: -24px;
+    margin-top: 24px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c10 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .c10 {
+    margin-left: -24px;
+    margin-right: -24px;
+    margin-bottom: 24px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c8 {
+    width: 256px;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .c8 {
+    width: 296px;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .c9 {
     margin-top: 24px;
   }
 }
@@ -875,49 +848,9 @@ exports[`PageLayout renders with dividers 1`] = `
   }
 }
 
-@media screen and (min-width:768px) {
-  .c7 {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    display: none;
-  }
-}
-
 @media screen and (min-width:1012px) {
   .c7 {
-    margin-left: -24px;
-    margin-right: -24px;
-    margin-top: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c8 {
-    display: block;
-    width: 1px;
-    background-color: #d0d7de;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c8 {
     margin-left: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c11 {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    display: none;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c11 {
-    margin-left: -24px;
-    margin-right: -24px;
-    margin-bottom: 24px;
   }
 }
 
@@ -949,22 +882,22 @@ exports[`PageLayout renders with dividers 1`] = `
         class="c6"
       >
         <div
+          class="c3"
+        />
+        <div
           class="c7"
         />
         <div
           class="c8"
-        />
-        <div
-          class="c9"
         >
           Pane
         </div>
       </aside>
       <footer
-        class="c10"
+        class="c9"
       >
         <div
-          class="c11"
+          class="c10"
         />
         Footer
       </footer>
