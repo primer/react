@@ -1,6 +1,7 @@
 import {subscribe as subscribeToMarkdownPasting} from '@github/paste-markdown'
 import React, {forwardRef, useEffect, useMemo, useState} from 'react'
 import {useDynamicTextareaHeight} from '../hooks'
+import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import {useCombinedRefs} from '../hooks/useCombinedRefs'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions, Trigger} from '../InlineAutocomplete'
 import Textarea, {TextareaProps} from '../Textarea'
@@ -57,17 +58,18 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
     forwardedRef
   ) => {
     const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+    const safeSetSuggestions = useSafeAsyncCallback(setSuggestions)
 
     const [mentionsTrigger, queryAndSetMentionSuggestions] = useMentionSuggestions({
-      setSuggestions,
+      setSuggestions: safeSetSuggestions,
       calculateSuggestions: onSuggestMentions
     })
     const [referencesTrigger, queryAndSetReferenceSuggestions] = useReferenceSuggestions({
-      setSuggestions,
+      setSuggestions: safeSetSuggestions,
       calculateSuggestions: onSuggestReferences
     })
     const [emojiTrigger, queryAndSetEmojiSuggestions] = useEmojiSuggestions({
-      setSuggestions,
+      setSuggestions: safeSetSuggestions,
       calculateSuggestions: onSuggestEmojis
     })
     const triggers = useMemo(

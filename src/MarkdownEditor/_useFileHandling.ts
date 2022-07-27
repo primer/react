@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {FileType, UnifiedFileSelectResult, useUnifiedFileSelect} from '../hooks'
+import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import {SyntheticChangeEmitter} from '../hooks/useSyntheticChange'
 import {markdownComment, markdownImage, markdownLink} from './utils'
 
@@ -70,7 +71,7 @@ export const useFileHandling = ({
     if (errorVisibleForEnoughTime.current) setErrorMessage(undefined)
   }, [value])
 
-  const setRejectedFiles = useCallback((files: Array<File>) => {
+  const safeSetRejectedFiles = useSafeAsyncCallback((files: Array<File>) => {
     const types = new Set(
       files
         .map(({name}) => {
@@ -80,21 +81,10 @@ export const useFileHandling = ({
         .filter(s => s !== '')
     )
     if (types.size > 0) setErrorMessage(`File type${types.size > 1 ? 's' : ''} not allowed: ${[...types].join(', ')}`)
-  }, [])
+  })
 
   const [uploadProgress, setUploadProgress] = useState<UploadProgress | undefined>(undefined)
-
-  const uploadFiles = useCallback(
-    (files: Array<File>): Array<Promise<OptFileUploadResult>> =>
-      files.map(async file => {
-        try {
-          return (await onUploadFile?.(file)) ?? {file, url: null}
-        } catch (e) {
-          return {file, url: null}
-        }
-      }),
-    [onUploadFile]
-  )
+  const safeClearUploadProgress = useSafeAsyncCallback(() => setUploadProgress(undefined))
 
   const insertPlaceholder = useCallback(
     (files: Array<File>) => {
@@ -106,16 +96,37 @@ export const useFileHandling = ({
     [inputRef, emitChange]
   )
 
-  const replacePlaceholderWithMarkdown = useCallback(
-    (file: File, url: string | null) => {
-      if (!inputRef.current) return
-      const placeholderStr = placeholder(file)
-      const placeholderIndex = inputRef.current.value.indexOf(placeholderStr)
-      if (placeholderIndex === -1) return
+  const replacePlaceholderWithMarkdown = (file: File, url: string | null) => {
+    if (!inputRef.current) return
+    const placeholderStr = placeholder(file)
+    const placeholderIndex = inputRef.current.value.indexOf(placeholderStr)
+    if (placeholderIndex === -1) return
 
-      emitChange(markdown(file, url), [placeholderIndex, placeholderIndex + placeholderStr.length])
-    },
-    [inputRef, emitChange]
+    emitChange(markdown(file, url), [placeholderIndex, placeholderIndex + placeholderStr.length])
+  }
+
+  // It's crucial that this is done safely because file uploads can take a long time - there's
+  // a very good chance that the references will be outdated or the component unmounted by the time this is called.
+  const safeHandleCompletedFileUpload = useSafeAsyncCallback(({file, url}: OptFileUploadResult) => {
+    setUploadProgress(progress => progress && [progress[0] + 1, progress[1]])
+    replacePlaceholderWithMarkdown(file, url)
+  })
+
+  const uploadFiles = useCallback(
+    (files: Array<File>): Array<Promise<void>> =>
+      files.map(async file => {
+        let result: OptFileUploadResult = {url: null, file}
+        try {
+          result = (await onUploadFile?.(file)) ?? {file, url: null}
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.error(e)
+          result = {file, url: null}
+        }
+
+        safeHandleCompletedFileUpload(result)
+      }),
+    [onUploadFile, safeHandleCompletedFileUpload]
   )
 
   const onSelectFiles = useCallback(
@@ -124,19 +135,15 @@ export const useFileHandling = ({
         setUploadProgress([1, accepted.length])
         insertPlaceholder(accepted)
 
-        await Promise.all(
-          uploadFiles(accepted).map(async promise => {
-            const {file, url} = await promise
-            setUploadProgress(progress => [(progress?.[0] ?? 1) + 1, accepted.length])
-            replacePlaceholderWithMarkdown(file, url)
-          })
-        )
+        await Promise.all(uploadFiles(accepted))
 
-        setUploadProgress(undefined)
+        safeClearUploadProgress()
       }
-      setRejectedFiles(rejected)
+      // setting rejected files will hide upload progress, replacing it with an error message
+      // so only call it after successful files are uploaded
+      safeSetRejectedFiles(rejected)
     },
-    [insertPlaceholder, uploadFiles, setRejectedFiles, replacePlaceholderWithMarkdown]
+    [safeSetRejectedFiles, insertPlaceholder, uploadFiles, safeClearUploadProgress]
   )
 
   let fileSelect = useUnifiedFileSelect({
