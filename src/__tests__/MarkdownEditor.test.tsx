@@ -135,6 +135,97 @@ describe('MarkdownEditor', () => {
     expect(onPrimaryAction).toBeCalled()
   })
 
+  it('forwards ref to the textarea element', async () => {
+    const ref: React.RefObject<HTMLTextAreaElement> = {current: null}
+    await render(<UncontrolledEditor ref={ref} />)
+    expect(ref.current).toBeInstanceOf(HTMLTextAreaElement)
+  })
+
+  it('enables the textarea by default', async () => {
+    const {getInput} = await render(<UncontrolledEditor />)
+    expect(getInput()).not.toBeDisabled()
+  })
+
+  it('disables the textarea when disabled', async () => {
+    const {getInput} = await render(<UncontrolledEditor disabled />)
+    expect(getInput()).toBeDisabled()
+  })
+
+  it('disables the container when disabled', async () => {
+    const {getEditorContainer} = await render(<UncontrolledEditor disabled />)
+    expect(getEditorContainer()).toBeDisabled()
+  })
+
+  it('does not require the textarea by default', async () => {
+    const {getInput} = await render(<UncontrolledEditor />)
+    expect(getInput()).not.toHaveAttribute('required')
+  })
+
+  it('requires the textarea when required', async () => {
+    const {getInput} = await render(<UncontrolledEditor required />)
+    expect(getInput()).toHaveAttribute('required')
+  })
+
+  it('does not render a placeholder by default', async () => {
+    const {getInput} = await render(<UncontrolledEditor />)
+    expect(getInput()).not.toHaveAttribute('plceholder')
+  })
+
+  it('renders the placeholder', async () => {
+    const {getInput} = await render(<UncontrolledEditor placeholder="Test placeholder" />)
+    expect(getInput()).toHaveAttribute('placeholder', 'Test placeholder')
+  })
+
+  it('sets the textarea name when provided', async () => {
+    const {getInput} = await render(<UncontrolledEditor name="Name" />)
+    expect(getInput()).toHaveAttribute('name', 'Name')
+  })
+
+  it('renders the textarea in monospace font when enabled', async () => {
+    const {getInput} = await render(<UncontrolledEditor monospace />)
+    expect(getInput()).toHaveStyle('font-family: monospace')
+  })
+
+  describe('action buttons', () => {
+    it('renders custom action buttons', async () => {
+      const {getActionButton} = await render(
+        <UncontrolledEditor>
+          <MarkdownEditor.Actions>
+            <MarkdownEditor.ActionButton>Example</MarkdownEditor.ActionButton>
+          </MarkdownEditor.Actions>
+        </UncontrolledEditor>
+      )
+      expect(getActionButton('Example')).toBeInTheDocument()
+    })
+
+    it('disables custom action buttons when the editor is disabled (unless explicitly overridden)', async () => {
+      const {getActionButton} = await render(
+        <UncontrolledEditor disabled>
+          <MarkdownEditor.Actions>
+            <MarkdownEditor.ActionButton>A</MarkdownEditor.ActionButton>
+            <MarkdownEditor.ActionButton disabled={false}>B</MarkdownEditor.ActionButton>
+          </MarkdownEditor.Actions>
+        </UncontrolledEditor>
+      )
+
+      expect(getActionButton('A')).toBeDisabled()
+      expect(getActionButton('B')).not.toBeDisabled()
+    })
+
+    it('forwards action button refs', async () => {
+      const ref: React.RefObject<HTMLButtonElement> = {current: null}
+      await render(
+        <UncontrolledEditor>
+          <MarkdownEditor.Actions>
+            <MarkdownEditor.ActionButton ref={ref}>Example</MarkdownEditor.ActionButton>
+          </MarkdownEditor.Actions>
+        </UncontrolledEditor>
+      )
+      expect(ref.current).toBeInstanceOf(HTMLButtonElement)
+    })
+  })
+
+  describe('toolbar', () => {
   it('renders custom toolbar buttons', async () => {
     const {getToolbarButton} = await render(
       <UncontrolledEditor>
