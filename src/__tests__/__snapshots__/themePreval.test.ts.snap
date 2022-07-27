@@ -3,7 +3,7 @@
 exports[`snapshot theme-preval.js 1`] = `
 "// this file was prevaled
 // This file needs to be a JavaScript file using CommonJS to be compatible with preval
-// Cache bust: 2022-07-20 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+// Cache bust: 2022-07-25 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
 module.exports = {
   \\"animation\\": {
     \\"easeOutCubic\\": \\"cubic-bezier(0.33, 1, 0.68, 1)\\"
@@ -47,15 +47,15 @@ module.exports = {
           \\"addition\\": {
             \\"numText\\": \\"#24292f\\",
             \\"fg\\": \\"#24292f\\",
-            \\"numBg\\": \\"#CCFFD8\\",
-            \\"lineBg\\": \\"#E6FFEC\\",
-            \\"wordBg\\": \\"#ABF2BC\\"
+            \\"numBg\\": \\"#ccffd8\\",
+            \\"lineBg\\": \\"#e6ffec\\",
+            \\"wordBg\\": \\"#abf2bc\\"
           },
           \\"deletion\\": {
             \\"numText\\": \\"#24292f\\",
             \\"fg\\": \\"#24292f\\",
-            \\"numBg\\": \\"#FFD7D5\\",
-            \\"lineBg\\": \\"#FFEBE9\\",
+            \\"numBg\\": \\"#ffd7d5\\",
+            \\"lineBg\\": \\"#ffebe9\\",
             \\"wordBg\\": \\"rgba(255,129,130,0.4)\\"
           },
           \\"hunk\\": {
@@ -94,7 +94,7 @@ module.exports = {
             \\"markupItalic\\": \\"#24292f\\",
             \\"markupBold\\": \\"#24292f\\",
             \\"markupDeletedText\\": \\"#82071e\\",
-            \\"markupDeletedBg\\": \\"#FFEBE9\\",
+            \\"markupDeletedBg\\": \\"#ffebe9\\",
             \\"markupInsertedText\\": \\"#116329\\",
             \\"markupInsertedBg\\": \\"#dafbe1\\",
             \\"markupChangedText\\": \\"#953800\\",
@@ -348,7 +348,7 @@ module.exports = {
           },
           \\"danger\\": {
             \\"hoverBg\\": \\"rgba(255,235,233,0.64)\\",
-            \\"activeBg\\": \\"#FFEBE9\\",
+            \\"activeBg\\": \\"#ffebe9\\",
             \\"hoverText\\": \\"#cf222e\\"
           }
         },
@@ -366,6 +366,20 @@ module.exports = {
           \\"checked\\": {
             \\"bg\\": \\"#0969da\\",
             \\"disabledBg\\": \\"#6e7781\\"
+          }
+        },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#eaeef2\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"rgba(175,184,193,0.2)\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"rgba(175,184,193,0.4)\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#6e7781\\"
+            }
           }
         },
         \\"fg\\": {
@@ -419,7 +433,7 @@ module.exports = {
           \\"fg\\": \\"#cf222e\\",
           \\"emphasis\\": \\"#cf222e\\",
           \\"muted\\": \\"rgba(255,129,130,0.4)\\",
-          \\"subtle\\": \\"#FFEBE9\\"
+          \\"subtle\\": \\"#ffebe9\\"
         },
         \\"open\\": {
           \\"fg\\": \\"#1a7f37\\",
@@ -431,7 +445,7 @@ module.exports = {
           \\"fg\\": \\"#cf222e\\",
           \\"emphasis\\": \\"#cf222e\\",
           \\"muted\\": \\"rgba(255,129,130,0.4)\\",
-          \\"subtle\\": \\"#FFEBE9\\"
+          \\"subtle\\": \\"#ffebe9\\"
         },
         \\"done\\": {
           \\"fg\\": \\"#8250df\\",
@@ -454,7 +468,7 @@ module.exports = {
             \\"sticky\\": \\"rgba(255,255,255,0.95)\\"
           },
           \\"border\\": {
-            \\"active\\": \\"#FD8C73\\",
+            \\"active\\": \\"#fd8c73\\",
             \\"contrast\\": \\"rgba(27,31,36,0.1)\\"
           }
         }
@@ -526,16 +540,16 @@ module.exports = {
         },
         \\"diffBlob\\": {
           \\"addition\\": {
-            \\"numText\\": \\"#0E1116\\",
+            \\"numText\\": \\"#0e1116\\",
             \\"fg\\": \\"#ffffff\\",
-            \\"numBg\\": \\"#CCFFD8\\",
-            \\"lineBg\\": \\"#E6FFEC\\",
+            \\"numBg\\": \\"#ccffd8\\",
+            \\"lineBg\\": \\"#e6ffec\\",
             \\"wordBg\\": \\"#055d20\\"
           },
           \\"deletion\\": {
-            \\"numText\\": \\"#0E1116\\",
+            \\"numText\\": \\"#0e1116\\",
             \\"fg\\": \\"#ffffff\\",
-            \\"numBg\\": \\"#FFD7D5\\",
+            \\"numBg\\": \\"#ffd7d5\\",
             \\"lineBg\\": \\"#fff0ee\\",
             \\"wordBg\\": \\"#a0111f\\"
           },
@@ -543,7 +557,7 @@ module.exports = {
             \\"numBg\\": \\"#9cd7ff\\"
           },
           \\"expander\\": {
-            \\"icon\\": \\"#0E1116\\"
+            \\"icon\\": \\"#0e1116\\"
           }
         },
         \\"diffstat\\": {
@@ -556,52 +570,52 @@ module.exports = {
         },
         \\"prettylights\\": {
           \\"syntax\\": {
-            \\"comment\\": \\"#66707B\\",
+            \\"comment\\": \\"#66707b\\",
             \\"constant\\": \\"#023b95\\",
             \\"entity\\": \\"#622cbc\\",
-            \\"storageModifierImport\\": \\"#0E1116\\",
+            \\"storageModifierImport\\": \\"#0e1116\\",
             \\"entityTag\\": \\"#024c1a\\",
             \\"keyword\\": \\"#a0111f\\",
             \\"string\\": \\"#032563\\",
             \\"variable\\": \\"#702c00\\",
             \\"brackethighlighterUnmatched\\": \\"#6e011a\\",
-            \\"invalidIllegalText\\": \\"#FFFFFF\\",
+            \\"invalidIllegalText\\": \\"#ffffff\\",
             \\"invalidIllegalBg\\": \\"#6e011a\\",
-            \\"carriageReturnText\\": \\"#FFFFFF\\",
+            \\"carriageReturnText\\": \\"#ffffff\\",
             \\"carriageReturnBg\\": \\"#a0111f\\",
             \\"stringRegexp\\": \\"#024c1a\\",
             \\"markupList\\": \\"#2e1800\\",
             \\"markupHeading\\": \\"#023b95\\",
-            \\"markupItalic\\": \\"#0E1116\\",
-            \\"markupBold\\": \\"#0E1116\\",
+            \\"markupItalic\\": \\"#0e1116\\",
+            \\"markupBold\\": \\"#0e1116\\",
             \\"markupDeletedText\\": \\"#6e011a\\",
             \\"markupDeletedBg\\": \\"#fff0ee\\",
             \\"markupInsertedText\\": \\"#024c1a\\",
             \\"markupInsertedBg\\": \\"#d2fedb\\",
             \\"markupChangedText\\": \\"#702c00\\",
             \\"markupChangedBg\\": \\"#ffc67b\\",
-            \\"markupIgnoredText\\": \\"#E7ECF0\\",
+            \\"markupIgnoredText\\": \\"#e7ecf0\\",
             \\"markupIgnoredBg\\": \\"#023b95\\",
             \\"metaDiffRange\\": \\"#622cbc\\",
-            \\"brackethighlighterAngle\\": \\"#4B535D\\",
-            \\"sublimelinterGutterMark\\": \\"#88929D\\",
+            \\"brackethighlighterAngle\\": \\"#4b535d\\",
+            \\"sublimelinterGutterMark\\": \\"#88929d\\",
             \\"constantOtherReferenceLink\\": \\"#032563\\"
           }
         },
         \\"codemirror\\": {
-          \\"text\\": \\"#0E1116\\",
+          \\"text\\": \\"#0e1116\\",
           \\"bg\\": \\"#ffffff\\",
           \\"guttersBg\\": \\"#ffffff\\",
           \\"guttermarkerText\\": \\"#ffffff\\",
-          \\"guttermarkerSubtleText\\": \\"#66707B\\",
-          \\"linenumberText\\": \\"#0E1116\\",
-          \\"cursor\\": \\"#0E1116\\",
+          \\"guttermarkerSubtleText\\": \\"#66707b\\",
+          \\"linenumberText\\": \\"#0e1116\\",
+          \\"cursor\\": \\"#0e1116\\",
           \\"selectionBg\\": \\"#368cf9\\",
-          \\"activelineBg\\": \\"#E7ECF0\\",
-          \\"matchingbracketText\\": \\"#0E1116\\",
+          \\"activelineBg\\": \\"#e7ecf0\\",
+          \\"matchingbracketText\\": \\"#0e1116\\",
           \\"linesBg\\": \\"#ffffff\\",
           \\"syntax\\": {
-            \\"comment\\": \\"#0E1116\\",
+            \\"comment\\": \\"#0e1116\\",
             \\"constant\\": \\"#023b95\\",
             \\"entity\\": \\"#622cbc\\",
             \\"keyword\\": \\"#a0111f\\",
@@ -612,65 +626,65 @@ module.exports = {
           }
         },
         \\"checks\\": {
-          \\"bg\\": \\"#0E1116\\",
-          \\"textPrimary\\": \\"#FFFFFF\\",
-          \\"textSecondary\\": \\"#88929D\\",
+          \\"bg\\": \\"#0e1116\\",
+          \\"textPrimary\\": \\"#ffffff\\",
+          \\"textSecondary\\": \\"#88929d\\",
           \\"textLink\\": \\"#368cf9\\",
-          \\"btnIcon\\": \\"#ACB6C0\\",
-          \\"btnHoverIcon\\": \\"#FFFFFF\\",
+          \\"btnIcon\\": \\"#acb6c0\\",
+          \\"btnHoverIcon\\": \\"#ffffff\\",
           \\"btnHoverBg\\": \\"rgba(255,255,255,0.125)\\",
-          \\"inputText\\": \\"#E7ECF0\\",
-          \\"inputPlaceholderText\\": \\"#88929D\\",
-          \\"inputFocusText\\": \\"#88929D\\",
-          \\"inputBg\\": \\"#20252C\\",
+          \\"inputText\\": \\"#e7ecf0\\",
+          \\"inputPlaceholderText\\": \\"#88929d\\",
+          \\"inputFocusText\\": \\"#88929d\\",
+          \\"inputBg\\": \\"#20252c\\",
           \\"donutError\\": \\"#d5232c\\",
           \\"donutPending\\": \\"#956400\\",
           \\"donutSuccess\\": \\"#117f32\\",
-          \\"donutNeutral\\": \\"#ACB6C0\\",
-          \\"dropdownText\\": \\"#ACB6C0\\",
-          \\"dropdownBg\\": \\"#20252C\\",
-          \\"dropdownBorder\\": \\"#343B43\\",
+          \\"donutNeutral\\": \\"#acb6c0\\",
+          \\"dropdownText\\": \\"#acb6c0\\",
+          \\"dropdownBg\\": \\"#20252c\\",
+          \\"dropdownBorder\\": \\"#343b43\\",
           \\"dropdownShadow\\": \\"rgba(1,4,9,0.3)\\",
-          \\"dropdownHoverText\\": \\"#FFFFFF\\",
-          \\"dropdownHoverBg\\": \\"#343B43\\",
-          \\"dropdownBtnHoverText\\": \\"#FFFFFF\\",
-          \\"dropdownBtnHoverBg\\": \\"#20252C\\",
-          \\"scrollbarThumbBg\\": \\"#4B535D\\",
-          \\"headerLabelText\\": \\"#CED5DC\\",
-          \\"headerLabelOpenText\\": \\"#FFFFFF\\",
-          \\"headerBorder\\": \\"#20252C\\",
-          \\"headerIcon\\": \\"#88929D\\",
-          \\"lineText\\": \\"#CED5DC\\",
+          \\"dropdownHoverText\\": \\"#ffffff\\",
+          \\"dropdownHoverBg\\": \\"#343b43\\",
+          \\"dropdownBtnHoverText\\": \\"#ffffff\\",
+          \\"dropdownBtnHoverBg\\": \\"#20252c\\",
+          \\"scrollbarThumbBg\\": \\"#4b535d\\",
+          \\"headerLabelText\\": \\"#ced5dc\\",
+          \\"headerLabelOpenText\\": \\"#ffffff\\",
+          \\"headerBorder\\": \\"#20252c\\",
+          \\"headerIcon\\": \\"#88929d\\",
+          \\"lineText\\": \\"#ced5dc\\",
           \\"lineNumText\\": \\"rgba(136,146,157,0.75)\\",
-          \\"lineTimestampText\\": \\"#88929D\\",
-          \\"lineHoverBg\\": \\"#20252C\\",
+          \\"lineTimestampText\\": \\"#88929d\\",
+          \\"lineHoverBg\\": \\"#20252c\\",
           \\"lineSelectedBg\\": \\"rgba(17,104,227,0.15)\\",
           \\"lineSelectedNumText\\": \\"#368cf9\\",
-          \\"lineDtFmText\\": \\"#0E1116\\",
+          \\"lineDtFmText\\": \\"#0e1116\\",
           \\"lineDtFmBg\\": \\"#744500\\",
           \\"gateBg\\": \\"rgba(96,55,0,0.15)\\",
-          \\"gateText\\": \\"#CED5DC\\",
+          \\"gateText\\": \\"#ced5dc\\",
           \\"gateWaitingText\\": \\"#b58407\\",
-          \\"stepHeaderOpenBg\\": \\"#20252C\\",
+          \\"stepHeaderOpenBg\\": \\"#20252c\\",
           \\"stepErrorText\\": \\"#ee5a5d\\",
           \\"stepWarningText\\": \\"#b58407\\",
-          \\"loglineText\\": \\"#88929D\\",
+          \\"loglineText\\": \\"#88929d\\",
           \\"loglineNumText\\": \\"rgba(136,146,157,0.75)\\",
           \\"loglineDebugText\\": \\"#a371f7\\",
-          \\"loglineErrorText\\": \\"#CED5DC\\",
+          \\"loglineErrorText\\": \\"#ced5dc\\",
           \\"loglineErrorNumText\\": \\"#ee5a5d\\",
           \\"loglineErrorBg\\": \\"rgba(134,6,29,0.15)\\",
-          \\"loglineWarningText\\": \\"#CED5DC\\",
+          \\"loglineWarningText\\": \\"#ced5dc\\",
           \\"loglineWarningNumText\\": \\"#b58407\\",
           \\"loglineWarningBg\\": \\"rgba(96,55,0,0.15)\\",
           \\"loglineCommandText\\": \\"#368cf9\\",
           \\"loglineSectionText\\": \\"#26a148\\",
           \\"ansi\\": {
-            \\"black\\": \\"#0E1116\\",
-            \\"blackBright\\": \\"#20252C\\",
-            \\"white\\": \\"#CED5DC\\",
-            \\"whiteBright\\": \\"#CED5DC\\",
-            \\"gray\\": \\"#88929D\\",
+            \\"black\\": \\"#0e1116\\",
+            \\"blackBright\\": \\"#20252c\\",
+            \\"white\\": \\"#ced5dc\\",
+            \\"whiteBright\\": \\"#ced5dc\\",
+            \\"gray\\": \\"#88929d\\",
             \\"red\\": \\"#ee5a5d\\",
             \\"redBright\\": \\"#ff8e8a\\",
             \\"green\\": \\"#26a148\\",
@@ -686,7 +700,7 @@ module.exports = {
           }
         },
         \\"project\\": {
-          \\"headerBg\\": \\"#0E1116\\",
+          \\"headerBg\\": \\"#0e1116\\",
           \\"sidebarBg\\": \\"#ffffff\\",
           \\"gradientIn\\": \\"#ffffff\\",
           \\"gradientOut\\": \\"rgba(255,255,255,0)\\"
@@ -699,14 +713,14 @@ module.exports = {
         \\"avatar\\": {
           \\"bg\\": \\"#ffffff\\",
           \\"border\\": \\"rgba(1,4,9,0.8)\\",
-          \\"stackFade\\": \\"#ACB6C0\\",
-          \\"stackFadeMore\\": \\"#CED5DC\\"
+          \\"stackFade\\": \\"#acb6c0\\",
+          \\"stackFadeMore\\": \\"#ced5dc\\"
         },
         \\"topicTag\\": {
           \\"border\\": \\"#0349b4\\"
         },
         \\"counter\\": {
-          \\"border\\": \\"#20252C\\"
+          \\"border\\": \\"#20252c\\"
         },
         \\"selectMenu\\": {
           \\"backdropBorder\\": \\"rgba(0,0,0,0)\\",
@@ -715,13 +729,13 @@ module.exports = {
         },
         \\"header\\": {
           \\"text\\": \\"rgba(255,255,255,0.7)\\",
-          \\"bg\\": \\"#0E1116\\",
-          \\"divider\\": \\"#ACB6C0\\",
+          \\"bg\\": \\"#0e1116\\",
+          \\"divider\\": \\"#acb6c0\\",
           \\"logo\\": \\"#ffffff\\"
         },
         \\"headerSearch\\": {
-          \\"bg\\": \\"#0E1116\\",
-          \\"border\\": \\"#4B535D\\"
+          \\"bg\\": \\"#0e1116\\",
+          \\"border\\": \\"#4b535d\\"
         },
         \\"sidenav\\": {
           \\"selectedBg\\": \\"#ffffff\\"
@@ -733,14 +747,14 @@ module.exports = {
           \\"disabledBg\\": \\"rgba(172,182,192,0.2)\\"
         },
         \\"timeline\\": {
-          \\"badgeBg\\": \\"#E7ECF0\\"
+          \\"badgeBg\\": \\"#e7ecf0\\"
         },
         \\"ansi\\": {
-          \\"black\\": \\"#0E1116\\",
-          \\"blackBright\\": \\"#4B535D\\",
-          \\"white\\": \\"#66707B\\",
-          \\"whiteBright\\": \\"#88929D\\",
-          \\"gray\\": \\"#66707B\\",
+          \\"black\\": \\"#0e1116\\",
+          \\"blackBright\\": \\"#4b535d\\",
+          \\"white\\": \\"#66707b\\",
+          \\"whiteBright\\": \\"#88929d\\",
+          \\"gray\\": \\"#66707b\\",
           \\"red\\": \\"#a0111f\\",
           \\"redBright\\": \\"#86061d\\",
           \\"green\\": \\"#024c1a\\",
@@ -755,15 +769,15 @@ module.exports = {
           \\"cyanBright\\": \\"#3192aa\\"
         },
         \\"btn\\": {
-          \\"text\\": \\"#0E1116\\",
-          \\"bg\\": \\"#E7ECF0\\",
+          \\"text\\": \\"#0e1116\\",
+          \\"bg\\": \\"#e7ecf0\\",
           \\"border\\": \\"rgba(1,4,9,0.8)\\",
-          \\"hoverBg\\": \\"#CED5DC\\",
+          \\"hoverBg\\": \\"#ced5dc\\",
           \\"hoverBorder\\": \\"rgba(1,4,9,0.8)\\",
-          \\"activeBg\\": \\"#ACB6C0\\",
+          \\"activeBg\\": \\"#acb6c0\\",
           \\"activeBorder\\": \\"rgba(1,4,9,0.8)\\",
-          \\"selectedBg\\": \\"#ACB6C0\\",
-          \\"focusBg\\": \\"#CED5DC\\",
+          \\"selectedBg\\": \\"#acb6c0\\",
+          \\"focusBg\\": \\"#ced5dc\\",
           \\"focusBorder\\": \\"rgba(1,4,9,0.8)\\",
           \\"counterBg\\": \\"rgba(1,4,9,0.08)\\",
           \\"primary\\": {
@@ -791,7 +805,7 @@ module.exports = {
             \\"selectedBg\\": \\"#022f7a\\",
             \\"selectedBorder\\": \\"#022f7a\\",
             \\"disabledText\\": \\"rgba(3,73,180,0.5)\\",
-            \\"disabledBg\\": \\"#E7ECF0\\",
+            \\"disabledBg\\": \\"#e7ecf0\\",
             \\"disabledCounterBg\\": \\"rgba(3,73,180,0.05)\\",
             \\"focusBorder\\": \\"#022f7a\\",
             \\"counterBg\\": \\"rgba(3,73,180,0.1)\\"
@@ -806,7 +820,7 @@ module.exports = {
             \\"selectedBg\\": \\"#6e011a\\",
             \\"selectedBorder\\": \\"#6e011a\\",
             \\"disabledText\\": \\"rgba(160,17,31,0.5)\\",
-            \\"disabledBg\\": \\"#E7ECF0\\",
+            \\"disabledBg\\": \\"#e7ecf0\\",
             \\"disabledCounterBg\\": \\"rgba(160,17,31,0.05)\\",
             \\"focusBorder\\": \\"#6e011a\\",
             \\"counterBg\\": \\"rgba(160,17,31,0.1)\\",
@@ -815,17 +829,17 @@ module.exports = {
           }
         },
         \\"underlinenav\\": {
-          \\"icon\\": \\"#66707B\\",
+          \\"icon\\": \\"#66707b\\",
           \\"borderHover\\": \\"rgba(172,182,192,0.2)\\"
         },
         \\"actionListItem\\": {
-          \\"inlineDivider\\": \\"#88929D\\",
+          \\"inlineDivider\\": \\"#88929d\\",
           \\"default\\": {
-            \\"hoverBg\\": \\"#E7ECF0\\",
-            \\"hoverBorder\\": \\"#88929D\\",
-            \\"activeBg\\": \\"#CED5DC\\",
-            \\"activeBorder\\": \\"#20252C\\",
-            \\"selectedBg\\": \\"#CED5DC\\"
+            \\"hoverBg\\": \\"#e7ecf0\\",
+            \\"hoverBorder\\": \\"#88929d\\",
+            \\"activeBg\\": \\"#ced5dc\\",
+            \\"activeBorder\\": \\"#20252c\\",
+            \\"selectedBg\\": \\"#ced5dc\\"
           },
           \\"danger\\": {
             \\"hoverBg\\": \\"#a0111f\\",
@@ -835,7 +849,7 @@ module.exports = {
         },
         \\"switchTrack\\": {
           \\"bg\\": \\"#ffffff\\",
-          \\"border\\": \\"#20252C\\",
+          \\"border\\": \\"#20252c\\",
           \\"checked\\": {
             \\"bg\\": \\"#dff7ff\\",
             \\"hoverBg\\": \\"#9cd7ff\\",
@@ -846,31 +860,45 @@ module.exports = {
         \\"switchKnob\\": {
           \\"checked\\": {
             \\"bg\\": \\"#0349b4\\",
-            \\"disabledBg\\": \\"#66707B\\"
+            \\"disabledBg\\": \\"#66707b\\"
+          }
+        },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#e7ecf0\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"rgba(172,182,192,0.2)\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"rgba(172,182,192,0.4)\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#66707b\\"
+            }
           }
         },
         \\"fg\\": {
-          \\"default\\": \\"#0E1116\\",
-          \\"muted\\": \\"#0E1116\\",
-          \\"subtle\\": \\"#66707B\\",
+          \\"default\\": \\"#0e1116\\",
+          \\"muted\\": \\"#0e1116\\",
+          \\"subtle\\": \\"#66707b\\",
           \\"onEmphasis\\": \\"#ffffff\\"
         },
         \\"canvas\\": {
           \\"default\\": \\"#ffffff\\",
           \\"overlay\\": \\"#ffffff\\",
           \\"inset\\": \\"#ffffff\\",
-          \\"subtle\\": \\"#E7ECF0\\"
+          \\"subtle\\": \\"#e7ecf0\\"
         },
         \\"border\\": {
-          \\"default\\": \\"#20252C\\",
-          \\"muted\\": \\"#88929D\\",
+          \\"default\\": \\"#20252c\\",
+          \\"muted\\": \\"#88929d\\",
           \\"subtle\\": \\"rgba(1,4,9,0.8)\\"
         },
         \\"neutral\\": {
-          \\"emphasisPlus\\": \\"#0E1116\\",
-          \\"emphasis\\": \\"#66707B\\",
+          \\"emphasisPlus\\": \\"#0e1116\\",
+          \\"emphasis\\": \\"#66707b\\",
           \\"muted\\": \\"rgba(172,182,192,0.2)\\",
-          \\"subtle\\": \\"#E7ECF0\\"
+          \\"subtle\\": \\"#e7ecf0\\"
         },
         \\"accent\\": {
           \\"fg\\": \\"#0349b4\\",
@@ -928,7 +956,7 @@ module.exports = {
         },
         \\"primer\\": {
           \\"fg\\": {
-            \\"disabled\\": \\"#88929D\\"
+            \\"disabled\\": \\"#88929d\\"
           },
           \\"canvas\\": {
             \\"backdrop\\": \\"rgba(1,4,9,0.5)\\",
@@ -1330,6 +1358,20 @@ module.exports = {
             \\"disabledBg\\": \\"#6e7781\\"
           }
         },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#eaeef2\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"rgba(175,184,193,0.2)\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"rgba(175,184,193,0.4)\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#6e7781\\"
+            }
+          }
+        },
         \\"fg\\": {
           \\"default\\": \\"#24292f\\",
           \\"muted\\": \\"#57606a\\",
@@ -1416,7 +1458,7 @@ module.exports = {
             \\"sticky\\": \\"rgba(255,255,255,0.95)\\"
           },
           \\"border\\": {
-            \\"active\\": \\"#FD8C73\\",
+            \\"active\\": \\"#fd8c73\\",
             \\"contrast\\": \\"rgba(27,31,36,0.1)\\"
           }
         }
@@ -1537,7 +1579,7 @@ module.exports = {
             \\"markupItalic\\": \\"#24292f\\",
             \\"markupBold\\": \\"#24292f\\",
             \\"markupDeletedText\\": \\"#82071e\\",
-            \\"markupDeletedBg\\": \\"#FFEBE9\\",
+            \\"markupDeletedBg\\": \\"#ffebe9\\",
             \\"markupInsertedText\\": \\"#0550ae\\",
             \\"markupInsertedBg\\": \\"#ddf4ff\\",
             \\"markupChangedText\\": \\"#a40e26\\",
@@ -1791,7 +1833,7 @@ module.exports = {
           },
           \\"danger\\": {
             \\"hoverBg\\": \\"rgba(255,235,233,0.64)\\",
-            \\"activeBg\\": \\"#FFEBE9\\",
+            \\"activeBg\\": \\"#ffebe9\\",
             \\"hoverText\\": \\"#cf222e\\"
           }
         },
@@ -1809,6 +1851,20 @@ module.exports = {
           \\"checked\\": {
             \\"bg\\": \\"#0969da\\",
             \\"disabledBg\\": \\"#6e7781\\"
+          }
+        },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#eaeef2\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"rgba(175,184,193,0.2)\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"rgba(175,184,193,0.4)\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#6e7781\\"
+            }
           }
         },
         \\"fg\\": {
@@ -1856,19 +1912,19 @@ module.exports = {
           \\"fg\\": \\"#cf222e\\",
           \\"emphasis\\": \\"#cf222e\\",
           \\"muted\\": \\"rgba(255,129,130,0.4)\\",
-          \\"subtle\\": \\"#FFEBE9\\"
+          \\"subtle\\": \\"#ffebe9\\"
         },
         \\"danger\\": {
           \\"fg\\": \\"#cf222e\\",
           \\"emphasis\\": \\"#cf222e\\",
           \\"muted\\": \\"rgba(255,129,130,0.4)\\",
-          \\"subtle\\": \\"#FFEBE9\\"
+          \\"subtle\\": \\"#ffebe9\\"
         },
         \\"open\\": {
           \\"fg\\": \\"#cf222e\\",
           \\"emphasis\\": \\"#fa4549\\",
           \\"muted\\": \\"rgba(255,129,130,0.4)\\",
-          \\"subtle\\": \\"#FFEBE9\\"
+          \\"subtle\\": \\"#ffebe9\\"
         },
         \\"closed\\": {
           \\"fg\\": \\"#6e7781\\",
@@ -1897,7 +1953,7 @@ module.exports = {
             \\"sticky\\": \\"rgba(255,255,255,0.95)\\"
           },
           \\"border\\": {
-            \\"active\\": \\"#FD8C73\\",
+            \\"active\\": \\"#fd8c73\\",
             \\"contrast\\": \\"rgba(27,31,36,0.1)\\"
           }
         }
@@ -2292,6 +2348,20 @@ module.exports = {
             \\"disabledBg\\": \\"#484f58\\"
           }
         },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#161b22\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"#30363d\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"#21262d\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#6e7681\\"
+            }
+          }
+        },
         \\"fg\\": {
           \\"default\\": \\"#c9d1d9\\",
           \\"muted\\": \\"#8b949e\\",
@@ -2378,7 +2448,7 @@ module.exports = {
             \\"sticky\\": \\"rgba(13,17,23,0.95)\\"
           },
           \\"border\\": {
-            \\"active\\": \\"#F78166\\",
+            \\"active\\": \\"#f78166\\",
             \\"contrast\\": \\"rgba(255,255,255,0.2)\\"
           }
         }
@@ -2776,6 +2846,20 @@ module.exports = {
             \\"disabledBg\\": \\"#545d68\\"
           }
         },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#2d333b\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"#444c56\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"#373e47\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#636e7b\\"
+            }
+          }
+        },
         \\"fg\\": {
           \\"default\\": \\"#adbac7\\",
           \\"muted\\": \\"#768390\\",
@@ -2862,7 +2946,7 @@ module.exports = {
             \\"sticky\\": \\"rgba(34,39,46,0.95)\\"
           },
           \\"border\\": {
-            \\"active\\": \\"#EC775C\\",
+            \\"active\\": \\"#ec775c\\",
             \\"contrast\\": \\"rgba(205,217,229,0.2)\\"
           }
         }
@@ -3260,6 +3344,20 @@ module.exports = {
             \\"disabledBg\\": \\"#7a828e\\"
           }
         },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#272b33\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"#525964\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"#272b33\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#9ea7b3\\"
+            }
+          }
+        },
         \\"fg\\": {
           \\"default\\": \\"#f0f3f6\\",
           \\"muted\\": \\"#f0f3f6\\",
@@ -3346,7 +3444,7 @@ module.exports = {
             \\"sticky\\": \\"rgba(10,12,16,0.95)\\"
           },
           \\"border\\": {
-            \\"active\\": \\"#FF967D\\",
+            \\"active\\": \\"#ff967d\\",
             \\"contrast\\": \\"rgba(255,255,255,0.2)\\"
           }
         }
@@ -3744,6 +3842,20 @@ module.exports = {
             \\"disabledBg\\": \\"#484f58\\"
           }
         },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#161b22\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"#30363d\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"#21262d\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#6e7681\\"
+            }
+          }
+        },
         \\"fg\\": {
           \\"default\\": \\"#c9d1d9\\",
           \\"muted\\": \\"#8b949e\\",
@@ -3830,7 +3942,7 @@ module.exports = {
             \\"sticky\\": \\"rgba(13,17,23,0.95)\\"
           },
           \\"border\\": {
-            \\"active\\": \\"#F78166\\",
+            \\"active\\": \\"#f78166\\",
             \\"contrast\\": \\"rgba(255,255,255,0.2)\\"
           }
         }
@@ -4228,6 +4340,20 @@ module.exports = {
             \\"disabledBg\\": \\"#484f58\\"
           }
         },
+        \\"segmentedControl\\": {
+          \\"bg\\": \\"#161b22\\",
+          \\"button\\": {
+            \\"hover\\": {
+              \\"bg\\": \\"#30363d\\"
+            },
+            \\"active\\": {
+              \\"bg\\": \\"#21262d\\"
+            },
+            \\"selected\\": {
+              \\"border\\": \\"#6e7681\\"
+            }
+          }
+        },
         \\"fg\\": {
           \\"default\\": \\"#c9d1d9\\",
           \\"muted\\": \\"#8b949e\\",
@@ -4314,7 +4440,7 @@ module.exports = {
             \\"sticky\\": \\"rgba(13,17,23,0.95)\\"
           },
           \\"border\\": {
-            \\"active\\": \\"#F78166\\",
+            \\"active\\": \\"#f78166\\",
             \\"contrast\\": \\"rgba(255,255,255,0.2)\\"
           }
         }

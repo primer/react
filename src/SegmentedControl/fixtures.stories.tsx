@@ -20,8 +20,7 @@ export default {
   ]
 } as Meta
 
-// TODO: make it possible to use FormControl
-// - FormControl.Label needs to accept `id` prop
+// TODO: make it possible to use FormControl as a wrapper for SegmentedControl
 // - FormControl.Label needs to accept a prop that lets it render an element that isn't a `<label>`
 export const AssociatedWithALabelAndCaption = () => (
   <Box display="flex">
