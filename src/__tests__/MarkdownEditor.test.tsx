@@ -2,7 +2,13 @@ import {DiffAddedIcon} from '@primer/octicons-react'
 import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, {forwardRef, useState} from 'react'
-import MarkdownEditor, {MarkdownEditorHandle, MarkdownEditorProps} from '../MarkdownEditor'
+import MarkdownEditor, {
+  Emoji,
+  MarkdownEditorHandle,
+  MarkdownEditorProps,
+  Mentionable,
+  Reference
+} from '../MarkdownEditor'
 import ThemeProvider from '../ThemeProvider'
 
 type UncontrolledEditorProps = Omit<MarkdownEditorProps, 'value' | 'onChange' | 'onRenderPreview' | 'children'> &
@@ -68,6 +74,12 @@ const render = async (ui: React.ReactElement) => {
     result.queryByRole('button', {name: 'Add files'}) ||
     result.queryByRole('button', {name: 'Paste, drop, or click to add files'})
 
+  const queryForSuggestionsList = () => result.queryByRole('listbox')
+
+  const getSuggestionsList = () => result.getByRole('listbox')
+
+  const getAllSuggestions = () => within(getSuggestionsList()).queryAllByRole('option')
+
   // Wait for the double render caused by slots to complete
   await waitFor(() => result.getByText('Test Editor'))
 
@@ -83,7 +95,9 @@ const render = async (ui: React.ReactElement) => {
     getPreview,
     queryForPreview,
     getActionButton,
-    getEditorContainer
+    getEditorContainer,
+    queryForSuggestionsList,
+    getAllSuggestions
   }
 }
 
@@ -784,6 +798,145 @@ describe('MarkdownEditor', () => {
 
       const container = getEditorContainer()
       expect(container).toHaveAccessibleDescription('Markdown input: edit mode selected. Example description.')
+    })
+  })
+
+  describe('suggestions', () => {
+    // we don't test filtering logic here because that's up to the consumer
+
+    const emojis: Emoji[] = [
+      {name: '+1', character: '👍'},
+      {name: '-1', character: '👎'},
+      {name: 'heart', character: '❤️'},
+      {name: 'wave', character: '👋'},
+      {name: 'raised_hands', character: '🙌'}
+    ]
+
+    const mentionables: Mentionable[] = [
+      {identifier: 'monalisa', description: 'Monalisa Octocat'},
+      {identifier: 'github', description: 'GitHub'},
+      {identifier: 'primer', description: 'Primer'},
+      {identifier: 'actions', description: 'Actions'},
+      {identifier: 'primer-css', description: 'primer-css'}
+    ]
+
+    const references: Reference[] = [
+      {id: '1', titleText: 'Add logging functionality', titleHtml: 'Add logging functionality'},
+      {
+        id: '2',
+        titleText: 'Error: `Failed to install` when installing',
+        titleHtml: 'Error: <code>Failed to install</code> when installing'
+      },
+      {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
+      {id: '4', titleText: 'Add a new function', titleHtml: 'Add a new function'},
+      {id: '5', titleText: 'Fails to exit gracefully', titleHtml: 'Fails to exit gracefully'}
+    ]
+
+    const EditorWithSuggestions = () => (
+      <UncontrolledEditor
+        onSuggestEmojis={() => emojis}
+        onSuggestMentions={() => mentionables}
+        onSuggestReferences={() => references}
+      />
+    )
+
+    it('does not initially show suggestions list', async () => {
+      const {queryForSuggestionsList} = await render(<EditorWithSuggestions />)
+      expect(queryForSuggestionsList()).not.toBeInTheDocument()
+    })
+
+    describe.each([
+      [':', emojis[0].character],
+      ['@', `@${mentionables[0].identifier}`],
+      ['#', `#${references[0].id}`]
+    ])('%s-suggestions', (triggerChar, first) => {
+      it('does not show suggestions when no handler is defined', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<UncontrolledEditor />)
+        await user.type(getInput(), `hello ${triggerChar}`)
+        expect(queryForSuggestionsList()).not.toBeInTheDocument()
+      })
+
+      it('shows suggestions when trigger character typed', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<EditorWithSuggestions />)
+        await user.type(getInput(), `hello ${triggerChar}`)
+        expect(queryForSuggestionsList()).toBeInTheDocument()
+      })
+
+      it('immediately renders suggestion items given synchronous handlers', async () => {
+        const {getAllSuggestions, getInput, user} = await render(<EditorWithSuggestions />)
+        await user.type(getInput(), `hello ${triggerChar}`)
+        expect(getAllSuggestions()).toHaveLength(5)
+      })
+
+      it('shows suggestions when the trigger character is the first character in the input', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<EditorWithSuggestions />)
+        await user.type(getInput(), `${triggerChar}`)
+        expect(queryForSuggestionsList()).toBeInTheDocument()
+      })
+
+      it('shows suggestions when the trigger character is the first character in the line', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<EditorWithSuggestions />)
+        await user.type(getInput(), `hello\n${triggerChar}`)
+        expect(queryForSuggestionsList()).toBeInTheDocument()
+      })
+
+      it('does not show suggestions if there is no whitespace before the suggestion', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<EditorWithSuggestions />)
+        await user.type(getInput(), `hello${triggerChar}`)
+        expect(queryForSuggestionsList()).not.toBeInTheDocument()
+      })
+
+      it('does not show suggestions when there is a space immediately after the trigger', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<UncontrolledEditor />)
+        // especially important for # suggestions since they are multiword
+        await user.type(getInput(), `${triggerChar} `)
+        expect(queryForSuggestionsList()).not.toBeInTheDocument()
+      })
+
+      it('hides suggestions on Escape', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<EditorWithSuggestions />)
+
+        await user.type(getInput(), `hello ${triggerChar}`)
+        expect(queryForSuggestionsList()).toBeInTheDocument()
+
+        await user.keyboard('{Escape}')
+        expect(queryForSuggestionsList()).not.toBeInTheDocument()
+      })
+
+      it('hides suggestions on blur', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<EditorWithSuggestions />)
+
+        const input = getInput()
+        await user.type(input, `hello ${triggerChar}`)
+        expect(queryForSuggestionsList()).toBeInTheDocument()
+
+        // eslint-disable-next-line github/no-blur
+        input.blur()
+        expect(queryForSuggestionsList()).not.toBeInTheDocument()
+      })
+
+      it('hides suggestions when trigger key is deleted', async () => {
+        const {queryForSuggestionsList, getInput, user} = await render(<EditorWithSuggestions />)
+
+        const input = getInput()
+        await user.type(input, `hello ${triggerChar}`)
+        expect(queryForSuggestionsList()).toBeInTheDocument()
+
+        await user.keyboard('{Backspace}')
+        expect(queryForSuggestionsList()).not.toBeInTheDocument()
+      })
+
+      it.each(['Enter', 'Tab'])('applies suggestion and hides list on %s-press', async key => {
+        const {queryForSuggestionsList, getInput, user} = await render(<EditorWithSuggestions />)
+
+        const input = getInput()
+        await user.type(input, `hello ${triggerChar}`)
+        expect(queryForSuggestionsList()).toBeInTheDocument()
+
+        await user.keyboard(`{${key}}`)
+        expect(queryForSuggestionsList()).not.toBeInTheDocument()
+        expect(input.value).toBe(`hello ${first} `) // suggestions are inserted with a following space
+      })
     })
   })
 })

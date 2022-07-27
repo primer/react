@@ -158,6 +158,23 @@ const referenceChoices: Reference[] = [
 const caseInsensitiveIncludes = (haystack: string, needle: string) =>
   haystack.toLowerCase().includes(needle.toLowerCase())
 
+const emojiSuggestionsHandler = (query: string) =>
+  emojiChoices.filter(emoji => caseInsensitiveIncludes(emoji.name, query)).slice(0, 5)
+
+const mentionSuggestionsHandler = (query: string) =>
+  mentionChoices
+    .filter(
+      entity => caseInsensitiveIncludes(entity.description, query) || caseInsensitiveIncludes(entity.identifier, query)
+    )
+    .slice(0, 5)
+
+const referenceSuggestionsHandler = (query: string) =>
+  referenceChoices
+    .filter(
+      reference => caseInsensitiveIncludes(reference.titleText, query) || caseInsensitiveIncludes(reference.id, query)
+    )
+    .slice(0, 5)
+
 export const Default = ({
   disabled,
   fullHeight,
@@ -197,23 +214,9 @@ export const Default = ({
           return 'Previewing Markdown is not supported in this example.'
         }}
         onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-        onSuggestEmojis={query => emojiChoices.filter(emoji => caseInsensitiveIncludes(emoji.name, query)).slice(0, 5)}
-        onSuggestMentions={query =>
-          mentionChoices
-            .filter(
-              entity =>
-                caseInsensitiveIncludes(entity.description, query) || caseInsensitiveIncludes(entity.identifier, query)
-            )
-            .slice(0, 5)
-        }
-        onSuggestReferences={query =>
-          referenceChoices
-            .filter(
-              reference =>
-                caseInsensitiveIncludes(reference.titleText, query) || caseInsensitiveIncludes(reference.id, query)
-            )
-            .slice(0, 5)
-        }
+        onSuggestEmojis={emojiSuggestionsHandler}
+        onSuggestMentions={mentionSuggestionsHandler}
+        onSuggestReferences={referenceSuggestionsHandler}
         required={required}
       >
         <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
@@ -259,29 +262,15 @@ export const CustomButtons = ({
         return 'Previewing Markdown is not supported in this example.'
       }}
       onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-      onSuggestEmojis={query => emojiChoices.filter(emoji => caseInsensitiveIncludes(emoji.name, query)).slice(0, 5)}
-      onSuggestMentions={query =>
-        mentionChoices
-          .filter(
-            entity =>
-              caseInsensitiveIncludes(entity.description, query) || caseInsensitiveIncludes(entity.identifier, query)
-          )
-          .slice(0, 5)
-      }
-      onSuggestReferences={query =>
-        referenceChoices
-          .filter(
-            reference =>
-              caseInsensitiveIncludes(reference.titleText, query) || caseInsensitiveIncludes(reference.id, query)
-          )
-          .slice(0, 5)
-      }
+      onSuggestEmojis={emojiSuggestionsHandler}
+      onSuggestMentions={mentionSuggestionsHandler}
+      onSuggestReferences={referenceSuggestionsHandler}
       required={required}
     >
       <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
 
       <MarkdownEditor.Toolbar>
-        <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} />
+        <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} aria-label="Custom Button" />
         <MarkdownEditor.DefaultToolbarButtons />
       </MarkdownEditor.Toolbar>
 
@@ -293,6 +282,66 @@ export const CustomButtons = ({
           Submit
         </MarkdownEditor.ActionButton>
       </MarkdownEditor.Actions>
+    </MarkdownEditor>
+  )
+}
+
+export const AsyncSuggestions = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required,
+  fileUploadsEnabled,
+  onSubmit
+}: ArgProps) => {
+  const [value, setValue] = useState('')
+
+  const onUploadFile = async (file: File) => {
+    // 0.5 - 5 seconds depending on file size up to about 20 MB
+    await delay(0.0002 * file.size + 500)
+    return {file, url: fakeFileUrl(file)}
+  }
+
+  const onSuggestEmojis = async (query: string) => {
+    await delay(1000)
+    return emojiSuggestionsHandler(query)
+  }
+
+  const onSuggestionMentions = async (query: string) => {
+    await delay(1000)
+    return mentionSuggestionsHandler(query)
+  }
+
+  const onSuggestReferences = async (query: string) => {
+    await delay(1000)
+    return referenceSuggestionsHandler(query)
+  }
+
+  return (
+    <MarkdownEditor
+      value={value}
+      onChange={setValue}
+      onPrimaryAction={onSubmit}
+      disabled={disabled}
+      fullHeight={fullHeight}
+      monospace={monospace}
+      minHeightLines={minHeightLines}
+      maxHeightLines={maxHeightLines}
+      placeholder="Enter some Markdown..."
+      onRenderPreview={async () => {
+        await delay(500)
+        return 'Previewing Markdown is not supported in this example.'
+      }}
+      onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+      onSuggestEmojis={onSuggestEmojis}
+      onSuggestMentions={onSuggestionMentions}
+      onSuggestReferences={onSuggestReferences}
+      required={required}
+    >
+      <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
     </MarkdownEditor>
   )
 }
