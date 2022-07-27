@@ -80,10 +80,10 @@ function calculatePossibleItems(childWidthArray: ChildWidthArray, width: number)
 
 export type UnderlineNavProps = {
   label: string
-  as: React.ElementType
-  overflow: Overflow
+  as?: React.ElementType
+  overflow?: Overflow
   align?: 'right'
-  sx: SxProp
+  sx?: SxProp
   children: React.ReactNode
 }
 
