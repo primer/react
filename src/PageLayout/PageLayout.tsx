@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box} from '..'
-import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 
 const REGION_ORDER = {
@@ -276,7 +276,21 @@ Content.displayName = 'PageLayout.Content'
 // PageLayout.Pane
 
 export type PageLayoutPaneProps = {
-  position?: keyof typeof panePositions
+  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
+  /**
+   * @deprecated Use the `position` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * position="start"
+   * positionWhenNarrow="end"
+   * ```
+   *
+   * After:
+   * ```
+   * position={{regular: 'start', narrow: 'end'}}
+   * ```
+   */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
   divider?: 'none' | 'line'
@@ -305,9 +319,15 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
   children,
   sx = {}
 }) => {
+  // Combine position and positionWhenNarrow for backwards compatibility
+  const positionProp =
+    !isResponsiveValue(position) && positionWhenNarrow !== 'inherit'
+      ? {regular: position, narrow: positionWhenNarrow}
+      : position
+
+  const responsivePosition = useResponsiveValue(positionProp, 'end')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap, columnGap} = React.useContext(PageLayoutContext)
-  const computedPositionWhenNarrow = positionWhenNarrow === 'inherit' ? position : positionWhenNarrow
   const computedDividerWhenNarrow = dividerWhenNarrow === 'inherit' ? divider : dividerWhenNarrow
   return (
     <Box
@@ -316,18 +336,18 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
           {
-            order: panePositions[computedPositionWhenNarrow],
+            order: panePositions[responsivePosition],
             display: isHidden ? 'none' : 'flex',
-            flexDirection: computedPositionWhenNarrow === 'end' ? 'column' : 'column-reverse',
+            flexDirection: responsivePosition === 'end' ? 'column' : 'column-reverse',
             width: '100%',
             marginX: 0,
-            [computedPositionWhenNarrow === 'end' ? 'marginTop' : 'marginBottom']: SPACING_MAP[rowGap],
+            [responsivePosition === 'end' ? 'marginTop' : 'marginBottom']: SPACING_MAP[rowGap],
             [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
               width: 'auto',
-              [position === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
+              [responsivePosition === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
               marginY: `0 !important`,
-              flexDirection: position === 'end' ? 'row' : 'row-reverse',
-              order: panePositions[position]
+              flexDirection: responsivePosition === 'end' ? 'row' : 'row-reverse',
+              order: panePositions[responsivePosition]
             }
           },
           sx
@@ -338,12 +358,12 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
       <HorizontalDivider
         variant="none"
         variantWhenNarrow={computedDividerWhenNarrow}
-        sx={{[computedPositionWhenNarrow === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
+        sx={{[responsivePosition === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
       />
       <VerticalDivider
         variant={divider}
         variantWhenNarrow="none"
-        sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+        sx={{[responsivePosition === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
       />
 
       <Box sx={{width: paneWidths[width]}}>{children}</Box>
