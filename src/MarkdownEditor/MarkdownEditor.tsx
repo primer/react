@@ -20,6 +20,7 @@ import {useIndenting} from './_useIndenting'
 import {useListEditing} from './_useListEditing'
 import {EmojiSuggestionHandler, MentionSuggestionHandler, ReferenceSuggestionHandler} from './_useSuggestions'
 import {MarkdownViewMode, ViewSwitch} from './_ViewSwitch'
+import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -144,6 +145,7 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
         : [controlledViewMode, controlledSetViewMode]
 
     const [html, setHtml] = useState<string | null>(null)
+    const safeSetHtml = useSafeAsyncCallback(setHtml)
 
     const previewStale = useRef(true)
     useEffect(() => {
@@ -151,10 +153,16 @@ const MarkdownEditor = forwardRef<MarkdownEditor, MarkdownEditorProps>(
     }, [value])
     const loadPreview = async () => {
       if (!previewStale.current) return
-      setHtml(null)
-      setHtml(await onRenderPreview(value))
-      previewStale.current = false
+      previewStale.current = false // set to false before the preview is rendered to prevent multiple concurrent calls
+      safeSetHtml(null)
+      safeSetHtml(await onRenderPreview(value))
     }
+
+    useEffect(() => {
+      // we have to be careful here - loading preview sets state which causes a render which can cause an infinite loop,
+      // however that should be prevented by previewStale.current being set immediately in loadPreview
+      if (view === 'preview' && previewStale.current) loadPreview()
+    })
 
     const inputRef = useRef<HTMLTextAreaElement>(null)
     useImperativeHandle(ref, () => ({

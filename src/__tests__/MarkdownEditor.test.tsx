@@ -43,13 +43,34 @@ const render = async (ui: React.ReactElement) => {
 
   const getToolbarButton = (label: string) => within(getToolbar()).getByLabelText(label)
 
+  const getViewSwitch = () => {
+    const button = result.queryByText('Preview') || result.queryByText('Edit')
+    if (!button) throw new Error('View switch button not found')
+    return button
+  }
+
+  const queryForPreview = () => result.queryByText('Rendered Markdown Preview')?.parentElement ?? null
+
+  const getPreview = () => result.getByText('Rendered Markdown Preview').parentElement!
+
   const queryForUploadButton = () =>
     result.queryByText('Add files') || result.queryByText('Paste, drop, or click to add files')
 
   // Wait for the double render caused by slots to complete
   await waitFor(() => result.getByText('Test Editor'))
 
-  return {...result, getInput, getToolbar, getToolbarButton, user, queryForUploadButton, getFooter}
+  return {
+    ...result,
+    getInput,
+    getToolbar,
+    getToolbarButton,
+    user,
+    queryForUploadButton,
+    getFooter,
+    getViewSwitch,
+    getPreview,
+    queryForPreview
+  }
 }
 
 describe('MarkdownEditor', () => {
@@ -472,6 +493,93 @@ describe('MarkdownEditor', () => {
         await waitFor(() =>
           expect(onChange).toHaveBeenCalledWith(expect.stringContaining(`Failed to upload "${file.name}"`))
         )
+      })
+    })
+  })
+
+  describe('preview', () => {
+    it('renders the preview when the editor is in preview mode', async () => {
+      const {queryForPreview} = await render(<UncontrolledEditor viewMode="preview" />)
+      expect(queryForPreview()).toBeInTheDocument()
+    })
+
+    it('does not render the preview when the editor is in edit mode', async () => {
+      const {queryForPreview} = await render(<UncontrolledEditor viewMode="edit" />)
+      expect(queryForPreview()).not.toBeInTheDocument()
+    })
+
+    it('automatically handles view modes when view mode is uncontrolled', async () => {
+      const {getViewSwitch, queryForPreview, user} = await render(<UncontrolledEditor />)
+      const viewSwitch = getViewSwitch()
+      expect(queryForPreview()).not.toBeInTheDocument()
+      user.click(viewSwitch)
+      await waitFor(() => expect(queryForPreview()).toBeInTheDocument())
+      user.click(viewSwitch)
+      await waitFor(() => expect(queryForPreview()).not.toBeInTheDocument())
+    })
+
+    it('calls view mode change handler without automatically changing the view when the button is clicked and viewMode is controlled', async () => {
+      const onViewModeChange = jest.fn()
+      const {getViewSwitch, queryForPreview} = await render(
+        <UncontrolledEditor viewMode="edit" onChangeViewMode={onViewModeChange} />
+      )
+      fireEvent.click(getViewSwitch())
+      expect(onViewModeChange).toHaveBeenCalledWith('preview')
+      expect(queryForPreview()).not.toBeInTheDocument()
+    })
+
+    describe('fetching', () => {
+      it('prefetches the preview when the view switch is focused', async () => {
+        const renderPreviewMock = jest.fn()
+        const {getViewSwitch} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} />)
+        fireEvent.focus(getViewSwitch())
+        expect(renderPreviewMock).toHaveBeenCalled()
+      })
+
+      it('prefetches the preview when the view switch is hovered over', async () => {
+        const renderPreviewMock = jest.fn()
+        const {getViewSwitch, user} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} />)
+        await user.hover(getViewSwitch())
+        expect(renderPreviewMock).toHaveBeenCalled()
+      })
+
+      it('does not refetch the preview until the fetched preview is stale', async () => {
+        const renderPreviewMock = jest.fn()
+        const {getViewSwitch, user, getInput} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} />)
+        await user.hover(getViewSwitch())
+        await user.hover(getViewSwitch())
+        expect(renderPreviewMock).toHaveBeenCalledTimes(1)
+
+        await user.type(getInput(), 'hello world')
+        await user.hover(getViewSwitch())
+        expect(renderPreviewMock).toHaveBeenCalledTimes(2)
+      })
+
+      it('fetches the preview when the `viewMode` prop is changed externally', async () => {
+        const renderPreviewMock = jest.fn()
+        const {rerender} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
+        rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="preview" />)
+        expect(renderPreviewMock).toHaveBeenCalledTimes(1)
+        rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
+        expect(renderPreviewMock).toHaveBeenCalledTimes(1)
+      })
+    })
+
+    describe('rendering', () => {
+      it('does not enable checkboxes in rendered preview', async () => {
+        // eslint-disable-next-line github/unescaped-html-literal
+        const html = '<input type="checkbox" class="task-list-item-checkbox" disabled />'
+        const {getPreview} = await render(<UncontrolledEditor onRenderPreview={async () => html} viewMode="preview" />)
+        const checkbox = await waitFor(() => within(getPreview()).getByRole('checkbox'))
+        expect(checkbox).toBeDisabled()
+      })
+
+      it('forces links to open in a new tab', async () => {
+        // eslint-disable-next-line github/unescaped-html-literal
+        const html = '<a href="https://example.com">Link</a>'
+        const {getPreview} = await render(<UncontrolledEditor onRenderPreview={async () => html} viewMode="preview" />)
+        const link = await waitFor(() => within(getPreview()).getByText('Link'))
+        expect(link).toHaveAttribute('target', '_blank')
       })
     })
   })
