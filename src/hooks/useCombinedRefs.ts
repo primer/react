@@ -1,5 +1,4 @@
 import {ForwardedRef, useCallback, useEffect, useMemo, useRef} from 'react'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 /**
  * Ref that can perform a side effect on change while also providing access to the current
