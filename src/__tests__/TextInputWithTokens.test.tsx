@@ -20,7 +20,11 @@ const mockTokens = [
   {text: 'seven', id: 7}
 ]
 
-const LabelledTextInputWithTokens: React.FC<TextInputWithTokensProps> = ({onTokenRemove, tokens, ...rest}) => (
+const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWithTokensProps>> = ({
+  onTokenRemove,
+  tokens,
+  ...rest
+}) => (
   <>
     {/* eslint-disable-next-line jsx-a11y/label-has-for */}
     <label htmlFor="tokenInput" id="tokenLabel">

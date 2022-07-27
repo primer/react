@@ -22,7 +22,7 @@ type LegendProps = BaseProps & {
 
 type Props = LabelProps | LegendProps
 
-const InputLabel: React.FC<Props> = ({children, disabled, htmlFor, id, required, visuallyHidden, sx, as = 'label'}) => {
+const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({children, disabled, htmlFor, id, required, visuallyHidden, sx, as = 'label'}) => {
   return (
     <VisuallyHidden
       isVisible={!visuallyHidden}

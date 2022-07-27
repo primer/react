@@ -151,7 +151,15 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
     type="Component"
     description="provide an octicon. It will be placed after the button text"
   />
+  <PropsTableAsRow defaultElementType="button" />
   <PropsTableSxRow />
+  <PropsTablePassthroughPropsRow
+    elementName="button"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes">MDN</Link>
+    }
+    isPolymorphic
+  />
 </PropsTable>
 
 ### Button.Counter

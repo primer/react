@@ -37,7 +37,10 @@ const getSelectedCheckboxes = (
   return selectedValues.filter(selectedValue => selectedValue !== value)
 }
 
-const ChoiceFieldsetList: React.FC<ChoiceFieldsetListProps> = ({selectionVariant, children}) => {
+const ChoiceFieldsetList: React.FC<React.PropsWithChildren<ChoiceFieldsetListProps>> = ({
+  selectionVariant,
+  children
+}) => {
   const ssrSafeUniqueName = useSSRSafeId()
 
   return (

@@ -5,7 +5,7 @@ import Box, {BoxProps} from './Box'
 export type CircleOcticonProps = {
   as?: React.ElementType
   size?: number
-  icon: React.ComponentType<{size?: IconProps['size']}>
+  icon: React.ComponentType<React.PropsWithChildren<{size?: IconProps['size']}>>
 } & BoxProps
 
 function CircleOcticon(props: CircleOcticonProps) {

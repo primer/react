@@ -14,7 +14,11 @@ export type ActionListDescriptionProps = {
   variant?: 'inline' | 'block'
 } & SxProp
 
-export const Description: React.FC<ActionListDescriptionProps> = ({variant = 'inline', sx = {}, ...props}) => {
+export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
+  variant = 'inline',
+  sx = {},
+  ...props
+}) => {
   const styles = {
     fontSize: 0,
     lineHeight: '16px',
