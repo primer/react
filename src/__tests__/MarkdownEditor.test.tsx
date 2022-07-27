@@ -451,6 +451,28 @@ describe('MarkdownEditor', () => {
 
         expect(getFooter()).toHaveTextContent('File type not allowed: .app')
       })
+
+      it('inserts "failed to upload" note on failure', async () => {
+        const onChange = jest.fn()
+        const {getInput} = await render(
+          <UncontrolledEditor
+            onUploadFile={async () => {
+              throw new Error()
+            }}
+            onChange={onChange}
+            acceptedFileTypes={['image/*']}
+          />
+        )
+
+        const input = getInput()
+
+        const file = imageFile('example')
+        fireEvent[method](input, {[dataKey]: {files: [file], types: ['Files']}})
+
+        await waitFor(() =>
+          expect(onChange).toHaveBeenCalledWith(expect.stringContaining(`Failed to upload "${file.name}"`))
+        )
+      })
     })
   })
 })

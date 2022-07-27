@@ -172,48 +172,54 @@ export const Default = ({
   const [value, setValue] = useState('')
 
   const onUploadFile = async (file: File) => {
+    const wait = 0.0002 * file.size + 500
+    await delay(wait / 2)
+    if (file.name.toLowerCase().startsWith('a')) throw new Error("Rejected file for starting with the letter 'a'")
     // 0.5 - 5 seconds depending on file size up to about 20 MB
-    await delay(0.0002 * file.size + 500)
+    await delay(wait / 2)
     return {file, url: fakeFileUrl(file)}
   }
 
   return (
-    <MarkdownEditor
-      value={value}
-      onChange={setValue}
-      onPrimaryAction={onSubmit}
-      disabled={disabled}
-      fullHeight={fullHeight}
-      monospace={monospace}
-      minHeightLines={minHeightLines}
-      maxHeightLines={maxHeightLines}
-      placeholder="Enter some Markdown..."
-      onRenderPreview={async () => {
-        await delay(500)
-        return 'Previewing Markdown is not supported in this example.'
-      }}
-      onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-      onSuggestEmojis={query => emojiChoices.filter(emoji => caseInsensitiveIncludes(emoji.name, query)).slice(0, 5)}
-      onSuggestMentions={query =>
-        mentionChoices
-          .filter(
-            entity =>
-              caseInsensitiveIncludes(entity.description, query) || caseInsensitiveIncludes(entity.identifier, query)
-          )
-          .slice(0, 5)
-      }
-      onSuggestReferences={query =>
-        referenceChoices
-          .filter(
-            reference =>
-              caseInsensitiveIncludes(reference.titleText, query) || caseInsensitiveIncludes(reference.id, query)
-          )
-          .slice(0, 5)
-      }
-      required={required}
-    >
-      <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
-    </MarkdownEditor>
+    <>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={async () => {
+          await delay(500)
+          return 'Previewing Markdown is not supported in this example.'
+        }}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        onSuggestEmojis={query => emojiChoices.filter(emoji => caseInsensitiveIncludes(emoji.name, query)).slice(0, 5)}
+        onSuggestMentions={query =>
+          mentionChoices
+            .filter(
+              entity =>
+                caseInsensitiveIncludes(entity.description, query) || caseInsensitiveIncludes(entity.identifier, query)
+            )
+            .slice(0, 5)
+        }
+        onSuggestReferences={query =>
+          referenceChoices
+            .filter(
+              reference =>
+                caseInsensitiveIncludes(reference.titleText, query) || caseInsensitiveIncludes(reference.id, query)
+            )
+            .slice(0, 5)
+        }
+        required={required}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </>
   )
 }
 
