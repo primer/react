@@ -10,7 +10,7 @@ import {AvatarTokenProps} from '../Token/AvatarToken'
 expect.extend(toHaveNoViolations)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const testTokenComponent = (Component: React.ComponentType<any>) => {
+const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildren<any>>) => {
   behavesAsComponent({Component: Token})
 
   it('renders a <span>', () => {

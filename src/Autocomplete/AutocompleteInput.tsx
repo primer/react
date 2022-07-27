@@ -16,7 +16,7 @@ import {ComponentProps} from '../utils/types'
 
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: React.ComponentType<any>
+  as?: React.ComponentType<React.PropsWithChildren<any>>
 }
 
 const AutocompleteInput = React.forwardRef(

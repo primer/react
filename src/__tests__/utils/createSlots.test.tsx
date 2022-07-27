@@ -7,7 +7,7 @@ import createSlots from '../../utils/create-slots'
 const {Slots, Slot} = createSlots(['One', 'Two', 'Three'])
 type ContextTypes = {salutation?: string}
 
-const ComponentWithSlots: React.FC<ContextTypes> = ({salutation, children}) => {
+const ComponentWithSlots: React.FC<React.PropsWithChildren<ContextTypes>> = ({salutation, children}) => {
   return (
     <Slots context={{salutation}}>
       {slots => (
@@ -21,9 +21,9 @@ const ComponentWithSlots: React.FC<ContextTypes> = ({salutation, children}) => {
     </Slots>
   )
 }
-const SlotItem1: React.FC = ({children}) => <Slot name="One">{children}</Slot>
-const SlotItem2: React.FC = ({children}) => <Slot name="Two">{children}</Slot>
-const SlotItem3: React.FC = ({children}) => (
+const SlotItem1: React.FC<React.PropsWithChildren<unknown>> = ({children}) => <Slot name="One">{children}</Slot>
+const SlotItem2: React.FC<React.PropsWithChildren<unknown>> = ({children}) => <Slot name="Two">{children}</Slot>
+const SlotItem3: React.FC<React.PropsWithChildren<unknown>> = ({children}) => (
   <Slot name="Three">
     {(context: ContextTypes) => (
       <>

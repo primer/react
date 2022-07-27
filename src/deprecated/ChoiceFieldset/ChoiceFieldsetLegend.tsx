@@ -10,7 +10,10 @@ export interface ChoiceFieldsetLegendProps {
   visuallyHidden?: boolean
 }
 
-const ChoiceFieldsetLegend: React.FC<ChoiceFieldsetLegendProps> = ({children, visuallyHidden}) => (
+const ChoiceFieldsetLegend: React.FC<React.PropsWithChildren<ChoiceFieldsetLegendProps>> = ({
+  children,
+  visuallyHidden
+}) => (
   <Slot name="Legend">
     {({required, disabled}: ChoiceFieldsetContext) => (
       <VisuallyHidden

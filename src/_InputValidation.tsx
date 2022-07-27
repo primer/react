@@ -9,7 +9,10 @@ type Props = {
   validationStatus?: FormValidationStatus
 } & SxProp
 
-const validationIconMap: Record<NonNullable<Props['validationStatus']>, React.ComponentType<IconProps>> = {
+const validationIconMap: Record<
+  NonNullable<Props['validationStatus']>,
+  React.ComponentType<React.PropsWithChildren<IconProps>>
+> = {
   success: CheckCircleFillIcon,
   error: AlertFillIcon,
   warning: AlertFillIcon
@@ -21,7 +24,7 @@ const validationColorMap: Record<NonNullable<Props['validationStatus']>, string>
   warning: 'attention.fg'
 }
 
-const InputValidation: React.FC<Props> = ({children, id, validationStatus, sx}) => {
+const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id, validationStatus, sx}) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
   const fgColor = validationStatus ? validationColorMap[validationStatus] : undefined
 
