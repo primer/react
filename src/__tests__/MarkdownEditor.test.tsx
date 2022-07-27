@@ -39,7 +39,7 @@ const render = async (ui: React.ReactElement) => {
 
   const getToolbar = () => result.getByRole('toolbar')
 
-  const getFooter = () => result.getByRole('footer')
+  const getFooter = () => result.getByRole('contentinfo')
 
   const getToolbarButton = (label: string) => within(getToolbar()).getByLabelText(label)
 
@@ -449,7 +449,7 @@ describe('MarkdownEditor', () => {
 
         await expectFilesToBeAdded(onChange, fileB)
 
-        expect(getFooter()).toHaveTextContent(expect.stringContaining('File type not allowed: .app'))
+        expect(getFooter()).toHaveTextContent('File type not allowed: .app')
       })
     })
   })

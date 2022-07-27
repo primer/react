@@ -9,7 +9,8 @@ jest.mock('@primer/behaviors/utils')
 
 describe('useIgnoreKeyboardActionsWhileComposing', () => {
   beforeEach(() => {
-    ;(isMacOS as jest.Mock).mockReturnValue(false)
+    const isMacOSMock = isMacOS as jest.Mock
+    isMacOSMock.mockReturnValue(false)
   })
 
   it('should allow typing when no composition occurs', async () => {
@@ -39,7 +40,9 @@ describe('useIgnoreKeyboardActionsWhileComposing', () => {
   })
 
   it('should ignore unprintable `229` keydown event typing after composition end on macOS', async () => {
-    ;(isMacOS as jest.Mock).mockReturnValue(true)
+    const isMacOSMock = isMacOS as jest.Mock
+    isMacOSMock.mockReturnValue(false)
+
     const onKeyDown = jest.fn()
     const {result} = renderHook(() => useIgnoreKeyboardActionsWhileComposing(onKeyDown))
 
