@@ -250,15 +250,21 @@ export function CustomAnchor(): JSX.Element {
 
 export function MemexTableMenu(): JSX.Element {
   const [name, setName] = React.useState('Estimate')
+  const [wipName, setWipName] = React.useState(name)
   const inputRef = React.createRef<HTMLInputElement>()
 
   /** To add custom components to the Menu,
    *  you need to switch to a controlled menu
    */
   const [open, setOpen] = React.useState(false)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWipName(event.currentTarget.value)
+  }
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      setName(event.currentTarget.value)
+      setName(wipName)
       setOpen(false)
     }
   }
@@ -267,7 +273,7 @@ export function MemexTableMenu(): JSX.Element {
    *  on the input, it doesn't work :(
    */
   const handleClickOutside = () => {
-    if (inputRef.current) setName(inputRef.current.value)
+    if (inputRef.current) setWipName(inputRef.current.value)
     setOpen(false)
   }
 
@@ -285,13 +291,14 @@ export function MemexTableMenu(): JSX.Element {
         }}
       >
         <Text sx={{fontSize: 0, fontWeight: 'bold'}}>{name}</Text>
+
         <ActionMenu open={open} onOpenChange={setOpen}>
           <ActionMenu.Anchor>
             <IconButton icon={TriangleDownIcon} aria-label="Open Estimate column options menu" sx={{padding: 0}} />
           </ActionMenu.Anchor>
 
           <ActionMenu.Overlay onClickOutside={handleClickOutside}>
-            <TextInput ref={inputRef} sx={{m: 2}} defaultValue={name} onKeyPress={handleKeyPress} />
+            <TextInput ref={inputRef} sx={{m: 2}} value={wipName} onChange={handleChange} onKeyPress={handleKeyPress} />
             <ActionMenu.Divider sx={{m: 0}} />
 
             <ActionList>
