@@ -13,7 +13,10 @@ export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outl
 
 export type Size = 'small' | 'medium' | 'large'
 
-type StyledButtonProps = ComponentPropsWithRef<typeof StyledButton>
+/**
+ * Remove styled-components polymorphic as prop, which conflicts with radix's
+ */
+type StyledButtonProps = Omit<ComponentPropsWithRef<typeof StyledButton>, 'as'>
 
 type ButtonA11yProps = {'aria-label': string; 'aria-labelby'?: never} | {'aria-label'?: never; 'aria-labelby': string}
 
