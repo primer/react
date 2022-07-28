@@ -1,6 +1,7 @@
 import React from 'react'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
+import observeRect from '@reach/observe-rect'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -46,6 +47,18 @@ export function useAnchoredPosition(
   useLayoutEffect(updatePosition, [updatePosition])
 
   useResizeObserver(updatePosition)
+
+  // when anchorElement's position changes (example, on scroll), update floatingElement's position
+  React.useEffect(
+    function observeAnchorPosition() {
+      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+        const rectObserver = observeRect(anchorElementRef.current, updatePosition)
+        rectObserver.observe()
+        return () => rectObserver.unobserve()
+      }
+    },
+    [floatingElementRef, anchorElementRef, updatePosition]
+  )
 
   return {
     floatingElementRef,
