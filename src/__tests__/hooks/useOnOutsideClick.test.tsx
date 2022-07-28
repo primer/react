@@ -19,30 +19,35 @@ const Component = ({callback}: ComponentProps) => {
     </div>
   )
 }
-it('should call function when user clicks outside container', () => {
+it('should call function when user clicks outside container', async () => {
+  const user = userEvent.setup()
   const mockFunction = jest.fn()
   const {getByText} = render(<Component callback={mockFunction} />)
-  userEvent.click(getByText('button'))
+  await user.click(getByText('button'))
   expect(mockFunction).toHaveBeenCalledTimes(1)
 })
 
-it('should not call function when user right clicks', () => {
+it('should not call function when user right clicks', async () => {
+  const user = userEvent.setup()
   const mockFunction = jest.fn()
   const {getByText} = render(<Component callback={mockFunction} />)
-  userEvent.click(getByText('button'), {button: 1})
+  const button = getByText('button')
+  await user.pointer([{target: button}, {keys: '[MouseRight]', target: button}])
   expect(mockFunction).toHaveBeenCalledTimes(0)
 })
 
-it('should not call function when clicking on ignored refs', () => {
+it('should not call function when clicking on ignored refs', async () => {
+  const user = userEvent.setup()
   const mockFunction = jest.fn()
   const {getByText} = render(<Component callback={mockFunction} />)
-  userEvent.click(getByText('button two'))
+  await user.click(getByText('button two'))
   expect(mockFunction).toHaveBeenCalledTimes(0)
 })
 
-it('should not call function when clicking inside container', () => {
+it('should not call function when clicking inside container', async () => {
+  const user = userEvent.setup()
   const mockFunction = jest.fn()
   const {getByText} = render(<Component callback={mockFunction} />)
-  userEvent.click(getByText('content'))
+  await user.click(getByText('content'))
   expect(mockFunction).toHaveBeenCalledTimes(0)
 })
