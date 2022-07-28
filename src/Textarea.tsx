@@ -4,15 +4,15 @@ import {TextInputBaseWrapper} from './_TextInputWrapper'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import sx, {SxProp} from './sx'
 
+export const DEFAULT_TEXTAREA_ROWS = 7
+export const DEFAULT_TEXTAREA_COLS = 30
+export const DEFAULT_TEXTAREA_RESIZE = 'both'
+
 export type TextareaProps = {
   /**
    * Apply inactive visual appearance to the Textarea
    */
   disabled?: boolean
-  /**
-   * Indicates whether the Textarea is a required form field
-   */
-  required?: boolean
   /**
    * Indicates whether the Textarea validation state
    */
@@ -69,9 +69,9 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       sx: sxProp,
       required,
       validationStatus,
-      rows = 7,
-      cols = 30,
-      resize = 'both',
+      rows = DEFAULT_TEXTAREA_ROWS,
+      cols = DEFAULT_TEXTAREA_COLS,
+      resize = DEFAULT_TEXTAREA_RESIZE,
       block,
       ...rest
     }: TextareaProps,

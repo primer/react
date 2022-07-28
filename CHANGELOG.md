@@ -1,5 +1,19 @@
 # @primer/components
 
+## 35.5.0
+
+### Minor Changes
+
+- [#2180](https://github.com/primer/react/pull/2180) [`300025d1`](https://github.com/primer/react/commit/300025d11a010eb076f2327897744d06539bb355) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Update the primer/primitives dependency
+
+### Patch Changes
+
+- [#2150](https://github.com/primer/react/pull/2150) [`63a2de51`](https://github.com/primer/react/commit/63a2de51c0d7de0d2640cc80435b1cead071f1f6) Thanks [@dgreif](https://github.com/dgreif)! - Ensure all files in `lib-esm` are in fact esm and not CommonJS
+
+* [#2145](https://github.com/primer/react/pull/2145) [`a2950ac4`](https://github.com/primer/react/commit/a2950ac40b9caeeb2b3d9883508d2d6a84980252) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates SegmentedControl component's keyboard navigation to align with the recommendations of GitHub's accessibility team.
+
+- [#2143](https://github.com/primer/react/pull/2143) [`d9b161a0`](https://github.com/primer/react/commit/d9b161a0bde13a20a5972159a3f71e7be7475d7a) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes bugs in form components discovered while fixing/improving Storybook and docs.
+
 ## 35.4.0
 
 ### Minor Changes

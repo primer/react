@@ -53,7 +53,7 @@ type SwitchButtonProps = {
 
 type InnerIconProps = {size?: SwitchProps['size']}
 
-const CircleIcon: React.FC<InnerIconProps> = ({size}) => (
+const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
     width={size === 'small' ? '12' : '16'}
     height={size === 'small' ? '12' : '16'}
@@ -64,7 +64,7 @@ const CircleIcon: React.FC<InnerIconProps> = ({size}) => (
     <path fillRule="evenodd" d="M8 12.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12Z" />
   </svg>
 )
-const LineIcon: React.FC<InnerIconProps> = ({size}) => (
+const LineIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
     width={size === 'small' ? '12' : '16'}
     height={size === 'small' ? '12' : '16'}
@@ -209,7 +209,7 @@ const hiddenTextStyles: BetterSystemStyleObject = {
   height: 0
 }
 
-const Switch: React.FC<SwitchProps> = ({
+const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
   'aria-labelledby': ariaLabelledby,
   'aria-describedby': ariaDescribedby,
   defaultChecked,

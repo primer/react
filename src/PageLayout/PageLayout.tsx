@@ -1,6 +1,7 @@
 import React from 'react'
-import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Box} from '..'
+import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 
 const REGION_ORDER = {
   header: 0,
@@ -46,7 +47,7 @@ const containerWidths = {
 }
 
 // TODO: refs
-const Root: React.FC<PageLayoutProps> = ({
+const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
   rowGap = 'normal',
@@ -110,7 +111,11 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  variantWhenNarrow = 'inherit',
+  sx = {}
+}) => {
   const {padding} = React.useContext(PageLayoutContext)
   return (
     <Box
@@ -152,7 +157,11 @@ const verticalDividerVariants = {
   }
 }
 
-const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  variantWhenNarrow = 'inherit',
+  sx = {}
+}) => {
   return (
     <Box
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -178,18 +187,22 @@ const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenN
 export type PageLayoutHeaderProps = {
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const Header: React.FC<PageLayoutHeaderProps> = ({
+const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
+  hidden = false,
   children,
   sx = {}
 }) => {
+  const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
       as="header"
+      hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.header,
@@ -216,6 +229,7 @@ Header.displayName = 'PageLayout.Header'
 
 export type PageLayoutContentProps = {
   width?: keyof typeof contentWidths
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 // TODO: Account for pane width when centering content
@@ -226,10 +240,17 @@ const contentWidths = {
   xlarge: '1280px'
 }
 
-const Content: React.FC<PageLayoutContentProps> = ({width = 'full', children, sx = {}}) => {
+const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+  width = 'full',
+  hidden = false,
+  children,
+  sx = {}
+}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
       as="main"
+      hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.content,
@@ -260,6 +281,7 @@ export type PageLayoutPaneProps = {
   width?: keyof typeof paneWidths
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 const panePositions = {
@@ -273,15 +295,17 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
-const Pane: React.FC<PageLayoutPaneProps> = ({
+const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
   position = 'end',
   positionWhenNarrow = 'inherit',
   width = 'medium',
   divider = 'none',
   dividerWhenNarrow = 'inherit',
+  hidden = false,
   children,
   sx = {}
 }) => {
+  const isHidden = useResponsiveValue(hidden, false)
   const {rowGap, columnGap} = React.useContext(PageLayoutContext)
   const computedPositionWhenNarrow = positionWhenNarrow === 'inherit' ? position : positionWhenNarrow
   const computedDividerWhenNarrow = dividerWhenNarrow === 'inherit' ? divider : dividerWhenNarrow
@@ -293,7 +317,7 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
         merge<BetterSystemStyleObject>(
           {
             order: panePositions[computedPositionWhenNarrow],
-            display: 'flex',
+            display: isHidden ? 'none' : 'flex',
             flexDirection: computedPositionWhenNarrow === 'end' ? 'column' : 'column-reverse',
             width: '100%',
             marginX: 0,
@@ -335,18 +359,22 @@ Pane.displayName = 'PageLayout.Pane'
 export type PageLayoutFooterProps = {
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const Footer: React.FC<PageLayoutFooterProps> = ({
+const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
+  hidden = false,
   children,
   sx = {}
 }) => {
+  const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
     <Box
       as="footer"
+      hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
           order: REGION_ORDER.footer,

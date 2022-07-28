@@ -5,7 +5,7 @@ import {ButtonBase} from './ButtonBase'
 const ButtonComponent = forwardRef<HTMLButtonElement, ButtonProps>(
   ({children, ...props}, forwardedRef): JSX.Element => {
     return (
-      <ButtonBase ref={forwardedRef} {...props} as="button">
+      <ButtonBase ref={forwardedRef} as="button" {...props}>
         {children}
       </ButtonBase>
     )

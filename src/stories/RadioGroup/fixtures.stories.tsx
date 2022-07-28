@@ -1,22 +1,69 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Box, Radio, RadioGroup, FormControl, ThemeProvider} from '../../'
-import {ComponentProps} from '../../utils/types'
+import {BaseStyles, Box, RadioGroup, FormControl, ThemeProvider, Radio} from '../../'
+import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 
-type Args = ComponentProps<typeof RadioGroup>
+const excludedControlKeys = ['aria-labelledby', 'id', 'name', 'onChange', 'sx', 'visuallyHidden']
 
 export default {
   title: 'Forms/RadioGroup/fixtures',
   component: RadioGroup,
   argTypes: {
+    // RadioGroup
     disabled: {
-      defaultValue: false
+      defaultValue: false,
+      type: 'boolean'
     },
     required: {
-      defaultValue: false
+      defaultValue: false,
+      type: 'boolean'
+    },
+
+    // RadioGroup.Label
+    labelChildren: {
+      defaultValue: 'Choices',
+      type: 'string',
+      table: {
+        category: 'RadioGroup.Label'
+      }
+    },
+    visuallyHidden: {
+      defaultValue: false,
+      type: 'boolean',
+      table: {
+        category: 'RadioGroup.Label'
+      }
+    },
+
+    // RadioGroup.Caption
+    captionChildren: {
+      defaultValue: '',
+      type: 'string',
+      table: {
+        category: 'RadioGroup.Caption'
+      }
+    },
+
+    // RadioGroup.Validation
+    validationChildren: {
+      defaultValue: '',
+      type: 'string',
+      table: {
+        category: 'RadioGroup.Validation'
+      }
+    },
+    variant: {
+      defaultValue: 'error',
+      control: {
+        type: 'radio',
+        options: ['error', 'success', 'warning']
+      },
+      table: {
+        category: 'RadioGroup.Validation'
+      }
     }
   },
-  parameters: {controls: {exclude: ['aria-labelledby', 'id', 'name', 'onChange', 'sx']}},
+  parameters: {controls: {exclude: excludedControlKeys}},
   decorators: [
     Story => {
       return (
@@ -30,20 +77,68 @@ export default {
   ]
 } as Meta
 
-export const WithExternalLabel = ({name: _name, ...args}: Args) => (
-  <>
-    <Box
-      id="choiceHeading"
-      borderBottomWidth="1px"
-      borderBottomStyle="solid"
-      borderBottomColor="border.default"
-      pb={2}
-      mb={3}
-      fontSize={3}
-    >
-      Choices
-    </Box>
-    <RadioGroup aria-labelledby="choiceHeading" name="externallyLabelledGroup" {...args}>
+export const WithExternalLabel = ({
+  disabled,
+  required,
+  labelChildren,
+  captionChildren,
+  validationChildren,
+  variant
+}: CheckboxOrRadioGroupArgs) => {
+  const parentArgs = {disabled, required}
+  const validationArgs = {children: validationChildren, variant}
+
+  return (
+    <>
+      <Box
+        id="choiceHeading"
+        borderBottomWidth="1px"
+        borderBottomStyle="solid"
+        borderBottomColor="border.default"
+        pb={2}
+        mb={3}
+        fontSize={3}
+      >
+        {labelChildren} {parentArgs.required && '*'}
+      </Box>
+      <RadioGroup aria-labelledby="choiceHeading" name="externalLabelRadioGroup" {...parentArgs}>
+        {captionChildren && <RadioGroup.Caption>{captionChildren}</RadioGroup.Caption>}
+        <FormControl>
+          <Radio value="choiceOne" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="choiceTwo" />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="choiceThree" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+        {validationArgs.children && <RadioGroup.Validation {...validationArgs} />}
+      </RadioGroup>
+    </>
+  )
+}
+WithExternalLabel.parameters = {controls: {exclude: [...excludedControlKeys, 'visuallyHidden']}}
+
+export const WithHiddenLabel = ({
+  disabled,
+  required,
+  labelChildren,
+  visuallyHidden,
+  captionChildren,
+  validationChildren,
+  variant
+}: CheckboxOrRadioGroupArgs) => {
+  const parentArgs = {disabled, required}
+  const labelArgs = {children: labelChildren, visuallyHidden}
+  const validationArgs = {children: validationChildren, variant}
+
+  return (
+    <RadioGroup name="hiddenLabelRadioGroup" {...parentArgs}>
+      {labelArgs.children && <RadioGroup.Label {...labelArgs} />}
+      {captionChildren && <RadioGroup.Caption>{captionChildren}</RadioGroup.Caption>}
       <FormControl>
         <Radio value="choiceOne" />
         <FormControl.Label>Choice one</FormControl.Label>
@@ -56,24 +151,10 @@ export const WithExternalLabel = ({name: _name, ...args}: Args) => (
         <Radio value="choiceThree" />
         <FormControl.Label>Choice three</FormControl.Label>
       </FormControl>
+      {validationArgs.children && <RadioGroup.Validation {...validationArgs} />}
     </RadioGroup>
-  </>
-)
-
-export const WithHiddenLabel = ({name: _name, ...args}: Args) => (
-  <RadioGroup name="hiddenLabelGroup" {...args}>
-    <RadioGroup.Label visuallyHidden>Choices</RadioGroup.Label>
-    <FormControl>
-      <Radio value="choiceOne" />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="choiceTwo" />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="choiceThree" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
-  </RadioGroup>
-)
+  )
+}
+WithHiddenLabel.args = {
+  visuallyHidden: true
+}

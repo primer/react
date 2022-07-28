@@ -28,7 +28,7 @@ const meta: Meta = {
   title: 'Composite components/ActionList/examples',
   component: ActionList,
   decorators: [
-    (Story: React.ComponentType): JSX.Element => (
+    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
       <ThemeProvider>
         <BaseStyles>
           <Story />

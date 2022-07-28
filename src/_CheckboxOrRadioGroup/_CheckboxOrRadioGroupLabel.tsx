@@ -12,7 +12,11 @@ export type CheckboxOrRadioGroupLabelProps = {
   visuallyHidden?: boolean
 } & SxProp
 
-const CheckboxOrRadioGroupLabel: React.FC<CheckboxOrRadioGroupLabelProps> = ({children, visuallyHidden, sx}) => (
+const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupLabelProps>> = ({
+  children,
+  visuallyHidden,
+  sx
+}) => (
   <Slot name="Label">
     {({required, disabled}: CheckboxOrRadioGroupContext) => (
       <VisuallyHidden

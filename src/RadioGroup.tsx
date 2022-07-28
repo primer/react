@@ -24,7 +24,7 @@ export const RadioGroupContext = createContext<{
   name: string
 } | null>(null)
 
-const RadioGroup: FC<RadioGroupProps> = ({children, disabled, onChange, name, ...rest}) => {
+const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, disabled, onChange, name, ...rest}) => {
   const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(null)
 
   const updateSelectedCheckboxes: ChangeEventHandler<HTMLInputElement> = e => {
