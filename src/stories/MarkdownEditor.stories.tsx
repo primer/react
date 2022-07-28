@@ -130,13 +130,13 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 const fakeFileUrl = (file: File) => `https://image-store.example/file/${encodeURIComponent(file.name)}`
 
-const mentionChoices: Mentionable[] = [
+const mentionables: Mentionable[] = [
   {identifier: 'monalisa', description: 'Monalisa Octocat'},
   {identifier: 'github', description: 'GitHub'},
   {identifier: 'primer', description: 'Primer'}
 ]
 
-const emojiChoices: Emoji[] = [
+const emojis: Emoji[] = [
   {name: '+1', character: '👍'},
   {name: '-1', character: '👎'},
   {name: 'heart', character: '❤️'},
@@ -154,7 +154,7 @@ const emojiChoices: Emoji[] = [
   {name: 'thumbsdown', character: '👎'}
 ]
 
-const referenceChoices: Reference[] = [
+const references: Reference[] = [
   {id: '1', titleText: 'Add logging functionality', titleHtml: 'Add logging functionality'},
   {
     id: '2',
@@ -174,26 +174,6 @@ const savedReplies: SavedReply[] = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales ligula commodo ex venenatis molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur vulputate elementum dolor ac sollicitudin. Duis tellus quam, hendrerit sit amet metus quis, pharetra consectetur eros. Duis purus justo, convallis nec velit nec, feugiat pharetra nibh. Aenean vulputate urna sollicitudin vehicula fermentum. Vestibulum semper iaculis metus, quis ullamcorper dui feugiat a. Donec nulla sapien, tincidunt ut arcu sit amet, ultrices fringilla massa. Integer ac justo lacus.\n\nFusce sed pharetra sem. Nulla rutrum turpis magna, sit amet sodales dui vehicula in. Cras lacinia, dui sit amet dictum lobortis, arcu erat semper lectus, placerat accumsan diam dolor nec quam. Vivamus accumsan ut magna eget maximus. Integer scelerisque justo et quam pharetra, nec placerat nibh auctor. Vestibulum cursus, mauris id euismod convallis, justo sapien faucibus dolor, nec dictum erat urna at velit. Quisque egestas massa eget odio consectetur vehicula. Aliquam a imperdiet lacus, eu facilisis mauris. Etiam tempor neque vitae erat elementum bibendum. Fusce ultricies nunc tortor.\n\nQuisque in posuere sapien. Nulla ornare sagittis tellus eu laoreet. Sed molestie sem in turpis blandit pretium. Vivamus gravida dui id gravida aliquam. Vestibulum vestibulum, justo vitae cursus mattis, urna mauris pulvinar dolor, eu suscipit magna libero eget diam. Praesent id rutrum libero, a feugiat nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur ornare libero id augue fringilla maximus sed sed ante. Quisque finibus accumsan lorem ut lobortis. Maecenas lobortis lacus sed mattis rutrum. Aliquam a mi sodales, blandit nisi ut, volutpat ex. Duis tristique, erat quis fermentum ultricies, leo ipsum placerat nunc, eu aliquam nibh mauris vitae lectus. Proin vitae tellus nec lorem vulputate faucibus. In hac habitasse platea dictumst. Suspendisse dictum odio in faucibus mattis.'
   }
 ]
-
-const caseInsensitiveIncludes = (haystack: string, needle: string) =>
-  haystack.toLowerCase().includes(needle.toLowerCase())
-
-const emojiSuggestionsHandler = (query: string) =>
-  emojiChoices.filter(emoji => caseInsensitiveIncludes(emoji.name, query)).slice(0, 5)
-
-const mentionSuggestionsHandler = (query: string) =>
-  mentionChoices
-    .filter(
-      entity => caseInsensitiveIncludes(entity.description, query) || caseInsensitiveIncludes(entity.identifier, query)
-    )
-    .slice(0, 5)
-
-const referenceSuggestionsHandler = (query: string) =>
-  referenceChoices
-    .filter(
-      reference => caseInsensitiveIncludes(reference.titleText, query) || caseInsensitiveIncludes(reference.id, query)
-    )
-    .slice(0, 5)
 
 export const Default = ({
   disabled,
@@ -235,9 +215,9 @@ export const Default = ({
           return 'Previewing Markdown is not supported in this example.'
         }}
         onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-        onSuggestEmojis={emojiSuggestionsHandler}
-        onSuggestMentions={mentionSuggestionsHandler}
-        onSuggestReferences={referenceSuggestionsHandler}
+        emojiSuggestions={emojis}
+        mentionSuggestions={mentionables}
+        referenceSuggestions={references}
         savedReplies={savedRepliesEnabled ? savedReplies : undefined}
         required={required}
       >
@@ -285,9 +265,9 @@ export const CustomButtons = ({
         return 'Previewing Markdown is not supported in this example.'
       }}
       onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-      onSuggestEmojis={emojiSuggestionsHandler}
-      onSuggestMentions={mentionSuggestionsHandler}
-      onSuggestReferences={referenceSuggestionsHandler}
+      emojiSuggestions={emojis}
+      mentionSuggestions={mentionables}
+      referenceSuggestions={references}
       required={required}
       savedReplies={savedRepliesEnabled ? savedReplies : undefined}
     >
@@ -306,68 +286,6 @@ export const CustomButtons = ({
           Submit
         </MarkdownEditor.ActionButton>
       </MarkdownEditor.Actions>
-    </MarkdownEditor>
-  )
-}
-
-export const AsyncSuggestions = ({
-  disabled,
-  fullHeight,
-  monospace,
-  minHeightLines,
-  maxHeightLines,
-  hideLabel,
-  required,
-  fileUploadsEnabled,
-  onSubmit,
-  savedRepliesEnabled
-}: ArgProps) => {
-  const [value, setValue] = useState('')
-
-  const onUploadFile = async (file: File) => {
-    // 0.5 - 5 seconds depending on file size up to about 20 MB
-    await delay(0.0002 * file.size + 500)
-    return {file, url: fakeFileUrl(file)}
-  }
-
-  const onSuggestEmojis = async (query: string) => {
-    await delay(1000)
-    return emojiSuggestionsHandler(query)
-  }
-
-  const onSuggestionMentions = async (query: string) => {
-    await delay(1000)
-    return mentionSuggestionsHandler(query)
-  }
-
-  const onSuggestReferences = async (query: string) => {
-    await delay(1000)
-    return referenceSuggestionsHandler(query)
-  }
-
-  return (
-    <MarkdownEditor
-      value={value}
-      onChange={setValue}
-      onPrimaryAction={onSubmit}
-      disabled={disabled}
-      fullHeight={fullHeight}
-      monospace={monospace}
-      minHeightLines={minHeightLines}
-      maxHeightLines={maxHeightLines}
-      placeholder="Enter some Markdown..."
-      onRenderPreview={async () => {
-        await delay(500)
-        return 'Previewing Markdown is not supported in this example.'
-      }}
-      onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-      onSuggestEmojis={onSuggestEmojis}
-      onSuggestMentions={onSuggestionMentions}
-      onSuggestReferences={onSuggestReferences}
-      required={required}
-      savedReplies={savedRepliesEnabled ? savedReplies : undefined}
-    >
-      <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
     </MarkdownEditor>
   )
 }

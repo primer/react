@@ -1,18 +1,12 @@
 import {subscribe as subscribeToMarkdownPasting} from '@github/paste-markdown'
 import React, {forwardRef, useEffect, useMemo, useState} from 'react'
 import {useDynamicTextareaHeight} from '../hooks'
-import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import {useCombinedRefs} from '../hooks/useCombinedRefs'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions, Trigger} from '../InlineAutocomplete'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../InlineAutocomplete'
 import Textarea, {TextareaProps} from '../Textarea'
-import {
-  EmojiSuggestionHandler,
-  MentionSuggestionHandler,
-  ReferenceSuggestionHandler,
-  useEmojiSuggestions,
-  useMentionSuggestions,
-  useReferenceSuggestions
-} from './_useSuggestions'
+import {Emoji, useEmojiSuggestions} from './suggestions/_useEmojiSuggestions'
+import {Mentionable, useMentionSuggestions} from './suggestions/_useMentionSuggestions'
+import {Reference, useReferenceSuggestions} from './suggestions/_useReferenceSuggestions'
 
 interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   value: string
@@ -24,9 +18,9 @@ interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   maxLength?: number
   fullHeight?: boolean
   isDraggedOver: boolean
-  onSuggestEmojis?: EmojiSuggestionHandler
-  onSuggestMentions?: MentionSuggestionHandler
-  onSuggestReferences?: ReferenceSuggestionHandler
+  emojiSuggestions?: Array<Emoji>
+  mentionSuggestions?: Array<Mentionable>
+  referenceSuggestions?: Array<Reference>
   minHeightLines: number
   maxHeightLines: number
   monospace: boolean
@@ -46,9 +40,9 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       onKeyDown,
       fullHeight,
       isDraggedOver,
-      onSuggestEmojis,
-      onSuggestMentions,
-      onSuggestReferences,
+      emojiSuggestions,
+      mentionSuggestions,
+      referenceSuggestions,
       minHeightLines,
       maxHeightLines,
       visible,
@@ -58,32 +52,29 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
     forwardedRef
   ) => {
     const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
-    const safeSetSuggestions = useSafeAsyncCallback(setSuggestions)
 
-    const [mentionsTrigger, queryAndSetMentionSuggestions] = useMentionSuggestions({
-      setSuggestions: safeSetSuggestions,
-      calculateSuggestions: onSuggestMentions
-    })
-    const [referencesTrigger, queryAndSetReferenceSuggestions] = useReferenceSuggestions({
-      setSuggestions: safeSetSuggestions,
-      calculateSuggestions: onSuggestReferences
-    })
-    const [emojiTrigger, queryAndSetEmojiSuggestions] = useEmojiSuggestions({
-      setSuggestions: safeSetSuggestions,
-      calculateSuggestions: onSuggestEmojis
-    })
+    const {trigger: emojiTrigger, calculateSuggestions: calculateEmojiSuggestions} = useEmojiSuggestions(
+      emojiSuggestions ?? []
+    )
+    const {trigger: mentionsTrigger, calculateSuggestions: calculateMentionSuggestions} = useMentionSuggestions(
+      mentionSuggestions ?? []
+    )
+    const {trigger: referencesTrigger, calculateSuggestions: calculateReferenceSuggestions} = useReferenceSuggestions(
+      referenceSuggestions ?? []
+    )
+
     const triggers = useMemo(
-      () => [mentionsTrigger, referencesTrigger, emojiTrigger].filter((t): t is Trigger => t !== null),
+      () => [mentionsTrigger, referencesTrigger, emojiTrigger],
       [mentionsTrigger, referencesTrigger, emojiTrigger]
     )
 
     const onShowSuggestions = (event: ShowSuggestionsEvent) => {
-      if (event.trigger.triggerChar === mentionsTrigger?.triggerChar) {
-        queryAndSetMentionSuggestions(event.query)
-      } else if (event.trigger.triggerChar === referencesTrigger?.triggerChar) {
-        queryAndSetReferenceSuggestions(event.query)
-      } else if (event.trigger.triggerChar === emojiTrigger?.triggerChar) {
-        queryAndSetEmojiSuggestions(event.query)
+      if (event.trigger.triggerChar === emojiTrigger.triggerChar) {
+        setSuggestions(calculateEmojiSuggestions(event.query))
+      } else if (event.trigger.triggerChar === mentionsTrigger.triggerChar) {
+        setSuggestions(calculateMentionSuggestions(event.query))
+      } else if (event.trigger.triggerChar === referencesTrigger.triggerChar) {
+        setSuggestions(calculateReferenceSuggestions(event.query))
       }
     }
 

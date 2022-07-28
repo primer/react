@@ -18,10 +18,12 @@ import {MarkdownInput} from './_MarkdownInput'
 import {FileUploadResult, useFileHandling} from './_useFileHandling'
 import {useIndenting} from './_useIndenting'
 import {useListEditing} from './_useListEditing'
-import {EmojiSuggestionHandler, MentionSuggestionHandler, ReferenceSuggestionHandler} from './_useSuggestions'
 import {MarkdownViewMode, ViewSwitch} from './_ViewSwitch'
 import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import {SavedRepliesContext, SavedRepliesHandle, SavedReply} from './_SavedReplies'
+import {Emoji} from './suggestions/_useEmojiSuggestions'
+import {Mentionable} from './suggestions/_useMentionSuggestions'
+import {Reference} from './suggestions/_useReferenceSuggestions'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -67,12 +69,12 @@ export type MarkdownEditorProps = SxProp & {
    * @default 35
    */
   maxHeightLines?: number
-  /** Returns an ordered list of emoji suggestions matching a query. */
-  onSuggestEmojis?: EmojiSuggestionHandler
-  /** Returns an ordered list of mention suggestions matching a query. */
-  onSuggestMentions?: MentionSuggestionHandler
-  /** Returns an ordered list of reference suggestions matching a query. */
-  onSuggestReferences?: ReferenceSuggestionHandler
+  /** Array of all possible emojis to suggest. Leave `undefined` to disable emoji autocomplete. */
+  emojiSuggestions?: Array<Emoji>
+  /** Array of all possible mention suggestions. Leave `undefined` to disable `@`-mention autocomplete. */
+  mentionSuggestions?: Array<Mentionable>
+  /** Array of all possible references to suggest. Leave `undefined` to disable `#`-reference autocomplete. */
+  referenceSuggestions?: Array<Reference>
   /**
    * Uploads a file to a hosting service and returns the URL. If not provided, file uploads
    * will be disabled.
@@ -129,9 +131,9 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       onChangeViewMode: controlledSetViewMode,
       minHeightLines = 5,
       maxHeightLines = 35,
-      onSuggestEmojis,
-      onSuggestMentions,
-      onSuggestReferences,
+      emojiSuggestions,
+      mentionSuggestions,
+      referenceSuggestions,
       onUploadFile,
       acceptedFileTypes,
       monospace = false,
@@ -321,9 +323,9 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 <MarkdownInput
                   value={value}
                   onChange={onInputChange}
-                  onSuggestEmojis={onSuggestEmojis}
-                  onSuggestReferences={onSuggestReferences}
-                  onSuggestMentions={onSuggestMentions}
+                  emojiSuggestions={emojiSuggestions}
+                  mentionSuggestions={mentionSuggestions}
+                  referenceSuggestions={referenceSuggestions}
                   disabled={disabled}
                   placeholder={placeholder}
                   id={id}

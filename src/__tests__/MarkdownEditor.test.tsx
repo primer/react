@@ -821,7 +821,7 @@ describe('MarkdownEditor', () => {
       {identifier: 'github', description: 'GitHub'},
       {identifier: 'primer', description: 'Primer'},
       {identifier: 'actions', description: 'Actions'},
-      {identifier: 'primer-css', description: 'primer-css'}
+      {identifier: 'primer-css', description: ''}
     ]
 
     const references: Reference[] = [
@@ -831,16 +831,16 @@ describe('MarkdownEditor', () => {
         titleText: 'Error: `Failed to install` when installing',
         titleHtml: 'Error: <code>Failed to install</code> when installing'
       },
-      {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
+      {id: '11', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
       {id: '4', titleText: 'Add a new function', titleHtml: 'Add a new function'},
       {id: '5', titleText: 'Fails to exit gracefully', titleHtml: 'Fails to exit gracefully'}
     ]
 
     const EditorWithSuggestions = () => (
       <UncontrolledEditor
-        onSuggestEmojis={() => emojis}
-        onSuggestMentions={() => mentionables}
-        onSuggestReferences={() => references}
+        emojiSuggestions={emojis}
+        mentionSuggestions={mentionables}
+        referenceSuggestions={references}
       />
     )
 
@@ -942,6 +942,49 @@ describe('MarkdownEditor', () => {
         expect(input.value).toBe(`hello ${first} `) // suggestions are inserted with a following space
       })
     })
+
+    it('filters mention suggestions using fuzzy match against name', async () => {
+      const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
+      await user.type(getInput(), '@octct')
+      expect(getAllSuggestions()).toHaveLength(1)
+      expect(getAllSuggestions()[0]).toHaveTextContent('monalisa')
+    })
+
+    it('filters mention suggestions using fuzzy match against ID', async () => {
+      const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
+      await user.type(getInput(), '@prmrcss')
+      expect(getAllSuggestions()).toHaveLength(1)
+      expect(getAllSuggestions()[0]).toHaveTextContent('primer-css')
+    })
+
+    it('filters reference suggestions using fuzzy match against name', async () => {
+      const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
+      await user.type(getInput(), '#add err-handln')
+      expect(getAllSuggestions()).toHaveLength(1)
+      expect(getAllSuggestions()[0]).toHaveTextContent('Add error-handling functionality')
+    })
+
+    it('filters reference suggestions against ID', async () => {
+      const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
+      await user.type(getInput(), '#1')
+      expect(getAllSuggestions()).toHaveLength(2)
+      expect(getAllSuggestions()[0]).toHaveTextContent('#1')
+      expect(getAllSuggestions()[1]).toHaveTextContent('#11')
+    })
+
+    it('does not show reference suggestions if the query is in "123 ..." form', async () => {
+      const {getInput, queryForSuggestionsList, user} = await render(<EditorWithSuggestions />)
+      await user.type(getInput(), '#1 logg')
+      expect(queryForSuggestionsList()).not.toBeInTheDocument()
+    })
+
+    it('filters emoji suggestions using simple match', async () => {
+      const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
+      await user.type(getInput(), ':1')
+      expect(getAllSuggestions()).toHaveLength(2)
+      expect(getAllSuggestions()[0]).toHaveTextContent('+1')
+      expect(getAllSuggestions()[1]).toHaveTextContent('-1')
+    })
   })
 
   describe('saved replies', () => {
@@ -1025,7 +1068,9 @@ describe('MarkdownEditor', () => {
     })
 
     it('inserts reply on Ctrl + number', async () => {
-      const {getInput, queryByRole, user, getToolbarButton} = await render(<UncontrolledEditor savedReplies={replies} />)
+      const {getInput, queryByRole, user, getToolbarButton} = await render(
+        <UncontrolledEditor savedReplies={replies} />
+      )
 
       await user.click(getToolbarButton(buttonLabel))
       await user.keyboard('{Control>}2{/Control}')
