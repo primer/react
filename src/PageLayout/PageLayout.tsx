@@ -185,12 +185,14 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
 // PageLayout.Header
 
 export type PageLayoutHeaderProps = {
+  padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
+  padding = 'none',
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   hidden = false,
@@ -212,7 +214,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
         sx
       )}
     >
-      {children}
+      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
       <HorizontalDivider
         variant={divider}
         variantWhenNarrow={dividerWhenNarrow}
@@ -229,6 +231,7 @@ Header.displayName = 'PageLayout.Header'
 
 export type PageLayoutContentProps = {
   width?: keyof typeof contentWidths
+  padding?: keyof typeof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
@@ -242,6 +245,7 @@ const contentWidths = {
 
 const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   width = 'full',
+  padding = 'none',
   hidden = false,
   children,
   sx = {}
@@ -265,7 +269,9 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
         sx
       )}
     >
-      <Box sx={{width: '100%', maxWidth: contentWidths[width], marginX: 'auto'}}>{children}</Box>
+      <Box sx={{width: '100%', maxWidth: contentWidths[width], marginX: 'auto', padding: SPACING_MAP[padding]}}>
+        {children}
+      </Box>
     </Box>
   )
 }
@@ -279,6 +285,7 @@ export type PageLayoutPaneProps = {
   position?: keyof typeof panePositions
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
+  padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
@@ -299,6 +306,7 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
   position = 'end',
   positionWhenNarrow = 'inherit',
   width = 'medium',
+  padding = 'none',
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   hidden = false,
@@ -346,7 +354,7 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
         sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
       />
 
-      <Box sx={{width: paneWidths[width]}}>{children}</Box>
+      <Box sx={{width: paneWidths[width], padding: SPACING_MAP[padding]}}>{children}</Box>
     </Box>
   )
 }
@@ -357,12 +365,14 @@ Pane.displayName = 'PageLayout.Pane'
 // PageLayout.Footer
 
 export type PageLayoutFooterProps = {
+  padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line'
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
+  padding = 'none',
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   hidden = false,
@@ -389,7 +399,7 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
         variantWhenNarrow={dividerWhenNarrow}
         sx={{marginBottom: SPACING_MAP[rowGap]}}
       />
-      {children}
+      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
     </Box>
   )
 }
