@@ -15,7 +15,7 @@ import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from './_TextIn
 import UnstyledTextInput from './_UnstyledTextInput'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyReactComponent = React.ComponentType<any>
+type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
 
 // NOTE: if these props or their JSDoc comments are updated, be sure to also update
 // the prop table in docs/content/TextInputTokens.mdx
@@ -23,7 +23,9 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
   /**
    * The array of tokens to render
    */
-  tokens: TokenComponentType extends React.ComponentType<infer TokenProps> ? TokenProps[] : never
+  tokens: TokenComponentType extends React.ComponentType<React.PropsWithChildren<infer TokenProps>>
+    ? TokenProps[]
+    : never
   /**
    * The function that gets called when a token is removed
    */

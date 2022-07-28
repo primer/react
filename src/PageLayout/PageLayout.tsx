@@ -47,7 +47,7 @@ const containerWidths = {
 }
 
 // TODO: refs
-const Root: React.FC<PageLayoutProps> = ({
+const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
   rowGap = 'normal',
@@ -111,7 +111,11 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  variantWhenNarrow = 'inherit',
+  sx = {}
+}) => {
   const {padding} = React.useContext(PageLayoutContext)
   return (
     <Box
@@ -153,7 +157,11 @@ const verticalDividerVariants = {
   }
 }
 
-const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  variantWhenNarrow = 'inherit',
+  sx = {}
+}) => {
   return (
     <Box
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -182,7 +190,7 @@ export type PageLayoutHeaderProps = {
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const Header: React.FC<PageLayoutHeaderProps> = ({
+const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   hidden = false,
@@ -232,7 +240,12 @@ const contentWidths = {
   xlarge: '1280px'
 }
 
-const Content: React.FC<PageLayoutContentProps> = ({width = 'full', hidden = false, children, sx = {}}) => {
+const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+  width = 'full',
+  hidden = false,
+  children,
+  sx = {}
+}) => {
   const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
@@ -282,7 +295,7 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
-const Pane: React.FC<PageLayoutPaneProps> = ({
+const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
   position = 'end',
   positionWhenNarrow = 'inherit',
   width = 'medium',
@@ -349,7 +362,7 @@ export type PageLayoutFooterProps = {
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const Footer: React.FC<PageLayoutFooterProps> = ({
+const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   hidden = false,

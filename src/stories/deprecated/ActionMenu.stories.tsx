@@ -23,7 +23,7 @@ const meta: Meta = {
   title: 'Deprecated components/ActionMenu',
   component: ActionMenu,
   decorators: [
-    (Story: React.ComponentType): JSX.Element => (
+    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
       <ThemeProvider>
         <BaseStyles>
           <Story />

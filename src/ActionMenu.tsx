@@ -33,7 +33,7 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
-const Menu: React.FC<ActionMenuProps> = ({
+const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -102,7 +102,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
      */
     children: React.ReactElement[] | React.ReactElement
   }
-const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...overlayProps}) => {
+const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children, align = 'start', ...overlayProps}) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
   const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<

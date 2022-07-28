@@ -11,7 +11,7 @@ export type Props = {
   visuallyHidden?: boolean
 } & SxProp
 
-const FormControlLabel: React.FC<{htmlFor?: string; id?: string} & Props> = ({
+const FormControlLabel: React.FC<React.PropsWithChildren<{htmlFor?: string; id?: string} & Props>> = ({
   children,
   htmlFor,
   id,
