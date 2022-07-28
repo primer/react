@@ -7,7 +7,8 @@ import MarkdownEditor, {
   MarkdownEditorHandle,
   MarkdownEditorProps,
   Mentionable,
-  Reference
+  Reference,
+  SavedReply
 } from '../MarkdownEditor'
 import ThemeProvider from '../ThemeProvider'
 
@@ -55,6 +56,8 @@ const render = async (ui: React.ReactElement) => {
 
   const getToolbarButton = (label: string) => within(getToolbar()).getByRole('button', {name: label})
 
+  const queryForToolbarButton = (label: string) => within(getToolbar()).queryByRole('button', {name: label})
+
   const getActionButton = (label: string) => within(getFooter()).getByRole('button', {name: label})
 
   const getViewSwitch = () => {
@@ -97,7 +100,8 @@ const render = async (ui: React.ReactElement) => {
     getActionButton,
     getEditorContainer,
     queryForSuggestionsList,
-    getAllSuggestions
+    getAllSuggestions,
+    queryForToolbarButton
   }
 }
 
@@ -937,6 +941,100 @@ describe('MarkdownEditor', () => {
         expect(queryForSuggestionsList()).not.toBeInTheDocument()
         expect(input.value).toBe(`hello ${first} `) // suggestions are inserted with a following space
       })
+    })
+  })
+
+  describe('saved replies', () => {
+    const buttonLabel = 'Add saved reply (Ctrl + .)'
+
+    const replies: SavedReply[] = [
+      {name: 'Duplicate', content: 'Duplicate of #'},
+      {name: 'Welcome', content: 'Welcome to the project!\n\nPlease be sure to read the contributor guidelines.'},
+      {name: 'Thanks', content: 'Thanks for your contribution!'},
+      {name: 'Thx', content: 'Thank you!'}
+    ]
+
+    const defaultScrollTo = window.Element.prototype.scrollTo
+
+    beforeEach(() => {
+      Object.defineProperty(window.Element.prototype, 'scrollTo', {
+        value: jest.fn(),
+        writable: true
+      })
+    })
+
+    afterEach(() => {
+      Object.defineProperty(window.Element.prototype, 'scrollTo', {
+        value: defaultScrollTo,
+        writable: true
+      })
+    })
+
+    it('does not render the saved replies button if no replies are set', async () => {
+      const {queryForToolbarButton} = await render(<UncontrolledEditor />)
+      expect(queryForToolbarButton(buttonLabel)).not.toBeInTheDocument()
+    })
+
+    it('renders the saved replies button when replies are set', async () => {
+      const {queryForToolbarButton, queryByRole} = await render(<UncontrolledEditor savedReplies={replies} />)
+      expect(queryForToolbarButton(buttonLabel)).toBeInTheDocument()
+      expect(queryByRole('listbox')).not.toBeInTheDocument()
+    })
+
+    it('opens the saved reply menu on button click', async () => {
+      const {getToolbarButton, queryByRole, user} = await render(<UncontrolledEditor savedReplies={replies} />)
+      await user.click(getToolbarButton(buttonLabel))
+      expect(queryByRole('listbox')).toBeInTheDocument()
+    })
+
+    it('opens the saved reply menu on Ctrl + .', async () => {
+      const {getInput, queryByRole, user} = await render(<UncontrolledEditor savedReplies={replies} />)
+
+      await user.type(getInput(), 'test{Control>}.{/Control}')
+      expect(queryByRole('listbox')).toBeInTheDocument()
+    })
+
+    it('does not open the saved reply menu on Ctrl + . if no replies are set', async () => {
+      const {getInput, queryByRole, user} = await render(<UncontrolledEditor />)
+      await user.type(getInput(), '{Control>}.{/Control}')
+      expect(queryByRole('listbox')).not.toBeInTheDocument()
+    })
+
+    it('autofocuses filter and filters replies based only on name', async () => {
+      const {getToolbarButton, getByRole, user} = await render(<UncontrolledEditor savedReplies={replies} />)
+      await user.click(getToolbarButton(buttonLabel))
+      await user.keyboard('Thanks')
+      expect(within(getByRole('listbox')).getAllByRole('option')).toHaveLength(1)
+    })
+
+    it('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
+      const {getToolbarButton, getInput, user, queryByRole} = await render(
+        <UncontrolledEditor savedReplies={replies} />
+      )
+      const input = getInput()
+
+      await user.type(getInput(), 'preceding  following')
+      input.setSelectionRange(10, 10)
+      await user.click(getToolbarButton(buttonLabel))
+
+      await user.keyboard('Thanks{Enter}')
+
+      expect(queryByRole('listbox')).not.toBeInTheDocument()
+      await waitFor(() => expect(getInput().value).toBe('preceding Thanks for your contribution! following'))
+      expect(getInput()).toHaveFocus()
+    })
+
+    it('inserts reply on Ctrl + number', async () => {
+      const {getInput, queryByRole, user, getToolbarButton} = await render(<UncontrolledEditor savedReplies={replies} />)
+
+      await user.click(getToolbarButton(buttonLabel))
+      await user.keyboard('{Control>}2{/Control}')
+
+      expect(queryByRole('listbox')).not.toBeInTheDocument()
+      await waitFor(() =>
+        expect(getInput().value).toBe('Welcome to the project!\n\nPlease be sure to read the contributor guidelines.')
+      )
+      expect(getInput()).toHaveFocus()
     })
   })
 })

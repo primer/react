@@ -21,6 +21,7 @@ import {IconButton, IconButtonProps} from '../Button'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {MarkdownEditorSlot} from './MarkdownEditor'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
+import {SavedRepliesButton} from './_SavedReplies'
 
 export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
   const {disabled} = useContext(MarkdownEditorContext)
@@ -112,6 +113,7 @@ export const DefaultToolbarButtons = memo(() => {
           />
         </Box>
       )}
+      <SavedRepliesButton />
     </>
   )
 })

@@ -3,7 +3,7 @@ import React, {Meta} from '@storybook/react'
 import {useState} from 'react'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
-import MarkdownEditor, {Emoji, Mentionable, Reference} from '../MarkdownEditor'
+import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '../MarkdownEditor'
 import ThemeProvider from '../ThemeProvider'
 
 const meta: Meta = {
@@ -29,7 +29,8 @@ const meta: Meta = {
         'Maximum Height (Lines)',
         'Hide Label',
         'Required',
-        'Enable File Uploads'
+        'Enable File Uploads',
+        'Enable Saved Replies'
       ]
     }
   },
@@ -91,6 +92,13 @@ const meta: Meta = {
         type: 'boolean'
       }
     },
+    savedRepliesEnabled: {
+      name: 'Enable Saved Replies',
+      defaultValue: true,
+      control: {
+        type: 'boolean'
+      }
+    },
     onSubmit: {
       name: 'onSubmit',
       action: 'submitted'
@@ -113,6 +121,7 @@ type ArgProps = {
   hideLabel: boolean
   required: boolean
   fileUploadsEnabled: boolean
+  savedRepliesEnabled: boolean
   onSubmit: () => void
   onDiffClick: () => void
 }
@@ -155,6 +164,17 @@ const referenceChoices: Reference[] = [
   {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'}
 ]
 
+const savedReplies: SavedReply[] = [
+  {name: 'Duplicate', content: 'Duplicate of #'},
+  {name: 'Welcome', content: 'Welcome to the project!\n\nPlease be sure to read the contributor guidelines.'},
+  {name: 'Thanks', content: 'Thanks for your contribution!'},
+  {
+    name: 'Long Lorem Ipsum',
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales ligula commodo ex venenatis molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur vulputate elementum dolor ac sollicitudin. Duis tellus quam, hendrerit sit amet metus quis, pharetra consectetur eros. Duis purus justo, convallis nec velit nec, feugiat pharetra nibh. Aenean vulputate urna sollicitudin vehicula fermentum. Vestibulum semper iaculis metus, quis ullamcorper dui feugiat a. Donec nulla sapien, tincidunt ut arcu sit amet, ultrices fringilla massa. Integer ac justo lacus.\n\nFusce sed pharetra sem. Nulla rutrum turpis magna, sit amet sodales dui vehicula in. Cras lacinia, dui sit amet dictum lobortis, arcu erat semper lectus, placerat accumsan diam dolor nec quam. Vivamus accumsan ut magna eget maximus. Integer scelerisque justo et quam pharetra, nec placerat nibh auctor. Vestibulum cursus, mauris id euismod convallis, justo sapien faucibus dolor, nec dictum erat urna at velit. Quisque egestas massa eget odio consectetur vehicula. Aliquam a imperdiet lacus, eu facilisis mauris. Etiam tempor neque vitae erat elementum bibendum. Fusce ultricies nunc tortor.\n\nQuisque in posuere sapien. Nulla ornare sagittis tellus eu laoreet. Sed molestie sem in turpis blandit pretium. Vivamus gravida dui id gravida aliquam. Vestibulum vestibulum, justo vitae cursus mattis, urna mauris pulvinar dolor, eu suscipit magna libero eget diam. Praesent id rutrum libero, a feugiat nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur ornare libero id augue fringilla maximus sed sed ante. Quisque finibus accumsan lorem ut lobortis. Maecenas lobortis lacus sed mattis rutrum. Aliquam a mi sodales, blandit nisi ut, volutpat ex. Duis tristique, erat quis fermentum ultricies, leo ipsum placerat nunc, eu aliquam nibh mauris vitae lectus. Proin vitae tellus nec lorem vulputate faucibus. In hac habitasse platea dictumst. Suspendisse dictum odio in faucibus mattis.'
+  }
+]
+
 const caseInsensitiveIncludes = (haystack: string, needle: string) =>
   haystack.toLowerCase().includes(needle.toLowerCase())
 
@@ -184,7 +204,8 @@ export const Default = ({
   hideLabel,
   required,
   fileUploadsEnabled,
-  onSubmit
+  onSubmit,
+  savedRepliesEnabled
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -217,6 +238,7 @@ export const Default = ({
         onSuggestEmojis={emojiSuggestionsHandler}
         onSuggestMentions={mentionSuggestionsHandler}
         onSuggestReferences={referenceSuggestionsHandler}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
         required={required}
       >
         <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
@@ -236,7 +258,8 @@ export const CustomButtons = ({
   required,
   fileUploadsEnabled,
   onSubmit,
-  onDiffClick
+  onDiffClick,
+  savedRepliesEnabled
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -266,6 +289,7 @@ export const CustomButtons = ({
       onSuggestMentions={mentionSuggestionsHandler}
       onSuggestReferences={referenceSuggestionsHandler}
       required={required}
+      savedReplies={savedRepliesEnabled ? savedReplies : undefined}
     >
       <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
 
@@ -295,7 +319,8 @@ export const AsyncSuggestions = ({
   hideLabel,
   required,
   fileUploadsEnabled,
-  onSubmit
+  onSubmit,
+  savedRepliesEnabled
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -340,6 +365,7 @@ export const AsyncSuggestions = ({
       onSuggestMentions={onSuggestionMentions}
       onSuggestReferences={onSuggestReferences}
       required={required}
+      savedReplies={savedRepliesEnabled ? savedReplies : undefined}
     >
       <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
     </MarkdownEditor>

@@ -38,3 +38,4 @@ export default MarkdownEditor
 export type {MarkdownEditorProps} from './MarkdownEditor'
 export type {Emoji, Mentionable, Reference} from './_useSuggestions'
 export type {FileUploadResult} from './_useFileHandling'
+export type {SavedReply} from './_SavedReplies'

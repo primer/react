@@ -21,6 +21,7 @@ import {useListEditing} from './_useListEditing'
 import {EmojiSuggestionHandler, MentionSuggestionHandler, ReferenceSuggestionHandler} from './_useSuggestions'
 import {MarkdownViewMode, ViewSwitch} from './_ViewSwitch'
 import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
+import {SavedRepliesContext, SavedRepliesHandle, SavedReply} from './_SavedReplies'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -90,6 +91,8 @@ export type MarkdownEditorProps = SxProp & {
   required?: boolean
   /** The name that will be given to the `textarea`. */
   name?: string
+  /** To enable the saved replies feature, provide an array of replies. */
+  savedReplies?: SavedReply[]
 }
 
 export interface MarkdownEditorHandle {
@@ -134,7 +137,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       monospace = false,
       required = false,
       name,
-      children
+      children,
+      savedReplies
     },
     ref
   ) => {
@@ -210,12 +214,24 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     const id = useSSRSafeId()
     const descriptionId = `${id}-description`
 
+    const savedRepliesRef = useRef<SavedRepliesHandle>(null)
+    const onSelectSavedReply = (reply: SavedReply) => {
+      // need to wait a tick to run after the selectmenu finishes closing
+      requestAnimationFrame(() => emitChange(reply.content))
+    }
+    const savedRepliesContext = savedReplies ? {savedReplies, onSelect: onSelectSavedReply, ref: savedRepliesRef} : null
+
     const inputCompositionProps = useIgnoreKeyboardActionsWhileComposing(
       (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         const format = formattingToolsRef.current
         if (disabled) return
 
-        if (isMacOS() ? e.metaKey : e.ctrlKey) {
+        if (e.ctrlKey && e.key === '.') {
+          // saved replies are always Control, even on Mac
+          savedRepliesRef.current?.openMenu()
+          e.preventDefault()
+          e.stopPropagation()
+        } else if (isMacOS() ? e.metaKey : e.ctrlKey) {
           if (e.key === 'Enter') onPrimaryAction?.()
           else if (e.key === 'b') format?.bold()
           else if (e.key === 'i') format?.italic()
@@ -291,12 +307,14 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                   />
 
                   <Box sx={{display: 'flex'}}>
-                    {view === 'edit' &&
-                      (slots.Toolbar ?? (
-                        <CoreToolbar>
-                          <DefaultToolbarButtons />
-                        </CoreToolbar>
-                      ))}
+                    <SavedRepliesContext.Provider value={savedRepliesContext}>
+                      {view === 'edit' &&
+                        (slots.Toolbar ?? (
+                          <CoreToolbar>
+                            <DefaultToolbarButtons />
+                          </CoreToolbar>
+                        ))}
+                    </SavedRepliesContext.Provider>
                   </Box>
                 </Box>
 

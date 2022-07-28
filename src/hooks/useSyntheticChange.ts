@@ -94,6 +94,8 @@ export const useSyntheticChange = ({inputRef, fallbackEventHandler}: UseSyntheti
       const input = inputRef.current
       if (!input) return
 
+      input.focus() // the input must be focused to execute execCommand
+
       const replaceRange = replaceRange_ ?? [
         input.selectionStart ?? input.value.length,
         input.selectionEnd ?? input.value.length
