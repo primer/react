@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from '../utils/testing'
-import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
@@ -193,7 +193,8 @@ describe('Autocomplete', () => {
   })
 
   describe('Autocomplete.Input', () => {
-    it('calls onChange', () => {
+    it('calls onChange', async () => {
+      const user = userEvent.setup()
       const onChangeMock = jest.fn()
       const {container} = HTMLRender(
         <LabelledAutocomplete
@@ -204,7 +205,7 @@ describe('Autocomplete', () => {
       const inputNode = container.querySelector('#autocompleteInput')
 
       expect(onChangeMock).not.toHaveBeenCalled()
-      inputNode && userEvent.type(inputNode, 'z')
+      inputNode && (await user.type(inputNode, 'z'))
       expect(onChangeMock).toHaveBeenCalled()
     })
 
@@ -244,7 +245,8 @@ describe('Autocomplete', () => {
       expect(onKeyUpMock).toHaveBeenCalled()
     })
 
-    it('calls onKeyPress', () => {
+    it('calls onKeyPress', async () => {
+      const user = userEvent.setup()
       const onKeyPressMock = jest.fn()
       const {getByLabelText} = HTMLRender(
         <LabelledAutocomplete inputProps={{onKeyPress: onKeyPressMock}} menuProps={{items: [], selectedItemIds: []}} />
@@ -252,7 +254,7 @@ describe('Autocomplete', () => {
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
       expect(onKeyPressMock).not.toHaveBeenCalled()
-      userEvent.type(inputNode, '{enter}')
+      await user.type(inputNode, '{enter}')
       expect(onKeyPressMock).toHaveBeenCalled()
     })
 
@@ -265,7 +267,7 @@ describe('Autocomplete', () => {
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
     })
 
-    it('closes the menu when the input is blurred', () => {
+    it('closes the menu when the input is blurred', async () => {
       const {getByLabelText} = HTMLRender(<LabelledAutocomplete menuProps={{items: [], selectedItemIds: []}} />)
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
@@ -276,49 +278,50 @@ describe('Autocomplete', () => {
       fireEvent.blur(inputNode)
 
       // wait a tick for blur to finish
-      setTimeout(() => {
-        expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      }, 0)
+      await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).not.toBe('true'))
     })
 
-    it('sets the input value to the suggested item text and highlights the untyped part of the word', () => {
+    it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {
+      const user = userEvent.setup()
       const {container, getByDisplayValue} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
-      inputNode && userEvent.type(inputNode, 'ze')
+      inputNode && (await user.type(inputNode, 'ze'))
       expect(getByDisplayValue('zero')).toBeDefined()
     })
 
-    it('does not show or highlight suggestion text after the user hits Backspace until they hit another key', () => {
+    it('does not show or highlight suggestion text after the user hits Backspace until they hit another key', async () => {
+      const user = userEvent.setup()
       const {container, getByDisplayValue} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
       expect((inputNode as HTMLInputElement).selectionStart).toBe(0)
-      inputNode && userEvent.type(inputNode, 'ze')
+      inputNode && (await user.type(inputNode, 'ze'))
       expect(getByDisplayValue('zero')).toBeDefined()
       expect((inputNode as HTMLInputElement).selectionStart).toBe(2)
       expect((inputNode as HTMLInputElement).selectionEnd).toBe(4)
-      inputNode && userEvent.type(inputNode, '{backspace}')
+      inputNode && (await user.keyboard('{backspace}'))
       expect((inputNode as HTMLInputElement).selectionStart).toBe(2)
       expect(getByDisplayValue('ze')).toBeDefined()
-      inputNode && userEvent.type(inputNode, 'r')
+      inputNode && (await user.keyboard('r'))
       expect((inputNode as HTMLInputElement).selectionStart).toBe(3)
       expect((inputNode as HTMLInputElement).selectionEnd).toBe(4)
       expect(getByDisplayValue('zero')).toBeDefined()
     })
 
-    it('clears the input value when the user hits Escape', () => {
+    it('clears the input value when the user hits Escape', async () => {
+      const user = userEvent.setup()
       const {container} = HTMLRender(<LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />)
       const inputNode = container.querySelector('#autocompleteInput')
 
       expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
-      inputNode && userEvent.type(inputNode, 'ze')
+      inputNode && (await user.type(inputNode, 'ze'))
       expect(inputNode?.getAttribute('aria-expanded')).toBe('true')
-      inputNode && userEvent.type(inputNode, '{esc}')
+      inputNode && (await user.keyboard('{escape}'))
       expect(inputNode?.getAttribute('aria-expanded')).not.toBe('true')
     })
 
@@ -332,18 +335,20 @@ describe('Autocomplete', () => {
   })
 
   describe('Autocomplete.Menu', () => {
-    it('calls a custom filter function', () => {
+    it('calls a custom filter function', async () => {
+      const user = userEvent.setup()
       const filterFnMock = jest.fn()
       const {container} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], filterFn: filterFnMock}} />
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
-      inputNode && userEvent.type(inputNode, 'ze')
+      inputNode && (await user.type(inputNode, 'ze'))
       expect(filterFnMock).toHaveBeenCalled()
     })
 
-    it('calls a custom sort function when the menu closes', () => {
+    it('calls a custom sort function when the menu closes', async () => {
+      const user = userEvent.setup()
       const sortOnCloseFnMock = jest.fn()
       const {container} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], sortOnCloseFn: sortOnCloseFnMock}} />
@@ -354,29 +359,29 @@ describe('Autocomplete', () => {
       // current sort order matches the result of `sortOnCloseFnMock`
       expect(sortOnCloseFnMock).toHaveBeenCalledTimes(mockItems.length - 1)
       if (inputNode) {
-        userEvent.type(inputNode, 'ze')
+        await user.type(inputNode, 'ze')
         // eslint-disable-next-line github/no-blur
         fireEvent.blur(inputNode)
       }
 
       // wait a tick for blur to finish
-      setTimeout(() => {
-        expect(sortOnCloseFnMock).toHaveBeenCalledTimes(mockItems.length)
-      }, 0)
+      await waitFor(() => expect(sortOnCloseFnMock).toHaveBeenCalled())
     })
 
-    it("calls onOpenChange with the menu's open state", () => {
+    it("calls onOpenChange with the menu's open state", async () => {
+      const user = userEvent.setup()
       const onOpenChangeMock = jest.fn()
       const {container} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], onOpenChange: onOpenChangeMock}} />
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
-      inputNode && userEvent.type(inputNode, 'ze')
+      inputNode && (await user.type(inputNode, 'ze'))
       expect(onOpenChangeMock).toHaveBeenCalled()
     })
 
-    it('calls onSelectedChange with the data for the selected items', () => {
+    it('calls onSelectedChange with the data for the selected items', async () => {
+      const user = userEvent.setup()
       const onSelectedChangeMock = jest.fn()
       const {container} = HTMLRender(
         <LabelledAutocomplete
@@ -388,7 +393,7 @@ describe('Autocomplete', () => {
       expect(onSelectedChangeMock).not.toHaveBeenCalled()
       if (inputNode) {
         fireEvent.focus(inputNode)
-        userEvent.type(inputNode, '{enter}')
+        await user.type(inputNode, '{enter}')
       }
 
       // wait a tick for the keyboard event to be dispatched to the menu item
@@ -397,7 +402,8 @@ describe('Autocomplete', () => {
       }, 0)
     })
 
-    it('does not close the menu when clicking an item in the menu if selectionVariant=multiple', () => {
+    it('does not close the menu when clicking an item in the menu if selectionVariant=multiple', async () => {
+      const user = userEvent.setup()
       const {getByText, container} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], selectionVariant: 'multiple'}} />
       )
@@ -408,7 +414,7 @@ describe('Autocomplete', () => {
       inputNode && fireEvent.focus(inputNode)
       expect(inputNode?.getAttribute('aria-expanded')).toBe('true')
       fireEvent.click(itemToClickNode)
-      inputNode && userEvent.type(inputNode, '{enter}')
+      inputNode && (await user.type(inputNode, '{enter}'))
       expect(inputNode?.getAttribute('aria-expanded')).toBe('true')
     })
 

@@ -257,17 +257,19 @@ describe('ChoiceFieldset', () => {
     expect(errorValidationMessage).not.toBeNull()
     expect(successValidationMessage).toBeNull()
   })
-  it('calls onSelect with the values of the selected item (single selection)', () => {
+  it('calls onSelect with the values of the selected item (single selection)', async () => {
+    const user = userEvent.setup()
     const onSelectHandler = jest.fn()
     const {getByLabelText} = HTMLRender(
       <SelectableChoicelistFieldset onSelect={onSelectHandler} selectionVariant="single" />
     )
     const labelOneInputNode = getByLabelText('Label one')
 
-    userEvent.click(labelOneInputNode)
+    await user.click(labelOneInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith(['labelOne'])
   })
-  it('calls onSelect with the values of the selected items (multiple selections)', () => {
+  it('calls onSelect with the values of the selected items (multiple selections)', async () => {
+    const user = userEvent.setup()
     const onSelectHandler = jest.fn()
 
     const {getByLabelText} = HTMLRender(
@@ -275,10 +277,11 @@ describe('ChoiceFieldset', () => {
     )
     const labelTwoInputNode = getByLabelText('Label two')
 
-    userEvent.click(labelTwoInputNode)
+    await user.click(labelTwoInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith(['labelOne', 'labelTwo'])
   })
-  it('calls onSelect with an empty array if all values have be de-selected', () => {
+  it('calls onSelect with an empty array if all values have be de-selected', async () => {
+    const user = userEvent.setup()
     const onSelectHandler = jest.fn()
 
     const {getByLabelText} = HTMLRender(
@@ -286,7 +289,7 @@ describe('ChoiceFieldset', () => {
     )
     const labelTwoInputNode = getByLabelText('Label two')
 
-    userEvent.click(labelTwoInputNode)
+    await user.click(labelTwoInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith([])
   })
   it('generates a name attribute for radio groups if one is not provided', () => {

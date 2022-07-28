@@ -153,7 +153,8 @@ describe('SegmentedControl', () => {
     }
   })
 
-  it('calls onChange with index of clicked segment button', () => {
+  it('calls onChange with index of clicked segment button', async () => {
+    const user = userEvent.setup()
     const handleChange = jest.fn()
     const {getByText} = render(
       <SegmentedControl aria-label="File view" onChange={handleChange}>
@@ -169,12 +170,13 @@ describe('SegmentedControl', () => {
 
     expect(handleChange).not.toHaveBeenCalled()
     if (buttonToClick) {
-      userEvent.click(buttonToClick)
+      await user.click(buttonToClick)
     }
     expect(handleChange).toHaveBeenCalledWith(1)
   })
 
-  it('calls segment button onClick if it is passed', () => {
+  it('calls segment button onClick if it is passed', async () => {
+    const user = userEvent.setup()
     const handleClick = jest.fn()
     const {getByText} = render(
       <SegmentedControl aria-label="File view">
@@ -190,12 +192,13 @@ describe('SegmentedControl', () => {
 
     expect(handleClick).not.toHaveBeenCalled()
     if (buttonToClick) {
-      userEvent.click(buttonToClick)
+      await user.click(buttonToClick)
     }
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('focuses the selected button first', () => {
+  it('focuses the selected button first', async () => {
+    const user = userEvent.setup()
     const {getByRole} = render(
       <>
         <button>Before</button>
@@ -212,8 +215,8 @@ describe('SegmentedControl', () => {
 
     expect(document.activeElement?.id).not.toEqual(initialFocusButtonNode.id)
 
-    userEvent.tab() // focus the button before the segmented control
-    userEvent.tab() // move focus into the segmented control
+    await user.tab() // focus the button before the segmented control
+    await user.tab() // move focus into the segmented control
 
     expect(document.activeElement?.id).toEqual(initialFocusButtonNode.id)
   })
