@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
+import {BaseStyles, Box, ThemeProvider, Button} from '..'
 import Heading from '../Heading'
 import DropdownButton from '../deprecated/Button'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -113,5 +113,27 @@ export const PortalInsideScrollingElement = () => {
         </tbody>
       </table>
     </HeaderAndLayout>
+  )
+}
+
+// repro for https://github.com/primer/react/issues/2184
+export function ScrollTest(): JSX.Element {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <>
+      <div style={{overflow: 'scroll', height: '400px', background: 'lightgray'}}>
+        <div style={{height: '600px', padding: '40px'}}>
+          <AnchoredOverlay
+            renderAnchor={anchorProps => <Button {...anchorProps}>Click me to open</Button>}
+            open={isOpen}
+            onOpen={() => setIsOpen(true)}
+            onClose={() => setIsOpen(false)}
+          >
+            <Box sx={{p: 4}}>Anchored Content</Box>
+          </AnchoredOverlay>
+        </div>
+      </div>
+    </>
   )
 }
