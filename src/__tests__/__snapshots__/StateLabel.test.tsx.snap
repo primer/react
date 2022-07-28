@@ -189,7 +189,7 @@ exports[`StateLabel respects the status prop 2`] = `
   color: #ffffff;
   text-align: center;
   border-radius: 100px;
-  background-color: #cf222e;
+  background-color: #8250df;
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
@@ -227,6 +227,62 @@ exports[`StateLabel respects the status prop 2`] = `
 `;
 
 exports[`StateLabel respects the status prop 3`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #6e7781;
+  color: #ffffff;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm3.28 5.78a.75.75 0 00-1.06-1.06l-5.5 5.5a.75.75 0 101.06 1.06l5.5-5.5z\\"></path>",
+      }
+    }
+    fill="currentColor"
+    height={16}
+    role="img"
+    style={
+      Object {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  />
+</span>
+`;
+
+exports[`StateLabel respects the status prop 4`] = `
 .c1 {
   margin-right: 4px;
 }

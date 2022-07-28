@@ -12,6 +12,7 @@
   //   - https://github.com/primer/react/issues/1163
   //   - https://github.com/primer/react/issues/1849
   "exclude": [
+    "src/utils/story-helpers.tsx",
     "**/*.stories.tsx",
     "**/*.test.tsx",
     "script/**/*.ts",

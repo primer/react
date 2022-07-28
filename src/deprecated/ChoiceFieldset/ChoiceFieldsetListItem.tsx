@@ -23,7 +23,12 @@ export interface ChoiceFieldProps {
   value: string
 }
 
-const ChoiceFieldsetListItem: React.FC<ChoiceFieldProps> = ({children, id, disabled: disabledProp, value}) => {
+const ChoiceFieldsetListItem: React.FC<React.PropsWithChildren<ChoiceFieldProps>> = ({
+  children,
+  id,
+  disabled: disabledProp,
+  value
+}) => {
   const choiceFieldsetListContext = useContext(ChoiceFieldsetListContext)
   if (choiceFieldsetListContext === null) {
     throw new Error('ChoiceFieldsetListContext returned null')

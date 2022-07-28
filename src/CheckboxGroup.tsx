@@ -20,7 +20,7 @@ export const CheckboxGroupContext = createContext<{
   onChange?: ChangeEventHandler<HTMLInputElement>
 }>({})
 
-const CheckboxGroup: FC<CheckboxGroupProps> = ({children, disabled, onChange, ...rest}) => {
+const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
   const formControlComponentChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child) && child.type === FormControl)
     .map(formControlComponent =>

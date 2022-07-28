@@ -11,7 +11,7 @@ import TextInputAction from './_TextInputInnerAction'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
-  icon?: React.ComponentType<{className?: string}>
+  icon?: React.ComponentType<React.PropsWithChildren<{className?: string}>>
   /** Whether the to show a loading indicator in the input */
   loading?: boolean
   /**
@@ -24,11 +24,11 @@ export type TextInputNonPassthroughProps = {
   /**
    * A visual that renders inside the input before the typing area
    */
-  leadingVisual?: string | React.ComponentType<{className?: string}>
+  leadingVisual?: string | React.ComponentType<React.PropsWithChildren<{className?: string}>>
   /**
    * A visual that renders inside the input after the typing area
    */
-  trailingVisual?: string | React.ComponentType<{className?: string}>
+  trailingVisual?: string | React.ComponentType<React.PropsWithChildren<{className?: string}>>
   /**
    * A visual that renders inside the input after the typing area
    */

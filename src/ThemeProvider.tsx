@@ -48,7 +48,7 @@ const getServerHandoff = () => {
   return {}
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({children, ...props}) => {
+export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
   // Get fallback values from parent ThemeProvider (if exists)
   const {
     theme: fallbackTheme,

@@ -7,8 +7,11 @@ export type SelectProps = Omit<
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 >
 
+const arrowRightOffset = '4px'
+
 const StyledSelect = styled.select`
   appearance: none;
+  border-radius: inherit;
   border: 0;
   color: currentColor;
   font-size: inherit;
@@ -20,8 +23,13 @@ const StyledSelect = styled.select`
 
         background-color should be 'transparent', but Firefox uses the background-color on 
         <select> to determine the background color used for the dropdown menu.
+
+     2. Adds 1px margins to the <select> so the background color doesn't hide the focus outline created with an inset box-shadow.
   */
   background-color: inherit;
+  margin-top: 1px;
+  margin-left: 1px;
+  margin-bottom: 1px;
 
   /* 2. Prevents visible overlap of partially transparent background colors.
   
@@ -41,7 +49,7 @@ const StyledSelect = styled.select`
   }
 `
 
-const ArrowIndicatorSVG: React.FC<{className?: string}> = ({className}) => (
+const ArrowIndicatorSVG: React.FC<React.PropsWithChildren<{className?: string}>> = ({className}) => (
   <svg width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
     <path d="m4.074 9.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.043 9H4.251a.25.25 0 0 0-.177.427ZM4.074 7.47 7.47 4.073a.25.25 0 0 1 .354 0L11.22 7.47a.25.25 0 0 1-.177.426H4.251a.25.25 0 0 1-.177-.426Z" />
   </svg>
@@ -50,7 +58,7 @@ const ArrowIndicatorSVG: React.FC<{className?: string}> = ({className}) => (
 const ArrowIndicator = styled(ArrowIndicatorSVG)`
   pointer-events: none;
   position: absolute;
-  right: 4px;
+  right: ${arrowRightOffset};
   top: 50%;
   transform: translateY(-50%);
 `
@@ -93,9 +101,13 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   )
 )
 
-const Option: React.FC<React.HTMLProps<HTMLOptionElement> & {value: string}> = props => <option {...props} />
+const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
+  <option {...props} />
+)
 
-const OptGroup: React.FC<React.HTMLProps<HTMLOptGroupElement>> = props => <optgroup {...props} />
+const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => (
+  <optgroup {...props} />
+)
 
 export default Object.assign(Select, {
   Option,

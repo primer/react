@@ -42,13 +42,12 @@ function getItemById<T extends AutocompleteMenuItem>(itemId: string | number, it
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AutocompleteItemProps<T = Record<string, any>> = AutocompleteMenuItem & {metadata?: T}
 
+// TODO: we should make `aria-labelledby` required for a11y
 export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   /**
    * A menu item that is used to allow users make a selection that is not available in the array passed to the `items` prop.
    * This menu item gets appended to the end of the list of options.
    */
-  // TODO: rethink this part of the component API. this is kind of weird and confusing to use
-  // TODO: rethink `addNewItem` prop name
   addNewItem?: Omit<T, 'onAction' | 'leadingVisual' | 'id'> & {
     handleAddItem: (item: Omit<T, 'onAction' | 'leadingVisual'>) => void
   }
