@@ -487,46 +487,46 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
   margin-right: auto;
 }
 
-.c10 {
+.c6 {
+  -webkit-order: 3;
+  -ms-flex-order: 3;
+  order: 3;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 16px;
+}
+
+.c7 {
   margin-left: -16px;
   margin-right: -16px;
   display: none;
   margin-bottom: 16px;
 }
 
-.c7 {
+.c8 {
   height: 100%;
   display: none;
   margin-right: 16px;
 }
 
-.c8 {
+.c9 {
   width: 100%;
 }
 
-.c9 {
+.c10 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
   width: 100%;
   margin-top: 16px;
-}
-
-.c6 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column-reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 16px;
 }
 
 @media screen and (min-width:1012px) {
@@ -557,45 +557,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c10 {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c10 {
-    margin-left: -24px;
-    margin-right: -24px;
-    margin-bottom: 24px;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c7 {
-    margin-right: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c8 {
-    width: 256px;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c8 {
-    width: 296px;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c9 {
-    margin-top: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
   .c6 {
     width: auto;
     margin-left: 16px;
@@ -612,7 +573,46 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 
 @media screen and (min-width:1012px) {
   .c6 {
+    margin-top: 24px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c7 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .c7 {
+    margin-left: -24px;
+    margin-right: -24px;
     margin-bottom: 24px;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .c8 {
+    margin-right: 24px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c9 {
+    width: 256px;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .c9 {
+    width: 296px;
+  }
+}
+
+@media screen and (min-width:1012px) {
+  .c10 {
+    margin-top: 24px;
   }
 }
 
@@ -644,22 +644,22 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
         class="c6"
       >
         <div
-          class="c3"
-        />
-        <div
           class="c7"
         />
         <div
           class="c8"
+        />
+        <div
+          class="c9"
         >
           Pane
         </div>
       </aside>
       <footer
-        class="c9"
+        class="c10"
       >
         <div
-          class="c10"
+          class="c7"
         />
         Footer
       </footer>
