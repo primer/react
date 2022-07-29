@@ -48,7 +48,8 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   <PageLayout.Content>
     <Placeholder label="Content" height={240} />
   </PageLayout.Content>
-  <PageLayout.Pane divider="line">
+  {/* You can change the divider based on the viewport width */}
+  <PageLayout.Pane divider={{narrow: 'line'}}>
     <Placeholder label="Pane" height={120} />
   </PageLayout.Pane>
   <PageLayout.Footer divider="line">
@@ -172,25 +173,39 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   <PropsTableRow
     name="divider"
     type={`| 'none'
-| 'line'`}
+| 'line'
+| {
+    narrow?:
+      | 'none'
+      | 'line' 
+      | 'filled'
+    regular?:
+      | 'none'
+      | 'line'
+    wide?:
+      | 'none'
+      | 'line'
+  }`}
     defaultValue="'none'"
   />
   <PropsTableRow
     name="dividerWhenNarrow"
+    deprecated
     type={`| 'inherit'
 | 'none'
 | 'line'
 | 'filled'`}
     defaultValue="'inherit'"
+    description="Use the divider prop with a responsive value instead."
   />
   <PropsTableRow
     name="hidden"
     type={`| boolean
 | {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
     defaultValue="false"
     description="Whether the header is hidden."
   />
@@ -213,10 +228,10 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     name="hidden"
     type={`| boolean
 | {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
     defaultValue="false"
     description="Whether the content is hidden."
   />
@@ -250,25 +265,39 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   <PropsTableRow
     name="divider"
     type={`| 'none'
-| 'line'`}
+| 'line'
+| {
+    narrow?:
+      | 'none'
+      | 'line' 
+      | 'filled'
+    regular?:
+      | 'none'
+      | 'line'
+    wide?:
+      | 'none'
+      | 'line'
+  }`}
     defaultValue="'none'"
   />
   <PropsTableRow
     name="dividerWhenNarrow"
+    deprecated
     type={`| 'inherit'
 | 'none'
 | 'line'
 | 'filled'`}
     defaultValue="'inherit'"
+    description="Use the divider prop with a responsive value instead."
   />
   <PropsTableRow
     name="hidden"
     type={`| boolean
 | {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
     defaultValue="false"
     description="Whether the pane is hidden."
   />
@@ -281,25 +310,39 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   <PropsTableRow
     name="divider"
     type={`| 'none'
-| 'line'`}
+| 'line'
+| {
+    narrow?:
+      | 'none'
+      | 'line' 
+      | 'filled'
+    regular?:
+      | 'none'
+      | 'line'
+    wide?:
+      | 'none'
+      | 'line'
+  }`}
     defaultValue="'none'"
   />
   <PropsTableRow
     name="dividerWhenNarrow"
+    deprecated
     type={`| 'inherit'
 | 'none'
 | 'line'
 | 'filled'`}
     defaultValue="'inherit'"
+    description="Use the divider prop with a responsive value instead."
   />
   <PropsTableRow
     name="hidden"
     type={`| boolean
 | {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
     defaultValue="false"
     description="Whether the footer is hidden."
   />
