@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 import {Overlay, Box, Text} from '..'
 import {ButtonDanger, Button} from '../deprecated'
-import {render, cleanup, waitFor, fireEvent, act} from '@testing-library/react'
+import {render, cleanup, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import '@testing-library/jest-dom'
@@ -68,35 +68,39 @@ describe('Overlay', () => {
   })
 
   it('should focus element passed into function', async () => {
+    const user = userEvent.setup()
     const {getByText} = render(<TestComponent initialFocus="button" />)
-    userEvent.click(getByText('open overlay'))
+    await user.click(getByText('open overlay'))
     await waitFor(() => getByText('Confirm'))
     const confirmButton = getByText('Confirm')
     expect(document.activeElement).toEqual(confirmButton)
   })
 
   it('should focus first element when nothing is passed', async () => {
+    const user = userEvent.setup()
     const {getByText} = render(<TestComponent />)
-    userEvent.click(getByText('open overlay'))
+    await user.click(getByText('open overlay'))
     await waitFor(() => getByText('Cancel'))
     const cancelButton = getByText('Cancel')
     expect(document.activeElement).toEqual(cancelButton)
   })
 
-  it('should call function when user clicks outside container', () => {
+  it('should call function when user clicks outside container', async () => {
+    const user = userEvent.setup()
     const mockFunction = jest.fn()
     const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
-    act(() => userEvent.click(getByText('open overlay')))
-    act(() => userEvent.click(getByText('outside')))
+    await user.click(getByText('open overlay'))
+    await user.click(getByText('outside'))
     expect(mockFunction).toHaveBeenCalledTimes(1)
     const cancelButtons = queryAllByText('Cancel')
     expect(cancelButtons).toHaveLength(0)
   })
 
-  it('should call function when user presses escape', () => {
+  it('should call function when user presses escape', async () => {
+    const user = userEvent.setup()
     const mockFunction = jest.fn()
     const {getByText, queryAllByText} = render(<TestComponent callback={mockFunction} />)
-    act(() => userEvent.click(getByText('open overlay')))
+    await user.click(getByText('open overlay'))
     const domNode = getByText('Are you sure?')
     fireEvent.keyDown(domNode, {key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27})
     expect(mockFunction).toHaveBeenCalledTimes(1)
@@ -104,7 +108,8 @@ describe('Overlay', () => {
     expect(cancelButtons).toHaveLength(0)
   })
 
-  it('should close the top most overlay on escape', () => {
+  it('should close the top most overlay on escape', async () => {
+    const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
         <NestedOverlays />
@@ -112,11 +117,11 @@ describe('Overlay', () => {
     )
 
     // open first menu
-    userEvent.click(container.getByLabelText('Add this repository to a list'))
+    await user.click(container.getByLabelText('Add this repository to a list'))
     expect(container.getByText('Add to list')).toBeInTheDocument()
 
     // open second menu
-    userEvent.click(container.getByText('Create list'))
+    await user.click(container.getByText('Create list'))
     expect(container.getByPlaceholderText('Name this list')).toBeInTheDocument()
 
     // hitting escape on input should close the second menu but not the first
@@ -130,7 +135,8 @@ describe('Overlay', () => {
     expect(container.queryByText('Add to list')).not.toBeInTheDocument()
   })
 
-  it('memex repro: should only close the dropdown when escape is pressed', () => {
+  it('memex repro: should only close the dropdown when escape is pressed', async () => {
+    const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
         <MemexNestedOverlays />
@@ -138,11 +144,11 @@ describe('Overlay', () => {
     )
 
     // open first menu
-    userEvent.click(container.getByLabelText('Add custom iteration'))
+    await user.click(container.getByLabelText('Add custom iteration'))
     expect(container.getByLabelText('Change duration unit')).toBeInTheDocument()
 
     // open dropdown menu
-    userEvent.click(container.getByLabelText('Change duration unit'))
+    await user.click(container.getByLabelText('Change duration unit'))
     expect(container.getByRole('menu')).toBeInTheDocument()
 
     // hitting escape on menu item should close the dropdown menu but not the overlay
@@ -152,7 +158,8 @@ describe('Overlay', () => {
     expect(container.getByLabelText('Change duration unit')).toBeInTheDocument()
   })
 
-  it('memex repro: should not close overlay when input has event.preventDefault', () => {
+  it('memex repro: should not close overlay when input has event.preventDefault', async () => {
+    const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
         <MemexIssueOverlay />
@@ -160,11 +167,11 @@ describe('Overlay', () => {
     )
 
     // clicking the title opens overlay
-    userEvent.click(container.getByText('Implement draft issue editor'))
+    await user.click(container.getByText('Implement draft issue editor'))
     expect(container.getByLabelText('Change issue title')).toBeInTheDocument()
 
     // clicking the button changes to input
-    userEvent.click(container.getByLabelText('Change issue title'))
+    await user.click(container.getByLabelText('Change issue title'))
     expect(container.getByDisplayValue('Implement draft issue editor')).toBeInTheDocument()
 
     // pressing Escape inside input brings back the button but does not close the overlay
@@ -178,7 +185,8 @@ describe('Overlay', () => {
 
   // https://github.com/primer/react/issues/1802
   // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('memex repro: should not leak overlay events to the document', () => {
+  it.skip('memex repro: should not leak overlay events to the document', async () => {
+    const user = userEvent.setup()
     const mockHandler = jest.fn()
     const BugRepro1802 = () => {
       const [isOpen, setIsOpen] = useState(false)
@@ -208,7 +216,7 @@ describe('Overlay', () => {
 
     const container = render(<BugRepro1802 />)
 
-    userEvent.click(container.getByText('open overlay'))
+    await user.click(container.getByText('open overlay'))
     fireEvent.keyDown(container.getByText('Text inside Overlay'), {key: 'Escape', code: 'Escape'})
 
     // if stopPropagation worked, mockHandler would not have been called
