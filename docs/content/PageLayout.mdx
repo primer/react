@@ -244,15 +244,28 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   <PropsTableRow
     name="position"
     type={`| 'start'
-| 'end'`}
+| 'end'
+| {
+    narrow?:
+      | 'start'
+      | 'end'
+    regular?:
+      | 'start'
+      | 'end'
+    wide?:
+      | 'start'
+      | 'end'
+  }`}
     defaultValue="'start'"
   />
   <PropsTableRow
     name="positionWhenNarrow"
+    deprecated
     type={`| 'inherit'
 | 'start'
 | 'end'`}
     defaultValue="'inherit'"
+    description="Use the position prop with a responsive value instead."
   />
   <PropsTableRow
     name="width"
