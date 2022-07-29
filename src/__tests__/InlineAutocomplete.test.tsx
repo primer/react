@@ -1,5 +1,5 @@
 import React, {useLayoutEffect, useState} from 'react'
-import {fireEvent, render, within, act} from '@testing-library/react'
+import {fireEvent, render, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions, Trigger} from '../InlineAutocomplete'
 import FormControl from '../FormControl'
