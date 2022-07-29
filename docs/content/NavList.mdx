@@ -210,7 +210,10 @@ import {NavList} from '@primer/react'
 
 function NavItem({href, children}) {
   const router = useRouter()
-  const isCurrent = router.asPath === href
+  const isCurrent =
+    typeof href === 'string'
+      ? router.asPath === href
+      : router.pathname === href.pathname;
   return (
     <Link href={href} passHref>
       <NavList.Item aria-current={isCurrent ? 'page' : false}>{children}</NavList.Item>
@@ -224,6 +227,14 @@ function App() {
       <NavItem href="/">Dashboard</NavItem>
       <NavItem href="/pulls">Pull requests</NavItem>
       <NavItem href="/issues">Issues</NavItem>
+      <NavItem
+        href={{
+          pathname: '/[owner]/[repo]',
+          query: { owner, repo },
+        }}
+      >
+        Summary
+      </NavItem>
     </NavList>
   )
 }
