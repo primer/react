@@ -1,4 +1,4 @@
-import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject} from 'react'
+import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {IconProps} from '@primer/octicons-react'
@@ -47,7 +47,7 @@ export const UnderlineNavLink = forwardRef(
       href = '#',
       children,
       onSelect,
-      selected = false,
+      selected: preSelected = false,
       leadingIcon: LeadingIcon,
       ...props
     },
@@ -55,11 +55,12 @@ export const UnderlineNavLink = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = forwardedRef ?? backupRef
-    const {setChildrenWidth} = useContext(UnderlineNavContext)
+    const {setChildrenWidth, selectedLink, setSelectedLink, afterSelect} = useContext(UnderlineNavContext)
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
       setChildrenWidth({width: domRect.width})
-    }, [ref, setChildrenWidth])
+      preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
+    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
     const iconWrapStyles = {
       display: 'inline-block',
       marginRight: '8px'
@@ -74,14 +75,14 @@ export const UnderlineNavLink = forwardRef(
       color: 'fg.default',
       textAlign: 'center',
       borderBottom: '2px solid transparent',
-      borderColor: selected ? 'primer.border.active' : 'transparent',
+      borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
       textDecoration: 'none',
       paddingX: 2,
       paddingY: 3,
       marginRight: 3,
       fontSize: 1,
       '&:hover, &:focus': {
-        borderColor: 'neutral.muted',
+        borderColor: selectedLink === ref ? 'primer.border.active' : 'neutral.muted',
         transition: '0.2s ease'
       }
     }
@@ -89,20 +90,25 @@ export const UnderlineNavLink = forwardRef(
       event => {
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
           if (typeof onSelect === 'function') onSelect(event)
+          if (typeof afterSelect === 'function') afterSelect(event)
         }
+        setSelectedLink(ref as RefObject<HTMLElement>)
+        event.preventDefault()
       },
-      [onSelect]
+      [onSelect, afterSelect, ref, setSelectedLink]
     )
 
     const clickHandler = React.useCallback(
       event => {
         if (!event.defaultPrevented) {
           if (typeof onSelect === 'function') onSelect(event)
+          if (typeof afterSelect === 'function') afterSelect(event)
         }
+        setSelectedLink(ref as RefObject<HTMLElement>)
+        event.preventDefault()
       },
-      [onSelect]
+      [onSelect, afterSelect, ref, setSelectedLink]
     )
-
     return (
       <Box as="li">
         <Box
@@ -110,7 +116,7 @@ export const UnderlineNavLink = forwardRef(
           href={href}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
-          {...(selected ? {'aria-current': 'page'} : {})}
+          {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
           sx={merge(linkStyles, sxProp as SxProp)}
           {...props}
           ref={ref}

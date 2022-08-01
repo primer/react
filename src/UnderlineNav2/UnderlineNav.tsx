@@ -84,11 +84,15 @@ export type UnderlineNavProps = {
   overflow?: Overflow
   align?: 'right'
   sx?: SxProp
+  onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   children: React.ReactNode
 }
 
 export const UnderlineNav = forwardRef(
-  ({as = 'nav', overflow = 'auto', align, label, sx: sxProp = {}, children}: UnderlineNavProps, forwardedRef) => {
+  (
+    {as = 'nav', overflow = 'auto', align, label, sx: sxProp = {}, onSelect, children}: UnderlineNavProps,
+    forwardedRef
+  ) => {
     const backupRef = useRef<HTMLElement>(null)
     const newRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const styles = {
@@ -106,6 +110,14 @@ export const UnderlineNav = forwardRef(
       padding: '0',
       margin: '0',
       marginBottom: '-1px'
+    }
+
+    const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
+
+    const afterSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+      if (!event.defaultPrevented) {
+        if (typeof onSelect === 'function') onSelect(event)
+      }
     }
 
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
@@ -138,9 +150,8 @@ export const UnderlineNav = forwardRef(
       [callback, childWidthArray, children, overflow]
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
-
     return (
-      <UnderlineNavContext.Provider value={{setChildrenWidth}}>
+      <UnderlineNavContext.Provider value={{setChildrenWidth, selectedLink, setSelectedLink, afterSelect}}>
         <Box as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
           <Box as="ul" sx={merge<BetterSystemStyleObject>(overflowStyles, ulStyles)}>
             {responsiveProps.items}
