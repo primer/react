@@ -202,7 +202,7 @@ interface Options {
 
 interface BehavesAsComponent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Component: React.ComponentType<any>
+  Component: React.ComponentType<React.PropsWithChildren<any>>
   toRender?: () => React.ReactElement
   options?: Options
 }

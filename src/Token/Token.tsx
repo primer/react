@@ -10,12 +10,12 @@ export interface TokenProps extends TokenBaseProps {
    * A function that renders a component before the token text
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  leadingVisual?: React.ComponentType<any>
+  leadingVisual?: React.ComponentType<React.PropsWithChildren<any>>
 }
 
 const tokenBorderWidthPx = 1
 
-const LeadingVisualContainer: React.FC<Pick<TokenBaseProps, 'size'>> = ({children, size}) => (
+const LeadingVisualContainer: React.FC<React.PropsWithChildren<Pick<TokenBaseProps, 'size'>>> = ({children, size}) => (
   <Box
     sx={{
       flexShrink: 0,

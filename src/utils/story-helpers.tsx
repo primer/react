@@ -51,7 +51,7 @@ const GlobalStyleMultiTheme = createGlobalStyle`
   }
 `
 
-export const withThemeProvider = (Story: React.FC<StoryContext>, context: StoryContext) => {
+export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryContext>>, context: StoryContext) => {
   // used for testing ThemeProvider.stories.tsx
   if (context.parameters.disableThemeDecorator) return <Story {...context} />
 

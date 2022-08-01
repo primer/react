@@ -6,7 +6,7 @@ import {getVariantStyles, Slot, ItemContext, TEXT_ROW_HEIGHT} from './Item'
 
 type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
-export const LeadingVisualContainer: React.FC<VisualProps> = ({sx = {}, ...props}) => {
+export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
     <Box
       as="span"
@@ -29,7 +29,7 @@ export const LeadingVisualContainer: React.FC<VisualProps> = ({sx = {}, ...props
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
+export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
     <Slot name="LeadingVisual">
       {({variant, disabled}: ItemContext) => (
@@ -51,7 +51,7 @@ export const LeadingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<VisualProps> = ({sx = {}, ...props}) => {
+export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
     <Slot name="TrailingVisual">
       {({variant, disabled}: ItemContext) => (
