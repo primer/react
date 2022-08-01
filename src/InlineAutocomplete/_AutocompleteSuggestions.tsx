@@ -100,7 +100,7 @@ const AutocompleteSuggestions = ({
       sx={{position: 'fixed'}}
       {...{top, left}}
     >
-      <ActionList selectionVariant="single" ref={setList}>
+      <ActionList ref={setList}>
         {suggestions === 'loading' ? (
           <LoadingIndicator />
         ) : (
