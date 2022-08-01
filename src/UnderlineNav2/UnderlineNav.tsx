@@ -6,26 +6,6 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 
-/*
-Todo:
-1. Convert context to have array of all items = done
-2. Convert UnderlineNav.Link to ActionList.Item - done
-3. Calculate combined width of items to be 50% of total width available - done
-4. fix the dropdown button - done
-5. figure out horizontal scroll - done
-6. Overflow on resize - done
-7. pass typescript - done
-8. Performance is wack! Resize Observer exceeds limit - done
-9. Test for long strings not wrapping sometimes. - done
-10. Test for mobile device support. - seems good
-11. Add api for Overflow button? - maybe later
-12. Do we need icons in overflow dropdown? Currently not supported. - not doing
-13. Test out and fix selection and highlight - A11y q about hover state.
-14. Write out a proper storybook with tab selection using this nav.
-15. Write up documentation
-16. Demo video.
-*/
-
 type Overflow = 'auto' | 'menu' | 'scroll'
 type ChildWidthArray = Array<{width: number}>
 type ResponsiveProps = {
