@@ -116,15 +116,17 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   const onConfirmButtonClick = useCallback(() => {
     onClose('confirm')
   }, [onClose])
+  const isConfirmationDangerous = confirmButtonType === 'danger'
   const cancelButton: DialogButtonProps = {
     content: cancelButtonContent,
-    onClick: onCancelButtonClick
+    onClick: onCancelButtonClick,
+    autoFocus: isConfirmationDangerous
   }
   const confirmButton: DialogButtonProps = {
     content: confirmButtonContent,
     buttonType: confirmButtonType,
     onClick: onConfirmButtonClick,
-    autoFocus: true
+    autoFocus: !isConfirmationDangerous
   }
   const footerButtons = [cancelButton, confirmButton]
   return (
