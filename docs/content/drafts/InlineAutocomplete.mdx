@@ -1,13 +1,15 @@
 ---
-componentId: inline_autocomplete
 title: InlineAutocomplete
+componentId: inline_autocomplete
 status: Draft
 description: Provides inline auto completion suggestions for an input or textarea.
 source: https://github.com/primer/react/tree/main/src/InlineAutocomplete
 storybook: '/react/storybook?path=/story/forms-inlineautocomplete--default'
 ---
 
+```js
 import {InlineAutocomplete} from '@primer/react/drafts'
+```
 
 The `InlineAutocomplete` component extends an `Input` or `Textarea` component to provide inline suggestions, similar to those provided by a code editor.
 
@@ -22,31 +24,78 @@ technologies. Examples below are provided for conciseness and may not reflect ac
 
 </Note>
 
-### Simple Example
+### Multi-line input
+
+Try typing a `#` symbol to see suggestions. Use `Enter` or click to apply a suggestion.
 
 ```javascript live noinline drafts
-const hashtags = ['javascript', 'typescript', 'css', 'html', 'webassembly']
+const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
 
-const EmojiPickerExample = () => {
+const SimpleExample = () => {
   const [suggestions, setSuggestions] = React.useState([])
-
-  const onShowSuggestions = ({trigger}) => setSuggestions(hashtags.filter(tag => tag.includes(trigger)))
-
-  const onHideSuggestions = () => setSuggestions([])
 
   return (
     <InlineAutocomplete
       triggers={[{triggerChar: '#'}]}
       suggestions={suggestions}
-      onShowSuggestions={onShowSuggestions}
-      onHideSuggestions={onHideSuggestions}
+      onShowSuggestions={({query}) => setSuggestions(options.filter(tag => tag.includes(query)))}
+      onHideSuggestions={() => setSuggestions([])}
     >
       <Textarea />
     </InlineAutocomplete>
   )
 }
 
-render(EmojiPickerExample)
+render(SimpleExample)
+```
+
+### Single-line input
+
+```javascript live noinline drafts
+const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
+
+const SimpleExample = () => {
+  const [suggestions, setSuggestions] = React.useState([])
+
+  return (
+    <InlineAutocomplete
+      triggers={[{triggerChar: '#'}]}
+      suggestions={suggestions}
+      onShowSuggestions={({query}) => setSuggestions(options.filter(tag => tag.includes(query)))}
+      onHideSuggestions={() => setSuggestions([])}
+    >
+      <TextInput />
+    </InlineAutocomplete>
+  )
+}
+
+render(SimpleExample)
+```
+
+### Labelled
+
+```javascript live noinline drafts
+const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
+
+const SimpleExample = () => {
+  const [suggestions, setSuggestions] = React.useState([])
+
+  return (
+    <FormControl>
+      <FormControl.Label>Example</FormControl.Label>
+      <InlineAutocomplete
+        triggers={[{triggerChar: '#'}]}
+        suggestions={suggestions}
+        onShowSuggestions={({query}) => setSuggestions(options.filter(tag => tag.includes(query)))}
+        onHideSuggestions={() => setSuggestions([])}
+      >
+        <Textarea />
+      </InlineAutocomplete>
+    </FormControl>
+  )
+}
+
+render(SimpleExample)
 ```
 
 ## Status
