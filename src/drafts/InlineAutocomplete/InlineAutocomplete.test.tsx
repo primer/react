@@ -445,7 +445,7 @@ describe('InlineAutocomplete', () => {
 
     const statusMessage = queryByText(
       '3 autocomplete suggestions available; "monalisa" is highlighted. Press Enter to insert.'
-    )!
+    )
     expect(statusMessage).toBeInTheDocument()
     expect(statusMessage).toHaveAttribute('aria-live', 'assertive')
 
@@ -464,7 +464,7 @@ describe('InlineAutocomplete', () => {
 
     const statusMessage = queryByText(
       '3 autocomplete suggestions available; "monalisa" is highlighted. Press Enter or Tab to insert.'
-    )!
+    )
     expect(statusMessage).toBeInTheDocument()
   })
 })
