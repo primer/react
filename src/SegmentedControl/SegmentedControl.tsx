@@ -14,7 +14,7 @@ type SegmentedControlProps = {
   'aria-labelledby'?: string
   'aria-describedby'?: string
   /** Whether the control fills the width of its parent */
-  fullWidth?: boolean | Partial<Record<WidthOnlyViewportRangeKeys, boolean>>
+  fullWidth?: boolean | ResponsiveValue<boolean>
   /** The handler that gets called when a segment is selected */
   onChange?: (selectedIndex: number) => void
   /** Configure alternative ways to render the control when it gets rendered in tight spaces */
