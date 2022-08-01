@@ -117,7 +117,7 @@ export const SingleLine = ({loading, tabInserts}: ArgProps) => {
         onHideSuggestions={() => setSuggestions(null)}
         tabInsertsSuggestions={tabInserts}
       >
-        <TextInput />
+        <TextInput sx={{lineHeight: 1.2}} />
       </InlineAutocomplete>
     </FormControl>
   )

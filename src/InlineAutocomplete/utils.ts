@@ -67,6 +67,10 @@ export const getCharacterCoordinates = (
   // of 1.2 based on MDN: "Desktop browsers use a default value of roughly 1.2".
   if (isNaN(coords.height)) coords.height = parseInt(getComputedStyle(input).fontSize) * 1.2
 
+  // Sometimes top is negative, incorrectly, because of the wierd line-height calculations around
+  // border-box sized single-line inputs.
+  coords.top = Math.abs(coords.top)
+
   // For some single-line inputs, the rightmost character can be accidentally wrapped even with the
   // wordWrap fix above. If this happens, go back to the last usable index
   let adjustedIndex = index
