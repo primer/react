@@ -1,4 +1,4 @@
-import {cleanup, render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
+import {cleanup, render as HTMLRender, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
@@ -49,55 +49,66 @@ describe('ActionMenu', () => {
 
   it('should open Menu on MenuButton click', async () => {
     const component = HTMLRender(<Example />)
-    const button = component.getByText('Toggle Menu')
-    fireEvent.click(button)
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
     expect(component.getByRole('menu')).toBeInTheDocument()
     cleanup()
   })
 
   it('should open Menu on MenuButton keypress', async () => {
     const component = HTMLRender(<Example />)
-    const button = component.getByText('Toggle Menu')
+    const button = component.getByRole('button')
 
-    fireEvent.keyDown(button, {key: 'Enter'})
+    const user = userEvent.setup()
+    button.focus()
+    await user.keyboard('{Enter}')
+
     expect(component.getByRole('menu')).toBeInTheDocument()
     cleanup()
   })
 
   it('should close Menu on selecting an action with click', async () => {
     const component = HTMLRender(<Example />)
-    const button = component.getByText('Toggle Menu')
+    const button = component.getByRole('button')
 
-    fireEvent.click(button)
-    const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
-    fireEvent.click(menuItems[0])
+    const user = userEvent.setup()
+    await user.click(button)
+
+    const menuItems = component.getAllByRole('menuitem')
+    await user.click(menuItems[0])
+
     expect(component.queryByRole('menu')).toBeNull()
-
     cleanup()
   })
 
   it('should close Menu on selecting an action with Enter', async () => {
     const component = HTMLRender(<Example />)
-    const button = component.getByText('Toggle Menu')
+    const button = component.getByRole('button')
 
-    fireEvent.click(button)
-    const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
+    const user = userEvent.setup()
+    await user.click(button)
 
-    // We pass keycode here to navigate a implementation detail in react-testing-library
-    // https://github.com/testing-library/react-testing-library/issues/269#issuecomment-455854112
-    fireEvent.keyPress(menuItems[0], {key: 'Enter', charCode: 13})
+    const menuItems = component.getAllByRole('menuitem')
+    menuItems[0].focus()
+    await user.keyboard('{Enter}')
+
     expect(component.queryByRole('menu')).toBeNull()
-
     cleanup()
   })
 
   it('should not close Menu if event is prevented', async () => {
     const component = HTMLRender(<Example />)
-    const button = component.getByText('Toggle Menu')
+    const button = component.getByRole('button')
 
-    fireEvent.click(button)
-    const menuItems = await waitFor(() => component.getAllByRole('menuitem'))
-    fireEvent.click(menuItems[3])
+    const user = userEvent.setup()
+    await user.click(button)
+
+    const menuItems = component.getAllByRole('menuitem')
+    await user.click(menuItems[3])
+
     // menu should still be open
     expect(component.getByRole('menu')).toBeInTheDocument()
 
@@ -111,14 +122,16 @@ describe('ActionMenu', () => {
       </ThemeProvider>
     )
     const button = component.getByLabelText('Field type')
-    fireEvent.click(button)
+
+    const user = userEvent.setup()
+    await user.click(button)
 
     // select first item by role, that would close the menu
-    fireEvent.click(component.getAllByRole('menuitemradio')[0])
+    await user.click(component.getAllByRole('menuitemradio')[0])
     expect(component.queryByRole('menu')).not.toBeInTheDocument()
 
     // open menu again and check if the first option is checked
-    fireEvent.click(button)
+    await user.click(button)
     expect(component.getAllByRole('menuitemradio')[0]).toHaveAttribute('aria-checked', 'true')
     cleanup()
   })
@@ -130,7 +143,9 @@ describe('ActionMenu', () => {
       </ThemeProvider>
     )
     const button = component.getByLabelText('Group by')
-    fireEvent.click(button)
+
+    const user = userEvent.setup()
+    await user.click(button)
 
     expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
     expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
@@ -142,53 +157,48 @@ describe('ActionMenu', () => {
     const component = HTMLRender(<Example />)
     const button = component.getByRole('button')
 
-    userEvent.tab() // tab into the story, this should focus on the first button
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first button
     expect(button).toEqual(document.activeElement) // trust, but verify
 
-    userEvent.click(button)
+    await user.click(button)
     expect(component.queryByRole('menu')).toBeInTheDocument()
-
-    /** We use waitFor because the hook uses an effect with setTimeout
-     *  and we need to wait for that to happen in the next tick
-     */
-    await waitFor(() => expect(document.activeElement).toEqual(button))
+    expect(document.activeElement).toEqual(button)
 
     cleanup()
   })
 
   it('should select first element when ArrowDown is pressed after opening Menu with click', async () => {
     const component = HTMLRender(<Example />)
+    const button = component.getByRole('button')
 
-    const button = component.getByText('Toggle Menu')
-    button.focus() // browsers do this automatically on click, but tests don't
-    fireEvent.click(button)
+    const user = userEvent.setup()
+    await user.click(button)
+
     expect(component.queryByRole('menu')).toBeInTheDocument()
 
-    // button should be the active element
-    fireEvent.keyDown(document.activeElement!, {key: 'ArrowDown', code: 'ArrowDown'})
+    // assumes button is the active element at this point
+    await user.keyboard('{ArrowDown}')
 
-    await waitFor(() => {
-      expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
-    })
-
+    expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
     cleanup()
   })
 
   it('should select last element when ArrowUp is pressed after opening Menu with click', async () => {
     const component = HTMLRender(<Example />)
 
-    const button = component.getByText('Toggle Menu')
-    button.focus() // browsers do this automatically on click, but tests don't
-    fireEvent.click(button)
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
     expect(component.queryByRole('menu')).toBeInTheDocument()
 
     // button should be the active element
-    fireEvent.keyDown(document.activeElement!, {key: 'ArrowUp', code: 'ArrowUp'})
+    // assumes button is the active element at this point
+    await user.keyboard('{ArrowUp}')
 
-    await waitFor(() => {
-      expect(component.getAllByRole('menuitem').pop()).toEqual(document.activeElement)
-    })
-
+    expect(component.getAllByRole('menuitem').pop()).toEqual(document.activeElement)
     cleanup()
   })
 
@@ -201,16 +211,17 @@ describe('ActionMenu', () => {
     )
     const anchor = component.getByRole('button')
 
-    userEvent.tab() // tab into the story, this should focus on the first button
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first button
     expect(anchor).toEqual(document.activeElement) // trust, but verify
 
-    fireEvent.keyDown(anchor, {key: 'Enter'})
+    await user.keyboard('{Enter}')
     expect(component.queryByRole('menu')).toBeInTheDocument()
-
     expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
 
-    await waitFor(() => {
-      userEvent.tab()
+    // TODO: revisit why we need this waitFor
+    await waitFor(async () => {
+      await user.tab()
       expect(document.activeElement).toEqual(component.getByPlaceholderText('next focusable element'))
       expect(component.queryByRole('menu')).not.toBeInTheDocument()
     })
