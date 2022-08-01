@@ -11,7 +11,7 @@ export type SegmentedControlButtonProps = {
   /** Whether the segment is selected */
   selected?: boolean
   /** The leading icon comes before item label */
-  leadingIcon?: React.FunctionComponent<IconProps>
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
 } & SxProp &
   HTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
@@ -19,7 +19,7 @@ const SegmentedControlButtonStyled = styled.button`
   ${sx};
 `
 
-const SegmentedControlButton: React.FC<SegmentedControlButtonProps> = ({
+const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,
   selected,

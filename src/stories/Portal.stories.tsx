@@ -48,7 +48,7 @@ export const customPortalRootById = () => (
   </>
 )
 
-export const CustomPortalRootByRegistration: React.FC<Record<string, never>> = () => {
+export const CustomPortalRootByRegistration: React.FC<React.PropsWithChildren<Record<string, never>>> = () => {
   const outerContainerRef = React.useRef<HTMLDivElement>(null)
   const [mounted, setMounted] = React.useState(false)
   React.useEffect(() => {
@@ -75,7 +75,7 @@ export const CustomPortalRootByRegistration: React.FC<Record<string, never>> = (
   )
 }
 
-export const MultiplePortalRoots: React.FC<Record<string, never>> = () => {
+export const MultiplePortalRoots: React.FC<React.PropsWithChildren<Record<string, never>>> = () => {
   const outerContainerRef = React.useRef<HTMLDivElement>(null)
   const innerContainerRef = React.useRef<HTMLDivElement>(null)
   const [mounted, setMounted] = React.useState(false)

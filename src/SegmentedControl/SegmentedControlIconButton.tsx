@@ -12,7 +12,7 @@ import Tooltip from '../Tooltip'
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
   /** The icon that represents the segmented control item */
-  icon: React.FunctionComponent<IconProps>
+  icon: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /** Whether the segment is selected */
   selected?: boolean
 } & SxProp &
@@ -28,7 +28,7 @@ const SegmentedControlIconButtonStyled = styled.button`
 //
 // See Slack thread: https://github.slack.com/archives/C02NUUQ9C30/p1656444474509599
 //
-export const SegmentedControlIconButton: React.FC<SegmentedControlIconButtonProps> = ({
+export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
   'aria-label': ariaLabel,
   icon: Icon,
   selected,

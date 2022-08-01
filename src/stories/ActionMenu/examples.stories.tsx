@@ -19,7 +19,7 @@ const meta: Meta = {
   title: 'Composite components/ActionMenu/examples',
   component: ActionMenu,
   decorators: [
-    (Story: React.ComponentType): JSX.Element => (
+    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
       <ThemeProvider>
         <BaseStyles>
           <Story />

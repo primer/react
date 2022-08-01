@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box} from '..'
-import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 
 const REGION_ORDER = {
@@ -47,7 +47,7 @@ const containerWidths = {
 }
 
 // TODO: refs
-const Root: React.FC<PageLayoutProps> = ({
+const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
   rowGap = 'normal',
@@ -79,8 +79,7 @@ Root.displayName = 'PageLayout'
 // Divider (internal)
 
 type DividerProps = {
-  variant?: 'none' | 'line'
-  variantWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
 } & SxProp
 
 const horizontalDividerVariants = {
@@ -111,8 +110,9 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
   const {padding} = React.useContext(PageLayoutContext)
+  const responsiveVariant = useResponsiveValue(variant, 'none')
   return (
     <Box
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -121,10 +121,9 @@ const HorizontalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhe
           {
             // Stretch divider to viewport edges on narrow screens
             marginX: negateSpacingValue(SPACING_MAP[padding]),
-            ...horizontalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
+            ...horizontalDividerVariants[responsiveVariant],
             [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-              marginX: '0 !important',
-              ...horizontalDividerVariants[variant]
+              marginX: '0 !important'
             }
           },
           sx
@@ -153,22 +152,17 @@ const verticalDividerVariants = {
   }
 }
 
-const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenNarrow = 'inherit', sx = {}}) => {
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
+  const responsiveVariant = useResponsiveValue(variant, 'none')
   return (
     <Box
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sx={(theme: any) =>
-        merge<BetterSystemStyleObject>(
-          {
-            height: '100%',
-            ...verticalDividerVariants[variantWhenNarrow === 'inherit' ? variant : variantWhenNarrow],
-            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-              ...verticalDividerVariants[variant]
-            }
-          },
-          sx
-        )
-      }
+      sx={merge<BetterSystemStyleObject>(
+        {
+          height: '100%',
+          ...verticalDividerVariants[responsiveVariant]
+        },
+        sx
+      )}
     />
   )
 }
@@ -177,18 +171,39 @@ const VerticalDivider: React.FC<DividerProps> = ({variant = 'none', variantWhenN
 // PageLayout.Header
 
 export type PageLayoutHeaderProps = {
-  divider?: 'none' | 'line'
+  divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
+  /**
+   * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
+   */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const Header: React.FC<PageLayoutHeaderProps> = ({
+const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   hidden = false,
   children,
   sx = {}
 }) => {
+  // Combine divider and dividerWhenNarrow for backwards compatibility
+  const dividerProp =
+    !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
+      ? {regular: divider, narrow: dividerWhenNarrow}
+      : divider
+
+  const dividerVariant = useResponsiveValue(dividerProp, 'none')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
@@ -205,11 +220,7 @@ const Header: React.FC<PageLayoutHeaderProps> = ({
       )}
     >
       {children}
-      <HorizontalDivider
-        variant={divider}
-        variantWhenNarrow={dividerWhenNarrow}
-        sx={{marginTop: SPACING_MAP[rowGap]}}
-      />
+      <HorizontalDivider variant={dividerVariant} sx={{marginTop: SPACING_MAP[rowGap]}} />
     </Box>
   )
 }
@@ -232,7 +243,12 @@ const contentWidths = {
   xlarge: '1280px'
 }
 
-const Content: React.FC<PageLayoutContentProps> = ({width = 'full', hidden = false, children, sx = {}}) => {
+const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+  width = 'full',
+  hidden = false,
+  children,
+  sx = {}
+}) => {
   const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
@@ -263,10 +279,38 @@ Content.displayName = 'PageLayout.Content'
 // PageLayout.Pane
 
 export type PageLayoutPaneProps = {
-  position?: keyof typeof panePositions
+  position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
+  /**
+   * @deprecated Use the `position` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * position="start"
+   * positionWhenNarrow="end"
+   * ```
+   *
+   * After:
+   * ```
+   * position={{regular: 'start', narrow: 'end'}}
+   * ```
+   */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
-  divider?: 'none' | 'line'
+  divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
+  /**
+   * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
+   */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
@@ -282,7 +326,7 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
-const Pane: React.FC<PageLayoutPaneProps> = ({
+const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
   position = 'end',
   positionWhenNarrow = 'inherit',
   width = 'medium',
@@ -292,10 +336,23 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
   children,
   sx = {}
 }) => {
+  // Combine position and positionWhenNarrow for backwards compatibility
+  const positionProp =
+    !isResponsiveValue(position) && positionWhenNarrow !== 'inherit'
+      ? {regular: position, narrow: positionWhenNarrow}
+      : position
+
+  const responsivePosition = useResponsiveValue(positionProp, 'end')
+
+  // Combine divider and dividerWhenNarrow for backwards compatibility
+  const dividerProp =
+    !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
+      ? {regular: divider, narrow: dividerWhenNarrow}
+      : divider
+
+  const dividerVariant = useResponsiveValue(dividerProp, 'none')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap, columnGap} = React.useContext(PageLayoutContext)
-  const computedPositionWhenNarrow = positionWhenNarrow === 'inherit' ? position : positionWhenNarrow
-  const computedDividerWhenNarrow = dividerWhenNarrow === 'inherit' ? divider : dividerWhenNarrow
   return (
     <Box
       as="aside"
@@ -303,18 +360,18 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
           {
-            order: panePositions[computedPositionWhenNarrow],
+            order: panePositions[responsivePosition],
             display: isHidden ? 'none' : 'flex',
-            flexDirection: computedPositionWhenNarrow === 'end' ? 'column' : 'column-reverse',
+            flexDirection: responsivePosition === 'end' ? 'column' : 'column-reverse',
             width: '100%',
             marginX: 0,
-            [computedPositionWhenNarrow === 'end' ? 'marginTop' : 'marginBottom']: SPACING_MAP[rowGap],
+            [responsivePosition === 'end' ? 'marginTop' : 'marginBottom']: SPACING_MAP[rowGap],
             [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
               width: 'auto',
-              [position === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
+              [responsivePosition === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
               marginY: `0 !important`,
-              flexDirection: position === 'end' ? 'row' : 'row-reverse',
-              order: panePositions[position]
+              flexDirection: responsivePosition === 'end' ? 'row' : 'row-reverse',
+              order: panePositions[responsivePosition]
             }
           },
           sx
@@ -323,14 +380,12 @@ const Pane: React.FC<PageLayoutPaneProps> = ({
     >
       {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
       <HorizontalDivider
-        variant="none"
-        variantWhenNarrow={computedDividerWhenNarrow}
-        sx={{[computedPositionWhenNarrow === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
+        variant={{narrow: dividerVariant, regular: 'none'}}
+        sx={{[responsivePosition === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
       />
       <VerticalDivider
-        variant={divider}
-        variantWhenNarrow="none"
-        sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+        variant={{narrow: 'none', regular: dividerVariant}}
+        sx={{[responsivePosition === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
       />
 
       <Box sx={{width: paneWidths[width]}}>{children}</Box>
@@ -344,18 +399,39 @@ Pane.displayName = 'PageLayout.Pane'
 // PageLayout.Footer
 
 export type PageLayoutFooterProps = {
-  divider?: 'none' | 'line'
+  divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
+  /**
+   * @deprecated Use the `divider` prop with a responsive value instead.
+   *
+   * Before:
+   * ```
+   * divider="line"
+   * dividerWhenNarrow="filled"
+   * ```
+   *
+   * After:
+   * ```
+   * divider={{regular: 'line', narrow: 'filled'}}
+   * ```
+   */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const Footer: React.FC<PageLayoutFooterProps> = ({
+const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   divider = 'none',
   dividerWhenNarrow = 'inherit',
   hidden = false,
   children,
   sx = {}
 }) => {
+  // Combine divider and dividerWhenNarrow for backwards compatibility
+  const dividerProp =
+    !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
+      ? {regular: divider, narrow: dividerWhenNarrow}
+      : divider
+
+  const dividerVariant = useResponsiveValue(dividerProp, 'none')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
   return (
@@ -371,11 +447,7 @@ const Footer: React.FC<PageLayoutFooterProps> = ({
         sx
       )}
     >
-      <HorizontalDivider
-        variant={divider}
-        variantWhenNarrow={dividerWhenNarrow}
-        sx={{marginBottom: SPACING_MAP[rowGap]}}
-      />
+      <HorizontalDivider variant={dividerVariant} sx={{marginBottom: SPACING_MAP[rowGap]}} />
       {children}
     </Box>
   )

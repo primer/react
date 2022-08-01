@@ -9,7 +9,7 @@ const meta: Meta = {
   title: 'Composite components/FilteredActionList',
   component: FilteredActionList,
   decorators: [
-    (Story: React.ComponentType): JSX.Element => (
+    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
       <ThemeProvider>
         <BaseStyles>
           <Story />

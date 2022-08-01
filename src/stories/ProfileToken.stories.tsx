@@ -34,7 +34,7 @@ export default {
 
 const excludedControlKeys = ['id', 'as', 'tabIndex', 'onRemove']
 
-const SingleExampleContainer: React.FC<{label?: string}> = ({children, label}) => (
+const SingleExampleContainer: React.FC<React.PropsWithChildren<{label?: string}>> = ({children, label}) => (
   <Box
     display="flex"
     sx={{
@@ -52,7 +52,7 @@ const SingleExampleContainer: React.FC<{label?: string}> = ({children, label}) =
   </Box>
 )
 
-const ExampleCollectionContainer: React.FC = ({children}) => (
+const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = ({children}) => (
   <Box
     display="flex"
     sx={{
