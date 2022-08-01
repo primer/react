@@ -3,22 +3,23 @@ import {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import {Box} from '..'
 import sx, {merge, SxProp} from '../sx'
-import getSegmentedControlButtonStyles from './getSegmentedControlStyles'
+import {getSegmentedControlButtonStyles} from './getSegmentedControlStyles'
 
 export type SegmentedControlButtonProps = {
-  children?: string
+  /** The visible label rendered in the button */
+  children: string
   /** Whether the segment is selected */
   selected?: boolean
   /** The leading icon comes before item label */
-  leadingIcon?: React.FunctionComponent<IconProps>
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement>
+  HTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlButtonStyled = styled.button`
   ${sx};
 `
 
-const SegmentedControlButton: React.FC<SegmentedControlButtonProps> = ({
+const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,
   selected,

@@ -10,7 +10,7 @@ type TextInputActionProps = Omit<React.HTMLProps<HTMLButtonElement>, 'aria-label
   /** Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies. */
   ['aria-label']?: string
   /** The icon to render inside the button */
-  icon?: React.FunctionComponent<IconProps>
+  icon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /**
    * @deprecated Text input action buttons should only use the 'invisible' button variant
    * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'
@@ -39,10 +39,12 @@ const invisibleButtonStyleOverrides = {
   }
 }
 
-const ConditionalTooltip: React.FC<{
-  ['aria-label']?: string
-  children: React.ReactNode
-}> = ({'aria-label': ariaLabel, children}) => (
+const ConditionalTooltip: React.FC<
+  React.PropsWithChildren<{
+    ['aria-label']?: string
+    children: React.ReactNode
+  }>
+> = ({'aria-label': ariaLabel, children}) => (
   <>
     {ariaLabel ? (
       <Tooltip

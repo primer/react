@@ -5,7 +5,7 @@ import {SxProp} from '../sx'
 import {FormControlContext} from './FormControl'
 import {Slot} from './slots'
 
-const FormControlLeadingVisual: React.FC<SxProp> = ({children, sx}) => (
+const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => (
   <Slot name="LeadingVisual">
     {({disabled, captionId}: FormControlContext) => (
       <Box

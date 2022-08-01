@@ -35,7 +35,7 @@ export type ActionListGroupProps = {
 type ContextProps = Pick<ActionListGroupProps, 'selectionVariant'>
 export const GroupContext = React.createContext<ContextProps>({})
 
-export const Group: React.FC<ActionListGroupProps> = ({
+export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
   auxiliaryText,
@@ -82,7 +82,7 @@ export type HeaderProps = Pick<ActionListGroupProps, 'variant' | 'title' | 'auxi
  *
  * For visual presentation only. It's hidden from screen readers.
  */
-const Header: React.FC<HeaderProps> = ({variant, title, auxiliaryText, labelId, ...props}) => {
+const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title, auxiliaryText, labelId, ...props}) => {
   const {variant: listVariant} = React.useContext(ListContext)
 
   const styles = {
