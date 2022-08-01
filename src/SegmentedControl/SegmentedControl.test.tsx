@@ -175,13 +175,12 @@ describe('SegmentedControl', () => {
     expect(handleChange).toHaveBeenCalledWith(1)
   })
 
-  it('changes selection to the clicked segment even without onChange being passed', () => {
+  it('changes selection to the clicked segment even without onChange being passed', async () => {
+    const user = userEvent.setup()
     const {getByText} = render(
       <SegmentedControl aria-label="File view">
-        {segmentData.map(({label}, index) => (
-          <SegmentedControl.Button selected={index === 0} key={label}>
-            {label}
-          </SegmentedControl.Button>
+        {segmentData.map(({label}) => (
+          <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
         ))}
       </SegmentedControl>
     )
@@ -190,7 +189,7 @@ describe('SegmentedControl', () => {
 
     expect(buttonToClick?.getAttribute('aria-current')).toBe('false')
     if (buttonToClick) {
-      userEvent.click(buttonToClick)
+      await user.click(buttonToClick)
     }
     expect(buttonToClick?.getAttribute('aria-current')).toBe('true')
   })
