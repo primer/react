@@ -4,7 +4,7 @@ import {SxProp} from '../sx'
 import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
 import {Slot} from './slots'
 
-const CheckboxOrRadioGroupCaption: React.FC<SxProp> = ({children, sx}) => (
+const CheckboxOrRadioGroupCaption: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => (
   <Slot name="Caption">
     {({disabled, captionId}: CheckboxOrRadioGroupContext) => (
       <Text color={disabled ? 'fg.muted' : 'fg.subtle'} fontSize={1} id={captionId} sx={sx}>

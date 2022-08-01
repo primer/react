@@ -25,7 +25,12 @@ const getInputToRender = (inputType: 'radio' | 'checkbox', children?: React.Reac
   )
 }
 
-const ChoiceInputField: React.FC<Props> = ({children, disabled, id: idProp, validationStatus}) => {
+const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({
+  children,
+  disabled,
+  id: idProp,
+  validationStatus
+}) => {
   const id = useSSRSafeId(idProp)
   const captionChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
     React.isValidElement(child) && child.type === InputFieldCaption ? child : null
@@ -125,7 +130,9 @@ const ChoiceInputField: React.FC<Props> = ({children, disabled, id: idProp, vali
   )
 }
 
-const Label: React.FC = ({children}) => <InputField.Label>{children}</InputField.Label>
+const Label: React.FC<React.PropsWithChildren<unknown>> = ({children}) => (
+  <InputField.Label>{children}</InputField.Label>
+)
 
 /**
  * @deprecated Use `FormControl` instead. See https://primer.style/react/FormControl for more info

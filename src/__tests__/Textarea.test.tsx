@@ -104,7 +104,8 @@ describe('Textarea', () => {
     expect(textareaElement.value).toEqual(mockValue)
   })
 
-  it('can render an inactive textarea', () => {
+  it('can render an inactive textarea', async () => {
+    const user = userEvent.setup()
     const handleChange = jest.fn()
     const {getByRole, rerender} = render(<Textarea disabled onChange={handleChange} />)
 
@@ -112,7 +113,7 @@ describe('Textarea', () => {
     expect(textareaElement.disabled).toEqual(true)
     expect(textareaElement).toHaveAttribute('disabled')
 
-    userEvent.click(textareaElement)
+    user.click(textareaElement)
 
     expect(handleChange).not.toHaveBeenCalled()
 

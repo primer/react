@@ -31,7 +31,7 @@ const getSegmentedControlStyles = (props?: SegmentedControlProps) => ({
   height: '32px' // TODO: use primitive `control.medium.size` when it is available
 })
 
-const Root: React.FC<SegmentedControlProps> = ({
+const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,

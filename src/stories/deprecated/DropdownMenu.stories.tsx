@@ -11,7 +11,7 @@ const meta: Meta = {
   title: 'Deprecated components/DropdownMenu',
   component: DropdownMenu,
   decorators: [
-    (Story: React.ComponentType): JSX.Element => {
+    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => {
       return (
         <ThemeProvider theme={theme}>
           <BaseStyles>
