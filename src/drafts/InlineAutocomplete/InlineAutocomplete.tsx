@@ -1,9 +1,9 @@
 import React, {cloneElement, useRef} from 'react'
-import Box from '../Box'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import Box from '../../Box'
+import {useCombinedRefs} from '../../hooks/useCombinedRefs'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
-import Portal from '../Portal'
-import {BetterSystemStyleObject} from '../sx'
+import Portal from '../../Portal'
+import {BetterSystemStyleObject} from '../../sx'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
 import {

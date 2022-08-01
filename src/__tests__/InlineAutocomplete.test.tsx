@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState} from 'react'
 import {fireEvent, render, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions, Trigger} from '../InlineAutocomplete'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions, Trigger} from '../drafts/InlineAutocomplete'
 import FormControl from '../FormControl'
 import {ActionList} from '../ActionList'
 import Textarea from '../Textarea'

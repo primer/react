@@ -12,7 +12,7 @@ import {
   FormControl,
   TextInput
 } from '..'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../InlineAutocomplete'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../drafts/InlineAutocomplete'
 
 export default {
   title: 'Forms/InlineAutocomplete',
