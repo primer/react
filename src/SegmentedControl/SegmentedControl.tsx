@@ -3,7 +3,7 @@ import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import {ActionList, ActionMenu, Box, useTheme} from '..'
 import {merge, SxProp} from '../sx'
-import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import {FocusKeys, FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 
