@@ -11,8 +11,8 @@ import {
   ActionListItemProps,
   FormControl,
   TextInput
-} from '..'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../drafts/InlineAutocomplete'
+} from '../..'
+import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
   title: 'Forms/InlineAutocomplete',
