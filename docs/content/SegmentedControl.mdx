@@ -153,11 +153,12 @@ description: Use a segmented control to let users select an option from a short 
   <PropsTableRow name="aria-describedby" type="string" />
   <PropsTableRow
     name="fullWidth"
-    type="'boolean' | {
-      narrow?: boolean
-      regular?: boolean
-      width?: boolean
-  }"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
     description="Whether the control fills the width of its parent"
   />
   <PropsTableRow name="loading" type="boolean" description="Whether the selected segment is being calculated" />
