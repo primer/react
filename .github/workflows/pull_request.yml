@@ -19,3 +19,4 @@ jobs:
       - run: echo "${{ github.base_ref }}"
       - run: echo "${{ github.event }}"
       - run: echo "${{ github.event_name }}"
+      - run: echo "${{ github.event.pull_request.head.repo.full_name }}"
