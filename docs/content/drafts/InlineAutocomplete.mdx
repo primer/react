@@ -1,0 +1,162 @@
+---
+title: InlineAutocomplete
+componentId: inline_autocomplete
+status: Draft
+description: Provides inline auto completion suggestions for an input or textarea.
+source: https://github.com/primer/react/tree/main/src/InlineAutocomplete
+storybook: '/react/storybook?path=/story/forms-inlineautocomplete--default'
+---
+
+```js
+import {InlineAutocomplete} from '@primer/react/drafts'
+```
+
+The `InlineAutocomplete` component extends an `Input` or `Textarea` component to provide inline suggestions, similar to those provided by a code editor.
+
+## Examples
+
+<Note variant="warning">
+
+Input components **must always** be accompanied by a corresponding label to improve support for assistive
+technologies. Examples below are provided for conciseness and may not reflect accessibility best practices.
+
+`InlineAutocomplete` can be used with the [`FormControl`](/FormControl) component to render a corresponding label.
+
+</Note>
+
+### Multi-line input
+
+Try typing a `#` symbol to see suggestions. Use `Enter` or click to apply a suggestion.
+
+```javascript live noinline drafts
+const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
+
+const SimpleExample = () => {
+  const [suggestions, setSuggestions] = React.useState([])
+
+  return (
+    <InlineAutocomplete
+      triggers={[{triggerChar: '#'}]}
+      suggestions={suggestions}
+      onShowSuggestions={({query}) => setSuggestions(options.filter(tag => tag.includes(query)))}
+      onHideSuggestions={() => setSuggestions([])}
+    >
+      <Textarea />
+    </InlineAutocomplete>
+  )
+}
+
+render(SimpleExample)
+```
+
+### Single-line input
+
+```javascript live noinline drafts
+const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
+
+const SimpleExample = () => {
+  const [suggestions, setSuggestions] = React.useState([])
+
+  return (
+    <InlineAutocomplete
+      triggers={[{triggerChar: '#'}]}
+      suggestions={suggestions}
+      onShowSuggestions={({query}) => setSuggestions(options.filter(tag => tag.includes(query)))}
+      onHideSuggestions={() => setSuggestions([])}
+    >
+      <TextInput />
+    </InlineAutocomplete>
+  )
+}
+
+render(SimpleExample)
+```
+
+### Labelled
+
+```javascript live noinline drafts
+const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
+
+const SimpleExample = () => {
+  const [suggestions, setSuggestions] = React.useState([])
+
+  return (
+    <FormControl>
+      <FormControl.Label>Example</FormControl.Label>
+      <InlineAutocomplete
+        triggers={[{triggerChar: '#'}]}
+        suggestions={suggestions}
+        onShowSuggestions={({query}) => setSuggestions(options.filter(tag => tag.includes(query)))}
+        onHideSuggestions={() => setSuggestions([])}
+      >
+        <Textarea />
+      </InlineAutocomplete>
+    </FormControl>
+  )
+}
+
+render(SimpleExample)
+```
+
+## Props
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    required
+    type="React.ReactNode"
+    description="An `input` or `textarea` compatible component to extend. A compatible component is any component that forwards a ref and props to an underlying `input` or `textarea` element, including but not limited to `Input`, `TextArea`, `input`, `textarea`, `styled.input`, and `styled.textarea`. If the child is not compatible, a runtime `TypeError` will be thrown."
+  />
+  <PropsTableRow
+    name="triggers"
+    required
+    type="Array<Trigger>"
+    description="Register the triggers that can cause suggestions to appear."
+  />
+  <PropsTableRow
+    name="onShowSuggestions"
+    type="(event: ShowSuggestionsEvent) => void"
+    required
+    description="Called when a valid suggestion query is updated. This should be handled by setting the `suggestions` prop accordingly."
+  />
+  <PropsTableRow
+    name="onShowSuggestions"
+    type="() => void"
+    required
+    description="Called when suggestions should be hidden. Set `suggestions` to `null` or an empty array in this case."
+  />
+  <PropsTableRow
+    name="suggestions"
+    type="Suggestion[] | null | 'loading'"
+    required
+    description="The currently visible list of suggestions. If `loading`, a loading indicator will be shown. If `null` or empty, the list will be hidden. Suggestion sort will be preserved. Typically, this should not contain more than five or so suggestions."
+  />
+  <PropsTableRow
+    name="tabInsertsSuggestions"
+    type="boolean"
+    defaultValue="false"
+    description="If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just `Enter`. This may be expected behavior for users used to IDEs, but use caution when hijacking browser tabbing capability."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
