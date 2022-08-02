@@ -2,15 +2,8 @@ import {DiffAddedIcon} from '@primer/octicons-react'
 import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React, {forwardRef, useState} from 'react'
-import MarkdownEditor, {
-  Emoji,
-  MarkdownEditorHandle,
-  MarkdownEditorProps,
-  Mentionable,
-  Reference,
-  SavedReply
-} from '../MarkdownEditor'
-import ThemeProvider from '../ThemeProvider'
+import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
+import ThemeProvider from '../../ThemeProvider'
 
 type UncontrolledEditorProps = Omit<MarkdownEditorProps, 'value' | 'onChange' | 'onRenderPreview' | 'children'> &
   Partial<Pick<MarkdownEditorProps, 'onChange' | 'onRenderPreview' | 'children'>> & {

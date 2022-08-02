@@ -1,6 +1,6 @@
 import {useLayoutEffect, useState} from 'react'
 
-import {SxProp} from '../sx'
+import {SxProp} from '../../sx'
 import {getCharacterCoordinates} from '../utils/character-coordinates'
 
 type UseDynamicTextareaHeightSettings = {

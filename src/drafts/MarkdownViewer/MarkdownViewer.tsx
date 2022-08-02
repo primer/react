@@ -1,6 +1,5 @@
 import React, {DOMAttributes, useCallback, useEffect, useRef, useState} from 'react'
-import {Spinner} from '..'
-import Box from '../Box'
+import {Spinner, Box} from '../..'
 
 import {useLinkInterception} from './_useLinkInterception'
 import {useListInteraction} from './_useListInteraction'

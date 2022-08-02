@@ -1,10 +1,10 @@
 import {DiffIcon} from '@primer/octicons-react'
 import React, {Meta} from '@storybook/react'
 import {useState} from 'react'
-import BaseStyles from '../BaseStyles'
-import Box from '../Box'
-import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '../MarkdownEditor'
-import ThemeProvider from '../ThemeProvider'
+import BaseStyles from '../../BaseStyles'
+import Box from '../../Box'
+import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
+import ThemeProvider from '../../ThemeProvider'
 
 const meta: Meta = {
   title: 'Forms/MarkdownEditor',

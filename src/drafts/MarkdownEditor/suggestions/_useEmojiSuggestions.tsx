@@ -1,6 +1,6 @@
 import React from 'react'
 import {suggestionsCalculator, UseSuggestionsHook} from '.'
-import {ActionList} from '../../ActionList'
+import {ActionList} from '../../../ActionList'
 import {Suggestion, Trigger} from '../../InlineAutocomplete'
 
 export type Emoji = {

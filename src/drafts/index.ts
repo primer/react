@@ -17,8 +17,8 @@ export type {
   Trigger
 } from './InlineAutocomplete'
 
-export {default as MarkdownViewer} from '../MarkdownViewer'
-export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from '../MarkdownViewer'
+export {default as MarkdownViewer} from './MarkdownViewer'
+export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
 
-export {default as MarkdownEditor} from '../MarkdownEditor'
-export * from '../MarkdownEditor'
+export {default as MarkdownEditor} from './MarkdownEditor'
+export * from './MarkdownEditor'

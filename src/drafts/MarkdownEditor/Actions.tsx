@@ -1,5 +1,5 @@
 import React, {forwardRef, useContext} from 'react'
-import {Button, ButtonProps} from '../Button'
+import {Button, ButtonProps} from '../../Button'
 import {MarkdownEditorSlot} from './MarkdownEditor'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 

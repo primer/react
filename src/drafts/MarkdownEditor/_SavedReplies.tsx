@@ -1,6 +1,14 @@
 import {ReplyIcon} from '@primer/octicons-react'
-import React, {createContext, KeyboardEventHandler, RefObject, useContext, useEffect, useImperativeHandle, useState} from 'react'
-import {SelectPanel, SelectPanelProps} from '../SelectPanel'
+import React, {
+  createContext,
+  KeyboardEventHandler,
+  RefObject,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState
+} from 'react'
+import {SelectPanel, SelectPanelProps} from '../../SelectPanel'
 import {ToolbarButton} from './Toolbar'
 
 export type SavedReply = {
