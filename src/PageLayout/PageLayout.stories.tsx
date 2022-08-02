@@ -368,7 +368,7 @@ export const StickyPane = () => (
         ))}
       </Box>
     </PageLayout.Content>
-    <PageLayout.Pane position="start" padding="normal" divider="line">
+    <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
       <Box sx={{display: 'grid', gap: 3}}>
         {Array.from({length: 10}).map((_, i) => (
           <Box key={i} as="p" sx={{margin: 0}}>

@@ -21,10 +21,12 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
+  contentRef: React.RefObject<HTMLDivElement> | null
 }>({
   padding: 'normal',
   rowGap: 'normal',
-  columnGap: 'normal'
+  columnGap: 'normal',
+  contentRef: null
 })
 
 // ----------------------------------------------------------------------------
@@ -55,8 +57,9 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   children,
   sx = {}
 }) => {
+  const contentRef = React.useRef<HTMLDivElement>(null)
   return (
-    <PageLayoutContext.Provider value={{padding, rowGap, columnGap}}>
+    <PageLayoutContext.Provider value={{padding, rowGap, columnGap, contentRef}}>
       <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}>
         <Box
           sx={{
@@ -254,8 +257,10 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   sx = {}
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
+  const {contentRef} = React.useContext(PageLayoutContext)
   return (
     <Box
+      ref={contentRef}
       as="main"
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
@@ -319,6 +324,7 @@ export type PageLayoutPaneProps = {
    * ```
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  sticky?: boolean
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
@@ -334,52 +340,91 @@ const paneWidths = {
 }
 
 const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
-  position = 'end',
+  position: responsivePosition = 'end',
   positionWhenNarrow = 'inherit',
   width = 'medium',
   padding = 'none',
-  divider = 'none',
+  divider: responsiveDivider = 'none',
   dividerWhenNarrow = 'inherit',
-  hidden = false,
+  sticky = false,
+  hidden: responsiveHidden = false,
   children,
   sx = {}
 }) => {
   // Combine position and positionWhenNarrow for backwards compatibility
   const positionProp =
-    !isResponsiveValue(position) && positionWhenNarrow !== 'inherit'
-      ? {regular: position, narrow: positionWhenNarrow}
-      : position
+    !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
+      ? {regular: responsivePosition, narrow: positionWhenNarrow}
+      : responsivePosition
 
-  const responsivePosition = useResponsiveValue(positionProp, 'end')
+  const position = useResponsiveValue(positionProp, 'end')
 
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
-    !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
-      ? {regular: divider, narrow: dividerWhenNarrow}
-      : divider
+    !isResponsiveValue(responsiveDivider) && dividerWhenNarrow !== 'inherit'
+      ? {regular: responsiveDivider, narrow: dividerWhenNarrow}
+      : responsiveDivider
 
   const dividerVariant = useResponsiveValue(dividerProp, 'none')
-  const isHidden = useResponsiveValue(hidden, false)
-  const {rowGap, columnGap} = React.useContext(PageLayoutContext)
+
+  const isHidden = useResponsiveValue(responsiveHidden, false)
+
+  const {rowGap, columnGap, contentRef} = React.useContext(PageLayoutContext)
+
+  const [offset, setOffset] = React.useState(0)
+
+  const paneRef = React.useRef<HTMLDivElement>(null)
+
+  const handleScroll = React.useCallback(() => {
+    if (paneRef.current && contentRef?.current) {
+      const paneRect = paneRef.current.getBoundingClientRect()
+      const contentRect = contentRef.current.getBoundingClientRect()
+      // console.log(contentRect.bottom)
+
+      const topOffset = paneRect.top
+      const bottomOffset = contentRect.bottom < window.innerHeight ? window.innerHeight - contentRect.bottom : 0
+      setOffset(topOffset + bottomOffset)
+    }
+  }, [contentRef])
+
+  React.useEffect(() => {
+    handleScroll()
+    // eslint-disable-next-line github/prefer-observers
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [handleScroll])
+
   return (
     <Box
+      ref={paneRef}
       as="aside"
+      style={{'--offset': `${offset}px`}}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
           {
-            order: panePositions[responsivePosition],
+            // Narrow viewports
             display: isHidden ? 'none' : 'flex',
-            flexDirection: responsivePosition === 'end' ? 'column' : 'column-reverse',
+            order: panePositions[position],
             width: '100%',
+
             marginX: 0,
-            [responsivePosition === 'end' ? 'marginTop' : 'marginBottom']: SPACING_MAP[rowGap],
+            ...(position === 'end'
+              ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
+              : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
+
+            // Regular and wide viewports
             [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
               width: 'auto',
-              [responsivePosition === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
-              marginY: `0 !important`,
-              flexDirection: responsivePosition === 'end' ? 'row' : 'row-reverse',
-              order: panePositions[responsivePosition]
+              marginY: '0 !important',
+              position: 'sticky',
+              maxHeight: 'calc(100vh - var(--offset))',
+              top: 0,
+              ...(position === 'end'
+                ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
+                : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]})
             }
           },
           sx
@@ -389,14 +434,14 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
       {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
       <HorizontalDivider
         variant={{narrow: dividerVariant, regular: 'none'}}
-        sx={{[responsivePosition === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
+        sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
       />
       <VerticalDivider
         variant={{narrow: 'none', regular: dividerVariant}}
-        sx={{[responsivePosition === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+        sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
       />
 
-      <Box sx={{width: paneWidths[width], padding: SPACING_MAP[padding]}}>{children}</Box>
+      <Box sx={{width: paneWidths[width], padding: SPACING_MAP[padding], overflow: 'auto'}}>{children}</Box>
     </Box>
   )
 }
