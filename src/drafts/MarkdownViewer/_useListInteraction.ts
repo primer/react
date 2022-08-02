@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useRef} from 'react'
+import {useCallback, useEffect, useLayoutEffect, useMemo, useRef} from 'react'
 import {ListItem, listItemToString, parseListItem} from '../MarkdownEditor/_useListEditing'
 
 type TaskListItem = ListItem & {taskBox: '[ ]' | '[x]'}
@@ -32,7 +32,9 @@ export const useListInteraction = ({
   // Storing the value in a ref allows not using the markdown value as a depdency of
   // onToggleItem, which would mean we'd have to re-bind the event handlers on every change
   const markdownRef = useRef(markdownValue)
-  markdownRef.current = markdownValue
+  useLayoutEffect(() => {
+    markdownRef.current = markdownValue
+  }, [markdownValue])
 
   const onToggleItem = useCallback(
     (toggledItemIndex: number) => () => {
@@ -46,7 +48,11 @@ export const useListInteraction = ({
         if (taskIndex === toggledItemIndex) {
           const updatedLine = listItemToString(toggleTaskListItem(parsedLine))
           lines.splice(lineIndex, 1, updatedLine)
-          onChange(lines.join('\n'))
+
+          const updatedMarkdown = lines.join('\n')
+          markdownRef.current = updatedMarkdown
+
+          onChange(updatedMarkdown)
           return
         }
 
