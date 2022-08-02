@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy (fork)
 on:
   pull_request_target:
 
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   deploy-preview:
-    if: ${{ github.repository == 'primer/react' }}
+    if: ${{ github.repository == 'primer/react' }} # target repository for pull_request
     name: Preview
     uses: primer/.github/.github/workflows/deploy_preview.yml@main
     permissions:
