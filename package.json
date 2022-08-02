@@ -43,6 +43,7 @@
     "build:docs": "script/build-docs",
     "build:docs:preview": "script/build-docs preview",
     "build:storybook:visual-testing": "build-storybook",
+    "install:docs": "(cd docs && npm install --legacy-peer-deps)",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
@@ -79,7 +80,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@github/combobox-nav": "^2.0.2",
+    "@github/combobox-nav": "^2.1.5",
     "@github/markdown-toolbar-element": "^2.1.0",
     "@github/paste-markdown": "^1.3.1",
     "@koddsson/textarea-caret": "^4.0.1",

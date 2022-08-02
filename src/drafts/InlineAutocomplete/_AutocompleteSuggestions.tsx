@@ -1,9 +1,9 @@
 import React, {useCallback, useState} from 'react'
-import {Spinner} from '..'
-import {ActionList, ActionListItemProps} from '../ActionList'
-import Box from '../Box'
-import {ComboboxCommitEvent, useCombobox} from '../hooks'
-import Overlay from '../Overlay'
+import {Spinner} from '../..'
+import {ActionList, ActionListItemProps} from '../../ActionList'
+import Box from '../../Box'
+import {ComboboxCommitEvent, useCombobox} from '../hooks/useCombobox'
+import Overlay from '../../Overlay'
 
 import {Suggestion, Suggestions, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'
@@ -18,6 +18,7 @@ type AutoCompleteSuggestionsProps = {
   onCommit: (suggestion: string) => void
   inputRef: React.RefObject<TextInputElement>
   visible: boolean
+  tabInsertsSuggestions: boolean
 }
 
 const LoadingIndicator = () => (
@@ -34,7 +35,10 @@ const SuggestionListItem = ({suggestion}: {suggestion: Suggestion}) => {
     children: value,
     role: 'option',
     sx: {
-      '&[aria-selected="true"]': {
+      '&[aria-selected]': {
+        backgroundColor: 'actionListItem.default.activeBg'
+      },
+      '&[data-combobox-option-default]:not([aria-selected])': {
         backgroundColor: 'actionListItem.default.selectedBg'
       }
     }
@@ -55,7 +59,8 @@ const AutocompleteSuggestions = ({
   onClose,
   onCommit: externalOnCommit,
   inputRef,
-  visible
+  visible,
+  tabInsertsSuggestions
 }: AutoCompleteSuggestionsProps) => {
   // It seems wierd to use state instead of a ref here, but because the list is inside an
   // AnchoredOverlay it is not always mounted - so we want to reinitialize the Combobox when it mounts
@@ -75,7 +80,9 @@ const AutocompleteSuggestions = ({
     listElement: list,
     inputElement: inputRef.current,
     onCommit,
-    options: Array.isArray(suggestions) ? suggestions : []
+    options: Array.isArray(suggestions) ? suggestions : [],
+    tabInsertsSuggestions,
+    defaultFirstOption: true
   })
 
   // Conditional rendering appears wrong at first - it means that we are reconstructing the
@@ -93,7 +100,7 @@ const AutocompleteSuggestions = ({
       sx={{position: 'fixed'}}
       {...{top, left}}
     >
-      <ActionList selectionVariant="single" ref={setList}>
+      <ActionList ref={setList}>
         {suggestions === 'loading' ? (
           <LoadingIndicator />
         ) : (

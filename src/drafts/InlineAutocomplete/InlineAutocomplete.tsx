@@ -1,9 +1,9 @@
 import React, {cloneElement, useRef} from 'react'
-import Box from '../Box'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import Box from '../../Box'
+import {useCombinedRefs} from '../../hooks/useCombinedRefs'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
-import Portal from '../Portal'
-import {BetterSystemStyleObject} from '../sx'
+import Portal from '../../Portal'
+import {BetterSystemStyleObject} from '../../sx'
 import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
@@ -27,6 +27,13 @@ export type InlineAutocompleteProps = {
    * Typically, this should not contain more than five or so suggestions.
    */
   suggestions: Suggestions | null
+  /**
+   * If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just
+   * `Enter`. This may be expected behavior for users used to IDEs, but use caution when
+   * hijacking browser tabbing capability.
+   * @default false
+   */
+  tabInsertsSuggestions?: boolean
   /**
    * The `AutocompleteTextarea` has a container for positioning the suggestions overlay.
    * This can break some layouts (ie, if the editor must expand with `flex: 1` to fill space)
@@ -70,6 +77,7 @@ const InlineAutocomplete = ({
   onHideSuggestions,
   sx,
   children,
+  tabInsertsSuggestions = false,
   // Forward accessibility props so it works with FormControl
   ...forwardProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
@@ -174,7 +182,9 @@ const InlineAutocomplete = ({
     : // It's important to include both Enter and Tab because we are telling the user that we are hijacking these keys:
       `${suggestions.length} autocomplete ${
         suggestions.length === 1 ? 'suggestion' : 'suggestions'
-      } available; "${getSuggestionValue(suggestions[0])}" is highlighted. Press Enter or Tab to insert.`
+      } available; "${getSuggestionValue(suggestions[0])}" is highlighted. Press ${
+        tabInsertsSuggestions ? 'Enter or Tab' : 'Enter'
+      } to insert.`
 
   return (
     // Try to get as close as possible to making the container 'invisible' by making it shrink tight to child input
@@ -188,6 +198,7 @@ const InlineAutocomplete = ({
         top={suggestionsOffset.top}
         left={suggestionsOffset.left}
         visible={suggestionsVisible}
+        tabInsertsSuggestions={tabInsertsSuggestions}
       />
 
       <Portal>

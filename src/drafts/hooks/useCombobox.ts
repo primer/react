@@ -30,6 +30,20 @@ type UseComboboxSettings<T> = {
    * and attributes).
    */
   options: Array<T>
+  /**
+   * If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just
+   * `Enter`. This may be expected behavior for users used to IDEs, but use caution when
+   * hijacking browser tabbing capability.
+   * @default false
+   */
+  tabInsertsSuggestions?: boolean
+  /**
+   * By default, if the menu is open and the user presses `Enter` without pressing the
+   * down arrow, the menu will close. To instead insert the first option in the list in
+   * this case, enable this setting. Style the default option using
+   * `[data-combobox-option-default]`.
+   */
+  defaultFirstOption?: boolean
 }
 
 /**
@@ -46,7 +60,9 @@ export const useCombobox = <T>({
   listElement: list,
   inputElement: input,
   onCommit: externalOnCommit,
-  options
+  options,
+  tabInsertsSuggestions = false,
+  defaultFirstOption = false
 }: UseComboboxSettings<T>) => {
   const id = useSSRSafeId()
   const optionIdPrefix = `combobox-${id}__option`
@@ -80,7 +96,7 @@ export const useCombobox = <T>({
       if (input && list) {
         if (!list.getAttribute('role')) list.setAttribute('role', 'listbox')
 
-        const cb = new Combobox(input, list)
+        const cb = new Combobox(input, list, {tabInsertsSuggestions, defaultFirstOption})
         if (isOpenRef.current) cb.start()
 
         // By using state instead of a ref here, we trigger the toggleKeyboardEventHandling
@@ -94,7 +110,7 @@ export const useCombobox = <T>({
         }
       }
     },
-    [input, list]
+    [input, list, tabInsertsSuggestions, defaultFirstOption]
   )
 
   useEffect(
@@ -128,7 +144,6 @@ export const useCombobox = <T>({
       if (!option.id || option.id.startsWith(optionIdPrefix)) option.id = `${optionIdPrefix}-${i}`
       option.setAttribute('data-combobox-list-index', i.toString())
       option.addEventListener('mousedown', onOptionMouseDown)
-      if (i === 0) option.setAttribute('aria-selected', 'true')
     }
 
     return () => {

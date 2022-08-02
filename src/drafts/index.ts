@@ -8,14 +8,14 @@ export * from '../NavList'
 export * from '../Dialog/Dialog'
 export * from '../SegmentedControl'
 
-export {default as InlineAutocomplete} from '../InlineAutocomplete'
+export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
   InlineAutocompleteProps,
   ShowSuggestionsEvent,
   Suggestion,
   Suggestions,
   Trigger
-} from '../InlineAutocomplete'
+} from './InlineAutocomplete'
 
 export {default as MarkdownViewer} from '../MarkdownViewer'
 export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from '../MarkdownViewer'

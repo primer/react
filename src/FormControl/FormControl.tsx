@@ -9,7 +9,7 @@ import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import {SxProp} from '../sx'
 import CheckboxOrRadioGroupContext from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupContext'
-import InlineAutocomplete from '../InlineAutocomplete'
+import InlineAutocomplete from '../drafts/InlineAutocomplete'
 
 export type FormControlProps = {
   children?: React.ReactNode
