@@ -32,7 +32,8 @@ import {
   NumberIcon,
   SingleSelectIcon,
   TypographyIcon,
-  IconProps
+  IconProps,
+  IssueOpenedIcon
 } from '@primer/octicons-react'
 
 const meta: Meta = {
@@ -107,7 +108,16 @@ export function ExternalAnchor(): JSX.Element {
       <h2>External Open State: {open ? 'Open' : 'Closed'}</h2>
       <h2>Last option activated: {actionFired}</h2>
       <div>
-        <Button ref={anchorRef} onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="true">
+        <Button
+          ref={anchorRef}
+          onClick={() => setOpen(!open)}
+          onKeyDown={(event: KeyboardEvent) => {
+            // TODO: This should happen from AnchoredOverlay?
+            if (['ArrowDown', 'ArrowUp'].includes(event.code)) setOpen(true)
+          }}
+          aria-expanded={open} // TODO: This should happen from AnchoredOverlay?
+          aria-haspopup="true" // TODO: This should happen from AnchoredOverlay?
+        >
           {open ? 'Close Menu' : 'Open Menu'}
         </Button>
       </div>
@@ -240,15 +250,21 @@ export function CustomAnchor(): JSX.Element {
 
 export function MemexTableMenu(): JSX.Element {
   const [name, setName] = React.useState('Estimate')
+  const [wipName, setWipName] = React.useState(name)
   const inputRef = React.createRef<HTMLInputElement>()
 
   /** To add custom components to the Menu,
    *  you need to switch to a controlled menu
    */
   const [open, setOpen] = React.useState(false)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWipName(event.currentTarget.value)
+  }
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      setName(event.currentTarget.value)
+      setName(wipName)
       setOpen(false)
     }
   }
@@ -257,7 +273,7 @@ export function MemexTableMenu(): JSX.Element {
    *  on the input, it doesn't work :(
    */
   const handleClickOutside = () => {
-    if (inputRef.current) setName(inputRef.current.value)
+    if (inputRef.current) setWipName(inputRef.current.value)
     setOpen(false)
   }
 
@@ -275,13 +291,14 @@ export function MemexTableMenu(): JSX.Element {
         }}
       >
         <Text sx={{fontSize: 0, fontWeight: 'bold'}}>{name}</Text>
+
         <ActionMenu open={open} onOpenChange={setOpen}>
           <ActionMenu.Anchor>
             <IconButton icon={TriangleDownIcon} aria-label="Open Estimate column options menu" sx={{padding: 0}} />
           </ActionMenu.Anchor>
 
           <ActionMenu.Overlay onClickOutside={handleClickOutside}>
-            <TextInput ref={inputRef} sx={{m: 2}} defaultValue={name} onKeyPress={handleKeyPress} />
+            <TextInput ref={inputRef} sx={{m: 2}} value={wipName} onChange={handleChange} onKeyPress={handleKeyPress} />
             <ActionMenu.Divider sx={{m: 0}} />
 
             <ActionList>
@@ -610,6 +627,57 @@ export function MemexAddColumn(): JSX.Element {
   )
 }
 
+export function MemexKeyboardShortcut(): JSX.Element {
+  const [open, setOpen] = React.useState(false)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+
+  React.useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if (event.code === 'Backslash' && event.shiftKey) setOpen(true)
+    }
+
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  })
+
+  return (
+    <>
+      <h1>Memex Keyboard Shortcut</h1>
+      <p>The menu can also be opened with a keyboard shortcut - `Shift + \`</p>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 2,
+          p: 2,
+          alignItems: 'center',
+          border: '1px solid',
+          borderColor: 'border.default'
+        }}
+      >
+        <IconButton
+          ref={anchorRef}
+          onClick={() => setOpen(!open)}
+          icon={TriangleDownIcon}
+          aria-label="Open Estimate column options menu"
+          sx={{padding: 0}}
+        />
+
+        <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>Archive</ActionList.Item>
+              <ActionList.Item variant="danger">Delete from project</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+        <Text sx={{color: 'fg.muted', mr: 4}}>1</Text>
+        <StyledOcticon sx={{color: 'open.fg'}} icon={IssueOpenedIcon} />
+        <Text>Produce ag-Grid staging demo</Text>
+      </Box>
+    </>
+  )
+}
+
 export function OverlayProps(): JSX.Element {
   const [open, setOpen] = React.useState(false)
   const inputRef = React.createRef<HTMLInputElement>()
@@ -693,6 +761,30 @@ export function MnemonicsTest(): JSX.Element {
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
+    </>
+  )
+}
+
+export function TabTest(): JSX.Element {
+  return (
+    <>
+      <h1>Story to test Tab</h1>
+
+      <ActionMenu>
+        <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item>New file</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item>Copy link</ActionList.Item>
+            <ActionList.Item>Edit file</ActionList.Item>
+            <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
+              Delete file
+            </ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+      <input type="text" placeholder="next focusable element" />
     </>
   )
 }
