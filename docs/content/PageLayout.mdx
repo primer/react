@@ -58,6 +58,25 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 </PageLayout>
 ```
 
+### With connected dividers
+
+```jsx live
+<PageLayout padding="none" rowGap="none" columnGap="none">
+  <PageLayout.Header padding="normal" divider="line">
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content padding="normal">
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane padding="normal" divider="line">
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer padding="normal" divider="line">
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
 ### With pane on left
 
 ```jsx live
@@ -145,23 +164,23 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   <PropsTableRow
     name="padding"
     type={`| 'none'
-| 'normal'
-| 'condensed'`}
+| 'condensed'
+| 'normal'`}
     defaultValue="'normal'"
     description="The spacing between the outer edges of the page container and the viewport"
   />
   <PropsTableRow
     name="columnGap"
     type={`| 'none'
-| 'normal'
-| 'condensed'`}
+| 'condensed'
+| 'normal'`}
     defaultValue="'normal'"
   />
   <PropsTableRow
     name="rowGap"
     type={`| 'none'
-| 'normal'
-| 'condensed'`}
+| 'condensed'
+| 'normal'`}
     defaultValue="'normal'"
   />
   <PropsTableSxRow />
@@ -170,6 +189,14 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ### PageLayout.Header
 
 <PropsTable>
+  <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'condensed'
+| 'normal'`}
+    defaultValue="'normal'"
+    description="The amount of padding inside the header."
+  />
   <PropsTableRow
     name="divider"
     type={`| 'none'
@@ -225,6 +252,14 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     description="The maximum width of the content region."
   />
   <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'condensed'
+| 'normal'`}
+    defaultValue="'normal'"
+    description="The amount of padding inside the content."
+  />
+  <PropsTableRow
     name="hidden"
     type={`| boolean
 | {
@@ -276,6 +311,14 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     description="The width of the pane."
   />
   <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'condensed'
+| 'normal'`}
+    defaultValue="'normal'"
+    description="The amount of padding inside the pane."
+  />
+  <PropsTableRow
     name="divider"
     type={`| 'none'
 | 'line'
@@ -320,6 +363,14 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ### PageLayout.Footer
 
 <PropsTable>
+  <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'condensed'
+| 'normal'`}
+    defaultValue="'normal'"
+    description="The amount of padding inside the footer."
+  />
   <PropsTableRow
     name="divider"
     type={`| 'none'
