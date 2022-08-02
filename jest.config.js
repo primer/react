@@ -9,5 +9,6 @@ module.exports = {
     '<rootDir>/src/utils/test-deprecations.tsx',
     '<rootDir>/src/utils/test-helpers.tsx'
   ],
-  testMatch: ['<rootDir>/(src|codemods)/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)']
+  testMatch: ['<rootDir>/(src|codemods)/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
+  transformIgnorePatterns: ['node_modules/(?!@github/combobox-nav|@koddsson/textarea-caret)']
 }

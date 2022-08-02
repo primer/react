@@ -151,6 +151,8 @@
   children:
     - title: Dialog v2
       url: /drafts/Dialog
+    - title: InlineAutocomplete
+      url: /drafts/InlineAutocomplete
 - title: Deprecated
   children:
     - title: ActionList (legacy)
