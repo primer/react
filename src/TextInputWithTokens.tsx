@@ -3,8 +3,7 @@ import {isFocusable} from '@primer/behaviors/utils'
 import {omit} from '@styled-system/props'
 import React, {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useRef, useState} from 'react'
 import Box from './Box'
-import {useProvidedRefOrCreate} from './hooks'
-import {useCombinedRefs} from './hooks/useCombinedRefs'
+import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 import {useFocusZone} from './hooks/useFocusZone'
 import Text from './Text'
 import {TextInputProps} from './TextInput'
@@ -93,12 +92,11 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     visibleTokenCount,
     ...rest
   }: TextInputWithTokensProps<TokenComponentType>,
-  externalRef: React.ForwardedRef<HTMLInputElement>
+  forwardedRef: React.ForwardedRef<HTMLInputElement>
 ) {
   const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
-  const ref = useProvidedRefOrCreate<HTMLInputElement>(externalRef as React.RefObject<HTMLInputElement>)
-  const localInputRef = useRef<HTMLInputElement>(null)
-  const combinedInputRef = useCombinedRefs(localInputRef, ref)
+  const ref = useRef<HTMLInputElement>(null)
+  useRefObjectAsForwardedRef(forwardedRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
   const [tokensAreTruncated, setTokensAreTruncated] = useState<boolean>(Boolean(visibleTokenCount))
   const {containerRef} = useFocusZone(
@@ -124,7 +122,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         }
 
         if (nextIndex > tokens.length || nextIndex < 1) {
-          return combinedInputRef.current || undefined
+          return ref.current || undefined
         }
 
         return containerRef.current?.children[nextIndex] as HTMLElement
@@ -230,7 +228,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   }
 
   const focusInput: MouseEventHandler = () => {
-    combinedInputRef.current?.focus()
+    ref.current?.focus()
   }
 
   const preventTokenClickPropagation: MouseEventHandler = event => {
@@ -323,7 +321,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           }}
         >
           <UnstyledTextInput
-            ref={combinedInputRef}
+            ref={ref}
             disabled={disabled}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
