@@ -31,6 +31,7 @@ const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
   line-height: ${get('lineHeights.condensedUltra')};
   vertical-align: middle;
   border-radius: ${props => getBorderRadius(props)};
+  box-shadow: ${get('shadows.avatar.childShadow')};
   ${sx}
 `
 
