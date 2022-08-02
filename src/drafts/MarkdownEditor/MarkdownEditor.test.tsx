@@ -37,6 +37,8 @@ const UncontrolledEditor = forwardRef<MarkdownEditorHandle, UncontrolledEditorPr
   )
 })
 
+const assertNotNull: <T extends unknown>(t: T | null) => asserts t is T = t => expect(t).not.toBeNull()
+
 const render = async (ui: React.ReactElement) => {
   const result = _render(ui)
   const user = userEvent.setup()
@@ -62,7 +64,11 @@ const render = async (ui: React.ReactElement) => {
   const queryForPreview = () =>
     result.queryByRole('heading', {name: 'Rendered Markdown Preview'})?.parentElement ?? null
 
-  const getPreview = () => result.getByRole('heading', {name: 'Rendered Markdown Preview'}).parentElement!
+  const getPreview = () => {
+    const previewContainer = result.getByRole('heading', {name: 'Rendered Markdown Preview'}).parentElement
+    assertNotNull(previewContainer)
+    return previewContainer
+  }
 
   const getEditorContainer = () => result.getByRole('group')
 
@@ -432,7 +438,6 @@ describe('MarkdownEditor', () => {
     // the caret to the end of the input and continuing typing. If we can figure out how to fix
     // that, we can re-enable these.
 
-    // eslint-disable-next-line jest/no-disabled-tests
     it.skip('adds new items in the middle of a list', async () => {
       const {getInput, user} = await render(<UncontrolledEditor />)
       const input = getInput()
@@ -441,7 +446,6 @@ describe('MarkdownEditor', () => {
       expect(input.value).toBe(`- dogs\n- birds\n- cats`)
     })
 
-    // eslint-disable-next-line jest/no-disabled-tests
     it.skip('increments following list items if there are any', async () => {
       const {getInput, user} = await render(<UncontrolledEditor />)
       const input = getInput()
@@ -450,7 +454,6 @@ describe('MarkdownEditor', () => {
       expect(input.value).toBe(`1. dogs\n2. birds\n3. cats`)
     })
 
-    // eslint-disable-next-line jest/no-disabled-tests
     it.skip('does not increment following list items if a number is skipped', async () => {
       const {getInput, user} = await render(<UncontrolledEditor />)
       const input = getInput()
@@ -459,7 +462,6 @@ describe('MarkdownEditor', () => {
       expect(input.value).toBe(`1. dogs\n2. birds\n3. cats`)
     })
 
-    // eslint-disable-next-line jest/no-disabled-tests
     it.skip('increments multiple consecutive following list items', async () => {
       const {getInput, user} = await render(<UncontrolledEditor />)
       const input = getInput()
@@ -584,7 +586,6 @@ describe('MarkdownEditor', () => {
         }
       }
 
-      // eslint-disable-next-line jest/expect-expect
       it('can add a single file', async () => {
         const onChange = jest.fn()
         const {getInput} = await render(<UncontrolledEditor onUploadFile={mockUploadFile} onChange={onChange} />)
@@ -596,7 +597,6 @@ describe('MarkdownEditor', () => {
         await expectFilesToBeAdded(onChange, file)
       })
 
-      // eslint-disable-next-line jest/expect-expect
       it('can add multiple files', async () => {
         const onChange = jest.fn()
         const {getInput} = await render(<UncontrolledEditor onUploadFile={mockUploadFile} onChange={onChange} />)

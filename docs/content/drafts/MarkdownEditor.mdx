@@ -26,7 +26,7 @@ A `Label` is always required for accessibility:
 ```javascript live noinline
 const renderMarkdown = async (markdown: string) => {
   // In production code, this would make a query to some external API endpoint to render
-  return "<p>Rendered Markdown.</p>"
+  return "Rendered Markdown."
 }
 
 const MinimalExample = () => {
@@ -49,7 +49,7 @@ render(MinimalExample)
 ### Suggestions, File Uploads, and Saved Replies
 
 ```javascript live noinline
-const renderMarkdown = async (markdown: string) => "<p>Rendered Markdown.</p>"
+const renderMarkdown = async (markdown: string) => "Rendered Markdown."
 
 const uploadFile = async (file: File): FileUploadResult => ({
   url: `https://example.com/${encodeURIComponent(file.name)}`,
@@ -124,7 +124,7 @@ render(MinimalExample)
 ### Custom Buttons
 
 ```javascript live noinline
-const renderMarkdown = async (markdown: string) => "<p>Rendered Markdown.</p>"
+const renderMarkdown = async (markdown: string) => "Rendered Markdown."
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')

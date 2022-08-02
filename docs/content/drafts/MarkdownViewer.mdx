@@ -15,6 +15,7 @@ The `MarkdownViewer` displays rendered Markdown with appropriate styling and han
 ```javascript live noinline
 const MarkdownViewerExample = () => {
   return (
+    // eslint-disable-next-line github/unescaped-html-literal
     <MarkdownViewer dangerousRenderedHtml={{__html: "<strong>Lorem ipsum</strong> dolor sit amet."}} />
   )
 }
@@ -28,7 +29,8 @@ render(MarkdownViewerExample)
 const MarkdownViewerExample = () => {
   return (
     <MarkdownViewer
-      dangerousRenderedHtml={{__html: "<a href="https://example.com">Example link</a>"}}
+      // eslint-disable-next-line github/unescaped-html-literal
+      dangerousRenderedHtml={{__html: "<a href='https://example.com'>Example link</a>"}}
       onLinkClick={(ev) => console.log(ev)}
     />
   )
