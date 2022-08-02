@@ -1,13 +1,14 @@
 import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
 import {useCombinedRefs} from '../../hooks/useCombinedRefs'
-import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
 import {getAbsoluteCharacterCoordinates} from '../../utils/character-coordinates'
+import {useSyntheticChange} from '../hooks/useSyntheticChange'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
 import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
+
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
 
 export type InlineAutocompleteProps = {
