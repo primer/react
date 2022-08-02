@@ -1,6 +1,5 @@
 import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
-import {useCombinedRefs} from '../../hooks/useCombinedRefs'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
@@ -14,6 +13,7 @@ import {
   requireChildrenToBeInput
 } from './utils'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
+import {useRefObjectAsForwardedRef} from '../../hooks'
 
 export type InlineAutocompleteProps = {
   /** Register the triggers that can cause suggestions to appear. */
@@ -86,7 +86,9 @@ const InlineAutocomplete = ({
   // Forward accessibility props so it works with FormControl
   ...forwardProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
-  const inputRef = useCombinedRefs(children.ref)
+  const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
+  useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
+
   const externalInput = requireChildrenToBeInput(children, inputRef)
 
   const emitSyntheticChange = useSyntheticChange({
