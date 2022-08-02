@@ -1,6 +1,5 @@
 import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
-import {useCombinedRefs} from '../../hooks/useCombinedRefs'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
 import {getAbsoluteCharacterCoordinates} from '../../utils/character-coordinates'
@@ -9,6 +8,7 @@ import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
 import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
 
+import {useRefObjectAsForwardedRef} from '../../hooks'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
 
 export type InlineAutocompleteProps = {
@@ -82,7 +82,9 @@ const InlineAutocomplete = ({
   // Forward accessibility props so it works with FormControl
   ...forwardProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
-  const inputRef = useCombinedRefs(children.ref)
+  const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
+  useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
+
   const externalInput = requireChildrenToBeInput(children, inputRef)
 
   const emitSyntheticChange = useSyntheticChange({
