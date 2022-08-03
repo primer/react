@@ -1,4 +1,4 @@
-import {useEffect, useLayoutEffect, useRef} from 'react'
+import {useCallback, useEffect, useLayoutEffect, useRef} from 'react'
 
 export const callbackCancelledResult = Symbol('callbackCancelledResult')
 export type CallbackCancelledResult = typeof callbackCancelledResult
@@ -15,9 +15,16 @@ export type CallbackCancelledResult = typeof callbackCancelledResult
  *
  * This callback is safe to call after `await`ing a `Promise` (or in the `.then` clause of a
  * `Promise`) and in `setTimeout`.
+ *
+ * @param fn the function to call
+ * @param allowCallingAfterUnmount If the component is unmounted, should this be called?
+ * This should typically be `false` but may be desirable in cases where user's changes would
+ * not get saved unless the call is made, so the call can be made in the background after
+ * unmount. If this is `true`, it's very important not to set state in this callback!
  */
 export const useSafeAsyncCallback = <A extends unknown[], R>(
-  fn: (...args: A) => R
+  fn: (...args: A) => R,
+  allowCallingAfterUnmount = false
 ): ((...args: A) => R | CallbackCancelledResult) => {
   const trackingRef = useRef(fn)
   useLayoutEffect(() => {
@@ -28,9 +35,12 @@ export const useSafeAsyncCallback = <A extends unknown[], R>(
   useEffect(() => {
     isMountedRef.current = true
     return () => {
-      isMountedRef.current = false
+      if (!allowCallingAfterUnmount) isMountedRef.current = false
     }
-  }, [])
+  }, [allowCallingAfterUnmount])
 
-  return (...args: A) => (isMountedRef.current ? trackingRef.current(...args) : callbackCancelledResult)
+  return useCallback(
+    (...args: A) => (isMountedRef.current ? trackingRef.current(...args) : callbackCancelledResult),
+    [] // this dependency array must always be empty
+  )
 }
