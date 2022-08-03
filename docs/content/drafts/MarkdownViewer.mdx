@@ -3,8 +3,11 @@ componentId: markdown_viewer
 title: MarkdownViewer
 status: Draft
 description: Displays rendered Markdown and facilitates interaction.
-source: https://github.com/primer/react/tree/main/src/MarkdownViewer
 ---
+
+```js
+import {MarkdownViewer} from '@primer/react/drafts'
+```
 
 The `MarkdownViewer` displays rendered Markdown with appropriate styling and handles interaction (link clicking and checkbox checking/unchecking) with that content.
 
@@ -12,11 +15,11 @@ The `MarkdownViewer` displays rendered Markdown with appropriate styling and han
 
 ### Simple Example
 
-```javascript live noinline
+```javascript live noinline drafts
 const MarkdownViewerExample = () => {
   return (
     // eslint-disable-next-line github/unescaped-html-literal
-    <MarkdownViewer dangerousRenderedHtml={{__html: "<strong>Lorem ipsum</strong> dolor sit amet."}} />
+    <MarkdownViewer dangerousRenderedHtml={{__html: '<strong>Lorem ipsum</strong> dolor sit amet.'}} />
   )
 }
 
@@ -25,13 +28,13 @@ render(MarkdownViewerExample)
 
 ### Link-Handling Example
 
-```javascript live noinline
+```javascript live noinline drafts
 const MarkdownViewerExample = () => {
   return (
     <MarkdownViewer
       // eslint-disable-next-line github/unescaped-html-literal
       dangerousRenderedHtml={{__html: "<a href='https://example.com'>Example link</a>"}}
-      onLinkClick={(ev) => console.log(ev)}
+      onLinkClick={ev => console.log(ev)}
     />
   )
 }
@@ -41,8 +44,7 @@ render(MarkdownViewerExample)
 
 ### Checkbox Interaction Example
 
-```javascript live noinline
-
+```javascript live noinline drafts
 const markdownSource = `
 text before list
 
@@ -64,7 +66,7 @@ const MarkdownViewerExample = () => {
     <MarkdownViewer
       dangerousRenderedHtml={{__html: renderedHtml}}
       markdownValue={markdownSource}
-      onChange={(value) => console.log(value) /* save the value to the server */}
+      onChange={value => console.log(value) /* save the value to the server */}
       disabled={false}
     />
   )

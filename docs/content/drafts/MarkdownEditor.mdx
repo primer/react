@@ -3,9 +3,12 @@ componentId: markdown_editor
 title: MarkdownEditor
 status: Draft
 description: Full-featured Markdown input.
-source: https://github.com/primer/react/tree/main/src/MarkdownEditor
 storybook: '/react/storybook?path=/story/forms-markdowneditor--default'
 ---
+
+```js
+import {MarkdownEditor} from '@primer/react/drafts'
+```
 
 `MarkdownEditor` is a full-featured editor for GitHub Flavored Markdown, with support for:
 
@@ -23,8 +26,8 @@ storybook: '/react/storybook?path=/story/forms-markdowneditor--default'
 
 A `Label` is always required for accessibility:
 
-```javascript live noinline
-const renderMarkdown = async (markdown: string) => {
+```javascript live noinline drafts
+const renderMarkdown = async (markdown) => {
   // In production code, this would make a query to some external API endpoint to render
   return "Rendered Markdown."
 }
@@ -48,15 +51,15 @@ render(MinimalExample)
 
 ### Suggestions, File Uploads, and Saved Replies
 
-```javascript live noinline
-const renderMarkdown = async (markdown: string) => "Rendered Markdown."
+```javascript live noinline drafts
+const renderMarkdown = async (markdown) => "Rendered Markdown."
 
-const uploadFile = async (file: File): FileUploadResult => ({
+const uploadFile = async (file) => ({
   url: `https://example.com/${encodeURIComponent(file.name)}`,
   file
 })
 
-const emojis: Emoji[] = [
+const emojis = [
   {name: '+1', character: '👍'},
   {name: '-1', character: '👎'},
   {name: 'heart', character: '❤️'},
@@ -74,7 +77,7 @@ const emojis: Emoji[] = [
   {name: 'thumbsdown', character: '👎'}
 ]
 
-const references: Reference[] = [
+const references = [
   {id: '1', titleText: 'Add logging functionality', titleHtml: 'Add logging functionality'},
   {
     id: '2',
@@ -84,13 +87,13 @@ const references: Reference[] = [
   {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'}
 ]
 
-const mentionables: Mentionable[] = [
+const mentionables = [
   {identifier: 'monalisa', description: 'Monalisa Octocat'},
   {identifier: 'github', description: 'GitHub'},
   {identifier: 'primer', description: 'Primer'}
 ]
 
-const savedReplies: SavedReply[] = [
+const savedReplies = [
   {name: 'Duplicate', content: 'Duplicate of #'},
   {name: 'Welcome', content: 'Welcome to the project!\n\nPlease be sure to read the contributor guidelines.'},
   {name: 'Thanks', content: 'Thanks for your contribution!'}
@@ -123,8 +126,8 @@ render(MinimalExample)
 
 ### Custom Buttons
 
-```javascript live noinline
-const renderMarkdown = async (markdown: string) => "Rendered Markdown."
+```javascript live noinline drafts
+const renderMarkdown = async (markdown) => "Rendered Markdown."
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')

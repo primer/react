@@ -1,5 +1,9 @@
 import React, {forwardRef, useImperativeHandle, useRef} from 'react'
 
+const isBrowser = typeof window !== 'undefined'
+
+if (isBrowser) import('@github/markdown-toolbar-element')
+
 export interface FormattingTools {
   header: () => void
   bold: () => void

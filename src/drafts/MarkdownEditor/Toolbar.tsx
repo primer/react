@@ -14,7 +14,6 @@ import {
 } from '@primer/octicons-react'
 import React, {forwardRef, memo, useContext, useRef} from 'react'
 
-import '@github/markdown-toolbar-element'
 import {isMacOS} from '@primer/behaviors/utils'
 import Box from '../../Box'
 import {IconButton, IconButtonProps} from '../../Button'
