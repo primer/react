@@ -33,6 +33,11 @@ export type InteractiveMarkdownViewerProps = CoreMarkdownViewerProps & {
    * Called when the user interacts and updates the Markdown. The rendered Markdown is
    * updated eagerly - if the request fails, a rejected Promise should be returned by
    * this handler. In that case, the viewer will revert the visual change.
+   *
+   * If the change is handled by an async API request (as it typically will be in production
+   * code), the viewer should be `disabled` while the request is pending to avoid conflicts.
+   * To allow users to check multiple boxes rapidly, the API request should be debounced (an
+   * ideal debounce duration is about 1 second).
    */
   onChange: (markdown: string) => void | Promise<void>
   /** Control whether interaction is disabled. */

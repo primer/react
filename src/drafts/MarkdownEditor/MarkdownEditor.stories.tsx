@@ -175,6 +175,21 @@ const savedReplies: SavedReply[] = [
   }
 ]
 
+const onUploadFile = async (file: File) => {
+  const wait = 0.0002 * file.size + 500
+  await delay(wait / 2)
+  // to demo file rejections:
+  if (file.name.toLowerCase().startsWith('a')) throw new Error("Rejected file for starting with the letter 'a'")
+  // 0.5 - 5 seconds depending on file size up to about 20 MB
+  await delay(wait / 2)
+  return {file, url: fakeFileUrl(file)}
+}
+
+const renderPreview = async () => {
+  await delay(500)
+  return 'Previewing Markdown is not supported in this example.'
+}
+
 export const Default = ({
   disabled,
   fullHeight,
@@ -189,15 +204,6 @@ export const Default = ({
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
-  const onUploadFile = async (file: File) => {
-    const wait = 0.0002 * file.size + 500
-    await delay(wait / 2)
-    if (file.name.toLowerCase().startsWith('a')) throw new Error("Rejected file for starting with the letter 'a'")
-    // 0.5 - 5 seconds depending on file size up to about 20 MB
-    await delay(wait / 2)
-    return {file, url: fakeFileUrl(file)}
-  }
-
   return (
     <>
       <MarkdownEditor
@@ -210,10 +216,7 @@ export const Default = ({
         minHeightLines={minHeightLines}
         maxHeightLines={maxHeightLines}
         placeholder="Enter some Markdown..."
-        onRenderPreview={async () => {
-          await delay(500)
-          return 'Previewing Markdown is not supported in this example.'
-        }}
+        onRenderPreview={renderPreview}
         onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
         emojiSuggestions={emojis}
         mentionSuggestions={mentionables}
@@ -243,49 +246,43 @@ export const CustomButtons = ({
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
-  const onUploadFile = async (file: File) => {
-    // 0.5 - 5 seconds depending on file size up to about 20 MB
-    await delay(0.0002 * file.size + 500)
-    return {file, url: fakeFileUrl(file)}
-  }
-
   return (
-    <MarkdownEditor
-      value={value}
-      onChange={setValue}
-      onPrimaryAction={onSubmit}
-      disabled={disabled}
-      fullHeight={fullHeight}
-      monospace={monospace}
-      minHeightLines={minHeightLines}
-      maxHeightLines={maxHeightLines}
-      placeholder="Enter some Markdown..."
-      onRenderPreview={async () => {
-        await delay(500)
-        return 'Previewing Markdown is not supported in this example.'
-      }}
-      onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-      emojiSuggestions={emojis}
-      mentionSuggestions={mentionables}
-      referenceSuggestions={references}
-      required={required}
-      savedReplies={savedRepliesEnabled ? savedReplies : undefined}
-    >
-      <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
+    <>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={renderPreview}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        emojiSuggestions={emojis}
+        mentionSuggestions={mentionables}
+        referenceSuggestions={references}
+        required={required}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
 
-      <MarkdownEditor.Toolbar>
-        <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} aria-label="Custom Button" />
-        <MarkdownEditor.DefaultToolbarButtons />
-      </MarkdownEditor.Toolbar>
+        <MarkdownEditor.Toolbar>
+          <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} aria-label="Custom Button" />
+          <MarkdownEditor.DefaultToolbarButtons />
+        </MarkdownEditor.Toolbar>
 
-      <MarkdownEditor.Actions>
-        <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
-          Reset
-        </MarkdownEditor.ActionButton>
-        <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
-          Submit
-        </MarkdownEditor.ActionButton>
-      </MarkdownEditor.Actions>
-    </MarkdownEditor>
+        <MarkdownEditor.Actions>
+          <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
+            Reset
+          </MarkdownEditor.ActionButton>
+          <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
+            Submit
+          </MarkdownEditor.ActionButton>
+        </MarkdownEditor.Actions>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </>
   )
 }
