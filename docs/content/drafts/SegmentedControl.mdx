@@ -18,22 +18,16 @@ description: Use a segmented control to let users select an option from a short 
 
 ### Controlled
 
-```javascript noinline live
+```javascript noinline live drafts
 const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
 
   const handleSegmentChange = selectedIndex => {
-    setSelectedIndex(i)
-    console.log(`new selected segment: ${on}`)
+    setSelectedIndex(selectedIndex)
   }
 
   return (
-    <SegmentedControl
-      aria-label="File view"
-      onChange={selectedIndex => {
-        alert(`Segment ${selectedIndex}`)
-      }}
-    >
+    <SegmentedControl aria-label="File view" onChange={handleSegmentChange}>
       <SegmentedControl.Button selected={selectedIndex === 0}>Preview</SegmentedControl.Button>
       <SegmentedControl.Button selected={selectedIndex === 1}>Raw</SegmentedControl.Button>
       <SegmentedControl.Button selected={selectedIndex === 2}>Blame</SegmentedControl.Button>
