@@ -16,6 +16,8 @@ jobs:
       contents: read
       pages: write
       id-token: write
+    secrets:
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:
       node_version: 14
       install: npm ci && cd docs && npm ci && cd ..
