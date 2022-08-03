@@ -45,8 +45,8 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const {theme} = useTheme()
   const isUncontrolled =
     onChange === undefined ||
-    React.Children.toArray(children).every(
-      child => React.isValidElement<SegmentedControlButtonProps>(child) && child.props.selected === undefined
+    React.Children.toArray(children).some(
+      child => React.isValidElement<SegmentedControlButtonProps>(child) && child.props.defaultSelected !== undefined
     )
   const selectedSegments = React.Children.toArray(children).map(
     child =>
