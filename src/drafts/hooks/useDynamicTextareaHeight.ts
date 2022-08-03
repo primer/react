@@ -40,7 +40,8 @@ export const useDynamicTextareaHeight = ({
     // The calculator gives us the distance from the top border to the bottom of the caret, including
     // any top padding, so we need to delete the top padding to accurately get the height
     element.style.paddingTop = '0'
-    setHeight(`${getCharacterCoordinates(element, element.value.length, false).top}px`)
+    // Somehow we come up 1 pixel too short and the scrollbar appears, so just add one
+    setHeight(`${getCharacterCoordinates(element, element.value.length, false).top + 1}px`)
     element.style.paddingTop = pt
 
     const lineHeight =

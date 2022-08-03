@@ -1,12 +1,12 @@
 import {subscribe as subscribeToMarkdownPasting} from '@github/paste-markdown'
-import React, {forwardRef, useEffect, useMemo, useState} from 'react'
+import React, {forwardRef, useEffect, useMemo, useRef, useState} from 'react'
 import {useDynamicTextareaHeight} from '../hooks/useDynamicTextareaHeight'
-import {useCombinedRefs} from '../../hooks/useCombinedRefs'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '../InlineAutocomplete'
 import Textarea, {TextareaProps} from '../../Textarea'
 import {Emoji, useEmojiSuggestions} from './suggestions/_useEmojiSuggestions'
 import {Mentionable, useMentionSuggestions} from './suggestions/_useMentionSuggestions'
 import {Reference, useReferenceSuggestions} from './suggestions/_useReferenceSuggestions'
+import {useRefObjectAsForwardedRef} from '../../hooks'
 
 interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   value: string
@@ -78,12 +78,12 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       }
     }
 
-    const [element, setElement] = useState<HTMLTextAreaElement | null>(null)
-    const ref = useCombinedRefs(forwardedRef, setElement)
+    const ref = useRef<HTMLTextAreaElement>(null)
+    useRefObjectAsForwardedRef(forwardedRef, ref)
 
-    useEffect(() => (element ? subscribeToMarkdownPasting(element).unsubscribe : undefined), [element])
+    useEffect(() => (ref.current ? subscribeToMarkdownPasting(ref.current).unsubscribe : undefined), [])
 
-    const dynamicHeightStyles = useDynamicTextareaHeight({maxHeightLines, minHeightLines, element, value})
+    const dynamicHeightStyles = useDynamicTextareaHeight({maxHeightLines, minHeightLines, element: ref.current, value})
     const heightStyles = fullHeight ? {} : dynamicHeightStyles
 
     return (
