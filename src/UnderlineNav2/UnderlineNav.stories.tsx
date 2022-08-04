@@ -1,7 +1,8 @@
 import React from 'react'
-import {EyeIcon} from '@primer/octicons-react'
+import {EyeIcon, CodeIcon, IssueOpenedIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import UnderlineNav, {UnderlineNavProps} from './index'
+import CounterLabel from '../CounterLabel'
 import {BaseStyles, ThemeProvider} from '..'
 import {within, userEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
@@ -60,6 +61,22 @@ export const withIcons = (args: UnderlineNavProps) => {
         Item 1
       </UnderlineNav.Link>
       <UnderlineNav.Link>Item 2</UnderlineNav.Link>
+    </UnderlineNav>
+  )
+}
+
+export const withCounterLabels = (args: UnderlineNavProps) => {
+  return (
+    <UnderlineNav {...args}>
+      <UnderlineNav.Link selected leadingIcon={CodeIcon}>
+        Code
+      </UnderlineNav.Link>
+      <UnderlineNav.Link leadingIcon={IssueOpenedIcon}>
+        Issues{' '}
+        <CounterLabel sx={{marginLeft: 1}} scheme="primary">
+          12
+        </CounterLabel>
+      </UnderlineNav.Link>
     </UnderlineNav>
   )
 }
