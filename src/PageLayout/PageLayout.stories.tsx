@@ -7,14 +7,334 @@ import {PageLayout} from './PageLayout'
 
 const meta: Meta = {
   title: 'Layout/PageLayout',
-  component: PageLayout,
+  // component: PageLayout,
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true}
+  },
+  argTypes: {
+    // Debug controls
+    'Render header?': {
+      type: 'boolean',
+      defaultValue: true,
+      table: {category: 'Debug'}
+    },
+    'Render pane?': {
+      type: 'boolean',
+      defaultValue: true,
+      table: {category: 'Debug'}
+    },
+    'Render footer?': {
+      type: 'boolean',
+      defaultValue: true,
+      table: {category: 'Debug'}
+    },
+    'Header placeholder height': {
+      type: 'number',
+      defaultValue: 64,
+      table: {category: 'Debug'}
+    },
+    'Pane placeholder height': {
+      type: 'number',
+      defaultValue: 200,
+      table: {category: 'Debug'}
+    },
+    'Content placeholder height': {
+      type: 'number',
+      defaultValue: 400,
+      table: {category: 'Debug'}
+    },
+    'Footer placeholder height': {
+      type: 'number',
+      defaultValue: 64,
+      table: {category: 'Debug'}
+    },
+
+    // PageLayout prop controls
+    containerWidth: {
+      type: {
+        name: 'enum',
+        value: ['full', 'medium', 'large', 'xlarge']
+      },
+      defaultValue: 'xlarge',
+      control: {type: 'radio'},
+      table: {category: 'PageLayout props'}
+    },
+    padding: {
+      type: {
+        name: 'enum',
+        value: ['none', 'condensed', 'normal']
+      },
+      defaultValue: 'normal',
+      control: {type: 'radio'},
+      table: {category: 'PageLayout props'}
+    },
+    rowGap: {
+      type: {
+        name: 'enum',
+        value: ['none', 'condensed', 'normal']
+      },
+      defaultValue: 'normal',
+      control: {type: 'radio'},
+      table: {category: 'PageLayout props'}
+    },
+    columnGap: {
+      type: {
+        name: 'enum',
+        value: ['none', 'condensed', 'normal']
+      },
+      defaultValue: 'normal',
+      control: {type: 'radio'},
+      table: {category: 'PageLayout props'}
+    },
+
+    // Header prop controls
+    'Header.divider.regular': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Header props'
+      }
+    },
+    'Header.divider.narrow': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line', 'filled']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Header props'
+      }
+    },
+    'Header.divider.wide': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Header props'
+      }
+    },
+    'Header.padding': {
+      type: {
+        name: 'enum',
+        value: ['none', 'condensed', 'normal']
+      },
+      defaultValue: 'none',
+      control: {type: 'radio'},
+      table: {category: 'Header props'}
+    },
+    'Header.hidden.regular': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Header props'}
+    },
+    'Header.hidden.narrow': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Header props'}
+    },
+    'Header.hidden.wide': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Header props'}
+    },
+
+    // Content prop controls
+    'Content.width': {
+      type: {
+        name: 'enum',
+        value: ['full', 'medium', 'large', 'xlarge']
+      },
+      defaultValue: 'full',
+      control: {type: 'radio'},
+      table: {category: 'Content props'}
+    },
+    'Content.padding': {
+      type: {
+        name: 'enum',
+        value: ['none', 'condensed', 'normal']
+      },
+      defaultValue: 'none',
+      control: {type: 'radio'},
+      table: {category: 'Content props'}
+    },
+    'Content.hidden.regular': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Content props'}
+    },
+    'Content.hidden.narrow': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Content props'}
+    },
+    'Content.hidden.wide': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Content props'}
+    },
+
+    // Pane prop controls
+    'Pane.position.regular': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end']
+      },
+      defaultValue: 'end',
+      control: {type: 'radio'},
+      table: {category: 'Pane props'}
+    },
+    'Pane.position.narrow': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end']
+      },
+      defaultValue: 'end',
+      control: {type: 'radio'},
+      table: {category: 'Pane props'}
+    },
+    'Pane.position.wide': {
+      type: {
+        name: 'enum',
+        value: ['start', 'end']
+      },
+      defaultValue: 'end',
+      control: {type: 'radio'},
+      table: {category: 'Pane props'}
+    },
+    'Pane.width': {
+      type: {
+        name: 'enum',
+        value: ['small', 'medium', 'large']
+      },
+      defaultValue: 'medium',
+      control: {type: 'radio'},
+      table: {category: 'Pane props'}
+    },
+    'Pane.sticky': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Pane props'}
+    },
+    'Pane.padding': {
+      type: {
+        name: 'enum',
+        value: ['none', 'condensed', 'normal']
+      },
+      defaultValue: 'none',
+      control: {type: 'radio'},
+      table: {category: 'Pane props'}
+    },
+    'Pane.divider.regular': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {type: 'radio'},
+      table: {category: 'Pane props'}
+    },
+    'Pane.divider.narrow': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line', 'filled']
+      },
+      defaultValue: 'none',
+      control: {type: 'radio'},
+      table: {category: 'Pane props'}
+    },
+    'Pane.divider.wide': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {type: 'radio'},
+      table: {category: 'Pane props'}
+    },
+
+    // Footer prop controls
+    'Footer.divider.regular': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Footer props'
+      }
+    },
+    'Footer.divider.narrow': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line', 'filled']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Footer props'
+      }
+    },
+    'Footer.divider.wide': {
+      type: {
+        name: 'enum',
+        value: ['none', 'line']
+      },
+      defaultValue: 'none',
+      control: {
+        type: 'radio'
+      },
+      table: {
+        category: 'Footer props'
+      }
+    },
+    'Footer.padding': {
+      type: {
+        name: 'enum',
+        value: ['none', 'condensed', 'normal']
+      },
+      defaultValue: 'none',
+      control: {type: 'radio'},
+      table: {category: 'Footer props'}
+    },
+    'Footer.hidden.regular': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Footer props'}
+    },
+    'Footer.hidden.narrow': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Footer props'}
+    },
+    'Footer.hidden.wide': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Footer props'}
+    }
   }
 }
 
-export const Playground: Story = args => (
+const Template: Story = args => (
   <PageLayout
     containerWidth={args.containerWidth}
     padding={args.padding}
@@ -22,222 +342,107 @@ export const Playground: Story = args => (
     columnGap={args.columnGap}
     sx={args.sx}
   >
-    {args['Show header?'] ? (
-      <PageLayout.Header divider={args['Header.divider']} dividerWhenNarrow={args['Header.dividerWhenNarrow']}>
-        <Placeholder height={64} label="Header" />
+    {args['Render header?'] ? (
+      <PageLayout.Header
+        padding={args['Header.padding']}
+        divider={{
+          narrow: args['Header.divider.narrow'],
+          regular: args['Header.divider.regular'],
+          wide: args['Header.divider.wide']
+        }}
+        hidden={{
+          narrow: args['Header.hidden.narrow'],
+          regular: args['Header.hidden.regular'],
+          wide: args['Header.hidden.wide']
+        }}
+      >
+        <Placeholder height={args['Header placeholder height']} label="Header" />
       </PageLayout.Header>
     ) : null}
-    <PageLayout.Content width={args['Content.width']}>
-      <Placeholder height={400} label="Content" />
+    <PageLayout.Content
+      width={args['Content.width']}
+      padding={args['Content.padding']}
+      hidden={{
+        narrow: args['Content.hidden.narrow'],
+        regular: args['Content.hidden.regular'],
+        wide: args['Content.hidden.wide']
+      }}
+    >
+      <Placeholder height={args['Content placeholder height']} label="Content" />
     </PageLayout.Content>
-    {args['Show pane?'] ? (
+    {args['Render pane?'] ? (
       <PageLayout.Pane
-        position={args['Pane.position']}
-        positionWhenNarrow={args['Pane.positionWhenNarrow']}
+        position={{
+          narrow: args['Pane.position.narrow'],
+          regular: args['Pane.position.regular'],
+          wide: args['Pane.position.wide']
+        }}
         width={args['Pane.width']}
-        divider={args['Pane.divider']}
-        dividerWhenNarrow={args['Pane.dividerWhenNarrow']}
+        sticky={args['Pane.sticky']}
+        padding={args['Pane.padding']}
+        divider={{
+          narrow: args['Pane.divider.narrow'],
+          regular: args['Pane.divider.regular'],
+          wide: args['Pane.divider.wide']
+        }}
+        hidden={{
+          narrow: args['Pane.hidden.narrow'],
+          regular: args['Pane.hidden.regular'],
+          wide: args['Pane.hidden.wide']
+        }}
       >
-        <Placeholder height={200} label="Pane" />
+        <Placeholder height={args['Pane placeholder height']} label="Pane" />
       </PageLayout.Pane>
     ) : null}
-    {args['Show footer?'] ? (
-      <PageLayout.Footer divider={args['Footer.divider']} dividerWhenNarrow={args['Footer.dividerWhenNarrow']}>
-        <Placeholder height={64} label="Footer" />
+    {args['Render footer?'] ? (
+      <PageLayout.Footer
+        padding={args['Footer.padding']}
+        divider={{
+          narrow: args['Footer.divider.narrow'],
+          regular: args['Footer.divider.regular'],
+          wide: args['Footer.divider.wide']
+        }}
+        hidden={{
+          narrow: args['Footer.hidden.narrow'],
+          regular: args['Footer.hidden.regular'],
+          wide: args['Footer.hidden.wide']
+        }}
+      >
+        <Placeholder height={args['Footer placeholder height']} label="Footer" />
       </PageLayout.Footer>
     ) : null}
   </PageLayout>
 )
 
-Playground.argTypes = {
-  'Show header?': {
-    type: 'boolean',
-    defaultValue: true,
-    table: {
-      category: 'Header'
-    }
-  },
-  'Header.divider': {
-    type: {
-      name: 'enum',
-      value: ['none', 'line']
-    },
-    defaultValue: 'none',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Header',
-      defaultValue: {
-        summary: '"none"'
-      }
-    }
-  },
-  'Header.dividerWhenNarrow': {
-    type: {
-      name: 'enum',
-      value: ['inherit', 'none', 'line', 'filled']
-    },
-    defaultValue: 'inherit',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Header',
-      defaultValue: {
-        summary: '"inherit"'
-      }
-    }
-  },
-  'Content.width': {
-    type: {
-      name: 'enum',
-      value: ['full', 'medium', 'large', 'xlarge']
-    },
-    defaultValue: 'full',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Content',
-      defaultValue: {
-        summary: '"full"'
-      }
-    }
-  },
-  'Show pane?': {
-    type: 'boolean',
-    defaultValue: true,
-    table: {
-      category: 'Pane'
-    }
-  },
-  'Pane.position': {
-    type: {
-      name: 'enum',
-      value: ['start', 'end']
-    },
-    defaultValue: 'end',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Pane',
-      defaultValue: {
-        summary: '"end"'
-      }
-    }
-  },
-  'Pane.positionWhenNarrow': {
-    type: {
-      name: 'enum',
-      value: ['inherit', 'start', 'end']
-    },
-    defaultValue: 'inherit',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Pane',
-      defaultValue: {
-        summary: '"inherit"'
-      }
-    }
-  },
-  'Pane.width': {
-    type: {
-      name: 'enum',
-      value: ['small', 'medium', 'large']
-    },
-    defaultValue: 'medium',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Pane',
-      defaultValue: {
-        summary: '"medium"'
-      }
-    }
-  },
-  'Pane.divider': {
-    type: {
-      name: 'enum',
-      value: ['none', 'line']
-    },
-    defaultValue: 'none',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Pane',
-      defaultValue: {
-        summary: '"none"'
-      }
-    }
-  },
-  'Pane.dividerWhenNarrow': {
-    type: {
-      name: 'enum',
-      value: ['inherit', 'none', 'line', 'filled']
-    },
-    defaultValue: 'inherit',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Pane',
-      defaultValue: {
-        summary: '"inherit"'
-      }
-    }
-  },
-  'Show footer?': {
-    type: 'boolean',
-    defaultValue: true,
-    table: {
-      category: 'Footer'
-    }
-  },
-  'Footer.divider': {
-    type: {
-      name: 'enum',
-      value: ['none', 'line']
-    },
-    defaultValue: 'none',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Footer',
-      defaultValue: {
-        summary: '"none"'
-      }
-    }
-  },
-  'Footer.dividerWhenNarrow': {
-    type: {
-      name: 'enum',
-      value: ['inherit', 'none', 'line', 'filled']
-    },
-    defaultValue: 'inherit',
-    control: {
-      type: 'radio'
-    },
-    table: {
-      category: 'Footer',
-      defaultValue: {
-        summary: '"inherit"'
-      }
-    }
-  }
-}
+export const Default = Template.bind({})
 
-Playground.args = {
-  containerWidth: 'xlarge',
-  padding: 'normal',
-  rowGap: 'normal',
-  columnGap: 'normal'
+export const SplitPage = Template.bind({})
+
+SplitPage.args = {
+  containerWidth: 'full',
+  padding: 'none',
+  rowGap: 'none',
+  columnGap: 'none',
+  'Header.padding': 'normal',
+  'Header.divider.regular': 'line',
+  'Header.divider.narrow': 'line',
+  'Header.divider.wide': 'line',
+  'Content.padding': 'normal',
+  'Content.width': 'xlarge',
+  'Pane.sticky': true,
+  'Pane.position.narrow': 'start',
+  'Pane.position.regular': 'start',
+  'Pane.position.wide': 'start',
+  'Pane.padding': 'normal',
+  'Pane.divider.narrow': 'line',
+  'Pane.divider.regular': 'line',
+  'Pane.divider.wide': 'line',
+  'Footer.padding': 'normal',
+  'Footer.divider.regular': 'line',
+  'Footer.divider.narrow': 'line',
+  'Footer.divider.wide': 'line',
+
+  'Pane placeholder height': 1200
 }
 
 export const PullRequestPage = () => (
@@ -349,14 +554,14 @@ export const SettingsPage = () => (
   </PageLayout>
 )
 
-export const StickyPane = () => (
+export const StickyPane: Story = args => (
   <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
     <PageLayout.Header padding="normal" divider="line">
       <Placeholder label="Header" height={64} />
     </PageLayout.Header>
     <PageLayout.Content padding="normal" width="large">
       <Box sx={{display: 'grid', gap: 3}}>
-        {Array.from({length: 30}).map((_, i) => (
+        {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
           <Box key={i} as="p" sx={{margin: 0}}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
             Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et, auctor
@@ -368,9 +573,9 @@ export const StickyPane = () => (
         ))}
       </Box>
     </PageLayout.Content>
-    <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
+    <PageLayout.Pane position="start" padding="normal" divider="line" sticky={args.sticky}>
       <Box sx={{display: 'grid', gap: 3}}>
-        {Array.from({length: 10}).map((_, i) => (
+        {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
           <Box key={i} as="p" sx={{margin: 0}}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
             Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et, auctor
@@ -385,4 +590,28 @@ export const StickyPane = () => (
   </PageLayout>
 )
 
+StickyPane.argTypes = {
+  sticky: {
+    type: 'boolean',
+    defaultValue: true
+  },
+  numParagraphsInPane: {
+    type: 'number',
+    defaultValue: 10
+  },
+  numParagraphsInContent: {
+    type: 'number',
+    defaultValue: 30
+  }
+}
+
 export default meta
+
+// test cases
+
+// pane is long, content is short
+// pane is short, content is long
+// pane is long, content is long
+// pane is short, content is short
+// narrow viewport
+// sticky disabled
