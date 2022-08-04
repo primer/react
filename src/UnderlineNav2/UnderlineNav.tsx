@@ -27,14 +27,13 @@ const overflowEffect = (
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
-  // eslint-disable-next-line github/array-foreach
-  childArray.forEach((child: React.ReactElement, index: number) => {
+  for (const [index, child] of childArray.entries()) {
     if (index < numberOfItemsPossible) {
       items.push(child)
     } else {
       actions.push(child)
     }
-  })
+  }
   callback({items, actions})
 }
 
@@ -64,13 +63,13 @@ export type UnderlineNavProps = {
   overflow?: Overflow
   align?: 'right'
   sx?: SxProp
-  onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   children: React.ReactNode
 }
 
 export const UnderlineNav = forwardRef(
   (
-    {as = 'nav', overflow = 'auto', align, label, sx: sxProp = {}, onSelect, children}: UnderlineNavProps,
+    {as = 'nav', overflow = 'auto', align, label, sx: sxProp = {}, afterSelect, children}: UnderlineNavProps,
     forwardedRef
   ) => {
     const backupRef = useRef<HTMLElement>(null)
@@ -94,9 +93,9 @@ export const UnderlineNav = forwardRef(
 
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
 
-    const afterSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+    const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
       if (!event.defaultPrevented) {
-        if (typeof onSelect === 'function') onSelect(event)
+        if (typeof afterSelect === 'function') afterSelect(event)
       }
     }
 
@@ -131,7 +130,9 @@ export const UnderlineNav = forwardRef(
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
     return (
-      <UnderlineNavContext.Provider value={{setChildrenWidth, selectedLink, setSelectedLink, afterSelect}}>
+      <UnderlineNavContext.Provider
+        value={{setChildrenWidth, selectedLink, setSelectedLink, afterSelect: afterSelectHandler}}
+      >
         <Box as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
           <Box as="ul" sx={merge<BetterSystemStyleObject>(overflowStyles, ulStyles)}>
             {responsiveProps.items}
