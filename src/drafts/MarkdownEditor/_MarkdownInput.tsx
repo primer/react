@@ -93,6 +93,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
         onShowSuggestions={onShowSuggestions}
         onHideSuggestions={() => setSuggestions(null)}
         sx={{flex: 'auto'}}
+        tabInsertsSuggestions
       >
         <Textarea
           id={id}

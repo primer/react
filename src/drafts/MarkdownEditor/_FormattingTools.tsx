@@ -25,7 +25,8 @@ let hasRegisteredToolbarElement = false
  */
 export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>(({forInputId}, forwadedRef) => {
   useEffect(() => {
-    if (!hasRegisteredToolbarElement) import('@github/markdown-toolbar-element')
+    // requiring this module will register the custom element; we don't want to do that until the component mounts in the DOM
+    if (!hasRegisteredToolbarElement) require('@github/markdown-toolbar-element')
     hasRegisteredToolbarElement = true
   }, [])
 
