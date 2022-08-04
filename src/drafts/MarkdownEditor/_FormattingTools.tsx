@@ -1,10 +1,6 @@
-import React, {forwardRef, useImperativeHandle, useRef} from 'react'
+import React, {forwardRef, useImperativeHandle, useRef, useEffect} from 'react'
 
-const isBrowser = typeof window !== 'undefined'
-
-if (isBrowser) import('@github/markdown-toolbar-element')
-
-export interface FormattingTools {
+export type FormattingTools = {
   header: () => void
   bold: () => void
   italic: () => void
@@ -18,6 +14,8 @@ export interface FormattingTools {
   reference: () => void
 }
 
+let hasRegisteredToolbarElement = false
+
 /**
  * Renders an invisible `markdown-toolbar-element` that provides formatting actions to the
  * editor. This is a hacky way of using the library, but it allows us to use the built-in
@@ -26,6 +24,11 @@ export interface FormattingTools {
  * buttons (ie, by keyboard shortcut).
  */
 export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>(({forInputId}, forwadedRef) => {
+  useEffect(() => {
+    if (!hasRegisteredToolbarElement) import('@github/markdown-toolbar-element')
+    hasRegisteredToolbarElement = true
+  }, [])
+
   const headerRef = useRef<HTMLElement>(null)
   const boldRef = useRef<HTMLElement>(null)
   const italicRef = useRef<HTMLElement>(null)
