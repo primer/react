@@ -43,6 +43,7 @@
     "build:docs": "script/build-docs",
     "build:docs:preview": "script/build-docs preview",
     "build:storybook:visual-testing": "build-storybook",
+    "install:docs": "(cd docs && npm install --legacy-peer-deps)",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
@@ -79,6 +80,8 @@
     "npm": ">=7"
   },
   "dependencies": {
+    "@github/combobox-nav": "^2.1.5",
+    "@koddsson/textarea-caret": "^4.0.1",
     "@primer/behaviors": "^1.1.1",
     "@primer/octicons-react": "^17.3.0",
     "@primer/primitives": "7.9.0",
