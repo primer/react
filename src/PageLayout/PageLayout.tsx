@@ -375,26 +375,30 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
 
   const paneRef = React.useRef<HTMLDivElement>(null)
 
-  const handleScroll = React.useCallback(() => {
+  // TODO: respect sticky headers
+  const updateOffset = React.useCallback(() => {
     if (paneRef.current && contentRef?.current) {
       const paneRect = paneRef.current.getBoundingClientRect()
       const contentRect = contentRef.current.getBoundingClientRect()
-      // console.log(contentRect.bottom)
+      console.log(paneRect.top)
 
       const topOffset = paneRect.top
-      const bottomOffset = contentRect.bottom < window.innerHeight ? window.innerHeight - contentRect.bottom : 0
+      const bottomOffset = Math.max(0, window.innerHeight - contentRect.bottom)
       setOffset(topOffset + bottomOffset)
     }
   }, [contentRef])
 
   React.useEffect(() => {
-    handleScroll()
+    updateOffset()
     // eslint-disable-next-line github/prefer-observers
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', updateOffset)
+    // eslint-disable-next-line github/prefer-observers
+    window.addEventListener('resize', updateOffset)
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', updateOffset)
+      window.removeEventListener('resize', updateOffset)
     }
-  }, [handleScroll])
+  }, [updateOffset])
 
   return (
     <Box
