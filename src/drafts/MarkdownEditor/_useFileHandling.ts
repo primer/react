@@ -119,8 +119,6 @@ export const useFileHandling = ({
         try {
           result = (await onUploadFile?.(file)) ?? {file, url: null}
         } catch (e) {
-          // eslint-disable-next-line no-console
-          console.error(e)
           result = {file, url: null}
         }
 
