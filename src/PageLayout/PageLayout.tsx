@@ -409,7 +409,6 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
             display: isHidden ? 'none' : 'flex',
             order: panePositions[position],
             width: '100%',
-
             marginX: 0,
             ...(position === 'end'
               ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
@@ -421,6 +420,7 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
               marginY: '0 !important',
               position: 'sticky',
               maxHeight: 'calc(100vh - var(--offset))',
+              overflow: 'hidden',
               top: 0,
               ...(position === 'end'
                 ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
