@@ -651,14 +651,209 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
   border: none;
 }
 
+.c1 {
+  margin-bottom: 16px;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c5 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c7 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
+  font-size: 16px;
+  padding: 0;
+}
+
+.c8 {
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.c6 {
+  cursor: pointer;
+}
+
+.c6:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c6:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c6:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c3 > li + li {
+  margin-top: 8px;
+}
+
 <div>
   <fieldset
     aria-describedby=""
     className="c0"
   >
     <div
-      className=""
-    />
+      className="c1"
+    >
+      <legend
+        className="c2"
+      >
+        Legend
+      </legend>
+    </div>
+    <ul
+      className="c3"
+    >
+      <li>
+        <div
+          className="c4"
+          display="flex"
+        >
+          <div
+            className="c5"
+          >
+            <input
+              aria-checked="true"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={true}
+              className="c6"
+              id="react-aria-3"
+              name="labelOne"
+              onChange={[Function]}
+              type="checkbox"
+              value="labelOne"
+            />
+          </div>
+          <div
+            className="c7"
+            display="flex"
+          >
+            <label
+              className="c8"
+              htmlFor="react-aria-3"
+            >
+              Label one
+            </label>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="c4"
+          display="flex"
+        >
+          <div
+            className="c5"
+          >
+            <input
+              aria-checked="true"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={true}
+              className="c6"
+              id="react-aria-4"
+              name="labelTwo"
+              onChange={[Function]}
+              type="checkbox"
+              value="labelTwo"
+            />
+          </div>
+          <div
+            className="c7"
+            display="flex"
+          >
+            <label
+              className="c8"
+              htmlFor="react-aria-4"
+            >
+              Label two
+            </label>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="c4"
+          display="flex"
+        >
+          <div
+            className="c5"
+          >
+            <input
+              aria-checked="false"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={false}
+              className="c6"
+              id="react-aria-5"
+              name="labelThree"
+              onChange={[Function]}
+              type="checkbox"
+              value="labelThree"
+            />
+          </div>
+          <div
+            className="c7"
+            display="flex"
+          >
+            <label
+              className="c8"
+              htmlFor="react-aria-5"
+            >
+              Label three
+            </label>
+          </div>
+        </div>
+      </li>
+    </ul>
   </fieldset>
 </div>
 `;
@@ -670,14 +865,191 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
   border: none;
 }
 
+.c1 {
+  margin-bottom: 16px;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c6 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c8 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c4 {
+  margin-right: 4px;
+}
+
+.c2 {
+  font-size: 16px;
+  padding: 0;
+}
+
+.c9 {
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.c7 {
+  cursor: pointer;
+}
+
+.c7:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c7:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c7:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c5 > li + li {
+  margin-top: 8px;
+}
+
 <div>
   <fieldset
     aria-describedby=""
     className="c0"
   >
     <div
-      className=""
-    />
+      className="c1"
+    >
+      <legend
+        className="c2"
+        title="required field"
+      >
+        <span
+          className="c3"
+          display="flex"
+        >
+          <div
+            className="c4"
+          >
+            Legend
+          </div>
+          <span>
+            *
+          </span>
+        </span>
+      </legend>
+    </div>
+    <ul
+      className="c5"
+    >
+      <li>
+        <div
+          className="c3"
+          display="flex"
+        >
+          <div
+            className="c6"
+          >
+            <input
+              aria-checked="false"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={false}
+              className="c7"
+              id="react-aria-3"
+              name="react-aria-2"
+              onChange={[Function]}
+              type="radio"
+              value="labelOne"
+            />
+          </div>
+          <div
+            className="c8"
+            display="flex"
+          >
+            <label
+              className="c9"
+              htmlFor="react-aria-3"
+            >
+              Label one
+            </label>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="c3"
+          display="flex"
+        >
+          <div
+            className="c6"
+          >
+            <input
+              aria-checked="false"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={false}
+              className="c7"
+              id="react-aria-4"
+              name="react-aria-2"
+              onChange={[Function]}
+              type="radio"
+              value="labelTwo"
+            />
+          </div>
+          <div
+            className="c8"
+            display="flex"
+          >
+            <label
+              className="c9"
+              htmlFor="react-aria-4"
+            >
+              Label two
+            </label>
+          </div>
+        </div>
+      </li>
+    </ul>
   </fieldset>
 </div>
 `;
@@ -689,14 +1061,174 @@ exports[`ChoiceFieldset renders default 1`] = `
   border: none;
 }
 
+.c1 {
+  margin-bottom: 16px;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c5 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c7 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
+  font-size: 16px;
+  padding: 0;
+}
+
+.c8 {
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.c6 {
+  cursor: pointer;
+}
+
+.c6:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c6:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c6:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c3 > li + li {
+  margin-top: 8px;
+}
+
 <div>
   <fieldset
     aria-describedby=""
     className="c0"
   >
     <div
-      className=""
-    />
+      className="c1"
+    >
+      <legend
+        className="c2"
+      >
+        Legend
+      </legend>
+    </div>
+    <ul
+      className="c3"
+    >
+      <li>
+        <div
+          className="c4"
+          display="flex"
+        >
+          <div
+            className="c5"
+          >
+            <input
+              aria-checked="false"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={false}
+              className="c6"
+              id="react-aria-3"
+              name="react-aria-2"
+              onChange={[Function]}
+              type="radio"
+              value="labelOne"
+            />
+          </div>
+          <div
+            className="c7"
+            display="flex"
+          >
+            <label
+              className="c8"
+              htmlFor="react-aria-3"
+            >
+              Label one
+            </label>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="c4"
+          display="flex"
+        >
+          <div
+            className="c5"
+          >
+            <input
+              aria-checked="false"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={false}
+              className="c6"
+              id="react-aria-4"
+              name="react-aria-2"
+              onChange={[Function]}
+              type="radio"
+              value="labelTwo"
+            />
+          </div>
+          <div
+            className="c7"
+            display="flex"
+          >
+            <label
+              className="c8"
+              htmlFor="react-aria-4"
+            >
+              Label two
+            </label>
+          </div>
+        </div>
+      </li>
+    </ul>
   </fieldset>
 </div>
 `;
@@ -708,14 +1240,174 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
   border: none;
 }
 
+.c1 {
+  margin-bottom: 16px;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c5 > input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.c7 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
+  font-size: 16px;
+  padding: 0;
+}
+
+.c8 {
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.c6 {
+  cursor: pointer;
+}
+
+.c6:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c6:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c6:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: 0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c3 > li + li {
+  margin-top: 8px;
+}
+
 <div>
   <fieldset
     aria-describedby=""
     className="c0"
   >
     <div
-      className=""
-    />
+      className="c1"
+    >
+      <legend
+        className="c2"
+      >
+        Legend
+      </legend>
+    </div>
+    <ul
+      className="c3"
+    >
+      <li>
+        <div
+          className="c4"
+          display="flex"
+        >
+          <div
+            className="c5"
+          >
+            <input
+              aria-checked="false"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={false}
+              className="c6"
+              id="react-aria-2"
+              name="radioGroup"
+              onChange={[Function]}
+              type="radio"
+              value="labelOne"
+            />
+          </div>
+          <div
+            className="c7"
+            display="flex"
+          >
+            <label
+              className="c8"
+              htmlFor="react-aria-2"
+            >
+              Label one
+            </label>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div
+          className="c4"
+          display="flex"
+        >
+          <div
+            className="c5"
+          >
+            <input
+              aria-checked="false"
+              aria-disabled="false"
+              aria-invalid="false"
+              aria-required="false"
+              checked={false}
+              className="c6"
+              id="react-aria-3"
+              name="radioGroup"
+              onChange={[Function]}
+              type="radio"
+              value="labelTwo"
+            />
+          </div>
+          <div
+            className="c7"
+            display="flex"
+          >
+            <label
+              className="c8"
+              htmlFor="react-aria-3"
+            >
+              Label two
+            </label>
+          </div>
+        </div>
+      </li>
+    </ul>
   </fieldset>
 </div>
 `;
