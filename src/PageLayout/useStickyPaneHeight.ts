@@ -1,7 +1,7 @@
 import React from 'react'
 import {useInView} from 'react-intersection-observer'
 
-// TODO: Respect sticky header
+// TODO: Handle sticky header
 export function useStickyPaneHeight() {
   const [height, setHeight] = React.useState('100vh')
   const [contentTopRef, contentTopInView, contentTopEntry] = useInView()
@@ -17,6 +17,7 @@ export function useStickyPaneHeight() {
     const topOffset = topRect ? Math.max(topRect.top, 0) : 0
     const bottomOffset = bottomRect ? Math.max(0, window.innerHeight - bottomRect.bottom) : 0
 
+    // TODO: Handle elastic scroll in Safari
     setHeight(`calc(100vh - ${topOffset + bottomOffset}px)`)
   }, [contentTopEntry, contentBottomEntry])
 
