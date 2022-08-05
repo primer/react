@@ -442,7 +442,8 @@ SplitPage.args = {
   'Footer.divider.narrow': 'line',
   'Footer.divider.wide': 'line',
 
-  'Pane placeholder height': 1200
+  'Pane placeholder height': 1200,
+  'Content placeholder height': 2400
 }
 
 export const PullRequestPage = () => (

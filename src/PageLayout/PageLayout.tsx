@@ -1,4 +1,5 @@
 import React from 'react'
+import {useStickyPaneHeight} from './useStickyPaneHeight'
 import {Box} from '..'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
@@ -21,12 +22,12 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
-  contentRef: React.RefObject<HTMLDivElement> | null
+  contentTopRef?: (node?: Element | null | undefined) => void
+  contentBottomRef?: (node?: Element | null | undefined) => void
 }>({
   padding: 'normal',
   rowGap: 'normal',
-  columnGap: 'normal',
-  contentRef: null
+  columnGap: 'normal'
 })
 
 // ----------------------------------------------------------------------------
@@ -57,10 +58,26 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   children,
   sx = {}
 }) => {
-  const contentRef = React.useRef<HTMLDivElement>(null)
+  // TODO: Avoid recalculating sticky pane height when sticky is disabled
+  const {contentTopRef, contentBottomRef, height: stickyPaneHeight} = useStickyPaneHeight()
   return (
-    <PageLayoutContext.Provider value={{padding, rowGap, columnGap, contentRef}}>
-      <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}>
+    <PageLayoutContext.Provider
+      value={{
+        padding,
+        rowGap,
+        columnGap,
+        contentTopRef,
+        contentBottomRef
+      }}
+    >
+      <Box
+        style={{
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore TypeScript doesn't know about CSS custom properties
+          '--sticky-pane-height': stickyPaneHeight
+        }}
+        sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
+      >
         <Box
           sx={{
             maxWidth: containerWidths[containerWidth],
@@ -257,14 +274,14 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   sx = {}
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
-  const {contentRef} = React.useContext(PageLayoutContext)
+  const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
   return (
     <Box
-      ref={contentRef}
       as="main"
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
+          position: 'relative',
           order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
@@ -277,9 +294,15 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
         sx
       )}
     >
+      {/* Track the top of the content region so we can calculate the height of the pane region */}
+      <Box ref={contentTopRef} sx={{position: 'absolute', top: 0}} />
+
       <Box sx={{width: '100%', maxWidth: contentWidths[width], marginX: 'auto', padding: SPACING_MAP[padding]}}>
         {children}
       </Box>
+
+      {/* Track the bottom of the content region so we can calculate the height of the pane region */}
+      <Box ref={contentBottomRef} sx={{position: 'absolute', bottom: 0}} />
     </Box>
   )
 }
@@ -369,42 +392,11 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
 
   const isHidden = useResponsiveValue(responsiveHidden, false)
 
-  const {rowGap, columnGap, contentRef} = React.useContext(PageLayoutContext)
-
-  const [offset, setOffset] = React.useState(0)
-
-  const paneRef = React.useRef<HTMLDivElement>(null)
-
-  // TODO: respect sticky headers
-  const updateOffset = React.useCallback(() => {
-    if (paneRef.current && contentRef?.current) {
-      const paneRect = paneRef.current.getBoundingClientRect()
-      const contentRect = contentRef.current.getBoundingClientRect()
-      console.log(paneRect.top)
-
-      const topOffset = paneRect.top
-      const bottomOffset = Math.max(0, window.innerHeight - contentRect.bottom)
-      setOffset(topOffset + bottomOffset)
-    }
-  }, [contentRef])
-
-  React.useEffect(() => {
-    updateOffset()
-    // eslint-disable-next-line github/prefer-observers
-    window.addEventListener('scroll', updateOffset)
-    // eslint-disable-next-line github/prefer-observers
-    window.addEventListener('resize', updateOffset)
-    return () => {
-      window.removeEventListener('scroll', updateOffset)
-      window.removeEventListener('resize', updateOffset)
-    }
-  }, [updateOffset])
+  const {rowGap, columnGap} = React.useContext(PageLayoutContext)
 
   return (
     <Box
-      ref={paneRef}
       as="aside"
-      style={{'--offset': `${offset}px`}}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
@@ -422,10 +414,14 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
             [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
               width: 'auto',
               marginY: '0 !important',
-              position: 'sticky',
-              maxHeight: 'calc(100vh - var(--offset))',
-              overflow: 'hidden',
-              top: 0,
+              ...(sticky
+                ? {
+                    position: 'sticky',
+                    top: 0,
+                    overflow: 'hidden',
+                    maxHeight: 'var(--sticky-pane-height)'
+                  }
+                : {}),
               ...(position === 'end'
                 ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
                 : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]})
