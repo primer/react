@@ -4,6 +4,8 @@
 
 Proposed
 
+&nbsp;
+
 ## Context
 
 #### Recap: Drafts
@@ -21,7 +23,7 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 [^1]: Calling this a prototype and not experimental, because that already means something else in the maturity lifecycle.
 
----
+&nbsp;
 
 #### Problems with drafts
 
@@ -33,6 +35,8 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 Upstreaming a component that was built in the context of a product requires re-evaluating the baked-in assumptions and most likely a change in the API to make it useful for other contexts.
 
+&nbsp;
+
 ## Decision
 
 1. "Experimental" components, as defined by the component lifecycle, should not be part of semantically versioned npm package for `@primer/react`.
@@ -43,20 +47,24 @@ Upstreaming a component that was built in the context of a product requires re-e
 
 (other name ideas: primer/react-experimental, primer/react-candidates, primer/react-proposals, primer/react-contrib)
 
+&nbsp;
+
 #### Risks:
 
 The maintenance of components while they are still candidates (bugs, a11y remedial, etc.) will be a new parallel workstream for the primer team. With our current team size, we might not be able to give it the required attention.
+
+&nbsp;
 
 #### Other options considered
 
 1. Experimental components should live in [github/github/modules/react-shared](https://github.com/github/github/tree/master/app/assets/modules/react-shared)
 
-The monolith already has a place where reusable react components live, however these cannot be shared by react projects outside the monolith.
+   The monolith already has a place where reusable react components live, however these cannot be shared by react projects outside the monolith.
 
-We can publish "react-shared" as a npm package but that would introduce additional work for non-monolith projects and components built within the context of the monolith might not work in other projects without making them more flexible.
+   We can publish "react-shared" as a npm package but that would introduce additional work for non-monolith projects and components built within the context of the monolith might not work in other projects without making them more flexible.
 
 2. Experimental components should live in a new repository `github/react-shared` or `github/primer-react-candidates` instead of `primer/react-candidates`
 
-This is not a bad option, it helps in sharing components between projects outside of monolith as well and the ownership and responsibility of maintenance is shared by multiple teams.
+   This is not a bad option, it helps in sharing components between projects outside of monolith as well and the ownership and responsibility of maintenance is shared by multiple teams.
 
-While primer would be one of the teams maintaining this repository, the lack of a primary "owner" might mean that this repository only gets additions and the maintenance of components gets neglected.
+   While primer would be one of the teams maintaining this repository, the lack of a primary "owner" might mean that this repository only gets additions and the maintenance of components gets neglected.
