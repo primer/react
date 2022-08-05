@@ -12,19 +12,46 @@ exports[`CheckboxGroup renders consistently 1`] = `
   padding: 0;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c4 > input {
+.c5 > input {
   margin-left: 0;
   margin-right: 0;
 }
 
+.c7 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .c2 {
+  display: block;
+  font-size: 16px;
+}
+
+.c8 {
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -37,25 +64,25 @@ exports[`CheckboxGroup renders consistently 1`] = `
   padding: 0;
 }
 
-.c2 > * + * {
+.c3 > * + * {
   margin-top: 8px;
 }
 
-.c5 {
+.c6 {
   cursor: pointer;
 }
 
-.c5:focus:not(:disabled) {
+.c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
 }
 
-.c5:focus:not(:disabled):not(:focus-visible) {
+.c6:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible:not(:disabled) {
+.c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
@@ -68,23 +95,29 @@ exports[`CheckboxGroup renders consistently 1`] = `
   >
     <legend
       className="c1"
-    />
+    >
+      <span
+        className="c2"
+      >
+        Choices
+      </span>
+    </legend>
     <div
-      className="c2"
+      className="c3"
     >
       <div
-        className="c3"
+        className="c4"
         display="flex"
       >
         <div
-          className="c4"
+          className="c5"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c5"
+            className="c6"
             id="react-aria-2"
             name="one"
             onChange={[Function]}
@@ -92,20 +125,31 @@ exports[`CheckboxGroup renders consistently 1`] = `
             value="one"
           />
         </div>
+        <div
+          className="c7"
+          display="flex"
+        >
+          <label
+            className="c8"
+            htmlFor="react-aria-2"
+          >
+            Choice one
+          </label>
+        </div>
       </div>
       <div
-        className="c3"
+        className="c4"
         display="flex"
       >
         <div
-          className="c4"
+          className="c5"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c5"
+            className="c6"
             id="react-aria-3"
             name="two"
             onChange={[Function]}
@@ -113,26 +157,48 @@ exports[`CheckboxGroup renders consistently 1`] = `
             value="two"
           />
         </div>
+        <div
+          className="c7"
+          display="flex"
+        >
+          <label
+            className="c8"
+            htmlFor="react-aria-3"
+          >
+            Choice two
+          </label>
+        </div>
       </div>
       <div
-        className="c3"
+        className="c4"
         display="flex"
       >
         <div
-          className="c4"
+          className="c5"
         >
           <input
             aria-checked="false"
             aria-disabled="false"
             aria-invalid="false"
             aria-required="false"
-            className="c5"
+            className="c6"
             id="react-aria-4"
             name="three"
             onChange={[Function]}
             type="checkbox"
             value="three"
           />
+        </div>
+        <div
+          className="c7"
+          display="flex"
+        >
+          <label
+            className="c8"
+            htmlFor="react-aria-4"
+          >
+            Choice three
+          </label>
         </div>
       </div>
     </div>

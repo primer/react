@@ -1,0 +1,23 @@
+name: Deploy (fork)
+on:
+  pull_request_target:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-preview:
+    if: ${{ github.repository == 'primer/react' }} # target repository for pull_request
+    name: Preview
+    uses: primer/.github/.github/workflows/deploy_preview.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    with:
+      node_version: 14
+      install: npm ci && cd docs && npm ci && cd ..
+      build: npm run build:docs:preview
+      output_dir: docs/public
