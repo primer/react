@@ -16,7 +16,7 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 - When we are not sure about the API of a component, we put it in a different bundle: "primer/react/drafts"
 - A draft has experimental API, but follows the development conventions of primer/react
-- Components in drafts are companied by a design spec and go through the process of accessibility reviews. A component can check multiple boxes in the component lifecycle.
+- Components in drafts are accompanied by a design spec and go through the process of accessibility reviews. A component can check multiple boxes in the component lifecycle.
 - The contract with consumers is that you are opting into a component in which we don't have 100% confidence yet.
 
 [^1]: Calling this a prototype and not experimental, because that already means something else in the maturity lifecycle.
