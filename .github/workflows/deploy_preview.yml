@@ -9,7 +9,10 @@ permissions:
 
 jobs:
   deploy-preview:
-    if: ${{ github.repository == 'primer/react' }}
+    # if the source repository for pull request is a fork, we don't want to run this workflow,
+    # we run deploy_preview_forks.yml which uses pull_request_target instead.
+    # see https://github.com/primer/react/pull/2207 for details
+    if: ${{ github.event.pull_request.head.repo.full_name == 'primer/react' }} # source repository for pull_request
     name: Preview
     uses: primer/.github/.github/workflows/deploy_preview.yml@main
     permissions:

@@ -9,7 +9,7 @@ import {SegmentedControl} from '.' // TODO: update import when we move this to t
 import theme from '../theme'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import {act} from 'react-test-renderer'
-import {viewportRanges} from '../hooks/useMatchMedia'
+import {viewportRanges} from '../hooks/useResponsiveValue'
 
 const segmentData = [
   {label: 'Preview', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
