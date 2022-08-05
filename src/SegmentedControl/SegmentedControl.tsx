@@ -33,6 +33,7 @@ const getSegmentedControlStyles = (isFullWidth?: boolean) => ({
   borderStyle: 'solid',
   borderWidth: 1,
   display: isFullWidth ? 'flex' : 'inline-flex',
+  height: '32px', // TODO: use primitive `control.medium.size` when it is available
   margin: 0,
   padding: 0,
   width: isFullWidth ? '100%' : undefined

@@ -286,6 +286,7 @@ exports[`SegmentedControl renders consistently 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  height: 32px;
   margin: 0;
   padding: 0;
 }
