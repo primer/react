@@ -35,11 +35,11 @@ Upstreaming a component that was built in the context of a product requires re-e
 
 ## Decision
 
-1. "Experimental" components, defined by the component lifecycle, should not be part of semantically versioned npm package for `@primer/react`.
+1. "Experimental" components, as defined by the component lifecycle, should not be part of semantically versioned npm package for `@primer/react`.
 
-2. Each Experimental component should be independently versioned with semver. Breaking changes should be tagged as major versions.
+2. Each experimental component should be independently versioned with semver. Breaking changes should be tagged as major versions.
 
-3. To keep different dev conventions for both packages, we should keep experimental components in another repository `primer/react-candidates`
+3. To support different conventions and processes for experimental components, we should keep them in a new repository `primer/react-candidates`
 
 (other name ideas: primer/react-experimental, primer/react-candidates, primer/react-proposals, primer/react-contrib)
 
