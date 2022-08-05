@@ -3,7 +3,7 @@ import {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import {Box} from '..'
 import sx, {merge, SxProp} from '../sx'
-import {getSegmentedControlButtonStyles} from './getSegmentedControlStyles'
+import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -26,19 +26,25 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   sx: sxProp = {},
   ...rest
 }) => {
-  const mergedSx = merge(getSegmentedControlButtonStyles({selected, children}), sxProp as SxProp)
+  const mergedSx = merge(getSegmentedControlListItemStyles(), sxProp as SxProp)
 
   return (
-    <SegmentedControlButtonStyled aria-current={selected} sx={mergedSx} {...rest}>
-      <span className="segmentedControl-content">
-        {LeadingIcon && (
-          <Box mr={1}>
-            <LeadingIcon />
-          </Box>
-        )}
-        <Box className="segmentedControl-text">{children}</Box>
-      </span>
-    </SegmentedControlButtonStyled>
+    <Box as="li" sx={mergedSx}>
+      <SegmentedControlButtonStyled
+        aria-current={selected}
+        sx={getSegmentedControlButtonStyles({selected, children})}
+        {...rest}
+      >
+        <span className="segmentedControl-content">
+          {LeadingIcon && (
+            <Box mr={1}>
+              <LeadingIcon />
+            </Box>
+          )}
+          <Box className="segmentedControl-text">{children}</Box>
+        </span>
+      </SegmentedControlButtonStyled>
+    </Box>
   )
 }
 
