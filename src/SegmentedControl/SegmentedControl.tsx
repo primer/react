@@ -1,13 +1,18 @@
-import React, {RefObject, useRef} from 'react'
+import React, {useRef} from 'react'
 import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
-import {ActionList, ActionMenu, Box, useTheme} from '..'
-import {merge, SxProp} from '../sx'
+import {ActionList, ActionMenu, useTheme} from '..'
+import sx, {merge, SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
-import {FocusKeys, FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
+import styled from 'styled-components'
 
 type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
+
+// Needed because passing a ref to `Box` causes a type error
+const SegmentedControlList = styled.ul`
+  ${sx};
+`
 
 type SegmentedControlProps = {
   'aria-label'?: string
@@ -28,7 +33,10 @@ const getSegmentedControlStyles = (isFullWidth?: boolean) => ({
   borderStyle: 'solid',
   borderWidth: 1,
   display: isFullWidth ? 'flex' : 'inline-flex',
-  height: '32px' // TODO: use primitive `control.medium.size` when it is available
+  height: '32px', // TODO: use primitive `control.medium.size` when it is available
+  margin: 0,
+  padding: 0,
+  width: isFullWidth ? '100%' : undefined
 })
 
 const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
@@ -41,7 +49,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   variant,
   ...rest
 }) => {
-  const segmentedControlContainerRef = useRef<HTMLSpanElement>(null)
+  const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
   const {theme} = useTheme()
   const responsiveVariant = useResponsiveValue(variant, 'default')
   const isFullWidth = useResponsiveValue(fullWidth, false)
@@ -74,26 +82,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props['aria-label'] : null
   }
-  const sx = merge(getSegmentedControlStyles(isFullWidth), sxProp as SxProp)
-
-  const focusInStrategy: FocusZoneHookSettings['focusInStrategy'] = () => {
-    if (segmentedControlContainerRef.current) {
-      // we need to use type assertion because querySelector returns "Element", not "HTMLElement"
-      type SelectedButton = HTMLButtonElement | undefined
-
-      const selectedButton = segmentedControlContainerRef.current.querySelector(
-        'button[aria-current="true"]'
-      ) as SelectedButton
-
-      return selectedButton
-    }
-  }
-
-  useFocusZone({
-    containerRef: segmentedControlContainerRef,
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    focusInStrategy
-  })
+  const listSx = merge(getSegmentedControlStyles(isFullWidth), sxProp as SxProp)
 
   if (!ariaLabel && !ariaLabelledby) {
     // eslint-disable-next-line no-console
@@ -141,12 +130,11 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
     </ActionMenu>
   ) : (
     // Render a segmented control
-    <Box
-      role="toolbar"
-      sx={sx}
+    <SegmentedControlList
+      sx={listSx}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
-      ref={segmentedControlContainerRef as RefObject<HTMLDivElement>}
+      ref={segmentedControlContainerRef}
       {...rest}
     >
       {React.Children.map(children, (child, index) => {
@@ -180,6 +168,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
             children: childPropsChildren,
             ...restChildProps
           } = child.props
+          const {sx: sharedSxProp, ...restSharedChildProps} = sharedChildProps
           if (!leadingIcon) {
             // eslint-disable-next-line no-console
             console.warn('A `leadingIcon` prop is required when hiding visible labels')
@@ -190,12 +179,12 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                 icon={leadingIcon}
                 sx={
                   {
-                    '--separator-color':
-                      index === selectedIndex || index === selectedIndex - 1
-                        ? 'transparent'
-                        : theme?.colors.border.default
+                    ...sharedSxProp,
+                    // setting width here avoids having to pass `isFullWidth` directly to child components
+                    width: !isFullWidth ? '32px' : '100%' // TODO: use primitive `control.medium.size` when it is available instead of '32px'
                   } as React.CSSProperties
                 }
+                {...restSharedChildProps}
                 {...restChildProps}
               />
             )
@@ -205,7 +194,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
         // Render the children as-is and add the shared child props
         return React.cloneElement(child, sharedChildProps)
       })}
-    </Box>
+    </SegmentedControlList>
   )
 }
 
