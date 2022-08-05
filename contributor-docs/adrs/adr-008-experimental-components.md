@@ -29,21 +29,34 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 1. **Confusion about maturity**: Because of the generic name, "drafts" causes a lot of confusion, especially with "experimental". It is an prototype or experiment, but NOT in the way the [component lifecycle]([https://primer.style/contribute/component-lifecycle]) defines "Experimental" maturity.
 
-1. **Need for experimental candidates**: As more teams build React components and look to upstream resuable components, it is natural to look at drafts as the place to put them. However, the barrier to entry into drafts isn't low (because we still follow design reviews, dev conventions, API reviews, etc.)
+1. **Need for experimental candidates**: As more teams build React components and look to upstream reusable components, it is natural to look at drafts as the place to put them. However, the barrier to entry into drafts isn't low (because we still follow design reviews, dev conventions, API reviews, etc.)
 
 Upstreaming a component that was built in the context of a product requires re-evaluating the baked-in assumptions and most likely a change in the API to make it useful for other contexts.
 
-## TODO: Decision
+## Decision
 
-1. "Experimental" components, based on the component lifecycle, should not be part of semantically versioned npm package for `@primer/react`.
+1. "Experimental" components, defined by the component lifecycle, should not be part of semantically versioned npm package for `@primer/react`.
 
-2. Experimental components should be versioned independently versioned with semver. Breaking changes should be tagged as major versions.
+2. Each Experimental component should be independently versioned with semver. Breaking changes should be tagged as major versions.
 
-3. We should move them to another repository called `@primer/react-candidates`
+3. To keep different dev conventions for both packages, we should keep experimental components in another repository `primer/react-candidates`
 
-(name ideas: primer/react-experimental, primer/react-candidates, primer/react-proposals, primer/react-contrib)
+(other name ideas: primer/react-experimental, primer/react-candidates, primer/react-proposals, primer/react-contrib)
+
+#### Risks:
+
+The maintenance of components while they are still candidates (bugs, a11y remedial, etc.) will be a new parallel workstream for the primer team. With our current team size, we might not be able to give it the required attention.
 
 #### Other options considered
 
-TODO: why primer/react-experimental and not github/react-shared?
-related: where does the responsibility of maintaining a component while it's a candidate lie?
+1. Experimental components should live in [github/github/modules/react-shared](https://github.com/github/github/tree/master/app/assets/modules/react-shared)
+
+The monolith already has a place where reusable react components live, however these cannot be shared by react projects outside the monolith.
+
+We can publish "react-shared" as a npm package but that would introduce additional work for non-monolith projects and components built within the context of the monolith might not work in other projects without making them more flexible.
+
+2. Experimental components should live in a new repository `github/react-shared` or `github/primer-react-candidates` instead of `primer/react-candidates`
+
+This is not a bad option, it helps in sharing components between projects outside of monolith as well and the ownership and responsibility of maintenance is shared by multiple teams.
+
+While primer would be one of the teams maintaining this repository, the lack of a primary "owner" might mean that this repository only gets additions and the maintenance of components gets neglected.
