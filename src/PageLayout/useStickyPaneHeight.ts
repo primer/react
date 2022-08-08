@@ -37,8 +37,8 @@ export function useStickyPaneHeight() {
 
   React.useLayoutEffect(() => {
     if (isEnabled && (contentTopInView || contentBottomInView)) {
+      calculateHeight()
       // Start listeners if the top or the bottom edge of the content region is visible
-
       // eslint-disable-next-line github/prefer-observers
       window.addEventListener('scroll', calculateHeight)
       // eslint-disable-next-line github/prefer-observers
@@ -47,7 +47,6 @@ export function useStickyPaneHeight() {
 
     return () => {
       // Stop listeners if neither the top nor the bottom edge of the content region is visible
-
       window.removeEventListener('scroll', calculateHeight)
       window.removeEventListener('resize', calculateHeight)
     }
