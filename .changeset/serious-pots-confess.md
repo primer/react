@@ -1,5 +1,5 @@
 ---
-"@primer/react": patch
+"@primer/react": minor
 ---
 
 Add a `sticky` prop to the `PageLayout.Pane` component that provides a convenient way for you to make side panes sticky:
