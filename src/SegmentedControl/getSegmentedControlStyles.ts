@@ -36,18 +36,12 @@ export const getSegmentedControlButtonStyles = (
   borderWidth: 0,
   color: 'currentColor',
   cursor: 'pointer',
-  flexGrow: 1,
   fontFamily: 'inherit',
   fontSize: 1,
   fontWeight: props?.selected ? 'bold' : 'normal',
-  marginTop: '-1px',
-  marginBottom: '-1px',
   padding: props?.selected ? 0 : 'var(--segmented-control-button-bg-inset)',
-  position: 'relative',
-  ...(props?.isIconOnly && {
-    height: '32px', // TODO: use primitive `control.medium.size` when it is available
-    width: '32px' // TODO: use primitive `control.medium.size` when it is available
-  }),
+  height: '100%',
+  width: '100%',
 
   '.segmentedControl-content': {
     alignItems: 'center',
@@ -83,13 +77,6 @@ export const getSegmentedControlButtonStyles = (
     backgroundColor: props?.selected ? undefined : 'segmentedControl.button.active.bg'
   },
 
-  // Icon-only buttons render the button inside of an element rendered by the Tooltip component.
-  // This breaks `:first-child` and `:last-child` selectors on buttons because the button is the only child inside of the element rendered by the Tooltip component.
-  ...(!props?.isIconOnly && {
-    ...directChildLayoutAdjustments,
-    ':not(:last-child)': borderedSegment
-  }),
-
   // fixes an issue where the focus outline shows over the pseudo-element
   ':focus:focus-visible:not(:last-child):after': {
     width: 0
@@ -119,4 +106,15 @@ export const getSegmentedControlButtonStyles = (
       minHeight: '44px'
     }
   }
+})
+
+export const getSegmentedControlListItemStyles = () => ({
+  display: 'block',
+  position: 'relative',
+  flexGrow: 1,
+  marginTop: '-1px',
+  marginBottom: '-1px',
+  height: '32px', // TODO: use primitive `control.medium.size` when it is available
+  ':not(:last-child)': borderedSegment,
+  ...directChildLayoutAdjustments
 })
