@@ -22,6 +22,8 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
+  enableStickyPane?: () => void
+  disableStickyPane?: () => void
   contentTopRef?: (node?: Element | null | undefined) => void
   contentBottomRef?: (node?: Element | null | undefined) => void
 }>({
@@ -58,14 +60,15 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   children,
   sx = {}
 }) => {
-  // TODO: Avoid recalculating sticky pane height when sticky is disabled
-  const {contentTopRef, contentBottomRef, height: stickyPaneHeight} = useStickyPaneHeight()
+  const {enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} = useStickyPaneHeight()
   return (
     <PageLayoutContext.Provider
       value={{
         padding,
         rowGap,
         columnGap,
+        enableStickyPane,
+        disableStickyPane,
         contentTopRef,
         contentBottomRef
       }}
@@ -392,7 +395,15 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
 
   const isHidden = useResponsiveValue(responsiveHidden, false)
 
-  const {rowGap, columnGap} = React.useContext(PageLayoutContext)
+  const {rowGap, columnGap, enableStickyPane, disableStickyPane} = React.useContext(PageLayoutContext)
+
+  React.useEffect(() => {
+    if (sticky) {
+      enableStickyPane?.()
+    } else {
+      disableStickyPane?.()
+    }
+  }, [sticky, enableStickyPane, disableStickyPane])
 
   return (
     <Box
