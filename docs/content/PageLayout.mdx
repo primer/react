@@ -147,6 +147,25 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 </PageLayout>
 ```
 
+### With a sticky pane
+
+```jsx live
+<PageLayout>
+  <PageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane sticky>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
 ## Props
 
 ### PageLayout
@@ -310,6 +329,7 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     defaultValue="'medium'"
     description="The width of the pane."
   />
+  <PropsTableRow name="sticky" type="boolean" defaultValue="false" description="Whether the pane is sticky." />
   <PropsTableRow
     name="padding"
     type={`| 'none'
