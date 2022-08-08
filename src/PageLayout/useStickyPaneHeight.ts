@@ -26,8 +26,11 @@ export function useStickyPaneHeight() {
     const topOffset = topRect ? Math.max(topRect.top, 0) : 0
     const bottomOffset = bottomRect ? Math.max(0, window.innerHeight - bottomRect.bottom) : 0
 
-    // TODO: Handle elastic scroll in Safari
-    setHeight(`calc(100vh - ${topOffset + bottomOffset}px)`)
+    // Safari's elastic scroll feature allows you to scroll beyond the scroll height of the page.
+    // We need to account for this when calculating the offset.
+    const overflowScroll = Math.max(0, window.scrollY + window.innerHeight - document.body.scrollHeight)
+
+    setHeight(`calc(100vh - ${topOffset + bottomOffset - overflowScroll}px)`)
   }, [contentTopEntry, contentBottomEntry])
 
   // We only want to add scroll and resize listeners if the pane is sticky.
