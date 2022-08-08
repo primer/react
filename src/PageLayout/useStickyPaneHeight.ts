@@ -24,11 +24,11 @@ export function useStickyPaneHeight() {
     const bottomRect = contentBottomEntry?.target.getBoundingClientRect()
 
     const topOffset = topRect ? Math.max(topRect.top, 0) : 0
-    const bottomOffset = bottomRect ? Math.max(0, window.innerHeight - bottomRect.bottom) : 0
+    const bottomOffset = bottomRect ? Math.max(window.innerHeight - bottomRect.bottom, 0) : 0
 
     // Safari's elastic scroll feature allows you to scroll beyond the scroll height of the page.
     // We need to account for this when calculating the offset.
-    const overflowScroll = Math.max(0, window.scrollY + window.innerHeight - document.body.scrollHeight)
+    const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
 
     setHeight(`calc(100vh - ${topOffset + bottomOffset - overflowScroll}px)`)
   }, [contentTopEntry, contentBottomEntry])
