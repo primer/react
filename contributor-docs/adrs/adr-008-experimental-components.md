@@ -29,11 +29,13 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 1. **Incompatible with semver**: Because the expectation with drafts is that we are not 100% confident about the API or structure of a component, we slip in breaking changes to draft components as minor releases to primer/react. On the consumer side, this makes every upgrade, even a patch, a potentially breaking upgrade. So, you are effectively opting out of your semver.
 
+   Upstreaming a component that was built in the context of a product requires re-evaluating the baked-in assumptions and most likely a change in the API to make it useful for other contexts.
+
 1. **Confusion about maturity**: Because of the generic name, "drafts" causes a lot of confusion, especially with "experimental". It is a prototype or experiment, but NOT in the way the [component lifecycle]([https://primer.style/contribute/component-lifecycle]) defines "Experimental" maturity.
 
 1. **Need for experimental candidates**: As more teams build React components and look to upstream reusable components, it is natural to look at drafts as the place to put them. However, the barrier to entry into drafts isn't low (because we still follow design reviews, dev conventions, API reviews, etc.)
 
-Upstreaming a component that was built in the context of a product requires re-evaluating the baked-in assumptions and most likely a change in the API to make it useful for other contexts.
+
 
 &nbsp;
 
