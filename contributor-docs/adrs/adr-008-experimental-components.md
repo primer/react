@@ -35,6 +35,10 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 1. **Need for experimental candidates**: As more teams build React components and look to upstream reusable components, it is natural to look at drafts as the place to put them. However, the barrier to entry into drafts isn't low (because we still follow design reviews, dev conventions, API reviews, etc.)
 
+Feature teams using Primer may not be intimately familiar with Primer component lifecycle criteria or have the time and/or knowledge to meet it. Often, feature teams create their own components outside of Primer if they find it too difficult to contribute. This leads to lower Primer adoption and conflicting versions of similar functionality throughout GitHub products.
+
+We want to enable feature teams to contribute to Primer. We also want to make it clear which contributions haven't been evaluated by our high standards for Primer components.
+
 
 
 &nbsp;
