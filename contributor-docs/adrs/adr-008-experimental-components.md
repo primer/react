@@ -45,11 +45,11 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 ## Decision
 
-1. "Experimental" components, as defined by the component lifecycle, should not be part of semantically versioned npm package for `@primer/react`.
+1. npm package: "Experimental" components, as defined by the component lifecycle, should not be part of semantically versioned npm package for `@primer/react`.
 
-2. Each experimental component should be independently versioned with semver. Breaking changes should be tagged as major versions.
+2. npm package: Each experimental component should be independently published and versioned with semver. Breaking changes should be tagged as major versions. Example: `@primer/react-commentbox`
 
-3. To support different conventions and processes for experimental components, we should keep them in a new repository `primer/react-candidates`
+3. code repository: To support different conventions and processes for experimental components and convey shared ownership between primer and product teams, we should keep them in a new repository `github.com/primer/react-candidates`
 
 (other name ideas: primer/react-experimental, primer/react-candidates, primer/react-proposals, primer/react-contrib)
 
@@ -63,14 +63,16 @@ The maintenance of components while they are still candidates (bugs, a11y remedi
 
 #### Other options considered
 
-1. Experimental components should live in [github/github/modules/react-shared](https://github.com/github/github/tree/master/app/assets/modules/react-shared)
+1. The code for experimental components should live in [github/github/modules/react-shared](https://github.com/github/github/tree/master/app/assets/modules/react-shared) and published to npm as `@github/react-shared`
 
    The monolith already has a place where reusable react components live, however these cannot be shared by react projects outside the monolith.
 
    We can publish "react-shared" as a npm package but that would introduce additional work for non-monolith projects and components built within the context of the monolith might not work in other projects without making them more flexible.
 
-2. Experimental components should live in a new repository `github/react-shared` or `github/primer-react-candidates` instead of `primer/react-candidates`
+2. The code for experimental components should live in a new repository `github/react-shared` or `github/primer-react-candidates` instead of `primer/react-candidates`
 
    This is not a bad option, it helps in sharing components between projects outside of monolith as well and the ownership and responsibility of maintenance is shared by multiple teams.
 
    While primer would be one of the teams maintaining this repository, the lack of a primary "owner" might mean that this repository only gets additions and the maintenance of components gets neglected.
+
+3. The code for experimental components should live in [github.com/primer/react](http://github.com/primer/react), but published to multiple npm packages, which would result in less maintenance overhead by keeping all components in one repository. However, this might make it harder to enforce different dev conventions/processes and code ownership for experimental vs non-experimental components.
