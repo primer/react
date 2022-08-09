@@ -151,7 +151,16 @@ description: Use a segmented control to let users select an option from a short 
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="aria-labelledby" type="string" />
   <PropsTableRow name="aria-describedby" type="string" />
-  <PropsTableRow name="fullWidth" type="boolean" description="Whether the control fills the width of its parent" />
+  <PropsTableRow
+    name="fullWidth"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    description="Whether the control fills the width of its parent"
+  />
   <PropsTableRow name="loading" type="boolean" description="Whether the selected segment is being calculated" />
   <PropsTableRow
     name="onChange"
@@ -161,10 +170,12 @@ description: Use a segmented control to let users select an option from a short 
   />
   <PropsTableRow
     name="variant"
-    type="'default' | {
-      narrow?: 'hideLabels' | 'dropdown' | 'default'
-      regular?: 'hideLabels' | 'dropdown' | 'default'
-    }"
+    type={`| 'default'
+| {
+  narrow?: 'hideLabels' | 'dropdown' | 'default'
+  regular?: 'hideLabels' | 'dropdown' | 'default'
+  wide?: 'hideLabels' | 'dropdown' | 'default'
+}`}
     defaultValue="'default'"
     description="Configure alternative ways to render the control when it gets rendered in tight spaces"
   />

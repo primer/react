@@ -11,7 +11,7 @@ import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useSSRSafeId} from '@react-aria/ssr'
 
 const ANIMATION_DURATION = '200ms'
@@ -274,7 +274,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
+  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
   useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
 
@@ -297,7 +297,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           <StyledDialog
             width={width}
             height={height}
-            ref={combinedRef}
+            ref={dialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}

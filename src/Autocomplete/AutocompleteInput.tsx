@@ -2,7 +2,6 @@ import React, {
   ChangeEventHandler,
   FocusEventHandler,
   KeyboardEventHandler,
-  MutableRefObject,
   useCallback,
   useContext,
   useEffect,
@@ -11,7 +10,7 @@ import React, {
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {ComponentProps} from '../utils/types'
 
 type InternalAutocompleteInputProps = {
@@ -39,7 +38,7 @@ const AutocompleteInput = React.forwardRef(
       setShowMenu,
       showMenu
     } = autocompleteContext
-    const combinedInputRef = useCombinedRefs(inputRef, forwardedRef)
+    useRefObjectAsForwardedRef(forwardedRef, inputRef)
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
 
     const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
@@ -58,12 +57,12 @@ const AutocompleteInput = React.forwardRef(
         // this prevents the menu from hiding when the user is clicking an option in the Autoselect.Menu,
         // but still hides the menu when the user blurs the input by tabbing out or clicking somewhere else on the page
         setTimeout(() => {
-          if (document.activeElement !== combinedInputRef.current) {
+          if (document.activeElement !== inputRef.current) {
             setShowMenu(false)
           }
         }, 0)
       },
-      [onBlur, setShowMenu, combinedInputRef]
+      [onBlur, setShowMenu, inputRef]
     )
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -157,7 +156,7 @@ const AutocompleteInput = React.forwardRef(
         onKeyDown={handleInputKeyDown}
         onKeyPress={onInputKeyPress}
         onKeyUp={handleInputKeyUp}
-        ref={combinedInputRef as MutableRefObject<HTMLInputElement>}
+        ref={inputRef}
         aria-controls={`${id}-listbox`}
         aria-autocomplete="both"
         role="combobox"
