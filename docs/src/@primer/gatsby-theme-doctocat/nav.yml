@@ -38,6 +38,8 @@
       url: /ActionList
     - title: ActionMenu
       url: /ActionMenu
+    - title: AnchoredOverlay
+      url: /AnchoredOverlay
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar

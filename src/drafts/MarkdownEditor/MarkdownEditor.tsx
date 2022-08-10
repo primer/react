@@ -210,7 +210,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       () => setCondensed(containerRef.current !== null && containerRef.current.clientWidth < CONDENSED_WIDTH_THRESHOLD),
       []
     )
-    useResizeObserver(onResize, containerRef.current)
+    useResizeObserver(onResize, containerRef)
 
     // the ID must be unique for each instance while remaining constant across renders
     const id = useSSRSafeId()
