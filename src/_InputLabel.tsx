@@ -3,25 +3,41 @@ import {Box} from '.'
 import {SxProp} from './sx'
 import VisuallyHidden from './_VisuallyHidden'
 
-interface Props extends React.HTMLProps<HTMLLabelElement> {
+type BaseProps = SxProp & {
   disabled?: boolean
   required?: boolean
   visuallyHidden?: boolean
+  id?: string
 }
 
-const InputLabel: React.FC<React.PropsWithChildren<Props & SxProp>> = ({
+type LabelProps = BaseProps & {
+  htmlFor?: string
+  as?: 'label'
+}
+
+type LegendProps = BaseProps & {
+  as: 'legend'
+  htmlFor?: undefined
+}
+
+type Props = LabelProps | LegendProps
+
+const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   disabled,
   htmlFor,
   id,
   required,
   visuallyHidden,
-  sx
+  sx,
+  as = 'label'
 }) => {
   return (
     <VisuallyHidden
       isVisible={!visuallyHidden}
-      as="label"
+      as={
+        as as 'label' /* This assertion is clearly wrong, but it's the only way TS will allow the htmlFor prop to be possibly defined */
+      }
       htmlFor={htmlFor}
       id={id}
       sx={{
