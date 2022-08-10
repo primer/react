@@ -172,7 +172,6 @@
     "jest-axe": "5.0.1",
     "jest-matchmedia-mock": "1.1.0",
     "jest-styled-components": "6.3.4",
-    "jest-matchmedia-mock": "1.1.0",
     "jscodeshift": "0.13.0",
     "lint-staged": "12.1.2",
     "lodash.isempty": "4.4.0",
