@@ -1,7 +1,7 @@
 import {useLayoutEffect, useState} from 'react'
 
 import {SxProp} from '../../sx'
-import {getCharacterCoordinates} from '../../utils/character-coordinates'
+import {getCharacterCoordinates} from '../utils/character-coordinates'
 
 type UseDynamicTextareaHeightSettings = {
   minHeightLines: number

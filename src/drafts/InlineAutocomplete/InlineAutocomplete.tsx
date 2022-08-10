@@ -2,7 +2,7 @@ import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
-import {getAbsoluteCharacterCoordinates} from '../../utils/character-coordinates'
+import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
