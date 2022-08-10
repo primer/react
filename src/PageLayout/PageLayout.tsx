@@ -284,7 +284,8 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
-          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
           order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
@@ -298,14 +299,22 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
       )}
     >
       {/* Track the top of the content region so we can calculate the height of the pane region */}
-      <Box ref={contentTopRef} sx={{position: 'absolute', top: 0}} />
+      <Box ref={contentTopRef} />
 
-      <Box sx={{width: '100%', maxWidth: contentWidths[width], marginX: 'auto', padding: SPACING_MAP[padding]}}>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: contentWidths[width],
+          marginX: 'auto',
+          flexGrow: 1,
+          padding: SPACING_MAP[padding]
+        }}
+      >
         {children}
       </Box>
 
       {/* Track the bottom of the content region so we can calculate the height of the pane region */}
-      <Box ref={contentBottomRef} sx={{position: 'absolute', bottom: 0}} />
+      <Box ref={contentBottomRef} />
     </Box>
   )
 }
