@@ -1,19 +1,15 @@
 import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
-import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
+import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
+import {useSyntheticChange} from '../hooks/useSyntheticChange'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
-import {
-  augmentHandler,
-  calculateSuggestionsQuery,
-  getAbsoluteCharacterCoordinates,
-  getSuggestionValue,
-  requireChildrenToBeInput
-} from './utils'
-import AutocompleteSuggestions from './_AutocompleteSuggestions'
+import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
+
 import {useRefObjectAsForwardedRef} from '../../hooks'
+import AutocompleteSuggestions from './_AutocompleteSuggestions'
 
 export type InlineAutocompleteProps = {
   /** Register the triggers that can cause suggestions to appear. */
