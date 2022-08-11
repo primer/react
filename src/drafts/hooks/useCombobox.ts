@@ -144,7 +144,11 @@ export const useCombobox = <T>({
       if (!option.id || option.id.startsWith(optionIdPrefix)) option.id = `${optionIdPrefix}-${i}`
       option.setAttribute('data-combobox-list-index', i.toString())
       option.addEventListener('mousedown', onOptionMouseDown)
+      // the combobox class has a bug where it resets the default on navigate, but not on clearSelection
+      option.removeAttribute('data-combobox-option-default')
     }
+
+    comboboxInstance?.clearSelection()
 
     return () => {
       for (const option of optionElements) option.removeEventListener('mousedown', onOptionMouseDown)

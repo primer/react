@@ -197,55 +197,6 @@ describe('SegmentedControl', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('focuses the selected button first', async () => {
-    const user = userEvent.setup()
-    const {getByRole} = render(
-      <>
-        <button>Before</button>
-        <SegmentedControl aria-label="File view">
-          {segmentData.map(({label, id}, index) => (
-            <SegmentedControl.Button selected={index === 1} key={label} id={id}>
-              {label}
-            </SegmentedControl.Button>
-          ))}
-        </SegmentedControl>
-      </>
-    )
-    const initialFocusButtonNode = getByRole('button', {name: segmentData[1].label})
-
-    expect(document.activeElement?.id).not.toEqual(initialFocusButtonNode.id)
-
-    await user.tab() // focus the button before the segmented control
-    await user.tab() // move focus into the segmented control
-
-    expect(document.activeElement?.id).toEqual(initialFocusButtonNode.id)
-  })
-
-  it('focuses the previous button when keying ArrowLeft, and the next button when keying ArrowRight', () => {
-    const {getByRole} = render(
-      <SegmentedControl aria-label="File view">
-        {segmentData.map(({label, id}, index) => (
-          <SegmentedControl.Button selected={index === 1} key={label} id={id}>
-            {label}
-          </SegmentedControl.Button>
-        ))}
-      </SegmentedControl>
-    )
-    const initialFocusButtonNode = getByRole('button', {name: segmentData[1].label})
-    const nextFocusButtonNode = getByRole('button', {name: segmentData[0].label})
-
-    expect(document.activeElement?.id).not.toEqual(nextFocusButtonNode.id)
-
-    fireEvent.focus(initialFocusButtonNode)
-    fireEvent.keyDown(initialFocusButtonNode, {key: 'ArrowLeft'})
-
-    expect(document.activeElement?.id).toEqual(nextFocusButtonNode.id)
-
-    fireEvent.keyDown(initialFocusButtonNode, {key: 'ArrowRight'})
-
-    expect(document.activeElement?.id).toEqual(initialFocusButtonNode.id)
-  })
-
   it('calls onChange with index of clicked segment button when using the dropdown variant', async () => {
     act(() => {
       matchMedia.useMediaQuery(viewportRanges.narrow)
