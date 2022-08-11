@@ -23,6 +23,9 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
     context: {}
   })
 
+  // maintain a static reference to avoid infinite render loop
+  const defaultContext = Object.freeze({})
+
   /** Slots uses a Double render strategy inspired by [reach-ui/descendants](https://github.com/reach/reach-ui/tree/develop/packages/descendants)
    *  Slot registers themself with the Slots parent.
    *  When all the children have mounted = registered themselves in slot,
@@ -33,7 +36,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
       context?: ContextProps['context']
       children: (slots: Slots) => React.ReactNode
     }>
-  > = ({context = {}, children}) => {
+  > = ({context = defaultContext, children}) => {
     // initialise slots
     const slotsDefinition: Slots = {}
     slotNames.map(name => (slotsDefinition[name] = null))
