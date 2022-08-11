@@ -155,6 +155,10 @@
       url: /drafts/Dialog
     - title: InlineAutocomplete
       url: /drafts/InlineAutocomplete
+    - title: MarkdownEditor
+      url: /drafts/MarkdownEditor
+    - title: MarkdownViewer
+      url: /drafts/MarkdownViewer
 - title: Deprecated
   children:
     - title: ActionList (legacy)

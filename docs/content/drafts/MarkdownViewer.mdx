@@ -1,0 +1,97 @@
+---
+componentId: markdown_viewer
+title: MarkdownViewer
+status: Draft
+description: Displays rendered Markdown and facilitates interaction.
+---
+
+```js
+import {MarkdownViewer} from '@primer/react/drafts'
+```
+
+The `MarkdownViewer` displays rendered Markdown with appropriate styling and handles interaction (link clicking and checkbox checking/unchecking) with that content.
+
+## Examples
+
+### Simple Example
+
+```javascript live noinline drafts
+const MarkdownViewerExample = () => {
+  return (
+    // eslint-disable-next-line github/unescaped-html-literal
+    <MarkdownViewer dangerousRenderedHtml={{__html: '<strong>Lorem ipsum</strong> dolor sit amet.'}} />
+  )
+}
+
+render(MarkdownViewerExample)
+```
+
+### Link-Handling Example
+
+```javascript live noinline drafts
+const MarkdownViewerExample = () => {
+  return (
+    <MarkdownViewer
+      // eslint-disable-next-line github/unescaped-html-literal
+      dangerousRenderedHtml={{__html: "<a href='https://example.com'>Example link</a>"}}
+      onLinkClick={ev => console.log(ev)}
+    />
+  )
+}
+
+render(MarkdownViewerExample)
+```
+
+### Checkbox Interaction Example
+
+```javascript live noinline drafts
+const markdownSource = `
+text before list
+
+- [ ] item 1
+- [ ] item 2
+
+text after list`
+
+const renderedHtml = `
+<p>text before list</p>
+<ul class='contains-task-list'>
+  <li class='task-list-item'><input type='checkbox' class='task-list-item-checkbox' disabled/> item 1</li>
+  <li class='task-list-item'><input type='checkbox' class='task-list-item-checkbox' disabled/> item 2</li>
+</ul>
+<p>text after list</p>`
+
+const MarkdownViewerExample = () => {
+  return (
+    <MarkdownViewer
+      dangerousRenderedHtml={{__html: renderedHtml}}
+      markdownValue={markdownSource}
+      onChange={value => console.log(value) /* save the value to the server */}
+      disabled={false}
+    />
+  )
+}
+
+render(MarkdownViewerExample)
+```
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
