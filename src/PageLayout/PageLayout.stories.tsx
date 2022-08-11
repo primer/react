@@ -489,27 +489,38 @@ export const StickyPane: Story = args => (
     </PageLayout.Header>
     <PageLayout.Content padding="normal" width="large">
       <Box sx={{display: 'grid', gap: 3}}>
-        {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
-          <Box key={i} as="p" sx={{margin: 0}}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
-            Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et, auctor
-            felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa purus.
-            Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus in imperdiet. Ut
-            blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod nisi. Nullam tincidunt
-            est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
-          </Box>
-        ))}
+        {Array.from({length: args.numParagraphsInContent}).map((_, i) => {
+          const testId = `content${i}`
+          return (
+            <Box key={i} as="p" sx={{margin: 0}}>
+              <span data-testid={testId}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
+                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
+                massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus
+                in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod
+                nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+              </span>
+            </Box>
+          )
+        })}
       </Box>
     </PageLayout.Content>
     <PageLayout.Pane position="start" padding="normal" divider="line" sticky={args.sticky}>
       <Box sx={{display: 'grid', gap: 3}}>
-        {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
-          <Box key={i} as="p" sx={{margin: 0}}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
-            Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et, auctor
-            felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa purus.
-          </Box>
-        ))}
+        {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
+          const testId = `paragraph${i}`
+          return (
+            <Box key={i} as="p" sx={{margin: 0}}>
+              <span data-testid={testId}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
+                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
+                massa purus.
+              </span>
+            </Box>
+          )
+        })}
       </Box>
     </PageLayout.Pane>
     <PageLayout.Footer padding="normal" divider="line">
