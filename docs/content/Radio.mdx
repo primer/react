@@ -31,11 +31,39 @@ Please use a [Checkbox](/Checkbox) if the user needs to select more than one opt
 
 </Note>
 
-## Grouping Radio components
+### Grouping Radio components
 
 Use the `name` prop to group together related `Radio` components in a list.
 
-If you're not building something custom, you should use the [ChoiceFieldset](/ChoiceFieldset) component to render a group of radio inputs.
+If you're not building something custom, you should use the [RadioGroup](/RadioGroup) component to render a group of radio inputs.
+
+#### Using `RadioGroup`
+
+```jsx live
+<form>
+  <RadioGroup name="radioGroup-example">
+    <RadioGroup.Label>Choices</RadioGroup.Label>
+    <FormControl>
+      <Radio value="1" />
+      <FormControl.Label>Radio 1</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio value="2" />
+      <FormControl.Label>Radio 2</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio value="3" />
+      <FormControl.Label>Radio 3</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Radio value="4" />
+      <FormControl.Label>Radio 4</FormControl.Label>
+    </FormControl>
+  </RadioGroup>
+</form>
+```
+
+#### Using `name` to group Radio components
 
 ```jsx live
 <form>
