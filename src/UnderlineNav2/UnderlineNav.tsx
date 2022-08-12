@@ -63,7 +63,7 @@ export type UnderlineNavProps = {
   overflow?: Overflow
   align?: 'right'
   sx?: SxProp
-  variant: 'default' | 'small'
+  variant?: 'default' | 'small'
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   children: React.ReactNode
 }
