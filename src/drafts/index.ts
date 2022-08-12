@@ -6,6 +6,7 @@
  */
 export * from '../NavList'
 export * from '../Dialog/Dialog'
+export * from '../SegmentedControl' // TODO: remove from drafts bundle in next major release
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {

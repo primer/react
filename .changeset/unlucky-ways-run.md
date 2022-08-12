@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Moves SegmentedControl from the drafts bundle to the main bundle
+Moves SegmentedControl to the main bundle and updates it's lifecycle status to "Alpha"
