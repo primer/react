@@ -6,7 +6,6 @@
  */
 export * from '../NavList'
 export * from '../Dialog/Dialog'
-export * from '../SegmentedControl'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {

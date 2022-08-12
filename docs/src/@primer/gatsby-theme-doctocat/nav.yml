@@ -116,6 +116,8 @@
       url: /RadioGroup
     - title: Select
       url: /Select
+    - title: SegmentedControl
+      url: /SegmentedControl
     - title: SelectPanel
       url: /SelectPanel
 
