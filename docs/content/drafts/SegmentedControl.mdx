@@ -94,16 +94,6 @@ render(Controlled)
 </SegmentedControl>
 ```
 
-### In a loading state
-
-```jsx live drafts
-<SegmentedControl loading aria-label="File view">
-  <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
-  <SegmentedControl.Button>Raw</SegmentedControl.Button>
-  <SegmentedControl.Button>Blame</SegmentedControl.Button>
-</SegmentedControl>
-```
-
 ### With a label and caption on the left
 
 ```jsx live drafts
@@ -166,7 +156,6 @@ render(Controlled)
 }`}
     description="Whether the control fills the width of its parent"
   />
-  <PropsTableRow name="loading" type="boolean" description="Whether the selected segment is being calculated" />
   <PropsTableRow
     name="onChange"
     type="(selectedIndex?: number) => void"
