@@ -97,11 +97,19 @@ export type MarkdownEditorProps = SxProp & {
   savedReplies?: SavedReply[]
 }
 
+const handleBrand = Symbol()
+
 export interface MarkdownEditorHandle {
   /** Focus on the markdown textarea (has no effect in preview mode). */
   focus: (options?: FocusOptions) => void
   /** Scroll to the editor. */
   scrollIntoView: (options?: ScrollIntoViewOptions) => void
+  /**
+   * This 'fake' member prevents other types from being assigned to this, thus
+   * disallowing broader ref types like `HTMLTextAreaElement`.
+   * @private
+   */
+  [handleBrand]: undefined
 }
 
 const a11yOnlyStyle = {clipPath: 'Circle(0)', position: 'absolute'} as const
@@ -171,10 +179,14 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     })
 
     const inputRef = useRef<HTMLTextAreaElement>(null)
-    useImperativeHandle(ref, () => ({
-      focus: opts => inputRef.current?.focus(opts),
-      scrollIntoView: opts => containerRef.current?.scrollIntoView(opts)
-    }))
+    useImperativeHandle(
+      ref,
+      () =>
+        ({
+          focus: opts => inputRef.current?.focus(opts),
+          scrollIntoView: opts => containerRef.current?.scrollIntoView(opts)
+        } as MarkdownEditorHandle)
+    )
 
     const inputHeight = useRef(0)
     if (inputRef.current && inputRef.current.offsetHeight) inputHeight.current = inputRef.current.offsetHeight
