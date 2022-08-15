@@ -7,6 +7,8 @@ import {useInView} from 'react-intersection-observer'
  */
 // TODO: Handle sticky header
 export function useStickyPaneHeight() {
+  const rootRef = React.useRef<HTMLDivElement>(null)
+
   // Default the height to the viewport height
   const [height, setHeight] = React.useState('100vh')
 
@@ -20,17 +22,32 @@ export function useStickyPaneHeight() {
     // Uncomment to debug
     // console.log('Recalculating pane height...')
 
+    let calculatedHeight = ''
+
+    const scrollContainer = getScrollContainer(rootRef.current)
+
     const topRect = contentTopEntry?.target.getBoundingClientRect()
     const bottomRect = contentBottomEntry?.target.getBoundingClientRect()
 
-    const topOffset = topRect ? Math.max(topRect.top, 0) : 0
-    const bottomOffset = bottomRect ? Math.max(window.innerHeight - bottomRect.bottom, 0) : 0
+    if (scrollContainer) {
+      const scrollRect = scrollContainer.getBoundingClientRect()
 
-    // Safari's elastic scroll feature allows you to scroll beyond the scroll height of the page.
-    // We need to account for this when calculating the offset.
-    const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
+      const topOffset = topRect ? Math.max(topRect.top - scrollRect.top, 0) : 0
+      const bottomOffset = bottomRect ? Math.max(scrollRect.bottom - bottomRect.bottom, 0) : 0
 
-    setHeight(`calc(100vh - ${topOffset + bottomOffset - overflowScroll}px)`)
+      calculatedHeight = `${scrollRect.height - (topOffset + bottomOffset)}px`
+    } else {
+      const topOffset = topRect ? Math.max(topRect.top, 0) : 0
+      const bottomOffset = bottomRect ? Math.max(window.innerHeight - bottomRect.bottom, 0) : 0
+
+      // Safari's elastic scroll feature allows you to scroll beyond the scroll height of the page.
+      // We need to account for this when calculating the offset.
+      const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
+
+      calculatedHeight = `calc(100vh - ${topOffset + bottomOffset - overflowScroll}px)`
+    }
+
+    setHeight(calculatedHeight)
   }, [contentTopEntry, contentBottomEntry])
 
   // We only want to add scroll and resize listeners if the pane is sticky.
@@ -39,27 +56,66 @@ export function useStickyPaneHeight() {
   const [isEnabled, setIsEnabled] = React.useState(false)
 
   React.useLayoutEffect(() => {
+    const scrollContainer = getScrollContainer(rootRef.current)
+
     if (isEnabled && (contentTopInView || contentBottomInView)) {
       calculateHeight()
+
       // Start listeners if the top or the bottom edge of the content region is visible
-      // eslint-disable-next-line github/prefer-observers
-      window.addEventListener('scroll', calculateHeight)
+
+      if (scrollContainer) {
+        // eslint-disable-next-line github/prefer-observers
+        scrollContainer.addEventListener('scroll', calculateHeight)
+      } else {
+        // eslint-disable-next-line github/prefer-observers
+        window.addEventListener('scroll', calculateHeight)
+      }
+
       // eslint-disable-next-line github/prefer-observers
       window.addEventListener('resize', calculateHeight)
     }
 
     return () => {
       // Stop listeners if neither the top nor the bottom edge of the content region is visible
-      window.removeEventListener('scroll', calculateHeight)
+
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', calculateHeight)
+      } else {
+        window.removeEventListener('scroll', calculateHeight)
+      }
+
       window.removeEventListener('resize', calculateHeight)
     }
   }, [isEnabled, contentTopInView, contentBottomInView, calculateHeight])
 
   return {
+    rootRef,
     enableStickyPane: () => setIsEnabled(true),
     disableStickyPane: () => setIsEnabled(false),
     contentTopRef,
     contentBottomRef,
     stickyPaneHeight: height
   }
+}
+
+/**
+ * Returns the nearest scrollable parent of the element or `null` if the element
+ * is not contained in a scrollable element.
+ */
+function getScrollContainer(element: Element | null): Element | null {
+  if (!element || element === document.body) {
+    return null
+  }
+
+  return isScrollable(element) ? element : getScrollContainer(element.parentElement)
+}
+
+/** Returns `true` if the element is scrollable */
+function isScrollable(element: Element) {
+  const hasScrollableContent = element.scrollHeight > element.clientHeight
+
+  const overflowYStyle = window.getComputedStyle(element).overflowY
+  const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
+
+  return hasScrollableContent && !isOverflowHidden
 }

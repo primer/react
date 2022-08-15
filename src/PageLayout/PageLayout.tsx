@@ -60,7 +60,8 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   children,
   sx = {}
 }) => {
-  const {enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} = useStickyPaneHeight()
+  const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
+    useStickyPaneHeight()
   return (
     <PageLayoutContext.Provider
       value={{
@@ -74,6 +75,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       }}
     >
       <Box
+        ref={rootRef}
         style={{
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore TypeScript doesn't know about CSS custom properties
