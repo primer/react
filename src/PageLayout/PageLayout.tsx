@@ -1,4 +1,5 @@
 import React from 'react'
+import {useStickyPaneHeight} from './useStickyPaneHeight'
 import {Box} from '..'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
@@ -21,6 +22,10 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
+  enableStickyPane?: () => void
+  disableStickyPane?: () => void
+  contentTopRef?: (node?: Element | null | undefined) => void
+  contentBottomRef?: (node?: Element | null | undefined) => void
 }>({
   padding: 'normal',
   rowGap: 'normal',
@@ -55,9 +60,29 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   children,
   sx = {}
 }) => {
+  const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
+    useStickyPaneHeight()
   return (
-    <PageLayoutContext.Provider value={{padding, rowGap, columnGap}}>
-      <Box sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}>
+    <PageLayoutContext.Provider
+      value={{
+        padding,
+        rowGap,
+        columnGap,
+        enableStickyPane,
+        disableStickyPane,
+        contentTopRef,
+        contentBottomRef
+      }}
+    >
+      <Box
+        ref={rootRef}
+        style={{
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore TypeScript doesn't know about CSS custom properties
+          '--sticky-pane-height': stickyPaneHeight
+        }}
+        sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
+      >
         <Box
           sx={{
             maxWidth: containerWidths[containerWidth],
@@ -254,12 +279,15 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   sx = {}
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
+  const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
   return (
     <Box
       as="main"
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
+          display: 'flex',
+          flexDirection: 'column',
           order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
           // Without this, the content region could wrap onto a different line
@@ -272,9 +300,23 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
         sx
       )}
     >
-      <Box sx={{width: '100%', maxWidth: contentWidths[width], marginX: 'auto', padding: SPACING_MAP[padding]}}>
+      {/* Track the top of the content region so we can calculate the height of the pane region */}
+      <Box ref={contentTopRef} />
+
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: contentWidths[width],
+          marginX: 'auto',
+          flexGrow: 1,
+          padding: SPACING_MAP[padding]
+        }}
+      >
         {children}
       </Box>
+
+      {/* Track the bottom of the content region so we can calculate the height of the pane region */}
+      <Box ref={contentBottomRef} />
     </Box>
   )
 }
@@ -319,6 +361,7 @@ export type PageLayoutPaneProps = {
    * ```
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  sticky?: boolean
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
@@ -334,33 +377,45 @@ const paneWidths = {
 }
 
 const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
-  position = 'end',
+  position: responsivePosition = 'end',
   positionWhenNarrow = 'inherit',
   width = 'medium',
   padding = 'none',
-  divider = 'none',
+  divider: responsiveDivider = 'none',
   dividerWhenNarrow = 'inherit',
-  hidden = false,
+  sticky = false,
+  hidden: responsiveHidden = false,
   children,
   sx = {}
 }) => {
   // Combine position and positionWhenNarrow for backwards compatibility
   const positionProp =
-    !isResponsiveValue(position) && positionWhenNarrow !== 'inherit'
-      ? {regular: position, narrow: positionWhenNarrow}
-      : position
+    !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
+      ? {regular: responsivePosition, narrow: positionWhenNarrow}
+      : responsivePosition
 
-  const responsivePosition = useResponsiveValue(positionProp, 'end')
+  const position = useResponsiveValue(positionProp, 'end')
 
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
-    !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
-      ? {regular: divider, narrow: dividerWhenNarrow}
-      : divider
+    !isResponsiveValue(responsiveDivider) && dividerWhenNarrow !== 'inherit'
+      ? {regular: responsiveDivider, narrow: dividerWhenNarrow}
+      : responsiveDivider
 
   const dividerVariant = useResponsiveValue(dividerProp, 'none')
-  const isHidden = useResponsiveValue(hidden, false)
-  const {rowGap, columnGap} = React.useContext(PageLayoutContext)
+
+  const isHidden = useResponsiveValue(responsiveHidden, false)
+
+  const {rowGap, columnGap, enableStickyPane, disableStickyPane} = React.useContext(PageLayoutContext)
+
+  React.useEffect(() => {
+    if (sticky) {
+      enableStickyPane?.()
+    } else {
+      disableStickyPane?.()
+    }
+  }, [sticky, enableStickyPane, disableStickyPane])
+
   return (
     <Box
       as="aside"
@@ -368,18 +423,30 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
           {
-            order: panePositions[responsivePosition],
+            // Narrow viewports
             display: isHidden ? 'none' : 'flex',
-            flexDirection: responsivePosition === 'end' ? 'column' : 'column-reverse',
+            order: panePositions[position],
             width: '100%',
             marginX: 0,
-            [responsivePosition === 'end' ? 'marginTop' : 'marginBottom']: SPACING_MAP[rowGap],
+            ...(position === 'end'
+              ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
+              : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
+
+            // Regular and wide viewports
             [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
               width: 'auto',
-              [responsivePosition === 'end' ? 'marginLeft' : 'marginRight']: SPACING_MAP[columnGap],
-              marginY: `0 !important`,
-              flexDirection: responsivePosition === 'end' ? 'row' : 'row-reverse',
-              order: panePositions[responsivePosition]
+              marginY: '0 !important',
+              ...(sticky
+                ? {
+                    position: 'sticky',
+                    top: 0,
+                    overflow: 'hidden',
+                    maxHeight: 'var(--sticky-pane-height)'
+                  }
+                : {}),
+              ...(position === 'end'
+                ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
+                : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]})
             }
           },
           sx
@@ -389,14 +456,14 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
       {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
       <HorizontalDivider
         variant={{narrow: dividerVariant, regular: 'none'}}
-        sx={{[responsivePosition === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
+        sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
       />
       <VerticalDivider
         variant={{narrow: 'none', regular: dividerVariant}}
-        sx={{[responsivePosition === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+        sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
       />
 
-      <Box sx={{width: paneWidths[width], padding: SPACING_MAP[padding]}}>{children}</Box>
+      <Box sx={{width: paneWidths[width], padding: SPACING_MAP[padding], overflow: 'auto'}}>{children}</Box>
     </Box>
   )
 }
