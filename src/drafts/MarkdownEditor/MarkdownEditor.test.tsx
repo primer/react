@@ -231,6 +231,22 @@ describe('MarkdownEditor', () => {
     expect(getInput()).toHaveAttribute('name', 'Name')
   })
 
+  describe('toggles between view modes on ctrl/cmd+shift+P', () => {
+    const shortcut = '{Control>}{Shift>}{P}{/Control}{/Shift}'
+
+    it('enters preview mode when editing', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      await user.type(getInput(), shortcut)
+    })
+
+    it('enters edit mode when previewing', async () => {
+      const {getInput, user, getViewSwitch} = await render(<UncontrolledEditor />)
+      await user.click(getViewSwitch())
+      await user.keyboard(shortcut)
+      expect(getInput()).toHaveFocus()
+    })
+  })
+
   describe('action buttons', () => {
     it('renders custom action buttons', async () => {
       const {getActionButton} = await render(
