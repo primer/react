@@ -1,0 +1,85 @@
+---
+title: UnderlineNav v2
+status: Draft
+description: Use an underlined nav to allow tab like navigation with overflow behaviour in your UI.
+---
+
+## Examples
+
+### Simple
+
+```jsx live drafts
+<UnderlineNav label="simple nav">
+  <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
+  <UnderlineNav.Link>Item 2</UnderlineNav.Link>
+  <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+</UnderlineNav>
+```
+
+### With icons
+
+```jsx live drafts
+<UnderlineNav label="simple nav with icons">
+  <UnderlineNav.Link selected leadingIcon={EyeIcon}>
+    Item 1
+  </UnderlineNav.Link>
+  <UnderlineNav.Link>Item 2</UnderlineNav.Link>
+</UnderlineNav>
+```
+
+## Props
+
+### UnderlineNav
+
+<PropsTable>
+  <PropsTableRow name="aria-label" type="string" />
+  <PropsTableRow name="aria-labelledby" type="string" />
+  <PropsTableRow name="aria-describedby" type="string" />
+  <PropsTableRow
+    name="overflow"
+    type="'auto' | 'menu' | 'scroll'"
+    description="Controls the type of overflow behaviour in smaller screens"
+  />
+  <PropsTableRow name="align" type="right | left" description="The alignment of the nav links" />
+  <PropsTableRow
+    name="afterSelect"
+    type="(event) => void"
+    description="The handler that gets called when a nav link child is selected"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### UnderlineNav.Link
+
+<PropsTable>
+  <PropsTableRow name="leadingIcon" type="Component" description="The leading icon comes before item label" />
+  <PropsTableRow name="selected" type="boolean" description="Whether the link is selected" />
+  <PropsTableRow
+    name="onSelect"
+    type="(event) => void"
+    description="The handler that gets called when a nav link is selected"
+  />
+  <PropsTableRow name="as" type="string | Component" description="What kind of component needs to be rendered" />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
