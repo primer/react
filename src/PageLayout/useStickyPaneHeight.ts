@@ -11,6 +11,8 @@ export function useStickyPaneHeight() {
 
   // Default the height to the viewport height
   const [height, setHeight] = React.useState('100vh')
+  // stickyTop state
+  const [stickyTopHeight, setStickyTopHeight] = React.useState(0)
 
   // Create intersection observers to track the top and bottom of the content region
   const [contentTopRef, contentTopInView, contentTopEntry] = useInView()
@@ -44,11 +46,11 @@ export function useStickyPaneHeight() {
       // We need to account for this when calculating the offset.
       const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
 
-      calculatedHeight = `calc(100vh - ${topOffset + bottomOffset - overflowScroll}px)`
+      calculatedHeight = `calc(100vh - ${Math.max(topOffset, stickyTopHeight) + bottomOffset - overflowScroll}px)`
     }
 
     setHeight(calculatedHeight)
-  }, [contentTopEntry, contentBottomEntry])
+  }, [contentTopEntry, contentBottomEntry, stickyTopHeight])
 
   // We only want to add scroll and resize listeners if the pane is sticky.
   // Since hooks can't be called conditionally, we need to use state to track
@@ -88,10 +90,17 @@ export function useStickyPaneHeight() {
     }
   }, [isEnabled, contentTopInView, contentBottomInView, calculateHeight])
 
+  const enableStickyPane = (stickyTop: number) => {
+    setIsEnabled(true)
+    setStickyTopHeight(stickyTop)
+  }
+
+  const disableStickyPane = () => setIsEnabled(false)
+
   return {
     rootRef,
-    enableStickyPane: () => setIsEnabled(true),
-    disableStickyPane: () => setIsEnabled(false),
+    enableStickyPane,
+    disableStickyPane,
     contentTopRef,
     contentBottomRef,
     stickyPaneHeight: height

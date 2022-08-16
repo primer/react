@@ -168,6 +168,36 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 </Box>
 ```
 
+### With a stickyTop sticky pane
+
+```jsx live
+<Box sx={{height: '360px', overflowY: 'scroll', border: '1px solid', borderColor: 'border.default'}}>
+  <Box
+    height="100px"
+    width="100%"
+    borderBottom="1px solid"
+    borderColor="border.default"
+    sx={{position: 'sticky', top: '0', backgroundColor: 'canvas.subtle'}}
+    display="flex"
+    alignItems="center"
+    justifyContent="center"
+  >
+    <Heading>Sticky top content</Heading>
+  </Box>
+  <PageLayout>
+    <PageLayout.Content>
+      <Placeholder label="Content" height={240} />
+    </PageLayout.Content>
+    <PageLayout.Pane stickyTop={100} position="start" sticky>
+      <Placeholder label="Pane" height={240} />
+    </PageLayout.Pane>
+    <PageLayout.Footer>
+      <Placeholder label="Footer" height={64} />
+    </PageLayout.Footer>
+  </PageLayout>
+</Box>
+```
+
 ## Props
 
 ### PageLayout

@@ -22,7 +22,7 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
-  enableStickyPane?: () => void
+  enableStickyPane?: (stickyTopHeight: number) => void
   disableStickyPane?: () => void
   contentTopRef?: (node?: Element | null | undefined) => void
   contentBottomRef?: (node?: Element | null | undefined) => void
@@ -362,6 +362,7 @@ export type PageLayoutPaneProps = {
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   sticky?: boolean
+  stickyTop?: number // the height of the sticky top element
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
@@ -384,6 +385,7 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
   divider: responsiveDivider = 'none',
   dividerWhenNarrow = 'inherit',
   sticky = false,
+  stickyTop = 0,
   hidden: responsiveHidden = false,
   children,
   sx = {}
@@ -410,11 +412,11 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
 
   React.useEffect(() => {
     if (sticky) {
-      enableStickyPane?.()
+      enableStickyPane?.(stickyTop)
     } else {
       disableStickyPane?.()
     }
-  }, [sticky, enableStickyPane, disableStickyPane])
+  }, [sticky, enableStickyPane, disableStickyPane, stickyTop])
 
   return (
     <Box
@@ -439,7 +441,9 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
               ...(sticky
                 ? {
                     position: 'sticky',
-                    top: 0,
+                    // If stickyTop has value, it will stick the pane to the position where the sticky top ends
+                    // else top will be 0 as the default value of stickyTop
+                    top: stickyTop,
                     overflow: 'hidden',
                     maxHeight: 'var(--sticky-pane-height)'
                   }
