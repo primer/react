@@ -359,6 +359,8 @@ const isInViewPort = (boundingRect: {top: number; left: number; right: number; b
 StickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const canvas = within(canvasElement)
   const content3 = await canvas.getByTestId('content3')
+  // Trying to see if waiting for a bit makes the test more obvious
+  await new Promise(r => setTimeout(r, 1000))
   content3.scrollIntoView()
   const paragraph0 = await canvas.getByTestId('paragraph0')
   const paragraphRect = paragraph0.getBoundingClientRect()
@@ -387,6 +389,7 @@ NonStickyPane.argTypes = {
 NonStickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const canvas = within(canvasElement)
   const content3 = await canvas.getByTestId('content3')
+  await new Promise(r => setTimeout(r, 1000))
   content3.scrollIntoView()
   const paragraph0 = await canvas.getByTestId('paragraph0')
   const paragraphRect = paragraph0.getBoundingClientRect()
