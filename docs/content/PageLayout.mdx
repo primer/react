@@ -150,20 +150,22 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ### With a sticky pane
 
 ```jsx live
-<PageLayout>
-  <PageLayout.Header>
-    <Placeholder label="Header" height={64} />
-  </PageLayout.Header>
-  <PageLayout.Content>
-    <Placeholder label="Content" height={240} />
-  </PageLayout.Content>
-  <PageLayout.Pane sticky>
-    <Placeholder label="Pane" height={120} />
-  </PageLayout.Pane>
-  <PageLayout.Footer>
-    <Placeholder label="Footer" height={64} />
-  </PageLayout.Footer>
-</PageLayout>
+<Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
+  <PageLayout>
+    <PageLayout.Header>
+      <Placeholder label="Header" height={64} />
+    </PageLayout.Header>
+    <PageLayout.Content>
+      <Placeholder label="Content" height={320} />
+    </PageLayout.Content>
+    <PageLayout.Pane sticky>
+      <Placeholder label="Pane" height={120} />
+    </PageLayout.Pane>
+    <PageLayout.Footer>
+      <Placeholder label="Footer" height={64} />
+    </PageLayout.Footer>
+  </PageLayout>
+</Box>
 ```
 
 ## Props
