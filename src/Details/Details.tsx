@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
+import {DetailsProps as GetDetailsProps} from '../hooks/useDetails'
 
-const Details = styled.details<SxProp>`
+const Details = styled.details<SxProp & GetDetailsProps>`
   & > summary {
     list-style: none;
   }

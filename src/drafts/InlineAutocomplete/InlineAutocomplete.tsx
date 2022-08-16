@@ -1,14 +1,17 @@
 import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
+import {useCombinedRefs} from '../../hooks/useCombinedRefs'
+import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
-import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
-import {useSyntheticChange} from '../hooks/useSyntheticChange'
-
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
-import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
-
-import {useRefObjectAsForwardedRef} from '../../hooks'
+import {
+  augmentHandler,
+  calculateSuggestionsQuery,
+  // getAbsoluteCharacterCoordinates,
+  getSuggestionValue,
+  requireChildrenToBeInput
+} from './utils'
 import AutocompleteSuggestions from './_AutocompleteSuggestions'
 
 export type InlineAutocompleteProps = {
@@ -82,9 +85,7 @@ const InlineAutocomplete = ({
   // Forward accessibility props so it works with FormControl
   ...forwardProps
 }: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
-  const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
-  useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
-
+  const inputRef = useCombinedRefs(children.ref)
   const externalInput = requireChildrenToBeInput(children, inputRef)
 
   const emitSyntheticChange = useSyntheticChange({
@@ -101,14 +102,14 @@ const InlineAutocomplete = ({
   // optimized by only re-rendering when suggestionsVisible changes. However, the user
   // could move the cursor to a different location using arrow keys and then type a
   // trigger, which would move the suggestions without closing/reopening them.
-  const suggestionsOffset =
-    inputRef.current && showEventRef.current && suggestionsVisible
-      ? getAbsoluteCharacterCoordinates(
-          inputRef.current,
-          // Position the suggestions at the trigger character, not the current caret position
-          (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length
-        )
-      : {top: 0, left: 0}
+  const suggestionsOffset = {top: 0, left: 0}
+  // inputRef.current && showEventRef.current && suggestionsVisible
+  //   ? getAbsoluteCharacterCoordinates(
+  //       inputRef.current,
+  //       // Position the suggestions at the trigger character, not the current caret position
+  //       (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length
+  //     )
+  //   : {top: 0, left: 0}
 
   // User can blur while suggestions are visible with shift+tab
   const onBlur: React.FocusEventHandler<TextInputElement> = () => {

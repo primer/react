@@ -7,7 +7,7 @@ import useDialog from './hooks/useDialog'
 import sx, {SxProp} from './sx'
 import Text from './Text'
 import {ComponentProps} from './utils/types'
-import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
+import {useCombinedRefs} from './hooks/useCombinedRefs'
 
 const noop = () => null
 
@@ -95,8 +95,7 @@ type InternalDialogProps = {
 const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
   ({children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props}, forwardedRef) => {
     const overlayRef = useRef(null)
-    const modalRef = useRef<HTMLDivElement>(null)
-    useRefObjectAsForwardedRef(forwardedRef, modalRef)
+    const modalRef = useCombinedRefs(forwardedRef)
     const closeButtonRef = useRef(null)
 
     const onCloseClick = () => {

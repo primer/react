@@ -7,6 +7,12 @@ type UseDetailsParameters = {
   onClickOutside?: (event: MouseEvent) => void
 }
 
+export type DetailsProps = {
+  onToggle?: (e: React.SyntheticEvent<HTMLElement, Event>) => void
+  open?: boolean
+  ref?: React.RefObject<HTMLElement>
+}
+
 function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: UseDetailsParameters) {
   const [open, setOpen] = useState(defaultOpen)
   const backupRef = useRef(null)
@@ -44,7 +50,7 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: Use
     }
   }
 
-  const getDetailsProps = () => {
+  const getDetailsProps: () => DetailsProps = () => {
     return {onToggle: handleToggle, open, ref: customRef}
   }
 
