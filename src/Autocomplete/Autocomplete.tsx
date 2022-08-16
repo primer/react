@@ -45,7 +45,7 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-const Autocomplete: React.FC<{id?: string}> = ({children, id: idProp}) => {
+const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)

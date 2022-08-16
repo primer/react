@@ -36,7 +36,8 @@ it('renders a switch that is turned on', () => {
 
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'true')
 })
-it('renders a switch that is disabled', () => {
+it('renders a switch that is disabled', async () => {
+  const user = userEvent.setup()
   const {getByLabelText} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
@@ -47,10 +48,11 @@ it('renders a switch that is disabled', () => {
 
   expect(toggleSwitch).toHaveAttribute('aria-disabled', 'true')
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
-  userEvent.click(toggleSwitch)
+  await user.click(toggleSwitch)
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
 })
-it("renders a switch who's state is loading", () => {
+it("renders a switch who's state is loading", async () => {
+  const user = userEvent.setup()
   const {getByLabelText, container} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
@@ -63,10 +65,11 @@ it("renders a switch who's state is loading", () => {
   expect(loadingSpinner).toBeDefined()
   expect(toggleSwitch).toHaveAttribute('aria-disabled', 'true')
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
-  userEvent.click(toggleSwitch)
+  await user.click(toggleSwitch)
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
 })
-it('switches from off to on uncontrolled', () => {
+it('switches from off to on uncontrolled', async () => {
+  const user = userEvent.setup()
   const {getByLabelText} = render(
     <>
       <div id="switchLabel">{SWITCH_LABEL_TEXT}</div>
@@ -76,10 +79,11 @@ it('switches from off to on uncontrolled', () => {
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
-  userEvent.click(toggleSwitch)
+  await user.click(toggleSwitch)
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'true')
 })
-it('switches from off to on with a controlled prop', () => {
+it('switches from off to on with a controlled prop', async () => {
+  const user = userEvent.setup()
   const ControlledSwitchComponent = () => {
     const [isOn, setIsOn] = React.useState(false)
 
@@ -98,10 +102,11 @@ it('switches from off to on with a controlled prop', () => {
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'false')
-  userEvent.click(toggleSwitch)
+  await user.click(toggleSwitch)
   expect(toggleSwitch).toHaveAttribute('aria-checked', 'true')
 })
-it('calls onChange when the switch is toggled', () => {
+it('calls onChange when the switch is toggled', async () => {
+  const user = userEvent.setup()
   const handleChange = jest.fn()
   const ControlledSwitchComponent = ({handleSwitchChange}: {handleSwitchChange: (on: boolean) => void}) => {
     const [isOn, setIsOn] = React.useState(false)
@@ -120,7 +125,7 @@ it('calls onChange when the switch is toggled', () => {
   const {getByLabelText} = render(<ControlledSwitchComponent handleSwitchChange={handleChange} />)
   const toggleSwitch = getByLabelText(SWITCH_LABEL_TEXT)
 
-  userEvent.click(toggleSwitch)
+  await user.click(toggleSwitch)
   expect(handleChange).toHaveBeenCalledWith(true)
 })
 

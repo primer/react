@@ -6,7 +6,7 @@ import {AriaRole, Merge} from './utils/types'
 import {useOverlay, TouchOrMouseEvent} from './hooks'
 import Portal from './Portal'
 import sx, {SxProp} from './sx'
-import {useCombinedRefs} from './hooks/useCombinedRefs'
+import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from './ThemeProvider'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
@@ -142,7 +142,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     forwardedRef
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
-    const combinedRef = useCombinedRefs(overlayRef, forwardedRef)
+    useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const {theme} = useTheme()
     const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
     const slideAnimationEasing = get('animation.easeOutCubic')(theme)
@@ -158,10 +158,10 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     })
 
     useEffect(() => {
-      if (height === 'initial' && combinedRef.current?.clientHeight) {
-        combinedRef.current.style.height = `${combinedRef.current.clientHeight}px`
+      if (height === 'initial' && overlayRef.current?.clientHeight) {
+        overlayRef.current.style.height = `${overlayRef.current.clientHeight}px`
       }
-    }, [height, combinedRef])
+    }, [height])
 
     useLayoutEffect(() => {
       const {x, y} = getSlideAnimationStartingVector(anchorSide)
@@ -185,7 +185,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           height={height}
           role={role}
           {...rest}
-          ref={combinedRef}
+          ref={overlayRef}
           style={
             {
               top: `${top || 0}px`,

@@ -45,7 +45,8 @@ describe('Checkbox', () => {
     expect(checkbox.checked).toEqual(true)
   })
 
-  it('accepts a change handler that can alter the checkbox state', () => {
+  it('accepts a change handler that can alter the checkbox state', async () => {
+    const user = userEvent.setup()
     const handleChange = jest.fn()
     const {getByRole} = render(<Checkbox onChange={handleChange} />)
 
@@ -53,11 +54,11 @@ describe('Checkbox', () => {
 
     expect(checkbox.checked).toEqual(false)
 
-    userEvent.click(checkbox)
+    await user.click(checkbox)
     expect(handleChange).toHaveBeenCalled()
     expect(checkbox.checked).toEqual(true)
 
-    userEvent.click(checkbox)
+    await user.click(checkbox)
     expect(handleChange).toHaveBeenCalled()
     expect(checkbox.checked).toEqual(false)
   })
@@ -72,7 +73,8 @@ describe('Checkbox', () => {
     expect(checkbox.checked).toEqual(false)
   })
 
-  it('renders an inactive checkbox state correctly', () => {
+  it('renders an inactive checkbox state correctly', async () => {
+    const user = userEvent.setup()
     const handleChange = jest.fn()
     const {getByRole, rerender} = render(<Checkbox disabled onChange={handleChange} />)
 
@@ -82,7 +84,7 @@ describe('Checkbox', () => {
     expect(checkbox.checked).toEqual(false)
     expect(checkbox).toHaveAttribute('aria-disabled', 'true')
 
-    userEvent.click(checkbox)
+    await user.click(checkbox)
 
     expect(checkbox.disabled).toEqual(true)
     expect(checkbox.checked).toEqual(false)
@@ -94,14 +96,15 @@ describe('Checkbox', () => {
     expect(checkbox).toHaveAttribute('aria-disabled', 'false')
   })
 
-  it('renders an uncontrolled component correctly', () => {
+  it('renders an uncontrolled component correctly', async () => {
+    const user = userEvent.setup()
     const {getByRole} = render(<Checkbox defaultChecked />)
 
     const checkbox = getByRole('checkbox') as HTMLInputElement
 
     expect(checkbox.checked).toEqual(true)
 
-    userEvent.click(checkbox)
+    await user.click(checkbox)
 
     expect(checkbox.checked).toEqual(false)
   })

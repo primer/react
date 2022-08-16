@@ -3,17 +3,19 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuInitialFocus, useMnemonics} from './hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from './hooks'
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
 import {SxProp, merge} from './sx'
 
-type MenuContextProps = Pick<
+export type MenuContextProps = Pick<
   AnchoredOverlayProps,
-  'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'onClose' | 'anchorId'
->
+  'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
+> & {
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
+}
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
 export type ActionMenuProps = {
@@ -33,7 +35,7 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
-const Menu: React.FC<ActionMenuProps> = ({
+const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -102,7 +104,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
      */
     children: React.ReactNode
   }
-const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...overlayProps}) => {
+const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children, align = 'start', ...overlayProps}) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
   const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
@@ -111,8 +113,7 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
   >
 
   const containerRef = React.createRef<HTMLDivElement>()
-  const {openWithFocus} = useMenuInitialFocus(open, onOpen, containerRef)
-  useMnemonics(open, containerRef)
+  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
 
   return (
     <AnchoredOverlay
@@ -120,11 +121,12 @@ const Overlay: React.FC<MenuOverlayProps> = ({children, align = 'start', ...over
       renderAnchor={renderAnchor}
       anchorId={anchorId}
       open={open}
-      onOpen={openWithFocus}
+      onOpen={onOpen}
       onClose={onClose}
       align={align}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
+      focusTrapSettings={{disabled: true}}
     >
       <div ref={containerRef}>
         <ActionListContainerContext.Provider

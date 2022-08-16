@@ -91,7 +91,8 @@ describe('RadioGroup', () => {
 
     expect(requiredIndicator).toBeInTheDocument()
   })
-  it('calls onChange handlers passed to RadioGroup and Radio', () => {
+  it('calls onChange handlers passed to RadioGroup and Radio', async () => {
+    const user = userEvent.setup()
     const handleParentChange = jest.fn()
     const handleRadioChange = jest.fn()
     const {getByLabelText} = render(
@@ -115,11 +116,12 @@ describe('RadioGroup', () => {
 
     expect(handleParentChange).not.toHaveBeenCalled()
     expect(handleRadioChange).not.toHaveBeenCalled()
-    userEvent.click(checkbox)
+    await user.click(checkbox)
     expect(handleParentChange).toHaveBeenCalled()
     expect(handleRadioChange).toHaveBeenCalled()
   })
-  it('calls onChange handler on RadioGroup with selected value', () => {
+  it('calls onChange handler on RadioGroup with selected value', async () => {
+    const user = userEvent.setup()
     const handleParentChange = jest.fn()
     const {getByLabelText} = render(
       <RadioGroup name="choices" onChange={handleParentChange}>
@@ -142,7 +144,7 @@ describe('RadioGroup', () => {
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
 
     expect(handleParentChange).not.toHaveBeenCalled()
-    userEvent.click(checkbox)
+    await user.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
       'one',
       expect.objectContaining({
