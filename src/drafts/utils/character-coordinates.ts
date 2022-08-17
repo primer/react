@@ -64,10 +64,7 @@ function getCaretCoordinates(
   document.body.appendChild(div)
 
   const style = div.style
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  const computed = window.getComputedStyle
-    ? window.getComputedStyle(element)
-    : (element as unknown as {currentStyle: CSSStyleDeclaration}).currentStyle // currentStyle for IE < 9
+  const computed = window.getComputedStyle(element)
   const isInput = element.nodeName === 'INPUT'
 
   // Default textarea styles
