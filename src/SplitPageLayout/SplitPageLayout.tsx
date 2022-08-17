@@ -40,7 +40,7 @@ Header.displayName = 'SplitPageLayout.Header'
 export type SplitPageLayoutContentProps = PageLayoutContentProps
 
 export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentProps>> = ({
-  width = 'xlarge',
+  width = 'large',
   padding = 'normal',
   ...props
 }) => {
