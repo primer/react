@@ -659,20 +659,22 @@ NestedScrollContainer.argTypes = {
   }
 }
 
-export const StickyPaneWithStickyTop: Story = args => (
+export const CustomStickyHeader: Story = args => (
   // a box to create a sticky top element that will be on the consumer side and outside of the PageLayout component
   <Box>
     <Box
-      height={args.stickyTop}
-      width="100%"
-      border="1px solid"
-      borderColor="border.default"
-      sx={{position: 'sticky', top: '0', backgroundColor: 'canvas.subtle'}}
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
+      sx={{
+        position: 'sticky',
+        top: 0,
+        height: args.stickyTop,
+        display: 'grid',
+        placeItems: 'center',
+        backgroundColor: 'canvas.subtle',
+        borderBottom: '1px solid',
+        borderColor: 'border.default'
+      }}
     >
-      <Heading>Sticky top content</Heading>
+      Custom sticky header
     </Box>
     <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
       <PageLayout.Content padding="normal" width="large">
@@ -689,7 +691,7 @@ export const StickyPaneWithStickyTop: Story = args => (
           ))}
         </Box>
       </PageLayout.Content>
-      <PageLayout.Pane position="start" padding="normal" divider="line" stickyTop={100} sticky>
+      <PageLayout.Pane position="start" padding="normal" divider="line" sticky stickyTop={args.stickyTop}>
         <Box sx={{display: 'grid', gap: 3}}>
           {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
             <Box key={i} as="p" sx={{margin: 0}}>
@@ -708,7 +710,7 @@ export const StickyPaneWithStickyTop: Story = args => (
   </Box>
 )
 
-StickyPaneWithStickyTop.argTypes = {
+CustomStickyHeader.argTypes = {
   sticky: {
     type: 'boolean',
     defaultValue: true
