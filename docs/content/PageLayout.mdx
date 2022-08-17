@@ -367,7 +367,12 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     defaultValue="false"
     description="Whether the pane should stick to the top of the screen while the content scrolls."
   />
-  <PropsTableRow name="stickyTop" type="number" defaultValue="0" description="The height of the sticky top element" />
+  <PropsTableRow
+    name="stickyTop"
+    type="number | string"
+    defaultValue="0"
+    description="Use stickyTop to push the sticky pane down to make room for a sticky header if necessary"
+  />
   <PropsTableRow
     name="padding"
     type={`| 'none'

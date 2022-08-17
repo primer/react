@@ -22,7 +22,7 @@ const PageLayoutContext = React.createContext<{
   padding: keyof typeof SPACING_MAP
   rowGap: keyof typeof SPACING_MAP
   columnGap: keyof typeof SPACING_MAP
-  enableStickyPane?: (stickyTopHeight: number) => void
+  enableStickyPane?: (top: number | string) => void
   disableStickyPane?: () => void
   contentTopRef?: (node?: Element | null | undefined) => void
   contentBottomRef?: (node?: Element | null | undefined) => void
@@ -362,7 +362,7 @@ export type PageLayoutPaneProps = {
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   sticky?: boolean
-  stickyTop?: number // the height of the sticky top element
+  stickyTop?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 

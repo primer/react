@@ -716,8 +716,8 @@ CustomStickyHeader.argTypes = {
     defaultValue: true
   },
   stickyTop: {
-    type: 'number',
-    defaultValue: 100
+    type: 'string',
+    defaultValue: '8rem'
   },
   numParagraphsInPane: {
     type: 'number',
