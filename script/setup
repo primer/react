@@ -8,5 +8,5 @@ npm run build
 
 # Install docs dependencies
 pushd docs
-npm install
+npm install --legacy-peer-deps
 popd
