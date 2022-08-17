@@ -1,5 +1,101 @@
 # @primer/components
 
+## 35.6.0
+
+### Minor Changes
+
+- [#2191](https://github.com/primer/react/pull/2191) [`7edf1347`](https://github.com/primer/react/commit/7edf134757837e3a8b71bf31f67242226b1a2fd2) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds responsive behavior to SegmentedControl's `fullWidth` prop.
+
+* [#2174](https://github.com/primer/react/pull/2174) [`62dbc981`](https://github.com/primer/react/commit/62dbc9810f93cf16f17fce412c47ac2bf885a89e) Thanks [@colebemis](https://github.com/colebemis)! - Add a responsive `hidden` prop to `PageLayout.Header`, `PageLayout.Pane`, `PageLayout.Content`, and `PageLayout.Footer` that allows you to hide layout regions based on the viewport width. Example usage:
+
+  ```jsx
+  // Hide pane on narrow viewports
+  <PageLayout.Pane hidden={{narrow: true}}>...</PageLayout.Pane>
+  ```
+
+- [#2199](https://github.com/primer/react/pull/2199) [`fb385b63`](https://github.com/primer/react/commit/fb385b63f22c1eb76193e42e92ea2a056e61fdbb) Thanks [@colebemis](https://github.com/colebemis)! - \* Updated the `position` prop in `PageLayout.Pane` to use the new responsive prop API introduced in https://github.com/primer/react/pull/2174.
+
+  - Deprecated the `positionWhenNarrow` prop in favor of the new responsive prop API
+
+  **Before**
+
+  ```
+  position="start"
+  positionWhenNarrow="end"
+  ```
+
+  **After**
+
+  ```
+  position={{regular: 'start', narrow: 'end'}}
+  ```
+
+* [#2201](https://github.com/primer/react/pull/2201) [`885064ed`](https://github.com/primer/react/commit/885064edda758f59eb0ce2031632d9924ea6987d) Thanks [@colebemis](https://github.com/colebemis)! - Add `padding` prop to `PageLayout.Header`, `PageLayout.Content`, `PageLayout.Pane`, and `PageLayout.Footer`
+
+- [#2164](https://github.com/primer/react/pull/2164) [`2b5c86e5`](https://github.com/primer/react/commit/2b5c86e59f16d697433e3302e78d623a177a061e) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds support for a responsive 'variant' prop to the SegmentedControl component
+
+* [#2212](https://github.com/primer/react/pull/2212) [`04d9d9c1`](https://github.com/primer/react/commit/04d9d9c1bf33971a80aba6f0565e94d2ce047e94) Thanks [@colebemis](https://github.com/colebemis)! - Add a `sticky` prop to the `PageLayout.Pane` component that provides a convenient way for you to make side panes sticky:
+
+  ```diff
+  <PageLayout>
+  - <PageLayout.Pane>...</PageLayout.Pane>
+  + <PageLayout.Pane sticky>...</PageLayout.Pane>
+    <PageLayout.Content>...</PageLayout.Content>
+  </PageLayout>
+  ```
+
+- [#2198](https://github.com/primer/react/pull/2198) [`4d9b7db9`](https://github.com/primer/react/commit/4d9b7db9d82ca5ac58c2b7e745fad782c6e852b5) Thanks [@colebemis](https://github.com/colebemis)! - \* Updated the `divider` prop in `PageLayout.Header`, `PageLayout.Pane`, and `PageLayout.Footer` to use the new responsive prop API introduced in https://github.com/primer/react/pull/2174.
+
+  - Deprecated the `dividerWhenNarrow` prop in favor of the new responsive prop API
+
+  **Before**
+
+  ```
+  divider="line"
+  dividerWhenNarrow="filled"
+  ```
+
+  **After**
+
+  ```
+  divider={{regular: 'line', narrow: 'filled'}}
+  ```
+
+### Patch Changes
+
+- [#2024](https://github.com/primer/react/pull/2024) [`5321f1c9`](https://github.com/primer/react/commit/5321f1c9731087378860d7623480fa0997b6dcd4) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu: Remove focus trap to enable Tab and Shift+Tab behavior and fix initial focus on click
+
+* [#2186](https://github.com/primer/react/pull/2186) [`e28aadbd`](https://github.com/primer/react/commit/e28aadbdf1c5b0d03aba83dcfbe1c77746cfcf97) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates SegmentedControl styles to use component primitives.
+
+- [#2171](https://github.com/primer/react/pull/2171) [`384ae6b9`](https://github.com/primer/react/commit/384ae6b9adb2bcf1389e2059cbd68f319cc2e56d) Thanks [@anleac](https://github.com/anleac)! - Support issues closed as not planned, and correct the standard issue closed backgroud colour
+
+* [#2157](https://github.com/primer/react/pull/2157) [`77e7ab05`](https://github.com/primer/react/commit/77e7ab057bef5394e757356c58ca7ae0f0bfdb64) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `InlineAutocomplete` component, `useCombobox` hook, and `useSyntheticChange` hook to drafts
+
+- [#2189](https://github.com/primer/react/pull/2189) [`35716587`](https://github.com/primer/react/commit/3571658723aa33e731a3a3b498d18a174113d4cd) Thanks [@mperrotti](https://github.com/mperrotti)! - Makes SegmentedControl uncontrolled by default.
+
+* [#2196](https://github.com/primer/react/pull/2196) [`5ff5bb81`](https://github.com/primer/react/commit/5ff5bb81f68dc533b2d32fd3f24863c2699ca8f3) Thanks [@mattcosta7](https://github.com/mattcosta7)! - update types to allow children for react 18
+
+- [#2219](https://github.com/primer/react/pull/2219) [`af534f15`](https://github.com/primer/react/commit/af534f1578d4af7b345028eff17e66c867c036af) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix slots infinite rendering when no `context` prop is provided
+
+* [#2182](https://github.com/primer/react/pull/2182) [`47725a92`](https://github.com/primer/react/commit/47725a926fca68bf266a47db55ed05606a8e1436) Thanks [@iansan5653](https://github.com/iansan5653)! - - Add `MarkdownEditor` and `MarkdownViewer` draft components. The `MarkdownEditor` is also known as the `CommentBox` component
+  - Add `useUnifiedFileSelect`, `useIgnoreKeyboardInputWhileComposing`, `useDynamicTextareaHeight`, and `useSafeAsyncCallback` draft hooks
+
+- [#2173](https://github.com/primer/react/pull/2173) [`ed609719`](https://github.com/primer/react/commit/ed60971944316279bb48128f3fb466dd2385a36e) Thanks [@mperrotti](https://github.com/mperrotti)! - Updates styles for the Select component so that the focus outline is even all the way around.
+
+* [#2216](https://github.com/primer/react/pull/2216) [`82fd8c35`](https://github.com/primer/react/commit/82fd8c35e4017b34f03119d8eb99188b34bbd713) Thanks [@iansan5653](https://github.com/iansan5653)! - Change `createSlots` to use layout effects when registering slots
+
+- [#2185](https://github.com/primer/react/pull/2185) [`3756a1ed`](https://github.com/primer/react/commit/3756a1ede2054aee2179e58ac7bbe9d72b85e045) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Set ConfirmationDialog initial focus based on the confirmationButtonVariant. When `danger` autoFocus the cancel button, otherwise autoFocus the confirmation button
+
+* [#2166](https://github.com/primer/react/pull/2166) [`75d21745`](https://github.com/primer/react/commit/75d21745daa8e50f707a80a4358a86163c64453c) Thanks [@mattcosta7](https://github.com/mattcosta7)! - button should be polymorphic
+
+- [#2220](https://github.com/primer/react/pull/2220) [`f4ef7b4b`](https://github.com/primer/react/commit/f4ef7b4b1ba2d709847bda7c531d810db63e7d03) Thanks [@mperrotti](https://github.com/mperrotti)! - - Fixes `role` and keyboard behavior for SegmentedControl.
+  - Fixes a bug where icon-only SegmentedControl buttons did not fill the parent width when the `fullWidth` prop was set
+  - Fixes a bug where click handlers were not passed correctly when the responsive variant was set to `'hideLabels'`
+
+* [#2204](https://github.com/primer/react/pull/2204) [`522f5806`](https://github.com/primer/react/commit/522f580666295ba4ca05e226ea773f6fbc8407bc) Thanks [@iansan5653](https://github.com/iansan5653)! - Replace `useCombinedRefs` with `useRefObjectAsForwardedRef`
+
+- [#2221](https://github.com/primer/react/pull/2221) [`9ce64937`](https://github.com/primer/react/commit/9ce64937ce234d65f3e4ab28bfed1a71aac9a4de) Thanks [@josepmartins](https://github.com/josepmartins)! - Overlay documentation fixes
+
 ## 35.5.0
 
 ### Minor Changes

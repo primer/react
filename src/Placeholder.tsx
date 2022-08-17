@@ -17,7 +17,9 @@ export const Placeholder: React.FC<
         display: 'grid',
         placeItems: 'center',
         bg: 'canvas.inset',
-        borderRadius: 2
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: 'border.subtle'
       }}
     >
       {label}

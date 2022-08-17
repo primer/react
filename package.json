@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "35.5.0",
+  "version": "35.6.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -102,6 +102,7 @@
     "focus-visible": "^5.2.0",
     "fzy.js": "0.4.1",
     "history": "^5.0.0",
+    "react-intersection-observer": "9.4.0",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
@@ -198,8 +199,8 @@
     "typescript": "4.5.4"
   },
   "peerDependencies": {
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
     "styled-components": "4.x || 5.x"
   },
   "prettier": "@github/prettier-config",
