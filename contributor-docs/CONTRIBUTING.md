@@ -43,13 +43,14 @@ As this is a public repo, please be careful not to include details or screenshot
 
 We primarily use our documentation site as a workspace to develop new components or make changes to existing components (stay tuned for a better development environment coming soon!).
 
-Before running the documentation site locally, you'll need to install packages in the root and `docs` directories:
+Before running the documentation site locally, make sure to install [Node.js](https://nodejs.org/en/) v16 (we recommend using [nvm](https://github.com/nvm-sh/nvm)). Next, run the following command to setup your environment:
 
 ```sh
-npm install && cd docs && npm install
+npm run setup
 ```
 
-Then navigate back to the root folder and run the following to start up the site:
+Afterwards, you can run the following command to start up the docs site and
+storybook environment:
 
 ```sh
 npm start
