@@ -42,7 +42,7 @@ const propertiesToCopy = [
   'wordSpacing',
 
   'tabSize',
-  'MozTabSize' as 'tabSize'
+  'MozTabSize' as 'tabSize' // prefixed version for Firefox <= 52
 ] as const
 
 function getCaretCoordinates(
