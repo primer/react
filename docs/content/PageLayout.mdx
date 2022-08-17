@@ -173,16 +173,18 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ```jsx live
 <Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
   <Box
-    height="64px"
-    width="100%"
-    borderBottom="1px solid"
-    borderColor="border.default"
-    sx={{position: 'sticky', top: '0', backgroundColor: 'canvas.subtle'}}
-    display="flex"
-    alignItems="center"
-    justifyContent="center"
+    sx={{
+      position: 'sticky',
+      top: 0,
+      height: 64,
+      display: 'grid',
+      placeItems: 'center',
+      backgroundColor: 'canvas.subtle',
+      borderBottom: '1px solid',
+      borderColor: 'border.default'
+    }}
   >
-    <Heading>Sticky top content</Heading>
+    Custom sticky header
   </Box>
   <PageLayout>
     <PageLayout.Content>
