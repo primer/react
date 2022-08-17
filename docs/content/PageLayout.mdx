@@ -171,9 +171,9 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ### With a stickyTop sticky pane
 
 ```jsx live
-<Box sx={{height: '360px', overflowY: 'scroll', border: '1px solid', borderColor: 'border.default'}}>
+<Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
   <Box
-    height="100px"
+    height="64px"
     width="100%"
     borderBottom="1px solid"
     borderColor="border.default"
@@ -186,10 +186,10 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   </Box>
   <PageLayout>
     <PageLayout.Content>
-      <Placeholder label="Content" height={240} />
+      <Placeholder label="Content" height={320} />
     </PageLayout.Content>
-    <PageLayout.Pane stickyTop={100} position="start" sticky>
-      <Placeholder label="Pane" height={240} />
+    <PageLayout.Pane position="start" stickyTop={64} sticky>
+      <Placeholder label="Pane" height={120} />
     </PageLayout.Pane>
     <PageLayout.Footer>
       <Placeholder label="Footer" height={64} />
@@ -367,6 +367,7 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     defaultValue="false"
     description="Whether the pane should stick to the top of the screen while the content scrolls."
   />
+  <PropsTableRow name="stickyTop" type="number" defaultValue="0" description="The height of the sticky top element" />
   <PropsTableRow
     name="padding"
     type={`| 'none'
