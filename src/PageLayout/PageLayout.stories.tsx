@@ -1,7 +1,6 @@
-import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {Box, BranchName, Button, Heading, Link, StateLabel, TabNav, Text} from '..'
-import {NavList} from '../NavList'
+import {Meta, Story} from '@storybook/react'
+import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
 
@@ -415,36 +414,6 @@ const Template: Story = args => (
 
 export const Default = Template.bind({})
 
-export const SplitPage = Template.bind({})
-
-SplitPage.args = {
-  containerWidth: 'full',
-  padding: 'none',
-  rowGap: 'none',
-  columnGap: 'none',
-  'Header.padding': 'normal',
-  'Header.divider.regular': 'line',
-  'Header.divider.narrow': 'line',
-  'Header.divider.wide': 'line',
-  'Content.padding': 'normal',
-  'Content.width': 'xlarge',
-  'Pane.sticky': true,
-  'Pane.position.narrow': 'start',
-  'Pane.position.regular': 'start',
-  'Pane.position.wide': 'start',
-  'Pane.padding': 'normal',
-  'Pane.divider.narrow': 'line',
-  'Pane.divider.regular': 'line',
-  'Pane.divider.wide': 'line',
-  'Footer.padding': 'normal',
-  'Footer.divider.regular': 'line',
-  'Footer.divider.narrow': 'line',
-  'Footer.divider.wide': 'line',
-
-  'Pane placeholder height': 1200,
-  'Content placeholder height': 2400
-}
-
 export const PullRequestPage = () => (
   <PageLayout>
     <PageLayout.Header>
@@ -510,47 +479,6 @@ export const PullRequestPage = () => (
         </Box>
       </Box>
     </PageLayout.Pane>
-  </PageLayout>
-)
-
-export const SettingsPage = () => (
-  <PageLayout>
-    <PageLayout.Pane position="start">
-      <NavList aria-label="main">
-        <NavList.Item href="#">Profile</NavList.Item>
-        <NavList.Item href="#" aria-current="page">
-          Account
-        </NavList.Item>
-        <NavList.Item href="#">Emails</NavList.Item>
-        <NavList.Item href="#">Notifications</NavList.Item>
-      </NavList>
-    </PageLayout.Pane>
-    <PageLayout.Content>
-      <Heading as="h2" sx={{fontSize: 4, fontWeight: 'normal', color: 'danger.fg', mb: 2}}>
-        Danger zone
-      </Heading>
-      <Box
-        sx={{
-          border: '1px solid',
-          borderColor: 'danger.emphasis',
-          borderRadius: 2,
-          p: 3,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 3
-        }}
-      >
-        <Box sx={{display: 'grid', gap: 1}}>
-          <Text sx={{fontSize: 1, fontWeight: 'bold', color: 'danger.fg'}}>Delete account</Text>
-          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-            Are you sure you don&apos;t want to just downgrade your account to a free account? We won&apos;t charge your
-            credit card anymore.
-          </Text>
-        </Box>
-        <Button variant="danger">Delete account</Button>
-      </Box>
-    </PageLayout.Content>
   </PageLayout>
 )
 
@@ -649,6 +577,76 @@ export const NestedScrollContainer: Story = args => (
 )
 
 NestedScrollContainer.argTypes = {
+  numParagraphsInPane: {
+    type: 'number',
+    defaultValue: 10
+  },
+  numParagraphsInContent: {
+    type: 'number',
+    defaultValue: 30
+  }
+}
+
+export const CustomStickyHeader: Story = args => (
+  // a box to create a sticky top element that will be on the consumer side and outside of the PageLayout component
+  <Box>
+    <Box
+      sx={{
+        position: 'sticky',
+        top: 0,
+        height: args.stickyTop,
+        display: 'grid',
+        placeItems: 'center',
+        backgroundColor: 'canvas.subtle',
+        borderBottom: '1px solid',
+        borderColor: 'border.default'
+      }}
+    >
+      Custom sticky header
+    </Box>
+    <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+      <PageLayout.Content padding="normal" width="large">
+        <Box sx={{display: 'grid', gap: 3}}>
+          {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
+            <Box key={i} as="p" sx={{margin: 0}}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
+              Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et,
+              auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa
+              purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus in
+              imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod nisi.
+              Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+            </Box>
+          ))}
+        </Box>
+      </PageLayout.Content>
+      <PageLayout.Pane position="start" padding="normal" divider="line" sticky stickyTop={args.stickyTop}>
+        <Box sx={{display: 'grid', gap: 3}}>
+          {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
+            <Box key={i} as="p" sx={{margin: 0}}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
+              Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et,
+              auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa
+              purus.
+            </Box>
+          ))}
+        </Box>
+      </PageLayout.Pane>
+      <PageLayout.Footer padding="normal" divider="line">
+        <Placeholder label="Footer" height={64} />
+      </PageLayout.Footer>
+    </PageLayout>
+  </Box>
+)
+
+CustomStickyHeader.argTypes = {
+  sticky: {
+    type: 'boolean',
+    defaultValue: true
+  },
+  stickyTop: {
+    type: 'string',
+    defaultValue: '8rem'
+  },
   numParagraphsInPane: {
     type: 'number',
     defaultValue: 10
