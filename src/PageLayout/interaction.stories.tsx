@@ -363,9 +363,6 @@ StickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const paragraph0 = await canvas.getByTestId('paragraph0')
   const paragraphRect = paragraph0.getBoundingClientRect()
   expect(isInViewPort(paragraphRect)).toBe(true)
-  const paragraph2 = await canvas.getByTestId('paragraph2')
-  const paragraphRect2 = paragraph2.getBoundingClientRect()
-  expect(isInViewPort(paragraphRect2)).toBe(false)
 }
 
 const NonStickyPane = StickyPane.bind({})
@@ -391,9 +388,6 @@ NonStickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const paragraph0 = await canvas.getByTestId('paragraph0')
   const paragraphRect = paragraph0.getBoundingClientRect()
   expect(isInViewPort(paragraphRect)).toBe(false)
-  const paragraph2 = await canvas.getByTestId('paragraph2')
-  const paragraphRect2 = paragraph2.getBoundingClientRect()
-  expect(isInViewPort(paragraphRect2)).toBe(true)
 }
 export default meta
 export {StickyPane, NonStickyPane}
