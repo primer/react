@@ -1,7 +1,7 @@
 import {useLayoutEffect, useState} from 'react'
 
 import {SxProp} from '../../sx'
-import {getCharacterCoordinates} from '../utils/character-coordinates'
+import {getScrollAdjustedCharacterCoordinates} from '../utils/character-coordinates'
 
 type UseDynamicTextareaHeightSettings = {
   minHeightLines: number
@@ -41,7 +41,7 @@ export const useDynamicTextareaHeight = ({
     // any top padding, so we need to delete the top padding to accurately get the height
     element.style.paddingTop = '0'
     // Somehow we come up 1 pixel too short and the scrollbar appears, so just add one
-    setHeight(`${getCharacterCoordinates(element, element.value.length, false).top + 1}px`)
+    setHeight(`${getScrollAdjustedCharacterCoordinates(element, element.value.length, false).top + 1}px`)
     element.style.paddingTop = pt
 
     const lineHeight =
