@@ -32,8 +32,10 @@ interface SelectPanelBaseProps {
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
   ) => void
-  title: string
-  inputLabel: string
+  // TODO: Make `title` and `inputLabel` required and remove default values
+  // in the next major release
+  title?: string
+  inputLabel?: string
   overlayProps?: Partial<OverlayProps>
 }
 
@@ -59,8 +61,8 @@ export function SelectPanel({
   onOpenChange,
   renderAnchor = props => <DropdownButton {...props} />,
   anchorRef: externalAnchorRef,
-  title,
-  inputLabel,
+  title = 'Select an item',
+  inputLabel = 'Filter items',
   selected,
   onSelectedChange,
   filterValue: externalFilterValue,
