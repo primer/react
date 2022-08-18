@@ -442,7 +442,7 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
                     position: 'sticky',
                     // If stickyTop has value, it will stick the pane to the position where the sticky top ends
                     // else top will be 0 as the default value of stickyTop
-                    top: stickyTop,
+                    top: typeof stickyTop === 'number' ? `${stickyTop}px` : stickyTop,
                     overflow: 'hidden',
                     maxHeight: 'var(--sticky-pane-height)'
                   }
