@@ -11,11 +11,12 @@ import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
-import {Button, IconButton} from '../Button'
+import {Button} from '../Button'
 import {SearchIcon, XIcon} from '@primer/octicons-react'
 import Box from '../Box'
 import {useSSRSafeId} from '@react-aria/ssr'
 import VisuallyHidden from '../_VisuallyHidden'
+import ButtonClose from '../deprecated/Button/ButtonClose'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -221,7 +222,7 @@ export function SelectPanel({
           <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
             {title}
           </Heading>
-          <IconButton icon={XIcon} aria-label="Close" variant="invisible" onClick={onCloseClickHandler} />
+          <ButtonClose sx={{padding: '6px 8px'}} onClick={onCloseClickHandler} />
         </Box>
         <FilteredActionList
           filterValue={filterValue}
