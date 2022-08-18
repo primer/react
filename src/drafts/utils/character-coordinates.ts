@@ -1,8 +1,10 @@
-export type Coordinates = {
-  /** Number of pixels from the origin down to the bottom edge of the character. */
+export type CharacterCoordinates = {
+  /** Number of pixels from the origin down to the top edge of the character. */
   top: number
   /** Number of pixels from the origin right to the left edge of the character. */
   left: number
+  /** Height of the character. */
+  height: number
 }
 
 // Note that some browsers, such as Firefox, do not concatenate properties
@@ -59,7 +61,10 @@ const propertiesToCopy = [
  * @param element The target input element.
  * @param index The index of the character to calculate.
  */
-function getCharacterCoordinates(element: HTMLTextAreaElement | HTMLInputElement, index: number) {
+export function getCharacterCoordinates(
+  element: HTMLTextAreaElement | HTMLInputElement,
+  index: number
+): CharacterCoordinates {
   const isFirefox = 'mozInnerScreenX' in window
 
   // The mirror div will replicate the textarea's style
@@ -158,35 +163,38 @@ function getCharacterCoordinates(element: HTMLTextAreaElement | HTMLInputElement
 
 /**
  * Obtain the coordinates (px) of the bottom left of a character in an input, relative to the
- * top-left corner of the input element (adjusted for scroll).
+ * top-left corner of the input element (adjusted for scroll). This includes horizontal
+ * scroll in single-line inputs.
  * @param input The target input element.
  * @param index The index of the character to calculate for.
  */
 export const getScrollAdjustedCharacterCoordinates = (
   input: HTMLTextAreaElement | HTMLInputElement | null,
   index: number
-): Coordinates => {
-  if (!input) return {top: 0, left: 0}
+): CharacterCoordinates => {
+  if (!input) return {height: 0, top: 0, left: 0}
 
-  const coords = getCharacterCoordinates(input, index)
+  const {height, top, left} = getCharacterCoordinates(input, index)
 
-  return {top: coords.top + coords.height - input.scrollTop, left: coords.left - input.scrollLeft}
+  return {height, top: top - input.scrollTop, left: left - input.scrollLeft}
 }
 
 /**
  * Obtain the coordinates (px) of the bottom left of a character in an input, relative to the
- * top-left corner of the document.
+ * top-left corner of the document. Since this is relative to the document, it is also adjusted
+ * for the input's scroll.
  * @param input The target input element.
  * @param index The index of the character to calculate for.
  */
 export const getAbsoluteCharacterCoordinates = (
   input: HTMLTextAreaElement | HTMLInputElement | null,
   index: number
-): Coordinates => {
-  const {top: relativeTop, left: relativeLeft} = getScrollAdjustedCharacterCoordinates(input, index)
+): CharacterCoordinates => {
+  const {top: relativeTop, left: relativeLeft, height} = getScrollAdjustedCharacterCoordinates(input, index)
   const {top: viewportOffsetTop, left: viewportOffsetLeft} = input?.getBoundingClientRect() ?? {top: 0, left: 0}
 
   return {
+    height,
     top: viewportOffsetTop + relativeTop,
     left: viewportOffsetLeft + relativeLeft
   }
