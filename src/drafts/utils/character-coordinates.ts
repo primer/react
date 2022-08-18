@@ -169,11 +169,9 @@ export function getCharacterCoordinates(
  * @param index The index of the character to calculate for.
  */
 export const getScrollAdjustedCharacterCoordinates = (
-  input: HTMLTextAreaElement | HTMLInputElement | null,
+  input: HTMLTextAreaElement | HTMLInputElement,
   index: number
 ): CharacterCoordinates => {
-  if (!input) return {height: 0, top: 0, left: 0}
-
   const {height, top, left} = getCharacterCoordinates(input, index)
 
   return {height, top: top - input.scrollTop, left: left - input.scrollLeft}
@@ -187,11 +185,11 @@ export const getScrollAdjustedCharacterCoordinates = (
  * @param index The index of the character to calculate for.
  */
 export const getAbsoluteCharacterCoordinates = (
-  input: HTMLTextAreaElement | HTMLInputElement | null,
+  input: HTMLTextAreaElement | HTMLInputElement,
   index: number
 ): CharacterCoordinates => {
   const {top: relativeTop, left: relativeLeft, height} = getScrollAdjustedCharacterCoordinates(input, index)
-  const {top: viewportOffsetTop, left: viewportOffsetLeft} = input?.getBoundingClientRect() ?? {top: 0, left: 0}
+  const {top: viewportOffsetTop, left: viewportOffsetLeft} = input.getBoundingClientRect()
 
   return {
     height,
