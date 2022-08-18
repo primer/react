@@ -70,7 +70,6 @@ export function MultiSelectStory(): JSX.Element {
         renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Labels</DropdownButton>}
         title="Select Labels"
         inputLabel="Filter Labels"
-        placeholderText="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
