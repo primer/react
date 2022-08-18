@@ -7,6 +7,7 @@
 export * from '../NavList'
 export * from '../Dialog/Dialog'
 export * from '../SegmentedControl'
+export * from '../SplitPageLayout'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
