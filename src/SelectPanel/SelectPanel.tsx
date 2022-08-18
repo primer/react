@@ -241,13 +241,15 @@ export function SelectPanel({
           alignItems="center"
           justifyContent="flex-end"
           gridGap="8px"
-          padding="16px"
+          padding="12px"
           borderTopColor="border.default"
           borderTopWidth={1}
           borderTopStyle="solid"
         >
-          <Button onClick={onCloseClickHandler}>Cancel</Button>
-          <Button variant="primary" onClick={onSaveClickHandler}>
+          <Button size="small" onClick={onCloseClickHandler}>
+            Cancel
+          </Button>
+          <Button size="small" variant="primary" onClick={onSaveClickHandler}>
             Save
           </Button>
         </Box>
