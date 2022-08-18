@@ -36,6 +36,7 @@ interface SelectPanelBaseProps {
   // in the next major release
   title?: string
   inputLabel?: string
+  inputPlaceholder?: string
   overlayProps?: Partial<OverlayProps>
 }
 
@@ -63,6 +64,7 @@ export function SelectPanel({
   anchorRef: externalAnchorRef,
   title = 'Select an item',
   inputLabel = 'Filter items',
+  inputPlaceholder,
   selected,
   onSelectedChange,
   filterValue: externalFilterValue,
@@ -180,6 +182,7 @@ export function SelectPanel({
       contrast: true,
       leadingVisual: SearchIcon,
       'aria-label': inputLabel,
+      placeholder: inputPlaceholder,
       ...textInputProps
     }
   }, [textInputProps, inputLabel])

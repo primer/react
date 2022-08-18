@@ -70,6 +70,7 @@ export function MultiSelectStory(): JSX.Element {
         renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Labels</DropdownButton>}
         title="Select Labels"
         inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -98,6 +99,7 @@ export function SingleSelectStory(): JSX.Element {
         renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -130,6 +132,7 @@ export function ExternalAnchorStory(): JSX.Element {
         anchorRef={buttonRef}
         title="Select a Label"
         inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -158,6 +161,7 @@ export function SelectPanelWithOverflowingItemsStory(): JSX.Element {
         renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -187,6 +191,7 @@ export function SelectPanelWithUnderflowingItemsStory(): JSX.Element {
         renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -227,6 +232,7 @@ export function SelectPanelWithUnderflowingItemsAfterFetch(): JSX.Element {
         renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={onOpenChange}
         loading={filteredItems.length === 0}
@@ -256,6 +262,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
         renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
         title="Select a Label"
         inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
