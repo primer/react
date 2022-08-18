@@ -587,4 +587,74 @@ NestedScrollContainer.argTypes = {
   }
 }
 
+export const CustomStickyHeader: Story = args => (
+  // a box to create a sticky top element that will be on the consumer side and outside of the PageLayout component
+  <Box>
+    <Box
+      sx={{
+        position: 'sticky',
+        top: 0,
+        height: args.stickyTop,
+        display: 'grid',
+        placeItems: 'center',
+        backgroundColor: 'canvas.subtle',
+        borderBottom: '1px solid',
+        borderColor: 'border.default'
+      }}
+    >
+      Custom sticky header
+    </Box>
+    <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+      <PageLayout.Content padding="normal" width="large">
+        <Box sx={{display: 'grid', gap: 3}}>
+          {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
+            <Box key={i} as="p" sx={{margin: 0}}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
+              Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et,
+              auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa
+              purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus in
+              imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod nisi.
+              Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+            </Box>
+          ))}
+        </Box>
+      </PageLayout.Content>
+      <PageLayout.Pane position="start" padding="normal" divider="line" sticky stickyTop={args.stickyTop}>
+        <Box sx={{display: 'grid', gap: 3}}>
+          {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
+            <Box key={i} as="p" sx={{margin: 0}}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non ipsum.
+              Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et,
+              auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa
+              purus.
+            </Box>
+          ))}
+        </Box>
+      </PageLayout.Pane>
+      <PageLayout.Footer padding="normal" divider="line">
+        <Placeholder label="Footer" height={64} />
+      </PageLayout.Footer>
+    </PageLayout>
+  </Box>
+)
+
+CustomStickyHeader.argTypes = {
+  sticky: {
+    type: 'boolean',
+    defaultValue: true
+  },
+  stickyTop: {
+    type: 'string',
+    defaultValue: '8rem'
+  },
+  numParagraphsInPane: {
+    type: 'number',
+    defaultValue: 10
+  },
+  numParagraphsInContent: {
+    type: 'number',
+    defaultValue: 30
+  }
+}
+
 export default meta

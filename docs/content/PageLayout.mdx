@@ -168,6 +168,38 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 </Box>
 ```
 
+### With a custom sticky header
+
+```jsx live
+<Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
+  <Box
+    sx={{
+      position: 'sticky',
+      top: 0,
+      height: 64,
+      display: 'grid',
+      placeItems: 'center',
+      backgroundColor: 'canvas.subtle',
+      borderBottom: '1px solid',
+      borderColor: 'border.default'
+    }}
+  >
+    Custom sticky header
+  </Box>
+  <PageLayout>
+    <PageLayout.Content>
+      <Placeholder label="Content" height={320} />
+    </PageLayout.Content>
+    <PageLayout.Pane position="start" stickyTop={64} sticky>
+      <Placeholder label="Pane" height={120} />
+    </PageLayout.Pane>
+    <PageLayout.Footer>
+      <Placeholder label="Footer" height={64} />
+    </PageLayout.Footer>
+  </PageLayout>
+</Box>
+```
+
 ## Props
 
 ### PageLayout
@@ -336,6 +368,12 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     type="boolean"
     defaultValue="false"
     description="Whether the pane should stick to the top of the screen while the content scrolls."
+  />
+  <PropsTableRow
+    name="stickyTop"
+    type="number | string"
+    defaultValue="0"
+    description="Use stickyTop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px."
   />
   <PropsTableRow
     name="padding"

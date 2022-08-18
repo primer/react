@@ -5,12 +5,12 @@ import {useInView} from 'react-intersection-observer'
  * Calculates the height of the sticky pane such that it always
  * fits into the viewport even when the header or footer are visible.
  */
-// TODO: Handle sticky header
 export function useStickyPaneHeight() {
   const rootRef = React.useRef<HTMLDivElement>(null)
 
   // Default the height to the viewport height
   const [height, setHeight] = React.useState('100vh')
+  const [stickyTop, setStickyTop] = React.useState<number | string>(0)
 
   // Create intersection observers to track the top and bottom of the content region
   const [contentTopRef, contentTopInView, contentTopEntry] = useInView()
@@ -44,11 +44,13 @@ export function useStickyPaneHeight() {
       // We need to account for this when calculating the offset.
       const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
 
-      calculatedHeight = `calc(100vh - ${topOffset + bottomOffset - overflowScroll}px)`
+      const stickyTopWithUnits = typeof stickyTop === 'number' ? `${stickyTop}px` : stickyTop
+
+      calculatedHeight = `calc(100vh - (max(${topOffset}px, ${stickyTopWithUnits}) + ${bottomOffset}px - ${overflowScroll}px))`
     }
 
     setHeight(calculatedHeight)
-  }, [contentTopEntry, contentBottomEntry])
+  }, [contentTopEntry, contentBottomEntry, stickyTop])
 
   // We only want to add scroll and resize listeners if the pane is sticky.
   // Since hooks can't be called conditionally, we need to use state to track
@@ -88,10 +90,19 @@ export function useStickyPaneHeight() {
     }
   }, [isEnabled, contentTopInView, contentBottomInView, calculateHeight])
 
+  function enableStickyPane(top: string | number) {
+    setIsEnabled(true)
+    setStickyTop(top)
+  }
+
+  function disableStickyPane() {
+    setIsEnabled(false)
+  }
+
   return {
     rootRef,
-    enableStickyPane: () => setIsEnabled(true),
-    disableStickyPane: () => setIsEnabled(false),
+    enableStickyPane,
+    disableStickyPane,
     contentTopRef,
     contentBottomRef,
     stickyPaneHeight: height
