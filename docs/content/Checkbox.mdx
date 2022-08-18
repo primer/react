@@ -45,7 +45,7 @@ The `Checkbox` component can be used in controlled and uncontrolled modes.
   technologies.
 </Note>
 
-## Indeterminate
+### Indeterminate
 
 An `indeterminate` checkbox state should be used if the input value is neither true nor false. This can be useful in situations where you are required to display an incomplete state, or one that is dependent on other input selections to determine a value.
 
@@ -71,6 +71,34 @@ An `indeterminate` checkbox state should be used if the input value is neither t
     <Checkbox checked={false} onChange={() => {}} />
     <FormControl.Label>Checkbox 4</FormControl.Label>
   </FormControl>
+</form>
+```
+
+### Grouping Checkbox components
+
+If you're not building something custom, you should use the [CheckboxGroup](/CheckboxGroup) component to render a group of checkbox inputs.
+
+```jsx live
+<form>
+  <CheckboxGroup>
+    <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+    <FormControl>
+      <Checkbox value="1" />
+      <FormControl.Label>Checkbox 1</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="2" />
+      <FormControl.Label>Checkbox 2</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="3" />
+      <FormControl.Label>Checkbox 3</FormControl.Label>
+    </FormControl>
+    <FormControl>
+      <Checkbox value="4" />
+      <FormControl.Label>Checkbox 4</FormControl.Label>
+    </FormControl>
+  </CheckboxGroup>
 </form>
 ```
 
