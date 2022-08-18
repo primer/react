@@ -233,7 +233,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
 
 ### With a custom sticky header
 
-```jsx live
+```jsx live drafts
 <Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
   <Box
     sx={{
@@ -249,19 +249,18 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
   >
     Custom sticky header
   </Box>
-  <PageLayout>
-    <PageLayout.Content>
+  <SplitPageLayout>
+    <SplitPageLayout.Content>
       <Placeholder label="Content" height={320} />
-    </PageLayout.Content>
-    <PageLayout.Pane position="start" stickyTop={64} sticky>
+    </SplitPageLayout.Content>
+    <SplitPageLayout.Pane stickyTop={64}>
       <Placeholder label="Pane" height={120} />
-    </PageLayout.Pane>
-    <PageLayout.Footer>
+    </SplitPageLayout.Pane>
+    <SplitPageLayout.Footer>
       <Placeholder label="Footer" height={64} />
-    </PageLayout.Footer>
-  </PageLayout>
+    </SplitPageLayout.Footer>
+  </SplitPageLayout>
 </Box>
-```
 
 ## Props
 
