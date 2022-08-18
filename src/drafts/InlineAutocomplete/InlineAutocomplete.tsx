@@ -108,7 +108,7 @@ const InlineAutocomplete = ({
           (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length
         )
       : {top: 0, left: 0, height: 0}
-  const suggestionsOffset = {top: triggerCharCoords.top + triggerCharCoords.height, left: 0}
+  const suggestionsOffset = {top: triggerCharCoords.top + triggerCharCoords.height, left: triggerCharCoords.left}
 
   // User can blur while suggestions are visible with shift+tab
   const onBlur: React.FocusEventHandler<TextInputElement> = () => {
