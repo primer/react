@@ -59,17 +59,7 @@ const propertiesToCopy = [
  * @param element The target input element.
  * @param index The index of the character to calculate.
  */
-function getCharacterCoordinates(
-  element: HTMLTextAreaElement | HTMLInputElement,
-  index: number,
-  options?: {debug: boolean}
-) {
-  const debug = (options && options.debug) || false
-  if (debug) {
-    const el = document.querySelector('#input-textarea-caret-position-mirror-div')
-    if (el) el.parentNode?.removeChild(el)
-  }
-
+function getCharacterCoordinates(element: HTMLTextAreaElement | HTMLInputElement, index: number) {
   const isFirefox = 'mozInnerScreenX' in window
 
   // The mirror div will replicate the textarea's style
@@ -94,7 +84,6 @@ function getCharacterCoordinates(
 
   // Position off-screen
   style.position = 'absolute' // required to return coordinates properly
-  if (!debug) style.visibility = 'hidden' // not 'display: none' because we want rendering
 
   // Transfer the element's properties to the div
   for (const prop of propertiesToCopy) {
@@ -162,11 +151,7 @@ function getCharacterCoordinates(
     height: lineHeight
   }
 
-  if (debug) {
-    span.style.backgroundColor = '#aaa'
-  } else {
-    document.body.removeChild(div)
-  }
+  document.body.removeChild(div)
 
   return coordinates
 }
