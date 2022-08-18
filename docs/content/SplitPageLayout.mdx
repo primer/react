@@ -153,6 +153,27 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
 </Box>
 ```
 
+### With condensed padding
+
+```jsx live drafts
+<Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
+  <SplitPageLayout>
+    <SplitPageLayout.Header padding="condensed">
+      <Placeholder label="Header" height={64} />
+    </SplitPageLayout.Header>
+    <SplitPageLayout.Pane padding="condensed">
+      <Placeholder label="Pane" height={120} />
+    </SplitPageLayout.Pane>
+    <SplitPageLayout.Content padding="condensed">
+      <Placeholder label="Content" height={320} />
+    </SplitPageLayout.Content>
+    <SplitPageLayout.Footer padding="condensed">
+      <Placeholder label="Footer" height={64} />
+    </SplitPageLayout.Footer>
+  </SplitPageLayout>
+</Box>
+```
+
 ### Without padding
 
 ```jsx live drafts
