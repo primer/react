@@ -283,10 +283,9 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   return (
     <Box
       as="main"
-      hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
-          display: 'flex',
+          display: isHidden ? 'none' : 'flex',
           flexDirection: 'column',
           order: REGION_ORDER.content,
           // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
