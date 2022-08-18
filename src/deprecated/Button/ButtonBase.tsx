@@ -20,7 +20,7 @@ const variants = variant({
 })
 
 type StyledButtonBaseProps = {
-  as?: 'button' | 'a' | 'summary' | 'input' | string | React.ReactType
+  as?: 'button' | 'a' | 'summary' | 'input' | string | React.ElementType
   variant?: 'small' | 'medium' | 'large'
 }
 

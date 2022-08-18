@@ -12,6 +12,7 @@ Use StateLabel components to show the status of an issue or pull request.
 <>
   <StateLabel status="issueOpened">Open</StateLabel>
   <StateLabel status="issueClosed">Closed</StateLabel>
+  <StateLabel status="issueClosedNotPlanned">Closed</StateLabel>
   <StateLabel status="pullOpened">Open</StateLabel>
   <StateLabel status="pullClosed">Closed</StateLabel>
   <StateLabel status="pullMerged">Merged</StateLabel>
@@ -22,8 +23,8 @@ Use StateLabel components to show the status of an issue or pull request.
 
 ## Component props
 
-| Name    | Type              | Default  | Description                                                                                                    |
-| :------ | :---------------- | :------: | :------------------------------------------------------------------------------------------------------------- |
-| variant | String            | 'normal' | a value of `small` or `normal` results in a smaller or larger version of the StateLabel.                       |
-| status  | String            |          | Can be one of `issueOpened`, `issueClosed`, `pullOpened`, `pullClosed`, `pullMerged`, `draft` or `issueDraft`. |
-| sx      | SystemStyleObject |    {}    | Style to be applied to the component                                                                           |
+| Name    | Type              | Default  | Description                                                                                                                             |
+| :------ | :---------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| variant | String            | 'normal' | a value of `small` or `normal` results in a smaller or larger version of the StateLabel.                                                |
+| status  | String            |          | Can be one of `issueOpened`, `issueClosed`, `issueClosedNotPlanned`, `pullOpened`, `pullClosed`, `pullMerged`, `draft` or `issueDraft`. |
+| sx      | SystemStyleObject |    {}    | Style to be applied to the component                                                                                                    |

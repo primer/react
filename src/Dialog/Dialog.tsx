@@ -11,7 +11,7 @@ import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useSSRSafeId} from '@react-aria/ssr'
 
 const ANIMATION_DURATION = '200ms'
@@ -67,7 +67,7 @@ export interface DialogProps {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderHeader?: React.FunctionComponent<DialogHeaderProps>
+  renderHeader?: React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>>
 
   /**
    * Provide a custom render function for the dialog body. This content is
@@ -76,7 +76,7 @@ export interface DialogProps {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderBody?: React.FunctionComponent<DialogProps>
+  renderBody?: React.FunctionComponent<React.PropsWithChildren<DialogProps>>
 
   /**
    * Provide a custom render function for the dialog footer. This content is
@@ -85,7 +85,7 @@ export interface DialogProps {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderFooter?: React.FunctionComponent<DialogProps>
+  renderFooter?: React.FunctionComponent<React.PropsWithChildren<DialogProps>>
 
   /**
    * Specifies the buttons to be rendered in the Dialog footer.
@@ -213,7 +213,13 @@ const StyledDialog = styled.div<StyledDialogProps>`
   ${sx};
 `
 
-const DefaultHeader: React.FC<DialogHeaderProps> = ({dialogLabelId, title, subtitle, dialogDescriptionId, onClose}) => {
+const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
+  dialogLabelId,
+  title,
+  subtitle,
+  dialogDescriptionId,
+  onClose
+}) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
@@ -229,10 +235,10 @@ const DefaultHeader: React.FC<DialogHeaderProps> = ({dialogLabelId, title, subti
     </Dialog.Header>
   )
 }
-const DefaultBody: React.FC<DialogProps> = ({children}) => {
+const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
   return <Dialog.Body>{children}</Dialog.Body>
 }
-const DefaultFooter: React.FC<DialogProps> = ({footerButtons}) => {
+const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest'
@@ -268,7 +274,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
 
   const dialogRef = useRef<HTMLDivElement>(null)
-  const combinedRef = useCombinedRefs(dialogRef, forwardedRef)
+  useRefObjectAsForwardedRef(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
   useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
 
@@ -291,7 +297,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           <StyledDialog
             width={width}
             height={height}
-            ref={combinedRef}
+            ref={dialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
@@ -362,7 +368,7 @@ const buttonTypes = {
   primary: ButtonPrimary,
   danger: ButtonDanger
 }
-const Buttons: React.FC<{buttons: DialogButtonProps[]}> = ({buttons}) => {
+const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
@@ -405,7 +411,7 @@ const DialogCloseButton = styled(Button)`
   line-height: normal;
   box-shadow: none;
 `
-const CloseButton: React.FC<{onClose: () => void}> = ({onClose}) => {
+const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
   return (
     <DialogCloseButton aria-label="Close" onClick={onClose}>
       <StyledOcticon icon={XIcon} />

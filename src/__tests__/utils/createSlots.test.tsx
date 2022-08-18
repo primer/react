@@ -5,11 +5,11 @@ import createSlots from '../../utils/create-slots'
 
 // setup a component with slots
 const {Slots, Slot} = createSlots(['One', 'Two', 'Three'])
-type ContextTypes = {salutation?: string}
+type Props = {context?: {salutation: string}}
 
-const ComponentWithSlots: React.FC<ContextTypes> = ({salutation, children}) => {
+const ComponentWithSlots: React.FC<React.PropsWithChildren<Props>> = ({context, children}) => {
   return (
-    <Slots context={{salutation}}>
+    <Slots context={context}>
       {slots => (
         <div>
           {slots.One}
@@ -21,13 +21,13 @@ const ComponentWithSlots: React.FC<ContextTypes> = ({salutation, children}) => {
     </Slots>
   )
 }
-const SlotItem1: React.FC = ({children}) => <Slot name="One">{children}</Slot>
-const SlotItem2: React.FC = ({children}) => <Slot name="Two">{children}</Slot>
-const SlotItem3: React.FC = ({children}) => (
+const SlotItem1: React.FC<React.PropsWithChildren<unknown>> = ({children}) => <Slot name="One">{children}</Slot>
+const SlotItem2: React.FC<React.PropsWithChildren<unknown>> = ({children}) => <Slot name="Two">{children}</Slot>
+const SlotItem3: React.FC<React.PropsWithChildren<unknown>> = ({children}) => (
   <Slot name="Three">
-    {(context: ContextTypes) => (
+    {(context: Props['context']) => (
       <>
-        {context.salutation} {children}
+        {context?.salutation} {children}
       </>
     )}
   </Slot>
@@ -64,7 +64,7 @@ describe('ComponentWithSlots', () => {
 
   it('renders with context passed to children', async () => {
     const component = render(
-      <ComponentWithSlots salutation="hi">
+      <ComponentWithSlots context={{salutation: 'hi'}}>
         <SlotItem3>third</SlotItem3>
         free form
       </ComponentWithSlots>

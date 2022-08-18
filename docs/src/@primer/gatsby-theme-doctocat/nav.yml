@@ -38,6 +38,8 @@
       url: /ActionList
     - title: ActionMenu
       url: /ActionMenu
+    - title: AnchoredOverlay
+      url: /AnchoredOverlay
     - title: Autocomplete
       url: /Autocomplete
     - title: Avatar
@@ -151,6 +153,12 @@
   children:
     - title: Dialog v2
       url: /drafts/Dialog
+    - title: InlineAutocomplete
+      url: /drafts/InlineAutocomplete
+    - title: MarkdownEditor
+      url: /drafts/MarkdownEditor
+    - title: MarkdownViewer
+      url: /drafts/MarkdownViewer
 - title: Deprecated
   children:
     - title: ActionList (legacy)

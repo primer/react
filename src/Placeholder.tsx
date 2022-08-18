@@ -2,11 +2,13 @@ import {Box} from '.'
 import React from 'react'
 
 /** Private component used to render placeholders in storybook and documentation examples  */
-export const Placeholder: React.FC<{
-  width?: number | string
-  height: number | string
-  label?: string
-}> = ({width, height, label}) => {
+export const Placeholder: React.FC<
+  React.PropsWithChildren<{
+    width?: number | string
+    height: number | string
+    label?: string
+  }>
+> = ({width, height, label}) => {
   return (
     <Box
       sx={{
@@ -15,7 +17,9 @@ export const Placeholder: React.FC<{
         display: 'grid',
         placeItems: 'center',
         bg: 'canvas.inset',
-        borderRadius: 2
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: 'border.subtle'
       }}
     >
       {label}

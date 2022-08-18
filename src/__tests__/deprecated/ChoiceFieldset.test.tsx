@@ -7,34 +7,31 @@ import userEvent from '@testing-library/user-event'
 import ChoiceFieldset, {Item, ChoiceFieldsetProps} from '../../deprecated/ChoiceFieldset'
 import {ChoiceFieldsetListProps} from '../../deprecated/ChoiceFieldset/ChoiceFieldsetList'
 
-const SelectableChoicelistFieldset: React.FC<ChoiceFieldsetProps & ChoiceFieldsetListProps> = ({
-  onSelect,
-  selectionVariant,
-  selected = []
-}) => {
-  const [selectionVals, setSelectionVals] = React.useState<string[]>(selected)
+const SelectableChoicelistFieldset: React.FC<React.PropsWithChildren<ChoiceFieldsetProps & ChoiceFieldsetListProps>> =
+  ({onSelect, selectionVariant, selected = []}) => {
+    const [selectionVals, setSelectionVals] = React.useState<string[]>(selected)
 
-  React.useEffect(() => {
-    onSelect && onSelect(selectionVals)
-  }, [onSelect, selectionVals])
+    React.useEffect(() => {
+      onSelect && onSelect(selectionVals)
+    }, [onSelect, selectionVals])
 
-  return (
-    <SSRProvider>
-      <ChoiceFieldset
-        onSelect={selectedVals => {
-          setSelectionVals(selectedVals)
-        }}
-        selected={selectionVals}
-      >
-        <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
-        <ChoiceFieldset.List selectionVariant={selectionVariant}>
-          <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
-          <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
-        </ChoiceFieldset.List>
-      </ChoiceFieldset>
-    </SSRProvider>
-  )
-}
+    return (
+      <SSRProvider>
+        <ChoiceFieldset
+          onSelect={selectedVals => {
+            setSelectionVals(selectedVals)
+          }}
+          selected={selectionVals}
+        >
+          <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+          <ChoiceFieldset.List selectionVariant={selectionVariant}>
+            <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+            <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
+          </ChoiceFieldset.List>
+        </ChoiceFieldset>
+      </SSRProvider>
+    )
+  }
 
 describe('ChoiceFieldset', () => {
   it('renders default', () => {
@@ -260,17 +257,19 @@ describe('ChoiceFieldset', () => {
     expect(errorValidationMessage).not.toBeNull()
     expect(successValidationMessage).toBeNull()
   })
-  it('calls onSelect with the values of the selected item (single selection)', () => {
+  it('calls onSelect with the values of the selected item (single selection)', async () => {
+    const user = userEvent.setup()
     const onSelectHandler = jest.fn()
     const {getByLabelText} = HTMLRender(
       <SelectableChoicelistFieldset onSelect={onSelectHandler} selectionVariant="single" />
     )
     const labelOneInputNode = getByLabelText('Label one')
 
-    userEvent.click(labelOneInputNode)
+    await user.click(labelOneInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith(['labelOne'])
   })
-  it('calls onSelect with the values of the selected items (multiple selections)', () => {
+  it('calls onSelect with the values of the selected items (multiple selections)', async () => {
+    const user = userEvent.setup()
     const onSelectHandler = jest.fn()
 
     const {getByLabelText} = HTMLRender(
@@ -278,10 +277,11 @@ describe('ChoiceFieldset', () => {
     )
     const labelTwoInputNode = getByLabelText('Label two')
 
-    userEvent.click(labelTwoInputNode)
+    await user.click(labelTwoInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith(['labelOne', 'labelTwo'])
   })
-  it('calls onSelect with an empty array if all values have be de-selected', () => {
+  it('calls onSelect with an empty array if all values have be de-selected', async () => {
+    const user = userEvent.setup()
     const onSelectHandler = jest.fn()
 
     const {getByLabelText} = HTMLRender(
@@ -289,7 +289,7 @@ describe('ChoiceFieldset', () => {
     )
     const labelTwoInputNode = getByLabelText('Label two')
 
-    userEvent.click(labelTwoInputNode)
+    await user.click(labelTwoInputNode)
     expect(onSelectHandler).toHaveBeenCalledWith([])
   })
   it('generates a name attribute for radio groups if one is not provided', () => {

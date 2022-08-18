@@ -1,11 +1,17 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Select, ThemeProvider, FormControl} from '..'
+import {BaseStyles, Select, ThemeProvider, FormControl, Box} from '..'
 import {SelectProps} from '../Select'
+import {
+  FormControlArgs,
+  formControlArgTypes,
+  getFormControlArgsByChildComponent,
+  inputWrapperArgTypes
+} from '../utils/story-helpers'
 
 export default {
-  title: 'Forms/Select',
+  title: 'Forms/Form Controls/Select',
   component: Select,
   decorators: [
     Story => {
@@ -19,90 +25,73 @@ export default {
     }
   ],
   argTypes: {
-    block: {
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    contrast: {
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    disabled: {
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
     required: {
       defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
+      type: 'boolean'
     },
-    sx: {
-      table: {
-        disable: true
-      }
-    },
-    size: {
-      defaultValue: 'medium',
-      options: ['small', 'medium', 'large'],
-      control: {type: 'radio'}
-    },
-    validationStatus: {
-      options: ['success', 'warning', 'error', undefined],
-      control: {type: 'radio'}
-    }
+    ...inputWrapperArgTypes,
+    ...formControlArgTypes
   },
-  parameters: {controls: {exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused']}}
+  parameters: {
+    controls: {
+      exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused', 'sx', 'size']
+    }
+  }
 } as Meta
 
-export const Default = (args: SelectProps) => (
-  <FormControl disabled={args.disabled} required={args.required}>
-    <FormControl.Label>Choice</FormControl.Label>
-    <Select {...args}>
-      <Select.Option value="one">Choice one</Select.Option>
-      <Select.Option value="two">Choice two</Select.Option>
-      <Select.Option value="three">Choice three</Select.Option>
-      <Select.Option value="four">Choice four</Select.Option>
-      <Select.Option value="five">Choice five</Select.Option>
-      <Select.Option value="six">Choice six</Select.Option>
-    </Select>
-  </FormControl>
-)
+export const Default = (args: FormControlArgs<SelectProps>) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
 
-export const WithOptionGroups = (args: SelectProps) => (
-  <FormControl disabled={args.disabled} required={args.required}>
-    <FormControl.Label>Choice</FormControl.Label>
-    <Select {...args}>
-      <Select.OptGroup label="Group one">
-        <Select.Option value="one">Choice one</Select.Option>
-        <Select.Option value="two">Choice two</Select.Option>
-        <Select.Option value="three">Choice three</Select.Option>
-        <Select.Option value="four">Choice four</Select.Option>
-      </Select.OptGroup>
-      <Select.OptGroup disabled label="Group two">
-        <Select.Option value="five">Choice five</Select.Option>
-        <Select.Option value="six">Choice six</Select.Option>
-      </Select.OptGroup>
-    </Select>
-  </FormControl>
-)
+  return (
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <FormControl.Label {...labelArgs} />
+        <Select {...args}>
+          <Select.Option value="one">Choice one</Select.Option>
+          <Select.Option value="two">Choice two</Select.Option>
+          <Select.Option value="three">Choice three</Select.Option>
+          <Select.Option value="four">Choice four</Select.Option>
+          <Select.Option value="five">Choice five</Select.Option>
+          <Select.Option value="six">Choice six</Select.Option>
+        </Select>
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        {validationArgs.children && validationArgs.variant && (
+          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+        )}
+      </FormControl>
+    </Box>
+  )
+}
+Default.args = {
+  labelChildren: 'Choice'
+}
 
-export const WithAPlaceholder = (args: SelectProps) => (
-  <FormControl disabled={args.disabled} required={args.required}>
-    <FormControl.Label>Choice</FormControl.Label>
-    <Select placeholder="Pick a choice" {...args}>
-      <Select.Option value="one">Choice one</Select.Option>
-      <Select.Option value="two">Choice two</Select.Option>
-      <Select.Option value="three">Choice three</Select.Option>
-      <Select.Option value="four">Choice four</Select.Option>
-      <Select.Option value="five">Choice five</Select.Option>
-      <Select.Option value="six">Choice six</Select.Option>
-    </Select>
-  </FormControl>
-)
+export const WithOptionGroups = (args: FormControlArgs<SelectProps>) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
+  return (
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <FormControl.Label {...labelArgs} />
+        <Select {...args}>
+          <Select.OptGroup label="Group one">
+            <Select.Option value="one">Choice one</Select.Option>
+            <Select.Option value="two">Choice two</Select.Option>
+            <Select.Option value="three">Choice three</Select.Option>
+            <Select.Option value="four">Choice four</Select.Option>
+          </Select.OptGroup>
+          <Select.OptGroup disabled label="Group two">
+            <Select.Option value="five">Choice five</Select.Option>
+            <Select.Option value="six">Choice six</Select.Option>
+          </Select.OptGroup>
+        </Select>
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        {validationArgs.children && validationArgs.variant && (
+          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+        )}
+      </FormControl>
+    </Box>
+  )
+}
+WithOptionGroups.args = {
+  labelChildren: 'Choice'
+}

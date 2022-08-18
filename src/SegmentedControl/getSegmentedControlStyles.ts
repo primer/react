@@ -1,7 +1,32 @@
 import {get} from '../constants'
 import {SegmentedControlButtonProps} from './SegmentedControlButton'
 
-const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {isIconOnly?: boolean}) => ({
+export const directChildLayoutAdjustments = {
+  ':first-child': {
+    marginLeft: '-1px'
+  },
+
+  ':last-child': {
+    marginRight: '-1px'
+  }
+}
+
+export const borderedSegment = {
+  marginRight: '1px',
+  ':after': {
+    backgroundColor: 'var(--separator-color)',
+    content: '""',
+    position: 'absolute',
+    right: '-2px',
+    top: 2,
+    bottom: 2,
+    width: '1px'
+  }
+}
+
+export const getSegmentedControlButtonStyles = (
+  props?: Partial<Pick<SegmentedControlButtonProps, 'children' | 'selected'>> & {isIconOnly?: boolean}
+) => ({
   '--segmented-control-button-inner-padding': '12px', // TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available
   '--segmented-control-button-bg-inset': '4px',
   '--segmented-control-outer-radius': get('radii.2')(props),
@@ -11,19 +36,17 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
   borderWidth: 0,
   color: 'currentColor',
   cursor: 'pointer',
-  flexGrow: 1,
   fontFamily: 'inherit',
+  fontSize: 1,
   fontWeight: props?.selected ? 'bold' : 'normal',
-  marginTop: '-1px',
-  marginBottom: '-1px',
   padding: props?.selected ? 0 : 'var(--segmented-control-button-bg-inset)',
-  position: 'relative',
-  width: props?.isIconOnly ? 'var(--primer-control-medium-size, 32px)' : undefined,
+  height: '100%',
+  width: '100%',
 
   '.segmentedControl-content': {
     alignItems: 'center',
     backgroundColor: props?.selected ? 'btn.bg' : 'transparent',
-    borderColor: props?.selected ? '#8c959f' : 'transparent', // TODO: use a functional primitive for the selected border color when it is available
+    borderColor: props?.selected ? 'segmentedControl.button.selected.border' : 'transparent',
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: props?.selected
@@ -47,32 +70,16 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
   },
 
   ':hover .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'actionListItem.default.hoverBg' // TODO: replace with a functional primitive
+    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.hover.bg'
   },
 
   ':active .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'actionListItem.default.activeBg' // TODO: replace with a functional primitive
+    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.active.bg'
   },
 
-  ':first-child': {
-    marginLeft: '-1px'
-  },
-
-  ':last-child': {
-    marginRight: '-1px'
-  },
-
-  ':not(:last-child)': {
-    marginRight: '1px',
-    ':after': {
-      backgroundColor: 'var(--separator-color)',
-      content: '""',
-      position: 'absolute',
-      right: '-2px',
-      top: 2,
-      bottom: 2,
-      width: '1px'
-    }
+  // fixes an issue where the focus outline shows over the pseudo-element
+  ':focus:focus-visible:not(:last-child):after': {
+    width: 0
   },
 
   '.segmentedControl-text': {
@@ -101,4 +108,13 @@ const getSegmentedControlButtonStyles = (props?: SegmentedControlButtonProps & {
   }
 })
 
-export default getSegmentedControlButtonStyles
+export const getSegmentedControlListItemStyles = () => ({
+  display: 'block',
+  position: 'relative',
+  flexGrow: 1,
+  marginTop: '-1px',
+  marginBottom: '-1px',
+  height: '32px', // TODO: use primitive `control.medium.size` when it is available
+  ':not(:last-child)': borderedSegment,
+  ...directChildLayoutAdjustments
+})

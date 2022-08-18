@@ -6,6 +6,7 @@ import {toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
+import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
 
 expect.extend(toHaveNoViolations)
 
@@ -14,10 +15,16 @@ describe('Textarea', () => {
     jest.resetAllMocks()
     cleanup()
   })
-  behavesAsComponent({Component: Textarea, options: {skipAs: true}})
+  behavesAsComponent({
+    Component: Textarea,
+    options: {skipAs: true}
+  })
 
   checkExports('Textarea', {
-    default: Textarea
+    default: Textarea,
+    DEFAULT_TEXTAREA_ROWS,
+    DEFAULT_TEXTAREA_COLS,
+    DEFAULT_TEXTAREA_RESIZE
   })
 
   it('renders a valid textarea input', () => {
@@ -97,7 +104,8 @@ describe('Textarea', () => {
     expect(textareaElement.value).toEqual(mockValue)
   })
 
-  it('can render an inactive textarea', () => {
+  it('can render an inactive textarea', async () => {
+    const user = userEvent.setup()
     const handleChange = jest.fn()
     const {getByRole, rerender} = render(<Textarea disabled onChange={handleChange} />)
 
@@ -105,7 +113,7 @@ describe('Textarea', () => {
     expect(textareaElement.disabled).toEqual(true)
     expect(textareaElement).toHaveAttribute('disabled')
 
-    userEvent.click(textareaElement)
+    user.click(textareaElement)
 
     expect(handleChange).not.toHaveBeenCalled()
 

@@ -4,9 +4,16 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, Box, ThemeProvider, FormControl} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
+import {
+  FormControlArgs,
+  formControlArgTypes,
+  getFormControlArgsByChildComponent,
+  getTextInputArgTypes,
+  textInputExcludedControlKeys
+} from '../utils/story-helpers'
 
 export default {
-  title: 'Forms/Text Input',
+  title: 'Forms/Form Controls/Text Input',
   component: TextInput,
   decorators: [
     Story => {
@@ -19,69 +26,21 @@ export default {
       )
     }
   ],
+  parameters: {controls: {exclude: textInputExcludedControlKeys}},
   argTypes: {
-    sx: {
-      table: {
-        disable: true
-      }
-    },
-    block: {
-      name: 'Block',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    disabled: {
-      name: 'Disabled',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    loading: {
-      name: 'loading',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    loaderPosition: {
-      name: 'loaderPosition',
-      defaultValue: 'auto',
-      options: ['auto', 'leading', 'trailing'],
-      control: {
-        type: 'radio'
-      }
-    },
-    monospace: {
-      name: 'Monospace',
-      defaultValue: false,
-      control: {
-        type: 'boolean'
-      }
-    },
-    variant: {
-      name: 'Variants',
-      options: ['small', 'medium', 'large'],
-      control: {type: 'radio'}
-    },
-    validationStatus: {
-      name: 'Validation Status',
-      options: ['warning', 'error', 'success', undefined],
-      control: {type: 'radio'}
-    },
-    placeholder: {
-      name: 'Placeholder',
-      defaultValue: 'Hello!',
+    type: {
+      defaultValue: 'text',
       control: {
         type: 'text'
       }
-    }
+    },
+    ...getTextInputArgTypes(),
+    ...formControlArgTypes
   }
 } as Meta
 
-export const Default = (args: TextInputProps) => {
+export const Default = (args: FormControlArgs<TextInputProps>) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,16 +48,21 @@ export const Default = (args: TextInputProps) => {
   }
 
   return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Example label</FormControl.Label>
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <FormControl.Label {...labelArgs} />
         <TextInput value={value} onChange={handleChange} {...args} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        {validationArgs.children && validationArgs.variant && (
+          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+        )}
       </FormControl>
-    </form>
+    </Box>
   )
 }
 
-export const WithLeadingVisual = (args: TextInputProps) => {
+export const WithLeadingVisual = (args: FormControlArgs<TextInputProps>) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,20 +70,29 @@ export const WithLeadingVisual = (args: TextInputProps) => {
   }
 
   return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Example label</FormControl.Label>
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <FormControl.Label {...labelArgs} />
         <TextInput leadingVisual={CheckIcon} value={value} onChange={handleChange} {...args} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        {validationArgs.children && validationArgs.variant && (
+          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+        )}
       </FormControl>
       <FormControl>
         <FormControl.Label>Enter monies</FormControl.Label>
         <TextInput leadingVisual="$" value={value} onChange={handleChange} {...args} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        {validationArgs.children && validationArgs.variant && (
+          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+        )}
       </FormControl>
-    </form>
+    </Box>
   )
 }
 
-export const WithTrailingIcon = (args: TextInputProps) => {
+export const WithTrailingIcon = (args: FormControlArgs<TextInputProps>) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,20 +100,29 @@ export const WithTrailingIcon = (args: TextInputProps) => {
   }
 
   return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Example label</FormControl.Label>
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <FormControl.Label {...labelArgs} />
         <TextInput trailingVisual={CheckIcon} value={value} onChange={handleChange} {...args} />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        {validationArgs.children && validationArgs.variant && (
+          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+        )}
       </FormControl>
       <FormControl>
         <FormControl.Label>Enter monies</FormControl.Label>
         <TextInput trailingVisual="minutes" value={value} onChange={handleChange} {...args} placeholder="200" />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        {validationArgs.children && validationArgs.variant && (
+          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+        )}
       </FormControl>
-    </form>
+    </Box>
   )
 }
 
-export const WithTrailingAction = (args: TextInputProps) => {
+export const WithTrailingAction = (args: FormControlArgs<TextInputProps>) => {
+  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const [value, setValue] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,9 +130,9 @@ export const WithTrailingAction = (args: TextInputProps) => {
   }
 
   return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Icon action</FormControl.Label>
+    <Box as="form" sx={{p: 3}}>
+      <FormControl {...parentArgs}>
+        <FormControl.Label {...labelArgs} />
         <TextInput
           trailingAction={
             <TextInput.Action
@@ -166,141 +148,81 @@ export const WithTrailingAction = (args: TextInputProps) => {
           onChange={handleChange}
           {...args}
         />
+        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        {validationArgs.children && validationArgs.variant && (
+          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+        )}
       </FormControl>
-    </form>
+    </Box>
   )
 }
 
-export const WithLoadingIndicator = () => {
-  const [loading, setLoading] = React.useState(true)
+export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => (
+  <Box as="form" sx={{p: 3}}>
+    <h3>No visual</h3>
+    <Box mb={2}>
+      <TextInput value="auto" {...args} />
+    </Box>
+    <Box mb={2}>
+      <TextInput value="leading" {...args} loaderPosition="leading" />
+    </Box>
+    <Box mb={5}>
+      <TextInput value="trailing" {...args} loaderPosition="trailing" />
+    </Box>
 
-  const toggleLoadingState = () => {
-    setLoading(!loading)
-  }
+    <h3>Leading visual</h3>
+    <Box mb={2}>
+      <TextInput leadingVisual={CalendarIcon} {...args} value="auto" />
+    </Box>
+    <Box mb={2}>
+      <TextInput leadingVisual={CalendarIcon} {...args} loaderPosition="leading" value="leading" />
+    </Box>
+    <Box mb={5}>
+      <TextInput leadingVisual={CalendarIcon} {...args} loaderPosition="trailing" value="trailing" />
+    </Box>
 
-  return (
-    <>
-      <Box mb={5}>
-        <button type="button" onClick={toggleLoadingState}>
-          Toggle loading state {loading ? 'off' : 'on'}
-        </button>
-      </Box>
+    <h3>Trailing visual</h3>
+    <Box mb={2}>
+      <TextInput trailingVisual={CalendarIcon} {...args} value="auto" />
+    </Box>
+    <Box mb={2}>
+      <TextInput trailingVisual={CalendarIcon} {...args} loaderPosition="leading" value="leading" />
+    </Box>
+    <Box mb={5}>
+      <TextInput trailingVisual={CalendarIcon} {...args} loaderPosition="trailing" value="trailing" />
+    </Box>
 
-      <h3>No visual</h3>
-      <Box mb={2}>
-        <TextInput value="auto" loading={loading} />
-      </Box>
-      <Box mb={2}>
-        <TextInput value="leading" loading={loading} loaderPosition="leading" />
-      </Box>
-      <Box mb={5}>
-        <TextInput value="trailing" loading={loading} loaderPosition="trailing" />
-      </Box>
+    <h3>Both visuals</h3>
+    <Box mb={2}>
+      <TextInput size="small" leadingVisual={CalendarIcon} trailingVisual={CalendarIcon} {...args} value="auto" />
+    </Box>
+    <Box mb={2}>
+      <TextInput
+        leadingVisual={CalendarIcon}
+        trailingVisual={CalendarIcon}
+        {...args}
+        loaderPosition="leading"
+        value="leading"
+      />
+    </Box>
+    <Box mb={2}>
+      <TextInput
+        size="large"
+        leadingVisual={CalendarIcon}
+        trailingVisual={CalendarIcon}
+        {...args}
+        loaderPosition="trailing"
+        value="trailing"
+      />
+    </Box>
+  </Box>
+)
 
-      <h3>Leading visual</h3>
-      <Box mb={2}>
-        <TextInput leadingVisual={CalendarIcon} loading={loading} value="auto" />
-      </Box>
-      <Box mb={2}>
-        <TextInput leadingVisual={CalendarIcon} loading={loading} loaderPosition="leading" value="leading" />
-      </Box>
-      <Box mb={5}>
-        <TextInput leadingVisual={CalendarIcon} loading={loading} loaderPosition="trailing" value="trailing" />
-      </Box>
-
-      <h3>Trailing visual</h3>
-      <Box mb={2}>
-        <TextInput trailingVisual={CalendarIcon} loading={loading} value="auto" />
-      </Box>
-      <Box mb={2}>
-        <TextInput trailingVisual={CalendarIcon} loading={loading} loaderPosition="leading" value="leading" />
-      </Box>
-      <Box mb={5}>
-        <TextInput trailingVisual={CalendarIcon} loading={loading} loaderPosition="trailing" value="trailing" />
-      </Box>
-
-      <h3>Both visuals</h3>
-      <Box mb={2}>
-        <TextInput
-          size="small"
-          leadingVisual={CalendarIcon}
-          trailingVisual={CalendarIcon}
-          loading={loading}
-          value="auto"
-        />
-      </Box>
-      <Box mb={2}>
-        <TextInput
-          leadingVisual={CalendarIcon}
-          trailingVisual={CalendarIcon}
-          loading={loading}
-          loaderPosition="leading"
-          value="leading"
-        />
-      </Box>
-      <Box mb={2}>
-        <TextInput
-          size="large"
-          leadingVisual={CalendarIcon}
-          trailingVisual={CalendarIcon}
-          loading={loading}
-          loaderPosition="trailing"
-          value="trailing"
-        />
-      </Box>
-    </>
-  )
+WithLoadingIndicator.args = {
+  loading: true
 }
-
-WithLoadingIndicator.parameters = {controls: {exclude: ['loading']}}
-
-export const ContrastTextInput = (args: TextInputProps) => {
-  const [value, setValue] = useState('')
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
+WithLoadingIndicator.parameters = {
+  controls: {
+    exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children']
   }
-
-  return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Example label</FormControl.Label>
-        <TextInput contrast value={value} onChange={handleChange} {...args} />
-      </FormControl>
-    </form>
-  )
-}
-
-export const Password = (args: TextInputProps) => {
-  const [value, setValue] = useState('')
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
-  }
-
-  return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Password</FormControl.Label>
-        <TextInput type="password" value={value} onChange={handleChange} {...args} />
-      </FormControl>
-    </form>
-  )
-}
-
-export const TextInputInWarningState = (args: TextInputProps) => {
-  const [value, setValue] = useState('')
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
-  }
-
-  return (
-    <form>
-      <FormControl>
-        <FormControl.Label>Password</FormControl.Label>
-        <TextInput type="password" value={value} validationStatus="warning" onChange={handleChange} {...args} />
-      </FormControl>
-    </form>
-  )
 }

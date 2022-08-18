@@ -60,7 +60,11 @@ export interface PortalProps {
  * Creates a React Portal, placing all children in a separate physical DOM root node.
  * @see https://reactjs.org/docs/portals.html
  */
-export const Portal: React.FC<PortalProps> = ({children, onMount, containerName: _containerName}) => {
+export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
+  children,
+  onMount,
+  containerName: _containerName
+}) => {
   const hostElement = document.createElement('div')
 
   // Portaled content should get their own stacking context so they don't interfere

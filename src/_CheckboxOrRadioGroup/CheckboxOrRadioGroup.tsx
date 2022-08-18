@@ -48,7 +48,7 @@ const Body = styled.div`
   }
 `
 
-const CheckboxOrRadioGroup: React.FC<CheckboxOrRadioGroupProps> = ({
+const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
   'aria-labelledby': ariaLabelledby,
   children,
   disabled,
