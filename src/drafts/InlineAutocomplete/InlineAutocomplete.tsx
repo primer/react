@@ -101,14 +101,14 @@ const InlineAutocomplete = ({
   // optimized by only re-rendering when suggestionsVisible changes. However, the user
   // could move the cursor to a different location using arrow keys and then type a
   // trigger, which would move the suggestions without closing/reopening them.
-  const suggestionsOffset =
+  const triggerCharCoords =
     inputRef.current && showEventRef.current && suggestionsVisible
       ? getAbsoluteCharacterCoordinates(
           inputRef.current,
-          // Position the suggestions at the trigger character, not the current caret position
           (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length
         )
-      : {top: 0, left: 0}
+      : {top: 0, left: 0, height: 0}
+  const suggestionsOffset = {top: triggerCharCoords.top + triggerCharCoords.height, left: triggerCharCoords.left}
 
   // User can blur while suggestions are visible with shift+tab
   const onBlur: React.FocusEventHandler<TextInputElement> = () => {
