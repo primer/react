@@ -7,23 +7,22 @@ import useLayoutEffect from './useIsomorphicLayoutEffect'
  *  + Slot component that is used by LeadingVisual, Description
  */
 const createSlots = <SlotNames extends string>(_slotNames: SlotNames[]) => {
-  type Slots = {
-    [key in SlotNames]?: React.ReactNode
-  }
+  type SlotsStore = Partial<Record<SlotNames, React.ReactNode>>
 
-  type ContextProps = {
+  type SlotsContext = {
     registerSlot: (name: SlotNames, contents: React.ReactNode) => void
     unregisterSlot: (name: SlotNames) => void
   }
-  const SlotsContext = React.createContext<ContextProps>({
+
+  const SlotsContext = React.createContext<SlotsContext>({
     registerSlot: () => null,
     unregisterSlot: () => null
   })
 
   const Slots: React.FC<{
-    children: (slots: Slots) => React.ReactNode
+    children: (slots: SlotsStore) => React.ReactNode
   }> = ({children}) => {
-    const [slots, setSlots] = React.useState<Slots>({})
+    const [slots, setSlots] = React.useState<SlotsStore>({})
 
     const registerSlot = React.useCallback(
       (name: SlotNames, contents: React.ReactNode) => setSlots(prevSlots => ({...prevSlots, [name]: contents})),
