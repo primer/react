@@ -6,6 +6,9 @@ import useLayoutEffect from './useIsomorphicLayoutEffect'
  *  typesafe Slots + Slot pair to use in a component definition
  *  For example: ActionList.Item uses createSlots to get a Slots wrapper
  *  + Slot component that is used by LeadingVisual, Description
+ *
+ * ⚠️ WARNING: Providing a custom `Context` in the same component as `useSlots` is called
+ * will result in an infinite render loop unless you memoize that context object!
  */
 const createSlots = <SlotNames extends string>() => {
   type Store = Partial<Record<SlotNames, React.ReactNode>>
