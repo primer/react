@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Box from '../Box'
 import {SxProp, merge} from '../sx'
 import {get} from '../constants'
-import {getVariantStyles, Slot, ItemContext, TEXT_ROW_HEIGHT} from './Item'
+import {getVariantStyles, Slot, TEXT_ROW_HEIGHT} from './Item'
+import {ActionListItemContext} from './ItemContext'
 
 type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
@@ -30,48 +31,48 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
 
 export type ActionListLeadingVisualProps = VisualProps
 export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+  const {variant, disabled} = useContext(ActionListItemContext) ?? {}
+
   return (
     <Slot name="LeadingVisual">
-      {({variant, disabled}: ItemContext) => (
-        <LeadingVisualContainer
-          sx={merge(
-            {
-              color: getVariantStyles(variant, disabled).iconColor,
-              svg: {fontSize: 0}
-            },
-            sx as SxProp
-          )}
-          {...props}
-        >
-          {props.children}
-        </LeadingVisualContainer>
-      )}
+      <LeadingVisualContainer
+        sx={merge(
+          {
+            color: getVariantStyles(variant, disabled).iconColor,
+            svg: {fontSize: 0}
+          },
+          sx as SxProp
+        )}
+        {...props}
+      >
+        {props.children}
+      </LeadingVisualContainer>
     </Slot>
   )
 }
 
 export type ActionListTrailingVisualProps = VisualProps
 export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+  const {variant, disabled} = useContext(ActionListItemContext) ?? {}
+
   return (
     <Slot name="TrailingVisual">
-      {({variant, disabled}: ItemContext) => (
-        <Box
-          as="span"
-          sx={merge(
-            {
-              height: '20px', // match height of text row
-              flexShrink: 0,
-              color: getVariantStyles(variant, disabled).annotationColor,
-              marginLeft: 2,
-              fontWeight: 'initial'
-            },
-            sx as SxProp
-          )}
-          {...props}
-        >
-          {props.children}
-        </Box>
-      )}
+      <Box
+        as="span"
+        sx={merge(
+          {
+            height: '20px', // match height of text row
+            flexShrink: 0,
+            color: getVariantStyles(variant, disabled).annotationColor,
+            marginLeft: 2,
+            fontWeight: 'initial'
+          },
+          sx as SxProp
+        )}
+        {...props}
+      >
+        {props.children}
+      </Box>
     </Slot>
   )
 }
