@@ -108,7 +108,7 @@ const a11yOnlyStyle = {clipPath: 'Circle(0)', position: 'absolute'} as const
 
 const CONDENSED_WIDTH_THRESHOLD = 675
 
-const {Slot, Slots} = createSlots<'Toolbar' | 'Actions' | 'Label'>()
+const {Slot, useSlots} = createSlots<'Toolbar' | 'Actions' | 'Label'>()
 export const MarkdownEditorSlot = Slot
 
 /**
@@ -260,123 +260,121 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       [disabled, formattingToolsRef, condensed, required]
     )
 
+    const {slots, SlotsProvider} = useSlots()
+
     // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
     return (
-      <Slots>
-        {slots => (
-          <MarkdownEditorContext.Provider value={context}>
-            <fieldset
-              aria-disabled={
-                disabled /* if we set disabled={true}, we can't enable the buttons that should be enabled */
-              }
-              aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
-              style={{appearance: 'none', border: 'none'}}
+      <SlotsProvider>
+        <MarkdownEditorContext.Provider value={context}>
+          <fieldset
+            aria-disabled={disabled /* if we set disabled={true}, we can't enable the buttons that should be enabled */}
+            aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
+            style={{appearance: 'none', border: 'none'}}
+          >
+            <FormattingTools ref={formattingToolsRef} forInputId={id} />
+            <div style={{display: 'none'}}>{children}</div>
+
+            {slots.Label}
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '100%',
+                borderColor: 'border.default',
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderRadius: 2,
+                p: 2,
+                height: fullHeight ? '100%' : undefined,
+                minInlineSize: 'auto',
+                bg: 'canvas.default',
+                color: disabled ? 'fg.subtle' : 'fg.default',
+                ...sx
+              }}
+              ref={containerRef}
             >
-              <FormattingTools ref={formattingToolsRef} forInputId={id} />
-              <div style={{display: 'none'}}>{children}</div>
+              <VisuallyHidden id={descriptionId} aria-live="polite">
+                Markdown input:
+                {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
+              </VisuallyHidden>
 
-              {slots.Label}
+              <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
+                <ViewSwitch
+                  selectedView={view}
+                  onViewSelect={setView}
+                  disabled={fileHandler?.uploadProgress !== undefined}
+                  onLoadPreview={loadPreview}
+                />
 
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '100%',
-                  borderColor: 'border.default',
-                  borderWidth: 1,
-                  borderStyle: 'solid',
-                  borderRadius: 2,
-                  p: 2,
-                  height: fullHeight ? '100%' : undefined,
-                  minInlineSize: 'auto',
-                  bg: 'canvas.default',
-                  color: disabled ? 'fg.subtle' : 'fg.default',
-                  ...sx
-                }}
-                ref={containerRef}
-              >
-                <VisuallyHidden id={descriptionId} aria-live="polite">
-                  Markdown input:
-                  {view === 'preview' ? ' preview mode selected.' : ' edit mode selected.'}
-                </VisuallyHidden>
-
-                <Box sx={{display: 'flex', pb: 2, gap: 2, justifyContent: 'space-between'}} as="header">
-                  <ViewSwitch
-                    selectedView={view}
-                    onViewSelect={setView}
-                    disabled={fileHandler?.uploadProgress !== undefined}
-                    onLoadPreview={loadPreview}
-                  />
-
-                  <Box sx={{display: 'flex'}}>
-                    <SavedRepliesContext.Provider value={savedRepliesContext}>
-                      {view === 'edit' &&
-                        (slots.Toolbar ?? (
-                          <CoreToolbar>
-                            <DefaultToolbarButtons />
-                          </CoreToolbar>
-                        ))}
-                    </SavedRepliesContext.Provider>
-                  </Box>
+                <Box sx={{display: 'flex'}}>
+                  <SavedRepliesContext.Provider value={savedRepliesContext}>
+                    {view === 'edit' &&
+                      (slots.Toolbar ?? (
+                        <CoreToolbar>
+                          <DefaultToolbarButtons />
+                        </CoreToolbar>
+                      ))}
+                  </SavedRepliesContext.Provider>
                 </Box>
-
-                <MarkdownInput
-                  value={value}
-                  onChange={onInputChange}
-                  emojiSuggestions={emojiSuggestions}
-                  mentionSuggestions={mentionSuggestions}
-                  referenceSuggestions={referenceSuggestions}
-                  disabled={disabled}
-                  placeholder={placeholder}
-                  id={id}
-                  maxLength={maxLength}
-                  ref={inputRef}
-                  fullHeight={fullHeight}
-                  isDraggedOver={fileHandler?.isDraggedOver ?? false}
-                  minHeightLines={minHeightLines}
-                  maxHeightLines={maxHeightLines}
-                  visible={view === 'edit'}
-                  monospace={monospace}
-                  required={required}
-                  name={name}
-                  {...inputCompositionProps}
-                  {...fileHandler?.pasteTargetProps}
-                  {...fileHandler?.dropTargetProps}
-                />
-
-                {view === 'preview' && (
-                  <Box
-                    sx={{
-                      p: 1,
-                      overflow: 'auto',
-                      height: fullHeight ? '100%' : undefined,
-                      minHeight: inputHeight.current,
-                      boxSizing: 'border-box'
-                    }}
-                    aria-live="polite"
-                  >
-                    <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
-                    <MarkdownViewer
-                      dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
-                      loading={html === null}
-                      openLinksInNewTab
-                    />
-                  </Box>
-                )}
-
-                <Footer
-                  actionButtons={slots.Actions}
-                  fileDraggedOver={fileHandler?.isDraggedOver ?? false}
-                  fileUploadProgress={fileHandler?.uploadProgress}
-                  uploadButtonProps={fileHandler?.clickTargetProps ?? null}
-                  errorMessage={fileHandler?.errorMessage}
-                  previewMode={view === 'preview'}
-                />
               </Box>
-            </fieldset>
-          </MarkdownEditorContext.Provider>
-        )}
-      </Slots>
+
+              <MarkdownInput
+                value={value}
+                onChange={onInputChange}
+                emojiSuggestions={emojiSuggestions}
+                mentionSuggestions={mentionSuggestions}
+                referenceSuggestions={referenceSuggestions}
+                disabled={disabled}
+                placeholder={placeholder}
+                id={id}
+                maxLength={maxLength}
+                ref={inputRef}
+                fullHeight={fullHeight}
+                isDraggedOver={fileHandler?.isDraggedOver ?? false}
+                minHeightLines={minHeightLines}
+                maxHeightLines={maxHeightLines}
+                visible={view === 'edit'}
+                monospace={monospace}
+                required={required}
+                name={name}
+                {...inputCompositionProps}
+                {...fileHandler?.pasteTargetProps}
+                {...fileHandler?.dropTargetProps}
+              />
+
+              {view === 'preview' && (
+                <Box
+                  sx={{
+                    p: 1,
+                    overflow: 'auto',
+                    height: fullHeight ? '100%' : undefined,
+                    minHeight: inputHeight.current,
+                    boxSizing: 'border-box'
+                  }}
+                  aria-live="polite"
+                >
+                  <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
+                  <MarkdownViewer
+                    dangerousRenderedHTML={{__html: html || 'Nothing to preview'}}
+                    loading={html === null}
+                    openLinksInNewTab
+                  />
+                </Box>
+              )}
+
+              <Footer
+                actionButtons={slots.Actions}
+                fileDraggedOver={fileHandler?.isDraggedOver ?? false}
+                fileUploadProgress={fileHandler?.uploadProgress}
+                uploadButtonProps={fileHandler?.clickTargetProps ?? null}
+                errorMessage={fileHandler?.errorMessage}
+                previewMode={view === 'preview'}
+              />
+            </Box>
+          </fieldset>
+        </MarkdownEditorContext.Provider>
+      </SlotsProvider>
     )
   }
 )

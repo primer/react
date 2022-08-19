@@ -3,7 +3,7 @@ import {Autocomplete, Box, Checkbox, Radio, Select, Textarea, TextInput, TextInp
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
 import FormControlValidation from './_FormControlValidation'
-import {Slots} from './slots'
+import {useSlots} from './slots'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
@@ -120,85 +120,83 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       }
     }
 
+    const {SlotsProvider, slots} = useSlots()
+
+    const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
+
     return (
       <FormControlContext.Provider value={{captionId, disabled, id, required, validationMessageId}}>
-        <Slots>
-          {slots => {
-            const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
-
-            return isChoiceInput || layout === 'horizontal' ? (
-              <Box ref={ref} display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
-                <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
-                  {React.isValidElement(InputComponent) &&
-                    React.cloneElement(InputComponent, {
-                      id,
-                      disabled,
-                      ['aria-describedby']: captionId
-                    })}
-                  {React.Children.toArray(children).filter(
-                    child =>
-                      React.isValidElement(child) &&
-                      ![Checkbox, Radio].some(inputComponent => child.type === inputComponent)
-                  )}
-                </Box>
-                {slots.LeadingVisual && (
-                  <Box
-                    color={disabled ? 'fg.muted' : 'fg.default'}
-                    sx={{
-                      '> *': {
-                        minWidth: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
-                        minHeight: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
-                        fill: 'currentColor'
-                      }
-                    }}
-                    ml={2}
-                  >
-                    {slots.LeadingVisual}
-                  </Box>
-                )}
-                {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
-                  <Box display="flex" flexDirection="column" ml={2}>
-                    {slots.Label}
-                    {slots.Caption}
-                  </Box>
-                ) : (
-                  <>
-                    {slots.Label}
-                    {slots.Caption}
-                  </>
-                )}
-              </Box>
-            ) : (
-              <Box
-                ref={ref}
-                display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
-                sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
-              >
-                {slots.Label}
+        <SlotsProvider>
+          {isChoiceInput || layout === 'horizontal' ? (
+            <Box ref={ref} display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
+              <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
                 {React.isValidElement(InputComponent) &&
                   React.cloneElement(InputComponent, {
                     id,
-                    required,
                     disabled,
-                    validationStatus,
-                    ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
-                    ...InputComponent.props
+                    ['aria-describedby']: captionId
                   })}
                 {React.Children.toArray(children).filter(
                   child =>
                     React.isValidElement(child) &&
-                    !expectedInputComponents.some(inputComponent => child.type === inputComponent)
+                    ![Checkbox, Radio].some(inputComponent => child.type === inputComponent)
                 )}
-                {validationChild && (
-                  <ValidationAnimationContainer show>{slots.Validation}</ValidationAnimationContainer>
-                )}
-                {slots.Caption}
               </Box>
-            )
-          }}
-        </Slots>
+              {slots.LeadingVisual && (
+                <Box
+                  color={disabled ? 'fg.muted' : 'fg.default'}
+                  sx={{
+                    '> *': {
+                      minWidth: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
+                      minHeight: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
+                      fill: 'currentColor'
+                    }
+                  }}
+                  ml={2}
+                >
+                  {slots.LeadingVisual}
+                </Box>
+              )}
+              {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
+                <Box display="flex" flexDirection="column" ml={2}>
+                  {slots.Label}
+                  {slots.Caption}
+                </Box>
+              ) : (
+                <>
+                  {slots.Label}
+                  {slots.Caption}
+                </>
+              )}
+            </Box>
+          ) : (
+            <Box
+              ref={ref}
+              display="flex"
+              flexDirection="column"
+              alignItems="flex-start"
+              sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
+            >
+              {slots.Label}
+              {React.isValidElement(InputComponent) &&
+                React.cloneElement(InputComponent, {
+                  id,
+                  required,
+                  disabled,
+                  validationStatus,
+                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
+                  ...InputComponent.props
+                })}
+              {React.Children.toArray(children).filter(
+                child =>
+                  React.isValidElement(child) &&
+                  !expectedInputComponents.some(inputComponent => child.type === inputComponent)
+              )}
+              {validationChild && <ValidationAnimationContainer show>{slots.Validation}</ValidationAnimationContainer>}
+              {slots.Caption}
+            </Box>
+          )}
+        </SlotsProvider>
       </FormControlContext.Provider>
     )
   }

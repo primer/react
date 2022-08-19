@@ -25,14 +25,29 @@ const createSlots = <SlotNames extends string>() => {
 
   const SlotsContext = React.createContext<React.Dispatch<StoreAction> | null>(null)
 
-  const Slots: React.FC<{
-    children: (slots: Store) => React.ReactNode
-  }> = ({children}) => {
+  /**
+   * Returns a provider component that defines the context area inside which the slots will be detected,
+   * and an object containing the slot contents.
+   *
+   * The provider should only be mounted once per component instance, but the `useSlots` hook
+   * may be used in multiple places to get the slots content.
+   */
+  const useSlots = () => {
     const [slots, dispatchSlots] = React.useReducer(storeReducer, {})
 
-    return <SlotsContext.Provider value={dispatchSlots}>{children(slots)}</SlotsContext.Provider>
+    // Any context provider should always be static or memoized to avoid infinite render loops
+    const SlotsProvider: React.FC<{children?: React.ReactNode}> = React.useCallback(
+      ({children}) => <SlotsContext.Provider value={dispatchSlots}>{children}</SlotsContext.Provider>,
+      []
+    )
+
+    return {slots, SlotsProvider}
   }
 
+  /**
+   * Defines a slot. The children of this slot will not be rendered here - instead they will be
+   * rendered where the slot content is accessed and mounted with the `useSlots` hook.
+   */
   const Slot: React.FC<{
     name: SlotNames
     children: React.ReactNode
@@ -48,7 +63,7 @@ const createSlots = <SlotNames extends string>() => {
     return null
   })
 
-  return {Slots, Slot}
+  return {Slot, useSlots}
 }
 
 export default createSlots

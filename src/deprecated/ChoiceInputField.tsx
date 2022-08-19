@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box, Checkbox, Radio, useSSRSafeId} from '..'
 import {get} from '../constants'
-import {Slots} from './InputField/slots'
+import {useSlots} from './InputField/slots'
 import ChoiceInputLeadingVisual from './_ChoiceInputLeadingVisual'
 import InputField, {InputFieldContext, Props as InputFieldProps} from './InputField/InputField'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -67,55 +67,52 @@ const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({children, d
     }
   }
 
+  const {SlotsProvider, slots} = useSlots()
+
   return (
     <InputFieldContext.Provider value={{captionId, disabled, id}}>
-      <Slots>
-        {slots => {
-          return (
-            <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
-              <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
-                {React.isValidElement(ChoiceInput) &&
-                  React.cloneElement(ChoiceInput, {
-                    id,
-                    disabled,
-                    ['aria-describedby']: captionId
-                  })}
-                {React.Children.toArray(children).filter(
-                  child =>
-                    React.isValidElement(child) &&
-                    ![Checkbox, Radio].some(inputComponent => child.type === inputComponent)
-                )}
-              </Box>
-              {slots.LeadingVisual && (
-                <Box
-                  color={disabled ? 'fg.muted' : 'fg.default'}
-                  sx={{
-                    '> *': {
-                      minWidth: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
-                      minHeight: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
-                      fill: 'currentColor'
-                    }
-                  }}
-                  ml={2}
-                >
-                  {slots.LeadingVisual}
-                </Box>
-              )}
-              {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
-                <Box display="flex" flexDirection="column" ml={2}>
-                  {slots.Label}
-                  {slots.Caption}
-                </Box>
-              ) : (
-                <>
-                  {slots.Label}
-                  {slots.Caption}
-                </>
-              )}
+      <SlotsProvider>
+        <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
+          <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
+            {React.isValidElement(ChoiceInput) &&
+              React.cloneElement(ChoiceInput, {
+                id,
+                disabled,
+                ['aria-describedby']: captionId
+              })}
+            {React.Children.toArray(children).filter(
+              child =>
+                React.isValidElement(child) && ![Checkbox, Radio].some(inputComponent => child.type === inputComponent)
+            )}
+          </Box>
+          {slots.LeadingVisual && (
+            <Box
+              color={disabled ? 'fg.muted' : 'fg.default'}
+              sx={{
+                '> *': {
+                  minWidth: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
+                  minHeight: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
+                  fill: 'currentColor'
+                }
+              }}
+              ml={2}
+            >
+              {slots.LeadingVisual}
             </Box>
-          )
-        }}
-      </Slots>
+          )}
+          {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
+            <Box display="flex" flexDirection="column" ml={2}>
+              {slots.Label}
+              {slots.Caption}
+            </Box>
+          ) : (
+            <>
+              {slots.Label}
+              {slots.Caption}
+            </>
+          )}
+        </Box>
+      </SlotsProvider>
     </InputFieldContext.Provider>
   )
 }

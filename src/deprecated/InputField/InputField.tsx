@@ -6,7 +6,7 @@ import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import InputFieldCaption from './_InputFieldCaption'
 import InputFieldLabel from './_InputFieldLabel'
 import InputFieldValidation from './_InputFieldValidation'
-import {Slots} from './slots'
+import {useSlots} from './slots'
 import ValidationAnimationContainer from '../../_ValidationAnimationContainer'
 export interface Props<T = Record<string, FormValidationStatus>> {
   children?: React.ReactNode
@@ -108,45 +108,43 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
     )
   }
 
+  const {slots, SlotsProvider} = useSlots()
+
+  const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
+
   return (
     <InputFieldContext.Provider value={{captionId, disabled, id, required, validationMessageId}}>
-      <Slots>
-        {slots => {
-          const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
-
-          return (
-            <Box
-              display="flex"
-              flexDirection="column"
-              width="100%"
-              sx={isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}}
-            >
-              {React.Children.toArray(children).filter(
-                child =>
-                  React.isValidElement(child) &&
-                  child.type !== InputFieldValidation &&
-                  !expectedInputComponents.some(inputComponent => child.type === inputComponent)
-              )}
-              {slots.Label}
-              {React.isValidElement(InputComponent) &&
-                React.cloneElement(InputComponent, {
-                  id,
-                  required,
-                  disabled,
-                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
-                })}
-              {validationChildToRender && validationMap && validationResult && validationMessageId && (
-                <ValidationAnimationContainer show>
-                  <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
-                    {validationChildToRender}
-                  </InputValidation>
-                </ValidationAnimationContainer>
-              )}
-              {slots.Caption}
-            </Box>
-          )
-        }}
-      </Slots>
+      <SlotsProvider>
+        <Box
+          display="flex"
+          flexDirection="column"
+          width="100%"
+          sx={isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}}
+        >
+          {React.Children.toArray(children).filter(
+            child =>
+              React.isValidElement(child) &&
+              child.type !== InputFieldValidation &&
+              !expectedInputComponents.some(inputComponent => child.type === inputComponent)
+          )}
+          {slots.Label}
+          {React.isValidElement(InputComponent) &&
+            React.cloneElement(InputComponent, {
+              id,
+              required,
+              disabled,
+              ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+            })}
+          {validationChildToRender && validationMap && validationResult && validationMessageId && (
+            <ValidationAnimationContainer show>
+              <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
+                {validationChildToRender}
+              </InputValidation>
+            </ValidationAnimationContainer>
+          )}
+          {slots.Caption}
+        </Box>
+      </SlotsProvider>
     </InputFieldContext.Provider>
   )
 }

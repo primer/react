@@ -85,7 +85,7 @@ export type ActionListItemProps = {
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<unknown>>
 } & SxProp
 
-const {Slots, Slot} = createSlots<'LeadingVisual' | 'InlineDescription' | 'BlockDescription' | 'TrailingVisual'>()
+const {useSlots, Slot} = createSlots<'LeadingVisual' | 'InlineDescription' | 'BlockDescription' | 'TrailingVisual'>()
 export {Slot}
 
 const LiBox = styled.li<SxProp>(sx)
@@ -252,48 +252,48 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
+    const {SlotsProvider, slots} = useSlots()
+
     return (
       <ActionListItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        <Slots>
-          {slots => (
-            <LiBox
-              ref={forwardedRef}
-              sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-              onClick={clickHandler}
-              onKeyPress={keyPressHandler}
-              aria-disabled={disabled ? true : undefined}
-              tabIndex={disabled || _PrivateItemWrapper ? undefined : 0}
-              aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
-              aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
-              role={role || itemRole}
-              {...(selectionAttribute && {[selectionAttribute]: selected})}
-              {...props}
-            >
-              <ItemWrapper>
-                <Selection selected={selected} />
-                {slots.LeadingVisual}
-                <Box
-                  data-component="ActionList.Item--DividerContainer"
-                  sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
-                >
-                  <ConditionalBox if={Boolean(slots.TrailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
-                    <ConditionalBox
-                      if={Boolean(slots.InlineDescription)}
-                      sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
-                    >
-                      <Box as="span" id={labelId} sx={{flexGrow: slots.InlineDescription ? 0 : 1}}>
-                        {props.children}
-                      </Box>
-                      {slots.InlineDescription}
-                    </ConditionalBox>
-                    {slots.TrailingVisual}
+        <SlotsProvider>
+          <LiBox
+            ref={forwardedRef}
+            sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+            onClick={clickHandler}
+            onKeyPress={keyPressHandler}
+            aria-disabled={disabled ? true : undefined}
+            tabIndex={disabled || _PrivateItemWrapper ? undefined : 0}
+            aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
+            aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
+            role={role || itemRole}
+            {...(selectionAttribute && {[selectionAttribute]: selected})}
+            {...props}
+          >
+            <ItemWrapper>
+              <Selection selected={selected} />
+              {slots.LeadingVisual}
+              <Box
+                data-component="ActionList.Item--DividerContainer"
+                sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+              >
+                <ConditionalBox if={Boolean(slots.TrailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
+                  <ConditionalBox
+                    if={Boolean(slots.InlineDescription)}
+                    sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
+                  >
+                    <Box as="span" id={labelId} sx={{flexGrow: slots.InlineDescription ? 0 : 1}}>
+                      {props.children}
+                    </Box>
+                    {slots.InlineDescription}
                   </ConditionalBox>
-                  {slots.BlockDescription}
-                </Box>
-              </ItemWrapper>
-            </LiBox>
-          )}
-        </Slots>
+                  {slots.TrailingVisual}
+                </ConditionalBox>
+                {slots.BlockDescription}
+              </Box>
+            </ItemWrapper>
+          </LiBox>
+        </SlotsProvider>
       </ActionListItemContext.Provider>
     )
   }

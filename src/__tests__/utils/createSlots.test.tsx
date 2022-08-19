@@ -4,21 +4,21 @@ import {render, waitFor} from '@testing-library/react'
 import createSlots from '../../utils/create-slots'
 
 // setup a component with slots
-const {Slots, Slot} = createSlots<'One' | 'Two' | 'Three'>()
+const {useSlots, Slot} = createSlots<'One' | 'Two' | 'Three'>()
 type Props = {context?: {salutation: string}}
 
 const ComponentWithSlots: React.FC<React.PropsWithChildren<Props>> = ({children}) => {
+  const {SlotsProvider, slots} = useSlots()
+
   return (
-    <Slots>
-      {slots => (
-        <div>
-          {slots.One}
-          <span>
-            {children} {slots.Two} {slots.Three}
-          </span>
-        </div>
-      )}
-    </Slots>
+    <SlotsProvider>
+      <div>
+        {slots.One}
+        <span>
+          {children} {slots.Two} {slots.Three}
+        </span>
+      </div>
+    </SlotsProvider>
   )
 }
 const SlotItem1: React.FC<React.PropsWithChildren<unknown>> = ({children}) => <Slot name="One">{children}</Slot>
