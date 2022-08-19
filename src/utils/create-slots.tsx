@@ -42,13 +42,15 @@ const createSlots = <SlotNames extends string>(_slotNames: SlotNames[]) => {
       []
     )
 
-    return <SlotsContext.Provider value={{registerSlot, unregisterSlot}}>{children(slots)}</SlotsContext.Provider>
+    const context = React.useMemo(() => ({registerSlot, unregisterSlot}), [registerSlot, unregisterSlot])
+
+    return <SlotsContext.Provider value={context}>{children(slots)}</SlotsContext.Provider>
   }
 
   const Slot: React.FC<{
     name: SlotNames
     children: React.ReactNode
-  }> = ({name, children}) => {
+  }> = React.memo(({name, children}) => {
     const {registerSlot, unregisterSlot} = React.useContext(SlotsContext)
 
     useLayoutEffect(() => {
@@ -57,7 +59,7 @@ const createSlots = <SlotNames extends string>(_slotNames: SlotNames[]) => {
     }, [name, children, registerSlot, unregisterSlot])
 
     return null
-  }
+  })
 
   return {Slots, Slot}
 }
