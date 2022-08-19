@@ -1,7 +1,11 @@
 import {createContext} from 'react'
+import {CheckboxOrRadioGroupProps} from './CheckboxOrRadioGroup'
 
-const CheckboxOrRadioGroupContext = createContext<{
-  disabled?: boolean
-} | null>(null)
+type CheckboxOrRadioGroupContext = {
+  validationMessageId?: string
+  captionId?: string
+} & CheckboxOrRadioGroupProps
+
+const CheckboxOrRadioGroupContext = createContext<CheckboxOrRadioGroupContext | null>(null)
 
 export default CheckboxOrRadioGroupContext

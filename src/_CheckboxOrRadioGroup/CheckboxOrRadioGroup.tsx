@@ -31,11 +31,6 @@ export type CheckboxOrRadioGroupProps = {
   required?: boolean
 } & SxProp
 
-export type CheckboxOrRadioGroupContext = {
-  validationMessageId?: string
-  captionId?: string
-} & CheckboxOrRadioGroupProps
-
 const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,8 +61,8 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
     React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null
   )
   const id = useSSRSafeId(idProp)
-  const validationMessageId = validationChild && `${id}-validationMessage`
-  const captionId = captionChild && `${id}-caption`
+  const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
+  const captionId = captionChild ? `${id}-caption` : undefined
 
   if (!labelChild && !ariaLabelledby) {
     // eslint-disable-next-line no-console
@@ -77,19 +72,12 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   }
 
   return (
-    <Slots
-      context={{
-        disabled,
-        required,
-        captionId,
-        validationMessageId
-      }}
-    >
-      {slots => {
-        const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
+    <CheckboxOrRadioGroupContext.Provider value={{disabled, required, captionId, validationMessageId}}>
+      <Slots>
+        {slots => {
+          const isLegendVisible = React.isValidElement(labelChild) && !labelChild.props.visuallyHidden
 
-        return (
-          <CheckboxOrRadioGroupContext.Provider value={{disabled}}>
+          return (
             <div>
               <Box
                 border="none"
@@ -145,10 +133,10 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                 </ValidationAnimationContainer>
               )}
             </div>
-          </CheckboxOrRadioGroupContext.Provider>
-        )
-      }}
-    </Slots>
+          )
+        }}
+      </Slots>
+    </CheckboxOrRadioGroupContext.Provider>
   )
 }
 

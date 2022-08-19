@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Box} from '..'
 import {SxProp} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
-import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
 import {Slot} from './slots'
+import CheckboxOrRadioGroupContext from './_CheckboxOrRadioGroupContext'
 
 export type CheckboxOrRadioGroupLabelProps = {
   /**
@@ -16,9 +16,11 @@ const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadi
   children,
   visuallyHidden,
   sx
-}) => (
-  <Slot name="Label">
-    {({required, disabled}: CheckboxOrRadioGroupContext) => (
+}) => {
+  const {required, disabled} = useContext(CheckboxOrRadioGroupContext) ?? {}
+
+  return (
+    <Slot name="Label">
       <VisuallyHidden
         isVisible={!visuallyHidden}
         title={required ? 'required field' : undefined}
@@ -38,9 +40,9 @@ const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadi
           children
         )}
       </VisuallyHidden>
-    )}
-  </Slot>
-)
+    </Slot>
+  )
+}
 
 CheckboxOrRadioGroupLabel.defaultProps = {
   visuallyHidden: false
