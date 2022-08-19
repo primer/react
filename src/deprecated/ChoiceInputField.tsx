@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {Box, Checkbox, Radio, useSSRSafeId} from '..'
 import {get} from '../constants'
 import {useSlots} from './InputField/slots'
@@ -69,8 +69,10 @@ const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({children, d
 
   const {SlotsProvider, slots} = useSlots()
 
+  const context = useMemo(() => ({captionId, disabled, id}), [captionId, disabled, id])
+
   return (
-    <InputFieldContext.Provider value={{captionId, disabled, id}}>
+    <InputFieldContext.Provider value={context}>
       <SlotsProvider>
         <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
           <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>

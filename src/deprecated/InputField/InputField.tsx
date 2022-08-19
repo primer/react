@@ -1,4 +1,4 @@
-import React, {createContext} from 'react'
+import React, {createContext, useMemo} from 'react'
 import {Autocomplete, Box, Select, TextInput, TextInputWithTokens, useSSRSafeId} from '../../'
 import InputValidation from '../../_InputValidation'
 import {ComponentProps} from '../../utils/types'
@@ -112,8 +112,13 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
 
   const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
 
+  const context = useMemo(
+    () => ({captionId, disabled, id, required, validationMessageId}),
+    [captionId, disabled, id, required, validationMessageId]
+  )
+
   return (
-    <InputFieldContext.Provider value={{captionId, disabled, id, required, validationMessageId}}>
+    <InputFieldContext.Provider value={context}>
       <SlotsProvider>
         <Box
           display="flex"

@@ -1,4 +1,4 @@
-import React, {createContext} from 'react'
+import React, {createContext, useMemo} from 'react'
 import {Box, useSSRSafeId} from '../..'
 import createSlots from '../../utils/create-slots'
 import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
@@ -80,17 +80,20 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
 
   const isLegendVisible = React.isValidElement(slots.Legend) && slots.Legend.props.isVisible
 
+  const context = useMemo(
+    () => ({
+      disabled,
+      name,
+      onSelect,
+      required,
+      selected,
+      validationMessageId
+    }),
+    [disabled, name, onSelect, required, selected, validationMessageId]
+  )
+
   return (
-    <ChoiceFieldsetContext.Provider
-      value={{
-        disabled,
-        name,
-        onSelect,
-        required,
-        selected,
-        validationMessageId
-      }}
-    >
+    <ChoiceFieldsetContext.Provider value={context}>
       <SlotsProvider>
         <div>
           <Box

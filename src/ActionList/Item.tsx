@@ -1,6 +1,6 @@
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
-import React from 'react'
+import React, {useMemo} from 'react'
 import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'
 import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
@@ -254,8 +254,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const {SlotsProvider, slots} = useSlots()
 
+    const itemContext = useMemo(
+      () => ({variant, disabled, inlineDescriptionId, blockDescriptionId}),
+      [variant, disabled, inlineDescriptionId, blockDescriptionId]
+    )
+
     return (
-      <ActionListItemContext.Provider value={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
+      <ActionListItemContext.Provider value={itemContext}>
         <SlotsProvider>
           <LiBox
             ref={forwardedRef}

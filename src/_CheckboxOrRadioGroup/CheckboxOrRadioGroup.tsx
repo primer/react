@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import {Box, useSSRSafeId} from '..'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroupCaption'
@@ -74,8 +74,13 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
 
   const {SlotsProvider, slots} = useSlots()
 
+  const context = useMemo(
+    () => ({disabled, required, captionId, validationMessageId}),
+    [disabled, required, captionId, validationMessageId]
+  )
+
   return (
-    <CheckboxOrRadioGroupContext.Provider value={{disabled, required, captionId, validationMessageId}}>
+    <CheckboxOrRadioGroupContext.Provider value={context}>
       <SlotsProvider>
         <div>
           <Box

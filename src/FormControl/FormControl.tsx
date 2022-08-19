@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useMemo} from 'react'
 import {Autocomplete, Box, Checkbox, Radio, Select, Textarea, TextInput, TextInputWithTokens, useSSRSafeId} from '..'
 import FormControlCaption from './_FormControlCaption'
 import FormControlLabel from './_FormControlLabel'
@@ -124,8 +124,13 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
 
     const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
 
+    const context = useMemo(
+      () => ({captionId, disabled, id, required, validationMessageId}),
+      [captionId, disabled, id, required, validationMessageId]
+    )
+
     return (
-      <FormControlContext.Provider value={{captionId, disabled, id, required, validationMessageId}}>
+      <FormControlContext.Provider value={context}>
         <SlotsProvider>
           {isChoiceInput || layout === 'horizontal' ? (
             <Box ref={ref} display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
