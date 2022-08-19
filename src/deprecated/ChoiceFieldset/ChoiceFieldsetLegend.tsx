@@ -13,9 +13,11 @@ export interface ChoiceFieldsetLegendProps {
 const ChoiceFieldsetLegend: React.FC<React.PropsWithChildren<ChoiceFieldsetLegendProps>> = ({
   children,
   visuallyHidden
-}) => (
-  <Slot name="Legend">
-    {({required, disabled}: ChoiceFieldsetContext) => (
+}) => {
+  const {required, disabled} = React.useContext(ChoiceFieldsetContext) ?? {}
+
+  return (
+    <Slot name="Legend">
       <VisuallyHidden
         as="legend"
         isVisible={!visuallyHidden}
@@ -35,8 +37,8 @@ const ChoiceFieldsetLegend: React.FC<React.PropsWithChildren<ChoiceFieldsetLegen
           children
         )}
       </VisuallyHidden>
-    )}
-  </Slot>
-)
+    </Slot>
+  )
+}
 
 export default ChoiceFieldsetLegend

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {createContext} from 'react'
 import {Box, useSSRSafeId} from '../..'
 import createSlots from '../../utils/create-slots'
 import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
@@ -49,9 +49,11 @@ export interface ChoiceFieldsetProps<T = Record<string, FormValidationStatus>> {
   validationResult?: keyof T
 }
 
-export interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
-  validationMessageId: string
+interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
+  validationMessageId?: string
 }
+
+export const ChoiceFieldsetContext = createContext<ChoiceFieldsetContext | null>(null)
 
 const {Slots, Slot} = createSlots(['Description', 'ChoiceList', 'Legend', 'Validation'])
 export {Slot}
@@ -75,8 +77,8 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   const validationMessageId = validationChildToRender ? `${fieldsetId}-validationMsg` : undefined
 
   return (
-    <Slots
-      context={{
+    <ChoiceFieldsetContext.Provider
+      value={{
         disabled,
         name,
         onSelect,
@@ -85,42 +87,44 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
         validationMessageId
       }}
     >
-      {slots => {
-        const isLegendVisible = React.isValidElement(slots.Legend) && slots.Legend.props.isVisible
+      <Slots>
+        {slots => {
+          const isLegendVisible = React.isValidElement(slots.Legend) && slots.Legend.props.isVisible
 
-        return (
-          <div>
-            <Box
-              as="fieldset"
-              border="none"
-              margin={0}
-              padding={0}
-              aria-describedby={[validationMessageId].filter(Boolean).join(' ')}
-            >
-              {React.Children.toArray(children).filter(
-                child => React.isValidElement(child) && child.type !== ChoiceFieldsetValidation
-              )}
-              <Box mb={isLegendVisible ? 3 : undefined}>
-                {slots.Legend}
-                {slots.Description}
-              </Box>
-              {slots.ChoiceList}
-            </Box>
-            {validationChildToRender && (
-              <Box mt={3}>
-                {validationMap && validationResult && validationMessageId && (
-                  <ValidationAnimationContainer show>
-                    <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
-                      {validationChildToRender}
-                    </InputValidation>
-                  </ValidationAnimationContainer>
+          return (
+            <div>
+              <Box
+                as="fieldset"
+                border="none"
+                margin={0}
+                padding={0}
+                aria-describedby={[validationMessageId].filter(Boolean).join(' ')}
+              >
+                {React.Children.toArray(children).filter(
+                  child => React.isValidElement(child) && child.type !== ChoiceFieldsetValidation
                 )}
+                <Box mb={isLegendVisible ? 3 : undefined}>
+                  {slots.Legend}
+                  {slots.Description}
+                </Box>
+                {slots.ChoiceList}
               </Box>
-            )}
-          </div>
-        )
-      }}
-    </Slots>
+              {validationChildToRender && (
+                <Box mt={3}>
+                  {validationMap && validationResult && validationMessageId && (
+                    <ValidationAnimationContainer show>
+                      <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
+                        {validationChildToRender}
+                      </InputValidation>
+                    </ValidationAnimationContainer>
+                  )}
+                </Box>
+              )}
+            </div>
+          )
+        }}
+      </Slots>
+    </ChoiceFieldsetContext.Provider>
   )
 }
 

@@ -43,35 +43,33 @@ const ChoiceFieldsetList: React.FC<React.PropsWithChildren<ChoiceFieldsetListPro
 }) => {
   const ssrSafeUniqueName = useSSRSafeId()
 
+  const {name, onSelect, disabled, selected = []} = React.useContext(ChoiceFieldsetContext) ?? {}
+
   return (
     <Slot name="ChoiceList">
-      {({name, onSelect, disabled, selected = []}: ChoiceFieldsetContext) => {
-        return (
-          <ChoiceFieldsetListContext.Provider
-            value={{
-              disabled,
+      <ChoiceFieldsetListContext.Provider
+        value={{
+          disabled,
+          selected,
+          name: name || ssrSafeUniqueName,
+          onChange: e => {
+            const updatedSelections = getSelectedCheckboxes(
+              e.currentTarget.value,
+              e.currentTarget.checked,
               selected,
-              name: name || ssrSafeUniqueName,
-              onChange: e => {
-                const updatedSelections = getSelectedCheckboxes(
-                  e.currentTarget.value,
-                  e.currentTarget.checked,
-                  selected,
-                  selectionVariant
-                )
-                onSelect && onSelect(updatedSelections)
-              },
               selectionVariant
-            }}
-          >
-            <List>
-              {React.Children.map(children, (child, i) => (
-                <li key={i}>{child}</li>
-              ))}
-            </List>
-          </ChoiceFieldsetListContext.Provider>
-        )
-      }}
+            )
+            onSelect && onSelect(updatedSelections)
+          },
+          selectionVariant
+        }}
+      >
+        <List>
+          {React.Children.map(children, (child, i) => (
+            <li key={i}>{child}</li>
+          ))}
+        </List>
+      </ChoiceFieldsetListContext.Provider>
     </Slot>
   )
 }
