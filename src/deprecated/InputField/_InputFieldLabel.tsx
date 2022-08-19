@@ -10,14 +10,16 @@ export interface Props {
   visuallyHidden?: boolean
 }
 
-const InputFieldLabel: React.FC<React.PropsWithChildren<Props>> = ({children, visuallyHidden}) => (
-  <Slot name="Label">
-    {({disabled, id, required}: InputFieldContext) => (
+const InputFieldLabel: React.FC<React.PropsWithChildren<Props>> = ({children, visuallyHidden}) => {
+  const {disabled, id, required} = React.useContext(InputFieldContext) ?? {}
+
+  return (
+    <Slot name="Label">
       <InputLabel htmlFor={id} visuallyHidden={visuallyHidden} required={required} disabled={disabled}>
         {children}
       </InputLabel>
-    )}
-  </Slot>
-)
+    </Slot>
+  )
+}
 
 export default InputFieldLabel

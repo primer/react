@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {createContext} from 'react'
 import {Autocomplete, Box, Select, TextInput, TextInputWithTokens, useSSRSafeId} from '../../'
 import InputValidation from '../../_InputValidation'
 import {ComponentProps} from '../../utils/types'
@@ -34,11 +34,13 @@ export interface Props<T = Record<string, FormValidationStatus>> {
 }
 
 type InputFieldValidationProps = ComponentProps<typeof InputFieldValidation>
-export interface InputFieldContext
-  extends Pick<Props<Record<string, FormValidationStatus>>, 'disabled' | 'id' | 'required'> {
-  captionId: string
-  validationMessageId: string
+
+interface InputFieldContext extends Pick<Props<Record<string, FormValidationStatus>>, 'disabled' | 'id' | 'required'> {
+  captionId?: string
+  validationMessageId?: string
 }
+
+export const InputFieldContext = createContext<InputFieldContext | null>(null)
 
 /** @deprecated Use FormControl instead. See https://primer.style/react/FormControl for more details. */
 const InputField = <T extends Record<string, FormValidationStatus>>({
@@ -107,51 +109,45 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
   }
 
   return (
-    <Slots
-      context={{
-        captionId,
-        disabled,
-        id,
-        required,
-        validationMessageId
-      }}
-    >
-      {slots => {
-        const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
+    <InputFieldContext.Provider value={{captionId, disabled, id, required, validationMessageId}}>
+      <Slots>
+        {slots => {
+          const isLabelHidden = React.isValidElement(slots.Label) && slots.Label.props.visuallyHidden
 
-        return (
-          <Box
-            display="flex"
-            flexDirection="column"
-            width="100%"
-            sx={isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}}
-          >
-            {React.Children.toArray(children).filter(
-              child =>
-                React.isValidElement(child) &&
-                child.type !== InputFieldValidation &&
-                !expectedInputComponents.some(inputComponent => child.type === inputComponent)
-            )}
-            {slots.Label}
-            {React.isValidElement(InputComponent) &&
-              React.cloneElement(InputComponent, {
-                id,
-                required,
-                disabled,
-                ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
-              })}
-            {validationChildToRender && validationMap && validationResult && validationMessageId && (
-              <ValidationAnimationContainer show>
-                <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
-                  {validationChildToRender}
-                </InputValidation>
-              </ValidationAnimationContainer>
-            )}
-            {slots.Caption}
-          </Box>
-        )
-      }}
-    </Slots>
+          return (
+            <Box
+              display="flex"
+              flexDirection="column"
+              width="100%"
+              sx={isLabelHidden ? {'> *:not(label) + *': {marginTop: 2}} : {'> * + *': {marginTop: 2}}}
+            >
+              {React.Children.toArray(children).filter(
+                child =>
+                  React.isValidElement(child) &&
+                  child.type !== InputFieldValidation &&
+                  !expectedInputComponents.some(inputComponent => child.type === inputComponent)
+              )}
+              {slots.Label}
+              {React.isValidElement(InputComponent) &&
+                React.cloneElement(InputComponent, {
+                  id,
+                  required,
+                  disabled,
+                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+                })}
+              {validationChildToRender && validationMap && validationResult && validationMessageId && (
+                <ValidationAnimationContainer show>
+                  <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
+                    {validationChildToRender}
+                  </InputValidation>
+                </ValidationAnimationContainer>
+              )}
+              {slots.Caption}
+            </Box>
+          )
+        }}
+      </Slots>
+    </InputFieldContext.Provider>
   )
 }
 

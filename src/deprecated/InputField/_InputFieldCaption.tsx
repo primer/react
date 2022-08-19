@@ -3,14 +3,16 @@ import InputCaption from '../../_InputCaption'
 import {InputFieldContext} from './InputField'
 import {Slot} from './slots'
 
-const InputFieldCaption: React.FC<React.PropsWithChildren<unknown>> = ({children}) => (
-  <Slot name="Caption">
-    {({captionId, disabled}: InputFieldContext) => (
+const InputFieldCaption: React.FC<React.PropsWithChildren<unknown>> = ({children}) => {
+  const {captionId = '', disabled} = React.useContext(InputFieldContext) ?? {}
+
+  return (
+    <Slot name="Caption">
       <InputCaption id={captionId} disabled={disabled}>
         {children}
       </InputCaption>
-    )}
-  </Slot>
-)
+    </Slot>
+  )
+}
 
 export default InputFieldCaption
