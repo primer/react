@@ -1,8 +1,8 @@
 import React from 'react'
 import {SxProp} from '../sx'
 import InputLabel from '../_InputLabel'
-import {FormControlContext} from './FormControl'
 import {Slot} from './slots'
+import {FormControlContext} from './_FormControlContext'
 
 export type Props = {
   /**
@@ -17,9 +17,11 @@ const FormControlLabel: React.FC<React.PropsWithChildren<{htmlFor?: string; id?:
   id,
   visuallyHidden,
   sx
-}) => (
-  <Slot name="Label">
-    {({disabled, id: formControlId, required}: FormControlContext) => (
+}) => {
+  const {disabled, id: formControlId, required} = React.useContext(FormControlContext) ?? {}
+
+  return (
+    <Slot name="Label">
       <InputLabel
         htmlFor={htmlFor || formControlId}
         id={id}
@@ -30,8 +32,8 @@ const FormControlLabel: React.FC<React.PropsWithChildren<{htmlFor?: string; id?:
       >
         {children}
       </InputLabel>
-    )}
-  </Slot>
-)
+    </Slot>
+  )
+}
 
 export default FormControlLabel

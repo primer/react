@@ -2,8 +2,8 @@ import React from 'react'
 import {SxProp} from '../sx'
 import {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import InputValidation from '../_InputValidation'
-import {FormControlContext} from './FormControl'
 import {Slot} from './slots'
+import {FormControlContext} from './_FormControlContext'
 
 export type FormControlValidationProps = {
   variant: FormValidationStatus
@@ -15,14 +15,15 @@ const FormControlValidation: React.FC<React.PropsWithChildren<FormControlValidat
   variant,
   sx,
   id
-}) => (
-  <Slot name="Validation">
-    {({validationMessageId}: FormControlContext) => (
-      <InputValidation validationStatus={variant} id={id || validationMessageId} sx={sx}>
+}) => {
+  const {validationMessageId} = React.useContext(FormControlContext) ?? {}
+  return (
+    <Slot name="Validation">
+      <InputValidation validationStatus={variant} id={(id || validationMessageId) ?? ''} sx={sx}>
         {children}
       </InputValidation>
-    )}
-  </Slot>
-)
+    </Slot>
+  )
+}
 
 export default FormControlValidation

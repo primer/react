@@ -2,12 +2,14 @@ import React from 'react'
 import {Box} from '..'
 import {get} from '../constants'
 import {SxProp} from '../sx'
-import {FormControlContext} from './FormControl'
 import {Slot} from './slots'
+import {FormControlContext} from './_FormControlContext'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => (
-  <Slot name="LeadingVisual">
-    {({disabled, captionId}: FormControlContext) => (
+const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => {
+  const {disabled, captionId} = React.useContext(FormControlContext) ?? {}
+
+  return (
+    <Slot name="LeadingVisual">
       <Box
         color={disabled ? 'fg.muted' : 'fg.default'}
         sx={{
@@ -22,8 +24,8 @@ const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({ch
       >
         {children}
       </Box>
-    )}
-  </Slot>
-)
+    </Slot>
+  )
+}
 
 export default FormControlLeadingVisual
