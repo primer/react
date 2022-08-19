@@ -53,10 +53,11 @@ const createSlots = <SlotNames extends string>(_slotNames: SlotNames[]) => {
   }> = React.memo(({name, children}) => {
     const {registerSlot, unregisterSlot} = React.useContext(SlotsContext)
 
-    useLayoutEffect(() => {
-      registerSlot(name, children)
-      return () => unregisterSlot(name)
-    }, [name, children, registerSlot, unregisterSlot])
+    useLayoutEffect(() => registerSlot(name, children), [name, children, registerSlot])
+
+    // We don't need to cleanup on every render, since registering a slot that is already
+    // registered will just overwrite the existing slot value. But we do need to cleanup on unmount
+    useLayoutEffect(() => () => unregisterSlot(name), [name, unregisterSlot])
 
     return null
   })
