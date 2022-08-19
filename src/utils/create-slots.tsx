@@ -7,7 +7,7 @@ import useLayoutEffect from './useIsomorphicLayoutEffect'
  *  For example: ActionList.Item uses createSlots to get a Slots wrapper
  *  + Slot component that is used by LeadingVisual, Description
  */
-const createSlots = <SlotNames extends string>(_slotNames: SlotNames[]) => {
+const createSlots = <SlotNames extends string>() => {
   type Store = Partial<Record<SlotNames, React.ReactNode>>
 
   type StoreAction =

@@ -4,7 +4,7 @@ import {render, waitFor} from '@testing-library/react'
 import createSlots from '../../utils/create-slots'
 
 // setup a component with slots
-const {Slots, Slot} = createSlots(['One', 'Two', 'Three'])
+const {Slots, Slot} = createSlots<'One' | 'Two' | 'Three'>()
 type Props = {context?: {salutation: string}}
 
 const ComponentWithSlots: React.FC<React.PropsWithChildren<Props>> = ({context, children}) => {

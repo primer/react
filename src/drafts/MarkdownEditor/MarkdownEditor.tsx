@@ -108,7 +108,7 @@ const a11yOnlyStyle = {clipPath: 'Circle(0)', position: 'absolute'} as const
 
 const CONDENSED_WIDTH_THRESHOLD = 675
 
-const {Slot, Slots} = createSlots(['Toolbar', 'Actions', 'Label'])
+const {Slot, Slots} = createSlots<'Toolbar' | 'Actions' | 'Label'>()
 export const MarkdownEditorSlot = Slot
 
 /**

@@ -85,7 +85,7 @@ export type ActionListItemProps = {
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<unknown>>
 } & SxProp
 
-const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
+const {Slots, Slot} = createSlots<'LeadingVisual' | 'InlineDescription' | 'BlockDescription' | 'TrailingVisual'>()
 export {Slot}
 
 const LiBox = styled.li<SxProp>(sx)

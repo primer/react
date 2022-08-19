@@ -55,7 +55,7 @@ interface ChoiceFieldsetContext extends ChoiceFieldsetProps {
 
 export const ChoiceFieldsetContext = createContext<ChoiceFieldsetContext | null>(null)
 
-const {Slots, Slot} = createSlots(['Description', 'ChoiceList', 'Legend', 'Validation'])
+const {Slots, Slot} = createSlots<'Description' | 'ChoiceList' | 'Legend' | 'Validation'>()
 export {Slot}
 
 const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
