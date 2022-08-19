@@ -563,6 +563,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
               color="fg.muted"
               display="block"
               fontSize={0}
+              id=""
             >
               Caption one
             </span>
@@ -633,6 +634,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
               color="fg.muted"
               display="block"
               fontSize={0}
+              id=""
             >
               Caption two
             </span>
