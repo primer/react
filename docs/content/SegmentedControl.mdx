@@ -1,14 +1,15 @@
 ---
+componentId: segmented_control
 title: SegmentedControl
-status: Draft
 description: Use a segmented control to let users select an option from a short list and immediately apply the selection
+status: Alpha
 ---
 
 ## Examples
 
 ### Uncontrolled (default)
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view">
   <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
   <SegmentedControl.Button>Raw</SegmentedControl.Button>
@@ -18,7 +19,7 @@ description: Use a segmented control to let users select an option from a short 
 
 ### Controlled
 
-```javascript noinline live drafts
+```javascript noinline live
 const Controlled = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
 
@@ -40,7 +41,7 @@ render(Controlled)
 
 ### With icons and labels
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view">
   <SegmentedControl.Button defaultSelected leadingIcon={EyeIcon}>
     Preview
@@ -52,7 +53,7 @@ render(Controlled)
 
 ### With icons only
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view">
   <SegmentedControl.IconButton defaultSelected icon={EyeIcon} aria-label="Preview" />
   <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />
@@ -62,7 +63,7 @@ render(Controlled)
 
 ### With labels hidden on smaller viewports
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default'}}>
   <SegmentedControl.Button defaultSelected leadingIcon={EyeIcon}>
     Preview
@@ -74,7 +75,7 @@ render(Controlled)
 
 ### Convert to a dropdown on smaller viewports
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default'}}>
   <SegmentedControl.Button defaultSelected leadingIcon={EyeIcon}>
     Preview
@@ -86,7 +87,7 @@ render(Controlled)
 
 ### Fill width of parent
 
-```jsx live drafts
+```jsx live
 <SegmentedControl fullWidth aria-label="File view">
   <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
   <SegmentedControl.Button>Raw</SegmentedControl.Button>
@@ -96,7 +97,7 @@ render(Controlled)
 
 ### With a label and caption on the left
 
-```jsx live drafts
+```jsx live
 <Box display="flex">
   <Box flexGrow={1}>
     <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
@@ -116,7 +117,7 @@ render(Controlled)
 
 ### With a label above and caption below
 
-```jsx live drafts
+```jsx live
 <FormControl>
   <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
   <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
@@ -130,7 +131,7 @@ render(Controlled)
 
 ### With something besides the first option selected
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view">
   <SegmentedControl.Button>Preview</SegmentedControl.Button>
   <SegmentedControl.Button defaultSelected>Raw</SegmentedControl.Button>
@@ -223,15 +224,15 @@ render(Controlled)
 <ComponentChecklist
   items={{
     propsDocumented: true,
-    noUnnecessaryDeps: false,
-    adaptsToThemes: false,
-    adaptsToScreenSizes: false,
-    fullTestCoverage: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
     usedInProduction: false,
-    usageExamplesDocumented: false,
-    hasStorybookStories: false,
-    designReviewed: false,
-    a11yReviewed: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: true,
+    a11yReviewed: true,
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
