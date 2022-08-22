@@ -1,7 +1,8 @@
 import {Meta} from '@storybook/react'
-import {StickyPane} from './PageLayout.stories'
-import {within} from '@storybook/testing-library'
+import {StickyPane, CustomStickyHeader} from './PageLayout.stories'
+import {within, fireEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
+import {setTimeout} from 'timers/promises'
 
 const meta: Meta = {
   title: 'Layout/PageLayout/interactions',
@@ -389,5 +390,41 @@ NonStickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const paragraphRect = paragraph0.getBoundingClientRect()
   expect(isInViewPort(paragraphRect)).toBe(false)
 }
+
+CustomStickyHeader.argTypes = {
+  sticky: {
+    type: 'boolean',
+    defaultValue: true
+  },
+  stickyTop: {
+    type: 'string',
+    defaultValue: '8rem'
+  },
+  numParagraphsInPane: {
+    type: 'number',
+    defaultValue: 10
+  },
+  numParagraphsInContent: {
+    type: 'number',
+    defaultValue: 30
+  }
+}
+
+CustomStickyHeader.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const canvas = within(canvasElement)
+  const contentToScroll = await canvas.getByTestId('content3')
+  contentToScroll.scrollIntoView()
+
+  // fireEvent alternative?
+  const storyWindow = await canvas.getByTestId('story-window')
+  await fireEvent.scroll(storyWindow, {top: 600})
+
+  const stickyPaneFirstParagraph = await canvas.getByTestId('paragraph0')
+  const paragraphBoundaries = stickyPaneFirstParagraph.getBoundingClientRect()
+  const stickyHeader = await canvas.getByTestId('sticky-header')
+  const stickyHeaderBoundaries = stickyHeader.getBoundingClientRect()
+  expect(isInViewPort(paragraphBoundaries)).toBe(true)
+  expect(isInViewPort(stickyHeaderBoundaries)).toBe(true)
+}
 export default meta
-export {StickyPane, NonStickyPane}
+export {StickyPane, NonStickyPane, CustomStickyHeader}
