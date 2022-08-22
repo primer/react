@@ -9,7 +9,7 @@ export function useStickyPaneHeight() {
   const rootRef = React.useRef<HTMLDivElement>(null)
 
   // Default the height to the viewport height
-  const [height, setHeight] = React.useState('100vh')
+  const [height, setHeight] = React.useState(dvh(100))
   const [stickyTop, setStickyTop] = React.useState<number | string>(0)
 
   // Create intersection observers to track the top and bottom of the content region
@@ -46,7 +46,9 @@ export function useStickyPaneHeight() {
       // We need to account for this when calculating the offset.
       const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
 
-      calculatedHeight = `calc(100vh - (max(${topOffset}px, ${stickyTopWithUnits}) + ${bottomOffset}px - ${overflowScroll}px))`
+      calculatedHeight = `calc(${dvh(
+        100
+      )} - (max(${topOffset}px, ${stickyTopWithUnits}) + ${bottomOffset}px - ${overflowScroll}px))`
     }
 
     setHeight(calculatedHeight)
@@ -129,4 +131,17 @@ function isScrollable(element: Element) {
   const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
 
   return hasScrollableContent && !isOverflowHidden
+}
+
+const supportsDVH = typeof window === 'undefined' ? false : CSS.supports('max-height', '100dvh')
+
+/**
+ * Convert the given value to a dvh value, if supported, otherwise it falls back
+ * to vh
+ */
+function dvh(value: number): string {
+  if (supportsDVH) {
+    return `${value}dvh`
+  }
+  return `${value}vh`
 }
