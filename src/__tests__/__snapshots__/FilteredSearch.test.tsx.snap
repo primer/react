@@ -24,7 +24,6 @@ exports[`FilteredSearch renders consistently 1`] = `
   border-radius: 0;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  z-index: 1;
 }
 
 <div
