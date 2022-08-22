@@ -2,7 +2,6 @@ import {Meta} from '@storybook/react'
 import {StickyPane, CustomStickyHeader} from './PageLayout.stories'
 import {within, fireEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
-import {setTimeout} from 'timers/promises'
 
 const meta: Meta = {
   title: 'Layout/PageLayout/interactions',
