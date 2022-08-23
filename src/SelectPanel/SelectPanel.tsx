@@ -12,7 +12,7 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
 import {Button} from '../Button'
-import {SearchIcon, XIcon} from '@primer/octicons-react'
+import {SearchIcon} from '@primer/octicons-react'
 import Box from '../Box'
 import {useSSRSafeId} from '@react-aria/ssr'
 import VisuallyHidden from '../_VisuallyHidden'
@@ -186,7 +186,7 @@ export function SelectPanel({
       placeholder: inputPlaceholder,
       ...textInputProps
     }
-  }, [textInputProps, inputLabel])
+  }, [textInputProps, inputLabel, inputPlaceholder])
 
   const overlayKeyPressHandler = useCallback(
     event => {
