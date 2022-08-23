@@ -289,7 +289,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
             e.key === 'p'
           ) {
             setView?.('edit')
-            setTimeout => inputRef.current?.focus())
+            setTimeout(() => inputRef.current?.focus())
             e.preventDefault()
           }
         }
