@@ -51,14 +51,14 @@ describe('Button', () => {
   })
 
   it('respects the "variant" prop', () => {
-    const container = render(<Button size="small">Smol</Button>)
+    const container = render(<Button size="544">Smol</Button>)
     const button = container.getByRole('button')
     expect(button).toHaveStyleRule('font-size', '12px')
   })
 
   it('respects the "fontSize" prop over the "variant" prop', () => {
     const container = render(
-      <Button size="small" sx={{fontSize: 20}}>
+      <Button size="544" sx={{fontSize: 20}}>
         Big Smol
       </Button>
     )
