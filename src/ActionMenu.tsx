@@ -126,7 +126,6 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children,
       align={align}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
-      focusTrapSettings={{disabled: true}}
     >
       <div ref={containerRef}>
         <ActionListContainerContext.Provider

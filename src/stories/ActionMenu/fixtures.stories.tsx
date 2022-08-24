@@ -11,7 +11,8 @@ import {
   ActionMenu,
   ActionList,
   Button,
-  IconButton
+  IconButton,
+  AnchoredOverlay
 } from '../..'
 import {
   ServerIcon,
@@ -785,6 +786,40 @@ export function TabTest(): JSX.Element {
         </ActionMenu.Overlay>
       </ActionMenu>
       <input type="text" placeholder="next focusable element" />
+    </>
+  )
+}
+
+export const withinFocusZone = () => {
+  return (
+    <>
+      <p>
+        In a focus zone, you can navigate between elements with ArrowKeys (not Tab), but, this should not interfere with
+        keyboard navigation for the menu once opened.
+      </p>
+      <p>There overlap between keyboard navigation of AnchoredOverlay's focusZone and ActionMenu</p>
+      <ul>
+        <li>Pressing ArrowDown on menu button will not open the menu, but move focus to the next element</li>
+        <li>
+          Pressing Tab on an open menu will close the menu and put the focus back on the anchor instead of the next
+          element (because focus zone uses ArrowKeys for navigation, not Tab)
+        </li>
+      </ul>
+      <AnchoredOverlay open={true} renderAnchor={props => <Button {...props}>open overlay</Button>} width="medium">
+        <Box sx={{p: 4}}>
+          <TextInput sx={{mb: 2}} />
+          <ActionMenu>
+            <ActionMenu.Button>open menu</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>Item 1</ActionList.Item>
+                <ActionList.Item>Item 2</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+          <TextInput sx={{mt: 2}} />
+        </Box>
+      </AnchoredOverlay>
     </>
   )
 }
