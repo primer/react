@@ -797,7 +797,7 @@ export const withinFocusZone = () => {
         In a focus zone, you can navigate between elements with ArrowKeys (not Tab), but, this should not interfere with
         keyboard navigation for the menu once opened.
       </p>
-      <p>There overlap between keyboard navigation of AnchoredOverlay's focusZone and ActionMenu</p>
+      <p>There is overlap between the keyboard navigation of AnchoredOverlay and ActionMenu</p>
       <ul>
         <li>Pressing ArrowDown on menu button will not open the menu, but move focus to the next element</li>
         <li>
