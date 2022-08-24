@@ -790,7 +790,7 @@ export function TabTest(): JSX.Element {
   )
 }
 
-export const withinFocusZone = () => {
+export function withinFocusZone(): JSX.Element {
   return (
     <>
       <p>
