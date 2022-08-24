@@ -53,11 +53,9 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
    The monolith already has a place where reusable react components live. This has the lowest barrier to entry for folks working in the monolith.
 
-   Acknowledged risk: It would introduce some additional work for non-monolith projects when upstreaming reusable components. We should work on improving the development and publishing workflow for react-shared.
-
-&nbsp;
-
 #### Risks:
+
+This decision would increase the amount of work required for non-monolith projects when upstreaming reusable components. Without improving the development and publishing workflow for react-shared, this could create more friction and make contributions more difficult.
 
 
 &nbsp;
