@@ -62,8 +62,9 @@ export const UnderlineNavLink = forwardRef(
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
     }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
     const iconWrapStyles = {
-      display: 'inline-block',
-      marginRight: '8px'
+      alignItems: 'center',
+      display: 'inline-flex',
+      marginRight: 2
     }
 
     const textStyles: BetterSystemStyleObject = {
