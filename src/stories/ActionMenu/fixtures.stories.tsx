@@ -791,6 +791,8 @@ export function TabTest(): JSX.Element {
 }
 
 export function withinFocusZone(): JSX.Element {
+  const [overlayOpen, setOverlayOpen] = React.useState(false)
+
   return (
     <>
       <p>
@@ -805,19 +807,36 @@ export function withinFocusZone(): JSX.Element {
           element (because focus zone uses ArrowKeys for navigation, not Tab)
         </li>
       </ul>
-      <AnchoredOverlay open={true} renderAnchor={props => <Button {...props}>open overlay</Button>} width="medium">
+      <AnchoredOverlay
+        renderAnchor={props => <Button {...props}>open overlay</Button>}
+        width="medium"
+        open={overlayOpen}
+        onOpen={() => setOverlayOpen(true)}
+        onClose={() => setOverlayOpen(false)}
+      >
         <Box sx={{p: 4}}>
-          <TextInput sx={{mb: 2}} />
-          <ActionMenu>
-            <ActionMenu.Button>open menu</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>Item 1</ActionList.Item>
-                <ActionList.Item>Item 2</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-          <TextInput sx={{mt: 2}} />
+          <FormControl sx={{mb: 2}}>
+            <FormControl.Label>First field</FormControl.Label>
+            <TextInput />
+          </FormControl>
+          <FormControl sx={{mb: 2}}>
+            <FormControl.Label>Second field</FormControl.Label>
+            <ActionMenu>
+              <ActionMenu.Button sx={{mb: 2}}>open menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>Item 1</ActionList.Item>
+                  <ActionList.Item>Item 2</ActionList.Item>
+                  <ActionList.Item>Item 3</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </FormControl>
+
+          <FormControl>
+            <FormControl.Label>Third field</FormControl.Label>
+            <TextInput />
+          </FormControl>
         </Box>
       </AnchoredOverlay>
     </>
