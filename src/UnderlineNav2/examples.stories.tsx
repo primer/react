@@ -14,6 +14,13 @@ export default {
         type: 'radio',
         options: ['left', 'right']
       }
+    },
+    variant: {
+      defaultValue: 'default',
+      control: {
+        type: 'radio',
+        options: ['default', 'small']
+      }
     }
   },
   decorators: [
