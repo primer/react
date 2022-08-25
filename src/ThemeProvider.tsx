@@ -9,7 +9,7 @@ const defaultNightScheme = 'dark'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Theme = {[key: string]: any}
-type ColorMode = 'day' | 'night'
+type ColorMode = 'day' | 'night' | 'light' | 'dark'
 type ColorModeWithAuto = ColorMode | 'auto'
 
 export type ThemeProviderProps = {
@@ -202,7 +202,9 @@ function resolveColorMode(colorMode: ColorModeWithAuto, systemColorMode: ColorMo
 function chooseColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme: string) {
   switch (colorMode) {
     case 'day':
+    case 'light':
       return dayScheme
+    case 'dark':
     case 'night':
       return nightScheme
   }
