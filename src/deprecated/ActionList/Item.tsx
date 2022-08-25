@@ -369,7 +369,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
       onKeyPress?.(event)
 
       const triggerKeys = [' ']
-      if (_legacyEnterSupport == true) {
+      if (_legacyEnterSupport === true) {
         triggerKeys.push('Enter')
       }
       if (!event.defaultPrevented && triggerKeys.includes(event.key)) {
