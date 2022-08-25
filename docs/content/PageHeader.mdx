@@ -1,0 +1,114 @@
+---
+title: PageHeader
+componentId: page_header
+status: Draft
+description: This component can be used independently or inside PageLayout.Header. It helps provide structure and responsive aspects to the Header component.
+# source: https://github.com/primer/react/tree/main/src/PageHeader
+# storybook: https://primer.style/react/storybook?path=/story/layout-pageheader--default
+---
+
+```js
+import {PageHeader} from '@primer/react'
+```
+
+### Default
+
+```jsx live
+<PageHeader>
+  {/* Visible only in narrow viewport*/}
+  <PageHeader.ContextNav>
+    {/* Always renders with a backbutton and is left aligned*/}
+    <PageHeader.ParentLink>Code</PageHeader.ParentLink>
+  </PageHeader.ContextNav>
+  {/* Visible in all viewports */}
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Branches</PageHeader.Title>
+    <PageHeader.TitleActions>
+      {/* Visible only in narrow viewport*/}
+      <WhenNarrow>
+        <Button variant="primary">New Branch</Button>
+      </WhenNarrow>
+      {/* Visible only in regular viewport*/}
+      <WhenRegular>
+        <Button variant="primary">New</Button>
+      </WhenRegular>
+      {/* Visible in all viewports */}
+      <IconButton aria-label="More actions" icon={KebabHorizontalIcon} />
+    </PageHeader.TitleActions>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+### With Context Actions and Breadcrumbs
+
+<PageHeader>
+  {/* Visible only in narrow viewport only*/}
+  <PageHeader.ContextNav>
+    {/* Always renders with a backbutton and is left aligned*/}
+    <PageHeader.ParentLink>Files</PageHeader.ParentLink>
+    {/* These are right aligned*/}
+    <PageHeader.ContextNavActions>
+      {/* Should these buttons be normal sized?*/}
+      <Button size="small" leadingIcon={GitBranchIcon} trailingIcon={ChevronDownIcon} variant="outline">
+        main
+      </Button>
+      <IconButton size="small" aria-label="More actions" icon={KebabHorizontalIcon} />
+    </PageHeader.ContextNavActions>
+  </PageHeader.ContextNav>
+  {/* Visible only in all viewports */}
+  <PageHeader.TitleArea>
+    <PageHeader.Title>
+      <Breadcrumbs>
+        <Breadcrumbs.Item href="/">...</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/primer">primer</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/primer/react">react</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/primer/react/PageHeader">PageHeader</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="/primer/react/PageHeader/index.ts" selected>
+          index.ts
+        </Breadcrumbs.Item>
+      </Breadcrumbs>
+    </PageHeader.Title>
+  </PageHeader.TitleArea>
+</PageHeader>
+
+### With a description and local navigation
+
+<PageHeader>
+  <PageHeader.ContextNav>
+    <PageHeader.ParentLink>Pull requests</PageHeader.ParentLink>
+  </PageHeader.ContextNav>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>PageLayout component/Layout beta + storybook</PageHeader.Title>
+    <PageHeader.TitleActions>
+      <Button>Edit</Button>
+      <Button leadingIcon={CodeIcon} trailingIcon={ChevronDownIcon}>
+        Code
+      </Button>
+    </PageHeader.TitleActions>
+  </PageHeader.TitleArea>
+  <PageHeader.Description>
+    <StateLabel status="issueOpened">Open</StateLabel>
+    <Box sx={{display: 'inline-flex'}}>
+      <WhenRegular>
+        <Box>
+          <b>simurai</b> wants to merge 12 commits from
+        </Box>
+      </WhenRegular>
+      <Box>
+        <Token>token-mode</Token>
+        <ArrowRightIcon />
+        <Token>main</Token>
+      </Box>
+    </Box>
+  </PageHeader.Description>
+  <PageHeader.LocalNav>
+    <UnderlineNav>
+      <UnderlineNav.Link>Overview</UnderlineNav.Link>
+      <UnderlineNav.Link leadingIcon={CommentDiscussionIcon}>
+        Conversations
+        <CounterLabel sx={{ml: 2}}>42</CounterLabel>
+      </UnderlineNav.Link>
+      <UnderlineNav.Link leadingIcon={GitCommitIcon}>Commits</UnderlineNav.Link>
+    </UnderlineNav>
+  </PageHeader.LocalNav>
+</PageHeader>
