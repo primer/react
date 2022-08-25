@@ -25,13 +25,13 @@ import {PageHeader} from '@primer/react'
     <PageHeader.Title>Branches</PageHeader.Title>
     <PageHeader.TitleActions>
       {/* Visible only in narrow viewport*/}
-      <WhenNarrow>
+      <Stack direction={{narrow: 'inline', regular: 'none'}}>
         <Button variant="primary">New Branch</Button>
-      </WhenNarrow>
+      </Stack>
       {/* Visible only in regular viewport*/}
-      <WhenRegular>
+      <Stack direction={{narrow: 'none', regular: 'inline'}}>
         <Button variant="primary">New</Button>
-      </WhenRegular>
+      </Stack>
       {/* Visible in all viewports */}
       <IconButton aria-label="More actions" icon={KebabHorizontalIcon} />
     </PageHeader.TitleActions>
@@ -89,11 +89,11 @@ import {PageHeader} from '@primer/react'
   <PageHeader.Description>
     <StateLabel status="issueOpened">Open</StateLabel>
     <Box sx={{display: 'inline-flex'}}>
-      <WhenRegular>
+      <Stack direction={{narrow: 'none', regular: 'inline'}}>
         <Box>
           <b>simurai</b> wants to merge 12 commits from
         </Box>
-      </WhenRegular>
+      </Stack>
       <Box>
         <Token>token-mode</Token>
         <ArrowRightIcon />
