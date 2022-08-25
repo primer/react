@@ -118,6 +118,11 @@ export interface ItemProps extends SxProp {
    * An item to pass back in the `onAction` callback, meant as
    */
   item?: ItemInput
+
+  /**
+   * @deprecated Allows the `enter` key to select an item. Kept for compatibility purposes. Should not be used in new components.
+   */
+  _legacyEnterSupport?: boolean
 }
 
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
@@ -349,6 +354,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
     children,
     onClick,
     id,
+    _legacyEnterSupport = false,
     ...props
   } = itemProps
 
@@ -362,12 +368,16 @@ export const Item = React.forwardRef((itemProps, ref) => {
       }
       onKeyPress?.(event)
 
-      if (!event.defaultPrevented && [' '].includes(event.key)) {
+      const triggerKeys = [' ']
+      if (_legacyEnterSupport == true) {
+        triggerKeys.push('Enter')
+      }
+      if (!event.defaultPrevented && triggerKeys.includes(event.key)) {
         onAction?.(itemProps, event)
         event.preventDefault()
       }
     },
-    [onAction, disabled, itemProps, onKeyPress]
+    [onAction, disabled, itemProps, onKeyPress, _legacyEnterSupport]
   )
 
   const clickHandler = useCallback(
