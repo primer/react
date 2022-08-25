@@ -790,7 +790,7 @@ export function TabTest(): JSX.Element {
   )
 }
 
-export function withinFocusZone(): JSX.Element {
+export function WithinFocusZone(): JSX.Element {
   const [overlayOpen, setOverlayOpen] = React.useState(false)
 
   return (
