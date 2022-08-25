@@ -102,7 +102,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
     /**
      * Recommended: `ActionList`
      */
-    children: React.ReactElement[] | React.ReactElement
+    children: React.ReactNode
   }
 const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children, align = 'start', ...overlayProps}) => {
   // we typecast anchorRef as required instead of optional
