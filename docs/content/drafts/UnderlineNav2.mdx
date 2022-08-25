@@ -27,6 +27,15 @@ description: Use an underlined nav to allow tab like navigation with overflow be
 </UnderlineNav>
 ```
 
+### Small variant
+
+```jsx live drafts
+<UnderlineNav label="small variant" variant="small">
+  <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
+  <UnderlineNav.Link>Item 2</UnderlineNav.Link>
+</UnderlineNav>
+```
+
 ## Props
 
 ### UnderlineNav
@@ -38,9 +47,16 @@ description: Use an underlined nav to allow tab like navigation with overflow be
   <PropsTableRow
     name="overflow"
     type="'auto' | 'menu' | 'scroll'"
+    defaultValue="auto"
     description="Controls the type of overflow behaviour in smaller screens"
   />
-  <PropsTableRow name="align" type="right | left" description="The alignment of the nav links" />
+  <PropsTableRow name="align" type="right | left" defaultValue="left" description="The alignment of the nav links" />
+  <PropsTableRow
+    name="variant"
+    type="default | small"
+    defaultValue="default"
+    description="The alignment of the nav links"
+  />
   <PropsTableRow
     name="afterSelect"
     type="(event) => void"
@@ -59,7 +75,12 @@ description: Use an underlined nav to allow tab like navigation with overflow be
     type="(event) => void"
     description="The handler that gets called when a nav link is selected"
   />
-  <PropsTableRow name="as" type="string | Component" description="What kind of component needs to be rendered" />
+  <PropsTableRow
+    name="as"
+    type="string | Component"
+    defaultValue="a"
+    description="What kind of component needs to be rendered"
+  />
   <PropsTableSxRow />
 </PropsTable>
 
