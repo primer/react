@@ -37,6 +37,8 @@ jobs:
     needs: [guard]
     if: ${{ needs.guard.outputs.should_deploy == 'true' }}
     uses: primer/.github/.github/workflows/deploy.yml@main
+    secrets:
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:
       node_version: 14
       install: npm ci && cd docs && npm ci && cd ..

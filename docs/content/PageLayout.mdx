@@ -4,7 +4,7 @@ componentId: page_layout
 status: Alpha
 # description: TODO
 source: https://github.com/primer/react/tree/main/src/PageLayout
-storybook: https://primer.style/react/storybook?path=/story/layout-pagelayout--playground
+storybook: https://primer.style/react/storybook?path=/story/layout-pagelayout--default
 ---
 
 ```js
@@ -48,10 +48,30 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   <PageLayout.Content>
     <Placeholder label="Content" height={240} />
   </PageLayout.Content>
-  <PageLayout.Pane divider="line">
+  {/* You can change the divider based on the viewport width */}
+  <PageLayout.Pane divider={{narrow: 'line'}}>
     <Placeholder label="Pane" height={120} />
   </PageLayout.Pane>
   <PageLayout.Footer divider="line">
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
+### With connected dividers
+
+```jsx live
+<PageLayout padding="none" rowGap="none" columnGap="none">
+  <PageLayout.Header padding="normal" divider="line">
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content padding="normal">
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane padding="normal" divider="line">
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer padding="normal" divider="line">
     <Placeholder label="Footer" height={64} />
   </PageLayout.Footer>
 </PageLayout>
@@ -127,6 +147,59 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 </PageLayout>
 ```
 
+### With a sticky pane
+
+```jsx live
+<Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
+  <PageLayout>
+    <PageLayout.Header>
+      <Placeholder label="Header" height={64} />
+    </PageLayout.Header>
+    <PageLayout.Content>
+      <Placeholder label="Content" height={320} />
+    </PageLayout.Content>
+    <PageLayout.Pane sticky>
+      <Placeholder label="Pane" height={120} />
+    </PageLayout.Pane>
+    <PageLayout.Footer>
+      <Placeholder label="Footer" height={64} />
+    </PageLayout.Footer>
+  </PageLayout>
+</Box>
+```
+
+### With a custom sticky header
+
+```jsx live
+<Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
+  <Box
+    sx={{
+      position: 'sticky',
+      top: 0,
+      height: 64,
+      display: 'grid',
+      placeItems: 'center',
+      backgroundColor: 'canvas.subtle',
+      borderBottom: '1px solid',
+      borderColor: 'border.default'
+    }}
+  >
+    Custom sticky header
+  </Box>
+  <PageLayout>
+    <PageLayout.Content>
+      <Placeholder label="Content" height={320} />
+    </PageLayout.Content>
+    <PageLayout.Pane position="start" stickyTop={64} sticky>
+      <Placeholder label="Pane" height={120} />
+    </PageLayout.Pane>
+    <PageLayout.Footer>
+      <Placeholder label="Footer" height={64} />
+    </PageLayout.Footer>
+  </PageLayout>
+</Box>
+```
+
 ## Props
 
 ### PageLayout
@@ -138,29 +211,29 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 | 'medium'
 | 'large'
 | 'xlarge'`}
-    defaultValue="'full'"
+    defaultValue="'xlarge'"
     description="The maximum width of the page container."
   />
   <PropsTableRow
     name="padding"
     type={`| 'none'
-| 'normal'
-| 'condensed'`}
+| 'condensed'
+| 'normal'`}
     defaultValue="'normal'"
     description="The spacing between the outer edges of the page container and the viewport"
   />
   <PropsTableRow
     name="columnGap"
     type={`| 'none'
-| 'normal'
-| 'condensed'`}
+| 'condensed'
+| 'normal'`}
     defaultValue="'normal'"
   />
   <PropsTableRow
     name="rowGap"
     type={`| 'none'
-| 'normal'
-| 'condensed'`}
+| 'condensed'
+| 'normal'`}
     defaultValue="'normal'"
   />
   <PropsTableSxRow />
@@ -170,27 +243,49 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 
 <PropsTable>
   <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'condensed'
+| 'normal'`}
+    defaultValue="'none'"
+    description="The amount of padding inside the header."
+  />
+  <PropsTableRow
     name="divider"
     type={`| 'none'
-| 'line'`}
+| 'line'
+| {
+    narrow?:
+      | 'none'
+      | 'line' 
+      | 'filled'
+    regular?:
+      | 'none'
+      | 'line'
+    wide?:
+      | 'none'
+      | 'line'
+  }`}
     defaultValue="'none'"
   />
   <PropsTableRow
     name="dividerWhenNarrow"
+    deprecated
     type={`| 'inherit'
 | 'none'
 | 'line'
 | 'filled'`}
     defaultValue="'inherit'"
+    description="Use the divider prop with a responsive value instead."
   />
   <PropsTableRow
     name="hidden"
     type={`| boolean
 | {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
     defaultValue="false"
     description="Whether the header is hidden."
   />
@@ -210,13 +305,21 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     description="The maximum width of the content region."
   />
   <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'condensed'
+| 'normal'`}
+    defaultValue="'none'"
+    description="The amount of padding inside the content."
+  />
+  <PropsTableRow
     name="hidden"
     type={`| boolean
 | {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
     defaultValue="false"
     description="Whether the content is hidden."
   />
@@ -229,15 +332,28 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
   <PropsTableRow
     name="position"
     type={`| 'start'
-| 'end'`}
-    defaultValue="'start'"
+| 'end'
+| {
+    narrow?:
+      | 'start'
+      | 'end'
+    regular?:
+      | 'start'
+      | 'end'
+    wide?:
+      | 'start'
+      | 'end'
+  }`}
+    defaultValue="'end'"
   />
   <PropsTableRow
     name="positionWhenNarrow"
+    deprecated
     type={`| 'inherit'
 | 'start'
 | 'end'`}
     defaultValue="'inherit'"
+    description="Use the position prop with a responsive value instead."
   />
   <PropsTableRow
     name="width"
@@ -248,27 +364,61 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     description="The width of the pane."
   />
   <PropsTableRow
+    name="sticky"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the pane should stick to the top of the screen while the content scrolls."
+  />
+  <PropsTableRow
+    name="stickyTop"
+    type="number | string"
+    defaultValue="0"
+    description="Use stickyTop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px."
+  />
+  <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'condensed'
+| 'normal'`}
+    defaultValue="'none'"
+    description="The amount of padding inside the pane."
+  />
+  <PropsTableRow
     name="divider"
     type={`| 'none'
-| 'line'`}
+| 'line'
+| {
+    narrow?:
+      | 'none'
+      | 'line' 
+      | 'filled'
+    regular?:
+      | 'none'
+      | 'line'
+    wide?:
+      | 'none'
+      | 'line'
+  }`}
     defaultValue="'none'"
   />
   <PropsTableRow
     name="dividerWhenNarrow"
+    deprecated
     type={`| 'inherit'
 | 'none'
 | 'line'
 | 'filled'`}
     defaultValue="'inherit'"
+    description="Use the divider prop with a responsive value instead."
   />
   <PropsTableRow
     name="hidden"
     type={`| boolean
 | {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
     defaultValue="false"
     description="Whether the pane is hidden."
   />
@@ -279,27 +429,49 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 
 <PropsTable>
   <PropsTableRow
+    name="padding"
+    type={`| 'none'
+| 'condensed'
+| 'normal'`}
+    defaultValue="'none'"
+    description="The amount of padding inside the footer."
+  />
+  <PropsTableRow
     name="divider"
     type={`| 'none'
-| 'line'`}
+| 'line'
+| {
+    narrow?:
+      | 'none'
+      | 'line' 
+      | 'filled'
+    regular?:
+      | 'none'
+      | 'line'
+    wide?:
+      | 'none'
+      | 'line'
+  }`}
     defaultValue="'none'"
   />
   <PropsTableRow
     name="dividerWhenNarrow"
+    deprecated
     type={`| 'inherit'
 | 'none'
 | 'line'
 | 'filled'`}
     defaultValue="'inherit'"
+    description="Use the divider prop with a responsive value instead."
   />
   <PropsTableRow
     name="hidden"
     type={`| boolean
 | {
-  narrow?: boolean
-  regular?: boolean
-  wide?: boolean
-}`}
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
     defaultValue="false"
     description="Whether the footer is hidden."
   />

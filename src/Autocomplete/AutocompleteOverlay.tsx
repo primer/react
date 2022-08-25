@@ -3,7 +3,7 @@ import {useAnchoredPosition} from '../hooks'
 import Overlay, {OverlayProps} from '../Overlay'
 import {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
-import {useCombinedRefs} from '../hooks/useCombinedRefs'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 
 type AutocompleteOverlayInternalProps = {
   /**
@@ -39,7 +39,7 @@ function AutocompleteOverlay({
     [showMenu, selectedItemLength]
   )
 
-  const combinedOverlayRef = useCombinedRefs(scrollContainerRef, floatingElementRef)
+  useRefObjectAsForwardedRef(scrollContainerRef, floatingElementRef)
 
   const closeOptionList = useCallback(() => {
     setShowMenu(false)
@@ -55,7 +55,7 @@ function AutocompleteOverlay({
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
-      ref={combinedOverlayRef as React.RefObject<HTMLDivElement>}
+      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
       top={position?.top}
       left={position?.left}
       visibility={showMenu ? 'visible' : 'hidden'}

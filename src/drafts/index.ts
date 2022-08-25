@@ -6,4 +6,24 @@
  */
 export * from '../NavList'
 export * from '../Dialog/Dialog'
-export * from '../SegmentedControl'
+export * from '../SegmentedControl' // TODO: remove from drafts bundle in next major release
+export * from '../SplitPageLayout'
+
+export {default as InlineAutocomplete} from './InlineAutocomplete'
+export type {
+  InlineAutocompleteProps,
+  ShowSuggestionsEvent,
+  Suggestion,
+  Suggestions,
+  Trigger
+} from './InlineAutocomplete'
+
+export {default as MarkdownViewer} from './MarkdownViewer'
+export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
+
+export {default as MarkdownEditor} from './MarkdownEditor'
+export * from './MarkdownEditor'
+
+export * from '../UnderlineNav2'
+
+export * from './hooks'
