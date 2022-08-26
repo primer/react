@@ -4,6 +4,7 @@ import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
+import CounterLabel from '../CounterLabel'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -36,6 +37,10 @@ export type UnderlineNavLinkProps = {
    */
   leadingIcon?: React.FunctionComponent<IconProps>
   as?: React.ElementType
+  /**
+   * Counter
+   */
+  counter?: number
 } & SxProp &
   LinkProps
 
@@ -46,6 +51,7 @@ export const UnderlineNavLink = forwardRef(
       as: Component = 'a',
       href = '#',
       children,
+      counter,
       onSelect,
       selected: preSelected = false,
       leadingIcon: LeadingIcon,
@@ -70,29 +76,35 @@ export const UnderlineNavLink = forwardRef(
     const textStyles: BetterSystemStyleObject = {
       whiteSpace: 'nowrap'
     }
-    const smallVariantLinkStyles = {
-      paddingY: 2,
-      fontSize: 0
-    }
-    const defaultVariantLinkStyles = {
-      paddingY: 3,
-      fontSize: 1
-    }
 
+    // Styling the anchor tag
     const linkStyles = {
       display: 'inline-flex',
       color: 'fg.default',
       textAlign: 'center',
-      borderBottom: '2px solid transparent',
-      borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
       textDecoration: 'none',
       paddingX: 2,
-      marginRight: 3,
-      ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
-      '&:hover, &:focus': {
-        borderColor: selectedLink === ref ? 'primer.border.active' : 'neutral.muted',
+      paddingY: 1,
+      ...(variant === 'small' ? {fontSize: 0} : {fontSize: 1}),
+      '&:hover': {
+        backgroundColor: 'neutral.muted',
+        borderRadius: 2
+      },
+      '&:focus': {
+        outlineColor: 'fg.accent',
+        borderRadius: 2,
         transition: '0.2s ease'
       }
+    }
+    // Styling the li list item
+    const listItemStyles = {
+      ...(variant === 'small' ? {paddingY: 1} : {paddingY: 2}),
+      borderBottom: '2px solid transparent',
+      borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
+      marginRight: 3
+    }
+    const counterStyles = {
+      marginLeft: 2
     }
     const keyPressHandler = React.useCallback(
       event => {
@@ -118,7 +130,7 @@ export const UnderlineNavLink = forwardRef(
       [onSelect, afterSelect, ref, setSelectedLink]
     )
     return (
-      <Box as="li">
+      <Box as="li" sx={listItemStyles}>
         <Box
           as={Component}
           href={href}
@@ -134,9 +146,15 @@ export const UnderlineNavLink = forwardRef(
               <LeadingIcon />
             </Box>
           )}
+
           {children && (
             <Box as="span" data-component="text" sx={textStyles}>
               {children}
+            </Box>
+          )}
+          {counter && (
+            <Box as="span" data-component="counter" sx={counterStyles}>
+              <CounterLabel>{counter}</CounterLabel>
             </Box>
           )}
         </Box>

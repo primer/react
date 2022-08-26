@@ -1,8 +1,7 @@
 import React from 'react'
-import {EyeIcon, CodeIcon, IssueOpenedIcon} from '@primer/octicons-react'
+import {EyeIcon, CodeIcon, IssueOpenedIcon, GitPullRequestIcon, CommentDiscussionIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import UnderlineNav, {UnderlineNavProps} from './index'
-import CounterLabel from '../CounterLabel'
 import {BaseStyles, ThemeProvider} from '..'
 
 export default {
@@ -49,10 +48,21 @@ export const DefaultNav = (args: UnderlineNavProps) => {
 export const withIcons = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
+      <UnderlineNav.Link selected leadingIcon={CodeIcon}>
+        Code
+      </UnderlineNav.Link>
+      <UnderlineNav.Link selected leadingIcon={EyeIcon}>
+        Issues
+      </UnderlineNav.Link>
+      <UnderlineNav.Link selected leadingIcon={GitPullRequestIcon}>
+        Pull Requests
+      </UnderlineNav.Link>
+      <UnderlineNav.Link selected leadingIcon={CommentDiscussionIcon}>
+        Discussions
+      </UnderlineNav.Link>
       <UnderlineNav.Link selected leadingIcon={EyeIcon}>
         Item 1
       </UnderlineNav.Link>
-      <UnderlineNav.Link>Item 2</UnderlineNav.Link>
     </UnderlineNav>
   )
 }
@@ -63,11 +73,8 @@ export const withCounterLabels = (args: UnderlineNavProps) => {
       <UnderlineNav.Link selected leadingIcon={CodeIcon}>
         Code
       </UnderlineNav.Link>
-      <UnderlineNav.Link leadingIcon={IssueOpenedIcon}>
-        Issues{' '}
-        <CounterLabel sx={{marginLeft: 1}} scheme="primary">
-          12
-        </CounterLabel>
+      <UnderlineNav.Link leadingIcon={IssueOpenedIcon} counter={12}>
+        Issues
       </UnderlineNav.Link>
     </UnderlineNav>
   )

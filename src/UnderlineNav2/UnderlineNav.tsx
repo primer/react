@@ -87,8 +87,6 @@ export const UnderlineNav = forwardRef(
     const styles = {
       display: 'flex',
       justifyContent: align === 'right' ? 'flex-end' : 'space-between',
-      borderBottom: '1px solid',
-      borderBottomColor: 'border.muted',
       align: 'row',
       alignItems: 'center'
     }
