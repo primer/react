@@ -126,9 +126,29 @@ it('respects nightScheme prop', () => {
   expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
 })
 
+it('respects nightScheme prop with colorMode="dark"', () => {
+  render(
+    <ThemeProvider theme={exampleTheme} colorMode="dark" nightScheme="dark_dimmed">
+      <Text color="text">Hello</Text>
+    </ThemeProvider>
+  )
+
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
+})
+
 it('respects dayScheme prop', () => {
   render(
     <ThemeProvider theme={exampleTheme} colorMode="day" dayScheme="dark" nightScheme="dark_dimmed">
+      <Text color="text">Hello</Text>
+    </ThemeProvider>
+  )
+
+  expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
+})
+
+it('respects dayScheme prop with colorMode="light"', () => {
+  render(
+    <ThemeProvider theme={exampleTheme} colorMode="light" dayScheme="dark" nightScheme="dark_dimmed">
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )

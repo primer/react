@@ -4,9 +4,9 @@ title: FilteredSearch
 status: Alpha
 ---
 
-The FilteredSearch component helps style a Dropdown and a TextInput side-by-side.
+The FilteredSearch component helps style an ActionMenu and a TextInput side-by-side.
 
-**Note:** You _must_ use a `TextInput` and `Dropdown` (or native `<details>` and `<summary>`) in order for this component to work properly.
+**Note:** You _must_ use a `TextInput` and `ActionMenu` (or native `<details>` and `<summary>`) in order for this component to work properly.
 
 ## Default example
 
@@ -30,7 +30,7 @@ The FilteredSearch component helps style a Dropdown and a TextInput side-by-side
 
 #### FilteredSearch.Children
 
-| Name     | Type              | Default | Description                                                                                              |
-| :------- | :---------------- | :-----: | :------------------------------------------------------------------------------------------------------- |
-| children |                   |         | FilteredSearch is expected to contain a [`Dropdown`](/Dropdown) followed by a [`TextInput`](/TextInput). |
-| sx       | SystemStyleObject |   {}    | Style to be applied to the component                                                                     |
+| Name     | Type              | Default | Description                                                                                                   |
+| :------- | :---------------- | :-----: | :------------------------------------------------------------------------------------------------------------ |
+| children |                   |         | FilteredSearch is expected to contain an [`ActionMenu`](/ActionMenu) followed by a [`TextInput`](/TextInput). |
+| sx       | SystemStyleObject |   {}    | Style to be applied to the component                                                                          |

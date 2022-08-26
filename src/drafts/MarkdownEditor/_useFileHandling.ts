@@ -3,6 +3,7 @@ import {FileType, UnifiedFileSelectResult, useUnifiedFileSelect} from '../hooks/
 import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import {SyntheticChangeEmitter} from '../hooks/useSyntheticChange'
 import {markdownComment, markdownImage, markdownLink} from './utils'
+export type {FileType} from '../hooks/useUnifiedFileSelect'
 
 const placeholder = (file: File) => markdownComment(`Uploading "${file.name}"...`)
 

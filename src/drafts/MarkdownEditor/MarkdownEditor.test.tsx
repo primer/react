@@ -1081,13 +1081,6 @@ describe('MarkdownEditor', () => {
       expect(queryByRole('listbox')).not.toBeInTheDocument()
     })
 
-    it('autofocuses filter and filters replies based only on name', async () => {
-      const {getToolbarButton, getByRole, user} = await render(<UncontrolledEditor savedReplies={replies} />)
-      await user.click(getToolbarButton(buttonLabel))
-      await user.keyboard('Thanks')
-      expect(within(getByRole('listbox')).getAllByRole('option')).toHaveLength(1)
-    })
-
     it('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
       const {getToolbarButton, getInput, user, queryByRole} = await render(
         <UncontrolledEditor savedReplies={replies} />
@@ -1098,7 +1091,7 @@ describe('MarkdownEditor', () => {
       input.setSelectionRange(10, 10)
       await user.click(getToolbarButton(buttonLabel))
 
-      await user.keyboard('Thanks{Enter}')
+      await user.keyboard('{Control>}3{/Control}')
 
       expect(queryByRole('listbox')).not.toBeInTheDocument()
       await waitFor(() => expect(getInput().value).toBe('preceding Thanks for your contribution! following'))
