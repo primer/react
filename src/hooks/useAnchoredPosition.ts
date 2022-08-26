@@ -31,28 +31,42 @@ export function useAnchoredPosition(
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
+  const [anchorOutsideWindow, setAnchorOutOfWindow] = React.useState(false)
 
   const updatePosition = React.useCallback(
     () => {
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
+        const anchoredPositionSettings = {
+          ...settings,
+          // if the anchor is out of window, force-allow the floatingElement to follow it outside the window
+          allowOutOfBounds: anchorOutsideWindow ? true : settings?.allowOutOfBounds,
+          // when the anchor moves out of the window, the floatingElement might still be inside
+          // we don't want to the floatingElement to change to the other side once allowOutOfBounds toggles
+          // so we "maintain" the value of side till the anchor comes back inside window
+          // see https://github.com/primer/react/pull/2200 for visuals
+          side: anchorOutsideWindow ? position?.anchorSide : settings?.side
+        }
+        setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, anchoredPositionSettings))
       } else {
         setPosition(undefined)
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [floatingElementRef, anchorElementRef, ...dependencies]
+    [floatingElementRef, anchorElementRef, anchorOutsideWindow, ...dependencies]
   )
 
   useLayoutEffect(updatePosition, [updatePosition])
 
   useResizeObserver(updatePosition)
 
-  // when anchorElement's position changes (example, on scroll), update floatingElement's position
+  // when anchorElement's position changes (example, on scroll), updatePosition for floatingElement
   React.useEffect(
     function observeAnchorPosition() {
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const rectObserver = observeRect(anchorElementRef.current, updatePosition)
+        const rectObserver = observeRect(anchorElementRef.current, rect => {
+          setAnchorOutOfWindow(rect.top > window.innerHeight || rect.bottom < 0)
+          updatePosition()
+        })
         rectObserver.observe()
         return () => rectObserver.unobserve()
       }

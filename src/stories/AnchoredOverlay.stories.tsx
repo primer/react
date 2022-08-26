@@ -123,14 +123,14 @@ export function ScrollTest(): JSX.Element {
   return (
     <>
       <div style={{overflow: 'scroll', height: '400px', background: 'lightgray'}}>
-        <div style={{height: '600px', padding: '40px'}}>
+        <div style={{padding: '40px', paddingTop: '800px', paddingBottom: '800px'}}>
           <AnchoredOverlay
             renderAnchor={anchorProps => <Button {...anchorProps}>Click me to open</Button>}
             open={isOpen}
             onOpen={() => setIsOpen(true)}
             onClose={() => setIsOpen(false)}
           >
-            <Box sx={{p: 4}}>Anchored Content</Box>
+            <Box sx={{px: 4, py: 8}}>Anchored Content</Box>
           </AnchoredOverlay>
         </div>
       </div>
