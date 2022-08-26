@@ -51,13 +51,13 @@ export const withIcons = (args: UnderlineNavProps) => {
       <UnderlineNav.Link selected leadingIcon={CodeIcon}>
         Code
       </UnderlineNav.Link>
-      <UnderlineNav.Link selected leadingIcon={EyeIcon}>
+      <UnderlineNav.Link selected leadingIcon={EyeIcon} counter={6}>
         Issues
       </UnderlineNav.Link>
       <UnderlineNav.Link selected leadingIcon={GitPullRequestIcon}>
         Pull Requests
       </UnderlineNav.Link>
-      <UnderlineNav.Link selected leadingIcon={CommentDiscussionIcon}>
+      <UnderlineNav.Link selected leadingIcon={CommentDiscussionIcon} counter={7}>
         Discussions
       </UnderlineNav.Link>
       <UnderlineNav.Link selected leadingIcon={EyeIcon}>

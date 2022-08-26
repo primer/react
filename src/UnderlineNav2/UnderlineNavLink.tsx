@@ -81,16 +81,11 @@ export const UnderlineNavLink = forwardRef(
     const linkStyles = {
       display: 'inline-flex',
       color: 'fg.default',
-      textAlign: 'center',
       textDecoration: 'none',
       paddingX: 2,
       paddingY: 1,
       ...(variant === 'small' ? {fontSize: 0} : {fontSize: 1}),
-      '&:hover': {
-        backgroundColor: 'neutral.muted',
-        borderRadius: 2
-      },
-      '&:focus': {
+      '&:focus ': {
         outlineColor: 'fg.accent',
         borderRadius: 2,
         transition: '0.2s ease'
@@ -98,10 +93,18 @@ export const UnderlineNavLink = forwardRef(
     }
     // Styling the li list item
     const listItemStyles = {
+      textAlign: 'center',
       ...(variant === 'small' ? {paddingY: 1} : {paddingY: 2}),
       borderBottom: '2px solid transparent',
       borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
-      marginRight: 3
+      marginRight: 3,
+      '&:hover': {
+        cursor: 'pointer'
+      },
+      '&:hover > a': {
+        backgroundColor: 'neutral.muted',
+        borderRadius: 2
+      }
     }
     const counterStyles = {
       marginLeft: 2
@@ -130,16 +133,14 @@ export const UnderlineNavLink = forwardRef(
       [onSelect, afterSelect, ref, setSelectedLink]
     )
     return (
-      <Box as="li" sx={listItemStyles}>
+      <Box as="li" sx={listItemStyles} onKeyPress={keyPressHandler} onClick={clickHandler}>
         <Box
           as={Component}
           href={href}
-          onKeyPress={keyPressHandler}
-          onClick={clickHandler}
-          {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
           sx={merge(linkStyles, sxProp as SxProp)}
           {...props}
           ref={ref}
+          {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
         >
           {LeadingIcon && (
             <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
