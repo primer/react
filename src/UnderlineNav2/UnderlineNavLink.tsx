@@ -55,19 +55,28 @@ export const UnderlineNavLink = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = forwardedRef ?? backupRef
-    const {setChildrenWidth, selectedLink, setSelectedLink, afterSelect} = useContext(UnderlineNavContext)
+    const {setChildrenWidth, selectedLink, setSelectedLink, afterSelect, variant} = useContext(UnderlineNavContext)
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
       setChildrenWidth({width: domRect.width})
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
     }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
     const iconWrapStyles = {
-      display: 'inline-block',
-      marginRight: '8px'
+      alignItems: 'center',
+      display: 'inline-flex',
+      marginRight: 2
     }
 
     const textStyles: BetterSystemStyleObject = {
       whiteSpace: 'nowrap'
+    }
+    const smallVariantLinkStyles = {
+      paddingY: 2,
+      fontSize: 0
+    }
+    const defaultVariantLinkStyles = {
+      paddingY: 3,
+      fontSize: 1
     }
 
     const linkStyles = {
@@ -78,9 +87,8 @@ export const UnderlineNavLink = forwardRef(
       borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
       textDecoration: 'none',
       paddingX: 2,
-      paddingY: 3,
       marginRight: 3,
-      fontSize: 1,
+      ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
       '&:hover, &:focus': {
         borderColor: selectedLink === ref ? 'primer.border.active' : 'neutral.muted',
         transition: '0.2s ease'
