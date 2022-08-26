@@ -10,7 +10,7 @@ export function useStickyPaneHeight() {
 
   // Default the height to the viewport height
   const [height, setHeight] = React.useState('100vh')
-  const [offsetTop, setoffsetTop] = React.useState<number | string>(0)
+  const [offsetTop, setOffsetTop] = React.useState<number | string>(0)
 
   // Create intersection observers to track the top and bottom of the content region
   const [contentTopRef, contentTopInView, contentTopEntry] = useInView()
@@ -28,7 +28,8 @@ export function useStickyPaneHeight() {
 
     const topRect = contentTopEntry?.target.getBoundingClientRect()
     const bottomRect = contentBottomEntry?.target.getBoundingClientRect()
-    // custom sticky header's height with units
+    
+    // Custom sticky header's height with units
     const offsetTopWithUnits = typeof offsetTop === 'number' ? `${offsetTop}px` : offsetTop
 
     if (scrollContainer) {
@@ -92,7 +93,7 @@ export function useStickyPaneHeight() {
 
   function enableStickyPane(top: string | number) {
     setIsEnabled(true)
-    setoffsetTop(top)
+    setOffsetTop(top)
   }
 
   function disableStickyPane() {
