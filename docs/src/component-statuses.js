@@ -1,5 +1,5 @@
 import componentMetadata from '@primer/component-metadata'
-import {Link} from '@primer/react'
+import {Link, Label, Text} from '@primer/react'
 import StatusLabel from '@primer/gatsby-theme-doctocat/src/components/status-label'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import {graphql, Link as GatsbyLink, useStaticQuery} from 'gatsby'
@@ -16,6 +16,7 @@ export function ComponentStatuses() {
               title
               status
               description
+              accessible
               componentId
             }
           }
@@ -37,13 +38,14 @@ export function ComponentStatuses() {
           <tr>
             <th align="left">Component</th>
             <th align="left">Status</th>
+            <th align="left">Accessibility</th>
             <th align="left">Description</th>
           </tr>
         </thead>
         <tbody>
           {pages.map(page => {
             // eslint-disable-next-line prefer-const
-            let {title, status, description, componentId} = page.context.frontmatter
+            let {title, status, description, componentId, accessible} = page.context.frontmatter
 
             const component = componentMetadata.components[componentId]
 
@@ -60,8 +62,11 @@ export function ComponentStatuses() {
                     {title}
                   </Link>
                 </td>
-                <td valign="top">
+                <td align="center" valign="top">
                   <StatusLabel status={status} />
+                </td>
+                <td align="center" valign="top">
+                  {accessible ? <Label variant="accent">Reviewed</Label> : <Text sx={{color: 'fg.subtle'}}>-</Text>}
                 </td>
                 <td>{description}</td>
               </tr>
