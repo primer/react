@@ -801,8 +801,8 @@ export function WithinFocusZone(): JSX.Element {
         ArrowKeys)
       </p>
       <p>
-        TODO: Pressing Tab on an open menu should close the menu and put the focus on the next element instead of the
-        anchor.
+        Known bug: Pressing Tab on an open menu should close the menu and put the focus on the next element instead of
+        the anchor.
       </p>
       <AnchoredOverlay
         focusZoneSettings={{bindKeys: FocusKeys.Tab}}
