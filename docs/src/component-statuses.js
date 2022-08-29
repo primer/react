@@ -16,7 +16,7 @@ export function ComponentStatuses() {
               title
               status
               description
-              accessible
+              a11yReviewed
               componentId
             }
           }
@@ -45,7 +45,7 @@ export function ComponentStatuses() {
         <tbody>
           {pages.map(page => {
             // eslint-disable-next-line prefer-const
-            let {title, status, description, componentId, accessible} = page.context.frontmatter
+            let {title, status, description, componentId, a11yReviewed} = page.context.frontmatter
 
             const component = componentMetadata.components[componentId]
 
@@ -66,7 +66,7 @@ export function ComponentStatuses() {
                   <StatusLabel status={status} />
                 </td>
                 <td align="center" valign="top">
-                  {accessible ? <Label variant="accent">Reviewed</Label> : <Text sx={{color: 'fg.subtle'}}>-</Text>}
+                  {a11yReviewed ? <Label variant="accent">Reviewed</Label> : <Text sx={{color: 'fg.subtle'}}>-</Text>}
                 </td>
                 <td>{description}</td>
               </tr>
