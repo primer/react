@@ -36,6 +36,7 @@ import {
   IconProps,
   IssueOpenedIcon
 } from '@primer/octicons-react'
+import {FocusKeys} from '@primer/behaviors'
 
 const meta: Meta = {
   title: 'Composite components/ActionMenu/fixtures',
@@ -796,18 +797,15 @@ export function WithinFocusZone(): JSX.Element {
   return (
     <>
       <p>
-        In a focus zone, you can navigate between elements with ArrowKeys (not Tab), but, this should not interfere with
-        keyboard navigation for the menu once opened.
+        When ActionMenu is used in a form inside an AnchoredOverlay, it is recommended to use key bindings for Tabs (not
+        ArrowKeys)
       </p>
-      <p>There is overlap between the keyboard navigation of AnchoredOverlay and ActionMenu</p>
-      <ul>
-        <li>Pressing ArrowDown on menu button will not open the menu, but move focus to the next element</li>
-        <li>
-          Pressing Tab on an open menu will close the menu and put the focus back on the anchor instead of the next
-          element (because focus zone uses ArrowKeys for navigation, not Tab)
-        </li>
-      </ul>
+      <p>
+        TODO: Pressing Tab on an open menu should close the menu and put the focus on the next element instead of the
+        anchor.
+      </p>
       <AnchoredOverlay
+        focusZoneSettings={{bindKeys: FocusKeys.Tab}}
         renderAnchor={props => <Button {...props}>open overlay</Button>}
         width="medium"
         open={overlayOpen}
