@@ -81,7 +81,7 @@ export const UnderlineNavItem = forwardRef(
     const wrapperStyles = {
       display: 'inline-flex',
       paddingY: 1,
-      paddingX: 1
+      paddingX: 2
     }
     const smallVariantLinkStyles = {
       paddingY: 1,
@@ -105,7 +105,7 @@ export const UnderlineNavItem = forwardRef(
         borderRadius: 2
       },
       '&:focus': {
-        outlineColor: 'fg.accent',
+        outlineColor: 'accent.fg',
         borderRadius: 2,
         outlineOffset: '-6px',
         transition: '0.2s ease'
