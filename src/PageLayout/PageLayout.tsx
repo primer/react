@@ -361,7 +361,7 @@ export type PageLayoutPaneProps = {
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   sticky?: boolean
-  offsetTop?: string | number
+  offsetHeader?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
@@ -384,7 +384,7 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
   divider: responsiveDivider = 'none',
   dividerWhenNarrow = 'inherit',
   sticky = false,
-  offsetTop = 0,
+  offsetHeader = 0,
   hidden: responsiveHidden = false,
   children,
   sx = {}
@@ -411,11 +411,11 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
 
   React.useEffect(() => {
     if (sticky) {
-      enableStickyPane?.(offsetTop)
+      enableStickyPane?.(offsetHeader)
     } else {
       disableStickyPane?.()
     }
-  }, [sticky, enableStickyPane, disableStickyPane, offsetTop])
+  }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
 
   return (
     <Box
@@ -440,9 +440,9 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
               ...(sticky
                 ? {
                     position: 'sticky',
-                    // If offsetTop has value, it will stick the pane to the position where the sticky top ends
-                    // else top will be 0 as the default value of offsetTop
-                    top: typeof offsetTop === 'number' ? `${offsetTop}px` : offsetTop,
+                    // If offsetHeader has value, it will stick the pane to the position where the sticky top ends
+                    // else top will be 0 as the default value of offsetHeader
+                    top: typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
                     overflow: 'hidden',
                     maxHeight: 'var(--sticky-pane-height)'
                   }

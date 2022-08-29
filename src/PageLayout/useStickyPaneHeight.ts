@@ -10,7 +10,7 @@ export function useStickyPaneHeight() {
 
   // Default the height to the viewport height
   const [height, setHeight] = React.useState('100vh')
-  const [offsetTop, setOffsetTop] = React.useState<number | string>(0)
+  const [offsetHeader, setOffsetHeader] = React.useState<number | string>(0)
 
   // Create intersection observers to track the top and bottom of the content region
   const [contentTopRef, contentTopInView, contentTopEntry] = useInView()
@@ -28,9 +28,9 @@ export function useStickyPaneHeight() {
 
     const topRect = contentTopEntry?.target.getBoundingClientRect()
     const bottomRect = contentBottomEntry?.target.getBoundingClientRect()
-    
+
     // Custom sticky header's height with units
-    const offsetTopWithUnits = typeof offsetTop === 'number' ? `${offsetTop}px` : offsetTop
+    const offsetHeaderWithUnits = typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader
 
     if (scrollContainer) {
       const scrollRect = scrollContainer.getBoundingClientRect()
@@ -38,7 +38,7 @@ export function useStickyPaneHeight() {
       const topOffset = topRect ? Math.max(topRect.top - scrollRect.top, 0) : 0
       const bottomOffset = bottomRect ? Math.max(scrollRect.bottom - bottomRect.bottom, 0) : 0
 
-      calculatedHeight = `calc(${scrollRect.height}px - (max(${topOffset}px, ${offsetTopWithUnits}) + ${bottomOffset}px))`
+      calculatedHeight = `calc(${scrollRect.height}px - (max(${topOffset}px, ${offsetHeaderWithUnits}) + ${bottomOffset}px))`
     } else {
       const topOffset = topRect ? Math.max(topRect.top, 0) : 0
       const bottomOffset = bottomRect ? Math.max(window.innerHeight - bottomRect.bottom, 0) : 0
@@ -47,11 +47,11 @@ export function useStickyPaneHeight() {
       // We need to account for this when calculating the offset.
       const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
 
-      calculatedHeight = `calc(100vh - (max(${topOffset}px, ${offsetTopWithUnits}) + ${bottomOffset}px - ${overflowScroll}px))`
+      calculatedHeight = `calc(100vh - (max(${topOffset}px, ${offsetHeaderWithUnits}) + ${bottomOffset}px - ${overflowScroll}px))`
     }
 
     setHeight(calculatedHeight)
-  }, [contentTopEntry, contentBottomEntry, offsetTop])
+  }, [contentTopEntry, contentBottomEntry, offsetHeader])
 
   // We only want to add scroll and resize listeners if the pane is sticky.
   // Since hooks can't be called conditionally, we need to use state to track
@@ -93,7 +93,7 @@ export function useStickyPaneHeight() {
 
   function enableStickyPane(top: string | number) {
     setIsEnabled(true)
-    setOffsetTop(top)
+    setOffsetHeader(top)
   }
 
   function disableStickyPane() {
