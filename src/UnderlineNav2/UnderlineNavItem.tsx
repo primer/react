@@ -81,7 +81,8 @@ export const UnderlineNavItem = forwardRef(
     const wrapperStyles = {
       display: 'inline-flex',
       paddingY: 1,
-      paddingX: 2
+      paddingX: 2,
+      borderRadius: 2
     }
     const smallVariantLinkStyles = {
       paddingY: 1,
@@ -101,8 +102,7 @@ export const UnderlineNavItem = forwardRef(
       marginRight: 3,
       ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
       '&:hover > div[data-component="wrapper"] ': {
-        backgroundColor: 'neutral.muted',
-        borderRadius: 2
+        backgroundColor: 'neutral.muted'
       },
       '&:focus': {
         outlineColor: 'accent.fg',
