@@ -1,6 +1,6 @@
 import {Meta} from '@storybook/react'
 import {StickyPane, CustomStickyHeader} from './PageLayout.stories'
-import {within, fireEvent} from '@storybook/testing-library'
+import {within} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
 
 const meta: Meta = {
@@ -413,10 +413,6 @@ CustomStickyHeader.play = async ({canvasElement}: {canvasElement: HTMLElement}) 
   const canvas = within(canvasElement)
   const contentToScroll = await canvas.getByTestId('content3')
   contentToScroll.scrollIntoView()
-
-  // fireEvent alternative?
-  const storyWindow = await canvas.getByTestId('story-window')
-  await fireEvent.scroll(storyWindow, {top: 600})
 
   const stickyPaneFirstParagraph = await canvas.getByTestId('paragraph0')
   const paragraphBoundaries = stickyPaneFirstParagraph.getBoundingClientRect()
