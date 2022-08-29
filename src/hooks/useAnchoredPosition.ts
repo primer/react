@@ -31,28 +31,20 @@ export function useAnchoredPosition(
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  const [anchorOutsideWindow, setAnchorOutOfWindow] = React.useState(false)
+  const [isAnchorOutsideClippingRect, setAnchorOutsideClippingRect] = React.useState(false)
 
   const updatePosition = React.useCallback(
     () => {
-      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const anchoredPositionSettings = {
-          ...settings,
-          // if the anchor is out of window, force-allow the floatingElement to follow it outside the window
-          allowOutOfBounds: anchorOutsideWindow ? true : settings?.allowOutOfBounds,
-          // when the anchor moves out of the window, the floatingElement might still be inside
-          // we don't want to the floatingElement to change to the other side once allowOutOfBounds toggles
-          // so we "maintain" the value of side till the anchor comes back inside window
-          // see https://github.com/primer/react/pull/2200 for visuals
-          side: anchorOutsideWindow ? position?.anchorSide : settings?.side
-        }
-        setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, anchoredPositionSettings))
+      if (isAnchorOutsideClippingRect) {
+        setPosition(undefined)
+      } else if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+        setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
       } else {
         setPosition(undefined)
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [floatingElementRef, anchorElementRef, anchorOutsideWindow, ...dependencies]
+    [floatingElementRef, anchorElementRef, isAnchorOutsideClippingRect, ...dependencies]
   )
 
   useLayoutEffect(updatePosition, [updatePosition])
@@ -63,8 +55,12 @@ export function useAnchoredPosition(
   React.useEffect(
     function observeAnchorPosition() {
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const rectObserver = observeRect(anchorElementRef.current, rect => {
-          setAnchorOutOfWindow(rect.top > window.innerHeight || rect.bottom < 0)
+        const rectObserver = observeRect(anchorElementRef.current, anchorRect => {
+          if (anchorElementRef.current instanceof Element) {
+            const clippingRect = getClippingDOMRect(anchorElementRef.current)
+            console.log(anchorRect.top, clippingRect.bottom)
+            setAnchorOutsideClippingRect(anchorRect.top > clippingRect.bottom || anchorRect.bottom < clippingRect.top)
+          }
           updatePosition()
         })
         rectObserver.observe()
@@ -79,4 +75,28 @@ export function useAnchoredPosition(
     anchorElementRef,
     position
   }
+}
+
+/**
+ * Based on primer/behaviors: https://github.com/primer/behaviors/blob/main/src/anchored-position.ts#L188
+ *
+ * Returns the rectangle (relative to the window) that will clip the given element
+ * if it is rendered outside of its bounds.
+ */
+function getClippingDOMRect(element: Element): DOMRect {
+  let parentNode: typeof element.parentNode = element
+  while (parentNode !== null) {
+    if (parentNode === document.body) {
+      break
+    }
+    const parentNodeStyle = getComputedStyle(parentNode as Element)
+    if (parentNodeStyle.overflow !== 'visible') {
+      break
+    }
+    parentNode = parentNode.parentNode
+  }
+  const clippingNode = parentNode === document.body || !(parentNode instanceof HTMLElement) ? document.body : parentNode
+  console.log(clippingNode)
+
+  return clippingNode.getBoundingClientRect()
 }

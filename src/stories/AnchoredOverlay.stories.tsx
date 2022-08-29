@@ -122,8 +122,9 @@ export function ScrollTest(): JSX.Element {
 
   return (
     <>
-      <div style={{overflow: 'scroll', height: '400px', background: 'lightgray'}}>
-        <div style={{padding: '40px', paddingTop: '800px', paddingBottom: '800px'}}>
+      <div style={{overflowY: 'scroll', height: '400px', background: 'lightgray'}}>
+        <div style={{height: '800px', paddingLeft: '40px'}}>
+          <div style={{marginBottom: '800px'}}></div>
           <AnchoredOverlay
             renderAnchor={anchorProps => <Button {...anchorProps}>Click me to open</Button>}
             open={isOpen}
