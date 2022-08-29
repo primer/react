@@ -1,6 +1,5 @@
 import {render as HTMLRender, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'

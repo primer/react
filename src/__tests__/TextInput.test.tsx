@@ -3,7 +3,6 @@ import {TextInput} from '..'
 import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-
 import {SearchIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 

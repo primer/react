@@ -3,7 +3,6 @@ import {SelectMenu, Button} from '../deprecated'
 import {mount, render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-
 import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../deprecated/SelectMenu'
 expect.extend(toHaveNoViolations)
 

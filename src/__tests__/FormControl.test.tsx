@@ -1,7 +1,6 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-
 import {Autocomplete, Checkbox, FormControl, Select, SSRProvider, Textarea, TextInput, TextInputWithTokens} from '..'
 import {MarkGithubIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
