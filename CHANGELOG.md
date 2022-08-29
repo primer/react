@@ -1,5 +1,25 @@
 # @primer/components
 
+## 35.8.0
+
+### Minor Changes
+
+- [#2259](https://github.com/primer/react/pull/2259) [`0383f1ae`](https://github.com/primer/react/commit/0383f1ae57209b3efa68efe494b18d3045a4e92f) Thanks [@joshblack](https://github.com/joshblack)! - Add support for `'dark'` and `'light'` in `colorMode` for ThemeProvider
+
+* [#2138](https://github.com/primer/react/pull/2138) [`ace38afb`](https://github.com/primer/react/commit/ace38afb0f469f93fbfea0df488e688005609a62) Thanks [@bolonio](https://github.com/bolonio)! - Accessibility fixes for SelectPanel.
+
+### Patch Changes
+
+- [#2260](https://github.com/primer/react/pull/2260) [`88b8c0e7`](https://github.com/primer/react/commit/88b8c0e7a9a4b8f37d85f5ac6c3902d1cf1f476a) Thanks [@iansan5653](https://github.com/iansan5653)! - Add hooks in `drafts/hooks` to `@primer/react/drafts` exports
+
+* [#2225](https://github.com/primer/react/pull/2225) [`2c9bd012`](https://github.com/primer/react/commit/2c9bd0121340f017d5d0df96007de8ac42ef0023) Thanks [@pksjce](https://github.com/pksjce)! - Add small variant to underline nav
+
+- [#2236](https://github.com/primer/react/pull/2236) [`8cc0efef`](https://github.com/primer/react/commit/8cc0efefa59143a6b18092d2035f6213294a4e30) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `MarkdownViewer` doc examples, add <kbd>Cmd/Ctrl+Shift+P</kbd> shortcut for toggling `MarkdownEditor` view mode, and strictly limit the type of the `ref` passed to `MarkdownEditor`.
+
+* [#2242](https://github.com/primer/react/pull/2242) [`d46ae9f3`](https://github.com/primer/react/commit/d46ae9f30fcb9a4432a043f720c811e4318a5f41) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Remove z-index assignment that used to be necessary for the dropdown children of FilteredSearch
+
+- [#2188](https://github.com/primer/react/pull/2188) [`8fc2e422`](https://github.com/primer/react/commit/8fc2e422d36c2be0ce66b7fd6d144788bccabfbb) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Support React.ReactNode as child type in ActionMenu.Overlay
+
 ## 35.7.0
 
 ### Minor Changes
