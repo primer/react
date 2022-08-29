@@ -5,6 +5,7 @@ import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useSSRSafeId} from '@react-aria/ssr'
 import type {PositionSettings} from '@primer/behaviors'
+import observeRect from '@reach/observe-rect'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -60,7 +61,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'scroll-outside') => unknown
 
   /**
    * Props to be spread on the internal `Overlay` component.
@@ -158,6 +159,26 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   })
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
+  // when anchor goes outside of clipping rect, close the overlay
+  React.useEffect(
+    function observeAnchorPosition() {
+      if (overlayRef.current instanceof Element && anchorRef.current instanceof Element) {
+        const rectObserver = observeRect(anchorRef.current, anchorRect => {
+          if (anchorRef.current instanceof Element) {
+            const clippingRect = getClippingDOMRect(anchorRef.current)
+            const isAnchorOutsideClippingRect =
+              anchorRect.top > clippingRect.bottom || anchorRect.bottom < clippingRect.top
+
+            if (isAnchorOutsideClippingRect) onClose?.('scroll-outside')
+          }
+        })
+        rectObserver.observe()
+        return () => rectObserver.unobserve()
+      }
+    },
+    [anchorRef, overlayRef, onClose]
+  )
+
   return (
     <>
       {renderAnchor &&
@@ -198,4 +219,27 @@ AnchoredOverlay.displayName = 'AnchoredOverlay'
 AnchoredOverlay.defaultProps = {
   side: 'outside-bottom',
   align: 'start'
+}
+
+/**
+ * Based on primer/behaviors: https://github.com/primer/behaviors/blob/main/src/anchored-position.ts#L188
+ *
+ * Returns the rectangle (relative to the window) that will clip the given element
+ * if it is rendered outside of its bounds.
+ */
+function getClippingDOMRect(element: Element): DOMRect {
+  let parentNode: typeof element.parentNode = element
+  while (parentNode !== null) {
+    if (parentNode === document.body) {
+      break
+    }
+    const parentNodeStyle = getComputedStyle(parentNode as Element)
+    if (parentNodeStyle.overflow !== 'visible') {
+      break
+    }
+    parentNode = parentNode.parentNode
+  }
+  const clippingNode = parentNode === document.body || !(parentNode instanceof HTMLElement) ? document.body : parentNode
+
+  return clippingNode.getBoundingClientRect()
 }

@@ -31,20 +31,17 @@ export function useAnchoredPosition(
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
-  const [isAnchorOutsideClippingRect, setAnchorOutsideClippingRect] = React.useState(false)
 
   const updatePosition = React.useCallback(
     () => {
-      if (isAnchorOutsideClippingRect) {
-        setPosition(undefined)
-      } else if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
+      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
         setPosition(getAnchoredPosition(floatingElementRef.current, anchorElementRef.current, settings))
       } else {
         setPosition(undefined)
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [floatingElementRef, anchorElementRef, isAnchorOutsideClippingRect, ...dependencies]
+    [floatingElementRef, anchorElementRef, ...dependencies]
   )
 
   useLayoutEffect(updatePosition, [updatePosition])
@@ -55,11 +52,7 @@ export function useAnchoredPosition(
   React.useEffect(
     function observeAnchorPosition() {
       if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const rectObserver = observeRect(anchorElementRef.current, anchorRect => {
-          if (anchorElementRef.current instanceof Element) {
-            const clippingRect = getClippingDOMRect(anchorElementRef.current)
-            setAnchorOutsideClippingRect(anchorRect.top > clippingRect.bottom || anchorRect.bottom < clippingRect.top)
-          }
+        const rectObserver = observeRect(anchorElementRef.current, () => {
           updatePosition()
         })
         rectObserver.observe()
@@ -74,27 +67,4 @@ export function useAnchoredPosition(
     anchorElementRef,
     position
   }
-}
-
-/**
- * Based on primer/behaviors: https://github.com/primer/behaviors/blob/main/src/anchored-position.ts#L188
- *
- * Returns the rectangle (relative to the window) that will clip the given element
- * if it is rendered outside of its bounds.
- */
-function getClippingDOMRect(element: Element): DOMRect {
-  let parentNode: typeof element.parentNode = element
-  while (parentNode !== null) {
-    if (parentNode === document.body) {
-      break
-    }
-    const parentNodeStyle = getComputedStyle(parentNode as Element)
-    if (parentNodeStyle.overflow !== 'visible') {
-      break
-    }
-    parentNode = parentNode.parentNode
-  }
-  const clippingNode = parentNode === document.body || !(parentNode instanceof HTMLElement) ? document.body : parentNode
-
-  return clippingNode.getBoundingClientRect()
 }
