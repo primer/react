@@ -106,7 +106,7 @@ export const UnderlineNavItem = forwardRef(
       },
       '&:focus': {
         outlineColor: 'accent.fg',
-        borderRadius: 2,
+        borderRadius: '12px',
         outlineOffset: '-6px',
         transition: '0.2s ease'
       }
