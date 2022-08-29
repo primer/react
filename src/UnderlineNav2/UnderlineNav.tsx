@@ -96,7 +96,8 @@ export const UnderlineNav = forwardRef(
       listStyle: 'none',
       padding: '0',
       margin: '0',
-      marginBottom: '-1px'
+      marginBottom: '-1px',
+      alignItems: 'center'
     }
 
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)

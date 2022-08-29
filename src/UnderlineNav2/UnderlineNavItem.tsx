@@ -68,7 +68,6 @@ export const UnderlineNavItem = forwardRef(
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
     }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
 
-    // Styles
     const iconWrapStyles = {
       alignItems: 'center',
       display: 'inline-flex',
@@ -83,17 +82,6 @@ export const UnderlineNavItem = forwardRef(
       display: 'inline-flex',
       paddingY: 1,
       paddingX: 1
-      // '&:before': {
-      //   content: '""',
-      //   position: 'absolute',
-      //   left: '-10px',
-      //   top: '-20px',
-      //   bottom: '-40px',
-      //   right: '-5px',
-      //   border: '2px solid',
-      //   borderRightWidth: '4px',
-      //   borderLeftWidth: '5px'
-      // }
     }
     const smallVariantLinkStyles = {
       paddingY: 1,
@@ -108,8 +96,6 @@ export const UnderlineNavItem = forwardRef(
       display: 'inline-flex',
       color: 'fg.default',
       textAlign: 'center',
-      borderBottom: '2px solid transparent',
-      borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
       textDecoration: 'none',
       paddingX: 1,
       marginRight: 3,
@@ -124,6 +110,17 @@ export const UnderlineNavItem = forwardRef(
         outlineOffset: '-6px',
         transition: '0.2s ease'
       }
+    }
+
+    const borderStyles = {
+      // How to use primer primitives for space 3?
+      width: `calc(100% - 16px)`,
+      height: 2,
+      backgroundColor: 'primer.border.active'
+    }
+
+    const counterStyles = {
+      marginLeft: 2
     }
     const keyPressHandler = React.useCallback(
       event => {
@@ -149,7 +146,7 @@ export const UnderlineNavItem = forwardRef(
       [onSelect, afterSelect, ref, setSelectedLink]
     )
     return (
-      <Box as="li">
+      <Box as="li" sx={{display: 'grid'}}>
         <Box
           as={Component}
           href={href}
@@ -172,12 +169,13 @@ export const UnderlineNavItem = forwardRef(
               </Box>
             )}
             {counter && (
-              <Box as="span" data-component="counter">
+              <Box as="span" data-component="counter" sx={counterStyles}>
                 <CounterLabel>{counter}</CounterLabel>
               </Box>
             )}
           </Box>
         </Box>
+        {selectedLink === ref && <Box as="span" sx={borderStyles}></Box>}
       </Box>
     )
   }
