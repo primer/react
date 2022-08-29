@@ -1,7 +1,7 @@
 import React from 'react'
 import {UnderlineNav} from '..'
 import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
@@ -17,7 +17,6 @@ describe('UnderlineNav', () => {
     const {container} = HTMLRender(<UnderlineNav />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders a <nav>', () => {

@@ -2,7 +2,7 @@ import React from 'react'
 import theme from '../theme'
 import {BorderBox} from '../deprecated'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
@@ -18,7 +18,6 @@ describe('BorderBox', () => {
     const {container} = HTMLRender(<BorderBox />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders borders', () => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import {TabNav} from '..'
 import {mount, behavesAsComponent, checkExports} from '../utils/testing'
-import {fireEvent, render as HTMLRender, cleanup} from '@testing-library/react'
+import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
@@ -41,7 +41,6 @@ describe('TabNav', () => {
     const {container} = HTMLRender(<TabNav aria-label="main" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('sets aria-label appropriately', () => {

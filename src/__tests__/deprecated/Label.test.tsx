@@ -1,7 +1,7 @@
 import React from 'react'
 import Label from '../../deprecated/Label'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
@@ -21,7 +21,6 @@ describe('Label', () => {
     const {container} = HTMLRender(<Label>hello</Label>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('respects the "outline" prop', () => {

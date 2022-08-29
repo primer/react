@@ -1,7 +1,7 @@
 import React from 'react'
 import {IconButton, Button} from '../Button'
 import {behavesAsComponent} from '../utils/testing'
-import {render, cleanup, fireEvent} from '@testing-library/react'
+import {render, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 import {SearchIcon} from '@primer/octicons-react'
@@ -20,7 +20,6 @@ describe('Button', () => {
     const {container} = render(<Button>Click here</Button>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('preserves "onClick" prop', () => {

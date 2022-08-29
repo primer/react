@@ -2,7 +2,7 @@ import React from 'react'
 import {Pagehead} from '..'
 import theme from '../theme'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
@@ -18,6 +18,5 @@ describe('Pagehead', () => {
     const {container} = HTMLRender(<Pagehead theme={theme}>Pagehead</Pagehead>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })

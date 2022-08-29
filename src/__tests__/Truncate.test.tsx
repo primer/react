@@ -1,7 +1,7 @@
 import React from 'react'
 import {Truncate} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
@@ -24,7 +24,6 @@ describe('Truncate', () => {
     const {container} = HTMLRender(<Truncate title="a-long-branch-name">a-long-branch-name</Truncate>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('respects the maxWidth prop', () => {

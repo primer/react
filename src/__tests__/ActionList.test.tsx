@@ -1,4 +1,4 @@
-import {cleanup, render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
@@ -68,7 +68,6 @@ describe('ActionList', () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('should fire onSelect on click and keypress', async () => {
@@ -94,8 +93,6 @@ describe('ActionList', () => {
 
     expect(options[0]).toHaveAttribute('aria-selected', 'false')
     expect(options[1]).toHaveAttribute('aria-selected', 'true')
-
-    cleanup()
   })
 
   it('should skip onSelect on disabled items', async () => {
@@ -114,8 +111,6 @@ describe('ActionList', () => {
 
     expect(options[0]).toHaveAttribute('aria-selected', 'true')
     expect(options[2]).toHaveAttribute('aria-selected', 'false')
-
-    cleanup()
   })
 
   it('should throw when selected is provided without a selectionVariant on parent', async () => {
@@ -132,7 +127,6 @@ describe('ActionList', () => {
       )
     }).toThrow('For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined')
 
-    cleanup()
     mockError.mockRestore()
   })
 
@@ -148,8 +142,6 @@ describe('ActionList', () => {
     fireEvent.click(option)
     fireEvent.keyPress(option, {key: 'Enter', charCode: 13})
     expect(option).toBeInTheDocument()
-
-    cleanup()
   })
 
   checkStoriesForAxeViolations('ActionList/fixtures')

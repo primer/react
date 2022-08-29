@@ -1,7 +1,7 @@
 import React from 'react'
 import Tooltip, {TooltipProps} from '../Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
@@ -17,7 +17,6 @@ describe('Tooltip', () => {
     const {container} = HTMLRender(<Tooltip text="hi" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders a <span> with the "tooltipped" class', () => {

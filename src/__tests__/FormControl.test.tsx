@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, cleanup} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 import {Autocomplete, Checkbox, FormControl, Select, SSRProvider, Textarea, TextInput, TextInputWithTokens} from '..'
@@ -336,7 +336,6 @@ describe('FormControl', () => {
       )
       const results = await axe(container)
       expect(results).toHaveNoViolations()
-      cleanup()
     })
   })
 

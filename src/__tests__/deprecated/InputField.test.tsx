@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, cleanup} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 import {Autocomplete, SSRProvider, TextInput, TextInputWithTokens} from '../../'
@@ -232,6 +232,5 @@ describe('InputField', () => {
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })

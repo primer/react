@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectMenu, Button} from '../deprecated'
 import {mount, render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../deprecated/SelectMenu'
@@ -88,7 +88,6 @@ describe('SelectMenu', () => {
     const {container} = HTMLRender(<BasicSelectMenu />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('does not allow the "as" prop on SelectMenu', () => {

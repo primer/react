@@ -1,4 +1,4 @@
-import {cleanup, render as HTMLRender, act, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
 
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
@@ -58,7 +58,6 @@ describe('DropdownMenu', () => {
     const {container} = HTMLRender(<SimpleDropdownMenu />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('should trigger the overlay on trigger click', async () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, cleanup} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 import Label, {variants, LabelColorOptions} from '../Label'
@@ -34,7 +34,6 @@ describe('Label', () => {
       const {container} = render(<Label variant={variant as LabelColorOptions}>Default</Label>)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
-      cleanup()
     }
   })
 })

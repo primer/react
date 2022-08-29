@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, cleanup} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 import {Checkbox, Radio, SSRProvider} from '../../'
@@ -12,7 +12,6 @@ const CHECKBOXINPUTFIELD_CAPTION_TEXT = 'Hint: a cool option'
 
 describe('ChoiceInputField', () => {
   afterEach(() => {
-    cleanup()
     jest.clearAllMocks()
   })
 

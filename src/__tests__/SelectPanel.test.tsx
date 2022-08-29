@@ -1,4 +1,4 @@
-import {cleanup, render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
@@ -59,6 +59,5 @@ describe('SelectPanel', () => {
     const {container} = HTMLRender(<SimpleSelectPanel />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })
