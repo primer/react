@@ -4,7 +4,6 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render, cleanup, fireEvent} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
 import 'babel-polyfill'
-import '@testing-library/jest-dom'
 
 expect.extend(toHaveNoViolations)
 

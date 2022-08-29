@@ -7,7 +7,6 @@ import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {SingleSelection, MixedSelection} from '../stories/ActionMenu/examples.stories'
-import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {

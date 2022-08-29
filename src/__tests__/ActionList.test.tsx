@@ -6,7 +6,6 @@ import theme from '../theme'
 import {ActionList} from '../ActionList'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
-import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
 function SimpleActionList(): JSX.Element {
