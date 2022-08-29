@@ -58,7 +58,6 @@ export function useAnchoredPosition(
         const rectObserver = observeRect(anchorElementRef.current, anchorRect => {
           if (anchorElementRef.current instanceof Element) {
             const clippingRect = getClippingDOMRect(anchorElementRef.current)
-            console.log(anchorRect.top, clippingRect.bottom)
             setAnchorOutsideClippingRect(anchorRect.top > clippingRect.bottom || anchorRect.bottom < clippingRect.top)
           }
           updatePosition()
@@ -96,7 +95,6 @@ function getClippingDOMRect(element: Element): DOMRect {
     parentNode = parentNode.parentNode
   }
   const clippingNode = parentNode === document.body || !(parentNode instanceof HTMLElement) ? document.body : parentNode
-  console.log(clippingNode)
 
   return clippingNode.getBoundingClientRect()
 }
