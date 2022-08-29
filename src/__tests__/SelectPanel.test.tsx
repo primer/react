@@ -23,7 +23,8 @@ function SimpleSelectPanel(): JSX.Element {
         <BaseStyles>
           <SelectPanel
             items={items}
-            placeholder="Select Items"
+            title="Select Items"
+            inputLabel="Select Items"
             placeholderText="Filter Items"
             selected={selected}
             onSelectedChange={setSelected}

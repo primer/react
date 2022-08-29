@@ -6,7 +6,7 @@ import {Header, HeaderProps} from './Header'
 /**
  * Contract for props passed to the `Group` component.
  */
-export interface GroupProps extends React.ComponentPropsWithoutRef<'div'>, SxProp {
+export interface GroupProps extends React.ComponentPropsWithoutRef<'ul'>, SxProp {
   /**
    * Props for a `Header` to render in the `Group`.
    */
@@ -28,8 +28,10 @@ export interface GroupProps extends React.ComponentPropsWithoutRef<'div'>, SxPro
   showItemDividers?: boolean
 }
 
-const StyledGroup = styled.div`
+const StyledGroup = styled.ul`
   ${sx}
+  list-style: none;
+  padding-inline-start: 0;
 `
 
 /**
@@ -37,9 +39,11 @@ const StyledGroup = styled.div`
  */
 export function Group({header, items, ...props}: GroupProps): JSX.Element {
   return (
-    <StyledGroup {...props}>
-      {header && <Header {...header} />}
-      {items}
-    </StyledGroup>
+    <li role="presentation">
+      <StyledGroup role="group" {...props}>
+        {header && <Header {...header} />}
+        {items}
+      </StyledGroup>
+    </li>
   )
 }
