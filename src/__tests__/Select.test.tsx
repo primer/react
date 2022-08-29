@@ -2,7 +2,6 @@ import React from 'react'
 import {Select} from '..'
 import {render} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 
 expect.extend(toHaveNoViolations)
 

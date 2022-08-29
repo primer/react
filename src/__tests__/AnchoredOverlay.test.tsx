@@ -3,7 +3,7 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 import {SSRProvider} from '../index'
 import {Button} from '../deprecated'
 import theme from '../theme'

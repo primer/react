@@ -3,7 +3,7 @@ import {IconButton, Button} from '../Button'
 import {behavesAsComponent} from '../utils/testing'
 import {render, cleanup, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 import {SearchIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 

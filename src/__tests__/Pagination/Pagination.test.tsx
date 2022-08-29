@@ -3,7 +3,7 @@ import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 const reqProps = {pageCount: 10, currentPage: 1}

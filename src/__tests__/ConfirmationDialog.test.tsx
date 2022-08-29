@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import {render as HTMLRender, cleanup, act, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'

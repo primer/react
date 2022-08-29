@@ -1,5 +1,5 @@
 import {cleanup, render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
-import 'babel-polyfill'
+
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'

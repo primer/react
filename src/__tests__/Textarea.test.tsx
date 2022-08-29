@@ -3,7 +3,7 @@ import {Textarea} from '..'
 import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {render, cleanup} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 import userEvent from '@testing-library/user-event'
 import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
 

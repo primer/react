@@ -1,7 +1,7 @@
 import React from 'react'
 import {render, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 import Label, {variants, LabelColorOptions} from '../Label'
 import {renderStyles} from '../utils/testing'
 expect.extend(toHaveNoViolations)

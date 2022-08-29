@@ -2,7 +2,7 @@ import React from 'react'
 import {render} from '../utils/testing'
 import {render as HTMLRender, fireEvent, act, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken} from '../Token'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'

@@ -4,7 +4,7 @@ import {mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {fireEvent, render as HTMLRender, cleanup} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 import {Button} from '../Button'
 import Box from '../Box'
 expect.extend(toHaveNoViolations)

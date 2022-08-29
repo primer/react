@@ -4,7 +4,7 @@ import {CheckIcon} from '@primer/octicons-react'
 import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, cleanup} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 const imgInput = <img alt="" src="primer.jpg" />
