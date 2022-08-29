@@ -19,7 +19,7 @@ type LinkProps = {
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
 }
 
-export type UnderlineNavLinkProps = {
+export type UnderlineNavItemProps = {
   /**
    * Primary content for an NavLink
    */
@@ -44,7 +44,7 @@ export type UnderlineNavLinkProps = {
 } & SxProp &
   LinkProps
 
-export const UnderlineNavLink = forwardRef(
+export const UnderlineNavItem = forwardRef(
   (
     {
       sx: sxProp = {},
@@ -67,6 +67,8 @@ export const UnderlineNavLink = forwardRef(
       setChildrenWidth({width: domRect.width})
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
     }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
+
+    // Styles
     const iconWrapStyles = {
       alignItems: 'center',
       display: 'inline-flex',
@@ -77,37 +79,51 @@ export const UnderlineNavLink = forwardRef(
       whiteSpace: 'nowrap'
     }
 
-    // Styling the anchor tag
+    const wrapperStyles = {
+      display: 'inline-flex',
+      paddingY: 1,
+      paddingX: 1
+      // '&:before': {
+      //   content: '""',
+      //   position: 'absolute',
+      //   left: '-10px',
+      //   top: '-20px',
+      //   bottom: '-40px',
+      //   right: '-5px',
+      //   border: '2px solid',
+      //   borderRightWidth: '4px',
+      //   borderLeftWidth: '5px'
+      // }
+    }
+    const smallVariantLinkStyles = {
+      paddingY: 1,
+      fontSize: 0
+    }
+    const defaultVariantLinkStyles = {
+      paddingY: 2,
+      fontSize: 1
+    }
+
     const linkStyles = {
       display: 'inline-flex',
       color: 'fg.default',
-      textDecoration: 'none',
-      paddingX: 2,
-      paddingY: 1,
-      ...(variant === 'small' ? {fontSize: 0} : {fontSize: 1}),
-      '&:focus ': {
-        outlineColor: 'fg.accent',
-        borderRadius: 2,
-        transition: '0.2s ease'
-      }
-    }
-    // Styling the li list item
-    const listItemStyles = {
       textAlign: 'center',
-      ...(variant === 'small' ? {paddingY: 1} : {paddingY: 2}),
       borderBottom: '2px solid transparent',
       borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
+      textDecoration: 'none',
+      paddingX: 1,
       marginRight: 3,
-      '&:hover': {
-        cursor: 'pointer'
-      },
-      '&:hover > a': {
+      ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
+      '&:hover > div[data-component="wrapper"] ': {
         backgroundColor: 'neutral.muted',
         borderRadius: 2
+      },
+      '&:focus': {
+        outlineColor: 'fg.accent',
+        borderRadius: 2,
+        outlineOffset: '-6px',
+        transition: '0.2s ease'
       }
-    }
-    const counterStyles = {
-      marginLeft: 2
     }
     const keyPressHandler = React.useCallback(
       event => {
@@ -133,33 +149,36 @@ export const UnderlineNavLink = forwardRef(
       [onSelect, afterSelect, ref, setSelectedLink]
     )
     return (
-      <Box as="li" sx={listItemStyles} onKeyPress={keyPressHandler} onClick={clickHandler}>
+      <Box as="li">
         <Box
           as={Component}
           href={href}
+          onKeyPress={keyPressHandler}
+          onClick={clickHandler}
+          {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
           sx={merge(linkStyles, sxProp as SxProp)}
           {...props}
           ref={ref}
-          {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
         >
-          {LeadingIcon && (
-            <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
-              <LeadingIcon />
-            </Box>
-          )}
-
-          {children && (
-            <Box as="span" data-component="text" sx={textStyles}>
-              {children}
-            </Box>
-          )}
-          {counter && (
-            <Box as="span" data-component="counter" sx={counterStyles}>
-              <CounterLabel>{counter}</CounterLabel>
-            </Box>
-          )}
+          <Box as="div" data-component="wrapper" sx={wrapperStyles}>
+            {LeadingIcon && (
+              <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
+                <LeadingIcon />
+              </Box>
+            )}
+            {children && (
+              <Box as="span" data-component="text" sx={textStyles}>
+                {children}
+              </Box>
+            )}
+            {counter && (
+              <Box as="span" data-component="counter">
+                <CounterLabel>{counter}</CounterLabel>
+              </Box>
+            )}
+          </Box>
         </Box>
       </Box>
     )
   }
-) as PolymorphicForwardRefComponent<'a', UnderlineNavLinkProps>
+) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>

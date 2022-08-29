@@ -38,9 +38,9 @@ export default {
 export const DefaultNav = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-      <UnderlineNav.Link>Item 2</UnderlineNav.Link>
-      <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+      <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+      <UnderlineNav.Item>Item 2</UnderlineNav.Item>
+      <UnderlineNav.Item>Item 3</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -48,21 +48,21 @@ export const DefaultNav = (args: UnderlineNavProps) => {
 export const withIcons = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Link selected leadingIcon={CodeIcon}>
+      <UnderlineNav.Item selected leadingIcon={CodeIcon}>
         Code
-      </UnderlineNav.Link>
-      <UnderlineNav.Link selected leadingIcon={EyeIcon} counter={6}>
+      </UnderlineNav.Item>
+      <UnderlineNav.Item selected leadingIcon={EyeIcon} counter={6}>
         Issues
-      </UnderlineNav.Link>
-      <UnderlineNav.Link selected leadingIcon={GitPullRequestIcon}>
+      </UnderlineNav.Item>
+      <UnderlineNav.Item selected leadingIcon={GitPullRequestIcon}>
         Pull Requests
-      </UnderlineNav.Link>
-      <UnderlineNav.Link selected leadingIcon={CommentDiscussionIcon} counter={7}>
+      </UnderlineNav.Item>
+      <UnderlineNav.Item selected leadingIcon={CommentDiscussionIcon} counter={7}>
         Discussions
-      </UnderlineNav.Link>
-      <UnderlineNav.Link selected leadingIcon={EyeIcon}>
+      </UnderlineNav.Item>
+      <UnderlineNav.Item selected leadingIcon={EyeIcon}>
         Item 1
-      </UnderlineNav.Link>
+      </UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -70,12 +70,12 @@ export const withIcons = (args: UnderlineNavProps) => {
 export const withCounterLabels = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Link selected leadingIcon={CodeIcon}>
+      <UnderlineNav.Item selected leadingIcon={CodeIcon}>
         Code
-      </UnderlineNav.Link>
-      <UnderlineNav.Link leadingIcon={IssueOpenedIcon} counter={12}>
+      </UnderlineNav.Item>
+      <UnderlineNav.Item leadingIcon={IssueOpenedIcon} counter={12}>
         Issues
-      </UnderlineNav.Link>
+      </UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -83,9 +83,9 @@ export const withCounterLabels = (args: UnderlineNavProps) => {
 export const rightAlign = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args} align="right">
-      <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-      <UnderlineNav.Link>Item 2dsjsjskdjkajsdhkajsdkasj</UnderlineNav.Link>
-      <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+      <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+      <UnderlineNav.Item>Item 2dsjsjskdjkajsdhkajsdkasj</UnderlineNav.Item>
+      <UnderlineNav.Item>Item 3</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -109,14 +109,14 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
       {items.map((item, index) => (
-        <UnderlineNav.Link
+        <UnderlineNav.Item
           key={item}
           leadingIcon={EyeIcon}
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
         >
           {item}
-        </UnderlineNav.Link>
+        </UnderlineNav.Item>
       ))}
     </UnderlineNav>
   )
@@ -126,9 +126,9 @@ export const HorizontalScrollNav = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args} overflow="scroll">
       {items.map(item => (
-        <UnderlineNav.Link key={item} leadingIcon={EyeIcon}>
+        <UnderlineNav.Item key={item} leadingIcon={EyeIcon}>
           {item}
-        </UnderlineNav.Link>
+        </UnderlineNav.Item>
       ))}
     </UnderlineNav>
   )
