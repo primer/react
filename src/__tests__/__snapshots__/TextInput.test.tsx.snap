@@ -850,15 +850,15 @@ exports[`TextInput renders leadingVisual 1`] = `
       aria-hidden="true"
       className="octicon octicon-search"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
         }
       }
       fill="currentColor"
       height={16}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -1703,15 +1703,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -2574,15 +2574,15 @@ exports[`TextInput renders trailingVisual 1`] = `
       aria-hidden="true"
       className="octicon octicon-search"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
         }
       }
       fill="currentColor"
       height={16}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -2723,7 +2723,7 @@ exports[`TextInput renders warning 1`] = `
 `;
 
 exports[`TextInput renders with a loading indicator 1`] = `
-Array [
+[
   .c2 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -2864,7 +2864,7 @@ Array [
           fill="none"
           height="16px"
           sx={
-            Object {
+            {
               "visibility": "visible",
             }
           }
@@ -3030,7 +3030,7 @@ Array [
           fill="none"
           height="16px"
           sx={
-            Object {
+            {
               "visibility": "visible",
             }
           }
@@ -3075,7 +3075,7 @@ Array [
           fill="none"
           height="16px"
           sx={
-            Object {
+            {
               "visibility": "hidden",
             }
           }
@@ -3242,7 +3242,7 @@ Array [
           fill="none"
           height="16px"
           sx={
-            Object {
+            {
               "visibility": "visible",
             }
           }
@@ -3419,15 +3419,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -3443,7 +3443,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "left": 0,
               "maxWidth": "100%",
@@ -3493,7 +3493,7 @@ Array [
           fill="none"
           height="16px"
           sx={
-            Object {
+            {
               "visibility": "hidden",
             }
           }
@@ -3670,15 +3670,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -3694,7 +3694,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "left": 0,
               "maxWidth": "100%",
@@ -3744,7 +3744,7 @@ Array [
           fill="none"
           height="16px"
           sx={
-            Object {
+            {
               "visibility": "hidden",
             }
           }
@@ -3921,15 +3921,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -3945,7 +3945,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "left": 0,
               "maxWidth": "100%",
@@ -3995,7 +3995,7 @@ Array [
           fill="none"
           height="16px"
           sx={
-            Object {
+            {
               "visibility": "visible",
             }
           }
@@ -4173,15 +4173,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -4197,7 +4197,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "maxWidth": "100%",
               "position": "absolute",
@@ -4377,7 +4377,7 @@ Array [
           fill="none"
           height="16px"
           sx={
-            Object {
+            {
               "visibility": "visible",
             }
           }
@@ -4424,15 +4424,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -4448,7 +4448,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "maxWidth": "100%",
               "position": "absolute",
@@ -4631,15 +4631,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -4655,7 +4655,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "maxWidth": "100%",
               "position": "absolute",
@@ -4854,15 +4854,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -4878,7 +4878,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "left": 0,
               "maxWidth": "100%",
@@ -4930,15 +4930,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -4954,7 +4954,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "maxWidth": "100%",
               "position": "absolute",
@@ -5145,15 +5145,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -5169,7 +5169,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "left": 0,
               "maxWidth": "100%",
@@ -5221,15 +5221,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -5245,7 +5245,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "maxWidth": "100%",
               "position": "absolute",
@@ -5442,15 +5442,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -5466,7 +5466,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "left": 0,
               "maxWidth": "100%",
@@ -5518,15 +5518,15 @@ Array [
             aria-hidden="true"
             className="octicon octicon-search"
             dangerouslySetInnerHTML={
-              Object {
-                "__html": "<path fill-rule=\\"evenodd\\" d=\\"M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z\\"></path>",
+              {
+                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
               }
             }
             fill="currentColor"
             height={16}
             role="img"
             style={
-              Object {
+              {
                 "display": "inline-block",
                 "overflow": "visible",
                 "userSelect": "none",
@@ -5542,7 +5542,7 @@ Array [
           fill="none"
           height="32px"
           sx={
-            Object {
+            {
               "height": "100%",
               "maxWidth": "100%",
               "position": "absolute",

@@ -191,7 +191,7 @@ exports[`Box respects display 4`] = `
 <div
   className="c0"
   display={
-    Array [
+    [
       "none",
       "none",
       "block",
