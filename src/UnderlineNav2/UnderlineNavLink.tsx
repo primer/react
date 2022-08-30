@@ -2,7 +2,7 @@ import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject
 import Box from '../Box'
 import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {IconProps} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 
 // adopted from React.AnchorHTMLAttributes
