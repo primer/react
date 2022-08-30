@@ -1,7 +1,6 @@
 import React from 'react'
-import {render, cleanup} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {Checkbox, Radio, SSRProvider} from '../../'
 import ChoiceInputField from '../../deprecated/ChoiceInputField'
 import {MarkGithubIcon} from '@primer/octicons-react'
@@ -12,7 +11,6 @@ const CHECKBOXINPUTFIELD_CAPTION_TEXT = 'Hint: a cool option'
 
 describe('ChoiceInputField', () => {
   afterEach(() => {
-    cleanup()
     jest.clearAllMocks()
   })
 

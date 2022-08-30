@@ -1,10 +1,8 @@
 import React from 'react'
 import {Checkbox} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {render, cleanup} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
-import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
 
 expect.extend(toHaveNoViolations)
@@ -12,7 +10,6 @@ expect.extend(toHaveNoViolations)
 describe('Checkbox', () => {
   beforeEach(() => {
     jest.resetAllMocks()
-    cleanup()
   })
   behavesAsComponent({Component: Checkbox})
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import {FilterList} from '..'
 import {render, behavesAsComponent} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 describe('FilterList.Item', () => {
@@ -13,7 +13,6 @@ describe('FilterList.Item', () => {
     const {container} = HTMLRender(<FilterList.Item>stuff</FilterList.Item>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders an <a> by default', () => {

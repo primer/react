@@ -121,7 +121,7 @@ exports[`Flex respects responsive display 1`] = `
 <div
   className="c0"
   display={
-    Array [
+    [
       "flex",
       "inline-flex",
     ]

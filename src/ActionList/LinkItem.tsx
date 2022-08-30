@@ -1,5 +1,5 @@
 import React from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Link from '../Link'
 import {SxProp, merge} from '../sx'
 import {Item, ActionListItemProps} from './Item'
