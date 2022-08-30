@@ -15,28 +15,16 @@ TextInput is a form component to add default styling to the native text input.
 ### Basic
 
 ```jsx live
-<TextInput aria-label="Zipcode" name="zipcode" placeholder="Zipcode" autoComplete="postal-code" />
+<TextInput aria-label="Zipcode" name="zipcode" autoComplete="postal-code" />
 ```
 
 ### With icons
 
 ```jsx live
 <>
-  <TextInput
-    leadingVisual={SearchIcon}
-    aria-label="Zipcode"
-    name="zipcode"
-    placeholder="Zip"
-    autoComplete="postal-code"
-  />
+  <TextInput leadingVisual={SearchIcon} aria-label="Zipcode" name="zipcode" autoComplete="postal-code" />
 
-  <TextInput
-    trailingVisual={SearchIcon}
-    aria-label="Zipcode"
-    name="zipcode"
-    placeholder="Zip"
-    autoComplete="postal-code"
-  />
+  <TextInput trailingVisual={SearchIcon} aria-label="Zipcode" name="zipcode" autoComplete="postal-code" />
 </>
 ```
 
@@ -44,7 +32,7 @@ TextInput is a form component to add default styling to the native text input.
 
 ```jsx live
 <>
-  <TextInput leadingVisual="$" aria-label="Cost of the thing" name="cost" placeholder="23.45" />
+  <TextInput leadingVisual="$" aria-label="Cost of the thing" name="cost" />
 
   <TextInput sx={{width: '150px'}} trailingVisual="minutes" aria-label="Time in minutes" name="time" placeholder="25" />
 </>
@@ -133,46 +121,28 @@ render(<WithIconAndLoadingIndicator />)
 
 ```jsx live
 <>
-  <TextInput
-    validationStatus="error"
-    aria-label="Zipcode"
-    name="zipcode"
-    placeholder="Error"
-    autoComplete="postal-code"
-  />
+  <TextInput validationStatus="error" aria-label="Zipcode" name="zipcode" autoComplete="postal-code" />
 
-  <TextInput
-    validationStatus="warning"
-    aria-label="Zipcode"
-    name="zipcode"
-    placeholder="Warning"
-    autoComplete="postal-code"
-  />
+  <TextInput validationStatus="warning" aria-label="Zipcode" name="zipcode" autoComplete="postal-code" />
 </>
 ```
 
 ### Block text input
 
 ```jsx live
-<TextInput block aria-label="Zipcode" name="zipcode" placeholder="560076" autoComplete="postal-code" />
+<TextInput block aria-label="Zipcode" name="zipcode" autoComplete="postal-code" />
 ```
 
 ### Contrast text input
 
 ```jsx live
-<TextInput contrast aria-label="Zipcode" name="zipcode" placeholder="Find user" autoComplete="postal-code" />
+<TextInput contrast aria-label="Zipcode" name="zipcode" autoComplete="postal-code" />
 ```
 
 ### Monospace text input
 
 ```jsx live
-<TextInput
-  monospace
-  aria-label="personal access token"
-  name="pat"
-  leadingVisual={CheckIcon}
-  placeholder="github_pat_abcdefg123456789"
-/>
+<TextInput monospace aria-label="personal access token" name="pat" leadingVisual={CheckIcon} />
 ```
 
 ## Props
@@ -193,9 +163,15 @@ render(<WithIconAndLoadingIndicator />)
     type="'small' | 'medium' | 'large'"
     description="Creates a smaller or larger input than the default."
   />
-  <PropsTableRow name="loading" type="boolean" description="Whether to show a loading indicator in the input" />
+  <PropsTableRow
+    name="loading"
+    deprecated
+    type="boolean"
+    description="Whether to show a loading indicator in the input"
+  />
   <PropsTableRow
     name="loaderPosition"
+    deprecated
     type="'auto' | 'leading' | 'trailing'"
     description={
       <>

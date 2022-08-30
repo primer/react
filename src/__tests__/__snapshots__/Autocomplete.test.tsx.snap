@@ -104,8 +104,6 @@ exports[`Autocomplete snapshots renders a custom empty state message 1`] = `
 }
 
 <span
-    aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -264,8 +262,6 @@ exports[`Autocomplete snapshots renders a loading state 1`] = `
 }
 
 <span
-    aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -459,8 +455,6 @@ exports[`Autocomplete snapshots renders a menu that contains an item to add to t
 }
 
 <span
-    aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -1429,8 +1423,6 @@ exports[`Autocomplete snapshots renders a multiselect input 1`] = `
 }
 
 <span
-    aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -2309,8 +2301,6 @@ exports[`Autocomplete snapshots renders a multiselect input with selected menu i
 }
 
 <span
-    aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -3200,8 +3190,6 @@ exports[`Autocomplete snapshots renders a single select input 1`] = `
 }
 
 <span
-    aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >
@@ -4233,8 +4221,6 @@ exports[`Autocomplete snapshots renders with an input value 1`] = `
 }
 
 <span
-    aria-busy={false}
-    aria-live="polite"
     className="c0 TextInput-wrapper"
     onClick={[Function]}
   >

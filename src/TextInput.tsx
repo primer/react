@@ -12,7 +12,8 @@ import TextInputAction from './_TextInputInnerAction'
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
   icon?: React.ComponentType<React.PropsWithChildren<{className?: string}>>
-  /** Whether the to show a loading indicator in the input */
+  /** Whether to show a loading indicator in the input */
+  /** @deprecated Don't support loading indicator within textinput */
   loading?: boolean
   /**
    * Which position to render the loading indicator
@@ -20,6 +21,7 @@ export type TextInputNonPassthroughProps = {
    * 'leading': at the beginning of the input
    * 'trailing': at the end of the input
    **/
+  /** @deprecated Don't support loading indicator within textinput*/
   loaderPosition?: 'auto' | 'leading' | 'trailing'
   /**
    * A visual that renders inside the input before the typing area
@@ -125,8 +127,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         hasTrailingAction={Boolean(trailingAction)}
         isInputFocused={isInputFocused}
         onClick={focusInput}
-        aria-live="polite"
-        aria-busy={Boolean(loading)}
       >
         {IconComponent && <IconComponent className="TextInput-icon" />}
         <TextInputInnerVisualSlot
