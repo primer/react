@@ -1,9 +1,8 @@
 import React from 'react'
 import Token from '../Token/Token'
 import {render, behavesAsComponent, mount} from '../utils/testing'
-import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken, AvatarToken} from '../Token'
 import {AvatarTokenProps} from '../Token/AvatarToken'
@@ -78,7 +77,6 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
     const {container} = HTMLRender(<Component text="token" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 }
 

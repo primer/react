@@ -1,9 +1,9 @@
 import React from 'react'
 import {PointerBox} from '..'
 import {render, behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 describe('PointerBox', () => {
@@ -21,7 +21,6 @@ describe('PointerBox', () => {
     const {container} = HTMLRender(<PointerBox />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('applies the border color via "borderColor" prop for backwards compatibility', () => {

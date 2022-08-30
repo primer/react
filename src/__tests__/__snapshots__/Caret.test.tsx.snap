@@ -4,7 +4,7 @@ exports[`Caret renders cardinal directions 1`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "bottom": "100%",
       "left": "50%",
       "marginLeft": -8,
@@ -35,7 +35,7 @@ exports[`Caret renders cardinal directions 2`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "left": "100%",
       "marginTop": -8,
       "pointerEvents": "none",
@@ -66,7 +66,7 @@ exports[`Caret renders cardinal directions 3`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "left": "50%",
       "marginLeft": -8,
       "pointerEvents": "none",
@@ -97,7 +97,7 @@ exports[`Caret renders cardinal directions 4`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "marginTop": -8,
       "pointerEvents": "none",
       "position": "absolute",
@@ -128,7 +128,7 @@ exports[`Caret renders cardinal directions 5`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "bottom": "100%",
       "left": 8,
       "marginLeft": null,
@@ -159,7 +159,7 @@ exports[`Caret renders cardinal directions 6`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "bottom": "100%",
       "marginLeft": null,
       "pointerEvents": "none",
@@ -190,7 +190,7 @@ exports[`Caret renders cardinal directions 7`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "left": 8,
       "marginLeft": null,
       "pointerEvents": "none",
@@ -221,7 +221,7 @@ exports[`Caret renders cardinal directions 8`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "marginLeft": null,
       "pointerEvents": "none",
       "position": "absolute",
@@ -252,7 +252,7 @@ exports[`Caret renders cardinal directions 9`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "marginTop": null,
       "pointerEvents": "none",
       "position": "absolute",
@@ -283,7 +283,7 @@ exports[`Caret renders cardinal directions 10`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "bottom": 8,
       "marginTop": null,
       "pointerEvents": "none",
@@ -314,7 +314,7 @@ exports[`Caret renders cardinal directions 11`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "left": "100%",
       "marginTop": null,
       "pointerEvents": "none",
@@ -345,7 +345,7 @@ exports[`Caret renders cardinal directions 12`] = `
 <svg
   height={16}
   style={
-    Object {
+    {
       "bottom": 8,
       "left": "100%",
       "marginTop": null,

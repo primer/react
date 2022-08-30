@@ -39,7 +39,7 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 `;
 
 exports[`Dialog renders consistently 1`] = `
-Array [
+[
   .c0:before {
   position: fixed;
   top: 0;
@@ -153,15 +153,15 @@ Array [
         aria-hidden="true"
         className="octicon octicon-x"
         dangerouslySetInnerHTML={
-          Object {
-            "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+          {
+            "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
           }
         }
         fill="currentColor"
         height={16}
         role="img"
         style={
-          Object {
+          {
             "display": "inline-block",
             "overflow": "visible",
             "userSelect": "none",
