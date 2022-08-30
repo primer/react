@@ -18,7 +18,7 @@ import {PageHeader} from '@primer/react'
   {/* Visible only in narrow viewport*/}
   <PageHeader.ContextNav>
     {/* Always renders with a backbutton and is left aligned*/}
-    <PageHeader.ParentLink>Code</PageHeader.ParentLink>
+    <PageHeader.ParentLink href="/code">Code</PageHeader.ParentLink>
   </PageHeader.ContextNav>
   {/* Visible in all viewports */}
   <PageHeader.TitleArea>
@@ -45,7 +45,7 @@ import {PageHeader} from '@primer/react'
   {/* Visible only in narrow viewport only*/}
   <PageHeader.ContextNav>
     {/* Always renders with a backbutton and is left aligned*/}
-    <PageHeader.ParentLink>Files</PageHeader.ParentLink>
+    <PageHeader.ParentLink href="files">Files</PageHeader.ParentLink>
     {/* These are right aligned*/}
     <PageHeader.ContextNavActions>
       {/* Should these buttons be normal sized?*/}
@@ -75,7 +75,7 @@ import {PageHeader} from '@primer/react'
 
 <PageHeader>
   <PageHeader.ContextNav>
-    <PageHeader.ParentLink>Pull requests</PageHeader.ParentLink>
+    <PageHeader.ParentLink href="prs">Pull requests</PageHeader.ParentLink>
   </PageHeader.ContextNav>
   <PageHeader.TitleArea>
     <PageHeader.Title>PageLayout component/Layout beta + storybook</PageHeader.Title>
