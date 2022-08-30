@@ -7,7 +7,7 @@
   "exports": {
     ".": {
       "require": "./lib/index.js",
-      "import": "./lib-esm/index.js",
+      "import": "./lib-esm/index.js"
     },
     "./drafts": {
       "require": "./lib/drafts/index.js",
