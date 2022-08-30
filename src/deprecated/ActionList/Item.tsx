@@ -14,7 +14,7 @@ import {
   isActiveDescendantAttribute
 } from '@primer/behaviors'
 import {useSSRSafeId} from '@react-aria/ssr'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../internal/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import {AriaRole} from '../../utils/types'
 
 /**
