@@ -99,7 +99,6 @@ export const UnderlineNavItem = forwardRef(
       textAlign: 'center',
       textDecoration: 'none',
       paddingX: 1,
-      marginRight: 3,
       ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
       '&:hover > div[data-component="wrapper"] ': {
         backgroundColor: 'neutral.muted'
@@ -114,7 +113,7 @@ export const UnderlineNavItem = forwardRef(
 
     const borderStyles = {
       // How to use primer primitives for space 3?
-      width: `calc(100% - 16px)`,
+      width: `calc(100% - 8px)`,
       height: 2,
       backgroundColor: 'primer.border.active'
     }
@@ -146,7 +145,7 @@ export const UnderlineNavItem = forwardRef(
       [onSelect, afterSelect, ref, setSelectedLink]
     )
     return (
-      <Box as="li" sx={{display: 'grid'}}>
+      <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Box
           as={Component}
           href={href}
