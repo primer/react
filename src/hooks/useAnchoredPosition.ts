@@ -51,10 +51,12 @@ export function useAnchoredPosition(
   // when anchorElement's position changes (example, on scroll), updatePosition for floatingElement
   React.useEffect(
     function observeAnchorPosition() {
-      if (floatingElementRef.current instanceof Element && anchorElementRef.current instanceof Element) {
-        const rectObserver = observeRect(anchorElementRef.current, () => {
-          updatePosition()
-        })
+      if (
+        anchorElementRef.current instanceof Element &&
+        // performance optimisation: only observeRect if floatingRect is also visible (example: menu is open)
+        floatingElementRef.current instanceof Element
+      ) {
+        const rectObserver = observeRect(anchorElementRef.current, updatePosition)
         rectObserver.observe()
         return () => rectObserver.unobserve()
       }
