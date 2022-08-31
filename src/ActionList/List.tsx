@@ -1,5 +1,5 @@
 import React from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'

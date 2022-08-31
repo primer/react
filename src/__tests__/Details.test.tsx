@@ -3,9 +3,9 @@ import {Details, useDetails, Box} from '..'
 import {Button, ButtonPrimary} from '../deprecated'
 import {ButtonProps} from '../deprecated/Button/Button'
 import {mount, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 describe('Details', () => {
@@ -19,7 +19,6 @@ describe('Details', () => {
     const {container} = HTMLRender(<Details />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('Toggles when you click outside', () => {
