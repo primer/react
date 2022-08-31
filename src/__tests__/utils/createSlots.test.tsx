@@ -1,5 +1,4 @@
 import React from 'react'
-import 'babel-polyfill'
 import {render, waitFor} from '@testing-library/react'
 import createSlots from '../../utils/create-slots'
 

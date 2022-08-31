@@ -1,6 +1,4 @@
-import 'babel-polyfill'
-
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 
@@ -19,7 +17,6 @@ describe('Timeline', () => {
     const {container} = HTMLRender(<Timeline />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders with clipSidebar prop', () => {
@@ -34,7 +31,6 @@ describe('Timeline.Item', () => {
     const {container} = HTMLRender(<Timeline.Item />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders with condensed prop', () => {
@@ -53,6 +49,5 @@ describe('Timeline.Badge', () => {
     const {container} = HTMLRender(<Timeline.Badge />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })
