@@ -11,10 +11,6 @@ storybook: https://primer.style/react/storybook?path=/story/layout-pagelayout--d
 import {PageLayout} from '@primer/react'
 ```
 
-`PageLayout` components create the layout and structure for content on a page.
-
-Sub-components of `PageLayout` may correspond to a specific [landmark role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role) which make it easier for users to navigate sections of the page. You can optionally provide labels for each page section to summarize the type of content in that region through `aria-label` and `aria-labelledby`.
-
 ## Examples
 
 <Note>
@@ -246,6 +242,42 @@ Using `aria-labelledby` along with `PageLayout.Header`, `PageLayout.Content`, or
   </PageLayout.Footer>
 </PageLayout>
 ```
+
+## Accessibility
+
+The `PageLayout` component uses [landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role) for `PageLayout.Header`, `PageLayout.Content`, and `PageLayout.Footer` in order to make it easier for screen reader users to navigate between sections of the page.
+
+| Component | Landmark role |
+| :-------- | :------------ |
+| `PageLayout.Header` | [`banner`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/banner_role) |
+| `PageLayout.Content` | [`main`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role) |
+| `PageLayout.Footer` | [`contentinfo`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/contentinfo_role) |
+
+Each component may be labeled through either `aria-label` or `aria-labelledby` in order to provide a unique label for the landmark. This can be helpful when there are multiple landmarks of the same type on the page.
+
+**Links & Resources**
+
+- [W3C, Landmark roles](https://w3c.github.io/aria/#landmark_roles)
+- [WCAG, ARIA11 Technique](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11)
+- [MDN, Landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role)
+
+### Screen readers
+
+Most screen readers provide a mechanism through which you can navigate between landmarks on the page. Typically, this is done through a specific keyboard shortcut or through an option in a rotor.
+
+#### JAWS
+
+JAWS supports landmark regions and the details in which it presents them depends on the Web Verbosity Level setting. You can navigate to the next landmark on the page by pressing `R` and the previous landmark by pressing `Shift-R`.
+
+#### NVDA
+
+NVDA supports landmark regions and you can navigate to the next landmark by using pressing `D` and to the previous landmark by pressing `Shift-D`. You may also list out the landmarks by pressing `Insert-F7`.
+
+#### VoiceOver
+
+VoiceOver supports [assigning landmark roles](https://support.apple.com/guide/voiceover/by-landmarks-vo35709/mac) to areas of a page. In order to navigate between landmarks, you can use the [rotor](https://support.apple.com/guide/voiceover/with-the-voiceover-rotor-mchlp2719/10/mac/12.0).
+
+On macOS, you can open the VoiceOver rotor by pressing `VO-U`. You can navigate between lists to find the `Landmarks` list by using the Right Arrow or Left Arrow key. From that list, you can use the Down Arrow and Up Arrow keys to navigate between landmarks identified on the page.
 
 ## Props
 
