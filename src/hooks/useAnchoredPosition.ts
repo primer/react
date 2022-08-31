@@ -1,10 +1,10 @@
 import React from 'react'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
-import observeRect from '@reach/observe-rect'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useElementObserver} from '../hooks/useElementObserver'
 
 export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
   floatingElementRef?: React.RefObject<Element>
@@ -17,12 +17,14 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
  * and the anchor element, along with the position.
  * @param settings Settings for calculating the anchored position.
  * @param dependencies Dependencies to determine when to re-calculate the position.
+ * @param observe Observe changes to anchorElement's position to recalculates position for floatingElement
  * @returns An object of {top: number, left: number} to absolutely-position the
  * floating element.
  */
 export function useAnchoredPosition(
   settings?: AnchoredPositionHookSettings,
-  dependencies: React.DependencyList = []
+  dependencies: React.DependencyList = [],
+  observe?: boolean
 ): {
   floatingElementRef: React.RefObject<Element>
   anchorElementRef: React.RefObject<Element>
@@ -48,21 +50,13 @@ export function useAnchoredPosition(
 
   useResizeObserver(updatePosition)
 
-  // when anchorElement's position changes (example, on scroll), updatePosition for floatingElement
-  React.useEffect(
-    function observeAnchorPosition() {
-      if (
-        anchorElementRef.current instanceof Element &&
-        // performance optimisation: only observeRect if floatingRect is also visible (example: menu is open)
-        floatingElementRef.current instanceof Element
-      ) {
-        const rectObserver = observeRect(anchorElementRef.current, updatePosition)
-        rectObserver.observe()
-        return () => rectObserver.unobserve()
-      }
-    },
-    [floatingElementRef, anchorElementRef, updatePosition]
-  )
+  // when anchorElement's position changes (example, on scroll), we need to call updatePosition for floatingElement
+  useElementObserver({
+    elementRef: anchorElementRef,
+    // performance optimisation: only update position if floatingRect is also visible (example: menu is open)
+    condition: observe === true && floatingElementRef.current instanceof Element,
+    callback: updatePosition
+  })
 
   return {
     floatingElementRef,

@@ -3,9 +3,9 @@ import Overlay, {OverlayProps} from '../Overlay'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
+import {useElementObserver} from '../hooks/useElementObserver'
 import {useSSRSafeId} from '@react-aria/ssr'
 import type {PositionSettings} from '@primer/behaviors'
-import observeRect from '@reach/observe-rect'
 
 interface AnchoredOverlayPropsWithAnchor {
   /**
@@ -144,7 +144,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
       side,
       align
     },
-    [overlayRef.current]
+    [overlayRef.current],
+    true // observe
   )
 
   useEffect(() => {
@@ -162,24 +163,17 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   useFocusTrap({containerRef: overlayRef, disabled: !open || !position, ...focusTrapSettings})
 
   // when anchor goes outside of clipping rect, close the overlay
-  React.useEffect(
-    function observeAnchorPosition() {
-      if (overlayRef.current instanceof Element && anchorRef.current instanceof Element) {
-        const rectObserver = observeRect(anchorRef.current, anchorRect => {
-          if (anchorRef.current instanceof Element) {
-            const clippingRect = getClippingDOMRect(anchorRef.current)
-            const isAnchorOutsideClippingRect =
-              anchorRect.top > clippingRect.bottom || anchorRect.bottom < clippingRect.top
 
-            if (isAnchorOutsideClippingRect) onClose?.('scroll-outside')
-          }
-        })
-        rectObserver.observe()
-        return () => rectObserver.unobserve()
-      }
-    },
-    [anchorRef, overlayRef, onClose]
-  )
+  useElementObserver({
+    elementRef: anchorRef,
+    condition: open, // performance optimisation: only observe if overlay is open
+    callback: anchorRect => {
+      const clippingRect = getClippingDOMRect(anchorRef.current as Element)
+      const isAnchorOutsideClippingRect = anchorRect.top > clippingRect.bottom || anchorRect.bottom < clippingRect.top
+
+      if (isAnchorOutsideClippingRect) onClose?.('scroll-outside')
+    }
+  })
 
   return (
     <>
