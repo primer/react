@@ -2,6 +2,7 @@ import React from 'react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
+import {OnCloseGesture} from './AnchoredOverlay/AnchoredOverlay'
 import {OverlayProps} from './Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from './hooks'
 import {Divider} from './ActionList/Divider'
@@ -14,7 +15,7 @@ export type MenuContextProps = Pick<
   AnchoredOverlayProps,
   'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
 > & {
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
+  onClose?: (gesture: OnCloseGesture) => void
 }
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 

@@ -7,9 +7,9 @@ import {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {DropdownButton} from '../deprecated/DropdownMenu'
 import {ItemProps} from '../deprecated/ActionList'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
+import {AnchoredOverlayWrapperAnchorProps, OnCloseGesture} from '../AnchoredOverlay/AnchoredOverlay'
 import {TextInputProps} from '../TextInput'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../hooks'
 import {Button} from '../Button'
 import {SearchIcon} from '@primer/octicons-react'
@@ -29,10 +29,7 @@ interface SelectPanelMultiSelection {
 }
 
 interface SelectPanelBaseProps {
-  onOpenChange: (
-    open: boolean,
-    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
-  ) => void
+  onOpenChange: (open: boolean, gesture: OnCloseGesture) => void
   // TODO: Make `title` and `inputLabel` required and remove default values
   // in the next major release
   title?: string
@@ -159,7 +156,7 @@ export function SelectPanel({
   }, [finalItemsSelected, onSelectedChange, onClose, selected])
 
   const onCloseOverlay = React.useCallback(
-    (gesture?: 'anchor-click' | 'click-outside' | 'escape') => {
+    (gesture?: OnCloseGesture) => {
       setFinalItemsSelected(selectedItems)
       onClose(gesture ?? 'escape')
     },

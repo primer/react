@@ -47,6 +47,15 @@ export type AnchoredOverlayWrapperAnchorProps =
   | Partial<AnchoredOverlayPropsWithAnchor>
   | AnchoredOverlayPropsWithoutAnchor
 
+export type OnCloseGesture =
+  | 'anchor-click'
+  | 'anchor-key-press'
+  | 'selection'
+  | 'escape'
+  | 'tab'
+  | 'click-outside'
+  | 'scroll-outside'
+
 interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**
    * Determines whether the overlay portion of the component should be shown or not
@@ -61,7 +70,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   /**
    * A callback which is called whenever the overlay is currently open and a "close gesture" is detected.
    */
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'scroll-outside') => unknown
+  onClose?: (gesture: OnCloseGesture) => unknown
 
   /**
    * Props to be spread on the internal `Overlay` component.
