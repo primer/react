@@ -47,14 +47,7 @@ export type AnchoredOverlayWrapperAnchorProps =
   | Partial<AnchoredOverlayPropsWithAnchor>
   | AnchoredOverlayPropsWithoutAnchor
 
-export type OnCloseGesture =
-  | 'anchor-click'
-  | 'anchor-key-press'
-  | 'selection'
-  | 'escape'
-  | 'tab'
-  | 'click-outside'
-  | 'scroll-outside'
+export type OnCloseGesture = 'anchor-click' | 'anchor-key-press' | 'escape' | 'click-outside' | 'scroll-outside'
 
 interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'> {
   /**

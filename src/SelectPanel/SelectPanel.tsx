@@ -29,7 +29,7 @@ interface SelectPanelMultiSelection {
 }
 
 interface SelectPanelBaseProps {
-  onOpenChange: (open: boolean, gesture: OnCloseGesture) => void
+  onOpenChange: (open: boolean, gesture: OnCloseGesture | 'selection') => void
   // TODO: Make `title` and `inputLabel` required and remove default values
   // in the next major release
   title?: string
@@ -156,7 +156,7 @@ export function SelectPanel({
   }, [finalItemsSelected, onSelectedChange, onClose, selected])
 
   const onCloseOverlay = React.useCallback(
-    (gesture?: OnCloseGesture) => {
+    (gesture?: OnCloseGesture | 'selection') => {
       setFinalItemsSelected(selectedItems)
       onClose(gesture ?? 'escape')
     },

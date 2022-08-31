@@ -15,7 +15,7 @@ export type MenuContextProps = Pick<
   AnchoredOverlayProps,
   'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
 > & {
-  onClose?: (gesture: OnCloseGesture) => void
+  onClose?: (gesture: OnCloseGesture | 'selection' | 'tab') => void
 }
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
