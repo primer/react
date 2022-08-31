@@ -18,25 +18,41 @@ const overflowEffect = (
   width: number,
   childArray: Array<React.ReactElement>,
   childWidthArray: ChildWidthArray,
-  callback: (props: ResponsiveProps) => void
+  noIconChildWidthArray: ChildWidthArray,
+  callback: (props: ResponsiveProps, iconsVisible: boolean) => void
 ) => {
+  let iconsVisible = true
   if (childWidthArray.length === 0) {
-    callback({items: childArray, actions: []})
+    callback({items: childArray, actions: []}, iconsVisible)
   }
-
   // do this only for overflow
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, width)
+  const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, width)
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
-  for (const [index, child] of childArray.entries()) {
-    if (index < numberOfItemsPossible) {
-      items.push(child)
-    } else {
-      actions.push(child)
+  // First we check if we can fit all the items with icons
+  if (childArray.length <= numberOfItemsPossible) {
+    items.push(...childArray)
+  } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
+    // if we can't fit all the items with icons, we check if we can fit all the items without icons
+    iconsVisible = false
+    items.push(...childArray)
+  } else {
+    iconsVisible = false
+    // This is only for the overflow behaviour (for fine pointers)
+    // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
+    for (const [index, child] of childArray.entries()) {
+      if (index < numberOfItemsWithoutIconPossible) {
+        items.push(child)
+      } else {
+        actions.push(child)
+      }
     }
+    // TODO: Scroll behaviour to implement (for coarse pointers)
   }
-  callback({items, actions})
+
+  callback({items, actions}, iconsVisible)
 }
 
 export type {ResponsiveProps}
@@ -49,7 +65,7 @@ function calculatePossibleItems(childWidthArray: ChildWidthArray, width: number)
   let breakpoint = childWidthArray.length - 1
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
-    if (sumsOfChildWidth > 0.5 * width) {
+    if (sumsOfChildWidth > 0.8 * width) {
       breakpoint = index
       break
     } else {
@@ -116,6 +132,8 @@ export const UnderlineNav = forwardRef(
 
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
 
+    const [iconsVisible, setIconsVisible] = useState<boolean>(true)
+
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
       if (!event.defaultPrevented) {
         if (typeof afterSelect === 'function') afterSelect(event)
@@ -127,8 +145,9 @@ export const UnderlineNav = forwardRef(
       actions: []
     })
 
-    const callback = useCallback((props: ResponsiveProps) => {
+    const callback = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
       setResponsiveProps(props)
+      setIconsVisible(displayIcons)
     }, [])
 
     const actions = responsiveProps.actions
@@ -140,21 +159,37 @@ export const UnderlineNav = forwardRef(
       })
     }, [])
 
+    const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
+    const setNoIconChildrenWidth = useCallback(size => {
+      setNoIconChildWidthArray(arr => {
+        const newArr = [...arr, size]
+        return newArr
+      })
+    }, [])
+
     // resizeObserver calls this function infinitely without a useCallback
     const resizeObserverCallback = useCallback(
       (resizeObserverEntries: ResizeObserverEntry[]) => {
         if (overflow === 'auto' || overflow === 'menu') {
           const childArray = getValidChildren(children)
           const navWidth = resizeObserverEntries[0].contentRect.width
-          overflowEffect(navWidth, childArray, childWidthArray, callback)
+          overflowEffect(navWidth, childArray, childWidthArray, noIconChildWidthArray, callback)
         }
       },
-      [callback, childWidthArray, children, overflow]
+      [callback, childWidthArray, noIconChildWidthArray, children, overflow]
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
     return (
       <UnderlineNavContext.Provider
-        value={{setChildrenWidth, selectedLink, setSelectedLink, afterSelect: afterSelectHandler, variant}}
+        value={{
+          setChildrenWidth,
+          setNoIconChildrenWidth,
+          selectedLink,
+          setSelectedLink,
+          afterSelect: afterSelectHandler,
+          variant,
+          iconsVisible
+        }}
       >
         <Box tabIndex={0} as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
           <Box as="ul" sx={merge<BetterSystemStyleObject>(overflowStyles, ulStyles)}>

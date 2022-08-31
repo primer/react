@@ -62,13 +62,28 @@ export const UnderlineNavItem = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = forwardedRef ?? backupRef
-    const {setChildrenWidth, selectedLink, setSelectedLink, afterSelect, variant} = useContext(UnderlineNavContext)
+    const {
+      setChildrenWidth,
+      setNoIconChildrenWidth,
+      selectedLink,
+      setSelectedLink,
+      afterSelect,
+      variant,
+      iconsVisible
+    } = useContext(UnderlineNavContext)
     const {theme} = useTheme()
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+      const icon = (ref as MutableRefObject<HTMLElement>).current.children[0].children[0]
+      const iconWidthWithMargin =
+        icon.getBoundingClientRect().width +
+        Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
+        Number(getComputedStyle(icon).marginLeft.slice(0, -2))
+
       setChildrenWidth({width: domRect.width})
+      setNoIconChildrenWidth({width: domRect.width - iconWidthWithMargin})
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
-    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
+    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth, setNoIconChildrenWidth])
 
     const iconWrapStyles = {
       alignItems: 'center',
@@ -182,7 +197,7 @@ export const UnderlineNavItem = forwardRef(
           ref={ref}
         >
           <Box as="div" data-component="wrapper" sx={wrapperStyles}>
-            {LeadingIcon && (
+            {iconsVisible && LeadingIcon && (
               <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
                 <LeadingIcon />
               </Box>
