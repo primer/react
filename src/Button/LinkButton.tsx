@@ -2,7 +2,7 @@ import React, {forwardRef} from 'react'
 import {merge, SxProp} from '../sx'
 import {LinkButtonProps} from './types'
 import {ButtonBase, ButtonBaseProps} from './ButtonBase'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type MyProps = LinkButtonProps & ButtonBaseProps
 
