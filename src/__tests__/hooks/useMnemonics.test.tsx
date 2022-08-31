@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, fireEvent, cleanup} from '@testing-library/react'
+import {render, fireEvent} from '@testing-library/react'
 import {useMnemonics} from '../../hooks'
 
 const Fixture = ({
@@ -34,8 +34,6 @@ const Fixture = ({
 }
 
 describe('useTypeaheadFocus', () => {
-  afterEach(cleanup)
-
   it('First element: when b is pressed, it should move focus the "b"utton 1', () => {
     const {getByTestId, getByText} = render(<Fixture />)
     const container = getByTestId('container')

@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import {buildPaginationModel} from '../../Pagination/model'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

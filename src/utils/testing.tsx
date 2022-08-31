@@ -3,7 +3,7 @@ import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import enzyme from 'enzyme'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import {cleanup, render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import type {Story as StoryType} from '@storybook/react'
 import {ThemeProvider} from '..'
@@ -259,7 +259,6 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
       const {container} = HTMLRender(<Story />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
-      cleanup()
     })
   })
 }

@@ -22,10 +22,10 @@ it('should should return a position', () => {
   render(<Component callback={cb} />)
   expect(cb).toHaveBeenCalledTimes(2)
   expect(cb.mock.calls[1][0]['position']).toMatchInlineSnapshot(`
-Object {
-  "anchorSide": "outside-bottom",
-  "left": 0,
-  "top": 4,
-}
-`)
+    {
+      "anchorSide": "outside-bottom",
+      "left": 0,
+      "top": 4,
+    }
+  `)
 })

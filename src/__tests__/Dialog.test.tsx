@@ -1,9 +1,8 @@
 import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text} from '..'
 import {Button} from '../deprecated'
-import {render as HTMLRender, cleanup, act, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 expect.extend(toHaveNoViolations)
 
@@ -93,7 +92,6 @@ describe('Dialog', () => {
     spy.mockRestore()
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('Toggles when you click close button', async () => {
@@ -105,38 +103,30 @@ describe('Dialog', () => {
     })
 
     expect(queryByTestId('inner')).toBeNull()
-
-    cleanup()
   })
 
   it('Renders dialog when isOpen is true', async () => {
     const {getByTestId} = HTMLRender(<Component />)
 
     expect(getByTestId('inner')).toBeTruthy()
-
-    cleanup()
   })
 
   it('Does not render dialog when isOpen is false', async () => {
     const {queryByTestId} = HTMLRender(<ClosedDialog />)
 
     expect(queryByTestId('inner')).toBeNull()
-
-    cleanup()
   })
 
   it('Focuses close button when Dialog is opened', async () => {
     const {getByLabelText} = HTMLRender(<Component />)
     const closeButton = getByLabelText('Close')
     expect(document.activeElement).toEqual(closeButton)
-    cleanup()
   })
 
   it('Focuses custom ref when Dialog is opened', async () => {
     const {getByTestId} = HTMLRender(<DialogWithCustomFocusRef />)
     const innerButton = getByTestId('inner-button')
     expect(document.activeElement).toEqual(innerButton)
-    cleanup()
   })
 
   it('Returns focus to returnFocusRef', async () => {
@@ -150,7 +140,5 @@ describe('Dialog', () => {
     expect(queryByTestId('inner')).toBeNull()
     const triggerButton = getByTestId('trigger-button')
     expect(document.activeElement).toEqual(triggerButton)
-
-    cleanup()
   })
 })

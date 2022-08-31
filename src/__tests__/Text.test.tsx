@@ -2,9 +2,9 @@ import React from 'react'
 import {Text} from '..'
 import theme from '../theme'
 import {px, render, renderStyles, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 describe('Text', () => {
@@ -22,7 +22,6 @@ describe('Text', () => {
     const {container} = HTMLRender(<Text>hello</Text>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders fontSize', () => {

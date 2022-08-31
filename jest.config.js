@@ -11,5 +11,6 @@ module.exports = {
   testMatch: ['<rootDir>/(src|codemods)/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
   transformIgnorePatterns: [
     'node_modules/(?!@github/combobox-nav|@koddsson/textarea-caret|@github/markdown-toolbar-element)'
-  ]
+  ],
+  watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname']
 }
