@@ -1,5 +1,4 @@
-import {cleanup, render as HTMLRender} from '@testing-library/react'
-import 'babel-polyfill'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Breadcrumbs} from '..'
@@ -17,7 +16,6 @@ describe('Breadcrumbs.Item', () => {
     const {container} = HTMLRender(<Breadcrumbs.Item />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('respects the "selected" prop', () => {

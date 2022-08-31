@@ -1,9 +1,9 @@
 import React from 'react'
 import {SideNav} from '..'
 import {render, behavesAsComponent, mount, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 describe('SideNav', () => {
@@ -28,7 +28,6 @@ describe('SideNav', () => {
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders a <nav> and <a>', () => {

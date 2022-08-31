@@ -169,7 +169,7 @@ exports[`Grid respects responsive display 1`] = `
 <div
   className="c0"
   display={
-    Array [
+    [
       "grid",
       "inline-grid",
     ]
