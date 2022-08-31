@@ -14,21 +14,6 @@ exports[`ComponentWithSlots renders all slots 1`] = `
 </div>
 `;
 
-exports[`ComponentWithSlots renders with context passed to children 1`] = `
-<div>
-  <div>
-    <span>
-      free form
-       
-       
-      hi
-       
-      third
-    </span>
-  </div>
-</div>
-`;
-
 exports[`ComponentWithSlots renders with just one slot 1`] = `
 <div>
   <div>
