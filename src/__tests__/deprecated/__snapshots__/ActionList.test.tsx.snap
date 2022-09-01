@@ -225,7 +225,7 @@ exports[`ActionList.Item renders consistently 1`] = `
     <div
       className="c4"
       style={
-        Object {
+        {
           "--main-content-flex-direction": "row",
         }
       }

@@ -1,5 +1,5 @@
 import React, {MouseEventHandler, useCallback, useState} from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 import classnames from 'classnames'
 
 import TextInputInnerVisualSlot from './_TextInputInnerVisualSlot'

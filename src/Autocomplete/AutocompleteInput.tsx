@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
