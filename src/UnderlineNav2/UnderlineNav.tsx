@@ -8,7 +8,6 @@ import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 
-type Overflow = 'auto' | 'menu' | 'scroll'
 type ChildWidthArray = Array<{width: number}>
 type ResponsiveProps = {
   items: Array<React.ReactElement>
@@ -40,16 +39,23 @@ const overflowEffect = (
     items.push(...childArray)
   } else {
     iconsVisible = false
-    // This is only for the overflow behaviour (for fine pointers)
-    // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
-    for (const [index, child] of childArray.entries()) {
-      if (index < numberOfItemsWithoutIconPossible) {
-        items.push(child)
-      } else {
-        actions.push(child)
+    // determine the media query pointer.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const isCoarsePointer = window.matchMedia && window.matchMedia('(pointer:coarse)').matches
+    // TODO: refactor this to avoid nested if else
+    if (isCoarsePointer) {
+      // TODO: handle scroll overflow here for media course pointer
+    } else {
+      // This is only for the overflow behaviour (for fine pointers)
+      // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
+      for (const [index, child] of childArray.entries()) {
+        if (index < numberOfItemsWithoutIconPossible) {
+          items.push(child)
+        } else {
+          actions.push(child)
+        }
       }
     }
-    // TODO: Scroll behaviour to implement (for coarse pointers)
   }
 
   callback({items, actions}, iconsVisible)
@@ -78,7 +84,6 @@ function calculatePossibleItems(childWidthArray: ChildWidthArray, width: number)
 export type UnderlineNavProps = {
   label: string
   as?: React.ElementType
-  overflow?: Overflow
   align?: 'right'
   sx?: SxProp
   variant?: 'default' | 'small'
@@ -88,16 +93,7 @@ export type UnderlineNavProps = {
 
 export const UnderlineNav = forwardRef(
   (
-    {
-      as = 'nav',
-      overflow = 'auto',
-      align,
-      label,
-      sx: sxProp = {},
-      afterSelect,
-      variant = 'default',
-      children
-    }: UnderlineNavProps,
+    {as = 'nav', align, label, sx: sxProp = {}, afterSelect, variant = 'default', children}: UnderlineNavProps,
     forwardedRef
   ) => {
     const backupRef = useRef<HTMLElement>(null)
@@ -120,7 +116,12 @@ export const UnderlineNav = forwardRef(
       align: 'row',
       alignItems: 'center'
     }
-    const overflowStyles = overflow === 'scroll' ? {overflowX: 'auto', whiteSpace: 'nowrap'} : {}
+
+    const overflowStyles = {
+      overflowX: 'auto',
+      whiteSpace: 'nowrap'
+    }
+
     const ulStyles = {
       display: 'flex',
       listStyle: 'none',
@@ -170,13 +171,11 @@ export const UnderlineNav = forwardRef(
     // resizeObserver calls this function infinitely without a useCallback
     const resizeObserverCallback = useCallback(
       (resizeObserverEntries: ResizeObserverEntry[]) => {
-        if (overflow === 'auto' || overflow === 'menu') {
-          const childArray = getValidChildren(children)
-          const navWidth = resizeObserverEntries[0].contentRect.width
-          overflowEffect(navWidth, childArray, childWidthArray, noIconChildWidthArray, callback)
-        }
+        const childArray = getValidChildren(children)
+        const navWidth = resizeObserverEntries[0].contentRect.width
+        overflowEffect(navWidth, childArray, childWidthArray, noIconChildWidthArray, callback)
       },
-      [callback, childWidthArray, noIconChildWidthArray, children, overflow]
+      [callback, childWidthArray, noIconChildWidthArray, children]
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
     return (

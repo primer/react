@@ -119,10 +119,16 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
 }
 
 export const HorizontalScrollNav = (args: UnderlineNavProps) => {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(2)
   return (
-    <UnderlineNav {...args} overflow="scroll">
-      {items.map(item => (
-        <UnderlineNav.Item key={item} leadingIcon={EyeIcon}>
+    <UnderlineNav {...args}>
+      {items.map((item, index) => (
+        <UnderlineNav.Item
+          key={item}
+          leadingIcon={EyeIcon}
+          selected={index === selectedIndex}
+          onSelect={() => setSelectedIndex(index)}
+        >
           {item}
         </UnderlineNav.Item>
       ))}
