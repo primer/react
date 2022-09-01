@@ -5,6 +5,7 @@ import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
+import {get} from '../constants'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -94,28 +95,49 @@ export const UnderlineNavItem = forwardRef(
     }
 
     const linkStyles = {
+      position: 'relative',
       display: 'inline-flex',
       color: 'fg.default',
       textAlign: 'center',
       textDecoration: 'none',
       paddingX: 1,
+      borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
       ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
       '&:hover > div[data-component="wrapper"] ': {
-        backgroundColor: 'neutral.muted'
+        backgroundColor: 'neutral.muted',
+        transition: 'background .12s ease-out'
       },
       '&:focus': {
-        outlineColor: 'accent.fg',
-        borderRadius: '12px',
-        outlineOffset: '-6px',
-        transition: '0.2s ease'
+        outline: 0,
+        '& > div[data-component="wrapper"]': {
+          boxShadow: `inset 0 0 0 2px #0969da`
+        },
+        '&:not(:focus-visible) > div[data-component="wrapper"]': {
+          boxShadow: 'none'
+        }
+      },
+      '&:focus-visible > div[data-component="wrapper"]': {
+        boxShadow: `inset 0 0 0 2px #0969da`
+      },
+      '& span[data-content]::before': {
+        content: 'attr(data-content)',
+        display: 'block',
+        height: 0,
+        fontWeight: '600',
+        visibility: 'hidden'
+      },
+      '&::after': {
+        position: 'absolute',
+        right: '50%',
+        // 48px total height / 2 (24px) + 1px
+        bottom: 'calc(50% - 23px)',
+        width: `calc(100% - 8px)`,
+        height: 2,
+        content: '""',
+        bg: selectedLink === ref ? 'primer.border.active' : 'transparent',
+        borderRadius: 0,
+        transform: 'translate(50%, -50%)'
       }
-    }
-
-    const borderStyles = {
-      // How to use primer primitives for space 3?
-      width: `calc(100% - 8px)`,
-      height: 2,
-      backgroundColor: 'primer.border.active'
     }
 
     const counterStyles = {
@@ -163,7 +185,12 @@ export const UnderlineNavItem = forwardRef(
               </Box>
             )}
             {children && (
-              <Box as="span" data-component="text" sx={textStyles}>
+              <Box
+                as="span"
+                data-component="text"
+                data-content={children}
+                sx={selectedLink === ref ? {fontWeight: 600, ...{textStyles}} : {textStyles}}
+              >
                 {children}
               </Box>
             )}
@@ -174,7 +201,6 @@ export const UnderlineNavItem = forwardRef(
             )}
           </Box>
         </Box>
-        {selectedLink === ref && <Box as="span" sx={borderStyles}></Box>}
       </Box>
     )
   }

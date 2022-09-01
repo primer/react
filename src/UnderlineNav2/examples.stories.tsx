@@ -48,21 +48,17 @@ export const DefaultNav = (args: UnderlineNavProps) => {
 export const withIcons = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Item selected leadingIcon={CodeIcon}>
-        Code
-      </UnderlineNav.Item>
-      <UnderlineNav.Item selected leadingIcon={EyeIcon} counter={6}>
+      <UnderlineNav.Item leadingIcon={CodeIcon}>Code</UnderlineNav.Item>
+      <UnderlineNav.Item leadingIcon={EyeIcon} counter={6}>
         Issues
       </UnderlineNav.Item>
       <UnderlineNav.Item selected leadingIcon={GitPullRequestIcon}>
         Pull Requests
       </UnderlineNav.Item>
-      <UnderlineNav.Item selected leadingIcon={CommentDiscussionIcon} counter={7}>
+      <UnderlineNav.Item leadingIcon={CommentDiscussionIcon} counter={7}>
         Discussions
       </UnderlineNav.Item>
-      <UnderlineNav.Item selected leadingIcon={EyeIcon}>
-        Item 1
-      </UnderlineNav.Item>
+      <UnderlineNav.Item leadingIcon={EyeIcon}>Item 1</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
