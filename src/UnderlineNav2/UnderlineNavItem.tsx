@@ -5,7 +5,6 @@ import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
-import {get} from '../constants'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -112,6 +111,7 @@ export const UnderlineNavItem = forwardRef(
         '& > div[data-component="wrapper"]': {
           boxShadow: `inset 0 0 0 2px #0969da`
         },
+        // where focus-visible is supported, remove the focus box-shadow
         '&:not(:focus-visible) > div[data-component="wrapper"]': {
           boxShadow: 'none'
         }
@@ -119,6 +119,7 @@ export const UnderlineNavItem = forwardRef(
       '&:focus-visible > div[data-component="wrapper"]': {
         boxShadow: `inset 0 0 0 2px #0969da`
       },
+      // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
       '& span[data-content]::before': {
         content: 'attr(data-content)',
         display: 'block',
@@ -126,10 +127,10 @@ export const UnderlineNavItem = forwardRef(
         fontWeight: '600',
         visibility: 'hidden'
       },
+      // selected state styles
       '&::after': {
         position: 'absolute',
         right: '50%',
-        // 48px total height / 2 (24px) + 1px
         bottom: 'calc(50% - 23px)',
         width: `calc(100% - 8px)`,
         height: 2,
