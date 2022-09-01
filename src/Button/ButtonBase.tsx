@@ -1,5 +1,5 @@
 import React, {ComponentPropsWithRef, forwardRef} from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'

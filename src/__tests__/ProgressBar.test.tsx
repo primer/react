@@ -1,9 +1,9 @@
 import React from 'react'
 import {ProgressBar} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 describe('ProgressBar', () => {
@@ -17,7 +17,6 @@ describe('ProgressBar', () => {
     const {container} = HTMLRender(<ProgressBar progress={80} barSize="small" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('respects the "barSize" prop', () => {
