@@ -9,7 +9,7 @@ jobs:
     if: ${{ github.event.action == 'opened' && github.repository == 'primer/react' }}
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.PRIMER_BOT_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       ISSUE_ID: ${{ github.event.issue.node_id }}
       REACT_LABEL_ID: 'LA_kwDOB0K8ws7Oq_eD'
       PROJECT_ID: 'PN_kwDNJr_NNKA'
