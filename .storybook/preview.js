@@ -18,5 +18,5 @@ export const parameters = {
     removeEmptyComments: true
   },
   // disables snapshotting on a global level
-  chromatic: {disableSnapshot: true}
+  chromatic: {disable: true}
 }
