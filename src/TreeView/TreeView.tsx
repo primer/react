@@ -49,6 +49,8 @@ export type TreeViewLinkItemProps = TreeViewItemProps & React.ComponentPropsWith
 
 const LinkItem: React.FC<TreeViewLinkItemProps> = ({children, ...props}) => {
   const {subTree, childrenWithoutSubTree} = useSubTree(children)
+
+  // QUESTION: Should <li role="treeitem"> or <a> be focusable?
   return (
     <li role="treeitem">
       <a {...props}>{childrenWithoutSubTree}</a>
