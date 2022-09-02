@@ -32,6 +32,11 @@ export default {
         default: false
       }
     }
+  },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false
+    }
   }
 } as Meta
 

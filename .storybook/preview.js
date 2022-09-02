@@ -16,5 +16,7 @@ export const parameters = {
   html: {
     root: '#html-addon-root',
     removeEmptyComments: true
-  }
+  },
+  // disables snapshotting on a global level
+  chromatic: {disableSnapshot: true}
 }
