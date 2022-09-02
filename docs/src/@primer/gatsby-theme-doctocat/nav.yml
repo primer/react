@@ -84,6 +84,8 @@
       url: /Header
     - title: Heading
       url: /Heading
+    - title: Hidden
+      url: /Hidden
     - title: IconButton
       url: /IconButton
     - title: Label
