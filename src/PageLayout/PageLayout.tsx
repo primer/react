@@ -196,6 +196,16 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({varia
 // PageLayout.Header
 
 export type PageLayoutHeaderProps = {
+  /**
+   * A unique label for the rendered banner landmark
+   */
+  'aria-label'?: React.AriaAttributes['aria-label']
+
+  /**
+   * An id to an element which uniquely labels the rendered banner landmark
+   */
+  'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
+
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
@@ -217,6 +227,8 @@ export type PageLayoutHeaderProps = {
 } & SxProp
 
 const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
+  'aria-label': label,
+  'aria-labelledby': labelledBy,
   padding = 'none',
   divider = 'none',
   dividerWhenNarrow = 'inherit',
@@ -236,6 +248,8 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   return (
     <Box
       as="header"
+      aria-label={label}
+      aria-labelledby={labelledBy}
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
@@ -258,6 +272,15 @@ Header.displayName = 'PageLayout.Header'
 // PageLayout.Content
 
 export type PageLayoutContentProps = {
+  /**
+   * A unique label for the rendered main landmark
+   */
+  'aria-label'?: React.AriaAttributes['aria-label']
+
+  /**
+   * An id to an element which uniquely labels the rendered main landmark
+   */
+  'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   width?: keyof typeof contentWidths
   padding?: keyof typeof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
@@ -272,6 +295,8 @@ const contentWidths = {
 }
 
 const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+  'aria-label': label,
+  'aria-labelledby': labelledBy,
   width = 'full',
   padding = 'none',
   hidden = false,
@@ -283,6 +308,8 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   return (
     <Box
       as="main"
+      aria-label={label}
+      aria-labelledby={labelledBy}
       sx={merge<BetterSystemStyleObject>(
         {
           display: isHidden ? 'none' : 'flex',
@@ -419,7 +446,6 @@ const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
 
   return (
     <Box
-      as="aside"
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sx={(theme: any) =>
         merge<BetterSystemStyleObject>(
@@ -477,6 +503,15 @@ Pane.displayName = 'PageLayout.Pane'
 // PageLayout.Footer
 
 export type PageLayoutFooterProps = {
+  /**
+   * A unique label for the rendered contentinfo landmark
+   */
+  'aria-label'?: React.AriaAttributes['aria-label']
+
+  /**
+   * An id to an element which uniquely labels the rendered contentinfo landmark
+   */
+  'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
@@ -498,6 +533,8 @@ export type PageLayoutFooterProps = {
 } & SxProp
 
 const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
+  'aria-label': label,
+  'aria-labelledby': labelledBy,
   padding = 'none',
   divider = 'none',
   dividerWhenNarrow = 'inherit',
@@ -517,6 +554,8 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   return (
     <Box
       as="footer"
+      aria-label={label}
+      aria-labelledby={labelledBy}
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
