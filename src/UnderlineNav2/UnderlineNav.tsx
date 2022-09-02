@@ -5,6 +5,8 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
+import {useFocusZone} from '../hooks/useFocusZone'
+import {FocusKeys} from '@primer/behaviors'
 
 type Overflow = 'auto' | 'menu' | 'scroll'
 type ChildWidthArray = Array<{width: number}>
@@ -84,6 +86,16 @@ export const UnderlineNav = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const newRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
+
+    // This might change if we decide tab through the navigation items rather than navigationg with the arrow keys.
+    // TBD. In the meantime keeping it as a menu with the focus trap.
+    // ref: https://www.w3.org/WAI/ARIA/apg/example-index/menubar/menubar-navigation.html (Keyboard Support)
+    useFocusZone({
+      containerRef: backupRef,
+      bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+      focusOutBehavior: 'wrap'
+    })
+
     const styles = {
       display: 'flex',
       justifyContent: align === 'right' ? 'flex-end' : 'space-between',
@@ -144,7 +156,7 @@ export const UnderlineNav = forwardRef(
       <UnderlineNavContext.Provider
         value={{setChildrenWidth, selectedLink, setSelectedLink, afterSelect: afterSelectHandler, variant}}
       >
-        <Box as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
+        <Box tabIndex={0} as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
           <Box as="ul" sx={merge<BetterSystemStyleObject>(overflowStyles, ulStyles)}>
             {responsiveProps.items}
           </Box>
