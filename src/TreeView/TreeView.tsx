@@ -25,6 +25,13 @@ const Root: React.FC<TreeViewProps> = ({children}) => {
 }
 
 // ----------------------------------------------------------------------------
+// ItemContext
+
+const ItemContext = React.createContext<{
+  level: number
+}>({level: 1})
+
+// ----------------------------------------------------------------------------
 // TreeView.Item
 
 export type TreeViewItemProps = {
@@ -33,12 +40,17 @@ export type TreeViewItemProps = {
 }
 
 const Item: React.FC<TreeViewItemProps> = ({children}) => {
+  const {level} = React.useContext(ItemContext)
   const {subTree, childrenWithoutSubTree} = useSubTree(children)
   return (
-    <li role="treeitem">
-      <span>{childrenWithoutSubTree}</span>
-      {subTree}
-    </li>
+    <ItemContext.Provider value={{level: level + 1}}>
+      <li role="none">
+        <span role="treeitem" aria-level={level}>
+          {childrenWithoutSubTree}
+        </span>
+        {subTree}
+      </li>
+    </ItemContext.Provider>
   )
 }
 
@@ -48,14 +60,18 @@ const Item: React.FC<TreeViewItemProps> = ({children}) => {
 export type TreeViewLinkItemProps = TreeViewItemProps & React.ComponentPropsWithoutRef<'a'>
 
 const LinkItem: React.FC<TreeViewLinkItemProps> = ({children, ...props}) => {
+  const {level} = React.useContext(ItemContext)
   const {subTree, childrenWithoutSubTree} = useSubTree(children)
 
-  // QUESTION: Should <li role="treeitem"> or <a> be focusable?
   return (
-    <li role="treeitem">
-      <a {...props}>{childrenWithoutSubTree}</a>
-      {subTree}
-    </li>
+    <ItemContext.Provider value={{level: level + 1}}>
+      <li role="none">
+        <a {...props} role="treeitem" aria-level={level}>
+          {childrenWithoutSubTree}
+        </a>
+        {subTree}
+      </li>
+    </ItemContext.Provider>
   )
 }
 
@@ -92,7 +108,11 @@ function useSubTree(children: React.ReactNode) {
       child => !(React.isValidElement(child) && child.type === SubTree)
     )
 
-    return {subTree, childrenWithoutSubTree}
+    return {
+      subTree,
+      childrenWithoutSubTree,
+      hasSubTree: Boolean(subTree)
+    }
   }, [children])
 }
 
