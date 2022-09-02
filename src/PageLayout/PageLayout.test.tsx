@@ -1,5 +1,5 @@
 import React from 'react'
-import {act, render} from '@testing-library/react'
+import {act, render, screen} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
@@ -115,5 +115,45 @@ describe('PageLayout', () => {
     )
 
     expect(getByText('Pane')).toBeVisible()
+  })
+
+  it('should support labeling landmarks through `aria-label`', () => {
+    render(
+      <ThemeProvider>
+        <PageLayout>
+          <PageLayout.Header aria-label="header">Header</PageLayout.Header>
+          <PageLayout.Content aria-label="content">Content</PageLayout.Content>
+          <PageLayout.Pane>Pane</PageLayout.Pane>
+          <PageLayout.Footer aria-label="footer">Footer</PageLayout.Footer>
+        </PageLayout>
+      </ThemeProvider>
+    )
+
+    expect(screen.getByRole('banner')).toHaveAccessibleName('header')
+    expect(screen.getByRole('main')).toHaveAccessibleName('content')
+    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
+  })
+
+  it('should support labeling landmarks through `aria-labelledby`', () => {
+    render(
+      <ThemeProvider>
+        <PageLayout>
+          <PageLayout.Header aria-labelledby="header-label">
+            <span id="header-label">header</span>
+          </PageLayout.Header>
+          <PageLayout.Content aria-labelledby="content-label">
+            <span id="content-label">content</span>
+          </PageLayout.Content>
+          <PageLayout.Pane>Pane</PageLayout.Pane>
+          <PageLayout.Footer aria-labelledby="footer-label">
+            <span id="footer-label">footer</span>
+          </PageLayout.Footer>
+        </PageLayout>
+      </ThemeProvider>
+    )
+
+    expect(screen.getByRole('banner')).toHaveAccessibleName('header')
+    expect(screen.getByRole('main')).toHaveAccessibleName('content')
+    expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
   })
 })
