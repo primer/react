@@ -6,6 +6,7 @@ on:
 
 jobs:
   add-to-inbox:
+    if: ${{ github.event.action == 'opened' }}
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.PRIMER_BOT_TOKEN }}
@@ -13,8 +14,7 @@ jobs:
       REACT_LABEL_ID: 'LA_kwDOB0K8ws7Oq_eD'
       PROJECT_ID: 'PN_kwDNJr_NNKA'
     steps:
-      - name: Add react label to issue
-        if: ${{ github.event.action == 'opened' }}
+      - name: Add react label to issue      
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
             mutation($labelIds: [ID!]!, $labelableId: ID!) {
@@ -23,7 +23,6 @@ jobs:
               }
             }' -f reactLabelId=$REACT_LABEL_ID -f issue="$ISSUE_ID" --jq '.data.addProjectNextItem.projectNextItem.id'
       - name: Add issue to project
-        if: ${{ github.event.action == 'opened' }}
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
             mutation($project:ID!,$issue:ID!) {
