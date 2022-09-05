@@ -5,7 +5,7 @@ import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
-import {get} from '../constants'
+import {Theme, useTheme} from '../ThemeProvider'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -63,6 +63,7 @@ export const UnderlineNavItem = forwardRef(
     const backupRef = useRef<HTMLElement>(null)
     const ref = forwardedRef ?? backupRef
     const {setChildrenWidth, selectedLink, setSelectedLink, afterSelect, variant} = useContext(UnderlineNavContext)
+    const {theme} = useTheme()
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
       setChildrenWidth({width: domRect.width})
@@ -94,23 +95,23 @@ export const UnderlineNavItem = forwardRef(
       fontSize: 1
     }
 
-    const linkStyles = {
+    // eslint-disable-next-line no-shadow
+    const linkStyles = (theme?: Theme) => ({
       position: 'relative',
       display: 'inline-flex',
       color: 'fg.default',
       textAlign: 'center',
       textDecoration: 'none',
       paddingX: 1,
-      borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
       ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
       '&:hover > div[data-component="wrapper"] ': {
-        backgroundColor: 'neutral.muted',
+        backgroundColor: theme?.colors.neutral.muted,
         transition: 'background .12s ease-out'
       },
       '&:focus': {
         outline: 0,
         '& > div[data-component="wrapper"]': {
-          boxShadow: `inset 0 0 0 2px ${get('colors.accent.fg')}`
+          boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
         },
         // where focus-visible is supported, remove the focus box-shadow
         '&:not(:focus-visible) > div[data-component="wrapper"]': {
@@ -118,7 +119,7 @@ export const UnderlineNavItem = forwardRef(
         }
       },
       '&:focus-visible > div[data-component="wrapper"]': {
-        boxShadow: `inset 0 0 0 2px ${get('colors.accent.fg')}`
+        boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
       },
       // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
       '& span[data-content]::before': {
@@ -136,11 +137,11 @@ export const UnderlineNavItem = forwardRef(
         width: `calc(100% - 8px)`,
         height: 2,
         content: '""',
-        bg: selectedLink === ref ? 'primer.border.active' : 'transparent',
+        bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
         borderRadius: 0,
         transform: 'translate(50%, -50%)'
       }
-    }
+    })
 
     const counterStyles = {
       marginLeft: 2
@@ -176,7 +177,7 @@ export const UnderlineNavItem = forwardRef(
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
           {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
-          sx={merge(linkStyles, sxProp as SxProp)}
+          sx={merge(linkStyles(theme), sxProp as SxProp)}
           {...props}
           ref={ref}
         >

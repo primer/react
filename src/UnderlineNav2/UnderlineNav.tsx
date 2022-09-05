@@ -163,7 +163,7 @@ export const UnderlineNav = forwardRef(
 
           {actions.length > 0 && (
             <ActionMenu>
-              <ActionMenu.Button>More</ActionMenu.Button>
+              <ActionMenu.Button sx={{m: 0}}>More</ActionMenu.Button>
               <ActionMenu.Overlay>
                 <ActionList>
                   {actions.map((action, index) => {
