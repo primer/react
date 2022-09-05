@@ -624,13 +624,13 @@ export const CustomStickyHeader: Story = args => (
             return (
               <Box key={i} as="p" sx={{margin: 0}}>
                 <span data-testid={testId}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
-                  ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius
-                  tellus et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec
-                  sit amet massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor
-                  auctor tellus in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum
-                  auctor euismod nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut
-                  ornare.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae orci et magna consectetur
+                  ullamcorper eget ac purus. Nam at enim id lorem tempus egestas a non ipsum. Maecenas imperdiet ante
+                  quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et, auctor felis. Donec
+                  pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa purus. Nunc sem
+                  lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus in imperdiet. Ut
+                  blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod nisi. Nullam
+                  tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
                 </span>
               </Box>
             )
