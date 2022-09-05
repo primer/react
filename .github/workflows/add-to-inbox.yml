@@ -1,0 +1,34 @@
+name: Move new issues to inbox
+
+on:
+  issues:
+    type: [opened]
+
+jobs:
+  add-to-inbox:
+    if: ${{ github.event.action == 'opened' && github.repository == 'primer/react' }}
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ISSUE_ID: ${{ github.event.issue.node_id }}
+      REACT_LABEL_ID: 'LA_kwDOB0K8ws7Oq_eD'
+      PROJECT_ID: 'PN_kwDNJr_NNKA'
+    steps:
+      - name: Add react label to issue      
+        run: |
+          gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
+            mutation($labelIds: [ID!]!, $labelableId: ID!) {
+              addLabelsToLabelable(input: { labelIds: [$reactLabelId], labelableId: $issue }) {
+                clientMutationId
+              }
+            }' -f reactLabelId=$REACT_LABEL_ID -f issue="$ISSUE_ID" --jq '.data.addProjectNextItem.projectNextItem.id'
+      - name: Add issue to project
+        run: |
+          gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
+            mutation($project:ID!,$issue:ID!) {
+              addProjectNextItem(input: {projectId: $project, contentId: $issue}) {
+                projectNextItem {
+                  id
+                }
+              }
+            }' -f project=$PROJECT_ID -f issue="$ISSUE_ID" --jq '.data.addProjectNextItem.projectNextItem.id'
