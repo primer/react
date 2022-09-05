@@ -395,7 +395,7 @@ CustomStickyHeader.argTypes = {
     type: 'boolean',
     defaultValue: true
   },
-  stickyTop: {
+  offsetHeader: {
     type: 'string',
     defaultValue: '8rem'
   },
