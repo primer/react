@@ -163,6 +163,7 @@ export const UnderlineNav = forwardRef(
 
           {actions.length > 0 && (
             <ActionMenu>
+              {/* set margin 0 here because safari puts extra margin around the button */}
               <ActionMenu.Button sx={{m: 0}}>More</ActionMenu.Button>
               <ActionMenu.Overlay>
                 <ActionList>
