@@ -1,7 +1,7 @@
 import React from 'react'
 import {EyeIcon, CodeIcon, IssueOpenedIcon, GitPullRequestIcon, CommentDiscussionIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import UnderlineNav, {UnderlineNavProps} from './index'
+import {UnderlineNav, UnderlineNavProps} from './index'
 import {BaseStyles, ThemeProvider} from '..'
 
 export default {
