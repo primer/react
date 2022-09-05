@@ -200,6 +200,85 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 </Box>
 ```
 
+### With `aria-label`
+
+Using `aria-label` along with `PageLayout.Header`, `PageLayout.Content`, or `PageLayout.Footer` creates a unique label for that landmark role that can make it easier to navigate between sections of content on a page.
+
+```jsx live
+<PageLayout>
+  <PageLayout.Header aria-label="header">
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content aria-label="content">
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer aria-label="footer">
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
+### With `aria-labelledby`
+
+Using `aria-labelledby` along with `PageLayout.Header`, `PageLayout.Content`, or `PageLayout.Footer` creates a unique label for each landmark role by using the given `id` to associate the landmark with the content with the corresponding `id`. This is helpful when you have a visible item that visually communicates the type of content which you would like to associate to the landmark itself.
+
+
+```jsx live
+<PageLayout>
+  <PageLayout.Header aria-labelledby="header-label">
+    <Placeholder id="header-label" label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content aria-labelledby="main-label">
+    <Placeholder id="main-label" label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer aria-labelledby="footer-label">
+    <Placeholder id="footer-label" label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
+## Accessibility
+
+The `PageLayout` component uses [landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role) for `PageLayout.Header`, `PageLayout.Content`, and `PageLayout.Footer` in order to make it easier for screen reader users to navigate between sections of the page.
+
+| Component | Landmark role |
+| :-------- | :------------ |
+| `PageLayout.Header` | [`banner`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/banner_role) |
+| `PageLayout.Content` | [`main`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role) |
+| `PageLayout.Footer` | [`contentinfo`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/contentinfo_role) |
+
+Each component may be labeled through either `aria-label` or `aria-labelledby` in order to provide a unique label for the landmark. This can be helpful when there are multiple landmarks of the same type on the page.
+
+**Links & Resources**
+
+- [W3C, Landmark roles](https://w3c.github.io/aria/#landmark_roles)
+- [WCAG, ARIA11 Technique](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11)
+- [MDN, Landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role)
+
+### Screen readers
+
+Most screen readers provide a mechanism through which you can navigate between landmarks on the page. Typically, this is done through a specific keyboard shortcut or through an option in a rotor.
+
+#### JAWS
+
+JAWS supports landmark regions and the details in which it presents them depends on the Web Verbosity Level setting. You can navigate to the next landmark on the page by pressing `R` and the previous landmark by pressing `Shift-R`.
+
+#### NVDA
+
+NVDA supports landmark regions and you can navigate to the next landmark by using pressing `D` and to the previous landmark by pressing `Shift-D`. You may also list out the landmarks by pressing `Insert-F7`.
+
+#### VoiceOver
+
+VoiceOver supports [assigning landmark roles](https://support.apple.com/guide/voiceover/by-landmarks-vo35709/mac) to areas of a page. In order to navigate between landmarks, you can use the [rotor](https://support.apple.com/guide/voiceover/with-the-voiceover-rotor-mchlp2719/10/mac/12.0).
+
+On macOS, you can open the VoiceOver rotor by pressing `VO-U`. You can navigate between lists to find the `Landmarks` list by using the Right Arrow or Left Arrow key. From that list, you can use the Down Arrow and Up Arrow keys to navigate between landmarks identified on the page.
+
 ## Props
 
 ### PageLayout
@@ -242,6 +321,16 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ### PageLayout.Header
 
 <PropsTable>
+  <PropsTableRow
+    name="aria-label"
+    type={`string | undefined`}
+    description="A unique label for the rendered banner landmark"
+  />
+  <PropsTableRow
+    name="aria-labelledby"
+    type={`string | undefined`}
+    description="An id to an element which uniquely labels the rendered banner landmark"
+  />
   <PropsTableRow
     name="padding"
     type={`| 'none'
@@ -295,6 +384,16 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ### PageLayout.Content
 
 <PropsTable>
+  <PropsTableRow
+    name="aria-label"
+    type={`string | undefined`}
+    description="A unique label for the rendered main landmark"
+  />
+  <PropsTableRow
+    name="aria-labelledby"
+    type={`string | undefined`}
+    description="An id to an element which uniquely labels the rendered main landmark"
+  />
   <PropsTableRow
     name="width"
     type={`| 'full'
@@ -428,6 +527,17 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 ### PageLayout.Footer
 
 <PropsTable>
+  <PropsTableRow
+    name="aria-label"
+    type={`string | undefined`}
+    description="A unique label for the rendered contentinfo landmark"
+  />
+  <PropsTableRow
+    name="aria-labelledby"
+    type={`string | undefined`}
+    description="An id to an element which uniquely labels the rendered contentinfo landmark"
+  />
+
   <PropsTableRow
     name="padding"
     type={`| 'none'
