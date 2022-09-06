@@ -606,7 +606,7 @@ export const CustomStickyHeader: Story = args => (
       sx={{
         position: 'sticky',
         top: 0,
-        height: args.stickyTop,
+        height: args.offsetHeader,
         display: 'grid',
         placeItems: 'center',
         backgroundColor: 'canvas.subtle',
@@ -624,20 +624,20 @@ export const CustomStickyHeader: Story = args => (
             return (
               <Box key={i} as="p" sx={{margin: 0}}>
                 <span data-testid={testId}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
-                  ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius
-                  tellus et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec
-                  sit amet massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor
-                  auctor tellus in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum
-                  auctor euismod nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut
-                  ornare.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae orci et magna consectetur
+                  ullamcorper eget ac purus. Nam at enim id lorem tempus egestas a non ipsum. Maecenas imperdiet ante
+                  quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et, auctor felis. Donec
+                  pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa purus. Nunc sem
+                  lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus in imperdiet. Ut
+                  blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod nisi. Nullam
+                  tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
                 </span>
               </Box>
             )
           })}
         </Box>
       </PageLayout.Content>
-      <PageLayout.Pane position="start" padding="normal" divider="line" sticky stickyTop={args.stickyTop}>
+      <PageLayout.Pane position="start" padding="normal" divider="line" sticky offsetHeader={args.offsetHeader}>
         <Box sx={{display: 'grid', gap: 3}}>
           {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
             const testId = `paragraph${i}`
@@ -666,7 +666,7 @@ CustomStickyHeader.argTypes = {
     type: 'boolean',
     defaultValue: true
   },
-  stickyTop: {
+  offsetHeader: {
     type: 'string',
     defaultValue: '8rem'
   },
