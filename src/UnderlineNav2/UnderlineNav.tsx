@@ -12,6 +12,7 @@ type ChildWidthArray = Array<{width: number}>
 type ResponsiveProps = {
   items: Array<React.ReactElement>
   actions: Array<React.ReactElement>
+  overflowStyles: React.CSSProperties
 }
 const overflowEffect = (
   width: number,
@@ -21,14 +22,16 @@ const overflowEffect = (
   callback: (props: ResponsiveProps, iconsVisible: boolean) => void
 ) => {
   let iconsVisible = true
+
   if (childWidthArray.length === 0) {
-    callback({items: childArray, actions: []}, iconsVisible)
+    callback({items: childArray, actions: [], overflowStyles: {}}, iconsVisible)
   }
   // do this only for overflow
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, width)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, width)
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
+  const overflowStyles: React.CSSProperties = {whiteSpace: 'nowrap'}
 
   // First we check if we can fit all the items with icons
   if (childArray.length <= numberOfItemsPossible) {
@@ -39,12 +42,13 @@ const overflowEffect = (
     items.push(...childArray)
   } else {
     iconsVisible = false
-    // determine the media query pointer.
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const isCoarsePointer = window.matchMedia && window.matchMedia('(pointer:coarse)').matches
+
     // TODO: refactor this to avoid nested if else
     if (isCoarsePointer) {
-      // TODO: handle scroll overflow here for media course pointer
+      items.push(...childArray)
+      overflowStyles.overflowX = 'auto'
     } else {
       // This is only for the overflow behaviour (for fine pointers)
       // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
@@ -58,7 +62,7 @@ const overflowEffect = (
     }
   }
 
-  callback({items, actions}, iconsVisible)
+  callback({items, actions, overflowStyles}, iconsVisible)
 }
 
 export type {ResponsiveProps}
@@ -110,16 +114,11 @@ export const UnderlineNav = forwardRef(
 
     const styles = {
       display: 'flex',
-      justifyContent: align === 'right' ? 'flex-end' : 'space-between',
+      justifyContent: align === 'right' ? 'flex-end' : 'flex-start',
       borderBottom: '1px solid',
       borderBottomColor: 'border.muted',
       align: 'row',
       alignItems: 'center'
-    }
-
-    const overflowStyles = {
-      overflowX: 'auto',
-      whiteSpace: 'nowrap'
     }
 
     const ulStyles = {
@@ -143,7 +142,8 @@ export const UnderlineNav = forwardRef(
 
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
       items: getValidChildren(children),
-      actions: []
+      actions: [],
+      overflowStyles: {}
     })
 
     const callback = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
@@ -178,6 +178,25 @@ export const UnderlineNav = forwardRef(
       [callback, childWidthArray, noIconChildWidthArray, children]
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
+
+    const dividerStyle = {
+      display: 'inline-block',
+      borderLeft: '1px solid',
+      width: '1px',
+      borderColor: 'border.muted',
+      marginRight: 1
+    }
+
+    const moreBtnStyles = {
+      //set margin 0 here because safari puts extra margin around the button, rest is to reset style to make it look like a list element
+      margin: 0,
+      border: 0,
+      background: 'transparent',
+      fontWeight: 'normal',
+      boxShadow: 'none',
+      paddingY: 1,
+      paddingX: 2
+    }
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -191,27 +210,29 @@ export const UnderlineNav = forwardRef(
         }}
       >
         <Box tabIndex={0} as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
-          <Box as="ul" sx={merge<BetterSystemStyleObject>(overflowStyles, ulStyles)}>
+          <Box as="ul" sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)}>
             {responsiveProps.items}
           </Box>
 
           {actions.length > 0 && (
-            <ActionMenu>
-              {/* set margin 0 here because safari puts extra margin around the button */}
-              <ActionMenu.Button sx={{m: 0}}>More</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  {actions.map((action, index) => {
-                    const {children: actionElementChildren, ...actionElementProps} = action.props
-                    return (
-                      <ActionList.Item key={index} {...actionElementProps}>
-                        {actionElementChildren}
-                      </ActionList.Item>
-                    )
-                  })}
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
+            <Box as="div" sx={{display: 'flex'}}>
+              <Box sx={dividerStyle}></Box>
+              <ActionMenu>
+                <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
+                <ActionMenu.Overlay align="end">
+                  <ActionList>
+                    {actions.map((action, index) => {
+                      const {children: actionElementChildren, ...actionElementProps} = action.props
+                      return (
+                        <ActionList.Item key={index} {...actionElementProps}>
+                          {actionElementChildren}
+                        </ActionList.Item>
+                      )
+                    })}
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </Box>
           )}
         </Box>
       </UnderlineNavContext.Provider>
