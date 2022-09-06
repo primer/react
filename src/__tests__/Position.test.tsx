@@ -2,9 +2,9 @@ import React from 'react'
 import {Box} from '..'
 import {Position, Absolute, Fixed, Relative, Sticky} from '../deprecated'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 describe('position components', () => {
@@ -23,7 +23,6 @@ describe('position components', () => {
       const {container} = HTMLRender(<Absolute />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
-      cleanup()
     })
 
     it('sets position: absolute', () => {
@@ -51,7 +50,6 @@ describe('position components', () => {
       const {container} = HTMLRender(<Fixed />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
-      cleanup()
     })
 
     it('sets position: fixed', () => {
@@ -75,7 +73,6 @@ describe('position components', () => {
       const {container} = HTMLRender(<Relative />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
-      cleanup()
     })
 
     it('sets position: relative', () => {
@@ -99,7 +96,6 @@ describe('position components', () => {
       const {container} = HTMLRender(<Sticky />)
       const results = await axe(container)
       expect(results).toHaveNoViolations()
-      cleanup()
     })
 
     it('sets position: sticky', () => {

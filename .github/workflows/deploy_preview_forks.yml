@@ -9,7 +9,8 @@ permissions:
 
 jobs:
   deploy-preview:
-    if: ${{ github.repository == 'primer/react' }} # target repository for pull_request
+    # target repository for pull_request is primer/react but source repository isn't primer/react
+    if: ${{ github.repository == 'primer/react' && github.event.pull_request.head.repo.full_name != 'primer/react' }}
     name: Preview
     uses: primer/.github/.github/workflows/deploy_preview.yml@main
     permissions:

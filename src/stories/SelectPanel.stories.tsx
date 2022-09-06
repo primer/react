@@ -1,12 +1,11 @@
-import type {OverlayProps} from '../Overlay'
 import {Meta} from '@storybook/react'
 import React, {useRef, useState} from 'react'
 import {theme, ThemeProvider} from '..'
-import {ItemInput} from '../deprecated/ActionList/List'
 import BaseStyles from '../BaseStyles'
+import Box from '../Box'
+import {ItemInput} from '../deprecated/ActionList/List'
 import {DropdownButton} from '../deprecated/DropdownMenu'
 import {SelectPanel} from '../SelectPanel'
-import Box from '../Box'
 
 const meta: Meta = {
   title: 'Composite components/SelectPanel',
@@ -58,7 +57,7 @@ const items = [
 ]
 
 export function MultiSelectStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[2], items[4]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -68,12 +67,10 @@ export function MultiSelectStory(): JSX.Element {
       <h1>Multi Select Panel</h1>
       <div>Please select labels that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        placeholderText="Filter Labels"
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Labels</DropdownButton>}
+        title="Select Labels"
+        inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -81,7 +78,7 @@ export function MultiSelectStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'large'}}
       />
     </>
   )
@@ -89,7 +86,7 @@ export function MultiSelectStory(): JSX.Element {
 MultiSelectStory.storyName = 'Multi Select'
 
 export function SingleSelectStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[2])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -99,12 +96,10 @@ export function SingleSelectStory(): JSX.Element {
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        placeholderText="Filter Labels"
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
+        title="Select a Label"
+        inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -112,7 +107,7 @@ export function SingleSelectStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'large'}}
       />
     </>
   )
@@ -120,7 +115,7 @@ export function SingleSelectStory(): JSX.Element {
 SingleSelectStory.storyName = 'Single Select'
 
 export function ExternalAnchorStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[1])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -130,12 +125,14 @@ export function ExternalAnchorStory(): JSX.Element {
     <>
       <h1>Select Panel With External Anchor</h1>
       <DropdownButton ref={buttonRef} onClick={() => setOpen(!open)}>
-        Custom: {selected?.text || 'Click Me'}
+        Select a Label
       </DropdownButton>
       <SelectPanel
         renderAnchor={null}
         anchorRef={buttonRef}
-        placeholderText="Filter Labels"
+        title="Select a Label"
+        inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -143,15 +140,15 @@ export function ExternalAnchorStory(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'large'}}
       />
     </>
   )
 }
 ExternalAnchorStory.storyName = 'With External Anchor'
 
-export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+export function SelectPanelWithOverflowingItemsStory(): JSX.Element {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[3])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -161,12 +158,10 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        placeholderText="Filter Labels"
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
+        title="Select a Label"
+        inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -174,16 +169,16 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
     </>
   )
 }
-SelectPanelHeightInitialWithOverflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Overflowing Items'
+SelectPanelWithOverflowingItemsStory.storyName = 'SelectPanel, Overflowing Items'
 
-export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Element {
+export function SelectPanelWithUnderflowingItemsStory(): JSX.Element {
   const underflowingItems = [items[0], items[1]]
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(underflowingItems[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(underflowingItems[1])
   const [filter, setFilter] = React.useState('')
   const filteredItems = underflowingItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -193,12 +188,10 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        placeholderText="Filter Labels"
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
+        title="Select a Label"
+        inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -206,15 +199,15 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'initial', maxHeight: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
     </>
   )
 }
-SelectPanelHeightInitialWithUnderflowingItemsStory.storyName = 'SelectPanel, Height: Initial, Underflowing Items'
+SelectPanelWithUnderflowingItemsStory.storyName = 'SelectPanel, Underflowing Items'
 
-export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+export function SelectPanelWithUnderflowingItemsAfterFetch(): JSX.Element {
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(undefined)
   const [filter, setFilter] = React.useState('')
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
   const filteredItems = React.useMemo(
@@ -222,13 +215,12 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
     [fetchedItems, filter]
   )
   const [open, setOpen] = useState(false)
-  const [height, setHeight] = useState<OverlayProps['height']>('auto')
 
   const onOpenChange = () => {
     setOpen(!open)
     setTimeout(() => {
       setFetchedItems([items[0], items[1]])
-      setHeight('initial')
+      setSelected(items[1]) // Sometimes the selected items need to be fetched async too.
     }, 1500)
   }
 
@@ -237,12 +229,10 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        placeholderText="Filter Labels"
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
+        title="Select a Label"
+        inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={onOpenChange}
         loading={filteredItems.length === 0}
@@ -251,16 +241,15 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height, maxHeight: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
     </>
   )
 }
-SelectPanelHeightInitialWithUnderflowingItemsAfterFetch.storyName =
-  'SelectPanel, Height: Initial, Underflowing Items (After Fetch)'
+SelectPanelWithUnderflowingItemsAfterFetch.storyName = 'SelectPanel, Underflowing Items (After Fetch)'
 
 export function SelectPanelAboveTallBody(): JSX.Element {
-  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[0])
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[1])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -270,12 +259,10 @@ export function SelectPanelAboveTallBody(): JSX.Element {
       <h1>Single Select Panel</h1>
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        placeholderText="Filter Labels"
+        renderAnchor={({...anchorProps}) => <DropdownButton {...anchorProps}>Select Label</DropdownButton>}
+        title="Select a Label"
+        inputLabel="Filter Labels"
+        inputPlaceholder="design..."
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
@@ -283,7 +270,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
+        overlayProps={{width: 'medium', height: 'medium'}}
       />
       <div
         style={{
@@ -298,56 +285,3 @@ export function SelectPanelAboveTallBody(): JSX.Element {
   )
 }
 SelectPanelAboveTallBody.storyName = 'SelectPanel, Above a Tall Body'
-
-export function SelectPanelHeightAndScroll(): JSX.Element {
-  const longItems = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]
-  const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(longItems[0])
-  const [selectedB, setSelectedB] = React.useState<ItemInput | undefined>(longItems[0])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = longItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  const [openA, setOpenA] = useState(false)
-  const [openB, setOpenB] = useState(false)
-
-  return (
-    <>
-      <h2>With height:medium</h2>
-      <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        placeholderText="Filter Labels"
-        open={openA}
-        onOpenChange={setOpenA}
-        items={filteredItems}
-        selected={selectedA}
-        onSelectedChange={setSelectedA}
-        onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{height: 'medium'}}
-      />
-      <h2>With height:auto, maxheight:medium</h2>
-      <SelectPanel
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <DropdownButton aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-            {children ?? 'Select Labels'}
-          </DropdownButton>
-        )}
-        placeholderText="Filter Labels"
-        open={openB}
-        onOpenChange={setOpenB}
-        items={filteredItems}
-        selected={selectedB}
-        onSelectedChange={setSelectedB}
-        onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{
-          height: 'auto',
-          maxHeight: 'medium'
-        }}
-      />
-    </>
-  )
-}
-SelectPanelHeightAndScroll.storyName = 'SelectPanel, Height and Scroll'

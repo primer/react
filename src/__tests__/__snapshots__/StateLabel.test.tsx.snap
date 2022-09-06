@@ -35,15 +35,15 @@ exports[`StateLabel renders children 1`] = `
     aria-hidden="true"
     className="c1"
     dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
+      {
+        "__html": "<path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>",
       }
     }
     fill="currentColor"
     height={16}
     role="img"
     style={
-      Object {
+      {
         "display": "inline-block",
         "overflow": "visible",
         "userSelect": "none",
@@ -92,15 +92,15 @@ exports[`StateLabel renders consistently 1`] = `
     aria-hidden="true"
     className="c1"
     dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
+      {
+        "__html": "<path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>",
       }
     }
     fill="currentColor"
     height={16}
     role="img"
     style={
-      Object {
+      {
         "display": "inline-block",
         "overflow": "visible",
         "userSelect": "none",
@@ -149,15 +149,15 @@ exports[`StateLabel respects the status prop 1`] = `
     aria-hidden="true"
     className="c1"
     dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
+      {
+        "__html": "<path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>",
       }
     }
     fill="currentColor"
     height={16}
     role="img"
     style={
-      Object {
+      {
         "display": "inline-block",
         "overflow": "visible",
         "userSelect": "none",
@@ -205,15 +205,15 @@ exports[`StateLabel respects the status prop 2`] = `
     aria-hidden="true"
     className="c1"
     dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path d=\\"M11.28 6.78a.75.75 0 00-1.06-1.06L7.25 8.69 5.78 7.22a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l3.5-3.5z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M16 8A8 8 0 110 8a8 8 0 0116 0zm-1.5 0a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z\\"></path>",
+      {
+        "__html": "<path d="M11.28 6.78a.75.75 0 00-1.06-1.06L7.25 8.69 5.78 7.22a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l3.5-3.5z"></path><path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zm-1.5 0a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"></path>",
       }
     }
     fill="currentColor"
     height={16}
     role="img"
     style={
-      Object {
+      {
         "display": "inline-block",
         "overflow": "visible",
         "userSelect": "none",
@@ -261,15 +261,15 @@ exports[`StateLabel respects the status prop 3`] = `
     aria-hidden="true"
     className="c1"
     dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm3.28 5.78a.75.75 0 00-1.06-1.06l-5.5 5.5a.75.75 0 101.06 1.06l5.5-5.5z\\"></path>",
+      {
+        "__html": "<path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm3.28 5.78a.75.75 0 00-1.06-1.06l-5.5 5.5a.75.75 0 101.06 1.06l5.5-5.5z"></path>",
       }
     }
     fill="currentColor"
     height={16}
     role="img"
     style={
-      Object {
+      {
         "display": "inline-block",
         "overflow": "visible",
         "userSelect": "none",
@@ -317,15 +317,15 @@ exports[`StateLabel respects the status prop 4`] = `
     aria-hidden="true"
     className="c1"
     dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5 3.254V3.25v.005a.75.75 0 110-.005v.004zm.45 1.9a2.25 2.25 0 10-1.95.218v5.256a2.25 2.25 0 101.5 0V7.123A5.735 5.735 0 009.25 9h1.378a2.251 2.251 0 100-1.5H9.25a4.25 4.25 0 01-3.8-2.346zM12.75 9a.75.75 0 100-1.5.75.75 0 000 1.5zm-8.5 4.5a.75.75 0 100-1.5.75.75 0 000 1.5z\\"></path>",
+      {
+        "__html": "<path fill-rule="evenodd" d="M5 3.254V3.25v.005a.75.75 0 110-.005v.004zm.45 1.9a2.25 2.25 0 10-1.95.218v5.256a2.25 2.25 0 101.5 0V7.123A5.735 5.735 0 009.25 9h1.378a2.251 2.251 0 100-1.5H9.25a4.25 4.25 0 01-3.8-2.346zM12.75 9a.75.75 0 100-1.5.75.75 0 000 1.5zm-8.5 4.5a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>",
       }
     }
     fill="currentColor"
     height={16}
     role="img"
     style={
-      Object {
+      {
         "display": "inline-block",
         "overflow": "visible",
         "userSelect": "none",
@@ -373,15 +373,15 @@ exports[`StateLabel respects the variant prop 1`] = `
     aria-hidden="true"
     className="c1"
     dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
+      {
+        "__html": "<path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>",
       }
     }
     fill="currentColor"
     height={16}
     role="img"
     style={
-      Object {
+      {
         "display": "inline-block",
         "overflow": "visible",
         "userSelect": "none",
@@ -429,15 +429,15 @@ exports[`StateLabel respects the variant prop 2`] = `
     aria-hidden="true"
     className="c1"
     dangerouslySetInnerHTML={
-      Object {
-        "__html": "<path d=\\"M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z\\"></path><path fill-rule=\\"evenodd\\" d=\\"M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z\\"></path>",
+      {
+        "__html": "<path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path>",
       }
     }
     fill="currentColor"
     height={16}
     role="img"
     style={
-      Object {
+      {
         "display": "inline-block",
         "overflow": "visible",
         "userSelect": "none",

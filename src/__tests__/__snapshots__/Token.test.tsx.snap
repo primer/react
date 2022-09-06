@@ -187,15 +187,15 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={12}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -396,15 +396,15 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={15}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -605,15 +605,15 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={18}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -814,15 +814,15 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={24}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -1023,15 +1023,15 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={24}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -1443,15 +1443,15 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={15}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -1620,15 +1620,15 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={12}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -1797,15 +1797,15 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={15}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -1974,15 +1974,15 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={18}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -2151,15 +2151,15 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={24}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -2328,15 +2328,15 @@ exports[`Token components IssueLabelToken renders all sizes 5`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={24}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -2588,15 +2588,15 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={15}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -2765,15 +2765,15 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={15}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -3056,15 +3056,15 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={15}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -3222,15 +3222,15 @@ exports[`Token components Token renders all sizes 1`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={12}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -3388,15 +3388,15 @@ exports[`Token components Token renders all sizes 2`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={15}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -3554,15 +3554,15 @@ exports[`Token components Token renders all sizes 3`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={18}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -3720,15 +3720,15 @@ exports[`Token components Token renders all sizes 4`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={24}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -3886,15 +3886,15 @@ exports[`Token components Token renders all sizes 5`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M5.72 5.72a.75.75 0 011.06 0L12 10.94l5.22-5.22a.75.75 0 111.06 1.06L13.06 12l5.22 5.22a.75.75 0 11-1.06 1.06L12 13.06l-5.22 5.22a.75.75 0 01-1.06-1.06L10.94 12 5.72 6.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={24}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",
@@ -4166,7 +4166,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   >
     <div
       style={
-        Object {
+        {
           "backgroundColor": "blue",
         }
       }
@@ -4324,15 +4324,15 @@ exports[`Token components Token renders with a remove button 1`] = `
       aria-hidden="true"
       className="octicon octicon-x"
       dangerouslySetInnerHTML={
-        Object {
-          "__html": "<path fill-rule=\\"evenodd\\" d=\\"M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z\\"></path>",
+        {
+          "__html": "<path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>",
         }
       }
       fill="currentColor"
       height={15}
       role="img"
       style={
-        Object {
+        {
           "display": "inline-block",
           "overflow": "visible",
           "userSelect": "none",

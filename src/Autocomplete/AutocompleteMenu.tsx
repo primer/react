@@ -151,6 +151,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       items.map(selectableItem => {
         return {
           ...selectableItem,
+          _legacyEnterSupport: true, //TODO: Change behaviour, the enter key should not be used here.
           role: 'option',
           id: selectableItem.id,
           selected: selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id) : undefined,
@@ -217,6 +218,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
         ? [
             {
               ...addNewItem,
+              _legacyEnterSupport: true, //TODO: Change behaviour, the enter key should not be used here.
               leadingVisual: () => <PlusIcon />,
               onAction: (item: T) => {
                 // TODO: make it possible to pass a leadingVisual when using `addNewItem`

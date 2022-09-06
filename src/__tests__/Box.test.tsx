@@ -1,5 +1,4 @@
-import {cleanup, render as HTMLRender} from '@testing-library/react'
-import 'babel-polyfill'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import {Box} from '..'
@@ -18,7 +17,6 @@ describe('Box', () => {
     const {container} = HTMLRender(<Box />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders margin', () => {

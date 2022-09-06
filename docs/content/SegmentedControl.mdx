@@ -1,28 +1,49 @@
 ---
+componentId: segmented_control
 title: SegmentedControl
-status: Draft
 description: Use a segmented control to let users select an option from a short list and immediately apply the selection
+status: Alpha
 ---
-
-<Note variant="warning">Not implemented yet</Note>
 
 ## Examples
 
-### Simple
+### Uncontrolled (default)
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
   <SegmentedControl.Button>Raw</SegmentedControl.Button>
   <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
 
+### Controlled
+
+```javascript noinline live
+const Controlled = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+
+  const handleSegmentChange = selectedIndex => {
+    setSelectedIndex(selectedIndex)
+  }
+
+  return (
+    <SegmentedControl aria-label="File view" onChange={handleSegmentChange}>
+      <SegmentedControl.Button selected={selectedIndex === 0}>Preview</SegmentedControl.Button>
+      <SegmentedControl.Button selected={selectedIndex === 1}>Raw</SegmentedControl.Button>
+      <SegmentedControl.Button selected={selectedIndex === 2}>Blame</SegmentedControl.Button>
+    </SegmentedControl>
+  )
+}
+
+render(Controlled)
+```
+
 ### With icons and labels
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+  <SegmentedControl.Button defaultSelected leadingIcon={EyeIcon}>
     Preview
   </SegmentedControl.Button>
   <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
@@ -32,9 +53,9 @@ description: Use a segmented control to let users select an option from a short 
 
 ### With icons only
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.IconButton selected icon={EyeIcon} aria-label="Preview" />
+  <SegmentedControl.IconButton defaultSelected icon={EyeIcon} aria-label="Preview" />
   <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />
   <SegmentedControl.IconButton icon={PeopleIcon} aria-label="Blame" />
 </SegmentedControl>
@@ -42,9 +63,9 @@ description: Use a segmented control to let users select an option from a short 
 
 ### With labels hidden on smaller viewports
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default'}}>
-  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+  <SegmentedControl.Button defaultSelected leadingIcon={EyeIcon}>
     Preview
   </SegmentedControl.Button>
   <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
@@ -54,9 +75,9 @@ description: Use a segmented control to let users select an option from a short 
 
 ### Convert to a dropdown on smaller viewports
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default'}}>
-  <SegmentedControl.Button selected leadingIcon={EyeIcon}>
+  <SegmentedControl.Button defaultSelected leadingIcon={EyeIcon}>
     Preview
   </SegmentedControl.Button>
   <SegmentedControl.Button leadingIcon={FileCodeIcon}>Raw</SegmentedControl.Button>
@@ -66,19 +87,9 @@ description: Use a segmented control to let users select an option from a short 
 
 ### Fill width of parent
 
-```jsx live drafts
+```jsx live
 <SegmentedControl fullWidth aria-label="File view">
-  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
-  <SegmentedControl.Button>Raw</SegmentedControl.Button>
-  <SegmentedControl.Button>Blame</SegmentedControl.Button>
-</SegmentedControl>
-```
-
-### In a loading state
-
-```jsx live drafts
-<SegmentedControl loading aria-label="File view">
-  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
   <SegmentedControl.Button>Raw</SegmentedControl.Button>
   <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
@@ -86,7 +97,7 @@ description: Use a segmented control to let users select an option from a short 
 
 ### With a label and caption on the left
 
-```jsx live drafts
+```jsx live
 <Box display="flex">
   <Box flexGrow={1}>
     <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
@@ -97,7 +108,7 @@ description: Use a segmented control to let users select an option from a short 
     </Text>
   </Box>
   <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
-    <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
     <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
@@ -106,11 +117,11 @@ description: Use a segmented control to let users select an option from a short 
 
 ### With a label above and caption below
 
-```jsx live drafts
+```jsx live
 <FormControl>
   <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
   <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
-    <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
     <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
@@ -120,25 +131,10 @@ description: Use a segmented control to let users select an option from a short 
 
 ### With something besides the first option selected
 
-```jsx live drafts
+```jsx live
 <SegmentedControl aria-label="File view">
-  <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
-  <SegmentedControl.Button selected>Raw</SegmentedControl.Button>
-  <SegmentedControl.Button>Blame</SegmentedControl.Button>
-</SegmentedControl>
-```
-
-### With a selection change handler
-
-```jsx live drafts
-<SegmentedControl
-  aria-label="File view"
-  onChange={selectedIndex => {
-    alert(`Segment ${selectedIndex}`)
-  }}
->
   <SegmentedControl.Button>Preview</SegmentedControl.Button>
-  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button defaultSelected>Raw</SegmentedControl.Button>
   <SegmentedControl.Button>Blame</SegmentedControl.Button>
 </SegmentedControl>
 ```
@@ -151,20 +147,29 @@ description: Use a segmented control to let users select an option from a short 
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="aria-labelledby" type="string" />
   <PropsTableRow name="aria-describedby" type="string" />
-  <PropsTableRow name="fullWidth" type="boolean" description="Whether the control fills the width of its parent" />
-  <PropsTableRow name="loading" type="boolean" description="Whether the selected segment is being calculated" />
+  <PropsTableRow
+    name="fullWidth"
+    type={`| boolean
+| {
+  narrow?: boolean
+  regular?: boolean
+  wide?: boolean
+}`}
+    description="Whether the control fills the width of its parent"
+  />
   <PropsTableRow
     name="onChange"
     type="(selectedIndex?: number) => void"
     description="The handler that gets called when a segment is selected"
-    required
   />
   <PropsTableRow
     name="variant"
-    type="'default' | {
-      narrow?: 'hideLabels' | 'dropdown' | 'default'
-      regular?: 'hideLabels' | 'dropdown' | 'default'
-    }"
+    type={`| 'default'
+| {
+  narrow?: 'hideLabels' | 'dropdown' | 'default'
+  regular?: 'hideLabels' | 'dropdown' | 'default'
+  wide?: 'hideLabels' | 'dropdown' | 'default'
+}`}
     defaultValue="'default'"
     description="Configure alternative ways to render the control when it gets rendered in tight spaces"
   />
@@ -176,7 +181,16 @@ description: Use a segmented control to let users select an option from a short 
 
 <PropsTable>
   <PropsTableRow name="leadingIcon" type="Component" description="The leading icon comes before item label" />
-  <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
+  <PropsTableRow
+    name="selected"
+    type="boolean"
+    description="Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl."
+  />
+  <PropsTableRow
+    name="defaultSelected"
+    type="boolean"
+    description="Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
+  />
   <PropsTableSxRow />
   <PropsTableRefRow refType="HTMLButtonElement" />
 </PropsTable>
@@ -191,7 +205,16 @@ description: Use a segmented control to let users select an option from a short 
     description="The icon that represents the segmented control item"
     required
   />
-  <PropsTableRow name="selected" type="boolean" description="Whether the segment is selected" />
+  <PropsTableRow
+    name="selected"
+    type="boolean"
+    description="Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl."
+  />
+  <PropsTableRow
+    name="defaultSelected"
+    type="boolean"
+    description="Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
+  />
   <PropsTableSxRow />
   <PropsTableRefRow refType="HTMLButtonElement" />
 </PropsTable>
@@ -201,15 +224,15 @@ description: Use a segmented control to let users select an option from a short 
 <ComponentChecklist
   items={{
     propsDocumented: true,
-    noUnnecessaryDeps: false,
-    adaptsToThemes: false,
-    adaptsToScreenSizes: false,
-    fullTestCoverage: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
     usedInProduction: false,
-    usageExamplesDocumented: false,
-    hasStorybookStories: false,
-    designReviewed: false,
-    a11yReviewed: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: true,
+    a11yReviewed: true,
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,

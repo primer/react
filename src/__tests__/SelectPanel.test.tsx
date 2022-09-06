@@ -1,5 +1,4 @@
-import {cleanup, render as HTMLRender} from '@testing-library/react'
-import 'babel-polyfill'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
@@ -23,7 +22,8 @@ function SimpleSelectPanel(): JSX.Element {
         <BaseStyles>
           <SelectPanel
             items={items}
-            placeholder="Select Items"
+            title="Select Items"
+            inputLabel="Select Items"
             placeholderText="Filter Items"
             selected={selected}
             onSelectedChange={setSelected}
@@ -58,6 +58,5 @@ describe('SelectPanel', () => {
     const {container} = HTMLRender(<SimpleSelectPanel />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })
