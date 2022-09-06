@@ -170,6 +170,8 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
 
 ### With a custom sticky header
 
+Add `offsetHeader` prop to specify the height of the custom sticky header along with `sticky` prop
+
 ```jsx live
 <Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
   <Box
@@ -190,7 +192,7 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
     <PageLayout.Content>
       <Placeholder label="Content" height={320} />
     </PageLayout.Content>
-    <PageLayout.Pane position="start" stickyTop={64} sticky>
+    <PageLayout.Pane position="start" sticky offsetHeader={64}>
       <Placeholder label="Pane" height={120} />
     </PageLayout.Pane>
     <PageLayout.Footer>
@@ -469,10 +471,10 @@ On macOS, you can open the VoiceOver rotor by pressing `VO-U`. You can navigate 
     description="Whether the pane should stick to the top of the screen while the content scrolls."
   />
   <PropsTableRow
-    name="stickyTop"
+    name="offsetHeader"
     type="number | string"
     defaultValue="0"
-    description="Use stickyTop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px."
+    description="Use offsetHeader along with the sticky prop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px."
   />
   <PropsTableRow
     name="padding"
