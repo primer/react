@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text} from '..'
+import Text from '../Text'
 import {SxProp} from '../sx'
 import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
 import {Slot} from './slots'

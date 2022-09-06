@@ -5,7 +5,8 @@ import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroup/_CheckboxOrRadioG
 import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from './hooks'
 import {SxProp} from './sx'
-import {Checkbox, FormControl} from '.'
+import FormControl from './FormControl'
+import Checkbox from './Checkbox'
 
 type CheckboxGroupProps = {
   /**
