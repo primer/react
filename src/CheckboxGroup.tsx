@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler, createContext, FC} from 'react'
+import React, {ChangeEvent, ChangeEventHandler, FC} from 'react'
 import CheckboxOrRadioGroup, {CheckboxOrRadioGroupProps} from './_CheckboxOrRadioGroup'
 import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupLabel'
