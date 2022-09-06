@@ -16,7 +16,7 @@ exports[`PointerBox applies the background color via "bg" prop for backwards com
   <svg
     height={16}
     style={
-      Object {
+      {
         "left": "50%",
         "marginLeft": -8,
         "pointerEvents": "none",
@@ -60,7 +60,7 @@ exports[`PointerBox applies the background color via sx prop 1`] = `
   <svg
     height={16}
     style={
-      Object {
+      {
         "left": "50%",
         "marginLeft": -8,
         "pointerEvents": "none",
@@ -103,7 +103,7 @@ exports[`PointerBox applies the border color via "borderColor" prop for backward
   <svg
     height={16}
     style={
-      Object {
+      {
         "left": "50%",
         "marginLeft": -8,
         "pointerEvents": "none",
@@ -147,7 +147,7 @@ exports[`PointerBox applies the border color via sx prop 1`] = `
   <svg
     height={16}
     style={
-      Object {
+      {
         "left": "50%",
         "marginLeft": -8,
         "pointerEvents": "none",
@@ -190,7 +190,7 @@ exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
   <svg
     height={16}
     style={
-      Object {
+      {
         "left": "50%",
         "marginLeft": -8,
         "pointerEvents": "none",
@@ -233,7 +233,7 @@ exports[`PointerBox renders consistently 1`] = `
   <svg
     height={16}
     style={
-      Object {
+      {
         "left": "50%",
         "marginLeft": -8,
         "pointerEvents": "none",

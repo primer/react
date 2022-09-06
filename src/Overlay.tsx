@@ -9,7 +9,7 @@ import sx, {SxProp} from './sx'
 import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from './ThemeProvider'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap

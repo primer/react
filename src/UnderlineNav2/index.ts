@@ -1,10 +1,10 @@
 import {UnderlineNav as Nav, UnderlineNavProps} from './UnderlineNav'
-import {UnderlineNavLink, UnderlineNavLinkProps} from './UnderlineNavLink'
+import {UnderlineNavItem, UnderlineNavItemProps} from './UnderlineNavItem'
 
 const UnderlineNav = Object.assign(Nav, {
-  Link: UnderlineNavLink
+  Item: UnderlineNavItem
 })
 
-export default UnderlineNav
+export {UnderlineNav}
 
-export type {UnderlineNavProps, UnderlineNavLinkProps}
+export type {UnderlineNavProps, UnderlineNavItemProps}

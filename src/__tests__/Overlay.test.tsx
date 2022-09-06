@@ -1,10 +1,9 @@
 import React, {useRef, useState} from 'react'
 import {Overlay, Box, Text} from '..'
 import {ButtonDanger, Button} from '../deprecated'
-import {render, cleanup, waitFor, fireEvent} from '@testing-library/react'
+import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import '@testing-library/jest-dom'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
@@ -64,7 +63,6 @@ describe('Overlay', () => {
     const {container} = render(<TestComponent />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('should focus element passed into function', async () => {

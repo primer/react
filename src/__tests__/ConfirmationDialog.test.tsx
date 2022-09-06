@@ -1,5 +1,4 @@
-import 'babel-polyfill'
-import {render as HTMLRender, cleanup, act, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
@@ -93,7 +92,6 @@ describe('ConfirmationDialog', () => {
     spy.mockRestore()
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('focuses the primary action when opened and the confirmButtonType is not set', async () => {
@@ -103,7 +101,6 @@ describe('ConfirmationDialog', () => {
     })
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
-    cleanup()
   })
 
   it('focuses the primary action when opened and the confirmButtonType is not danger', async () => {
@@ -113,7 +110,6 @@ describe('ConfirmationDialog', () => {
     })
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
-    cleanup()
   })
 
   it('focuses the secondary action when opened and the confirmButtonType is danger', async () => {
@@ -123,7 +119,6 @@ describe('ConfirmationDialog', () => {
     })
     expect(getByText('Primary')).not.toEqual(document.activeElement)
     expect(getByText('Secondary')).toEqual(document.activeElement)
-    cleanup()
   })
 
   it('supports nested `focusTrap`s', async () => {
@@ -136,6 +131,5 @@ describe('ConfirmationDialog', () => {
     })
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
-    cleanup()
   })
 })

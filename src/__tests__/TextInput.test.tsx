@@ -1,9 +1,8 @@
 import React from 'react'
 import {TextInput} from '..'
 import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {SearchIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
@@ -18,7 +17,6 @@ describe('TextInput', () => {
     const {container} = HTMLRender(<TextInput aria-label="zipcode" name="zipcode" variant="small" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders', () => {

@@ -1,5 +1,4 @@
-import {cleanup, render as HTMLRender, act, fireEvent} from '@testing-library/react'
-import 'babel-polyfill'
+import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../../theme'
@@ -56,7 +55,6 @@ describe('ActionMenu', () => {
     const {container} = HTMLRender(<SimpleActionMenu />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('should trigger the overlay on trigger click', async () => {
