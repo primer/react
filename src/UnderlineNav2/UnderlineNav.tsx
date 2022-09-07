@@ -1,12 +1,14 @@
-import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject} from 'react'
+import React, {useRef, useEffect, forwardRef, useCallback, useState, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp, BetterSystemStyleObject} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
+import {IconButton} from '../Button/IconButton'
 import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
+import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 
 type ChildWidthArray = Array<{width: number}>
 type ResponsiveProps = {
@@ -14,11 +16,19 @@ type ResponsiveProps = {
   actions: Array<React.ReactElement>
   overflowStyles: React.CSSProperties
 }
+
+const handleArrowBtnsVisibility = (
+  scrollOffsets: {scrollLeft: number; scrollRight: number},
+  callback: (scroll: {scrollLeft: number; scrollRight: number}) => void
+) => {
+  callback(scrollOffsets)
+}
 const overflowEffect = (
   width: number,
   childArray: Array<React.ReactElement>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
+  isCoarsePointer: boolean,
   callback: (props: ResponsiveProps, iconsVisible: boolean) => void
 ) => {
   let iconsVisible = true
@@ -42,13 +52,11 @@ const overflowEffect = (
     items.push(...childArray)
   } else {
     iconsVisible = false
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const isCoarsePointer = window.matchMedia && window.matchMedia('(pointer:coarse)').matches
 
-    // TODO: refactor this to avoid nested if else
     if (isCoarsePointer) {
       items.push(...childArray)
       overflowStyles.overflowX = 'auto'
+      overflowStyles.scrollbarWidth = 'none'
     } else {
       // This is only for the overflow behaviour (for fine pointers)
       // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
@@ -69,6 +77,12 @@ export type {ResponsiveProps}
 
 function getValidChildren(children: React.ReactNode) {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
+}
+
+function calculateScrollOffset(scrollableList: RefObject<HTMLDivElement>) {
+  const {scrollLeft, scrollWidth, clientWidth} = scrollableList.current as HTMLElement
+  const scrollRight = scrollWidth - scrollLeft - clientWidth
+  return {scrollLeft, scrollRight}
 }
 
 function calculatePossibleItems(childWidthArray: ChildWidthArray, width: number) {
@@ -102,6 +116,20 @@ export const UnderlineNav = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const newRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
+    const listRef = useRef<HTMLUListElement>(null)
+
+    const [isCoarsePointer, setIsCoarsePointer] = useState(false)
+
+    // Determine the pointer type on mount
+    useEffect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      setIsCoarsePointer(true) //(window.matchMedia && window.matchMedia('(pointer:coarse)').matches)
+      // eslint-disable-next-line github/prefer-observers
+      listRef.current?.addEventListener('scroll', (event: any) => {
+        const scrollOffsets = calculateScrollOffset(listRef)
+        handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
+      })
+    }, [])
 
     // This might change if we decide tab through the navigation items rather than navigationg with the arrow keys.
     // TBD. In the meantime keeping it as a menu with the focus trap.
@@ -134,6 +162,11 @@ export const UnderlineNav = forwardRef(
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
+    const [scrollValues, setScrollValues] = useState<{scrollLeft: number; scrollRight: number}>({
+      scrollLeft: 0,
+      scrollRight: 0
+    })
+
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
       if (!event.defaultPrevented) {
         if (typeof afterSelect === 'function') afterSelect(event)
@@ -149,6 +182,10 @@ export const UnderlineNav = forwardRef(
     const callback = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
       setResponsiveProps(props)
       setIconsVisible(displayIcons)
+    }, [])
+
+    const updateOffsetValues = useCallback((scrollOffsets: {scrollLeft: number; scrollRight: number}) => {
+      setScrollValues(scrollOffsets)
     }, [])
 
     const actions = responsiveProps.actions
@@ -173,9 +210,13 @@ export const UnderlineNav = forwardRef(
       (resizeObserverEntries: ResizeObserverEntry[]) => {
         const childArray = getValidChildren(children)
         const navWidth = resizeObserverEntries[0].contentRect.width
-        overflowEffect(navWidth, childArray, childWidthArray, noIconChildWidthArray, callback)
+        const scrollOffsets = calculateScrollOffset(listRef)
+
+        overflowEffect(navWidth, childArray, childWidthArray, noIconChildWidthArray, isCoarsePointer, callback)
+
+        handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
       },
-      [callback, childWidthArray, noIconChildWidthArray, children]
+      [callback, updateOffsetValues, childWidthArray, noIconChildWidthArray, children, isCoarsePointer]
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
 
@@ -197,6 +238,19 @@ export const UnderlineNav = forwardRef(
       paddingY: 1,
       paddingX: 2
     }
+
+    const arrowBtnStyles = {
+      ...moreBtnStyles,
+      paddingX: 1
+    }
+
+    const scroll = (event: React.MouseEvent<HTMLButtonElement>, direction: string) => {
+      event.preventDefault()
+      event.stopPropagation()
+      const ScrollAmount = direction === 'left' ? -200 : 200
+      const element = document.querySelector('nav > ul')
+      element?.scrollBy({left: ScrollAmount, top: 0, behavior: 'smooth'})
+    }
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -210,9 +264,34 @@ export const UnderlineNav = forwardRef(
         }}
       >
         <Box tabIndex={0} as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
-          <Box as="ul" sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)}>
+          {scrollValues.scrollLeft > 0 ? (
+            <IconButton
+              aria-label="Scroll Left"
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => scroll(e, 'left')}
+              icon={ChevronLeftIcon}
+              sx={arrowBtnStyles}
+            />
+          ) : (
+            ''
+          )}
+          <Box
+            as="ul"
+            sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)}
+            ref={listRef as RefObject<HTMLUListElement>}
+          >
             {responsiveProps.items}
           </Box>
+          {scrollValues.scrollRight > 0 ? (
+            <IconButton
+              aria-label="Scroll Right"
+              // Event type should include keyboard and voice control?
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => scroll(e, 'right')}
+              icon={ChevronRightIcon}
+              sx={arrowBtnStyles}
+            />
+          ) : (
+            ''
+          )}
 
           {actions.length > 0 && (
             <Box as="div" sx={{display: 'flex'}}>

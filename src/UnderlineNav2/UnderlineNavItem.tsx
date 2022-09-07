@@ -74,6 +74,7 @@ export const UnderlineNavItem = forwardRef(
     const {theme} = useTheme()
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+      // might want to select this better
       const icon = (ref as MutableRefObject<HTMLElement>).current.children[0].children[0]
       const iconWidthWithMargin =
         icon.getBoundingClientRect().width +
