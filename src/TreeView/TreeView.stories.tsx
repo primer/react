@@ -28,7 +28,11 @@ export const FileTreeWithDirectoryLinks: Story = () => (
             </TreeView.LinkItem>
           </TreeView.SubTree>
         </TreeView.LinkItem>
-        <TreeView.LinkItem href="#">
+        <TreeView.LinkItem
+          href="#"
+          // eslint-disable-next-line no-console
+          onToggle={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
+        >
           public
           <TreeView.SubTree>
             <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
@@ -58,7 +62,10 @@ export const FileTreeWithoutDirectoryLinks: Story = () => (
             </TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
-        <TreeView.Item>
+        <TreeView.Item
+          // eslint-disable-next-line no-console
+          onToggle={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
+        >
           public
           <TreeView.SubTree>
             <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
