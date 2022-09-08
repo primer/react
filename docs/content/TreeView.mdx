@@ -76,12 +76,12 @@ description: A hierarchical list of items where nested items can be expanded and
 
 <PropsTable>
   <PropsTableRow name="children" type="React.ReactNode" required />
-  {/* <PropsTableRow name="truncate" type="boolean" defaultValue="true" /> */}
-  {/* TODO: We may need to provide a way to control the `expanded` state */}
-  {/* <PropsTableRow name="defaultExpanded" type="boolean" defaultValue="false" /> */}
+  <PropsTableRow
+    name="onSelect"
+    type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+  />
   <PropsTableRow name="onToggle" type="(isExpanded: boolean) => void" />
   {/* <PropsTableSxRow /> */}
-
 </PropsTable>
 
 ### TreeView.LinkItem
@@ -100,37 +100,11 @@ description: A hierarchical list of items where nested items can be expanded and
       </>
     }
   />
-  {/* <PropsTableRow
-    name="aria-current"
-    type={`| 'page'
-| 'step'
-| 'location'
-| 'date'
-| 'time'
-| 'true'
-| 'false'
-| boolean`}
-    defaultValue="false"
-    description={
-      <>
-        Set <InlineCode>aria-current</InlineCode> to <InlineCode>"page"</InlineCode> to indicate that the item
-        represents the current page. Set <InlineCode>aria-current</InlineCode> to <InlineCode>"location"</InlineCode> to
-        indicate that the item represents the current location on a page. For more information about{' '}
-        <InlineCode>aria-current</InlineCode>, see{' '}
-        <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current">MDN</Link>.
-      </>
-    }
-  /> */}
-  {/* <PropsTableRow name="truncate" type="boolean" defaultValue="true" /> */}
-  {/* <PropsTableRow name="defaultExpanded" type="boolean" defaultValue="false" /> */}
-  <PropsTableRow name="onToggle" type="(isExpanded: boolean) => void" />
-  <PropsTablePassthroughPropsRow
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
-    }
-    elementName="a"
-    // isPolymorphic
+  <PropsTableRow
+    name="onSelect"
+    type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
   />
+  <PropsTableRow name="onToggle" type="(isExpanded: boolean) => void" />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
