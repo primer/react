@@ -61,7 +61,7 @@ const ContextNav: React.FC<React.PropsWithChildren<ContextNavProps>> = ({
     flexShrink: 1,
     minWidth: 1 // Hack to prevent overflowing content from pushing the pane region to the next line
   }
-  return <Box sx={merge(contentNavStyles, sx)}>{children}</Box>
+  return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
 const ParentLink: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
   return <Box sx={sx}>{children}</Box>

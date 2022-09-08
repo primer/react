@@ -1,9 +1,7 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {Button, IconButton, Breadcrumbs} from '..'
+import {Box, Button, IconButton, Breadcrumbs} from '..'
 import {EyeClosedIcon, SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
-
-//import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
 
 import {PageHeader} from './PageHeader'
 
@@ -24,7 +22,12 @@ const Template: Story = args => (
     </PageHeader.ContextNav>
     <PageHeader.TitleArea>Branches</PageHeader.TitleArea>
     <PageHeader.Actions>
-      <Button variant="primary">New Branch</Button>
+      <Box sx={{display: ['none', 'inline']}}>
+        <Button variant="primary">New Branch</Button>
+      </Box>
+      <Box sx={{display: ['inline', 'none']}}>
+        <Button variant="primary">New</Button>
+      </Box>
       <IconButton aria-label="Search" icon={SearchIcon} />
     </PageHeader.Actions>
   </PageHeader>
