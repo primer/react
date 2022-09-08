@@ -2,15 +2,15 @@ import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 
-import UnderlineNav from '.'
+import {UnderlineNav} from '.'
 
 describe('UnderlineNav', () => {
   test('selected nav', () => {
     const {getByText} = render(
       <UnderlineNav label="Test nav">
-        <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-        <UnderlineNav.Link>Item 2</UnderlineNav.Link>
-        <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+        <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+        <UnderlineNav.Item>Item 2</UnderlineNav.Item>
+        <UnderlineNav.Item>Item 3</UnderlineNav.Item>
       </UnderlineNav>
     )
     const selectedNavLink = getByText('Item 1').closest('a')
@@ -20,9 +20,9 @@ describe('UnderlineNav', () => {
   test('basic nav functionality', () => {
     const {container} = render(
       <UnderlineNav label="Test nav">
-        <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-        <UnderlineNav.Link>Item 2</UnderlineNav.Link>
-        <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+        <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+        <UnderlineNav.Item>Item 2</UnderlineNav.Item>
+        <UnderlineNav.Item>Item 3</UnderlineNav.Item>
       </UnderlineNav>
     )
     expect(container.getElementsByTagName('nav').length).toEqual(1)
@@ -33,9 +33,9 @@ describe('UnderlineNav', () => {
   test('respect align prop', () => {
     const {container} = render(
       <UnderlineNav label="Test nav" align="right">
-        <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-        <UnderlineNav.Link>Item 2</UnderlineNav.Link>
-        <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+        <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+        <UnderlineNav.Item>Item 2</UnderlineNav.Item>
+        <UnderlineNav.Item>Item 3</UnderlineNav.Item>
       </UnderlineNav>
     )
     const nav = container.getElementsByTagName('nav')[0]
