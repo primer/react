@@ -100,6 +100,8 @@ export type MarkdownEditorProps = SxProp & {
 const handleBrand = Symbol()
 
 export interface MarkdownEditorHandle {
+  /** A reference to the textarea */
+  input: () => HTMLTextAreaElement
   /** Focus on the markdown textarea (has no effect in preview mode). */
   focus: (options?: FocusOptions) => void
   /** Scroll to the editor. */
@@ -192,6 +194,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       ref,
       () =>
         ({
+          input: () => inputRef.current,
           focus: opts => inputRef.current?.focus(opts),
           scrollIntoView: opts => containerRef.current?.scrollIntoView(opts)
         } as MarkdownEditorHandle)

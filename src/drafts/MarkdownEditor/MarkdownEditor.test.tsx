@@ -190,6 +190,13 @@ describe('MarkdownEditor', () => {
     expect(getInput()).toHaveFocus()
   })
 
+  it('exposes the input via imperative handle ref', async () => {
+    const ref: React.RefObject<MarkdownEditorHandle> = {current: null}
+    const {getInput} = await render(<UncontrolledEditor ref={ref} />)
+
+    expect(getInput()).toEqual(ref.current?.input())
+  })
+
   it('enables the textarea by default', async () => {
     const {getInput} = await render(<UncontrolledEditor />)
     expect(getInput()).not.toBeDisabled()
