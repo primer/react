@@ -19,7 +19,7 @@ const trigger: Trigger = {
 const mentionableToSuggestion = (mentionable: Mentionable): Suggestion => ({
   value: mentionable.identifier,
   render: props => (
-    <ActionList.Item {...props} sx={{...props.sx, '& > span': {display: 'none'}}}>
+    <ActionList.Item {...props}>
       <Text sx={{fontWeight: 'bold'}}>{mentionable.identifier}</Text>{' '}
       <ActionList.Description>{mentionable.description}</ActionList.Description>
     </ActionList.Item>
