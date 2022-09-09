@@ -18,8 +18,10 @@ description: A hierarchical list of items where nested items can be expanded and
         <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
         <TreeView.Item>
           Button
-          <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
-          <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
+          <TreeView.SubTree>
+            <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
+            <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
+          </TreeVIew.SubTree>
         </TreeView.Item>
       </TreeView.SubTree>
     </TreeView.Item>
@@ -46,8 +48,10 @@ description: A hierarchical list of items where nested items can be expanded and
         <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
         <TreeView.LinkItem href="#">
           Button
-          <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
-          <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
+          <TreeView.SubTree>
+            <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
+            <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
+          </TreeView.SubTree>
         </TreeView.LinkItem>
       </TreeView.SubTree>
     </TreeView.LinkItem>
