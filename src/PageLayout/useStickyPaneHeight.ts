@@ -27,7 +27,6 @@ export function useStickyPaneHeight() {
     const scrollContainer = getScrollContainer(rootRef.current)
 
     const topRect = contentTopEntry?.target.getBoundingClientRect()
-    const bottomRect = contentBottomEntry?.target.getBoundingClientRect()
 
     // Custom sticky header's height with units
     const offsetHeaderWithUnits = typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader
@@ -36,18 +35,16 @@ export function useStickyPaneHeight() {
       const scrollRect = scrollContainer.getBoundingClientRect()
 
       const topOffset = topRect ? Math.max(topRect.top - scrollRect.top, 0) : 0
-      const bottomOffset = bottomRect ? Math.max(scrollRect.bottom - bottomRect.bottom, 0) : 0
 
-      calculatedHeight = `calc(${scrollRect.height}px - (max(${topOffset}px, ${offsetHeaderWithUnits}) + ${bottomOffset}px))`
+      calculatedHeight = `calc(${scrollRect.height}px - (max(${topOffset}px, ${offsetHeaderWithUnits})))`
     } else {
       const topOffset = topRect ? Math.max(topRect.top, 0) : 0
-      const bottomOffset = bottomRect ? Math.max(window.innerHeight - bottomRect.bottom, 0) : 0
 
       // Safari's elastic scroll feature allows you to scroll beyond the scroll height of the page.
       // We need to account for this when calculating the offset.
       const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
 
-      calculatedHeight = `calc(100vh - (max(${topOffset}px, ${offsetHeaderWithUnits}) + ${bottomOffset}px - ${overflowScroll}px))`
+      calculatedHeight = `calc(100vh - (max(${topOffset}px, ${offsetHeaderWithUnits}) - ${overflowScroll}px))`
     }
 
     setHeight(calculatedHeight)

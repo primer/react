@@ -412,4 +412,103 @@ export const SettingsPage = () => (
   </SplitPageLayout>
 )
 
+export const Test: Story = () => {
+  const [numParagraphs, setNumParagraphs] = React.useState(20)
+  return (
+    <>
+      <Box sx={{height: '200px', border: '1px dashed black'}}>Header</Box>
+      <SplitPageLayout>
+        <SplitPageLayout.Pane>
+          <Box sx={{display: 'grid', gap: 3}}>
+            {Array.from({length: 10}).map((_, i) => (
+              <Box key={i} as="p" sx={{margin: 0}}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
+                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
+                massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus
+                in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod
+                nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+              </Box>
+            ))}
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (numParagraphs === 3) {
+                    setNumParagraphs(20)
+                  } else {
+                    setNumParagraphs(3)
+                  }
+                }}
+              >
+                Toggle
+              </button>
+            </div>
+            {Array.from({length: 10}).map((_, i) => (
+              <Box key={i} as="p" sx={{margin: 0}}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
+                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
+                massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus
+                in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod
+                nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+              </Box>
+            ))}
+          </Box>
+        </SplitPageLayout.Pane>
+        <SplitPageLayout.Content sx={{minHeight: '100vh'}}>
+          <Box sx={{display: 'grid', gap: 3}}>
+            {Array.from({length: numParagraphs}).map((_, i) => (
+              <Box key={i} as="p" sx={{margin: 0}}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
+                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
+                massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus
+                in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod
+                nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+              </Box>
+            ))}
+          </Box>
+        </SplitPageLayout.Content>
+      </SplitPageLayout>
+      <Box sx={{height: '200px', border: '1px dashed black'}}>Footer</Box>
+    </>
+  )
+}
+
+export const Test2: Story = () => {
+  const [numParagraphs, setNumParagraphs] = React.useState(10)
+  return (
+    <>
+      <Box sx={{height: '200px', border: '1px dashed black'}}>Header</Box>
+      <SplitPageLayout>
+        <SplitPageLayout.Pane>
+          <Box sx={{display: 'grid', gap: 3}}>
+            {Array.from({length: 40}).map((_, i) => (
+              <Box key={i} as="button" sx={{margin: 0}}>
+                Item {i}
+              </Box>
+            ))}
+          </Box>
+        </SplitPageLayout.Pane>
+        <SplitPageLayout.Content sx={{minHeight: '100vh'}}>
+          <Box sx={{display: 'grid', gap: 3}}>
+            {Array.from({length: numParagraphs}).map((_, i) => (
+              <Box key={i} as="p" sx={{margin: 0}}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
+                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
+                massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus
+                in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod
+                nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+              </Box>
+            ))}
+          </Box>
+        </SplitPageLayout.Content>
+      </SplitPageLayout>
+      <Box sx={{height: '2000px', border: '1px dashed black'}}>Footer</Box>
+    </>
+  )
+}
+
 export default meta
