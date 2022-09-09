@@ -55,10 +55,10 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
   const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
   // Expand or collapse the subtree
-  const toggle = React.useCallback(() => {
+  function toggle() {
     onToggle?.(!isExpanded)
     setIsExpanded(!isExpanded)
-  }, [isExpanded, onToggle])
+  }
 
   return (
     <ItemContext.Provider value={{level: level + 1, isExpanded}}>
