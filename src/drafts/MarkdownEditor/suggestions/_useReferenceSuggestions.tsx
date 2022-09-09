@@ -20,7 +20,7 @@ const trigger: Trigger = {
 const referenceToSuggestion = (reference: Reference): Suggestion => ({
   value: reference.id,
   render: props => (
-    <ActionList.Item {...props} sx={{...props.sx, '& > span:first-child': {display: 'none'}}}>
+    <ActionList.Item {...props}>
       {reference.iconHtml && (
         <ActionList.LeadingVisual>
           <span dangerouslySetInnerHTML={{__html: reference.iconHtml}} />
