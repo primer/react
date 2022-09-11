@@ -1,6 +1,15 @@
-import React, {useRef, useEffect, forwardRef, useCallback, useState, MutableRefObject, RefObject} from 'react'
+import React, {
+  useRef,
+  useLayoutEffect,
+  forwardRef,
+  useCallback,
+  useState,
+  MutableRefObject,
+  RefObject,
+  useEffect
+} from 'react'
 import Box from '../Box'
-import {merge, SxProp, BetterSystemStyleObject} from '../sx'
+import {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
 import {IconButton} from '../Button/IconButton'
@@ -9,12 +18,28 @@ import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
+import CounterLabel from '../CounterLabel'
+import {useTheme} from '../ThemeProvider'
+import {ChildWidthArray, ResponsiveProps} from './types'
 
-type ChildWidthArray = Array<{width: number}>
-type ResponsiveProps = {
-  items: Array<React.ReactElement>
-  actions: Array<React.ReactElement>
-  overflowStyles: React.CSSProperties
+import {
+  moreBtnStyles,
+  getDividerStyle,
+  getNavStyles,
+  ulStyles,
+  leftArrowBtnStyles,
+  rightArrowBtnStyles,
+  hiddenBtn
+} from './getUnderlineNavStyles'
+
+export type UnderlineNavProps = {
+  label: string
+  as?: React.ElementType
+  align?: 'right'
+  sx?: SxProp
+  variant?: 'default' | 'small'
+  afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  children: React.ReactNode
 }
 
 const handleArrowBtnsVisibility = (
@@ -73,13 +98,11 @@ const overflowEffect = (
   callback({items, actions, overflowStyles}, iconsVisible)
 }
 
-export type {ResponsiveProps}
-
 function getValidChildren(children: React.ReactNode) {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
-function calculateScrollOffset(scrollableList: RefObject<HTMLDivElement>) {
+function calculateScrollOffset(scrollableList: RefObject<HTMLUListElement>) {
   const {scrollLeft, scrollWidth, clientWidth} = scrollableList.current as HTMLElement
   const scrollRight = scrollWidth - scrollLeft - clientWidth
   return {scrollLeft, scrollRight}
@@ -99,16 +122,6 @@ function calculatePossibleItems(childWidthArray: ChildWidthArray, width: number)
   return breakpoint
 }
 
-export type UnderlineNavProps = {
-  label: string
-  as?: React.ElementType
-  align?: 'right'
-  sx?: SxProp
-  variant?: 'default' | 'small'
-  afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
-  children: React.ReactNode
-}
-
 export const UnderlineNav = forwardRef(
   (
     {as = 'nav', align, label, sx: sxProp = {}, afterSelect, variant = 'default', children}: UnderlineNavProps,
@@ -118,45 +131,9 @@ export const UnderlineNav = forwardRef(
     const newRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
 
+    const {theme} = useTheme()
+
     const [isCoarsePointer, setIsCoarsePointer] = useState(false)
-
-    // Determine the pointer type on mount
-    useEffect(() => {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      setIsCoarsePointer(true) //(window.matchMedia && window.matchMedia('(pointer:coarse)').matches)
-      // eslint-disable-next-line github/prefer-observers
-      listRef.current?.addEventListener('scroll', (event: any) => {
-        const scrollOffsets = calculateScrollOffset(listRef)
-        handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
-      })
-    }, [])
-
-    // This might change if we decide tab through the navigation items rather than navigationg with the arrow keys.
-    // TBD. In the meantime keeping it as a menu with the focus trap.
-    // ref: https://www.w3.org/WAI/ARIA/apg/example-index/menubar/menubar-navigation.html (Keyboard Support)
-    useFocusZone({
-      containerRef: backupRef,
-      bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-      focusOutBehavior: 'wrap'
-    })
-
-    const styles = {
-      display: 'flex',
-      justifyContent: align === 'right' ? 'flex-end' : 'flex-start',
-      borderBottom: '1px solid',
-      borderBottomColor: 'border.muted',
-      align: 'row',
-      alignItems: 'center'
-    }
-
-    const ulStyles = {
-      display: 'flex',
-      listStyle: 'none',
-      padding: '0',
-      margin: '0',
-      marginBottom: '-1px',
-      alignItems: 'center'
-    }
 
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
 
@@ -165,6 +142,14 @@ export const UnderlineNav = forwardRef(
     const [scrollValues, setScrollValues] = useState<{scrollLeft: number; scrollRight: number}>({
       scrollLeft: 0,
       scrollRight: 0
+    })
+    // This might change if we decide tab through the navigation items rather than navigationg with the arrow keys.
+    // TBD. In the meantime keeping it as a menu with the focus trap.
+    // ref: https://www.w3.org/WAI/ARIA/apg/example-index/menubar/menubar-navigation.html (Keyboard Support)
+    useFocusZone({
+      containerRef: backupRef,
+      bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+      focusOutBehavior: 'wrap'
     })
 
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
@@ -220,37 +205,31 @@ export const UnderlineNav = forwardRef(
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
 
-    const dividerStyle = {
-      display: 'inline-block',
-      borderLeft: '1px solid',
-      width: '1px',
-      borderColor: 'border.muted',
-      marginRight: 1
+    // Determine the pointer type on mount
+    useLayoutEffect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      setIsCoarsePointer(window.matchMedia && window.matchMedia('(pointer:coarse)').matches)
+      // eslint-disable-next-line github/prefer-observers
+      listRef.current?.addEventListener('scroll', () => {
+        const scrollOffsets = calculateScrollOffset(listRef)
+
+        handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
+      })
+    }, [updateOffsetValues])
+
+    useEffect(() => {
+      // scroll the selected link into the view
+      if (selectedLink) {
+        selectedLink.current?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'})
+      }
+    }, [selectedLink])
+
+    const scrollWithButton = (event: React.MouseEvent<HTMLButtonElement>, direction: -1 | 1) => {
+      if (!listRef.current) return
+      const ScrollAmount = direction * 200
+      listRef.current.scrollBy({left: ScrollAmount, top: 0, behavior: 'smooth'})
     }
 
-    const moreBtnStyles = {
-      //set margin 0 here because safari puts extra margin around the button, rest is to reset style to make it look like a list element
-      margin: 0,
-      border: 0,
-      background: 'transparent',
-      fontWeight: 'normal',
-      boxShadow: 'none',
-      paddingY: 1,
-      paddingX: 2
-    }
-
-    const arrowBtnStyles = {
-      ...moreBtnStyles,
-      paddingX: 1
-    }
-
-    const scroll = (event: React.MouseEvent<HTMLButtonElement>, direction: string) => {
-      event.preventDefault()
-      event.stopPropagation()
-      const ScrollAmount = direction === 'left' ? -200 : 200
-      const element = document.querySelector('nav > ul')
-      element?.scrollBy({left: ScrollAmount, top: 0, behavior: 'smooth'})
-    }
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -263,16 +242,20 @@ export const UnderlineNav = forwardRef(
           iconsVisible
         }}
       >
-        <Box tabIndex={0} as={as} sx={merge(styles, sxProp)} aria-label={label} ref={newRef}>
-          {scrollValues.scrollLeft > 0 ? (
+        <Box
+          tabIndex={0}
+          as={as}
+          sx={merge<BetterSystemStyleObject>(getNavStyles(theme, align), sxProp)}
+          aria-label={label}
+          ref={newRef}
+        >
+          {scrollValues.scrollLeft > 0 && (
             <IconButton
               aria-label="Scroll Left"
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => scroll(e, 'left')}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => scrollWithButton(e, -1)}
               icon={ChevronLeftIcon}
-              sx={arrowBtnStyles}
+              sx={scrollValues.scrollLeft > 0 ? leftArrowBtnStyles : hiddenBtn}
             />
-          ) : (
-            ''
           )}
           <Box
             as="ul"
@@ -281,21 +264,19 @@ export const UnderlineNav = forwardRef(
           >
             {responsiveProps.items}
           </Box>
-          {scrollValues.scrollRight > 0 ? (
+          {scrollValues.scrollRight > 0 && (
             <IconButton
               aria-label="Scroll Right"
               // Event type should include keyboard and voice control?
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => scroll(e, 'right')}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => scrollWithButton(e, 1)}
               icon={ChevronRightIcon}
-              sx={arrowBtnStyles}
+              sx={scrollValues.scrollRight > 0 ? rightArrowBtnStyles : hiddenBtn}
             />
-          ) : (
-            ''
           )}
 
           {actions.length > 0 && (
             <Box as="div" sx={{display: 'flex'}}>
-              <Box sx={dividerStyle}></Box>
+              <Box sx={getDividerStyle(theme)}></Box>
               <ActionMenu>
                 <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
                 <ActionMenu.Overlay align="end">
@@ -304,7 +285,10 @@ export const UnderlineNav = forwardRef(
                       const {children: actionElementChildren, ...actionElementProps} = action.props
                       return (
                         <ActionList.Item key={index} {...actionElementProps}>
-                          {actionElementChildren}
+                          <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                            {actionElementChildren}
+                            <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                          </Box>
                         </ActionList.Item>
                       )
                     })}
