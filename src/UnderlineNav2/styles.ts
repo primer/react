@@ -74,46 +74,48 @@ export const arrowBtnStyles = {
   ...moreBtnStyles,
   paddingX: 0,
   paddingY: 0,
-  position: 'relative'
+  opacity: 1,
+  transition: 'opacity 1s ease'
 }
 
 export const hiddenBtn = {
   ...arrowBtnStyles,
-  display: 'none'
+  opacity: 0
 }
 
 export const leftArrowBtnStyles = {
-  ...arrowBtnStyles,
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    background: 'linear-gradient(to left,#fff0,#fff)',
-    height: '100%',
-    width: '30px',
-    zIndex: 1,
-    left: '16px',
-    pointerEvents: 'none'
-  }
+  ...arrowBtnStyles
+  // '&::after': {
+  //   content: '""',
+  //   position: 'absolute',
+  //   background: 'linear-gradient(to left,#fff0,#fff)',
+  //   height: '100%',
+  //   width: '30px',
+  //   zIndex: 1,
+  //   left: '16px',
+  //   pointerEvents: 'none'
+  // }
 }
 
 export const rightArrowBtnStyles = {
   ...arrowBtnStyles,
-  '&::before': {
-    position: 'absolute',
-    background: 'linear-gradient(to right,#fff0,#fff)',
-    content: '""',
-    height: '100%',
-    left: '-30px',
-    width: '30px',
-    zIndex: 1,
-    pointerEvents: 'none'
-  }
+  opacity: 1
+  // '&::before': {
+  //   position: 'absolute',
+  //   background: 'linear-gradient(to right,#fff0,#fff)',
+  //   content: '""',
+  //   height: '100%',
+  //   left: '-30px',
+  //   width: '30px',
+  //   zIndex: 1,
+  //   pointerEvents: 'none'
+  // }
 }
 
 export const getLinkStyles = (
   theme?: Theme,
   props?: Partial<Pick<UnderlineNavProps, 'variant'>>,
-  selectedLink?: HTMLElement,
+  selectedLink?: React.RefObject<HTMLElement>,
   ref?: React.RefObject<HTMLElement>
 ) => ({
   position: 'relative',

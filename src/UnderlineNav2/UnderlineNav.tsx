@@ -30,7 +30,7 @@ import {
   leftArrowBtnStyles,
   rightArrowBtnStyles,
   hiddenBtn
-} from './getUnderlineNavStyles'
+} from './styles'
 
 export type UnderlineNavProps = {
   label: string
@@ -245,18 +245,17 @@ export const UnderlineNav = forwardRef(
         <Box
           tabIndex={0}
           as={as}
-          sx={merge<BetterSystemStyleObject>(getNavStyles(theme, align), sxProp)}
+          sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
           aria-label={label}
           ref={newRef}
         >
-          {scrollValues.scrollLeft > 0 && (
-            <IconButton
-              aria-label="Scroll Left"
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => scrollWithButton(e, -1)}
-              icon={ChevronLeftIcon}
-              sx={scrollValues.scrollLeft > 0 ? leftArrowBtnStyles : hiddenBtn}
-            />
-          )}
+          <IconButton
+            aria-label="Scroll Left"
+            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => scrollWithButton(e, -1)}
+            icon={ChevronLeftIcon}
+            sx={scrollValues.scrollLeft > 0 ? leftArrowBtnStyles : hiddenBtn}
+          />
+
           <Box
             as="ul"
             sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)}
@@ -264,15 +263,14 @@ export const UnderlineNav = forwardRef(
           >
             {responsiveProps.items}
           </Box>
-          {scrollValues.scrollRight > 0 && (
-            <IconButton
-              aria-label="Scroll Right"
-              // Event type should include keyboard and voice control?
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => scrollWithButton(e, 1)}
-              icon={ChevronRightIcon}
-              sx={scrollValues.scrollRight > 0 ? rightArrowBtnStyles : hiddenBtn}
-            />
-          )}
+
+          <IconButton
+            aria-label="Scroll Right"
+            // Event type should include keyboard and voice control?
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => scrollWithButton(e, 1)}
+            icon={ChevronRightIcon}
+            sx={scrollValues.scrollRight > 0 ? rightArrowBtnStyles : hiddenBtn}
+          />
 
           {actions.length > 0 && (
             <Box as="div" sx={{display: 'flex'}}>

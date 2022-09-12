@@ -6,7 +6,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
-import {getLinkStyles, wrapperStyles, iconWrapStyles, textStyles, counterStyles} from './getUnderlineNavStyles'
+import {getLinkStyles, wrapperStyles, iconWrapStyles, textStyles, counterStyles} from './styles'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -62,7 +62,7 @@ export const UnderlineNavItem = forwardRef(
     forwardedRef
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const ref = forwardedRef ?? backupRef
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const {
       setChildrenWidth,
       setNoIconChildrenWidth,
@@ -118,7 +118,7 @@ export const UnderlineNavItem = forwardRef(
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
           {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
-          sx={merge(getLinkStyles(theme, variant, selectedLink, ref), sxProp as SxProp)}
+          sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
         >
