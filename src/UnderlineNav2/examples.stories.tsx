@@ -1,8 +1,7 @@
 import React from 'react'
-import {EyeIcon, CodeIcon, IssueOpenedIcon} from '@primer/octicons-react'
+import {EyeIcon, CodeIcon, IssueOpenedIcon, GitPullRequestIcon, CommentDiscussionIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import UnderlineNav, {UnderlineNavProps} from './index'
-import CounterLabel from '../CounterLabel'
+import {UnderlineNav, UnderlineNavProps} from './index'
 import {BaseStyles, ThemeProvider} from '..'
 
 export default {
@@ -39,9 +38,9 @@ export default {
 export const DefaultNav = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-      <UnderlineNav.Link>Item 2</UnderlineNav.Link>
-      <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+      <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+      <UnderlineNav.Item>Item 2</UnderlineNav.Item>
+      <UnderlineNav.Item>Item 3</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -49,10 +48,17 @@ export const DefaultNav = (args: UnderlineNavProps) => {
 export const withIcons = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Link selected leadingIcon={EyeIcon}>
-        Item 1
-      </UnderlineNav.Link>
-      <UnderlineNav.Link>Item 2</UnderlineNav.Link>
+      <UnderlineNav.Item leadingIcon={CodeIcon}>Code</UnderlineNav.Item>
+      <UnderlineNav.Item leadingIcon={EyeIcon} counter={6}>
+        Issues
+      </UnderlineNav.Item>
+      <UnderlineNav.Item selected leadingIcon={GitPullRequestIcon}>
+        Pull Requests
+      </UnderlineNav.Item>
+      <UnderlineNav.Item leadingIcon={CommentDiscussionIcon} counter={7}>
+        Discussions
+      </UnderlineNav.Item>
+      <UnderlineNav.Item leadingIcon={EyeIcon}>Item 1</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -60,15 +66,12 @@ export const withIcons = (args: UnderlineNavProps) => {
 export const withCounterLabels = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Link selected leadingIcon={CodeIcon}>
+      <UnderlineNav.Item selected leadingIcon={CodeIcon}>
         Code
-      </UnderlineNav.Link>
-      <UnderlineNav.Link leadingIcon={IssueOpenedIcon}>
-        Issues{' '}
-        <CounterLabel sx={{marginLeft: 1}} scheme="primary">
-          12
-        </CounterLabel>
-      </UnderlineNav.Link>
+      </UnderlineNav.Item>
+      <UnderlineNav.Item leadingIcon={IssueOpenedIcon} counter={12}>
+        Issues
+      </UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -76,9 +79,9 @@ export const withCounterLabels = (args: UnderlineNavProps) => {
 export const rightAlign = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args} align="right">
-      <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-      <UnderlineNav.Link>Item 2dsjsjskdjkajsdhkajsdkasj</UnderlineNav.Link>
-      <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+      <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+      <UnderlineNav.Item>Item 2dsjsjskdjkajsdhkajsdkasj</UnderlineNav.Item>
+      <UnderlineNav.Item>Item 3</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -102,14 +105,14 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
       {items.map((item, index) => (
-        <UnderlineNav.Link
+        <UnderlineNav.Item
           key={item}
           leadingIcon={EyeIcon}
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
         >
           {item}
-        </UnderlineNav.Link>
+        </UnderlineNav.Item>
       ))}
     </UnderlineNav>
   )
@@ -119,9 +122,9 @@ export const HorizontalScrollNav = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args} overflow="scroll">
       {items.map(item => (
-        <UnderlineNav.Link key={item} leadingIcon={EyeIcon}>
+        <UnderlineNav.Item key={item} leadingIcon={EyeIcon}>
           {item}
-        </UnderlineNav.Link>
+        </UnderlineNav.Item>
       ))}
     </UnderlineNav>
   )

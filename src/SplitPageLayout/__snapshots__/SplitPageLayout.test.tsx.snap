@@ -226,7 +226,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
           class=""
         />
       </main>
-      <aside
+      <div
         class="c7"
       >
         <div
@@ -240,7 +240,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
         >
           Pane
         </div>
-      </aside>
+      </div>
       <footer
         class="c11"
       >

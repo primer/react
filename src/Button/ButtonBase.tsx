@@ -1,4 +1,4 @@
-import React, {ComponentPropsWithRef, forwardRef} from 'react'
+import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
@@ -13,14 +13,11 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
     const iconWrapStyles = {
       display: 'inline-block'
     }
-    const sxStyles = merge.all([
-      getButtonStyles(theme),
-      getSizeStyles(size, variant, false),
-      getVariantStyles(variant, theme),
-      sxProp as SxProp
-    ])
+    const sxStyles = useMemo(() => {
+      return merge.all([getButtonStyles(theme), getSizeStyles(size, variant, false), getVariantStyles(variant, theme)])
+    }, [theme, size, variant])
     return (
-      <StyledButton as={Component} sx={sxStyles} {...props} ref={forwardedRef}>
+      <StyledButton as={Component} sx={merge(sxStyles, sxProp as SxProp)} {...props} ref={forwardedRef}>
         {LeadingIcon && (
           <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
             <LeadingIcon />

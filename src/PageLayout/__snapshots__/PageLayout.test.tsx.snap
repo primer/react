@@ -190,7 +190,7 @@ exports[`PageLayout renders condensed layout 1`] = `
           class=""
         />
       </main>
-      <aside
+      <div
         class="c7"
       >
         <div
@@ -204,7 +204,7 @@ exports[`PageLayout renders condensed layout 1`] = `
         >
           Pane
         </div>
-      </aside>
+      </div>
       <footer
         class="c11"
       >
@@ -458,7 +458,7 @@ exports[`PageLayout renders default layout 1`] = `
           class=""
         />
       </main>
-      <aside
+      <div
         class="c7"
       >
         <div
@@ -472,7 +472,7 @@ exports[`PageLayout renders default layout 1`] = `
         >
           Pane
         </div>
-      </aside>
+      </div>
       <footer
         class="c11"
       >
@@ -726,7 +726,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
           class=""
         />
       </main>
-      <aside
+      <div
         class="c7"
       >
         <div
@@ -740,7 +740,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
         >
           Pane
         </div>
-      </aside>
+      </div>
       <footer
         class="c11"
       >
@@ -994,7 +994,7 @@ exports[`PageLayout renders with dividers 1`] = `
           class=""
         />
       </main>
-      <aside
+      <div
         class="c7"
       >
         <div
@@ -1008,7 +1008,7 @@ exports[`PageLayout renders with dividers 1`] = `
         >
           Pane
         </div>
-      </aside>
+      </div>
       <footer
         class="c10"
       >
