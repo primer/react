@@ -17,11 +17,11 @@ jobs:
       - name: Add react label to issue      
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
-            mutation($labelIds: [ID!]!, $labelableId: ID!) {
+            mutation($reactLabelId: [ID!]!, $issue: ID!) {
               addLabelsToLabelable(input: { labelIds: [$reactLabelId], labelableId: $issue }) {
                 clientMutationId
               }
-            }' -f reactLabelId=$REACT_LABEL_ID -f issue="$ISSUE_ID" --jq '.data.addProjectNextItem.projectNextItem.id'
+            }' -f reactLabelId=$REACT_LABEL_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id'
       - name: Add issue to project
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
@@ -31,4 +31,4 @@ jobs:
                   id
                 }
               }
-            }' -f project=$PROJECT_ID -f issue="$ISSUE_ID" --jq '.data.addProjectNextItem.projectNextItem.id'
+            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id'
