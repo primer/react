@@ -12,7 +12,7 @@ const external = [
   ...Object.keys(packageJson.devDependencies)
 ]
 const baseConfig = {
-  input: 'src/index.ts',
+  input: ['src/index.ts', 'src/drafts/index.ts', 'src/deprecated/index.ts'],
   external: id => {
     return external.some(pkg => {
       return id.startsWith(pkg)
@@ -58,6 +58,7 @@ export default [
   // Bundles
   {
     ...baseConfig,
+    input: 'src/index.ts',
     external: ['styled-components', 'react', 'react-dom'],
     plugins: [...baseConfig.plugins, terser(), visualizer({sourcemap: true})],
     output: ['esm', 'umd'].map(format => ({
