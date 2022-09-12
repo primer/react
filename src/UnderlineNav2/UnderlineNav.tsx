@@ -12,25 +12,16 @@ import Box from '../Box'
 import {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
-import {IconButton} from '../Button/IconButton'
 import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
-import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
-import {ChildWidthArray, ResponsiveProps} from './types'
+import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
 
-import {
-  moreBtnStyles,
-  getDividerStyle,
-  getNavStyles,
-  ulStyles,
-  leftArrowBtnStyles,
-  rightArrowBtnStyles,
-  hiddenBtn
-} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, hiddenBtn} from './styles'
+import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
 
 export type UnderlineNavProps = {
   label: string
@@ -224,7 +215,7 @@ export const UnderlineNav = forwardRef(
       }
     }, [selectedLink])
 
-    const scrollWithButton = (event: React.MouseEvent<HTMLButtonElement>, direction: -1 | 1) => {
+    const onScrollWithButton: OnScrollWithButtonEventType = (event, direction) => {
       if (!listRef.current) return
       const ScrollAmount = direction * 200
       listRef.current.scrollBy({left: ScrollAmount, top: 0, behavior: 'smooth'})
@@ -249,12 +240,7 @@ export const UnderlineNav = forwardRef(
           aria-label={label}
           ref={newRef}
         >
-          <IconButton
-            aria-label="Scroll Left"
-            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => scrollWithButton(e, -1)}
-            icon={ChevronLeftIcon}
-            sx={scrollValues.scrollLeft > 0 ? leftArrowBtnStyles : hiddenBtn}
-          />
+          <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
 
           <Box
             as="ul"
@@ -264,13 +250,7 @@ export const UnderlineNav = forwardRef(
             {responsiveProps.items}
           </Box>
 
-          <IconButton
-            aria-label="Scroll Right"
-            // Event type should include keyboard and voice control?
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => scrollWithButton(e, 1)}
-            icon={ChevronRightIcon}
-            sx={scrollValues.scrollRight > 0 ? rightArrowBtnStyles : hiddenBtn}
-          />
+          <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
 
           {actions.length > 0 && (
             <Box as="div" sx={{display: 'flex'}}>

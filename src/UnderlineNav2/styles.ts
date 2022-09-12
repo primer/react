@@ -70,8 +70,15 @@ export const moreBtnStyles = {
   paddingX: 2
 }
 
+export const arrowParentStyles: BetterSystemStyleObject = {
+  position: 'relative',
+  zIndex: 1,
+  height: '100%'
+}
+
 export const arrowBtnStyles = {
   ...moreBtnStyles,
+  position: 'absolute',
   paddingX: 0,
   paddingY: 0,
   opacity: 1,
@@ -83,33 +90,25 @@ export const hiddenBtn = {
   opacity: 0
 }
 
-export const leftArrowBtnStyles = {
-  ...arrowBtnStyles
-  // '&::after': {
-  //   content: '""',
-  //   position: 'absolute',
-  //   background: 'linear-gradient(to left,#fff0,#fff)',
-  //   height: '100%',
-  //   width: '30px',
-  //   zIndex: 1,
-  //   left: '16px',
-  //   pointerEvents: 'none'
-  // }
+export const leftArrowFadeEffectStyles: BetterSystemStyleObject = {
+  content: '""',
+  position: 'absolute',
+  background: 'linear-gradient(to left,#fff0,#fff)',
+  height: '30p',
+  width: '30px',
+  left: '16px',
+  pointerEvents: 'none'
 }
 
-export const rightArrowBtnStyles = {
-  ...arrowBtnStyles,
-  opacity: 1
-  // '&::before': {
-  //   position: 'absolute',
-  //   background: 'linear-gradient(to right,#fff0,#fff)',
-  //   content: '""',
-  //   height: '100%',
-  //   left: '-30px',
-  //   width: '30px',
-  //   zIndex: 1,
-  //   pointerEvents: 'none'
-  // }
+export const rightArrowFadeEffectStyles: BetterSystemStyleObject = {
+  position: 'absolute',
+  background: 'linear-gradient(to right,#fff0,#fff)',
+  content: '""',
+  height: '100%',
+  left: '-30px',
+  width: '30px',
+
+  pointerEvents: 'none'
 }
 
 export const getLinkStyles = (
