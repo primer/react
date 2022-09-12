@@ -6,18 +6,25 @@ import {useTheme} from '../ThemeProvider'
 import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 
+const defaultSxProp = {}
+const iconWrapStyles = {
+  display: 'inline-block'
+}
+
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
-  ({children, as: Component = 'button', sx: sxProp = {}, ...props}, forwardedRef): JSX.Element => {
+  ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, variant = 'default', size = 'medium'} = props
     const {theme} = useTheme()
-    const iconWrapStyles = {
-      display: 'inline-block'
-    }
     const sxStyles = useMemo(() => {
-      return merge.all([getButtonStyles(theme), getSizeStyles(size, variant, false), getVariantStyles(variant, theme)])
-    }, [theme, size, variant])
+      return merge.all([
+        getButtonStyles(theme),
+        getSizeStyles(size, variant, false),
+        getVariantStyles(variant, theme),
+        sxProp as SxProp
+      ])
+    }, [theme, size, variant, sxProp])
     return (
-      <StyledButton as={Component} sx={merge(sxStyles, sxProp as SxProp)} {...props} ref={forwardedRef}>
+      <StyledButton as={Component} sx={sxStyles} {...props} ref={forwardedRef}>
         {LeadingIcon && (
           <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
             <LeadingIcon />
