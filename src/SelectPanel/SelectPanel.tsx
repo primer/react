@@ -242,7 +242,7 @@ export function SelectPanel({
           alignItems="center"
           justifyContent="flex-end"
           gridGap="8px"
-          padding="12px"
+          p={2}
           borderTopColor="border.default"
           borderTopWidth={1}
           borderTopStyle="solid"
