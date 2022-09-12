@@ -10,6 +10,10 @@ const defaultSxProp = {}
 const iconWrapStyles = {
   display: 'inline-block'
 }
+const trailingIconStyles = {
+  ...iconWrapStyles,
+  ml: 2
+}
 
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
@@ -32,7 +36,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         )}
         {children && <span data-component="text">{children}</span>}
         {TrailingIcon && (
-          <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles, ml: 2}}>
+          <Box as="span" data-component="trailingIcon" sx={trailingIconStyles}>
             <TrailingIcon />
           </Box>
         )}
