@@ -1,13 +1,11 @@
-import {cleanup, render as HTMLRender, waitFor} from '@testing-library/react'
+import {render as HTMLRender, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import 'babel-polyfill'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {SingleSelection, MixedSelection} from '../stories/ActionMenu/examples.stories'
-import '@testing-library/jest-dom'
 expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {
@@ -55,7 +53,6 @@ describe('ActionMenu', () => {
     await user.click(button)
 
     expect(component.getByRole('menu')).toBeInTheDocument()
-    cleanup()
   })
 
   it('should open Menu on MenuButton keypress', async () => {
@@ -67,7 +64,6 @@ describe('ActionMenu', () => {
     await user.keyboard('{Enter}')
 
     expect(component.getByRole('menu')).toBeInTheDocument()
-    cleanup()
   })
 
   it('should close Menu on selecting an action with click', async () => {
@@ -81,7 +77,6 @@ describe('ActionMenu', () => {
     await user.click(menuItems[0])
 
     expect(component.queryByRole('menu')).toBeNull()
-    cleanup()
   })
 
   it('should close Menu on selecting an action with Enter', async () => {
@@ -96,7 +91,6 @@ describe('ActionMenu', () => {
     await user.keyboard('{Enter}')
 
     expect(component.queryByRole('menu')).toBeNull()
-    cleanup()
   })
 
   it('should not close Menu if event is prevented', async () => {
@@ -111,8 +105,6 @@ describe('ActionMenu', () => {
 
     // menu should still be open
     expect(component.getByRole('menu')).toBeInTheDocument()
-
-    cleanup()
   })
 
   it('should be able to select an Item with selectionVariant', async () => {
@@ -133,7 +125,6 @@ describe('ActionMenu', () => {
     // open menu again and check if the first option is checked
     await user.click(button)
     expect(component.getAllByRole('menuitemradio')[0]).toHaveAttribute('aria-checked', 'true')
-    cleanup()
   })
 
   it('should assign the right roles with groups & mixed selectionVariant', async () => {
@@ -149,8 +140,6 @@ describe('ActionMenu', () => {
 
     expect(component.getByLabelText('Status')).toHaveAttribute('role', 'menuitemradio')
     expect(component.getByLabelText('Clear Group by')).toHaveAttribute('role', 'menuitem')
-
-    cleanup()
   })
 
   it('should keep focus on Button when menu is opened with click', async () => {
@@ -164,8 +153,6 @@ describe('ActionMenu', () => {
     await user.click(button)
     expect(component.queryByRole('menu')).toBeInTheDocument()
     expect(document.activeElement).toEqual(button)
-
-    cleanup()
   })
 
   it('should select first element when ArrowDown is pressed after opening Menu with click', async () => {
@@ -181,7 +168,6 @@ describe('ActionMenu', () => {
     await user.keyboard('{ArrowDown}')
 
     expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
-    cleanup()
   })
 
   it('should select last element when ArrowUp is pressed after opening Menu with click', async () => {
@@ -199,7 +185,6 @@ describe('ActionMenu', () => {
     await user.keyboard('{ArrowUp}')
 
     expect(component.getAllByRole('menuitem').pop()).toEqual(document.activeElement)
-    cleanup()
   })
 
   it('should close the menu if Tab is pressed and move to next element', async () => {
@@ -225,15 +210,12 @@ describe('ActionMenu', () => {
       expect(document.activeElement).toEqual(component.getByPlaceholderText('next focusable element'))
       expect(component.queryByRole('menu')).not.toBeInTheDocument()
     })
-
-    cleanup()
   })
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Example />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   checkStoriesForAxeViolations('ActionMenu/fixtures')

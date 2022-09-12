@@ -10,9 +10,9 @@ description: Use an underlined nav to allow tab like navigation with overflow be
 
 ```jsx live drafts
 <UnderlineNav label="simple nav">
-  <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-  <UnderlineNav.Link>Item 2</UnderlineNav.Link>
-  <UnderlineNav.Link>Item 3</UnderlineNav.Link>
+  <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+  <UnderlineNav.Item>Item 2</UnderlineNav.Item>
+  <UnderlineNav.Item>Item 3</UnderlineNav.Item>
 </UnderlineNav>
 ```
 
@@ -20,10 +20,10 @@ description: Use an underlined nav to allow tab like navigation with overflow be
 
 ```jsx live drafts
 <UnderlineNav label="simple nav with icons">
-  <UnderlineNav.Link selected leadingIcon={EyeIcon}>
+  <UnderlineNav.Item selected leadingIcon={EyeIcon}>
     Item 1
-  </UnderlineNav.Link>
-  <UnderlineNav.Link>Item 2</UnderlineNav.Link>
+  </UnderlineNav.Item>
+  <UnderlineNav.Item>Item 2</UnderlineNav.Item>
 </UnderlineNav>
 ```
 
@@ -31,8 +31,8 @@ description: Use an underlined nav to allow tab like navigation with overflow be
 
 ```jsx live drafts
 <UnderlineNav label="small variant" variant="small">
-  <UnderlineNav.Link selected>Item 1</UnderlineNav.Link>
-  <UnderlineNav.Link>Item 2</UnderlineNav.Link>
+  <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
+  <UnderlineNav.Item>Item 2</UnderlineNav.Item>
 </UnderlineNav>
 ```
 
@@ -65,7 +65,7 @@ description: Use an underlined nav to allow tab like navigation with overflow be
   <PropsTableSxRow />
 </PropsTable>
 
-### UnderlineNav.Link
+### UnderlineNav.Item
 
 <PropsTable>
   <PropsTableRow name="leadingIcon" type="Component" description="The leading icon comes before item label" />

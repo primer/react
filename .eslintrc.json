@@ -24,7 +24,9 @@
     "lib-*/**/*",
     "types/**/*",
     "consumer-test/**/*",
-    "contributor-docs/adrs/*"
+    "contributor-docs/adrs/*",
+    // Note: this file is inlined from an external dependency
+    "src/utils/polymorphic.ts"
   ],
   "globals": {
     "__DEV__": "readonly"

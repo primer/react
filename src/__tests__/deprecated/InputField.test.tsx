@@ -1,7 +1,6 @@
 import React from 'react'
-import {render, cleanup} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {Autocomplete, SSRProvider, TextInput, TextInputWithTokens} from '../../'
 import InputField from '../../deprecated/InputField'
 expect.extend(toHaveNoViolations)
@@ -232,6 +231,5 @@ describe('InputField', () => {
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })

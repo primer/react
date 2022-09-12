@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Autocomplete snapshots renders a custom empty state message 1`] = `
-Array [
+[
   .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -161,7 +161,7 @@ Array [
 `;
 
 exports[`Autocomplete snapshots renders a loading state 1`] = `
-Array [
+[
   .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -356,7 +356,7 @@ Array [
 `;
 
 exports[`Autocomplete snapshots renders a menu that contains an item to add to the menu 1`] = `
-Array [
+[
   .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -745,7 +745,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -801,7 +801,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -857,7 +857,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -913,7 +913,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -969,7 +969,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1025,7 +1025,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1081,7 +1081,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1137,7 +1137,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1193,7 +1193,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1249,7 +1249,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1277,15 +1277,15 @@ Array [
                     aria-hidden="true"
                     className="octicon octicon-plus"
                     dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "<path fill-rule=\\"evenodd\\" d=\\"M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z\\"></path>",
+                      {
+                        "__html": "<path fill-rule="evenodd" d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>",
                       }
                     }
                     fill="currentColor"
                     height={16}
                     role="img"
                     style={
-                      Object {
+                      {
                         "display": "inline-block",
                         "overflow": "visible",
                         "userSelect": "none",
@@ -1302,7 +1302,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1326,7 +1326,7 @@ Array [
 `;
 
 exports[`Autocomplete snapshots renders a multiselect input 1`] = `
-Array [
+[
   .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1678,7 +1678,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1734,7 +1734,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1790,7 +1790,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1846,7 +1846,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1902,7 +1902,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -1958,7 +1958,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2014,7 +2014,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2070,7 +2070,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2126,7 +2126,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2182,7 +2182,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2206,7 +2206,7 @@ Array [
 `;
 
 exports[`Autocomplete snapshots renders a multiselect input with selected menu items 1`] = `
-Array [
+[
   .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2569,7 +2569,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2625,7 +2625,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2681,7 +2681,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2737,7 +2737,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2793,7 +2793,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2849,7 +2849,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2905,7 +2905,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -2961,7 +2961,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3017,7 +3017,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3073,7 +3073,7 @@ Array [
                   <div
                     className="c9"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3097,7 +3097,7 @@ Array [
 `;
 
 exports[`Autocomplete snapshots renders a single select input 1`] = `
-Array [
+[
   .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3390,7 +3390,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3419,7 +3419,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3448,7 +3448,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3477,7 +3477,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3506,7 +3506,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3535,7 +3535,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3564,7 +3564,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3593,7 +3593,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3622,7 +3622,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3651,7 +3651,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3675,7 +3675,7 @@ Array [
 `;
 
 exports[`Autocomplete snapshots renders with a custom text input component 1`] = `
-Array [
+[
   <input
     id="customInput"
     type="text"
@@ -3845,7 +3845,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3874,7 +3874,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3903,7 +3903,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3932,7 +3932,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3961,7 +3961,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -3990,7 +3990,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -4019,7 +4019,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -4048,7 +4048,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -4077,7 +4077,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -4106,7 +4106,7 @@ Array [
                   <div
                     className="c7"
                     style={
-                      Object {
+                      {
                         "--main-content-flex-direction": "row",
                       }
                     }
@@ -4130,7 +4130,7 @@ Array [
 `;
 
 exports[`Autocomplete snapshots renders with an input value 1`] = `
-Array [
+[
   .c0 {
   font-size: 14px;
   line-height: 20px;

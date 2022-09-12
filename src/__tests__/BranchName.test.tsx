@@ -1,9 +1,9 @@
 import React from 'react'
 import {BranchName} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender, cleanup} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
+
 expect.extend(toHaveNoViolations)
 
 describe('BranchName', () => {
@@ -17,7 +17,6 @@ describe('BranchName', () => {
     const {container} = HTMLRender(<BranchName />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('renders an <a> by default', () => {

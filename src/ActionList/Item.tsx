@@ -1,4 +1,4 @@
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
