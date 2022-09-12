@@ -20,7 +20,7 @@ import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
 
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, hiddenBtn} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles} from './styles'
 import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
 
 export type UnderlineNavProps = {
@@ -73,6 +73,15 @@ const overflowEffect = (
       items.push(...childArray)
       overflowStyles.overflowX = 'auto'
       overflowStyles.scrollbarWidth = 'none'
+
+      // Hide scrollbar on Firefox
+      overflowStyles.scrollbarWidth = 'none'
+      // Hide scrollbar on IE 10+
+      overflowStyles.msOverflowStyle = 'none'
+      // Hide scrollbar on Chrome, Safari, Edge
+      overflowStyles['&::-webkit-scrollbar'] = {
+        display: 'none'
+      }
     } else {
       // This is only for the overflow behaviour (for fine pointers)
       // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu

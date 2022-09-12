@@ -38,7 +38,8 @@ export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavPro
   borderBottom: '1px solid',
   borderBottomColor: `${theme?.colors.border.muted}`,
   align: 'row',
-  alignItems: 'center'
+  alignItems: 'center',
+  position: 'relative'
 })
 
 export const ulStyles = {
@@ -70,45 +71,66 @@ export const moreBtnStyles = {
   paddingX: 2
 }
 
-export const arrowParentStyles: BetterSystemStyleObject = {
-  position: 'relative',
-  zIndex: 1,
-  height: '100%'
-}
-
 export const arrowBtnStyles = {
   ...moreBtnStyles,
+  background: 'white',
   position: 'absolute',
   paddingX: 0,
   paddingY: 0,
   opacity: 1,
-  transition: 'opacity 1s ease'
+  transition: 'opacity 250ms ease-out',
+  zIndex: 1
 }
 
-export const hiddenBtn = {
+export const leftArrawHiddenBtn = {
   ...arrowBtnStyles,
-  opacity: 0
+  opacity: 0,
+  top: 0,
+  bottom: 0,
+  left: 0
 }
 
-export const leftArrowFadeEffectStyles: BetterSystemStyleObject = {
-  content: '""',
-  position: 'absolute',
-  background: 'linear-gradient(to left,#fff0,#fff)',
-  height: '30p',
-  width: '30px',
-  left: '16px',
-  pointerEvents: 'none'
+export const rightArrowHiddenBtn = {
+  ...arrowBtnStyles,
+  opacity: 0,
+  top: 0,
+  bottom: 0,
+  right: 0
 }
 
-export const rightArrowFadeEffectStyles: BetterSystemStyleObject = {
-  position: 'absolute',
-  background: 'linear-gradient(to right,#fff0,#fff)',
-  content: '""',
-  height: '100%',
-  left: '-30px',
-  width: '30px',
+// TODO: make the linear gradient and background theme aware
+export const leftArrowVisibleBtn = {
+  ...arrowBtnStyles,
+  top: 0,
+  bottom: 0,
+  left: 0,
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    background: 'linear-gradient(to left,#fff0,#fff)',
+    height: '100%',
+    width: '20px',
+    right: '-20px',
+    pointerEvents: 'none'
+  }
+}
 
-  pointerEvents: 'none'
+export const rightArrowVisibleBtn = {
+  ...arrowBtnStyles,
+  top: 0,
+  bottom: 0,
+  right: 0,
+  '&::before': {
+    position: 'absolute',
+    top: 0,
+    background: 'linear-gradient(to right,#fff0,#fff)',
+    content: '""',
+    height: '100%',
+    left: '-20px',
+    width: '20px',
+    pointerEvents: 'none'
+  }
 }
 
 export const getLinkStyles = (
