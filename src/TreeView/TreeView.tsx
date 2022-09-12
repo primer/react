@@ -47,7 +47,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
 
         case 'closed ArrowLeft':
           // Focus parent element
-          return getParentElement(from)
+          return getParentElement(from) || from
         // return undefined
 
         case 'end ArrowRight':
@@ -56,7 +56,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
 
         case 'end ArrowLeft':
           // Focus parent element
-          return getParentElement(from)
+          return getParentElement(from) || from
         // return undefined
       }
 
