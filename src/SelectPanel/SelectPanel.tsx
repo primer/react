@@ -218,7 +218,7 @@ export function SelectPanel({
             ? 'No matching items'
             : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
         </VisuallyHidden>
-        <Box display="flex" alignItems="center" justifyContent="space-between" pl={3} pr={2} pt={2}>
+        <Box display="flex" alignItems="center" justifyContent="space-between" pl={3} pr={2} pt={2} as="header">
           <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
             {title}
           </Heading>
@@ -246,6 +246,7 @@ export function SelectPanel({
           borderTopColor="border.default"
           borderTopWidth={1}
           borderTopStyle="solid"
+          as="footer"
         >
           <Button size="small" onClick={onCloseClickHandler}>
             Cancel
