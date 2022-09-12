@@ -37,8 +37,8 @@ export function ComponentStatuses() {
         <thead>
           <tr>
             <th align="left">Component</th>
-            <th align="left">Status</th>
-            <th align="left">Accessibility</th>
+            <th align="center">Status</th>
+            <th align="center">Accessibility</th>
             <th align="left">Description</th>
           </tr>
         </thead>
@@ -62,11 +62,15 @@ export function ComponentStatuses() {
                     {title}
                   </Link>
                 </td>
-                <td align="center" valign="top">
+                <td align="center" valign="top" style={{whiteSpace: 'nowrap'}}>
                   <StatusLabel status={status} />
                 </td>
-                <td align="center" valign="top">
-                  {a11yReviewed ? <Label variant="accent">Reviewed</Label> : <Text sx={{color: 'fg.subtle'}}>-</Text>}
+                <td align="center" valign="top" style={{whiteSpace: 'nowrap'}}>
+                  {a11yReviewed ? (
+                    <Label variant="primary">Reviewed</Label>
+                  ) : (
+                    <Text sx={{color: 'fg.subtle'}}>Not reviewed</Text>
+                  )}
                 </td>
                 <td>{description}</td>
               </tr>
