@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider, FormControl} from '..'
+import {BaseStyles, Box, ThemeProvider, FormControl, Flash} from '..'
 import TextInput, {TextInputProps} from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import {
@@ -225,4 +225,194 @@ WithLoadingIndicator.parameters = {
   controls: {
     exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children']
   }
+}
+
+export const ValidationOnSubmitExample = () => {
+  const getNameErrors = value => {
+    if (!value.replace(/\s/g, '').length) {
+      return ['nameEmpty']
+    }
+
+    return []
+  }
+
+  const getGHHandleErrors = value => {
+    const validationKeys = []
+
+    if (!value.replace(/\s/g, '').length) {
+      validationKeys.push('handleEmpty')
+    }
+
+    if (/\s/g.test(value)) {
+      validationKeys.push('handleHasSpaces')
+    }
+
+    return validationKeys
+  }
+  const [nameValue, setNameValue] = React.useState('')
+  const [nameErrors, setNameErrors] = React.useState([])
+  const [ghHandleValue, setGHHandleValue] = React.useState('mona lisa')
+  const [ghHandleErrors, setGHHandleErrors] = React.useState([])
+  const [isGHHandleAvailable, setIsGHHandleAvailable] = React.useState()
+  const [hasSubmissionRun, setHasSubmissionRun] = React.useState(false)
+  const nameInputRef = React.useRef(null)
+  const handleInputRef = React.useRef(null)
+  const nameChangeCallback = e => {
+    setNameValue(e.currentTarget.value)
+
+    // remove error if it is corrected after the first validation
+    if (nameErrors.length > 0 && getNameErrors(e.currentTarget.value).length === 0) {
+      setNameErrors([])
+    }
+  }
+  const ghHandleChangeCallback = e => {
+    setGHHandleValue(e.currentTarget.value)
+
+    // remove errors if they are corrected after the first validation
+    if (ghHandleErrors.length > 0 && getGHHandleErrors(e.currentTarget.value).length === 0) {
+      setGHHandleErrors([])
+    } else {
+      // do not show any success message if the field has errors
+      setIsGHHandleAvailable(false)
+    }
+  }
+
+  // validate on submit
+  const submitCallback = e => {
+    const nameFieldErrors = getNameErrors(nameValue)
+    const handleFieldErrors = getGHHandleErrors(ghHandleValue)
+
+    e.preventDefault()
+
+    setHasSubmissionRun(true)
+    setNameErrors(nameFieldErrors)
+    if (handleFieldErrors) {
+      setGHHandleErrors(handleFieldErrors)
+    } else {
+      // mark the handle as available if there are no errors
+      setIsGHHandleAvailable(true)
+    }
+
+    // focus the first field with errors
+    if (nameFieldErrors.length && nameInputRef.current) {
+      nameInputRef.current.focus()
+    }
+
+    if (!nameFieldErrors.length && handleFieldErrors.length && handleInputRef.current) {
+      handleInputRef.current.focus()
+    }
+  }
+
+  // after the first validation, re-run validation on blur
+  const nameBlurCallback = () => {
+    if (hasSubmissionRun) {
+      setNameErrors(getNameErrors(nameValue))
+    }
+  }
+
+  // after the first validation, re-run validation on blur
+  const ghHandleBlurCallback = () => {
+    const errors = getGHHandleErrors(ghHandleValue)
+
+    if (hasSubmissionRun) {
+      setGHHandleErrors(errors)
+      // for this example, any handle that passes validation is "available"
+      setIsGHHandleAvailable(!errors.length)
+    }
+  }
+
+  return (
+    <Box display="grid" gridGap={3} as="form" onSubmit={submitCallback} noValidate>
+      <FormControl required>
+        <FormControl.Label>Name</FormControl.Label>
+        <TextInput
+          block
+          value={nameValue}
+          onChange={nameChangeCallback}
+          onBlur={nameBlurCallback}
+          autoFocus={nameErrors.includes('nameEmpty')}
+          ref={nameInputRef}
+        />
+        {nameErrors.includes('nameEmpty') && (
+          <FormControl.Validation variant="error">A name is required</FormControl.Validation>
+        )}
+      </FormControl>
+
+      <FormControl required>
+        <FormControl.Label>GitHub handle</FormControl.Label>
+        <TextInput
+          block
+          value={ghHandleValue}
+          onChange={ghHandleChangeCallback}
+          onBlur={ghHandleBlurCallback}
+          ref={handleInputRef}
+        />
+        {ghHandleErrors.includes('handleHasSpaces') && (
+          <FormControl.Validation variant="error">GitHub handles cannot contain spaces</FormControl.Validation>
+        )}
+        {ghHandleErrors.includes('handleEmpty') && (
+          <FormControl.Validation variant="error">A handle is required</FormControl.Validation>
+        )}
+        {isGHHandleAvailable === true && (
+          <FormControl.Validation variant="success">{ghHandleValue} is available</FormControl.Validation>
+        )}
+        <FormControl.Caption>With or without "@". For example "monalisa" or "@monalisa"</FormControl.Caption>
+      </FormControl>
+
+      <Box as="button" type="submit" justifySelf="flex-start">
+        Submit
+      </Box>
+    </Box>
+  )
+}
+
+export const ValidationAlertAfterSubmit = () => {
+  return (
+    <>
+      <Box mb={3}>
+        <Flash variant="danger" sx={{fontSize: 1}}>
+          The following inputs have errors:{' '}
+          <Box as="ul" display="inline-flex" p={0} m={0} sx={{listStyle: 'none'}}>
+            <Box as="li">
+              <a href="#firstname">First name</a>,
+            </Box>{' '}
+            <Box as="li" ml={1}>
+              <a href="#lastname">Last name,</a>
+            </Box>
+            <Box as="li" ml={1}>
+              <a href="#handle">GitHub handle</a>
+            </Box>
+          </Box>
+        </Flash>
+      </Box>
+      <Box display="grid" gridGap={3} as="form" noValidate>
+        <FormControl required id="firstname">
+          <FormControl.Label>First name</FormControl.Label>
+          <TextInput block value="" />
+          <FormControl.Validation variant="error">A first name is required</FormControl.Validation>
+        </FormControl>
+
+        <FormControl required id="lastname">
+          <FormControl.Label>Last name</FormControl.Label>
+          <TextInput block value="" />
+          <FormControl.Validation variant="error">A last name is required</FormControl.Validation>
+        </FormControl>
+
+        <FormControl required id="handle">
+          <FormControl.Label>GitHub handle</FormControl.Label>
+          <TextInput block value="mona lisa" />
+          <FormControl.Validation variant="error">A handle is required</FormControl.Validation>
+        </FormControl>
+
+        <FormControl required>
+          <FormControl.Label>Location</FormControl.Label>
+          <TextInput block value="San Francisco, CA" />
+        </FormControl>
+
+        <Box as="button" type="submit" justifySelf="flex-start">
+          Submit
+        </Box>
+      </Box>
+    </>
+  )
 }
