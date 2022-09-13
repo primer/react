@@ -1,7 +1,7 @@
 import {ChevronDownIcon, ChevronRightIcon} from '@primer/octicons-react'
+import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import Box from '../Box'
-import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -24,64 +24,24 @@ export type TreeViewProps = {
 }
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
-  const {containerRef} = useFocusZone({
-    bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    getNextFocusable: (direction, from, event) => {
-      if (!(from instanceof HTMLElement)) return undefined
+  const [activeDescendant, setActiveDescendant] = React.useState('')
 
-      const state = getElementState(from)
-
-      // Reference: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboard-interaction-24
-      switch (`${state} ${event.key}`) {
-        case 'open ArrowRight':
-          // Focus first child node
-          return getFirstChildElement(from) || from
-
-        case 'open ArrowLeft':
-          // Close node; don't change focus
-          return from
-
-        case 'closed ArrowRight':
-          // Open node; don't change focus
-          return from
-
-        case 'closed ArrowLeft':
-          // Focus parent element
-          return getParentElement(from) || from
-        // return undefined
-
-        case 'end ArrowRight':
-          // Do nothing
-          return from
-
-        case 'end ArrowLeft':
-          // Focus parent element
-          return getParentElement(from) || from
-        // return undefined
-      }
-
-      // ArrowUp and ArrowDown behavior is the same regarless of element state
-      switch (event.key) {
-        case 'ArrowUp':
-          // Focus previous visible element
-          return getVisibleElement(from, 'previous')
-
-        case 'ArrowDown':
-          // Focus next visible element
-          return getVisibleElement(from, 'next')
-      }
-
-      return undefined
+  React.useEffect(() => {
+    // Initialize the active descendant to the first item in the tree
+    if (!activeDescendant) {
+      const firstItem = document.querySelector('[role="treeitem"]')
+      if (firstItem) setActiveDescendant(firstItem.id)
     }
-  })
+  }, [activeDescendant])
 
   return (
     <Box
-      ref={containerRef}
       as="ul"
+      tabIndex={0}
       role="tree"
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
+      aria-activedescendant={activeDescendant}
       sx={{
         listStyle: 'none',
         padding: 0,
@@ -95,57 +55,57 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
 
 // DOM utilities used for focus management
 
-function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
-  if (element.getAttribute('role') !== 'treeitem') {
-    throw new Error('Element is not a treeitem')
-  }
+// function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
+//   if (element.getAttribute('role') !== 'treeitem') {
+//     throw new Error('Element is not a treeitem')
+//   }
 
-  switch (element.ariaExpanded) {
-    case 'true':
-      return 'open'
-    case 'false':
-      return 'closed'
-    default:
-      return 'end'
-  }
-}
+//   switch (element.ariaExpanded) {
+//     case 'true':
+//       return 'open'
+//     case 'false':
+//       return 'closed'
+//     default:
+//       return 'end'
+//   }
+// }
 
-function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
-  const root = element.closest('[role=tree]')
+// function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
+//   const root = element.closest('[role=tree]')
 
-  if (!root) return
+//   if (!root) return
 
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, node => {
-    if (!(node instanceof HTMLElement)) return NodeFilter.FILTER_SKIP
-    return node.getAttribute('role') === 'treeitem' ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
-  })
+//   const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, node => {
+//     if (!(node instanceof HTMLElement)) return NodeFilter.FILTER_SKIP
+//     return node.getAttribute('role') === 'treeitem' ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+//   })
 
-  let current = walker.firstChild()
+//   let current = walker.firstChild()
 
-  while (current !== element) {
-    current = walker.nextNode()
-  }
+//   while (current !== element) {
+//     current = walker.nextNode()
+//   }
 
-  let next = direction === 'next' ? walker.nextNode() : walker.previousNode()
+//   let next = direction === 'next' ? walker.nextNode() : walker.previousNode()
 
-  // If next element is not visible, continue iterating
-  while (next instanceof HTMLElement && !next.offsetParent) {
-    next = direction === 'next' ? walker.nextNode() : walker.previousNode()
-  }
+//   // If next element is not visible, continue iterating
+//   while (next instanceof HTMLElement && !next.offsetParent) {
+//     next = direction === 'next' ? walker.nextNode() : walker.previousNode()
+//   }
 
-  return next instanceof HTMLElement ? next : undefined
-}
+//   return next instanceof HTMLElement ? next : undefined
+// }
 
-function getFirstChildElement(element: HTMLElement): HTMLElement | undefined {
-  const firstChild = element.querySelector('[role=treeitem]')
-  return firstChild instanceof HTMLElement ? firstChild : undefined
-}
+// function getFirstChildElement(element: HTMLElement): HTMLElement | undefined {
+//   const firstChild = element.querySelector('[role=treeitem]')
+//   return firstChild instanceof HTMLElement ? firstChild : undefined
+// }
 
-function getParentElement(element: HTMLElement): HTMLElement | undefined {
-  const groupElement = element.closest('[role=group]')
-  const parent = groupElement?.closest('[role=treeitem]')
-  return parent instanceof HTMLElement ? parent : undefined
-}
+// function getParentElement(element: HTMLElement): HTMLElement | undefined {
+//   const groupElement = element.closest('[role=group]')
+//   const parent = groupElement?.closest('[role=treeitem]')
+//   return parent instanceof HTMLElement ? parent : undefined
+// }
 
 // ----------------------------------------------------------------------------
 // TreeView.Item
@@ -157,6 +117,7 @@ export type TreeViewItemProps = {
 }
 
 const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
+  const itemId = useSSRSafeId()
   const itemRef = React.useRef<HTMLLIElement>(null)
   const {level} = React.useContext(ItemContext)
   const [isExpanded, setIsExpanded] = React.useState(false)
@@ -172,6 +133,7 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
   return (
     <ItemContext.Provider value={{level: level + 1, isExpanded}}>
       <li
+        id={itemId}
         ref={itemRef}
         role="treeitem"
         tabIndex={0}

@@ -48,3 +48,18 @@ it('hides subtrees by default', () => {
   expect(parentItem).toHaveAttribute('aria-expanded', 'false')
   expect(subtree).toBeNull()
 })
+
+it('sets aria-activedescendant to the first treeitem by default', () => {
+  const {queryByRole} = render(
+    <TreeView aria-label="Test tree">
+      <TreeView.Item>Item 1</TreeView.Item>
+      <TreeView.Item>Item 2</TreeView.Item>
+      <TreeView.Item>Item 3</TreeView.Item>
+    </TreeView>
+  )
+
+  const root = queryByRole('tree')
+  const firstItem = queryByRole('treeitem', {name: 'Item 1'})
+
+  expect(root).toHaveAttribute('aria-activedescendant', firstItem?.id)
+})
