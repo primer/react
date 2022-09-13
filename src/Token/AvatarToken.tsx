@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {TokenBaseProps, defaultTokenSize, tokenSizes, TokenSizeKeys} from './TokenBase'
 import Token from './Token'
-import {Avatar} from '..'
+import Avatar from '../Avatar'
 
 // TODO: update props to only accept 'large' and 'xlarge' on the next breaking change
 export interface AvatarTokenProps extends TokenBaseProps {

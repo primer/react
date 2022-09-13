@@ -227,7 +227,6 @@ Using `aria-label` along with `PageLayout.Header`, `PageLayout.Content`, or `Pag
 
 Using `aria-labelledby` along with `PageLayout.Header`, `PageLayout.Content`, or `PageLayout.Footer` creates a unique label for each landmark role by using the given `id` to associate the landmark with the content with the corresponding `id`. This is helpful when you have a visible item that visually communicates the type of content which you would like to associate to the landmark itself.
 
-
 ```jsx live
 <PageLayout>
   <PageLayout.Header aria-labelledby="header-label">
@@ -249,11 +248,11 @@ Using `aria-labelledby` along with `PageLayout.Header`, `PageLayout.Content`, or
 
 The `PageLayout` component uses [landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role) for `PageLayout.Header`, `PageLayout.Content`, and `PageLayout.Footer` in order to make it easier for screen reader users to navigate between sections of the page.
 
-| Component | Landmark role |
-| :-------- | :------------ |
-| `PageLayout.Header` | [`banner`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/banner_role) |
-| `PageLayout.Content` | [`main`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role) |
-| `PageLayout.Footer` | [`contentinfo`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/contentinfo_role) |
+| Component            | Landmark role                                                                                           |
+| :------------------- | :------------------------------------------------------------------------------------------------------ |
+| `PageLayout.Header`  | [`banner`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/banner_role)           |
+| `PageLayout.Content` | [`main`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role)               |
+| `PageLayout.Footer`  | [`contentinfo`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/contentinfo_role) |
 
 Each component may be labeled through either `aria-label` or `aria-labelledby` in order to provide a unique label for the landmark. This can be helpful when there are multiple landmarks of the same type on the page.
 
@@ -524,6 +523,7 @@ On macOS, you can open the VoiceOver rotor by pressing `VO-U`. You can navigate 
     description="Whether the pane is hidden."
   />
   <PropsTableSxRow />
+  <PropsTableRefRow elementType="div" refType="HTMLDivElement" />
 </PropsTable>
 
 ### PageLayout.Footer
