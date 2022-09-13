@@ -6,6 +6,11 @@ import Box from '../Box'
 // ----------------------------------------------------------------------------
 // Context
 
+const RootContext = React.createContext<{isFocused: boolean; activeDescendant: string}>({
+  isFocused: false,
+  activeDescendant: ''
+})
+
 const ItemContext = React.createContext<{
   level: number
   isExpanded: boolean
@@ -24,6 +29,7 @@ export type TreeViewProps = {
 }
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
+  const [isFocused, setIsFocused] = React.useState(false)
   const [activeDescendant, setActiveDescendant] = React.useState('')
 
   React.useEffect(() => {
@@ -35,21 +41,28 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   }, [activeDescendant])
 
   return (
-    <Box
-      as="ul"
-      tabIndex={0}
-      role="tree"
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledby}
-      aria-activedescendant={activeDescendant}
-      sx={{
-        listStyle: 'none',
-        padding: 0,
-        margin: 0
-      }}
-    >
-      {children}
-    </Box>
+    <RootContext.Provider value={{isFocused, activeDescendant}}>
+      <Box
+        as="ul"
+        tabIndex={0}
+        role="tree"
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
+        aria-activedescendant={activeDescendant}
+        sx={{
+          listStyle: 'none',
+          padding: 0,
+          margin: 0,
+          // We'll display a focus ring around the active descendant
+          // instead of the tree itself
+          outline: 0
+        }}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+      >
+        {children}
+      </Box>
+    </RootContext.Provider>
   )
 }
 
@@ -117,6 +130,7 @@ export type TreeViewItemProps = {
 }
 
 const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
+  const {isFocused, activeDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
   const itemRef = React.useRef<HTMLLIElement>(null)
   const {level} = React.useContext(ItemContext)
@@ -136,7 +150,6 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
         id={itemId}
         ref={itemRef}
         role="treeitem"
-        tabIndex={0}
         // TODO: aria-label for treeitem
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
@@ -185,6 +198,8 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
             borderRadius: 2,
             cursor: 'pointer',
             transition: 'background 33.333ms linear',
+            outline: isFocused && activeDescendant === itemId ? '2px solid' : 'none',
+            outlineColor: 'accent.fg',
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
             }
