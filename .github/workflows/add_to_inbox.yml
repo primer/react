@@ -6,7 +6,7 @@ on:
 
 jobs:
   add-to-inbox:
-    if: ${{ github.event.action == 'opened' && github.repository == 'primer/react' }}
+    if: ${{ github.repository == 'primer/react' && (github.event.action == 'opened' || github.event.action == 'reopened') }}
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
