@@ -15,7 +15,7 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '@primer/behaviors'
+import {FocusKeys, scrollIntoView} from '@primer/behaviors'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
@@ -23,6 +23,8 @@ import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './t
 import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, scrollStyles, moreMenuStyles} from './styles'
 import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
+
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
 
 export type UnderlineNavProps = {
   label: string
@@ -32,6 +34,15 @@ export type UnderlineNavProps = {
   variant?: 'default' | 'small'
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   children: React.ReactNode
+}
+
+const ARROW_BTN_WIDTH = 36
+
+const underlineNavScrollMargins: ScrollIntoViewOptions = {
+  startMargin: ARROW_BTN_WIDTH,
+  endMargin: ARROW_BTN_WIDTH,
+  direction: 'horizontal',
+  behavior: 'smooth'
 }
 
 // Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
@@ -217,8 +228,8 @@ export const UnderlineNav = forwardRef(
 
     useEffect(() => {
       // scroll the selected link into the view
-      if (selectedLink) {
-        selectedLink.current?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'})
+      if (selectedLink && selectedLink.current && listRef.current) {
+        scrollIntoView(selectedLink.current, listRef.current, underlineNavScrollMargins)
       }
     }, [selectedLink])
 

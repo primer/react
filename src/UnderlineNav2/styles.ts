@@ -71,36 +71,42 @@ export const moreBtnStyles = {
   paddingX: 2
 }
 
-export const arrowBtnStyles = {
-  ...moreBtnStyles,
-  background: 'white',
-  position: 'absolute',
+export const getArrowBtnStyles = (theme?: Theme) => ({
+  fontWeight: 'normal',
+  boxShadow: 'none',
+  margin: 0,
+  border: 0,
+  borderRadius: 0,
   paddingX: 0,
   paddingY: 0,
+  background: theme?.colors.canvas.default,
+  position: 'absolute',
   opacity: 1,
   transition: 'opacity 250ms ease-out',
-  zIndex: 1
-}
+  zIndex: 1,
+  '&:hover:not([disabled]), &:focus-visible': {
+    background: theme?.colors.canvas.default
+  }
+})
 
-export const leftArrawHiddenBtn = {
-  ...arrowBtnStyles,
+export const getLeftArrowHiddenBtn = (theme?: Theme) => ({
+  ...getArrowBtnStyles(theme),
   opacity: 0,
   top: 0,
   bottom: 0,
   left: 0
-}
+})
 
-export const rightArrowHiddenBtn = {
-  ...arrowBtnStyles,
+export const getRightArrowHiddenBtn = (theme?: Theme) => ({
+  ...getArrowBtnStyles(theme),
   opacity: 0,
   top: 0,
   bottom: 0,
   right: 0
-}
+})
 
-// TODO: make the linear gradient and background theme aware
-export const leftArrowVisibleBtn = {
-  ...arrowBtnStyles,
+export const getLeftArrowVisibleBtn = (theme?: Theme) => ({
+  ...getArrowBtnStyles(theme),
   top: 0,
   bottom: 0,
   left: 0,
@@ -108,30 +114,30 @@ export const leftArrowVisibleBtn = {
     content: '""',
     position: 'absolute',
     top: 0,
-    background: 'linear-gradient(to left,#fff0,#fff)',
+    background: `linear-gradient(to left,#fff0,${theme?.colors.canvas.default})`,
     height: '100%',
     width: '20px',
     right: '-20px',
     pointerEvents: 'none'
   }
-}
+})
 
-export const rightArrowVisibleBtn = {
-  ...arrowBtnStyles,
+export const getRightArrowVisibleBtn = (theme?: Theme) => ({
+  ...getArrowBtnStyles(theme),
   top: 0,
   bottom: 0,
   right: 0,
   '&::before': {
     position: 'absolute',
     top: 0,
-    background: 'linear-gradient(to right,#fff0,#fff)',
+    background: `linear-gradient(to right,#fff0,${theme?.colors.canvas.default})`,
     content: '""',
     height: '100%',
     left: '-20px',
     width: '20px',
     pointerEvents: 'none'
   }
-}
+})
 
 export const getLinkStyles = (
   theme?: Theme,
