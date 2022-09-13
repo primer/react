@@ -2,7 +2,7 @@ name: Move new issues to inbox
 
 on:
   issues:
-    type: [opened, reopened]
+    types: [opened, reopened]
 
 jobs:
   add-to-inbox:
