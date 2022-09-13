@@ -19,14 +19,13 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, variant = 'default', size = 'medium'} = props
     const {theme} = useTheme()
+    const baseStyles = useMemo(() => {
+      return merge.all([getButtonStyles(theme), getSizeStyles(size, variant, false), getVariantStyles(variant, theme)])
+    }, [theme, size, variant])
     const sxStyles = useMemo(() => {
-      return merge.all([
-        getButtonStyles(theme),
-        getSizeStyles(size, variant, false),
-        getVariantStyles(variant, theme),
-        sxProp as SxProp
-      ])
-    }, [theme, size, variant, sxProp])
+      return merge(baseStyles, sxProp as SxProp)
+    }, [baseStyles, sxProp])
+
     return (
       <StyledButton as={Component} sx={sxStyles} {...props} ref={forwardedRef}>
         {LeadingIcon && (
