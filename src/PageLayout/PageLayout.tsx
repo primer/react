@@ -1,6 +1,6 @@
 import React from 'react'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
-import {Box} from '..'
+import Box from '../Box'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 

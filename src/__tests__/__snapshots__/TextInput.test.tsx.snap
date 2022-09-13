@@ -2732,6 +2732,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2827,12 +2833,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -2897,6 +2897,18 @@ exports[`TextInput renders with a loading indicator 1`] = `
   display: -ms-flexbox;
   display: flex;
   position: relative;
+}
+
+.c2 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
 }
 
 .c0 {
@@ -2992,18 +3004,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c3:focus {
   outline: 0;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
 }
 
 @media (min-width:768px) {
@@ -3110,6 +3110,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3205,12 +3211,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -3281,6 +3281,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3374,23 +3391,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
 }
 
 @media (min-width:768px) {
@@ -3532,6 +3532,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3625,23 +3642,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
 }
 
 @media (min-width:768px) {
@@ -3783,6 +3783,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3876,23 +3893,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
 }
 
 @media (min-width:768px) {
@@ -4034,6 +4034,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4127,17 +4138,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1:focus {
   outline: 0;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -4241,6 +4241,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c2 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4334,23 +4351,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c3:focus {
   outline: 0;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -4492,6 +4492,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4585,17 +4596,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1:focus {
   outline: 0;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -4701,6 +4701,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c5 {
   visibility: visible;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
 }
 
 .c0 {
@@ -4803,28 +4825,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -5002,6 +5002,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5095,28 +5117,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
 }
 
 @media (min-width:768px) {
@@ -5293,6 +5293,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5391,28 +5413,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4:focus {
   outline: 0;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
 }
 
 @media (min-width:768px) {
