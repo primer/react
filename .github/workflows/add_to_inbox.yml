@@ -2,7 +2,7 @@ name: Move new issues to inbox
 
 on:
   issues:
-    type: [opened]
+    type: [opened, reopened]
 
 jobs:
   add-to-inbox:
@@ -17,7 +17,7 @@ jobs:
       - name: Add react label to issue      
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
-            mutation($reactLabelId: [ID!]!, $issue: ID!) {
+            mutation($reactLabelId: ID!, $issue: ID!) {
               addLabelsToLabelable(input: { labelIds: [$reactLabelId], labelableId: $issue }) {
                 clientMutationId
               }
