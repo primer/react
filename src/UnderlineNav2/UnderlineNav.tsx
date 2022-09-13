@@ -9,7 +9,7 @@ import React, {
   useEffect
 } from 'react'
 import Box from '../Box'
-import {merge, BetterSystemStyleObject, SxProp} from '../sx'
+import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
@@ -20,8 +20,9 @@ import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
 
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, scrollStyles, moreMenuStyles} from './styles'
 import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
+import styled from 'styled-components'
 
 export type UnderlineNavProps = {
   label: string
@@ -32,6 +33,11 @@ export type UnderlineNavProps = {
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   children: React.ReactNode
 }
+
+// Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
+const NavigationList = styled.ul`
+  ${sx};
+`
 
 const handleArrowBtnsVisibility = (
   scrollOffsets: {scrollLeft: number; scrollRight: number},
@@ -48,16 +54,16 @@ const overflowEffect = (
   callback: (props: ResponsiveProps, iconsVisible: boolean) => void
 ) => {
   let iconsVisible = true
+  let overflowStyles: BetterSystemStyleObject | null = {}
 
   if (childWidthArray.length === 0) {
-    callback({items: childArray, actions: [], overflowStyles: {}}, iconsVisible)
+    callback({items: childArray, actions: [], overflowStyles}, iconsVisible)
   }
   // do this only for overflow
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, width)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, width)
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
-  const overflowStyles: React.CSSProperties = {whiteSpace: 'nowrap'}
 
   // First we check if we can fit all the items with icons
   if (childArray.length <= numberOfItemsPossible) {
@@ -70,20 +76,12 @@ const overflowEffect = (
     iconsVisible = false
 
     if (isCoarsePointer) {
+      // Scroll behaviour for coarse pointer devices
       items.push(...childArray)
-      overflowStyles.overflowX = 'auto'
-      overflowStyles.scrollbarWidth = 'none'
-
-      // Hide scrollbar on Firefox
-      overflowStyles.scrollbarWidth = 'none'
-      // Hide scrollbar on IE 10+
-      overflowStyles.msOverflowStyle = 'none'
-      // Hide scrollbar on Chrome, Safari, Edge
-      overflowStyles['&::-webkit-scrollbar'] = {
-        display: 'none'
-      }
+      overflowStyles = scrollStyles
     } else {
-      // This is only for the overflow behaviour (for fine pointers)
+      // More menu behaviour for fine pointer devices
+      overflowStyles = moreMenuStyles
       // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
       for (const [index, child] of childArray.entries()) {
         if (index < numberOfItemsWithoutIconPossible) {
@@ -251,13 +249,9 @@ export const UnderlineNav = forwardRef(
         >
           <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
 
-          <Box
-            as="ul"
-            sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)}
-            ref={listRef as RefObject<HTMLUListElement>}
-          >
+          <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
             {responsiveProps.items}
-          </Box>
+          </NavigationList>
 
           <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
 

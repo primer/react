@@ -184,3 +184,18 @@ export const getLinkStyles = (
     transform: 'translate(50%, -50%)'
   }
 })
+
+export const scrollStyles: BetterSystemStyleObject = {
+  whiteSpace: 'nowrap',
+  overflowX: 'auto',
+  // Hiding scrollbar on Firefox
+  scrollbarWidth: 'none',
+  // Hiding scrollbar on IE 10+
+  msOverflowStyle: 'none',
+  // Hiding scrollbar on Chrome, Safari and Opera
+  '&::-webkit-scrollbar': {
+    display: 'none'
+  }
+}
+
+export const moreMenuStyles: BetterSystemStyleObject = {whiteSpace: 'nowrap'}
