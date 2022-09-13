@@ -25,4 +25,8 @@ Please ensure these items are checked before merging.
 - [ ] No noticeable regressions have not been introduced as a result of changes in this release
 - [ ] Release notes accurately describe the changes made
 
+### 🚢 After merge
+
+- [ ] Add the preview deployment's link to releases as a way of permalinking to old version's docs. [Example](https://github.com/primer/react/releases/tag/v35.9.0)
+
 Please also leave any testing notes as a comment on this pull request. In particular, describing any issues encountered during your testing. This is helpful in providing historical context to maintainers.
