@@ -129,15 +129,3 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
     </UnderlineNav>
   )
 }
-
-export const HorizontalScrollNav = (args: UnderlineNavProps) => {
-  return (
-    <UnderlineNav {...args}>
-      {items.map(item => (
-        <UnderlineNav.Item key={item} leadingIcon={EyeIcon}>
-          {item}
-        </UnderlineNav.Item>
-      ))}
-    </UnderlineNav>
-  )
-}
