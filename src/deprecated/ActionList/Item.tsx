@@ -97,7 +97,7 @@ export interface ItemProps extends SxProp {
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 
   /**
    * An id associated with this item.  Should be unique between items
@@ -118,11 +118,6 @@ export interface ItemProps extends SxProp {
    * An item to pass back in the `onAction` callback, meant as
    */
   item?: ItemInput
-
-  /**
-   * @deprecated Allows the `enter` key to select an item. Kept for compatibility purposes. Should not be used in new components.
-   */
-  _legacyEnterSupport?: boolean
 }
 
 const getItemVariant = (variant = 'default', disabled?: boolean) => {
@@ -175,7 +170,7 @@ const MainContent = styled.div`
   flex-grow: 1;
 `
 
-const StyledItem = styled.li<
+const StyledItem = styled.div<
   {
     variant: ItemProps['variant']
     showDivider: ItemProps['showDivider']
@@ -354,7 +349,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
     children,
     onClick,
     id,
-    _legacyEnterSupport = false,
     ...props
   } = itemProps
 
@@ -368,16 +362,11 @@ export const Item = React.forwardRef((itemProps, ref) => {
       }
       onKeyPress?.(event)
 
-      const triggerKeys = [' ']
-      if (_legacyEnterSupport === true) {
-        triggerKeys.push('Enter')
-      }
-      if (!event.defaultPrevented && triggerKeys.includes(event.key)) {
+      if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
         onAction?.(itemProps, event)
-        event.preventDefault()
       }
     },
-    [onAction, disabled, itemProps, onKeyPress, _legacyEnterSupport]
+    [onAction, disabled, itemProps, onKeyPress]
   )
 
   const clickHandler = useCallback(
@@ -487,6 +476,6 @@ export const Item = React.forwardRef((itemProps, ref) => {
       </DividedContent>
     </StyledItem>
   )
-}) as PolymorphicForwardRefComponent<'li', ItemProps>
+}) as PolymorphicForwardRefComponent<'div', ItemProps>
 
 Item.displayName = 'ActionList.Item'
