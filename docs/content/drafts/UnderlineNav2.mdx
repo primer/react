@@ -1,38 +1,129 @@
 ---
 title: UnderlineNav v2
+componentId: underline_nav_2
 status: Draft
 description: Use an underlined nav to allow tab like navigation with overflow behaviour in your UI.
+source: https://github.com/primer/react/tree/main/src/UnderlineNav2
+storybook: https://primer.style/react/storybook/?path=/story/layout-underlinenav
 ---
+
+```js
+import {UnderlineNav} from '@primer/react/drafts'
+```
 
 ## Examples
 
 ### Simple
 
 ```jsx live drafts
-<UnderlineNav label="simple nav">
+<UnderlineNav>
   <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
   <UnderlineNav.Item>Item 2</UnderlineNav.Item>
   <UnderlineNav.Item>Item 3</UnderlineNav.Item>
 </UnderlineNav>
 ```
 
-### With icons
+### Small variant
 
 ```jsx live drafts
-<UnderlineNav label="simple nav with icons">
-  <UnderlineNav.Item selected leadingIcon={EyeIcon}>
-    Item 1
-  </UnderlineNav.Item>
+<UnderlineNav variant="small">
+  <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
   <UnderlineNav.Item>Item 2</UnderlineNav.Item>
 </UnderlineNav>
 ```
 
-### Small variant
+### With icons
 
 ```jsx live drafts
-<UnderlineNav label="small variant" variant="small">
-  <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
-  <UnderlineNav.Item>Item 2</UnderlineNav.Item>
+<UnderlineNav>
+  <UnderlineNav.Item selected leadingIcon={CodeIcon}>
+    Code
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={IssueOpenedIcon} counter={30}>
+    Issues
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={GitPullRequestIcon} counter={3}>
+    Pull requests
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={CommentDiscussionIcon}>Discussions</UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={9}>
+    Actions
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={7}>
+    Projects
+  </UnderlineNav.Item>
+</UnderlineNav>
+```
+
+### Overflow Behaviour
+
+#### Items without Icons
+
+When overflow occurs, the component first hides icons if present to optimize for space and show as many items as possible.
+If there is still overflow, the component will behave depending on the pointer. Please see below to see these behaviours.
+
+```jsx live drafts
+<UnderlineNav>
+  <UnderlineNav.Item selected leadingIcon={CodeIcon}>
+    Code
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={IssueOpenedIcon} counter={30}>
+    Issues
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={GitPullRequestIcon} counter={3}>
+    Pull requests
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={CommentDiscussionIcon}>Discussions</UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={9}>
+    Actions
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={7}>
+    Projects
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon}>Security</UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon}>Insights</UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={1}>
+    Settings
+  </UnderlineNav.Item>
+</UnderlineNav>
+```
+
+#### Display `More` menu for fine pointer devices
+
+This overflow behaviour will occur on fine pointer devices that have fine pointers.
+
+#### Scroll for coarse pointer devices
+
+The scroll behaviour will occur on devices that have coarse pointers.
+
+Depending on your device when viweing this example, you may see the scroll behaviour or the `More` menu behaviour.
+
+```jsx live drafts
+<UnderlineNav>
+  <UnderlineNav.Item selected leadingIcon={CodeIcon}>
+    Code
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={IssueOpenedIcon} counter={30}>
+    Issues
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={GitPullRequestIcon} counter={3}>
+    Pull requests
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={CommentDiscussionIcon}>Discussions</UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={9}>
+    Actions
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={7}>
+    Projects
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon}>Security</UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={14}>
+    Insights
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon} counter={1}>
+    Settings
+  </UnderlineNav.Item>
+  <UnderlineNav.Item leadingIcon={EyeIcon}>Wiki</UnderlineNav.Item>
 </UnderlineNav>
 ```
 
@@ -44,12 +135,6 @@ description: Use an underlined nav to allow tab like navigation with overflow be
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="aria-labelledby" type="string" />
   <PropsTableRow name="aria-describedby" type="string" />
-  <PropsTableRow
-    name="overflow"
-    type="'auto' | 'menu' | 'scroll'"
-    defaultValue="auto"
-    description="Controls the type of overflow behaviour in smaller screens"
-  />
   <PropsTableRow name="align" type="right | left" defaultValue="left" description="The alignment of the nav links" />
   <PropsTableRow
     name="variant"
@@ -89,9 +174,9 @@ description: Use an underlined nav to allow tab like navigation with overflow be
 <ComponentChecklist
   items={{
     propsDocumented: true,
-    noUnnecessaryDeps: false,
-    adaptsToThemes: false,
-    adaptsToScreenSizes: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
     fullTestCoverage: false,
     usedInProduction: false,
     usageExamplesDocumented: false,
