@@ -1,5 +1,17 @@
 import React from 'react'
-import {EyeIcon, CodeIcon, IssueOpenedIcon, GitPullRequestIcon, CommentDiscussionIcon} from '@primer/octicons-react'
+import {
+  IconProps,
+  EyeIcon,
+  CodeIcon,
+  IssueOpenedIcon,
+  GitPullRequestIcon,
+  CommentDiscussionIcon,
+  PlayIcon,
+  ProjectIcon,
+  GraphIcon,
+  ShieldLockIcon,
+  GearIcon
+} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav, UnderlineNavProps} from './index'
 import {BaseStyles, ThemeProvider} from '..'
@@ -86,17 +98,16 @@ export const rightAlign = (args: UnderlineNavProps) => {
   )
 }
 
-const items: string[] = [
-  'Item 1',
-  'Looooong Item',
-  'Looooooonger item',
-  'Item 4',
-  'Item 5',
-  'Item 6',
-  'Item 7',
-  'Item 8',
-  'Item 9',
-  'Item 10'
+const items: {navigation: string; icon: React.FC<IconProps>; counter?: number}[] = [
+  {navigation: 'Code', icon: CodeIcon},
+  {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
+  {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
+  {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
+  {navigation: 'Actions', icon: PlayIcon, counter: 4},
+  {navigation: 'Projects', icon: ProjectIcon, counter: 9},
+  {navigation: 'Insights', icon: GraphIcon},
+  {navigation: 'Settings', icon: GearIcon, counter: 10},
+  {navigation: 'Security', icon: ShieldLockIcon}
 ]
 
 export const InternalResponsiveNav = (args: UnderlineNavProps) => {
@@ -106,12 +117,13 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
     <UnderlineNav {...args}>
       {items.map((item, index) => (
         <UnderlineNav.Item
-          key={item}
-          leadingIcon={EyeIcon}
+          key={item.navigation}
+          leadingIcon={item.icon}
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
+          counter={item.counter}
         >
-          {item}
+          {item.navigation}
         </UnderlineNav.Item>
       ))}
     </UnderlineNav>
