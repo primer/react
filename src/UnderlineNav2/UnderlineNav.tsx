@@ -272,7 +272,7 @@ export const UnderlineNav = forwardRef(
               <ActionMenu>
                 <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
                 <ActionMenu.Overlay align="end">
-                  <ActionList>
+                  <ActionList selectionVariant="single">
                     {actions.map((action, index) => {
                       const {children: actionElementChildren, ...actionElementProps} = action.props
                       return (
