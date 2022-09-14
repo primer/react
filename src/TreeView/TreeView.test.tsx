@@ -1,4 +1,4 @@
-import {render} from '@testing-library/react'
+import {fireEvent, render} from '@testing-library/react'
 import React from 'react'
 import {TreeView} from './TreeView'
 
@@ -49,7 +49,7 @@ it('hides subtrees by default', () => {
   expect(subtree).toBeNull()
 })
 
-it('sets aria-activedescendant to the first treeitem by default', () => {
+it('initializes aria-activedescendant to the first treeitem by default', () => {
   const {queryByRole} = render(
     <TreeView aria-label="Test tree">
       <TreeView.Item>Item 1</TreeView.Item>
@@ -62,4 +62,55 @@ it('sets aria-activedescendant to the first treeitem by default', () => {
   const firstItem = queryByRole('treeitem', {name: 'Item 1'})
 
   expect(root).toHaveAttribute('aria-activedescendant', firstItem?.id)
+})
+
+it('moves aria-activedescendant with up and down arrow keys', () => {
+  const {getByRole} = render(
+    <TreeView aria-label="Test tree">
+      <TreeView.Item>
+        Item 1
+        <TreeView.SubTree>
+          <TreeView.Item>Item 1.1</TreeView.Item>
+          <TreeView.Item>Item 1.2</TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item>
+        Item 2
+        <TreeView.SubTree>
+          <TreeView.Item>Item 2.1</TreeView.Item>
+          <TreeView.Item>Item 2.2</TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item>Item 3</TreeView.Item>
+    </TreeView>
+  )
+
+  const root = getByRole('tree')
+  const item1 = getByRole('treeitem', {name: 'Item 1'})
+  const item2 = getByRole('treeitem', {name: 'Item 2'})
+  const item3 = getByRole('treeitem', {name: 'Item 3'})
+
+  // aria-activedescendant should be set to the first visible treeitem by default
+  expect(root).toHaveAttribute('aria-activedescendant', item1.id)
+
+  // Focus tree
+  root.focus()
+
+  // Press ↓
+  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+
+  // aria-activedescendant should now be set to the second visible treeitem
+  expect(root).toHaveAttribute('aria-activedescendant', item2.id)
+
+  // Press ↓
+  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+
+  // aria-activedescendant should now be set to the third visible treeitem
+  expect(root).toHaveAttribute('aria-activedescendant', item3.id)
+
+  // Press ↑
+  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+
+  // aria-activedescendant should now be set to the second visible treeitem
+  expect(root).toHaveAttribute('aria-activedescendant', item2.id)
 })

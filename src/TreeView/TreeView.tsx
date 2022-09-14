@@ -129,6 +129,8 @@ function getNextFocusableElement(
       // Focus next visible element
       return getVisibleElement(activeElement, 'next')
   }
+
+  // TODO: Handle home and end keys
 }
 
 function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
@@ -136,7 +138,7 @@ function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
     throw new Error('Element is not a treeitem')
   }
 
-  switch (element.ariaExpanded) {
+  switch (element.getAttribute('aria-expanded')) {
     case 'true':
       return 'open'
     case 'false':
@@ -164,8 +166,8 @@ function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous')
 
   let next = direction === 'next' ? walker.nextNode() : walker.previousNode()
 
-  // If next element is not visible, continue iterating
-  while (next instanceof HTMLElement && !next.offsetParent) {
+  // If next element is nested inside a collapsed subtree, continue iterating
+  while (next instanceof HTMLElement && next.parentElement?.closest('[role=treeitem][aria-expanded=false]')) {
     next = direction === 'next' ? walker.nextNode() : walker.previousNode()
   }
 
