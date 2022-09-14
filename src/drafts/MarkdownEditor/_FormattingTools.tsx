@@ -25,13 +25,12 @@ let hasRegisteredToolbarElement = false
  */
 export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>(({forInputId}, forwadedRef) => {
   useEffect(() => {
-    if (hasRegisteredToolbarElement) return
     const fn = async () => {
-      // To prevent potential async race conditions, check again
       if (hasRegisteredToolbarElement) return
+      // To prevent double-registering while the promise is pending, set it before importing
+      hasRegisteredToolbarElement = true
       // requiring this module will register the custom element; we don't want to do that until the component mounts in the DOM
       await import('@github/markdown-toolbar-element')
-      hasRegisteredToolbarElement = true
     }
     fn()
   }, [])
