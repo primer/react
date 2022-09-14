@@ -31,7 +31,7 @@ export function useMatchMedia(mediaQueryString: string): boolean {
 
   useEffect(() => {
     if (features[mediaQueryString] !== undefined) {
-      setMatches(features[mediaQueryString])
+      setMatches(features[mediaQueryString] as boolean)
     }
   }, [features, mediaQueryString])
 
