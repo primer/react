@@ -217,6 +217,11 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   flex-direction: column;
 }
 
+.c3 {
+  font-size: 14px;
+  color: #24292f;
+}
+
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -251,11 +256,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
-}
-
-.c3 {
-  font-size: 14px;
-  color: #24292f;
 }
 
 .c4 {
@@ -423,6 +423,12 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   fill: currentColor;
 }
 
+.c10 {
+  font-size: 12px;
+  color: #57606a;
+  display: block;
+}
+
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -457,12 +463,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: 0;
-}
-
-.c10 {
-  font-size: 12px;
-  color: #57606a;
-  display: block;
 }
 
 .c3 {
@@ -1651,6 +1651,26 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
 }
 
+.c12 {
+  font-size: 12px;
+  font-weight: bold;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: success.fg;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c12 a {
+  color: currentColor;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -1685,26 +1705,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   box-shadow: none;
   outline: 2px solid;
   outline-offset: 0;
-}
-
-.c12 {
-  font-size: 12px;
-  font-weight: bold;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: success.fg;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c12 a {
-  color: currentColor;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
 }
 
 .c3 {
@@ -1913,6 +1913,26 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
 }
 
+.c12 {
+  font-size: 12px;
+  font-weight: bold;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: danger.fg;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c12 a {
+  color: currentColor;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -1947,26 +1967,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   box-shadow: none;
   outline: 2px solid;
   outline-offset: 0;
-}
-
-.c12 {
-  font-size: 12px;
-  font-weight: bold;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: danger.fg;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c12 a {
-  color: currentColor;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
 }
 
 .c3 {

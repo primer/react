@@ -2,7 +2,7 @@ import React from 'react'
 import {CheckIcon} from '@primer/octicons-react'
 import {ListContext, ActionListProps} from './List'
 import {GroupContext, ActionListGroupProps} from './Group'
-import {ActionListItemProps} from './Item'
+import {ActionListItemProps} from './shared'
 import {LeadingVisualContainer} from './Visuals'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
