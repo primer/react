@@ -63,8 +63,19 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onKeyDown={event => {
-          const nextElement = getNextFocusableElement(activeDescendant, event)
-          if (nextElement) setActiveDescendant(nextElement.id)
+          const activeElement = document.getElementById(activeDescendant)
+
+          if (!activeElement) return
+
+          const nextElement = getNextFocusableElement(activeElement, event)
+          if (nextElement) {
+            // Move active descendant if necessary
+            setActiveDescendant(nextElement.id)
+          } else {
+            // If the active descendant didn't change,
+            // forward the event to the active descendant
+            activeElement.dispatchEvent(new KeyboardEvent(event.type, event))
+          }
         }}
       >
         {children}
@@ -76,13 +87,9 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
 // DOM utilities used for focus management
 
 function getNextFocusableElement(
-  activeDescendant: string,
+  activeElement: HTMLElement,
   event: React.KeyboardEvent<HTMLElement>
 ): HTMLElement | undefined {
-  const activeElement = document.getElementById(activeDescendant)
-
-  if (!activeElement) return
-
   const elementState = getElementState(activeElement)
 
   // Reference: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboard-interaction-24
@@ -181,7 +188,7 @@ function getParentElement(element: HTMLElement): HTMLElement | undefined {
 
 export type TreeViewItemProps = {
   children: React.ReactNode
-  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
   onToggle?: (isExpanded: boolean) => void
 }
 
@@ -194,11 +201,49 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
   const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
   // Expand or collapse the subtree
-  function toggle(event: React.MouseEvent | React.KeyboardEvent) {
-    onToggle?.(!isExpanded)
-    setIsExpanded(!isExpanded)
-    event.stopPropagation()
-  }
+  const toggle = React.useCallback(
+    (event?: React.MouseEvent) => {
+      onToggle?.(!isExpanded)
+      setIsExpanded(!isExpanded)
+      event?.stopPropagation()
+    },
+    [isExpanded, onToggle]
+  )
+
+  React.useEffect(() => {
+    const element = itemRef.current
+
+    function handleKeyDown(event: KeyboardEvent) {
+      // WARNING: Removing this line will cause an infinite loop!
+      // The root element receives all keyboard events and forwards them
+      // to the active descendant. If we don't stop propagation here,
+      // the event will bubble back up to the root element and be forwarded
+      // back to the active descendant infinitely.
+      event.stopPropagation()
+
+      switch (event.key) {
+        case 'Enter':
+        case ' ':
+          if (onSelect) {
+            onSelect(event)
+          } else {
+            toggle()
+          }
+          break
+
+        case 'ArrowRight':
+          if (!isExpanded) setIsExpanded(true)
+          break
+
+        case 'ArrowLeft':
+          if (isExpanded) setIsExpanded(false)
+          break
+      }
+    }
+
+    element?.addEventListener('keydown', handleKeyDown)
+    return () => element?.removeEventListener('keydown', handleKeyDown)
+  }, [toggle, onSelect, isExpanded])
 
   return (
     <ItemContext.Provider value={{level: level + 1, isExpanded}}>
@@ -209,31 +254,6 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
         // TODO: aria-label for treeitem
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
-        onKeyDown={event => {
-          if (event.target !== itemRef.current) return
-
-          if (event.key === ' ' || event.key === 'Enter') {
-            if (onSelect) {
-              onSelect(event)
-            } else {
-              toggle(event)
-            }
-          }
-
-          if (event.key === 'ArrowRight') {
-            if (!isExpanded) {
-              setIsExpanded(true)
-              event.preventDefault()
-            }
-          }
-
-          if (event.key === 'ArrowLeft') {
-            if (isExpanded) {
-              setIsExpanded(false)
-              event.preventDefault()
-            }
-          }
-        }}
       >
         <Box
           onClick={event => {
