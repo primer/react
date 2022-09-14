@@ -2,14 +2,14 @@ name: Move new issues to inbox
 
 on:
   issues:
-    type: [opened]
+    types: [opened, reopened]
 
 jobs:
   add-to-inbox:
-    if: ${{ github.event.action == 'opened' && github.repository == 'primer/react' }}
+    if: ${{ github.repository == 'primer/react' && (github.event.action == 'opened' || github.event.action == 'reopened') }}
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GPR_AUTH_TOKEN_SHARED }}
       ISSUE_ID: ${{ github.event.issue.node_id }}
       REACT_LABEL_ID: 'LA_kwDOB0K8ws7Oq_eD'
       PROJECT_ID: 'PN_kwDNJr_NNKA'
@@ -17,7 +17,7 @@ jobs:
       - name: Add react label to issue      
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
-            mutation($reactLabelId: [ID!]!, $issue: ID!) {
+            mutation($reactLabelId: ID!, $issue: ID!) {
               addLabelsToLabelable(input: { labelIds: [$reactLabelId], labelableId: $issue }) {
                 clientMutationId
               }
