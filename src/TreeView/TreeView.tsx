@@ -340,7 +340,7 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
       onSelect={event => {
         // Navigate by clicking or pressing enter
         if (event.type === 'click' || ('key' in event && event.key === 'Enter')) {
-          window.open(href)
+          window.open(href, '_self')
         }
 
         onSelect?.(event)
