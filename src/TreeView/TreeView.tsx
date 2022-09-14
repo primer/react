@@ -71,6 +71,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
           if (nextElement) {
             // Move active descendant if necessary
             setActiveDescendant(nextElement.id)
+            event.preventDefault()
           } else {
             // If the active descendant didn't change,
             // forward the event to the active descendant
