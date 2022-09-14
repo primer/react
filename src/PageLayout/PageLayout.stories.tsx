@@ -611,7 +611,8 @@ export const CustomStickyHeader: Story = args => (
         placeItems: 'center',
         backgroundColor: 'canvas.subtle',
         borderBottom: '1px solid',
-        borderColor: 'border.default'
+        borderColor: 'border.default',
+        zIndex: 100
       }}
     >
       Custom sticky header
