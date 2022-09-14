@@ -245,7 +245,6 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
     return () => element?.removeEventListener('keydown', handleKeyDown)
   }, [toggle, onSelect, isExpanded])
 
-
   return (
     <ItemContext.Provider value={{level: level + 1, isExpanded}}>
       <li
