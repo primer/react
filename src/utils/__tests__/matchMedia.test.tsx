@@ -46,7 +46,7 @@ describe('useMatchMedia', () => {
   it('should default to the matchMedia value', () => {
     mockMatchMedia()
 
-    let match: boolean[] = []
+    const match: boolean[] = []
 
     function TestComponent() {
       const value = useMatchMedia('(pointer: coarse)')
@@ -64,7 +64,7 @@ describe('useMatchMedia', () => {
   })
 
   it('should default to false when used during SSR', () => {
-    let match: boolean[] = []
+    const match: boolean[] = []
 
     function TestComponent() {
       const value = useMatchMedia('(pointer: coarse)')
@@ -79,7 +79,7 @@ describe('useMatchMedia', () => {
   it('should respond to change in matchMedia values', () => {
     const {change} = mockMatchMedia()
 
-    let match: boolean[] = []
+    const match: boolean[] = []
 
     function TestComponent() {
       const value = useMatchMedia('(pointer: coarse)')
@@ -101,7 +101,7 @@ describe('useMatchMedia', () => {
     mockMatchMedia()
 
     const feature = '(pointer: coarse)'
-    let match: boolean[] = []
+    const match: boolean[] = []
 
     function TestComponent() {
       const value = useMatchMedia(feature)

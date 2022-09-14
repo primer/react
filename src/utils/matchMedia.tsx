@@ -18,7 +18,7 @@ export function useMatchMedia(mediaQueryString: string): boolean {
   const features = useContext(MatchMediaContext)
   const [matches, setMatches] = useState(() => {
     if (features[mediaQueryString] !== undefined) {
-      return features[mediaQueryString]
+      return features[mediaQueryString] as boolean
     }
 
     if (canUseDOM) {
@@ -49,7 +49,9 @@ export function useMatchMedia(mediaQueryString: string): boolean {
     const mediaQueryList = window.matchMedia(mediaQueryString)
 
     // Support fallback to `addListener` for broader browser support
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore this is not present in Safari <14
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (mediaQueryList.addEventListener) {
       mediaQueryList.addEventListener('change', listener)
     } else {
@@ -60,7 +62,9 @@ export function useMatchMedia(mediaQueryString: string): boolean {
     setMatches(mediaQueryList.matches)
 
     return () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore this is not present in Safari <14
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (mediaQueryList.addEventListener) {
         mediaQueryList.removeEventListener('change', listener)
       } else {
@@ -73,7 +77,7 @@ export function useMatchMedia(mediaQueryString: string): boolean {
 }
 
 type MediaQueryFeatures = {
-  [key: string]: boolean
+  [key: string]: boolean | undefined
 }
 
 // Used to keep track of overrides to specific media query features, this should
