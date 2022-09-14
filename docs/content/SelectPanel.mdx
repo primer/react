@@ -66,4 +66,60 @@ function DemoComponent() {
 render(<DemoComponent />)
 ```
 
+## Interactions
+
+### Keyboard
+
+Pressing `Enter` or `Space` on the `SelectPanel` anchor will
+open the `SelectPanel` and place focus on the filter input. Pressing `Escape` or interacting with the cancel or close buttons will close the `SelectPanel` and restore focus to the anchor.
+
+A user may use `Tab` and `Shift+Tab` to navigate between the filter input, list of
+items, action buttons, and the close button.
+
+When focus is on the list of items, pressing `ArrowDown` and `ArrowUp` will allow navigation between items. Support for `Home` and `End` is also provided to quickly navigate to the first and last items in the list, respectively. Pressing `Space` will select an item.
+
+The `Enter` key may be used when focus is within the `SelectPanel` as an
+alternative to activating the save button.
+
 ## Component props
+
+<PropsTable>
+  <PropsTableRow
+    name="onOpenChange"
+    type={`(
+  open: boolean,
+  gesture:
+    | 'anchor-click'
+    | 'anchor-key-press'
+    | 'click-outside'
+    | 'escape'
+    | 'selection'
+) => void`}
+    required={true}
+  />
+  <PropsTableRow name="title" type="string" />
+  <PropsTableRow name="inputLabel" type="string" />
+  <PropsTableRow name="inputPlaceholder" type="string" />
+  <PropsTableRow name="overlayProps" type="Partial<OverlayProps>" />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
