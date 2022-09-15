@@ -191,16 +191,18 @@ function getParentElement(element: HTMLElement): HTMLElement | undefined {
 
 export type TreeViewItemProps = {
   children: React.ReactNode
+  defaultExpanded?: boolean
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
   onToggle?: (isExpanded: boolean) => void
 }
 
-const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
+const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, onToggle, children}) => {
   const {isFocused, activeDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
+  const labelId = useSSRSafeId()
   const itemRef = React.useRef<HTMLLIElement>(null)
   const {level} = React.useContext(ItemContext)
-  const [isExpanded, setIsExpanded] = React.useState(false)
+  const [isExpanded, setIsExpanded] = React.useState(defaultExpanded)
   const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
   // Expand or collapse the subtree
@@ -254,7 +256,7 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
         id={itemId}
         ref={itemRef}
         role="treeitem"
-        // TODO: aria-label for treeitem
+        aria-labelledby={labelId}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
       >
@@ -309,6 +311,7 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
             </Box>
           ) : null}
           <Box
+            id={labelId}
             sx={{
               gridArea: 'content',
               display: 'flex',
