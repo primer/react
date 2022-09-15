@@ -120,7 +120,7 @@ function getNextFocusableElement(
       return getParentElement(activeElement)
   }
 
-  // ArrowUp and ArrowDown behavior is the same regarless of element state
+  // ArrowUp, ArrowDown, Home, and End behavior are the same regarless of element state
   switch (event.key) {
     case 'ArrowUp':
       // Focus previous visible element
@@ -129,9 +129,15 @@ function getNextFocusableElement(
     case 'ArrowDown':
       // Focus next visible element
       return getVisibleElement(activeElement, 'next')
-  }
 
-  // TODO: Handle home and end keys
+    case 'Home':
+      // Focus first visible element
+      return getFirstElement(activeElement)
+
+    case 'End':
+      // Focus last visible element
+      return getLastElement(activeElement)
+  }
 }
 
 function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
@@ -181,9 +187,38 @@ function getFirstChildElement(element: HTMLElement): HTMLElement | undefined {
 }
 
 function getParentElement(element: HTMLElement): HTMLElement | undefined {
-  const groupElement = element.closest('[role=group]')
-  const parent = groupElement?.closest('[role=treeitem]')
+  const group = element.closest('[role=group]')
+  const parent = group?.closest('[role=treeitem]')
   return parent instanceof HTMLElement ? parent : undefined
+}
+
+function getFirstElement(element: HTMLElement): HTMLElement | undefined {
+  const root = element.closest('[role=tree]')
+  const first = root?.querySelector('[role=treeitem]')
+  return first instanceof HTMLElement ? first : undefined
+}
+
+function getLastElement(element: HTMLElement): HTMLElement | undefined {
+  const root = element.closest('[role=tree]')
+  const items = Array.from(root?.querySelectorAll('[role=treeitem]') || [])
+
+  // If there are no items, return undefined
+  if (items.length === 0) return
+
+  let index = items.length - 1
+  let last = items[index]
+
+  // If last element is nested inside a collapsed subtree, continue iterating
+  while (
+    index > 0 &&
+    last instanceof HTMLElement &&
+    last.parentElement?.closest('[role=treeitem][aria-expanded=false]')
+  ) {
+    index -= 1
+    last = items[index]
+  }
+
+  return last instanceof HTMLElement ? last : undefined
 }
 
 // ----------------------------------------------------------------------------
