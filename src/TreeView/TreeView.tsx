@@ -8,7 +8,11 @@ import sx, {SxProp} from '../sx'
 // ----------------------------------------------------------------------------
 // Context
 
-const RootContext = React.createContext<{isFocused: boolean; activeDescendant: string}>({
+const RootContext = React.createContext<{
+  isFocused: boolean
+  activeDescendant: string
+  setActiveDescendant?: React.Dispatch<React.SetStateAction<string>>
+}>({
   isFocused: false,
   activeDescendant: ''
 })
@@ -33,7 +37,6 @@ export type TreeViewProps = {
 const UlBox = styled.ul<SxProp>(sx)
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
-  const [isFocused, setIsFocused] = React.useState(false)
   const [activeDescendant, setActiveDescendant] = React.useState('')
 
   React.useEffect(() => {
@@ -45,7 +48,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   }, [activeDescendant])
 
   return (
-    <RootContext.Provider value={{isFocused, activeDescendant}}>
+    <RootContext.Provider value={{activeDescendant, setActiveDescendant}}>
       <UlBox
         tabIndex={0}
         role="tree"
@@ -232,7 +235,7 @@ export type TreeViewItemProps = {
 }
 
 const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, onToggle, children}) => {
-  const {isFocused, activeDescendant} = React.useContext(RootContext)
+  const {setActiveDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
   const labelId = useSSRSafeId()
   const itemRef = React.useRef<HTMLLIElement>(null)
@@ -297,6 +300,7 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
       >
         <Box
           onClick={event => {
+            setActiveDescendant?.(itemId)
             if (onSelect) {
               onSelect(event)
             } else {
@@ -314,10 +318,12 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
             borderRadius: 2,
             cursor: 'pointer',
             transition: 'background 33.333ms linear',
-            outline: isFocused && activeDescendant === itemId ? '2px solid' : 'none',
-            outlineColor: 'accent.fg',
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
+            },
+            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
+              outline: '2px solid',
+              outlineColor: 'accent.fg'
             }
           }}
         >
@@ -325,6 +331,7 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
             <Box
               onClick={event => {
                 if (onSelect) {
+                  setActiveDescendant?.(itemId)
                   toggle(event)
                 }
               }}
