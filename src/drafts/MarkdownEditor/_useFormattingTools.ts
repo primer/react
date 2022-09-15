@@ -81,7 +81,7 @@ const unorderedListStyle: PartialStyleArgs = {prefix: '- ', multiline: true, uno
 
 const orderedListStyle: PartialStyleArgs = {prefix: '1. ', multiline: true, orderedList: true}
 
-const taskListStyle: PartialStyleArgs = {prefix: '- [ ] ', multiline: true, unorderedList: true}
+const taskListStyle: PartialStyleArgs = {prefix: '- [ ] ', multiline: true, surroundWithNewlines: true}
 
 const mentionStyle: PartialStyleArgs = {prefix: '@', prefixSpace: true}
 
