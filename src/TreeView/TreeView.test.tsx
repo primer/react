@@ -153,3 +153,46 @@ it('expands a collapsed item with right arrow key', () => {
   // Subtree should now be visible
   expect(subtree).toBeVisible()
 })
+
+it('collapses an expanded item with left arrow key', () => {
+  const {getByRole, queryByRole} = render(
+    <TreeView aria-label="Test tree">
+      <TreeView.Item defaultExpanded>
+        Parent
+        <TreeView.SubTree>
+          <TreeView.Item>Child</TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  )
+
+  const root = getByRole('tree')
+  const parentItem = getByRole('treeitem', {name: 'Parent'})
+  let subtree = queryByRole('group')
+
+  // aria-activedescendant should be set to the first visible treeitem by default
+  expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+
+  // aria-expanded should be true
+  expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+  // Subtree should be visible
+  expect(subtree).toBeVisible()
+
+  // Focus tree
+  root.focus()
+
+  // Press ←
+  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+
+  // aria-expanded should now be false
+  expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+
+  // aria-activedescendant should still be set to the parent treeitem
+  expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+
+  subtree = queryByRole('group')
+
+  // Subtree should now be hidden
+  expect(subtree).toBeNull()
+})
