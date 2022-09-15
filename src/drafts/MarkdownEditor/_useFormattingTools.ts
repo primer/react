@@ -2,6 +2,8 @@ import {useCallback, useMemo} from 'react'
 import {SyntheticChangeEmitter} from '../hooks'
 import {getSelectedLineRange, InputState, isMultipleLines} from './utils'
 
+// Logic in this file is adapted from https://github.com/github/markdown-toolbar-element
+
 export type FormattingTools = {
   heading: (level: number) => void
   bold: () => void
