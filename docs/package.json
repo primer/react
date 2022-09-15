@@ -13,15 +13,15 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@primer/gatsby-theme-doctocat": "^4.0.0",
+    "@primer/gatsby-theme-doctocat": "0.0.0-202281521396",
     "@primer/octicons-react": "^16.1.0",
     "@primer/primitives": "4.1.0",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
     "deepmerge": "4.2.2",
-    "gatsby": "^3.7.2",
+    "gatsby": "^3.14.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
-    "gatsby-plugin-typescript": "2.10.0",
+    "gatsby-plugin-typescript": "3.14.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.0",
     "react-docgen-typescript": "^2.0.0",
