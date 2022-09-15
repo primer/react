@@ -577,4 +577,130 @@ describe('Keyboard interactions', () => {
       expect(root).toHaveAttribute('aria-activedescendant', child3.id)
     })
   })
+
+  describe('Enter', () => {
+    it('calls onSelect function if provided', () => {
+      const onSelect = jest.fn()
+      const {getByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item onSelect={onSelect}>Item</TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+
+      // Focus tree
+      root.focus()
+
+      // Press Enter
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+      // onSelect should have been called
+      expect(onSelect).toHaveBeenCalledTimes(1)
+    })
+
+    it('toggles expanded state if no onSelect function is provided', () => {
+      const {getByRole, queryByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child 1</TreeView.Item>
+              <TreeView.Item>Child 2</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const parent = getByRole('treeitem', {name: 'Parent'})
+
+      // Focus tree
+      root.focus()
+
+      // aria-expanded should be false
+      expect(parent).toHaveAttribute('aria-expanded', 'false')
+
+      // Press Enter
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+      // aria-expanded should now be true
+      expect(parent).toHaveAttribute('aria-expanded', 'true')
+
+      // Subtree should be visible
+      expect(queryByRole('group')).toBeVisible()
+
+      // Press Enter
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+      // aria-expanded should now be false
+      expect(parent).toHaveAttribute('aria-expanded', 'false')
+
+      // Subtree should no longer be visible
+      expect(queryByRole('group')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('Space', () => {
+    it('calls onSelect function if provided', () => {
+      const onSelect = jest.fn()
+      const {getByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item onSelect={onSelect}>Item</TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+
+      // Focus tree
+      root.focus()
+
+      // Press Space
+      fireEvent.keyDown(document.activeElement || document.body, {key: ' '})
+
+      // onSelect should have been called
+      expect(onSelect).toHaveBeenCalledTimes(1)
+    })
+
+    it('toggles expanded state if no onSelect function is provided', () => {
+      const {getByRole, queryByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child 1</TreeView.Item>
+              <TreeView.Item>Child 2</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const parent = getByRole('treeitem', {name: 'Parent'})
+
+      // Focus tree
+      root.focus()
+
+      // aria-expanded should be false
+      expect(parent).toHaveAttribute('aria-expanded', 'false')
+
+      // Press Space
+      fireEvent.keyDown(document.activeElement || document.body, {key: ' '})
+
+      // aria-expanded should now be true
+      expect(parent).toHaveAttribute('aria-expanded', 'true')
+
+      // Subtree should be visible
+      expect(queryByRole('group')).toBeVisible()
+
+      // Press Space
+      fireEvent.keyDown(document.activeElement || document.body, {key: ' '})
+
+      // aria-expanded should now be false
+      expect(parent).toHaveAttribute('aria-expanded', 'false')
+
+      // Subtree should no longer be visible
+      expect(queryByRole('group')).not.toBeInTheDocument()
+    })
+  })
 })
