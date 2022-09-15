@@ -9,11 +9,9 @@ import sx, {SxProp} from '../sx'
 // Context
 
 const RootContext = React.createContext<{
-  isFocused: boolean
   activeDescendant: string
   setActiveDescendant?: React.Dispatch<React.SetStateAction<string>>
 }>({
-  isFocused: false,
   activeDescendant: ''
 })
 
