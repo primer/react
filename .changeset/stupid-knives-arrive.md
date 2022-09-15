@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Reverte SelectPanel breaking behavioral changes
+Reverted SelectPanel breaking behavioral changes
