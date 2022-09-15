@@ -2,7 +2,7 @@ import {render} from '@testing-library/react'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
 import {act} from 'react-dom/test-utils'
-import {useMatchMedia, MatchMedia} from '../matchMedia'
+import {useMedia, MatchMedia} from '../useMedia'
 
 type MediaQueryEventListener = (event: {matches: boolean}) => void
 
@@ -38,7 +38,7 @@ function mockMatchMedia({defaultMatch = false} = {}) {
   }
 }
 
-describe('useMatchMedia', () => {
+describe('useMedia', () => {
   afterEach(() => {
     mockMatchMedia()
   })
@@ -49,7 +49,7 @@ describe('useMatchMedia', () => {
     const match: boolean[] = []
 
     function TestComponent() {
-      const value = useMatchMedia('(pointer: coarse)')
+      const value = useMedia('(pointer: coarse)')
       match.push(value)
       return null
     }
@@ -67,7 +67,7 @@ describe('useMatchMedia', () => {
     const match: boolean[] = []
 
     function TestComponent() {
-      const value = useMatchMedia('(pointer: coarse)')
+      const value = useMedia('(pointer: coarse)')
       match.push(value)
       return null
     }
@@ -82,7 +82,7 @@ describe('useMatchMedia', () => {
     const match: boolean[] = []
 
     function TestComponent() {
-      const value = useMatchMedia('(pointer: coarse)')
+      const value = useMedia('(pointer: coarse)')
       match.push(value)
       return null
     }
@@ -104,7 +104,7 @@ describe('useMatchMedia', () => {
     const match: boolean[] = []
 
     function TestComponent() {
-      const value = useMatchMedia(feature)
+      const value = useMedia(feature)
       match.push(value)
       return null
     }

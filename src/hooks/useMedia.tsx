@@ -1,29 +1,41 @@
 import React, {createContext, useContext, useState, useEffect} from 'react'
-import {canUseDOM} from './environment'
+import {canUseDOM} from '../utils/environment'
 
 /**
- * `useMatchMedia` will use the given `mediaQueryString` with `matchMedia` to
+ * `useMedia` will use the given `mediaQueryString` with `matchMedia` to
  * determine if the document matches the media query string.
  *
- * If `MatchMedia` is used as an ancestor, `useMatchMedia` will instead use the
+ * If `MatchMedia` is used as an ancestor, `useMedia` will instead use the
  * value of the media query string, if available
  *
  * @example
  * function Example() {
- *   const coarsePointer = useMatchMedia('(pointer: coarse)');
+ *   const coarsePointer = useMedia('(pointer: coarse)');
  *   // ...
  * }
  */
-export function useMatchMedia(mediaQueryString: string): boolean {
+export function useMedia(mediaQueryString: string, defaultState?: boolean) {
   const features = useContext(MatchMediaContext)
-  const [matches, setMatches] = useState(() => {
+  const [matches, setMatches] = React.useState(() => {
     if (features[mediaQueryString] !== undefined) {
       return features[mediaQueryString] as boolean
     }
 
+    // Prevent a React hydration mismatch when a default value is provided by not defaulting to window.matchMedia(query).matches.
+    if (defaultState !== undefined) {
+      return defaultState
+    }
+
     if (canUseDOM) {
-      const mediaQueryList = window.matchMedia(mediaQueryString)
-      return mediaQueryList.matches
+      return window.matchMedia(mediaQueryString).matches
+    }
+
+    // A default value has not been provided, and you are rendering on the server, warn of a possible hydration mismatch when defaulting to false.
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.warn(
+        '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.'
+      )
     }
 
     return false
