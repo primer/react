@@ -40,7 +40,7 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
 ToolbarButton.displayName = 'MarkdownEditor.ToolbarButton'
 
 export const DefaultToolbarButtons = memo(() => {
-  const {condensed, formattingToolsRef} = useContext(MarkdownEditorContext)
+  const {condensed, formattingTools} = useContext(MarkdownEditorContext)
 
   const cmdOrCtrl = isMacOS() ? 'Cmd' : 'Ctrl'
 
@@ -48,52 +48,44 @@ export const DefaultToolbarButtons = memo(() => {
   return (
     <>
       <Box>
+        <ToolbarButton onClick={() => formattingTools?.heading(3)} icon={HeadingIcon} aria-label="Add heading" />
+        <ToolbarButton onClick={() => formattingTools?.bold()} icon={BoldIcon} aria-label={`Bold (${cmdOrCtrl} + B)`} />
         <ToolbarButton
-          onClick={() => formattingToolsRef.current?.header()}
-          icon={HeadingIcon}
-          aria-label="Add header text"
-        />
-        <ToolbarButton
-          onClick={() => formattingToolsRef.current?.bold()}
-          icon={BoldIcon}
-          aria-label={`Bold (${cmdOrCtrl} + B)`}
-        />
-        <ToolbarButton
-          onClick={() => formattingToolsRef.current?.italic()}
+          onClick={() => formattingTools?.italic()}
           icon={ItalicIcon}
           aria-label={`Italic (${cmdOrCtrl} + I)`}
         />
       </Box>
       <Box>
         <ToolbarButton
-          onClick={() => formattingToolsRef.current?.quote()}
+          onClick={() => formattingTools?.quote()}
           icon={QuoteIcon}
           aria-label={`Insert a quote (${cmdOrCtrl} + Shift + .)`}
         />
         <ToolbarButton
-          onClick={() => formattingToolsRef.current?.code()}
+          onClick={() => formattingTools?.code()}
           icon={CodeIcon}
           aria-label={`Insert code (${cmdOrCtrl} + E)`}
         />
         <ToolbarButton
-          onClick={() => formattingToolsRef.current?.link()}
+          onClick={() => formattingTools?.link()}
           icon={LinkIcon}
           aria-label={`Add a link (${cmdOrCtrl} + K)`}
         />
       </Box>
       <Box>
         <ToolbarButton
-          onClick={() => formattingToolsRef.current?.unorderedList()}
+          onClick={() => formattingTools?.unorderedList()}
           icon={ListUnorderedIcon}
           aria-label={`Add a bulleted list (${cmdOrCtrl} + 8)`}
         />
         <ToolbarButton
-          onClick={() => formattingToolsRef.current?.orderedList()}
+          onClick={() => formattingTools?.orderedList()}
           icon={ListOrderedIcon}
           aria-label={`Add a numbered list (${cmdOrCtrl} + Shift + 7)`}
         />
         <ToolbarButton
-          onClick={() => formattingToolsRef.current?.taskList()}
+          onClick={() => formattingTools?.taskList()}
           icon={TasklistIcon}
           aria-label={`Add a task list (${cmdOrCtrl} + Shift + L)`}
         />
@@ -101,12 +93,12 @@ export const DefaultToolbarButtons = memo(() => {
       {!condensed && (
         <Box>
           <ToolbarButton
-            onClick={() => formattingToolsRef.current?.mention()}
+            onClick={() => formattingTools?.mention()}
             icon={MentionIcon}
             aria-label="Mention a user or team (@)"
           />
           <ToolbarButton
-            onClick={() => formattingToolsRef.current?.reference()}
+            onClick={() => formattingTools?.reference()}
             icon={CrossReferenceIcon}
             aria-label="Reference an issue, pull request, or discussion (#)"
           />

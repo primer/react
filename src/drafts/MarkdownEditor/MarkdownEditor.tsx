@@ -9,7 +9,6 @@ import MarkdownViewer from '../MarkdownViewer'
 import {SxProp} from '../../sx'
 import createSlots from '../../utils/create-slots'
 import VisuallyHidden from '../../_VisuallyHidden'
-import {FormattingTools} from './_FormattingTools'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {CoreToolbar, DefaultToolbarButtons} from './Toolbar'
 import {Footer} from './_Footer'
@@ -24,6 +23,7 @@ import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
 import {isModifierKey} from './utils'
+import {useFormattingTools} from './_useFormattingTools'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -221,7 +221,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     const listEditor = useListEditing({emitChange})
     const indenter = useIndenting({emitChange})
 
-    const formattingToolsRef = useRef<FormattingTools>(null)
+    const formattingTools = useFormattingTools(inputRef, emitChange)
 
     // use state instead of ref since we need to recalculate when the element mounts
     const containerRef = useRef<HTMLDivElement>(null)
@@ -246,7 +246,6 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
 
     const inputCompositionProps = useIgnoreKeyboardActionsWhileComposing(
       (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        const format = formattingToolsRef.current
         if (disabled) return
 
         if (e.ctrlKey && e.key === '.') {
@@ -256,14 +255,14 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
           e.stopPropagation()
         } else if (isModifierKey(e)) {
           if (e.key === 'Enter') onPrimaryAction?.()
-          else if (e.key === 'b') format?.bold()
-          else if (e.key === 'i') format?.italic()
-          else if (e.shiftKey && e.key === '.') format?.quote()
-          else if (e.key === 'e') format?.code()
-          else if (e.key === 'k') format?.link()
-          else if (e.key === '8') format?.unorderedList()
-          else if (e.shiftKey && e.key === '7') format?.orderedList()
-          else if (e.shiftKey && e.key === 'l') format?.taskList()
+          else if (e.key === 'b') formattingTools.bold()
+          else if (e.key === 'i') formattingTools.italic()
+          else if (e.shiftKey && e.key === '.') formattingTools.quote()
+          else if (e.key === 'e') formattingTools.code()
+          else if (e.key === 'k') formattingTools.link()
+          else if (e.key === '8') formattingTools.unorderedList()
+          else if (e.shiftKey && e.key === '7') formattingTools.orderedList()
+          else if (e.shiftKey && e.key === 'l') formattingTools.taskList()
           else if (e.shiftKey && e.key === 'p') setView?.('preview')
           else return
 
@@ -306,8 +305,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
 
     // If we don't memoize the context object, every child will rerender on every render even if memoized
     const context = useMemo(
-      () => ({disabled, formattingToolsRef, condensed, required}),
-      [disabled, formattingToolsRef, condensed, required]
+      () => ({disabled, formattingTools, condensed, required}),
+      [disabled, formattingTools, condensed, required]
     )
 
     // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
@@ -322,7 +321,6 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
               aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
               style={{appearance: 'none', border: 'none'}}
             >
-              <FormattingTools ref={formattingToolsRef} forInputId={id} />
               <div style={{display: 'none'}}>{children}</div>
 
               {slots.Label}

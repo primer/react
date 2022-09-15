@@ -126,7 +126,7 @@ describe('MarkdownEditor', () => {
   describe.each<
     [description: string, result: string, shortcut?: [key: string, shift: boolean], caretPosition?: number]
   >([
-    ['Add header text', 'text### '],
+    ['Add heading', 'text### '],
     ['Bold', 'text****', ['b', false], 6],
     ['Italic', 'text__', ['i', false], 5],
     ['Insert a quote', 'text\n\n> ', ['.', true]],

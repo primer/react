@@ -9,8 +9,6 @@ module.exports = {
     '<rootDir>/src/utils/test-helpers.tsx'
   ],
   testMatch: ['<rootDir>/(src|codemods)/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
-  transformIgnorePatterns: [
-    'node_modules/(?!@github/combobox-nav|@koddsson/textarea-caret|@github/markdown-toolbar-element)'
-  ],
+  transformIgnorePatterns: ['node_modules/(?!@github/combobox-nav|@koddsson/textarea-caret)'],
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname']
 }
