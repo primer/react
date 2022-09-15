@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import sx, {SxProp} from '../sx'
+import {Theme} from '../ThemeProvider'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -318,8 +319,7 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
               backgroundColor: 'actionListItem.default.hoverBg'
             },
             [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
-              outline: '2px solid',
-              outlineColor: 'accent.fg'
+              boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
             }
           }}
         >
