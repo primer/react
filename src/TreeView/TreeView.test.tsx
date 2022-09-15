@@ -49,7 +49,7 @@ it('hides subtrees by default', () => {
   expect(subtree).toBeNull()
 })
 
-it('initializes aria-activedescendant to the first treeitem by default', () => {
+it('initializes aria-activedescendant to the first item by default', () => {
   const {queryByRole} = render(
     <TreeView aria-label="Test tree">
       <TreeView.Item>Item 1</TreeView.Item>
@@ -64,135 +64,287 @@ it('initializes aria-activedescendant to the first treeitem by default', () => {
   expect(root).toHaveAttribute('aria-activedescendant', firstItem?.id)
 })
 
-it('moves aria-activedescendant with up and down arrow keys', () => {
-  const {getByRole} = render(
-    <TreeView aria-label="Test tree">
-      <TreeView.Item>
-        Item 1
-        <TreeView.SubTree>
-          <TreeView.Item>Item 1.1</TreeView.Item>
-          <TreeView.Item>Item 1.2</TreeView.Item>
-        </TreeView.SubTree>
-      </TreeView.Item>
-      <TreeView.Item>
-        Item 2
-        <TreeView.SubTree>
-          <TreeView.Item>Item 2.1</TreeView.Item>
-          <TreeView.Item>Item 2.2</TreeView.Item>
-        </TreeView.SubTree>
-      </TreeView.Item>
-      <TreeView.Item>Item 3</TreeView.Item>
-    </TreeView>
-  )
+describe.only('Keyboard navigation', () => {
+  describe('ArrowDown', () => {
+    it('moves aria-activedescendant to the next visible treeitem', () => {
+      const {getByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Item 1
+            <TreeView.SubTree>
+              <TreeView.Item>Item 1.1</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item>
+            Item 2
+            <TreeView.SubTree>
+              <TreeView.Item>Item 2.1</TreeView.Item>
+              <TreeView.Item>Item 2.2</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item>Item 3</TreeView.Item>
+        </TreeView>
+      )
 
-  const root = getByRole('tree')
-  const item1 = getByRole('treeitem', {name: 'Item 1'})
-  const item2 = getByRole('treeitem', {name: 'Item 2'})
-  const item3 = getByRole('treeitem', {name: 'Item 3'})
+      const root = getByRole('tree')
+      const item1 = getByRole('treeitem', {name: 'Item 1'})
+      const item11 = getByRole('treeitem', {name: 'Item 1.1'})
+      const item2 = getByRole('treeitem', {name: 'Item 2'})
+      const item3 = getByRole('treeitem', {name: 'Item 3'})
 
-  // aria-activedescendant should be set to the first visible treeitem by default
-  expect(root).toHaveAttribute('aria-activedescendant', item1.id)
+      // aria-activedescendant should be set to the first visible treeitem by default
+      expect(root).toHaveAttribute('aria-activedescendant', item1.id)
 
-  // Focus tree
-  root.focus()
+      // Focus tree
+      root.focus()
 
-  // Press ↓
-  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      // Press ↓
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-  // aria-activedescendant should now be set to the second visible treeitem
-  expect(root).toHaveAttribute('aria-activedescendant', item2.id)
+      // aria-activedescendant should now be set to item 1.1
+      expect(root).toHaveAttribute('aria-activedescendant', item11.id)
 
-  // Press ↓
-  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      // Press ↓
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-  // aria-activedescendant should now be set to the third visible treeitem
-  expect(root).toHaveAttribute('aria-activedescendant', item3.id)
+      // aria-activedescendant should now be set to item 2
+      expect(root).toHaveAttribute('aria-activedescendant', item2.id)
 
-  // Press ↑
-  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+      // Press ↓
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-  // aria-activedescendant should now be set to the second visible treeitem
-  expect(root).toHaveAttribute('aria-activedescendant', item2.id)
-})
+      // aria-activedescendant should now be set to item 3 (skips item 2.1 and item 2.2 because they are hidden)
+      expect(root).toHaveAttribute('aria-activedescendant', item3.id)
 
-it('expands a collapsed item with right arrow key', () => {
-  const {getByRole} = render(
-    <TreeView aria-label="Test tree">
-      <TreeView.Item>
-        Parent
-        <TreeView.SubTree>
-          <TreeView.Item>Child</TreeView.Item>
-        </TreeView.SubTree>
-      </TreeView.Item>
-    </TreeView>
-  )
+      // Press ↓
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-  const root = getByRole('tree')
-  const parentItem = getByRole('treeitem', {name: 'Parent'})
+      // aria-activedescendant should not change (item 3 is the last visible treeitem)
+      expect(root).toHaveAttribute('aria-activedescendant', item3.id)
+    })
+  })
 
-  // aria-activedescendant should be set to the first visible treeitem by default
-  expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+  describe('ArrowUp', () => {
+    it('moves aria-activedescendant to the previous visible treeitem', () => {
+      const {getByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Item 1
+            <TreeView.SubTree>
+              <TreeView.Item>Item 1.1</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item>
+            Item 2
+            <TreeView.SubTree>
+              <TreeView.Item>Item 2.1</TreeView.Item>
+              <TreeView.Item>Item 2.2</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item>Item 3</TreeView.Item>
+        </TreeView>
+      )
 
-  // aria-expanded should be false by default
-  expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+      const root = getByRole('tree')
+      const item1 = getByRole('treeitem', {name: 'Item 1'})
+      const item11 = getByRole('treeitem', {name: 'Item 1.1'})
+      const item2 = getByRole('treeitem', {name: 'Item 2'})
+      const item3 = getByRole('treeitem', {name: 'Item 3'})
 
-  // Focus tree
-  root.focus()
+      // aria-activedescendant should be set to the first visible treeitem by default
+      expect(root).toHaveAttribute('aria-activedescendant', item1.id)
 
-  // Press →
-  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+      // Focus tree
+      root.focus()
 
-  // aria-expanded should now be true
-  expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+      // Press ↓ 4x to move aria-activedescendant to item 3
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-  // aria-activedescendant should still be set to the parent treeitem
-  expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+      // aria-activedescendant should now be set to item 3
+      expect(root).toHaveAttribute('aria-activedescendant', item3.id)
 
-  const subtree = getByRole('group')
+      // Press ↑
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-  // Subtree should now be visible
-  expect(subtree).toBeVisible()
-})
+      // aria-activedescendant should now be set to item 2 (skips item 2.1 and item 2.2 because they are hidden)
+      expect(root).toHaveAttribute('aria-activedescendant', item2.id)
 
-it('collapses an expanded item with left arrow key', () => {
-  const {getByRole, queryByRole} = render(
-    <TreeView aria-label="Test tree">
-      <TreeView.Item defaultExpanded>
-        Parent
-        <TreeView.SubTree>
-          <TreeView.Item>Child</TreeView.Item>
-        </TreeView.SubTree>
-      </TreeView.Item>
-    </TreeView>
-  )
+      // Press ↑
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-  const root = getByRole('tree')
-  const parentItem = getByRole('treeitem', {name: 'Parent'})
-  let subtree = queryByRole('group')
+      // aria-activedescendant should now be set to item 1.1
+      expect(root).toHaveAttribute('aria-activedescendant', item11.id)
 
-  // aria-activedescendant should be set to the first visible treeitem by default
-  expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+      // Press ↑
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-  // aria-expanded should be true
-  expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+      // aria-activedescendant should now be set to item 1
+      expect(root).toHaveAttribute('aria-activedescendant', item1.id)
 
-  // Subtree should be visible
-  expect(subtree).toBeVisible()
+      // Press ↑
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-  // Focus tree
-  root.focus()
+      // aria-activedescendant should not change (item 1 is the first visible treeitem)
+      expect(root).toHaveAttribute('aria-activedescendant', item1.id)
+    })
+  })
 
-  // Press ←
-  fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+  describe('ArrowLeft', () => {
+    it('collapses an expanded item', () => {
+      const {getByRole, queryByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
 
-  // aria-expanded should now be false
-  expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+      const root = getByRole('tree')
+      const parentItem = getByRole('treeitem', {name: 'Parent'})
+      let subtree = queryByRole('group')
 
-  // aria-activedescendant should still be set to the parent treeitem
-  expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+      // aria-activedescendant should be set to the first visible treeitem by default
+      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
 
-  subtree = queryByRole('group')
+      // aria-expanded should be true
+      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-  // Subtree should now be hidden
-  expect(subtree).toBeNull()
+      // Subtree should be visible
+      expect(subtree).toBeVisible()
+
+      // Focus tree
+      root.focus()
+
+      // Press ←
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+
+      // aria-expanded should now be false
+      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+
+      // aria-activedescendant should still be set to the parent treeitem
+      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+
+      subtree = queryByRole('group')
+
+      // Subtree should now be hidden
+      expect(subtree).toBeNull()
+    })
+
+    it('does nothing on a root-level collapsed item', () => {
+      const {getByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+      // aria-activedescendant should be set to the first visible treeitem by default
+      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+
+      // aria-expanded should be false by default
+      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+
+      // Focus tree
+      root.focus()
+
+      // Press ←
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+
+      // aria-expanded should still be false
+      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+
+      // aria-activedescendant should still be set to the parent treeitem
+      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+    })
+  })
+
+  describe('ArrowRight', () => {
+    it('expands a collapsed item', () => {
+      const {getByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+      // aria-activedescendant should be set to the first visible treeitem by default
+      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+
+      // aria-expanded should be false by default
+      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+
+      // Focus tree
+      root.focus()
+
+      // Press →
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+
+      // aria-expanded should now be true
+      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+      // aria-activedescendant should still be set to the parent treeitem
+      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+
+      const subtree = getByRole('group')
+
+      // Subtree should now be visible
+      expect(subtree).toBeVisible()
+    })
+
+    it('moves aria-activedescendant to first child of an expanded item', () => {
+      const {getByRole} = render(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+      // aria-activedescendant should be set to the first visible treeitem by default
+      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+
+      // aria-expanded should be true
+      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+      // Focus tree
+      root.focus()
+
+      // Press →
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
+
+      const childItem = getByRole('treeitem', {name: 'Child'})
+
+      // aria-activedescendant should now be set to the first child treeitem
+      expect(root).toHaveAttribute('aria-activedescendant', childItem.id)
+
+      // aria-expanded should still be true
+      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+    })
+  })
 })
