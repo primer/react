@@ -63,8 +63,6 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
           // instead of the tree itself
           outline: 0
         }}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         onKeyDown={event => {
           const activeElement = document.getElementById(activeDescendant)
 
