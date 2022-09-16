@@ -263,7 +263,6 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
 
       switch (event.key) {
         case 'Enter':
-        case ' ':
           if (onSelect) {
             onSelect(event)
           } else {
@@ -379,11 +378,7 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
   return (
     <Item
       onSelect={event => {
-        // Navigate by clicking or pressing enter
-        if (event.type === 'click' || ('key' in event && event.key === 'Enter')) {
-          window.open(href, '_self')
-        }
-
+        window.open(href, '_self')
         onSelect?.(event)
       }}
       {...props}
