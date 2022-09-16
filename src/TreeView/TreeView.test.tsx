@@ -1,10 +1,19 @@
 import {fireEvent, render} from '@testing-library/react'
 import React from 'react'
+import {ThemeProvider} from '../ThemeProvider'
 import {TreeView} from './TreeView'
+
+// TODO: Move this function into a shared location
+function renderWithTheme(
+  ui: Parameters<typeof render>[0],
+  options?: Parameters<typeof render>[1]
+): ReturnType<typeof render> {
+  return render(<ThemeProvider>{ui}</ThemeProvider>, options)
+}
 
 describe('Markup', () => {
   it('uses tree role', () => {
-    const {queryByRole} = render(
+    const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item>Item 1</TreeView.Item>
         <TreeView.Item>Item 2</TreeView.Item>
@@ -18,7 +27,7 @@ describe('Markup', () => {
   })
 
   it('uses treeitem role', () => {
-    const {queryAllByRole} = render(
+    const {queryAllByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item>Item 1</TreeView.Item>
         <TreeView.Item>Item 2</TreeView.Item>
@@ -32,7 +41,7 @@ describe('Markup', () => {
   })
 
   it('hides subtrees by default', () => {
-    const {queryByRole} = render(
+    const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item>
           Parent
@@ -51,7 +60,7 @@ describe('Markup', () => {
   })
 
   it('initializes aria-activedescendant to the first item by default', () => {
-    const {queryByRole} = render(
+    const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item>Item 1</TreeView.Item>
         <TreeView.Item>Item 2</TreeView.Item>
@@ -69,7 +78,7 @@ describe('Markup', () => {
 describe('Keyboard interactions', () => {
   describe('ArrowDown', () => {
     it('moves aria-activedescendant to the next visible treeitem', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
             Item 1
@@ -128,7 +137,7 @@ describe('Keyboard interactions', () => {
 
   describe('ArrowUp', () => {
     it('moves aria-activedescendant to the previous visible treeitem', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
             Item 1
@@ -196,7 +205,7 @@ describe('Keyboard interactions', () => {
 
   describe('ArrowLeft', () => {
     it('collapses an expanded item', () => {
-      const {getByRole, queryByRole} = render(
+      const {getByRole, queryByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
             Parent
@@ -239,7 +248,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('does nothing on a root-level collapsed item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>
             Parent
@@ -273,7 +282,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('does nothing on a root-level end item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>Item</TreeView.Item>
         </TreeView>
@@ -296,7 +305,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('moves aria-activedescendant to parent of end item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
             Parent
@@ -330,7 +339,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('moves aria-activedescendant to parent of collapsed item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
             Parent
@@ -371,7 +380,7 @@ describe('Keyboard interactions', () => {
 
   describe('ArrowRight', () => {
     it('expands a collapsed item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>
             Parent
@@ -410,7 +419,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('moves aria-activedescendant to first child of an expanded item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
             Parent
@@ -446,7 +455,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('does nothing on an end item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
             Parent
@@ -480,7 +489,7 @@ describe('Keyboard interactions', () => {
 
   describe('Home', () => {
     it('moves aria-activedescendant to first visible item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>
             Parent 1
@@ -526,7 +535,7 @@ describe('Keyboard interactions', () => {
 
   describe('End', () => {
     it('moves aria-activedescendant to last visible item', () => {
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>
             Parent 1
@@ -581,7 +590,7 @@ describe('Keyboard interactions', () => {
   describe('Enter', () => {
     it('calls onSelect function if provided', () => {
       const onSelect = jest.fn()
-      const {getByRole} = render(
+      const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item onSelect={onSelect}>Item</TreeView.Item>
         </TreeView>
@@ -600,7 +609,7 @@ describe('Keyboard interactions', () => {
     })
 
     it('toggles expanded state if no onSelect function is provided', () => {
-      const {getByRole, queryByRole} = render(
+      const {getByRole, queryByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>
             Parent
