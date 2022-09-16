@@ -403,99 +403,106 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
-const Pane: React.FC<React.PropsWithChildren<PageLayoutPaneProps>> = ({
-  position: responsivePosition = 'end',
-  positionWhenNarrow = 'inherit',
-  width = 'medium',
-  padding = 'none',
-  divider: responsiveDivider = 'none',
-  dividerWhenNarrow = 'inherit',
-  sticky = false,
-  offsetHeader = 0,
-  hidden: responsiveHidden = false,
-  children,
-  sx = {}
-}) => {
-  // Combine position and positionWhenNarrow for backwards compatibility
-  const positionProp =
-    !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
-      ? {regular: responsivePosition, narrow: positionWhenNarrow}
-      : responsivePosition
+const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
+  (
+    {
+      position: responsivePosition = 'end',
+      positionWhenNarrow = 'inherit',
+      width = 'medium',
+      padding = 'none',
+      divider: responsiveDivider = 'none',
+      dividerWhenNarrow = 'inherit',
+      sticky = false,
+      offsetHeader = 0,
+      hidden: responsiveHidden = false,
+      children,
+      sx = {}
+    },
+    forwardRef
+  ) => {
+    // Combine position and positionWhenNarrow for backwards compatibility
+    const positionProp =
+      !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
+        ? {regular: responsivePosition, narrow: positionWhenNarrow}
+        : responsivePosition
 
-  const position = useResponsiveValue(positionProp, 'end')
+    const position = useResponsiveValue(positionProp, 'end')
 
-  // Combine divider and dividerWhenNarrow for backwards compatibility
-  const dividerProp =
-    !isResponsiveValue(responsiveDivider) && dividerWhenNarrow !== 'inherit'
-      ? {regular: responsiveDivider, narrow: dividerWhenNarrow}
-      : responsiveDivider
+    // Combine divider and dividerWhenNarrow for backwards compatibility
+    const dividerProp =
+      !isResponsiveValue(responsiveDivider) && dividerWhenNarrow !== 'inherit'
+        ? {regular: responsiveDivider, narrow: dividerWhenNarrow}
+        : responsiveDivider
 
-  const dividerVariant = useResponsiveValue(dividerProp, 'none')
+    const dividerVariant = useResponsiveValue(dividerProp, 'none')
 
-  const isHidden = useResponsiveValue(responsiveHidden, false)
+    const isHidden = useResponsiveValue(responsiveHidden, false)
 
-  const {rowGap, columnGap, enableStickyPane, disableStickyPane} = React.useContext(PageLayoutContext)
+    const {rowGap, columnGap, enableStickyPane, disableStickyPane} = React.useContext(PageLayoutContext)
 
-  React.useEffect(() => {
-    if (sticky) {
-      enableStickyPane?.(offsetHeader)
-    } else {
-      disableStickyPane?.()
-    }
-  }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
-
-  return (
-    <Box
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sx={(theme: any) =>
-        merge<BetterSystemStyleObject>(
-          {
-            // Narrow viewports
-            display: isHidden ? 'none' : 'flex',
-            order: panePositions[position],
-            width: '100%',
-            marginX: 0,
-            ...(position === 'end'
-              ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
-              : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
-
-            // Regular and wide viewports
-            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-              width: 'auto',
-              marginY: '0 !important',
-              ...(sticky
-                ? {
-                    position: 'sticky',
-                    // If offsetHeader has value, it will stick the pane to the position where the sticky top ends
-                    // else top will be 0 as the default value of offsetHeader
-                    top: typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
-                    overflow: 'hidden',
-                    maxHeight: 'var(--sticky-pane-height)'
-                  }
-                : {}),
-              ...(position === 'end'
-                ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
-                : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]})
-            }
-          },
-          sx
-        )
+    React.useEffect(() => {
+      if (sticky) {
+        enableStickyPane?.(offsetHeader)
+      } else {
+        disableStickyPane?.()
       }
-    >
-      {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
-      <HorizontalDivider
-        variant={{narrow: dividerVariant, regular: 'none'}}
-        sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
-      />
-      <VerticalDivider
-        variant={{narrow: 'none', regular: dividerVariant}}
-        sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
-      />
+    }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
 
-      <Box sx={{width: paneWidths[width], padding: SPACING_MAP[padding], overflow: 'auto'}}>{children}</Box>
-    </Box>
-  )
-}
+    return (
+      <Box
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        sx={(theme: any) =>
+          merge<BetterSystemStyleObject>(
+            {
+              // Narrow viewports
+              display: isHidden ? 'none' : 'flex',
+              order: panePositions[position],
+              width: '100%',
+              marginX: 0,
+              ...(position === 'end'
+                ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
+                : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
+
+              // Regular and wide viewports
+              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+                width: 'auto',
+                marginY: '0 !important',
+                ...(sticky
+                  ? {
+                      position: 'sticky',
+                      // If offsetHeader has value, it will stick the pane to the position where the sticky top ends
+                      // else top will be 0 as the default value of offsetHeader
+                      top: typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
+                      overflow: 'hidden',
+                      maxHeight: 'var(--sticky-pane-height)'
+                    }
+                  : {}),
+                ...(position === 'end'
+                  ? {flexDirection: 'row', marginLeft: SPACING_MAP[columnGap]}
+                  : {flexDirection: 'row-reverse', marginRight: SPACING_MAP[columnGap]})
+              }
+            },
+            sx
+          )
+        }
+      >
+        {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
+        <HorizontalDivider
+          variant={{narrow: dividerVariant, regular: 'none'}}
+          sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
+        />
+        <VerticalDivider
+          variant={{narrow: 'none', regular: dividerVariant}}
+          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+        />
+
+        <Box ref={forwardRef} sx={{width: paneWidths[width], padding: SPACING_MAP[padding], overflow: 'auto'}}>
+          {children}
+        </Box>
+      </Box>
+    )
+  }
+)
 
 Pane.displayName = 'PageLayout.Pane'
 
