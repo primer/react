@@ -106,7 +106,7 @@ const defaultFeatures = {}
 
 /**
  * Use `MatchMedia` to emulate media conditions by passing in feature
- * queries to the `features` prop. If a component uses `useMatchMedia` with the
+ * queries to the `features` prop. If a component uses `useMedia` with the
  * feature passed in to `MatchMedia` it will force its value to match what is
  * provided to `MatchMedia`
  *
