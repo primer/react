@@ -123,7 +123,7 @@ export function SelectPanel({
       return {
         ...item,
         role: 'option',
-        selected: 'selected' in item && item.selected === undefined ? undefined : finalItemsSelected.includes(item),
+        selected: 'selected' in item && item.selected === undefined ? undefined : !!finalItemsSelected.find(el => el.id === item.id),
         onAction: (itemFromAction, event) => {
           item.onAction?.(itemFromAction, event)
 
