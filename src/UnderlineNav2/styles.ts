@@ -80,9 +80,11 @@ export const getLinkStyles = (
   textDecoration: 'none',
   paddingX: 1,
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
-  '&:hover > div[data-component="wrapper"] ': {
-    backgroundColor: theme?.colors.neutral.muted,
-    transition: 'background .12s ease-out'
+  '@media (hover:hover)': {
+    '&:hover > div[data-component="wrapper"] ': {
+      backgroundColor: theme?.colors.neutral.muted,
+      transition: 'background .12s ease-out'
+    }
   },
   '&:focus': {
     outline: 0,

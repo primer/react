@@ -78,13 +78,12 @@ function getValidChildren(children: React.ReactNode) {
 }
 
 function calculatePossibleItems(childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) {
-  // 100 is the margin that we want to leave on the right side of the nav
-  const widthToFit = navWidth - moreMenuWidth - 100
+  const widthToFit = navWidth - moreMenuWidth
   let breakpoint = childWidthArray.length - 1
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
     if (sumsOfChildWidth > widthToFit) {
-      breakpoint = index
+      breakpoint = index - 1
       break
     } else {
       sumsOfChildWidth = sumsOfChildWidth + childWidth.width
@@ -158,10 +157,9 @@ export const UnderlineNav = forwardRef(
         const childArray = getValidChildren(children)
         const navWidth = resizeObserverEntries[0].contentRect.width
         const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-
         overflowEffect(navWidth, moreMenuWidth, childArray, childWidthArray, noIconChildWidthArray, callback)
       },
-      [callback, childWidthArray, noIconChildWidthArray, children]
+      [callback, childWidthArray, noIconChildWidthArray, children, moreMenuRef]
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
 
@@ -194,7 +192,7 @@ export const UnderlineNav = forwardRef(
               <ActionMenu>
                 <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
                 <ActionMenu.Overlay align="end">
-                  <ActionList selectionVariant="single">
+                  <ActionList>
                     {actions.map((action, index) => {
                       const {children: actionElementChildren, ...actionElementProps} = action.props
                       return (
