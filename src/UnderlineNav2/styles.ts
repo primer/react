@@ -67,74 +67,6 @@ export const moreBtnStyles = {
   paddingX: 2
 }
 
-export const getArrowBtnStyles = (theme?: Theme) => ({
-  fontWeight: 'normal',
-  boxShadow: 'none',
-  margin: 0,
-  border: 0,
-  borderRadius: 0,
-  paddingX: 0,
-  paddingY: 0,
-  background: theme?.colors.canvas.default,
-  position: 'absolute',
-  opacity: 1,
-  transition: 'opacity 250ms ease-out',
-  zIndex: 1,
-  '&:hover:not([disabled]), &:focus-visible': {
-    background: theme?.colors.canvas.default
-  }
-})
-
-export const getLeftArrowHiddenBtn = (theme?: Theme) => ({
-  ...getArrowBtnStyles(theme),
-  opacity: 0,
-  top: 0,
-  bottom: 0,
-  left: 0
-})
-
-export const getRightArrowHiddenBtn = (theme?: Theme) => ({
-  ...getArrowBtnStyles(theme),
-  opacity: 0,
-  top: 0,
-  bottom: 0,
-  right: 0
-})
-
-export const getLeftArrowVisibleBtn = (theme?: Theme) => ({
-  ...getArrowBtnStyles(theme),
-  top: 0,
-  bottom: 0,
-  left: 0,
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    background: `linear-gradient(to left,#fff0,${theme?.colors.canvas.default})`,
-    height: '100%',
-    width: '20px',
-    right: '-20px',
-    pointerEvents: 'none'
-  }
-})
-
-export const getRightArrowVisibleBtn = (theme?: Theme) => ({
-  ...getArrowBtnStyles(theme),
-  top: 0,
-  bottom: 0,
-  right: 0,
-  '&::before': {
-    position: 'absolute',
-    top: 0,
-    background: `linear-gradient(to right,#fff0,${theme?.colors.canvas.default})`,
-    content: '""',
-    height: '100%',
-    left: '-20px',
-    width: '20px',
-    pointerEvents: 'none'
-  }
-})
-
 export const getLinkStyles = (
   theme?: Theme,
   props?: Partial<Pick<UnderlineNavProps, 'variant'>>,
@@ -187,18 +119,5 @@ export const getLinkStyles = (
     transform: 'translate(50%, -50%)'
   }
 })
-
-export const scrollStyles: BetterSystemStyleObject = {
-  whiteSpace: 'nowrap',
-  overflowX: 'auto',
-  // Hiding scrollbar on Firefox
-  scrollbarWidth: 'none',
-  // Hiding scrollbar on IE 10+
-  msOverflowStyle: 'none',
-  // Hiding scrollbar on Chrome, Safari and Opera
-  '&::-webkit-scrollbar': {
-    display: 'none'
-  }
-}
 
 export const moreMenuStyles: BetterSystemStyleObject = {whiteSpace: 'nowrap'}
