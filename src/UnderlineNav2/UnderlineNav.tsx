@@ -57,7 +57,8 @@ const handleArrowBtnsVisibility = (
   callback(scrollOffsets)
 }
 const overflowEffect = (
-  width: number,
+  navWidth: number,
+  moreMenuWidth: number,
   childArray: Array<React.ReactElement>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
@@ -70,9 +71,9 @@ const overflowEffect = (
   if (childWidthArray.length === 0) {
     callback({items: childArray, actions: [], overflowStyles}, iconsVisible)
   }
-  // do this only for overflow
-  const numberOfItemsPossible = calculatePossibleItems(childWidthArray, width)
-  const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, width)
+
+  const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
+  const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth, moreMenuWidth)
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
@@ -117,17 +118,20 @@ function calculateScrollOffset(scrollableList: RefObject<HTMLUListElement>) {
   return {scrollLeft, scrollRight}
 }
 
-function calculatePossibleItems(childWidthArray: ChildWidthArray, width: number) {
+function calculatePossibleItems(childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) {
+  // 100 is the margin that we want to leave on the right side of the nav
+  const widthToFit = navWidth - moreMenuWidth - 100
   let breakpoint = childWidthArray.length - 1
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
-    if (sumsOfChildWidth > 0.8 * width) {
+    if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
     } else {
       sumsOfChildWidth = sumsOfChildWidth + childWidth.width
     }
   }
+
   return breakpoint
 }
 
@@ -139,6 +143,7 @@ export const UnderlineNav = forwardRef(
     const backupRef = useRef<HTMLElement>(null)
     const newRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
+    const moreMenuRef = useRef<HTMLDivElement>(null)
 
     const {theme} = useTheme()
 
@@ -204,9 +209,18 @@ export const UnderlineNav = forwardRef(
       (resizeObserverEntries: ResizeObserverEntry[]) => {
         const childArray = getValidChildren(children)
         const navWidth = resizeObserverEntries[0].contentRect.width
+        const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
         const scrollOffsets = calculateScrollOffset(listRef)
 
-        overflowEffect(navWidth, childArray, childWidthArray, noIconChildWidthArray, isCoarsePointer, callback)
+        overflowEffect(
+          navWidth,
+          moreMenuWidth,
+          childArray,
+          childWidthArray,
+          noIconChildWidthArray,
+          isCoarsePointer,
+          callback
+        )
 
         handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
       },
@@ -267,7 +281,7 @@ export const UnderlineNav = forwardRef(
           <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
 
           {actions.length > 0 && (
-            <Box as="div" sx={{display: 'flex'}}>
+            <Box as="div" sx={{display: 'flex'}} ref={moreMenuRef}>
               <Box sx={getDividerStyle(theme)}></Box>
               <ActionMenu>
                 <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>

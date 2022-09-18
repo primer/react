@@ -6,7 +6,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
-import {getLinkStyles, wrapperStyles, iconWrapStyles, textStyles, counterStyles} from './styles'
+import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -37,7 +37,7 @@ export type UnderlineNavItemProps = {
   /**
    *  Icon before the text
    */
-  leadingIcon?: React.FunctionComponent<IconProps>
+  icon?: React.FunctionComponent<IconProps>
   as?: React.ElementType
   /**
    * Counter
@@ -56,7 +56,7 @@ export const UnderlineNavItem = forwardRef(
       counter,
       onSelect,
       selected: preSelected = false,
-      leadingIcon: LeadingIcon,
+      icon: Icon,
       ...props
     },
     forwardedRef
@@ -123,9 +123,9 @@ export const UnderlineNavItem = forwardRef(
           ref={ref}
         >
           <Box as="div" data-component="wrapper" sx={wrapperStyles}>
-            {iconsVisible && LeadingIcon && (
-              <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
-                <LeadingIcon />
+            {iconsVisible && Icon && (
+              <Box as="span" data-component="icon" sx={iconWrapStyles}>
+                <Icon />
               </Box>
             )}
             {children && (
@@ -133,7 +133,7 @@ export const UnderlineNavItem = forwardRef(
                 as="span"
                 data-component="text"
                 data-content={children}
-                sx={selectedLink === ref ? {fontWeight: 600, ...{textStyles}} : {textStyles}}
+                sx={selectedLink === ref ? {fontWeight: 600} : {}}
               >
                 {children}
               </Box>

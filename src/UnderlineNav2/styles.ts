@@ -8,10 +8,6 @@ export const iconWrapStyles = {
   marginRight: 2
 }
 
-export const textStyles: BetterSystemStyleObject = {
-  whiteSpace: 'nowrap'
-}
-
 export const wrapperStyles = {
   display: 'inline-flex',
   paddingY: 1,
@@ -34,6 +30,7 @@ export const counterStyles = {
 
 export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavProps, 'align'>>) => ({
   display: 'flex',
+  paddingX: 2,
   justifyContent: props?.align === 'right' ? 'flex-end' : 'flex-start',
   borderBottom: '1px solid',
   borderBottomColor: `${theme?.colors.border.muted}`,
@@ -46,7 +43,6 @@ export const ulStyles = {
   display: 'flex',
   listStyle: 'none',
   padding: '0',
-  paddingX: 1,
   margin: '0',
   marginBottom: '-1px',
   alignItems: 'center'
@@ -175,7 +171,8 @@ export const getLinkStyles = (
     display: 'block',
     height: 0,
     fontWeight: '600',
-    visibility: 'hidden'
+    visibility: 'hidden',
+    whiteSpace: 'nowrap'
   },
   // selected state styles
   '&::after': {
