@@ -18,22 +18,6 @@ import {BaseStyles, ThemeProvider} from '..'
 
 export default {
   title: 'Layout/UnderlineNav/examples',
-  argTypes: {
-    align: {
-      defaultValue: 'left',
-      control: {
-        type: 'radio',
-        options: ['left', 'right']
-      }
-    },
-    variant: {
-      defaultValue: 'default',
-      control: {
-        type: 'radio',
-        options: ['default', 'small']
-      }
-    }
-  },
   decorators: [
     Story => {
       return (
@@ -84,16 +68,6 @@ export const withCounterLabels = (args: UnderlineNavProps) => {
       <UnderlineNav.Item icon={IssueOpenedIcon} counter={12}>
         Issues
       </UnderlineNav.Item>
-    </UnderlineNav>
-  )
-}
-
-export const rightAlign = (args: UnderlineNavProps) => {
-  return (
-    <UnderlineNav {...args} align="right">
-      <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
-      <UnderlineNav.Item>Item 2dsjsjskdjkajsdhkajsdkasj</UnderlineNav.Item>
-      <UnderlineNav.Item>Item 3</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
