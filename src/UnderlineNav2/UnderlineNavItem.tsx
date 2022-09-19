@@ -98,7 +98,6 @@ export const UnderlineNavItem = forwardRef(
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
-
     const clickHandler = React.useCallback(
       event => {
         if (!event.defaultPrevented) {

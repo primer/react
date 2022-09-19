@@ -23,15 +23,6 @@ import {UnderlineNav} from '@primer/react/drafts'
 </UnderlineNav>
 ```
 
-### Small variant
-
-```jsx live drafts
-<UnderlineNav variant="small">
-  <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
-  <UnderlineNav.Item>Item 2</UnderlineNav.Item>
-</UnderlineNav>
-```
-
 ### With icons
 
 ```jsx live drafts
@@ -57,10 +48,10 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 ### Overflow Behaviour
 
-#### Items without Icons
-
 When overflow occurs, the component first hides icons if present to optimize for space and show as many items as possible.
-If there is still overflow, the component will behave depending on the pointer. Please see below to see these behaviours.
+If there is still overflow, the component will hide items that don't fit into screen under the `More` menu
+
+#### Items without Icons
 
 ```jsx live drafts
 <UnderlineNav>
@@ -88,15 +79,7 @@ If there is still overflow, the component will behave depending on the pointer. 
 </UnderlineNav>
 ```
 
-#### Display `More` menu for fine pointer devices
-
-This overflow behaviour will occur on fine pointer devices that have fine pointers.
-
-#### Scroll for coarse pointer devices
-
-The scroll behaviour will occur on devices that have coarse pointers.
-
-Depending on your device when viweing this example, you may see the scroll behaviour or the `More` menu behaviour.
+#### Display `More` menu
 
 ```jsx live drafts
 <UnderlineNav>
@@ -135,13 +118,6 @@ Depending on your device when viweing this example, you may see the scroll behav
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="aria-labelledby" type="string" />
   <PropsTableRow name="aria-describedby" type="string" />
-  <PropsTableRow name="align" type="right | left" defaultValue="left" description="The alignment of the nav links" />
-  <PropsTableRow
-    name="variant"
-    type="default | small"
-    defaultValue="default"
-    description="The alignment of the nav links"
-  />
   <PropsTableRow
     name="afterSelect"
     type="(event) => void"
@@ -153,7 +129,7 @@ Depending on your device when viweing this example, you may see the scroll behav
 ### UnderlineNav.Item
 
 <PropsTable>
-  <PropsTableRow name="leadingIcon" type="Component" description="The leading icon comes before item label" />
+  <PropsTableRow name="icon" type="Component" description="The leading icon comes before item label" />
   <PropsTableRow name="selected" type="boolean" description="Whether the link is selected" />
   <PropsTableRow
     name="onSelect"
