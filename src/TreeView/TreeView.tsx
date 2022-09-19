@@ -322,6 +322,37 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
             }
           }}
         >
+          <Box sx={{gridArea: 'spacer', display: 'flex'}}>
+            {
+              // Indicator lines for each nested level
+              Array.from({length: level - 1}).map((_, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    transition: 'border-color 33.333ms linear',
+                    borderRight: '1px solid',
+
+                    // On devices without hover, the nesting indicator lines
+                    // appear at all times.
+                    borderColor: 'border.subtle',
+
+                    // On devices with :hover support, the nesting indicator lines
+                    // fade in when the user mouses over the entire component,
+                    // or when there's focus inside the component. This makes
+                    // sure the component remains simple when not in use.
+                    '@media (hover: hover)': {
+                      borderColor: 'transparent',
+                      '[role=tree]:hover &, [role=tree]:focus &': {
+                        borderColor: 'border.subtle'
+                      }
+                    }
+                  }}
+                />
+              ))
+            }
+          </Box>
           {hasSubTree ? (
             <Box
               onClick={event => {
