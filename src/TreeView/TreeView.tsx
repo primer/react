@@ -44,11 +44,11 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
       const currentItem = rootRef.current.querySelector('[role="treeitem"][aria-current="true"]')
       const firstItem = rootRef.current.querySelector('[role="treeitem"]')
 
-      // If current item exists, set it as the active descendant
+      // If current item exists, use it as the initial value for active descendant
       if (currentItem) {
         setActiveDescendant(currentItem.id)
       }
-      // Otherwise, set the first item as the active descendant
+      // Otherwise, initialize the active descendant to the first item in the tree
       else if (firstItem) {
         setActiveDescendant(firstItem.id)
       }
