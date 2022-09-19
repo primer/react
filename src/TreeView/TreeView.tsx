@@ -226,12 +226,19 @@ function getLastElement(element: HTMLElement): HTMLElement | undefined {
 
 export type TreeViewItemProps = {
   children: React.ReactNode
+  current?: boolean
   defaultExpanded?: boolean
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
   onToggle?: (isExpanded: boolean) => void
 }
 
-const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, onToggle, children}) => {
+const Item: React.FC<TreeViewItemProps> = ({
+  current = false,
+  defaultExpanded = false,
+  onSelect,
+  onToggle,
+  children
+}) => {
   const {setActiveDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
   const labelId = useSSRSafeId()
@@ -293,6 +300,7 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
         aria-labelledby={labelId}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
+        aria-current={current ? 'true' : undefined}
       >
         <Box
           onClick={event => {
@@ -304,6 +312,7 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
             }
           }}
           sx={{
+            position: 'relative',
             display: 'grid',
             gridTemplateColumns: `calc(${level - 1} * 8px) 16px 1fr`,
             gridTemplateAreas: `"spacer toggle content"`,
@@ -319,6 +328,19 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
             },
             [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
               boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
+            },
+            '[role=treeitem][aria-current=true] &': {
+              bg: 'actionListItem.default.selectedBg',
+              '&::after': {
+                position: 'absolute',
+                top: 'calc(50% - 12px)',
+                left: -2,
+                width: '4px',
+                height: '24px',
+                content: '""',
+                bg: 'accent.fg',
+                borderRadius: 2
+              }
             }
           }}
         >

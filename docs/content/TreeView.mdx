@@ -80,6 +80,12 @@ description: A hierarchical list of items where nested items can be expanded and
 
 <PropsTable>
   <PropsTableRow name="children" type="React.ReactNode" required />
+  <PropsTable
+    name="current"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the item is the current item. No more than one item should be current at once."
+  />
   <PropsTableRow name="defaultExpanded" type="boolean" description="Whether the item is expanded by default." />
   <PropsTableRow
     name="onSelect"

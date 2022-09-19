@@ -73,6 +73,20 @@ describe('Markup', () => {
 
     expect(root).toHaveAttribute('aria-activedescendant', firstItem?.id)
   })
+
+  it('uses aria-current', () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>Item 1</TreeView.Item>
+        <TreeView.Item current>Item 2</TreeView.Item>
+        <TreeView.Item>Item 3</TreeView.Item>
+      </TreeView>
+    )
+
+    const currentItem = getByRole('treeitem', {name: 'Item 2'})
+
+    expect(currentItem).toHaveAttribute('aria-current', 'true')
+  })
 })
 
 describe('Keyboard interactions', () => {

@@ -22,7 +22,9 @@ export const FileTreeWithDirectoryLinks: Story = () => (
             <TreeView.LinkItem href="#button">
               Button
               <TreeView.SubTree>
-                <TreeView.LinkItem href="#button-tsx">Button.tsx</TreeView.LinkItem>
+                <TreeView.LinkItem href="#button-tsx" current>
+                  Button.tsx
+                </TreeView.LinkItem>
                 <TreeView.LinkItem href="#button-test-tsx">Button.test.tsx</TreeView.LinkItem>
               </TreeView.SubTree>
             </TreeView.LinkItem>
@@ -56,7 +58,9 @@ export const FileTreeWithoutDirectoryLinks: Story = () => (
             <TreeView.Item>
               Button
               <TreeView.SubTree>
-                <TreeView.LinkItem href="#button-tsx">Button.tsx</TreeView.LinkItem>
+                <TreeView.LinkItem href="#button-tsx" current>
+                  Button.tsx
+                </TreeView.LinkItem>
                 <TreeView.LinkItem href="#button-test-tsx">Button.test.tsx</TreeView.LinkItem>
               </TreeView.SubTree>
             </TreeView.Item>
