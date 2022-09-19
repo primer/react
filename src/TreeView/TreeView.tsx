@@ -233,7 +233,7 @@ export type TreeViewItemProps = {
 }
 
 const Item: React.FC<TreeViewItemProps> = ({
-  current = false,
+  current: isCurrent = false,
   defaultExpanded = false,
   onSelect,
   onToggle,
@@ -257,6 +257,13 @@ const Item: React.FC<TreeViewItemProps> = ({
     [isExpanded, onToggle]
   )
 
+  // Expand item if it is the current item or contains the current item
+  React.useLayoutEffect(() => {
+    if (isCurrent || itemRef.current?.querySelector('[aria-current=true]')) {
+      setIsExpanded(true)
+    }
+  }, [itemRef, isCurrent, subTree])
+
   React.useEffect(() => {
     const element = itemRef.current
 
@@ -278,11 +285,11 @@ const Item: React.FC<TreeViewItemProps> = ({
           break
 
         case 'ArrowRight':
-          if (!isExpanded) setIsExpanded(true)
+          if (!isExpanded) toggle()
           break
 
         case 'ArrowLeft':
-          if (isExpanded) setIsExpanded(false)
+          if (isExpanded) toggle()
           break
       }
     }
@@ -300,7 +307,7 @@ const Item: React.FC<TreeViewItemProps> = ({
         aria-labelledby={labelId}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
-        aria-current={current ? 'true' : undefined}
+        aria-current={isCurrent ? 'true' : undefined}
       >
         <Box
           onClick={event => {
