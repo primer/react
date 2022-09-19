@@ -329,7 +329,7 @@ const Item: React.FC<TreeViewItemProps> = ({
             [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
               boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
             },
-            '[role=treeitem][aria-current=true] &': {
+            '[role=treeitem][aria-current=true] > &': {
               bg: 'actionListItem.default.selectedBg',
               '&::after': {
                 position: 'absolute',
