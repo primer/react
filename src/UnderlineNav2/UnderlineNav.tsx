@@ -23,7 +23,9 @@ export type UnderlineNavProps = {
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   children: React.ReactNode
 }
-
+// When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
+// However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
+const MORE_BTN_WIDTH = 86
 // Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
 const NavigationList = styled.ul`
   ${sx};
@@ -44,7 +46,13 @@ const overflowEffect = (
   }
 
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
-  const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth, moreMenuWidth)
+  const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
+  // We need take more menu width into account when calculating the number of items possible
+  const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
+    noIconChildWidthArray,
+    navWidth,
+    moreMenuWidth || MORE_BTN_WIDTH
+  )
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
@@ -62,7 +70,7 @@ const overflowEffect = (
     overflowStyles = moreMenuStyles
     // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
     for (const [index, child] of childArray.entries()) {
-      if (index < numberOfItemsWithoutIconPossible) {
+      if (index < numberOfItemsPossibleWithMoreMenu) {
         items.push(child)
       } else {
         actions.push(child)
