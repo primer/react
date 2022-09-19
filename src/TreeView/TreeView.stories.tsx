@@ -15,31 +15,31 @@ export const FileTreeWithDirectoryLinks: Story = () => (
   <Box p={3}>
     <nav aria-label="File navigation">
       <TreeView aria-label="File navigation">
-        <TreeView.LinkItem href="#">
+        <TreeView.LinkItem href="#src">
           src
           <TreeView.SubTree>
-            <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-            <TreeView.LinkItem href="#">
+            <TreeView.LinkItem href="#avatar-tsx">Avatar.tsx</TreeView.LinkItem>
+            <TreeView.LinkItem href="#button">
               Button
               <TreeView.SubTree>
-                <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
-                <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
+                <TreeView.LinkItem href="#button-tsx">Button.tsx</TreeView.LinkItem>
+                <TreeView.LinkItem href="#button-test-tsx">Button.test.tsx</TreeView.LinkItem>
               </TreeView.SubTree>
             </TreeView.LinkItem>
           </TreeView.SubTree>
         </TreeView.LinkItem>
         <TreeView.LinkItem
-          href="#"
+          href="#public"
           // eslint-disable-next-line no-console
           onToggle={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
         >
           public
           <TreeView.SubTree>
-            <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
-            <TreeView.LinkItem href="#">favicon.ico</TreeView.LinkItem>
+            <TreeView.LinkItem href="#index-html">index.html</TreeView.LinkItem>
+            <TreeView.LinkItem href="#favicon-ico">favicon.ico</TreeView.LinkItem>
           </TreeView.SubTree>
         </TreeView.LinkItem>
-        <TreeView.LinkItem href="#">package.json</TreeView.LinkItem>
+        <TreeView.LinkItem href="#package-json">package.json</TreeView.LinkItem>
       </TreeView>
     </nav>
   </Box>
@@ -52,12 +52,12 @@ export const FileTreeWithoutDirectoryLinks: Story = () => (
         <TreeView.Item>
           src
           <TreeView.SubTree>
-            <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
+            <TreeView.LinkItem href="#avatar-tsx">Avatar.tsx</TreeView.LinkItem>
             <TreeView.Item>
               Button
               <TreeView.SubTree>
-                <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
-                <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
+                <TreeView.LinkItem href="#button-tsx">Button.tsx</TreeView.LinkItem>
+                <TreeView.LinkItem href="#button-test-tsx">Button.test.tsx</TreeView.LinkItem>
               </TreeView.SubTree>
             </TreeView.Item>
           </TreeView.SubTree>
@@ -68,11 +68,11 @@ export const FileTreeWithoutDirectoryLinks: Story = () => (
         >
           public
           <TreeView.SubTree>
-            <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
-            <TreeView.LinkItem href="#">favicon.ico</TreeView.LinkItem>
+            <TreeView.LinkItem href="#index-html">index.html</TreeView.LinkItem>
+            <TreeView.LinkItem href="#favicon-ico">favicon.ico</TreeView.LinkItem>
           </TreeView.SubTree>
         </TreeView.Item>
-        <TreeView.LinkItem href="#">package.json</TreeView.LinkItem>
+        <TreeView.LinkItem href="#package-json">package.json</TreeView.LinkItem>
       </TreeView>
     </nav>
   </Box>
