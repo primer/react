@@ -36,19 +36,29 @@ export type TreeViewProps = {
 const UlBox = styled.ul<SxProp>(sx)
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
+  const rootRef = React.useRef<HTMLUListElement>(null)
   const [activeDescendant, setActiveDescendant] = React.useState('')
 
   React.useEffect(() => {
-    // Initialize the active descendant to the first item in the tree
-    if (!activeDescendant) {
-      const firstItem = document.querySelector('[role="treeitem"]')
-      if (firstItem) setActiveDescendant(firstItem.id)
+    if (rootRef.current && !activeDescendant) {
+      const currentItem = rootRef.current.querySelector('[role="treeitem"][aria-current="true"]')
+      const firstItem = rootRef.current.querySelector('[role="treeitem"]')
+
+      // If current item exists, set it as the active descendant
+      if (currentItem) {
+        setActiveDescendant(currentItem.id)
+      }
+      // Otherwise, set the first item as the active descendant
+      else if (firstItem) {
+        setActiveDescendant(firstItem.id)
+      }
     }
-  }, [activeDescendant])
+  }, [rootRef, activeDescendant])
 
   return (
     <RootContext.Provider value={{activeDescendant, setActiveDescendant}}>
       <UlBox
+        ref={rootRef}
         tabIndex={0}
         role="tree"
         aria-label={ariaLabel}
