@@ -1,0 +1,173 @@
+---
+title: TreeView
+componentId: tree_view
+status: Draft
+description: A hierarchical list of items where nested items can be expanded and collapsed.
+---
+
+## Examples
+
+### File tree navigation without directory links
+
+```jsx live drafts
+<nav aria-label="File navigation">
+  <TreeView aria-label="File navigation">
+    <TreeView.Item>
+      src
+      <TreeView.SubTree>
+        <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
+        <TreeView.Item>
+          Button
+          <TreeView.SubTree>
+            <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
+            <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView.SubTree>
+    </TreeView.Item>
+    <TreeView.Item>
+      public
+      <TreeView.SubTree>
+        <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
+        <TreeView.LinkItem href="#">favicon.ico</TreeView.LinkItem>
+      </TreeView.SubTree>
+    </TreeView.Item>
+    <TreeView.LinkItem href="#">package.json</TreeView.LinkItem>
+  </TreeView>
+</nav>
+```
+
+### File tree navigation with directory links
+
+```jsx live drafts
+<nav aria-label="File navigation">
+  <TreeView aria-label="File navigation">
+    <TreeView.LinkItem href="#">
+      src
+      <TreeView.SubTree>
+        <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
+        <TreeView.LinkItem href="#">
+          Button
+          <TreeView.SubTree>
+            <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
+            <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
+          </TreeView.SubTree>
+        </TreeView.LinkItem>
+      </TreeView.SubTree>
+    </TreeView.LinkItem>
+    <TreeView.LinkItem href="#">
+      public
+      <TreeView.SubTree>
+        <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
+        <TreeView.LinkItem href="#">favicon.ico</TreeView.LinkItem>
+      </TreeView.SubTree>
+    </TreeView.LinkItem>
+    <TreeView.LinkItem href="#">package.json</TreeView.LinkItem>
+  </TreeView>
+</nav>
+```
+
+## Props
+
+### TreeView
+
+<PropsTable>
+  <PropsTableRow name="children" type="React.ReactNode" required />
+  {/* <PropsTableSxRow /> */}
+</PropsTable>
+
+### TreeView.Item
+
+<PropsTable>
+  <PropsTableRow name="children" type="React.ReactNode" required />
+  <PropsTableRow
+    name="onSelect"
+    type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+  />
+  <PropsTableRow name="onToggle" type="(isExpanded: boolean) => void" />
+  {/* <PropsTableSxRow /> */}
+</PropsTable>
+
+### TreeView.LinkItem
+
+<PropsTable>
+  <PropsTableRow name="children" type="React.ReactNode" required />
+  <PropsTableRow
+    name="href"
+    type="string"
+    description={
+      <>
+        The URL that the item navigates to. <InlineCode>href</InlineCode> is passed to the underlying{' '}
+        <InlineCode>&lt;a&gt;</InlineCode> element. If <InlineCode>as</InlineCode> is specified, the component may need
+        different props. If the item contains a sub-nav, the item is rendered as a{' '}
+        <InlineCode>&lt;button&gt;</InlineCode> and <InlineCode>href</InlineCode> is ignored.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="onSelect"
+    type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+  />
+  <PropsTableRow name="onToggle" type="(isExpanded: boolean) => void" />
+  {/* <PropsTableSxRow /> */}
+</PropsTable>
+
+### TreeView.SubTree
+
+<PropsTable>
+  <PropsTableRow name="children" type="React.ReactNode" />
+  {/* <PropsTableSxRow /> */}
+</PropsTable>
+
+<!-- TODO: Add leading and trailing visuals -->
+
+<!-- ### TreeView.LeadingVisual
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type={`| React.ReactNode
+| (props: {isExpanded: boolean}) => React.ReactNode`}
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### TreeView.TrailingVisual
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type={`| React.ReactNode
+| (props: {isExpanded: boolean}) => React.ReactNode`}
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### TreeView.FolderIcon
+
+<PropsTable>
+  <PropsTableSxRow />
+</PropsTable> -->
+
+<!-- TODO: Add components to support async behavior (e.g. LoadingItem) -->
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: false,
+    adaptsToThemes: false,
+    adaptsToScreenSizes: false,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>
