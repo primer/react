@@ -153,16 +153,6 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   )
 }
 
-// {props.preventSSRMismatch
-// ? renderScript({
-// id: '__PRIMER_DATA__',
-// children: JSON.stringify({
-// resolvedServerColorMode: resolvedColorMode
-// }),
-// type: 'application/json'
-// })
-// : null}
-
 export function useTheme() {
   return React.useContext(ThemeContext)
 }
