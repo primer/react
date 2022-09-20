@@ -1,0 +1,12 @@
+{
+  "name": "examples-nextjs",
+  "private": true,
+  "scripts": {
+    "develop": "next"
+  },
+  "dependencies": {
+    "next": "12.3.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
