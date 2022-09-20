@@ -1,4 +1,5 @@
 import React, {forwardRef, useImperativeHandle, useRef, useEffect} from 'react'
+import '@github/markdown-toolbar-element'
 
 export type FormattingTools = {
   header: () => void
@@ -24,12 +25,6 @@ let hasRegisteredToolbarElement = false
  * buttons (ie, by keyboard shortcut).
  */
 export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>(({forInputId}, forwadedRef) => {
-  useEffect(() => {
-    // requiring this module will register the custom element; we don't want to do that until the component mounts in the DOM
-    if (!hasRegisteredToolbarElement) require('@github/markdown-toolbar-element')
-    hasRegisteredToolbarElement = true
-  }, [])
-
   const headerRef = useRef<HTMLElement>(null)
   const boldRef = useRef<HTMLElement>(null)
   const italicRef = useRef<HTMLElement>(null)
