@@ -55,9 +55,9 @@ exports[`PageLayout renders condensed layout 1`] = `
 }
 
 .c10 {
-  width: 100%;
   padding: 0;
   overflow: auto;
+  width: 100%;
 }
 
 .c0 {
@@ -105,6 +105,7 @@ exports[`PageLayout renders condensed layout 1`] = `
 
 .c9 {
   height: 100%;
+  position: relative;
   display: none;
   margin-right: 16px;
 }
@@ -321,14 +322,15 @@ exports[`PageLayout renders default layout 1`] = `
 
 .c9 {
   height: 100%;
+  position: relative;
   display: none;
   margin-right: 16px;
 }
 
 .c10 {
-  width: 100%;
   padding: 0;
   overflow: auto;
+  width: 100%;
 }
 
 .c11 {
@@ -589,14 +591,15 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 
 .c9 {
   height: 100%;
+  position: relative;
   display: none;
   margin-right: 16px;
 }
 
 .c10 {
-  width: 100%;
   padding: 0;
   overflow: auto;
+  width: 100%;
 }
 
 .c11 {
@@ -839,9 +842,9 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 .c9 {
-  width: 100%;
   padding: 0;
   overflow: auto;
+  width: 100%;
 }
 
 .c10 {
@@ -871,6 +874,7 @@ exports[`PageLayout renders with dividers 1`] = `
 
 .c8 {
   height: 100%;
+  position: relative;
   display: none;
   margin-left: 16px;
 }

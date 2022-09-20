@@ -101,14 +101,15 @@ exports[`SplitPageLayout renders default layout 1`] = `
 
 .c9 {
   height: 100%;
+  position: relative;
   display: none;
   margin-left: 0;
 }
 
 .c10 {
-  width: 100%;
   padding: 16px;
   overflow: auto;
+  width: 100%;
 }
 
 .c11 {
@@ -179,8 +180,8 @@ exports[`SplitPageLayout renders default layout 1`] = `
 
 @media screen and (min-width:1012px) {
   .c10 {
-    width: 296px;
     padding: 24px;
+    width: 296px;
   }
 }
 
