@@ -6,6 +6,7 @@ import Box from '../Box'
 import sx, {SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import {getNextFocusableElement} from './getNextFocusableElement'
+import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -37,13 +38,18 @@ export type TreeViewProps = {
 const UlBox = styled.ul<SxProp>(sx)
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
-  const rootRef = React.useRef<HTMLUListElement>(null)
+  const containerRef = React.useRef<HTMLUListElement>(null)
   const [activeDescendant, setActiveDescendant] = React.useState('')
 
+  useTypeahead({
+    containerRef,
+    onFocusChange: element => setActiveDescendant(element.id)
+  })
+
   React.useEffect(() => {
-    if (rootRef.current && !activeDescendant) {
-      const currentItem = rootRef.current.querySelector('[role="treeitem"][aria-current="true"]')
-      const firstItem = rootRef.current.querySelector('[role="treeitem"]')
+    if (containerRef.current && !activeDescendant) {
+      const currentItem = containerRef.current.querySelector('[role="treeitem"][aria-current="true"]')
+      const firstItem = containerRef.current.querySelector('[role="treeitem"]')
 
       // If current item exists, use it as the initial value for active descendant
       if (currentItem) {
@@ -54,12 +60,12 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
         setActiveDescendant(firstItem.id)
       }
     }
-  }, [rootRef, activeDescendant])
+  }, [containerRef, activeDescendant])
 
   return (
     <RootContext.Provider value={{activeDescendant, setActiveDescendant}}>
       <UlBox
-        ref={rootRef}
+        ref={containerRef}
         tabIndex={0}
         role="tree"
         aria-label={ariaLabel}
@@ -79,6 +85,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
           if (!activeElement) return
 
           const nextElement = getNextFocusableElement(activeElement, event)
+
           if (nextElement) {
             // Move active descendant if necessary
             setActiveDescendant(nextElement.id)
