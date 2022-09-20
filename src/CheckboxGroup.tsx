@@ -1,11 +1,13 @@
-import React, {ChangeEvent, ChangeEventHandler, createContext, FC} from 'react'
+import React, {ChangeEvent, ChangeEventHandler, FC} from 'react'
 import CheckboxOrRadioGroup, {CheckboxOrRadioGroupProps} from './_CheckboxOrRadioGroup'
 import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupLabel'
 import CheckboxOrRadioGroupValidation from './_CheckboxOrRadioGroup/_CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from './hooks'
 import {SxProp} from './sx'
-import {Checkbox, FormControl} from '.'
+import FormControl from './FormControl'
+import Checkbox from './Checkbox'
+import {CheckboxGroupContext} from './CheckboxGroupContext'
 
 type CheckboxGroupProps = {
   /**
@@ -14,11 +16,6 @@ type CheckboxGroupProps = {
   onChange?: (selected: string[], e?: ChangeEvent<HTMLInputElement>) => void
 } & CheckboxOrRadioGroupProps &
   SxProp
-
-export const CheckboxGroupContext = createContext<{
-  disabled?: boolean
-  onChange?: ChangeEventHandler<HTMLInputElement>
-}>({})
 
 const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
   const formControlComponentChildren = React.Children.toArray(children)
@@ -68,6 +65,8 @@ const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({childre
     </CheckboxGroupContext.Provider>
   )
 }
+
+export {CheckboxGroupContext}
 
 export default Object.assign(CheckboxGroup, {
   Caption: CheckboxOrRadioGroupCaption,

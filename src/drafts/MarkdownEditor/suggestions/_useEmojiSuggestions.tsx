@@ -19,7 +19,7 @@ const emojiToSugggestion = (emoji: Emoji): Suggestion => ({
   value: emoji.character,
   key: emoji.name, // emoji characters may not be unique - ie haircut and haircut_man both have the same emoji codepoint. But names are guarunteed to be unique.
   render: props => (
-    <ActionList.Item {...props} sx={{...props.sx, '& > span:first-child': {display: 'none'}}}>
+    <ActionList.Item {...props}>
       <ActionList.LeadingVisual>{emoji.character}</ActionList.LeadingVisual>
       {emoji.name}
     </ActionList.Item>

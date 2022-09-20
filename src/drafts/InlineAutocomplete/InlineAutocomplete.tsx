@@ -207,7 +207,7 @@ const InlineAutocomplete = ({
       <Portal>
         {/* This should NOT be linked to the input with aria-describedby or screen readers may not read the live updates.
         The assertive live attribute ensures the suggestions are read instead of the input label, which voiceover will try to re-read when the role changes. */}
-        <span aria-live="assertive" aria-atomic style={{clipPath: 'circle(0)'}}>
+        <span aria-live="assertive" aria-atomic style={{clipPath: 'circle(0)', position: 'absolute'}}>
           {suggestionsDescription}
         </span>
       </Portal>
