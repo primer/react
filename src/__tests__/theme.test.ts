@@ -1,4 +1,4 @@
-import {isShadowValue} from '../utils/theme'
+import {isShadowValue} from '../utils/theme.cjs'
 
 describe('isShadowValue', () => {
   it('accepts transparent', () => {

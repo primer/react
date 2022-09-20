@@ -1,4 +1,4 @@
-import {isColorValue, isShadowValue, filterObject} from '../utils/theme'
+import {isColorValue, isShadowValue, filterObject} from '../utils/theme.cjs'
 
 describe('filterObject', () => {
   const colors = {
