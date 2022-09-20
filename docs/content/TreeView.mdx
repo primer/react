@@ -80,6 +80,7 @@ description: A hierarchical list of items where nested items can be expanded and
 
 <PropsTable>
   <PropsTableRow name="children" type="React.ReactNode" required />
+  <PropsTableRow name="defaultExpanded" type="boolean" description="Whether the item is expanded by default." />
   <PropsTableRow
     name="onSelect"
     type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
