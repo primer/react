@@ -662,6 +662,68 @@ export const CustomStickyHeader: Story = args => (
   </Box>
 )
 
+export const ResizablePane: Story = args => (
+  <PageLayout containerWidth="full" padding={args.padding} rowGap={args.rowGap} columnGap={'none'} sx={args.sx}>
+    {args['Render header?'] ? (
+      <PageLayout.Header
+        padding={args['Header.padding']}
+        divider={{
+          narrow: args['Header.divider.narrow'],
+          regular: args['Header.divider.regular'],
+          wide: args['Header.divider.wide']
+        }}
+        hidden={{
+          narrow: args['Header.hidden.narrow'],
+          regular: args['Header.hidden.regular'],
+          wide: args['Header.hidden.wide']
+        }}
+      >
+        <Placeholder height={args['Header placeholder height']} label="Header" />
+      </PageLayout.Header>
+    ) : null}
+    <PageLayout.Content
+      width={args['Content.width']}
+      padding={args['Content.padding']}
+      hidden={{
+        narrow: args['Content.hidden.narrow'],
+        regular: args['Content.hidden.regular'],
+        wide: args['Content.hidden.wide']
+      }}
+    >
+      <Placeholder height={args['Content placeholder height']} label="Content" />
+    </PageLayout.Content>
+    {args['Render pane?'] ? (
+      <PageLayout.Pane
+        width={args['Content.width']}
+        padding={args['Content.padding']}
+        position="start"
+        divider="line"
+        canResizePane={true}
+        paneWidthStorageKey="primer-react.pane-width"
+      >
+        <Placeholder height={args['Pane placeholder height']} label="Pane" />
+      </PageLayout.Pane>
+    ) : null}
+    {args['Render footer?'] ? (
+      <PageLayout.Footer
+        padding={args['Footer.padding']}
+        divider={{
+          narrow: args['Footer.divider.narrow'],
+          regular: args['Footer.divider.regular'],
+          wide: args['Footer.divider.wide']
+        }}
+        hidden={{
+          narrow: args['Footer.hidden.narrow'],
+          regular: args['Footer.hidden.regular'],
+          wide: args['Footer.hidden.wide']
+        }}
+      >
+        <Placeholder height={args['Footer placeholder height']} label="Footer" />
+      </PageLayout.Footer>
+    ) : null}
+  </PageLayout>
+)
+
 CustomStickyHeader.argTypes = {
   sticky: {
     type: 'boolean',

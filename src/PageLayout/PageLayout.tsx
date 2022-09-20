@@ -1,8 +1,11 @@
 import React from 'react'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
+import {useHorizontalResize} from './useHorizontalResize'
 import Box from '../Box'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import {Theme} from '../ThemeProvider'
 
 const REGION_ORDER = {
   header: 0,
@@ -105,6 +108,10 @@ Root.displayName = 'PageLayout'
 
 type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
+  canResize?: boolean
+  isResizing?: boolean
+  onClick?: (e: React.MouseEvent) => void
+  onMouseDown?: (e: React.MouseEvent) => void
 } & SxProp
 
 const horizontalDividerVariants = {
@@ -177,18 +184,65 @@ const verticalDividerVariants = {
   }
 }
 
-const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  canResize,
+  isResizing,
+  onClick,
+  onMouseDown,
+  sx = {}
+}) => {
   const responsiveVariant = useResponsiveValue(variant, 'none')
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
           height: '100%',
+          position: 'relative',
           ...verticalDividerVariants[responsiveVariant]
         },
         sx
       )}
-    />
+    >
+      {canResize && (
+        <Box
+          onMouseDown={onMouseDown}
+          onClick={onClick}
+          sx={{
+            width: '16px',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            position: 'absolute',
+            transform: 'translateX(50%)',
+            right: 0,
+            opacity: isResizing ? 1 : 0,
+            cursor: 'col-resize',
+            '&:hover': {
+              animation: isResizing ? 'none' : 'resizer-appear 80ms 300ms both',
+
+              '@keyframes resizer-appear': {
+                from: {
+                  opacity: 0
+                },
+
+                to: {
+                  opacity: 1
+                }
+              }
+            }
+          }}
+        >
+          <Box
+            sx={{
+              backgroundColor: 'accent.fg',
+              width: '1px',
+              height: '100%'
+            }}
+          />
+        </Box>
+      )}
+    </Box>
   )
 }
 
@@ -370,6 +424,8 @@ export type PageLayoutPaneProps = {
    */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
+  canResizePane?: boolean
+  paneWidthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
@@ -410,6 +466,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       positionWhenNarrow = 'inherit',
       width = 'medium',
       padding = 'none',
+      canResizePane = false,
+      paneWidthStorageKey = 'paneWidth',
       divider: responsiveDivider = 'none',
       dividerWhenNarrow = 'inherit',
       sticky = false,
@@ -447,6 +505,15 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         disableStickyPane?.()
       }
     }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
+
+    const paneRef = React.useRef<HTMLDivElement>(null)
+    useRefObjectAsForwardedRef(forwardRef, paneRef)
+
+    const {onMouseDown, onClick, isResizing, paneWidth} = useHorizontalResize(
+      canResizePane,
+      paneRef,
+      paneWidthStorageKey
+    )
 
     return (
       <Box
@@ -493,10 +560,27 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <VerticalDivider
           variant={{narrow: 'none', regular: dividerVariant}}
+          canResize={canResizePane}
+          isResizing={isResizing}
+          onClick={onClick}
+          onMouseDown={onMouseDown}
           sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
         />
-
-        <Box ref={forwardRef} sx={{width: paneWidths[width], padding: SPACING_MAP[padding], overflow: 'auto'}}>
+        <Box
+          ref={paneRef}
+          sx={(theme: Theme) => ({
+            padding: SPACING_MAP[padding],
+            overflow: 'auto',
+            ...(paneWidth
+              ? {
+                  width: `clamp(256px, ${paneWidth}px, 100vw - 511px)`,
+                  [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
+                    width: `clamp(256px, ${paneWidth}px, 100vw - 959px)`
+                  }
+                }
+              : {width: paneWidths[width]})
+          })}
+        >
           {children}
         </Box>
       </Box>
