@@ -1,4 +1,4 @@
-const defines = require('./babel-defines')
+const defines = require('./babel-defines.cjs')
 
 function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
