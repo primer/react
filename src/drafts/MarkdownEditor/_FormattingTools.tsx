@@ -1,4 +1,4 @@
-import React, {forwardRef, useImperativeHandle, useRef, useEffect} from 'react'
+import React, {forwardRef, useImperativeHandle, useRef} from 'react'
 import '@github/markdown-toolbar-element'
 
 export type FormattingTools = {
@@ -14,8 +14,6 @@ export type FormattingTools = {
   mention: () => void
   reference: () => void
 }
-
-let hasRegisteredToolbarElement = false
 
 /**
  * Renders an invisible `markdown-toolbar-element` that provides formatting actions to the
