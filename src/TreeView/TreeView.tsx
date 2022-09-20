@@ -36,19 +36,29 @@ export type TreeViewProps = {
 const UlBox = styled.ul<SxProp>(sx)
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
+  const rootRef = React.useRef<HTMLUListElement>(null)
   const [activeDescendant, setActiveDescendant] = React.useState('')
 
   React.useEffect(() => {
-    // Initialize the active descendant to the first item in the tree
-    if (!activeDescendant) {
-      const firstItem = document.querySelector('[role="treeitem"]')
-      if (firstItem) setActiveDescendant(firstItem.id)
+    if (rootRef.current && !activeDescendant) {
+      const currentItem = rootRef.current.querySelector('[role="treeitem"][aria-current="true"]')
+      const firstItem = rootRef.current.querySelector('[role="treeitem"]')
+
+      // If current item exists, use it as the initial value for active descendant
+      if (currentItem) {
+        setActiveDescendant(currentItem.id)
+      }
+      // Otherwise, initialize the active descendant to the first item in the tree
+      else if (firstItem) {
+        setActiveDescendant(firstItem.id)
+      }
     }
-  }, [activeDescendant])
+  }, [rootRef, activeDescendant])
 
   return (
     <RootContext.Provider value={{activeDescendant, setActiveDescendant}}>
       <UlBox
+        ref={rootRef}
         tabIndex={0}
         role="tree"
         aria-label={ariaLabel}
@@ -226,12 +236,19 @@ function getLastElement(element: HTMLElement): HTMLElement | undefined {
 
 export type TreeViewItemProps = {
   children: React.ReactNode
+  current?: boolean
   defaultExpanded?: boolean
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
   onToggle?: (isExpanded: boolean) => void
 }
 
-const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, onToggle, children}) => {
+const Item: React.FC<TreeViewItemProps> = ({
+  current: isCurrent = false,
+  defaultExpanded = false,
+  onSelect,
+  onToggle,
+  children
+}) => {
   const {setActiveDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
   const labelId = useSSRSafeId()
@@ -249,6 +266,13 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
     },
     [isExpanded, onToggle]
   )
+
+  // Expand item if it is the current item or contains the current item
+  React.useLayoutEffect(() => {
+    if (isCurrent || itemRef.current?.querySelector('[aria-current=true]')) {
+      setIsExpanded(true)
+    }
+  }, [itemRef, isCurrent, subTree])
 
   React.useEffect(() => {
     const element = itemRef.current
@@ -271,11 +295,11 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
           break
 
         case 'ArrowRight':
-          if (!isExpanded) setIsExpanded(true)
+          if (!isExpanded) toggle()
           break
 
         case 'ArrowLeft':
-          if (isExpanded) setIsExpanded(false)
+          if (isExpanded) toggle()
           break
       }
     }
@@ -293,6 +317,7 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
         aria-labelledby={labelId}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
+        aria-current={isCurrent ? 'true' : undefined}
       >
         <Box
           onClick={event => {
@@ -304,6 +329,7 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
             }
           }}
           sx={{
+            position: 'relative',
             display: 'grid',
             gridTemplateColumns: `calc(${level - 1} * 8px) 16px 1fr`,
             gridTemplateAreas: `"spacer toggle content"`,
@@ -319,6 +345,19 @@ const Item: React.FC<TreeViewItemProps> = ({defaultExpanded = false, onSelect, o
             },
             [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
               boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
+            },
+            '[role=treeitem][aria-current=true] > &': {
+              bg: 'actionListItem.default.selectedBg',
+              '&::after': {
+                position: 'absolute',
+                top: 'calc(50% - 12px)',
+                left: -2,
+                width: '4px',
+                height: '24px',
+                content: '""',
+                bg: 'accent.fg',
+                borderRadius: 2
+              }
             }
           }}
         >
