@@ -24,21 +24,24 @@ type SegmentedControlProps = {
   fullWidth?: boolean | ResponsiveValue<boolean>
   /** The handler that gets called when a segment is selected */
   onChange?: (selectedIndex: number) => void
+  /** The size of the buttons */
+  size?: 'small' | 'medium'
   /** Configure alternative ways to render the control when it gets rendered in tight spaces */
   variant?: 'default' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
 } & SxProp
 
-const getSegmentedControlStyles = (isFullWidth?: boolean) => ({
+const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: SegmentedControlProps['size']}) => ({
   backgroundColor: 'segmentedControl.bg',
   borderColor: 'border.default',
   borderRadius: 2,
   borderStyle: 'solid',
   borderWidth: 1,
-  display: isFullWidth ? 'flex' : 'inline-flex',
-  height: '32px', // TODO: use primitive `control.medium.size` when it is available
+  display: props.isFullWidth ? 'flex' : 'inline-flex',
+  fontSize: props.size === 'small' ? 0 : 1,
+  height: props.size === 'small' ? '28px' : '32px', // TODO: use primitive `control.{small|medium}.size` when it is available
   margin: 0,
   padding: 0,
-  width: isFullWidth ? '100%' : undefined
+  width: props.isFullWidth ? '100%' : undefined
 })
 
 const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
@@ -47,6 +50,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   children,
   fullWidth,
   onChange,
+  size,
   sx: sxProp = {},
   variant,
   ...rest
@@ -91,7 +95,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props['aria-label'] : null
   }
-  const listSx = merge(getSegmentedControlStyles(isFullWidth), sxProp as SxProp)
+  const listSx = merge(getSegmentedControlStyles({isFullWidth, size}), sxProp as SxProp)
 
   if (!ariaLabel && !ariaLabelledby) {
     // eslint-disable-next-line no-console

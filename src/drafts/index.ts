@@ -4,10 +4,7 @@
  *  But, they are published on npm and you can import them for experimentation/feedback.
  *  example: import {ActionList} from '@primer/react/drafts
  */
-export * from '../NavList'
 export * from '../Dialog/Dialog'
-export * from '../SegmentedControl' // TODO: remove from drafts bundle in next major release
-export * from '../SplitPageLayout'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
@@ -27,3 +24,10 @@ export * from './MarkdownEditor'
 export * from '../UnderlineNav2'
 
 export * from './hooks'
+
+export * from '../TreeView'
+
+// TODO: Remove these components from the drafts bundle in the next major release
+export * from '../NavList'
+export * from '../SegmentedControl'
+export * from '../SplitPageLayout'
