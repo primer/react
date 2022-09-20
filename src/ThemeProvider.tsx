@@ -18,6 +18,7 @@ export type ThemeProviderProps = {
   dayScheme?: string
   nightScheme?: string
   preventSSRMismatch?: boolean
+  script?: (props: ThemeScriptProps) => JSX.Element
 }
 
 const ThemeContext = React.createContext<{
@@ -41,14 +42,30 @@ const ThemeContext = React.createContext<{
 const getServerHandoff = () => {
   try {
     const serverData = document.getElementById('__PRIMER_DATA__')?.textContent
-    if (serverData) return JSON.parse(serverData)
+    if (serverData) {
+      return JSON.parse(serverData)
+    }
   } catch (error) {
     // if document/element does not exist or JSON is invalid, supress error
   }
   return {}
 }
 
-export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
+export type ThemeScriptProps = {
+  id: string
+  type: string
+  children: string
+}
+
+function DefaultScript({id, type, children}: ThemeScriptProps) {
+  return <script type={type} id={id} dangerouslySetInnerHTML={{__html: children}} />
+}
+
+export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({
+  children,
+  script: Script = DefaultScript,
+  ...props
+}) => {
   // Get fallback values from parent ThemeProvider (if exists)
   const {
     theme: fallbackTheme,
@@ -127,14 +144,24 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
       <SCThemeProvider theme={resolvedTheme}>
         {children}
         {props.preventSSRMismatch ? (
-          <script type="application/json" id="__PRIMER_DATA__">
+          <Script type="application/json" id="__PRIMER_DATA__">
             {JSON.stringify({resolvedServerColorMode: resolvedColorMode})}
-          </script>
+          </Script>
         ) : null}
       </SCThemeProvider>
     </ThemeContext.Provider>
   )
 }
+
+// {props.preventSSRMismatch
+// ? renderScript({
+// id: '__PRIMER_DATA__',
+// children: JSON.stringify({
+// resolvedServerColorMode: resolvedColorMode
+// }),
+// type: 'application/json'
+// })
+// : null}
 
 export function useTheme() {
   return React.useContext(ThemeContext)
