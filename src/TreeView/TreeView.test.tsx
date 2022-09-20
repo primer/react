@@ -59,7 +59,22 @@ describe('Markup', () => {
     expect(subtree).toBeNull()
   })
 
-  it('initializes aria-activedescendant to the first item by default', () => {
+  it('initializes aria-activedescendant to the current item by default', () => {
+    const {queryByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>Item 1</TreeView.Item>
+        <TreeView.Item current>Item 2</TreeView.Item>
+        <TreeView.Item>Item 3</TreeView.Item>
+      </TreeView>
+    )
+
+    const root = queryByRole('tree')
+    const currentItem = queryByRole('treeitem', {name: 'Item 2'})
+
+    expect(root).toHaveAttribute('aria-activedescendant', currentItem?.id)
+  })
+
+  it('initializes aria-activedescendant to the first item if there is no current item', () => {
     const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item>Item 1</TreeView.Item>
@@ -72,6 +87,110 @@ describe('Markup', () => {
     const firstItem = queryByRole('treeitem', {name: 'Item 1'})
 
     expect(root).toHaveAttribute('aria-activedescendant', firstItem?.id)
+  })
+
+  it('uses aria-current', () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>Item 1</TreeView.Item>
+        <TreeView.Item current>Item 2</TreeView.Item>
+        <TreeView.Item>Item 3</TreeView.Item>
+      </TreeView>
+    )
+
+    const currentItem = getByRole('treeitem', {name: 'Item 2'})
+
+    expect(currentItem).toHaveAttribute('aria-current', 'true')
+  })
+
+  it('expands the path to the current item by default', () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item>Item 1.1</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item>
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item>Item 2.1</TreeView.Item>
+            <TreeView.Item current>
+              Item 2.2
+              <TreeView.SubTree>
+                <TreeView.Item>Item 2.2.1</TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item>Item 3</TreeView.Item>
+      </TreeView>
+    )
+
+    const item1 = getByRole('treeitem', {name: 'Item 1'})
+    const item2 = getByRole('treeitem', {name: 'Item 2'})
+    const item22 = getByRole('treeitem', {name: 'Item 2.2'})
+    const item221 = getByRole('treeitem', {name: 'Item 2.2.1'})
+
+    // Item 1 should not be expanded because it is not the parent of the current item
+    expect(item1).toHaveAttribute('aria-expanded', 'false')
+
+    // Item 2 should be expanded because it is the parent of the current item
+    expect(item2).toHaveAttribute('aria-expanded', 'true')
+
+    // Item 2.2 should be expanded because it is the current item
+    expect(item22).toHaveAttribute('aria-expanded', 'true')
+
+    // Item 2.2 should have an aria-current value of true
+    expect(item22).toHaveAttribute('aria-current', 'true')
+
+    // Item 2.2.1 should be visible because it is a child of the current item
+    expect(item221).toBeVisible()
+  })
+
+  it('expands the path to the current item when the current item is changed', () => {
+    function TestTree() {
+      const [current, setCurrent] = React.useState('item1')
+      return (
+        <div>
+          <button onClick={() => setCurrent('item2')}>Jump to Item 2</button>
+          <TreeView aria-label="Test tree">
+            <TreeView.Item current={current === 'item1'}>Item 1</TreeView.Item>
+            <TreeView.Item current={current === 'item2'}>
+              Item 2
+              <TreeView.SubTree>
+                <TreeView.Item current={current === 'item2.1'}>Item 2.1</TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+            <TreeView.Item current={current === 'item3'}>Item 3</TreeView.Item>
+          </TreeView>
+        </div>
+      )
+    }
+
+    const {getByRole, getByText} = renderWithTheme(<TestTree />)
+
+    const item1 = getByRole('treeitem', {name: 'Item 1'})
+    const item2 = getByRole('treeitem', {name: 'Item 2'})
+
+    // Item 1 should have an aria-current value of true
+    expect(item1).toHaveAttribute('aria-current', 'true')
+
+    // Item 2 should not be expanded because it is not the current item or the parent of the current item
+    expect(item2).toHaveAttribute('aria-expanded', 'false')
+
+    // Click the button to change the current item to Item 2
+    fireEvent.click(getByText('Jump to Item 2'))
+
+    // Item 1 should not have an aria-current value
+    expect(item1).not.toHaveAttribute('aria-current')
+
+    // Item 2 should be expanded because it is the current item
+    expect(item2).toHaveAttribute('aria-expanded', 'true')
+
+    // Item 2.1 should be visible because it is a child of the current item
+    expect(getByRole('treeitem', {name: 'Item 2.1'})).toBeVisible()
   })
 })
 

@@ -19,7 +19,9 @@ description: A hierarchical list of items where nested items can be expanded and
         <TreeView.Item>
           Button
           <TreeView.SubTree>
-            <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
+            <TreeView.LinkItem href="#" current>
+              Button.tsx
+            </TreeView.LinkItem>
             <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
           </TreeView.SubTree>
         </TreeView.Item>
@@ -46,7 +48,7 @@ description: A hierarchical list of items where nested items can be expanded and
       src
       <TreeView.SubTree>
         <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-        <TreeView.LinkItem href="#">
+        <TreeView.LinkItem href="#" current>
           Button
           <TreeView.SubTree>
             <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
@@ -80,6 +82,12 @@ description: A hierarchical list of items where nested items can be expanded and
 
 <PropsTable>
   <PropsTableRow name="children" type="React.ReactNode" required />
+  <PropsTable
+    name="current"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the item is the current item. No more than one item should be current at once."
+  />
   <PropsTableRow name="defaultExpanded" type="boolean" description="Whether the item is expanded by default." />
   <PropsTableRow
     name="onSelect"

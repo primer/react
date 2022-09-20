@@ -19,7 +19,7 @@ export const FileTreeWithDirectoryLinks: Story = () => (
           src
           <TreeView.SubTree>
             <TreeView.LinkItem href="#avatar-tsx">Avatar.tsx</TreeView.LinkItem>
-            <TreeView.LinkItem href="#button">
+            <TreeView.LinkItem href="#button" current>
               Button
               <TreeView.SubTree>
                 <TreeView.LinkItem href="#button-tsx">Button.tsx</TreeView.LinkItem>
@@ -45,37 +45,41 @@ export const FileTreeWithDirectoryLinks: Story = () => (
   </Box>
 )
 
-export const FileTreeWithoutDirectoryLinks: Story = () => (
-  <Box p={3}>
-    <nav aria-label="File navigation">
-      <TreeView aria-label="File navigation">
-        <TreeView.Item>
-          src
-          <TreeView.SubTree>
-            <TreeView.LinkItem href="#avatar-tsx">Avatar.tsx</TreeView.LinkItem>
-            <TreeView.Item>
-              Button
-              <TreeView.SubTree>
-                <TreeView.LinkItem href="#button-tsx">Button.tsx</TreeView.LinkItem>
-                <TreeView.LinkItem href="#button-test-tsx">Button.test.tsx</TreeView.LinkItem>
-              </TreeView.SubTree>
-            </TreeView.Item>
-          </TreeView.SubTree>
-        </TreeView.Item>
-        <TreeView.Item
-          // eslint-disable-next-line no-console
-          onToggle={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
-        >
-          public
-          <TreeView.SubTree>
-            <TreeView.LinkItem href="#index-html">index.html</TreeView.LinkItem>
-            <TreeView.LinkItem href="#favicon-ico">favicon.ico</TreeView.LinkItem>
-          </TreeView.SubTree>
-        </TreeView.Item>
-        <TreeView.LinkItem href="#package-json">package.json</TreeView.LinkItem>
-      </TreeView>
-    </nav>
-  </Box>
-)
+export const FileTreeWithoutDirectoryLinks: Story = () => {
+  return (
+    <Box p={3}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item>
+            src
+            <TreeView.SubTree>
+              <TreeView.LinkItem href="#avatar-tsx">Avatar.tsx</TreeView.LinkItem>
+              <TreeView.Item>
+                Button
+                <TreeView.SubTree>
+                  <TreeView.LinkItem href="#button-tsx" current>
+                    Button.tsx
+                  </TreeView.LinkItem>
+                  <TreeView.LinkItem href="#button-test-tsx">Button.test.tsx</TreeView.LinkItem>
+                </TreeView.SubTree>
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item
+            // eslint-disable-next-line no-console
+            onToggle={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
+          >
+            public
+            <TreeView.SubTree>
+              <TreeView.LinkItem href="#index-html">index.html</TreeView.LinkItem>
+              <TreeView.LinkItem href="#favicon-ico">favicon.ico</TreeView.LinkItem>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.LinkItem href="#package-json">package.json</TreeView.LinkItem>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
 
 export default meta
