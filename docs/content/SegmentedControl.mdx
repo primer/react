@@ -39,6 +39,16 @@ const Controlled = () => {
 render(Controlled)
 ```
 
+### Small
+
+```jsx live
+<SegmentedControl aria-label="File view" size="small">
+  <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
+  <SegmentedControl.Button>Raw</SegmentedControl.Button>
+  <SegmentedControl.Button>Blame</SegmentedControl.Button>
+</SegmentedControl>
+```
+
 ### With icons and labels
 
 ```jsx live
@@ -210,6 +220,7 @@ render(Controlled)
     type="boolean"
     description="Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl."
   />
+  <PropsTableRow name="selected" type="'small' | 'medium'" description="The size of the buttons" />
   <PropsTableRow
     name="defaultSelected"
     type="boolean"
