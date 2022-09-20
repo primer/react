@@ -1,9 +1,67 @@
+import React from 'react'
+
+type ActiveDescendantOptions = {
+  containerRef: React.RefObject<HTMLElement>
+}
+
+export function useActiveDescendant({
+  containerRef
+}: ActiveDescendantOptions): [string, React.Dispatch<React.SetStateAction<string>>] {
+  const [activeDescendant, setActiveDescendant] = React.useState('')
+
+  // Initialize value of active descendant
+  React.useEffect(() => {
+    if (containerRef.current && !activeDescendant) {
+      const currentItem = containerRef.current.querySelector('[role="treeitem"][aria-current="true"]')
+      const firstItem = containerRef.current.querySelector('[role="treeitem"]')
+
+      // If current item exists, use it as the initial value for active descendant
+      if (currentItem) {
+        setActiveDescendant(currentItem.id)
+      }
+      // Otherwise, initialize the active descendant to the first item in the tree
+      else if (firstItem) {
+        setActiveDescendant(firstItem.id)
+      }
+    }
+  }, [containerRef, activeDescendant])
+
+  const handleKeyDown = React.useCallback(
+    (event: KeyboardEvent) => {
+      const activeElement = document.getElementById(activeDescendant)
+
+      if (!activeElement) return
+
+      const nextElement = getNextFocusableElement(activeElement, event)
+
+      if (nextElement) {
+        // Move active descendant if necessary
+        setActiveDescendant(nextElement.id)
+        event.preventDefault()
+      } else {
+        // If the active descendant didn't change,
+        // forward the event to the active descendant
+        activeElement.dispatchEvent(new KeyboardEvent(event.type, event))
+      }
+    },
+    [activeDescendant]
+  )
+
+  React.useEffect(() => {
+    const container = containerRef.current
+
+    if (!container) return
+
+    container.addEventListener('keydown', handleKeyDown)
+    return () => container.removeEventListener('keydown', handleKeyDown)
+  }, [containerRef, handleKeyDown])
+
+  return [activeDescendant, setActiveDescendant]
+}
+
 // DOM utilities used for focus management
 
-export function getNextFocusableElement(
-  activeElement: HTMLElement,
-  event: React.KeyboardEvent<HTMLElement>
-): HTMLElement | undefined {
+export function getNextFocusableElement(activeElement: HTMLElement, event: KeyboardEvent): HTMLElement | undefined {
   const elementState = getElementState(activeElement)
 
   // Reference: https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboard-interaction-24

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Box from '../Box'
 import sx, {SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
-import {getNextFocusableElement} from './getNextFocusableElement'
+import {useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
@@ -39,28 +39,13 @@ const UlBox = styled.ul<SxProp>(sx)
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
-  const [activeDescendant, setActiveDescendant] = React.useState('')
+
+  const [activeDescendant, setActiveDescendant] = useActiveDescendant({containerRef})
 
   useTypeahead({
     containerRef,
     onFocusChange: element => setActiveDescendant(element.id)
   })
-
-  React.useEffect(() => {
-    if (containerRef.current && !activeDescendant) {
-      const currentItem = containerRef.current.querySelector('[role="treeitem"][aria-current="true"]')
-      const firstItem = containerRef.current.querySelector('[role="treeitem"]')
-
-      // If current item exists, use it as the initial value for active descendant
-      if (currentItem) {
-        setActiveDescendant(currentItem.id)
-      }
-      // Otherwise, initialize the active descendant to the first item in the tree
-      else if (firstItem) {
-        setActiveDescendant(firstItem.id)
-      }
-    }
-  }, [containerRef, activeDescendant])
 
   return (
     <RootContext.Provider value={{activeDescendant, setActiveDescendant}}>
@@ -78,23 +63,6 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
           // We'll display a focus ring around the active descendant
           // instead of the tree itself
           outline: 0
-        }}
-        onKeyDown={event => {
-          const activeElement = document.getElementById(activeDescendant)
-
-          if (!activeElement) return
-
-          const nextElement = getNextFocusableElement(activeElement, event)
-
-          if (nextElement) {
-            // Move active descendant if necessary
-            setActiveDescendant(nextElement.id)
-            event.preventDefault()
-          } else {
-            // If the active descendant didn't change,
-            // forward the event to the active descendant
-            activeElement.dispatchEvent(new KeyboardEvent(event.type, event))
-          }
         }}
       >
         {children}
