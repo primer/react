@@ -45,7 +45,6 @@ export const FileTreeWithDirectoryLinks: Story = () => (
   </Box>
 )
 
-
 export const FileTreeWithoutDirectoryLinks: Story = () => {
   return (
     <Box p={3}>
