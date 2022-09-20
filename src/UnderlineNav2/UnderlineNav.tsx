@@ -1,4 +1,13 @@
-import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject} from 'react'
+import React, {
+  useRef,
+  useLayoutEffect,
+  forwardRef,
+  useCallback,
+  useState,
+  MutableRefObject,
+  RefObject,
+  useEffect
+} from 'react'
 import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -6,13 +15,16 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '@primer/behaviors'
+import {FocusKeys, scrollIntoView} from '@primer/behaviors'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
-import {ChildWidthArray, ResponsiveProps} from './types'
+import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
 
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, moreMenuStyles} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, scrollStyles, moreMenuStyles} from './styles'
+import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
+
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
 
 export type UnderlineNavProps = {
   label: string
@@ -26,16 +38,33 @@ export type UnderlineNavProps = {
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
 const MORE_BTN_WIDTH = 86
+const ARROW_BTN_WIDTH = 36
+
+const underlineNavScrollMargins: ScrollIntoViewOptions = {
+  startMargin: ARROW_BTN_WIDTH,
+  endMargin: ARROW_BTN_WIDTH,
+  direction: 'horizontal',
+  behavior: 'smooth'
+}
+
 // Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
 const NavigationList = styled.ul`
   ${sx};
 `
+
+const handleArrowBtnsVisibility = (
+  scrollOffsets: {scrollLeft: number; scrollRight: number},
+  callback: (scroll: {scrollLeft: number; scrollRight: number}) => void
+) => {
+  callback(scrollOffsets)
+}
 const overflowEffect = (
   navWidth: number,
   moreMenuWidth: number,
   childArray: Array<React.ReactElement>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
+  isCoarsePointer: boolean,
   callback: (props: ResponsiveProps, iconsVisible: boolean) => void
 ) => {
   let iconsVisible = true
@@ -66,14 +95,20 @@ const overflowEffect = (
   } else {
     iconsVisible = false
 
-    // More menu behaviour
-    overflowStyles = moreMenuStyles
-    // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
-    for (const [index, child] of childArray.entries()) {
-      if (index < numberOfItemsPossibleWithMoreMenu) {
-        items.push(child)
-      } else {
-        actions.push(child)
+    if (isCoarsePointer) {
+      // Scroll behaviour for coarse pointer devices
+      items.push(...childArray)
+      overflowStyles = scrollStyles
+    } else {
+      // More menu behaviour for fine pointer devices
+      overflowStyles = moreMenuStyles
+      // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
+      for (const [index, child] of childArray.entries()) {
+        if (index < numberOfItemsPossibleWithMoreMenu) {
+          items.push(child)
+        } else {
+          actions.push(child)
+        }
       }
     }
   }
@@ -83,6 +118,12 @@ const overflowEffect = (
 
 function getValidChildren(children: React.ReactNode) {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
+}
+
+function calculateScrollOffset(scrollableList: RefObject<HTMLUListElement>) {
+  const {scrollLeft, scrollWidth, clientWidth} = scrollableList.current as HTMLElement
+  const scrollRight = scrollWidth - scrollLeft - clientWidth
+  return {scrollLeft, scrollRight}
 }
 
 function calculatePossibleItems(childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) {
@@ -113,9 +154,16 @@ export const UnderlineNav = forwardRef(
 
     const {theme} = useTheme()
 
+    const [isCoarsePointer, setIsCoarsePointer] = useState(false)
+
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
+
+    const [scrollValues, setScrollValues] = useState<{scrollLeft: number; scrollRight: number}>({
+      scrollLeft: 0,
+      scrollRight: 0
+    })
     // This might change if we decide tab through the navigation items rather than navigationg with the arrow keys.
     // TBD. In the meantime keeping it as a menu with the focus trap.
     // ref: https://www.w3.org/WAI/ARIA/apg/example-index/menubar/menubar-navigation.html (Keyboard Support)
@@ -142,6 +190,10 @@ export const UnderlineNav = forwardRef(
       setIconsVisible(displayIcons)
     }, [])
 
+    const updateOffsetValues = useCallback((scrollOffsets: {scrollLeft: number; scrollRight: number}) => {
+      setScrollValues(scrollOffsets)
+    }, [])
+
     const actions = responsiveProps.actions
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const setChildrenWidth = useCallback(size => {
@@ -165,11 +217,48 @@ export const UnderlineNav = forwardRef(
         const childArray = getValidChildren(children)
         const navWidth = resizeObserverEntries[0].contentRect.width
         const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-        overflowEffect(navWidth, moreMenuWidth, childArray, childWidthArray, noIconChildWidthArray, callback)
+        const scrollOffsets = calculateScrollOffset(listRef)
+
+        overflowEffect(
+          navWidth,
+          moreMenuWidth,
+          childArray,
+          childWidthArray,
+          noIconChildWidthArray,
+          isCoarsePointer,
+          callback
+        )
+
+        handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
       },
-      [callback, childWidthArray, noIconChildWidthArray, children, moreMenuRef]
+      [callback, updateOffsetValues, childWidthArray, noIconChildWidthArray, children, isCoarsePointer, moreMenuRef]
     )
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
+
+    // Determine the pointer type on mount
+    useLayoutEffect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      setIsCoarsePointer(window.matchMedia && window.matchMedia('(pointer:coarse)').matches)
+      // eslint-disable-next-line github/prefer-observers
+      listRef.current?.addEventListener('scroll', () => {
+        const scrollOffsets = calculateScrollOffset(listRef)
+
+        handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
+      })
+    }, [updateOffsetValues])
+
+    useEffect(() => {
+      // scroll the selected link into the view
+      if (selectedLink && selectedLink.current && listRef.current) {
+        scrollIntoView(selectedLink.current, listRef.current, underlineNavScrollMargins)
+      }
+    }, [selectedLink])
+
+    const onScrollWithButton: OnScrollWithButtonEventType = (event, direction) => {
+      if (!listRef.current) return
+      const ScrollAmount = direction * 200
+      listRef.current.scrollBy({left: ScrollAmount, top: 0, behavior: 'smooth'})
+    }
 
     return (
       <UnderlineNavContext.Provider
@@ -190,9 +279,13 @@ export const UnderlineNav = forwardRef(
           aria-label={label}
           ref={newRef}
         >
+          <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
+
           <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
             {responsiveProps.items}
           </NavigationList>
+
+          <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
 
           {actions.length > 0 && (
             <Box as="div" sx={{display: 'flex'}} ref={moreMenuRef}>
