@@ -170,8 +170,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   child =>
                     React.isValidElement(child) &&
                     ![Checkbox, Radio].some(inputComponent => child.type === inputComponent)
-                )}{' '}
-              </Box>{' '}
+                )}
+              </Box>
               {slots.LeadingVisual && (
                 <Box
                   color={disabled ? 'fg.muted' : 'fg.default'}
