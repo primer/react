@@ -8,7 +8,7 @@ import {DropdownButton} from '../deprecated/DropdownMenu'
 import {SelectPanel} from '../SelectPanel'
 
 const meta: Meta = {
-  title: 'Composite components/SelectPanel',
+  title: 'Components/SelectPanel',
   component: SelectPanel,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => {

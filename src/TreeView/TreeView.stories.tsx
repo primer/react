@@ -4,7 +4,7 @@ import React from 'react'
 import Box from '../Box'
 
 const meta: Meta = {
-  title: 'Composite components/TreeView',
+  title: 'Components/TreeView',
   component: TreeView,
   parameters: {
     layout: 'fullscreen'

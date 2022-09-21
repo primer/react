@@ -6,7 +6,7 @@ import {Button} from '../deprecated'
 import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 
 export default {
-  title: 'Internal components/Dialog',
+  title: 'Components/Dialog',
   component: Dialog,
   decorators: [
     Story => {
