@@ -69,7 +69,7 @@ export function ComponentStatuses() {
                   {a11yReviewed ? (
                     <Label variant="primary">Reviewed</Label>
                   ) : (
-                    <Text sx={{color: 'fg.subtle'}}>Not reviewed</Text>
+                    <Text sx={{color: 'fg.subtle'}}>Pending review</Text>
                   )}
                 </td>
                 <td>{description}</td>
