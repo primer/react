@@ -202,6 +202,39 @@ Add `offsetHeader` prop to specify the height of the custom sticky header along 
 </Box>
 ```
 
+### With `NavList`
+
+`PageLayout.Pane` by itself does not specify or provide landmark roles. Using
+components that define their own landmark roles, such as [`NavList`](/NavList), will provide
+clear structure to the page that is not present by default in `PageLayout.Pane`.
+
+It's important to note that multiple landmark roles, such as multiple
+`<nav>` elements, should be uniquely labelled in order to clarify what the
+navigation container is used for.
+
+```jsx live
+<PageLayout>
+  <PageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Pane position="start" aria-label="Secondary navigation">
+    <NavList>
+      <NavList.Item href="/" aria-current="page">
+        Home
+      </NavList.Item>
+      <NavList.Item href="/about">About</NavList.Item>
+      <NavList.Item href="/contact">Contact</NavList.Item>
+    </NavList>
+  </PageLayout.Pane>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
 ### With `aria-label`
 
 Using `aria-label` along with `PageLayout.Header`, `PageLayout.Content`, or `PageLayout.Footer` creates a unique label for that landmark role that can make it easier to navigate between sections of content on a page.
@@ -261,6 +294,20 @@ Each component may be labeled through either `aria-label` or `aria-labelledby` i
 - [W3C, Landmark roles](https://w3c.github.io/aria/#landmark_roles)
 - [WCAG, ARIA11 Technique](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11)
 - [MDN, Landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role)
+
+### `PageLayout.Pane`
+
+The `PageLayout.Pane` component does not provide a default landmark role as the
+content of this component may have different roles. When using this component,
+consider the type of content being rendered inside of `PageLayout.Pane` and if
+it requires a landmark role. Common landmark roles include:
+
+- [`aside`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
+- [`navigation`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
+
+Some components, such as `NavList` may already include a landmark role. In these
+situation, these components use an appropriate landmark role and no further
+action is needed when using `PageLayout.Pane`.
 
 ### Screen readers
 
