@@ -8,6 +8,7 @@ import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useMedia} from '../hooks/useMedia'
 import {FocusKeys, scrollIntoView} from '@primer/behaviors'
+import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
@@ -15,8 +16,6 @@ import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './t
 import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, scrollStyles, moreMenuStyles} from './styles'
 import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
-
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
 
 export type UnderlineNavProps = {
   label: string
@@ -268,13 +267,17 @@ export const UnderlineNav = forwardRef(
           aria-label={label}
           ref={newRef}
         >
-          <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
+          {isCoarsePointer && (
+            <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
+          )}
 
           <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
             {responsiveProps.items}
           </NavigationList>
 
-          <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
+          {isCoarsePointer && (
+            <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
+          )}
 
           {actions.length > 0 && (
             <Box as="div" sx={{display: 'flex'}} ref={moreMenuRef}>
