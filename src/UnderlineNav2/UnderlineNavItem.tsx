@@ -77,15 +77,24 @@ export const UnderlineNavItem = forwardRef(
     const {theme} = useTheme()
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-      // might want to select this better
-      const icon = (ref as MutableRefObject<HTMLElement>).current.children[0].children[0]
-      const iconWidthWithMargin =
-        icon.getBoundingClientRect().width +
-        Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-        Number(getComputedStyle(icon).marginLeft.slice(0, -2))
 
-      setChildrenWidth({width: domRect.width})
-      setNoIconChildrenWidth({width: domRect.width - iconWidthWithMargin})
+      const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
+        child => child.getAttribute('data-component') === 'icon'
+      )
+
+      const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
+        child => child.getAttribute('data-component') === 'text'
+      ) as HTMLElement
+      const text = content.textContent as string
+
+      const iconWidthWithMargin = icon
+        ? icon.getBoundingClientRect().width +
+          Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
+          Number(getComputedStyle(icon).marginLeft.slice(0, -2))
+        : 0
+
+      setChildrenWidth({text, width: domRect.width})
+      setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
     }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth, setNoIconChildrenWidth])
 

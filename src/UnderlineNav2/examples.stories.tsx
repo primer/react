@@ -75,13 +75,14 @@ export const withCounterLabels = (args: UnderlineNavProps) => {
 const items: {navigation: string; icon: React.FC<IconProps>; counter?: number}[] = [
   {navigation: 'Code', icon: CodeIcon},
   {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
-  {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
+
   {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
   {navigation: 'Actions', icon: PlayIcon, counter: 4},
   {navigation: 'Projects', icon: ProjectIcon, counter: 9},
   {navigation: 'Insights', icon: GraphIcon},
   {navigation: 'Settings', icon: GearIcon, counter: 10},
-  {navigation: 'Security', icon: ShieldLockIcon}
+  {navigation: 'Security', icon: ShieldLockIcon},
+  {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13}
 ]
 
 export const InternalResponsiveNav = (args: UnderlineNavProps) => {

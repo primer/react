@@ -1,8 +1,8 @@
 import React, {createContext, RefObject} from 'react'
 
 export const UnderlineNavContext = createContext<{
-  setChildrenWidth: React.Dispatch<{width: number}>
-  setNoIconChildrenWidth: React.Dispatch<{width: number}>
+  setChildrenWidth: React.Dispatch<{text: string; width: number}>
+  setNoIconChildrenWidth: React.Dispatch<{text: string; width: number}>
   selectedLink: RefObject<HTMLElement> | undefined
   setSelectedLink: (ref: RefObject<HTMLElement>) => void
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
