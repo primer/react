@@ -339,7 +339,6 @@ const Item: React.FC<TreeViewItemProps> = ({
             color: 'fg.default',
             borderRadius: 2,
             cursor: 'pointer',
-            transition: 'background 33.333ms linear',
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
             },
@@ -418,7 +417,6 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
           sx={{
             width: '100%',
             height: '100%',
-            transition: 'border-color 33.333ms linear',
             borderRight: '1px solid',
 
             // On devices without hover, the nesting indicator lines
