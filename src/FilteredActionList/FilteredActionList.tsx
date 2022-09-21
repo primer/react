@@ -5,6 +5,7 @@ import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
 import {ActionList} from '../deprecated/ActionList'
 import Spinner from '../Spinner'
+import {useFocusZone} from '../hooks/useFocusZone'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -13,7 +14,6 @@ import useScrollFlash from '../hooks/useScrollFlash'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {SxProp} from '../sx'
-import VisuallyHidden from '../_VisuallyHidden'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -22,7 +22,7 @@ export interface FilteredActionListProps
     ListPropsBase,
     SxProp {
   loading?: boolean
-  placeholderText?: string
+  placeholderText: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
@@ -56,10 +56,10 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const listContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useSSRSafeId()
-  const inputDescriptionTextId = useSSRSafeId()
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
@@ -72,6 +72,28 @@ export function FilteredActionList({
       }
     },
     [activeDescendantRef]
+  )
+
+  useFocusZone(
+    {
+      containerRef: listContainerRef,
+      focusOutBehavior: 'wrap',
+      focusableElementFilter: element => {
+        return !(element instanceof HTMLInputElement)
+      },
+      activeDescendantFocus: inputRef,
+      onActiveDescendantChanged: (current, previous, directlyActivated) => {
+        activeDescendantRef.current = current
+
+        if (current && scrollContainerRef.current && directlyActivated) {
+          scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
+        }
+      }
+    },
+    [
+      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
+      loading
+    ]
   )
 
   useEffect(() => {
@@ -97,10 +119,8 @@ export function FilteredActionList({
           placeholder={placeholderText}
           aria-label={placeholderText}
           aria-controls={listId}
-          aria-describedby={inputDescriptionTextId}
           {...textInputProps}
         />
-        <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       </StyledHeader>
       <Box ref={scrollContainerRef} overflow="auto">
         {loading ? (
@@ -108,7 +128,7 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
         )}
       </Box>
     </Box>
