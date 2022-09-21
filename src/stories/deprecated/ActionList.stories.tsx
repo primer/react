@@ -57,7 +57,6 @@ export function ActionsStory(): JSX.Element {
       <h1>Actions</h1>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           showItemDividers
           items={[
             {
@@ -65,15 +64,13 @@ export function ActionsStory(): JSX.Element {
               text: 'Open current Codespace',
               description:
                 "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
-              descriptionVariant: 'block',
-              role: 'option'
+              descriptionVariant: 'block'
             },
             {
               leadingVisual: PlusCircleIcon,
               text: 'Create new Codespace',
               description: 'Create a brand new Codespace with a fresh image and checkout this branch.',
-              descriptionVariant: 'block',
-              role: 'option'
+              descriptionVariant: 'block'
             }
           ]}
         />
@@ -89,13 +86,12 @@ export function SimpleListStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           items={[
-            {text: 'New file', showDivider: true, role: 'option'},
+            {text: 'New file', showDivider: true},
             ActionList.Divider,
-            {text: 'Copy link', showDivider: true, role: 'option'},
-            {text: 'Edit file', showDivider: true, role: 'option'},
-            {text: 'Delete file', variant: 'danger', showDivider: true, role: 'option'}
+            {text: 'Copy link', showDivider: true},
+            {text: 'Edit file', showDivider: true},
+            {text: 'Delete file', variant: 'danger', showDivider: true}
           ]}
         />
       </ErsatzOverlay>
@@ -117,11 +113,9 @@ export function SingleSelectListStory(): JSX.Element {
       <h1>Single Select List</h1>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           items={selectListItems.map((item, index) => ({
             ...item,
-            selected: index === 1,
-            role: 'option'
+            selected: index === 1
           }))}
         />
       </ErsatzOverlay>
@@ -136,12 +130,10 @@ export function MultiSelectListStory(): JSX.Element {
       <h1>Multi Select List</h1>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           selectionVariant="multiple"
           items={selectListItems.map((item, index) => ({
             ...item,
-            selected: index === 1 || index === 3,
-            role: 'option'
+            selected: index === 1 || index === 3
           }))}
         />
       </ErsatzOverlay>
@@ -160,7 +152,6 @@ export function ComplexListInsetVariantStory(): JSX.Element {
       <h2>Inset Variant</h2>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           groupMetadata={[
             {groupId: '0'},
             {groupId: '1', header: {title: 'Live query', variant: 'filled'}},
@@ -190,14 +181,12 @@ export function ComplexListInsetVariantStory(): JSX.Element {
               text: 'Duplicate',
               description: 'Create a copy',
               descriptionVariant: 'inline',
-              groupId: '0',
-              role: 'option'
+              groupId: '0'
             },
             {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              role: 'option',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
             },
             {
@@ -205,25 +194,22 @@ export function ComplexListInsetVariantStory(): JSX.Element {
               text: 'Table',
               description: 'Information-dense table optimized for operations across teams',
               descriptionVariant: 'block',
-              groupId: '2',
-              role: 'option'
+              groupId: '2'
             },
             {
               leadingVisual: ProjectIcon,
               text: 'Board',
               description: 'Kanban-style board focused on visual states',
               descriptionVariant: 'block',
-              groupId: '2',
-              role: 'option'
+              groupId: '2'
             },
             {
               leadingVisual: FilterIcon,
               text: 'Save sort and filters to current view',
-              groupId: '3',
-              role: 'option'
+              groupId: '3'
             },
-            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3', role: 'option'},
-            {leadingVisual: GearIcon, text: 'View settings', groupId: '4', role: 'option'}
+            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
+            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
           ]}
         />
       </ErsatzOverlay>
@@ -242,7 +228,6 @@ export function ComplexListFullVariantStory(): JSX.Element {
       <h2>Full Variant</h2>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           variant="full"
           groupMetadata={[
             {groupId: '0'},
@@ -267,13 +252,12 @@ export function ComplexListFullVariantStory(): JSX.Element {
             }
           ]}
           items={[
-            {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0', role: 'option'},
-            {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0', role: 'option'},
+            {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
+            {leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
             {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              role: 'option',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
             },
             {
@@ -281,25 +265,22 @@ export function ComplexListFullVariantStory(): JSX.Element {
               text: 'Table',
               description: 'Information-dense table optimized for operations across teams',
               descriptionVariant: 'block',
-              groupId: '2',
-              role: 'option'
+              groupId: '2'
             },
             {
               leadingVisual: ProjectIcon,
               text: 'Board',
               description: 'Kanban-style board focused on visual states',
               descriptionVariant: 'block',
-              groupId: '2',
-              role: 'option'
+              groupId: '2'
             },
             {
               leadingVisual: FilterIcon,
               text: 'Save sort and filters to current view',
-              groupId: '3',
-              role: 'option'
+              groupId: '3'
             },
-            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3', role: 'option'},
-            {leadingVisual: GearIcon, text: 'View settings', groupId: '4', role: 'option'}
+            {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
+            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
           ]}
         />
       </ErsatzOverlay>
@@ -327,13 +308,11 @@ export function CustomItemChildren(): JSX.Element {
       <h1>Custom Item Children</h1>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           items={[
             {
               leadingVisual: ArrowRightIcon,
               children: <Label>Choose this one</Label>,
-              trailingIcon: ArrowLeftIcon,
-              role: 'option'
+              trailingIcon: ArrowLeftIcon
             }
           ]}
         />
@@ -349,7 +328,6 @@ export function SizeStressTestingStory(): JSX.Element {
       <h1>Size Stress Testing</h1>
       <ErsatzOverlay maxWidth="300px">
         <ActionList
-          role="listbox"
           items={[
             {
               leadingVisual: ArrowRightIcon,
@@ -357,23 +335,20 @@ export function SizeStressTestingStory(): JSX.Element {
               description: 'This description is long, but it is block so it wraps',
               descriptionVariant: 'block',
               trailingVisual: ArrowLeftIcon,
-              showDivider: true,
-              role: 'option'
+              showDivider: true
             },
             {
               leadingVisual: ArrowRightIcon,
               text: 'Inline Description',
               description: 'This description gets truncated because it is inline',
               trailingVisual: ArrowLeftIcon,
-              showDivider: true,
-              role: 'option'
+              showDivider: true
             },
             {
               leadingVisual: ArrowRightIcon,
               text: 'Really long text without a description should wrap',
               trailingIcon: ArrowLeftIcon, // backward compatible
-              showDivider: true,
-              role: 'option'
+              showDivider: true
             }
           ]}
         />
@@ -408,26 +383,21 @@ export function LinkItemStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           items={[
             {
               text: 'A. Vanilla action',
-              role: 'option',
               renderItem: props => <ActionList.Item onAction={() => alert('hi?')} {...props} />
             },
             {
               text: 'B. Vanilla link',
-              role: 'option',
               renderItem: props => <ActionList.Item as="a" href="/about" {...props} />
             },
             {
               text: 'C. React Router link',
-              role: 'option',
               renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />
             },
             {
               text: 'D. NextJS style',
-              role: 'option',
               renderItem: props => (
                 <NextJSLikeLink href="/about">
                   <ActionList.Item as="a" {...props} />
@@ -448,11 +418,9 @@ export function DOMPropsStory(): JSX.Element {
       <h1>Simple List</h1>
       <ErsatzOverlay>
         <ActionList
-          role="listbox"
           items={[
             {
               text: 'One',
-              role: 'option',
               onClick: () => alert('Hello')
             }
           ]}
