@@ -19,15 +19,18 @@ const baseConfig = {
     })
   },
   plugins: [
-    resolve({
-      extensions
-    }),
-    commonjs(),
+    // Note: it's important that the babel plugin is ordered first for plugins
+    // like babel-plugin-preval to work as-intended
     babel({
       extensions,
       exclude: /node_modules/,
-      runtimeHelpers: true
-    })
+      runtimeHelpers: true,
+      babelrc: false
+    }),
+    resolve({
+      extensions
+    }),
+    commonjs()
   ]
 }
 
