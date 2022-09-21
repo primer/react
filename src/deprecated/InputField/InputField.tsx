@@ -1,5 +1,16 @@
 import React from 'react'
-import {Autocomplete, Box, Select, TextInput, TextInputWithTokens, useSSRSafeId} from '../../'
+import {
+  Autocomplete,
+  AutocompleteInputProps,
+  Box,
+  Select,
+  SelectProps,
+  TextInput,
+  TextInputProps,
+  TextInputWithTokens,
+  TextInputWithTokensProps,
+  useSSRSafeId
+} from '../../'
 import InputValidation from '../../_InputValidation'
 import {ComponentProps} from '../../utils/types'
 import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
@@ -134,12 +145,17 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
             )}
             {slots.Label}
             {React.isValidElement(InputComponent) &&
-              React.cloneElement(InputComponent, {
-                id,
-                required,
-                disabled,
-                ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
-              })}
+              React.cloneElement(
+                InputComponent as React.ReactElement<
+                  AutocompleteInputProps | SelectProps | TextInputProps | TextInputWithTokensProps
+                >,
+                {
+                  id,
+                  required,
+                  disabled,
+                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+                }
+              )}
             {validationChildToRender && validationMap && validationResult && validationMessageId && (
               <ValidationAnimationContainer show>
                 <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>

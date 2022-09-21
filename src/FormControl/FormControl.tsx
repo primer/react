@@ -1,15 +1,15 @@
 import React, {useContext} from 'react'
-import Autocomplete from '../Autocomplete'
+import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
 import Box from '../Box'
-import Checkbox from '../Checkbox'
-import Radio from '../Radio'
-import Select from '../Select'
-import Textarea from '../Textarea'
-import TextInput from '../TextInput'
-import TextInputWithTokens from '../TextInputWithTokens'
+import Checkbox, {CheckboxProps} from '../Checkbox'
+import Radio, {RadioProps} from '../Radio'
+import Select, {SelectProps} from '../Select'
+import Textarea, {TextareaProps} from '../Textarea'
+import TextInput, {TextInputProps} from '../TextInput'
+import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import {useSSRSafeId} from '../utils/ssr'
 import FormControlCaption from './_FormControlCaption'
-import FormControlLabel from './_FormControlLabel'
+import FormControlLabel, {Props as FormControlLabelProps} from './_FormControlLabel'
 import FormControlValidation from './_FormControlValidation'
 import {Slots} from './slots'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
@@ -17,7 +17,7 @@ import {get} from '../constants'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import {SxProp} from '../sx'
 import CheckboxOrRadioGroupContext from '../_CheckboxOrRadioGroup/_CheckboxOrRadioGroupContext'
-import InlineAutocomplete from '../drafts/InlineAutocomplete'
+import InlineAutocomplete, {InlineAutocompleteProps} from '../drafts/InlineAutocomplete'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -149,17 +149,29 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             <Box ref={ref} display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
               <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
                 {React.isValidElement(InputComponent) &&
-                  React.cloneElement(InputComponent, {
-                    id,
-                    disabled,
-                    ['aria-describedby']: captionId
-                  })}
+                  React.cloneElement(
+                    InputComponent as React.ReactElement<
+                      | AutocompleteInputProps
+                      | CheckboxProps
+                      | RadioProps
+                      | SelectProps
+                      | TextareaProps
+                      | TextInputProps
+                      | TextInputWithTokensProps
+                      | InlineAutocompleteProps
+                    >,
+                    {
+                      id,
+                      disabled,
+                      ['aria-describedby']: captionId as string
+                    }
+                  )}
                 {React.Children.toArray(children).filter(
                   child =>
                     React.isValidElement(child) &&
                     ![Checkbox, Radio].some(inputComponent => child.type === inputComponent)
-                )}
-              </Box>
+                )}{' '}
+              </Box>{' '}
               {slots.LeadingVisual && (
                 <Box
                   color={disabled ? 'fg.muted' : 'fg.default'}
@@ -175,7 +187,10 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   {slots.LeadingVisual}
                 </Box>
               )}
-              {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
+              {(React.isValidElement(slots.Label) &&
+                slots.Label.type === FormControlLabel &&
+                !(slots.Label.props as FormControlLabelProps).visuallyHidden) ||
+              slots.Caption ? (
                 <Box display="flex" flexDirection="column" ml={2}>
                   {slots.Label}
                   {slots.Caption}
@@ -197,14 +212,19 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             >
               {slots.Label}
               {React.isValidElement(InputComponent) &&
-                React.cloneElement(InputComponent, {
-                  id,
-                  required,
-                  disabled,
-                  validationStatus,
-                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
-                  ...InputComponent.props
-                })}
+                React.cloneElement(
+                  InputComponent,
+                  Object.assign(
+                    {
+                      id,
+                      required,
+                      disabled,
+                      validationStatus,
+                      ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+                    },
+                    InputComponent.props
+                  )
+                )}
               {React.Children.toArray(children).filter(
                 child =>
                   React.isValidElement(child) &&
