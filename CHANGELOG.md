@@ -1,5 +1,29 @@
 # @primer/components
 
+## 35.10.0
+
+### Minor Changes
+
+- [#2347](https://github.com/primer/react/pull/2347) [`09a5d806`](https://github.com/primer/react/commit/09a5d8064b794221be4cd961759ec15c1eea2a02) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a `size` prop to the SegmentedControl component. Users can choose between 'medium' (default), and 'small'. More sizes can be added when/if we find we need them.
+
+* [#2324](https://github.com/primer/react/pull/2324) [`027e44a7`](https://github.com/primer/react/commit/027e44a73542a9b115d688a7f16a0f63c2d9d86f) Thanks [@joshblack](https://github.com/joshblack)! - Update PageLayout.Pane to support a ref on the element wrapping children
+
+### Patch Changes
+
+- [#2355](https://github.com/primer/react/pull/2355) [`e052644d`](https://github.com/primer/react/commit/e052644d75068438e69c68a86344ad0e8a7a02b0) Thanks [@mperrotti](https://github.com/mperrotti)! - Fixes the sx prop on the SegmentedControl buttons by properly merging the sx prop when cloning button children.
+
+* [#2305](https://github.com/primer/react/pull/2305) [`6cd50a54`](https://github.com/primer/react/commit/6cd50a54f8b399eef751507d44ffbfa35ede3d9f) Thanks [@colebemis](https://github.com/colebemis)! - Add draft TreeView component
+
+- [#2350](https://github.com/primer/react/pull/2350) [`61a93e20`](https://github.com/primer/react/commit/61a93e20d9a7ced443ef5c2ee6b93bcefcd9c78e) Thanks [@colebemis](https://github.com/colebemis)! - Adds lines to indicate the depth of items in a TreeView
+
+* [#2331](https://github.com/primer/react/pull/2331) [`31b8804c`](https://github.com/primer/react/commit/31b8804cf346412b7365cd411f6ee14e22f4a19d) Thanks [@colebemis](https://github.com/colebemis)! - Adds support for arrow key navigation of a TreeView using `aria-activedescendant`
+
+- [#2338](https://github.com/primer/react/pull/2338) [`68c49803`](https://github.com/primer/react/commit/68c498038c097cfd339ff3feddc54221e6ed438d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Reverted SelectPanel breaking behavioral changes
+
+* [#2348](https://github.com/primer/react/pull/2348) [`c76e1610`](https://github.com/primer/react/commit/c76e161081573240c212b3dcfad5af5457a7312a) Thanks [@colebemis](https://github.com/colebemis)! - Add a `current` prop to `TreeView.Item` and `TreeView.LinkItem`
+
+- [#2356](https://github.com/primer/react/pull/2356) [`e2fb2fca`](https://github.com/primer/react/commit/e2fb2fca2792470dda584a81f18d1389b57239f6) Thanks [@nicolleromero](https://github.com/nicolleromero)! - MarkdownViewer bug fix: Only run `replaceChildren` when `htmlContainer` changes
+
 ## 35.9.0
 
 ### Minor Changes
