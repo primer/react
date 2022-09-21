@@ -48,8 +48,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 ### Overflow Behaviour
 
-When overflow occurs, the component first hides icons if present to optimize for space and show as many items as possible.
-If there is still overflow, the component will hide items that don't fit into screen under the `More` menu
+When overflow occurs, the component first hides icons if present to optimize for space and show as many items as possible. (Only for fine pointer devices)
 
 #### Items without Icons
 
@@ -81,7 +80,10 @@ If there is still overflow, the component will hide items that don't fit into sc
 
 #### Display `More` menu
 
+If there is still overflow, the component will behave depending on the pointer.
+
 ```jsx live drafts
+// TODO: Use Match Media for coarse pointer example
 <UnderlineNav>
   <UnderlineNav.Item selected icon={CodeIcon}>
     Code

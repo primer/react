@@ -73,7 +73,7 @@ export const getArrowBtnStyles = (theme?: Theme) => ({
   margin: 0,
   border: 0,
   borderRadius: 0,
-  paddingX: 0,
+  paddingX: 2,
   paddingY: 0,
   background: theme?.colors.canvas.default,
   position: 'absolute',
@@ -113,7 +113,7 @@ export const getLeftArrowVisibleBtn = (theme?: Theme) => ({
     background: `linear-gradient(to left,#fff0,${theme?.colors.canvas.default})`,
     height: '100%',
     width: '20px',
-    right: '-20px',
+    right: '-15px',
     pointerEvents: 'none'
   }
 })
@@ -129,8 +129,8 @@ export const getRightArrowVisibleBtn = (theme?: Theme) => ({
     background: `linear-gradient(to right,#fff0,${theme?.colors.canvas.default})`,
     content: '""',
     height: '100%',
-    left: '-20px',
     width: '20px',
+    left: '-15px',
     pointerEvents: 'none'
   }
 })

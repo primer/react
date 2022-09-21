@@ -1,13 +1,4 @@
-import React, {
-  useRef,
-  useLayoutEffect,
-  forwardRef,
-  useCallback,
-  useState,
-  MutableRefObject,
-  RefObject,
-  useEffect
-} from 'react'
+import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject, useEffect} from 'react'
 import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -15,6 +6,7 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useFocusZone} from '../hooks/useFocusZone'
+import {useMedia} from '../hooks/useMedia'
 import {FocusKeys, scrollIntoView} from '@primer/behaviors'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
@@ -53,9 +45,12 @@ const NavigationList = styled.ul`
 `
 
 const handleArrowBtnsVisibility = (
-  scrollOffsets: {scrollLeft: number; scrollRight: number},
+  scrollableList: RefObject<HTMLUListElement>,
   callback: (scroll: {scrollLeft: number; scrollRight: number}) => void
 ) => {
+  const {scrollLeft, scrollWidth, clientWidth} = scrollableList.current as HTMLElement
+  const scrollRight = scrollWidth - scrollLeft - clientWidth
+  const scrollOffsets = {scrollLeft, scrollRight}
   callback(scrollOffsets)
 }
 const overflowEffect = (
@@ -85,24 +80,26 @@ const overflowEffect = (
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
-  // First we check if we can fit all the items with icons
-  if (childArray.length <= numberOfItemsPossible) {
-    items.push(...childArray)
-  } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
-    // if we can't fit all the items with icons, we check if we can fit all the items without icons
+  if (isCoarsePointer) {
+    // If it is a coarse pointer, we never show the icons even if they fit into the screen.
     iconsVisible = false
     items.push(...childArray)
-  } else {
-    iconsVisible = false
-
-    if (isCoarsePointer) {
-      // Scroll behaviour for coarse pointer devices
-      items.push(...childArray)
+    // If we have more items than we can fit, we add the scroll styles
+    if (childArray.length > numberOfItemsWithoutIconPossible) {
       overflowStyles = scrollStyles
+    }
+  } else {
+    // For fine pointer devices, first we check if we can fit all the items with icons
+    if (childArray.length <= numberOfItemsPossible) {
+      items.push(...childArray)
+    } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
+      // if we can't fit all the items with icons, we check if we can fit all the items without icons
+      iconsVisible = false
+      items.push(...childArray)
     } else {
-      // More menu behaviour for fine pointer devices
-      overflowStyles = moreMenuStyles
       // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
+      iconsVisible = false
+      overflowStyles = moreMenuStyles
       for (const [index, child] of childArray.entries()) {
         if (index < numberOfItemsPossibleWithMoreMenu) {
           items.push(child)
@@ -116,17 +113,11 @@ const overflowEffect = (
   callback({items, actions, overflowStyles}, iconsVisible)
 }
 
-function getValidChildren(children: React.ReactNode) {
+const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
-function calculateScrollOffset(scrollableList: RefObject<HTMLUListElement>) {
-  const {scrollLeft, scrollWidth, clientWidth} = scrollableList.current as HTMLElement
-  const scrollRight = scrollWidth - scrollLeft - clientWidth
-  return {scrollLeft, scrollRight}
-}
-
-function calculatePossibleItems(childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) {
+const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: number, moreMenuWidth = 0) => {
   const widthToFit = navWidth - moreMenuWidth
   let breakpoint = childWidthArray.length - 1
   let sumsOfChildWidth = 0
@@ -154,7 +145,7 @@ export const UnderlineNav = forwardRef(
 
     const {theme} = useTheme()
 
-    const [isCoarsePointer, setIsCoarsePointer] = useState(false)
+    const isCoarsePointer = useMedia('(pointer: coarse)')
 
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
 
@@ -194,6 +185,16 @@ export const UnderlineNav = forwardRef(
       setScrollValues(scrollOffsets)
     }, [])
 
+    const scrollOnList = useCallback(() => {
+      handleArrowBtnsVisibility(listRef, updateOffsetValues)
+    }, [updateOffsetValues])
+
+    const onScrollWithButton: OnScrollWithButtonEventType = (event, direction) => {
+      if (!listRef.current) return
+      const ScrollAmount = direction * 200
+      listRef.current.scrollBy({left: ScrollAmount, top: 0, behavior: 'smooth'})
+    }
+
     const actions = responsiveProps.actions
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const setChildrenWidth = useCallback(size => {
@@ -217,8 +218,6 @@ export const UnderlineNav = forwardRef(
         const childArray = getValidChildren(children)
         const navWidth = resizeObserverEntries[0].contentRect.width
         const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-        const scrollOffsets = calculateScrollOffset(listRef)
-
         overflowEffect(
           navWidth,
           moreMenuWidth,
@@ -229,23 +228,19 @@ export const UnderlineNav = forwardRef(
           callback
         )
 
-        handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
+        handleArrowBtnsVisibility(listRef, updateOffsetValues)
       },
       [callback, updateOffsetValues, childWidthArray, noIconChildWidthArray, children, isCoarsePointer, moreMenuRef]
     )
+
     useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
 
-    // Determine the pointer type on mount
-    useLayoutEffect(() => {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      setIsCoarsePointer(window.matchMedia && window.matchMedia('(pointer:coarse)').matches)
+    useEffect(() => {
+      const listEl = listRef.current
       // eslint-disable-next-line github/prefer-observers
-      listRef.current?.addEventListener('scroll', () => {
-        const scrollOffsets = calculateScrollOffset(listRef)
-
-        handleArrowBtnsVisibility(scrollOffsets, updateOffsetValues)
-      })
-    }, [updateOffsetValues])
+      listEl?.addEventListener('scroll', scrollOnList)
+      return () => listEl?.removeEventListener('scroll', scrollOnList)
+    }, [scrollOnList])
 
     useEffect(() => {
       // scroll the selected link into the view
@@ -253,12 +248,6 @@ export const UnderlineNav = forwardRef(
         scrollIntoView(selectedLink.current, listRef.current, underlineNavScrollMargins)
       }
     }, [selectedLink])
-
-    const onScrollWithButton: OnScrollWithButtonEventType = (event, direction) => {
-      if (!listRef.current) return
-      const ScrollAmount = direction * 200
-      listRef.current.scrollBy({left: ScrollAmount, top: 0, behavior: 'smooth'})
-    }
 
     return (
       <UnderlineNavContext.Provider
