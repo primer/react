@@ -54,7 +54,7 @@ export default [
       format: 'commonjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
-      exports: 'named'
+      exports: 'auto'
     }
   },
 
