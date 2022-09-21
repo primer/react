@@ -1,7 +1,7 @@
 import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRightIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useState, forwardRef} from 'react'
-import {Button, ButtonProps, IconButton} from '.'
+import {Button, ButtonProps, IconButton, CustomButtonProps} from '.'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 
@@ -246,5 +246,16 @@ export const linkButton = ({...args}: ButtonProps) => {
         </Button>
       </Box>
     </>
+  )
+}
+
+export const customButton = () => {
+  function CustomButton(props: CustomButtonProps) {
+    return <Box as="button" {...props} />
+  }
+  return (
+    <Button as={CustomButton} variant="default">
+      Custom
+    </Button>
   )
 }

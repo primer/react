@@ -1,7 +1,7 @@
 import React from 'react'
-import {IconButton, Button} from '../Button'
+import {IconButton, Button, ButtonProps, CustomButtonProps} from '../Button'
 import {behavesAsComponent} from '../utils/testing'
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, screen} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import {SearchIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
@@ -94,9 +94,22 @@ describe('Button', () => {
     expect(IconOnlyButton).toHaveStyleRule('padding-right', '8px')
     expect(IconOnlyButton).toMatchSnapshot()
   })
+
   it('makes sure icon button has an aria-label', () => {
     const container = render(<IconButton icon={SearchIcon} aria-label="Search button" />)
     const IconOnlyButton = container.getByLabelText('Search button')
     expect(IconOnlyButton).toBeTruthy()
+  })
+
+  it('should support a custom component through the `as` prop', () => {
+    function CustomButton(props: CustomButtonProps) {
+      return <button data-testid="custom-component" {...props} />
+    }
+    render(
+      <Button as={CustomButton} variant="default">
+        test
+      </Button>
+    )
+    expect(screen.getByTestId('custom-component')).toBeInTheDocument()
   })
 })
