@@ -1,4 +1,5 @@
 import React from 'react'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 
 type TypeaheadOptions = {
   containerRef: React.RefObject<HTMLElement>
@@ -9,6 +10,7 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
   const [searchValue, setSearchValue] = React.useState('')
   const timeoutRef = React.useRef(0)
   const onFocusChangeRef = React.useRef(onFocusChange)
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
 
   // Update the ref when the callback changes
   React.useEffect(() => {
@@ -31,8 +33,8 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       setSearchValue(value => value + event.key)
 
       // Reset the timeout
-      window.clearTimeout(timeoutRef.current)
-      timeoutRef.current = window.setTimeout(() => setSearchValue(''), 300)
+      safeClearTimeout(timeoutRef.current)
+      timeoutRef.current = safeSetTimeout(() => setSearchValue(''), 300)
 
       // Prevent default behavior
       event.preventDefault()
@@ -41,7 +43,7 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
 
     container.addEventListener('keydown', onKeyDown)
     return () => container.removeEventListener('keydown', onKeyDown)
-  }, [containerRef])
+  }, [containerRef, safeClearTimeout, safeSetTimeout])
 
   // Update focus when the search value changes
   React.useEffect(() => {
@@ -81,11 +83,6 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       onFocusChangeRef.current(nextElement)
     }
   }, [searchValue, containerRef])
-
-  // Clear timeout on unmount
-  React.useEffect(() => {
-    return () => window.clearTimeout(timeoutRef.current)
-  }, [])
 }
 
 /**
