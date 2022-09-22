@@ -5,9 +5,8 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
-import {useFocusZone} from '../hooks/useFocusZone'
 import {useMedia} from '../hooks/useMedia'
-import {FocusKeys, scrollIntoView} from '@primer/behaviors'
+import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
@@ -154,14 +153,6 @@ export const UnderlineNav = forwardRef(
       scrollLeft: 0,
       scrollRight: 0
     })
-    // This might change if we decide tab through the navigation items rather than navigationg with the arrow keys.
-    // TBD. In the meantime keeping it as a menu with the focus trap.
-    // ref: https://www.w3.org/WAI/ARIA/apg/example-index/menubar/menubar-navigation.html (Keyboard Support)
-    useFocusZone({
-      containerRef: backupRef,
-      bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-      focusOutBehavior: 'wrap'
-    })
 
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
       if (!event.defaultPrevented) {
@@ -261,7 +252,6 @@ export const UnderlineNav = forwardRef(
         }}
       >
         <Box
-          tabIndex={0}
           as={as}
           sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
           aria-label={label}
