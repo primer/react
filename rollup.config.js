@@ -1,6 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
+import babel from '@rollup/plugin-babel'
 import {terser} from 'rollup-plugin-terser'
 import visualizer from 'rollup-plugin-visualizer'
 import packageJson from './package.json'
@@ -40,7 +40,7 @@ const baseConfig = {
     babel({
       extensions,
       exclude: /node_modules/,
-      runtimeHelpers: true,
+      babelHelpers: 'inline',
       babelrc: false
     }),
     resolve({
