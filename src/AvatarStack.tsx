@@ -12,6 +12,7 @@ type StyledAvatarStackWrapperProps = {
 const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   display: flex;
   position: relative;
+  isolation: isolate;
   height: 20px;
   min-width: ${props => (props.count === 1 ? '20px' : props.count === 2 ? '30px' : '38px')};
 
