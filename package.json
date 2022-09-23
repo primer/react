@@ -52,6 +52,9 @@
     "size": "size-limit",
     "prepare": "husky install"
   },
+  "workspaces": [
+    "examples/*"
+  ],
   "repository": "primer/react",
   "keywords": [
     "react",
