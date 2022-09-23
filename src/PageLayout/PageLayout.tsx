@@ -511,6 +511,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const {onMouseDown, onClick, isResizing, paneWidth} = useHorizontalResize(
       canResizePane,
+      position,
       paneRef,
       paneWidthStorageKey
     )

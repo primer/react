@@ -1,6 +1,11 @@
 import React, {useEffect, useCallback, useState, RefObject} from 'react'
 
-export function useHorizontalResize(enabled: boolean, paneRef: RefObject<HTMLDivElement>, storageKey?: string) {
+export function useHorizontalResize(
+  enabled: boolean,
+  panePosition: 'start' | 'end',
+  paneRef: RefObject<HTMLDivElement>,
+  storageKey?: string
+) {
   const [isDragging, setIsDragging] = useState(false)
   const [isResizing, setIsResizing] = useState(false)
   const [paneWidth, setPaneWidth] = useState<undefined | number>()
@@ -44,13 +49,20 @@ export function useHorizontalResize(enabled: boolean, paneRef: RefObject<HTMLDiv
     (e: MouseEvent) => {
       if (isDragging && paneRef.current) {
         setIsResizing(true)
-        const clientLeft = paneRef.current.getBoundingClientRect().left
-        const newSize = e.clientX - clientLeft
-        setPaneWidth(newSize)
+        if (panePosition === 'start') {
+          const clientLeft = paneRef.current.getBoundingClientRect().left
+          const newSize = e.clientX - clientLeft
+          setPaneWidth(newSize)
+        } else {
+          const clientRight = paneRef.current.getBoundingClientRect().right
+          const newSize = clientRight - e.clientX
+          console.log(newSize)
+          setPaneWidth(newSize)
+        }
         e.preventDefault()
       }
     },
-    [isDragging, paneRef]
+    [isDragging, panePosition, paneRef]
   )
 
   const onMouseUp = useCallback(() => {
