@@ -49,14 +49,18 @@ export function useHorizontalResize(
     (e: MouseEvent) => {
       if (isDragging && paneRef.current) {
         setIsResizing(true)
+
+        const rect = paneRef.current.getBoundingClientRect()
+        const clientLeft = rect.left
+        const clientRight = rect.right
+        const paneCurrentWidth = rect.width
+        const marginRight = clientRight - paneCurrentWidth - clientLeft
+
         if (panePosition === 'start') {
-          const clientLeft = paneRef.current.getBoundingClientRect().left
-          const newSize = e.clientX - clientLeft
+          const newSize = e.clientX - clientLeft - marginRight
           setPaneWidth(newSize)
         } else {
-          const clientRight = paneRef.current.getBoundingClientRect().right
           const newSize = clientRight - e.clientX
-          console.log(newSize)
           setPaneWidth(newSize)
         }
         e.preventDefault()
