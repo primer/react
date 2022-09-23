@@ -6,12 +6,12 @@
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
-      "require": "./lib/index.js",
-      "import": "./lib-esm/index.js"
+      "import": "./lib-esm/index.js",
+      "require": "./lib/index.js"
     },
     "./drafts": {
-      "require": "./lib/drafts/index.js",
-      "import": "./lib-esm/drafts/index.js"
+      "import": "./lib-esm/drafts/index.js",
+      "require": "./lib/drafts/index.js"
     },
     "./deprecated": {
       "require": "./lib/deprecated/index.js",
