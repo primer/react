@@ -663,7 +663,7 @@ export const CustomStickyHeader: Story = args => (
 )
 
 export const ResizablePane: Story = args => (
-  <PageLayout containerWidth="full" padding={args.padding} rowGap={args.rowGap} columnGap={'none'} sx={args.sx}>
+  <PageLayout containerWidth="full" padding={args.padding} rowGap={args.rowGap} columnGap={args.columnGap} sx={args.sx}>
     {args['Render header?'] ? (
       <PageLayout.Header
         padding={args['Header.padding']}
@@ -696,7 +696,11 @@ export const ResizablePane: Story = args => (
       <PageLayout.Pane
         width={args['Content.width']}
         padding={args['Content.padding']}
-        position="start"
+        position={{
+          narrow: args['Pane.position.narrow'],
+          regular: args['Pane.position.regular'],
+          wide: args['Pane.position.wide']
+        }}
         divider="line"
         canResizePane={true}
         paneWidthStorageKey="primer-react.pane-width"
