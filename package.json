@@ -14,17 +14,17 @@
       "require": "./lib/drafts/index.js"
     },
     "./deprecated": {
-      "require": "./lib/deprecated/index.js",
-      "import": "./lib-esm/deprecated/index.js"
+      "import": "./lib-esm/deprecated/index.js",
+      "require": "./lib/deprecated/index.js"
     },
     "./lib-esm/*": {
-      "require": [
-        "./lib/*.js",
-        "./lib/*/index.js"
-      ],
       "import": [
         "./lib-esm/*.js",
         "./lib-esm/*/index.js"
+      ],
+      "require": [
+        "./lib/*.js",
+        "./lib/*/index.js"
       ]
     }
   },
