@@ -95,6 +95,14 @@ export type MarkdownEditorProps = SxProp & {
   name?: string
   /** To enable the saved replies feature, provide an array of replies. */
   savedReplies?: SavedReply[]
+  /**
+   * Control whether URLs are pasted as plain text instead of as formatted links (if the
+   * user has selected some text before pasting). Defaults to `false` (URLs will paste as
+   * links). This should typically be controlled by user settings.
+   *
+   * Users can always toggle this behavior by holding `shift` when pasting.
+   */
+  pasteUrlsAsPlainText?: boolean
 }
 
 const handleBrand = Symbol()
@@ -157,7 +165,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       required = false,
       name,
       children,
-      savedReplies
+      savedReplies,
+      pasteUrlsAsPlainText = false
     },
     ref
   ) => {
@@ -389,6 +398,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                   monospace={monospace}
                   required={required}
                   name={name}
+                  pasteUrlsAsPlainText={pasteUrlsAsPlainText}
                   {...inputCompositionProps}
                   {...fileHandler?.pasteTargetProps}
                   {...fileHandler?.dropTargetProps}
