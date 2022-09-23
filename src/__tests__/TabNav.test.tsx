@@ -17,7 +17,7 @@ describe('TabNav', () => {
         </TabNav.Link>
         <TabNav.Link id="middle" href="#" selected>
           Middle
-          <a href="#">Focuseable Link</a>
+          <a href="https://example.com">Focuseable Link</a>
         </TabNav.Link>
         <TabNav.Link id="last" href="#">
           Last
