@@ -1,6 +1,7 @@
 {
-  "name": "nextjs",
+  "name": "example-nextjs",
   "private": true,
+  "version": "0.0.0",
   "scripts": {
     "build": "next build",
     "develop": "next",
