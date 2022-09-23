@@ -104,14 +104,68 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 Root.displayName = 'PageLayout'
 
 // ----------------------------------------------------------------------------
+// ResizeHandle (internal)
+
+type ResizeHandleProps = {
+  isResizing?: boolean
+  onClick?: (e: React.MouseEvent) => void
+  onMouseDown?: (e: React.MouseEvent) => void
+}
+
+const ResizeHandle: React.FC<React.PropsWithChildren<ResizeHandleProps>> = ({isResizing, onClick, onMouseDown}) => {
+  return (
+    <Box
+      sx={{
+        position: 'absolute',
+        top: 0,
+        bottom: 0
+      }}
+    >
+      <Box
+        onMouseDown={onMouseDown}
+        onClick={onClick}
+        sx={{
+          width: '16px',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          position: 'absolute',
+          transform: 'translateX(50%)',
+          right: 0,
+          opacity: isResizing ? 1 : 0,
+          cursor: 'col-resize',
+          '&:hover': {
+            animation: isResizing ? 'none' : 'resizer-appear 80ms 300ms both',
+
+            '@keyframes resizer-appear': {
+              from: {
+                opacity: 0
+              },
+
+              to: {
+                opacity: 1
+              }
+            }
+          }
+        }}
+      >
+        <Box
+          sx={{
+            backgroundColor: 'accent.fg',
+            width: '1px',
+            height: '100%'
+          }}
+        />
+      </Box>
+    </Box>
+  )
+}
+
+// ----------------------------------------------------------------------------
 // Divider (internal)
 
 type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
-  canResize?: boolean
-  isResizing?: boolean
-  onClick?: (e: React.MouseEvent) => void
-  onMouseDown?: (e: React.MouseEvent) => void
 } & SxProp
 
 const horizontalDividerVariants = {
@@ -184,65 +238,20 @@ const verticalDividerVariants = {
   }
 }
 
-const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
-  variant = 'none',
-  canResize,
-  isResizing,
-  onClick,
-  onMouseDown,
-  sx = {}
-}) => {
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
   const responsiveVariant = useResponsiveValue(variant, 'none')
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          height: '100%',
-          position: 'relative',
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
           ...verticalDividerVariants[responsiveVariant]
         },
         sx
       )}
-    >
-      {canResize && (
-        <Box
-          onMouseDown={onMouseDown}
-          onClick={onClick}
-          sx={{
-            width: '16px',
-            height: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            position: 'absolute',
-            transform: 'translateX(50%)',
-            right: 0,
-            opacity: isResizing ? 1 : 0,
-            cursor: 'col-resize',
-            '&:hover': {
-              animation: isResizing ? 'none' : 'resizer-appear 80ms 300ms both',
-
-              '@keyframes resizer-appear': {
-                from: {
-                  opacity: 0
-                },
-
-                to: {
-                  opacity: 1
-                }
-              }
-            }
-          }}
-        >
-          <Box
-            sx={{
-              backgroundColor: 'accent.fg',
-              width: '1px',
-              height: '100%'
-            }}
-          />
-        </Box>
-      )}
-    </Box>
+    />
   )
 }
 
@@ -506,6 +515,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
 
+    const containerRef = React.useRef<HTMLDivElement>(null)
+
     const paneRef = React.useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
@@ -513,11 +524,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       canResizePane,
       position,
       paneRef,
+      containerRef,
       paneWidthStorageKey
     )
 
     return (
       <Box
+        ref={containerRef}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sx={(theme: any) =>
           merge<BetterSystemStyleObject>(
@@ -559,14 +572,17 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           variant={{narrow: dividerVariant, regular: 'none'}}
           sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
         />
-        <VerticalDivider
-          variant={{narrow: 'none', regular: dividerVariant}}
-          canResize={canResizePane}
-          isResizing={isResizing}
-          onClick={onClick}
-          onMouseDown={onMouseDown}
-          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
-        />
+
+        <Box
+          sx={{
+            position: 'relative',
+            height: '100%',
+            [position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]
+          }}
+        >
+          <VerticalDivider variant={{narrow: 'none', regular: dividerVariant}} />
+          {canResizePane && <ResizeHandle isResizing={isResizing} onClick={onClick} onMouseDown={onMouseDown} />}
+        </Box>
         <Box
           ref={paneRef}
           sx={(theme: Theme) => ({

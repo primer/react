@@ -4,6 +4,7 @@ export function useHorizontalResize(
   enabled: boolean,
   panePosition: 'start' | 'end',
   paneRef: RefObject<HTMLDivElement>,
+  containerRef: RefObject<HTMLDivElement>,
   storageKey?: string
 ) {
   const [isDragging, setIsDragging] = useState(false)
@@ -47,26 +48,28 @@ export function useHorizontalResize(
 
   const onMouseMove = useCallback(
     (e: MouseEvent) => {
-      if (isDragging && paneRef.current) {
+      if (isDragging && paneRef.current && containerRef.current) {
         setIsResizing(true)
 
-        const rect = paneRef.current.getBoundingClientRect()
-        const clientLeft = rect.left
-        const clientRight = rect.right
-        const paneCurrentWidth = rect.width
-        const marginRight = clientRight - paneCurrentWidth - clientLeft
+        const paneRect = paneRef.current.getBoundingClientRect()
+        const containerRect = containerRef.current.getBoundingClientRect()
+
+        const paneCurrentWidth = paneRect.width
+
+        const marginLeft = paneRect.left
+        const marginRight = containerRect.width - paneCurrentWidth
 
         if (panePosition === 'start') {
-          const newSize = e.clientX - clientLeft - marginRight
+          const newSize = e.clientX - marginLeft - marginRight
           setPaneWidth(newSize)
         } else {
-          const newSize = clientRight - e.clientX
+          const newSize = paneRect.right - e.clientX - marginRight
           setPaneWidth(newSize)
         }
         e.preventDefault()
       }
     },
-    [isDragging, panePosition, paneRef]
+    [isDragging, panePosition, paneRef, containerRef]
   )
 
   const onMouseUp = useCallback(() => {
