@@ -42,14 +42,15 @@ export function useHorizontalResize(enabled: boolean, paneRef: RefObject<HTMLDiv
 
   const onMouseMove = useCallback(
     (e: MouseEvent) => {
-      if (isDragging) {
+      if (isDragging && paneRef.current) {
         setIsResizing(true)
-        const newSize = e.clientX
+        const clientLeft = paneRef.current.getBoundingClientRect().left
+        const newSize = e.clientX - clientLeft
         setPaneWidth(newSize)
         e.preventDefault()
       }
     },
-    [isDragging]
+    [isDragging, paneRef]
   )
 
   const onMouseUp = useCallback(() => {
