@@ -63,60 +63,57 @@ const overflowEffect = (
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
   isCoarsePointer: boolean,
-  isSwapping: boolean,
   updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void
 ) => {
-  if (!isSwapping) {
-    let iconsVisible = true
-    let overflowStyles: BetterSystemStyleObject | null = {}
+  let iconsVisible = true
+  let overflowStyles: BetterSystemStyleObject | null = {}
 
-    if (childWidthArray.length === 0) {
-      updateListAndMenu({items: childArray, actions: [], overflowStyles}, iconsVisible)
+  if (childWidthArray.length === 0) {
+    updateListAndMenu({items: childArray, actions: [], overflowStyles}, iconsVisible)
+  }
+
+  const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
+  const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
+  // We need to take more menu width into account when calculating the number of items possible
+  const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
+    noIconChildWidthArray,
+    navWidth,
+    moreMenuWidth || MORE_BTN_WIDTH
+  )
+  const items: Array<React.ReactElement> = []
+  const actions: Array<React.ReactElement> = []
+
+  if (isCoarsePointer) {
+    // If it is a coarse pointer, we never show the icons even if they fit into the screen.
+    iconsVisible = false
+    items.push(...childArray)
+    // If we have more items than we can fit, we add the scroll styles
+    if (childArray.length > numberOfItemsWithoutIconPossible) {
+      overflowStyles = scrollStyles
     }
-
-    const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
-    const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
-    // We need take more menu width into account when calculating the number of items possible
-    const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
-      noIconChildWidthArray,
-      navWidth,
-      moreMenuWidth || MORE_BTN_WIDTH
-    )
-    const items: Array<React.ReactElement> = []
-    const actions: Array<React.ReactElement> = []
-
-    if (isCoarsePointer) {
-      // If it is a coarse pointer, we never show the icons even if they fit into the screen.
+  } else {
+    // For fine pointer devices, first we check if we can fit all the items with icons
+    if (childArray.length <= numberOfItemsPossible) {
+      items.push(...childArray)
+    } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
+      // if we can't fit all the items with icons, we check if we can fit all the items without icons
       iconsVisible = false
       items.push(...childArray)
-      // If we have more items than we can fit, we add the scroll styles
-      if (childArray.length > numberOfItemsWithoutIconPossible) {
-        overflowStyles = scrollStyles
-      }
     } else {
-      // For fine pointer devices, first we check if we can fit all the items with icons
-      if (childArray.length <= numberOfItemsPossible) {
-        items.push(...childArray)
-      } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
-        // if we can't fit all the items with icons, we check if we can fit all the items without icons
-        iconsVisible = false
-        items.push(...childArray)
-      } else {
-        // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
-        iconsVisible = false
-        overflowStyles = moreMenuStyles
-        for (const [index, child] of childArray.entries()) {
-          if (index < numberOfItemsPossibleWithMoreMenu) {
-            items.push(child)
-          } else {
-            actions.push(child)
-          }
+      // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
+      iconsVisible = false
+      overflowStyles = moreMenuStyles
+      for (const [index, child] of childArray.entries()) {
+        if (index < numberOfItemsPossibleWithMoreMenu) {
+          items.push(child)
+        } else {
+          actions.push(child)
         }
       }
     }
-
-    updateListAndMenu({items, actions, overflowStyles}, iconsVisible)
   }
+
+  updateListAndMenu({items, actions, overflowStyles}, iconsVisible)
 }
 
 const getValidChildren = (children: React.ReactNode) => {
@@ -164,26 +161,34 @@ export const UnderlineNav = forwardRef(
       return noIconChildWidthArray.find(item => item.text === itemText)?.width || 0
     }
 
-    const swapItems = (selectedMenuItem: React.ReactElement, indexOfSelectedMenuItem: number) => {
+    const swapItems = (
+      selectedMenuItem: React.ReactElement,
+      indexOfSelectedMenuItem: number,
+      callback: (props: ResponsiveProps, displayIcons: boolean) => void,
+      event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
+    ) => {
       // We need the index of the item that is going to be removed from the action list.
       // We need to remove the item from the overflow menu first
       const actionsMinusSelectedItem = actions.filter(item => item !== selectedMenuItem)
       // then we need to calculate if we can swap it with the last item in the list
       // get the selected item's width
       const widthToFitIntoList = getItemsWidth(selectedMenuItem.props.children)
+      // we also need to calculate if we have any empty space on the right side of the more btn.
+      const availableSpace =
+        newRef.current.getBoundingClientRect().width -
+        (moreMenuRef.current?.getBoundingClientRect().width || 0) -
+        (listRef.current?.getBoundingClientRect().width || 0)
+
       let widthToSwap = 0
       let updatedActionList: Array<React.ReactElement> = []
       let updatedItemList: Array<React.ReactElement> = []
       for (const [index, item] of [...responsiveProps.items].reverse().entries()) {
         widthToSwap += getItemsWidth(item.props.children)
-        if (widthToFitIntoList < widthToSwap) {
-          //   // if it fits, we swap it
+        if (widthToFitIntoList < widthToSwap + availableSpace) {
+          // if it fits, we swap it
           const itemsLeftInList = [...responsiveProps.items].slice(0, responsiveProps.items.length - 1 - index)
-
           updatedItemList = [...itemsLeftInList, selectedMenuItem]
-
           const itemsToAddToActions = [...responsiveProps.items].slice(responsiveProps.items.length - index - 1)
-
           updatedActionList = [...itemsToAddToActions, ...actionsMinusSelectedItem]
           updatedActionList = [...actions]
           updatedActionList.splice(indexOfSelectedMenuItem, itemsToAddToActions.length, ...itemsToAddToActions)
@@ -191,10 +196,12 @@ export const UnderlineNav = forwardRef(
         }
       }
       setIsSwapping(true)
-      updateListAndMenu(
-        {items: updatedItemList, actions: updatedActionList, overflowStyles: moreMenuStyles},
-        iconsVisible
+
+      callback(
+        {items: updatedItemList, actions: updatedActionList, overflowStyles: responsiveProps.overflowStyles},
+        false
       )
+      selectedMenuItem.props.onSelect && selectedMenuItem.props.onSelect(event)
     }
 
     const [isSwapping, setIsSwapping] = useState(false)
@@ -264,19 +271,19 @@ export const UnderlineNav = forwardRef(
         const childArray = getValidChildren(children)
         const navWidth = resizeObserverEntries[0].contentRect.width
         const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-        console.log('hey resize')
-        // if resize doesn't get called, you might want to set swapping false here??
-        overflowEffect(
-          navWidth,
-          moreMenuWidth,
-          childArray,
-          childWidthArray,
-          noIconChildWidthArray,
-          isCoarsePointer,
-          isSwapping,
-          updateListAndMenu
-        )
 
+        // This is a very hacky solution which just works to test the selected item swapping functionality. I'll work on it.
+        if (!isSwapping) {
+          overflowEffect(
+            navWidth,
+            moreMenuWidth,
+            childArray,
+            childWidthArray,
+            noIconChildWidthArray,
+            isCoarsePointer,
+            updateListAndMenu
+          )
+        }
         handleArrowBtnsVisibility(listRef, updateOffsetValues)
       },
       [
@@ -349,13 +356,11 @@ export const UnderlineNav = forwardRef(
                       const {children: actionElementChildren, ...actionElementProps} = action.props
                       return (
                         <ActionList.Item
-                          ref={actionElementProps.ref}
                           key={index}
                           {...actionElementProps}
-                          onSelect={() => {
+                          onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
                             // setSelectedLink(actionElementChildren)
-                            swapItems(action, index)
-                            // action.props.onSelect && action.props.onSelect(event as React.MouseEvent<HTMLLIElement>)
+                            swapItems(action, index, updateListAndMenu, event)
                           }}
                         >
                           <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
