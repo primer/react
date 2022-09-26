@@ -984,3 +984,44 @@ describe('Keyboard interactions', () => {
     })
   })
 })
+
+describe('Controlled state', () => {
+  it('can be controlled', () => {
+    function TestTree() {
+      const [expanded, setExpanded] = React.useState(true)
+      return (
+        <TreeView aria-label="Test tree">
+          <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+    }
+
+    const {getByRole} = renderWithTheme(<TestTree />)
+
+    const root = getByRole('tree')
+    const parent = getByRole('treeitem', {name: 'Parent'})
+    const child = getByRole('treeitem', {name: 'Child'})
+
+    // Parent should be expanded
+    expect(parent).toHaveAttribute('aria-expanded', 'true')
+    expect(child).toBeVisible()
+
+    // aria-activedescendant should be set to parent
+    expect(root).toHaveAttribute('aria-activedescendant', parent.id)
+
+    // Focus tree
+    root.focus()
+
+    // Press ← to collapse the parent
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+
+    // Parent should be collapsed
+    expect(parent).toHaveAttribute('aria-expanded', 'false')
+    expect(child).not.toBeVisible()
+  })
+})
