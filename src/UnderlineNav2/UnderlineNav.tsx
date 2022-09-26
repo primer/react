@@ -151,7 +151,7 @@ export const UnderlineNav = forwardRef(
     forwardedRef
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const newRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
+    const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
     const moreMenuRef = useRef<HTMLDivElement>(null)
 
@@ -161,47 +161,53 @@ export const UnderlineNav = forwardRef(
       return noIconChildWidthArray.find(item => item.text === itemText)?.width || 0
     }
 
-    const swapItems = (
-      selectedMenuItem: React.ReactElement,
-      indexOfSelectedMenuItem: number,
-      callback: (props: ResponsiveProps, displayIcons: boolean) => void,
-      event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
+    const swapMenuItemWithListItem = (
+      prospectiveListItem: React.ReactElement,
+      indexOfProspectiveListItem: number,
+      event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+      callback: (props: ResponsiveProps, displayIcons: boolean) => void
     ) => {
-      // We need the index of the item that is going to be removed from the action list.
-      // We need to remove the item from the overflow menu first
-      const actionsMinusSelectedItem = actions.filter(item => item !== selectedMenuItem)
-      // then we need to calculate if we can swap it with the last item in the list
-      // get the selected item's width
-      const widthToFitIntoList = getItemsWidth(selectedMenuItem.props.children)
-      // we also need to calculate if we have any empty space on the right side of the more btn.
+      // get the selected menu item's width
+      const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
+      // Check if there is any empty space on the right side of the more btn
       const availableSpace =
-        newRef.current.getBoundingClientRect().width -
+        navRef.current.getBoundingClientRect().width -
         (moreMenuRef.current?.getBoundingClientRect().width || 0) -
         (listRef.current?.getBoundingClientRect().width || 0)
 
+      // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
+      // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
+      const index = getBreakpointForItemSwapping(widthToFitIntoList, availableSpace)
+      const indexToSliceAt = responsiveProps.items.length - 1 - index
+      // Form the new list of items
+      const itemsLeftInList = [...responsiveProps.items].slice(0, indexToSliceAt)
+      const updatedItemList = [...itemsLeftInList, prospectiveListItem]
+      // Form the new menu items
+      const itemsToAddToMenu = [...responsiveProps.items].slice(indexToSliceAt)
+      const updatedMenuItems = [...actions]
+      // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
+      updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
+
+      // This is to prevent calling the overflowEffect function again when the responsiveProps is being updated.
+      setIsSwapping(true)
+      callback(
+        {items: updatedItemList, actions: updatedMenuItems, overflowStyles: responsiveProps.overflowStyles},
+        false
+      )
+    }
+
+    // How many items do we need to pull in to the menu to make room for the selected menu item.
+    function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
       let widthToSwap = 0
-      let updatedActionList: Array<React.ReactElement> = []
-      let updatedItemList: Array<React.ReactElement> = []
+      let breakpoint = 0
       for (const [index, item] of [...responsiveProps.items].reverse().entries()) {
         widthToSwap += getItemsWidth(item.props.children)
         if (widthToFitIntoList < widthToSwap + availableSpace) {
-          // if it fits, we swap it
-          const itemsLeftInList = [...responsiveProps.items].slice(0, responsiveProps.items.length - 1 - index)
-          updatedItemList = [...itemsLeftInList, selectedMenuItem]
-          const itemsToAddToActions = [...responsiveProps.items].slice(responsiveProps.items.length - index - 1)
-          updatedActionList = [...itemsToAddToActions, ...actionsMinusSelectedItem]
-          updatedActionList = [...actions]
-          updatedActionList.splice(indexOfSelectedMenuItem, itemsToAddToActions.length, ...itemsToAddToActions)
+          breakpoint = index
           break
         }
       }
-      setIsSwapping(true)
-
-      callback(
-        {items: updatedItemList, actions: updatedActionList, overflowStyles: responsiveProps.overflowStyles},
-        false
-      )
-      selectedMenuItem.props.onSelect && selectedMenuItem.props.onSelect(event)
+      return breakpoint
     }
 
     const [isSwapping, setIsSwapping] = useState(false)
@@ -209,6 +215,10 @@ export const UnderlineNav = forwardRef(
     const isCoarsePointer = useMedia('(pointer: coarse)')
 
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
+
+    // selectedLinkText is needed to be able set the selected menu item as selectedLink.
+    // This is needed because setSelectedLink only accepts ref but at the time of setting selected menu item as selectedLink, its ref as a list item is not available
+    const [selectedLinkText, setSelectedLinkText] = useState<string>('')
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
@@ -272,7 +282,6 @@ export const UnderlineNav = forwardRef(
         const navWidth = resizeObserverEntries[0].contentRect.width
         const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
 
-        // This is a very hacky solution which just works to test the selected item swapping functionality. I'll work on it.
         if (!isSwapping) {
           overflowEffect(
             navWidth,
@@ -298,7 +307,7 @@ export const UnderlineNav = forwardRef(
       ]
     )
 
-    useResizeObserver(resizeObserverCallback, newRef as RefObject<HTMLElement>)
+    useResizeObserver(resizeObserverCallback, navRef as RefObject<HTMLElement>)
 
     useEffect(() => {
       const listEl = listRef.current
@@ -317,10 +326,13 @@ export const UnderlineNav = forwardRef(
     return (
       <UnderlineNavContext.Provider
         value={{
+          theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
           selectedLink,
           setSelectedLink,
+          selectedLinkText,
+          setSelectedLinkText,
           afterSelect: afterSelectHandler,
           variant,
           loadingCounters,
@@ -331,7 +343,7 @@ export const UnderlineNav = forwardRef(
           as={as}
           sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
           aria-label={label}
-          ref={newRef}
+          ref={navRef}
         >
           {isCoarsePointer && (
             <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
@@ -351,7 +363,7 @@ export const UnderlineNav = forwardRef(
               <ActionMenu>
                 <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
                 <ActionMenu.Overlay align="end">
-                  <ActionList selectionVariant="single">
+                  <ActionList>
                     {actions.map((action, index) => {
                       const {children: actionElementChildren, ...actionElementProps} = action.props
                       return (
@@ -359,8 +371,8 @@ export const UnderlineNav = forwardRef(
                           key={index}
                           {...actionElementProps}
                           onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                            // setSelectedLink(actionElementChildren)
-                            swapItems(action, index, updateListAndMenu, event)
+                            setSelectedLinkText(action.props.children)
+                            swapMenuItemWithListItem(action, index, event, updateListAndMenu)
                           }}
                         >
                           <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>

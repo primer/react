@@ -5,7 +5,6 @@ import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
-import {useTheme} from '../ThemeProvider'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
 
@@ -65,16 +64,19 @@ export const UnderlineNavItem = forwardRef(
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const {
+      theme,
       setChildrenWidth,
       setNoIconChildrenWidth,
       selectedLink,
       setSelectedLink,
+      selectedLinkText,
+      setSelectedLinkText,
       afterSelect,
       variant,
       loadingCounters,
       iconsVisible
     } = useContext(UnderlineNavContext)
-    const {theme} = useTheme()
+
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
 
@@ -96,7 +98,21 @@ export const UnderlineNavItem = forwardRef(
       setChildrenWidth({text, width: domRect.width})
       setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
-    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth, setNoIconChildrenWidth])
+
+      if (selectedLinkText === text) {
+        setSelectedLink(ref as RefObject<HTMLElement>)
+      }
+      setSelectedLinkText('')
+    }, [
+      ref,
+      preSelected,
+      selectedLink,
+      selectedLinkText,
+      setSelectedLinkText,
+      setSelectedLink,
+      setChildrenWidth,
+      setNoIconChildrenWidth
+    ])
 
     const keyPressHandler = React.useCallback(
       event => {
