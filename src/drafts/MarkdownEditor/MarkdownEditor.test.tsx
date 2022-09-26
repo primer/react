@@ -1,6 +1,7 @@
 import {DiffAddedIcon} from '@primer/octicons-react'
 import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {UserEvent} from '@testing-library/user-event/dist/types/setup'
 import React, {forwardRef, useLayoutEffect, useRef, useState} from 'react'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
@@ -1081,6 +1082,13 @@ describe('MarkdownEditor', () => {
       expect(queryByRole('listbox')).not.toBeInTheDocument()
     })
 
+    it('autofocuses filter and filters replies based only on name', async () => {
+      const {getToolbarButton, getByRole, user} = await render(<UncontrolledEditor savedReplies={replies} />)
+      await user.click(getToolbarButton(buttonLabel))
+      await user.keyboard('Thanks')
+      expect(within(getByRole('listbox')).getAllByRole('option')).toHaveLength(1)
+    })
+
     it('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
       const {getToolbarButton, getInput, user, queryByRole} = await render(
         <UncontrolledEditor savedReplies={replies} />
@@ -1091,7 +1099,7 @@ describe('MarkdownEditor', () => {
       input.setSelectionRange(10, 10)
       await user.click(getToolbarButton(buttonLabel))
 
-      await user.keyboard('{Control>}3{/Control}')
+      await user.keyboard('Thanks{Enter}')
 
       expect(queryByRole('listbox')).not.toBeInTheDocument()
       await waitFor(() => expect(getInput().value).toBe('preceding Thanks for your contribution! following'))
@@ -1132,5 +1140,35 @@ describe('MarkdownEditor', () => {
         </MarkdownEditor>
       )
     }
+  })
+
+  describe('pasting URLs', () => {
+    const typeAndPaste = async (user: UserEvent, input: HTMLTextAreaElement) => {
+      await user.type(input, 'lorem ipsum dolor sit amet')
+      input.setSelectionRange(6, 11)
+
+      // userEvent.paste() doesn't seem to fire the `paste` event that paste-markdown listens for.
+      // So we simulate it. This approach is somewhat fragile because it relies on the internals
+      // of paste-markdown not using any other properties on the event or DataTransfer instance.
+      // We can't just construct a `new DataTransfer` because that's not implemented in JSDOM.
+      fireEvent.paste(input, {clipboardData: {types: ['text/plain'], getData: () => 'https://github.com'}})
+    }
+
+    const linkifiedResult = 'lorem [ipsum](https://github.com) dolor sit amet'
+    const plainResult = 'lorem ipsum dolor sit amet' // the real-world plain text result should have "https://github.com" instead of "ipsum", but fireEvent.paste doesn't actually update the input value
+
+    it('pastes URLs onto selected text as links by default', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      const input = getInput()
+      await typeAndPaste(user, input)
+      expect(input).toHaveValue(linkifiedResult)
+    })
+
+    it('pastes URLs onto selected text as plain text when `pasteUrlsAsPlainText` enabled', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor pasteUrlsAsPlainText />)
+      const input = getInput()
+      await typeAndPaste(user, input)
+      expect(input).toHaveValue(plainResult)
+    })
   })
 })

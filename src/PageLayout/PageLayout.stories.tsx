@@ -602,6 +602,7 @@ export const CustomStickyHeader: Story = args => (
   // a box to create a sticky top element that will be on the consumer side and outside of the PageLayout component
   <Box data-testid="story-window">
     <Box
+      as="header"
       data-testid="sticky-header"
       sx={{
         position: 'sticky',
