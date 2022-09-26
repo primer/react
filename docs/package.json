@@ -23,9 +23,9 @@
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-typescript": "2.10.0",
     "prop-types": "^15.7.2",
-    "react": "^17.0.0",
+    "react": "18.2.0",
     "react-docgen-typescript": "^2.0.0",
-    "react-dom": "^17.0.0",
+    "react-dom": "18.2.0",
     "styled-system": "^5.1.0"
   },
   "devDependencies": {
