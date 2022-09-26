@@ -95,7 +95,6 @@ export const UnderlineNavItem = forwardRef(
       fontSize: 1
     }
 
-    // eslint-disable-next-line no-shadow
     const linkStyles = (theme?: Theme) => ({
       position: 'relative',
       display: 'inline-flex',

@@ -201,7 +201,6 @@ function defaultHrefBuilder(pageNum: number) {
   return `#${pageNum}`
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() {}
 
 Pagination.defaultProps = {
