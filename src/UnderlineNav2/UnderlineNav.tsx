@@ -106,6 +106,11 @@ const overflowEffect = (
       for (const [index, child] of childArray.entries()) {
         if (index < numberOfItemsPossibleWithMoreMenu) {
           items.push(child)
+          // keeping selected item always visible.
+        } else if (child.props.selected) {
+          // If selected item's index couldn't make the list, we swap it with the last item in the list.
+          const propsectiveAction = items.splice(numberOfItemsPossibleWithMoreMenu - 1, 1, child)[0]
+          actions.push(propsectiveAction)
         } else {
           actions.push(child)
         }
@@ -363,7 +368,7 @@ export const UnderlineNav = forwardRef(
               <ActionMenu>
                 <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
                 <ActionMenu.Overlay align="end">
-                  <ActionList>
+                  <ActionList selectionVariant="single">
                     {actions.map((action, index) => {
                       const {children: actionElementChildren, ...actionElementProps} = action.props
                       return (
