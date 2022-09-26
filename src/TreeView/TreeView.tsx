@@ -89,7 +89,7 @@ const Item: React.FC<TreeViewItemProps> = ({
   onToggle,
   children
 }) => {
-  const {setActiveDescendant} = React.useContext(RootContext)
+  const {activeDescendant, setActiveDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
   const labelId = useSSRSafeId()
   const itemRef = React.useRef<HTMLLIElement>(null)
@@ -182,8 +182,9 @@ const Item: React.FC<TreeViewItemProps> = ({
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
             },
-            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
-              boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
+            [`[role=tree]:focus-visible &`]: {
+              boxShadow: (theme: Theme) =>
+                activeDescendant === itemId ? `0 0 0 2px ${theme.colors.accent.emphasis}` : undefined
             },
             '[role=treeitem][aria-current=true] > &': {
               bg: 'actionListItem.default.selectedBg',
