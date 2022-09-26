@@ -86,14 +86,27 @@ description: A hierarchical list of items where nested items can be expanded and
     name="current"
     type="boolean"
     defaultValue="false"
-    description="Whether the item is the current item. No more than one item should be current at once."
+    description="Whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
   />
-  <PropsTableRow name="defaultExpanded" type="boolean" description="Whether the item is expanded by default." />
+  <PropsTableRow
+    name="defaultExpanded"
+    type="boolean"
+    description="The expanded state of the item when it is initially rendered. Use when you do not need to control the state."
+  />
+  <PropsTableRow
+    name="expanded"
+    type="boolean"
+    description="The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
+  />
+  <PropsTableRow
+    name="onExpandedChange"
+    type="(expanded: boolean) => void"
+    description="Event handler called when the expanded state of the item changes."
+  />
   <PropsTableRow
     name="onSelect"
     type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
   />
-  <PropsTableRow name="onToggle" type="(isExpanded: boolean) => void" />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
@@ -114,10 +127,24 @@ description: A hierarchical list of items where nested items can be expanded and
     }
   />
   <PropsTableRow
+    name="defaultExpanded"
+    type="boolean"
+    description="The expanded state of the item when it is initially rendered. Use when you do not need to control its state."
+  />
+  <PropsTableRow
+    name="expanded"
+    type="boolean"
+    description="The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
+  />
+  <PropsTableRow
+    name="onExpandedChange"
+    type="(expanded: boolean) => void"
+    description="Event handler called when the expanded state of the item changes."
+  />
+  <PropsTableRow
     name="onSelect"
     type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
   />
-  <PropsTableRow name="onToggle" type="(isExpanded: boolean) => void" />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
