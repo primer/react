@@ -1,9 +1,13 @@
 import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRightIcon} from '@primer/octicons-react'
+// import * as Octicons from '@primer/octicons-react'
+// import StyledOcticon from '../StyledOcticon'
 import {Meta} from '@storybook/react'
 import React, {useState, forwardRef} from 'react'
 import {Button, ButtonProps, IconButton} from '.'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
+
+const icons = {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRightIcon}
 
 export default {
   title: 'Composite components/Button',
@@ -23,6 +27,7 @@ export default {
     size: {
       control: {
         type: 'radio',
+        default: 'medium',
         options: ['small', 'medium', 'large']
       }
     },
@@ -31,11 +36,33 @@ export default {
         type: 'boolean',
         default: false
       }
+    },
+    variant: {
+      control: {
+        type: 'radio',
+        default: 'default',
+        options: ['default', 'primary', 'danger', 'invisible', 'outline']
+      }
+    },
+    trailingIcon: {
+      description: 'The displayed icon on the left',
+      control: {type: 'select', options: Object.keys(icons)},
+      table: {category: 'content'}
     }
+    // trailingIcon: {
+    //   control: {
+    //     type: 'select',
+    //     options: {
+    //       EyeClosedIcon: 'EyeClosedIcon',
+    //       EyeIcon: 'EyeIcon'
+    //     }
+    //   }
+    // }
   }
 } as Meta
 
 export const defaultButton = (args: ButtonProps) => {
+  console.log(icons)
   return <Button {...args}>Default</Button>
 }
 
@@ -63,35 +90,35 @@ export const invisibleButton = (args: ButtonProps) => {
   )
 }
 
-export const iconBeforeButton = (args: ButtonProps) => {
-  return (
-    <Button leadingIcon={SearchIcon} {...args}>
-      Before
-    </Button>
-  )
-}
+// export const iconBeforeButton = (args: ButtonProps) => {
+//   return (
+//     <Button leadingIcon={SearchIcon} {...args}>
+//       Before
+//     </Button>
+//   )
+// }
 
-export const iconButton = ({...args}: ButtonProps) => {
-  return (
-    <>
-      <Box mb={2}>
-        <IconButton icon={XIcon} aria-label="Close" {...args} />
-      </Box>
-      <Box mb={2}>
-        <IconButton icon={XIcon} aria-label="Close" {...args} variant="invisible" sx={{mt: 2}} />
-      </Box>
-      <Box mb={2}>
-        <IconButton icon={XIcon} aria-label="Close" {...args} variant="danger" />
-      </Box>
-      <Box mb={2}>
-        <IconButton icon={XIcon} aria-label="Close" {...args} variant="primary" />
-      </Box>
-      <Box mb={2}>
-        <IconButton icon={XIcon} aria-label="Close" {...args} variant="outline" />
-      </Box>
-    </>
-  )
-}
+// export const iconButton = ({...args}: ButtonProps) => {
+//   return (
+//     <>
+//       <Box mb={2}>
+//         <IconButton icon={XIcon} aria-label="Close" {...args} />
+//       </Box>
+//       <Box mb={2}>
+//         <IconButton icon={XIcon} aria-label="Close" {...args} variant="invisible" sx={{mt: 2}} />
+//       </Box>
+//       <Box mb={2}>
+//         <IconButton icon={XIcon} aria-label="Close" {...args} variant="danger" />
+//       </Box>
+//       <Box mb={2}>
+//         <IconButton icon={XIcon} aria-label="Close" {...args} variant="primary" />
+//       </Box>
+//       <Box mb={2}>
+//         <IconButton icon={XIcon} aria-label="Close" {...args} variant="outline" />
+//       </Box>
+//     </>
+//   )
+// }
 
 export const WatchCounterButton = ({...args}: ButtonProps) => {
   const [count, setCount] = useState(0)
@@ -131,23 +158,23 @@ export const WatchCounterButton = ({...args}: ButtonProps) => {
   )
 }
 
-export const WatchIconButton = ({...args}: ButtonProps) => {
-  const [watching, setWatching] = useState(false)
-  const icon = watching ? EyeClosedIcon : () => <EyeIcon />
-  return (
-    <Button onClick={() => setWatching(!watching)} trailingIcon={icon} {...args}>
-      Watch
-    </Button>
-  )
-}
+// export const WatchIconButton = ({...args}: ButtonProps) => {
+//   const [watching, setWatching] = useState(false)
+//   const icon = watching ? EyeClosedIcon : () => <EyeIcon />
+//   return (
+//     <Button onClick={() => setWatching(!watching)} trailingIcon={icon} {...args}>
+//       Watch
+//     </Button>
+//   )
+// }
 
-export const caretButton = ({...args}: ButtonProps) => {
-  return (
-    <Button trailingIcon={TriangleDownIcon} {...args}>
-      Dropdown
-    </Button>
-  )
-}
+// export const caretButton = ({...args}: ButtonProps) => {
+//   return (
+//     <Button trailingIcon={TriangleDownIcon} {...args}>
+//       Dropdown
+//     </Button>
+//   )
+// }
 
 export const blockButton = ({...args}: ButtonProps) => {
   return (
@@ -192,9 +219,9 @@ export const DisabledButton = ({...args}: ButtonProps) => {
           Disabled
         </Button>
       </Box>
-      <Box mb={2}>
+      {/* <Box mb={2}>
         <IconButton disabled icon={() => <XIcon />} aria-label="Close" {...args} />
-      </Box>
+      </Box> */}
     </>
   )
 }
@@ -235,16 +262,16 @@ export const linkButton = ({...args}: ButtonProps) => {
           Link to Primer
         </Button>
       </Box>
-      <Box mb={2} display="flex">
+      {/* <Box mb={2} display="flex">
         <Button as="a" href="https://primer.style/" variant="primary" trailingIcon={TriangleRightIcon} {...args}>
           Link to Primer
         </Button>
-      </Box>
-      <Box mb={2} display="flex">
+      </Box> */}
+      {/* <Box mb={2} display="flex">
         <Button to="/dummy" as={ReactRouterLikeLink} variant="primary" trailingIcon={TriangleRightIcon} {...args}>
           Link to Primer
         </Button>
-      </Box>
+      </Box> */}
     </>
   )
 }
