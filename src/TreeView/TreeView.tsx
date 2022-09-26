@@ -182,10 +182,14 @@ const Item: React.FC<TreeViewItemProps> = ({
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
             },
-            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
+            // WARNING: styled-components v5.2 introduced a bug that changed
+            // how it expands `&` in CSS selectors. The following selectors
+            // are unnecessarily specific to work around that styled-components bug.
+            // Reference issue: https://github.com/styled-components/styled-components/issues/3265
+            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible #${itemId} > &:is(div)`]: {
               boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
             },
-            '[role=treeitem][aria-current=true] > &': {
+            '[role=treeitem][aria-current=true] > &:is(div)': {
               bg: 'actionListItem.default.selectedBg',
               '&::after': {
                 position: 'absolute',
