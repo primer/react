@@ -126,6 +126,12 @@ description: A hierarchical list of items where nested items can be expanded and
       </>
     }
   />
+  <PropsTable
+    name="current"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
+  />
   <PropsTableRow
     name="defaultExpanded"
     type="boolean"
