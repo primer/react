@@ -22,11 +22,10 @@ const RootContext = React.createContext<{
 const ItemContext = React.createContext<{
   level: number
   isExpanded: boolean
-  setIsExpanded: (isExpanded: boolean) => void
+  setContainsCurrentItem?: React.Dispatch<React.SetStateAction<boolean>>
 }>({
   level: 1,
-  isExpanded: false,
-  setIsExpanded: () => {}
+  isExpanded: false
 })
 
 // ----------------------------------------------------------------------------
@@ -87,7 +86,7 @@ export type TreeViewItemProps = {
 }
 
 const Item: React.FC<TreeViewItemProps> = ({
-  current: isCurrent = false,
+  current: isCurrentItem = false,
   defaultExpanded = false,
   expanded,
   onExpandedChange,
@@ -104,19 +103,20 @@ const Item: React.FC<TreeViewItemProps> = ({
     value: expanded,
     onChange: onExpandedChange
   })
-  const {level, setIsExpanded: setIsParentExpanded} = React.useContext(ItemContext)
+  const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
+  const {level, setContainsCurrentItem: setParentContainsCurrent} = React.useContext(ItemContext)
   const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
   // Create stable function references
   const setIsExpandedRef = React.useRef(setIsExpanded)
-  const setIsParentExpandedRef = React.useRef(setIsParentExpanded)
+  const setParentContainsCurrentRef = React.useRef(setParentContainsCurrent)
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     setIsExpandedRef.current = setIsExpanded
   })
 
-  React.useEffect(() => {
-    setIsParentExpandedRef.current = setIsParentExpanded
+  React.useLayoutEffect(() => {
+    setParentContainsCurrentRef.current = setParentContainsCurrent
   })
 
   // Expand or collapse the subtree
@@ -128,13 +128,14 @@ const Item: React.FC<TreeViewItemProps> = ({
     [isExpanded]
   )
 
-  // Expand item and its parent if it is the current item
+  // If this item is the current item, expand it
+  // then notify the parent that it contains the current item
   React.useLayoutEffect(() => {
-    if (isCurrent) {
+    if (isCurrentItem || containsCurrentItem) {
       setIsExpandedRef.current(true)
-      setIsParentExpandedRef.current(true)
+      setParentContainsCurrentRef.current?.(true)
     }
-  }, [isCurrent])
+  }, [isCurrentItem, containsCurrentItem])
 
   React.useEffect(() => {
     const element = itemRef.current
@@ -171,7 +172,7 @@ const Item: React.FC<TreeViewItemProps> = ({
   }, [toggle, onSelect, isExpanded])
 
   return (
-    <ItemContext.Provider value={{level: level + 1, isExpanded, setIsExpanded: setIsExpandedRef.current}}>
+    <ItemContext.Provider value={{level: level + 1, isExpanded, setContainsCurrentItem}}>
       <li
         id={itemId}
         ref={itemRef}
@@ -179,7 +180,7 @@ const Item: React.FC<TreeViewItemProps> = ({
         aria-labelledby={labelId}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
-        aria-current={isCurrent ? 'true' : undefined}
+        aria-current={isCurrentItem ? 'true' : undefined}
       >
         <Box
           onClick={event => {
