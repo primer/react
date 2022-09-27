@@ -1,5 +1,4 @@
 import React, {forwardRef, useImperativeHandle, useRef} from 'react'
-import '@github/markdown-toolbar-element'
 
 export type FormattingTools = {
   header: () => void
