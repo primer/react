@@ -30,7 +30,8 @@ const meta: Meta = {
         'Hide Label',
         'Required',
         'Enable File Uploads',
-        'Enable Saved Replies'
+        'Enable Saved Replies',
+        'Enable Plain-Text URL Pasting'
       ]
     }
   },
@@ -52,6 +53,13 @@ const meta: Meta = {
     },
     monospace: {
       name: 'Monospace Font',
+      defaultValue: false,
+      control: {
+        type: 'boolean'
+      }
+    },
+    pasteUrlsAsPlainText: {
+      name: 'Enable Plain-Text URL Pasting',
       defaultValue: false,
       control: {
         type: 'boolean'
@@ -122,6 +130,7 @@ type ArgProps = {
   required: boolean
   fileUploadsEnabled: boolean
   savedRepliesEnabled: boolean
+  pasteUrlsAsPlainText: boolean
   onSubmit: () => void
   onDiffClick: () => void
 }
@@ -200,7 +209,8 @@ export const Default = ({
   required,
   fileUploadsEnabled,
   onSubmit,
-  savedRepliesEnabled
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -223,6 +233,7 @@ export const Default = ({
         referenceSuggestions={references}
         savedReplies={savedRepliesEnabled ? savedReplies : undefined}
         required={required}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
       >
         <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
       </MarkdownEditor>
@@ -242,7 +253,8 @@ export const CustomButtons = ({
   fileUploadsEnabled,
   onSubmit,
   onDiffClick,
-  savedRepliesEnabled
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -265,6 +277,7 @@ export const CustomButtons = ({
         referenceSuggestions={references}
         required={required}
         savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
       >
         <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
 
