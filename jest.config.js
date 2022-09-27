@@ -4,7 +4,6 @@ module.exports = {
   cacheDirectory: '.test',
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
   setupFilesAfterEnv: [
-    '<rootDir>/script/jest/setupFilesAfterEnv.ts',
     '<rootDir>/src/utils/test-matchers.tsx',
     '<rootDir>/src/utils/test-deprecations.tsx',
     '<rootDir>/src/utils/test-helpers.tsx'
