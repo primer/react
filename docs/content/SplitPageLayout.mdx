@@ -253,7 +253,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
     <SplitPageLayout.Content>
       <Placeholder label="Content" height={320} />
     </SplitPageLayout.Content>
-    <SplitPageLayout.Pane stickyTop={64}>
+    <SplitPageLayout.Pane sticky offsetHeader={64}>
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Footer>
@@ -383,10 +383,10 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
     description="Whether the pane should stick to the top of the screen while the content scrolls."
   />
   <PropsTableRow
-    name="stickyTop"
+    name="offsetHeader"
     type="number | string"
     defaultValue="0"
-    description="Use stickyTop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px."
+    description="Use offsetHeader along with the sticky prop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px."
   />
   <PropsTableRow
     name="padding"

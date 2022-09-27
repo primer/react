@@ -2,6 +2,7 @@
 componentId: action_menu
 title: ActionMenu
 status: Beta
+a11yReviewed: true
 source: https://github.com/primer/react/tree/main/src/ActionMenu.tsx
 storybook: '/react/storybook?path=/story/composite-components-actionmenu'
 description: An ActionMenu is an ActionList-based component for creating a menu of actions that expands through a trigger button.
@@ -342,7 +343,7 @@ render(
 ### ActionMenu.Overlay
 
 <PropsTable>
-  <PropsTableRow name="children" required type="React.ReactElement | React.ReactElement[]" />
+  <PropsTableRow name="children" required type="React.ReactNode" />
   <PropsTableRow name="align" type="start | center | end" defaultValue="start" />
   <PropsTablePassthroughPropsRow
     elementName="Overlay"

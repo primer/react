@@ -19,7 +19,7 @@ The `MarkdownViewer` displays rendered Markdown with appropriate styling and han
 const MarkdownViewerExample = () => {
   return (
     // eslint-disable-next-line github/unescaped-html-literal
-    <MarkdownViewer dangerousRenderedHtml={{__html: '<strong>Lorem ipsum</strong> dolor sit amet.'}} />
+    <MarkdownViewer dangerousRenderedHTML={{__html: '<strong>Lorem ipsum</strong> dolor sit amet.'}} />
   )
 }
 
@@ -33,7 +33,7 @@ const MarkdownViewerExample = () => {
   return (
     <MarkdownViewer
       // eslint-disable-next-line github/unescaped-html-literal
-      dangerousRenderedHtml={{__html: "<a href='https://example.com'>Example link</a>"}}
+      dangerousRenderedHTML={{__html: "<a href='https://example.com'>Example link</a>"}}
       onLinkClick={ev => console.log(ev)}
     />
   )
@@ -64,7 +64,7 @@ const renderedHtml = `
 const MarkdownViewerExample = () => {
   return (
     <MarkdownViewer
-      dangerousRenderedHtml={{__html: renderedHtml}}
+      dangerousRenderedHTML={{__html: renderedHtml}}
       markdownValue={markdownSource}
       onChange={value => console.log(value) /* save the value to the server */}
       disabled={false}

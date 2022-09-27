@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, fireEvent, cleanup, waitFor} from '@testing-library/react'
+import {render, fireEvent, waitFor} from '@testing-library/react'
 import {useMenuInitialFocus} from '../../hooks'
 
 const Component = () => {
@@ -29,8 +29,6 @@ const Component = () => {
 }
 
 describe('useMenuInitialFocus', () => {
-  afterEach(cleanup)
-
   it('should focus first element when opened with Enter', async () => {
     const {getByText} = render(<Component />)
     const button = getByText('open container')

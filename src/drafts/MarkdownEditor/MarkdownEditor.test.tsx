@@ -1,7 +1,8 @@
 import {DiffAddedIcon} from '@primer/octicons-react'
 import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {forwardRef, useLayoutEffect, useState} from 'react'
+import {UserEvent} from '@testing-library/user-event/dist/types/setup'
+import React, {forwardRef, useLayoutEffect, useRef, useState} from 'react'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
@@ -229,6 +230,22 @@ describe('MarkdownEditor', () => {
   it('sets the textarea name when provided', async () => {
     const {getInput} = await render(<UncontrolledEditor name="Name" />)
     expect(getInput()).toHaveAttribute('name', 'Name')
+  })
+
+  describe('toggles between view modes on ctrl/cmd+shift+P', () => {
+    const shortcut = '{Control>}{Shift>}{P}{/Control}{/Shift}'
+
+    it('enters preview mode when editing', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      await user.type(getInput(), shortcut)
+    })
+
+    it('enters edit mode when previewing', async () => {
+      const {getInput, user, getViewSwitch} = await render(<UncontrolledEditor />)
+      await user.click(getViewSwitch())
+      await user.keyboard(shortcut)
+      expect(getInput()).toHaveFocus()
+    })
   })
 
   describe('action buttons', () => {
@@ -1102,6 +1119,56 @@ describe('MarkdownEditor', () => {
         expect(getInput().value).toBe('Welcome to the project!\n\nPlease be sure to read the contributor guidelines.')
       )
       expect(getInput()).toHaveFocus()
+    })
+  })
+
+  it('uses types to prevent assigning HTMLTextAreaElement ref to MarkdownEditor', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const Element = () => {
+      const inputRef = useRef<HTMLTextAreaElement>(null)
+      return (
+        <MarkdownEditor
+          // @ts-expect-error Ref<HTMLTextAreaElement> should not be assignable to Ref<MarkdownEditorHandle>
+          ref={inputRef}
+          value=""
+          onChange={() => {
+            /*noop*/
+          }}
+          onRenderPreview={async () => 'preview'}
+        >
+          <MarkdownEditor.Label>Test</MarkdownEditor.Label>
+        </MarkdownEditor>
+      )
+    }
+  })
+
+  describe('pasting URLs', () => {
+    const typeAndPaste = async (user: UserEvent, input: HTMLTextAreaElement) => {
+      await user.type(input, 'lorem ipsum dolor sit amet')
+      input.setSelectionRange(6, 11)
+
+      // userEvent.paste() doesn't seem to fire the `paste` event that paste-markdown listens for.
+      // So we simulate it. This approach is somewhat fragile because it relies on the internals
+      // of paste-markdown not using any other properties on the event or DataTransfer instance.
+      // We can't just construct a `new DataTransfer` because that's not implemented in JSDOM.
+      fireEvent.paste(input, {clipboardData: {types: ['text/plain'], getData: () => 'https://github.com'}})
+    }
+
+    const linkifiedResult = 'lorem [ipsum](https://github.com) dolor sit amet'
+    const plainResult = 'lorem ipsum dolor sit amet' // the real-world plain text result should have "https://github.com" instead of "ipsum", but fireEvent.paste doesn't actually update the input value
+
+    it('pastes URLs onto selected text as links by default', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      const input = getInput()
+      await typeAndPaste(user, input)
+      expect(input).toHaveValue(linkifiedResult)
+    })
+
+    it('pastes URLs onto selected text as plain text when `pasteUrlsAsPlainText` enabled', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor pasteUrlsAsPlainText />)
+      const input = getInput()
+      await typeAndPaste(user, input)
+      expect(input).toHaveValue(plainResult)
     })
   })
 })

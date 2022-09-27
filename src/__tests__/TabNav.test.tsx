@@ -1,10 +1,9 @@
 import React from 'react'
 import {TabNav} from '..'
 import {mount, behavesAsComponent, checkExports} from '../utils/testing'
-import {fireEvent, render as HTMLRender, cleanup} from '@testing-library/react'
+import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {Button} from '../Button'
 import Box from '../Box'
 expect.extend(toHaveNoViolations)
@@ -18,6 +17,7 @@ describe('TabNav', () => {
         </TabNav.Link>
         <TabNav.Link id="middle" href="#" selected>
           Middle
+          <a href="https://example.com">Focuseable Link</a>
         </TabNav.Link>
         <TabNav.Link id="last" href="#">
           Last
@@ -41,7 +41,6 @@ describe('TabNav', () => {
     const {container} = HTMLRender(<TabNav aria-label="main" />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 
   it('sets aria-label appropriately', () => {
@@ -104,10 +103,14 @@ describe('TabNav', () => {
     const user = userEvent.setup()
     const {getByText, getByRole} = HTMLRender(tabNavMarkup)
     const middleTab = getByText('Middle')
+    const link = getByText('Focuseable Link')
     const button = getByRole('button')
 
     await user.click(middleTab)
     expect(middleTab).toHaveFocus()
+    await user.tab()
+
+    expect(link).toHaveFocus()
     await user.tab()
 
     expect(button).toHaveFocus()
