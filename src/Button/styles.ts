@@ -1,4 +1,4 @@
-import {VariantType} from './types'
+import {VariantType, AlignContent} from './types'
 import {Theme} from '../ThemeProvider'
 
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
@@ -170,43 +170,43 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
   return style[variant]
 }
 
-/* The button heights have to amount to 
+/* The button heights have to amount to
   small - 28
   medium - 32
   large - 34
   In icon these have to be square.
 */
 export const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
-  let paddingY, paddingX, fontSize
+  let paddingY, paddingX, fontSize, height
   switch (size) {
     case 'small':
-      paddingY = 3
-      paddingX = 12
+      height = 28
+      paddingX = 8
       fontSize = 0
       break
     case 'large':
-      paddingY = 9
+      height = 40
       paddingX = 20
-      fontSize = 2
+      fontSize = 1
       break
     case 'medium':
     default:
-      paddingY = 5
+      height = 32
       paddingX = 16
       fontSize = 1
   }
-  if (iconOnly) {
-    // when `size !== 'medium'`, vertical alignment of the icon is thrown off
-    // because changing the font size draws an em-box that does not match the
-    // bounding box of the SVG
-    fontSize = 1
-    paddingX = paddingY + 3 // to make it a square
-  }
-  if (variant === 'invisible') {
-    paddingY = paddingY + 1 // to make up for absence of border
-  }
+  // if (iconOnly) {
+  //   // when `size !== 'medium'`, vertical alignment of the icon is thrown off
+  //   // because changing the font size draws an em-box that does not match the
+  //   // bounding box of the SVG
+  //   fontSize = 1
+  //   paddingX = paddingY + 3 // to make it a square
+  // }
+  // if (variant === 'invisible') {
+  //   paddingY = paddingY + 1 // to make up for absence of border
+  // }
   return {
-    paddingY: `${paddingY}px`,
+    height: `${height}px`,
     paddingX: `${paddingX}px`,
     fontSize,
     '[data-component=ButtonCounter]': {
@@ -229,6 +229,10 @@ export const getBaseStyles = (theme?: Theme) => ({
   userSelect: 'none',
   textDecoration: 'none',
   textAlign: 'center',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: 2,
   '&:disabled': {
     cursor: 'default'
   },
@@ -246,10 +250,8 @@ export const getBaseStyles = (theme?: Theme) => ({
 export const getButtonStyles = (theme?: Theme) => {
   const styles = {
     ...getBaseStyles(theme),
-    display: 'grid',
-    gridTemplateAreas: '"leadingIcon text trailingIcon"',
-    '& > :not(:last-child)': {
-      mr: '2'
+    '&[data-component="block"]': {
+      width: '100%'
     },
     '[data-component="leadingIcon"]': {
       gridArea: 'leadingIcon'
@@ -259,7 +261,31 @@ export const getButtonStyles = (theme?: Theme) => {
     },
     '[data-component="trailingIcon"]': {
       gridArea: 'trailingIcon'
+    },
+    '& > [data-component="buttonContent"]': {
+      flex: '1 0 auto',
+      display: 'grid',
+      gridTemplateAreas: '"leadingIcon text trailingIcon"',
+      gridTemplateColumns: 'min-content minmax(0, auto) min-content',
+      alignItems: 'center',
+      alignContent: 'center'
+    },
+    '& > [data-component="buttonContent"] & > :not(:last-child)': {
+      mr: '2'
     }
   }
   return styles
+}
+
+export const getAlignContentSize = (alignContent: AlignContent = 'center') => {
+  const style = {
+    center: {
+      justifyContent: 'space-between',
+      backgroundColor: 'pink'
+    },
+    start: {
+      justifyContent: 'flex-start'
+    }
+  }
+  return style[alignContent]
 }

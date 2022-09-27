@@ -13,6 +13,8 @@ export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outl
 
 export type Size = 'small' | 'medium' | 'large'
 
+export type AlignContent = 'start' | 'center'
+
 /**
  * Remove styled-components polymorphic as prop, which conflicts with radix's
  */
@@ -33,6 +35,10 @@ export type ButtonBaseProps = {
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
   disabled?: boolean
+  /**
+   * Allow button width to fill its container.
+   */
+  block?: boolean
 } & SxProp &
   HTMLAttributes<HTMLButtonElement> &
   StyledButtonProps
@@ -41,11 +47,19 @@ export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
+  alignContent?: AlignContent
+  /**
+   * The leading icon comes before button content
+   */
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /**
    * The trailing icon comes after button content
    */
   trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  /**
+   * Trailing action appears to the right of the trailing visual and is always locked to the end
+   */
+  trailingAction?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   children: React.ReactNode
 } & ButtonBaseProps
 

@@ -27,43 +27,53 @@ export default {
     size: {
       control: {
         type: 'radio',
-        default: 'medium',
         options: ['small', 'medium', 'large']
       }
     },
     disabled: {
       control: {
-        type: 'boolean',
-        default: false
+        type: 'boolean'
       }
     },
     variant: {
       control: {
         type: 'radio',
-        default: 'default',
         options: ['default', 'primary', 'danger', 'invisible', 'outline']
       }
     },
-    trailingIcon: {
-      description: 'The displayed icon on the left',
-      control: {type: 'select', options: Object.keys(icons)},
-      table: {category: 'content'}
+    alignContent: {
+      control: {
+        type: 'radio',
+        options: ['center', 'start']
+      }
+    },
+    block: {
+      control: {
+        type: 'boolean'
+      }
     }
     // trailingIcon: {
+    //   description: 'The displayed icon on the left',
     //   control: {
     //     type: 'select',
-    //     options: {
-    //       EyeClosedIcon: 'EyeClosedIcon',
-    //       EyeIcon: 'EyeIcon'
-    //     }
-    //   }
+    //     options: Object.keys(icons)
+    //   },
+    //   mapping: icons,
+    //   table: {category: 'content'}
     // }
+  },
+  args: {
+    block: false
   }
 } as Meta
 
 export const defaultButton = (args: ButtonProps) => {
-  console.log(icons)
-  return <Button {...args}>Default</Button>
+  // console.log(icons)
+  return (
+    <Button {...args} trailingAction={TriangleDownIcon}>
+      Default
+    </Button>
+  )
 }
 
 export const primaryButton = (args: ButtonProps) => {
