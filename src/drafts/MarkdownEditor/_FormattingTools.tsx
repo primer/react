@@ -49,7 +49,8 @@ export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>
   }))
 
   useEffect(() => {
-    ;(async function () {
+    // eslint-disable-next-line prettier/prettier
+    (async function () {
       await import('@github/markdown-toolbar-element')
     })()
   })
