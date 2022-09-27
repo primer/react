@@ -5,11 +5,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-interactions',
     {name: '@storybook/addon-essentials', options: {backgrounds: false}},
-    'storybook-addon-performance/register',
-    {name: 'storybook-addon-turbo-build', options: {optimizationLevel: 2}},
-    ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
-      ? ['@whitespace/storybook-addon-html']
-      : [])
+    {name: 'storybook-addon-turbo-build', options: {optimizationLevel: 2}}
   ],
   babel: options => {
     options.plugins.push(['open-source', {editor: process.env.NODE_ENV === 'production' ? 'github' : 'vscode'}])
