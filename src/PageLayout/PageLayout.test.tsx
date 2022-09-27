@@ -156,4 +156,20 @@ describe('PageLayout', () => {
     expect(screen.getByRole('main')).toHaveAccessibleName('content')
     expect(screen.getByRole('contentinfo')).toHaveAccessibleName('footer')
   })
+
+  describe('PageLayout.Pane', () => {
+    it('should support a ref on the element wrapping the contents of Pane', () => {
+      const ref = jest.fn()
+      render(
+        <ThemeProvider>
+          <PageLayout>
+            <PageLayout.Pane ref={ref}>
+              <div data-testid="content">Pane</div>
+            </PageLayout.Pane>
+          </PageLayout>
+        </ThemeProvider>
+      )
+      expect(ref).toHaveBeenCalledWith(screen.getByTestId('content').parentNode)
+    })
+  })
 })

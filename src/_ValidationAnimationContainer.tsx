@@ -1,6 +1,6 @@
 import React, {HTMLProps, useEffect, useState} from 'react'
 import styled, {keyframes, css} from 'styled-components'
-import {Box} from '.'
+import Box from './Box'
 
 interface Props extends HTMLProps<HTMLDivElement> {
   show?: boolean

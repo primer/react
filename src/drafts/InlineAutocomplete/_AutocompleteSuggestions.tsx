@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react'
-import {Spinner} from '../..'
+import Spinner from '../../Spinner'
 import {ActionList, ActionListItemProps} from '../../ActionList'
 import Box from '../../Box'
 import {ComboboxCommitEvent, useCombobox} from '../hooks/useCombobox'

@@ -5,94 +5,13 @@ import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'
 import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
-import createSlots from '../utils/create-slots'
-import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {ActionListGroupProps, GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
-
-export const getVariantStyles = (
-  variant: ActionListItemProps['variant'],
-  disabled: ActionListItemProps['disabled']
-) => {
-  if (disabled) {
-    return {
-      color: 'primer.fg.disabled',
-      iconColor: 'primer.fg.disabled',
-      annotationColor: 'primer.fg.disabled'
-    }
-  }
-
-  switch (variant) {
-    case 'danger':
-      return {
-        color: 'danger.fg',
-        iconColor: 'danger.fg',
-        annotationColor: 'fg.muted',
-        hoverColor: 'actionListItem.danger.hoverText'
-      }
-    default:
-      return {
-        color: 'fg.default',
-        iconColor: 'fg.muted',
-        annotationColor: 'fg.muted',
-        hoverColor: 'fg.default'
-      }
-  }
-}
-
-export type ActionListItemProps = {
-  /**
-   * Primary content for an Item
-   */
-  children?: React.ReactNode
-  /**
-   * Callback that will trigger both on click selection and keyboard selection.
-   */
-  onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
-  /**
-   * Is the `Item` is currently selected?
-   */
-  selected?: boolean
-  /**
-   * Indicate whether the item is active. There should never be more than one active item.
-   */
-  active?: boolean
-  /**
-   * Style variations associated with various `Item` types.
-   *
-   * - `"default"` - An action `Item`.
-   * - `"danger"` - A destructive action `Item`.
-   */
-  variant?: 'default' | 'danger'
-  /**
-   * Items that are disabled can not be clicked, selected, or navigated through.
-   */
-  disabled?: boolean
-  /**
-   * The ARIA role describing the function of `Item` component. `option` is a common value.
-   */
-  role?: AriaRole
-  /**
-   * id to attach to the root element of the Item
-   */
-  id?: string
-  /**
-   * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
-   */
-  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<unknown>>
-} & SxProp
-
-const {Slots, Slot} = createSlots(['LeadingVisual', 'InlineDescription', 'BlockDescription', 'TrailingVisual'])
-export {Slot}
-export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
-  inlineDescriptionId: string
-  blockDescriptionId: string
-}
+import {ActionListItemProps, Slots, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 
 const LiBox = styled.li<SxProp>(sx)
-export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
