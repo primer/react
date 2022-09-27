@@ -169,18 +169,23 @@ const Item: React.FC<TreeViewItemProps> = ({
             }
           }}
           sx={{
+            '--toggle-width': '1rem', // 16px
             position: 'relative',
             display: 'grid',
-            gridTemplateColumns: `calc(${level - 1} * 8px) 16px 1fr`,
+            gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
             gridTemplateAreas: `"spacer toggle content"`,
             width: '100%',
-            height: 32,
+            height: '2rem', // 32px
             fontSize: 1,
             color: 'fg.default',
             borderRadius: 2,
             cursor: 'pointer',
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
+            },
+            '@media (pointer: coarse)': {
+              '--toggle-width': '1.5rem', // 24px
+              height: '2.75rem' // 44px
             },
             // WARNING: styled-components v5.2 introduced a bug that changed
             // how it expands `&` in CSS selectors. The following selectors
