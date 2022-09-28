@@ -186,6 +186,39 @@ If you are doing server-side rendering, pass the `preventSSRMismatch` prop to en
 </ThemeProvider>
 ```
 
+### `script` prop
+
+A `<script>` tag is rendered when `preventSSRMismatch` is set in order to save the theme during server-side rendering. On the client, the data in this tag is then read in order to determine the theme.
+
+By default, the contents of this script are set using `dangerouslySetInnerHTML`.
+This is due to the fact that `<script>` tags are often sanitized during
+server-side rendering by common frameworks or practices. However, you can use the `script` prop to customize how this gets rendered in
+the document and prevent the use of `dangerouslySetInnerHTML`.
+
+For example, Next.js offers a custom `Script` component that can be used
+alongside the `script` prop to directly integrate into the framework:
+
+```jsx
+// _app.tsx
+import {ThemeProvider, BaseStyles, ThemeScriptProps} from '@primer/react'
+import Script from 'next/script'
+import React from 'react'
+
+function ThemeScript(props: ThemeScriptProps) {
+  return <Script {...props} strategy="beforeInteractive" />
+}
+
+export default function App({Component, pageProps}) {
+  return (
+    <ThemeProvider preventSSRMismatch script={ThemeScript}>
+      <BaseStyles>
+        <Component {...pageProps} />
+      </BaseStyles>
+    </ThemeProvider>
+  )
+}
+```
+
 ### Setting color schemes
 
 To choose which color schemes will be displayed in `day` and `night` mode, use the `dayScheme` and `nightScheme` props on `ThemeProvider` or the `setDayScheme` and `setNightScheme` functions from the `useTheme` hook:
