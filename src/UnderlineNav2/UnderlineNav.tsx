@@ -193,8 +193,6 @@ export const UnderlineNav = forwardRef(
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
 
-      // This is to prevent calling the overflowEffect function again when the responsiveProps is being updated.
-      setIsSwapping(true)
       callback(
         {items: updatedItemList, actions: updatedMenuItems, overflowStyles: responsiveProps.overflowStyles},
         false
@@ -214,8 +212,6 @@ export const UnderlineNav = forwardRef(
       }
       return breakpoint
     }
-
-    const [isSwapping, setIsSwapping] = useState(false)
 
     const isCoarsePointer = useMedia('(pointer: coarse)')
 
@@ -280,39 +276,22 @@ export const UnderlineNav = forwardRef(
       })
     }, [])
 
-    // resizeObserver calls this function infinitely without a useCallback
-    const resizeObserverCallback = useCallback(
-      (resizeObserverEntries: ResizeObserverEntry[]) => {
-        const childArray = getValidChildren(children)
-        const navWidth = resizeObserverEntries[0].contentRect.width
-        const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+    useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
+      const childArray = getValidChildren(children)
+      const navWidth = resizeObserverEntries[0].contentRect.width
+      const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
 
-        if (!isSwapping) {
-          overflowEffect(
-            navWidth,
-            moreMenuWidth,
-            childArray,
-            childWidthArray,
-            noIconChildWidthArray,
-            isCoarsePointer,
-            updateListAndMenu
-          )
-        }
-        handleArrowBtnsVisibility(listRef, updateOffsetValues)
-      },
-      [
-        updateListAndMenu,
-        updateOffsetValues,
+      overflowEffect(
+        navWidth,
+        moreMenuWidth,
+        childArray,
         childWidthArray,
         noIconChildWidthArray,
-        children,
         isCoarsePointer,
-        moreMenuRef,
-        isSwapping
-      ]
-    )
-
-    useResizeObserver(resizeObserverCallback, navRef as RefObject<HTMLElement>)
+        updateListAndMenu
+      )
+      handleArrowBtnsVisibility(listRef, updateOffsetValues)
+    }, navRef as RefObject<HTMLElement>)
 
     useEffect(() => {
       const listEl = listRef.current
