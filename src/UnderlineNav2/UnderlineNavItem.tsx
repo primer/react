@@ -1,11 +1,12 @@
 import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
-import {merge, SxProp, BetterSystemStyleObject} from '../sx'
+import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
-import {Theme, useTheme} from '../ThemeProvider'
+import {useTheme} from '../ThemeProvider'
+import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -36,7 +37,7 @@ export type UnderlineNavItemProps = {
   /**
    *  Icon before the text
    */
-  leadingIcon?: React.FunctionComponent<IconProps>
+  icon?: React.FunctionComponent<IconProps>
   as?: React.ElementType
   /**
    * Counter
@@ -55,97 +56,37 @@ export const UnderlineNavItem = forwardRef(
       counter,
       onSelect,
       selected: preSelected = false,
-      leadingIcon: LeadingIcon,
+      icon: Icon,
       ...props
     },
     forwardedRef
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const ref = forwardedRef ?? backupRef
-    const {setChildrenWidth, selectedLink, setSelectedLink, afterSelect, variant} = useContext(UnderlineNavContext)
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
+    const {
+      setChildrenWidth,
+      setNoIconChildrenWidth,
+      selectedLink,
+      setSelectedLink,
+      afterSelect,
+      variant,
+      iconsVisible
+    } = useContext(UnderlineNavContext)
     const {theme} = useTheme()
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+      // might want to select this better
+      const icon = (ref as MutableRefObject<HTMLElement>).current.children[0].children[0]
+      const iconWidthWithMargin =
+        icon.getBoundingClientRect().width +
+        Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
+        Number(getComputedStyle(icon).marginLeft.slice(0, -2))
+
       setChildrenWidth({width: domRect.width})
+      setNoIconChildrenWidth({width: domRect.width - iconWidthWithMargin})
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
-    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
+    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth, setNoIconChildrenWidth])
 
-    const iconWrapStyles = {
-      alignItems: 'center',
-      display: 'inline-flex',
-      marginRight: 2
-    }
-
-    const textStyles: BetterSystemStyleObject = {
-      whiteSpace: 'nowrap'
-    }
-
-    const wrapperStyles = {
-      display: 'inline-flex',
-      paddingY: 1,
-      paddingX: 2,
-      borderRadius: 2
-    }
-    const smallVariantLinkStyles = {
-      paddingY: 1,
-      fontSize: 0
-    }
-    const defaultVariantLinkStyles = {
-      paddingY: 2,
-      fontSize: 1
-    }
-
-    // eslint-disable-next-line no-shadow
-    const linkStyles = (theme?: Theme) => ({
-      position: 'relative',
-      display: 'inline-flex',
-      color: 'fg.default',
-      textAlign: 'center',
-      textDecoration: 'none',
-      paddingX: 1,
-      ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
-      '&:hover > div[data-component="wrapper"] ': {
-        backgroundColor: theme?.colors.neutral.muted,
-        transition: 'background .12s ease-out'
-      },
-      '&:focus': {
-        outline: 0,
-        '& > div[data-component="wrapper"]': {
-          boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
-        },
-        // where focus-visible is supported, remove the focus box-shadow
-        '&:not(:focus-visible) > div[data-component="wrapper"]': {
-          boxShadow: 'none'
-        }
-      },
-      '&:focus-visible > div[data-component="wrapper"]': {
-        boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
-      },
-      // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
-      '& span[data-content]::before': {
-        content: 'attr(data-content)',
-        display: 'block',
-        height: 0,
-        fontWeight: '600',
-        visibility: 'hidden'
-      },
-      // selected state styles
-      '&::after': {
-        position: 'absolute',
-        right: '50%',
-        bottom: 0,
-        width: `calc(100% - 8px)`,
-        height: 2,
-        content: '""',
-        bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
-        borderRadius: 0,
-        transform: 'translate(50%, -50%)'
-      }
-    })
-
-    const counterStyles = {
-      marginLeft: 2
-    }
     const keyPressHandler = React.useCallback(
       event => {
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
@@ -157,7 +98,6 @@ export const UnderlineNavItem = forwardRef(
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
-
     const clickHandler = React.useCallback(
       event => {
         if (!event.defaultPrevented) {
@@ -177,14 +117,14 @@ export const UnderlineNavItem = forwardRef(
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
           {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
-          sx={merge(linkStyles(theme), sxProp as SxProp)}
+          sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
         >
           <Box as="div" data-component="wrapper" sx={wrapperStyles}>
-            {LeadingIcon && (
-              <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
-                <LeadingIcon />
+            {iconsVisible && Icon && (
+              <Box as="span" data-component="icon" sx={iconWrapStyles}>
+                <Icon />
               </Box>
             )}
             {children && (
@@ -192,7 +132,7 @@ export const UnderlineNavItem = forwardRef(
                 as="span"
                 data-component="text"
                 data-content={children}
-                sx={selectedLink === ref ? {fontWeight: 600, ...{textStyles}} : {textStyles}}
+                sx={selectedLink === ref ? {fontWeight: 600} : {}}
               >
                 {children}
               </Box>
