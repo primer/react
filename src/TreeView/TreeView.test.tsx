@@ -794,4 +794,150 @@ describe('Keyboard interactions', () => {
       expect(onSelect).toHaveBeenCalledTimes(1)
     })
   })
+
+  describe('Typeahead', () => {
+    it('moves aria-activedescendant to the next item that matches the typed character', () => {
+      const {getByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>
+            Apple
+            <TreeView.SubTree>
+              <TreeView.Item>Cantalope</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item>Banana</TreeView.Item>
+          <TreeView.Item>Cherry</TreeView.Item>
+          <TreeView.Item>Cucumber</TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const apple = getByRole('treeitem', {name: 'Apple'})
+      const cherry = getByRole('treeitem', {name: 'Cherry'})
+
+      // Focus tree
+      root.focus()
+
+      // aria-activedescendant should be set to apple
+      expect(root).toHaveAttribute('aria-activedescendant', apple.id)
+
+      // Press C
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+
+      // aria-activedescendant should now be set to cherry
+      expect(root).toHaveAttribute('aria-activedescendant', cherry.id)
+
+      // Notice that the aria-activedescendant is not set to cantalope because
+      // it is a child of apple and apple is collapsed.
+    })
+
+    it('does nothing if no items match the typed character', () => {
+      const {getByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>Apple</TreeView.Item>
+          <TreeView.Item>Banana</TreeView.Item>
+          <TreeView.Item>Cherry</TreeView.Item>
+          <TreeView.Item>Durian</TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const apple = getByRole('treeitem', {name: 'Apple'})
+
+      // Focus tree
+      root.focus()
+
+      // aria-activedescendant should be set to apple
+      expect(root).toHaveAttribute('aria-activedescendant', apple.id)
+
+      // Press Z
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'z'})
+
+      // aria-activedescendant should still be set to apple
+      expect(root).toHaveAttribute('aria-activedescendant', apple.id)
+    })
+
+    it('supports multiple typed characters', () => {
+      const {getByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>Apple</TreeView.Item>
+          <TreeView.Item>Banana</TreeView.Item>
+          <TreeView.Item>Cherry</TreeView.Item>
+          <TreeView.Item>Cantalope 1</TreeView.Item>
+          <TreeView.Item>Cantalope 2</TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const apple = getByRole('treeitem', {name: 'Apple'})
+      const cantalope = getByRole('treeitem', {name: 'Cantalope 1'})
+
+      // Focus tree
+      root.focus()
+
+      // aria-activedescendant should be set to apple
+      expect(root).toHaveAttribute('aria-activedescendant', apple.id)
+
+      // Press C + A + N
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'a'})
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'n'})
+
+      // aria-activedescendant should now be set to cantalope
+      expect(root).toHaveAttribute('aria-activedescendant', cantalope.id)
+    })
+
+    it('prioritizes items following the current aria-activedescendant', () => {
+      const {getByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>Cucumber</TreeView.Item>
+          <TreeView.Item current>Cherry</TreeView.Item>
+          <TreeView.Item>Cantalope</TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const cherry = getByRole('treeitem', {name: 'Cherry'})
+      const cantalope = getByRole('treeitem', {name: 'Cantalope'})
+
+      // Focus tree
+      root.focus()
+
+      // aria-activedescendant should be set to cherry
+      expect(root).toHaveAttribute('aria-activedescendant', cherry.id)
+
+      // Press C
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+
+      // aria-activedescendant should now be set to cantalope
+      expect(root).toHaveAttribute('aria-activedescendant', cantalope.id)
+    })
+
+    it('wraps around to the beginning if no items match after the current aria-activedescendant', () => {
+      const {getByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item>Cucumber</TreeView.Item>
+          <TreeView.Item>Cherry</TreeView.Item>
+          <TreeView.Item current>Cantalope</TreeView.Item>
+          <TreeView.Item>Apple</TreeView.Item>
+        </TreeView>
+      )
+
+      const root = getByRole('tree')
+      const cantalope = getByRole('treeitem', {name: 'Cantalope'})
+      const cucumber = getByRole('treeitem', {name: 'Cucumber'})
+
+      // Focus tree
+      root.focus()
+
+      // aria-activedescendant should be set to cantalope
+      expect(root).toHaveAttribute('aria-activedescendant', cantalope.id)
+
+      // Press C
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
+
+      // aria-activedescendant should now be set to cucumber
+      expect(root).toHaveAttribute('aria-activedescendant', cucumber.id)
+    })
+  })
 })
