@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Introducing overflow behaviour for fine and coarse pointer devices
+UnderlineNav2: Introducing overflow behavior for fine and coarse pointer devices
