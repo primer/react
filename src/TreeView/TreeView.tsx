@@ -191,12 +191,13 @@ const Item: React.FC<TreeViewItemProps> = ({
             }
           }}
           sx={{
+            '--toggle-width': '1rem', // 16px
             position: 'relative',
             display: 'grid',
-            gridTemplateColumns: `calc(${level - 1} * 8px) 16px 1fr`,
+            gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
             gridTemplateAreas: `"spacer toggle content"`,
             width: '100%',
-            height: 32,
+            height: '2rem', // 32px
             fontSize: 1,
             color: 'fg.default',
             borderRadius: 2,
@@ -204,10 +205,18 @@ const Item: React.FC<TreeViewItemProps> = ({
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
             },
-            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
+            '@media (pointer: coarse)': {
+              '--toggle-width': '1.5rem', // 24px
+              height: '2.75rem' // 44px
+            },
+            // WARNING: styled-components v5.2 introduced a bug that changed
+            // how it expands `&` in CSS selectors. The following selectors
+            // are unnecessarily specific to work around that styled-components bug.
+            // Reference issue: https://github.com/styled-components/styled-components/issues/3265
+            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible #${itemId} > &:is(div)`]: {
               boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
             },
-            '[role=treeitem][aria-current=true] > &': {
+            '[role=treeitem][aria-current=true] > &:is(div)': {
               bg: 'actionListItem.default.selectedBg',
               '&::after': {
                 position: 'absolute',
