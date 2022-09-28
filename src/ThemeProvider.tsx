@@ -18,6 +18,17 @@ export type ThemeProviderProps = {
   dayScheme?: string
   nightScheme?: string
   preventSSRMismatch?: boolean
+
+  /**
+   * Provide a custom <script> element. This element is used to store the theme
+   * value during Server-side Rendering and is then used during  hydration on
+   * the client.
+   *
+   * By default, this approach uses `dangerouslySetInnerHTML` which can
+   * represent a security concern. Providing a custom element allows integrating
+   * this approach into the framework using built-in options (such as
+   * `next/script`)
+   */
   script?: (props: ThemeScriptProps) => JSX.Element
 }
 
@@ -52,9 +63,23 @@ const getServerHandoff = () => {
 }
 
 export type ThemeScriptProps = {
+  /**
+   * The `id` value used when rendering the <script> tag. This is also used
+   * during hydration to identify the <script> tag.
+   */
   id: string
-  type: string
+
+  /**
+   * The contents of the <script> tag. This should be a serialized JSON value
+   * that can be read during hydration.
+   */
   children: string
+
+  /**
+   * The `type` attribute for the underlying <script> tag. This indicates that
+   * the content is a serialized JSON value.
+   */
+  type: 'application/json'
 }
 
 function DefaultScript({id, type, children}: ThemeScriptProps) {
@@ -144,7 +169,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
       <SCThemeProvider theme={resolvedTheme}>
         {children}
         {props.preventSSRMismatch ? (
-          <Script type="application/json" id="__PRIMER_DATA__">
+          <Script id="__PRIMER_DATA__" type="application/json">
             {JSON.stringify({resolvedServerColorMode: resolvedColorMode})}
           </Script>
         ) : null}
