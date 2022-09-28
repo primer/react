@@ -4,7 +4,9 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import sx, {SxProp} from '../sx'
+import Text from '../Text'
 import {Theme} from '../ThemeProvider'
+import createSlots from '../utils/create-slots'
 import {useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
@@ -81,6 +83,8 @@ export type TreeViewItemProps = {
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
   onToggle?: (isExpanded: boolean) => void
 }
+
+const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item: React.FC<TreeViewItemProps> = ({
   current: isCurrent = false,
@@ -239,10 +243,19 @@ const Item: React.FC<TreeViewItemProps> = ({
               display: 'flex',
               alignItems: 'center',
               height: '100%',
-              px: 2
+              px: 2,
+              gap: 2
             }}
           >
-            {childrenWithoutSubTree}
+            <Slots>
+              {slots => (
+                <>
+                  {slots.LeadingVisual}
+                  <Text sx={{flexGrow: 1}}>{childrenWithoutSubTree}</Text>
+                  {slots.TrailingVisual}
+                </>
+              )}
+            </Slots>
           </Box>
         </Box>
         {subTree}
@@ -348,10 +361,35 @@ function useSubTree(children: React.ReactNode) {
 }
 
 // ----------------------------------------------------------------------------
+// TreeView.LeadingVisual and TreeView.TrailingVisual
+
+export type TreeViewVisualProps = {
+  children: React.ReactNode
+}
+
+const LeadingVisual: React.FC<TreeViewVisualProps> = ({children}) => {
+  return (
+    <Slot name="LeadingVisual">
+      <Box sx={{color: 'fg.muted'}}>{children}</Box>
+    </Slot>
+  )
+}
+
+const TrailingVisual: React.FC<TreeViewVisualProps> = ({children}) => {
+  return (
+    <Slot name="TrailingVisual">
+      <Box sx={{color: 'fg.muted'}}>{children}</Box>
+    </Slot>
+  )
+}
+
+// ----------------------------------------------------------------------------
 // Export
 
 export const TreeView = Object.assign(Root, {
   Item,
   LinkItem,
-  SubTree
+  SubTree,
+  LeadingVisual,
+  TrailingVisual
 })
