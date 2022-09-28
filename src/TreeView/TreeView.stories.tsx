@@ -49,6 +49,12 @@ export const FileTreeWithDirectoryLinks: Story = () => (
                 </TreeView.LinkItem>
               </TreeView.SubTree>
             </TreeView.LinkItem>
+            <TreeView.Item>
+              <TreeView.LeadingVisual>
+                <FileIcon />
+              </TreeView.LeadingVisual>
+              ReallyLongFileNameThatShouldBeTruncated.tsx
+            </TreeView.Item>
           </TreeView.SubTree>
         </TreeView.LinkItem>
         <TreeView.LinkItem
@@ -131,6 +137,15 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                     </TreeView.TrailingVisual>
                   </TreeView.LinkItem>
                 </TreeView.SubTree>
+              </TreeView.Item>
+              <TreeView.Item>
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                ReallyLongFileNameThatShouldBeTruncated.tsx
+                <TreeView.TrailingVisual>
+                  <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+                </TreeView.TrailingVisual>
               </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>

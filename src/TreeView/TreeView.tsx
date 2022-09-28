@@ -257,7 +257,18 @@ const Item: React.FC<TreeViewItemProps> = ({
               {slots => (
                 <>
                   {slots.LeadingVisual}
-                  <Text sx={{flexGrow: 1}}>{childrenWithoutSubTree}</Text>
+                  <Text
+                    sx={{
+                      // Truncate text label
+                      flex: '1 1 auto',
+                      width: 0,
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis'
+                    }}
+                  >
+                    {childrenWithoutSubTree}
+                  </Text>
                   {slots.TrailingVisual}
                 </>
               )}
