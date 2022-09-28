@@ -69,6 +69,35 @@ description: A hierarchical list of items where nested items can be expanded and
 </nav>
 ```
 
+### With controlled expanded state
+
+```javascript live noinline drafts
+function ControlledTreeView() {
+  const [expanded, setExpanded] = React.useState(false)
+
+  return (
+    <Box sx={{display: 'grid', gap: 2}}>
+      <Button onClick={() => setExpanded(!expanded)}>{expanded ? 'Collapse' : 'Expand'}</Button>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
+            src
+            <TreeView.SubTree>
+              <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
+              <TreeView.LinkItem href="#" current>
+                Button.tsx
+              </TreeView.LinkItem>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+render(<ControlledTreeView />)
+```
+
 ## Props
 
 ### TreeView
@@ -82,7 +111,7 @@ description: A hierarchical list of items where nested items can be expanded and
 
 <PropsTable>
   <PropsTableRow name="children" type="React.ReactNode" required />
-  <PropsTable
+  <PropsTableRow
     name="current"
     type="boolean"
     defaultValue="false"
@@ -126,7 +155,7 @@ description: A hierarchical list of items where nested items can be expanded and
       </>
     }
   />
-  <PropsTable
+  <PropsTableRow
     name="current"
     type="boolean"
     defaultValue="false"
