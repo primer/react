@@ -164,7 +164,7 @@
     "eslint-plugin-jest": "24.3.6",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-mdx": "1.15.1",
-    "eslint-plugin-prettier": "3.4.0",
+    "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-primer-react": "0.7.4",
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "4.2.0",
