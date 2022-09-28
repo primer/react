@@ -5,13 +5,12 @@ import {terser} from 'rollup-plugin-terser'
 import visualizer from 'rollup-plugin-visualizer'
 import packageJson from './package.json'
 
-const extensions = ['.js', '.jsx', '.ts', '.tsx', '.cjs']
+const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const external = [
   ...Object.keys(packageJson.peerDependencies),
   ...Object.keys(packageJson.dependencies),
   ...Object.keys(packageJson.devDependencies)
 ]
-
 const baseConfig = {
   input: ['src/index.ts', 'src/drafts/index.ts', 'src/deprecated/index.ts'],
   external: id => {
@@ -81,9 +80,9 @@ export default [
     input: 'src/index.ts',
     external: ['styled-components', 'react', 'react-dom'],
     plugins: [...baseConfig.plugins, terser(), visualizer({sourcemap: true})],
-    output: {
-      file: `dist/browser.js`,
-      format: 'esm',
+    output: ['esm', 'umd'].map(format => ({
+      file: `dist/browser.${format}.js`,
+      format,
       sourcemap: true,
       name: 'primer',
       globals: {
@@ -91,6 +90,6 @@ export default [
         'react-dom': 'ReactDOM',
         'styled-components': 'styled'
       }
-    }
+    }))
   }
 ]
