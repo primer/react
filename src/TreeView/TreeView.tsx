@@ -255,6 +255,7 @@ const Item: React.FC<TreeViewItemProps> = ({
           >
             <Slots>
               {slots => (
+                // QUESTION: How should leading and trailing visuals impact the aria-label?
                 <>
                   {slots.LeadingVisual}
                   <Text
@@ -410,6 +411,7 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
 const DirectoryIcon = () => {
   const {isExpanded} = React.useContext(ItemContext)
   const icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
+  // TODO: Use correct color
   return <StyledOcticon icon={icon} />
 }
 
