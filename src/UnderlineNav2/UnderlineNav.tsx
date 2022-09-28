@@ -258,39 +258,49 @@ export const UnderlineNav = forwardRef(
           ref={newRef}
         >
           {isCoarsePointer && (
-            <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
+            <LeftArrowButton
+              tabIndex={scrollValues.scrollLeft > 0 ? 0 : -1}
+              show={scrollValues.scrollLeft > 0}
+              onScrollWithButton={onScrollWithButton}
+            />
           )}
 
           <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
             {responsiveProps.items}
+            {actions.length > 0 && (
+              <Box as="div" sx={{display: 'flex'}} ref={moreMenuRef} role="listitem">
+                <Box sx={getDividerStyle(theme)}></Box>
+                <ActionMenu>
+                  <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
+                  <ActionMenu.Overlay align="end">
+                    <ActionList>
+                      {actions.map((action, index) => {
+                        const {children: actionElementChildren, ...actionElementProps} = action.props
+                        return (
+                          <ActionList.Item key={index} {...actionElementProps}>
+                            <Box
+                              as="span"
+                              sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
+                            >
+                              {actionElementChildren}
+                              <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                            </Box>
+                          </ActionList.Item>
+                        )
+                      })}
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
+              </Box>
+            )}
           </NavigationList>
 
           {isCoarsePointer && (
-            <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
-          )}
-
-          {actions.length > 0 && (
-            <Box as="div" sx={{display: 'flex'}} ref={moreMenuRef}>
-              <Box sx={getDividerStyle(theme)}></Box>
-              <ActionMenu>
-                <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
-                <ActionMenu.Overlay align="end">
-                  <ActionList>
-                    {actions.map((action, index) => {
-                      const {children: actionElementChildren, ...actionElementProps} = action.props
-                      return (
-                        <ActionList.Item key={index} {...actionElementProps}>
-                          <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                            {actionElementChildren}
-                            <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                          </Box>
-                        </ActionList.Item>
-                      )
-                    })}
-                  </ActionList>
-                </ActionMenu.Overlay>
-              </ActionMenu>
-            </Box>
+            <RightArrowButton
+              tabIndex={scrollValues.scrollRight > 0 ? 0 : -1}
+              show={scrollValues.scrollRight > 0}
+              onScrollWithButton={onScrollWithButton}
+            />
           )}
         </Box>
       </UnderlineNavContext.Provider>

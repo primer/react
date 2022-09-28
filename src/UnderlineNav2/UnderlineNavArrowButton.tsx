@@ -7,14 +7,17 @@ import {useTheme} from '../ThemeProvider'
 
 const LeftArrowButton = ({
   show,
-  onScrollWithButton
+  onScrollWithButton,
+  tabIndex
 }: {
   show: boolean
   onScrollWithButton: OnScrollWithButtonEventType
+  tabIndex?: number
 }) => {
   const {theme} = useTheme()
   return (
     <IconButton
+      tabIndex={tabIndex}
       aria-label="Scroll Left"
       onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => onScrollWithButton(e, -1)}
       icon={ChevronLeftIcon}
@@ -25,14 +28,17 @@ const LeftArrowButton = ({
 
 const RightArrowButton = ({
   show,
-  onScrollWithButton
+  onScrollWithButton,
+  tabIndex
 }: {
   show: boolean
   onScrollWithButton: OnScrollWithButtonEventType
+  tabIndex?: number
 }) => {
   const {theme} = useTheme()
   return (
     <IconButton
+      tabIndex={tabIndex}
       aria-label="Scroll Right"
       onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => onScrollWithButton(e, 1)}
       icon={ChevronRightIcon}
