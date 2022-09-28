@@ -1,4 +1,3 @@
-import {isMacOS} from '@primer/behaviors/utils'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react'
 import Box from '../../Box'
@@ -24,6 +23,7 @@ import {SavedRepliesContext, SavedRepliesHandle, SavedReply} from './_SavedRepli
 import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
+import {isModifierKey} from './utils'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -95,13 +95,29 @@ export type MarkdownEditorProps = SxProp & {
   name?: string
   /** To enable the saved replies feature, provide an array of replies. */
   savedReplies?: SavedReply[]
+  /**
+   * Control whether URLs are pasted as plain text instead of as formatted links (if the
+   * user has selected some text before pasting). Defaults to `false` (URLs will paste as
+   * links). This should typically be controlled by user settings.
+   *
+   * Users can always toggle this behavior by holding `shift` when pasting.
+   */
+  pasteUrlsAsPlainText?: boolean
 }
+
+const handleBrand = Symbol()
 
 export interface MarkdownEditorHandle {
   /** Focus on the markdown textarea (has no effect in preview mode). */
   focus: (options?: FocusOptions) => void
   /** Scroll to the editor. */
   scrollIntoView: (options?: ScrollIntoViewOptions) => void
+  /**
+   * This 'fake' member prevents other types from being assigned to this, thus
+   * disallowing broader ref types like `HTMLTextAreaElement`.
+   * @private
+   */
+  [handleBrand]: undefined
 }
 
 const a11yOnlyStyle = {clipPath: 'Circle(0)', position: 'absolute'} as const
@@ -110,6 +126,15 @@ const CONDENSED_WIDTH_THRESHOLD = 675
 
 const {Slot, Slots} = createSlots(['Toolbar', 'Actions', 'Label'])
 export const MarkdownEditorSlot = Slot
+
+/**
+ * We want to switch editors from preview mode on cmd/ctrl+shift+P. But in preview mode,
+ * there's no input to focus so we have to bind the event to the document. If there are
+ * multiple editors, we want the most recent one to switch to preview mode to be the one
+ * that we switch back to edit mode, so we maintain a LIFO stack of IDs of editors in
+ * preview mode.
+ */
+let editorsInPreviewMode: string[] = []
 
 /**
  * Markdown textarea with controls & keyboard shortcuts.
@@ -140,7 +165,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       required = false,
       name,
       children,
-      savedReplies
+      savedReplies,
+      pasteUrlsAsPlainText = false
     },
     ref
   ) => {
@@ -171,10 +197,14 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     })
 
     const inputRef = useRef<HTMLTextAreaElement>(null)
-    useImperativeHandle(ref, () => ({
-      focus: opts => inputRef.current?.focus(opts),
-      scrollIntoView: opts => containerRef.current?.scrollIntoView(opts)
-    }))
+    useImperativeHandle(
+      ref,
+      () =>
+        ({
+          focus: opts => inputRef.current?.focus(opts),
+          scrollIntoView: opts => containerRef.current?.scrollIntoView(opts)
+        } as MarkdownEditorHandle)
+    )
 
     const inputHeight = useRef(0)
     if (inputRef.current && inputRef.current.offsetHeight) inputHeight.current = inputRef.current.offsetHeight
@@ -233,7 +263,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
           savedRepliesRef.current?.openMenu()
           e.preventDefault()
           e.stopPropagation()
-        } else if (isMacOS() ? e.metaKey : e.ctrlKey) {
+        } else if (isModifierKey(e)) {
           if (e.key === 'Enter') onPrimaryAction?.()
           else if (e.key === 'b') format?.bold()
           else if (e.key === 'i') format?.italic()
@@ -243,6 +273,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
           else if (e.key === '8') format?.unorderedList()
           else if (e.shiftKey && e.key === '7') format?.orderedList()
           else if (e.shiftKey && e.key === 'l') format?.taskList()
+          else if (e.shiftKey && e.key === 'p') setView?.('preview')
           else return
 
           e.preventDefault()
@@ -253,6 +284,34 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
         }
       }
     )
+
+    useEffect(() => {
+      if (view === 'preview') {
+        editorsInPreviewMode.push(id)
+
+        const handler = (e: KeyboardEvent) => {
+          if (
+            !e.defaultPrevented &&
+            editorsInPreviewMode.at(-1) === id &&
+            isModifierKey(e) &&
+            e.shiftKey &&
+            e.key === 'p'
+          ) {
+            setView?.('edit')
+            setTimeout(() => inputRef.current?.focus())
+            e.preventDefault()
+          }
+        }
+        document.addEventListener('keydown', handler)
+
+        return () => {
+          document.removeEventListener('keydown', handler)
+          // Performing the filtering in the cleanup callback allows it to happen also when
+          // the user clicks the toggle button, not just on keyboard shortcut
+          editorsInPreviewMode = editorsInPreviewMode.filter(id_ => id_ !== id)
+        }
+      }
+    }, [view, setView, id])
 
     // If we don't memoize the context object, every child will rerender on every render even if memoized
     const context = useMemo(
@@ -339,6 +398,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                   monospace={monospace}
                   required={required}
                   name={name}
+                  pasteUrlsAsPlainText={pasteUrlsAsPlainText}
                   {...inputCompositionProps}
                   {...fileHandler?.pasteTargetProps}
                   {...fileHandler?.dropTargetProps}
@@ -354,6 +414,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                       boxSizing: 'border-box'
                     }}
                     aria-live="polite"
+                    tabIndex={-1}
                   >
                     <h2 style={a11yOnlyStyle}>Rendered Markdown Preview</h2>
                     <MarkdownViewer
@@ -380,6 +441,5 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     )
   }
 )
-MarkdownEditor.displayName = 'MarkdownEditor'
 
 export default MarkdownEditor

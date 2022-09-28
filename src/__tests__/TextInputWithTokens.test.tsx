@@ -1,8 +1,7 @@
 import React from 'react'
 import {render} from '../utils/testing'
-import {render as HTMLRender, fireEvent, act, cleanup} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken} from '../Token'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
@@ -525,6 +524,5 @@ describe('TextInputWithTokens', () => {
     const {container} = HTMLRender(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })

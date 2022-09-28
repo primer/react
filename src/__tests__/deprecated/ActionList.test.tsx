@@ -1,5 +1,4 @@
-import {cleanup, render as HTMLRender} from '@testing-library/react'
-import 'babel-polyfill'
+import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../../theme'
@@ -42,7 +41,6 @@ describe('ActionList', () => {
     const {container} = HTMLRender(<SimpleActionList />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
-    cleanup()
   })
 })
 

@@ -1,9 +1,12 @@
 import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
-import {merge, SxProp, BetterSystemStyleObject} from '../sx'
+import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '@radix-ui/react-polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
+import CounterLabel from '../CounterLabel'
+import {useTheme} from '../ThemeProvider'
+import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -18,7 +21,7 @@ type LinkProps = {
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
 }
 
-export type UnderlineNavLinkProps = {
+export type UnderlineNavItemProps = {
   /**
    * Primary content for an NavLink
    */
@@ -34,58 +37,56 @@ export type UnderlineNavLinkProps = {
   /**
    *  Icon before the text
    */
-  leadingIcon?: React.FunctionComponent<IconProps>
+  icon?: React.FunctionComponent<IconProps>
   as?: React.ElementType
+  /**
+   * Counter
+   */
+  counter?: number
 } & SxProp &
   LinkProps
 
-export const UnderlineNavLink = forwardRef(
+export const UnderlineNavItem = forwardRef(
   (
     {
       sx: sxProp = {},
       as: Component = 'a',
       href = '#',
       children,
+      counter,
       onSelect,
       selected: preSelected = false,
-      leadingIcon: LeadingIcon,
+      icon: Icon,
       ...props
     },
     forwardedRef
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const ref = forwardedRef ?? backupRef
-    const {setChildrenWidth, selectedLink, setSelectedLink, afterSelect} = useContext(UnderlineNavContext)
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
+    const {
+      setChildrenWidth,
+      setNoIconChildrenWidth,
+      selectedLink,
+      setSelectedLink,
+      afterSelect,
+      variant,
+      iconsVisible
+    } = useContext(UnderlineNavContext)
+    const {theme} = useTheme()
     useLayoutEffect(() => {
       const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+      // might want to select this better
+      const icon = (ref as MutableRefObject<HTMLElement>).current.children[0].children[0]
+      const iconWidthWithMargin =
+        icon.getBoundingClientRect().width +
+        Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
+        Number(getComputedStyle(icon).marginLeft.slice(0, -2))
+
       setChildrenWidth({width: domRect.width})
+      setNoIconChildrenWidth({width: domRect.width - iconWidthWithMargin})
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
-    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
-    const iconWrapStyles = {
-      display: 'inline-block',
-      marginRight: '8px'
-    }
+    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth, setNoIconChildrenWidth])
 
-    const textStyles: BetterSystemStyleObject = {
-      whiteSpace: 'nowrap'
-    }
-
-    const linkStyles = {
-      display: 'inline-flex',
-      color: 'fg.default',
-      textAlign: 'center',
-      borderBottom: '2px solid transparent',
-      borderColor: selectedLink === ref ? 'primer.border.active' : 'transparent',
-      textDecoration: 'none',
-      paddingX: 2,
-      paddingY: 3,
-      marginRight: 3,
-      fontSize: 1,
-      '&:hover, &:focus': {
-        borderColor: selectedLink === ref ? 'primer.border.active' : 'neutral.muted',
-        transition: '0.2s ease'
-      }
-    }
     const keyPressHandler = React.useCallback(
       event => {
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
@@ -97,7 +98,6 @@ export const UnderlineNavLink = forwardRef(
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
-
     const clickHandler = React.useCallback(
       event => {
         if (!event.defaultPrevented) {
@@ -110,29 +110,41 @@ export const UnderlineNavLink = forwardRef(
       [onSelect, afterSelect, ref, setSelectedLink]
     )
     return (
-      <Box as="li">
+      <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Box
           as={Component}
           href={href}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
           {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
-          sx={merge(linkStyles, sxProp as SxProp)}
+          sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
         >
-          {LeadingIcon && (
-            <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
-              <LeadingIcon />
-            </Box>
-          )}
-          {children && (
-            <Box as="span" data-component="text" sx={textStyles}>
-              {children}
-            </Box>
-          )}
+          <Box as="div" data-component="wrapper" sx={wrapperStyles}>
+            {iconsVisible && Icon && (
+              <Box as="span" data-component="icon" sx={iconWrapStyles}>
+                <Icon />
+              </Box>
+            )}
+            {children && (
+              <Box
+                as="span"
+                data-component="text"
+                data-content={children}
+                sx={selectedLink === ref ? {fontWeight: 600} : {}}
+              >
+                {children}
+              </Box>
+            )}
+            {counter && (
+              <Box as="span" data-component="counter" sx={counterStyles}>
+                <CounterLabel>{counter}</CounterLabel>
+              </Box>
+            )}
+          </Box>
         </Box>
       </Box>
     )
   }
-) as PolymorphicForwardRefComponent<'a', UnderlineNavLinkProps>
+) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>

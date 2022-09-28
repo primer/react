@@ -1,5 +1,5 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
-import {Box} from '..'
+import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'

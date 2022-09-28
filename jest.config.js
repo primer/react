@@ -2,7 +2,6 @@
 module.exports = {
   testEnvironment: 'jsdom',
   cacheDirectory: '.test',
-  collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
   setupFilesAfterEnv: [
     '<rootDir>/src/utils/test-matchers.tsx',
@@ -12,5 +11,6 @@ module.exports = {
   testMatch: ['<rootDir>/(src|codemods)/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
   transformIgnorePatterns: [
     'node_modules/(?!@github/combobox-nav|@koddsson/textarea-caret|@github/markdown-toolbar-element)'
-  ]
+  ],
+  watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname']
 }

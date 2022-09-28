@@ -28,7 +28,15 @@ jobs:
         run: npm run build
 
       - name: Test
-        run: npm run test
+        run: npm run test -- --coverage
 
       - name: Type check
         run: npm run test:type-check
+
+      - name: Install dependencies for examples
+        working-directory: examples/nextjs
+        run: npm ci
+
+      - name: Build examples
+        working-directory: examples/nextjs
+        run: npm run build

@@ -1,7 +1,6 @@
 import React from 'react'
-import {render, cleanup} from '@testing-library/react'
+import {render} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import 'babel-polyfill'
 import {Autocomplete, Checkbox, FormControl, Select, SSRProvider, Textarea, TextInput, TextInputWithTokens} from '..'
 import {MarkGithubIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
@@ -336,7 +335,6 @@ describe('FormControl', () => {
       )
       const results = await axe(container)
       expect(results).toHaveNoViolations()
-      cleanup()
     })
   })
 

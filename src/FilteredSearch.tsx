@@ -18,7 +18,6 @@ const FilteredSearch = styled.div<SxProp>`
     border-radius: 0;
     border-top-right-radius: ${get('radii.2')};
     border-bottom-right-radius: ${get('radii.2')};
-    z-index: 1; // Allows the focus outline to show on top of the dropdown.
   }
 
   ${sx}
