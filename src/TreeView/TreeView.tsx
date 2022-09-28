@@ -1,8 +1,14 @@
-import {ChevronDownIcon, ChevronRightIcon} from '@primer/octicons-react'
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  FileDirectoryFillIcon,
+  FileDirectoryOpenFillIcon
+} from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
+import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
 import {Theme} from '../ThemeProvider'
@@ -364,10 +370,12 @@ function useSubTree(children: React.ReactNode) {
 // TreeView.LeadingVisual and TreeView.TrailingVisual
 
 export type TreeViewVisualProps = {
-  children: React.ReactNode
+  children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
 }
 
-const LeadingVisual: React.FC<TreeViewVisualProps> = ({children}) => {
+const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="LeadingVisual">
       <Box sx={{color: 'fg.muted'}}>{children}</Box>
@@ -375,12 +383,23 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = ({children}) => {
   )
 }
 
-const TrailingVisual: React.FC<TreeViewVisualProps> = ({children}) => {
+const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="TrailingVisual">
       <Box sx={{color: 'fg.muted'}}>{children}</Box>
     </Slot>
   )
+}
+
+// ----------------------------------------------------------------------------
+// TreeView.DirectoryIcon
+
+const DirectoryIcon = () => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
+  return <StyledOcticon icon={icon} />
 }
 
 // ----------------------------------------------------------------------------
@@ -391,5 +410,6 @@ export const TreeView = Object.assign(Root, {
   LinkItem,
   SubTree,
   LeadingVisual,
-  TrailingVisual
+  TrailingVisual,
+  DirectoryIcon
 })
