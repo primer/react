@@ -26,7 +26,7 @@ export type UnderlineNavProps = {
   /**
    * loading state for all counters (to prevent multiple layout shifts)
    */
-  counterLoading?: boolean
+  loadingCounters?: boolean
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   children: React.ReactNode
 }
@@ -145,7 +145,7 @@ export const UnderlineNav = forwardRef(
       sx: sxProp = {},
       afterSelect,
       variant = 'default',
-      counterLoading = false,
+      loadingCounters = false,
       children
     }: UnderlineNavProps,
     forwardedRef
@@ -262,7 +262,7 @@ export const UnderlineNav = forwardRef(
           setSelectedLink,
           afterSelect: afterSelectHandler,
           variant,
-          counterLoading,
+          loadingCounters,
           iconsVisible
         }}
       >
@@ -298,7 +298,7 @@ export const UnderlineNav = forwardRef(
                           <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                             {actionElementChildren}
 
-                            {counterLoading ? (
+                            {loadingCounters ? (
                               <LoadingCounter />
                             ) : (
                               <CounterLabel>{actionElementProps.counter}</CounterLabel>

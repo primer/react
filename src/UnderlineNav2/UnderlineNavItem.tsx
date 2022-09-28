@@ -71,7 +71,7 @@ export const UnderlineNavItem = forwardRef(
       setSelectedLink,
       afterSelect,
       variant,
-      counterLoading,
+      loadingCounters,
       iconsVisible
     } = useContext(UnderlineNavContext)
     const {theme} = useTheme()
@@ -142,7 +142,7 @@ export const UnderlineNavItem = forwardRef(
             )}
             {counter && (
               <Box as="span" data-component="counter" sx={counterStyles}>
-                {counterLoading ? <LoadingCounter /> : <CounterLabel>{counter}</CounterLabel>}
+                {loadingCounters ? <LoadingCounter /> : <CounterLabel>{counter}</CounterLabel>}
               </Box>
             )}
           </Box>

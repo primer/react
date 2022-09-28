@@ -104,11 +104,11 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
   )
 }
 
-export const CounterLoading = (args: UnderlineNavProps) => {
+export const CountersLoadingState = (args: UnderlineNavProps) => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   return (
-    <UnderlineNav {...args} counterLoading={true}>
+    <UnderlineNav {...args} loadingCounters={true}>
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}

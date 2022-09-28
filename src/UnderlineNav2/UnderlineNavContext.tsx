@@ -7,7 +7,7 @@ export const UnderlineNavContext = createContext<{
   setSelectedLink: (ref: RefObject<HTMLElement>) => void
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   variant: 'default' | 'small'
-  counterLoading: boolean
+  loadingCounters: boolean
   iconsVisible: boolean
 }>({
   setChildrenWidth: () => null,
@@ -15,6 +15,6 @@ export const UnderlineNavContext = createContext<{
   selectedLink: undefined,
   setSelectedLink: () => null,
   variant: 'default',
-  counterLoading: false,
+  loadingCounters: false,
   iconsVisible: true
 })
