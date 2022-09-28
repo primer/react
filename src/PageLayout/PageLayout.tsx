@@ -433,7 +433,7 @@ export type PageLayoutPaneProps = {
    */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
-  canResizePane?: boolean
+  resizable?: boolean
   paneWidthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
@@ -475,7 +475,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       positionWhenNarrow = 'inherit',
       width = 'medium',
       padding = 'none',
-      canResizePane = false,
+      resizable = false,
       paneWidthStorageKey = 'paneWidth',
       divider: responsiveDivider = 'none',
       dividerWhenNarrow = 'inherit',
@@ -521,7 +521,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
     const {onMouseDown, onClick, isResizing, paneWidth} = useHorizontalResize(
-      canResizePane,
+      resizable,
       position,
       paneRef,
       containerRef,
@@ -581,7 +581,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
         >
           <VerticalDivider variant={{narrow: 'none', regular: dividerVariant}} />
-          {canResizePane && <ResizeHandle isResizing={isResizing} onClick={onClick} onMouseDown={onMouseDown} />}
+          {resizable && <ResizeHandle isResizing={isResizing} onClick={onClick} onMouseDown={onMouseDown} />}
         </Box>
         <Box
           ref={paneRef}
