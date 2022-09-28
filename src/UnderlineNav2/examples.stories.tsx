@@ -1,27 +1,23 @@
 import React from 'react'
-import {EyeIcon, CodeIcon, IssueOpenedIcon, GitPullRequestIcon, CommentDiscussionIcon} from '@primer/octicons-react'
+import {
+  IconProps,
+  EyeIcon,
+  CodeIcon,
+  IssueOpenedIcon,
+  GitPullRequestIcon,
+  CommentDiscussionIcon,
+  PlayIcon,
+  ProjectIcon,
+  GraphIcon,
+  ShieldLockIcon,
+  GearIcon
+} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav, UnderlineNavProps} from './index'
 import {BaseStyles, ThemeProvider} from '..'
 
 export default {
   title: 'Layout/UnderlineNav/examples',
-  argTypes: {
-    align: {
-      defaultValue: 'left',
-      control: {
-        type: 'radio',
-        options: ['left', 'right']
-      }
-    },
-    variant: {
-      defaultValue: 'default',
-      control: {
-        type: 'radio',
-        options: ['default', 'small']
-      }
-    }
-  },
   decorators: [
     Story => {
       return (
@@ -48,17 +44,17 @@ export const DefaultNav = (args: UnderlineNavProps) => {
 export const withIcons = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Item leadingIcon={CodeIcon}>Code</UnderlineNav.Item>
-      <UnderlineNav.Item leadingIcon={EyeIcon} counter={6}>
+      <UnderlineNav.Item icon={CodeIcon}>Code</UnderlineNav.Item>
+      <UnderlineNav.Item icon={EyeIcon} counter={6}>
         Issues
       </UnderlineNav.Item>
-      <UnderlineNav.Item selected leadingIcon={GitPullRequestIcon}>
+      <UnderlineNav.Item selected icon={GitPullRequestIcon}>
         Pull Requests
       </UnderlineNav.Item>
-      <UnderlineNav.Item leadingIcon={CommentDiscussionIcon} counter={7}>
+      <UnderlineNav.Item icon={CommentDiscussionIcon} counter={7}>
         Discussions
       </UnderlineNav.Item>
-      <UnderlineNav.Item leadingIcon={EyeIcon}>Item 1</UnderlineNav.Item>
+      <UnderlineNav.Item icon={EyeIcon}>Item 1</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -66,37 +62,26 @@ export const withIcons = (args: UnderlineNavProps) => {
 export const withCounterLabels = (args: UnderlineNavProps) => {
   return (
     <UnderlineNav {...args}>
-      <UnderlineNav.Item selected leadingIcon={CodeIcon}>
+      <UnderlineNav.Item selected icon={CodeIcon}>
         Code
       </UnderlineNav.Item>
-      <UnderlineNav.Item leadingIcon={IssueOpenedIcon} counter={12}>
+      <UnderlineNav.Item icon={IssueOpenedIcon} counter={12}>
         Issues
       </UnderlineNav.Item>
     </UnderlineNav>
   )
 }
 
-export const rightAlign = (args: UnderlineNavProps) => {
-  return (
-    <UnderlineNav {...args} align="right">
-      <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
-      <UnderlineNav.Item>Item 2dsjsjskdjkajsdhkajsdkasj</UnderlineNav.Item>
-      <UnderlineNav.Item>Item 3</UnderlineNav.Item>
-    </UnderlineNav>
-  )
-}
-
-const items: string[] = [
-  'Item 1',
-  'Looooong Item',
-  'Looooooonger item',
-  'Item 4',
-  'Item 5',
-  'Item 6',
-  'Item 7',
-  'Item 8',
-  'Item 9',
-  'Item 10'
+const items: {navigation: string; icon: React.FC<IconProps>; counter?: number}[] = [
+  {navigation: 'Code', icon: CodeIcon},
+  {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
+  {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
+  {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
+  {navigation: 'Actions', icon: PlayIcon, counter: 4},
+  {navigation: 'Projects', icon: ProjectIcon, counter: 9},
+  {navigation: 'Insights', icon: GraphIcon},
+  {navigation: 'Settings', icon: GearIcon, counter: 10},
+  {navigation: 'Security', icon: ShieldLockIcon}
 ]
 
 export const InternalResponsiveNav = (args: UnderlineNavProps) => {
@@ -106,24 +91,13 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
     <UnderlineNav {...args}>
       {items.map((item, index) => (
         <UnderlineNav.Item
-          key={item}
-          leadingIcon={EyeIcon}
+          key={item.navigation}
+          icon={item.icon}
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
+          counter={item.counter}
         >
-          {item}
-        </UnderlineNav.Item>
-      ))}
-    </UnderlineNav>
-  )
-}
-
-export const HorizontalScrollNav = (args: UnderlineNavProps) => {
-  return (
-    <UnderlineNav {...args} overflow="scroll">
-      {items.map(item => (
-        <UnderlineNav.Item key={item} leadingIcon={EyeIcon}>
-          {item}
+          {item.navigation}
         </UnderlineNav.Item>
       ))}
     </UnderlineNav>
