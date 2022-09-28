@@ -7,6 +7,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
+import {LoadingCounter} from './LoadingCounter'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -70,6 +71,7 @@ export const UnderlineNavItem = forwardRef(
       setSelectedLink,
       afterSelect,
       variant,
+      loadingCounters,
       iconsVisible
     } = useContext(UnderlineNavContext)
     const {theme} = useTheme()
@@ -109,6 +111,7 @@ export const UnderlineNavItem = forwardRef(
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
+
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Box
@@ -139,7 +142,7 @@ export const UnderlineNavItem = forwardRef(
             )}
             {counter && (
               <Box as="span" data-component="counter" sx={counterStyles}>
-                <CounterLabel>{counter}</CounterLabel>
+                {loadingCounters ? <LoadingCounter /> : <CounterLabel>{counter}</CounterLabel>}
               </Box>
             )}
           </Box>
