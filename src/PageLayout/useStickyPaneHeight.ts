@@ -1,5 +1,6 @@
 import React from 'react'
 import {useInView} from 'react-intersection-observer'
+import {canUseDOM} from '../utils/environment'
 
 /**
  * Calculates the height of the sticky pane such that it always
@@ -134,7 +135,14 @@ function isScrollable(element: Element) {
   return hasScrollableContent && !isOverflowHidden
 }
 
-const supportsDVH = typeof window === 'undefined' ? false : CSS.supports('max-height', '100dvh')
+// TODO: there is currently an issue with dvh on Desktop Safari 15.6, 16.0. To
+// work around it, we check to see if the device supports touch along with the
+// dvh unit in order to target iPad. When the bug is addressed this check will
+// no longer be needed
+//
+// @see https://bugs.webkit.org/show_bug.cgi?id=242758
+const supportsTouchCallout = canUseDOM ? CSS.supports('-webkit-touch-callout', 'none') : false
+const supportsDVH = canUseDOM ? CSS.supports('max-height', '100dvh') && supportsTouchCallout : false
 
 /**
  * Convert the given value to a dvh value, if supported, otherwise it falls back
