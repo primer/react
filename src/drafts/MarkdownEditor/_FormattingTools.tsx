@@ -1,4 +1,4 @@
-import React, {forwardRef, useImperativeHandle, useRef, useEffect} from 'react'
+import React, {forwardRef, useImperativeHandle, useRef} from 'react'
 
 export type FormattingTools = {
   header: () => void
@@ -48,12 +48,7 @@ export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>
     reference: () => referenceRef.current?.click()
   }))
 
-  useEffect(() => {
-    // eslint-disable-next-line prettier/prettier
-    (async function () {
-      await import('@github/markdown-toolbar-element')
-    })()
-  })
+  require('@github/markdown-toolbar-element')
 
   return (
     <markdown-toolbar for={forInputId} style={{display: 'none'}}>
