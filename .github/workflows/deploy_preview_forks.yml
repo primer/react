@@ -12,7 +12,7 @@ jobs:
     # target repository for pull_request is primer/react but source repository isn't primer/react
     if: ${{ github.repository == 'primer/react' && github.event.pull_request.head.repo.full_name != 'primer/react' }}
     name: Preview
-    uses: primer/.github/.github/workflows/deploy_preview.yml@main
+    uses: primer/.github/.github/workflows/deploy_preview.yml@0cec9b9914f358846163f2428663b58da41028c9
     permissions:
       contents: read
       pages: write
