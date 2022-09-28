@@ -111,6 +111,18 @@ If there is still overflow, the component will behave depending on the pointer.
 </UnderlineNav>
 ```
 
+### Loading State for Counters
+
+```jsx live drafts
+<UnderlineNav counterLoading={true}>
+  <UnderlineNav.Item counter={4} selected>
+    Item 1
+  </UnderlineNav.Item>
+  <UnderlineNav.Item counter={44}>Item 2</UnderlineNav.Item>
+  <UnderlineNav.Item>Item 3</UnderlineNav.Item>
+</UnderlineNav>
+```
+
 ## Props
 
 ### UnderlineNav
@@ -119,6 +131,12 @@ If there is still overflow, the component will behave depending on the pointer.
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="aria-labelledby" type="string" />
   <PropsTableRow name="aria-describedby" type="string" />
+  <PropsTableRow
+    name="counterLoading"
+    type="boolean"
+    defaultValue="false"
+    description="Whether the counter is in loading state"
+  />
   <PropsTableRow
     name="afterSelect"
     type="(event) => void"

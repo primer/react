@@ -94,4 +94,19 @@ describe('UnderlineNav', () => {
     expect(counter?.className).toContain('CounterLabel')
     expect(counter?.textContent).toBe('8')
   })
+  test('respect counterLoading prop', () => {
+    const {getByText} = render(
+      <UnderlineNav label="Test nav" counterLoading={true}>
+        <UnderlineNav.Item selected counter={4}>
+          Item 1
+        </UnderlineNav.Item>
+        <UnderlineNav.Item>Item 2</UnderlineNav.Item>
+        <UnderlineNav.Item>Item 3</UnderlineNav.Item>
+      </UnderlineNav>
+    )
+    const item = getByText('Item 1').closest('a')
+    const counterLoading = item?.getElementsByTagName('span')[2]
+    expect(counterLoading?.className).toContain('LoadingCounter')
+    expect(counterLoading?.textContent).toBe('')
+  })
 })
