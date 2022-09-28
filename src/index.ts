@@ -3,7 +3,7 @@ export {get as themeGet} from './constants'
 export {default as BaseStyles} from './BaseStyles'
 export type {BaseStylesProps} from './BaseStyles'
 export {default as ThemeProvider, useTheme, useColorSchemeVar} from './ThemeProvider'
-export type {ThemeProviderProps} from './ThemeProvider'
+export type {ThemeScriptProps, ThemeProviderProps} from './ThemeProvider'
 
 // Layout
 export {default as Box} from './Box'
