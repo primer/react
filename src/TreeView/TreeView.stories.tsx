@@ -3,6 +3,8 @@ import {TreeView} from './TreeView'
 import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
 
 const meta: Meta = {
   title: 'Composite components/TreeView',
@@ -216,6 +218,31 @@ export const Controlled: Story = () => {
       <Box sx={{display: 'flex', gap: 2}}>
         <Button onClick={() => setTree(collapseAll)}>Collapse all</Button>
         <Button onClick={() => setTree(expandAll)}>Expand all</Button>
+        <ActionMenu>
+          <ActionMenu.Button>Jump to</ActionMenu.Button>
+
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item onSelect={() => setCurrentPath(['src'])}>src</ActionList.Item>
+              <ActionList.Item onSelect={() => setCurrentPath(['src', 'Avatar.tsx'])}>src/Avatar.tsx</ActionList.Item>
+              <ActionList.Item onSelect={() => setCurrentPath(['src', 'Button'])}>src/Button</ActionList.Item>
+              <ActionList.Item onSelect={() => setCurrentPath(['src', 'Button', 'Button.tsx'])}>
+                src/Button/Button.tsx
+              </ActionList.Item>
+              <ActionList.Item onSelect={() => setCurrentPath(['src', 'Button', 'Button.test.tsx'])}>
+                src/Button/Button.test.tsx
+              </ActionList.Item>
+              <ActionList.Item onSelect={() => setCurrentPath(['public'])}>public</ActionList.Item>
+              <ActionList.Item onSelect={() => setCurrentPath(['public', 'index.html'])}>
+                public/index.html
+              </ActionList.Item>
+              <ActionList.Item onSelect={() => setCurrentPath(['public', 'favicon.ico'])}>
+                public/favicon.ico
+              </ActionList.Item>
+              <ActionList.Item onSelect={() => setCurrentPath(['package.json'])}>package.json</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
       </Box>
       <nav aria-label="File navigation">
         <CurrentPathContext.Provider value={{currentPath, setCurrentPath}}>
