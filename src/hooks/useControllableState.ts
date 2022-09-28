@@ -41,26 +41,32 @@ export function useControllableState<T>({
 }: ControllableStateOptions<T>): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [state, internalSetState] = React.useState(value ?? defaultValue)
   const controlled = React.useRef<boolean | null>(null)
+  const stableOnChange = React.useRef(onChange)
+
+  React.useEffect(() => {
+    stableOnChange.current = onChange
+  })
 
   if (controlled.current === null) {
     controlled.current = value !== undefined
   }
 
-  function setState(stateOrUpdater: T | ((prevState: T) => T)) {
-    const value =
-      typeof stateOrUpdater === 'function'
-        ? // @ts-ignore stateOrUpdater is a function
-          stateOrUpdater(state)
-        : stateOrUpdater
+  const setState = React.useCallback(
+    (stateOrUpdater: T | ((prevState: T) => T)) => {
+      const value =
+        typeof stateOrUpdater === 'function'
+          ? // @ts-ignore stateOrUpdater is a function
+            stateOrUpdater(state)
+          : stateOrUpdater
 
-    if (controlled.current === false) {
-      internalSetState(value)
-    }
+      if (controlled.current === false) {
+        internalSetState(value)
+      }
 
-    if (onChange) {
-      onChange(value)
-    }
-  }
+      stableOnChange.current?.(value)
+    },
+    [state]
+  )
 
   React.useEffect(() => {
     const controlledValue = value !== undefined
