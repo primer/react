@@ -46,6 +46,7 @@
   },
   // rules which apply to JS, TS, etc.
   "rules": {
+    "no-shadow": 0,
     "react/prop-types": 0,
     "react/display-name": 0,
     "react-hooks/exhaustive-deps": "error",
@@ -70,7 +71,6 @@
       "rules": {
         "eslint-comments/no-use": 0,
         "import/no-namespace": 0,
-        "no-shadow": 0,
         "no-unused-vars": [
           "error",
           {
@@ -94,6 +94,14 @@
           "error",
           {
             "argsIgnorePattern": "^_"
+          }
+        ],
+        "@typscript-eslint/no-shadow": 0,
+        "@typescript-eslint/no-empty-function": 0,
+        "@typescript-eslint/ban-ts-comment": [
+          "error",
+          {
+            "ts-ignore": "allow-with-description"
           }
         ]
       }

@@ -77,7 +77,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       <Box
         ref={rootRef}
         style={{
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore TypeScript doesn't know about CSS custom properties
           '--sticky-pane-height': stickyPaneHeight
         }}
