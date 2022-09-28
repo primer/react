@@ -1,9 +1,22 @@
 import {ChevronDownIcon, ChevronRightIcon} from '@primer/octicons-react'
+import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
+import styled from 'styled-components'
 import Box from '../Box'
+import sx, {SxProp} from '../sx'
+import {Theme} from '../ThemeProvider'
+import {useActiveDescendant} from './useActiveDescendant'
+import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
 // Context
+
+const RootContext = React.createContext<{
+  activeDescendant: string
+  setActiveDescendant?: React.Dispatch<React.SetStateAction<string>>
+}>({
+  activeDescendant: ''
+})
 
 const ItemContext = React.createContext<{
   level: number
@@ -22,21 +35,39 @@ export type TreeViewProps = {
   children: React.ReactNode
 }
 
+const UlBox = styled.ul<SxProp>(sx)
+
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
+  const containerRef = React.useRef<HTMLUListElement>(null)
+
+  const [activeDescendant, setActiveDescendant] = useActiveDescendant({containerRef})
+
+  useTypeahead({
+    containerRef,
+    onFocusChange: element => setActiveDescendant(element.id)
+  })
+
   return (
-    <Box
-      as="ul"
-      role="tree"
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledby}
-      sx={{
-        listStyle: 'none',
-        padding: 0,
-        margin: 0
-      }}
-    >
-      {children}
-    </Box>
+    <RootContext.Provider value={{activeDescendant, setActiveDescendant}}>
+      <UlBox
+        ref={containerRef}
+        tabIndex={0}
+        role="tree"
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
+        aria-activedescendant={activeDescendant}
+        sx={{
+          listStyle: 'none',
+          padding: 0,
+          margin: 0,
+          // We'll display a focus ring around the active descendant
+          // instead of the tree itself
+          outline: 0
+        }}
+      >
+        {children}
+      </UlBox>
+    </RootContext.Provider>
   )
 }
 
@@ -45,64 +76,148 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
 
 export type TreeViewItemProps = {
   children: React.ReactNode
-  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  current?: boolean
+  defaultExpanded?: boolean
+  onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
   onToggle?: (isExpanded: boolean) => void
 }
 
-const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
+const Item: React.FC<TreeViewItemProps> = ({
+  current: isCurrent = false,
+  defaultExpanded = false,
+  onSelect,
+  onToggle,
+  children
+}) => {
+  const {setActiveDescendant} = React.useContext(RootContext)
+  const itemId = useSSRSafeId()
+  const labelId = useSSRSafeId()
+  const itemRef = React.useRef<HTMLLIElement>(null)
   const {level} = React.useContext(ItemContext)
-  const [isExpanded, setIsExpanded] = React.useState(false)
+  const [isExpanded, setIsExpanded] = React.useState(defaultExpanded)
   const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
   // Expand or collapse the subtree
-  function toggle() {
-    onToggle?.(!isExpanded)
-    setIsExpanded(!isExpanded)
-  }
+  const toggle = React.useCallback(
+    (event?: React.MouseEvent) => {
+      onToggle?.(!isExpanded)
+      setIsExpanded(!isExpanded)
+      event?.stopPropagation()
+    },
+    [isExpanded, onToggle]
+  )
+
+  // Expand item if it is the current item or contains the current item
+  React.useLayoutEffect(() => {
+    if (isCurrent || itemRef.current?.querySelector('[aria-current=true]')) {
+      setIsExpanded(true)
+    }
+  }, [itemRef, isCurrent, subTree])
+
+  React.useEffect(() => {
+    const element = itemRef.current
+
+    function handleKeyDown(event: KeyboardEvent) {
+      // WARNING: Removing this line will cause an infinite loop!
+      // The root element receives all keyboard events and forwards them
+      // to the active descendant. If we don't stop propagation here,
+      // the event will bubble back up to the root element and be forwarded
+      // back to the active descendant infinitely.
+      event.stopPropagation()
+
+      switch (event.key) {
+        case 'Enter':
+          if (onSelect) {
+            onSelect(event)
+          } else {
+            toggle()
+          }
+          break
+
+        case 'ArrowRight':
+          if (!isExpanded) toggle()
+          break
+
+        case 'ArrowLeft':
+          if (isExpanded) toggle()
+          break
+      }
+    }
+
+    element?.addEventListener('keydown', handleKeyDown)
+    return () => element?.removeEventListener('keydown', handleKeyDown)
+  }, [toggle, onSelect, isExpanded])
 
   return (
     <ItemContext.Provider value={{level: level + 1, isExpanded}}>
       <li
+        id={itemId}
+        ref={itemRef}
         role="treeitem"
-        // TODO: aria-label for treeitem
+        aria-labelledby={labelId}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
-        onKeyDown={event => {
-          if (event.key === ' ' || event.key === 'Enter') {
-            onSelect?.(event)
-          }
-        }}
+        aria-current={isCurrent ? 'true' : undefined}
       >
         <Box
           onClick={event => {
+            setActiveDescendant?.(itemId)
             if (onSelect) {
               onSelect(event)
             } else {
-              toggle()
+              toggle(event)
             }
           }}
           sx={{
+            '--toggle-width': '1rem', // 16px
+            position: 'relative',
             display: 'grid',
-            gridTemplateColumns: `calc(${level - 1} * 8px) 16px 1fr`,
+            gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
             gridTemplateAreas: `"spacer toggle content"`,
             width: '100%',
-            height: 32,
+            height: '2rem', // 32px
             fontSize: 1,
             color: 'fg.default',
             borderRadius: 2,
             cursor: 'pointer',
-            transition: 'background 33.333ms linear',
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
+            },
+            '@media (pointer: coarse)': {
+              '--toggle-width': '1.5rem', // 24px
+              height: '2.75rem' // 44px
+            },
+            // WARNING: styled-components v5.2 introduced a bug that changed
+            // how it expands `&` in CSS selectors. The following selectors
+            // are unnecessarily specific to work around that styled-components bug.
+            // Reference issue: https://github.com/styled-components/styled-components/issues/3265
+            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible #${itemId} > &:is(div)`]: {
+              boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
+            },
+            '[role=treeitem][aria-current=true] > &:is(div)': {
+              bg: 'actionListItem.default.selectedBg',
+              '&::after': {
+                position: 'absolute',
+                top: 'calc(50% - 12px)',
+                left: -2,
+                width: '4px',
+                height: '24px',
+                content: '""',
+                bg: 'accent.fg',
+                borderRadius: 2
+              }
             }
           }}
         >
+          <Box sx={{gridArea: 'spacer', display: 'flex'}}>
+            <LevelIndicatorLines level={level} />
+          </Box>
           {hasSubTree ? (
             <Box
               onClick={event => {
                 if (onSelect) {
-                  toggle()
-                  event.stopPropagation()
+                  setActiveDescendant?.(itemId)
+                  toggle(event)
                 }
               }}
               sx={{
@@ -123,6 +238,7 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
             </Box>
           ) : null}
           <Box
+            id={labelId}
             sx={{
               gridArea: 'content',
               display: 'flex',
@@ -140,6 +256,39 @@ const Item: React.FC<TreeViewItemProps> = ({onSelect, onToggle, children}) => {
   )
 }
 
+/** Lines to indicate the depth of an item in a TreeView */
+const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
+  return (
+    <Box sx={{width: '100%', display: 'flex'}}>
+      {Array.from({length: level - 1}).map((_, index) => (
+        <Box
+          key={index}
+          sx={{
+            width: '100%',
+            height: '100%',
+            borderRight: '1px solid',
+
+            // On devices without hover, the nesting indicator lines
+            // appear at all times.
+            borderColor: 'border.subtle',
+
+            // On devices with :hover support, the nesting indicator lines
+            // fade in when the user mouses over the entire component,
+            // or when there's focus inside the component. This makes
+            // sure the component remains simple when not in use.
+            '@media (hover: hover)': {
+              borderColor: 'transparent',
+              '[role=tree]:hover &, [role=tree]:focus &': {
+                borderColor: 'border.subtle'
+              }
+            }
+          }}
+        />
+      ))}
+    </Box>
+  )
+}
+
 // ----------------------------------------------------------------------------
 // TreeView.LinkItem
 
@@ -152,11 +301,7 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
   return (
     <Item
       onSelect={event => {
-        // Navigate by clicking or pressing enter
-        if (event.type === 'click' || ('key' in event && event.key === 'Enter')) {
-          window.open(href)
-        }
-
+        window.open(href, '_self')
         onSelect?.(event)
       }}
       {...props}
