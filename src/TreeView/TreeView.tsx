@@ -22,10 +22,11 @@ const RootContext = React.createContext<{
 const ItemContext = React.createContext<{
   level: number
   isExpanded: boolean
-  setContainsCurrentItem?: React.Dispatch<React.SetStateAction<boolean>>
+  expandParents: () => void
 }>({
   level: 1,
-  isExpanded: false
+  isExpanded: false,
+  expandParents: () => {}
 })
 
 // ----------------------------------------------------------------------------
@@ -103,39 +104,37 @@ const Item: React.FC<TreeViewItemProps> = ({
     value: expanded,
     onChange: onExpandedChange
   })
-  const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
-  const {level, setContainsCurrentItem: setParentContainsCurrent} = React.useContext(ItemContext)
+  const {level, expandParents} = React.useContext(ItemContext)
   const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
-
-  // Create stable function references
-  const setIsExpandedRef = React.useRef(setIsExpanded)
-  const setParentContainsCurrentRef = React.useRef(setParentContainsCurrent)
-
-  React.useLayoutEffect(() => {
-    setIsExpandedRef.current = setIsExpanded
-  })
-
-  React.useLayoutEffect(() => {
-    setParentContainsCurrentRef.current = setParentContainsCurrent
-  })
 
   // Expand or collapse the subtree
   const toggle = React.useCallback(
     (event?: React.MouseEvent) => {
-      setIsExpandedRef.current(!isExpanded)
+      setIsExpanded(!isExpanded)
       event?.stopPropagation()
     },
+    // setIsExpanded is stable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isExpanded]
   )
 
-  // If this item is the current item, expand it
-  // then notify the parent that it contains the current item
+  // Expand all parents of this item including itself
+  const expandParentsAndSelf = React.useCallback(
+    () => {
+      expandParents()
+      setIsExpanded(true)
+    },
+    // setIsExpanded is stable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [expandParents]
+  )
+
+  // If this item is the current item, expand it and all its parents
   React.useLayoutEffect(() => {
-    if (isCurrentItem || containsCurrentItem) {
-      setIsExpandedRef.current(true)
-      setParentContainsCurrentRef.current?.(true)
+    if (isCurrentItem) {
+      expandParentsAndSelf()
     }
-  }, [isCurrentItem, containsCurrentItem])
+  }, [isCurrentItem, expandParentsAndSelf])
 
   React.useEffect(() => {
     const element = itemRef.current
@@ -172,7 +171,7 @@ const Item: React.FC<TreeViewItemProps> = ({
   }, [toggle, onSelect, isExpanded])
 
   return (
-    <ItemContext.Provider value={{level: level + 1, isExpanded, setContainsCurrentItem}}>
+    <ItemContext.Provider value={{level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
       <li
         id={itemId}
         ref={itemRef}
