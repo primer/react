@@ -16,6 +16,7 @@ exports[`Avatar renders consistently 1`] = `
   display: -ms-flexbox;
   display: flex;
   position: relative;
+  isolation: isolate;
   height: 20px;
   min-width: 38px;
 }
@@ -173,6 +174,7 @@ exports[`Avatar respects alignRight props 1`] = `
   display: -ms-flexbox;
   display: flex;
   position: relative;
+  isolation: isolate;
   height: 20px;
   min-width: 38px;
 }
