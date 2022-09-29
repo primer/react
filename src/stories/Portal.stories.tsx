@@ -5,7 +5,7 @@ import {BaseStyles, Box, ThemeProvider} from '..'
 import Portal, {registerPortalRoot} from '../Portal'
 
 export default {
-  title: 'Generic behaviors/Portal',
+  title: 'Behaviors/Portal',
   component: Portal,
   decorators: [
     Story => {

@@ -4,7 +4,7 @@ import {within} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
 
 const meta: Meta = {
-  title: 'Layout/PageLayout/interactions',
+  title: 'Components/PageLayout/Interactions',
   // component: PageLayout,
   parameters: {
     layout: 'fullscreen',

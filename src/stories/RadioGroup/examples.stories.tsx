@@ -5,7 +5,7 @@ import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 import Radio from '../../Radio'
 
 export default {
-  title: 'Forms/RadioGroup/examples',
+  title: 'Components/Forms/RadioGroup/examples',
   component: RadioGroup,
   argTypes: {
     // RadioGroup

@@ -7,7 +7,7 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 
 const meta: Meta = {
-  title: 'Composite components/TreeView',
+  title: 'Components/TreeView',
   component: TreeView,
   parameters: {
     layout: 'fullscreen'

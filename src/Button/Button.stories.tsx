@@ -6,7 +6,7 @@ import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 
 export default {
-  title: 'Composite components/Button',
+  title: 'Components/Button',
 
   decorators: [
     Story => {

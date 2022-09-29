@@ -17,7 +17,7 @@ import {UnderlineNav, UnderlineNavProps} from './index'
 import {BaseStyles, ThemeProvider} from '..'
 
 export default {
-  title: 'Layout/UnderlineNav/examples',
+  title: 'Components/UnderlineNav',
   decorators: [
     Story => {
       return (
