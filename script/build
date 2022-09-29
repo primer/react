@@ -12,4 +12,4 @@ npx cross-env NODE_ENV=production rollup -c
 npx tsc --project tsconfig.build.json
 
 # Copy type declarations
-npx copyfiles -u 1 "./lib/**/*.d.ts" ./lib
+npx copyfiles -u 1 "./lib/**/*.d.ts" ./lib-esm
