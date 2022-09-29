@@ -15,7 +15,17 @@ module.exports = {
     options.plugins.push(['open-source', {editor: process.env.NODE_ENV === 'production' ? 'github' : 'vscode'}])
     return options
   },
+  core: {
+    builder: {
+      name: 'webpack5',
+      options: {
+        lazyCompilation: true,
+        fsCache: true
+      }
+    }
+  },
   features: {
-    interactionsDebugger: true
+    interactionsDebugger: true,
+    storyStoreV7: true
   }
 }
