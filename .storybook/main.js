@@ -3,10 +3,20 @@ module.exports = {
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-links',
-    {name: '@storybook/addon-essentials', options: {backgrounds: false}},
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        backgrounds: false
+      }
+    },
     '@storybook/addon-interactions',
     'storybook-addon-performance/register',
-    {name: 'storybook-addon-turbo-build', options: {optimizationLevel: 2}},
+    {
+      name: 'storybook-addon-turbo-build',
+      options: {
+        optimizationLevel: 2
+      }
+    },
     ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
       ? ['@whitespace/storybook-addon-html']
       : [])
@@ -23,5 +33,6 @@ module.exports = {
   features: {
     interactionsDebugger: true,
     storyStoreV7: true
-  }
+  },
+  framework: '@storybook/react'
 }
