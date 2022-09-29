@@ -1,5 +1,6 @@
 import {VariantType, AlignContent} from './types'
 import {Theme} from '../ThemeProvider'
+import {background} from 'styled-system'
 
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
@@ -176,8 +177,8 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
   large - 34
   In icon these have to be square.
 */
-export const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
-  let paddingY, paddingX, fontSize, height
+export const getSizeStyles = (size = 'medium', iconOnly: boolean) => {
+  let paddingX, fontSize, height, width
   switch (size) {
     case 'small':
       height = 28
@@ -195,18 +196,21 @@ export const getSizeStyles = (size = 'medium', variant: VariantType = 'default',
       paddingX = 16
       fontSize = 1
   }
-  // if (iconOnly) {
-  //   // when `size !== 'medium'`, vertical alignment of the icon is thrown off
-  //   // because changing the font size draws an em-box that does not match the
-  //   // bounding box of the SVG
-  //   fontSize = 1
-  //   paddingX = paddingY + 3 // to make it a square
-  // }
-  // if (variant === 'invisible') {
-  //   paddingY = paddingY + 1 // to make up for absence of border
-  // }
+  if (iconOnly && size === 'small') {
+    width = 28
+    paddingX = 'unset'
+  }
+  if (iconOnly && size === 'large') {
+    width = 40
+    paddingX = 'unset'
+  }
+  if (iconOnly && size === 'medium') {
+    width = 32
+    paddingX = 'unset'
+  }
   return {
     height: `${height}px`,
+    width: `${width}px`,
     paddingX: `${paddingX}px`,
     fontSize,
     '[data-component=ButtonCounter]': {
@@ -220,10 +224,8 @@ export const getBaseStyles = (theme?: Theme) => ({
   border: '1px solid',
   borderColor: theme?.colors.btn.border,
   fontFamily: 'inherit',
-  fontWeight: 'bold',
-  lineHeight: TEXT_ROW_HEIGHT,
-  whiteSpace: 'nowrap',
-  verticalAlign: 'middle',
+  fontWeight: 'var(--base-text-weight-medium, 500)',
+  fontSize: 'var(--primer-text-body-size-medium, 14px)',
   cursor: 'pointer',
   appearance: 'none',
   userSelect: 'none',
@@ -232,9 +234,9 @@ export const getBaseStyles = (theme?: Theme) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gap: 2,
+  gap: '2',
   '&:disabled': {
-    cursor: 'default'
+    cursor: 'not-allowed'
   },
   '&:disabled svg': {
     opacity: '0.6'
@@ -244,6 +246,11 @@ export const getBaseStyles = (theme?: Theme) => ({
       // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
       outline: 'solid 1px transparent'
     }
+  },
+  '&[data-component=IconButton]': {
+    display: 'grid',
+    padding: 'initial',
+    placeContent: 'center'
   }
 })
 
@@ -253,16 +260,24 @@ export const getButtonStyles = (theme?: Theme) => {
     '&[data-component="block"]': {
       width: '100%'
     },
+    '[data-component="Icon"]': {
+      backgroundColor: 'pink'
+    },
     '[data-component="leadingIcon"]': {
       gridArea: 'leadingIcon'
     },
     '[data-component="text"]': {
-      gridArea: 'text'
+      gridArea: 'text',
+      lineHeight: 'var(--primer-text-body-lineHeight-medium, calc(20/14))',
+      whiteSpace: 'nowrap'
     },
     '[data-component="trailingIcon"]': {
       gridArea: 'trailingIcon'
     },
-    '& > [data-component="buttonContent"]': {
+    '[data-component="trailingAction"]': {
+      marginRight: '-4px'
+    },
+    '[data-component="buttonContent"]': {
       flex: '1 0 auto',
       display: 'grid',
       gridTemplateAreas: '"leadingIcon text trailingIcon"',
@@ -270,7 +285,7 @@ export const getButtonStyles = (theme?: Theme) => {
       alignItems: 'center',
       alignContent: 'center'
     },
-    '& > [data-component="buttonContent"] & > :not(:last-child)': {
+    '[data-component="buttonContent"] > :not(:last-child)': {
       mr: '2'
     }
   }
@@ -280,8 +295,7 @@ export const getButtonStyles = (theme?: Theme) => {
 export const getAlignContentSize = (alignContent: AlignContent = 'center') => {
   const style = {
     center: {
-      justifyContent: 'space-between',
-      backgroundColor: 'pink'
+      justifyContent: 'center'
     },
     start: {
       justifyContent: 'flex-start'

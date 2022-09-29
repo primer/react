@@ -1,13 +1,22 @@
-import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRightIcon} from '@primer/octicons-react'
-// import * as Octicons from '@primer/octicons-react'
-// import StyledOcticon from '../StyledOcticon'
-import {Meta} from '@storybook/react'
+import {
+  EyeClosedIcon,
+  EyeIcon,
+  SearchIcon,
+  TriangleDownIcon,
+  XIcon,
+  TriangleRightIcon,
+  HeartIcon
+} from '@primer/octicons-react'
+import {Story, Meta} from '@storybook/react'
 import React, {useState, forwardRef} from 'react'
 import {Button, ButtonProps, IconButton} from '.'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 
-const icons = {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRightIcon}
+const unset = undefined
+const icons = {unset, EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon}
+
+const actionIcons = {unset, TriangleDownIcon}
 
 export default {
   title: 'Composite components/Button',
@@ -51,118 +60,112 @@ export default {
       control: {
         type: 'boolean'
       }
+    },
+    leadingIcon: {
+      description: 'The displayed icon on the left',
+      control: {
+        type: 'select',
+        options: Object.keys(icons)
+      },
+      mapping: icons
+    },
+    trailingIcon: {
+      description: 'The displayed icon on the left',
+      control: {
+        type: 'select',
+        options: Object.keys(icons)
+      },
+      mapping: icons
+    },
+    trailingAction: {
+      description: 'The displayed icon on the left',
+      control: {
+        type: 'select',
+        options: Object.keys(actionIcons)
+      },
+      mapping: actionIcons
     }
-    // trailingIcon: {
-    //   description: 'The displayed icon on the left',
-    //   control: {
-    //     type: 'select',
-    //     options: Object.keys(icons)
-    //   },
-    //   mapping: icons,
-    //   table: {category: 'content'}
-    // }
   },
   args: {
-    block: false
+    block: false,
+    size: 'medium',
+    disabled: false,
+    variant: 'default',
+    alignContent: 'center',
+    trailingIcon: null,
+    leadingIcon: null,
+    trailingAction: null
   }
-} as Meta
+} as Meta<typeof Button>
 
-export const defaultButton = (args: ButtonProps) => {
-  // console.log(icons)
-  return (
-    <Button {...args} trailingAction={TriangleDownIcon}>
-      Default
-    </Button>
-  )
-}
+export const Playground: Story<typeof Button> = args => <Button {...args}>Default</Button>
 
-export const primaryButton = (args: ButtonProps) => {
-  return (
-    <Button {...args} variant="primary">
-      Primary
-    </Button>
-  )
-}
+// const Playground = args => <Button {...args} />
 
-export const dangerButton = (args: ButtonProps) => {
-  return (
-    <Button {...args} variant="danger">
-      Danger
-    </Button>
-  )
-}
-
-export const invisibleButton = (args: ButtonProps) => {
-  return (
-    <Button {...args} variant="invisible">
-      Invisible
-    </Button>
-  )
-}
-
-// export const iconBeforeButton = (args: ButtonProps) => {
-//   return (
-//     <Button leadingIcon={SearchIcon} {...args}>
-//       Before
-//     </Button>
-//   )
+// export const Playground = (args: ButtonProps) => {
+//   return <Button {...args}>Default</Button>
 // }
 
-// export const iconButton = ({...args}: ButtonProps) => {
-//   return (
-//     <>
-//       <Box mb={2}>
-//         <IconButton icon={XIcon} aria-label="Close" {...args} />
-//       </Box>
-//       <Box mb={2}>
-//         <IconButton icon={XIcon} aria-label="Close" {...args} variant="invisible" sx={{mt: 2}} />
-//       </Box>
-//       <Box mb={2}>
-//         <IconButton icon={XIcon} aria-label="Close" {...args} variant="danger" />
-//       </Box>
-//       <Box mb={2}>
-//         <IconButton icon={XIcon} aria-label="Close" {...args} variant="primary" />
-//       </Box>
-//       <Box mb={2}>
-//         <IconButton icon={XIcon} aria-label="Close" {...args} variant="outline" />
-//       </Box>
-//     </>
-//   )
-// }
+export const Default = Playground.bind({})
+Default.args = {
+  variant: 'default'
+}
 
-export const WatchCounterButton = ({...args}: ButtonProps) => {
+export const Primary = Playground.bind({})
+Primary.args = {
+  variant: 'primary'
+}
+
+export const Danger = Playground.bind({})
+Danger.args = {
+  variant: 'danger'
+}
+
+export const Invisible = Playground.bind({})
+Invisible.args = {
+  variant: 'invisible'
+}
+
+export const LeadingVisual = Playground.bind({})
+LeadingVisual.args = {
+  leadingIcon: HeartIcon
+}
+
+export const TrailingVisual = Playground.bind({})
+TrailingVisual.args = {
+  trailingIcon: HeartIcon
+}
+
+export const TrailingAction = Playground.bind({})
+TrailingAction.args = {
+  trailingAction: TriangleDownIcon
+}
+
+export const Block = Playground.bind({})
+Block.args = {
+  block: true
+}
+
+export const Disabled = Playground.bind({})
+Disabled.args = {
+  disabled: true
+}
+
+export const TrailingCounter = ({...args}: ButtonProps) => {
   const [count, setCount] = useState(0)
+  return (
+    <Button onClick={() => setCount(count + 1)} {...args}>
+      Watch
+      <Button.Counter>{count}</Button.Counter>
+    </Button>
+  )
+}
+
+export const iconButton = ({...args}: ButtonProps) => {
   return (
     <>
       <Box mb={2}>
-        <Button onClick={() => setCount(count + 1)} {...args}>
-          Watch
-          <Button.Counter>{count}</Button.Counter>
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button onClick={() => setCount(count + 1)} {...args} variant="primary">
-          Watch
-          <Button.Counter>{count}</Button.Counter>
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button onClick={() => setCount(count + 1)} {...args} variant="invisible">
-          Watch
-          <Button.Counter>{count}</Button.Counter>
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button onClick={() => setCount(count + 1)} {...args} variant="danger">
-          Watch
-          <Button.Counter>{count}</Button.Counter>
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button onClick={() => setCount(count + 1)} {...args} variant="outline">
-          Watch
-          <Button.Counter>{count}</Button.Counter>
-        </Button>
+        <IconButton icon={XIcon} aria-label="Close" {...args} />
       </Box>
     </>
   )
@@ -185,56 +188,6 @@ export const WatchCounterButton = ({...args}: ButtonProps) => {
 //     </Button>
 //   )
 // }
-
-export const blockButton = ({...args}: ButtonProps) => {
-  return (
-    <Button {...args} sx={{width: '100%'}}>
-      Block
-    </Button>
-  )
-}
-
-export const DisabledButton = ({...args}: ButtonProps) => {
-  const [count, setCount] = useState(0)
-  return (
-    <>
-      <Box mb={2}>
-        <Button disabled onClick={() => setCount(count + 1)} {...args}>
-          Watch
-          <Button.Counter>{count}</Button.Counter>
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button disabled {...args}>
-          Disabled
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button disabled variant="danger" {...args}>
-          Disabled
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button disabled variant="invisible" {...args}>
-          Disabled
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button disabled variant="primary" {...args}>
-          Disabled
-        </Button>
-      </Box>
-      <Box mb={2}>
-        <Button disabled variant="outline" {...args}>
-          Disabled
-        </Button>
-      </Box>
-      {/* <Box mb={2}>
-        <IconButton disabled icon={() => <XIcon />} aria-label="Close" {...args} />
-      </Box> */}
-    </>
-  )
-}
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(

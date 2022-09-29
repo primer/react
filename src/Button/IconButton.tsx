@@ -10,15 +10,13 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
   const {theme} = useTheme()
   const sxStyles = merge.all([
     getBaseStyles(theme),
-    getSizeStyles(size, variant, true),
+    getSizeStyles(size, true),
     getVariantStyles(variant, theme),
     sxProp as SxProp
   ])
   return (
-    <StyledButton sx={sxStyles} {...rest} ref={forwardedRef}>
-      <Box as="span" sx={{display: 'inline-block'}}>
-        <Icon />
-      </Box>
+    <StyledButton data-component="IconButton" sx={sxStyles} {...rest} ref={forwardedRef}>
+      <Icon />
     </StyledButton>
   )
 })

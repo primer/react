@@ -19,10 +19,11 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
     } = props
     const {theme} = useTheme()
     const iconWrapStyles = {
-      display: 'inline-block'
+      display: 'flex',
+      pointerEvents: 'none'
     }
     const sxStyles = useMemo(() => {
-      return merge.all([getButtonStyles(theme), getSizeStyles(size, variant, false), getVariantStyles(variant, theme)])
+      return merge.all([getButtonStyles(theme), getSizeStyles(size, false), getVariantStyles(variant, theme)])
     }, [theme, size, variant])
     return (
       <StyledButton
@@ -34,19 +35,19 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       >
         <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
           {LeadingIcon && (
-            <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
+            <Box as="span" data-component="leadingIcon" sx={{...iconWrapStyles}}>
               <LeadingIcon />
             </Box>
           )}
           {children && <span data-component="text">{children}</span>}
           {TrailingIcon && (
-            <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles, ml: 2}}>
+            <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles}}>
               <TrailingIcon />
             </Box>
           )}
         </Box>
         {TrailingAction && (
-          <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles, ml: 2}}>
+          <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
             <TrailingAction />
           </Box>
         )}
