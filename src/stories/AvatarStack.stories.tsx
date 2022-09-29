@@ -7,7 +7,7 @@ import {Button, ThemeProvider} from '..'
 import BaseStyles from '../BaseStyles'
 
 const meta: Meta = {
-  title: 'Composite components/AvatarStack',
+  title: 'Components/AvatarStack',
   component: AvatarStack,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (

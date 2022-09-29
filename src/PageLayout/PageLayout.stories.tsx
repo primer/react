@@ -5,7 +5,7 @@ import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
 
 const meta: Meta = {
-  title: 'Layout/PageLayout',
+  title: 'Components/PageLayout',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true}
