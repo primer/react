@@ -15,6 +15,7 @@ import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './t
 import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, scrollStyles, moreMenuStyles} from './styles'
 import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
+import {LoadingCounter} from './LoadingCounter'
 
 export type UnderlineNavProps = {
   label: string
@@ -22,6 +23,10 @@ export type UnderlineNavProps = {
   align?: 'right'
   sx?: SxProp
   variant?: 'default' | 'small'
+  /**
+   * loading state for all counters (to prevent multiple layout shifts)
+   */
+  loadingCounters?: boolean
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   children: React.ReactNode
 }
@@ -133,7 +138,16 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
 
 export const UnderlineNav = forwardRef(
   (
-    {as = 'nav', align, label, sx: sxProp = {}, afterSelect, variant = 'default', children}: UnderlineNavProps,
+    {
+      as = 'nav',
+      align,
+      label,
+      sx: sxProp = {},
+      afterSelect,
+      variant = 'default',
+      loadingCounters = false,
+      children
+    }: UnderlineNavProps,
     forwardedRef
   ) => {
     const backupRef = useRef<HTMLElement>(null)
@@ -248,6 +262,7 @@ export const UnderlineNav = forwardRef(
           setSelectedLink,
           afterSelect: afterSelectHandler,
           variant,
+          loadingCounters,
           iconsVisible
         }}
       >
@@ -282,7 +297,12 @@ export const UnderlineNav = forwardRef(
                         <ActionList.Item key={index} {...actionElementProps}>
                           <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                             {actionElementChildren}
-                            <CounterLabel>{actionElementProps.counter}</CounterLabel>
+
+                            {loadingCounters ? (
+                              <LoadingCounter />
+                            ) : (
+                              <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                            )}
                           </Box>
                         </ActionList.Item>
                       )

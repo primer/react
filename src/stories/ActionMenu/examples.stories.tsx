@@ -16,7 +16,7 @@ import {
 } from '@primer/octicons-react'
 
 const meta: Meta = {
-  title: 'Composite components/ActionMenu/examples',
+  title: 'Components/ActionMenu/examples',
   component: ActionMenu,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (

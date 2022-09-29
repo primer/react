@@ -15,7 +15,7 @@ import {MarkGithubIcon} from '@primer/octicons-react'
 const excludedControlKeys = ['required', 'value', 'validationStatus', 'sx']
 
 export default {
-  title: 'Forms/Form Controls/Checkbox',
+  title: 'Components/Forms/Checkbox',
   component: Checkbox,
   decorators: [
     Story => {

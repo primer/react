@@ -6,7 +6,7 @@ import {Placeholder} from '../Placeholder'
 import {SplitPageLayout} from '../SplitPageLayout'
 
 const meta: Meta = {
-  title: 'Layout/SplitPageLayout',
+  title: 'Components/SplitPageLayout',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true}

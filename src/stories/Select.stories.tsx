@@ -11,7 +11,7 @@ import {
 } from '../utils/story-helpers'
 
 export default {
-  title: 'Forms/Form Controls/Select',
+  title: 'Components/Forms/Select',
   component: Select,
   decorators: [
     Story => {

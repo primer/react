@@ -4,7 +4,7 @@ import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
 
 const meta: Meta = {
-  title: 'Composite components/NavList',
+  title: 'Components/NavList',
   component: NavList,
   parameters: {
     layout: 'fullscreen'

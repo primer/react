@@ -10,7 +10,7 @@ import {
 const excludedControlKeys = ['required', 'value', 'name', 'validationStatus', 'sx']
 
 export default {
-  title: 'Forms/Form Controls/Radio',
+  title: 'Components/Forms/Radio',
   component: Radio,
   decorators: [
     Story => {
