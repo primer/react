@@ -3,6 +3,7 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
+import {useControllableState} from '../hooks/useControllableState'
 import sx, {SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import {useActiveDescendant} from './useActiveDescendant'
@@ -21,9 +22,11 @@ const RootContext = React.createContext<{
 const ItemContext = React.createContext<{
   level: number
   isExpanded: boolean
+  expandParents: () => void
 }>({
   level: 1,
-  isExpanded: false
+  isExpanded: false,
+  expandParents: () => {}
 })
 
 // ----------------------------------------------------------------------------
@@ -78,41 +81,60 @@ export type TreeViewItemProps = {
   children: React.ReactNode
   current?: boolean
   defaultExpanded?: boolean
+  expanded?: boolean
+  onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
-  onToggle?: (isExpanded: boolean) => void
 }
 
 const Item: React.FC<TreeViewItemProps> = ({
-  current: isCurrent = false,
+  current: isCurrentItem = false,
   defaultExpanded = false,
+  expanded,
+  onExpandedChange,
   onSelect,
-  onToggle,
   children
 }) => {
   const {setActiveDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
   const labelId = useSSRSafeId()
   const itemRef = React.useRef<HTMLLIElement>(null)
-  const {level} = React.useContext(ItemContext)
-  const [isExpanded, setIsExpanded] = React.useState(defaultExpanded)
+  const [isExpanded, setIsExpanded] = useControllableState({
+    name: itemId,
+    defaultValue: defaultExpanded,
+    value: expanded,
+    onChange: onExpandedChange
+  })
+  const {level, expandParents} = React.useContext(ItemContext)
   const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
   // Expand or collapse the subtree
   const toggle = React.useCallback(
     (event?: React.MouseEvent) => {
-      onToggle?.(!isExpanded)
       setIsExpanded(!isExpanded)
       event?.stopPropagation()
     },
-    [isExpanded, onToggle]
+    // setIsExpanded is stable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isExpanded]
   )
 
-  // Expand item if it is the current item or contains the current item
-  React.useLayoutEffect(() => {
-    if (isCurrent || itemRef.current?.querySelector('[aria-current=true]')) {
+  // Expand all parents of this item including itself
+  const expandParentsAndSelf = React.useCallback(
+    () => {
+      expandParents()
       setIsExpanded(true)
+    },
+    // setIsExpanded is stable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [expandParents]
+  )
+
+  // If this item is the current item, expand it and all its parents
+  React.useLayoutEffect(() => {
+    if (isCurrentItem) {
+      expandParentsAndSelf()
     }
-  }, [itemRef, isCurrent, subTree])
+  }, [isCurrentItem, expandParentsAndSelf])
 
   React.useEffect(() => {
     const element = itemRef.current
@@ -149,7 +171,7 @@ const Item: React.FC<TreeViewItemProps> = ({
   }, [toggle, onSelect, isExpanded])
 
   return (
-    <ItemContext.Provider value={{level: level + 1, isExpanded}}>
+    <ItemContext.Provider value={{level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
       <li
         id={itemId}
         ref={itemRef}
@@ -157,7 +179,7 @@ const Item: React.FC<TreeViewItemProps> = ({
         aria-labelledby={labelId}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
-        aria-current={isCurrent ? 'true' : undefined}
+        aria-current={isCurrentItem ? 'true' : undefined}
       >
         <Box
           onClick={event => {

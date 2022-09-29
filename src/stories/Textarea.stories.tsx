@@ -6,7 +6,7 @@ import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} f
 import {FormControlArgs, formControlArgTypes, getFormControlArgsByChildComponent} from '../utils/story-helpers'
 
 export default {
-  title: 'Forms/Form Controls',
+  title: 'Components/Forms/Textarea',
   component: Textarea,
   decorators: [
     Story => {

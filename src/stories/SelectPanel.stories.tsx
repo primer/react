@@ -9,7 +9,7 @@ import {SelectPanel} from '../SelectPanel'
 import Box from '../Box'
 
 const meta: Meta = {
-  title: 'Composite components/SelectPanel',
+  title: 'Components/SelectPanel',
   component: SelectPanel,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => {

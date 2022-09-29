@@ -61,7 +61,6 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     const mediaQueryList = window.matchMedia(mediaQueryString)
 
     // Support fallback to `addListener` for broader browser support
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore this is not present in Safari <14
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (mediaQueryList.addEventListener) {
@@ -74,7 +73,6 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     setMatches(mediaQueryList.matches)
 
     return () => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore this is not present in Safari <14
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (mediaQueryList.addEventListener) {

@@ -5,7 +5,7 @@ import {BaseStyles, Box, Text, ThemeProvider} from '../'
 import {SegmentedControl} from '.'
 
 export default {
-  title: 'SegmentedControl/fixtures',
+  title: 'Components/SegmentedControl',
   component: SegmentedControl,
   decorators: [
     Story => {

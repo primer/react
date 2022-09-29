@@ -25,7 +25,9 @@ const defaultVariantLinkStyles = {
 }
 
 export const counterStyles = {
-  marginLeft: 2
+  marginLeft: 2,
+  display: 'flex',
+  alignItems: 'center'
 }
 
 export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavProps, 'align'>>) => ({
