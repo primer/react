@@ -19,8 +19,7 @@ const icons = {unset, EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon}
 const actionIcons = {unset, TriangleDownIcon}
 
 export default {
-  title: 'Composite components/Button',
-
+  title: 'Components/Button',
   decorators: [
     Story => {
       return (
@@ -99,67 +98,6 @@ export default {
 } as Meta<typeof Button>
 
 export const Playground: Story<typeof Button> = args => <Button {...args}>Default</Button>
-
-// const Playground = args => <Button {...args} />
-
-// export const Playground = (args: ButtonProps) => {
-//   return <Button {...args}>Default</Button>
-// }
-
-export const Default = Playground.bind({})
-Default.args = {
-  variant: 'default'
-}
-
-export const Primary = Playground.bind({})
-Primary.args = {
-  variant: 'primary'
-}
-
-export const Danger = Playground.bind({})
-Danger.args = {
-  variant: 'danger'
-}
-
-export const Invisible = Playground.bind({})
-Invisible.args = {
-  variant: 'invisible'
-}
-
-export const LeadingVisual = Playground.bind({})
-LeadingVisual.args = {
-  leadingIcon: HeartIcon
-}
-
-export const TrailingVisual = Playground.bind({})
-TrailingVisual.args = {
-  trailingIcon: HeartIcon
-}
-
-export const TrailingAction = Playground.bind({})
-TrailingAction.args = {
-  trailingAction: TriangleDownIcon
-}
-
-export const Block = Playground.bind({})
-Block.args = {
-  block: true
-}
-
-export const Disabled = Playground.bind({})
-Disabled.args = {
-  disabled: true
-}
-
-export const TrailingCounter = ({...args}: ButtonProps) => {
-  const [count, setCount] = useState(0)
-  return (
-    <Button onClick={() => setCount(count + 1)} {...args}>
-      Watch
-      <Button.Counter>{count}</Button.Counter>
-    </Button>
-  )
-}
 
 export const iconButton = ({...args}: ButtonProps) => {
   return (
