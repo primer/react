@@ -67,7 +67,6 @@ const overflowEffect = (
 ) => {
   let iconsVisible = true
   let overflowStyles: BetterSystemStyleObject | null = {}
-
   if (childWidthArray.length === 0) {
     updateListAndMenu({items: childArray, actions: [], overflowStyles}, iconsVisible)
   }
@@ -304,11 +303,29 @@ export const UnderlineNav = forwardRef(
     }, [scrollOnList])
 
     useEffect(() => {
-      // scroll the selected link into the view
-      if (selectedLink && selectedLink.current && listRef.current) {
+      // scroll the selected link into the view (coarse pointer behaviour)
+      if (isCoarsePointer && selectedLink?.current && listRef.current) {
         scrollIntoView(selectedLink.current, listRef.current, underlineNavScrollMargins)
+        return
       }
-    }, [selectedLink])
+
+      const navWidth = navRef.current.getBoundingClientRect().width
+      if (childWidthArray.length !== 0 && noIconChildWidthArray.length !== 0 && navWidth !== 0) {
+        const childArray = getValidChildren(children)
+        const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
+
+        // run overflowEffect when the selectedLink is changed
+        overflowEffect(
+          navWidth,
+          moreMenuWidth,
+          childArray,
+          childWidthArray,
+          noIconChildWidthArray,
+          isCoarsePointer,
+          updateListAndMenu
+        )
+      }
+    }, [selectedLink, isCoarsePointer, navRef, children, childWidthArray, noIconChildWidthArray, updateListAndMenu])
 
     return (
       <UnderlineNavContext.Provider

@@ -22,7 +22,7 @@ export function useResizeObserver<T extends HTMLElement>(callback: ResizeObserve
     }
 
     const observer = new ResizeObserver(entries => {
-      savedCallback.current?.(entries)
+      savedCallback.current(entries)
     })
 
     observer.observe(targetEl)
