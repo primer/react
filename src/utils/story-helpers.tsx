@@ -109,7 +109,7 @@ export const toolbarTypes = {
     toolbar: {
       icon: 'photo',
       items: [...Object.keys(theme.colorSchemes), 'all'],
-      showName: true
+      title: 'Color scheme'
     }
   }
 }
