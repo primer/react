@@ -71,6 +71,7 @@ export const UnderlineNavItem = forwardRef(
       setSelectedLink,
       selectedLinkText,
       setSelectedLinkText,
+      selectEvent,
       afterSelect,
       variant,
       loadingCounters,
@@ -99,10 +100,12 @@ export const UnderlineNavItem = forwardRef(
       setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
       preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
 
+      // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
       if (selectedLinkText === text) {
         setSelectedLink(ref as RefObject<HTMLElement>)
+        if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
+        setSelectedLinkText('')
       }
-      setSelectedLinkText('')
     }, [
       ref,
       preSelected,
@@ -111,7 +114,9 @@ export const UnderlineNavItem = forwardRef(
       setSelectedLinkText,
       setSelectedLink,
       setChildrenWidth,
-      setNoIconChildrenWidth
+      setNoIconChildrenWidth,
+      onSelect,
+      selectEvent
     ])
 
     const keyPressHandler = React.useCallback(

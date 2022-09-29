@@ -192,13 +192,12 @@ export const UnderlineNav = forwardRef(
       const updatedMenuItems = [...actions]
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
-
+      setSelectedLinkText(prospectiveListItem.props.children)
       callback(
         {items: updatedItemList, actions: updatedMenuItems, overflowStyles: responsiveProps.overflowStyles},
         false
       )
     }
-
     // How many items do we need to pull in to the menu to make room for the selected menu item.
     function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
       let widthToSwap = 0
@@ -220,6 +219,10 @@ export const UnderlineNav = forwardRef(
     // selectedLinkText is needed to be able set the selected menu item as selectedLink.
     // This is needed because setSelectedLink only accepts ref but at the time of setting selected menu item as selectedLink, its ref as a list item is not available
     const [selectedLinkText, setSelectedLinkText] = useState<string>('')
+    // Capture the mouse/keyboard event when a menu item is selected so that we can use it to fire the onSelect callback after the menu item is swapped with the list item
+    const [selectEvent, setSelectEvent] = useState<
+      React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement> | null
+    >(null)
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
@@ -317,6 +320,7 @@ export const UnderlineNav = forwardRef(
           setSelectedLink,
           selectedLinkText,
           setSelectedLinkText,
+          selectEvent,
           afterSelect: afterSelectHandler,
           variant,
           loadingCounters,
@@ -355,8 +359,8 @@ export const UnderlineNav = forwardRef(
                           key={index}
                           {...actionElementProps}
                           onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                            setSelectedLinkText(action.props.children)
                             swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                            setSelectEvent(event)
                           }}
                         >
                           <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
