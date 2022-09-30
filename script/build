@@ -13,3 +13,5 @@ npx tsc --project tsconfig.build.json
 
 # Copy type declarations
 npx copyfiles -u 1 "./lib/**/*.d.ts" ./lib-esm
+
+node build-preval-file.js
