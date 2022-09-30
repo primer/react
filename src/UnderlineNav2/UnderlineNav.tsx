@@ -356,46 +356,48 @@ export const UnderlineNav = forwardRef(
 
           <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
             {responsiveProps.items}
+            {actions.length > 0 && (
+              <Box as="div" sx={{display: 'flex'}} ref={moreMenuRef}>
+                <Box sx={getDividerStyle(theme)}></Box>
+                <ActionMenu>
+                  <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
+                  <ActionMenu.Overlay align="end">
+                    <ActionList selectionVariant="single">
+                      {actions.map((action, index) => {
+                        const {children: actionElementChildren, ...actionElementProps} = action.props
+                        return (
+                          <ActionList.Item
+                            key={index}
+                            {...actionElementProps}
+                            onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                              swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                              setSelectEvent(event)
+                            }}
+                          >
+                            <Box
+                              as="span"
+                              sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
+                            >
+                              {actionElementChildren}
+
+                              {loadingCounters ? (
+                                <LoadingCounter />
+                              ) : (
+                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                              )}
+                            </Box>
+                          </ActionList.Item>
+                        )
+                      })}
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
+              </Box>
+            )}
           </NavigationList>
 
           {isCoarsePointer && (
             <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
-          )}
-
-          {actions.length > 0 && (
-            <Box as="div" sx={{display: 'flex'}} ref={moreMenuRef}>
-              <Box sx={getDividerStyle(theme)}></Box>
-              <ActionMenu>
-                <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
-                <ActionMenu.Overlay align="end">
-                  <ActionList selectionVariant="single">
-                    {actions.map((action, index) => {
-                      const {children: actionElementChildren, ...actionElementProps} = action.props
-                      return (
-                        <ActionList.Item
-                          key={index}
-                          {...actionElementProps}
-                          onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                            swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                            setSelectEvent(event)
-                          }}
-                        >
-                          <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                            {actionElementChildren}
-
-                            {loadingCounters ? (
-                              <LoadingCounter />
-                            ) : (
-                              <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                            )}
-                          </Box>
-                        </ActionList.Item>
-                      )
-                    })}
-                  </ActionList>
-                </ActionMenu.Overlay>
-              </ActionMenu>
-            </Box>
           )}
         </Box>
       </UnderlineNavContext.Provider>
