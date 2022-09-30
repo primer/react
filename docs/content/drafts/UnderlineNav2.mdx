@@ -23,7 +23,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 </UnderlineNav>
 ```
 
-### With icons
+### With Icons
 
 ```jsx live drafts
 <UnderlineNav>
@@ -50,7 +50,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 When overflow occurs, the component first hides icons if present to optimize for space and show as many items as possible. (Only for fine pointer devices)
 
-#### Items without Icons
+#### Items Without Icons
 
 ```jsx live drafts
 <UnderlineNav>
@@ -78,7 +78,7 @@ When overflow occurs, the component first hides icons if present to optimize for
 </UnderlineNav>
 ```
 
-#### Display `More` menu
+#### Display `More` Menu
 
 If there is still overflow, the component will behave depending on the pointer.
 
@@ -111,6 +111,18 @@ If there is still overflow, the component will behave depending on the pointer.
 </UnderlineNav>
 ```
 
+### Loading state for counters
+
+```jsx live drafts
+<UnderlineNav loadingCounters={true}>
+  <UnderlineNav.Item counter={4} selected>
+    Item 1
+  </UnderlineNav.Item>
+  <UnderlineNav.Item counter={44}>Item 2</UnderlineNav.Item>
+  <UnderlineNav.Item>Item 3</UnderlineNav.Item>
+</UnderlineNav>
+```
+
 ## Props
 
 ### UnderlineNav
@@ -119,6 +131,12 @@ If there is still overflow, the component will behave depending on the pointer.
   <PropsTableRow name="aria-label" type="string" />
   <PropsTableRow name="aria-labelledby" type="string" />
   <PropsTableRow name="aria-describedby" type="string" />
+  <PropsTableRow
+    name="loadingCounters"
+    type="boolean"
+    defaultValue="false"
+    description="Whether all of the counters are in loading state"
+  />
   <PropsTableRow
     name="afterSelect"
     type="(event) => void"
