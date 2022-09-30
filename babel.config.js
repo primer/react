@@ -39,7 +39,12 @@ module.exports = {
     },
     test: {
       presets: makePresets('commonjs'),
-      plugins: [...sharedPlugins, ['@babel/plugin-transform-modules-commonjs'], replacementPlugin('test')]
+      plugins: [
+        ...sharedPlugins,
+        ['@babel/plugin-transform-modules-commonjs'],
+        replacementPlugin('test'),
+        'babel-plugin-dynamic-import-node'
+      ]
     }
   }
 }

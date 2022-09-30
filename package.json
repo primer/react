@@ -29,7 +29,10 @@
     }
   },
   "typings": "lib/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "lib-esm/web-components/**/*.js",
+    "lib/web-components/**/*.js"
+  ],
   "scripts": {
     "setup": "./script/setup",
     "build": "./script/build",
