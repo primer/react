@@ -5,6 +5,7 @@ import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import Box from '../Box'
 import {Button} from '../Button'
+import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import StyledOcticon from '../StyledOcticon'
 import {TreeView} from './TreeView'
 
@@ -413,7 +414,7 @@ async function loadItems(responseTime: number) {
   return ['Avatar.tsx', 'Button.tsx', 'Checkbox.tsx']
 }
 
-export const Async: Story = args => {
+export const AsyncSuccess: Story = args => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
@@ -458,7 +459,93 @@ export const Async: Story = args => {
   )
 }
 
-Async.args = {
+AsyncSuccess.args = {
+  responseTime: 2000
+}
+
+async function alwaysFails(responseTime: number) {
+  await wait(responseTime)
+  throw new Error('Failed to load items')
+  return []
+}
+
+export const AsyncError: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isExpanded, setIsExpanded] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+  const [error, setError] = React.useState<Error | null>(null)
+
+  async function loadItems() {
+    if (asyncItems.length === 0) {
+      // Show loading indicator after a short delay
+      const timeout = setTimeout(() => setIsLoading(true), 500)
+      try {
+        // Try to load items
+        const items = await alwaysFails(args.responseTime)
+        setAsyncItems(items)
+      } catch (error) {
+        setError(error as Error)
+      } finally {
+        clearTimeout(timeout)
+        setIsLoading(false)
+      }
+    }
+  }
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item
+            expanded={isExpanded}
+            onExpandedChange={isExpanded => {
+              setIsExpanded(isExpanded)
+
+              if (isExpanded) {
+                loadItems()
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree>
+              {isLoading ? <TreeView.LoadingItem /> : null}
+              {error ? (
+                <ConfirmationDialog
+                  title="Error"
+                  onClose={gesture => {
+                    setError(null)
+
+                    if (gesture === 'confirm') {
+                      loadItems()
+                    } else {
+                      setIsExpanded(false)
+                    }
+                  }}
+                  confirmButtonContent="Retry"
+                >
+                  {error.message}
+                </ConfirmationDialog>
+              ) : null}
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+AsyncError.args = {
   responseTime: 2000
 }
 
