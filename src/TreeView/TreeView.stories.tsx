@@ -296,4 +296,54 @@ function TreeItem({
   )
 }
 
+async function wait(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function loadItems(responseTime: number) {
+  await wait(responseTime)
+  return ['Avatar.tsx', 'Button.tsx', 'Checkbox.tsx']
+}
+
+export const Async: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item
+            onExpandedChange={async isExpanded => {
+              if (asyncItems.length === 0 && isExpanded) {
+                // Show loading indicator after a short delay
+                const timeout = setTimeout(() => setIsLoading(true), 500)
+
+                // Load items
+                const items = await loadItems(args.responseTime)
+
+                clearTimeout(timeout)
+                setIsLoading(false)
+                setAsyncItems(items)
+              }
+            }}
+          >
+            Directory with async items
+            <TreeView.SubTree>
+              {isLoading ? <TreeView.Item>Loading...</TreeView.Item> : null}
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>{item}</TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+Async.args = {
+  responseTime: 2000
+}
+
 export default meta
