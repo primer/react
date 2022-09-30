@@ -6,7 +6,6 @@ function replacementPlugin(env) {
 
 const sharedPlugins = [
   'macros',
-  'preval',
   'add-react-displayname',
   'babel-plugin-styled-components',
   '@babel/plugin-proposal-nullish-coalescing-operator',
