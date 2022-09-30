@@ -1,5 +1,11 @@
 import {canUseDOM} from '../utils/environment'
 
 if (canUseDOM) {
-  import('@github/markdown-toolbar-element')
+  if (typeof require === 'function') {
+    Promise.resolve().then(() => {
+      require('@github/markdown-toolbar-element')
+    })
+  } else {
+    import('@github/markdown-toolbar-element')
+  }
 }
