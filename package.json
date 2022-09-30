@@ -30,8 +30,9 @@
   },
   "typings": "lib/index.d.ts",
   "sideEffects": [
-    "lib-esm/web-components/**/*.js",
-    "lib/web-components/**/*.js"
+    "lib-esm/web-components/*",
+    "lib/web-components/*",
+    "src/web-components/*"
   ],
   "scripts": {
     "setup": "./script/setup",
