@@ -5,4 +5,9 @@
   "forwardPorts": [8000],
   "postCreateCommand": ["/bin/bash", "-c", "pushd docs && npm install && popd && npm install"],
   "remoteUser": "node"
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {
+        "version": "latest"
+    }
+  }
 }
