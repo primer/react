@@ -1,4 +1,4 @@
-import React, {forwardRef, useImperativeHandle, useRef} from 'react'
+import React, {forwardRef, useImperativeHandle, useRef, useEffect} from 'react'
 
 export type FormattingTools = {
   header: () => void
@@ -48,7 +48,9 @@ export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>
     reference: () => referenceRef.current?.click()
   }))
 
-  require('@github/markdown-toolbar-element')
+  useEffect(() => {
+    require('@github/markdown-toolbar-element')
+  })
 
   return (
     <markdown-toolbar for={forInputId} style={{display: 'none'}}>
