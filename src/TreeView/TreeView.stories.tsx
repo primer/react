@@ -1,12 +1,12 @@
-import React from 'react'
 import {DiffAddedIcon, DiffModifiedIcon, DiffRemovedIcon, DiffRenamedIcon, FileIcon} from '@primer/octicons-react'
 import {Meta, Story} from '@storybook/react'
+import React from 'react'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
 import Box from '../Box'
+import {Button} from '../Button'
 import StyledOcticon from '../StyledOcticon'
 import {TreeView} from './TreeView'
-import {Button} from '../Button'
-import {ActionMenu} from '../ActionMenu'
-import {ActionList} from '../ActionList'
 
 const meta: Meta = {
   title: 'Components/TreeView',
@@ -436,11 +436,19 @@ export const Async: Story = args => {
               }
             }}
           >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
             Directory with async items
             <TreeView.SubTree>
-              {isLoading ? <TreeView.Item>Loading...</TreeView.Item> : null}
+              {isLoading ? <TreeView.LoadingItem /> : null}
               {asyncItems.map(item => (
-                <TreeView.Item key={item}>{item}</TreeView.Item>
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
               ))}
             </TreeView.SubTree>
           </TreeView.Item>
