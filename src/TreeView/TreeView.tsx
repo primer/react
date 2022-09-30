@@ -1,11 +1,19 @@
-import {ChevronDownIcon, ChevronRightIcon} from '@primer/octicons-react'
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  FileDirectoryFillIcon,
+  FileDirectoryOpenFillIcon
+} from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
+import StyledOcticon from '../StyledOcticon'
 import {useControllableState} from '../hooks/useControllableState'
 import sx, {SxProp} from '../sx'
+import Text from '../Text'
 import {Theme} from '../ThemeProvider'
+import createSlots from '../utils/create-slots'
 import {useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
@@ -85,6 +93,8 @@ export type TreeViewItemProps = {
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
 }
+
+const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item: React.FC<TreeViewItemProps> = ({
   current: isCurrentItem = false,
@@ -266,10 +276,31 @@ const Item: React.FC<TreeViewItemProps> = ({
               display: 'flex',
               alignItems: 'center',
               height: '100%',
-              px: 2
+              px: 2,
+              gap: 2
             }}
           >
-            {childrenWithoutSubTree}
+            <Slots>
+              {slots => (
+                // QUESTION: How should leading and trailing visuals impact the aria-label?
+                <>
+                  {slots.LeadingVisual}
+                  <Text
+                    sx={{
+                      // Truncate text label
+                      flex: '1 1 auto',
+                      width: 0,
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis'
+                    }}
+                  >
+                    {childrenWithoutSubTree}
+                  </Text>
+                  {slots.TrailingVisual}
+                </>
+              )}
+            </Slots>
           </Box>
         </Box>
         {subTree}
@@ -375,10 +406,50 @@ function useSubTree(children: React.ReactNode) {
 }
 
 // ----------------------------------------------------------------------------
+// TreeView.LeadingVisual and TreeView.TrailingVisual
+
+export type TreeViewVisualProps = {
+  children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
+}
+
+const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <Slot name="LeadingVisual">
+      <Box sx={{color: 'fg.muted'}}>{children}</Box>
+    </Slot>
+  )
+}
+
+const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <Slot name="TrailingVisual">
+      <Box sx={{color: 'fg.muted'}}>{children}</Box>
+    </Slot>
+  )
+}
+
+// ----------------------------------------------------------------------------
+// TreeView.DirectoryIcon
+
+const DirectoryIcon = () => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
+  // TODO: Use correct color
+  return <StyledOcticon icon={icon} />
+}
+
+// ----------------------------------------------------------------------------
 // Export
 
 export const TreeView = Object.assign(Root, {
   Item,
   LinkItem,
-  SubTree
+  SubTree,
+  LeadingVisual,
+  TrailingVisual,
+  DirectoryIcon
 })

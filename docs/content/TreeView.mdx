@@ -10,63 +10,98 @@ description: A hierarchical list of items where nested items can be expanded and
 ### File tree navigation without directory links
 
 ```jsx live drafts
-<nav aria-label="File navigation">
-  <TreeView aria-label="File navigation">
-    <TreeView.Item>
-      src
-      <TreeView.SubTree>
-        <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-        <TreeView.Item>
-          Button
-          <TreeView.SubTree>
-            <TreeView.LinkItem href="#" current>
-              Button.tsx
-            </TreeView.LinkItem>
-            <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
-          </TreeView.SubTree>
-        </TreeView.Item>
-      </TreeView.SubTree>
-    </TreeView.Item>
-    <TreeView.Item>
-      public
-      <TreeView.SubTree>
-        <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
-        <TreeView.LinkItem href="#">favicon.ico</TreeView.LinkItem>
-      </TreeView.SubTree>
-    </TreeView.Item>
-    <TreeView.LinkItem href="#">package.json</TreeView.LinkItem>
-  </TreeView>
-</nav>
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="File navigation">
+    <TreeView aria-label="File navigation">
+      <TreeView.Item>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.LinkItem href="#">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <TreeView.TrailingVisual>
+              <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
+            </TreeView.TrailingVisual>
+          </TreeView.LinkItem>
+          <TreeView.LinkItem href="#" current>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Button.tsx
+            <TreeView.TrailingVisual>
+              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+            </TreeView.TrailingVisual>
+          </TreeView.LinkItem>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.LinkItem href="#">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        package.json
+        <TreeView.TrailingVisual>
+          <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+        </TreeView.TrailingVisual>
+      </TreeView.LinkItem>
+    </TreeView>
+  </nav>
+</Box>
 ```
 
 ### File tree navigation with directory links
 
 ```jsx live drafts
-<nav aria-label="File navigation">
-  <TreeView aria-label="File navigation">
-    <TreeView.LinkItem href="#">
-      src
-      <TreeView.SubTree>
-        <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-        <TreeView.LinkItem href="#" current>
-          Button
-          <TreeView.SubTree>
-            <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
-            <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
-          </TreeView.SubTree>
-        </TreeView.LinkItem>
-      </TreeView.SubTree>
-    </TreeView.LinkItem>
-    <TreeView.LinkItem href="#">
-      public
-      <TreeView.SubTree>
-        <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
-        <TreeView.LinkItem href="#">favicon.ico</TreeView.LinkItem>
-      </TreeView.SubTree>
-    </TreeView.LinkItem>
-    <TreeView.LinkItem href="#">package.json</TreeView.LinkItem>
-  </TreeView>
-</nav>
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="File navigation">
+    <TreeView aria-label="File navigation">
+      <TreeView.LinkItem href="#">
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.LinkItem href="#">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+          </TreeView.LinkItem>
+          <TreeView.LinkItem href="#" current>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Button
+            <TreeView.SubTree>
+              <TreeView.LinkItem href="#">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.LinkItem>
+              <TreeView.LinkItem href="#">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.LinkItem>
+            </TreeView.SubTree>
+          </TreeView.LinkItem>
+        </TreeView.SubTree>
+      </TreeView.LinkItem>
+      <TreeView.LinkItem href="#">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        package.json
+      </TreeView.LinkItem>
+    </TreeView>
+  </nav>
+</Box>
 ```
 
 ### With controlled expanded state
@@ -76,7 +111,7 @@ function ControlledTreeView() {
   const [expanded, setExpanded] = React.useState(false)
 
   return (
-    <Box sx={{display: 'grid', gap: 2}}>
+    <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
       <Button onClick={() => setExpanded(!expanded)}>{expanded ? 'Collapse' : 'Expand'}</Button>
       <nav aria-label="File navigation">
         <TreeView aria-label="File navigation">
@@ -96,6 +131,54 @@ function ControlledTreeView() {
 }
 
 render(<ControlledTreeView />)
+```
+
+### With stateful visuals
+
+To render stateful visuals, pass a render function to `TreeView.LeadingVisual` or `TreeView.TrailingVisual`. The function will be called with the `expanded` state of the item.
+
+```jsx live drafts
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="File navigation">
+    <TreeView aria-label="File navigation">
+      <TreeView.Item>
+        <TreeView.LeadingVisual>
+          {({isExpanded}) => (isExpanded ? <FileDirectoryOpenFillIcon /> : <FileDirectoryFillIcon />)}
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
+          <TreeView.LinkItem href="#" current>
+            Button.tsx
+          </TreeView.LinkItem>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+</Box>
+```
+
+Since stateful directory icons are a common use case for TreeView, we provide a `TreeView.DirectoryIcon` component for convenience. The previous example can be rewritten as:
+
+```jsx live drafts
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="File navigation">
+    <TreeView aria-label="File navigation">
+      <TreeView.Item>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
+          <TreeView.LinkItem href="#" current>
+            Button.tsx
+          </TreeView.LinkItem>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+</Box>
 ```
 
 ## Props
@@ -190,9 +273,7 @@ render(<ControlledTreeView />)
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
-<!-- TODO: Add leading and trailing visuals -->
-
-<!-- ### TreeView.LeadingVisual
+### TreeView.LeadingVisual
 
 <PropsTable>
   <PropsTableRow
@@ -200,7 +281,7 @@ render(<ControlledTreeView />)
     type={`| React.ReactNode
 | (props: {isExpanded: boolean}) => React.ReactNode`}
   />
-  <PropsTableSxRow />
+  {/* <PropsTableSxRow /> */}
 </PropsTable>
 
 ### TreeView.TrailingVisual
@@ -211,14 +292,12 @@ render(<ControlledTreeView />)
     type={`| React.ReactNode
 | (props: {isExpanded: boolean}) => React.ReactNode`}
   />
-  <PropsTableSxRow />
+  {/* <PropsTableSxRow /> */}
 </PropsTable>
 
-### TreeView.FolderIcon
+### TreeView.DirectoryIcon
 
-<PropsTable>
-  <PropsTableSxRow />
-</PropsTable> -->
+<PropsTable>{/* <PropsTableSxRow /> */}</PropsTable>
 
 <!-- TODO: Add components to support async behavior (e.g. LoadingItem) -->
 
