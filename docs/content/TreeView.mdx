@@ -10,7 +10,7 @@ description: A hierarchical list of items where nested items can be expanded and
 ### File tree navigation without directory links
 
 ```jsx live drafts
-<Box sx={{maxWidth: 320}}>
+<Box sx={{maxWidth: 400}}>
   <nav aria-label="File navigation">
     <TreeView aria-label="File navigation">
       <TreeView.Item>
@@ -25,7 +25,7 @@ description: A hierarchical list of items where nested items can be expanded and
             </TreeView.LeadingVisual>
             Avatar.tsx
             <TreeView.TrailingVisual>
-              <StyledOcticon icon={DiffAddedIcon} color="success.fg" />
+              <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
             </TreeView.TrailingVisual>
           </TreeView.LinkItem>
           <TreeView.LinkItem href="#" current>
@@ -34,7 +34,7 @@ description: A hierarchical list of items where nested items can be expanded and
             </TreeView.LeadingVisual>
             Button.tsx
             <TreeView.TrailingVisual>
-              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
             </TreeView.TrailingVisual>
           </TreeView.LinkItem>
         </TreeView.SubTree>
@@ -45,7 +45,7 @@ description: A hierarchical list of items where nested items can be expanded and
         </TreeView.LeadingVisual>
         package.json
         <TreeView.TrailingVisual>
-          <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+          <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
         </TreeView.TrailingVisual>
       </TreeView.LinkItem>
     </TreeView>
@@ -56,7 +56,7 @@ description: A hierarchical list of items where nested items can be expanded and
 ### File tree navigation with directory links
 
 ```jsx live drafts
-<Box sx={{maxWidth: 320}}>
+<Box sx={{maxWidth: 400}}>
   <nav aria-label="File navigation">
     <TreeView aria-label="File navigation">
       <TreeView.LinkItem href="#">
@@ -111,7 +111,7 @@ function ControlledTreeView() {
   const [expanded, setExpanded] = React.useState(false)
 
   return (
-    <Box sx={{display: 'grid', gap: 2, maxWidth: 320}}>
+    <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
       <Button onClick={() => setExpanded(!expanded)}>{expanded ? 'Collapse' : 'Expand'}</Button>
       <nav aria-label="File navigation">
         <TreeView aria-label="File navigation">
@@ -131,6 +131,54 @@ function ControlledTreeView() {
 }
 
 render(<ControlledTreeView />)
+```
+
+### With stateful visuals
+
+To render stateful visuals, pass a render function to `TreeView.LeadingVisual` and `TreeView.TrailingVisual`. The function will be called with the `expanded` state of the item.
+
+```jsx live drafts
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="File navigation">
+    <TreeView aria-label="File navigation">
+      <TreeView.Item>
+        <TreeView.LeadingVisual>
+          {({isExpanded}) => (isExpanded ? <FileDirectoryOpenFillIcon /> : <FileDirectoryFillIcon />)}
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
+          <TreeView.LinkItem href="#" current>
+            Button.tsx
+          </TreeView.LinkItem>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+</Box>
+```
+
+Since stateful directory icons are a common usecase for TreeView, we provide a `TreeView.DirectoryIcon` component for convenience. The above example can be rewritten as:
+
+```jsx live drafts
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="File navigation">
+    <TreeView aria-label="File navigation">
+      <TreeView.Item>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
+          <TreeView.LinkItem href="#" current>
+            Button.tsx
+          </TreeView.LinkItem>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+</Box>
 ```
 
 ## Props
@@ -273,3 +321,4 @@ render(<ControlledTreeView />)
     hasFigmaComponent: false
   }}
 />
+````

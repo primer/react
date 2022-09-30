@@ -17,7 +17,7 @@ const meta: Meta = {
 }
 
 export const FileTreeWithDirectoryLinks: Story = () => (
-  <Box p={3} maxWidth={360}>
+  <Box sx={{p: 3, maxWidth: 400}}>
     <nav aria-label="File navigation">
       <TreeView aria-label="File navigation">
         <TreeView.LinkItem href="#src">
@@ -97,7 +97,7 @@ export const FileTreeWithDirectoryLinks: Story = () => (
 
 export const FileTreeWithoutDirectoryLinks: Story = () => {
   return (
-    <Box p={3} maxWidth={360}>
+    <Box sx={{p: 3, maxWidth: 400}}>
       <nav aria-label="File navigation">
         <TreeView aria-label="File navigation">
           <TreeView.Item defaultExpanded>
@@ -112,7 +112,7 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                 </TreeView.LeadingVisual>
                 Avatar.tsx
                 <TreeView.TrailingVisual>
-                  <StyledOcticon icon={DiffAddedIcon} color="success.fg" />
+                  <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
                 </TreeView.TrailingVisual>
               </TreeView.LinkItem>
               <TreeView.Item defaultExpanded>
@@ -127,7 +127,7 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                     </TreeView.LeadingVisual>
                     Button.tsx
                     <TreeView.TrailingVisual>
-                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
                     </TreeView.TrailingVisual>
                   </TreeView.LinkItem>
                   <TreeView.LinkItem href="#button-test-tsx">
@@ -136,7 +136,7 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                     </TreeView.LeadingVisual>
                     Button.test.tsx
                     <TreeView.TrailingVisual>
-                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
                     </TreeView.TrailingVisual>
                   </TreeView.LinkItem>
                 </TreeView.SubTree>
@@ -147,7 +147,7 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                 </TreeView.LeadingVisual>
                 ReallyLongFileNameThatShouldBeTruncated.tsx
                 <TreeView.TrailingVisual>
-                  <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+                  <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
                 </TreeView.TrailingVisual>
               </TreeView.Item>
             </TreeView.SubTree>
@@ -164,7 +164,7 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                 </TreeView.LeadingVisual>
                 index.html
                 <TreeView.TrailingVisual>
-                  <StyledOcticon icon={DiffRenamedIcon} />
+                  <StyledOcticon icon={DiffRenamedIcon} aria-label="renamed" />
                 </TreeView.TrailingVisual>
               </TreeView.LinkItem>
               <TreeView.LinkItem href="#favicon-ico">
@@ -173,7 +173,7 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                 </TreeView.LeadingVisual>
                 favicon.ico
                 <TreeView.TrailingVisual>
-                  <StyledOcticon icon={DiffRemovedIcon} color="danger.fg" />
+                  <StyledOcticon icon={DiffRemovedIcon} color="danger.fg" aria-label="removed" />
                 </TreeView.TrailingVisual>
               </TreeView.LinkItem>
             </TreeView.SubTree>
@@ -184,7 +184,7 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
             </TreeView.LeadingVisual>
             package.json
             <TreeView.TrailingVisual>
-              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
+              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
             </TreeView.TrailingVisual>
           </TreeView.LinkItem>
         </TreeView>
