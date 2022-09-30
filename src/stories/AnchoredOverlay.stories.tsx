@@ -8,7 +8,7 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 import {registerPortalRoot} from '../Portal'
 
 export default {
-  title: 'Generic behaviors/AnchoredOverlay',
+  title: 'Behaviors/AnchoredOverlay',
   decorators: [
     Story => {
       return (

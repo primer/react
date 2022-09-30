@@ -11,9 +11,8 @@ const external = [
   ...Object.keys(packageJson.dependencies),
   ...Object.keys(packageJson.devDependencies)
 ]
-const baseConfig = {
-  input: ['src/index.ts', 'src/drafts/index.ts', 'src/deprecated/index.ts'],
-  external: id => {
+function isExternal(external) {
+  return id => {
     // Match on import paths that are the same as dependencies listed in
     // `package.json`
     const match = external.find(pkg => {
@@ -33,7 +32,11 @@ const baseConfig = {
       // Include the / to not match imports like: @primer/behaviors-for-acme/utils
       return id.startsWith(`${pkg}/`)
     })
-  },
+  }
+}
+
+const baseConfig = {
+  input: ['src/index.ts', 'src/drafts/index.ts', 'src/deprecated/index.ts'],
   plugins: [
     // Note: it's important that the babel plugin is ordered first for plugins
     // like babel-plugin-preval to work as-intended
@@ -54,6 +57,7 @@ export default [
   // ESM
   {
     ...baseConfig,
+    external: isExternal(external),
     output: {
       dir: 'lib-esm',
       format: 'esm',
@@ -65,6 +69,11 @@ export default [
   // CommonJS
   {
     ...baseConfig,
+    external: isExternal(
+      external.filter(id => {
+        return !id.startsWith('@github')
+      })
+    ),
     output: {
       dir: 'lib',
       format: 'commonjs',

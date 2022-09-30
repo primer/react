@@ -24,7 +24,7 @@ import {DropdownMenu, DropdownButton} from '../deprecated/DropdownMenu'
 import {ItemInput} from '../deprecated/ActionList/List'
 
 export default {
-  title: 'Internal components/Overlay',
+  title: 'Private components/Overlay',
   component: Overlay,
   decorators: [
     Story => {

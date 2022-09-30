@@ -6,28 +6,25 @@
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
-      "node": "./lib/index.js",
-      "require": "./lib/index.js",
-      "default": "./lib-esm/index.js"
+      "import": "./lib-esm/index.js",
+      "require": "./lib/index.js"
     },
     "./drafts": {
-      "node": "./lib/drafts/index.js",
-      "require": "./lib/drafts/index.js",
-      "default": "./lib-esm/drafts/index.js"
+      "import": "./lib-esm/drafts/index.js",
+      "require": "./lib/drafts/index.js"
     },
     "./deprecated": {
-      "node": "./lib/deprecated/index.js",
-      "require": "./lib/deprecated/index.js",
-      "default": "./lib-esm/deprecated/index.js"
+      "import": "./lib-esm/deprecated/index.js",
+      "require": "./lib/deprecated/index.js"
     },
     "./lib-esm/*": {
-      "node": [
-        "./lib/*.js",
-        "./lib/*/index.js"
-      ],
-      "default": [
+      "import": [
         "./lib-esm/*.js",
         "./lib-esm/*/index.js"
+      ],
+      "require": [
+        "./lib/*.js",
+        "./lib/*/index.js"
       ]
     }
   },
@@ -167,7 +164,7 @@
     "eslint-plugin-jest": "24.3.6",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-mdx": "1.15.1",
-    "eslint-plugin-prettier": "3.4.0",
+    "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-primer-react": "0.7.4",
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "4.2.0",
