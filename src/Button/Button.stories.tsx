@@ -63,6 +63,14 @@ export const invisibleButton = (args: ButtonProps) => {
   )
 }
 
+export const OutlineButton = (args: ButtonProps) => {
+  return (
+    <Button {...args} variant="outline">
+      Outline
+    </Button>
+  )
+}
+
 export const iconBeforeButton = (args: ButtonProps) => {
   return (
     <Button leadingIcon={SearchIcon} {...args}>
