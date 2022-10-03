@@ -343,13 +343,13 @@ StickyPane.args = {
 
 StickyPane.argTypes = {
   sticky: {
-    type: 'boolean',
+    type: 'boolean'
   },
   numParagraphsInPane: {
-    type: 'number',
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
+    type: 'number'
   }
 }
 
@@ -381,13 +381,13 @@ NonStickyPane.args = {
 
 NonStickyPane.argTypes = {
   sticky: {
-    type: 'boolean',
+    type: 'boolean'
   },
   numParagraphsInPane: {
-    type: 'number',
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
+    type: 'number'
   }
 }
 
@@ -409,16 +409,16 @@ CustomStickyHeader.args = {
 
 CustomStickyHeader.argTypes = {
   sticky: {
-    type: 'boolean',
+    type: 'boolean'
   },
   offsetHeader: {
-    type: 'string',
+    type: 'string'
   },
   numParagraphsInPane: {
-    type: 'number',
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
+    type: 'number'
   }
 }
 

@@ -46,7 +46,7 @@ const meta: Meta = {
     hideLabel: false,
     required: false,
     fileUploadsEnabled: true,
-    savedRepliesEnabled: true,
+    savedRepliesEnabled: true
   },
   argTypes: {
     disabled: {

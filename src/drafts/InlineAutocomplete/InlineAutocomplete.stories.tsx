@@ -30,7 +30,7 @@ export default {
   ],
   args: {
     loading: false,
-    tabInserts: false,
+    tabInserts: false
   },
   argTypes: {
     loading: {

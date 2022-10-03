@@ -42,16 +42,16 @@ export default {
       control: {type: 'range', min: 50, max: 500}
     },
     anchorPosition: {
-      control: {type: 'inline-radio' },
+      control: {type: 'inline-radio'},
       options: ['inside', 'outside']
     },
     anchorSide: {
-      control: {type: 'inline-radio' },
+      control: {type: 'inline-radio'},
       options: ['top', 'bottom', 'left', 'right', 'center'],
       description: 'note'
     },
     anchorAlignment: {
-      control: {type: 'inline-radio' },
+      control: {type: 'inline-radio'},
       options: ['start', 'center', 'end']
     },
     anchorOffset: {

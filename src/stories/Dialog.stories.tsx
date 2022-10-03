@@ -24,18 +24,18 @@ export default {
   args: {
     width: 'xlarge',
     height: 'auto',
-    subtitle: true,
+    subtitle: true
   },
   argTypes: {
     width: {
       control: {
-        type: 'radio',
+        type: 'radio'
       },
       options: ['small', 'medium', 'large', 'xlarge']
     },
     height: {
       control: {
-        type: 'radio',
+        type: 'radio'
       },
       options: ['small', 'large', 'auto']
     },

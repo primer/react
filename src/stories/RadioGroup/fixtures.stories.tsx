@@ -15,7 +15,7 @@ export default {
     visuallyHidden: false,
     captionChildren: '',
     validationChildren: '',
-    variant: 'error',
+    variant: 'error'
   },
   argTypes: {
     // RadioGroup

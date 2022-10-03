@@ -14,7 +14,7 @@ export default {
     visuallyHidden: false,
     captionChildren: '',
     validationChildren: '',
-    variant: 'error',
+    variant: 'error'
   },
   argTypes: {
     // RadioGroup
@@ -56,7 +56,7 @@ export default {
     },
     variant: {
       control: {
-        type: 'radio',
+        type: 'radio'
       },
       options: ['error', 'success', 'warning'],
       table: {

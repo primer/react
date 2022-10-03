@@ -3,7 +3,12 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, FormControl, Textarea, TextareaProps, ThemeProvider} from '..'
 import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
-import {FormControlArgs, formControlArgTypes, formControlArgs, getFormControlArgsByChildComponent} from '../utils/story-helpers'
+import {
+  FormControlArgs,
+  formControlArgTypes,
+  formControlArgs,
+  getFormControlArgsByChildComponent
+} from '../utils/story-helpers'
 
 export default {
   title: 'Components/Forms/Textarea',
@@ -26,7 +31,7 @@ export default {
     disabled: false,
     resize: DEFAULT_TEXTAREA_RESIZE,
     rows: DEFAULT_TEXTAREA_ROWS,
-    validationStatus: undefined,
+    validationStatus: undefined
   },
   argTypes: {
     block: {

@@ -540,13 +540,13 @@ StickyPane.args = {
 
 StickyPane.argTypes = {
   sticky: {
-    type: 'boolean',
+    type: 'boolean'
   },
   numParagraphsInPane: {
-    type: 'number',
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
+    type: 'number'
   }
 }
 
@@ -600,10 +600,10 @@ NestedScrollContainer.args = {
 
 NestedScrollContainer.argTypes = {
   numParagraphsInPane: {
-    type: 'number',
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
+    type: 'number'
   }
 }
 
@@ -680,16 +680,16 @@ CustomStickyHeader.args = {
 
 CustomStickyHeader.argTypes = {
   sticky: {
-    type: 'boolean',
+    type: 'boolean'
   },
   offsetHeader: {
-    type: 'string',
+    type: 'string'
   },
   numParagraphsInPane: {
-    type: 'number',
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
+    type: 'number'
   }
 }
 

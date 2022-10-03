@@ -28,7 +28,7 @@ export default {
   ],
   parameters: {controls: {exclude: textInputExcludedControlKeys}},
   args: {
-    type: 'text',
+    type: 'text'
   },
   argTypes: {
     type: {

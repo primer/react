@@ -24,7 +24,7 @@ export default {
     on: undefined,
     disabled: false,
     loading: false,
-    size: 'medium',
+    size: 'medium'
   },
   argTypes: {
     on: {
@@ -44,7 +44,7 @@ export default {
     },
     size: {
       control: {
-        type: 'radio',
+        type: 'radio'
       },
       options: ['small', 'medium']
     }

@@ -28,7 +28,7 @@ const meta: Meta = {
   component: MarkdownViewer,
   args: {
     loading: false,
-    linksInNewTab: false,
+    linksInNewTab: false
   },
   argTypes: {
     loading: {

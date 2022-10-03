@@ -47,7 +47,7 @@ export default {
     },
     variant: {
       control: {
-        type: 'radio',
+        type: 'radio'
       },
       options: ['small', 'medium', 'large']
     }

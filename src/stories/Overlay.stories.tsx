@@ -38,12 +38,12 @@ export default {
     }
   ],
   args: {
-    anchorSide: 'inside-top',
+    anchorSide: 'inside-top'
   },
   argTypes: {
     anchorSide: {
       control: {
-        type: 'radio', 
+        type: 'radio'
       },
       options: [
         'inside-top',

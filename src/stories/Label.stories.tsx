@@ -11,7 +11,7 @@ export default {
   component: Label,
   args: {
     variant: 'default',
-    size: 'large',
+    size: 'large'
   },
   argTypes: {
     variant: {
@@ -29,13 +29,13 @@ export default {
         'danger',
         'done',
         'sponsors'
-      ],
+      ]
     },
     size: {
       control: {
         type: 'radio'
       },
-      options: ['small', 'large'],
+      options: ['small', 'large']
     }
   },
   decorators: [

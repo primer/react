@@ -14,14 +14,14 @@ export default {
   component: Token,
   args: {
     text: 'Token',
-    size: 'medium',
+    size: 'medium'
   },
   argTypes: {
     size: {
       control: {
         type: 'radio'
       },
-      options: ['small', 'medium', 'large', 'xlarge'],
+      options: ['small', 'medium', 'large', 'xlarge']
     }
   },
   decorators: [

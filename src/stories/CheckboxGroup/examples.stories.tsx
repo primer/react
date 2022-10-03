@@ -13,7 +13,7 @@ export default {
     visuallyHidden: false,
     captionChildren: '',
     validationChildren: '',
-    variant: 'error',
+    variant: 'error'
   },
   argTypes: {
     // CheckboxGroup
@@ -55,7 +55,7 @@ export default {
     },
     variant: {
       control: {
-        type: 'radio',
+        type: 'radio'
       },
       options: ['error', 'success', 'warning'],
       table: {

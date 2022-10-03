@@ -31,7 +31,7 @@ export default {
   parameters: {controls: {exclude: excludedControlKeys}},
   args: {
     checked: false,
-    indeterminate: false,
+    indeterminate: false
   },
   argTypes: {
     checked: {

@@ -27,7 +27,7 @@ export default {
   ],
   args: {
     ...formControlArgs,
-    required: false,
+    required: false
   },
   argTypes: {
     ...inputWrapperArgTypes,

@@ -244,7 +244,7 @@ export const formControlArgs = {
   visuallyHidden: false,
   captionChildren: '',
   validationChildren: '',
-  variant: 'error',
+  variant: 'error'
 }
 
 export const formControlArgTypes: ArgTypes = {

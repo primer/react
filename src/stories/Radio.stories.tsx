@@ -27,7 +27,7 @@ export default {
   parameters: {controls: {exclude: excludedControlKeys}},
   args: {
     ...formControlArgs,
-    checked: false,
+    checked: false
   },
   argTypes: {
     checked: {

@@ -137,8 +137,8 @@ const autocompleteStoryMeta: Meta = {
     anchorSide: undefined,
     height: 'auto',
     overlayMaxHeight: undefined,
-    width: 'auto',
-  }, 
+    width: 'auto'
+  },
   argTypes: {
     // Autocomplete.Menu
     emptyStateText: {
@@ -156,7 +156,7 @@ const autocompleteStoryMeta: Meta = {
     },
     selectionVariant: {
       control: {
-        type: 'radio',
+        type: 'radio'
       },
       options: ['single', 'multiple'],
       table: {
@@ -167,7 +167,7 @@ const autocompleteStoryMeta: Meta = {
     // Autocomplete.Overlay
     anchorSide: {
       control: {
-        type: 'select',
+        type: 'select'
       },
       options: [
         'inside-top',
@@ -186,7 +186,7 @@ const autocompleteStoryMeta: Meta = {
     },
     height: {
       control: {
-        type: 'select',
+        type: 'select'
       },
       options: ['auto', 'initial', 'small', 'medium', 'large', 'xlarge', 'xsmall'],
       table: {
@@ -197,7 +197,7 @@ const autocompleteStoryMeta: Meta = {
     overlayMaxHeight: {
       name: 'maxHeight',
       control: {
-        type: 'select',
+        type: 'select'
       },
       options: ['small', 'medium', 'large', 'xlarge', 'xsmall', undefined],
       table: {
@@ -206,7 +206,7 @@ const autocompleteStoryMeta: Meta = {
     },
     width: {
       control: {
-        type: 'select',
+        type: 'select'
       },
       options: ['auto', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
       table: {
