@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@primer/gatsby-theme-doctocat": "^4.0.0",
-    "@primer/octicons-react": "^16.1.0",
+    "@primer/octicons-react": "^17.5.0",
     "@primer/primitives": "4.1.0",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",

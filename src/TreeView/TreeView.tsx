@@ -1,11 +1,20 @@
-import {ChevronDownIcon, ChevronRightIcon} from '@primer/octicons-react'
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  FileDirectoryFillIcon,
+  FileDirectoryOpenFillIcon
+} from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {useControllableState} from '../hooks/useControllableState'
+import Spinner from '../Spinner'
+import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
+import Text from '../Text'
 import {Theme} from '../ThemeProvider'
+import createSlots from '../utils/create-slots'
 import {useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
@@ -85,6 +94,8 @@ export type TreeViewItemProps = {
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
 }
+
+const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item: React.FC<TreeViewItemProps> = ({
   current: isCurrentItem = false,
@@ -266,10 +277,30 @@ const Item: React.FC<TreeViewItemProps> = ({
               display: 'flex',
               alignItems: 'center',
               height: '100%',
-              px: 2
+              px: 2,
+              gap: 2
             }}
           >
-            {childrenWithoutSubTree}
+            <Slots>
+              {slots => (
+                <>
+                  {slots.LeadingVisual}
+                  <Text
+                    sx={{
+                      // Truncate text label
+                      flex: '1 1 auto',
+                      width: 0,
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis'
+                    }}
+                  >
+                    {childrenWithoutSubTree}
+                  </Text>
+                  {slots.TrailingVisual}
+                </>
+              )}
+            </Slots>
           </Box>
         </Box>
         {subTree}
@@ -332,6 +363,23 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
 }
 
 // ----------------------------------------------------------------------------
+// TreeView.LoadingItem
+
+const LoadingItem: React.FC = () => {
+  return (
+    // TODO: What aria attributes do we need to add here?
+    <Item>
+      <LeadingVisual>
+        <Spinner size="small" />
+      </LeadingVisual>
+      <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
+  )
+}
+
+LoadingItem.displayName = 'TreeView.LoadingItem'
+
+// ----------------------------------------------------------------------------
 // TreeView.SubTree
 
 export type TreeViewSubTreeProps = {
@@ -375,10 +423,51 @@ function useSubTree(children: React.ReactNode) {
 }
 
 // ----------------------------------------------------------------------------
+// TreeView.LeadingVisual and TreeView.TrailingVisual
+
+export type TreeViewVisualProps = {
+  children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
+}
+
+const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <Slot name="LeadingVisual">
+      <Box sx={{display: 'flex', color: 'fg.muted'}}>{children}</Box>
+    </Slot>
+  )
+}
+
+const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <Slot name="TrailingVisual">
+      <Box sx={{display: 'flex', color: 'fg.muted'}}>{children}</Box>
+    </Slot>
+  )
+}
+
+// ----------------------------------------------------------------------------
+// TreeView.DirectoryIcon
+
+const DirectoryIcon = () => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
+  // TODO: Use correct color
+  return <StyledOcticon icon={icon} />
+}
+
+// ----------------------------------------------------------------------------
 // Export
 
 export const TreeView = Object.assign(Root, {
   Item,
   LinkItem,
-  SubTree
+  LoadingItem,
+  SubTree,
+  LeadingVisual,
+  TrailingVisual,
+  DirectoryIcon
 })
