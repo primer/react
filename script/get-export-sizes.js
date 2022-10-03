@@ -5,7 +5,7 @@ const path = require('node:path')
 const commonjs = require('@rollup/plugin-commonjs')
 const {nodeResolve} = require('@rollup/plugin-node-resolve')
 const virtual = require('@rollup/plugin-virtual')
-const {default: filesize} = require('filesize')
+const {filesize} = require('filesize')
 const gzip = require('gzip-size')
 const {rollup} = require('rollup')
 const {minify} = require('terser')
@@ -85,9 +85,9 @@ module.exports = async function main() {
       return b.gzipMinified - a.gzipMinified
     })
     .map(({id, minified, gzipMinified, unminified, gzipUnminified}) => {
-      return `| ${id} | ${filesize(gzipMinified)} | ${filesize(gzipUnminified)} | ${filesize(minified)} | ${filesize(
-        unminified
-      )} |`
+      return `| \`${id}\` | ${filesize(gzipMinified)} | ${filesize(gzipUnminified)} | ${filesize(
+        minified
+      )} | ${filesize(unminified)} |`
     })
 
   return `<details>
