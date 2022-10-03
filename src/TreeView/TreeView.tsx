@@ -8,8 +8,9 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import StyledOcticon from '../StyledOcticon'
 import {useControllableState} from '../hooks/useControllableState'
+import Spinner from '../Spinner'
+import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
 import {Theme} from '../ThemeProvider'
@@ -282,7 +283,6 @@ const Item: React.FC<TreeViewItemProps> = ({
           >
             <Slots>
               {slots => (
-                // QUESTION: How should leading and trailing visuals impact the aria-label?
                 <>
                   {slots.LeadingVisual}
                   <Text
@@ -363,6 +363,23 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
 }
 
 // ----------------------------------------------------------------------------
+// TreeView.LoadingItem
+
+const LoadingItem: React.FC = () => {
+  return (
+    // TODO: What aria attributes do we need to add here?
+    <Item>
+      <LeadingVisual>
+        <Spinner size="small" />
+      </LeadingVisual>
+      <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
+  )
+}
+
+LoadingItem.displayName = 'TreeView.LoadingItem'
+
+// ----------------------------------------------------------------------------
 // TreeView.SubTree
 
 export type TreeViewSubTreeProps = {
@@ -417,7 +434,7 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="LeadingVisual">
-      <Box sx={{color: 'fg.muted'}}>{children}</Box>
+      <Box sx={{display: 'flex', color: 'fg.muted'}}>{children}</Box>
     </Slot>
   )
 }
@@ -427,7 +444,7 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="TrailingVisual">
-      <Box sx={{color: 'fg.muted'}}>{children}</Box>
+      <Box sx={{display: 'flex', color: 'fg.muted'}}>{children}</Box>
     </Slot>
   )
 }
@@ -448,6 +465,7 @@ const DirectoryIcon = () => {
 export const TreeView = Object.assign(Root, {
   Item,
   LinkItem,
+  LoadingItem,
   SubTree,
   LeadingVisual,
   TrailingVisual,
