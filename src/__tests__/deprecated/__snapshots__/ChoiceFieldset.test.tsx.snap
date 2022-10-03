@@ -8,7 +8,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
 }
 
 .c1 {
-  margin-bottom: 16px;
+  margin-bottom: var(--base-size-16,16px);
 }
 
 .c4 {
@@ -24,7 +24,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
 }
 
 .c7 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -86,7 +86,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
 }
 
 .c3 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -191,7 +191,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 }
 
 .c1 {
-  margin-bottom: 16px;
+  margin-bottom: var(--base-size-16,16px);
 }
 
 .c5 {
@@ -207,7 +207,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 }
 
 .c8 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -272,7 +272,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 }
 
 .c4 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -382,7 +382,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 }
 
 .c1 {
-  margin-bottom: 16px;
+  margin-bottom: var(--base-size-16,16px);
 }
 
 .c5 > input {
@@ -391,7 +391,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 }
 
 .c8 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -413,7 +413,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 }
 
 .c7 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   color: #24292f;
 }
 
@@ -479,7 +479,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 }
 
 .c3 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -652,7 +652,7 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
 }
 
 .c1 {
-  margin-bottom: 16px;
+  margin-bottom: var(--base-size-16,16px);
 }
 
 .c4 {
@@ -668,7 +668,7 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
 }
 
 .c7 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -728,7 +728,7 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
 }
 
 .c3 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -866,7 +866,7 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
 }
 
 .c1 {
-  margin-bottom: 16px;
+  margin-bottom: var(--base-size-16,16px);
 }
 
 .c3 {
@@ -882,7 +882,7 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
 }
 
 .c8 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -893,7 +893,7 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
 }
 
 .c4 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c2 {
@@ -946,7 +946,7 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
 }
 
 .c5 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -1062,7 +1062,7 @@ exports[`ChoiceFieldset renders default 1`] = `
 }
 
 .c1 {
-  margin-bottom: 16px;
+  margin-bottom: var(--base-size-16,16px);
 }
 
 .c4 {
@@ -1078,7 +1078,7 @@ exports[`ChoiceFieldset renders default 1`] = `
 }
 
 .c7 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1138,7 +1138,7 @@ exports[`ChoiceFieldset renders default 1`] = `
 }
 
 .c3 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -1241,7 +1241,7 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
 }
 
 .c1 {
-  margin-bottom: 16px;
+  margin-bottom: var(--base-size-16,16px);
 }
 
 .c4 {
@@ -1257,7 +1257,7 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
 }
 
 .c7 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1317,7 +1317,7 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
 }
 
 .c3 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -1432,7 +1432,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
 }
 
 .c6 {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1500,7 +1500,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
 }
 
 .c2 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -1602,10 +1602,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   border: none;
 }
 
-.c1 {
-  margin-bottom: 16px;
-}
-
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1616,6 +1612,10 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 .c5 > input {
   margin-left: 0;
   margin-right: 0;
+}
+
+.c1 {
+  margin-bottom: 16px;
 }
 
 .c7 {
@@ -1721,7 +1721,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 }
 
 .c3 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>
@@ -1864,10 +1864,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   border: none;
 }
 
-.c1 {
-  margin-bottom: 16px;
-}
-
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1878,6 +1874,10 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 .c5 > input {
   margin-left: 0;
   margin-right: 0;
+}
+
+.c1 {
+  margin-bottom: 16px;
 }
 
 .c7 {
@@ -1983,7 +1983,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 }
 
 .c3 > li + li {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 <div>

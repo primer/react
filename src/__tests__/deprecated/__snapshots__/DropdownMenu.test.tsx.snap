@@ -68,7 +68,7 @@ exports[`DropdownMenu renders consistently 1`] = `
 }
 
 .c1 {
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
 }
 
 <button

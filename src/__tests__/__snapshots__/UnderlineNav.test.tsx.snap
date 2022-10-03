@@ -22,7 +22,7 @@ exports[`UnderlineNav renders consistently 1`] = `
 
 .c0.PRC-UnderlineNav--right .PRC-UnderlineNav-item {
   margin-right: 0;
-  margin-left: 16px;
+  margin-left: var(--base-size-16,16px);
 }
 
 .c0.PRC-UnderlineNav--right .PRC-UnderlineNav-actions {

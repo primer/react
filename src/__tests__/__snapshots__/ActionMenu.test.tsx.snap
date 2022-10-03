@@ -9,7 +9,7 @@ exports[`ActionMenu renders consistently 1`] = `
 
 .c2 {
   display: inline-block;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
 }
 
 .c1 {
@@ -74,7 +74,7 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1 > :not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c1 [data-component="leadingIcon"] {
@@ -108,8 +108,8 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1 [data-component=trailingIcon] {
-  margin-left: -4px;
-  margin-right: -4px;
+  margin-left: -var(--base-size-4,4px);
+  margin-right: -var(--base-size-4,4px);
 }
 
 @media (forced-colors:active) {

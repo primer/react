@@ -2,7 +2,7 @@
 
 exports[`LabelGroup renders consistently 1`] = `
 .c0 * {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 *:last-child {

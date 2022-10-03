@@ -2,7 +2,7 @@
 
 exports[`FormGroup renders consistently 1`] = `
 .c0 {
-  margin: 16px 0;
+  margin: var(--base-size-16,16px) 0;
   font-weight: 400;
 }
 
@@ -14,7 +14,7 @@ exports[`FormGroup renders consistently 1`] = `
 exports[`FormGroup.Label renders consistently 1`] = `
 .c0 {
   display: block;
-  margin: 0 0 8px;
+  margin: 0 0 var(--base-size-8,8px);
   font-size: 14px;
   font-weight: 600;
 }

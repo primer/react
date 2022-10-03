@@ -68,7 +68,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 }
 
 .c6 {
-  padding: 4px 16px;
+  padding: var(--base-size-4,4px) var(--base-size-16,16px);
   margin: 0;
   font-size: 12px;
   font-weight: 600;
@@ -79,7 +79,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 .c7 {
   margin-top: -1px;
-  padding: 8px 16px;
+  padding: var(--base-size-8,8px) var(--base-size-16,16px);
   font-size: 12px;
   color: #57606a;
   text-align: center;
@@ -95,7 +95,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 16px;
+  padding: var(--base-size-16,16px);
   overflow: hidden;
   text-align: left;
   cursor: pointer;
@@ -124,8 +124,8 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 }
 
 .c5 .SelectMenu-icon {
-  width: 16px;
-  margin-right: 8px;
+  width: var(--base-size-16,16px);
+  margin-right: var(--base-size-8,8px);
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -202,7 +202,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 16px;
+  padding: var(--base-size-16,16px);
   pointer-events: none;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -234,14 +234,14 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
 
 @media (min-width:544px) {
   .c7 {
-    padding: 4px 8px;
+    padding: var(--base-size-4,4px) var(--base-size-8,8px);
   }
 }
 
 @media (min-width:544px) {
   .c5 {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: var(--base-size-8,8px);
+    padding-bottom: var(--base-size-8,8px);
   }
 }
 
@@ -284,7 +284,7 @@ exports[`SelectMenu right-aligned modal has right: 0px 1`] = `
   .c3 {
     height: auto;
     max-height: 350px;
-    margin: 4px 0 16px 0;
+    margin: var(--base-size-4,4px) 0 var(--base-size-16,16px) 0;
     font-size: 12px;
     border: 1px solid #d0d7de;
     border-radius: 6px;

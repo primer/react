@@ -6,7 +6,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c3 {
@@ -40,8 +40,8 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   font-size: 12px;
   height: 16px;
   line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: var(--base-size-4,4px);
+  padding-right: var(--base-size-4,4px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -51,7 +51,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   color: #57606a;
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
+  padding-left: var(--base-size-4,4px);
 }
 
 .c5 {
@@ -89,7 +89,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 16px;
   width: 16px;
 }
@@ -143,7 +143,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 }
 
 .c2 {
-  --spacing: calc(4px * 2);
+  --spacing: calc(var(--base-size-4,4px) * 2);
   display: block;
   height: calc(16px - var(--spacing));
   width: calc(16px - var(--spacing));
@@ -215,7 +215,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c3 {
@@ -249,8 +249,8 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -260,7 +260,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   color: #57606a;
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
+  padding-left: var(--base-size-4,4px);
 }
 
 .c5 {
@@ -298,7 +298,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 20px;
   width: 20px;
 }
@@ -352,7 +352,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 }
 
 .c2 {
-  --spacing: calc(4px * 2);
+  --spacing: calc(var(--base-size-4,4px) * 2);
   display: block;
   height: calc(20px - var(--spacing));
   width: calc(20px - var(--spacing));
@@ -424,7 +424,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c3 {
@@ -458,8 +458,8 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   font-size: 12px;
   height: 24px;
   line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -469,7 +469,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   color: #57606a;
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
+  padding-left: var(--base-size-4,4px);
 }
 
 .c5 {
@@ -507,7 +507,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 24px;
   width: 24px;
 }
@@ -561,7 +561,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 }
 
 .c2 {
-  --spacing: calc(4px * 2);
+  --spacing: calc(var(--base-size-4,4px) * 2);
   display: block;
   height: calc(24px - var(--spacing));
   width: calc(24px - var(--spacing));
@@ -633,7 +633,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c3 {
@@ -667,8 +667,8 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   font-size: 14px;
   height: 32px;
   line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--base-size-16,16px);
+  padding-right: var(--base-size-16,16px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -678,7 +678,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   color: #57606a;
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
+  padding-left: var(--base-size-4,4px);
 }
 
 .c5 {
@@ -716,7 +716,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 32px;
   width: 32px;
 }
@@ -770,7 +770,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 }
 
 .c2 {
-  --spacing: calc(4px * 2);
+  --spacing: calc(var(--base-size-4,4px) * 2);
   display: block;
   height: calc(32px - var(--spacing));
   width: calc(32px - var(--spacing));
@@ -842,7 +842,7 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c3 {
@@ -876,8 +876,8 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   font-size: 14px;
   height: 32px;
   line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--base-size-16,16px);
+  padding-right: var(--base-size-16,16px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -887,7 +887,7 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   color: #57606a;
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
+  padding-left: var(--base-size-4,4px);
 }
 
 .c5 {
@@ -925,7 +925,7 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 32px;
   width: 32px;
 }
@@ -979,7 +979,7 @@ exports[`Token components AvatarToken renders all sizes 5`] = `
 }
 
 .c2 {
-  --spacing: calc(4px * 2);
+  --spacing: calc(var(--base-size-4,4px) * 2);
   display: block;
   height: calc(32px - var(--spacing));
   width: calc(32px - var(--spacing));
@@ -1066,8 +1066,8 @@ exports[`Token components AvatarToken renders consistently 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -1134,7 +1134,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c3 {
@@ -1168,8 +1168,8 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -1178,7 +1178,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   border-width: 1px;
   color: #24292f;
   max-width: 100%;
-  padding-left: 4px;
+  padding-left: var(--base-size-4,4px);
 }
 
 .c4 {
@@ -1221,7 +1221,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
 }
 
 .c2 {
-  --spacing: calc(4px * 2);
+  --spacing: calc(var(--base-size-4,4px) * 2);
   display: block;
   height: calc(20px - var(--spacing));
   width: calc(20px - var(--spacing));
@@ -1262,7 +1262,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c3 {
@@ -1296,8 +1296,8 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -1307,7 +1307,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   color: #57606a;
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
+  padding-left: var(--base-size-4,4px);
 }
 
 .c5 {
@@ -1345,7 +1345,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 20px;
   width: 20px;
 }
@@ -1399,7 +1399,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 }
 
 .c2 {
-  --spacing: calc(4px * 2);
+  --spacing: calc(var(--base-size-4,4px) * 2);
   display: block;
   height: calc(20px - var(--spacing));
   width: calc(20px - var(--spacing));
@@ -1486,8 +1486,8 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   font-size: 12px;
   height: 16px;
   line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: var(--base-size-4,4px);
+  padding-right: var(--base-size-4,4px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 153;
@@ -1545,7 +1545,7 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 16px;
   width: 16px;
 }
@@ -1663,8 +1663,8 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 153;
@@ -1722,7 +1722,7 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 20px;
   width: 20px;
 }
@@ -1840,8 +1840,8 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   font-size: 12px;
   height: 24px;
   line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 153;
@@ -1899,7 +1899,7 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 24px;
   width: 24px;
 }
@@ -2017,8 +2017,8 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   font-size: 14px;
   height: 32px;
   line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--base-size-16,16px);
+  padding-right: var(--base-size-16,16px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 153;
@@ -2076,7 +2076,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 32px;
   width: 32px;
 }
@@ -2194,8 +2194,8 @@ exports[`Token components IssueLabelToken renders all sizes 5`] = `
   font-size: 14px;
   height: 32px;
   line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--base-size-16,16px);
+  padding-right: var(--base-size-16,16px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 153;
@@ -2253,7 +2253,7 @@ exports[`Token components IssueLabelToken renders all sizes 5`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 32px;
   width: 32px;
 }
@@ -2371,8 +2371,8 @@ exports[`Token components IssueLabelToken renders consistently 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -2454,8 +2454,8 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 3;
@@ -2513,7 +2513,7 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 20px;
   width: 20px;
 }
@@ -2631,8 +2631,8 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 153;
@@ -2690,7 +2690,7 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 20px;
   width: 20px;
 }
@@ -2808,8 +2808,8 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 153;
@@ -2922,8 +2922,8 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   --label-r: 153;
@@ -2981,7 +2981,7 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 20px;
   width: 20px;
 }
@@ -3099,8 +3099,8 @@ exports[`Token components Token renders all sizes 1`] = `
   font-size: 12px;
   height: 16px;
   line-height: 16px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: var(--base-size-4,4px);
+  padding-right: var(--base-size-4,4px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -3147,7 +3147,7 @@ exports[`Token components Token renders all sizes 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 16px;
   width: 16px;
 }
@@ -3265,8 +3265,8 @@ exports[`Token components Token renders all sizes 2`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -3313,7 +3313,7 @@ exports[`Token components Token renders all sizes 2`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 20px;
   width: 20px;
 }
@@ -3431,8 +3431,8 @@ exports[`Token components Token renders all sizes 3`] = `
   font-size: 12px;
   height: 24px;
   line-height: 24px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -3479,7 +3479,7 @@ exports[`Token components Token renders all sizes 3`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 24px;
   width: 24px;
 }
@@ -3597,8 +3597,8 @@ exports[`Token components Token renders all sizes 4`] = `
   font-size: 14px;
   height: 32px;
   line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--base-size-16,16px);
+  padding-right: var(--base-size-16,16px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -3645,7 +3645,7 @@ exports[`Token components Token renders all sizes 4`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 32px;
   width: 32px;
 }
@@ -3763,8 +3763,8 @@ exports[`Token components Token renders all sizes 5`] = `
   font-size: 14px;
   height: 32px;
   line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--base-size-16,16px);
+  padding-right: var(--base-size-16,16px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -3811,7 +3811,7 @@ exports[`Token components Token renders all sizes 5`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   height: 32px;
   width: 32px;
 }
@@ -3929,8 +3929,8 @@ exports[`Token components Token renders consistently 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -4012,8 +4012,8 @@ exports[`Token components Token renders isSelected 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -4082,7 +4082,7 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   line-height: 0;
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -4105,8 +4105,8 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -4201,8 +4201,8 @@ exports[`Token components Token renders with a remove button 1`] = `
   font-size: 12px;
   height: 20px;
   line-height: 20px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 0;
   padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
@@ -4249,7 +4249,7 @@ exports[`Token components Token renders with a remove button 1`] = `
   align-self: baseline;
   border: 0;
   border-radius: 999px;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   height: 20px;
   width: 20px;
 }

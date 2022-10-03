@@ -2,7 +2,7 @@
 
 exports[`StateLabel renders children 1`] = `
 .c1 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -23,8 +23,8 @@ exports[`StateLabel renders children 1`] = `
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
   font-size: 14px;
 }
 
@@ -59,7 +59,7 @@ exports[`StateLabel renders children 1`] = `
 
 exports[`StateLabel renders consistently 1`] = `
 .c1 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -80,8 +80,8 @@ exports[`StateLabel renders consistently 1`] = `
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
   font-size: 14px;
 }
 
@@ -116,7 +116,7 @@ exports[`StateLabel renders consistently 1`] = `
 
 exports[`StateLabel respects the status prop 1`] = `
 .c1 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -137,8 +137,8 @@ exports[`StateLabel respects the status prop 1`] = `
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
   font-size: 14px;
 }
 
@@ -172,7 +172,7 @@ exports[`StateLabel respects the status prop 1`] = `
 
 exports[`StateLabel respects the status prop 2`] = `
 .c1 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -193,8 +193,8 @@ exports[`StateLabel respects the status prop 2`] = `
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
   font-size: 14px;
 }
 
@@ -228,7 +228,7 @@ exports[`StateLabel respects the status prop 2`] = `
 
 exports[`StateLabel respects the status prop 3`] = `
 .c1 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -249,8 +249,8 @@ exports[`StateLabel respects the status prop 3`] = `
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
   font-size: 14px;
 }
 
@@ -284,7 +284,7 @@ exports[`StateLabel respects the status prop 3`] = `
 
 exports[`StateLabel respects the status prop 4`] = `
 .c1 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -305,8 +305,8 @@ exports[`StateLabel respects the status prop 4`] = `
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
   font-size: 14px;
 }
 
@@ -340,7 +340,7 @@ exports[`StateLabel respects the status prop 4`] = `
 
 exports[`StateLabel respects the variant prop 1`] = `
 .c1 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -359,10 +359,10 @@ exports[`StateLabel respects the variant prop 1`] = `
   border-radius: 100px;
   background-color: #2da44e;
   color: #ffffff;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
+  padding-top: var(--base-size-4,4px);
+  padding-bottom: var(--base-size-4,4px);
   font-size: 12px;
 }
 
@@ -396,7 +396,7 @@ exports[`StateLabel respects the variant prop 1`] = `
 
 exports[`StateLabel respects the variant prop 2`] = `
 .c1 {
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
 }
 
 .c0 {
@@ -417,8 +417,8 @@ exports[`StateLabel respects the variant prop 2`] = `
   color: #ffffff;
   padding-left: 12px;
   padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
   font-size: 14px;
 }
 

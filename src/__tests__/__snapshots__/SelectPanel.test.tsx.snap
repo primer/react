@@ -74,7 +74,7 @@ exports[`SelectPanel renders consistently 1`] = `
 }
 
 .c2 {
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
 }
 
 <div

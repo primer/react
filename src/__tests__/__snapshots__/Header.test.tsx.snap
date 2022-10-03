@@ -6,7 +6,7 @@ exports[`Header Header.Item renders consistently 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-right: 16px;
+  margin-right: var(--base-size-16,16px);
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -59,7 +59,7 @@ exports[`Header renders consistently 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 16px;
+  padding: var(--base-size-16,16px);
   font-size: 14px;
   line-height: 1.5;
   color: rgba(255,255,255,0.7);

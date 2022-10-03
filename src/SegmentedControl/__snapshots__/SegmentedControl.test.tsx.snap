@@ -22,8 +22,8 @@ exports[`SegmentedControl renders consistently 1`] = `
   content: "";
   position: absolute;
   right: -2px;
-  top: 8px;
-  bottom: 8px;
+  top: var(--base-size-8,8px);
+  bottom: var(--base-size-8,8px);
   width: 1px;
 }
 
@@ -56,8 +56,8 @@ exports[`SegmentedControl renders consistently 1`] = `
   content: "";
   position: absolute;
   right: -2px;
-  top: 8px;
-  bottom: 8px;
+  top: var(--base-size-8,8px);
+  bottom: var(--base-size-8,8px);
   width: 1px;
 }
 

@@ -63,7 +63,7 @@ exports[`Autocomplete snapshots renders a custom empty state message 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -130,7 +130,7 @@ exports[`Autocomplete snapshots renders a custom empty state message 1`] = `
     />
   </span>,
   .c1 {
-  padding: 16px;
+  padding: var(--base-size-16,16px);
 }
 
 .c0 {
@@ -223,7 +223,7 @@ exports[`Autocomplete snapshots renders a loading state 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -290,7 +290,7 @@ exports[`Autocomplete snapshots renders a loading state 1`] = `
     />
   </span>,
   .c1 {
-  padding: 16px;
+  padding: var(--base-size-16,16px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -418,7 +418,7 @@ exports[`Autocomplete snapshots renders a menu that contains an item to add to t
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -498,8 +498,8 @@ exports[`Autocomplete snapshots renders a menu that contains an item to add to t
 }
 
 .c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: var(--base-size-8,8px);
+  margin-bottom: var(--base-size-8,8px);
 }
 
 .c8 {
@@ -535,7 +535,7 @@ exports[`Autocomplete snapshots renders a menu that contains an item to add to t
 }
 
 .c4 {
-  padding: 6px 8px;
+  padding: 6px var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -546,8 +546,8 @@ exports[`Autocomplete snapshots renders a menu that contains an item to add to t
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
 }
 
 .c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
@@ -595,8 +595,8 @@ exports[`Autocomplete snapshots renders a menu that contains an item to add to t
 
 .c5 {
   height: 20px;
-  width: 16px;
-  margin-right: 8px;
+  width: var(--base-size-16,16px);
+  margin-right: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -616,8 +616,8 @@ exports[`Autocomplete snapshots renders a menu that contains an item to add to t
 
 .c10 {
   height: 20px;
-  width: 16px;
-  margin-right: 8px;
+  width: var(--base-size-16,16px);
+  margin-right: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1376,7 +1376,7 @@ exports[`Autocomplete snapshots renders a multiselect input 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -1456,8 +1456,8 @@ exports[`Autocomplete snapshots renders a multiselect input 1`] = `
 }
 
 .c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: var(--base-size-8,8px);
+  margin-bottom: var(--base-size-8,8px);
 }
 
 .c8 {
@@ -1493,7 +1493,7 @@ exports[`Autocomplete snapshots renders a multiselect input 1`] = `
 }
 
 .c4 {
-  padding: 6px 8px;
+  padding: 6px var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1504,8 +1504,8 @@ exports[`Autocomplete snapshots renders a multiselect input 1`] = `
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
 }
 
 .c4:not(:first-of-type):not(.c11 + .c3):not(.c10 + .c3) {
@@ -1553,8 +1553,8 @@ exports[`Autocomplete snapshots renders a multiselect input 1`] = `
 
 .c5 {
   height: 20px;
-  width: 16px;
-  margin-right: 8px;
+  width: var(--base-size-16,16px);
+  margin-right: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2244,7 +2244,7 @@ exports[`Autocomplete snapshots renders a multiselect input with selected menu i
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -2324,8 +2324,8 @@ exports[`Autocomplete snapshots renders a multiselect input with selected menu i
 }
 
 .c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: var(--base-size-8,8px);
+  margin-bottom: var(--base-size-8,8px);
 }
 
 .c8 {
@@ -2361,7 +2361,7 @@ exports[`Autocomplete snapshots renders a multiselect input with selected menu i
 }
 
 .c4 {
-  padding: 6px 8px;
+  padding: 6px var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2372,8 +2372,8 @@ exports[`Autocomplete snapshots renders a multiselect input with selected menu i
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
 }
 
 .c4:not(:first-of-type):not(.c12 + .c3):not(.c11 + .c3) {
@@ -2421,8 +2421,8 @@ exports[`Autocomplete snapshots renders a multiselect input with selected menu i
 
 .c5 {
   height: 20px;
-  width: 16px;
-  margin-right: 8px;
+  width: var(--base-size-16,16px);
+  margin-right: var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3123,7 +3123,7 @@ exports[`Autocomplete snapshots renders a single select input 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -3203,8 +3203,8 @@ exports[`Autocomplete snapshots renders a single select input 1`] = `
 }
 
 .c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: var(--base-size-8,8px);
+  margin-bottom: var(--base-size-8,8px);
 }
 
 .c6 {
@@ -3240,7 +3240,7 @@ exports[`Autocomplete snapshots renders a single select input 1`] = `
 }
 
 .c4 {
-  padding: 6px 8px;
+  padding: 6px var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3251,8 +3251,8 @@ exports[`Autocomplete snapshots renders a single select input 1`] = `
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
 }
 
 .c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
@@ -3646,8 +3646,8 @@ exports[`Autocomplete snapshots renders with a custom text input component 1`] =
 }
 
 .c2 {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: var(--base-size-8,8px);
+  margin-bottom: var(--base-size-8,8px);
 }
 
 .c6 {
@@ -3683,7 +3683,7 @@ exports[`Autocomplete snapshots renders with a custom text input component 1`] =
 }
 
 .c4 {
-  padding: 6px 8px;
+  padding: 6px var(--base-size-8,8px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -3694,8 +3694,8 @@ exports[`Autocomplete snapshots renders with a custom text input component 1`] =
   transition: background 33.333ms linear;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
 }
 
 .c4:not(:first-of-type):not(.c9 + .c3):not(.c8 + .c3) {
@@ -4132,7 +4132,7 @@ exports[`Autocomplete snapshots renders with an input value 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -4199,7 +4199,7 @@ exports[`Autocomplete snapshots renders with an input value 1`] = `
     />
   </span>,
   .c1 {
-  padding: 16px;
+  padding: var(--base-size-16,16px);
 }
 
 .c0 {

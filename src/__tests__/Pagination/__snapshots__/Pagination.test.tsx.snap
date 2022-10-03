@@ -22,7 +22,7 @@ exports[`Pagination renders consistently 1`] = `
   user-select: none;
   -webkit-text-decoration: none;
   text-decoration: none;
-  margin-right: 4px;
+  margin-right: var(--base-size-4,4px);
   border: 1px solid transparent;
   border-radius: 6px;
   -webkit-transition: border-color 0.2s cubic-bezier(0.3,0,0.5,1);
@@ -100,13 +100,13 @@ exports[`Pagination renders consistently 1`] = `
   }
 
   .c2[rel='prev']::before {
-    margin-right: 4px;
+    margin-right: var(--base-size-4,4px);
     -webkit-clip-path: polygon( 9.8px 12.8px,8.7px 12.8px,4.5px 8.5px,4.5px 7.5px,8.7px 3.2px,9.8px 4.3px,6.1px 8px,9.8px 11.7px,9.8px 12.8px );
     clip-path: polygon( 9.8px 12.8px,8.7px 12.8px,4.5px 8.5px,4.5px 7.5px,8.7px 3.2px,9.8px 4.3px,6.1px 8px,9.8px 11.7px,9.8px 12.8px );
   }
 
   .c2[rel='next']::after {
-    margin-left: 4px;
+    margin-left: var(--base-size-4,4px);
     -webkit-clip-path: polygon( 6.2px 3.2px,7.3px 3.2px,11.5px 7.5px,11.5px 8.5px,7.3px 12.8px,6.2px 11.7px,9.9px 8px,6.2px 4.3px,6.2px 3.2px );
     clip-path: polygon( 6.2px 3.2px,7.3px 3.2px,11.5px 7.5px,11.5px 8.5px,7.3px 12.8px,6.2px 11.7px,9.9px 8px,6.2px 4.3px,6.2px 3.2px );
   }

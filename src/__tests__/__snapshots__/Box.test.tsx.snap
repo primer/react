@@ -8,7 +8,7 @@ exports[`Box renders consistently 1`] = `
 
 exports[`Box renders margin 1`] = `
 .c0 {
-  margin: 4px;
+  margin: var(--base-size-4,4px);
 }
 
 <div
@@ -23,19 +23,19 @@ exports[`Box renders margin 2`] = `
 
 @media screen and (min-width:544px) {
   .c0 {
-    margin: 4px;
+    margin: var(--base-size-4,4px);
   }
 }
 
 @media screen and (min-width:768px) {
   .c0 {
-    margin: 8px;
+    margin: var(--base-size-8,8px);
   }
 }
 
 @media screen and (min-width:1012px) {
   .c0 {
-    margin: 16px;
+    margin: var(--base-size-16,16px);
   }
 }
 
@@ -46,24 +46,24 @@ exports[`Box renders margin 2`] = `
 
 exports[`Box renders margin 3`] = `
 .c0 {
-  margin: 4px;
+  margin: var(--base-size-4,4px);
 }
 
 @media screen and (min-width:544px) {
   .c0 {
-    margin: 4px;
+    margin: var(--base-size-4,4px);
   }
 }
 
 @media screen and (min-width:768px) {
   .c0 {
-    margin: 4px;
+    margin: var(--base-size-4,4px);
   }
 }
 
 @media screen and (min-width:1012px) {
   .c0 {
-    margin: 16px;
+    margin: var(--base-size-16,16px);
   }
 }
 
@@ -74,7 +74,7 @@ exports[`Box renders margin 3`] = `
 
 exports[`Box renders padding 1`] = `
 .c0 {
-  padding: 4px;
+  padding: var(--base-size-4,4px);
 }
 
 <div
@@ -89,19 +89,19 @@ exports[`Box renders padding 2`] = `
 
 @media screen and (min-width:544px) {
   .c0 {
-    padding: 4px;
+    padding: var(--base-size-4,4px);
   }
 }
 
 @media screen and (min-width:768px) {
   .c0 {
-    padding: 8px;
+    padding: var(--base-size-8,8px);
   }
 }
 
 @media screen and (min-width:1012px) {
   .c0 {
-    padding: 16px;
+    padding: var(--base-size-16,16px);
   }
 }
 
@@ -112,24 +112,24 @@ exports[`Box renders padding 2`] = `
 
 exports[`Box renders padding 3`] = `
 .c0 {
-  padding: 4px;
+  padding: var(--base-size-4,4px);
 }
 
 @media screen and (min-width:544px) {
   .c0 {
-    padding: 4px;
+    padding: var(--base-size-4,4px);
   }
 }
 
 @media screen and (min-width:768px) {
   .c0 {
-    padding: 4px;
+    padding: var(--base-size-4,4px);
   }
 }
 
 @media screen and (min-width:1012px) {
   .c0 {
-    padding: 16px;
+    padding: var(--base-size-16,16px);
   }
 }
 

@@ -74,7 +74,7 @@ exports[`Grid respects gridColumn 1`] = `
 exports[`Grid respects gridColumnGap 1`] = `
 .c0 {
   display: grid;
-  grid-column-gap: 8px;
+  grid-column-gap: var(--base-size-8,8px);
 }
 
 <div
@@ -86,7 +86,7 @@ exports[`Grid respects gridColumnGap 1`] = `
 exports[`Grid respects gridGap 1`] = `
 .c0 {
   display: grid;
-  grid-gap: 4px;
+  grid-gap: var(--base-size-4,4px);
 }
 
 <div
@@ -110,7 +110,7 @@ exports[`Grid respects gridRow 1`] = `
 exports[`Grid respects gridRowGap 1`] = `
 .c0 {
   display: grid;
-  grid-row-gap: 8px;
+  grid-row-gap: var(--base-size-8,8px);
 }
 
 <div

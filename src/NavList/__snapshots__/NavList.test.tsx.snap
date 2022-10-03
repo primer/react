@@ -26,8 +26,8 @@ exports[`NavList renders a simple list 1`] = `
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
 }
 
 .c2 {
@@ -43,8 +43,8 @@ exports[`NavList renders a simple list 1`] = `
   padding-bottom: 0;
   line-height: 20px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -106,7 +106,7 @@ exports[`NavList renders a simple list 1`] = `
 .c2::after {
   position: absolute;
   top: calc(50% - 12px);
-  left: -8px;
+  left: -var(--base-size-8,8px);
   width: 4px;
   height: 24px;
   content: "";
@@ -127,8 +127,8 @@ exports[`NavList renders a simple list 1`] = `
   padding-bottom: 0;
   line-height: 20px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -189,8 +189,8 @@ exports[`NavList renders a simple list 1`] = `
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 6px;
   padding-bottom: 6px;
   display: -webkit-box;
@@ -395,8 +395,8 @@ exports[`NavList renders with groups 1`] = `
 .c1 {
   height: 1px;
   background-color: rgba(208,215,222,0.48);
-  margin-top: calc(8px - 1px);
-  margin-bottom: 8px;
+  margin-top: calc(var(--base-size-8,8px) - 1px);
+  margin-bottom: var(--base-size-8,8px);
   list-style: none;
 }
 
@@ -409,14 +409,14 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c2:not(:first-child) {
-  margin-top: 8px;
+  margin-top: var(--base-size-8,8px);
 }
 
 .c3 {
   padding-top: 6px;
   padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: var(--base-size-16,16px);
+  padding-right: var(--base-size-16,16px);
   font-size: 12px;
   font-weight: 600;
   color: #57606a;
@@ -429,8 +429,8 @@ exports[`NavList renders with groups 1`] = `
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
 }
 
 .c6 {
@@ -446,8 +446,8 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 0;
   line-height: 20px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -509,7 +509,7 @@ exports[`NavList renders with groups 1`] = `
 .c6::after {
   position: absolute;
   top: calc(50% - 12px);
-  left: -8px;
+  left: -var(--base-size-8,8px);
   width: 4px;
   height: 24px;
   content: "";
@@ -530,8 +530,8 @@ exports[`NavList renders with groups 1`] = `
   padding-bottom: 0;
   line-height: 20px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -592,8 +592,8 @@ exports[`NavList renders with groups 1`] = `
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 6px;
   padding-bottom: 6px;
   display: -webkit-box;
@@ -851,7 +851,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   -ms-flex-negative: 0;
   flex-shrink: 0;
   color: #57606a;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   font-weight: initial;
 }
 
@@ -864,8 +864,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
 }
 
 .c10 {
@@ -881,8 +881,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding-bottom: 0;
   line-height: 20px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -944,7 +944,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c10::after {
   position: absolute;
   top: calc(50% - 12px);
-  left: -8px;
+  left: -var(--base-size-8,8px);
   width: 4px;
   height: 24px;
   content: "";
@@ -1000,15 +1000,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
   line-height: 20px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1076,8 +1076,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
-  padding-left: 32px;
-  padding-right: 8px;
+  padding-left: var(--base-size-32,32px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 6px;
   padding-bottom: 6px;
   display: -webkit-box;
@@ -1321,7 +1321,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   -ms-flex-negative: 0;
   flex-shrink: 0;
   color: #57606a;
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
   font-weight: initial;
 }
 
@@ -1334,8 +1334,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c0 {
   margin: 0;
   padding-inline-start: 0;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: var(--base-size-8,8px);
+  padding-bottom: var(--base-size-8,8px);
 }
 
 .c10 {
@@ -1351,8 +1351,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding-bottom: 0;
   line-height: 20px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1414,7 +1414,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c10::after {
   position: absolute;
   top: calc(50% - 12px);
-  left: -8px;
+  left: -var(--base-size-8,8px);
   width: 4px;
   height: 24px;
   content: "";
@@ -1476,15 +1476,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   font-size: 14px;
   padding-top: 6px;
   padding-bottom: 6px;
   line-height: 20px;
   min-height: 5px;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   border-radius: 6px;
   -webkit-transition: background 33.333ms linear;
   transition: background 33.333ms linear;
@@ -1546,7 +1546,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c3::after {
   position: absolute;
   top: calc(50% - 12px);
-  left: -8px;
+  left: -var(--base-size-8,8px);
   width: 4px;
   height: 24px;
   content: "";
@@ -1558,8 +1558,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: #0969da;
   -webkit-text-decoration: none;
   text-decoration: none;
-  padding-left: 32px;
-  padding-right: 8px;
+  padding-left: var(--base-size-32,32px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 6px;
   padding-bottom: 6px;
   display: -webkit-box;

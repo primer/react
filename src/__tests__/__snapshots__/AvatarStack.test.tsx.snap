@@ -102,7 +102,7 @@ exports[`Avatar renders consistently 1`] = `
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem {
-  margin-right: 4px!important;
+  margin-right: var(--base-size-4,4px)!important;
   margin-left: 0 !important;
 }
 
@@ -115,7 +115,7 @@ exports[`Avatar renders consistently 1`] = `
 }
 
 .c0 .pc-AvatarStackBody:hover .pc-AvatarItem {
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   opacity: 100%;
   visibility: visible;
   box-shadow: 0 0 0 4px #ffffff;
@@ -259,7 +259,7 @@ exports[`Avatar respects alignRight props 1`] = `
 }
 
 .c0.pc-AvatarStack--right .pc-AvatarStackBody:hover .pc-AvatarItem {
-  margin-right: 4px!important;
+  margin-right: var(--base-size-4,4px)!important;
   margin-left: 0 !important;
 }
 
@@ -272,7 +272,7 @@ exports[`Avatar respects alignRight props 1`] = `
 }
 
 .c0 .pc-AvatarStackBody:hover .pc-AvatarItem {
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   opacity: 100%;
   visibility: visible;
   box-shadow: 0 0 0 4px #ffffff;

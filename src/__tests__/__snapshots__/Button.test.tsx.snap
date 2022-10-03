@@ -63,7 +63,7 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0 > :not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 [data-component="leadingIcon"] {

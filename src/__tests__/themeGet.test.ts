@@ -10,6 +10,6 @@ describe('themeGet', () => {
   })
 
   it('uses primer theme as fallback', () => {
-    expect(themeGet('space.1')({})).toBe('4px')
+    expect(themeGet('space.1')({})).toBe('var(--base-size-4,4px)')
   })
 })

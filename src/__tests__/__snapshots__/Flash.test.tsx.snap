@@ -4,7 +4,7 @@ exports[`Flash renders consistently 1`] = `
 .c0 {
   position: relative;
   color: #24292f;
-  padding: 16px;
+  padding: var(--base-size-16,16px);
   border-style: solid;
   border-width: 1px;
   border-radius: 6px;
@@ -19,7 +19,7 @@ exports[`Flash renders consistently 1`] = `
 }
 
 .c0 svg {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 svg {

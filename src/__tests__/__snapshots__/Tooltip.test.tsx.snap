@@ -102,11 +102,11 @@ exports[`Tooltip renders consistently 1`] = `
 .c0.tooltipped-se::after {
   right: auto;
   left: 50%;
-  margin-left: -16px;
+  margin-left: -var(--base-size-16,16px);
 }
 
 .c0.tooltipped-sw::after {
-  margin-right: -16px;
+  margin-right: -var(--base-size-16,16px);
 }
 
 .c0.tooltipped-n::after,
@@ -130,11 +130,11 @@ exports[`Tooltip renders consistently 1`] = `
 .c0.tooltipped-ne::after {
   right: auto;
   left: 50%;
-  margin-left: -16px;
+  margin-left: -var(--base-size-16,16px);
 }
 
 .c0.tooltipped-nw::after {
-  margin-right: -16px;
+  margin-right: -var(--base-size-16,16px);
 }
 
 .c0.tooltipped-s::after,

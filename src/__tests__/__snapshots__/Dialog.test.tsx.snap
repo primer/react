@@ -9,7 +9,7 @@ exports[`Dialog Dialog.Header renders consistently 1`] = `
 }
 
 .c0 {
-  padding: 16px;
+  padding: var(--base-size-16,16px);
   background-color: #f6f8fa;
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #d0d7de;
@@ -58,7 +58,7 @@ exports[`Dialog renders consistently 1`] = `
     className="c0"
   />,
   .c4 {
-  padding: 16px;
+  padding: var(--base-size-16,16px);
 }
 
 .c1 {
@@ -111,7 +111,7 @@ exports[`Dialog renders consistently 1`] = `
 }
 
 .c2 {
-  padding: 16px;
+  padding: var(--base-size-16,16px);
   background-color: #f6f8fa;
   border-radius: 6px 6px 0px 0px;
   border-bottom: 1px solid #d0d7de;

@@ -21,7 +21,7 @@ exports[`SubNav renders consistently 1`] = `
 }
 
 .c0 .SubNav-body > * {
-  margin-left: 8px;
+  margin-left: var(--base-size-8,8px);
 }
 
 .c0 .SubNav-body > *:first-child {

@@ -3,7 +3,7 @@
 exports[`has default theme 1`] = `
 .c0 {
   color: #24292f;
-  margin-bottom: 4px;
+  margin-bottom: var(--base-size-4,4px);
 }
 
 <span

@@ -827,7 +827,7 @@ exports[`ButtonTableList renders consistently 1`] = `
 
 .c0:after {
   display: inline-block;
-  margin-left: 4px;
+  margin-left: var(--base-size-4,4px);
   width: 0;
   height: 0;
   vertical-align: -2px;

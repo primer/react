@@ -40,7 +40,7 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 
 .c1.variant-normal > .c0 {
   color: #24292f;
-  padding: 16px;
+  padding: var(--base-size-16,16px);
   border: 0;
   border-top: 1px solid hsla(210,18%,87%,1);
 }
@@ -94,7 +94,7 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 }
 
 .c1.variant-lightweight > .c0 {
-  padding: 4px 0;
+  padding: var(--base-size-4,4px) 0;
   color: #0969da;
 }
 

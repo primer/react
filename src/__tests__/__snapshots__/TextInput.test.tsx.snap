@@ -62,7 +62,7 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -189,7 +189,7 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -308,7 +308,7 @@ exports[`TextInput renders consistently 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -427,7 +427,7 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -553,7 +553,7 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -630,8 +630,8 @@ exports[`TextInput renders large 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 20px;
@@ -677,7 +677,7 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -797,7 +797,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -944,7 +944,7 @@ exports[`TextInput renders monospace 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -1063,7 +1063,7 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -1142,8 +1142,8 @@ exports[`TextInput renders small 1`] = `
   align-items: stretch;
   min-height: 32px;
   min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 3px;
   padding-bottom: 3px;
   font-size: 12px;
@@ -1190,7 +1190,7 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -1250,7 +1250,7 @@ exports[`TextInput renders small 1`] = `
 
 exports[`TextInput renders trailingAction icon button 1`] = `
 .c2 {
-  margin: 4px;
+  margin: var(--base-size-4,4px);
 }
 
 .c5 {
@@ -1388,7 +1388,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -1523,11 +1523,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c3.tooltipped-se::after {
   right: auto;
   left: 50%;
-  margin-left: -16px;
+  margin-left: -var(--base-size-16,16px);
 }
 
 .c3.tooltipped-sw::after {
-  margin-right: -16px;
+  margin-right: -var(--base-size-16,16px);
 }
 
 .c3.tooltipped-n::after,
@@ -1551,11 +1551,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c3.tooltipped-ne::after {
   right: auto;
   left: 50%;
-  margin-left: -16px;
+  margin-left: -var(--base-size-16,16px);
 }
 
 .c3.tooltipped-nw::after {
-  margin-right: -16px;
+  margin-right: -var(--base-size-16,16px);
 }
 
 .c3.tooltipped-s::after,
@@ -1730,7 +1730,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 exports[`TextInput renders trailingAction text button 1`] = `
 .c2 {
-  margin: 4px;
+  margin: var(--base-size-4,4px);
 }
 
 .c3 {
@@ -1796,7 +1796,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c3 > :not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c3 [data-component="leadingIcon"] {
@@ -1882,7 +1882,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -1978,7 +1978,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c2 {
-  margin: 4px;
+  margin: var(--base-size-4,4px);
 }
 
 .c4 {
@@ -2044,7 +2044,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4 > :not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c4 [data-component="leadingIcon"] {
@@ -2130,7 +2130,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -2266,11 +2266,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c3.tooltipped-se::after {
   right: auto;
   left: 50%;
-  margin-left: -16px;
+  margin-left: -var(--base-size-16,16px);
 }
 
 .c3.tooltipped-sw::after {
-  margin-right: -16px;
+  margin-right: -var(--base-size-16,16px);
 }
 
 .c3.tooltipped-n::after,
@@ -2294,11 +2294,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c3.tooltipped-ne::after {
   right: auto;
   left: 50%;
-  margin-left: -16px;
+  margin-left: -var(--base-size-16,16px);
 }
 
 .c3.tooltipped-nw::after {
-  margin-right: -16px;
+  margin-right: -var(--base-size-16,16px);
 }
 
 .c3.tooltipped-s::after,
@@ -2512,7 +2512,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -2659,7 +2659,7 @@ exports[`TextInput renders warning 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -2799,7 +2799,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -2972,7 +2972,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -3177,7 +3177,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -3359,7 +3359,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -3610,7 +3610,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -3861,7 +3861,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -4106,7 +4106,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -4319,7 +4319,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -4564,7 +4564,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -4745,8 +4745,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
   align-items: stretch;
   min-height: 32px;
   min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 3px;
   padding-bottom: 3px;
   font-size: 12px;
@@ -4793,7 +4793,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -5085,7 +5085,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -5334,8 +5334,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: var(--base-size-8,8px);
+  padding-right: var(--base-size-8,8px);
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 20px;
@@ -5381,7 +5381,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,
@@ -5639,7 +5639,7 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0 >:not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8,8px);
 }
 
 .c0 .TextInput-icon,

@@ -133,7 +133,7 @@ exports[`Dropdown.Caret renders consistently 1`] = `
 exports[`Dropdown.Item renders consistently 1`] = `
 .c0 {
   display: block;
-  padding: 4px 10px 4px 15px;
+  padding: var(--base-size-4,4px) 10px var(--base-size-4,4px) 15px;
   overflow: hidden;
   color: #24292f;
   text-overflow: ellipsis;

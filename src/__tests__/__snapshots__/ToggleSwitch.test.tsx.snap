@@ -88,8 +88,8 @@ exports[`renders consistently 1`] = `
 .c1 {
   font-size: 14px;
   color: #24292f;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: var(--base-size-8,8px);
+  margin-right: var(--base-size-8,8px);
   position: relative;
 }
 
