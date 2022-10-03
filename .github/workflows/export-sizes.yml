@@ -1,0 +1,42 @@
+name: bundle
+on:
+  pull_request:
+jobs:
+  exports:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Collect entrypoint sizes
+        id: entrypoint-size
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: |
+            // node script/get-export-sizes.js
+            return 'Test'
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Entrypoint sizes
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace
+          body: |
+            ## Entrypoint sizes
+
+            ${{ steps.entrypoint-size.outputs.result }}
