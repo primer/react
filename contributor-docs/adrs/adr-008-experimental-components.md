@@ -51,7 +51,7 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 3. The code for experimental components should live in a new repository, example: [github/react-experimental](https://github.com/github/react-experimental) and published as individual packages as suggested in point 2.
 
-This will help in sharing experimental components between the monolith and projects outside of monolith. The ownership and responsibility of maintenance is shared by multiple teams (including primer).
+This will help in sharing experimental components between the monolith and projects outside of monolith. The ownership and responsibility of maintenance will be shared by multiple teams (including primer).
 
 #### Risks:
 
