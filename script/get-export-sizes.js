@@ -5,11 +5,12 @@ const path = require('node:path')
 const commonjs = require('@rollup/plugin-commonjs')
 const {nodeResolve} = require('@rollup/plugin-node-resolve')
 const virtual = require('@rollup/plugin-virtual')
+const filesize = require('filesize')
 const gzip = require('gzip-size')
 const {rollup} = require('rollup')
 const {minify} = require('terser')
 
-async function main() {
+module.exports = async function main() {
   const packageJsonPath = path.resolve(__dirname, '..', 'package.json')
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
   const external = [
@@ -84,7 +85,9 @@ async function main() {
       return b.gzipMinified - a.gzipMinified
     })
     .map(({id, minified, gzipMinified, unminified, gzipUnminified}) => {
-      return `| ${id} | ${gzipMinified} | ${gzipUnminified} | ${minified} | ${unminified} |`
+      return `| ${id} | ${filesize(gzipMinified)} | ${filesize(gzipUnminified)} | ${filesize(minified)} | ${filesize(
+        unminified
+      )} |`
     })
 
   return `<details>
@@ -95,8 +98,3 @@ ${rows.join('\n')}
 </detials>
 `
 }
-
-main().catch(error => {
-  console.log(error)
-  process.exit(1)
-})
