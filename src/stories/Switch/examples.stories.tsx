@@ -20,27 +20,29 @@ const excludedControlKeys = [
 export default {
   title: 'Components/ToggleSwitch/examples',
   component: ToggleSwitch,
+  args: {
+    on: undefined,
+    disabled: false,
+    loading: false,
+    size: 'medium',
+  },
   argTypes: {
     on: {
-      defaultValue: undefined,
       control: {
         type: 'boolean'
       }
     },
     disabled: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     loading: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     size: {
-      defaultValue: 'medium',
       control: {
         type: 'radio',
         options: ['small', 'medium']
