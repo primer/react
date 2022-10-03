@@ -33,35 +33,35 @@ module.exports = async function main() {
     format: 'esm'
   })
   const minified = await minify(output[0].code)
-  const exports = await Promise.all(
-    output[0].exports.map(async id => {
-      const exportBundle = await rollup({
-        input: '__entrypoint__',
-        external,
-        plugins: [
-          nodeResolve(),
-          commonjs({
-            include: /node_modules/
-          }),
-          virtual({
-            __entrypoint__: `export { ${id} } from '${entrypoint}';`
-          })
-        ]
-      })
-      const {output} = await exportBundle.generate({
-        format: 'esm'
-      })
-      const minified = await minify(output[0].code)
+  const exports = []
 
-      return {
-        id,
-        unminified: Buffer.byteLength(output[0].code),
-        minified: Buffer.byteLength(minified.code),
-        gzipUnminified: gzip.sync(output[0].code),
-        gzipMinified: gzip.sync(minified.code)
-      }
+  for (const id of output[0].exports) {
+    const exportBundle = await rollup({
+      input: '__entrypoint__',
+      external,
+      plugins: [
+        nodeResolve(),
+        commonjs({
+          include: /node_modules/
+        }),
+        virtual({
+          __entrypoint__: `export { ${id} } from '${entrypoint}';`
+        })
+      ]
     })
-  )
+    const {output} = await exportBundle.generate({
+      format: 'esm'
+    })
+    const minified = await minify(output[0].code)
+    const stats = {
+      id,
+      unminified: Buffer.byteLength(output[0].code),
+      minified: Buffer.byteLength(minified.code),
+      gzipUnminified: gzip.sync(output[0].code),
+      gzipMinified: gzip.sync(minified.code)
+    }
+    exports.push(stats)
+  }
 
   const artifact = {
     entrypoints: [
