@@ -12,16 +12,16 @@ import {GitBranchIcon} from '@primer/octicons-react'
 export default {
   title: 'Components/Token',
   component: Token,
+  args: {
+    text: 'Token',
+    size: 'medium',
+  },
   argTypes: {
-    text: {
-      defaultValue: 'Token'
-    },
     size: {
-      defaultValue: 'medium',
       control: {
-        options: ['small', 'medium', 'large', 'xlarge'],
         type: 'radio'
-      }
+      },
+      options: ['small', 'medium', 'large', 'xlarge'],
     }
   },
   decorators: [

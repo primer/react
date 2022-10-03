@@ -48,41 +48,45 @@ const parseFullWidthFromArgs = ({fullWidth, fullWidthAtNarrow, fullWidthAtRegula
 export default {
   title: 'Components/SegmentedControl',
   component: SegmentedControl,
+  args: {
+    fullWidth: false,
+    fullWidthAtNarrow: false,
+    fullWidthAtRegular: false,
+    fullWidthAtWide: false,
+    size: 'medium',
+    variantAtNarrow: 'default',
+    variantAtRegular: 'default',
+    variantAtWide: 'defualt',
+  },
   argTypes: {
     fullWidth: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     fullWidthAtNarrow: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     fullWidthAtRegular: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     fullWidthAtWide: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     size: {
-      defaultValue: 'medium',
       control: {
         type: 'radio',
-        options: ['small', 'medium']
-      }
+      },
+      options: ['small', 'medium']
     },
     variantAtNarrow: {
       name: 'variant.narrow',
-      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions
@@ -90,7 +94,6 @@ export default {
     },
     variantAtRegular: {
       name: 'variant.regular',
-      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions
@@ -98,7 +101,6 @@ export default {
     },
     variantAtWide: {
       name: 'variant.wide',
-      defaultValue: 'default',
       control: {
         type: 'radio',
         options: variantOptions

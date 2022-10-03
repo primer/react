@@ -11,16 +11,16 @@ import Text from '../Text'
 export default {
   title: 'Components/IssueLabelToken',
   component: IssueLabelToken,
+  args: {
+    fillColor: '#0366d6',
+    text: 'good first issue'
+  },
   argTypes: {
     fillColor: {
-      defaultValue: '#0366d6',
       control: {
         type: 'color'
       }
     },
-    text: {
-      defaultValue: 'good first issue'
-    }
   },
   decorators: [
     Story => {

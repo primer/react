@@ -11,13 +11,9 @@ import Text from '../Text'
 export default {
   title: 'Components/AvatarToken',
   component: AvatarToken,
-  argTypes: {
-    text: {
-      defaultValue: 'Mike Perrotti'
-    },
-    avatarSrc: {
-      defaultValue: 'https://avatars.githubusercontent.com/mperrotti'
-    }
+  args: {
+    text: 'Mike Perrotti',
+    avatarSrc: 'https://avatars.githubusercontent.com/mperrotti'
   },
   decorators: [
     Story => {

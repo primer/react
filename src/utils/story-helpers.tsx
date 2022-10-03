@@ -237,10 +237,19 @@ export const textInputWithTokensArgTypes: ArgTypes = {
   }
 }
 
+export const formControlArgs = {
+  required: false,
+  disabled: false,
+  labelChildren: 'Label',
+  visuallyHidden: false,
+  captionChildren: '',
+  validationChildren: '',
+  variant: 'error',
+}
+
 export const formControlArgTypes: ArgTypes = {
   // FormControl
   required: {
-    defaultValue: false,
     control: {
       type: 'boolean'
     },
@@ -249,7 +258,6 @@ export const formControlArgTypes: ArgTypes = {
     }
   },
   disabled: {
-    defaultValue: false,
     control: {
       type: 'boolean'
     },
@@ -262,13 +270,11 @@ export const formControlArgTypes: ArgTypes = {
   labelChildren: {
     name: 'children',
     type: 'string',
-    defaultValue: 'Label',
     table: {
       category: 'FormControl.Label'
     }
   },
   visuallyHidden: {
-    defaultValue: false,
     type: 'boolean',
     table: {
       category: 'FormControl.Label'
@@ -279,7 +285,6 @@ export const formControlArgTypes: ArgTypes = {
   captionChildren: {
     name: 'children',
     type: 'string',
-    defaultValue: '',
     table: {
       category: 'FormControl.Caption'
     }
@@ -289,13 +294,11 @@ export const formControlArgTypes: ArgTypes = {
   validationChildren: {
     name: 'children',
     type: 'string',
-    defaultValue: '',
     table: {
       category: 'FormControl.Validation'
     }
   },
   variant: {
-    defaultValue: 'error',
     control: {
       type: 'radio',
       options: ['error', 'success', 'warning']

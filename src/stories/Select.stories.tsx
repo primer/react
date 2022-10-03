@@ -5,6 +5,7 @@ import {BaseStyles, Select, ThemeProvider, FormControl, Box} from '..'
 import {SelectProps} from '../Select'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   inputWrapperArgTypes
@@ -24,11 +25,11 @@ export default {
       )
     }
   ],
+  args: {
+    ...formControlArgs,
+    required: false,
+  },
   argTypes: {
-    required: {
-      defaultValue: false,
-      type: 'boolean'
-    },
     ...inputWrapperArgTypes,
     ...formControlArgTypes
   },

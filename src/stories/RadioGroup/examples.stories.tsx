@@ -57,8 +57,8 @@ export default {
     variant: {
       control: {
         type: 'radio',
-        options: ['error', 'success', 'warning']
       },
+      options: ['error', 'success', 'warning'],
       table: {
         category: 'RadioGroup.Validation'
       }

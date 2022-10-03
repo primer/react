@@ -45,8 +45,8 @@ export default {
     size: {
       control: {
         type: 'radio',
-        options: ['small', 'medium']
-      }
+      },
+      options: ['small', 'medium']
     }
   },
   parameters: {controls: {exclude: excludedControlKeys}},
