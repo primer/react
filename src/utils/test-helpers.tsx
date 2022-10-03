@@ -5,3 +5,12 @@ global.ResizeObserver = jest.fn().mockImplementation(() => {
     disconnect: jest.fn()
   }
 })
+
+global.CSS = {
+  escape: jest.fn(),
+  supports: jest.fn().mockImplementation(() => {
+    return () => {
+      return false
+    }
+  })
+}
