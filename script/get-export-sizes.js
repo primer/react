@@ -36,6 +36,7 @@ module.exports = async function main() {
   const exports = []
 
   for (const id of output[0].exports) {
+    console.log(`Analyzing export: ${id}`)
     const exportBundle = await rollup({
       input: '__entrypoint__',
       external,
@@ -78,8 +79,7 @@ module.exports = async function main() {
 
   const header = `
 | Export | Gzip minified | Gzip unminified | Minified | Unminified |
-| :----- | :--------- | :------- | :-------------- | :------------ |
-`
+| :----- | :--------- | :------- | :-------------- | :------------ |`
   const rows = artifact.entrypoints[0].exports
     .sort((a, b) => {
       return b.gzipMinified - a.gzipMinified
