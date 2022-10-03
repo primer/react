@@ -21,8 +21,8 @@ jobs:
         with:
           result-encoding: string
           script: |
-            // node script/get-export-sizes.js
-            return 'Test'
+            const script = require('./script/get-export-sizes');
+            return script();
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc

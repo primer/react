@@ -75,7 +75,25 @@ async function main() {
     ]
   }
 
-  return artifact
+  const header = `
+| Export | Gzip minified | Gzip unminified | Minified | Unminified |
+| :----- | :--------- | :------- | :-------------- | :------------ |
+`
+  const rows = artifact.entrypoints[0].exports
+    .sort((a, b) => {
+      return b.gzipMinified - a.gzipMinified
+    })
+    .map(({id, minified, gzipMinified, unminified, gzipUnminified}) => {
+      return `| ${id} | ${gzipMinified} | ${gzipUnminified} | ${minified} | ${unminified} |`
+    })
+
+  return `<details>
+<summary>Sizes</summary>
+
+${header}
+${rows.join('\n')}
+</detials>
+`
 }
 
 main().catch(error => {
