@@ -47,7 +47,22 @@ const sizes = {
 
 const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px']
 
-const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
+// map existing values to primitives/tokens-v2-private with fallback
+const space = [
+  '0',
+  'var(--base-size-4, 4px)',
+  'var(--base-size-8, 8px)',
+  'var(--base-size-16, 16px)',
+  'var(--base-size-24, 24px)',
+  'var(--base-size-32, 32px)',
+  'var(--base-size-40, 40px)',
+  'var(--base-size-48, 48px)',
+  'var(--base-size-64, 64px)',
+  'var(--base-size-80, 80px)',
+  'var(--base-size-96, 96px)',
+  'var(--base-size-112, 112px)',
+  'var(--base-size-128, 128px)'
+]
 
 /**
  * @type Record<keyof typeof primitives.colors, Record<'colors' | 'shadows', Partial<typeof primitives.colors.light>>
