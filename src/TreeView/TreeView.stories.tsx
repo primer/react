@@ -426,7 +426,7 @@ export const AsyncSuccess: Story = args => {
             onExpandedChange={async isExpanded => {
               if (asyncItems.length === 0 && isExpanded) {
                 // Show loading indicator after a short delay
-                const timeout = setTimeout(() => setIsLoading(true), 500)
+                const timeout = setTimeout(() => setIsLoading(true), 300)
 
                 // Load items
                 const items = await loadItems(args.responseTime)
@@ -478,7 +478,7 @@ export const AsyncError: Story = args => {
   async function loadItems() {
     if (asyncItems.length === 0) {
       // Show loading indicator after a short delay
-      const timeout = setTimeout(() => setIsLoading(true), 500)
+      const timeout = setTimeout(() => setIsLoading(true), 300)
       try {
         // Try to load items
         const items = await alwaysFails(args.responseTime)
