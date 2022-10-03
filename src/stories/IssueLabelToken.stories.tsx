@@ -20,7 +20,7 @@ export default {
       control: {
         type: 'color'
       }
-    },
+    }
   },
   decorators: [
     Story => {

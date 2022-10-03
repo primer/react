@@ -56,7 +56,7 @@ export default {
     size: 'medium',
     variantAtNarrow: 'default',
     variantAtRegular: 'default',
-    variantAtWide: 'defualt',
+    variantAtWide: 'defualt'
   },
   argTypes: {
     fullWidth: {
@@ -81,30 +81,30 @@ export default {
     },
     size: {
       control: {
-        type: 'radio',
+        type: 'radio'
       },
       options: ['small', 'medium']
     },
     variantAtNarrow: {
       name: 'variant.narrow',
       control: {
-        type: 'radio',
-        options: variantOptions
-      }
+        type: 'radio'
+      },
+      options: variantOptions
     },
     variantAtRegular: {
       name: 'variant.regular',
       control: {
-        type: 'radio',
-        options: variantOptions
-      }
+        type: 'radio'
+      },
+      options: variantOptions
     },
     variantAtWide: {
       name: 'variant.wide',
       control: {
-        type: 'radio',
-        options: variantOptions
-      }
+        type: 'radio'
+      },
+      options: variantOptions
     }
   },
   parameters: {controls: {exclude: excludedControlKeys}},
