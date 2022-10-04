@@ -63,7 +63,7 @@ export const invisibleButton = (args: ButtonProps) => {
   )
 }
 
-export const OutlineButton = (args: ButtonProps) => {
+export const outlineButton = (args: ButtonProps) => {
   return (
     <Button {...args} variant="outline">
       Outline
