@@ -47,6 +47,10 @@ const NavigationList = styled.ul`
   ${sx};
 `
 
+const MoreMenuListItem = styled.li`
+  display: flex;
+`
+
 const handleArrowBtnsVisibility = (
   scrollableList: RefObject<HTMLUListElement>,
   callback: (scroll: {scrollLeft: number; scrollRight: number}) => void
@@ -157,7 +161,7 @@ export const UnderlineNav = forwardRef(
     const backupRef = useRef<HTMLElement>(null)
     const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
-    const moreMenuRef = useRef<HTMLDivElement>(null)
+    const moreMenuRef = useRef<HTMLLIElement>(null)
 
     const {theme} = useTheme()
 
@@ -173,11 +177,9 @@ export const UnderlineNav = forwardRef(
     ) => {
       // get the selected menu item's width
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
-      // Check if there is any empty space on the right side of the more btn
+      // Check if there is any empty space on the right side of the list
       const availableSpace =
-        navRef.current.getBoundingClientRect().width -
-        (moreMenuRef.current?.getBoundingClientRect().width || 0) -
-        (listRef.current?.getBoundingClientRect().width || 0)
+        navRef.current.getBoundingClientRect().width - (listRef.current?.getBoundingClientRect().width || 0)
 
       // Calculate how many items need to be pulled in to the menu to make room for the selected menu item
       // I.e. if we need to pull 2 items in (index 0 and index 1), breakpoint (index) will return 1.
@@ -282,7 +284,6 @@ export const UnderlineNav = forwardRef(
       const childArray = getValidChildren(children)
       const navWidth = resizeObserverEntries[0].contentRect.width
       const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-
       overflowEffect(
         navWidth,
         moreMenuWidth,
@@ -308,24 +309,7 @@ export const UnderlineNav = forwardRef(
         scrollIntoView(selectedLink.current, listRef.current, underlineNavScrollMargins)
         return
       }
-
-      const navWidth = navRef.current.getBoundingClientRect().width
-      if (childWidthArray.length !== 0 && noIconChildWidthArray.length !== 0 && navWidth !== 0) {
-        const childArray = getValidChildren(children)
-        const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-
-        // run overflowEffect when the selectedLink is changed
-        overflowEffect(
-          navWidth,
-          moreMenuWidth,
-          childArray,
-          childWidthArray,
-          noIconChildWidthArray,
-          isCoarsePointer,
-          updateListAndMenu
-        )
-      }
-    }, [selectedLink, isCoarsePointer, navRef, children, childWidthArray, noIconChildWidthArray, updateListAndMenu])
+    }, [selectedLink, isCoarsePointer])
 
     return (
       <UnderlineNavContext.Provider
@@ -357,12 +341,12 @@ export const UnderlineNav = forwardRef(
           <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
             {responsiveProps.items}
             {actions.length > 0 && (
-              <Box as="div" sx={{display: 'flex'}} ref={moreMenuRef}>
+              <MoreMenuListItem ref={moreMenuRef}>
                 <Box sx={getDividerStyle(theme)}></Box>
                 <ActionMenu>
                   <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
                   <ActionMenu.Overlay align="end">
-                    <ActionList selectionVariant="single">
+                    <ActionList>
                       {actions.map((action, index) => {
                         const {children: actionElementChildren, ...actionElementProps} = action.props
                         return (
@@ -392,7 +376,7 @@ export const UnderlineNav = forwardRef(
                     </ActionList>
                   </ActionMenu.Overlay>
                 </ActionMenu>
-              </Box>
+              </MoreMenuListItem>
             )}
           </NavigationList>
 
