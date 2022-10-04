@@ -13,7 +13,7 @@ import {
 } from '../utils/story-helpers'
 
 export default {
-  title: 'Forms/Form Controls/Text Input',
+  title: 'Components/Forms/TextInput',
   component: TextInput,
   decorators: [
     Story => {

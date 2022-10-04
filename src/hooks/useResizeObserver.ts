@@ -11,7 +11,6 @@ export interface ResizeObserverEntry {
 export function useResizeObserver<T extends HTMLElement>(callback: ResizeObserverCallback, target?: RefObject<T>) {
   useLayoutEffect(() => {
     const targetEl = target && 'current' in target ? target.current : document.documentElement
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     if (!targetEl) return () => {}
     const observer = new window.ResizeObserver(entries => callback(entries))
     observer.observe(targetEl)

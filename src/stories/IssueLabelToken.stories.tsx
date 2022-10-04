@@ -9,7 +9,7 @@ import IssueLabelToken, {IssueLabelTokenProps} from '../Token/IssueLabelToken'
 import Text from '../Text'
 
 export default {
-  title: 'Tokens/IssueLabelToken',
+  title: 'Components/IssueLabelToken',
   component: IssueLabelToken,
   argTypes: {
     fillColor: {

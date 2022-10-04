@@ -6,7 +6,7 @@ import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 const excludedControlKeys = ['aria-labelledby', 'id', 'name', 'onChange', 'sx', 'visuallyHidden']
 
 export default {
-  title: 'Forms/RadioGroup/fixtures',
+  title: 'Components/Forms/RadioGroup/fixtures',
   component: RadioGroup,
   argTypes: {
     // RadioGroup

@@ -1,5 +1,6 @@
 import React from 'react'
 import {useInView} from 'react-intersection-observer'
+import {canUseDOM} from '../utils/environment'
 
 /**
  * Calculates the height of the sticky pane such that it always
@@ -9,7 +10,7 @@ export function useStickyPaneHeight() {
   const rootRef = React.useRef<HTMLDivElement>(null)
 
   // Default the height to the viewport height
-  const [height, setHeight] = React.useState('100vh')
+  const [height, setHeight] = React.useState(dvh(100))
   const [offsetHeader, setOffsetHeader] = React.useState<number | string>(0)
 
   // Create intersection observers to track the top and bottom of the content region
@@ -47,7 +48,9 @@ export function useStickyPaneHeight() {
       // We need to account for this when calculating the offset.
       const overflowScroll = Math.max(window.scrollY + window.innerHeight - document.body.scrollHeight, 0)
 
-      calculatedHeight = `calc(100vh - (max(${topOffset}px, ${offsetHeaderWithUnits}) + ${bottomOffset}px - ${overflowScroll}px))`
+      calculatedHeight = `calc(${dvh(
+        100
+      )} - (max(${topOffset}px, ${offsetHeaderWithUnits}) + ${bottomOffset}px - ${overflowScroll}px))`
     }
 
     setHeight(calculatedHeight)
@@ -130,4 +133,24 @@ function isScrollable(element: Element) {
   const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
 
   return hasScrollableContent && !isOverflowHidden
+}
+
+// TODO: there is currently an issue with dvh on Desktop Safari 15.6, 16.0. To
+// work around it, we check to see if the device supports touch along with the
+// dvh unit in order to target iPad. When the bug is addressed this check will
+// no longer be needed
+//
+// @see https://bugs.webkit.org/show_bug.cgi?id=242758
+const supportsTouchCallout = canUseDOM ? CSS.supports('-webkit-touch-callout', 'none') : false
+const supportsDVH = canUseDOM ? CSS.supports('max-height', '100dvh') && supportsTouchCallout : false
+
+/**
+ * Convert the given value to a dvh value, if supported, otherwise it falls back
+ * to vh
+ */
+function dvh(value: number): string {
+  if (supportsDVH) {
+    return `${value}dvh`
+  }
+  return `${value}vh`
 }

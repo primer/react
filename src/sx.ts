@@ -11,7 +11,16 @@ export type BetterCssProperties = {
     : SystemCssProperties[K]
 }
 
-export type BetterSystemStyleObject = BetterCssProperties | SystemStyleObject
+// Support CSS custom properties in the `sx` prop
+type CSSCustomProperties = {
+  [key: `--${string}`]: string | number
+}
+
+type CSSSelectorObject = {
+  [cssSelector: string]: SystemStyleObject | CSSCustomProperties
+}
+
+export type BetterSystemStyleObject = BetterCssProperties | SystemStyleObject | CSSCustomProperties | CSSSelectorObject
 
 export interface SxProp {
   sx?: BetterSystemStyleObject

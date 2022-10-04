@@ -103,7 +103,7 @@ describe('Markup', () => {
     expect(currentItem).toHaveAttribute('aria-current', 'true')
   })
 
-  it('expands the path to the current item by default', () => {
+  it('expands the path to the current item (level 2) by default', () => {
     const {getByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
         <TreeView.Item>
@@ -147,6 +147,49 @@ describe('Markup', () => {
 
     // Item 2.2.1 should be visible because it is a child of the current item
     expect(item221).toBeVisible()
+  })
+
+  it('expands the path to the current item (level 3) by default', () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item>Item 1.1</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item>
+          Item 2
+          <TreeView.SubTree>
+            <TreeView.Item>Item 2.1</TreeView.Item>
+            <TreeView.Item>
+              Item 2.2
+              <TreeView.SubTree>
+                <TreeView.Item current>Item 2.2.1</TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item>Item 3</TreeView.Item>
+      </TreeView>
+    )
+
+    const item1 = getByRole('treeitem', {name: 'Item 1'})
+    const item2 = getByRole('treeitem', {name: 'Item 2'})
+    const item22 = getByRole('treeitem', {name: 'Item 2.2'})
+    const item221 = getByRole('treeitem', {name: 'Item 2.2.1'})
+
+    // Item 1 should not be expanded because it is not the parent of the current item
+    expect(item1).toHaveAttribute('aria-expanded', 'false')
+
+    // Item 2 should be expanded because it is the parent of the current item
+    expect(item2).toHaveAttribute('aria-expanded', 'true')
+
+    // Item 2.2 should be expanded because it is the current item
+    expect(item22).toHaveAttribute('aria-expanded', 'true')
+
+    // Item 2.2.1 should be the current item
+    expect(item221).toHaveAttribute('aria-current', 'true')
   })
 
   it('expands the path to the current item when the current item is changed', () => {
@@ -939,5 +982,46 @@ describe('Keyboard interactions', () => {
       // aria-activedescendant should now be set to cucumber
       expect(root).toHaveAttribute('aria-activedescendant', cucumber.id)
     })
+  })
+})
+
+describe('Controlled state', () => {
+  it('can be controlled', () => {
+    function TestTree() {
+      const [expanded, setExpanded] = React.useState(true)
+      return (
+        <TreeView aria-label="Test tree">
+          <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+    }
+
+    const {getByRole} = renderWithTheme(<TestTree />)
+
+    const root = getByRole('tree')
+    const parent = getByRole('treeitem', {name: 'Parent'})
+    const child = getByRole('treeitem', {name: 'Child'})
+
+    // Parent should be expanded
+    expect(parent).toHaveAttribute('aria-expanded', 'true')
+    expect(child).toBeVisible()
+
+    // aria-activedescendant should be set to parent
+    expect(root).toHaveAttribute('aria-activedescendant', parent.id)
+
+    // Focus tree
+    root.focus()
+
+    // Press ← to collapse the parent
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+
+    // Parent should be collapsed
+    expect(parent).toHaveAttribute('aria-expanded', 'false')
+    expect(child).not.toBeVisible()
   })
 })
