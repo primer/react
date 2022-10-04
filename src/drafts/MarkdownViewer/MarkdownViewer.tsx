@@ -107,7 +107,10 @@ const MarkdownViewer = ({
   // If we were to inject the `...htmlContainer.children` instead of the container element itself,
   // those children elements would be moved from the `htmlContainer` to the `outputContainer`. Then if
   // other effects use `htmlContainer.querySelectorAll`, they wouldn't find any elements to affect
-  useEffect(() => outputContainerRef.current?.replaceChildren(htmlContainer), [htmlContainer])
+  useEffect(() => {
+    if (document.activeElement && outputContainerRef.current?.contains(document.activeElement)) return
+    outputContainerRef.current?.replaceChildren(htmlContainer)
+  }, [htmlContainer])
 
   return loading ? (
     <Box sx={{display: 'flex', justifyContent: 'space-around', p: 2}}>
