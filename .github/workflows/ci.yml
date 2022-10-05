@@ -125,3 +125,12 @@ jobs:
         with:
           name: storybook
           path: storybook-static/
+
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+      - type-check
+      - examples
