@@ -200,6 +200,7 @@ export const getLinkStyles = (
   },
   '@media (forced-colors: active)': {
     '::after': {
+      // Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast
       bg: selectedLink === ref ? 'LinkText' : 'transparent'
     }
   }

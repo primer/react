@@ -26,7 +26,7 @@ import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 
 export type UnderlineNavProps = {
-  ariaLabel: string
+  ariaLabel?: string
   as?: React.ElementType
   align?: 'right'
   sx?: SxProp
@@ -157,7 +157,7 @@ export const UnderlineNav = forwardRef(
     {
       as = 'nav',
       align,
-      ariaLabel,
+      ariaLabel = 'Navigation',
       sx: sxProp = {},
       afterSelect,
       variant = 'default',
@@ -329,11 +329,6 @@ export const UnderlineNav = forwardRef(
       // scroll the focused link into the view (coarse pointer behaviour)
       focusedLink?.current && isCoarsePointer && scrollLinkIntoView(focusedLink)
     }, [focusedLink, isCoarsePointer])
-
-    if (!ariaLabel) {
-      // eslint-disable-next-line no-console
-      console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
-    }
 
     return (
       <UnderlineNavContext.Provider
