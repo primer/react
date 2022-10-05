@@ -16,7 +16,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 ### Simple
 
 ```jsx live drafts
-<UnderlineNav>
+<UnderlineNav ariaLabel="Repository">
   <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
   <UnderlineNav.Item>Item 2</UnderlineNav.Item>
   <UnderlineNav.Item>Item 3</UnderlineNav.Item>
@@ -26,7 +26,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 ### With Icons
 
 ```jsx live drafts
-<UnderlineNav>
+<UnderlineNav ariaLabel="Repository">
   <UnderlineNav.Item selected icon={CodeIcon}>
     Code
   </UnderlineNav.Item>
@@ -53,7 +53,7 @@ When overflow occurs, the component first hides icons if present to optimize for
 #### Items Without Icons
 
 ```jsx live drafts
-<UnderlineNav>
+<UnderlineNav ariaLabel="Repository">
   <UnderlineNav.Item selected icon={CodeIcon}>
     Code
   </UnderlineNav.Item>
@@ -83,7 +83,7 @@ When overflow occurs, the component first hides icons if present to optimize for
 If there is still overflow, the component will behave depending on the pointer.
 
 ```jsx live drafts
-<UnderlineNav>
+<UnderlineNav ariaLabel="Repository">
   <UnderlineNav.Item selected icon={CodeIcon}>
     Code
   </UnderlineNav.Item>

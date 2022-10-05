@@ -92,7 +92,12 @@ export const getLeftArrowHiddenBtn = (theme?: Theme) => ({
   opacity: 0,
   top: 0,
   bottom: 0,
-  left: 0
+  left: 0,
+  /* This is intentionally set to prevent any visual focus ring from showing up
+   * when a hidden element gets focus just to trigger assistive technology to reread */
+  '&[aria-disabled="true"]:focus': {
+    outline: 'none'
+  }
 })
 
 export const getRightArrowHiddenBtn = (theme?: Theme) => ({
@@ -100,7 +105,10 @@ export const getRightArrowHiddenBtn = (theme?: Theme) => ({
   opacity: 0,
   top: 0,
   bottom: 0,
-  right: 0
+  right: 0,
+  '&[aria-disabled="true"]:focus': {
+    outline: 'none'
+  }
 })
 
 export const getLeftArrowVisibleBtn = (theme?: Theme) => ({
@@ -189,6 +197,11 @@ export const getLinkStyles = (
     bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
     borderRadius: 0,
     transform: 'translate(50%, -50%)'
+  },
+  '@media (forced-colors: active)': {
+    '::after': {
+      bg: selectedLink === ref ? 'LinkText' : 'transparent'
+    }
   }
 })
 
