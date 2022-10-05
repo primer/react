@@ -134,3 +134,5 @@ jobs:
       - test
       - type-check
       - examples
+    steps:
+      - run: exit 0
