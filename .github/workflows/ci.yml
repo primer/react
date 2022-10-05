@@ -5,6 +5,10 @@ on:
       - main
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -134,5 +138,6 @@ jobs:
       - test
       - type-check
       - examples
+      - storybook
     steps:
       - run: exit 0

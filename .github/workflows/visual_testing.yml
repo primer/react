@@ -1,4 +1,4 @@
-name: Visual testing
+name: VRT
 on:
   workflow_run:
     workflows: ['CI']
