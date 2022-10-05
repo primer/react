@@ -29,7 +29,6 @@ const ArrowButton = ({
   }, [show])
   return (
     <IconButton
-      tabIndex={show ? 0 : -1}
       ref={btnRef}
       aria-label={`Scroll ${ariaLabel} navigation ${type}`}
       onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => onScrollWithButton(e, direction)}
