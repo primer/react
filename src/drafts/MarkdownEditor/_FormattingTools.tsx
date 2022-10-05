@@ -50,7 +50,7 @@ export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>
 
   useEffect(() => {
     require('@github/markdown-toolbar-element')
-  })
+  }, [])
 
   return (
     <markdown-toolbar for={forInputId} style={{display: 'none'}}>
