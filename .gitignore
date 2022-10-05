@@ -9,3 +9,4 @@ lib-esm/
 public/
 stats.html
 .env
+storybook-static

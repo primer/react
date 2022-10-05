@@ -6,37 +6,122 @@ on:
   pull_request:
 
 jobs:
-  ci:
-    name: CI
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm run test -- --coverage
+
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Type check
+        run: npm run test:type-check
+
+  examples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+
+      # Examples
+      - name: Install dependencies for examples
+        working-directory: examples/nextjs
+        run: npm ci
+      - name: Build examples
+        working-directory: examples/nextjs
+        run: npm run build
+
+      # Consumer tests
+      #
+      # `prepare` is a special case in `npm` and likes to run all the time, even
+      # with `--ignore-scripts` and even when using `npm link @primer/react
+      # --ignore-scripts`. This just removes it entirely for the duration of
+      # this workflow.
+      - name: Remove "prepare" script
+        run: npm pkg delete scripts.prepare
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
-
       - name: Build
         run: npm run build
 
-      - name: Test
-        run: npm run test -- --coverage
+      - name: Install only production dependencies
+        run: npm ci --production
 
-      - name: Type check
-        run: npm run test:type-check
+      - name: Link
+        run: npm link
 
-      - name: Install dependencies for examples
-        working-directory: examples/nextjs
-        run: npm ci
+      - name: Link and test
+        id: link-and-test
+        working-directory: consumer-test
+        run: |
+          npm install
+          npm link @primer/react
+          npm run check
 
-      - name: Build examples
-        working-directory: examples/nextjs
+      - name: Add annotation
+        if: failure() && steps.link-and-test.conclusion == 'failure'
+        run: |
+          echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/consumer-test"
+
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm run setup
+      - name: Build
         run: npm run build
+      - name: Build storybook
+        run: STORYBOOK=true npx build-storybook
+      - uses: actions/upload-artifact@v3
+        with:
+          name: storybook
+          path: storybook-static/
