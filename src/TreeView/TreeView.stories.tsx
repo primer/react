@@ -1,10 +1,13 @@
+import {DiffAddedIcon, DiffModifiedIcon, DiffRemovedIcon, DiffRenamedIcon, FileIcon} from '@primer/octicons-react'
 import {Meta, Story} from '@storybook/react'
-import {TreeView} from './TreeView'
 import React from 'react'
+import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
 import Box from '../Box'
 import {Button} from '../Button'
-import {ActionMenu} from '../ActionMenu'
-import {ActionList} from '../ActionList'
+import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
+import StyledOcticon from '../StyledOcticon'
+import {TreeView} from './TreeView'
 
 const meta: Meta = {
   title: 'Components/TreeView',
@@ -15,20 +18,47 @@ const meta: Meta = {
 }
 
 export const FileTreeWithDirectoryLinks: Story = () => (
-  <Box p={3}>
+  <Box sx={{p: 3, maxWidth: 400}}>
     <nav aria-label="File navigation">
       <TreeView aria-label="File navigation">
         <TreeView.LinkItem href="#src">
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
           src
           <TreeView.SubTree>
-            <TreeView.LinkItem href="#avatar-tsx">Avatar.tsx</TreeView.LinkItem>
+            <TreeView.LinkItem href="#avatar-tsx">
+              <TreeView.LeadingVisual>
+                <FileIcon />
+              </TreeView.LeadingVisual>
+              Avatar.tsx
+            </TreeView.LinkItem>
             <TreeView.LinkItem href="#button" current>
+              <TreeView.LeadingVisual>
+                <TreeView.DirectoryIcon />
+              </TreeView.LeadingVisual>
               Button
               <TreeView.SubTree>
-                <TreeView.LinkItem href="#button-tsx">Button.tsx</TreeView.LinkItem>
-                <TreeView.LinkItem href="#button-test-tsx">Button.test.tsx</TreeView.LinkItem>
+                <TreeView.LinkItem href="#button-tsx">
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  Button.tsx
+                </TreeView.LinkItem>
+                <TreeView.LinkItem href="#button-test-tsx">
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  Button.test.tsx
+                </TreeView.LinkItem>
               </TreeView.SubTree>
             </TreeView.LinkItem>
+            <TreeView.Item>
+              <TreeView.LeadingVisual>
+                <FileIcon />
+              </TreeView.LeadingVisual>
+              ReallyLongFileNameThatShouldBeTruncated.tsx
+            </TreeView.Item>
           </TreeView.SubTree>
         </TreeView.LinkItem>
         <TreeView.LinkItem
@@ -36,13 +66,31 @@ export const FileTreeWithDirectoryLinks: Story = () => (
           // eslint-disable-next-line no-console
           onExpandedChange={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
         >
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
           public
           <TreeView.SubTree>
-            <TreeView.LinkItem href="#index-html">index.html</TreeView.LinkItem>
-            <TreeView.LinkItem href="#favicon-ico">favicon.ico</TreeView.LinkItem>
+            <TreeView.LinkItem href="#index-html">
+              <TreeView.LeadingVisual>
+                <FileIcon />
+              </TreeView.LeadingVisual>
+              index.html
+            </TreeView.LinkItem>
+            <TreeView.LinkItem href="#favicon-ico">
+              <TreeView.LeadingVisual>
+                <FileIcon />
+              </TreeView.LeadingVisual>
+              favicon.ico
+            </TreeView.LinkItem>
           </TreeView.SubTree>
         </TreeView.LinkItem>
-        <TreeView.LinkItem href="#package-json">package.json</TreeView.LinkItem>
+        <TreeView.LinkItem href="#package-json">
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          package.json
+        </TreeView.LinkItem>
       </TreeView>
     </nav>
   </Box>
@@ -50,35 +98,96 @@ export const FileTreeWithDirectoryLinks: Story = () => (
 
 export const FileTreeWithoutDirectoryLinks: Story = () => {
   return (
-    <Box p={3}>
+    <Box sx={{p: 3, maxWidth: 400}}>
       <nav aria-label="File navigation">
         <TreeView aria-label="File navigation">
-          <TreeView.Item>
+          <TreeView.Item defaultExpanded>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
             src
             <TreeView.SubTree>
-              <TreeView.LinkItem href="#avatar-tsx">Avatar.tsx</TreeView.LinkItem>
-              <TreeView.Item>
+              <TreeView.LinkItem href="#avatar-tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Avatar.tsx
+                <TreeView.TrailingVisual>
+                  <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
+                </TreeView.TrailingVisual>
+              </TreeView.LinkItem>
+              <TreeView.Item defaultExpanded>
+                <TreeView.LeadingVisual>
+                  <TreeView.DirectoryIcon />
+                </TreeView.LeadingVisual>
                 Button
                 <TreeView.SubTree>
                   <TreeView.LinkItem href="#button-tsx" current>
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
                     Button.tsx
+                    <TreeView.TrailingVisual>
+                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+                    </TreeView.TrailingVisual>
                   </TreeView.LinkItem>
-                  <TreeView.LinkItem href="#button-test-tsx">Button.test.tsx</TreeView.LinkItem>
+                  <TreeView.LinkItem href="#button-test-tsx">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Button.test.tsx
+                    <TreeView.TrailingVisual>
+                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+                    </TreeView.TrailingVisual>
+                  </TreeView.LinkItem>
                 </TreeView.SubTree>
+              </TreeView.Item>
+              <TreeView.Item>
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                ReallyLongFileNameThatShouldBeTruncated.tsx
+                <TreeView.TrailingVisual>
+                  <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+                </TreeView.TrailingVisual>
               </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item
-            // eslint-disable-next-line no-console
-            onExpandedChange={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
-          >
+          <TreeView.Item defaultExpanded>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
             public
             <TreeView.SubTree>
-              <TreeView.LinkItem href="#index-html">index.html</TreeView.LinkItem>
-              <TreeView.LinkItem href="#favicon-ico">favicon.ico</TreeView.LinkItem>
+              <TreeView.LinkItem href="#index-html">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                index.html
+                <TreeView.TrailingVisual>
+                  <StyledOcticon icon={DiffRenamedIcon} aria-label="renamed" />
+                </TreeView.TrailingVisual>
+              </TreeView.LinkItem>
+              <TreeView.LinkItem href="#favicon-ico">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                favicon.ico
+                <TreeView.TrailingVisual>
+                  <StyledOcticon icon={DiffRemovedIcon} color="danger.fg" aria-label="removed" />
+                </TreeView.TrailingVisual>
+              </TreeView.LinkItem>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.LinkItem href="#package-json">package.json</TreeView.LinkItem>
+          <TreeView.LinkItem href="#package-json">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            package.json
+            <TreeView.TrailingVisual>
+              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+            </TreeView.TrailingVisual>
+          </TreeView.LinkItem>
         </TreeView>
       </nav>
     </Box>
@@ -294,6 +403,150 @@ function TreeItem({
       ) : null}
     </TreeView.Item>
   )
+}
+
+async function wait(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function loadItems(responseTime: number) {
+  await wait(responseTime)
+  return ['Avatar.tsx', 'Button.tsx', 'Checkbox.tsx']
+}
+
+export const AsyncSuccess: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item
+            onExpandedChange={async isExpanded => {
+              if (asyncItems.length === 0 && isExpanded) {
+                // Show loading indicator after a short delay
+                const timeout = setTimeout(() => setIsLoading(true), 300)
+
+                // Load items
+                const items = await loadItems(args.responseTime)
+
+                clearTimeout(timeout)
+                setIsLoading(false)
+                setAsyncItems(items)
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree>
+              {isLoading ? <TreeView.LoadingItem /> : null}
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+AsyncSuccess.args = {
+  responseTime: 2000
+}
+
+async function alwaysFails(responseTime: number) {
+  await wait(responseTime)
+  throw new Error('Failed to load items')
+  return []
+}
+
+export const AsyncError: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isExpanded, setIsExpanded] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+  const [error, setError] = React.useState<Error | null>(null)
+
+  async function loadItems() {
+    if (asyncItems.length === 0) {
+      // Show loading indicator after a short delay
+      const timeout = setTimeout(() => setIsLoading(true), 300)
+      try {
+        // Try to load items
+        const items = await alwaysFails(args.responseTime)
+        setAsyncItems(items)
+      } catch (error) {
+        setError(error as Error)
+      } finally {
+        clearTimeout(timeout)
+        setIsLoading(false)
+      }
+    }
+  }
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item
+            expanded={isExpanded}
+            onExpandedChange={isExpanded => {
+              setIsExpanded(isExpanded)
+
+              if (isExpanded) {
+                loadItems()
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree>
+              {isLoading ? <TreeView.LoadingItem /> : null}
+              {error ? (
+                <ConfirmationDialog
+                  title="Error"
+                  onClose={gesture => {
+                    setError(null)
+
+                    if (gesture === 'confirm') {
+                      loadItems()
+                    } else {
+                      setIsExpanded(false)
+                    }
+                  }}
+                  confirmButtonContent="Retry"
+                >
+                  {error.message}
+                </ConfirmationDialog>
+              ) : null}
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+AsyncError.args = {
+  responseTime: 2000
 }
 
 export default meta
