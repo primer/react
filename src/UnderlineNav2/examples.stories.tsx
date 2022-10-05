@@ -13,7 +13,7 @@ import {
   GearIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import {UnderlineNav, UnderlineNavProps} from './index'
+import {UnderlineNav} from './index'
 import {BaseStyles, ThemeProvider} from '..'
 
 export default {
@@ -54,7 +54,7 @@ export const withIcons = () => {
       <UnderlineNav.Item icon={CommentDiscussionIcon} counter={7}>
         Discussions
       </UnderlineNav.Item>
-      <UnderlineNav.Item icon={EyeIcon}>Item 1</UnderlineNav.Item>
+      <UnderlineNav.Item icon={ProjectIcon}>Projects</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
