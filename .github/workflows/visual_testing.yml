@@ -13,6 +13,7 @@ jobs:
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success'
     steps:
+      - uses: haya14busa/action-workflow_run-status@v1
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
