@@ -26,7 +26,7 @@ import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 
 export type UnderlineNavProps = {
-  ariaLabel?: string
+  'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
   align?: 'right'
   sx?: SxProp
@@ -157,7 +157,7 @@ export const UnderlineNav = forwardRef(
     {
       as = 'nav',
       align,
-      ariaLabel = 'Navigation',
+      'aria-label': ariaLabel = 'Navigation',
       sx: sxProp = {},
       afterSelect,
       variant = 'default',

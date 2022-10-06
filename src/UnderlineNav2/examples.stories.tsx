@@ -33,7 +33,7 @@ export default {
 
 export const DefaultNav = () => {
   return (
-    <UnderlineNav ariaLabel="Repository">
+    <UnderlineNav aria-label="Repository">
       <UnderlineNav.Item selected>Code</UnderlineNav.Item>
       <UnderlineNav.Item>Issues</UnderlineNav.Item>
       <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
@@ -43,7 +43,7 @@ export const DefaultNav = () => {
 
 export const withIcons = () => {
   return (
-    <UnderlineNav ariaLabel="Repository with icons">
+    <UnderlineNav aria-label="Repository with icons">
       <UnderlineNav.Item icon={CodeIcon}>Code</UnderlineNav.Item>
       <UnderlineNav.Item icon={EyeIcon} counter={6}>
         Issues
@@ -61,7 +61,7 @@ export const withIcons = () => {
 
 export const withCounterLabels = () => {
   return (
-    <UnderlineNav ariaLabel="Repository with counters">
+    <UnderlineNav aria-label="Repository with counters">
       <UnderlineNav.Item selected icon={CodeIcon}>
         Code
       </UnderlineNav.Item>
@@ -88,7 +88,7 @@ export const InternalResponsiveNav = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   return (
-    <UnderlineNav ariaLabel="Repository">
+    <UnderlineNav aria-label="Repository">
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
@@ -108,7 +108,7 @@ export const CountersLoadingState = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   return (
-    <UnderlineNav ariaLabel="Repository with loading counters" loadingCounters={true}>
+    <UnderlineNav aria-label="Repository with loading counters" loadingCounters={true}>
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
