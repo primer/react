@@ -42,16 +42,6 @@ const ResponsiveUnderlineNav = ({
   selectedItemText?: string
   loadingCounters?: boolean
 }) => {
-  useLayoutEffect(() => {
-    for (const listItem of document.querySelectorAll('li[class^="Box"]'))
-      Object.defineProperty(listItem, 'getBoundingClientRect', {
-        value: {
-          width: 100
-        },
-        writable: true
-      })
-  })
-
   const items: {navigation: string; icon?: React.FC<IconProps>; counter?: number}[] = [
     {navigation: 'Code', icon: CodeIcon},
     {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
@@ -126,76 +116,5 @@ describe('UnderlineNav', () => {
     const loadingCounter = item?.getElementsByTagName('span')[2]
     expect(loadingCounter?.className).toContain('LoadingCounter')
     expect(loadingCounter?.textContent).toBe('')
-  })
-})
-
-describe.skip('UnderlineNav when overflow occurs on fine pointer devices', () => {
-  beforeAll(() => {
-    jest.spyOn(window.screen, 'width', 'get').mockReturnValue(800)
-  })
-
-  it("does not render icons where nav width is less than the sum of items' width (without icons)", () => {
-    const {getByText} = render(<ResponsiveUnderlineNav />)
-
-    const el = getByText('Code').closest('a')
-    const icon = el?.getElementsByTagName('span')[0]
-    expect(icon).not.toBeVisible()
-  })
-
-  it("renders More menu where nav width is less than the sum of items' width (without icons)", () => {
-    const {getByText} = render(<ResponsiveUnderlineNav />)
-
-    const el = getByText('More')
-    expect(el).toBeVisible()
-  })
-
-  it('moves the selected item out of the menu when it is selected and appends it to the list', () => {
-    const {container, getByText} = render(<ResponsiveUnderlineNav />)
-
-    const el = getByText('More')
-    fireEvent.click(el)
-
-    const menuItem = getByText('Settings')
-    fireEvent.click(menuItem)
-
-    const selectedEl = getByText('Settings').closest('a')
-    const selectedListItem = getByText('Settings').closest('li')
-    expect(selectedEl).toHaveAttribute('aria-current', 'page')
-    const list = container.getElementsByTagName('ul')[0]
-    // The last one is the More Btn
-    const secondLastItemIndex = list.childNodes.length - 2
-    expect(list.childNodes[secondLastItemIndex]).toBe(selectedListItem)
-  })
-
-  it('keeps the updated order when a naturally visible item is selected', () => {
-    const {container, getByText} = render(<ResponsiveUnderlineNav />)
-
-    const el = getByText('More')
-    fireEvent.click(el)
-
-    // select an item from the menu
-    const menuItem = getByText('Settings')
-    fireEvent.click(menuItem)
-    // the order is now updated and is different than the original children order.
-    // select an item that is naturally visible (meaning it does not fall under the menu when page first loaded or resized)
-    const naturallyVisibleItem = getByText('Code')
-    fireEvent.click(naturallyVisibleItem)
-    const selectedListItem = getByText('Settings').closest('li')
-    const list = container.getElementsByTagName('ul')[0]
-    // The last one is the More Btn
-    const secondLastItemIndex = list.childNodes.length - 2
-    // Settings should still be on the last position
-    expect(list.childNodes[secondLastItemIndex]).toBe(selectedListItem)
-  })
-
-  it('displays the selected item as the last child of the list if the selected item naturally falls under the menu when the page is loaded or resized', () => {
-    const {container, getByText} = render(<ResponsiveUnderlineNav selectedItemText="Settings" />)
-
-    const selectedEl = getByText('Settings').closest('a')
-    expect(selectedEl).toHaveAttribute('aria-current', 'page')
-    const selectedListItem = getByText('Settings').closest('li')
-    const list = container.getElementsByTagName('ul')[0]
-    const secondLastItemIndex = list.childNodes.length - 2
-    expect(list.childNodes[secondLastItemIndex]).toBe(selectedListItem)
   })
 })
