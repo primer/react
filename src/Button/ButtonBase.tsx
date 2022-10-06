@@ -5,6 +5,7 @@ import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getSizeStyles, getButtonStyles, getAlignContentSize} from './styles'
+import CounterLabel from '../CounterLabel'
 
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
   ({children, as: Component = 'button', sx: sxProp = {}, ...props}, forwardedRef): JSX.Element => {
@@ -12,6 +13,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       leadingIcon: LeadingIcon,
       trailingIcon: TrailingIcon,
       trailingAction: TrailingAction,
+      trailingVisualCount,
       variant = 'default',
       size = 'medium',
       alignContent = 'center',
@@ -25,6 +27,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
     const sxStyles = useMemo(() => {
       return merge.all([getButtonStyles(theme), getSizeStyles(size, false), getVariantStyles(variant, theme)])
     }, [theme, size, variant])
+
     return (
       <StyledButton
         as={Component}
@@ -40,11 +43,15 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
             </Box>
           )}
           {children && <span data-component="text">{children}</span>}
-          {TrailingIcon && (
+          {trailingVisualCount !== undefined ? (
+            <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles}}>
+              <CounterLabel data-component="ButtonCounter">{trailingVisualCount}</CounterLabel>
+            </Box>
+          ) : TrailingIcon ? (
             <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles}}>
               <TrailingIcon />
             </Box>
-          )}
+          ) : null}
         </Box>
         {TrailingAction && (
           <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
