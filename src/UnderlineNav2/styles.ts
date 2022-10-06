@@ -206,3 +206,10 @@ export const scrollStyles: BetterSystemStyleObject = {
 }
 
 export const moreMenuStyles: BetterSystemStyleObject = {whiteSpace: 'nowrap'}
+
+export const menuItemStyles = {
+  // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32
+  '& > span': {
+    display: 'none'
+  }
+}

@@ -12,7 +12,15 @@ import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
 
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, scrollStyles, moreMenuStyles} from './styles'
+import {
+  moreBtnStyles,
+  getDividerStyle,
+  getNavStyles,
+  ulStyles,
+  scrollStyles,
+  moreMenuStyles,
+  menuItemStyles
+} from './styles'
 import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
@@ -346,11 +354,12 @@ export const UnderlineNav = forwardRef(
                 <ActionMenu>
                   <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
                   <ActionMenu.Overlay align="end">
-                    <ActionList>
+                    <ActionList selectionVariant="single">
                       {actions.map((action, index) => {
                         const {children: actionElementChildren, ...actionElementProps} = action.props
                         return (
                           <ActionList.Item
+                            sx={menuItemStyles}
                             key={index}
                             {...actionElementProps}
                             onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
