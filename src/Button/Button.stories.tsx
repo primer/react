@@ -1,14 +1,6 @@
-import {
-  EyeClosedIcon,
-  EyeIcon,
-  SearchIcon,
-  TriangleDownIcon,
-  XIcon,
-  TriangleRightIcon,
-  HeartIcon
-} from '@primer/octicons-react'
+import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import {Story, Meta} from '@storybook/react'
-import React, {useState, forwardRef} from 'react'
+import React, {forwardRef} from 'react'
 import {Button, ButtonProps, IconButton} from '.'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
@@ -83,6 +75,12 @@ export default {
         options: Object.keys(actionIcons)
       },
       mapping: actionIcons
+    },
+    trailingVisualCount: {
+      description: 'The displayed icon on the left',
+      control: {
+        type: 'number'
+      }
     }
   },
   args: {
@@ -93,7 +91,8 @@ export default {
     alignContent: 'center',
     trailingIcon: null,
     leadingIcon: null,
-    trailingAction: null
+    trailingAction: null,
+    trailingVisualCount: null
   }
 } as Meta<typeof Button>
 
@@ -127,13 +126,13 @@ export const iconButton = ({...args}: ButtonProps) => {
 //   )
 // }
 
-type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
-const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
-  ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a ref={ref} href={to} {...props} />
-  }
-)
+// type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
+// const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkProps>(
+//   ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
+//     // eslint-disable-next-line jsx-a11y/anchor-has-content
+//     return <a ref={ref} href={to} {...props} />
+//   }
+// )
 
 export const linkButton = ({...args}: ButtonProps) => {
   return (

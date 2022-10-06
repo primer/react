@@ -13,7 +13,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       leadingIcon: LeadingIcon,
       trailingIcon: TrailingIcon,
       trailingAction: TrailingAction,
-      trailingVisualCount,
+      trailingVisualCount: trailingVisualCount,
       variant = 'default',
       size = 'medium',
       alignContent = 'center',

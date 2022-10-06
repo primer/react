@@ -136,18 +136,10 @@ Disabled.args = {
 }
 
 export const TrailingCounter = ({...args}: ButtonProps) => {
-  // <Button trailingVisualCount={15} />
-
   const [count, setCount] = useState(0)
   return (
     <Button onClick={() => setCount(count + 1)} trailingVisualCount={count} {...args}>
       Watch
     </Button>
   )
-  // return (
-  //   <Button onClick={() => setCount(count + 1)} {...args}>
-  //     Watch
-  //     <Button.Counter>{count}</Button.Counter>
-  //   </Button>
-  // )
 }
