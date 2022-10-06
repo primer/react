@@ -1,145 +1,40 @@
-import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
-import {Story, Meta} from '@storybook/react'
+import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
-import {Button, ButtonProps} from '.'
-import {BaseStyles, ThemeProvider} from '..'
-
-const unset = undefined
-const icons = {unset, EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon}
-
-const actionIcons = {unset, TriangleDownIcon}
+import {Button} from '.'
 
 export default {
-  title: 'Components/Button/Features',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
-  argTypes: {
-    size: {
-      control: {
-        type: 'radio',
-        options: ['small', 'medium', 'large']
-      }
-    },
-    disabled: {
-      control: {
-        type: 'boolean'
-      }
-    },
-    variant: {
-      control: {
-        type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible', 'outline']
-      }
-    },
-    alignContent: {
-      control: {
-        type: 'radio',
-        options: ['center', 'start']
-      }
-    },
-    block: {
-      control: {
-        type: 'boolean'
-      }
-    },
-    leadingIcon: {
-      description: 'The displayed icon on the left',
-      control: {
-        type: 'select',
-        options: Object.keys(icons)
-      },
-      mapping: icons
-    },
-    trailingIcon: {
-      description: 'The displayed icon on the left',
-      control: {
-        type: 'select',
-        options: Object.keys(icons)
-      },
-      mapping: icons
-    },
-    trailingAction: {
-      description: 'The displayed icon on the left',
-      control: {
-        type: 'select',
-        options: Object.keys(actionIcons)
-      },
-      mapping: actionIcons
-    }
-  },
-  args: {
-    block: false,
-    size: 'medium',
-    disabled: false,
-    variant: 'default',
-    alignContent: 'center',
-    trailingIcon: null,
-    leadingIcon: null,
-    trailingAction: null
-  }
-} as Meta<typeof Button>
-
-const Template: Story = args => <Button {...args}>Default</Button>
-
-export const Default = Template.bind({})
-Default.args = {
-  variant: 'default'
+  title: 'Components/Button/Features'
 }
 
-export const Primary = Template.bind({})
-Primary.args = {
-  variant: 'primary'
-}
+export const Default = () => <Button>Default</Button>
 
-export const Danger = Template.bind({})
-Danger.args = {
-  variant: 'danger'
-}
+export const Primary = () => <Button variant="primary">Primary</Button>
 
-export const Invisible = Template.bind({})
-Invisible.args = {
-  variant: 'invisible'
-}
+export const Danger = () => <Button variant="danger">Danger</Button>
 
-export const LeadingVisual = Template.bind({})
-LeadingVisual.args = {
-  leadingIcon: HeartIcon
-}
+export const Invisible = () => <Button variant="invisible">Invisible</Button>
 
-export const TrailingVisual = Template.bind({})
-TrailingVisual.args = {
-  trailingIcon: HeartIcon
-}
+export const LeadingVisual = () => <Button leadingIcon={HeartIcon}>Leading visual</Button>
 
-export const TrailingAction = Template.bind({})
-TrailingAction.args = {
-  trailingAction: TriangleDownIcon
-}
+export const TrailingVisual = () => <Button trailingIcon={EyeIcon}>Trailing visual</Button>
 
-export const Block = Template.bind({})
-Block.args = {
-  block: true
-}
-
-export const Disabled = Template.bind({})
-Disabled.args = {
-  disabled: true
-}
-
-export const TrailingCounter = ({...args}: ButtonProps) => {
+export const TrailingCounter = () => {
   const [count, setCount] = useState(0)
   return (
-    <Button onClick={() => setCount(count + 1)} trailingVisualCount={count} {...args}>
+    <Button onClick={() => setCount(count + 1)} trailingVisualCount={count}>
       Watch
     </Button>
   )
 }
+
+export const TrailingAction = () => <Button trailingAction={TriangleDownIcon}>Trailing action</Button>
+
+export const Block = () => <Button block>Default</Button>
+
+export const Disabled = () => <Button disabled>Default</Button>
+
+export const Small = () => <Button size="small">Default</Button>
+
+export const Medium = () => <Button size="medium">Default</Button>
+
+export const Large = () => <Button size="large">Default</Button>

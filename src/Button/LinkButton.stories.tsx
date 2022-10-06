@@ -1,24 +1,18 @@
-import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeClosedIcon, EyeIcon, SearchIcon, ChevronRightIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import {Story, Meta} from '@storybook/react'
 import React from 'react'
 import {Button} from '.'
 const unset = undefined
 const icons = {unset, EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon}
-
-const actionIcons = {unset, TriangleDownIcon}
+const actionIcons = {unset, ChevronRightIcon}
 
 export default {
-  title: 'Components/Button',
+  title: 'Components/LinkButton',
   argTypes: {
     size: {
       control: {
         type: 'radio',
         options: ['small', 'medium', 'large']
-      }
-    },
-    disabled: {
-      control: {
-        type: 'boolean'
       }
     },
     variant: {
@@ -59,23 +53,21 @@ export default {
       },
       mapping: actionIcons
     },
-    trailingVisualCount: {
-      control: {
-        type: 'number'
-      }
-    }
+    href: {control: 'text'}
   },
   args: {
     block: false,
     size: 'medium',
-    disabled: false,
     variant: 'default',
     alignContent: 'center',
     trailingIcon: null,
     leadingIcon: null,
-    trailingAction: null,
-    trailingVisualCount: undefined
+    href: '/'
   }
 } as Meta<typeof Button>
 
-export const Playground: Story<typeof Button> = args => <Button {...args}>Default</Button>
+export const Playground: Story<typeof Button> = args => (
+  <Button as="a" {...args}>
+    Default
+  </Button>
+)

@@ -1,7 +1,6 @@
 import {addons} from '@storybook/addons'
 import {withPerformance} from 'storybook-addon-performance'
 import {withThemeProvider, toolbarTypes} from '../src/utils/story-helpers'
-
 export const globalTypes = toolbarTypes
 export const decorators = [withThemeProvider, withPerformance]
 
