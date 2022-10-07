@@ -4,7 +4,7 @@ import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {ButtonProps, StyledButton} from './types'
-import {getVariantStyles, getSizeStyles, getButtonStyles, getAlignContentSize} from './styles'
+import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import CounterLabel from '../CounterLabel'
 
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
@@ -25,8 +25,8 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       pointerEvents: 'none'
     }
     const sxStyles = useMemo(() => {
-      return merge.all([getButtonStyles(theme), getSizeStyles(size, false), getVariantStyles(variant, theme)])
-    }, [theme, size, variant])
+      return merge.all([getButtonStyles(theme), getVariantStyles(variant, theme)])
+    }, [theme, variant])
 
     return (
       <StyledButton
@@ -35,6 +35,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         {...props}
         ref={forwardedRef}
         data-component={block ? 'block' : null}
+        data-size={size === 'small' ? 'small' : size === 'large' ? 'large' : undefined}
       >
         <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
           {LeadingIcon && (

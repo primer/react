@@ -171,54 +171,6 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
   return style[variant]
 }
 
-/* The button heights have to amount to
-  small - 28
-  medium - 32
-  large - 34
-  In icon these have to be square.
-*/
-export const getSizeStyles = (size = 'medium', iconOnly: boolean) => {
-  let paddingX, fontSize, height, width
-  switch (size) {
-    case 'small':
-      height = 28
-      paddingX = 8
-      fontSize = 0
-      break
-    case 'large':
-      height = 40
-      paddingX = 20
-      fontSize = 1
-      break
-    case 'medium':
-    default:
-      height = 32
-      paddingX = 16
-      fontSize = 1
-  }
-  if (iconOnly && size === 'small') {
-    width = 28
-    paddingX = 'unset'
-  }
-  if (iconOnly && size === 'large') {
-    width = 40
-    paddingX = 'unset'
-  }
-  if (iconOnly && size === 'medium') {
-    width = 32
-    paddingX = 'unset'
-  }
-  return {
-    height: `${height}px`,
-    width: `${width}px`,
-    paddingX: `${paddingX}px`,
-    fontSize,
-    '[data-component=ButtonCounter]': {
-      fontSize
-    }
-  }
-}
-
 export const getBaseStyles = (theme?: Theme) => ({
   borderRadius: '2',
   border: '1px solid',
@@ -234,7 +186,9 @@ export const getBaseStyles = (theme?: Theme) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gap: '2',
+  height: 'var(--primer-control-medium-size, 32px)',
+  padding: '0 var(--primer-control-medium-paddingInline-normal, 12px)',
+  gap: 'var(--primer-control-medium-gap, 8px)',
   '&:disabled': {
     cursor: 'not-allowed'
   },
@@ -251,6 +205,39 @@ export const getBaseStyles = (theme?: Theme) => ({
     display: 'grid',
     padding: 'initial',
     placeContent: 'center'
+  },
+  '&[data-size="small"]': {
+    padding: '0 var(--primer-control-small-paddingInline-condensed, 8px)',
+    height: 'var(--primer-control-small-size, 28px)',
+    gap: 'var(--primer-control-small-gap, 4px)',
+    fontSize: 'var(--primer-text-body-size-small, 12px)',
+
+    '[data-component="text"]': {
+      lineHeight: 'var(--primer-text-body-lineHeight-small, calc(20 / 12))'
+    },
+
+    '[data-component="buttonContent"] > :not(:last-child)': {
+      mr: 'var(--primer-control-small-gap, 4px)'
+    },
+
+    '&[data-component=IconButton]': {
+      width: 'var(--primer-control-small-size, 28px)',
+      padding: 'unset'
+    }
+  },
+  '&[data-size="large"]': {
+    padding: '0 var(--primer-control-large-paddingInline-spacious, 16px)',
+    height: 'var(--primer-control-large-size, 40px)',
+    gap: 'var(--primer-control-large-gap, 8px)',
+
+    '[data-component="buttonContent"] > :not(:last-child)': {
+      mr: 'var(--primer-control-large-gap, 8px)'
+    },
+
+    '&[data-component=IconButton]': {
+      width: 'var(--primer-control-large-size, 40px)',
+      padding: 'unset'
+    }
   }
 })
 
