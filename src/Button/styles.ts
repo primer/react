@@ -1,6 +1,5 @@
 import {VariantType, AlignContent} from './types'
 import {Theme} from '../ThemeProvider'
-import {background} from 'styled-system'
 
 export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
@@ -11,7 +10,8 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       backgroundColor: 'btn.bg',
       boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
       '&:hover:not([disabled])': {
-        backgroundColor: 'btn.hoverBg'
+        backgroundColor: 'btn.hoverBg',
+        borderColor: 'btn.hoverBorder'
       },
       '&:active:not([disabled])': {
         backgroundColor: 'btn.activeBg',
@@ -31,7 +31,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
     primary: {
       color: 'btn.primary.text',
       backgroundColor: 'btn.primary.bg',
-      borderColor: 'border.subtle',
+      borderColor: 'btn.primary.border',
       boxShadow: `${theme?.shadows.btn.primary.shadow}`,
       '&:hover:not([disabled])': {
         color: 'btn.primary.hoverText',
@@ -106,13 +106,13 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
     invisible: {
       color: 'accent.fg',
       backgroundColor: 'transparent',
-      border: '0',
+      borderColor: 'transparent',
       boxShadow: 'none',
       '&:hover:not([disabled])': {
-        backgroundColor: 'btn.hoverBg'
+        backgroundColor: `actionListItem.default.hoverBg`
       },
       '&:active:not([disabled])': {
-        backgroundColor: 'btn.selectedBg'
+        backgroundColor: 'actionListItem.default.activeBg'
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
@@ -121,50 +121,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         }
       },
       '&[aria-expanded=true]': {
-        backgroundColor: 'btn.selectedBg'
-      }
-    },
-    outline: {
-      color: 'btn.outline.text',
-      boxShadow: `${theme?.shadows.btn.shadow}`,
-      borderColor: 'btn.border',
-      backgroundColor: 'btn.bg',
-
-      '&:hover:not([disabled])': {
-        color: 'btn.outline.hoverText',
-        backgroundColor: 'btn.outline.hoverBg',
-        borderColor: 'outline.hoverBorder',
-        boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
-        '[data-component=ButtonCounter]': {
-          backgroundColor: 'btn.outline.hoverCounterBg',
-          color: 'inherit'
-        }
+        backgroundColor: 'actionListItem.default.selectedBg'
       },
-      '&:active:not([disabled])': {
-        color: 'btn.outline.selectedText',
-        backgroundColor: 'btn.outline.selectedBg',
-        boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: 'btn.outline.selectedBorder'
-      },
-
-      '&:disabled': {
-        color: 'btn.outline.disabledText',
-        backgroundColor: 'btn.outline.disabledBg',
-        borderColor: 'btn.border',
-        '[data-component=ButtonCounter]': {
-          backgroundColor: 'btn.outline.disabledCounterBg',
-          color: 'inherit'
-        }
-      },
-      '[data-component=ButtonCounter]': {
-        backgroundColor: 'btn.outline.counterBg',
-        color: 'btn.outline.text'
-      },
-      '&[aria-expanded=true]': {
-        color: 'btn.outline.selectedText',
-        backgroundColor: 'btn.outline.selectedBg',
-        boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: 'btn.outline.selectedBorder'
+      svg: {
+        color: 'fg.muted'
       }
     }
   }
@@ -189,11 +149,24 @@ export const getBaseStyles = (theme?: Theme) => ({
   height: 'var(--primer-control-medium-size, 32px)',
   padding: '0 var(--primer-control-medium-paddingInline-normal, 12px)',
   gap: 'var(--primer-control-medium-gap, 8px)',
-  '&:disabled': {
-    cursor: 'not-allowed'
+  minWidth: 'max-content',
+  transition: '80ms cubic-bezier(0.65, 0, 0.35, 1)',
+  transitionProperty: 'color, fill, background-color, border-color',
+  '&[href]': {
+    display: 'inline-flex',
+    '&:hover': {
+      textDecoration: 'none'
+    }
   },
-  '&:disabled svg': {
-    opacity: '0.6'
+  '&:hover': {
+    transitionDuration: '80ms'
+  },
+  '&:active': {
+    transition: 'none'
+  },
+  '&:disabled': {
+    cursor: 'not-allowed',
+    boxShadow: 'none'
   },
   '@media (forced-colors: active)': {
     '&:focus': {
@@ -201,10 +174,14 @@ export const getBaseStyles = (theme?: Theme) => ({
       outline: 'solid 1px transparent'
     }
   },
+  '[data-component=ButtonCounter]': {
+    fontSize: 'var(--primer-text-body-size-medium, 14px)'
+  },
   '&[data-component=IconButton]': {
     display: 'grid',
-    padding: 'initial',
-    placeContent: 'center'
+    padding: 'unset',
+    placeContent: 'center',
+    width: 'var(--primer-control-medium-size, 32px)'
   },
   '&[data-size="small"]': {
     padding: '0 var(--primer-control-small-paddingInline-condensed, 8px)',
@@ -214,6 +191,10 @@ export const getBaseStyles = (theme?: Theme) => ({
 
     '[data-component="text"]': {
       lineHeight: 'var(--primer-text-body-lineHeight-small, calc(20 / 12))'
+    },
+
+    '[data-component=ButtonCounter]': {
+      fontSize: 'var(--primer-text-body-size-small, 12px)'
     },
 
     '[data-component="buttonContent"] > :not(:last-child)': {
@@ -247,9 +228,6 @@ export const getButtonStyles = (theme?: Theme) => {
     '&[data-component="block"]': {
       width: '100%'
     },
-    '[data-component="Icon"]': {
-      backgroundColor: 'pink'
-    },
     '[data-component="leadingIcon"]': {
       gridArea: 'leadingIcon'
     },
@@ -262,7 +240,7 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'trailingIcon'
     },
     '[data-component="trailingAction"]': {
-      marginRight: '-4px'
+      marginRight: 'calc(var(--base-size-4, 4px) * -1)'
     },
     '[data-component="buttonContent"]': {
       flex: '1 0 auto',
@@ -273,7 +251,7 @@ export const getButtonStyles = (theme?: Theme) => {
       alignContent: 'center'
     },
     '[data-component="buttonContent"] > :not(:last-child)': {
-      mr: '2'
+      mr: 'var(--primer-control-medium-gap, 8px)'
     }
   }
   return styles
