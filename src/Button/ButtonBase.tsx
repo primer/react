@@ -10,8 +10,8 @@ import CounterLabel from '../CounterLabel'
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
   ({children, as: Component = 'button', sx: sxProp = {}, ...props}, forwardedRef): JSX.Element => {
     const {
-      leadingIcon: LeadingIcon,
-      trailingIcon: TrailingIcon,
+      leadingVisual: LeadingVisual,
+      trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
       trailingVisualCount: trailingVisualCount,
       variant = 'default',
@@ -38,19 +38,19 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         data-size={size === 'small' ? 'small' : size === 'large' ? 'large' : undefined}
       >
         <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-          {LeadingIcon && (
-            <Box as="span" data-component="leadingIcon" sx={{...iconWrapStyles}}>
-              <LeadingIcon />
+          {LeadingVisual && (
+            <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
+              <LeadingVisual />
             </Box>
           )}
           {children && <span data-component="text">{children}</span>}
           {trailingVisualCount !== undefined ? (
-            <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles}}>
+            <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
               <CounterLabel data-component="ButtonCounter">{trailingVisualCount}</CounterLabel>
             </Box>
-          ) : TrailingIcon ? (
-            <Box as="span" data-component="trailingIcon" sx={{...iconWrapStyles}}>
-              <TrailingIcon />
+          ) : TrailingVisual ? (
+            <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+              <TrailingVisual />
             </Box>
           ) : null}
         </Box>

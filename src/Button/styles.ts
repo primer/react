@@ -228,16 +228,16 @@ export const getButtonStyles = (theme?: Theme) => {
     '&[data-component="block"]': {
       width: '100%'
     },
-    '[data-component="leadingIcon"]': {
-      gridArea: 'leadingIcon'
+    '[data-component="leadingVisual"]': {
+      gridArea: 'leadingVisual'
     },
     '[data-component="text"]': {
       gridArea: 'text',
       lineHeight: 'var(--primer-text-body-lineHeight-medium, calc(20/14))',
       whiteSpace: 'nowrap'
     },
-    '[data-component="trailingIcon"]': {
-      gridArea: 'trailingIcon'
+    '[data-component="trailingVisual"]': {
+      gridArea: 'trailingVisual'
     },
     '[data-component="trailingAction"]': {
       marginRight: 'calc(var(--base-size-4, 4px) * -1)'
@@ -245,7 +245,7 @@ export const getButtonStyles = (theme?: Theme) => {
     '[data-component="buttonContent"]': {
       flex: '1 0 auto',
       display: 'grid',
-      gridTemplateAreas: '"leadingIcon text trailingIcon"',
+      gridTemplateAreas: '"leadingVisual text trailingVisual"',
       gridTemplateColumns: 'min-content minmax(0, auto) min-content',
       alignItems: 'center',
       alignContent: 'center'

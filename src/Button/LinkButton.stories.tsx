@@ -32,14 +32,14 @@ export default {
         type: 'boolean'
       }
     },
-    leadingIcon: {
+    leadingVisual: {
       control: {
         type: 'select',
         options: Object.keys(icons)
       },
       mapping: icons
     },
-    trailingIcon: {
+    trailingVisual: {
       control: {
         type: 'select',
         options: Object.keys(icons)
@@ -60,8 +60,8 @@ export default {
     size: 'medium',
     variant: 'default',
     alignContent: 'center',
-    trailingIcon: null,
-    leadingIcon: null,
+    trailingVisual: null,
+    leadingVisual: null,
     href: '/'
   }
 } as Meta<typeof Button>

@@ -38,14 +38,14 @@ export default {
         type: 'boolean'
       }
     },
-    leadingIcon: {
+    leadingVisual: {
       control: {
         type: 'select',
         options: Object.keys(icons)
       },
       mapping: icons
     },
-    trailingIcon: {
+    trailingVisual: {
       control: {
         type: 'select',
         options: Object.keys(icons)
@@ -71,8 +71,8 @@ export default {
     disabled: false,
     variant: 'default',
     alignContent: 'center',
-    trailingIcon: null,
-    leadingIcon: null,
+    trailingVisual: null,
+    leadingVisual: null,
     trailingAction: null,
     trailingVisualCount: undefined
   }

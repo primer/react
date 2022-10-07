@@ -51,11 +51,11 @@ export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /**
    * The trailing icon comes after button content
    */
-  trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /**
    * Trailing action appears to the right of the trailing visual and is always locked to the end
    */
