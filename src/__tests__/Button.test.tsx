@@ -1,5 +1,5 @@
 import React from 'react'
-import {IconButton, Button, ButtonProps, CustomButtonProps} from '../Button'
+import {IconButton, Button, CustomButtonProps} from '../Button'
 import {behavesAsComponent} from '../utils/testing'
 import {render, fireEvent, screen} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
