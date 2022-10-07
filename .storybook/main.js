@@ -4,6 +4,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-links',
     '@storybook/addon-interactions',
+    '@storybook/addon-storysource',
     {name: '@storybook/addon-essentials', options: {backgrounds: false}},
     'storybook-addon-performance/register',
     {name: 'storybook-addon-turbo-build', options: {optimizationLevel: 2}},
