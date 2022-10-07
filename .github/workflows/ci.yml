@@ -40,3 +40,21 @@ jobs:
       - name: Build examples
         working-directory: examples/nextjs
         run: npm run build
+
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Build storybook
+        run: STORYBOOK=true npx build-storybook
+      - uses: actions/upload-artifact@v3
+        with:
+          name: storybook
+          path: storybook-static/

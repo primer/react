@@ -9,21 +9,12 @@ jobs:
   chromatic:
     name: Visual testing
     runs-on: ubuntu-latest
-    if: >
-      github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success'
+    if: github.event.workflow_run.conclusion == 'success'
     steps:
-      - uses: haya14busa/action-workflow_run-status@v1
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Required to retrieve git history
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
+          fetch-depth: 0
       - name: 'Download artifact'
         uses: actions/github-script@v3.1.0
         with:
@@ -46,11 +37,7 @@ jobs:
             });
 
             fs.writeFileSync('${{github.workspace}}/storybook.zip', Buffer.from(download.data));
-
-      - run: unzip storybook.zip
-      - name: Install dependencies
-        run: npm ci
-
+      - run: unzip storybook.zip -d storybook-static
       - name: Chromatic
         uses: chromaui/action@v1
         with:
