@@ -1,7 +1,6 @@
 import React, {forwardRef} from 'react'
 import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
-import Box from '../Box'
 import {IconButtonProps, StyledButton} from './types'
 import {getBaseStyles, getVariantStyles} from './styles'
 

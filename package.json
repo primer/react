@@ -45,6 +45,7 @@
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
+    "test:watch": "jest --watch",
     "test:storybook": "test-storybook",
     "test:update": "npm run test -- --updateSnapshot",
     "test:type-check": "tsc --noEmit",
