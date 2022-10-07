@@ -10,12 +10,12 @@ const ArrowButton = ({
   type,
   show,
   onScrollWithButton,
-  ariaLabel = 'navigation'
+  'aria-label': ariaLabel
 }: {
   type: 'left' | 'right'
   show: boolean
   onScrollWithButton: OnScrollWithButtonEventType
-  ariaLabel: string
+  'aria-label'?: React.AriaAttributes['aria-label']
 }) => {
   const leftBtnRef = React.useRef<HTMLButtonElement>(null)
   const rightBtnRef = React.useRef<HTMLButtonElement>(null)

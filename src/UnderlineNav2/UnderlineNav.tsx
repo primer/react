@@ -157,7 +157,7 @@ export const UnderlineNav = forwardRef(
     {
       as = 'nav',
       align,
-      'aria-label': ariaLabel = 'Navigation',
+      'aria-label': ariaLabel,
       sx: sxProp = {},
       afterSelect,
       variant = 'default',
@@ -330,6 +330,11 @@ export const UnderlineNav = forwardRef(
       focusedLink?.current && isCoarsePointer && scrollLinkIntoView(focusedLink)
     }, [focusedLink, isCoarsePointer])
 
+    if (!ariaLabel) {
+      // eslint-disable-next-line no-console
+      console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
+    }
+
     return (
       <UnderlineNavContext.Provider
         value={{
@@ -359,7 +364,7 @@ export const UnderlineNav = forwardRef(
               type="left"
               show={scrollValues.scrollLeft > 0}
               onScrollWithButton={onScrollWithButton}
-              ariaLabel={ariaLabel}
+              aria-label={ariaLabel}
             />
           )}
 
@@ -411,7 +416,7 @@ export const UnderlineNav = forwardRef(
               type="right"
               show={scrollValues.scrollRight > 0}
               onScrollWithButton={onScrollWithButton}
-              ariaLabel={ariaLabel}
+              aria-label={ariaLabel}
             />
           )}
         </Box>
