@@ -7,7 +7,7 @@ import {ComponentProps} from '../../utils/types'
 type Args = ComponentProps<typeof ToggleSwitch>
 
 export default {
-  title: 'ToggleSwitch/fixtrues',
+  title: 'Components/ToggleSwitch/fixtrues',
   component: ToggleSwitch,
   argTypes: {
     on: {

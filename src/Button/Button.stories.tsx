@@ -2,23 +2,10 @@ import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRig
 import {Meta} from '@storybook/react'
 import React, {useState, forwardRef} from 'react'
 import {Button, ButtonProps, IconButton, CustomButtonProps} from '.'
-import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 
 export default {
-  title: 'Composite components/Button',
-
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
+  title: 'Components/Button',
   argTypes: {
     size: {
       control: {
