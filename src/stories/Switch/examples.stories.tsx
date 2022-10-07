@@ -18,7 +18,7 @@ const excludedControlKeys = [
 ]
 
 export default {
-  title: 'ToggleSwitch/examples',
+  title: 'Components/ToggleSwitch/examples',
   component: ToggleSwitch,
   argTypes: {
     on: {

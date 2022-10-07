@@ -46,7 +46,7 @@ const parseFullWidthFromArgs = ({fullWidth, fullWidthAtNarrow, fullWidthAtRegula
       }
 
 export default {
-  title: 'SegmentedControl/examples',
+  title: 'Components/SegmentedControl',
   component: SegmentedControl,
   argTypes: {
     fullWidth: {

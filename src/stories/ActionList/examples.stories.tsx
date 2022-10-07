@@ -25,7 +25,7 @@ import Box from '../../Box'
 import Text from '../../Text'
 
 const meta: Meta = {
-  title: 'Composite components/ActionList/examples',
+  title: 'Components/ActionList/examples',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (

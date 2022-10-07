@@ -7,7 +7,7 @@ import {expect} from '@storybook/jest'
 import {DefaultNav} from './examples.stories'
 
 export default {
-  title: 'Layout/UnderlineNav/interactions',
+  title: 'Components/UnderlineNav/Interactions',
   decorators: [
     Story => {
       return (
