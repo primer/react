@@ -10,25 +10,13 @@ import {
   ButtonPrimary,
   ButtonTableList
 } from '../../deprecated'
-import {BaseStyles, ButtonGroup, ThemeProvider} from '../..'
+import {ButtonGroup} from '../..'
 import {ButtonStyleProps} from 'styled-system'
 import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
 
 export default {
   title: 'Deprecated components/Button',
-
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
   argTypes: {
     as: {
       table: {

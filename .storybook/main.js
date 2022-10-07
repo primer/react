@@ -1,15 +1,11 @@
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
+    {name: '@storybook/addon-essentials', options: {backgrounds: false}},
+    '@storybook/addon-storysource',
+    '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     '@storybook/addon-links',
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false
-      }
-    },
-    '@storybook/addon-interactions',
     'storybook-addon-performance/register',
     {
       name: 'storybook-addon-turbo-build',
