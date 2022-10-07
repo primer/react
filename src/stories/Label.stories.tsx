@@ -7,7 +7,7 @@ import Label from '../Label'
 type Args = ComponentProps<typeof Label>
 
 export default {
-  title: 'Labels/Label',
+  title: 'Components/Label',
   component: Label,
   argTypes: {
     variant: {

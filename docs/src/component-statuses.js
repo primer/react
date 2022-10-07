@@ -1,5 +1,5 @@
 import componentMetadata from '@primer/component-metadata'
-import {Link} from '@primer/react'
+import {Link, Label, Text} from '@primer/react'
 import StatusLabel from '@primer/gatsby-theme-doctocat/src/components/status-label'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import {graphql, Link as GatsbyLink, useStaticQuery} from 'gatsby'
@@ -16,6 +16,7 @@ export function ComponentStatuses() {
               title
               status
               description
+              a11yReviewed
               componentId
             }
           }
@@ -36,14 +37,15 @@ export function ComponentStatuses() {
         <thead>
           <tr>
             <th align="left">Component</th>
-            <th align="left">Status</th>
+            <th align="center">Status</th>
+            <th align="center">Accessibility</th>
             <th align="left">Description</th>
           </tr>
         </thead>
         <tbody>
           {pages.map(page => {
             // eslint-disable-next-line prefer-const
-            let {title, status, description, componentId} = page.context.frontmatter
+            let {title, status, description, componentId, a11yReviewed} = page.context.frontmatter
 
             const component = componentMetadata.components[componentId]
 
@@ -60,8 +62,15 @@ export function ComponentStatuses() {
                     {title}
                   </Link>
                 </td>
-                <td valign="top">
+                <td align="center" valign="top" style={{whiteSpace: 'nowrap'}}>
                   <StatusLabel status={status} />
+                </td>
+                <td align="center" valign="top" style={{whiteSpace: 'nowrap'}}>
+                  {a11yReviewed ? (
+                    <Label variant="primary">Reviewed</Label>
+                  ) : (
+                    <Text sx={{color: 'fg.subtle'}}>Review pending</Text>
+                  )}
                 </td>
                 <td>{description}</td>
               </tr>

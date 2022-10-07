@@ -15,5 +15,11 @@ export const parameters = {
   html: {
     root: '#html-addon-root',
     removeEmptyComments: true
+  },
+  options: {
+    storySort: {
+      order: ['Components', 'Behaviors', 'Hooks', 'Private components', 'Deprecated components', '*'],
+      method: 'alphabetical'
+    }
   }
 }

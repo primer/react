@@ -8,7 +8,7 @@ import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import MarkdownViewer from './MarkdownViewer'
 
 const meta: Meta = {
-  title: 'Forms/MarkdownViewer',
+  title: 'Components/Forms/MarkdownViewer',
   decorators: [
     Story => {
       return (
