@@ -1,5 +1,6 @@
 ---
-"@primer/react": patch
+'@primer/react': patch
 ---
 
-Add `CustomButtonProps` for rendering custom Button's with the `as` prop
+Update `Button` to only spread additional `props` onto underlying `<button>`
+element.
