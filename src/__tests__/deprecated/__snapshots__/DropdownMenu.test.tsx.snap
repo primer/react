@@ -83,12 +83,8 @@ exports[`DropdownMenu renders consistently 1`] = `
   <svg
     aria-hidden="true"
     className="c1"
-    dangerouslySetInnerHTML={
-      {
-        "__html": "<path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"></path>",
-      }
-    }
     fill="currentColor"
+    focusable="false"
     height={16}
     role="img"
     style={
@@ -101,6 +97,10 @@ exports[`DropdownMenu renders consistently 1`] = `
     }
     viewBox="0 0 16 16"
     width={16}
-  />
+  >
+    <path
+      d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"
+    />
+  </svg>
 </button>
 `;
