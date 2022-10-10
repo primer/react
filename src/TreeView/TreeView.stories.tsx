@@ -179,15 +179,6 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
               </TreeView.LinkItem>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.LinkItem href="#package-json">
-            <TreeView.LeadingVisual>
-              <FileIcon />
-            </TreeView.LeadingVisual>
-            package.json
-            <TreeView.TrailingVisual>
-              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
-            </TreeView.TrailingVisual>
-          </TreeView.LinkItem>
         </TreeView>
       </nav>
     </Box>
