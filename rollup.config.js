@@ -46,10 +46,10 @@ const baseConfig = {
       babelHelpers: 'inline',
       babelrc: false
     }),
+    commonjs(),
     resolve({
       extensions
-    }),
-    commonjs()
+    })
   ]
 }
 
@@ -69,11 +69,7 @@ export default [
   // CommonJS
   {
     ...baseConfig,
-    external: isExternal(
-      external.filter(id => {
-        return !id.startsWith('@github')
-      })
-    ),
+    external: isExternal(external),
     output: {
       dir: 'lib',
       format: 'commonjs',
