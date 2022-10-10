@@ -23,7 +23,6 @@ const input = new Set([
     onlyFiles: true
   }),
 
-  // "./lib-esm/utils/test-helpers", "./lib/utils/test-helpers"
   'src/utils/test-helpers.tsx'
 ])
 
