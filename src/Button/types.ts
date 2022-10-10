@@ -53,10 +53,6 @@ export type IconButtonProps = ButtonA11yProps & {
   icon: React.FunctionComponent<React.PropsWithChildren<IconProps>>
 } & ButtonBaseProps
 
-export type CustomButtonProps = {
-  children: React.ReactNode
-} & SxProp
-
 // adopted from React.AnchorHTMLAttributes
 export type LinkButtonProps = {
   underline?: boolean

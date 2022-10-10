@@ -235,14 +235,3 @@ export const linkButton = ({...args}: ButtonProps) => {
     </>
   )
 }
-
-export const customButton = () => {
-  function CustomButton(props: CustomButtonProps) {
-    return <Box as="button" {...props} />
-  }
-  return (
-    <Button as={CustomButton} variant="default">
-      Custom
-    </Button>
-  )
-}
