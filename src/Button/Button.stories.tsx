@@ -1,7 +1,7 @@
 import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRightIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {useState, forwardRef} from 'react'
-import {Button, ButtonProps, IconButton, CustomButtonProps} from '.'
+import {Button, ButtonProps, IconButton} from '.'
 import Box from '../Box'
 
 export default {
