@@ -102,7 +102,34 @@ alternative to activating the save button.
   <PropsTableRow name="title" type="string" />
   <PropsTableRow name="inputLabel" type="string" />
   <PropsTableRow name="inputPlaceholder" type="string" />
-  <PropsTableRow name="overlayProps" type="Partial<OverlayProps>" description={<>See <a href="/react/Overlay#props">Overlay props</a>.</>} />
+  <PropsTableRow
+    name="overlayProps"
+    type="Partial<OverlayProps>"
+    description={
+      <>
+        See <a href="/react/Overlay#props">Overlay props</a>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="overlayProps"
+    type="Partial<OverlayProps>"
+    description={
+      <>
+        See <a href="/react/Overlay#props">Overlay props</a>.
+      </>
+    }
+  />
+  <PropsTableRow
+    name="selected"
+    type="ItemInput | ItemInput[] | undefined"
+    description="Specify the selected item(s)"
+  />
+  <PropsTableRow
+    name="onSelectedChange"
+    type="(selected: ItemInput | ItemInput[]) => void"
+    description="Provide a callback called when the selected item(s) change"
+  />
 </PropsTable>
 
 ## Status
