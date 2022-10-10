@@ -21,11 +21,12 @@ const input = new Set([
   ...glob.sync(['src/*', 'src/*/index.js'], {
     cwd: __dirname,
     onlyFiles: true,
-    // Note: ignore theme-preval as it is handle through the theme import and
+    // Note: ignore theme-preval as it is handled through the theme import and
     // specifying it as an entrypoint creates an intermediate file
     ignore: ['src/theme-preval.js']
   }),
 
+  // "./lib-esm/utils/test-helpers", "./lib/utils/test-helpers"
   'src/utils/test-helpers.tsx'
 ])
 
