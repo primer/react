@@ -146,9 +146,12 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
             {slots.Label}
             {React.isValidElement(InputComponent) &&
               React.cloneElement(
-                InputComponent as React.ReactElement<
-                  AutocompleteInputProps | SelectProps | TextInputProps | TextInputWithTokensProps
-                >,
+                InputComponent as React.ReactElement<{
+                  id: string
+                  required: boolean
+                  disabled: boolean
+                  ['aria-describedby']: string
+                }>,
                 {
                   id,
                   required,

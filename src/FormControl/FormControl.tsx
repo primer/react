@@ -150,16 +150,11 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
               <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
                 {React.isValidElement(InputComponent) &&
                   React.cloneElement(
-                    InputComponent as React.ReactElement<
-                      | AutocompleteInputProps
-                      | CheckboxProps
-                      | RadioProps
-                      | SelectProps
-                      | TextareaProps
-                      | TextInputProps
-                      | TextInputWithTokensProps
-                      | InlineAutocompleteProps
-                    >,
+                    InputComponent as React.ReactElement<{
+                      id: string
+                      disabled: boolean
+                      ['aria-describedby']: string
+                    }>,
                     {
                       id,
                       disabled,
