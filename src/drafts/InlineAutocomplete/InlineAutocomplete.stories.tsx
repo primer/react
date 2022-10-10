@@ -15,7 +15,7 @@ import {
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
 export default {
-  title: 'Forms/InlineAutocomplete',
+  title: 'Components/Forms/InlineAutocomplete',
   component: InlineAutocomplete,
   decorators: [
     Story => {

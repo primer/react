@@ -10,7 +10,7 @@ import Text from '../Text'
 import {GitBranchIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Tokens/Default',
+  title: 'Components/Token',
   component: Token,
   argTypes: {
     text: {

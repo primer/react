@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Select, ThemeProvider, FormControl, Box} from '..'
+import {Select, FormControl, Box} from '..'
 import {SelectProps} from '../Select'
 import {
   FormControlArgs,
@@ -11,19 +11,8 @@ import {
 } from '../utils/story-helpers'
 
 export default {
-  title: 'Forms/Form Controls/Select',
+  title: 'Components/Forms/Select',
   component: Select,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
   argTypes: {
     required: {
       defaultValue: false,

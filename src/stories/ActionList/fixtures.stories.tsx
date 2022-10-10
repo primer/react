@@ -36,7 +36,7 @@ import Box from '../../Box'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
 
 const meta: Meta = {
-  title: 'Composite components/ActionList/fixtures',
+  title: 'Components/ActionList/fixtures',
   component: ActionList,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (

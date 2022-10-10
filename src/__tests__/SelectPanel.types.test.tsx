@@ -4,8 +4,7 @@ import {SelectPanel} from '../SelectPanel'
 export function shouldAcceptCallWithNoProps() {
   return (
     <SelectPanel
-      title=""
-      inputLabel=""
+      placeholderText=""
       open={false}
       onOpenChange={() => null}
       items={[]}
@@ -19,8 +18,7 @@ export function shouldAcceptCallWithNoProps() {
 export function shouldAcceptDOMPropsOnOverlay() {
   return (
     <SelectPanel
-      title=""
-      inputLabel=""
+      placeholderText=""
       open={false}
       onOpenChange={() => null}
       items={[]}

@@ -4,7 +4,7 @@ import {BaseStyles, Checkbox, CheckboxGroup, FormControl, ThemeProvider} from '.
 import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 
 export default {
-  title: 'Forms/CheckboxGroup/examples',
+  title: 'Components/Forms/CheckboxGroup/examples',
   component: CheckboxGroup,
   argTypes: {
     // CheckboxGroup

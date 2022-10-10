@@ -14,13 +14,12 @@ Use [new version of ActionList](/ActionList) with composable API, design updates
 
 ```jsx
 <ActionList
-  role="listbox"
   items={[
-    {text: 'New file', role: 'option'},
-    {text: 'Copy link', role: 'option'},
-    {text: 'Edit file', role: 'option'},
+    {text: 'New file'},
+    {text: 'Copy link'},
+    {text: 'Edit file'},
     ActionList.Divider,
-    {text: 'Delete file', variant: 'danger', role: 'option'}
+    {text: 'Delete file', variant: 'danger'}
   ]}
 />
 ```
@@ -28,12 +27,12 @@ Use [new version of ActionList](/ActionList) with composable API, design updates
 **After**
 
 ```jsx
-<ActionList role="listbox">
-  <ActionList.Item role="option">New file</ActionList.Item>
-  <ActionList.Item role="option">Copy link</ActionList.Item>
-  <ActionList.Item role="option">Edit file</ActionList.Item>
+<ActionList>
+  <ActionList.Item>New file</ActionList.Item>
+  <ActionList.Item>Copy link</ActionList.Item>
+  <ActionList.Item>Edit file</ActionList.Item>
   <ActionList.Divider />
-  <ActionList.Item variant="danger" role="option">Delete file</ActionList.Item>
+  <ActionList.Item variant="danger">Delete file</ActionList.Item>
 </ActionList>
 ```
 
@@ -47,13 +46,12 @@ import {ActionList} from '@primer/react/deprecated'
 
 ```jsx live deprecated
 <ActionList
-  role="listbox"
   items={[
-    {text: 'New file', role: 'option'},
+    {text: 'New file'},
     ActionList.Divider,
-    {text: 'Copy link', role: 'option'},
-    {text: 'Edit file', role: 'option'},
-    {text: 'Delete file', variant: 'danger', role: 'option'}
+    {text: 'Copy link'},
+    {text: 'Edit file'},
+    {text: 'Delete file', variant: 'danger'}
   ]}
 />
 ```
@@ -62,7 +60,6 @@ import {ActionList} from '@primer/react/deprecated'
 
 ```jsx live deprecated
 <ActionList
-  role="listbox"
   groupMetadata={[
     {groupId: '0'},
     {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
@@ -71,17 +68,16 @@ import {ActionList} from '@primer/react/deprecated'
     {groupId: '4'}
   ]}
   items={[
-    {key: '1', leadingVisual: TypographyIcon, text: 'Rename', groupId: '0', trailingVisual: '⌘R', role: 'option'},
-    {key: '2', leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0', role: 'option'},
-    {key: '3', leadingVisual: SearchIcon, text: 'repo:github/github', groupId: '1', role: 'option'},
+    {key: '1', leadingVisual: TypographyIcon, text: 'Rename', groupId: '0', trailingVisual: '⌘R'},
+    {key: '2', leadingVisual: VersionsIcon, text: 'Duplicate', groupId: '0'},
+    {key: '3', leadingVisual: SearchIcon, text: 'repo:github/github', groupId: '1'},
     {
       key: '4',
       leadingVisual: NoteIcon,
       text: 'Table',
       description: 'Information-dense table optimized for operations across teams',
       descriptionVariant: 'block',
-      groupId: '2',
-      role: 'option'
+      groupId: '2'
     },
     {
       key: '5',
@@ -89,19 +85,17 @@ import {ActionList} from '@primer/react/deprecated'
       text: 'Board',
       description: 'Kanban-style board focused on visual states',
       descriptionVariant: 'block',
-      groupId: '2',
-      role: 'option'
+      groupId: '2'
     },
     {
       key: '6',
       leadingVisual: FilterIcon,
       text: 'Save sort and filters to current view',
       disabled: true,
-      groupId: '3',
-      role: 'option'
+      groupId: '3'
     },
-    {key: '7', leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3', role: 'option'},
-    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4', trailingVisual: ArrowRightIcon, role: 'option'}
+    {key: '7', leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
+    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4', trailingVisual: ArrowRightIcon}
   ]}
 />
 ```
@@ -110,21 +104,17 @@ import {ActionList} from '@primer/react/deprecated'
 
 ```jsx deprecated
 <ActionList
-  role="listbox"
   items={[
     {
       text: 'Vanilla link',
-      role: 'option',
       renderItem: props => <ActionList.Item as="a" href="/about" {...props} />
     },
     {
       text: 'React Router link',
-      role: 'option',
       renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />
     },
     {
       text: 'NextJS style',
-      role: 'option',
       renderItem: props => (
         <NextJSLikeLink href="/about">
           <ActionList.Item as="a" {...props} />
