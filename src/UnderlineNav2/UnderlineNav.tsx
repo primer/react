@@ -68,6 +68,7 @@ const handleArrowBtnsVisibility = (
   const scrollOffsets = {scrollLeft, scrollRight}
   callback(scrollOffsets)
 }
+
 const overflowEffect = (
   navWidth: number,
   moreMenuWidth: number,
@@ -361,6 +362,7 @@ export const UnderlineNav = forwardRef(
         >
           {isCoarsePointer && (
             <ArrowButton
+              scrollValue={scrollValues.scrollLeft}
               type="left"
               show={scrollValues.scrollLeft > 0}
               onScrollWithButton={onScrollWithButton}
@@ -413,6 +415,7 @@ export const UnderlineNav = forwardRef(
 
           {isCoarsePointer && (
             <ArrowButton
+              scrollValue={scrollValues.scrollRight}
               type="right"
               show={scrollValues.scrollRight > 0}
               onScrollWithButton={onScrollWithButton}
