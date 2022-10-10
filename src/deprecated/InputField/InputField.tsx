@@ -1,16 +1,5 @@
 import React from 'react'
-import {
-  Autocomplete,
-  AutocompleteInputProps,
-  Box,
-  Select,
-  SelectProps,
-  TextInput,
-  TextInputProps,
-  TextInputWithTokens,
-  TextInputWithTokensProps,
-  useSSRSafeId
-} from '../../'
+import {Autocomplete, Box, Select, TextInput, TextInputWithTokens, useSSRSafeId} from '../../'
 import InputValidation from '../../_InputValidation'
 import {ComponentProps} from '../../utils/types'
 import {FormValidationStatus} from '../../utils/types/FormValidationStatus'
