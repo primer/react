@@ -2,23 +2,10 @@ import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRig
 import {Meta} from '@storybook/react'
 import React, {useState, forwardRef} from 'react'
 import {Button, ButtonProps, IconButton} from '.'
-import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 
 export default {
   title: 'Components/Button',
-
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
   argTypes: {
     size: {
       control: {
