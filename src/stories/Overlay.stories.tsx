@@ -3,11 +3,9 @@ import {Meta} from '@storybook/react'
 import styled from 'styled-components'
 import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react'
 import {
-  BaseStyles,
   Overlay,
   ButtonGroup,
   Text,
-  ThemeProvider,
   Box,
   StyledOcticon,
   Checkbox,
@@ -26,17 +24,6 @@ import {ItemInput} from '../deprecated/ActionList/List'
 export default {
   title: 'Private components/Overlay',
   component: Overlay,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
   argTypes: {
     anchorSide: {
       defaultValue: 'inside-top',

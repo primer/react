@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {IconButton} from '../Button/IconButton'
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
 import {getLeftArrowHiddenBtn, getRightArrowHiddenBtn, getLeftArrowVisibleBtn, getRightArrowVisibleBtn} from './styles'
 import {OnScrollWithButtonEventType} from './types'
-import {useTheme} from '../ThemeProvider'
+import {UnderlineNavContext} from './UnderlineNavContext'
 
 const LeftArrowButton = ({
   show,
@@ -12,7 +12,7 @@ const LeftArrowButton = ({
   show: boolean
   onScrollWithButton: OnScrollWithButtonEventType
 }) => {
-  const {theme} = useTheme()
+  const {theme} = useContext(UnderlineNavContext)
   return (
     <IconButton
       aria-label="Scroll Left"
@@ -30,7 +30,7 @@ const RightArrowButton = ({
   show: boolean
   onScrollWithButton: OnScrollWithButtonEventType
 }) => {
-  const {theme} = useTheme()
+  const {theme} = useContext(UnderlineNavContext)
   return (
     <IconButton
       aria-label="Scroll Right"
