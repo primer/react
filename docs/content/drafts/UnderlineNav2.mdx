@@ -114,7 +114,7 @@ If there is still overflow, the component will behave depending on the pointer.
 ### Loading state for counters
 
 ```jsx live drafts
-<UnderlineNav loadingCounters={true}>
+<UnderlineNav aria-label="Repository" loadingCounters={true}>
   <UnderlineNav.Item counter={4} selected>
     Item 1
   </UnderlineNav.Item>
@@ -128,9 +128,11 @@ If there is still overflow, the component will behave depending on the pointer.
 ### UnderlineNav
 
 <PropsTable>
-  <PropsTableRow name="aria-label" type="string" />
-  <PropsTableRow name="aria-labelledby" type="string" />
-  <PropsTableRow name="aria-describedby" type="string" />
+  <PropsTableRow
+    name="aria-label"
+    type="string"
+    description="A unique name for the rendered 'nav' landmark. It will also be used to label the arrow buttons that control the scroll behaviour on coarse pointer devices. (I.e. 'Scroll ${aria-label} left/right')"
+  />
   <PropsTableRow
     name="loadingCounters"
     type="boolean"
