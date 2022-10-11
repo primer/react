@@ -6,6 +6,7 @@ import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 type LabelProps = SxProp & {
   visuallyHidden?: boolean
+  children?: React.ReactNode
 }
 
 // ref is not forwarded because InputLabel does not (yet) support it
