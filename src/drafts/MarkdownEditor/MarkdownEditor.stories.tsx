@@ -36,73 +36,75 @@ const meta: Meta = {
     }
   },
   component: MarkdownEditor,
+  args: {
+    disabled: false,
+    fullHeight: false,
+    monospace: false,
+    pasteUrlsAsPlainText: false,
+    minHeightLines: 5,
+    maxHeightLines: 35,
+    hideLabel: false,
+    required: false,
+    fileUploadsEnabled: true,
+    savedRepliesEnabled: true
+  },
   argTypes: {
     disabled: {
       name: 'Disabled',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     fullHeight: {
       name: 'Full Height',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     monospace: {
       name: 'Monospace Font',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     pasteUrlsAsPlainText: {
       name: 'Enable Plain-Text URL Pasting',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     minHeightLines: {
       name: 'Minimum Height (Lines)',
-      defaultValue: 5,
       control: {
         type: 'number'
       }
     },
     maxHeightLines: {
       name: 'Maximum Height (Lines)',
-      defaultValue: 35,
       control: {
         type: 'number'
       }
     },
     hideLabel: {
       name: 'Hide Label',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     required: {
       name: 'Required',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     fileUploadsEnabled: {
       name: 'Enable File Uploads',
-      defaultValue: true,
       control: {
         type: 'boolean'
       }
     },
     savedRepliesEnabled: {
       name: 'Enable Saved Replies',
-      defaultValue: true,
       control: {
         type: 'boolean'
       }

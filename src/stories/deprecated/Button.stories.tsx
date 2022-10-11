@@ -35,9 +35,9 @@ export default {
     },
     variant: {
       control: {
-        type: 'radio',
-        options: ['small', 'medium', 'large']
-      }
+        type: 'radio'
+      },
+      options: ['small', 'medium', 'large']
     }
   }
 } as Meta

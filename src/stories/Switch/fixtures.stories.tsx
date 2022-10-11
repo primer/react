@@ -7,32 +7,34 @@ import {ComponentProps} from '../../utils/types'
 type Args = ComponentProps<typeof ToggleSwitch>
 
 export default {
-  title: 'Components/ToggleSwitch/fixtrues',
+  title: 'Components/ToggleSwitch/fixtures',
   component: ToggleSwitch,
+  args: {
+    on: undefined,
+    disabled: false,
+    loading: false
+  },
   argTypes: {
     on: {
-      defaultValue: undefined,
       control: {
         type: 'boolean'
       }
     },
     disabled: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     loading: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     size: {
       control: {
-        type: 'radio',
-        options: ['small', 'medium']
-      }
+        type: 'radio'
+      },
+      options: ['small', 'medium']
     }
   },
   parameters: {

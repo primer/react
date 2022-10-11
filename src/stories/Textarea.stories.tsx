@@ -3,7 +3,12 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, FormControl, Textarea, TextareaProps, ThemeProvider} from '..'
 import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
-import {FormControlArgs, formControlArgTypes, getFormControlArgsByChildComponent} from '../utils/story-helpers'
+import {
+  FormControlArgs,
+  formControlArgTypes,
+  formControlArgs,
+  getFormControlArgsByChildComponent
+} from '../utils/story-helpers'
 
 export default {
   title: 'Components/Forms/Textarea',
@@ -19,26 +24,30 @@ export default {
       )
     }
   ],
+  args: {
+    ...formControlArgs,
+    block: false,
+    cols: DEFAULT_TEXTAREA_COLS,
+    disabled: false,
+    resize: DEFAULT_TEXTAREA_RESIZE,
+    rows: DEFAULT_TEXTAREA_ROWS,
+    validationStatus: undefined
+  },
   argTypes: {
     block: {
-      defaultValue: false,
       control: {type: 'boolean'}
     },
     cols: {
-      defaultValue: DEFAULT_TEXTAREA_COLS,
       control: {type: 'number'}
     },
     disabled: {
-      defaultValue: false,
       control: {type: 'boolean'}
     },
     resize: {
-      defaultValue: DEFAULT_TEXTAREA_RESIZE,
       options: ['none', 'both', 'horizontal', 'vertical'],
       control: {type: 'radio'}
     },
     rows: {
-      defaultValue: DEFAULT_TEXTAREA_ROWS,
       control: {type: 'number'}
     },
     sx: {
@@ -47,7 +56,6 @@ export default {
       }
     },
     validationStatus: {
-      defaultValue: undefined,
       options: ['error', 'success', 'warning'],
       control: {type: 'radio'}
     },
