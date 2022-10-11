@@ -47,7 +47,7 @@ const scoreSuggestion = (query: string, reference: Reference): number =>
   score(query, `${reference.id} ${reference.titleText}`)
 
 export const useReferenceSuggestions: UseSuggestionsHook<Reference> = references => ({
-  calculateSuggestions: (query: string) => {
+  calculateSuggestions: async (query: string) => {
     if (/^\d+\s/.test(query)) return [] // don't return anything if the query is in the form #123 ..., assuming they already have the number they want
     return suggestionsCalculator(references, scoreSuggestion, referenceToSuggestion)(query)
   },
