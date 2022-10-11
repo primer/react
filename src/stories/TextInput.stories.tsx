@@ -6,6 +6,7 @@ import TextInput, {TextInputProps} from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
@@ -28,7 +29,9 @@ export default {
   ],
   parameters: {controls: {exclude: textInputExcludedControlKeys}},
   args: {
-    type: 'text'
+    ...formControlArgs,
+    type: 'text',
+    onChange: () => {}
   },
   argTypes: {
     type: {

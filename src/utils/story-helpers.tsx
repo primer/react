@@ -300,9 +300,9 @@ export const formControlArgTypes: ArgTypes = {
   },
   variant: {
     control: {
-      type: 'radio',
-      options: ['error', 'success', 'warning']
+      type: 'radio'
     },
+    options: ['error', 'success', 'warning'],
     table: {
       category: 'FormControl.Validation'
     }
