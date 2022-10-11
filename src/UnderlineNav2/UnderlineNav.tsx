@@ -21,12 +21,12 @@ import {
   moreMenuStyles,
   menuItemStyles
 } from './styles'
-import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
+import {ArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 
 export type UnderlineNavProps = {
-  label: string
+  'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
   align?: 'right'
   sx?: SxProp
@@ -68,6 +68,7 @@ const handleArrowBtnsVisibility = (
   const scrollOffsets = {scrollLeft, scrollRight}
   callback(scrollOffsets)
 }
+
 const overflowEffect = (
   navWidth: number,
   moreMenuWidth: number,
@@ -157,7 +158,7 @@ export const UnderlineNav = forwardRef(
     {
       as = 'nav',
       align,
-      label,
+      'aria-label': ariaLabel,
       sx: sxProp = {},
       afterSelect,
       variant = 'default',
@@ -224,6 +225,8 @@ export const UnderlineNav = forwardRef(
     const isCoarsePointer = useMedia('(pointer: coarse)')
 
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
+
+    const [focusedLink, setFocusedLink] = useState<RefObject<HTMLElement> | null>(null)
 
     // selectedLinkText is needed to be able set the selected menu item as selectedLink.
     // This is needed because setSelectedLink only accepts ref but at the time of setting selected menu item as selectedLink, its ref as a list item is not available
@@ -311,13 +314,27 @@ export const UnderlineNav = forwardRef(
       return () => listEl?.removeEventListener('scroll', scrollOnList)
     }, [scrollOnList])
 
-    useEffect(() => {
-      // scroll the selected link into the view (coarse pointer behaviour)
-      if (isCoarsePointer && selectedLink?.current && listRef.current) {
-        scrollIntoView(selectedLink.current, listRef.current, underlineNavScrollMargins)
+    function scrollLinkIntoView(link: RefObject<HTMLElement>) {
+      if (link.current && listRef.current) {
+        scrollIntoView(link.current, listRef.current, underlineNavScrollMargins)
         return
       }
+    }
+
+    useEffect(() => {
+      // scroll the selected link into the view (coarse pointer behaviour)
+      selectedLink?.current && isCoarsePointer && scrollLinkIntoView(selectedLink)
     }, [selectedLink, isCoarsePointer])
+
+    useEffect(() => {
+      // scroll the focused link into the view (coarse pointer behaviour)
+      focusedLink?.current && isCoarsePointer && scrollLinkIntoView(focusedLink)
+    }, [focusedLink, isCoarsePointer])
+
+    if (!ariaLabel) {
+      // eslint-disable-next-line no-console
+      console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
+    }
 
     return (
       <UnderlineNavContext.Provider
@@ -329,6 +346,7 @@ export const UnderlineNav = forwardRef(
           setSelectedLink,
           selectedLinkText,
           setSelectedLinkText,
+          setFocusedLink,
           selectEvent,
           afterSelect: afterSelectHandler,
           variant,
@@ -339,11 +357,17 @@ export const UnderlineNav = forwardRef(
         <Box
           as={as}
           sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
-          aria-label={label}
+          aria-label={ariaLabel}
           ref={navRef}
         >
           {isCoarsePointer && (
-            <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
+            <ArrowButton
+              scrollValue={scrollValues.scrollLeft}
+              type="left"
+              show={scrollValues.scrollLeft > 0}
+              onScrollWithButton={onScrollWithButton}
+              aria-label={ariaLabel}
+            />
           )}
 
           <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
@@ -390,7 +414,13 @@ export const UnderlineNav = forwardRef(
           </NavigationList>
 
           {isCoarsePointer && (
-            <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
+            <ArrowButton
+              scrollValue={scrollValues.scrollRight}
+              type="right"
+              show={scrollValues.scrollRight > 0}
+              onScrollWithButton={onScrollWithButton}
+              aria-label={ariaLabel}
+            />
           )}
         </Box>
       </UnderlineNavContext.Provider>
