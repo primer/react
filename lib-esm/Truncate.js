@@ -11,6 +11,5 @@ Truncate.defaultProps = {
   inline: false,
   maxWidth: 125
 };
-var Truncate$1 = Truncate;
 
-export { Truncate$1 as default };
+export { Truncate as default };

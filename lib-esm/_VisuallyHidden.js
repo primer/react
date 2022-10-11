@@ -24,6 +24,5 @@ const VisuallyHidden = styled.span.withConfig({
 VisuallyHidden.defaultProps = {
   isVisible: false
 };
-var VisuallyHidden$1 = VisuallyHidden;
 
-export { VisuallyHidden$1 as default };
+export { VisuallyHidden as default };

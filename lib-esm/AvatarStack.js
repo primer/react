@@ -43,6 +43,5 @@ const AvatarStack = ({
 };
 
 AvatarStack.displayName = "AvatarStack";
-var AvatarStack$1 = AvatarStack;
 
-export { AvatarStack$1 as default };
+export { AvatarStack as default };

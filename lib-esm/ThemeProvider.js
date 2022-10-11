@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider as ThemeProvider$2 } from 'styled-components';
+import { ThemeProvider as ThemeProvider$1 } from 'styled-components';
 import theme from './theme-preval.js';
 import merge from 'deepmerge';
 
@@ -101,7 +101,7 @@ const ThemeProvider = ({
       setDayScheme,
       setNightScheme
     }
-  }, /*#__PURE__*/React.createElement(ThemeProvider$2, {
+  }, /*#__PURE__*/React.createElement(ThemeProvider$1, {
     theme: resolvedTheme
   }, children, props.preventSSRMismatch ? /*#__PURE__*/React.createElement("script", {
     type: "application/json",
@@ -217,6 +217,4 @@ function applyColorScheme(theme, colorScheme) {
   };
 }
 
-var ThemeProvider$1 = ThemeProvider;
-
-export { ThemeProvider, ThemeProvider$1 as default, useColorSchemeVar, useTheme };
+export { ThemeProvider, ThemeProvider as default, useColorSchemeVar, useTheme };

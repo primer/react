@@ -55,6 +55,5 @@ const Radio = /*#__PURE__*/React.forwardRef(({
   }, rest));
 });
 Radio.displayName = 'Radio';
-var Radio$1 = Radio;
 
-export { Radio$1 as default };
+export { Radio as default };

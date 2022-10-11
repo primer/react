@@ -320,6 +320,5 @@ TextInputWithTokens.defaultProps = {
   loaderPosition: 'auto'
 };
 TextInputWithTokens.displayName = 'TextInputWithTokens';
-var TextInputWithTokens$1 = TextInputWithTokens;
 
-export { TextInputWithTokens$1 as default };
+export { TextInputWithTokens as default };

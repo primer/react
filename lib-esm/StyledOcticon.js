@@ -25,6 +25,5 @@ const StyledOcticon = styled(Octicon).withConfig({
 StyledOcticon.defaultProps = {
   size: 16
 };
-var StyledOcticon$1 = StyledOcticon;
 
-export { StyledOcticon$1 as default };
+export { StyledOcticon as default };

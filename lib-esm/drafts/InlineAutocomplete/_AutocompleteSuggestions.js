@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import Spinner from '../../Spinner.js';
+import StyledSpinner from '../../Spinner.js';
 import { ActionList } from '../../ActionList/index.js';
 import Box from '../../Box.js';
 import { useCombobox } from '../hooks/useCombobox.js';
@@ -12,7 +12,7 @@ const LoadingIndicator = () => /*#__PURE__*/React.createElement(Box, {
     justifyContent: 'center',
     py: 2
   }
-}, /*#__PURE__*/React.createElement(Spinner, {
+}, /*#__PURE__*/React.createElement(StyledSpinner, {
   size: "small"
 }));
 

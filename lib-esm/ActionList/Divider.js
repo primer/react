@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '../Box.js';
 import { get } from '../constants.js';
-import '../sx.js';
+import '@styled-system/css';
 import merge from 'deepmerge';
 
 /**

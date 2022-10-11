@@ -4,12 +4,12 @@ import { TriangleDownIcon } from '@primer/octicons-react';
 import { Divider } from './ActionList/Divider.js';
 import { ActionListContainerContext } from './ActionList/ActionListContainerContext.js';
 import { Button } from './Button/index.js';
-import './sx.js';
+import '@styled-system/css';
+import merge from 'deepmerge';
 import { useProvidedStateOrCreate } from './hooks/useProvidedStateOrCreate.js';
 import { useProvidedRefOrCreate } from './hooks/useProvidedRefOrCreate.js';
 import { useMenuKeyboardNavigation } from './hooks/useMenuKeyboardNavigation.js';
 import { AnchoredOverlay } from './AnchoredOverlay/AnchoredOverlay.js';
-import merge from 'deepmerge';
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 const MenuContext = /*#__PURE__*/React.createContext({

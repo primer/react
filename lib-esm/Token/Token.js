@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
 import Box from '../Box.js';
-import '../sx.js';
+import '@styled-system/css';
+import merge from 'deepmerge';
 import TokenBase, { isTokenInteractive, defaultTokenSize } from './TokenBase.js';
 import RemoveTokenButton from './_RemoveTokenButton.js';
 import TokenTextContainer from './_TokenTextContainer.js';
-import merge from 'deepmerge';
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 const tokenBorderWidthPx = 1;

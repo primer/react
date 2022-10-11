@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
-import '../sx.js';
-import { ButtonBase } from './ButtonBase.js';
+import '@styled-system/css';
 import merge from 'deepmerge';
+import { ButtonBase } from './ButtonBase.js';
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 const LinkButton = /*#__PURE__*/forwardRef(({

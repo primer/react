@@ -19,6 +19,8 @@ const whiteSpace = system({
 });
 const TYPOGRAPHY = compose(styledSystem.typography, whiteSpace);
 // Border props
-compose(styledSystem.border, styledSystem.shadow);
+const BORDER = compose(styledSystem.border, styledSystem.shadow);
+// Layout props
+const LAYOUT = styledSystem.layout;
 
-export { COMMON, TYPOGRAPHY, get };
+export { BORDER, COMMON, LAYOUT, TYPOGRAPHY, get };

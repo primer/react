@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from '../Box.js';
-import '../sx.js';
+import '@styled-system/css';
+import merge from 'deepmerge';
 import Truncate from '../Truncate.js';
 import { Slot } from './shared.js';
-import merge from 'deepmerge';
 
 const Description = ({
   variant = 'inline',

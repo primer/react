@@ -2,7 +2,7 @@ import React from 'react';
 import { useStickyPaneHeight } from './useStickyPaneHeight.js';
 import Box from '../Box.js';
 import { isResponsiveValue, useResponsiveValue } from '../hooks/useResponsiveValue.js';
-import '../sx.js';
+import '@styled-system/css';
 import merge from 'deepmerge';
 
 const REGION_ORDER = {

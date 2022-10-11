@@ -157,6 +157,5 @@ Overlay.defaultProps = {
   height: 'auto',
   width: 'auto'
 };
-var Overlay$1 = Overlay;
 
-export { Overlay$1 as default };
+export { Overlay as default };

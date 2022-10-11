@@ -5,6 +5,4 @@ const globalFocusStyle = css(["box-shadow:none;outline:2px solid ", ";"], get('c
 
 const getGlobalFocusStyles = outlineOffset => css(["&:focus:not(:disabled){", ";outline-offset:", ";&:not(:focus-visible){outline:solid 1px transparent;}}&:focus-visible:not(:disabled){", ";outline-offset:", ";}"], globalFocusStyle, typeof outlineOffset === 'undefined' ? '2px' : outlineOffset, globalFocusStyle, typeof outlineOffset === 'undefined' ? '2px' : outlineOffset);
 
-var getGlobalFocusStyles$1 = getGlobalFocusStyles;
-
-export { getGlobalFocusStyles$1 as default };
+export { getGlobalFocusStyles as default };

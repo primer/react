@@ -31,6 +31,4 @@ const ValidationAnimationContainer = ({
   }, children)) : null;
 };
 
-var ValidationAnimationContainer$1 = ValidationAnimationContainer;
-
-export { ValidationAnimationContainer$1 as default };
+export { ValidationAnimationContainer as default };

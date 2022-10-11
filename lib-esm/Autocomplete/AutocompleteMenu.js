@@ -3,7 +3,7 @@ import { scrollIntoView } from '@primer/behaviors';
 import { ActionList } from '../deprecated/ActionList/index.js';
 import { useFocusZone } from '../hooks/useFocusZone.js';
 import Box from '../Box.js';
-import Spinner from '../Spinner.js';
+import StyledSpinner from '../Spinner.js';
 import { AutocompleteContext } from './AutocompleteContext.js';
 import { PlusIcon } from '@primer/octicons-react';
 import VisuallyHidden from '../_VisuallyHidden.js';
@@ -178,7 +178,7 @@ function AutocompleteMenu(props) {
     p: 3,
     display: "flex",
     justifyContent: "center"
-  }, /*#__PURE__*/React.createElement(Spinner, null)) : /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(StyledSpinner, null)) : /*#__PURE__*/React.createElement("div", {
     ref: listContainerRef
   }, allItemsToRender.length ? /*#__PURE__*/React.createElement(ActionList, {
     selectionVariant: "multiple" // have to typecast to `ItemProps` because we have an extra property

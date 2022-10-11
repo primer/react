@@ -1,7 +1,7 @@
 export { default as theme } from './theme-preval.js';
 export { get as themeGet } from './constants.js';
 export { default as BaseStyles } from './BaseStyles.js';
-export { default as ThemeProvider, useColorSchemeVar, useTheme } from './ThemeProvider.js';
+export { ThemeProvider, useColorSchemeVar, useTheme } from './ThemeProvider.js';
 export { default as Box } from './Box.js';
 export { Button } from './Button/index.js';
 export { default as useDetails } from './hooks/useDetails.js';

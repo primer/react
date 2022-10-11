@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Box from '../Box.js';
 import { useControllableState } from '../hooks/useControllableState.js';
-import Spinner from '../Spinner.js';
+import StyledSpinner from '../Spinner.js';
 import StyledOcticon from '../StyledOcticon.js';
 import sx from '../sx.js';
 import Text from '../Text.js';
@@ -332,7 +332,7 @@ const LoadingItem = () => {
   return (
     /*#__PURE__*/
     // TODO: What aria attributes do we need to add here?
-    React.createElement(Item, null, /*#__PURE__*/React.createElement(LeadingVisual, null, /*#__PURE__*/React.createElement(Spinner, {
+    React.createElement(Item, null, /*#__PURE__*/React.createElement(LeadingVisual, null, /*#__PURE__*/React.createElement(StyledSpinner, {
       size: "small"
     })), /*#__PURE__*/React.createElement(Text, {
       sx: {

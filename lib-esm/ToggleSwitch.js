@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { variant } from 'styled-system';
 import Box from './Box.js';
-import Spinner from './Spinner.js';
+import StyledSpinner from './Spinner.js';
 import Text from './Text.js';
 import { get } from './constants.js';
 import sx from './sx.js';
@@ -114,7 +114,7 @@ const Switch = ({
     alignItems: "center",
     flexDirection: statusLabelPosition === 'start' ? 'row' : 'row-reverse',
     sx: sxProp
-  }, loading ? /*#__PURE__*/React.createElement(Spinner, {
+  }, loading ? /*#__PURE__*/React.createElement(StyledSpinner, {
     size: "small"
   }) : null, /*#__PURE__*/React.createElement(Text, {
     color: acceptsInteraction ? 'fg.default' : 'fg.muted',
@@ -186,6 +186,5 @@ Switch.defaultProps = {
   statusLabelPosition: 'start',
   size: 'medium'
 };
-var Switch$1 = Switch;
 
-export { Switch$1 as default };
+export { Switch as default };
