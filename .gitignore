@@ -4,8 +4,6 @@ node_modules
 .idea
 coverage/
 dist/
-lib/
-lib-esm/
-public/
+
 stats.html
 .env
