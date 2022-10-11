@@ -116,6 +116,7 @@
     "@rollup/plugin-babel": "5.3.1",
     "@rollup/plugin-commonjs": "22.0.2",
     "@rollup/plugin-node-resolve": "14.1.0",
+    "@rollup/plugin-replace": "5.0.0",
     "@rollup/plugin-typescript": "8.5.0",
     "@size-limit/preset-big-lib": "7.0.3",
     "@storybook/addon-a11y": "6.5.9",

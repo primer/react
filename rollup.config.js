@@ -1,6 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
+import replace from '@rollup/plugin-replace'
 import glob from 'fast-glob'
 import {terser} from 'rollup-plugin-terser'
 import visualizer from 'rollup-plugin-visualizer'
@@ -33,16 +34,26 @@ const input = new Set([
     ],
     {
       cwd: __dirname,
-      ignore: ['**/__tests__/**', '*.stories.tsx']
+      ignore: [
+        '**/__tests__/**',
+        '*.stories.tsx',
+
+        // File currently imports from package.json
+        'src/utils/test-deprecations.tsx',
+
+        // Files use dependencies which are not listed by package
+        'src/utils/testing.tsx',
+        'src/utils/test-matchers.tsx'
+      ]
     }
   )
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const external = [
-  ...Object.keys(packageJson.peerDependencies),
-  ...Object.keys(packageJson.dependencies),
-  ...Object.keys(packageJson.devDependencies)
+  ...Object.keys(packageJson.peerDependencies ?? {}),
+  ...Object.keys(packageJson.dependencies ?? {}),
+  ...Object.keys(packageJson.devDependencies ?? {})
 ]
 function isExternal(external) {
   return id => {
@@ -117,7 +128,15 @@ export default [
     ...baseConfig,
     input: 'src/index.ts',
     external: ['styled-components', 'react', 'react-dom'],
-    plugins: [...baseConfig.plugins, terser(), visualizer({sourcemap: true})],
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        preventAssignment: true
+      }),
+      ...baseConfig.plugins,
+      terser(),
+      visualizer({sourcemap: true})
+    ],
     output: ['esm', 'umd'].map(format => ({
       file: `dist/browser.${format}.js`,
       format,
