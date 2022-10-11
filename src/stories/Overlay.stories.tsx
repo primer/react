@@ -24,23 +24,25 @@ import {ItemInput} from '../deprecated/ActionList/List'
 export default {
   title: 'Private components/Overlay',
   component: Overlay,
+  args: {
+    anchorSide: 'inside-top'
+  },
   argTypes: {
     anchorSide: {
-      defaultValue: 'inside-top',
       control: {
-        type: 'radio',
-        options: [
-          'inside-top',
-          'inside-bottom',
-          'inside-left',
-          'inside-right',
-          'inside-center',
-          'outside-top',
-          'outside-bottom',
-          'outside-left',
-          'outside-right'
-        ]
-      }
+        type: 'radio'
+      },
+      options: [
+        'inside-top',
+        'inside-bottom',
+        'inside-left',
+        'inside-right',
+        'inside-center',
+        'outside-top',
+        'outside-bottom',
+        'outside-left',
+        'outside-right'
+      ]
     }
   }
 } as Meta

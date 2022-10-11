@@ -10,6 +10,7 @@ import FormControl from '../FormControl'
 import {ComponentProps} from '../utils/types'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
@@ -128,10 +129,19 @@ const autocompleteStoryMeta: Meta = {
     }
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
+  args: {
+    ...formControlArgs,
+    emptyStateText: 'No selectable options',
+    menuLoading: false,
+    selectionVariant: 'single',
+    anchorSide: undefined,
+    height: 'auto',
+    overlayMaxHeight: undefined,
+    width: 'auto'
+  },
   argTypes: {
     // Autocomplete.Menu
     emptyStateText: {
-      defaultValue: 'No selectable options',
       control: {type: 'text'},
       table: {
         category: 'Autocomplete.Menu'
@@ -139,18 +149,16 @@ const autocompleteStoryMeta: Meta = {
     },
     menuLoading: {
       name: 'loading',
-      defaultValue: false,
       control: {type: 'boolean'},
       table: {
         category: 'Autocomplete.Menu'
       }
     },
     selectionVariant: {
-      defaultValue: 'single',
       control: {
-        type: 'radio',
-        options: ['single', 'multiple']
+        type: 'radio'
       },
+      options: ['single', 'multiple'],
       table: {
         category: 'Autocomplete.Menu'
       }
@@ -158,31 +166,29 @@ const autocompleteStoryMeta: Meta = {
 
     // Autocomplete.Overlay
     anchorSide: {
-      defaultValue: undefined,
       control: {
-        type: 'select',
-        options: [
-          'inside-top',
-          'inside-bottom',
-          'inside-left',
-          'inside-right',
-          'inside-center',
-          'outside-top',
-          'outside-bottom',
-          'outside-left',
-          'outside-right'
-        ]
+        type: 'select'
       },
+      options: [
+        'inside-top',
+        'inside-bottom',
+        'inside-left',
+        'inside-right',
+        'inside-center',
+        'outside-top',
+        'outside-bottom',
+        'outside-left',
+        'outside-right'
+      ],
       table: {
         category: 'Autocomplete.Overlay'
       }
     },
     height: {
-      defaultValue: 'auto',
       control: {
-        type: 'select',
-        options: ['auto', 'initial', 'small', 'medium', 'large', 'xlarge', 'xsmall']
+        type: 'select'
       },
+      options: ['auto', 'initial', 'small', 'medium', 'large', 'xlarge', 'xsmall'],
       table: {
         category: 'Autocomplete.Overlay'
       }
@@ -190,21 +196,19 @@ const autocompleteStoryMeta: Meta = {
     // needs a key other than 'maxHeight' because TextInputWithTokens also has a maxHeight prop
     overlayMaxHeight: {
       name: 'maxHeight',
-      defaultValue: undefined,
       control: {
-        type: 'select',
-        options: ['small', 'medium', 'large', 'xlarge', 'xsmall', undefined]
+        type: 'select'
       },
+      options: ['small', 'medium', 'large', 'xlarge', 'xsmall', undefined],
       table: {
         category: 'Autocomplete.Overlay'
       }
     },
     width: {
-      defaultValue: 'auto',
       control: {
-        type: 'select',
-        options: ['auto', 'small', 'medium', 'large', 'xlarge', 'xxlarge']
+        type: 'select'
       },
+      options: ['auto', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
       table: {
         category: 'Autocomplete.Overlay'
       }
