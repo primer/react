@@ -17,6 +17,9 @@ const input = new Set([
   // "./deprecated"
   'src/deprecated/index.ts',
 
+  // Make sure all members are exported
+  'src/constants.ts',
+
   ...glob.sync(
     [
       // "./lib-esm/hooks/*"
