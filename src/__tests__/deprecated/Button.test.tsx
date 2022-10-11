@@ -15,7 +15,6 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() {}
 
 describe('Button', () => {

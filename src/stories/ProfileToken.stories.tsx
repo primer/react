@@ -9,7 +9,7 @@ import AvatarToken, {AvatarTokenProps} from '../Token/AvatarToken'
 import Text from '../Text'
 
 export default {
-  title: 'Tokens/AvatarToken',
+  title: 'Components/AvatarToken',
   component: AvatarToken,
   argTypes: {
     text: {

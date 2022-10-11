@@ -6,7 +6,7 @@ import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
 import {ActionMenu} from '../deprecated/ActionMenu'
 
 export default {
-  title: 'Internal components/ConfirmationDialog',
+  title: 'Components/ConfirmationDialog',
   component: ConfirmationDialog,
   decorators: [
     Story => {

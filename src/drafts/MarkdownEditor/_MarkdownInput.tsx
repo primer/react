@@ -24,6 +24,7 @@ interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   minHeightLines: number
   maxHeightLines: number
   monospace: boolean
+  pasteUrlsAsPlainText: boolean
   /** Use this prop to control visibility instead of unmounting, so the undo stack and custom height are preserved. */
   visible: boolean
 }
@@ -47,6 +48,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       maxHeightLines,
       visible,
       monospace,
+      pasteUrlsAsPlainText,
       ...props
     },
     forwardedRef
@@ -81,7 +83,12 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
     const ref = useRef<HTMLTextAreaElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, ref)
 
-    useEffect(() => (ref.current ? subscribeToMarkdownPasting(ref.current).unsubscribe : undefined), [])
+    useEffect(() => {
+      const subscription =
+        ref.current &&
+        subscribeToMarkdownPasting(ref.current, {defaultPlainTextPaste: {urlLinks: pasteUrlsAsPlainText}})
+      return subscription?.unsubscribe
+    }, [pasteUrlsAsPlainText])
 
     const dynamicHeightStyles = useDynamicTextareaHeight({maxHeightLines, minHeightLines, element: ref.current, value})
     const heightStyles = fullHeight ? {} : dynamicHeightStyles
