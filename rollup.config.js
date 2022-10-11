@@ -29,7 +29,8 @@ const input = new Set([
       'src/utils/*'
     ],
     {
-      cwd: __dirname
+      cwd: __dirname,
+      ignore: ['**/__tests__/**', '*.stories.tsx']
     }
   )
 ])
