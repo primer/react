@@ -13,7 +13,7 @@ import {
   GearIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
-import {UnderlineNav, UnderlineNavProps} from './index'
+import {UnderlineNav} from './index'
 import {BaseStyles, ThemeProvider} from '..'
 
 export default {
@@ -31,19 +31,19 @@ export default {
   ]
 } as Meta
 
-export const DefaultNav = (args: UnderlineNavProps) => {
+export const DefaultNav = () => {
   return (
-    <UnderlineNav {...args}>
-      <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
-      <UnderlineNav.Item>Item 2</UnderlineNav.Item>
-      <UnderlineNav.Item>Item 3</UnderlineNav.Item>
+    <UnderlineNav aria-label="Repository">
+      <UnderlineNav.Item selected>Code</UnderlineNav.Item>
+      <UnderlineNav.Item>Issues</UnderlineNav.Item>
+      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
 
-export const withIcons = (args: UnderlineNavProps) => {
+export const withIcons = () => {
   return (
-    <UnderlineNav {...args}>
+    <UnderlineNav aria-label="Repository with icons">
       <UnderlineNav.Item icon={CodeIcon}>Code</UnderlineNav.Item>
       <UnderlineNav.Item icon={EyeIcon} counter={6}>
         Issues
@@ -54,14 +54,14 @@ export const withIcons = (args: UnderlineNavProps) => {
       <UnderlineNav.Item icon={CommentDiscussionIcon} counter={7}>
         Discussions
       </UnderlineNav.Item>
-      <UnderlineNav.Item icon={EyeIcon}>Item 1</UnderlineNav.Item>
+      <UnderlineNav.Item icon={ProjectIcon}>Projects</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
 
-export const withCounterLabels = (args: UnderlineNavProps) => {
+export const withCounterLabels = () => {
   return (
-    <UnderlineNav {...args}>
+    <UnderlineNav aria-label="Repository with counters">
       <UnderlineNav.Item selected icon={CodeIcon}>
         Code
       </UnderlineNav.Item>
@@ -84,11 +84,11 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number}[]
   {navigation: 'Security', icon: ShieldLockIcon}
 ]
 
-export const InternalResponsiveNav = (args: UnderlineNavProps) => {
+export const InternalResponsiveNav = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   return (
-    <UnderlineNav {...args}>
+    <UnderlineNav aria-label="Repository">
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
@@ -104,11 +104,11 @@ export const InternalResponsiveNav = (args: UnderlineNavProps) => {
   )
 }
 
-export const CountersLoadingState = (args: UnderlineNavProps) => {
+export const CountersLoadingState = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   return (
-    <UnderlineNav {...args} loadingCounters={true}>
+    <UnderlineNav aria-label="Repository with loading counters" loadingCounters={true}>
       {items.map((item, index) => (
         <UnderlineNav.Item
           key={item.navigation}
