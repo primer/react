@@ -6,7 +6,7 @@ set -e
 npm run clean
 
 # Bundle
-npx cross-env NODE_ENV=production rollup -c
+npx rollup -c
 
 # Type check
 npx tsc --project tsconfig.build.json
