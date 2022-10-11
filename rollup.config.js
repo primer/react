@@ -1,9 +1,34 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
+import glob from 'fast-glob'
 import {terser} from 'rollup-plugin-terser'
 import visualizer from 'rollup-plugin-visualizer'
 import packageJson from './package.json'
+
+const input = new Set([
+  // "exports"
+  // "."
+  'src/index.ts',
+
+  // "./drafts"
+  'src/drafts/index.ts',
+
+  // "./deprecated"
+  'src/deprecated/index.ts',
+
+  // "./lib-esm/*"
+  ...glob.sync(['src/*', 'src/*/index.js'], {
+    cwd: __dirname,
+    onlyFiles: true,
+    // Note: ignore theme-preval as it is handled through the theme import and
+    // specifying it as an entrypoint creates an intermediate file
+    ignore: ['src/theme-preval.js']
+  }),
+
+  // "./lib-esm/utils/test-helpers", "./lib/utils/test-helpers"
+  'src/utils/test-helpers.tsx'
+])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const external = [
@@ -36,7 +61,7 @@ function isExternal(external) {
 }
 
 const baseConfig = {
-  input: ['src/index.ts', 'src/drafts/index.ts', 'src/deprecated/index.ts'],
+  input: Array.from(input),
   plugins: [
     // Note: it's important that the babel plugin is ordered first for plugins
     // like babel-plugin-preval to work as-intended
