@@ -15,7 +15,7 @@ import {MarkGithubIcon} from '@primer/octicons-react'
 const excludedControlKeys = ['required', 'value', 'validationStatus', 'sx']
 
 export default {
-  title: 'Forms/Form Controls/Checkbox',
+  title: 'Components/Forms/Checkbox',
   component: Checkbox,
   decorators: [
     Story => {
@@ -29,15 +29,17 @@ export default {
     }
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
+  args: {
+    checked: false,
+    indeterminate: false
+  },
   argTypes: {
     checked: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     indeterminate: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }

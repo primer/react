@@ -39,7 +39,7 @@ import {
 import {FocusKeys} from '@primer/behaviors'
 
 const meta: Meta = {
-  title: 'Composite components/ActionMenu/fixtures',
+  title: 'Components/ActionMenu/fixtures',
   component: ActionMenu,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
@@ -52,7 +52,7 @@ const meta: Meta = {
   ],
   parameters: {
     controls: {
-      disabled: true
+      disable: true
     }
   }
 }

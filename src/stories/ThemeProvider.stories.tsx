@@ -6,7 +6,7 @@ import {ThemeProviderProps} from '../ThemeProvider'
 import {createGlobalStyle} from 'styled-components'
 
 export default {
-  title: 'Generic behaviors/ThemeProvider',
+  title: 'Behaviors/ThemeProvider',
   component: ThemeProvider,
   parameters: {disableThemeDecorator: true},
   argTypes: {
