@@ -69,71 +69,54 @@ export const moreBtnStyles = {
   paddingX: 2
 }
 
-export const getArrowBtnStyles = (theme?: Theme) => ({
+export const btnWrapperStyles = (
+  theme?: Theme,
+  direction = 'left',
+  show = false,
+  translateX = 0,
+  display = 'flex'
+) => ({
+  position: 'absolute',
+  zIndex: 1,
+  top: 0,
+  bottom: 0,
+  left: direction === 'left' ? 0 : 'auto',
+  right: direction === 'right' ? 0 : 'auto',
+  alignItems: 'center',
+  background: show
+    ? `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
+    : 'transparent',
+  transform: `translateX(${translateX}px)`,
+  display: `${display}`
+})
+
+export const getArrowBtnStyles = (theme?: Theme, direction = 'left') => ({
   fontWeight: 'normal',
   boxShadow: 'none',
   margin: 0,
   border: 0,
-  borderRadius: 0,
-  paddingX: 2,
+  borderRadius: 2,
+  paddingX: '14px',
   paddingY: 0,
-  background: theme?.colors.canvas.default,
-  position: 'absolute',
-  opacity: 1,
-  transition: 'opacity 250ms ease-out',
-  zIndex: 1,
+  background: 'transparent',
+  height: '60%',
+
   '&:hover:not([disabled]), &:focus-visible': {
     background: theme?.colors.canvas.default
-  }
-})
-
-export const getLeftArrowHiddenBtn = (theme?: Theme) => ({
-  ...getArrowBtnStyles(theme),
-  opacity: 0,
-  top: 0,
-  bottom: 0,
-  left: 0
-})
-
-export const getRightArrowHiddenBtn = (theme?: Theme) => ({
-  ...getArrowBtnStyles(theme),
-  opacity: 0,
-  top: 0,
-  bottom: 0,
-  right: 0
-})
-
-export const getLeftArrowVisibleBtn = (theme?: Theme) => ({
-  ...getArrowBtnStyles(theme),
-  top: 0,
-  bottom: 0,
-  left: 0,
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    background: `linear-gradient(to left,#fff0,${theme?.colors.canvas.default})`,
-    height: '100%',
-    width: '20px',
-    right: '-15px',
-    pointerEvents: 'none'
-  }
-})
-
-export const getRightArrowVisibleBtn = (theme?: Theme) => ({
-  ...getArrowBtnStyles(theme),
-  top: 0,
-  bottom: 0,
-  right: 0,
-  '&::before': {
-    position: 'absolute',
-    top: 0,
-    background: `linear-gradient(to right,#fff0,${theme?.colors.canvas.default})`,
-    content: '""',
-    height: '100%',
-    width: '20px',
-    left: '-15px',
-    pointerEvents: 'none'
+  },
+  '&:focus:not(:disabled)': {
+    outline: 0,
+    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
+    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
+  },
+  // where focus-visible is supported, remove the focus box-shadow
+  '&:not(:focus-visible)': {
+    boxShadow: 'none',
+    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
+  },
+  '&:focus-visible:not(:disabled)': {
+    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
+    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
   }
 })
 
@@ -189,6 +172,12 @@ export const getLinkStyles = (
     bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
     borderRadius: 0,
     transform: 'translate(50%, -50%)'
+  },
+  '@media (forced-colors: active)': {
+    '::after': {
+      // Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast
+      bg: selectedLink === ref ? 'LinkText' : 'transparent'
+    }
   }
 })
 
