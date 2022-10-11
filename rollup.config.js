@@ -1,6 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
+import glob from 'fast-glob'
 import {terser} from 'rollup-plugin-terser'
 import visualizer from 'rollup-plugin-visualizer'
 import packageJson from './package.json'
@@ -16,8 +17,21 @@ const input = new Set([
   // "./deprecated"
   'src/deprecated/index.ts',
 
-  // "./lib-esm/utils/test-helpers", "./lib/utils/test-helpers"
-  'src/utils/test-helpers.tsx'
+  ...glob.sync(
+    [
+      // "./lib-esm/hooks/*"
+      'src/hooks/*',
+
+      // "./lib-esm/polyfills/*"
+      'src/polyfills/*',
+
+      // "./lib-esm/utils/*"
+      'src/utils/*'
+    ],
+    {
+      cwd: __dirname
+    }
+  )
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
