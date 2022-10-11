@@ -1,12 +1,12 @@
 import { useRef } from 'react';
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect.js';
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect.js';
 
 function useResizeObserver(callback, target) {
   const savedCallback = useRef(callback);
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     savedCallback.current = callback;
   });
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const targetEl = target && 'current' in target ? target.current : document.documentElement;
 
     if (!targetEl) {

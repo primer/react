@@ -3,4 +3,6 @@ export { default as merge } from 'deepmerge';
 
 const sx = props => css(props.sx);
 
-export { sx as default };
+var sx$1 = sx;
+
+export { sx$1 as default };

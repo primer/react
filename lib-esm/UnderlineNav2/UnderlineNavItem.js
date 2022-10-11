@@ -1,11 +1,11 @@
 import React, { forwardRef, useRef, useContext, useLayoutEffect } from 'react';
 import Box from '../Box.js';
-import '@styled-system/css';
-import merge from 'deepmerge';
+import '../sx.js';
 import { UnderlineNavContext } from './UnderlineNavContext.js';
 import CounterLabel from '../CounterLabel.js';
 import { getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles } from './styles.js';
 import { LoadingCounter } from './LoadingCounter.js';
+import merge from 'deepmerge';
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 

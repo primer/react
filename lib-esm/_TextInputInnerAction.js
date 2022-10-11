@@ -2,9 +2,9 @@ import React, { forwardRef } from 'react';
 import Box from './Box.js';
 import { Button } from './Button/index.js';
 import Tooltip from './Tooltip.js';
-import '@styled-system/css';
-import merge from 'deepmerge';
+import './sx.js';
 import { IconButton } from './Button/IconButton.js';
+import merge from 'deepmerge';
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 const invisibleButtonStyleOverrides = {
@@ -83,5 +83,6 @@ const TextInputAction = /*#__PURE__*/forwardRef(({
 TextInputAction.defaultProps = {
   variant: 'invisible'
 };
+var TextInputAction$1 = TextInputAction;
 
-export { TextInputAction as default };
+export { TextInputAction$1 as default };

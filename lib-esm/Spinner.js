@@ -42,5 +42,6 @@ const StyledSpinner = styled(Spinner).withConfig({
   componentId: "sc-1dxfx1i-0"
 })(["@keyframes rotate-keyframes{100%{transform:rotate(360deg);}}animation:rotate-keyframes 1s linear infinite;", ""], sx);
 StyledSpinner.displayName = 'Spinner';
+var Spinner$1 = StyledSpinner;
 
-export { StyledSpinner as default };
+export { Spinner$1 as default };

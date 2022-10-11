@@ -124,4 +124,6 @@ const getDirectionStyles = (theme, direction) => {
   return map[direction];
 };
 
-export { getDirectionStyles as default };
+var getDirectionStyles$1 = getDirectionStyles;
+
+export { getDirectionStyles$1 as default };

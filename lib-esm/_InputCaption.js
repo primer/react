@@ -15,5 +15,6 @@ const InputCaption = ({
 }, children);
 
 InputCaption.displayName = "InputCaption";
+var InputCaption$1 = InputCaption;
 
-export { InputCaption as default };
+export { InputCaption$1 as default };

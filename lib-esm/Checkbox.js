@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useContext } from 'react';
 import sx from './sx.js';
-import useLayoutEffect from './utils/useIsomorphicLayoutEffect.js';
+import useIsomorphicLayoutEffect from './utils/useIsomorphicLayoutEffect.js';
 import { CheckboxGroupContext } from './CheckboxGroupContext.js';
 import getGlobalFocusStyles from './_getGlobalFocusStyles.js';
 import { useProvidedRefOrCreate } from './hooks/useProvidedRefOrCreate.js';
@@ -34,7 +34,7 @@ const Checkbox = /*#__PURE__*/React.forwardRef(({
     onChange && onChange(e);
   };
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (checkboxRef.current) {
       checkboxRef.current.indeterminate = indeterminate || false;
     }
@@ -56,5 +56,6 @@ const Checkbox = /*#__PURE__*/React.forwardRef(({
   }, rest));
 });
 Checkbox.displayName = 'Checkbox';
+var Checkbox$1 = Checkbox;
 
-export { Checkbox as default };
+export { Checkbox$1 as default };

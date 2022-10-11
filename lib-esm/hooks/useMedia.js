@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, createContext } from 'react';
+import React, { useContext, useEffect, createContext, useState } from 'react';
 import { canUseDOM } from '../utils/environment.js';
 
 /**
@@ -77,5 +77,55 @@ function useMedia(mediaQueryString, defaultState) {
 // be used for development and demo purposes to emulate specific features if
 // unavailable through devtools
 const MatchMediaContext = /*#__PURE__*/createContext({});
+const defaultFeatures = {};
+/**
+ * Use `MatchMedia` to emulate media conditions by passing in feature
+ * queries to the `features` prop. If a component uses `useMedia` with the
+ * feature passed in to `MatchMedia` it will force its value to match what is
+ * provided to `MatchMedia`
+ *
+ * This should be used for development and documentation only in situations
+ * where devtools cannot emulate this feature
+ *
+ * @example
+ * <MatchMedia features={{ "(pointer: coarse)": true}}>
+ *   <Children />
+ * </MatchMedia>
+ */
 
-export { useMedia };
+function MatchMedia({
+  children,
+  features = defaultFeatures
+}) {
+  const value = useShallowObject(features);
+  return /*#__PURE__*/React.createElement(MatchMediaContext.Provider, {
+    value: value
+  }, children);
+}
+MatchMedia.displayName = "MatchMedia";
+
+/**
+ * Utility hook to provide a stable identity for a "simple" object which
+ * contains only primitive values. This provides a `useMemo`-esque signature
+ * without dealing with shallow equality checks in the dependency array.
+ *
+ * Note (perf): this hook iterates through keys and values of the object if the
+ * shallow equality check is false each time the hook is called
+ */
+function useShallowObject(object) {
+  const [value, setValue] = useState(object);
+
+  if (value !== object) {
+    const match = Object.keys(object).every(key => {
+      return object[key] === value[key];
+    });
+
+    if (!match) {
+      setValue(object);
+    }
+  }
+
+  return value;
+}
+
+export { MatchMedia, useMedia };

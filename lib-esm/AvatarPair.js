@@ -33,5 +33,6 @@ const AvatarPair = ({
 AvatarPair.displayName = "AvatarPair";
 // styled() changes this
 AvatarPair.displayName = 'AvatarPair';
+var AvatarPair$1 = AvatarPair;
 
-export { AvatarPair as default };
+export { AvatarPair$1 as default };

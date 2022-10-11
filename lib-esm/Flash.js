@@ -46,5 +46,6 @@ const Flash = styled.div.withConfig({
 Flash.defaultProps = {
   variant: 'default'
 };
+var Flash$1 = Flash;
 
-export { Flash as default };
+export { Flash$1 as default };

@@ -6,5 +6,6 @@ const LabelGroup = styled.span.withConfig({
   displayName: "LabelGroup",
   componentId: "sc-1a0k7wh-0"
 })(["& *{margin-right:", ";}& *:last-child{margin-right:0;}", ";"], get('space.1'), sx);
+var LabelGroup$1 = LabelGroup;
 
-export { LabelGroup as default };
+export { LabelGroup$1 as default };

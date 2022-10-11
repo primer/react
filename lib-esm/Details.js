@@ -6,5 +6,6 @@ const Details = styled.details.withConfig({
   componentId: "sc-1qhvasm-0"
 })(["& > summary{list-style:none;}& > summary::-webkit-details-marker{display:none;}", ";"], sx);
 Details.displayName = 'Details';
+var Details$1 = Details;
 
-export { Details as default };
+export { Details$1 as default };

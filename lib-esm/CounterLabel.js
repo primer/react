@@ -24,5 +24,6 @@ const CounterLabel = styled.span.withConfig({
   displayName: "CounterLabel",
   componentId: "sc-13ceqbg-0"
 })(["display:inline-block;padding:2px 5px;font-size:", ";font-weight:", ";line-height:", ";border-radius:20px;", ";", ";&:empty{display:none;}", ";"], get('fontSizes.0'), get('fontWeights.bold'), get('lineHeights.condensedUltra'), colorStyles, bgStyles, sx);
+var CounterLabel$1 = CounterLabel;
 
-export { CounterLabel as default };
+export { CounterLabel$1 as default };

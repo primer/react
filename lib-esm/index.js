@@ -1,7 +1,6 @@
-export { default as theme } from './theme-preval.js';
 export { get as themeGet } from './constants.js';
 export { default as BaseStyles } from './BaseStyles.js';
-export { ThemeProvider, useColorSchemeVar, useTheme } from './ThemeProvider.js';
+export { default as ThemeProvider, useColorSchemeVar, useTheme } from './ThemeProvider.js';
 export { default as Box } from './Box.js';
 export { Button } from './Button/index.js';
 export { default as useDetails } from './hooks/useDetails.js';
@@ -63,6 +62,7 @@ export { default as UnderlineNav } from './UnderlineNav.js';
 export { default as Checkbox } from './Checkbox.js';
 export { default as Textarea } from './Textarea.js';
 export { default as sx } from './sx.js';
+export { default as theme } from './theme-preval.js';
 export { PageLayout } from './PageLayout/PageLayout.js';
 export { AnchoredOverlay } from './AnchoredOverlay/AnchoredOverlay.js';
 export { default as Autocomplete } from './Autocomplete/Autocomplete.js';

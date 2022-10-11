@@ -2,7 +2,7 @@ import React from 'react';
 import { getAnchoredPosition } from '@primer/behaviors';
 import { useProvidedRefOrCreate } from './useProvidedRefOrCreate.js';
 import { useResizeObserver } from './useResizeObserver.js';
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect.js';
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect.js';
 
 /**
  * Calculates the top and left values for an absolutely-positioned floating element
@@ -25,7 +25,7 @@ function useAnchoredPosition(settings, dependencies = []) {
     }
   }, // eslint-disable-next-line react-hooks/exhaustive-deps
   [floatingElementRef, anchorElementRef, ...dependencies]);
-  useLayoutEffect(updatePosition, [updatePosition]);
+  useIsomorphicLayoutEffect(updatePosition, [updatePosition]);
   useResizeObserver(updatePosition);
   return {
     floatingElementRef,

@@ -68,5 +68,6 @@ Label.defaultProps = {
   size: 'small',
   variant: 'default'
 };
+var Label$1 = Label;
 
-export { Label as default, variants };
+export { Label$1 as default, variants };

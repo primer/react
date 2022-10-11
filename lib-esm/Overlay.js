@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useRef, useEffect } from 'react';
-import useLayoutEffect from './utils/useIsomorphicLayoutEffect.js';
+import useIsomorphicLayoutEffect from './utils/useIsomorphicLayoutEffect.js';
 import { get } from './constants.js';
 import Portal from './Portal/index.js';
 import sx from './sx.js';
@@ -119,7 +119,7 @@ const Overlay = /*#__PURE__*/React.forwardRef(({
       overlayRef.current.style.height = `${overlayRef.current.clientHeight}px`;
     }
   }, [height]);
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     var _overlayRef$current2;
 
     const {
@@ -157,5 +157,6 @@ Overlay.defaultProps = {
   height: 'auto',
   width: 'auto'
 };
+var Overlay$1 = Overlay;
 
-export { Overlay as default };
+export { Overlay$1 as default };

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useLinkInterception } from './_useLinkInterception.js';
 import { useListInteraction } from './_useListInteraction.js';
 import Box from '../../Box.js';
-import StyledSpinner from '../../Spinner.js';
+import Spinner from '../../Spinner.js';
 
 const createRenderedContainer = html => {
   const div = document.createElement('div');
@@ -56,7 +56,7 @@ const MarkdownViewer = ({
       justifyContent: 'space-around',
       p: 2
     }
-  }, /*#__PURE__*/React.createElement(StyledSpinner, {
+  }, /*#__PURE__*/React.createElement(Spinner, {
     "aria-label": "Loading content..."
   })) : /*#__PURE__*/React.createElement(Box, {
     ref: outputContainerRef,

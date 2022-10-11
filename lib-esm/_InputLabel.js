@@ -39,5 +39,6 @@ const InputLabel = ({
 };
 
 InputLabel.displayName = "InputLabel";
+var InputLabel$1 = InputLabel;
 
-export { InputLabel as default };
+export { InputLabel$1 as default };

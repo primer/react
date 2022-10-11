@@ -25,5 +25,6 @@ Avatar.defaultProps = {
   alt: '',
   square: false
 };
+var Avatar$1 = Avatar;
 
-export { Avatar as default };
+export { Avatar$1 as default };

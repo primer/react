@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect.js';
+import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect.js';
 
 const PRIMER_PORTAL_ROOT_ID = '__primerPortalRoot__';
 const DEFAULT_PORTAL_CONTAINER_NAME = '__default__';
@@ -59,7 +59,7 @@ const Portal = ({
   hostElement.style.position = 'relative';
   hostElement.style.zIndex = '1';
   const elementRef = React.useRef(hostElement);
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     let containerName = _containerName;
 
     if (containerName === undefined) {

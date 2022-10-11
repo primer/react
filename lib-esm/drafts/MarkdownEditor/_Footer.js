@@ -3,7 +3,7 @@ import { AlertIcon, MarkdownIcon, ImageIcon } from '@primer/octicons-react';
 import { MarkdownEditorContext } from './_MarkdownEditorContext.js';
 import Box from '../../Box.js';
 import Text from '../../Text.js';
-import StyledSpinner from '../../Spinner.js';
+import Spinner from '../../Spinner.js';
 import { Button } from '../../Button/index.js';
 import { LinkButton } from '../../Button/LinkButton.js';
 
@@ -39,7 +39,7 @@ const Footer = ({
     py: 1,
     px: 2
   }
-}, /*#__PURE__*/React.createElement(StyledSpinner, {
+}, /*#__PURE__*/React.createElement(Spinner, {
   size: "small",
   sx: {
     mr: 1,

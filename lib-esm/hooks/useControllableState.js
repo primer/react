@@ -43,15 +43,11 @@ function useControllableState({
     const controlledValue = value !== undefined; // Uncontrolled -> Controlled
     // If the component prop is uncontrolled, the prop value should be undefined
 
-    if (controlled.current === false && controlledValue) {
-      warn();
-    } // Controlled -> Uncontrolled
+    if (controlled.current === false && controlledValue) ; // Controlled -> Uncontrolled
     // If the component prop is controlled, the prop value should be defined
 
 
-    if (controlled.current === true && !controlledValue) {
-      warn();
-    }
+    if (controlled.current === true && !controlledValue) ;
   }, [name, value]);
 
   if (controlled.current === true) {
@@ -60,8 +56,5 @@ function useControllableState({
 
   return [state, setState];
 }
-/** Warn when running in a development environment */
-
-const warn = function emptyFunction() {};
 
 export { useControllableState };

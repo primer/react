@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForceUpdate } from './use-force-update.js';
-import useLayoutEffect from './useIsomorphicLayoutEffect.js';
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect.js';
 
 /** createSlots is a factory that can create a
  *  typesafe Slots + Slot pair to use in a component definition
@@ -33,7 +33,7 @@ const createSlots = slotNames => {
     const rerenderWithSlots = useForceUpdate();
     const [isMounted, setIsMounted] = React.useState(false); // fires after all the effects in children
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       rerenderWithSlots();
       setIsMounted(true);
     }, [rerenderWithSlots]);
@@ -72,7 +72,7 @@ const createSlots = slotNames => {
       unregisterSlot,
       context
     } = React.useContext(SlotsContext);
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       registerSlot(name, typeof children === 'function' ? children(context) : children);
       return () => unregisterSlot(name);
     }, [name, children, registerSlot, unregisterSlot, context]);
@@ -85,6 +85,4 @@ const createSlots = slotNames => {
   };
 };
 
-var createSlots$1 = createSlots;
-
-export { createSlots$1 as default };
+export { createSlots as default };

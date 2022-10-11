@@ -51,5 +51,6 @@ const InputValidation = ({
 };
 
 InputValidation.displayName = "InputValidation";
+var InputValidation$1 = InputValidation;
 
-export { InputValidation as default };
+export { InputValidation$1 as default };

@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from './Box.js';
-import StyledSpinner from './Spinner.js';
+import Spinner from './Spinner.js';
 
 const TextInputInnerVisualSlot = ({
   children,
@@ -27,7 +27,7 @@ const TextInputInnerVisualSlot = ({
     sx: {
       visibility: showLoadingIndicator ? 'hidden' : 'visible'
     }
-  }, children), /*#__PURE__*/React.createElement(StyledSpinner, {
+  }, children), /*#__PURE__*/React.createElement(Spinner, {
     sx: children ? {
       position: 'absolute',
       top: 0,
@@ -47,5 +47,6 @@ const TextInputInnerVisualSlot = ({
 };
 
 TextInputInnerVisualSlot.displayName = "TextInputInnerVisualSlot";
+var TextInputInnerVisualSlot$1 = TextInputInnerVisualSlot;
 
-export { TextInputInnerVisualSlot as default };
+export { TextInputInnerVisualSlot$1 as default };

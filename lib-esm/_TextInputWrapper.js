@@ -55,5 +55,6 @@ const TextInputWrapper = styled(TextInputBaseWrapper).withConfig({
   displayName: "_TextInputWrapper__TextInputWrapper",
   componentId: "sc-apywy2-1"
 })(["background-repeat:no-repeat;background-position:right 8px center;& >:not(:last-child){margin-right:", ";}.TextInput-icon,.TextInput-action{align-self:center;color:", ";flex-shrink:0;}", " ", " ", ";"], get('space.2'), get('colors.fg.muted'), props => css(["padding-left:", ";padding-right:", ";> input,> select{padding-left:", ";padding-right:", ";}"], props.hasLeadingVisual ? textInputHorizPadding : 0, props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0, !props.hasLeadingVisual ? textInputHorizPadding : 0, !props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0), props => props.validationStatus === 'warning' && css(["border-color:", ";", ""], get('colors.attention.emphasis'), renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))), sx);
+var TextInputWrapper$1 = TextInputWrapper;
 
-export { TextInputBaseWrapper, TextInputWrapper as default, textInputHorizPadding };
+export { TextInputBaseWrapper, TextInputWrapper$1 as default, textInputHorizPadding };

@@ -46,5 +46,6 @@ const Textarea = /*#__PURE__*/React.forwardRef(({
   }, rest)));
 });
 Textarea.displayName = 'Textarea';
+var Textarea$1 = Textarea;
 
-export { DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS, Textarea as default };
+export { DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS, Textarea$1 as default };

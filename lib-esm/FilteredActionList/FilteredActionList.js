@@ -3,7 +3,7 @@ import { useSSRSafeId } from '@react-aria/ssr';
 import TextInput from '../TextInput.js';
 import Box from '../Box.js';
 import { ActionList } from '../deprecated/ActionList/index.js';
-import StyledSpinner from '../Spinner.js';
+import Spinner from '../Spinner.js';
 import { useFocusZone } from '../hooks/useFocusZone.js';
 import { useProvidedStateOrCreate } from '../hooks/useProvidedStateOrCreate.js';
 import styled from 'styled-components';
@@ -103,7 +103,7 @@ function FilteredActionList({
     justifyContent: "center",
     pt: 6,
     pb: 7
-  }, /*#__PURE__*/React.createElement(StyledSpinner, null)) : /*#__PURE__*/React.createElement(ActionList, _extends({
+  }, /*#__PURE__*/React.createElement(Spinner, null)) : /*#__PURE__*/React.createElement(ActionList, _extends({
     ref: listContainerRef,
     items: items
   }, listProps, {
