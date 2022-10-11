@@ -21,17 +21,6 @@ const UncontrolledEditor = forwardRef<MarkdownEditorHandle, UncontrolledEditorPr
 
   const onRenderPreview = async () => 'Preview'
 
-  useLayoutEffect(() => {
-    // combobox-nav attempts to filter out 'hidden' options by checking if the option has an
-    // offsetHeight or width > 0. In JSDom, all elements have offsetHeight = offsetWidth = 0,
-    // so we need to override at least one to make the class recognize that any options exist.
-    for (const option of document.querySelectorAll('[role=option]'))
-      Object.defineProperty(option, 'offsetHeight', {
-        value: 1,
-        writable: true
-      })
-  })
-
   return (
     <ThemeProvider>
       <MarkdownEditor
@@ -117,6 +106,20 @@ const render = async (ui: React.ReactElement) => {
 }
 
 describe('MarkdownEditor', () => {
+  // combobox-nav attempts to filter out 'hidden' options by checking if the option has an
+  // offsetHeight or width > 0. In JSDom, all elements have offsetHeight = offsetWidth = 0,
+  // so we need to override at least one to make the class recognize that any options exist.
+  const originalOffsetHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetHeight')
+  beforeAll(() => {
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 10
+    })
+  })
+  afterAll(() => {
+    if (originalOffsetHeight) Object.defineProperty(HTMLElement.prototype, 'offsetHeight', originalOffsetHeight)
+  })
+
   beforeEach(() => {
     jest.mock('@primer/behaviors/utils', () => ({
       // for all tests, default to Non-Mac (Ctrl) keybindings
@@ -980,6 +983,20 @@ describe('MarkdownEditor', () => {
         expect(input.value).toBe(`hello ${first} `) // suggestions are inserted with a following space
         expect(queryForSuggestionsList()).not.toBeInTheDocument()
       })
+    })
+
+    it('applies suggestion and hides list on %s-press', async () => {
+      const {queryForSuggestionsList, getAllSuggestions, getInput, user} = await render(<EditorWithSuggestions />)
+
+      const input = getInput()
+      await user.type(input, `hello :`)
+      expect(queryForSuggestionsList()).toBeInTheDocument()
+
+      await waitFor(() => expect(getAllSuggestions()[0]).toHaveAttribute('data-combobox-option-default'))
+
+      await user.keyboard(`{Enter}`)
+      expect(input.value).toBe(`hello 👍 `) // suggestions are inserted with a following space
+      expect(queryForSuggestionsList()).not.toBeInTheDocument()
     })
 
     it('filters mention suggestions using fuzzy match against name', async () => {
