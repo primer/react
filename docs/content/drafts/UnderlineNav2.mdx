@@ -16,7 +16,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 ### Simple
 
 ```jsx live drafts
-<UnderlineNav>
+<UnderlineNav aria-label="Repository">
   <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
   <UnderlineNav.Item>Item 2</UnderlineNav.Item>
   <UnderlineNav.Item>Item 3</UnderlineNav.Item>
@@ -26,7 +26,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 ### With Icons
 
 ```jsx live drafts
-<UnderlineNav>
+<UnderlineNav aria-label="Repository">
   <UnderlineNav.Item selected icon={CodeIcon}>
     Code
   </UnderlineNav.Item>
@@ -53,7 +53,7 @@ When overflow occurs, the component first hides icons if present to optimize for
 #### Items Without Icons
 
 ```jsx live drafts
-<UnderlineNav>
+<UnderlineNav aria-label="Repository">
   <UnderlineNav.Item selected icon={CodeIcon}>
     Code
   </UnderlineNav.Item>
@@ -83,7 +83,7 @@ When overflow occurs, the component first hides icons if present to optimize for
 If there is still overflow, the component will behave depending on the pointer.
 
 ```jsx live drafts
-<UnderlineNav>
+<UnderlineNav aria-label="Repository">
   <UnderlineNav.Item selected icon={CodeIcon}>
     Code
   </UnderlineNav.Item>
@@ -114,7 +114,7 @@ If there is still overflow, the component will behave depending on the pointer.
 ### Loading state for counters
 
 ```jsx live drafts
-<UnderlineNav loadingCounters={true}>
+<UnderlineNav aria-label="Repository" loadingCounters={true}>
   <UnderlineNav.Item counter={4} selected>
     Item 1
   </UnderlineNav.Item>
@@ -128,9 +128,11 @@ If there is still overflow, the component will behave depending on the pointer.
 ### UnderlineNav
 
 <PropsTable>
-  <PropsTableRow name="aria-label" type="string" />
-  <PropsTableRow name="aria-labelledby" type="string" />
-  <PropsTableRow name="aria-describedby" type="string" />
+  <PropsTableRow
+    name="aria-label"
+    type="string"
+    description="A unique name for the rendered 'nav' landmark. It will also be used to label the arrow buttons that control the scroll behaviour on coarse pointer devices. (I.e. 'Scroll ${aria-label} left/right')"
+  />
   <PropsTableRow
     name="loadingCounters"
     type="boolean"
