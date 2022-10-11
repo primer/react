@@ -71,6 +71,7 @@ export const UnderlineNavItem = forwardRef(
       setSelectedLink,
       selectedLinkText,
       setSelectedLinkText,
+      setFocusedLink,
       selectEvent,
       afterSelect,
       variant,
@@ -153,6 +154,7 @@ export const UnderlineNavItem = forwardRef(
           sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
+          onFocus={() => setFocusedLink(ref as RefObject<HTMLElement>)}
         >
           <Box as="div" data-component="wrapper" sx={wrapperStyles}>
             {iconsVisible && Icon && (
