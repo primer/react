@@ -88,7 +88,33 @@ const baseConfig = {
       extensions,
       exclude: /node_modules/,
       babelHelpers: 'inline',
-      babelrc: false
+      babelrc: false,
+      configFile: false,
+      presets: [
+        '@babel/preset-typescript',
+        [
+          '@babel/preset-react',
+          {
+            modules: false
+          }
+        ]
+      ],
+      plugins: [
+        'macros',
+        'preval',
+        'add-react-displayname',
+        'babel-plugin-styled-components',
+        '@babel/plugin-proposal-nullish-coalescing-operator',
+        '@babel/plugin-proposal-optional-chaining',
+        [
+          'babel-plugin-transform-replace-expressions',
+          {
+            replace: {
+              __DEV__: "process.env.NODE_ENV !== 'production'"
+            }
+          }
+        ]
+      ]
     }),
     commonjs(),
     resolve({
