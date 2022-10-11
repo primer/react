@@ -848,7 +848,10 @@ describe('MarkdownEditor', () => {
       {identifier: 'github', description: 'GitHub'},
       {identifier: 'primer', description: 'Primer'},
       {identifier: 'actions', description: 'Actions'},
-      {identifier: 'primer-css', description: ''}
+      {identifier: 'primer-css', description: ''},
+      {identifier: 'mnl', description: ''},
+      {identifier: 'gth', description: ''},
+      {identifier: 'mla', description: ''}
     ]
 
     const references: Reference[] = [
@@ -1006,9 +1009,9 @@ describe('MarkdownEditor', () => {
 
     it('filters mention suggestions using fuzzy match against ID', async () => {
       const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
-      await user.type(getInput(), '@prmrcss')
+      await user.type(getInput(), '@git')
       expect(getAllSuggestions()).toHaveLength(1)
-      expect(getAllSuggestions()[0]).toHaveTextContent('primer-css')
+      expect(getAllSuggestions()[0]).toHaveTextContent('github')
     })
 
     it('filters reference suggestions using fuzzy match against name', async () => {
