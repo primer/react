@@ -17,17 +17,25 @@ const input = new Set([
   // "./deprecated"
   'src/deprecated/index.ts',
 
-  // "./lib-esm/*"
-  ...glob.sync(['src/*', 'src/*/index.js'], {
-    cwd: __dirname,
-    onlyFiles: true,
-    // Note: ignore theme-preval as it is handled through the theme import and
-    // specifying it as an entrypoint creates an intermediate file
-    ignore: ['src/theme-preval.js']
-  }),
+  // Make sure all members are exported
+  'src/constants.ts',
 
-  // "./lib-esm/utils/test-helpers", "./lib/utils/test-helpers"
-  'src/utils/test-helpers.tsx'
+  ...glob.sync(
+    [
+      // "./lib-esm/hooks/*"
+      'src/hooks/*',
+
+      // "./lib-esm/polyfills/*"
+      'src/polyfills/*',
+
+      // "./lib-esm/utils/*"
+      'src/utils/*'
+    ],
+    {
+      cwd: __dirname,
+      ignore: ['**/__tests__/**', '*.stories.tsx']
+    }
+  )
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']

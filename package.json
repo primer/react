@@ -26,9 +26,7 @@
         "./lib/*.js",
         "./lib/*/index.js"
       ]
-    },
-    "./lib-esm/utils/test-helpers": "./lib-esm/utils/test-helpers.js",
-    "./lib/utils/test-helpers": "./lib/utils/test-helpers.js"
+    }
   },
   "typings": "lib/index.d.ts",
   "sideEffects": false,
