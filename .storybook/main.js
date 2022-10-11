@@ -7,16 +7,28 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-links',
     'storybook-addon-performance/register',
-    {name: 'storybook-addon-turbo-build', options: {optimizationLevel: 2}},
+    {
+      name: 'storybook-addon-turbo-build',
+      options: {
+        optimizationLevel: 2
+      }
+    },
     ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
       ? ['@whitespace/storybook-addon-html']
       : [])
   ],
-  babel: options => {
-    options.plugins.push(['open-source', {editor: process.env.NODE_ENV === 'production' ? 'github' : 'vscode'}])
-    return options
+  core: {
+    builder: {
+      name: 'webpack5',
+      options: {
+        lazyCompilation: true,
+        fsCache: true
+      }
+    }
   },
   features: {
-    interactionsDebugger: true
-  }
+    interactionsDebugger: true,
+    storyStoreV7: true
+  },
+  framework: '@storybook/react'
 }
