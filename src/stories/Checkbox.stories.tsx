@@ -29,15 +29,17 @@ export default {
     }
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
+  args: {
+    checked: false,
+    indeterminate: false
+  },
   argTypes: {
     checked: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     indeterminate: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
