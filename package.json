@@ -114,7 +114,7 @@
     "@changesets/cli": "2.17.0",
     "@github/prettier-config": "0.0.4",
     "@rollup/plugin-babel": "5.3.1",
-    "@rollup/plugin-commonjs": "22.0.2",
+    "@rollup/plugin-commonjs": "23.0.0",
     "@rollup/plugin-node-resolve": "14.1.0",
     "@rollup/plugin-replace": "5.0.0",
     "@rollup/plugin-typescript": "8.5.0",
