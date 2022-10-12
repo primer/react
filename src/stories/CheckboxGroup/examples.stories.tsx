@@ -6,27 +6,32 @@ import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 export default {
   title: 'Components/Forms/CheckboxGroup/examples',
   component: CheckboxGroup,
+  args: {
+    disabled: false,
+    required: false,
+    labelChildren: 'Choices',
+    visuallyHidden: false,
+    captionChildren: '',
+    validationChildren: '',
+    variant: 'error'
+  },
   argTypes: {
     // CheckboxGroup
     disabled: {
-      defaultValue: false,
       type: 'boolean'
     },
     required: {
-      defaultValue: false,
       type: 'boolean'
     },
 
     // CheckboxGroup.Label
     labelChildren: {
-      defaultValue: 'Choices',
       type: 'string',
       table: {
         category: 'CheckboxGroup.Label'
       }
     },
     visuallyHidden: {
-      defaultValue: false,
       type: 'boolean',
       table: {
         category: 'CheckboxGroup.Label'
@@ -35,7 +40,6 @@ export default {
 
     // CheckboxGroup.Caption
     captionChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
         category: 'CheckboxGroup.Caption'
@@ -44,18 +48,16 @@ export default {
 
     // CheckboxGroup.Validation
     validationChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
         category: 'CheckboxGroup.Validation'
       }
     },
     variant: {
-      defaultValue: 'error',
       control: {
-        type: 'radio',
-        options: ['error', 'success', 'warning']
+        type: 'radio'
       },
+      options: ['error', 'success', 'warning'],
       table: {
         category: 'CheckboxGroup.Validation'
       }

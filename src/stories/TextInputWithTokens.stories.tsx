@@ -7,6 +7,7 @@ import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTok
 import IssueLabelToken from '../Token/IssueLabelToken'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
@@ -42,6 +43,9 @@ export default {
       )
     }
   ],
+  args: {
+    ...formControlArgs
+  },
   argTypes: {
     ...getTextInputArgTypes('TextInput props'),
     ...textInputWithTokensArgTypes,

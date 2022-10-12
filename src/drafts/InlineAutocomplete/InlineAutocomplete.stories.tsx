@@ -28,17 +28,19 @@ export default {
       )
     }
   ],
+  args: {
+    loading: false,
+    tabInserts: false
+  },
   argTypes: {
     loading: {
       name: 'Loading',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     tabInserts: {
       name: '`Tab` Key Inserts Suggestions',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }

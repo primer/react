@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, Box, FormControl, Radio, RadioProps, ThemeProvider} from '..'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypesWithoutValidation,
   getFormControlArgsByChildComponent
 } from '../utils/story-helpers'
@@ -24,9 +25,12 @@ export default {
     }
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
+  args: {
+    ...formControlArgs,
+    checked: false
+  },
   argTypes: {
     checked: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }

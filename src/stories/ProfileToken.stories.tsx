@@ -11,13 +11,9 @@ import Text from '../Text'
 export default {
   title: 'Components/AvatarToken',
   component: AvatarToken,
-  argTypes: {
-    text: {
-      defaultValue: 'Mike Perrotti'
-    },
-    avatarSrc: {
-      defaultValue: 'https://avatars.githubusercontent.com/mperrotti'
-    }
+  args: {
+    text: 'Mike Perrotti',
+    avatarSrc: 'https://avatars.githubusercontent.com/mperrotti'
   },
   decorators: [
     Story => {
@@ -88,9 +84,9 @@ export const Interactive = (args: Omit<AvatarTokenProps, 'ref' | 'text'>) => {
           gap: get('space.2')
         }}
       >
-        <AvatarToken as="a" href="http://google.com/" text="Link" {...args} />
-        <AvatarToken as="button" onClick={action('clicked')} text="Button" {...args} />
-        <AvatarToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
+        <AvatarToken as="a" href="http://google.com/" {...args} text="Link" />
+        <AvatarToken as="button" onClick={action('clicked')} {...args} text="Button" />
+        <AvatarToken as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
       </Box>
     </ExampleCollectionContainer>
   )
