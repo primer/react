@@ -550,7 +550,7 @@ exports[`Button styles outline button appropriately 1`] = `
 .c0:hover:not([disabled]) {
   color: btn.outline.hoverText;
   background-color: btn.outline.hoverBg;
-  border-color: outline.hoverBorder;
+  border-color: btn.outline.hoverBorder;
   box-shadow: undefined;
 }
 
