@@ -42,7 +42,7 @@ export function useStickyPaneHeight() {
     }
 
     setHeight(calculatedHeight)
-  }, [contentTopEntry, contentBottomEntry, offsetHeader])
+  }, [contentTopEntry, offsetHeader])
 
   // We only want to add scroll and resize listeners if the pane is sticky.
   // Since hooks can't be called conditionally, we need to use state to track
