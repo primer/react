@@ -1,6 +1,6 @@
 import {DiffIcon} from '@primer/octicons-react'
 import React, {Meta} from '@storybook/react'
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 import BaseStyles from '../../BaseStyles'
 import Box from '../../Box'
 import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
@@ -296,6 +296,70 @@ export const CustomButtons = ({
             Submit
           </MarkdownEditor.ActionButton>
         </MarkdownEditor.Actions>
+      </MarkdownEditor>
+      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+    </>
+  )
+}
+
+function useLazySuggestions<T>(suggestions: T[]) {
+  const promiseRef = useRef<Promise<T[]> | null>(null)
+
+  return () => {
+    // This simulates waiting to make an API  request until the first time the suggestions are needed
+    // Then, once we have made the API request we keep returning the same Promise which will already
+    // be resolved with the cached data
+    if (!promiseRef.current) {
+      promiseRef.current = new Promise(resolve => {
+        setTimeout(() => resolve(suggestions), 500)
+      })
+    }
+
+    return promiseRef.current
+  }
+}
+
+export const LazyLoadedSuggestions = ({
+  disabled,
+  fullHeight,
+  monospace,
+  minHeightLines,
+  maxHeightLines,
+  hideLabel,
+  required,
+  fileUploadsEnabled,
+  onSubmit,
+  savedRepliesEnabled,
+  pasteUrlsAsPlainText
+}: ArgProps) => {
+  const [value, setValue] = useState('')
+
+  const emojiSuggestions = useLazySuggestions(emojis)
+  const mentionSuggestions = useLazySuggestions(mentionables)
+  const referenceSuggestions = useLazySuggestions(references)
+
+  return (
+    <>
+      <MarkdownEditor
+        value={value}
+        onChange={setValue}
+        onPrimaryAction={onSubmit}
+        disabled={disabled}
+        fullHeight={fullHeight}
+        monospace={monospace}
+        minHeightLines={minHeightLines}
+        maxHeightLines={maxHeightLines}
+        placeholder="Enter some Markdown..."
+        onRenderPreview={renderPreview}
+        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+        emojiSuggestions={emojiSuggestions}
+        mentionSuggestions={mentionSuggestions}
+        referenceSuggestions={referenceSuggestions}
+        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+        required={required}
+        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+      >
+        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
       </MarkdownEditor>
       <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
     </>
