@@ -18,7 +18,7 @@ import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
-import {useActiveDescendant} from './useActiveDescendant'
+import {getFirstChildElement, useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
@@ -27,10 +27,11 @@ import {useTypeahead} from './useTypeahead'
 const RootContext = React.createContext<{
   announceUpdate: (message: string) => void
   activeDescendant: string
-  setActiveDescendant?: React.Dispatch<React.SetStateAction<string>>
+  setActiveDescendant: React.Dispatch<React.SetStateAction<string>>
 }>({
   announceUpdate: () => {},
-  activeDescendant: ''
+  activeDescendant: '',
+  setActiveDescendant: () => {}
 })
 
 const ItemContext = React.createContext<{
@@ -211,7 +212,7 @@ const Item: React.FC<TreeViewItemProps> = ({
       >
         <Box
           onClick={event => {
-            setActiveDescendant?.(itemId)
+            setActiveDescendant(itemId)
             if (onSelect) {
               onSelect(event)
             } else {
@@ -266,7 +267,7 @@ const Item: React.FC<TreeViewItemProps> = ({
             <Box
               onClick={event => {
                 if (onSelect) {
-                  setActiveDescendant?.(itemId)
+                  setActiveDescendant(itemId)
                   toggle(event)
                 }
               }}
@@ -380,24 +381,6 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
 }
 
 // ----------------------------------------------------------------------------
-// TreeView.LoadingItem
-
-const LoadingItem: React.FC = () => {
-  // TODO: Move focus on unmount
-  return (
-    // TODO: What aria attributes do we need to add here?
-    <Item>
-      <LeadingVisual>
-        <Spinner size="small" />
-      </LeadingVisual>
-      <Text sx={{color: 'fg.muted'}}>Loading...</Text>
-    </Item>
-  )
-}
-
-LoadingItem.displayName = 'TreeView.LoadingItem'
-
-// ----------------------------------------------------------------------------
 // TreeView.SubTree and TreeView.AsyncSubTree
 
 export type TreeViewSubTreeProps = {
@@ -480,6 +463,48 @@ const AsyncSubTree: React.FC<TreeViewAsyncSubTreeProps> = ({state, children}) =>
     >
       {isLoading ? <LoadingItem /> : children}
     </Box>
+  )
+}
+
+const LoadingItem = () => {
+  const {activeDescendant, setActiveDescendant} = React.useContext(RootContext)
+  const {itemId} = React.useContext(ItemContext)
+  const activeDescendantRef = React.useRef(activeDescendant)
+
+  React.useEffect(() => {
+    activeDescendantRef.current = activeDescendant
+  }, [activeDescendant])
+
+  // When the LoadingItem unmounts, we check if the active descendant
+  // was also removed from the DOM. If it was, we know the LoadingItem was the
+  // active descendant and we need to update the active descendant to the first
+  // loaded item or the parent item (if no items were loaded).
+  React.useEffect(() => {
+    return () => {
+      const activeElement = document.getElementById(activeDescendantRef.current)
+
+      if (!activeElement) {
+        const parentElement = document.getElementById(itemId)
+
+        if (!parentElement) return
+
+        // Wait for next tick to let the loaded items render
+        setTimeout(() => {
+          const firstChild = getFirstChildElement(parentElement)
+
+          setActiveDescendant(firstChild ? firstChild.id : parentElement.id)
+        })
+      }
+    }
+  }, [itemId, setActiveDescendant])
+
+  return (
+    <Item>
+      <LeadingVisual>
+        <Spinner size="small" />
+      </LeadingVisual>
+      <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
   )
 }
 
