@@ -6,7 +6,7 @@ import BaseStyles from '../BaseStyles'
 import Box from '../Box'
 
 const meta: Meta = {
-  title: 'Composite components/FilteredActionList',
+  title: 'Components/FilteredActionList',
   component: FilteredActionList,
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (

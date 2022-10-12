@@ -2,7 +2,7 @@ import {DiffAddedIcon} from '@primer/octicons-react'
 import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {UserEvent} from '@testing-library/user-event/dist/types/setup'
-import React, {forwardRef, useLayoutEffect, useRef, useState} from 'react'
+import React, {forwardRef, useRef, useState} from 'react'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
@@ -20,17 +20,6 @@ const UncontrolledEditor = forwardRef<MarkdownEditorHandle, UncontrolledEditorPr
   }
 
   const onRenderPreview = async () => 'Preview'
-
-  useLayoutEffect(() => {
-    // combobox-nav attempts to filter out 'hidden' options by checking if the option has an
-    // offsetHeight or width > 0. In JSDom, all elements have offsetHeight = offsetWidth = 0,
-    // so we need to override at least one to make the class recognize that any options exist.
-    for (const option of document.querySelectorAll('[role=option]'))
-      Object.defineProperty(option, 'offsetHeight', {
-        value: 1,
-        writable: true
-      })
-  })
 
   return (
     <ThemeProvider>
@@ -117,6 +106,20 @@ const render = async (ui: React.ReactElement) => {
 }
 
 describe('MarkdownEditor', () => {
+  // combobox-nav attempts to filter out 'hidden' options by checking if the option has an
+  // offsetHeight or width > 0. In JSDom, all elements have offsetHeight = offsetWidth = 0,
+  // so we need to override at least one to make the class recognize that any options exist.
+  const originalOffsetHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetHeight')
+  beforeAll(() => {
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 10
+    })
+  })
+  afterAll(() => {
+    if (originalOffsetHeight) Object.defineProperty(HTMLElement.prototype, 'offsetHeight', originalOffsetHeight)
+  })
+
   beforeEach(() => {
     jest.mock('@primer/behaviors/utils', () => ({
       // for all tests, default to Non-Mac (Ctrl) keybindings
@@ -832,8 +835,6 @@ describe('MarkdownEditor', () => {
   })
 
   describe('suggestions', () => {
-    // we don't test filtering logic here because that's up to the consumer
-
     const emojis: Emoji[] = [
       {name: '+1', character: '👍'},
       {name: '-1', character: '👎'},
@@ -847,7 +848,10 @@ describe('MarkdownEditor', () => {
       {identifier: 'github', description: 'GitHub'},
       {identifier: 'primer', description: 'Primer'},
       {identifier: 'actions', description: 'Actions'},
-      {identifier: 'primer-css', description: ''}
+      {identifier: 'primer-css', description: ''},
+      {identifier: 'mnl', description: ''},
+      {identifier: 'gth', description: ''},
+      {identifier: 'mla', description: ''}
     ]
 
     const references: Reference[] = [
@@ -982,6 +986,20 @@ describe('MarkdownEditor', () => {
       })
     })
 
+    it('applies suggestion and hides list on %s-press', async () => {
+      const {queryForSuggestionsList, getAllSuggestions, getInput, user} = await render(<EditorWithSuggestions />)
+
+      const input = getInput()
+      await user.type(input, `hello :`)
+      expect(queryForSuggestionsList()).toBeInTheDocument()
+
+      await waitFor(() => expect(getAllSuggestions()[0]).toHaveAttribute('data-combobox-option-default'))
+
+      await user.keyboard(`{Enter}`)
+      expect(input.value).toBe(`hello 👍 `) // suggestions are inserted with a following space
+      expect(queryForSuggestionsList()).not.toBeInTheDocument()
+    })
+
     it('filters mention suggestions using fuzzy match against name', async () => {
       const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
       await user.type(getInput(), '@octct')
@@ -991,9 +1009,9 @@ describe('MarkdownEditor', () => {
 
     it('filters mention suggestions using fuzzy match against ID', async () => {
       const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
-      await user.type(getInput(), '@prmrcss')
+      await user.type(getInput(), '@git')
       expect(getAllSuggestions()).toHaveLength(1)
-      expect(getAllSuggestions()[0]).toHaveTextContent('primer-css')
+      expect(getAllSuggestions()[0]).toHaveTextContent('github')
     })
 
     it('filters reference suggestions using fuzzy match against name', async () => {

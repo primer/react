@@ -5,29 +5,34 @@ import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 import Radio from '../../Radio'
 
 export default {
-  title: 'Forms/RadioGroup/examples',
+  title: 'Components/Forms/RadioGroup/examples',
   component: RadioGroup,
+  args: {
+    disabled: false,
+    required: false,
+    labelChildren: 'Choices',
+    visuallyHidden: false,
+    captionChildren: '',
+    validationChildren: '',
+    variant: 'error'
+  },
   argTypes: {
     // RadioGroup
     disabled: {
-      defaultValue: false,
       type: 'boolean'
     },
     required: {
-      defaultValue: false,
       type: 'boolean'
     },
 
     // RadioGroup.Label
     labelChildren: {
-      defaultValue: 'Choices',
       type: 'string',
       table: {
         category: 'RadioGroup.Label'
       }
     },
     visuallyHidden: {
-      defaultValue: false,
       type: 'boolean',
       table: {
         category: 'RadioGroup.Label'
@@ -36,7 +41,6 @@ export default {
 
     // RadioGroup.Caption
     captionChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
         category: 'RadioGroup.Caption'
@@ -45,18 +49,16 @@ export default {
 
     // RadioGroup.Validation
     validationChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
         category: 'RadioGroup.Validation'
       }
     },
     variant: {
-      defaultValue: 'error',
       control: {
-        type: 'radio',
-        options: ['error', 'success', 'warning']
+        type: 'radio'
       },
+      options: ['error', 'success', 'warning'],
       table: {
         category: 'RadioGroup.Validation'
       }

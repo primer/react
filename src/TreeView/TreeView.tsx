@@ -1,10 +1,20 @@
-import {ChevronDownIcon, ChevronRightIcon} from '@primer/octicons-react'
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  FileDirectoryFillIcon,
+  FileDirectoryOpenFillIcon
+} from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
+import {useControllableState} from '../hooks/useControllableState'
+import Spinner from '../Spinner'
+import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
+import Text from '../Text'
 import {Theme} from '../ThemeProvider'
+import createSlots from '../utils/create-slots'
 import {useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
@@ -21,9 +31,11 @@ const RootContext = React.createContext<{
 const ItemContext = React.createContext<{
   level: number
   isExpanded: boolean
+  expandParents: () => void
 }>({
   level: 1,
-  isExpanded: false
+  isExpanded: false,
+  expandParents: () => {}
 })
 
 // ----------------------------------------------------------------------------
@@ -78,41 +90,62 @@ export type TreeViewItemProps = {
   children: React.ReactNode
   current?: boolean
   defaultExpanded?: boolean
+  expanded?: boolean
+  onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
-  onToggle?: (isExpanded: boolean) => void
 }
 
+const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
+
 const Item: React.FC<TreeViewItemProps> = ({
-  current: isCurrent = false,
+  current: isCurrentItem = false,
   defaultExpanded = false,
+  expanded,
+  onExpandedChange,
   onSelect,
-  onToggle,
   children
 }) => {
   const {setActiveDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
   const labelId = useSSRSafeId()
   const itemRef = React.useRef<HTMLLIElement>(null)
-  const {level} = React.useContext(ItemContext)
-  const [isExpanded, setIsExpanded] = React.useState(defaultExpanded)
+  const [isExpanded, setIsExpanded] = useControllableState({
+    name: itemId,
+    defaultValue: defaultExpanded,
+    value: expanded,
+    onChange: onExpandedChange
+  })
+  const {level, expandParents} = React.useContext(ItemContext)
   const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
   // Expand or collapse the subtree
   const toggle = React.useCallback(
     (event?: React.MouseEvent) => {
-      onToggle?.(!isExpanded)
       setIsExpanded(!isExpanded)
       event?.stopPropagation()
     },
-    [isExpanded, onToggle]
+    // setIsExpanded is stable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isExpanded]
   )
 
-  // Expand item if it is the current item or contains the current item
-  React.useLayoutEffect(() => {
-    if (isCurrent || itemRef.current?.querySelector('[aria-current=true]')) {
+  // Expand all parents of this item including itself
+  const expandParentsAndSelf = React.useCallback(
+    () => {
+      expandParents()
       setIsExpanded(true)
+    },
+    // setIsExpanded is stable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [expandParents]
+  )
+
+  // If this item is the current item, expand it and all its parents
+  React.useLayoutEffect(() => {
+    if (isCurrentItem) {
+      expandParentsAndSelf()
     }
-  }, [itemRef, isCurrent, subTree])
+  }, [isCurrentItem, expandParentsAndSelf])
 
   React.useEffect(() => {
     const element = itemRef.current
@@ -149,7 +182,7 @@ const Item: React.FC<TreeViewItemProps> = ({
   }, [toggle, onSelect, isExpanded])
 
   return (
-    <ItemContext.Provider value={{level: level + 1, isExpanded}}>
+    <ItemContext.Provider value={{level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
       <li
         id={itemId}
         ref={itemRef}
@@ -157,7 +190,7 @@ const Item: React.FC<TreeViewItemProps> = ({
         aria-labelledby={labelId}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
-        aria-current={isCurrent ? 'true' : undefined}
+        aria-current={isCurrentItem ? 'true' : undefined}
       >
         <Box
           onClick={event => {
@@ -169,12 +202,13 @@ const Item: React.FC<TreeViewItemProps> = ({
             }
           }}
           sx={{
+            '--toggle-width': '1rem', // 16px
             position: 'relative',
             display: 'grid',
-            gridTemplateColumns: `calc(${level - 1} * 8px) 16px 1fr`,
+            gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
             gridTemplateAreas: `"spacer toggle content"`,
             width: '100%',
-            height: 32,
+            height: '2rem', // 32px
             fontSize: 1,
             color: 'fg.default',
             borderRadius: 2,
@@ -182,10 +216,18 @@ const Item: React.FC<TreeViewItemProps> = ({
             '&:hover': {
               backgroundColor: 'actionListItem.default.hoverBg'
             },
-            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible &`]: {
+            '@media (pointer: coarse)': {
+              '--toggle-width': '1.5rem', // 24px
+              height: '2.75rem' // 44px
+            },
+            // WARNING: styled-components v5.2 introduced a bug that changed
+            // how it expands `&` in CSS selectors. The following selectors
+            // are unnecessarily specific to work around that styled-components bug.
+            // Reference issue: https://github.com/styled-components/styled-components/issues/3265
+            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible #${itemId} > &:is(div)`]: {
               boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
             },
-            '[role=treeitem][aria-current=true] > &': {
+            '[role=treeitem][aria-current=true] > &:is(div)': {
               bg: 'actionListItem.default.selectedBg',
               '&::after': {
                 position: 'absolute',
@@ -235,10 +277,30 @@ const Item: React.FC<TreeViewItemProps> = ({
               display: 'flex',
               alignItems: 'center',
               height: '100%',
-              px: 2
+              px: 2,
+              gap: 2
             }}
           >
-            {childrenWithoutSubTree}
+            <Slots>
+              {slots => (
+                <>
+                  {slots.LeadingVisual}
+                  <Text
+                    sx={{
+                      // Truncate text label
+                      flex: '1 1 auto',
+                      width: 0,
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis'
+                    }}
+                  >
+                    {childrenWithoutSubTree}
+                  </Text>
+                  {slots.TrailingVisual}
+                </>
+              )}
+            </Slots>
           </Box>
         </Box>
         {subTree}
@@ -301,6 +363,23 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
 }
 
 // ----------------------------------------------------------------------------
+// TreeView.LoadingItem
+
+const LoadingItem: React.FC = () => {
+  return (
+    // TODO: What aria attributes do we need to add here?
+    <Item>
+      <LeadingVisual>
+        <Spinner size="small" />
+      </LeadingVisual>
+      <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
+  )
+}
+
+LoadingItem.displayName = 'TreeView.LoadingItem'
+
+// ----------------------------------------------------------------------------
 // TreeView.SubTree
 
 export type TreeViewSubTreeProps = {
@@ -344,10 +423,51 @@ function useSubTree(children: React.ReactNode) {
 }
 
 // ----------------------------------------------------------------------------
+// TreeView.LeadingVisual and TreeView.TrailingVisual
+
+export type TreeViewVisualProps = {
+  children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
+}
+
+const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <Slot name="LeadingVisual">
+      <Box sx={{display: 'flex', color: 'fg.muted'}}>{children}</Box>
+    </Slot>
+  )
+}
+
+const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <Slot name="TrailingVisual">
+      <Box sx={{display: 'flex', color: 'fg.muted'}}>{children}</Box>
+    </Slot>
+  )
+}
+
+// ----------------------------------------------------------------------------
+// TreeView.DirectoryIcon
+
+const DirectoryIcon = () => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
+  // TODO: Use correct color
+  return <StyledOcticon icon={icon} />
+}
+
+// ----------------------------------------------------------------------------
 // Export
 
 export const TreeView = Object.assign(Root, {
   Item,
   LinkItem,
-  SubTree
+  LoadingItem,
+  SubTree,
+  LeadingVisual,
+  TrailingVisual,
+  DirectoryIcon
 })
