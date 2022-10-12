@@ -168,18 +168,20 @@ const Item: React.FC<TreeViewItemProps> = ({
           break
 
         case 'ArrowRight':
-          if (!isExpanded) toggle()
+          event.preventDefault()
+          setIsExpanded(true)
           break
 
         case 'ArrowLeft':
-          if (isExpanded) toggle()
+          event.preventDefault()
+          setIsExpanded(false)
           break
       }
     }
 
     element?.addEventListener('keydown', handleKeyDown)
     return () => element?.removeEventListener('keydown', handleKeyDown)
-  }, [toggle, onSelect, isExpanded])
+  }, [toggle, onSelect, setIsExpanded])
 
   return (
     <ItemContext.Provider value={{level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
