@@ -15,7 +15,7 @@ export function useStickyPaneHeight() {
 
   // Create intersection observers to track the top and bottom of the content region
   const [contentTopRef, contentTopInView, contentTopEntry] = useInView()
-  const [contentBottomRef, contentBottomInView, contentBottomEntry] = useInView()
+  const [contentBottomRef, contentBottomInView] = useInView()
 
   // Calculate the height of the sticky pane based on the position of the
   // top and bottom of the content region
