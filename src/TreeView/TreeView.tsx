@@ -168,18 +168,20 @@ const Item: React.FC<TreeViewItemProps> = ({
           break
 
         case 'ArrowRight':
-          if (!isExpanded) toggle()
+          event.preventDefault()
+          setIsExpanded(true)
           break
 
         case 'ArrowLeft':
-          if (isExpanded) toggle()
+          event.preventDefault()
+          setIsExpanded(false)
           break
       }
     }
 
     element?.addEventListener('keydown', handleKeyDown)
     return () => element?.removeEventListener('keydown', handleKeyDown)
-  }, [toggle, onSelect, isExpanded])
+  }, [toggle, onSelect, setIsExpanded])
 
   return (
     <ItemContext.Provider value={{level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
@@ -225,7 +227,7 @@ const Item: React.FC<TreeViewItemProps> = ({
             // are unnecessarily specific to work around that styled-components bug.
             // Reference issue: https://github.com/styled-components/styled-components/issues/3265
             [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible #${itemId} > &:is(div)`]: {
-              boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
+              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`
             },
             '[role=treeitem][aria-current=true] > &:is(div)': {
               bg: 'actionListItem.default.selectedBg',
