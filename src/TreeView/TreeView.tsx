@@ -225,7 +225,7 @@ const Item: React.FC<TreeViewItemProps> = ({
             // are unnecessarily specific to work around that styled-components bug.
             // Reference issue: https://github.com/styled-components/styled-components/issues/3265
             [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible #${itemId} > &:is(div)`]: {
-              boxShadow: (theme: Theme) => `0 0 0 2px ${theme.colors.accent.emphasis}`
+              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`
             },
             '[role=treeitem][aria-current=true] > &:is(div)': {
               bg: 'actionListItem.default.selectedBg',
