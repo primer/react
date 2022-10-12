@@ -101,6 +101,8 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   )
 }
 
+Root.displayName = 'TreeView'
+
 // ----------------------------------------------------------------------------
 // TreeView.Item
 
@@ -360,6 +362,8 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
   )
 }
 
+Item.displayName = 'TreeView.Item'
+
 // ----------------------------------------------------------------------------
 // TreeView.LinkItem
 
@@ -379,6 +383,8 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
     />
   )
 }
+
+LinkItem.displayName = 'TreeView.LinkItem'
 
 // ----------------------------------------------------------------------------
 // TreeView.SubTree and TreeView.AsyncSubTree
@@ -404,6 +410,8 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({children}) => {
     </Box>
   )
 }
+
+SubTree.displayName = 'TreeView.SubTree'
 
 export enum AsyncSubTreeState {
   Initial = 'initial',
@@ -465,6 +473,8 @@ const AsyncSubTree: React.FC<TreeViewAsyncSubTreeProps> = ({state, children}) =>
     </Box>
   )
 }
+
+AsyncSubTree.displayName = 'TreeView.AsyncSubTree'
 
 const LoadingItem = () => {
   const {activeDescendant, setActiveDescendant} = React.useContext(RootContext)
@@ -543,6 +553,8 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
   )
 }
 
+LeadingVisual.displayName = 'TreeView.LeadingVisual'
+
 const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
@@ -552,6 +564,8 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
     </Slot>
   )
 }
+
+TrailingVisual.displayName = 'TreeView.TrailingVisual'
 
 // ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
@@ -569,7 +583,6 @@ const DirectoryIcon = () => {
 export const TreeView = Object.assign(Root, {
   Item,
   LinkItem,
-  LoadingItem,
   SubTree,
   AsyncSubTree,
   LeadingVisual,
