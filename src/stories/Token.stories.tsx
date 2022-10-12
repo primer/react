@@ -12,16 +12,16 @@ import {GitBranchIcon} from '@primer/octicons-react'
 export default {
   title: 'Components/Token',
   component: Token,
+  args: {
+    text: 'Token',
+    size: 'medium'
+  },
   argTypes: {
-    text: {
-      defaultValue: 'Token'
-    },
     size: {
-      defaultValue: 'medium',
       control: {
-        options: ['small', 'medium', 'large', 'xlarge'],
         type: 'radio'
-      }
+      },
+      options: ['small', 'medium', 'large', 'xlarge']
     }
   },
   decorators: [
@@ -93,9 +93,9 @@ export const Interactive = (args: Omit<TokenProps, 'ref' | 'text'>) => {
           gap: get('space.2')
         }}
       >
-        <Token as="a" href="http://google.com/" text="Link" {...args} />
-        <Token as="button" onClick={action('clicked')} text="Button" {...args} />
-        <Token as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
+        <Token as="a" href="http://google.com/" {...args} text="Link" />
+        <Token as="button" onClick={action('clicked')} {...args} text="Button" />
+        <Token as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
       </Box>
     </ExampleCollectionContainer>
   )

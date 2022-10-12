@@ -11,15 +11,15 @@ import Text from '../Text'
 export default {
   title: 'Components/IssueLabelToken',
   component: IssueLabelToken,
+  args: {
+    fillColor: '#0366d6',
+    text: 'good first issue'
+  },
   argTypes: {
     fillColor: {
-      defaultValue: '#0366d6',
       control: {
         type: 'color'
       }
-    },
-    text: {
-      defaultValue: 'good first issue'
     }
   },
   decorators: [
@@ -91,9 +91,9 @@ export const Interactive = (args: Omit<IssueLabelTokenProps, 'ref' | 'text'>) =>
           gap: get('space.2')
         }}
       >
-        <IssueLabelToken as="a" href="http://google.com/" text="Link" {...args} />
-        <IssueLabelToken as="button" onClick={action('clicked')} text="Button" {...args} />
-        <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
+        <IssueLabelToken as="a" href="http://google.com/" {...args} text="Link" />
+        <IssueLabelToken as="button" onClick={action('clicked')} {...args} text="Button" />
+        <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
       </Box>
     </ExampleCollectionContainer>
   )
