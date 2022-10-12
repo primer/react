@@ -1,7 +1,6 @@
 import {DiffAddedIcon} from '@primer/octicons-react'
 import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {UserEvent} from '@testing-library/user-event/dist/types/setup'
 import React, {forwardRef, useLayoutEffect, useRef, useState} from 'react'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
@@ -1143,7 +1142,7 @@ describe('MarkdownEditor', () => {
   })
 
   describe('pasting URLs', () => {
-    const typeAndPaste = async (user: UserEvent, input: HTMLTextAreaElement) => {
+    const typeAndPaste = async (user: typeof userEvent, input: HTMLTextAreaElement) => {
       await user.type(input, 'lorem ipsum dolor sit amet')
       input.setSelectionRange(6, 11)
 
