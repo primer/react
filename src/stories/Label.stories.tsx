@@ -9,31 +9,33 @@ type Args = ComponentProps<typeof Label>
 export default {
   title: 'Components/Label',
   component: Label,
+  args: {
+    variant: 'default',
+    size: 'large'
+  },
   argTypes: {
     variant: {
-      defaultValue: 'default',
       control: {
-        options: [
-          'default',
-          'primary',
-          'secondary',
-          'accent',
-          'success',
-          'attention',
-          'severe',
-          'danger',
-          'done',
-          'sponsors'
-        ],
         type: 'select'
-      }
+      },
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'accent',
+        'success',
+        'attention',
+        'severe',
+        'danger',
+        'done',
+        'sponsors'
+      ]
     },
     size: {
-      defaultValue: 'large',
       control: {
-        options: ['small', 'large'],
         type: 'radio'
-      }
+      },
+      options: ['small', 'large']
     }
   },
   decorators: [

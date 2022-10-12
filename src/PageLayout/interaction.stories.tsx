@@ -10,41 +10,76 @@ const meta: Meta = {
     layout: 'fullscreen',
     controls: {expanded: true}
   },
+  args: {
+    // Debug controls
+    'Render header?': true,
+    'Render pane?': true,
+    'Render footer?': true,
+    'Header placeholder height': 64,
+    'Pane placeholder height': 200,
+    'Content placeholder height': 400,
+    'Footer placeholder height': 64,
+    containerWidth: 'xlarge',
+    padding: 'normal',
+    rowGap: 'normal',
+    columnGap: 'normal',
+    'Header.divider.regular': 'none',
+    'Header.divider.narrow': 'none',
+    'Header.divider.wide': 'none',
+    'Header.padding': 'none',
+    'Header.hidden.regular': false,
+    'Header.hidden.narrow': false,
+    'Header.hidden.wide': false,
+    'Content.width': 'full',
+    'Content.padding': 'none',
+    'Content.hidden.regular': false,
+    'Content.hidden.narrow': false,
+    'Content.hidden.wide': false,
+    'Pane.position.regular': 'end',
+    'Pane.position.narrow': 'end',
+    'Pane.position.wide': 'end',
+    'Pane.width': 'medium',
+    'Pane.sticky': false,
+    'Pane.padding': 'none',
+    'Pane.divider.regular': 'none',
+    'Pane.divider.narrow': 'none',
+    'Pane.divider.wide': 'none',
+    'Footer.divider.regular': 'none',
+    'Footer.divider.narrow': 'none',
+    'Footer.divider.wide': 'none',
+    'Footer.padding': 'none',
+    'Footer.hidden.regular': false,
+    'Footer.hidden.narrow': false,
+    'Footer.hidden.wide': false
+  },
   argTypes: {
     // Debug controls
     'Render header?': {
       type: 'boolean',
-      defaultValue: true,
       table: {category: 'Debug'}
     },
     'Render pane?': {
       type: 'boolean',
-      defaultValue: true,
       table: {category: 'Debug'}
     },
     'Render footer?': {
       type: 'boolean',
-      defaultValue: true,
       table: {category: 'Debug'}
     },
     'Header placeholder height': {
       type: 'number',
-      defaultValue: 64,
       table: {category: 'Debug'}
     },
     'Pane placeholder height': {
       type: 'number',
-      defaultValue: 200,
       table: {category: 'Debug'}
     },
     'Content placeholder height': {
       type: 'number',
-      defaultValue: 400,
       table: {category: 'Debug'}
     },
     'Footer placeholder height': {
       type: 'number',
-      defaultValue: 64,
       table: {category: 'Debug'}
     },
 
@@ -54,7 +89,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['full', 'medium', 'large', 'xlarge']
       },
-      defaultValue: 'xlarge',
       control: {type: 'radio'},
       table: {category: 'PageLayout props'}
     },
@@ -63,7 +97,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'condensed', 'normal']
       },
-      defaultValue: 'normal',
       control: {type: 'radio'},
       table: {category: 'PageLayout props'}
     },
@@ -72,7 +105,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'condensed', 'normal']
       },
-      defaultValue: 'normal',
       control: {type: 'radio'},
       table: {category: 'PageLayout props'}
     },
@@ -81,7 +113,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'condensed', 'normal']
       },
-      defaultValue: 'normal',
       control: {type: 'radio'},
       table: {category: 'PageLayout props'}
     },
@@ -92,7 +123,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line']
       },
-      defaultValue: 'none',
       control: {
         type: 'radio'
       },
@@ -105,7 +135,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line', 'filled']
       },
-      defaultValue: 'none',
       control: {
         type: 'radio'
       },
@@ -118,7 +147,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line']
       },
-      defaultValue: 'none',
       control: {
         type: 'radio'
       },
@@ -131,23 +159,19 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'condensed', 'normal']
       },
-      defaultValue: 'none',
       control: {type: 'radio'},
       table: {category: 'Header props'}
     },
     'Header.hidden.regular': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Header props'}
     },
     'Header.hidden.narrow': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Header props'}
     },
     'Header.hidden.wide': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Header props'}
     },
 
@@ -157,7 +181,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['full', 'medium', 'large', 'xlarge']
       },
-      defaultValue: 'full',
       control: {type: 'radio'},
       table: {category: 'Content props'}
     },
@@ -166,23 +189,19 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'condensed', 'normal']
       },
-      defaultValue: 'none',
       control: {type: 'radio'},
       table: {category: 'Content props'}
     },
     'Content.hidden.regular': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Content props'}
     },
     'Content.hidden.narrow': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Content props'}
     },
     'Content.hidden.wide': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Content props'}
     },
 
@@ -192,7 +211,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['start', 'end']
       },
-      defaultValue: 'end',
       control: {type: 'radio'},
       table: {category: 'Pane props'}
     },
@@ -201,7 +219,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['start', 'end']
       },
-      defaultValue: 'end',
       control: {type: 'radio'},
       table: {category: 'Pane props'}
     },
@@ -210,7 +227,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['start', 'end']
       },
-      defaultValue: 'end',
       control: {type: 'radio'},
       table: {category: 'Pane props'}
     },
@@ -219,13 +235,11 @@ const meta: Meta = {
         name: 'enum',
         value: ['small', 'medium', 'large']
       },
-      defaultValue: 'medium',
       control: {type: 'radio'},
       table: {category: 'Pane props'}
     },
     'Pane.sticky': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Pane props'}
     },
     'Pane.padding': {
@@ -233,7 +247,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'condensed', 'normal']
       },
-      defaultValue: 'none',
       control: {type: 'radio'},
       table: {category: 'Pane props'}
     },
@@ -242,7 +255,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line']
       },
-      defaultValue: 'none',
       control: {type: 'radio'},
       table: {category: 'Pane props'}
     },
@@ -251,7 +263,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line', 'filled']
       },
-      defaultValue: 'none',
       control: {type: 'radio'},
       table: {category: 'Pane props'}
     },
@@ -260,7 +271,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line']
       },
-      defaultValue: 'none',
       control: {type: 'radio'},
       table: {category: 'Pane props'}
     },
@@ -271,7 +281,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line']
       },
-      defaultValue: 'none',
       control: {
         type: 'radio'
       },
@@ -284,7 +293,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line', 'filled']
       },
-      defaultValue: 'none',
       control: {
         type: 'radio'
       },
@@ -297,7 +305,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'line']
       },
-      defaultValue: 'none',
       control: {
         type: 'radio'
       },
@@ -310,40 +317,39 @@ const meta: Meta = {
         name: 'enum',
         value: ['none', 'condensed', 'normal']
       },
-      defaultValue: 'none',
       control: {type: 'radio'},
       table: {category: 'Footer props'}
     },
     'Footer.hidden.regular': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Footer props'}
     },
     'Footer.hidden.narrow': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Footer props'}
     },
     'Footer.hidden.wide': {
       type: 'boolean',
-      defaultValue: false,
       table: {category: 'Footer props'}
     }
   }
 }
 
+StickyPane.args = {
+  sticky: true,
+  numParagraphsInPane: 3,
+  numParagraphsInContent: 30
+}
+
 StickyPane.argTypes = {
   sticky: {
-    type: 'boolean',
-    defaultValue: true
+    type: 'boolean'
   },
   numParagraphsInPane: {
-    type: 'number',
-    defaultValue: 3
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
-    defaultValue: 30
+    type: 'number'
   }
 }
 
@@ -366,18 +372,22 @@ StickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
 }
 
 const NonStickyPane = StickyPane.bind({})
+
+NonStickyPane.args = {
+  sticky: false,
+  numParagraphsInPane: 6,
+  numParagraphsInContent: 30
+}
+
 NonStickyPane.argTypes = {
   sticky: {
-    type: 'boolean',
-    defaultValue: false
+    type: 'boolean'
   },
   numParagraphsInPane: {
-    type: 'number',
-    defaultValue: 6
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
-    defaultValue: 30
+    type: 'number'
   }
 }
 
@@ -390,22 +400,25 @@ NonStickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   expect(isInViewPort(paragraphRect)).toBe(false)
 }
 
+CustomStickyHeader.args = {
+  sticky: true,
+  offsetHeader: '8rem',
+  numParagraphsInPane: 10,
+  numParagraphsInContent: 30
+}
+
 CustomStickyHeader.argTypes = {
   sticky: {
-    type: 'boolean',
-    defaultValue: true
+    type: 'boolean'
   },
   offsetHeader: {
-    type: 'string',
-    defaultValue: '8rem'
+    type: 'string'
   },
   numParagraphsInPane: {
-    type: 'number',
-    defaultValue: 10
+    type: 'number'
   },
   numParagraphsInContent: {
-    type: 'number',
-    defaultValue: 30
+    type: 'number'
   }
 }
 
