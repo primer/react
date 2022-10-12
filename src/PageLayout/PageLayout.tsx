@@ -266,7 +266,6 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
         hidden={isHidden}
         sx={merge<BetterSystemStyleObject>(
           {
-            order: REGION_ORDER.header,
             width: '100%',
             marginBottom: SPACING_MAP[rowGap]
           },
