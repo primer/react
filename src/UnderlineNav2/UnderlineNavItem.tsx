@@ -127,7 +127,6 @@ export const UnderlineNavItem = forwardRef(
           if (typeof afterSelect === 'function') afterSelect(event)
         }
         setSelectedLink(ref as RefObject<HTMLElement>)
-        event.preventDefault()
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
@@ -138,7 +137,6 @@ export const UnderlineNavItem = forwardRef(
           if (typeof afterSelect === 'function') afterSelect(event)
         }
         setSelectedLink(ref as RefObject<HTMLElement>)
-        event.preventDefault()
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
