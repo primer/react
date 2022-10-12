@@ -108,9 +108,6 @@ exports[`PageLayout renders condensed layout 1`] = `
 }
 
 .c2 {
-  -webkit-order: 0;
-  -ms-flex-order: 0;
-  order: 0;
   width: 100%;
   margin-bottom: 16px;
 }
@@ -343,9 +340,6 @@ exports[`PageLayout renders default layout 1`] = `
 }
 
 .c2 {
-  -webkit-order: 0;
-  -ms-flex-order: 0;
-  order: 0;
   width: 100%;
   margin-bottom: 16px;
 }
@@ -628,9 +622,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 }
 
 .c2 {
-  -webkit-order: 0;
-  -ms-flex-order: 0;
-  order: 0;
   width: 100%;
   margin-bottom: 16px;
 }
@@ -890,9 +881,6 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 .c2 {
-  -webkit-order: 0;
-  -ms-flex-order: 0;
-  order: 0;
   width: 100%;
   margin-bottom: 16px;
 }

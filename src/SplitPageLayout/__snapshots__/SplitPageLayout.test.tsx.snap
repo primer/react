@@ -104,9 +104,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 .c2 {
-  -webkit-order: 0;
-  -ms-flex-order: 0;
-  order: 0;
   width: 100%;
   margin-bottom: 0;
 }
