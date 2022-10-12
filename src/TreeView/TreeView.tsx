@@ -9,12 +9,15 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {useControllableState} from '../hooks/useControllableState'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 import Spinner from '../Spinner'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
 import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
+import VisuallyHidden from '../_VisuallyHidden'
+import {getAccessibleName} from './shared'
 import {useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
@@ -22,17 +25,21 @@ import {useTypeahead} from './useTypeahead'
 // Context
 
 const RootContext = React.createContext<{
+  announceUpdate: (message: string) => void
   activeDescendant: string
   setActiveDescendant?: React.Dispatch<React.SetStateAction<string>>
 }>({
+  announceUpdate: () => {},
   activeDescendant: ''
 })
 
 const ItemContext = React.createContext<{
+  itemId: string
   level: number
   isExpanded: boolean
   expandParents: () => void
 }>({
+  itemId: '',
   level: 1,
   isExpanded: false,
   expandParents: () => {}
@@ -51,6 +58,7 @@ const UlBox = styled.ul<SxProp>(sx)
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
+  const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
 
   const [activeDescendant, setActiveDescendant] = useActiveDescendant({containerRef})
 
@@ -59,26 +67,35 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     onFocusChange: element => setActiveDescendant(element.id)
   })
 
+  const announceUpdate = React.useCallback((message: string) => {
+    setAriaLiveMessage(message)
+  }, [])
+
   return (
-    <RootContext.Provider value={{activeDescendant, setActiveDescendant}}>
-      <UlBox
-        ref={containerRef}
-        tabIndex={0}
-        role="tree"
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledby}
-        aria-activedescendant={activeDescendant}
-        sx={{
-          listStyle: 'none',
-          padding: 0,
-          margin: 0,
-          // We'll display a focus ring around the active descendant
-          // instead of the tree itself
-          outline: 0
-        }}
-      >
-        {children}
-      </UlBox>
+    <RootContext.Provider value={{announceUpdate, activeDescendant, setActiveDescendant}}>
+      <>
+        <VisuallyHidden role="status" aria-live="polite">
+          {ariaLiveMessage}
+        </VisuallyHidden>
+        <UlBox
+          ref={containerRef}
+          tabIndex={0}
+          role="tree"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
+          aria-activedescendant={activeDescendant}
+          sx={{
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+            // We'll display a focus ring around the active descendant
+            // instead of the tree itself
+            outline: 0
+          }}
+        >
+          {children}
+        </UlBox>
+      </>
     </RootContext.Provider>
   )
 }
@@ -182,7 +199,7 @@ const Item: React.FC<TreeViewItemProps> = ({
   }, [toggle, onSelect, isExpanded])
 
   return (
-    <ItemContext.Provider value={{level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
+    <ItemContext.Provider value={{itemId, level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
       <li
         id={itemId}
         ref={itemRef}
@@ -366,6 +383,7 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
 // TreeView.LoadingItem
 
 const LoadingItem: React.FC = () => {
+  // TODO: Move focus on unmount
   return (
     // TODO: What aria attributes do we need to add here?
     <Item>
@@ -380,7 +398,7 @@ const LoadingItem: React.FC = () => {
 LoadingItem.displayName = 'TreeView.LoadingItem'
 
 // ----------------------------------------------------------------------------
-// TreeView.SubTree
+// TreeView.SubTree and TreeView.AsyncSubTree
 
 export type TreeViewSubTreeProps = {
   children?: React.ReactNode
@@ -404,14 +422,75 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({children}) => {
   )
 }
 
+export enum AsyncSubTreeState {
+  Initial = 'initial',
+  Loading = 'loading',
+  Done = 'done',
+  Error = 'error'
+}
+
+export type TreeViewAsyncSubTreeProps = {
+  state: AsyncSubTreeState
+  children?: React.ReactNode
+}
+
+const AsyncSubTree: React.FC<TreeViewAsyncSubTreeProps> = ({state, children}) => {
+  const {announceUpdate} = React.useContext(RootContext)
+  const {itemId, isExpanded} = React.useContext(ItemContext)
+  const [isLoading, setIsLoading] = React.useState(false)
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+  const timeoutId = React.useRef<number>(0)
+
+  // Announce when content has loaded
+  React.useEffect(() => {
+    if (state === AsyncSubTreeState.Done) {
+      const parentItem = document.getElementById(itemId)
+
+      if (!parentItem) return
+
+      const parentName = getAccessibleName(parentItem)
+      announceUpdate(`${parentName} content loaded`)
+    }
+  }, [state, itemId, announceUpdate])
+
+  // Show loading indicator after a short delay
+  React.useEffect(() => {
+    if (state === AsyncSubTreeState.Loading) {
+      timeoutId.current = safeSetTimeout(() => {
+        setIsLoading(true)
+      }, 300)
+    } else {
+      setIsLoading(false)
+    }
+    return () => {
+      safeClearTimeout(timeoutId.current)
+    }
+  }, [state, safeSetTimeout, safeClearTimeout])
+
+  return (
+    <Box
+      as="ul"
+      role="group"
+      hidden={!isExpanded}
+      sx={{
+        listStyle: 'none',
+        padding: 0,
+        margin: 0
+      }}
+    >
+      {isLoading ? <LoadingItem /> : children}
+    </Box>
+  )
+}
+
 function useSubTree(children: React.ReactNode) {
   return React.useMemo(() => {
     const subTree = React.Children.toArray(children).find(
-      child => React.isValidElement(child) && child.type === SubTree
+      child => React.isValidElement(child) && (child.type === SubTree || child.type === AsyncSubTree)
     )
 
     const childrenWithoutSubTree = React.Children.toArray(children).filter(
-      child => !(React.isValidElement(child) && child.type === SubTree)
+      child => !(React.isValidElement(child) && (child.type === SubTree || child.type === AsyncSubTree))
     )
 
     return {
@@ -467,6 +546,7 @@ export const TreeView = Object.assign(Root, {
   LinkItem,
   LoadingItem,
   SubTree,
+  AsyncSubTree,
   LeadingVisual,
   TrailingVisual,
   DirectoryIcon
