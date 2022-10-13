@@ -281,6 +281,23 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
+### TreeView.AsyncSubTree
+
+Use `AsyncSubTree` when items in the subtree are loaded asynchronously. `AsyncSubTree` will render a loading indicator when appropriate.
+
+<PropsTable>
+  <PropsTableRow
+    name="state"
+    type={`| AsyncSubTreeState.Initial
+| AsyncSubTreeState.Loading
+| AsyncSubTreeState.Done
+| AsyncSubTreeState.Error`}
+    required
+  />
+  <PropsTableRow name="children" type="React.ReactNode" />
+  {/* <PropsTableSxRow /> */}
+</PropsTable>
+
 ### TreeView.LeadingVisual
 
 <PropsTable>
