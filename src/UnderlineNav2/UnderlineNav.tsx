@@ -12,15 +12,7 @@ import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
 
-import {
-  moreBtnStyles,
-  getDividerStyle,
-  getNavStyles,
-  ulStyles,
-  scrollStyles,
-  moreMenuStyles,
-  menuItemStyles
-} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, scrollStyles, moreMenuStyles} from './styles'
 import {ArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
@@ -354,74 +346,77 @@ export const UnderlineNav = forwardRef(
           iconsVisible
         }}
       >
-        <Box
-          as={as}
-          sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
-          aria-label={ariaLabel}
-          ref={navRef}
-        >
-          {isCoarsePointer && (
-            <ArrowButton
-              scrollValue={scrollValues.scrollLeft}
-              type="left"
-              show={scrollValues.scrollLeft > 0}
-              onScrollWithButton={onScrollWithButton}
-              aria-label={ariaLabel}
-            />
-          )}
-
-          <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
-            {responsiveProps.items}
-            {actions.length > 0 && (
-              <MoreMenuListItem ref={moreMenuRef}>
-                <Box sx={getDividerStyle(theme)}></Box>
-                <ActionMenu>
-                  <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
-                  <ActionMenu.Overlay align="end">
-                    <ActionList selectionVariant="single">
-                      {actions.map((action, index) => {
-                        const {children: actionElementChildren, ...actionElementProps} = action.props
-                        return (
-                          <ActionList.Item
-                            sx={menuItemStyles}
-                            key={index}
-                            {...actionElementProps}
-                            onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                              swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                              setSelectEvent(event)
-                            }}
-                          >
-                            <Box
-                              as="span"
-                              sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
-                            >
-                              {actionElementChildren}
-
-                              {loadingCounters ? (
-                                <LoadingCounter />
-                              ) : (
-                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                              )}
-                            </Box>
-                          </ActionList.Item>
-                        )
-                      })}
-                    </ActionList>
-                  </ActionMenu.Overlay>
-                </ActionMenu>
-              </MoreMenuListItem>
+        <Box sx={{overflow: 'hidden'}}>
+          <Box
+            as={as}
+            sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
+            aria-label={ariaLabel}
+            ref={navRef}
+          >
+            {isCoarsePointer && (
+              <ArrowButton
+                scrollValue={scrollValues.scrollLeft}
+                type="left"
+                show={scrollValues.scrollLeft > 0}
+                onScrollWithButton={onScrollWithButton}
+                aria-label={ariaLabel}
+              />
             )}
-          </NavigationList>
 
-          {isCoarsePointer && (
-            <ArrowButton
-              scrollValue={scrollValues.scrollRight}
-              type="right"
-              show={scrollValues.scrollRight > 0}
-              onScrollWithButton={onScrollWithButton}
-              aria-label={ariaLabel}
-            />
-          )}
+            <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
+              {responsiveProps.items}
+              {actions.length > 0 && (
+                <MoreMenuListItem ref={moreMenuRef}>
+                  <Box sx={getDividerStyle(theme)}></Box>
+                  <ActionMenu>
+                    <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
+                    <ActionMenu.Overlay align="end">
+                      <ActionList selectionVariant="single">
+                        {actions.map((action, index) => {
+                          const {children: actionElementChildren, ...actionElementProps} = action.props
+                          return (
+                            <ActionList.Item
+                              key={index}
+                              {...actionElementProps}
+                              onSelect={(
+                                event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
+                              ) => {
+                                swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                                setSelectEvent(event)
+                              }}
+                            >
+                              <Box
+                                as="span"
+                                sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
+                              >
+                                {actionElementChildren}
+
+                                {loadingCounters ? (
+                                  <LoadingCounter />
+                                ) : (
+                                  <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                )}
+                              </Box>
+                            </ActionList.Item>
+                          )
+                        })}
+                      </ActionList>
+                    </ActionMenu.Overlay>
+                  </ActionMenu>
+                </MoreMenuListItem>
+              )}
+            </NavigationList>
+
+            {isCoarsePointer && (
+              <ArrowButton
+                scrollValue={scrollValues.scrollRight}
+                type="right"
+                show={scrollValues.scrollRight > 0}
+                onScrollWithButton={onScrollWithButton}
+                aria-label={ariaLabel}
+              />
+            )}
+          </Box>
         </Box>
       </UnderlineNavContext.Provider>
     )

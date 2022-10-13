@@ -4,6 +4,7 @@ import * as primerComponents from '@primer/react'
 import * as drafts from '@primer/react/drafts'
 import * as deprecated from '@primer/react/deprecated'
 import {Placeholder} from '@primer/react/Placeholder'
+import {MatchMedia} from '@primer/react/hooks/useMedia'
 import React from 'react'
 import State from '../../../components/State'
 
@@ -24,6 +25,7 @@ export default function resolveScope(metastring) {
     ...(metastring.includes('deprecated') ? deprecated : {}),
     ReactRouterLink,
     State,
+    MatchMedia,
     Placeholder
   }
 }
