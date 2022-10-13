@@ -2,23 +2,31 @@ import {Suggestion, Trigger} from '../../InlineAutocomplete'
 
 const MAX_SUGGESTIONS = 5
 
-export type UseSuggestionsHook<T> = (options: T[]) => {
+export type SuggestionOptions<T> = T[] | (() => Promise<T[]>)
+
+export type UseSuggestionsHook<T> = (options: SuggestionOptions<T>) => {
   trigger: Trigger
-  calculateSuggestions: (query: string) => Suggestion[]
+  calculateSuggestions: (query: string) => Promise<Suggestion[]>
 }
 
 export const suggestionsCalculator =
-  <T>(options: T[], score: (query: string, option: T) => number, toSuggestion: (option: T) => Suggestion) =>
-  (query: string) => {
+  <T>(
+    options: SuggestionOptions<T>,
+    score: (query: string, option: T) => number,
+    toSuggestion: (option: T) => Suggestion
+  ) =>
+  async (query: string) => {
+    const optionsArray = Array.isArray(options) ? options : await options()
+
     // If the query is empty, scores will be -INFINITY
     const scoredAndSorted = query
-      ? options
+      ? optionsArray
           .map(o => [score(query, o), o] as const)
           .filter(([s]) => s > 0)
           .sort(([a], [b]) => b - a)
           .slice(0, MAX_SUGGESTIONS)
           .map(([, o]) => o)
-      : options.slice(0, MAX_SUGGESTIONS)
+      : optionsArray.slice(0, MAX_SUGGESTIONS)
 
     return scoredAndSorted.map(toSuggestion)
   }

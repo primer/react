@@ -6,7 +6,7 @@ import Tooltip from '../Tooltip'
 import {SearchIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Tooltip/Default',
+  title: 'Components/Tooltip/Default',
   component: Tooltip,
 
   decorators: [

@@ -7,6 +7,7 @@ import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTok
 import IssueLabelToken from '../Token/IssueLabelToken'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
@@ -17,7 +18,7 @@ import {
 const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', ...textInputExcludedControlKeys]
 
 export default {
-  title: 'Forms/Form Controls/Text Input with Tokens',
+  title: 'Components/Forms/TextInputWithTokens',
   component: TextInputWithTokens,
   decorators: [
     Story => {
@@ -42,6 +43,9 @@ export default {
       )
     }
   ],
+  args: {
+    ...formControlArgs
+  },
   argTypes: {
     ...getTextInputArgTypes('TextInput props'),
     ...textInputWithTokensArgTypes,

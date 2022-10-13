@@ -10,7 +10,6 @@ removed.
 */
 
 let signalSupported = false
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop() {}
 try {
   const options = Object.create(

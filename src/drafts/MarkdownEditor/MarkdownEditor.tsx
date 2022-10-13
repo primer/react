@@ -24,6 +24,7 @@ import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
 import {isModifierKey} from './utils'
+import {SuggestionOptions} from './suggestions'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -69,12 +70,21 @@ export type MarkdownEditorProps = SxProp & {
    * @default 35
    */
   maxHeightLines?: number
-  /** Array of all possible emojis to suggest. Leave `undefined` to disable emoji autocomplete. */
-  emojiSuggestions?: Array<Emoji>
-  /** Array of all possible mention suggestions. Leave `undefined` to disable `@`-mention autocomplete. */
-  mentionSuggestions?: Array<Mentionable>
-  /** Array of all possible references to suggest. Leave `undefined` to disable `#`-reference autocomplete. */
-  referenceSuggestions?: Array<Reference>
+  /**
+   * Array of all possible emojis to suggest. Leave `undefined` to disable emoji autocomplete.
+   * For lazy-loading suggestions, an async function can be provided instead.
+   */
+  emojiSuggestions?: SuggestionOptions<Emoji>
+  /**
+   * Array of all possible mention suggestions. Leave `undefined` to disable `@`-mention autocomplete.
+   * For lazy-loading suggestions, an async function can be provided instead.
+   */
+  mentionSuggestions?: SuggestionOptions<Mentionable>
+  /**
+   * Array of all possible references to suggest. Leave `undefined` to disable `#`-reference autocomplete.
+   * For lazy-loading suggestions, an async function can be provided instead.
+   */
+  referenceSuggestions?: SuggestionOptions<Reference>
   /**
    * Uploads a file to a hosting service and returns the URL. If not provided, file uploads
    * will be disabled.
@@ -95,6 +105,14 @@ export type MarkdownEditorProps = SxProp & {
   name?: string
   /** To enable the saved replies feature, provide an array of replies. */
   savedReplies?: SavedReply[]
+  /**
+   * Control whether URLs are pasted as plain text instead of as formatted links (if the
+   * user has selected some text before pasting). Defaults to `false` (URLs will paste as
+   * links). This should typically be controlled by user settings.
+   *
+   * Users can always toggle this behavior by holding `shift` when pasting.
+   */
+  pasteUrlsAsPlainText?: boolean
 }
 
 const handleBrand = Symbol()
@@ -157,7 +175,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       required = false,
       name,
       children,
-      savedReplies
+      savedReplies,
+      pasteUrlsAsPlainText = false
     },
     ref
   ) => {
@@ -389,6 +408,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                   monospace={monospace}
                   required={required}
                   name={name}
+                  pasteUrlsAsPlainText={pasteUrlsAsPlainText}
                   {...inputCompositionProps}
                   {...fileHandler?.pasteTargetProps}
                   {...fileHandler?.dropTargetProps}

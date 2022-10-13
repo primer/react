@@ -42,7 +42,8 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
     containerRef: customContainerRef,
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusOutBehavior: 'wrap',
-    focusInStrategy: customStrategy
+    focusInStrategy: customStrategy,
+    focusableElementFilter: element => element.getAttribute('role') === 'tab'
   })
   return (
     <TabNavBase {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>

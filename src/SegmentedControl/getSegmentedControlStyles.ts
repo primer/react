@@ -37,7 +37,7 @@ export const getSegmentedControlButtonStyles = (
   color: 'currentColor',
   cursor: 'pointer',
   fontFamily: 'inherit',
-  fontSize: 1,
+  fontSize: 'inherit',
   fontWeight: props?.selected ? 'bold' : 'normal',
   padding: props?.selected ? 0 : 'var(--segmented-control-button-bg-inset)',
   height: '100%',
@@ -114,7 +114,6 @@ export const getSegmentedControlListItemStyles = () => ({
   flexGrow: 1,
   marginTop: '-1px',
   marginBottom: '-1px',
-  height: '32px', // TODO: use primitive `control.medium.size` when it is available
   ':not(:last-child)': borderedSegment,
   ...directChildLayoutAdjustments
 })
