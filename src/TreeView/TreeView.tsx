@@ -389,39 +389,16 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
 LinkItem.displayName = 'TreeView.LinkItem'
 
 // ----------------------------------------------------------------------------
-// TreeView.SubTree and TreeView.AsyncSubTree
+// TreeView.SubTree
+
+export type SubTreeState = 'initial' | 'loading' | 'done' | 'error'
 
 export type TreeViewSubTreeProps = {
   children?: React.ReactNode
+  state?: SubTreeState
 }
 
-const SubTree: React.FC<TreeViewSubTreeProps> = ({children}) => {
-  const {isExpanded} = React.useContext(ItemContext)
-  return (
-    <Box
-      as="ul"
-      role="group"
-      hidden={!isExpanded}
-      sx={{
-        listStyle: 'none',
-        padding: 0,
-        margin: 0
-      }}
-    >
-      {children}
-    </Box>
-  )
-}
-
-SubTree.displayName = 'TreeView.SubTree'
-
-export type AsyncSubTreeState = 'initial' | 'loading' | 'done' | 'error'
-export type TreeViewAsyncSubTreeProps = {
-  state: AsyncSubTreeState
-  children?: React.ReactNode
-}
-
-const AsyncSubTree: React.FC<TreeViewAsyncSubTreeProps> = ({state, children}) => {
+const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded} = React.useContext(ItemContext)
   const [isLoading, setIsLoading] = React.useState(false)
@@ -470,7 +447,7 @@ const AsyncSubTree: React.FC<TreeViewAsyncSubTreeProps> = ({state, children}) =>
   )
 }
 
-AsyncSubTree.displayName = 'TreeView.AsyncSubTree'
+SubTree.displayName = 'TreeView.SubTree'
 
 const LoadingItem = () => {
   const {activeDescendant, setActiveDescendant} = React.useContext(RootContext)
@@ -517,11 +494,11 @@ const LoadingItem = () => {
 function useSubTree(children: React.ReactNode) {
   return React.useMemo(() => {
     const subTree = React.Children.toArray(children).find(
-      child => React.isValidElement(child) && (child.type === SubTree || child.type === AsyncSubTree)
+      child => React.isValidElement(child) && child.type === SubTree
     )
 
     const childrenWithoutSubTree = React.Children.toArray(children).filter(
-      child => !(React.isValidElement(child) && (child.type === SubTree || child.type === AsyncSubTree))
+      child => !(React.isValidElement(child) && child.type === SubTree)
     )
 
     return {
@@ -580,7 +557,6 @@ export const TreeView = Object.assign(Root, {
   Item,
   LinkItem,
   SubTree,
-  AsyncSubTree,
   LeadingVisual,
   TrailingVisual,
   DirectoryIcon

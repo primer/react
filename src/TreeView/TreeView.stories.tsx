@@ -7,7 +7,7 @@ import Box from '../Box'
 import {Button} from '../Button'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import StyledOcticon from '../StyledOcticon'
-import {AsyncSubTreeState, TreeView} from './TreeView'
+import {SubTreeState, TreeView} from './TreeView'
 
 const meta: Meta = {
   title: 'Components/TreeView',
@@ -409,7 +409,7 @@ export const AsyncSuccess: Story = args => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
-  let state: AsyncSubTreeState = 'initial'
+  let state: SubTreeState = 'initial'
 
   if (isLoading) {
     state = 'loading'
@@ -438,7 +438,7 @@ export const AsyncSuccess: Story = args => {
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Directory with async items
-            <TreeView.AsyncSubTree state={state}>
+            <TreeView.SubTree state={state}>
               {asyncItems.map(item => (
                 <TreeView.Item key={item}>
                   <TreeView.LeadingVisual>
@@ -447,7 +447,7 @@ export const AsyncSuccess: Story = args => {
                   {item}
                 </TreeView.Item>
               ))}
-            </TreeView.AsyncSubTree>
+            </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
       </nav>
@@ -471,7 +471,7 @@ export const AsyncError: Story = args => {
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
   const [error, setError] = React.useState<Error | null>(null)
 
-  let state: AsyncSubTreeState = 'initial'
+  let state: SubTreeState = 'initial'
 
   if (isLoading) {
     state = 'loading'
@@ -515,7 +515,7 @@ export const AsyncError: Story = args => {
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Directory with async items
-            <TreeView.AsyncSubTree state={state}>
+            <TreeView.SubTree state={state}>
               {error ? (
                 <ConfirmationDialog
                   title="Error"
@@ -541,7 +541,7 @@ export const AsyncError: Story = args => {
                   {item}
                 </TreeView.Item>
               ))}
-            </TreeView.AsyncSubTree>
+            </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
       </nav>
