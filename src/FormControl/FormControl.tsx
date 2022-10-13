@@ -9,7 +9,7 @@ import TextInput from '../TextInput'
 import TextInputWithTokens from '../TextInputWithTokens'
 import {useSSRSafeId} from '../utils/ssr'
 import FormControlCaption from './_FormControlCaption'
-import FormControlLabel from './_FormControlLabel'
+import FormControlLabel, {Props as FormControlLabelProps} from './_FormControlLabel'
 import FormControlValidation from './_FormControlValidation'
 import {Slots} from './slots'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
@@ -149,11 +149,18 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             <Box ref={ref} display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined} sx={sx}>
               <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
                 {React.isValidElement(InputComponent) &&
-                  React.cloneElement(InputComponent, {
-                    id,
-                    disabled,
-                    ['aria-describedby']: captionId
-                  })}
+                  React.cloneElement(
+                    InputComponent as React.ReactElement<{
+                      id: string
+                      disabled: boolean
+                      ['aria-describedby']: string
+                    }>,
+                    {
+                      id,
+                      disabled,
+                      ['aria-describedby']: captionId as string
+                    }
+                  )}
                 {React.Children.toArray(children).filter(
                   child =>
                     React.isValidElement(child) &&
@@ -175,7 +182,10 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   {slots.LeadingVisual}
                 </Box>
               )}
-              {(React.isValidElement(slots.Label) && !slots.Label.props.visuallyHidden) || slots.Caption ? (
+              {(React.isValidElement(slots.Label) &&
+                slots.Label.type === FormControlLabel &&
+                !(slots.Label.props as FormControlLabelProps).visuallyHidden) ||
+              slots.Caption ? (
                 <Box display="flex" flexDirection="column" ml={2}>
                   {slots.Label}
                   {slots.Caption}
@@ -197,14 +207,19 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             >
               {slots.Label}
               {React.isValidElement(InputComponent) &&
-                React.cloneElement(InputComponent, {
-                  id,
-                  required,
-                  disabled,
-                  validationStatus,
-                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
-                  ...InputComponent.props
-                })}
+                React.cloneElement(
+                  InputComponent,
+                  Object.assign(
+                    {
+                      id,
+                      required,
+                      disabled,
+                      validationStatus,
+                      ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+                    },
+                    InputComponent.props
+                  )
+                )}
               {React.Children.toArray(children).filter(
                 child =>
                   React.isValidElement(child) &&
