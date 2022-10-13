@@ -1,7 +1,7 @@
 import {fireEvent, render} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
-import {AsyncSubTreeState, TreeView} from './TreeView'
+import {SubTreeState, TreeView} from './TreeView'
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
@@ -1029,18 +1029,18 @@ describe('Controlled state', () => {
 describe.only('Asyncronous loading', () => {
   it('updates aria live region when loading is done', () => {
     function TestTree() {
-      const [state, setState] = React.useState(AsyncSubTreeState.Loading)
+      const [state, setState] = React.useState<SubTreeState>('loading')
 
       return (
         <div>
           {/* Mimic the completion of async loading by clicking the button */}
-          <button onClick={() => setState(AsyncSubTreeState.Done)}>Done</button>
+          <button onClick={() => setState('done')}>Done</button>
           <TreeView aria-label="Test tree">
             <TreeView.Item defaultExpanded>
               Parent
-              <TreeView.AsyncSubTree state={state}>
+              <TreeView.SubTree state={state}>
                 <TreeView.Item>Child</TreeView.Item>
-              </TreeView.AsyncSubTree>
+              </TreeView.SubTree>
             </TreeView.Item>
           </TreeView>
         </div>
@@ -1063,10 +1063,10 @@ describe.only('Asyncronous loading', () => {
 
   it('moves active descendant from loading item to first child', async () => {
     function TestTree() {
-      const [state, setState] = React.useState(AsyncSubTreeState.Loading)
+      const [state, setState] = React.useState<SubTreeState>('loading')
 
       React.useEffect(() => {
-        const timer = setTimeout(() => setState(AsyncSubTreeState.Done), 1000)
+        const timer = setTimeout(() => setState('done'), 1000)
         return () => clearTimeout(timer)
       }, [])
 
@@ -1074,10 +1074,10 @@ describe.only('Asyncronous loading', () => {
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
             Parent
-            <TreeView.AsyncSubTree state={state}>
+            <TreeView.SubTree state={state}>
               <TreeView.Item>Child 1</TreeView.Item>
               <TreeView.Item>Child 2</TreeView.Item>
-            </TreeView.AsyncSubTree>
+            </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
       )
