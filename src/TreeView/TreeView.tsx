@@ -216,7 +216,11 @@ const Item: React.FC<TreeViewItemProps> = ({
             borderRadius: 2,
             cursor: 'pointer',
             '&:hover': {
-              backgroundColor: 'actionListItem.default.hoverBg'
+              backgroundColor: 'actionListItem.default.hoverBg',
+              '@media (forced-colors: active)': {
+                outline: '2px solid transparent',
+                outlineOffset: -2
+              }
             },
             '@media (pointer: coarse)': {
               '--toggle-width': '1.5rem', // 24px
@@ -228,7 +232,10 @@ const Item: React.FC<TreeViewItemProps> = ({
             // Reference issue: https://github.com/styled-components/styled-components/issues/3265
             [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible #${itemId} > &:is(div)`]: {
               boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
-              outline: '2px solid transparent'
+              '@media (forced-colors: active)': {
+                outline: '2px solid SelectedItem',
+                outlineOffset: -2
+              }
             },
             '[role=treeitem][aria-current=true] > &:is(div)': {
               bg: 'actionListItem.default.selectedBg',
