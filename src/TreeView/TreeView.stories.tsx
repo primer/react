@@ -409,12 +409,12 @@ export const AsyncSuccess: Story = args => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
-  let state = AsyncSubTreeState.Initial
+  let state: AsyncSubTreeState = 'initial'
 
   if (isLoading) {
-    state = AsyncSubTreeState.Loading
+    state = 'loading'
   } else if (asyncItems.length > 0) {
-    state = AsyncSubTreeState.Done
+    state = 'done'
   }
 
   return (
@@ -471,14 +471,14 @@ export const AsyncError: Story = args => {
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
   const [error, setError] = React.useState<Error | null>(null)
 
-  let state = AsyncSubTreeState.Initial
+  let state: AsyncSubTreeState = 'initial'
 
   if (isLoading) {
-    state = AsyncSubTreeState.Loading
+    state = 'loading'
   } else if (error) {
-    state = AsyncSubTreeState.Error
+    state = 'error'
   } else if (asyncItems.length > 0) {
-    state = AsyncSubTreeState.Done
+    state = 'done'
   }
 
   async function loadItems() {

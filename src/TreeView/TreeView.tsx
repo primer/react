@@ -413,13 +413,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({children}) => {
 
 SubTree.displayName = 'TreeView.SubTree'
 
-export enum AsyncSubTreeState {
-  Initial = 'initial',
-  Loading = 'loading',
-  Done = 'done',
-  Error = 'error'
-}
-
+export type AsyncSubTreeState = 'initial' | 'loading' | 'done' | 'error'
 export type TreeViewAsyncSubTreeProps = {
   state: AsyncSubTreeState
   children?: React.ReactNode
@@ -434,7 +428,7 @@ const AsyncSubTree: React.FC<TreeViewAsyncSubTreeProps> = ({state, children}) =>
 
   // Announce when content has loaded
   React.useEffect(() => {
-    if (state === AsyncSubTreeState.Done) {
+    if (state === 'done') {
       const parentItem = document.getElementById(itemId)
 
       if (!parentItem) return
@@ -446,7 +440,7 @@ const AsyncSubTree: React.FC<TreeViewAsyncSubTreeProps> = ({state, children}) =>
 
   // Show loading indicator after a short delay
   React.useEffect(() => {
-    if (state === AsyncSubTreeState.Loading) {
+    if (state === 'loading') {
       timeoutId.current = safeSetTimeout(() => {
         setIsLoading(true)
       }, 300)

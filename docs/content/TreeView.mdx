@@ -288,10 +288,10 @@ Use `AsyncSubTree` when items in the subtree are loaded asynchronously. `AsyncSu
 <PropsTable>
   <PropsTableRow
     name="state"
-    type={`| AsyncSubTreeState.Initial
-| AsyncSubTreeState.Loading
-| AsyncSubTreeState.Done
-| AsyncSubTreeState.Error`}
+    type={`| 'initial' 
+| 'loading'
+| 'done'
+| 'error'`}
     required
   />
   <PropsTableRow name="children" type="React.ReactNode" />
