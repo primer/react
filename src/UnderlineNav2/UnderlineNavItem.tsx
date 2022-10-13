@@ -72,6 +72,7 @@ export const UnderlineNavItem = forwardRef(
       selectedLinkText,
       setSelectedLinkText,
       setFocusedLink,
+      setAsNavItem,
       selectEvent,
       afterSelect,
       variant,
@@ -107,6 +108,8 @@ export const UnderlineNavItem = forwardRef(
         if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
         setSelectedLinkText('')
       }
+
+      setAsNavItem(Component)
     }, [
       ref,
       preSelected,
@@ -117,7 +120,9 @@ export const UnderlineNavItem = forwardRef(
       setChildrenWidth,
       setNoIconChildrenWidth,
       onSelect,
-      selectEvent
+      selectEvent,
+      Component,
+      setAsNavItem
     ])
 
     const keyPressHandler = React.useCallback(

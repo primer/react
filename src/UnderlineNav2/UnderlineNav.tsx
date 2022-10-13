@@ -12,7 +12,15 @@ import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
 
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, scrollStyles, moreMenuStyles} from './styles'
+import {
+  moreBtnStyles,
+  getDividerStyle,
+  getNavStyles,
+  ulStyles,
+  scrollStyles,
+  moreMenuStyles,
+  menuItemStyles
+} from './styles'
 import {ArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
@@ -216,6 +224,8 @@ export const UnderlineNav = forwardRef(
 
     const isCoarsePointer = useMedia('(pointer: coarse)')
 
+    const [asNavItem, setAsNavItem] = useState('a')
+
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
 
     const [focusedLink, setFocusedLink] = useState<RefObject<HTMLElement> | null>(null)
@@ -339,6 +349,7 @@ export const UnderlineNav = forwardRef(
           selectedLinkText,
           setSelectedLinkText,
           setFocusedLink,
+          setAsNavItem,
           selectEvent,
           afterSelect: afterSelectHandler,
           variant,
@@ -375,29 +386,32 @@ export const UnderlineNav = forwardRef(
                         {actions.map((action, index) => {
                           const {children: actionElementChildren, ...actionElementProps} = action.props
                           return (
-                            <ActionList.Item
-                              key={index}
-                              {...actionElementProps}
-                              onSelect={(
-                                event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
-                              ) => {
-                                swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                                setSelectEvent(event)
-                              }}
-                            >
-                              <Box
-                                as="span"
-                                sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
+                            <Box key={index} as="li">
+                              <ActionList.Item
+                                as={asNavItem}
+                                sx={menuItemStyles}
+                                {...actionElementProps}
+                                onSelect={(
+                                  event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
+                                ) => {
+                                  swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                                  setSelectEvent(event)
+                                }}
                               >
-                                {actionElementChildren}
+                                <Box
+                                  as="span"
+                                  sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
+                                >
+                                  {actionElementChildren}
 
-                                {loadingCounters ? (
-                                  <LoadingCounter />
-                                ) : (
-                                  <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                                )}
-                              </Box>
-                            </ActionList.Item>
+                                  {loadingCounters ? (
+                                    <LoadingCounter />
+                                  ) : (
+                                    <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                  )}
+                                </Box>
+                              </ActionList.Item>
+                            </Box>
                           )
                         })}
                       </ActionList>

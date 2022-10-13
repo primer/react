@@ -32,19 +32,20 @@ export const counterStyles = {
 
 export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavProps, 'align'>>) => ({
   display: 'flex',
-  paddingX: 2,
   justifyContent: props?.align === 'right' ? 'flex-end' : 'flex-start',
   borderBottom: '1px solid',
   borderBottomColor: `${theme?.colors.border.muted}`,
   align: 'row',
   alignItems: 'center',
-  position: 'relative'
+  position: 'relative',
+  paddingX: 3
 })
 
 export const ulStyles = {
   display: 'flex',
   listStyle: 'none',
-  padding: '0',
+  paddingY: 0,
+  paddingX: 0,
   margin: '0',
   marginBottom: '-1px',
   alignItems: 'center'
@@ -82,6 +83,8 @@ export const btnWrapperStyles = (
   bottom: 0,
   left: direction === 'left' ? 0 : 'auto',
   right: direction === 'right' ? 0 : 'auto',
+  // Min touch target size
+  width: '44px',
   alignItems: 'center',
   background: show
     ? `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
@@ -90,33 +93,28 @@ export const btnWrapperStyles = (
   display: `${display}`
 })
 
-export const getArrowBtnStyles = (theme?: Theme, direction = 'left') => ({
-  fontWeight: 'normal',
+export const getArrowBtnStyles = (theme?: Theme) => ({
   boxShadow: 'none',
-  margin: 0,
   border: 0,
-  borderRadius: 2,
-  paddingX: '14px',
-  paddingY: 0,
   background: 'transparent',
-  height: '60%',
-
+  width: '100%',
+  height: '100%',
+  // to reset the hover styles of the button
   '&:hover:not([disabled]), &:focus-visible': {
-    background: theme?.colors.canvas.default
+    background: 'transparent'
   },
+  // To reset global focus styles because it doesn't support safari right now.
   '&:focus:not(:disabled)': {
     outline: 0,
-    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
-    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
+    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
   },
   // where focus-visible is supported, remove the focus box-shadow
   '&:not(:focus-visible)': {
-    boxShadow: 'none',
-    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
+    boxShadow: 'none'
   },
   '&:focus-visible:not(:disabled)': {
-    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
-    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
+    outline: 0,
+    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
   }
 })
 
@@ -200,5 +198,7 @@ export const menuItemStyles = {
   // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32
   '& > span': {
     display: 'none'
-  }
+  },
+  // To reset the style when the menu items are rendered as react router links
+  textDecoration: 'none'
 }

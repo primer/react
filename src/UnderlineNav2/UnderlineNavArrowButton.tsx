@@ -56,7 +56,7 @@ const ArrowButton = ({
         aria-label={`Scroll ${ariaLabel} navigation ${type}`}
         onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => onScrollWithButton(e, direction)}
         icon={type === 'left' ? ChevronLeftIcon : ChevronRightIcon}
-        sx={getArrowBtnStyles(theme, type)}
+        sx={getArrowBtnStyles(theme)}
         aria-disabled={!show}
       />
     </Box>
