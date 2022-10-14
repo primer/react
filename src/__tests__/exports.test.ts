@@ -1,6 +1,8 @@
-/* eslint-disable import/no-namespace */
+// eslint-disable-next-line import/no-namespace
 import * as Index from '..'
+// eslint-disable-next-line import/no-namespace
 import * as Drafts from '../drafts'
+// eslint-disable-next-line import/no-namespace
 import * as Deprecated from '../deprecated'
 
 describe('@primer/react', () => {
