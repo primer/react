@@ -407,7 +407,9 @@ export const UnderlineNav = forwardRef(
                                   {loadingCounters ? (
                                     <LoadingCounter />
                                   ) : (
-                                    <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                    actionElementProps.counter !== undefined && (
+                                      <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                    )
                                   )}
                                 </Box>
                               </ActionList.Item>
