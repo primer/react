@@ -278,6 +278,37 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
 
 <PropsTable>
   <PropsTableRow name="children" type="React.ReactNode" />
+  <PropsTableRow
+    name="state"
+    type={`| 'initial' 
+| 'loading'
+| 'done'
+| 'error'`}
+    description={
+      <>
+        <p>Specify a state if items in the subtree are loaded asynchronously.</p>
+        <p>
+          An asynchronous subtree can be in one of the following states:
+          <ul>
+            <li>
+              <InlineCode>initial</InlineCode>: Items are neither loaded nor loading.
+            </li>
+            <li>
+              <InlineCode>loading</InlineCode>: Currently loading items. The subtree will render a loading indicator
+              when in this state (after a 300ms delay).
+            </li>
+            <li>
+              <InlineCode>done</InlineCode>: Done loading items. Screen readers will announce when a subtree enters this
+              state.
+            </li>
+            <li>
+              <InlineCode>error</InlineCode>: An error occured while loading items.
+            </li>
+          </ul>
+        </p>
+      </>
+    }
+  />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 

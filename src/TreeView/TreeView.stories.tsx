@@ -7,7 +7,7 @@ import Box from '../Box'
 import {Button} from '../Button'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import StyledOcticon from '../StyledOcticon'
-import {TreeView} from './TreeView'
+import {SubTreeState, TreeView} from './TreeView'
 
 const meta: Meta = {
   title: 'Components/TreeView',
@@ -409,6 +409,14 @@ export const AsyncSuccess: Story = args => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
   return (
     <Box sx={{p: 3}}>
       <nav aria-label="File navigation">
@@ -416,13 +424,11 @@ export const AsyncSuccess: Story = args => {
           <TreeView.Item
             onExpandedChange={async isExpanded => {
               if (asyncItems.length === 0 && isExpanded) {
-                // Show loading indicator after a short delay
-                const timeout = setTimeout(() => setIsLoading(true), 300)
+                setIsLoading(true)
 
                 // Load items
                 const items = await loadItems(args.responseTime)
 
-                clearTimeout(timeout)
                 setIsLoading(false)
                 setAsyncItems(items)
               }
@@ -432,8 +438,7 @@ export const AsyncSuccess: Story = args => {
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Directory with async items
-            <TreeView.SubTree>
-              {isLoading ? <TreeView.LoadingItem /> : null}
+            <TreeView.SubTree state={state}>
               {asyncItems.map(item => (
                 <TreeView.Item key={item}>
                   <TreeView.LeadingVisual>
@@ -466,10 +471,20 @@ export const AsyncError: Story = args => {
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
   const [error, setError] = React.useState<Error | null>(null)
 
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (error) {
+    state = 'error'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
   async function loadItems() {
     if (asyncItems.length === 0) {
-      // Show loading indicator after a short delay
-      const timeout = setTimeout(() => setIsLoading(true), 300)
+      setIsLoading(true)
+
       try {
         // Try to load items
         const items = await alwaysFails(args.responseTime)
@@ -477,7 +492,6 @@ export const AsyncError: Story = args => {
       } catch (error) {
         setError(error as Error)
       } finally {
-        clearTimeout(timeout)
         setIsLoading(false)
       }
     }
@@ -501,8 +515,7 @@ export const AsyncError: Story = args => {
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Directory with async items
-            <TreeView.SubTree>
-              {isLoading ? <TreeView.LoadingItem /> : null}
+            <TreeView.SubTree state={state}>
               {error ? (
                 <ConfirmationDialog
                   title="Error"
