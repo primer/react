@@ -120,9 +120,10 @@
       url: /Select
     - title: SelectPanel
       url: /SelectPanel
-
     - title: Spinner
       url: /Spinner
+    - title: SplitPageLayout
+      url: /SplitPageLayout
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon
