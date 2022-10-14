@@ -13,13 +13,13 @@ jobs:
     name: Update status project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.7.x
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
       - name: Install node deps
