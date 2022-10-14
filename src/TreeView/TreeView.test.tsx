@@ -1026,7 +1026,7 @@ describe('Controlled state', () => {
   })
 })
 
-describe.only('Asyncronous loading', () => {
+describe('Asyncronous loading', () => {
   it('updates aria live region when loading is done', () => {
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('loading')
@@ -1066,7 +1066,7 @@ describe.only('Asyncronous loading', () => {
       const [state, setState] = React.useState<SubTreeState>('loading')
 
       React.useEffect(() => {
-        const timer = setTimeout(() => setState('done'), 1000)
+        const timer = setTimeout(() => setState('done'), 400)
         return () => clearTimeout(timer)
       }, [])
 
