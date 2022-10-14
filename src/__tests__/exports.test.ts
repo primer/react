@@ -1,3 +1,4 @@
+/* eslint-disable import/no-namespace */
 import * as Index from '..'
 import * as Drafts from '../drafts'
 import * as Deprecated from '../deprecated'
