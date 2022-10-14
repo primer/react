@@ -399,11 +399,16 @@ export type TreeViewSubTreeProps = {
 }
 
 const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
-  const {announceUpdate} = React.useContext(RootContext)
+  const {activeDescendant, setActiveDescendant, announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded} = React.useContext(ItemContext)
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoadingItemVisible, setIsLoadingItemVisible] = React.useState(false)
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const timeoutId = React.useRef<number>(0)
+  const activeDescendantRef = React.useRef(activeDescendant)
+
+  React.useEffect(() => {
+    activeDescendantRef.current = activeDescendant
+  }, [activeDescendant])
 
   // Announce when content has loaded
   React.useEffect(() => {
@@ -419,17 +424,33 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
 
   // Show loading indicator after a short delay
   React.useEffect(() => {
-    if (state === 'loading') {
+    if (state === 'loading' && !isLoadingItemVisible) {
       timeoutId.current = safeSetTimeout(() => {
-        setIsLoading(true)
+        setIsLoadingItemVisible(true)
       }, 300)
-    } else {
-      setIsLoading(false)
     }
-    return () => {
+
+    if (state !== 'loading' && isLoadingItemVisible) {
       safeClearTimeout(timeoutId.current)
+      setIsLoadingItemVisible(false)
+
+      // If the active descendant was removed from the DOM after hiding the
+      // LoadingItem, we know the LoadingItem was the active descendant
+      // and we need to update the active descendant to the first loaded item
+      // or the parent item (if the subtree is empty).
+      setTimeout(() => {
+        const activeElement = document.getElementById(activeDescendantRef.current)
+
+        if (!activeElement) {
+          const parentElement = document.getElementById(itemId)
+          if (!parentElement) return
+
+          const firstChild = getFirstChildElement(parentElement)
+          setActiveDescendant(firstChild ? firstChild.id : parentElement.id)
+        }
+      })
     }
-  }, [state, safeSetTimeout, safeClearTimeout])
+  }, [state, safeSetTimeout, safeClearTimeout, setActiveDescendant, isLoadingItemVisible, itemId])
 
   return (
     <Box
@@ -442,7 +463,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
         margin: 0
       }}
     >
-      {isLoading ? <LoadingItem /> : children}
+      {isLoadingItemVisible ? <LoadingItem /> : children}
     </Box>
   )
 }
@@ -450,37 +471,6 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
 SubTree.displayName = 'TreeView.SubTree'
 
 const LoadingItem = () => {
-  const {activeDescendant, setActiveDescendant} = React.useContext(RootContext)
-  const {itemId} = React.useContext(ItemContext)
-  const activeDescendantRef = React.useRef(activeDescendant)
-
-  React.useEffect(() => {
-    activeDescendantRef.current = activeDescendant
-  }, [activeDescendant])
-
-  // When the LoadingItem unmounts, we check if the active descendant
-  // was also removed from the DOM. If it was, we know the LoadingItem was the
-  // active descendant and we need to update the active descendant to the first
-  // loaded item or the parent item (if no items were loaded).
-  React.useEffect(() => {
-    return () => {
-      const activeElement = document.getElementById(activeDescendantRef.current)
-
-      if (!activeElement) {
-        const parentElement = document.getElementById(itemId)
-
-        if (!parentElement) return
-
-        // Wait for next tick to let the loaded items render
-        setTimeout(() => {
-          const firstChild = getFirstChildElement(parentElement)
-
-          setActiveDescendant(firstChild ? firstChild.id : parentElement.id)
-        })
-      }
-    }
-  }, [itemId, setActiveDescendant])
-
   return (
     <Item>
       <LeadingVisual>
