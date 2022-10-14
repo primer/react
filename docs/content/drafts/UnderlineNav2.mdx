@@ -153,16 +153,23 @@ render(<Navigation />)
 ### With React Router
 
 ```jsx
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {UnderlineNav} from '@primer/react/drafts'
 
 const Navigation = () => {
+  const navigate = useNavigate()
   return (
     <UnderlineNav aria-label="Repository">
       <UnderlineNav.Item as={Link} to="code" counter={4} selected>
         Code
       </UnderlineNav.Item>
-      <UnderlineNav.Item counter={44} as={Link} to="issues">
+      <UnderlineNav.Item
+        counter={44}
+        as={Link}
+        onSelect={() => {
+          navigate('issues')
+        }}
+      >
         Issues
       </UnderlineNav.Item>
       <UnderlineNav.Item as={Link} to="pulls">
@@ -173,15 +180,24 @@ const Navigation = () => {
 }
 ```
 
+<Note>
+  You can bind the routing with both 'to' and 'onSelect' prop here. However; please note that if an 'href' prop is
+  passed, it will be ignored here.
+</Note>
+
 ## Props
 
 ### UnderlineNav
 
 <PropsTable>
+  <PropsTableRow name="children" required type="UnderlineNav.Item[]" />
   <PropsTableRow
     name="aria-label"
     type="string"
-    description="A unique name for the rendered 'nav' landmark. It will also be used to label the arrow buttons that control the scroll behaviour on coarse pointer devices. (I.e. 'Scroll ${aria-label} left/right')"
+    description="A unique name for the rendered 'nav' landmark. It will also be used to label the arrow
+        buttons that control the scroll behaviour on coarse pointer devices. (I.e.
+        'Scroll ${aria-label} left/right')
+     "
   />
   <PropsTableRow
     name="loadingCounters"
@@ -200,18 +216,23 @@ const Navigation = () => {
 ### UnderlineNav.Item
 
 <PropsTable>
+  <PropsTableRow
+    name="href"
+    type="string"
+    description="The URL that the item navigates to. 'href' is passed to the underlying '<a>' element. If 'as' is specified, the component may need different props and 'href' is ignored. (Required prop for the react router is 'to' for example)"
+  />
   <PropsTableRow name="icon" type="Component" description="The leading icon comes before item label" />
   <PropsTableRow name="selected" type="boolean" description="Whether the link is selected" />
   <PropsTableRow
     name="onSelect"
     type="(event) => void"
-    description="The handler that gets called when a nav link is selected"
+    description="The handler that gets called when a nav link is selected. For example, a manual route binding can be done here(I.e. 'navigate(href)' for the react router.)"
   />
   <PropsTableRow
     name="as"
-    type="string | Component"
+    type="string | React.ElementType"
     defaultValue="a"
-    description="What kind of component needs to be rendered"
+    description="The underlying element to render — either a HTML element name or a React component."
   />
   <PropsTableSxRow />
 </PropsTable>
