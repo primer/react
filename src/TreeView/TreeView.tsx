@@ -133,7 +133,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
     // Expand or collapse the subtree
     const toggle = React.useCallback(
-      (event?: React.MouseEvent) => {
+      (event?: React.MouseEvent | React.KeyboardEvent) => {
         setIsExpanded(!isExpanded)
         event?.stopPropagation()
       },
@@ -167,7 +167,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             if (onSelect) {
               onSelect(event)
             } else {
-              toggle()
+              toggle(event)
             }
             break
 
