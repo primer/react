@@ -90,10 +90,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
           sx={{
             listStyle: 'none',
             padding: 0,
-            margin: 0,
-            // We'll display a focus ring around the active descendant
-            // instead of the tree itself
-            outline: 0
+            margin: 0
           }}
         >
           {children}
