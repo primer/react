@@ -20,7 +20,6 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
-import VisuallyHidden from '../_VisuallyHidden'
 
 // ----------------------------------------------------------------------------
 // Context
