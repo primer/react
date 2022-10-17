@@ -125,270 +125,264 @@ export type TreeViewItemProps = {
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
-const Item: React.FC<TreeViewItemProps> = ({
-  current: isCurrentItem = false,
-  defaultExpanded = false,
-  expanded,
-  onExpandedChange,
-  onSelect,
-  children
-}) => {
-  const {setActiveDescendant} = React.useContext(RootContext)
-  const itemId = useSSRSafeId()
-  const labelId = useSSRSafeId()
-  const leadingVisualId = useSSRSafeId()
-  const trailingVisualId = useSSRSafeId()
-  const itemRef = React.useRef<HTMLLIElement>(null)
-  const [isExpanded, setIsExpanded] = useControllableState({
-    name: itemId,
-    defaultValue: defaultExpanded,
-    value: expanded,
-    onChange: onExpandedChange
-  })
-  const {level, expandParents} = React.useContext(ItemContext)
-  const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
+const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
+  ({current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children}, ref) => {
+    const {setActiveDescendant} = React.useContext(RootContext)
+    const itemId = useSSRSafeId()
+    const labelId = useSSRSafeId()
+    const leadingVisualId = useSSRSafeId()
+    const trailingVisualId = useSSRSafeId()
+    const [isExpanded, setIsExpanded] = useControllableState({
+      name: itemId,
+      defaultValue: defaultExpanded,
+      value: expanded,
+      onChange: onExpandedChange
+    })
+    const {level, expandParents} = React.useContext(ItemContext)
+    const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
-  // Expand or collapse the subtree
-  const toggle = React.useCallback(
-    (event?: React.MouseEvent) => {
-      setIsExpanded(!isExpanded)
-      event?.stopPropagation()
-    },
-    // setIsExpanded is stable
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isExpanded]
-  )
+    // Expand or collapse the subtree
+    const toggle = React.useCallback(
+      (event?: React.MouseEvent) => {
+        setIsExpanded(!isExpanded)
+        event?.stopPropagation()
+      },
+      // setIsExpanded is stable
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [isExpanded]
+    )
 
-  // Expand all parents of this item including itself
-  const expandParentsAndSelf = React.useCallback(
-    () => {
-      expandParents()
-      setIsExpanded(true)
-    },
-    // setIsExpanded is stable
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [expandParents]
-  )
+    // Expand all parents of this item including itself
+    const expandParentsAndSelf = React.useCallback(
+      () => {
+        expandParents()
+        setIsExpanded(true)
+      },
+      // setIsExpanded is stable
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [expandParents]
+    )
 
-  // If this item is the current item, expand it and all its parents
-  React.useLayoutEffect(() => {
-    if (isCurrentItem) {
-      expandParentsAndSelf()
-    }
-  }, [isCurrentItem, expandParentsAndSelf])
-
-  const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent<HTMLElement>) => {
-      switch (event.key) {
-        case 'Enter':
-          if (onSelect) {
-            onSelect(event)
-          } else {
-            toggle()
-          }
-          break
-
-        case 'ArrowRight':
-          event.preventDefault()
-          event.stopPropagation()
-          setIsExpanded(true)
-          break
-
-        case 'ArrowLeft':
-          event.preventDefault()
-          event.stopPropagation()
-          setIsExpanded(false)
-          break
+    // If this item is the current item, expand it and all its parents
+    React.useLayoutEffect(() => {
+      if (isCurrentItem) {
+        expandParentsAndSelf()
       }
-    },
-    [onSelect, setIsExpanded, toggle]
-  )
+    }, [isCurrentItem, expandParentsAndSelf])
 
-  // React.useEffect(() => {
-  //   const element = itemRef.current
-
-  //   function handleKeyDown(event: KeyboardEvent) {
-  //     // WARNING: Removing this line will cause an infinite loop!
-  //     // The root element receives all keyboard events and forwards them
-  //     // to the active descendant. If we don't stop propagation here,
-  //     // the event will bubble back up to the root element and be forwarded
-  //     // back to the active descendant infinitely.
-  //     event.stopPropagation()
-
-  //     switch (event.key) {
-  //       case 'Enter':
-  //         if (onSelect) {
-  //           onSelect(event)
-  //         } else {
-  //           toggle()
-  //         }
-  //         break
-
-  //       case 'ArrowRight':
-  //         event.preventDefault()
-  //         setIsExpanded(true)
-  //         break
-
-  //       case 'ArrowLeft':
-  //         event.preventDefault()
-  //         setIsExpanded(false)
-  //         break
-  //     }
-  //   }
-
-  //   element?.addEventListener('keydown', handleKeyDown)
-  //   return () => element?.removeEventListener('keydown', handleKeyDown)
-  // }, [toggle, onSelect, setIsExpanded])
-
-  return (
-    <ItemContext.Provider
-      value={{
-        itemId,
-        level: level + 1,
-        isExpanded,
-        expandParents: expandParentsAndSelf,
-        leadingVisualId,
-        trailingVisualId
-      }}
-    >
-      <Box
-        as="li"
-        tabIndex={0}
-        id={itemId}
-        ref={itemRef}
-        role="treeitem"
-        aria-labelledby={labelId}
-        aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
-        aria-level={level}
-        aria-expanded={hasSubTree ? isExpanded : undefined}
-        aria-current={isCurrentItem ? 'true' : undefined}
-        sx={{'&:focus': {outline: 'none'}}}
-        onKeyDown={handleKeyDown}
-      >
-        <Box
-          onClick={event => {
-            setActiveDescendant(itemId)
+    const handleKeyDown = React.useCallback(
+      (event: React.KeyboardEvent<HTMLElement>) => {
+        switch (event.key) {
+          case 'Enter':
             if (onSelect) {
               onSelect(event)
             } else {
-              toggle(event)
+              toggle()
             }
-          }}
-          sx={{
-            '--toggle-width': '1rem', // 16px
-            position: 'relative',
-            display: 'grid',
-            gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
-            gridTemplateAreas: `"spacer toggle content"`,
-            width: '100%',
-            height: '2rem', // 32px
-            fontSize: 1,
-            color: 'fg.default',
-            borderRadius: 2,
-            cursor: 'pointer',
-            '&:hover': {
-              backgroundColor: 'actionListItem.default.hoverBg',
-              '@media (forced-colors: active)': {
-                outline: '2px solid transparent',
-                outlineOffset: -2
-              }
-            },
-            '@media (pointer: coarse)': {
-              '--toggle-width': '1.5rem', // 24px
-              height: '2.75rem' // 44px
-            },
-            // WARNING: styled-components v5.2 introduced a bug that changed
-            // how it expands `&` in CSS selectors. The following selectors
-            // are unnecessarily specific to work around that styled-components bug.
-            // Reference issue: https://github.com/styled-components/styled-components/issues/3265
-            [`#${itemId}:focus-visible  > &:is(div)`]: {
-              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
-              '@media (forced-colors: active)': {
-                outline: '2px solid SelectedItem',
-                outlineOffset: -2
-              }
-            },
-            '[role=treeitem][aria-current=true] > &:is(div)': {
-              bg: 'actionListItem.default.selectedBg',
-              '&::after': {
-                position: 'absolute',
-                top: 'calc(50% - 12px)',
-                left: -2,
-                width: '4px',
-                height: '24px',
-                content: '""',
-                bg: 'accent.fg',
-                borderRadius: 2
-              }
-            }
-          }}
+            break
+
+          case 'ArrowRight':
+            event.preventDefault()
+            event.stopPropagation()
+            setIsExpanded(true)
+            break
+
+          case 'ArrowLeft':
+            event.preventDefault()
+            event.stopPropagation()
+            setIsExpanded(false)
+            break
+        }
+      },
+      [onSelect, setIsExpanded, toggle]
+    )
+
+    // React.useEffect(() => {
+    //   const element = itemRef.current
+
+    //   function handleKeyDown(event: KeyboardEvent) {
+    //     // WARNING: Removing this line will cause an infinite loop!
+    //     // The root element receives all keyboard events and forwards them
+    //     // to the active descendant. If we don't stop propagation here,
+    //     // the event will bubble back up to the root element and be forwarded
+    //     // back to the active descendant infinitely.
+    //     event.stopPropagation()
+
+    //     switch (event.key) {
+    //       case 'Enter':
+    //         if (onSelect) {
+    //           onSelect(event)
+    //         } else {
+    //           toggle()
+    //         }
+    //         break
+
+    //       case 'ArrowRight':
+    //         event.preventDefault()
+    //         setIsExpanded(true)
+    //         break
+
+    //       case 'ArrowLeft':
+    //         event.preventDefault()
+    //         setIsExpanded(false)
+    //         break
+    //     }
+    //   }
+
+    //   element?.addEventListener('keydown', handleKeyDown)
+    //   return () => element?.removeEventListener('keydown', handleKeyDown)
+    // }, [toggle, onSelect, setIsExpanded])
+
+    return (
+      <ItemContext.Provider
+        value={{
+          itemId,
+          level: level + 1,
+          isExpanded,
+          expandParents: expandParentsAndSelf,
+          leadingVisualId,
+          trailingVisualId
+        }}
+      >
+        <Box
+          as="li"
+          tabIndex={0}
+          id={itemId}
+          ref={ref}
+          role="treeitem"
+          aria-labelledby={labelId}
+          aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
+          aria-level={level}
+          aria-expanded={hasSubTree ? isExpanded : undefined}
+          aria-current={isCurrentItem ? 'true' : undefined}
+          sx={{'&:focus': {outline: 'none'}}}
+          onKeyDown={handleKeyDown}
         >
-          <Box sx={{gridArea: 'spacer', display: 'flex'}}>
-            <LevelIndicatorLines level={level} />
-          </Box>
-          {hasSubTree ? (
-            <Box
-              onClick={event => {
-                if (onSelect) {
-                  setActiveDescendant(itemId)
-                  toggle(event)
-                }
-              }}
-              sx={{
-                gridArea: 'toggle',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
-                color: 'fg.muted',
-                borderTopLeftRadius: level === 1 ? 2 : 0,
-                borderBottomLeftRadius: level === 1 ? 2 : 0,
-                '&:hover': {
-                  backgroundColor: onSelect ? 'actionListItem.default.hoverBg' : null
-                }
-              }}
-            >
-              {isExpanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
-            </Box>
-          ) : null}
           <Box
-            id={labelId}
+            onClick={event => {
+              setActiveDescendant(itemId)
+              if (onSelect) {
+                onSelect(event)
+              } else {
+                toggle(event)
+              }
+            }}
             sx={{
-              gridArea: 'content',
-              display: 'flex',
-              alignItems: 'center',
-              height: '100%',
-              px: 2,
-              gap: 2
+              '--toggle-width': '1rem', // 16px
+              position: 'relative',
+              display: 'grid',
+              gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
+              gridTemplateAreas: `"spacer toggle content"`,
+              width: '100%',
+              height: '2rem', // 32px
+              fontSize: 1,
+              color: 'fg.default',
+              borderRadius: 2,
+              cursor: 'pointer',
+              '&:hover': {
+                backgroundColor: 'actionListItem.default.hoverBg',
+                '@media (forced-colors: active)': {
+                  outline: '2px solid transparent',
+                  outlineOffset: -2
+                }
+              },
+              '@media (pointer: coarse)': {
+                '--toggle-width': '1.5rem', // 24px
+                height: '2.75rem' // 44px
+              },
+              // WARNING: styled-components v5.2 introduced a bug that changed
+              // how it expands `&` in CSS selectors. The following selectors
+              // are unnecessarily specific to work around that styled-components bug.
+              // Reference issue: https://github.com/styled-components/styled-components/issues/3265
+              [`#${itemId}:focus-visible  > &:is(div)`]: {
+                boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
+                '@media (forced-colors: active)': {
+                  outline: '2px solid SelectedItem',
+                  outlineOffset: -2
+                }
+              },
+              '[role=treeitem][aria-current=true] > &:is(div)': {
+                bg: 'actionListItem.default.selectedBg',
+                '&::after': {
+                  position: 'absolute',
+                  top: 'calc(50% - 12px)',
+                  left: -2,
+                  width: '4px',
+                  height: '24px',
+                  content: '""',
+                  bg: 'accent.fg',
+                  borderRadius: 2
+                }
+              }
             }}
           >
-            <Slots>
-              {slots => (
-                <>
-                  {slots.LeadingVisual}
-                  <Text
-                    sx={{
-                      // Truncate text label
-                      flex: '1 1 auto',
-                      width: 0,
-                      overflow: 'hidden',
-                      whiteSpace: 'nowrap',
-                      textOverflow: 'ellipsis'
-                    }}
-                  >
-                    {childrenWithoutSubTree}
-                  </Text>
-                  {slots.TrailingVisual}
-                </>
-              )}
-            </Slots>
+            <Box sx={{gridArea: 'spacer', display: 'flex'}}>
+              <LevelIndicatorLines level={level} />
+            </Box>
+            {hasSubTree ? (
+              <Box
+                onClick={event => {
+                  if (onSelect) {
+                    setActiveDescendant(itemId)
+                    toggle(event)
+                  }
+                }}
+                sx={{
+                  gridArea: 'toggle',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  color: 'fg.muted',
+                  borderTopLeftRadius: level === 1 ? 2 : 0,
+                  borderBottomLeftRadius: level === 1 ? 2 : 0,
+                  '&:hover': {
+                    backgroundColor: onSelect ? 'actionListItem.default.hoverBg' : null
+                  }
+                }}
+              >
+                {isExpanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
+              </Box>
+            ) : null}
+            <Box
+              id={labelId}
+              sx={{
+                gridArea: 'content',
+                display: 'flex',
+                alignItems: 'center',
+                height: '100%',
+                px: 2,
+                gap: 2
+              }}
+            >
+              <Slots>
+                {slots => (
+                  <>
+                    {slots.LeadingVisual}
+                    <Text
+                      sx={{
+                        // Truncate text label
+                        flex: '1 1 auto',
+                        width: 0,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis'
+                      }}
+                    >
+                      {childrenWithoutSubTree}
+                    </Text>
+                    {slots.TrailingVisual}
+                  </>
+                )}
+              </Slots>
+            </Box>
           </Box>
+          {subTree}
         </Box>
-        {subTree}
-      </Box>
-    </ItemContext.Provider>
-  )
-}
+      </ItemContext.Provider>
+    )
+  }
+)
 
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
@@ -464,6 +458,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const timeoutId = React.useRef<number>(0)
   const activeDescendantRef = React.useRef(activeDescendant)
+  const loadingItemRef = React.useRef<HTMLElement>(null)
 
   React.useEffect(() => {
     activeDescendantRef.current = activeDescendant
@@ -483,13 +478,19 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
 
   // Show loading indicator after a short delay
   React.useEffect(() => {
+    // If we're in the loading state, but not showing the loading indicator yet,
+    // start a timer to show the loading indicator after a short delay.
     if (state === 'loading' && !isLoadingItemVisible) {
       timeoutId.current = safeSetTimeout(() => {
         setIsLoadingItemVisible(true)
       }, 300)
     }
 
+    // If we're not in the loading state, but we're still showing a loading indicator,
+    // hide the loading indicator and move focus if necessary
     if (state !== 'loading' && isLoadingItemVisible) {
+      const isLoadingItemFocused = document.activeElement === loadingItemRef.current
+
       safeClearTimeout(timeoutId.current)
       setIsLoadingItemVisible(false)
 
@@ -497,17 +498,20 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
       // LoadingItem, we know the LoadingItem was the active descendant
       // and we need to update the active descendant to the first loaded item
       // or the parent item (if the subtree is empty).
-      setTimeout(() => {
-        const activeElement = document.getElementById(activeDescendantRef.current)
-
-        if (!activeElement) {
+      if (isLoadingItemFocused) {
+        setTimeout(() => {
           const parentElement = document.getElementById(itemId)
           if (!parentElement) return
 
           const firstChild = getFirstChildElement(parentElement)
-          setActiveDescendant(firstChild ? firstChild.id : parentElement.id)
-        }
-      })
+
+          if (firstChild) {
+            firstChild.focus()
+          } else {
+            parentElement.focus()
+          }
+        })
+      }
     }
   }, [state, safeSetTimeout, safeClearTimeout, setActiveDescendant, isLoadingItemVisible, itemId])
 
@@ -522,23 +526,23 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
         margin: 0
       }}
     >
-      {isLoadingItemVisible ? <LoadingItem /> : children}
+      {isLoadingItemVisible ? <LoadingItem ref={loadingItemRef} /> : children}
     </Box>
   )
 }
 
 SubTree.displayName = 'TreeView.SubTree'
 
-const LoadingItem = () => {
+const LoadingItem = React.forwardRef<HTMLElement>((props, ref) => {
   return (
-    <Item>
+    <Item ref={ref}>
       <LeadingVisual>
         <Spinner size="small" />
       </LeadingVisual>
       <Text sx={{color: 'fg.muted'}}>Loading...</Text>
     </Item>
   )
-}
+})
 
 function useSubTree(children: React.ReactNode) {
   return React.useMemo(() => {
