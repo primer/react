@@ -1,6 +1,7 @@
 import React from 'react'
 import {useInView} from 'react-intersection-observer'
 import {canUseDOM} from '../utils/environment'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 /**
  * Calculates the height of the sticky pane such that it always
@@ -49,7 +50,7 @@ export function useStickyPaneHeight() {
   // if the pane is sticky.
   const [isEnabled, setIsEnabled] = React.useState(false)
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     const scrollContainer = getScrollContainer(rootRef.current)
 
     if (isEnabled && (contentTopInView || contentBottomInView)) {

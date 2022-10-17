@@ -1,5 +1,6 @@
 import React from 'react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import {getAccessibleName} from './shared'
 
 type TypeaheadOptions = {
   containerRef: React.RefObject<HTMLElement>
@@ -83,18 +84,6 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       onFocusChangeRef.current(nextElement)
     }
   }, [searchValue, containerRef])
-}
-
-/**
- * Returns the accessible name of an element
- */
-function getAccessibleName(element: Element) {
-  const label = element.getAttribute('aria-label')
-  const labelledby = element.getAttribute('aria-labelledby')
-
-  if (label) return label
-  if (labelledby) return document.getElementById(labelledby)?.textContent ?? ''
-  return element.textContent ?? ''
 }
 
 /**

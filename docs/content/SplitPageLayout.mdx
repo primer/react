@@ -1,14 +1,15 @@
 ---
 title: SplitPageLayout
 componentId: split_page_layout
-status: Draft
+status: Alpha
 description: Provides structure for a split page layout, including independent scrolling for the pane and content regions. Useful for responsive list/detail patterns, when an item in the pane updates the page content on selection.
 source: https://github.com/primer/react/tree/main/src/SplitPageLayout
 storybook: https://primer.style/react/storybook?path=/story/layout-splitpagelayout--default
+a11yReviewed: true
 ---
 
 ```js
-import {SplitPageLayout} from '@primer/react/drafts'
+import {SplitPageLayout} from '@primer/react'
 ```
 
 <Note>
@@ -31,7 +32,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
       <Placeholder label="Footer" height={64} />
@@ -60,7 +61,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       </Box>
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
       <Placeholder label="Footer" height={64} />
@@ -81,7 +82,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
       <Placeholder label="Footer" height={64} />
@@ -102,7 +103,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content hidden={{narrow: true}}>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
       <Placeholder label="Footer" height={64} />
@@ -123,7 +124,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer divider="none">
       <Placeholder label="Footer" height={64} />
@@ -141,7 +142,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       <Placeholder label="Header" height={64} />
     </SplitPageLayout.Header>
     <SplitPageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Pane position="end">
       <Placeholder label="Pane" height={120} />
@@ -165,7 +166,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content padding="condensed">
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer padding="condensed">
       <Placeholder label="Footer" height={64} />
@@ -186,7 +187,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content padding="none">
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer padding="none">
       <Placeholder label="Footer" height={64} />
@@ -222,7 +223,7 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       <Placeholder label="Pane" height={120} />
     </SplitPageLayout.Pane>
     <SplitPageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Footer>
       <Placeholder label="Footer" height={64} />
@@ -244,14 +245,15 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
       placeItems: 'center',
       backgroundColor: 'canvas.subtle',
       borderBottom: '1px solid',
-      borderColor: 'border.default'
+      borderColor: 'border.default',
+      zIndex: 1
     }}
   >
     Custom sticky header
   </Box>
   <SplitPageLayout>
     <SplitPageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </SplitPageLayout.Content>
     <SplitPageLayout.Pane sticky offsetHeader={64}>
       <Placeholder label="Pane" height={120} />
@@ -479,12 +481,12 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
     noUnnecessaryDeps: true,
     adaptsToThemes: true,
     adaptsToScreenSizes: true,
-    fullTestCoverage: false,
-    usedInProduction: false,
+    fullTestCoverage: true,
+    usedInProduction: true,
     usageExamplesDocumented: true,
-    hasStorybookStories: false,
+    hasStorybookStories: true,
     designReviewed: false,
-    a11yReviewed: false,
+    a11yReviewed: true,
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
