@@ -39,11 +39,15 @@ const ItemContext = React.createContext<{
   level: number
   isExpanded: boolean
   expandParents: () => void
+  leadingVisualId: string
+  trailingVisualId: string
 }>({
   itemId: '',
   level: 1,
   isExpanded: false,
-  expandParents: () => {}
+  expandParents: () => {},
+  leadingVisualId: '',
+  trailingVisualId: ''
 })
 
 // ----------------------------------------------------------------------------
@@ -128,6 +132,8 @@ const Item: React.FC<TreeViewItemProps> = ({
   const {setActiveDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
   const labelId = useSSRSafeId()
+  const leadingVisualId = useSSRSafeId()
+  const trailingVisualId = useSSRSafeId()
   const itemRef = React.useRef<HTMLLIElement>(null)
   const [isExpanded, setIsExpanded] = useControllableState({
     name: itemId,
@@ -204,12 +210,22 @@ const Item: React.FC<TreeViewItemProps> = ({
   }, [toggle, onSelect, setIsExpanded])
 
   return (
-    <ItemContext.Provider value={{itemId, level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
+    <ItemContext.Provider
+      value={{
+        itemId,
+        level: level + 1,
+        isExpanded,
+        expandParents: expandParentsAndSelf,
+        leadingVisualId,
+        trailingVisualId
+      }}
+    >
       <li
         id={itemId}
         ref={itemRef}
         role="treeitem"
         aria-labelledby={labelId}
+        aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
         aria-current={isCurrentItem ? 'true' : undefined}
@@ -512,14 +528,22 @@ function useSubTree(children: React.ReactNode) {
 
 export type TreeViewVisualProps = {
   children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
+  // Provide an accessible name for the visual. This should provide information
+  // about what the visual indicates or represents
+  label?: string
 }
 
 const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
-  const {isExpanded} = React.useContext(ItemContext)
+  const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="LeadingVisual">
-      <Box sx={{display: 'flex', color: 'fg.muted'}}>{children}</Box>
+      <VisuallyHidden aria-hidden={true} id={leadingVisualId}>
+        {props.label}
+      </VisuallyHidden>
+      <Box aria-hidden={true} sx={{display: 'flex', color: 'fg.muted'}}>
+        {children}
+      </Box>
     </Slot>
   )
 }
@@ -527,11 +551,16 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
 LeadingVisual.displayName = 'TreeView.LeadingVisual'
 
 const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
-  const {isExpanded} = React.useContext(ItemContext)
+  const {isExpanded, trailingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="TrailingVisual">
-      <Box sx={{display: 'flex', color: 'fg.muted'}}>{children}</Box>
+      <VisuallyHidden aria-hidden={true} id={trailingVisualId}>
+        {props.label}
+      </VisuallyHidden>
+      <Box aria-hidden={true} sx={{display: 'flex', color: 'fg.muted'}}>
+        {children}
+      </Box>
     </Slot>
   )
 }

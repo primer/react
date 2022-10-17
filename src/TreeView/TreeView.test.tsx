@@ -235,6 +235,89 @@ describe('Markup', () => {
     // Item 2.1 should be visible because it is a child of the current item
     expect(getByRole('treeitem', {name: 'Item 2.1'})).toBeVisible()
   })
+
+  it('should be described by leading visuals', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          <TreeView.LeadingVisual label="leading">
+            <svg aria-hidden={true} />
+          </TreeView.LeadingVisual>
+          Item 1
+        </TreeView.Item>
+        <TreeView.Item>
+          <TreeView.LeadingVisual>
+            <svg aria-hidden={true} />
+          </TreeView.LeadingVisual>
+          Item 2
+        </TreeView.Item>
+      </TreeView>
+    )
+    const item = getByLabelText(/Item 1/)
+    expect(item).toHaveAccessibleDescription('leading')
+
+    const noDescription = getByLabelText(/Item 2/)
+    expect(noDescription).not.toHaveAccessibleDescription()
+  })
+
+  it('should be described by trailing visuals', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          Item 1
+          <TreeView.TrailingVisual label="trailing">
+            <svg aria-hidden={true} />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+        <TreeView.Item>
+          Item 2
+          <TreeView.TrailingVisual>
+            <svg aria-hidden={true} />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+      </TreeView>
+    )
+    const item = getByLabelText(/Item 1/)
+    expect(item).toHaveAccessibleDescription('trailing')
+
+    const noDescription = getByLabelText(/Item 2/)
+    expect(noDescription).not.toHaveAccessibleDescription()
+  })
+
+  it('should be described by leading and trailing visuals', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          <TreeView.LeadingVisual label="leading">
+            <svg aria-hidden={true} />
+          </TreeView.LeadingVisual>
+          Item 1
+          <TreeView.TrailingVisual label="trailing">
+            <svg aria-hidden={true} />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+        <TreeView.Item>
+          <TreeView.LeadingVisual>
+            <svg aria-hidden={true} />
+          </TreeView.LeadingVisual>
+          Item 2
+          <TreeView.TrailingVisual>
+            <svg aria-hidden={true} />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+      </TreeView>
+    )
+    const item = getByLabelText(/Item 1/)
+    expect(item).toHaveAccessibleDescription('leading trailing')
+
+    const noDescription = getByLabelText(/Item 2/)
+    // Note: it seems the computed description here is a string with a single
+    // space due to the implementation of `aria-describedby`. We currently set
+    // both trailing and visual and when the nodes are not found in
+    // `aria-describedby="uuid-leading uuid-trailing"` then it computes to a
+    // space
+    expect(noDescription).toHaveAccessibleDescription(' ')
+  })
 })
 
 describe('Keyboard interactions', () => {
@@ -812,7 +895,13 @@ describe('Keyboard interactions', () => {
     })
 
     it('navigates to href if provided', () => {
-      const windowSpy = jest.spyOn(window, 'open')
+      const windowSpy = jest
+        .spyOn(window, 'open')
+        .mockImplementation(
+          (_url?: string | URL | undefined, _target?: string | undefined, _features?: string | undefined) => {
+            return null
+          }
+        )
       const onSelect = jest.fn()
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
