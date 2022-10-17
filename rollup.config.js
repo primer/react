@@ -58,7 +58,7 @@ const dependencies = [
 ]
 
 function createPackageRegex(name) {
-  return new RegExp(`^${name}(\/.*)?`)
+  return new RegExp(`^${name}(/.*)?`)
 }
 
 const baseConfig = {
