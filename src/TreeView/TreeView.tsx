@@ -360,7 +360,7 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
             // sure the component remains simple when not in use.
             '@media (hover: hover)': {
               borderColor: 'transparent',
-              '[role=tree]:hover &, [role=tree]:focus &': {
+              '[role=tree]:hover &, [role=tree]:focus-within &': {
                 borderColor: 'border.subtle'
               }
             }
