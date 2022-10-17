@@ -18,7 +18,7 @@ import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
-import {getFirstChildElement, useActiveDescendant} from './useActiveDescendant'
+import {getFirstChildElement, useActiveDescendant, useRovingTabIndex} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
@@ -65,12 +65,16 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   const containerRef = React.useRef<HTMLUListElement>(null)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
 
-  const [activeDescendant, setActiveDescendant] = useActiveDescendant({containerRef})
+  useRovingTabIndex({containerRef})
 
-  useTypeahead({
-    containerRef,
-    onFocusChange: element => setActiveDescendant(element.id)
-  })
+  // const [activeDescendant, setActiveDescendant] = useActiveDescendant({containerRef})
+
+  const [activeDescendant, setActiveDescendant] = ['', () => {}] as [string, (value: string) => void]
+
+  // useTypeahead({
+  //   containerRef,
+  //   onFocusChange: element => setActiveDescendant(element.id)
+  // })
 
   const announceUpdate = React.useCallback((message: string) => {
     setAriaLiveMessage(message)
@@ -84,7 +88,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
         </VisuallyHidden>
         <UlBox
           ref={containerRef}
-          tabIndex={0}
+          // tabIndex={0}
           role="tree"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
@@ -116,7 +120,7 @@ export type TreeViewItemProps = {
   defaultExpanded?: boolean
   expanded?: boolean
   onExpandedChange?: (expanded: boolean) => void
-  onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
+  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
 }
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
@@ -173,17 +177,8 @@ const Item: React.FC<TreeViewItemProps> = ({
     }
   }, [isCurrentItem, expandParentsAndSelf])
 
-  React.useEffect(() => {
-    const element = itemRef.current
-
-    function handleKeyDown(event: KeyboardEvent) {
-      // WARNING: Removing this line will cause an infinite loop!
-      // The root element receives all keyboard events and forwards them
-      // to the active descendant. If we don't stop propagation here,
-      // the event will bubble back up to the root element and be forwarded
-      // back to the active descendant infinitely.
-      event.stopPropagation()
-
+  const handleKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
       switch (event.key) {
         case 'Enter':
           if (onSelect) {
@@ -195,19 +190,55 @@ const Item: React.FC<TreeViewItemProps> = ({
 
         case 'ArrowRight':
           event.preventDefault()
+          event.stopPropagation()
           setIsExpanded(true)
           break
 
         case 'ArrowLeft':
           event.preventDefault()
+          event.stopPropagation()
           setIsExpanded(false)
           break
       }
-    }
+    },
+    [onSelect, setIsExpanded, toggle]
+  )
 
-    element?.addEventListener('keydown', handleKeyDown)
-    return () => element?.removeEventListener('keydown', handleKeyDown)
-  }, [toggle, onSelect, setIsExpanded])
+  // React.useEffect(() => {
+  //   const element = itemRef.current
+
+  //   function handleKeyDown(event: KeyboardEvent) {
+  //     // WARNING: Removing this line will cause an infinite loop!
+  //     // The root element receives all keyboard events and forwards them
+  //     // to the active descendant. If we don't stop propagation here,
+  //     // the event will bubble back up to the root element and be forwarded
+  //     // back to the active descendant infinitely.
+  //     event.stopPropagation()
+
+  //     switch (event.key) {
+  //       case 'Enter':
+  //         if (onSelect) {
+  //           onSelect(event)
+  //         } else {
+  //           toggle()
+  //         }
+  //         break
+
+  //       case 'ArrowRight':
+  //         event.preventDefault()
+  //         setIsExpanded(true)
+  //         break
+
+  //       case 'ArrowLeft':
+  //         event.preventDefault()
+  //         setIsExpanded(false)
+  //         break
+  //     }
+  //   }
+
+  //   element?.addEventListener('keydown', handleKeyDown)
+  //   return () => element?.removeEventListener('keydown', handleKeyDown)
+  // }, [toggle, onSelect, setIsExpanded])
 
   return (
     <ItemContext.Provider
@@ -220,7 +251,9 @@ const Item: React.FC<TreeViewItemProps> = ({
         trailingVisualId
       }}
     >
-      <li
+      <Box
+        as="li"
+        tabIndex={0}
         id={itemId}
         ref={itemRef}
         role="treeitem"
@@ -229,6 +262,8 @@ const Item: React.FC<TreeViewItemProps> = ({
         aria-level={level}
         aria-expanded={hasSubTree ? isExpanded : undefined}
         aria-current={isCurrentItem ? 'true' : undefined}
+        sx={{'&:focus': {outline: 'none'}}}
+        onKeyDown={handleKeyDown}
       >
         <Box
           onClick={event => {
@@ -266,7 +301,7 @@ const Item: React.FC<TreeViewItemProps> = ({
             // how it expands `&` in CSS selectors. The following selectors
             // are unnecessarily specific to work around that styled-components bug.
             // Reference issue: https://github.com/styled-components/styled-components/issues/3265
-            [`[role=tree][aria-activedescendant="${itemId}"]:focus-visible #${itemId} > &:is(div)`]: {
+            [`#${itemId}:focus-visible  > &:is(div)`]: {
               boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
               '@media (forced-colors: active)': {
                 outline: '2px solid SelectedItem',
@@ -350,7 +385,7 @@ const Item: React.FC<TreeViewItemProps> = ({
           </Box>
         </Box>
         {subTree}
-      </li>
+      </Box>
     </ItemContext.Provider>
   )
 }

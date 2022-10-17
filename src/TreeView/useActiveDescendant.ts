@@ -1,7 +1,23 @@
 import React from 'react'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
 type ActiveDescendantOptions = {
   containerRef: React.RefObject<HTMLElement>
+}
+
+export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject<HTMLElement>}) {
+  useFocusZone({
+    containerRef,
+    bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    getNextFocusable: (direction, from, event) => {
+      // console.log(direction, from, event)
+      if (!(from instanceof HTMLElement)) {
+        return undefined
+      }
+
+      return getNextFocusableElement(from, event) ?? from
+    }
+  })
 }
 
 export function useActiveDescendant({
