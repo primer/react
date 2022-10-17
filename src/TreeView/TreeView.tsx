@@ -19,7 +19,7 @@ import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useActiveDescendant'
-// import {useTypeahead} from './useTypeahead'
+import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -63,14 +63,14 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
 
   useRovingTabIndex({containerRef})
 
-  // useTypeahead({
-  //   containerRef,
-  //   onFocusChange: element => {
-  //     if (element instanceof HTMLElement) {
-  //       element.focus()
-  //     }
-  //   }
-  // })
+  useTypeahead({
+    containerRef,
+    onFocusChange: element => {
+      if (element instanceof HTMLElement) {
+        element.focus()
+      }
+    }
+  })
 
   const announceUpdate = React.useCallback((message: string) => {
     setAriaLiveMessage(message)
