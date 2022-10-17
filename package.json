@@ -140,7 +140,7 @@
     "@types/enzyme": "3.10.9",
     "@types/jest": "27.0.2",
     "@types/jest-axe": "3.5.3",
-    "@types/lodash.isempty": "4.4.6",
+    "@types/lodash.isempty": "4.4.7",
     "@types/lodash.isobject": "3.0.6",
     "@types/node": "16.11.11",
     "@typescript-eslint/eslint-plugin": "4.31.2",
