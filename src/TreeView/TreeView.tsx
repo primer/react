@@ -18,20 +18,16 @@ import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
-import {getFirstChildElement, useActiveDescendant, useRovingTabIndex} from './useActiveDescendant'
-import {useTypeahead} from './useTypeahead'
+import {getFirstChildElement, useRovingTabIndex} from './useActiveDescendant'
+// import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
 // Context
 
 const RootContext = React.createContext<{
   announceUpdate: (message: string) => void
-  activeDescendant: string
-  setActiveDescendant: React.Dispatch<React.SetStateAction<string>>
 }>({
-  announceUpdate: () => {},
-  activeDescendant: '',
-  setActiveDescendant: () => {}
+  announceUpdate: () => {}
 })
 
 const ItemContext = React.createContext<{
@@ -67,13 +63,13 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
 
   useRovingTabIndex({containerRef})
 
-  // const [activeDescendant, setActiveDescendant] = useActiveDescendant({containerRef})
-
-  const [activeDescendant, setActiveDescendant] = ['', () => {}] as [string, (value: string) => void]
-
   // useTypeahead({
   //   containerRef,
-  //   onFocusChange: element => setActiveDescendant(element.id)
+  //   onFocusChange: element => {
+  //     if (element instanceof HTMLElement) {
+  //       element.focus()
+  //     }
+  //   }
   // })
 
   const announceUpdate = React.useCallback((message: string) => {
@@ -81,18 +77,16 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   }, [])
 
   return (
-    <RootContext.Provider value={{announceUpdate, activeDescendant, setActiveDescendant}}>
+    <RootContext.Provider value={{announceUpdate}}>
       <>
         <VisuallyHidden role="status" aria-live="polite">
           {ariaLiveMessage}
         </VisuallyHidden>
         <UlBox
           ref={containerRef}
-          // tabIndex={0}
           role="tree"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
-          aria-activedescendant={activeDescendant}
           sx={{
             listStyle: 'none',
             padding: 0,
@@ -127,7 +121,6 @@ const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
   ({current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children}, ref) => {
-    const {setActiveDescendant} = React.useContext(RootContext)
     const itemId = useSSRSafeId()
     const labelId = useSSRSafeId()
     const leadingVisualId = useSSRSafeId()
@@ -197,42 +190,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [onSelect, setIsExpanded, toggle]
     )
 
-    // React.useEffect(() => {
-    //   const element = itemRef.current
-
-    //   function handleKeyDown(event: KeyboardEvent) {
-    //     // WARNING: Removing this line will cause an infinite loop!
-    //     // The root element receives all keyboard events and forwards them
-    //     // to the active descendant. If we don't stop propagation here,
-    //     // the event will bubble back up to the root element and be forwarded
-    //     // back to the active descendant infinitely.
-    //     event.stopPropagation()
-
-    //     switch (event.key) {
-    //       case 'Enter':
-    //         if (onSelect) {
-    //           onSelect(event)
-    //         } else {
-    //           toggle()
-    //         }
-    //         break
-
-    //       case 'ArrowRight':
-    //         event.preventDefault()
-    //         setIsExpanded(true)
-    //         break
-
-    //       case 'ArrowLeft':
-    //         event.preventDefault()
-    //         setIsExpanded(false)
-    //         break
-    //     }
-    //   }
-
-    //   element?.addEventListener('keydown', handleKeyDown)
-    //   return () => element?.removeEventListener('keydown', handleKeyDown)
-    // }, [toggle, onSelect, setIsExpanded])
-
     return (
       <ItemContext.Provider
         value={{
@@ -244,23 +201,21 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           trailingVisualId
         }}
       >
-        <Box
-          as="li"
+        <li
+          ref={ref as React.RefObject<HTMLLIElement>}
           tabIndex={0}
           id={itemId}
-          ref={ref}
           role="treeitem"
           aria-labelledby={labelId}
           aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
           aria-level={level}
           aria-expanded={hasSubTree ? isExpanded : undefined}
           aria-current={isCurrentItem ? 'true' : undefined}
-          sx={{'&:focus': {outline: 'none'}}}
+          style={{outline: 'none'}}
           onKeyDown={handleKeyDown}
         >
           <Box
             onClick={event => {
-              setActiveDescendant(itemId)
               if (onSelect) {
                 onSelect(event)
               } else {
@@ -323,7 +278,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               <Box
                 onClick={event => {
                   if (onSelect) {
-                    setActiveDescendant(itemId)
                     toggle(event)
                   }
                 }}
@@ -378,7 +332,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             </Box>
           </Box>
           {subTree}
-        </Box>
+        </li>
       </ItemContext.Provider>
     )
   }
@@ -452,17 +406,12 @@ export type TreeViewSubTreeProps = {
 }
 
 const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
-  const {activeDescendant, setActiveDescendant, announceUpdate} = React.useContext(RootContext)
+  const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded} = React.useContext(ItemContext)
   const [isLoadingItemVisible, setIsLoadingItemVisible] = React.useState(false)
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const timeoutId = React.useRef<number>(0)
-  const activeDescendantRef = React.useRef(activeDescendant)
   const loadingItemRef = React.useRef<HTMLElement>(null)
-
-  React.useEffect(() => {
-    activeDescendantRef.current = activeDescendant
-  }, [activeDescendant])
 
   // Announce when content has loaded
   React.useEffect(() => {
@@ -494,10 +443,6 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
       safeClearTimeout(timeoutId.current)
       setIsLoadingItemVisible(false)
 
-      // If the active descendant was removed from the DOM after hiding the
-      // LoadingItem, we know the LoadingItem was the active descendant
-      // and we need to update the active descendant to the first loaded item
-      // or the parent item (if the subtree is empty).
       if (isLoadingItemFocused) {
         setTimeout(() => {
           const parentElement = document.getElementById(itemId)
@@ -513,7 +458,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
         })
       }
     }
-  }, [state, safeSetTimeout, safeClearTimeout, setActiveDescendant, isLoadingItemVisible, itemId])
+  }, [state, safeSetTimeout, safeClearTimeout, isLoadingItemVisible, itemId])
 
   return (
     <Box
