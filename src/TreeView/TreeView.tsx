@@ -18,7 +18,7 @@ import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
-import {getFirstChildElement, useRovingTabIndex} from './useActiveDescendant'
+import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
