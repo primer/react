@@ -120,9 +120,10 @@
       url: /Select
     - title: SelectPanel
       url: /SelectPanel
-
     - title: Spinner
       url: /Spinner
+    - title: SplitPageLayout
+      url: /SplitPageLayout
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon
@@ -155,6 +156,8 @@
   children:
     - title: Dialog v2
       url: /drafts/Dialog
+    - title: Hidden
+      url: /Hidden
     - title: InlineAutocomplete
       url: /drafts/InlineAutocomplete
     - title: MarkdownEditor

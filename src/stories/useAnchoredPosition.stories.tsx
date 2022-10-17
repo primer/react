@@ -42,14 +42,17 @@ export default {
       control: {type: 'range', min: 50, max: 500}
     },
     anchorPosition: {
-      control: {type: 'inline-radio', options: ['inside', 'outside']}
+      control: {type: 'inline-radio'},
+      options: ['inside', 'outside']
     },
     anchorSide: {
-      control: {type: 'inline-radio', options: ['top', 'bottom', 'left', 'right', 'center']},
+      control: {type: 'inline-radio'},
+      options: ['top', 'bottom', 'left', 'right', 'center'],
       description: 'note'
     },
     anchorAlignment: {
-      control: {type: 'inline-radio', options: ['start', 'center', 'end']}
+      control: {type: 'inline-radio'},
+      options: ['start', 'center', 'end']
     },
     anchorOffset: {
       control: {type: 'range', min: -100, max: 100}

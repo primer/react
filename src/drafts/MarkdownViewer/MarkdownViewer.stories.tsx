@@ -26,17 +26,19 @@ const meta: Meta = {
     }
   },
   component: MarkdownViewer,
+  args: {
+    loading: false,
+    linksInNewTab: false
+  },
   argTypes: {
     loading: {
       name: 'Loading',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     linksInNewTab: {
       name: 'Open Links In New Tab',
-      defaultValue: false,
       control: {
         type: 'boolean'
       }

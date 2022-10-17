@@ -1,12 +1,13 @@
-import React from 'react'
 import {DiffAddedIcon, DiffModifiedIcon, DiffRemovedIcon, DiffRenamedIcon, FileIcon} from '@primer/octicons-react'
 import {Meta, Story} from '@storybook/react'
-import Box from '../Box'
-import StyledOcticon from '../StyledOcticon'
-import {TreeView} from './TreeView'
-import {Button} from '../Button'
-import {ActionMenu} from '../ActionMenu'
+import React from 'react'
 import {ActionList} from '../ActionList'
+import {ActionMenu} from '../ActionMenu'
+import Box from '../Box'
+import {Button} from '../Button'
+import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
+import StyledOcticon from '../StyledOcticon'
+import {SubTreeState, TreeView} from './TreeView'
 
 const meta: Meta = {
   title: 'Components/TreeView',
@@ -178,15 +179,6 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
               </TreeView.LinkItem>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.LinkItem href="#package-json">
-            <TreeView.LeadingVisual>
-              <FileIcon />
-            </TreeView.LeadingVisual>
-            package.json
-            <TreeView.TrailingVisual>
-              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
-            </TreeView.TrailingVisual>
-          </TreeView.LinkItem>
         </TreeView>
       </nav>
     </Box>
@@ -402,6 +394,163 @@ function TreeItem({
       ) : null}
     </TreeView.Item>
   )
+}
+
+async function wait(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function loadItems(responseTime: number) {
+  await wait(responseTime)
+  return ['Avatar.tsx', 'Button.tsx', 'Checkbox.tsx']
+}
+
+export const AsyncSuccess: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item
+            onExpandedChange={async isExpanded => {
+              if (asyncItems.length === 0 && isExpanded) {
+                setIsLoading(true)
+
+                // Load items
+                const items = await loadItems(args.responseTime)
+
+                setIsLoading(false)
+                setAsyncItems(items)
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree state={state}>
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+AsyncSuccess.args = {
+  responseTime: 2000
+}
+
+async function alwaysFails(responseTime: number) {
+  await wait(responseTime)
+  throw new Error('Failed to load items')
+  return []
+}
+
+export const AsyncError: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isExpanded, setIsExpanded] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+  const [error, setError] = React.useState<Error | null>(null)
+
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (error) {
+    state = 'error'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
+  async function loadItems() {
+    if (asyncItems.length === 0) {
+      setIsLoading(true)
+
+      try {
+        // Try to load items
+        const items = await alwaysFails(args.responseTime)
+        setAsyncItems(items)
+      } catch (error) {
+        setError(error as Error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+  }
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item
+            expanded={isExpanded}
+            onExpandedChange={isExpanded => {
+              setIsExpanded(isExpanded)
+
+              if (isExpanded) {
+                loadItems()
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree state={state}>
+              {error ? (
+                <ConfirmationDialog
+                  title="Error"
+                  onClose={gesture => {
+                    setError(null)
+
+                    if (gesture === 'confirm') {
+                      loadItems()
+                    } else {
+                      setIsExpanded(false)
+                    }
+                  }}
+                  confirmButtonContent="Retry"
+                >
+                  {error.message}
+                </ConfirmationDialog>
+              ) : null}
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+AsyncError.args = {
+  responseTime: 2000
 }
 
 export default meta

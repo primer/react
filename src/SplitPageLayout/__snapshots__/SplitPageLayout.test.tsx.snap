@@ -18,28 +18,20 @@ exports[`SplitPageLayout renders default layout 1`] = `
   flex-wrap: wrap;
 }
 
-.c2 {
-  -webkit-order: 0;
-  -ms-flex-order: 0;
-  order: 0;
-  width: 100%;
-  margin-bottom: 0;
-}
-
-.c3 {
-  padding: 16px;
-}
-
-.c4 {
-  margin-left: 0;
-  margin-right: 0;
-  display: block;
-  height: 1px;
-  background-color: #d0d7de;
-  margin-top: 0;
-}
-
 .c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -63,7 +55,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   min-width: 1px;
 }
 
-.c6 {
+.c7 {
   width: 100%;
   max-width: 1012px;
   margin-left: auto;
@@ -75,7 +67,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   padding: 16px;
 }
 
-.c7 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -92,26 +84,44 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-bottom: 0;
 }
 
-.c8 {
+.c9 {
   margin-left: 0;
   margin-right: 0;
   display: none;
   margin-top: 0;
 }
 
-.c9 {
+.c10 {
   height: 100%;
   display: none;
   margin-left: 0;
 }
 
-.c10 {
+.c11 {
   width: 100%;
   padding: 16px;
   overflow: auto;
 }
 
-.c11 {
+.c2 {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.c3 {
+  padding: 16px;
+}
+
+.c4 {
+  margin-left: 0;
+  margin-right: 0;
+  display: block;
+  height: 1px;
+  background-color: #d0d7de;
+  margin-top: 0;
+}
+
+.c12 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
@@ -119,7 +129,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-top: 0;
 }
 
-.c12 {
+.c13 {
   margin-left: 0;
   margin-right: 0;
   display: block;
@@ -129,26 +139,13 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:1012px) {
-  .c3 {
-    padding: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c4 {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-}
-
-@media screen and (min-width:1012px) {
-  .c6 {
-    padding: 24px;
-  }
-}
-
-@media screen and (min-width:768px) {
   .c7 {
+    padding: 24px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c8 {
     width: auto;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
@@ -165,27 +162,40 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c8 {
+  .c9 {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
 }
 
 @media screen and (min-width:768px) {
-  .c10 {
+  .c11 {
     width: 256px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c10 {
+  .c11 {
     width: 296px;
     padding: 24px;
   }
 }
 
+@media screen and (min-width:1012px) {
+  .c3 {
+    padding: 24px;
+  }
+}
+
 @media screen and (min-width:768px) {
-  .c12 {
+  .c4 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c13 {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
@@ -211,41 +221,45 @@ exports[`SplitPageLayout renders default layout 1`] = `
           class="c4"
         />
       </header>
-      <main
+      <div
         class="c5"
       >
-        <div
-          class=""
-        />
-        <div
+        <main
           class="c6"
         >
-          Content
-        </div>
-        <div
-          class=""
-        />
-      </main>
-      <div
-        class="c7"
-      >
+          <div
+            class=""
+          />
+          <div
+            class="c7"
+          >
+            Content
+          </div>
+          <div
+            class=""
+          />
+        </main>
         <div
           class="c8"
-        />
-        <div
-          class="c9"
-        />
-        <div
-          class="c10"
         >
-          Pane
+          <div
+            class="c9"
+          />
+          <div
+            class="c10"
+          />
+          <div
+            class="c11"
+          >
+            Pane
+          </div>
         </div>
       </div>
       <footer
-        class="c11"
+        class="c12"
       >
         <div
-          class="c12"
+          class="c13"
         />
         <div
           class="c3"

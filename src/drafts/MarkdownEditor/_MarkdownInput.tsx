@@ -7,6 +7,7 @@ import {Emoji, useEmojiSuggestions} from './suggestions/_useEmojiSuggestions'
 import {Mentionable, useMentionSuggestions} from './suggestions/_useMentionSuggestions'
 import {Reference, useReferenceSuggestions} from './suggestions/_useReferenceSuggestions'
 import {useRefObjectAsForwardedRef} from '../../hooks'
+import {SuggestionOptions} from './suggestions'
 
 interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   value: string
@@ -18,9 +19,9 @@ interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   maxLength?: number
   fullHeight?: boolean
   isDraggedOver: boolean
-  emojiSuggestions?: Array<Emoji>
-  mentionSuggestions?: Array<Mentionable>
-  referenceSuggestions?: Array<Reference>
+  emojiSuggestions?: SuggestionOptions<Emoji>
+  mentionSuggestions?: SuggestionOptions<Mentionable>
+  referenceSuggestions?: SuggestionOptions<Reference>
   minHeightLines: number
   maxHeightLines: number
   monospace: boolean
@@ -70,13 +71,14 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       [mentionsTrigger, referencesTrigger, emojiTrigger]
     )
 
-    const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    const onShowSuggestions = async (event: ShowSuggestionsEvent) => {
+      setSuggestions('loading')
       if (event.trigger.triggerChar === emojiTrigger.triggerChar) {
-        setSuggestions(calculateEmojiSuggestions(event.query))
+        setSuggestions(await calculateEmojiSuggestions(event.query))
       } else if (event.trigger.triggerChar === mentionsTrigger.triggerChar) {
-        setSuggestions(calculateMentionSuggestions(event.query))
+        setSuggestions(await calculateMentionSuggestions(event.query))
       } else if (event.trigger.triggerChar === referencesTrigger.triggerChar) {
-        setSuggestions(calculateReferenceSuggestions(event.query))
+        setSuggestions(await calculateReferenceSuggestions(event.query))
       }
     }
 
@@ -97,7 +99,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       <InlineAutocomplete
         triggers={triggers}
         suggestions={suggestions}
-        onShowSuggestions={onShowSuggestions}
+        onShowSuggestions={e => onShowSuggestions(e)}
         onHideSuggestions={() => setSuggestions(null)}
         sx={{flex: 'auto'}}
         tabInsertsSuggestions

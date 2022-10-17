@@ -43,11 +43,16 @@ const referenceToSuggestion = (reference: Reference): Suggestion => ({
   )
 })
 
-const scoreSuggestion = (query: string, reference: Reference): number =>
-  score(query, `${reference.id} ${reference.titleText}`)
+const scoreSuggestion = (query: string, reference: Reference): number => {
+  // fzy unituitively returns Infinity if the length of the item is less than or equal to the length of the query
+  const fzyScore = score(query, `${reference.id} ${reference.titleText}`)
+  // Here, unlike for mentionables, we don't need to check for equality because the user's query
+  // can never equal the search string (we don't do filtering if the query is in "#123 some text" form)
+  return fzyScore === Infinity ? -Infinity : fzyScore
+}
 
 export const useReferenceSuggestions: UseSuggestionsHook<Reference> = references => ({
-  calculateSuggestions: (query: string) => {
+  calculateSuggestions: async (query: string) => {
     if (/^\d+\s/.test(query)) return [] // don't return anything if the query is in the form #123 ..., assuming they already have the number they want
     return suggestionsCalculator(references, scoreSuggestion, referenceToSuggestion)(query)
   },

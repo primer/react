@@ -1,5 +1,59 @@
 # @primer/components
 
+## 35.11.0
+
+### Minor Changes
+
+- [#2378](https://github.com/primer/react/pull/2378) [`c35c2ac9`](https://github.com/primer/react/commit/c35c2ac9aa48e170a55c993f19c049b5ddd90e56) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Introducing loading states for counters
+
+* [#2361](https://github.com/primer/react/pull/2361) [`ba7cf923`](https://github.com/primer/react/commit/ba7cf923bf10a473fd2ab83c5e16943d46e49e87) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Introduce "keeping the selected item always visible" functionality
+
+- [#2297](https://github.com/primer/react/pull/2297) [`cad2bc0c`](https://github.com/primer/react/commit/cad2bc0cca63b9159b981c01ae5bd42093964bf1) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Introducing overflow behavior for fine and coarse pointer devices
+
+* [#2366](https://github.com/primer/react/pull/2366) [`13b44608`](https://github.com/primer/react/commit/13b4460807124bc8d7014916476774d229950678) Thanks [@joshblack](https://github.com/joshblack)! - Update "exports" config to use "import" and "require" for ESM and CommonJS bundles
+
+- [#2367](https://github.com/primer/react/pull/2367) [`252a605d`](https://github.com/primer/react/commit/252a605d0d3add613b441b5be0fa9a027f191592) Thanks [@iansan5653](https://github.com/iansan5653)! - Remove non-tab elements from `TabNav` focus zone
+
+* [#2368](https://github.com/primer/react/pull/2368) [`aeb6152c`](https://github.com/primer/react/commit/aeb6152c04f299fda80131673b422009d5df0913) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `pasteUrlsAsPlainText` prop to control URL pasting behavior in `MarkdownEditor`
+
+### Patch Changes
+
+- [#2388](https://github.com/primer/react/pull/2388) [`d459364a`](https://github.com/primer/react/commit/d459364adb6cf19c93595b731bbf34b880708f00) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Add `TreeView.LoadingItem` component
+
+* [#2375](https://github.com/primer/react/pull/2375) [`96f3b8a1`](https://github.com/primer/react/commit/96f3b8a1f84f8b934d43c19af0e03025be9d5e9f) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Fix focus styles in styled-components v5.2+
+
+- [#2258](https://github.com/primer/react/pull/2258) [`270157a6`](https://github.com/primer/react/commit/270157a627097851e576ed0169d2321077f80602) Thanks [@josepmartins](https://github.com/josepmartins)! - Add new accessible frontmatter variable
+
+* [#2408](https://github.com/primer/react/pull/2408) [`c639acb0`](https://github.com/primer/react/commit/c639acb014917a4f2f8cd4b08eece7dbb0bb3168) Thanks [@mattcosta7](https://github.com/mattcosta7)! - fix react 18 typing for MarkdownEditor.Label
+
+- [#2251](https://github.com/primer/react/pull/2251) [`4a4e47c0`](https://github.com/primer/react/commit/4a4e47c04dc4d1081c663c557f8e9f2c805506ae) Thanks [@joshblack](https://github.com/joshblack)! - Add support for the dvh unit in `PageLayout` in order to correctly display pane contents on iOS devices
+
+* [#2301](https://github.com/primer/react/pull/2301) [`45afa3d0`](https://github.com/primer/react/commit/45afa3d0cbed4cb08ca5a885db87b7ac3e664c38) Thanks [@pksjce](https://github.com/pksjce)! - Hidden component
+
+- [#2323](https://github.com/primer/react/pull/2323) [`9c0c1078`](https://github.com/primer/react/commit/9c0c10787cd010810144946f667a00d9cce92d77) Thanks [@joshblack](https://github.com/joshblack)! - Update `ButtonBase` to minimize re-renders through stable `sx` prop values
+
+* [#2357](https://github.com/primer/react/pull/2357) [`143286ed`](https://github.com/primer/react/commit/143286edc2aebc55a03ca81d6a303046cb6d0da1) Thanks [@colebemis](https://github.com/colebemis)! - Add support for typeahead search of items in a TreeView
+
+- [#2391](https://github.com/primer/react/pull/2391) [`845001b1`](https://github.com/primer/react/commit/845001b13113ea879b3a4410a2fb1f9d1358a14e) Thanks [@joshblack](https://github.com/joshblack)! - Update the files field in package.json to include all package artifacts
+
+* [#2424](https://github.com/primer/react/pull/2424) [`09728c91`](https://github.com/primer/react/commit/09728c91d88559bdad8e93da865500d3811c2c3d) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `MarkdownEditor` suggestions filtering bug and allow lazy-loading suggestions
+
+- [#2327](https://github.com/primer/react/pull/2327) [`df2a834c`](https://github.com/primer/react/commit/df2a834cdddcf32dc339ce50a29ef6bcfc7ae813) Thanks [@joshblack](https://github.com/joshblack)! - [Internal] Update build process to use `rollup`. This change should be transparent as generated entrypoints remain the same
+
+* [#2376](https://github.com/primer/react/pull/2376) [`33ba836f`](https://github.com/primer/react/commit/33ba836fbf064b30400e9675d44f5d798aa95cf1) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Increase touch target size for coarse pointers
+
+- [#2393](https://github.com/primer/react/pull/2393) [`294b4c4b`](https://github.com/primer/react/commit/294b4c4bb93359805423c520384a93c3707008a9) Thanks [@futurouz](https://github.com/futurouz)! - Fix invalid hover outline variant of the Button component
+
+* [#2404](https://github.com/primer/react/pull/2404) [`1d1d07b7`](https://github.com/primer/react/commit/1d1d07b7783156f1c93d40a3ddc64ce2936ee4c7) Thanks [@joshblack](https://github.com/joshblack)! - Update bundle to not inline @github dependencies
+
+- [#2419](https://github.com/primer/react/pull/2419) [`64f719f1`](https://github.com/primer/react/commit/64f719f1f7498e5753faa9bd3c8586a8c5a9efe3) Thanks [@joshblack](https://github.com/joshblack)! - Refactor rollup to support all lib-esm/\* export patterns and include utils entrypoint
+
+* [#2373](https://github.com/primer/react/pull/2373) [`e4af7a74`](https://github.com/primer/react/commit/e4af7a749dd6c9995d3ace00bcb9a72c8487af45) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Allow expanded state to be controlled
+
+- [#2383](https://github.com/primer/react/pull/2383) [`81013a7d`](https://github.com/primer/react/commit/81013a7d682aa5c2dcca44de1a646c7d62575117) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Add support for leading and trailing visuals
+
+* [#2406](https://github.com/primer/react/pull/2406) [`96b004b7`](https://github.com/primer/react/commit/96b004b734dbbaf2990b72802ee837057be67b47) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Address accessibility feedback and re-style arrow buttons for scroll behaviour
+
 ## 35.10.0
 
 ### Minor Changes
