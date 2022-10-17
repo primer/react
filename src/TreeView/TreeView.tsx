@@ -9,30 +9,38 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {useControllableState} from '../hooks/useControllableState'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 import Spinner from '../Spinner'
 import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
 import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
-import {useActiveDescendant} from './useActiveDescendant'
+import VisuallyHidden from '../_VisuallyHidden'
+import {getAccessibleName} from './shared'
+import {getFirstChildElement, useActiveDescendant} from './useActiveDescendant'
 import {useTypeahead} from './useTypeahead'
 
 // ----------------------------------------------------------------------------
 // Context
 
 const RootContext = React.createContext<{
+  announceUpdate: (message: string) => void
   activeDescendant: string
-  setActiveDescendant?: React.Dispatch<React.SetStateAction<string>>
+  setActiveDescendant: React.Dispatch<React.SetStateAction<string>>
 }>({
-  activeDescendant: ''
+  announceUpdate: () => {},
+  activeDescendant: '',
+  setActiveDescendant: () => {}
 })
 
 const ItemContext = React.createContext<{
+  itemId: string
   level: number
   isExpanded: boolean
   expandParents: () => void
 }>({
+  itemId: '',
   level: 1,
   isExpanded: false,
   expandParents: () => {}
@@ -51,6 +59,7 @@ const UlBox = styled.ul<SxProp>(sx)
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
+  const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
 
   const [activeDescendant, setActiveDescendant] = useActiveDescendant({containerRef})
 
@@ -59,29 +68,40 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     onFocusChange: element => setActiveDescendant(element.id)
   })
 
+  const announceUpdate = React.useCallback((message: string) => {
+    setAriaLiveMessage(message)
+  }, [])
+
   return (
-    <RootContext.Provider value={{activeDescendant, setActiveDescendant}}>
-      <UlBox
-        ref={containerRef}
-        tabIndex={0}
-        role="tree"
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledby}
-        aria-activedescendant={activeDescendant}
-        sx={{
-          listStyle: 'none',
-          padding: 0,
-          margin: 0,
-          // We'll display a focus ring around the active descendant
-          // instead of the tree itself
-          outline: 0
-        }}
-      >
-        {children}
-      </UlBox>
+    <RootContext.Provider value={{announceUpdate, activeDescendant, setActiveDescendant}}>
+      <>
+        <VisuallyHidden role="status" aria-live="polite">
+          {ariaLiveMessage}
+        </VisuallyHidden>
+        <UlBox
+          ref={containerRef}
+          tabIndex={0}
+          role="tree"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
+          aria-activedescendant={activeDescendant}
+          sx={{
+            listStyle: 'none',
+            padding: 0,
+            margin: 0,
+            // We'll display a focus ring around the active descendant
+            // instead of the tree itself
+            outline: 0
+          }}
+        >
+          {children}
+        </UlBox>
+      </>
     </RootContext.Provider>
   )
 }
+
+Root.displayName = 'TreeView'
 
 // ----------------------------------------------------------------------------
 // TreeView.Item
@@ -184,7 +204,7 @@ const Item: React.FC<TreeViewItemProps> = ({
   }, [toggle, onSelect, setIsExpanded])
 
   return (
-    <ItemContext.Provider value={{level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
+    <ItemContext.Provider value={{itemId, level: level + 1, isExpanded, expandParents: expandParentsAndSelf}}>
       <li
         id={itemId}
         ref={itemRef}
@@ -196,7 +216,7 @@ const Item: React.FC<TreeViewItemProps> = ({
       >
         <Box
           onClick={event => {
-            setActiveDescendant?.(itemId)
+            setActiveDescendant(itemId)
             if (onSelect) {
               onSelect(event)
             } else {
@@ -259,7 +279,7 @@ const Item: React.FC<TreeViewItemProps> = ({
             <Box
               onClick={event => {
                 if (onSelect) {
-                  setActiveDescendant?.(itemId)
+                  setActiveDescendant(itemId)
                   toggle(event)
                 }
               }}
@@ -352,6 +372,8 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
   )
 }
 
+Item.displayName = 'TreeView.Item'
+
 // ----------------------------------------------------------------------------
 // TreeView.LinkItem
 
@@ -372,32 +394,72 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
   )
 }
 
-// ----------------------------------------------------------------------------
-// TreeView.LoadingItem
-
-const LoadingItem: React.FC = () => {
-  return (
-    // TODO: What aria attributes do we need to add here?
-    <Item>
-      <LeadingVisual>
-        <Spinner size="small" />
-      </LeadingVisual>
-      <Text sx={{color: 'fg.muted'}}>Loading...</Text>
-    </Item>
-  )
-}
-
-LoadingItem.displayName = 'TreeView.LoadingItem'
+LinkItem.displayName = 'TreeView.LinkItem'
 
 // ----------------------------------------------------------------------------
 // TreeView.SubTree
 
+export type SubTreeState = 'initial' | 'loading' | 'done' | 'error'
+
 export type TreeViewSubTreeProps = {
   children?: React.ReactNode
+  state?: SubTreeState
 }
 
-const SubTree: React.FC<TreeViewSubTreeProps> = ({children}) => {
-  const {isExpanded} = React.useContext(ItemContext)
+const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
+  const {activeDescendant, setActiveDescendant, announceUpdate} = React.useContext(RootContext)
+  const {itemId, isExpanded} = React.useContext(ItemContext)
+  const [isLoadingItemVisible, setIsLoadingItemVisible] = React.useState(false)
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+  const timeoutId = React.useRef<number>(0)
+  const activeDescendantRef = React.useRef(activeDescendant)
+
+  React.useEffect(() => {
+    activeDescendantRef.current = activeDescendant
+  }, [activeDescendant])
+
+  // Announce when content has loaded
+  React.useEffect(() => {
+    if (state === 'done') {
+      const parentItem = document.getElementById(itemId)
+
+      if (!parentItem) return
+
+      const parentName = getAccessibleName(parentItem)
+      announceUpdate(`${parentName} content loaded`)
+    }
+  }, [state, itemId, announceUpdate])
+
+  // Show loading indicator after a short delay
+  React.useEffect(() => {
+    if (state === 'loading' && !isLoadingItemVisible) {
+      timeoutId.current = safeSetTimeout(() => {
+        setIsLoadingItemVisible(true)
+      }, 300)
+    }
+
+    if (state !== 'loading' && isLoadingItemVisible) {
+      safeClearTimeout(timeoutId.current)
+      setIsLoadingItemVisible(false)
+
+      // If the active descendant was removed from the DOM after hiding the
+      // LoadingItem, we know the LoadingItem was the active descendant
+      // and we need to update the active descendant to the first loaded item
+      // or the parent item (if the subtree is empty).
+      setTimeout(() => {
+        const activeElement = document.getElementById(activeDescendantRef.current)
+
+        if (!activeElement) {
+          const parentElement = document.getElementById(itemId)
+          if (!parentElement) return
+
+          const firstChild = getFirstChildElement(parentElement)
+          setActiveDescendant(firstChild ? firstChild.id : parentElement.id)
+        }
+      })
+    }
+  }, [state, safeSetTimeout, safeClearTimeout, setActiveDescendant, isLoadingItemVisible, itemId])
+
   return (
     <Box
       as="ul"
@@ -409,8 +471,21 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({children}) => {
         margin: 0
       }}
     >
-      {children}
+      {isLoadingItemVisible ? <LoadingItem /> : children}
     </Box>
+  )
+}
+
+SubTree.displayName = 'TreeView.SubTree'
+
+const LoadingItem = () => {
+  return (
+    <Item>
+      <LeadingVisual>
+        <Spinner size="small" />
+      </LeadingVisual>
+      <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
   )
 }
 
@@ -449,6 +524,8 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
   )
 }
 
+LeadingVisual.displayName = 'TreeView.LeadingVisual'
+
 const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
@@ -458,6 +535,8 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
     </Slot>
   )
 }
+
+TrailingVisual.displayName = 'TreeView.TrailingVisual'
 
 // ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
@@ -475,7 +554,6 @@ const DirectoryIcon = () => {
 export const TreeView = Object.assign(Root, {
   Item,
   LinkItem,
-  LoadingItem,
   SubTree,
   LeadingVisual,
   TrailingVisual,

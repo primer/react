@@ -5,6 +5,7 @@ status: Alpha
 # description: TODO
 source: https://github.com/primer/react/tree/main/src/PageLayout
 storybook: https://primer.style/react/storybook?path=/story/layout-pagelayout--default
+a11yReviewed: true
 ---
 
 ```js
@@ -156,7 +157,7 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
       <Placeholder label="Header" height={64} />
     </PageLayout.Header>
     <PageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </PageLayout.Content>
     <PageLayout.Pane sticky>
       <Placeholder label="Pane" height={120} />
@@ -183,7 +184,8 @@ Add `offsetHeader` prop to specify the height of the custom sticky header along 
       placeItems: 'center',
       backgroundColor: 'canvas.subtle',
       borderBottom: '1px solid',
-      borderColor: 'border.default'
+      borderColor: 'border.default',
+      zIndex: 1
     }}
   >
     Custom sticky header

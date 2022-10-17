@@ -1,7 +1,7 @@
 import {fireEvent, render} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
-import {TreeView} from './TreeView'
+import {SubTreeState, TreeView} from './TreeView'
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
@@ -1023,5 +1023,90 @@ describe('Controlled state', () => {
     // Parent should be collapsed
     expect(parent).toHaveAttribute('aria-expanded', 'false')
     expect(child).not.toBeVisible()
+  })
+})
+
+describe('Asyncronous loading', () => {
+  it('updates aria live region when loading is done', () => {
+    function TestTree() {
+      const [state, setState] = React.useState<SubTreeState>('loading')
+
+      return (
+        <div>
+          {/* Mimic the completion of async loading by clicking the button */}
+          <button onClick={() => setState('done')}>Done</button>
+          <TreeView aria-label="Test tree">
+            <TreeView.Item defaultExpanded>
+              Parent
+              <TreeView.SubTree state={state}>
+                <TreeView.Item>Child</TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView>
+        </div>
+      )
+    }
+    const {getByRole} = renderWithTheme(<TestTree />)
+
+    const doneButton = getByRole('button', {name: 'Done'})
+    const liveRegion = getByRole('status')
+
+    // Live region should be empty
+    expect(liveRegion).toHaveTextContent('')
+
+    // Click done button to mimic the completion of async loading
+    fireEvent.click(doneButton)
+
+    // Live region should be updated
+    expect(liveRegion).toHaveTextContent('Parent content loaded')
+  })
+
+  it('moves active descendant from loading item to first child', async () => {
+    function TestTree() {
+      const [state, setState] = React.useState<SubTreeState>('loading')
+
+      React.useEffect(() => {
+        const timer = setTimeout(() => setState('done'), 400)
+        return () => clearTimeout(timer)
+      }, [])
+
+      return (
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree state={state}>
+              <TreeView.Item>Child 1</TreeView.Item>
+              <TreeView.Item>Child 2</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+    }
+
+    const {getByRole, findByRole} = renderWithTheme(<TestTree />)
+
+    const root = getByRole('tree')
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+    const loadingItem = await findByRole('treeitem', {name: 'Loading...'})
+
+    // Focus tree
+    root.focus()
+
+    // aria-activedescendant should be set to parent item
+    expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+
+    // Press ↓ to move aria-activedescendant to loading item
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+
+    // aria-activedescendant should now be set to loading item
+    expect(root).toHaveAttribute('aria-activedescendant', loadingItem.id)
+
+    // Wait for async loading to complete
+    const firstChild = await findByRole('treeitem', {name: 'Child 1'})
+
+    setTimeout(() => {
+      // aria-activedescendant should now be set to first child
+      expect(root).toHaveAttribute('aria-activedescendant', firstChild.id)
+    })
   })
 })

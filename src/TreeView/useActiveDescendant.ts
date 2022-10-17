@@ -111,7 +111,7 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
   }
 }
 
-function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
+export function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
   if (element.getAttribute('role') !== 'treeitem') {
     throw new Error('Element is not a treeitem')
   }
@@ -126,7 +126,7 @@ function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
   }
 }
 
-function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
+export function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
 
   if (!root) return
@@ -152,24 +152,24 @@ function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous')
   return next instanceof HTMLElement ? next : undefined
 }
 
-function getFirstChildElement(element: HTMLElement): HTMLElement | undefined {
+export function getFirstChildElement(element: HTMLElement): HTMLElement | undefined {
   const firstChild = element.querySelector('[role=treeitem]')
   return firstChild instanceof HTMLElement ? firstChild : undefined
 }
 
-function getParentElement(element: HTMLElement): HTMLElement | undefined {
+export function getParentElement(element: HTMLElement): HTMLElement | undefined {
   const group = element.closest('[role=group]')
   const parent = group?.closest('[role=treeitem]')
   return parent instanceof HTMLElement ? parent : undefined
 }
 
-function getFirstElement(element: HTMLElement): HTMLElement | undefined {
+export function getFirstElement(element: HTMLElement): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
   const first = root?.querySelector('[role=treeitem]')
   return first instanceof HTMLElement ? first : undefined
 }
 
-function getLastElement(element: HTMLElement): HTMLElement | undefined {
+export function getLastElement(element: HTMLElement): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
   const items = Array.from(root?.querySelectorAll('[role=treeitem]') || [])
 
