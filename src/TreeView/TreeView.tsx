@@ -378,9 +378,10 @@ export type TreeViewLinkItemProps = TreeViewItemProps & {
 }
 
 // TODO: Use an <a> element to enable native browser behavior like opening links in a new tab
-const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) => {
+const LinkItem = React.forwardRef<HTMLElement, TreeViewLinkItemProps>(({href, onSelect, ...props}, ref) => {
   return (
     <Item
+      ref={ref}
       onSelect={event => {
         window.open(href, '_self')
         onSelect?.(event)
@@ -388,7 +389,7 @@ const LinkItem: React.FC<TreeViewLinkItemProps> = ({href, onSelect, ...props}) =
       {...props}
     />
   )
-}
+})
 
 LinkItem.displayName = 'TreeView.LinkItem'
 
