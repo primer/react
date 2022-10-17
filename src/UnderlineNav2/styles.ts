@@ -2,6 +2,13 @@ import {Theme} from '../ThemeProvider'
 import {BetterSystemStyleObject} from '../sx'
 import {UnderlineNavProps} from './UnderlineNav'
 
+// The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
+export const GAP = 8
+
+const focusRing = (theme?: Theme): BetterSystemStyleObject => ({
+  boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
+})
+
 export const iconWrapStyles = {
   alignItems: 'center',
   display: 'inline-flex',
@@ -48,7 +55,8 @@ export const ulStyles = {
   paddingX: 0,
   margin: '0',
   marginBottom: '-1px',
-  alignItems: 'center'
+  alignItems: 'center',
+  gap: `${GAP}px`
 }
 
 export const getDividerStyle = (theme?: Theme) => ({
@@ -106,15 +114,14 @@ export const getArrowBtnStyles = (theme?: Theme) => ({
   // To reset global focus styles because it doesn't support safari right now.
   '&:focus:not(:disabled)': {
     outline: 0,
-    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
+    ...focusRing(theme)
   },
   // where focus-visible is supported, remove the focus box-shadow
   '&:not(:focus-visible)': {
     boxShadow: 'none'
   },
   '&:focus-visible:not(:disabled)': {
-    outline: 0,
-    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
+    ...focusRing(theme)
   }
 })
 
@@ -129,7 +136,6 @@ export const getLinkStyles = (
   color: 'fg.default',
   textAlign: 'center',
   textDecoration: 'none',
-  paddingX: 1,
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
   '@media (hover:hover)': {
     '&:hover > div[data-component="wrapper"] ': {
@@ -140,7 +146,7 @@ export const getLinkStyles = (
   '&:focus': {
     outline: 0,
     '& > div[data-component="wrapper"]': {
-      boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
+      ...focusRing(theme)
     },
     // where focus-visible is supported, remove the focus box-shadow
     '&:not(:focus-visible) > div[data-component="wrapper"]': {
@@ -148,7 +154,7 @@ export const getLinkStyles = (
     }
   },
   '&:focus-visible > div[data-component="wrapper"]': {
-    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
+    ...focusRing(theme)
   },
   // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
   '& span[data-content]::before': {
@@ -164,7 +170,7 @@ export const getLinkStyles = (
     position: 'absolute',
     right: '50%',
     bottom: 0,
-    width: `calc(100% - 8px)`,
+    width: '100%',
     height: 2,
     content: '""',
     bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',

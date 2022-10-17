@@ -19,7 +19,8 @@ import {
   ulStyles,
   scrollStyles,
   moreMenuStyles,
-  menuItemStyles
+  menuItemStyles,
+  GAP
 } from './styles'
 import {ArrowButton} from './UnderlineNavArrowButton'
 import styled from 'styled-components'
@@ -146,7 +147,8 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
       breakpoint = index - 1
       break
     } else {
-      sumsOfChildWidth = sumsOfChildWidth + childWidth.width
+      // The the gap between items into account when calculating the number of items possible
+      sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
     }
   }
 

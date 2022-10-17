@@ -175,9 +175,18 @@ export const UnderlineNavItem = forwardRef(
                 {children}
               </Box>
             )}
-            <Box as="span" data-component="counter" sx={counterStyles}>
-              {loadingCounters ? <LoadingCounter /> : counter !== undefined && <CounterLabel>{counter}</CounterLabel>}
-            </Box>
+
+            {loadingCounters ? (
+              <Box as="span" data-component="counter" sx={counterStyles}>
+                <LoadingCounter />
+              </Box>
+            ) : (
+              counter !== undefined && (
+                <Box as="span" data-component="counter" sx={counterStyles}>
+                  <CounterLabel>{counter}</CounterLabel>
+                </Box>
+              )
+            )}
           </Box>
         </Box>
       </Box>
