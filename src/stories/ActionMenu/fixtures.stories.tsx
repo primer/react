@@ -113,7 +113,7 @@ export function ExternalAnchor(): JSX.Element {
         <Button
           ref={anchorRef}
           onClick={() => setOpen(!open)}
-          onKeyDown={(event: KeyboardEvent) => {
+          onKeyDown={event => {
             // TODO: This should happen from AnchoredOverlay?
             if (['ArrowDown', 'ArrowUp'].includes(event.code)) setOpen(true)
           }}
