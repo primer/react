@@ -1,8 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Story, Meta} from '@storybook/react'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
-import {Box, Text} from '../'
 
 type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default'
 type Args = {
