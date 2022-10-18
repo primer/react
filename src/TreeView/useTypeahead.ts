@@ -59,13 +59,11 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       // Filter out collapsed items
       .filter(element => !element.parentElement?.closest('[role=treeitem][aria-expanded=false]'))
 
-    // Get the index of active descendant
-    const activeDescendantIndex = elements.findIndex(
-      element => element.id === containerRef.current?.getAttribute('aria-activedescendant')
-    )
+    // Get the index of active element
+    const activeIndex = elements.findIndex(element => element === document.activeElement)
 
     // Wrap the array elements such that the active descendant is at the beginning
-    let sortedElements = wrapArray(elements, activeDescendantIndex)
+    let sortedElements = wrapArray(elements, activeIndex)
 
     // Remove the active descendant from the beginning of the array
     // when the user initiates a new search
