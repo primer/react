@@ -438,7 +438,7 @@ export const AsyncSuccess: Story = args => {
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Directory with async items
-            <TreeView.SubTree state={state}>
+            <TreeView.SubTree state={state} count={args.count}>
               {asyncItems.map(item => (
                 <TreeView.Item key={item}>
                   <TreeView.LeadingVisual>
@@ -456,7 +456,14 @@ export const AsyncSuccess: Story = args => {
 }
 
 AsyncSuccess.args = {
-  responseTime: 2000
+  responseTime: 2000,
+  count: null
+}
+
+AsyncSuccess.argTypes = {
+  count: {
+    type: 'number'
+  }
 }
 
 async function alwaysFails(responseTime: number) {

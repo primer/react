@@ -420,9 +420,10 @@ export type SubTreeState = 'initial' | 'loading' | 'done' | 'error'
 export type TreeViewSubTreeProps = {
   children?: React.ReactNode
   state?: SubTreeState
+  count?: number
 }
 
-const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
+const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {activeDescendant, setActiveDescendant, announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded} = React.useContext(ItemContext)
   const [isLoadingItemVisible, setIsLoadingItemVisible] = React.useState(false)
@@ -487,14 +488,30 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
         margin: 0
       }}
     >
-      {isLoadingItemVisible ? <LoadingItem /> : children}
+      {isLoadingItemVisible ? <LoadingItem count={count} /> : children}
     </Box>
   )
 }
 
 SubTree.displayName = 'TreeView.SubTree'
 
-const LoadingItem = () => {
+type LoadingItemProps = {
+  count?: number
+}
+
+const LoadingItem = (props: LoadingItemProps) => {
+  const {count} = props
+  if (count) {
+    return (
+      <Item>
+        {Array.from({length: count}).map((_, i) => {
+          return <Box as="span" aria-hidden={true} key={i} sx={loadingItem} />
+        })}
+        <VisuallyHidden>Loading {count} items</VisuallyHidden>
+      </Item>
+    )
+  }
+
   return (
     <Item>
       <LeadingVisual>
@@ -503,6 +520,44 @@ const LoadingItem = () => {
       <Text sx={{color: 'fg.muted'}}>Loading...</Text>
     </Item>
   )
+}
+
+const loadingItem = {
+  display: 'flex',
+  alignItems: 'center',
+  columnGap: '0.5rem',
+  height: '2rem',
+  '&:before': {
+    content: '""',
+    display: 'block',
+    width: 16,
+    height: 16,
+    backgroundColor: 'neutral.subtle',
+    borderRadius: '3px'
+  },
+  '&:after': {
+    content: '""',
+    display: 'block',
+    width: 'var(--tree-item-loading-width, 80%)',
+    height: 16,
+    backgroundColor: 'neutral.subtle',
+    borderRadius: '3px'
+  },
+  '&:nth-of-type(1n)': {
+    '--tree-item-loading-width': '67%'
+  },
+  '&:nth-of-type(2n)': {
+    '--tree-item-loading-width': '47%'
+  },
+  '&:nth-of-type(3n)': {
+    '--tree-item-loading-width': '73%'
+  },
+  '&:nth-of-type(4n)': {
+    '--tree-item-loading-width': '64%'
+  },
+  '&:nth-of-type(5n)': {
+    '--tree-item-loading-width': '47%'
+  }
 }
 
 function useSubTree(children: React.ReactNode) {
