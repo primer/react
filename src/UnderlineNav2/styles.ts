@@ -2,6 +2,9 @@ import {Theme} from '../ThemeProvider'
 import {BetterSystemStyleObject} from '../sx'
 import {UnderlineNavProps} from './UnderlineNav'
 
+// The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
+export const GAP = 8
+
 export const iconWrapStyles = {
   alignItems: 'center',
   display: 'inline-flex',
@@ -32,7 +35,7 @@ export const counterStyles = {
 
 export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavProps, 'align'>>) => ({
   display: 'flex',
-  paddingX: 2,
+  paddingX: 3,
   justifyContent: props?.align === 'right' ? 'flex-end' : 'flex-start',
   borderBottom: '1px solid',
   borderBottomColor: `${theme?.colors.border.muted}`,
@@ -44,10 +47,12 @@ export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavPro
 export const ulStyles = {
   display: 'flex',
   listStyle: 'none',
-  padding: '0',
-  margin: '0',
+  paddingY: 0,
+  paddingX: 0,
+  margin: 0,
   marginBottom: '-1px',
-  alignItems: 'center'
+  alignItems: 'center',
+  gap: `${GAP}px`
 }
 
 export const getDividerStyle = (theme?: Theme) => ({
@@ -80,7 +85,6 @@ export const getLinkStyles = (
   color: 'fg.default',
   textAlign: 'center',
   textDecoration: 'none',
-  paddingX: 1,
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
   '@media (hover:hover)': {
     '&:hover > div[data-component="wrapper"] ': {
@@ -115,7 +119,7 @@ export const getLinkStyles = (
     position: 'absolute',
     right: '50%',
     bottom: 0,
-    width: `calc(100% - 8px)`,
+    width: '100%',
     height: 2,
     content: '""',
     bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',

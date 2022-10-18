@@ -9,7 +9,7 @@ import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps} from './types'
 
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, moreMenuStyles, menuItemStyles} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, moreMenuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 
@@ -105,7 +105,8 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
       breakpoint = index - 1
       break
     } else {
-      sumsOfChildWidth = sumsOfChildWidth + childWidth.width
+      // The the gap between items into account when calculating the number of items possible
+      sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
     }
   }
 
