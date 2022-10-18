@@ -7,6 +7,7 @@ import {Emoji, useEmojiSuggestions} from './suggestions/_useEmojiSuggestions'
 import {Mentionable, useMentionSuggestions} from './suggestions/_useMentionSuggestions'
 import {Reference, useReferenceSuggestions} from './suggestions/_useReferenceSuggestions'
 import {useRefObjectAsForwardedRef} from '../../hooks'
+import {SuggestionOptions} from './suggestions'
 
 interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   value: string
@@ -18,12 +19,13 @@ interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   maxLength?: number
   fullHeight?: boolean
   isDraggedOver: boolean
-  emojiSuggestions?: Array<Emoji>
-  mentionSuggestions?: Array<Mentionable>
-  referenceSuggestions?: Array<Reference>
+  emojiSuggestions?: SuggestionOptions<Emoji>
+  mentionSuggestions?: SuggestionOptions<Mentionable>
+  referenceSuggestions?: SuggestionOptions<Reference>
   minHeightLines: number
   maxHeightLines: number
   monospace: boolean
+  pasteUrlsAsPlainText: boolean
   /** Use this prop to control visibility instead of unmounting, so the undo stack and custom height are preserved. */
   visible: boolean
 }
@@ -47,6 +49,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       maxHeightLines,
       visible,
       monospace,
+      pasteUrlsAsPlainText,
       ...props
     },
     forwardedRef
@@ -68,20 +71,26 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       [mentionsTrigger, referencesTrigger, emojiTrigger]
     )
 
-    const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    const onShowSuggestions = async (event: ShowSuggestionsEvent) => {
+      setSuggestions('loading')
       if (event.trigger.triggerChar === emojiTrigger.triggerChar) {
-        setSuggestions(calculateEmojiSuggestions(event.query))
+        setSuggestions(await calculateEmojiSuggestions(event.query))
       } else if (event.trigger.triggerChar === mentionsTrigger.triggerChar) {
-        setSuggestions(calculateMentionSuggestions(event.query))
+        setSuggestions(await calculateMentionSuggestions(event.query))
       } else if (event.trigger.triggerChar === referencesTrigger.triggerChar) {
-        setSuggestions(calculateReferenceSuggestions(event.query))
+        setSuggestions(await calculateReferenceSuggestions(event.query))
       }
     }
 
     const ref = useRef<HTMLTextAreaElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, ref)
 
-    useEffect(() => (ref.current ? subscribeToMarkdownPasting(ref.current).unsubscribe : undefined), [])
+    useEffect(() => {
+      const subscription =
+        ref.current &&
+        subscribeToMarkdownPasting(ref.current, {defaultPlainTextPaste: {urlLinks: pasteUrlsAsPlainText}})
+      return subscription?.unsubscribe
+    }, [pasteUrlsAsPlainText])
 
     const dynamicHeightStyles = useDynamicTextareaHeight({maxHeightLines, minHeightLines, element: ref.current, value})
     const heightStyles = fullHeight ? {} : dynamicHeightStyles
@@ -90,7 +99,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       <InlineAutocomplete
         triggers={triggers}
         suggestions={suggestions}
-        onShowSuggestions={onShowSuggestions}
+        onShowSuggestions={e => onShowSuggestions(e)}
         onHideSuggestions={() => setSuggestions(null)}
         sx={{flex: 'auto'}}
         tabInsertsSuggestions

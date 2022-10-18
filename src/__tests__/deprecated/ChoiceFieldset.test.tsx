@@ -7,31 +7,32 @@ import userEvent from '@testing-library/user-event'
 import ChoiceFieldset, {Item, ChoiceFieldsetProps} from '../../deprecated/ChoiceFieldset'
 import {ChoiceFieldsetListProps} from '../../deprecated/ChoiceFieldset/ChoiceFieldsetList'
 
-const SelectableChoicelistFieldset: React.FC<React.PropsWithChildren<ChoiceFieldsetProps & ChoiceFieldsetListProps>> =
-  ({onSelect, selectionVariant, selected = []}) => {
-    const [selectionVals, setSelectionVals] = React.useState<string[]>(selected)
+const SelectableChoicelistFieldset: React.FC<
+  React.PropsWithChildren<ChoiceFieldsetProps & ChoiceFieldsetListProps>
+> = ({onSelect, selectionVariant, selected = []}) => {
+  const [selectionVals, setSelectionVals] = React.useState<string[]>(selected)
 
-    React.useEffect(() => {
-      onSelect && onSelect(selectionVals)
-    }, [onSelect, selectionVals])
+  React.useEffect(() => {
+    onSelect && onSelect(selectionVals)
+  }, [onSelect, selectionVals])
 
-    return (
-      <SSRProvider>
-        <ChoiceFieldset
-          onSelect={selectedVals => {
-            setSelectionVals(selectedVals)
-          }}
-          selected={selectionVals}
-        >
-          <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
-          <ChoiceFieldset.List selectionVariant={selectionVariant}>
-            <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
-          </ChoiceFieldset.List>
-        </ChoiceFieldset>
-      </SSRProvider>
-    )
-  }
+  return (
+    <SSRProvider>
+      <ChoiceFieldset
+        onSelect={selectedVals => {
+          setSelectionVals(selectedVals)
+        }}
+        selected={selectionVals}
+      >
+        <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+        <ChoiceFieldset.List selectionVariant={selectionVariant}>
+          <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+          <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
+        </ChoiceFieldset.List>
+      </ChoiceFieldset>
+    </SSRProvider>
+  )
+}
 
 describe('ChoiceFieldset', () => {
   it('renders default', () => {

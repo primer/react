@@ -134,12 +134,20 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
             )}
             {slots.Label}
             {React.isValidElement(InputComponent) &&
-              React.cloneElement(InputComponent, {
-                id,
-                required,
-                disabled,
-                ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
-              })}
+              React.cloneElement(
+                InputComponent as React.ReactElement<{
+                  id: string
+                  required: boolean
+                  disabled: boolean
+                  ['aria-describedby']: string
+                }>,
+                {
+                  id,
+                  required,
+                  disabled,
+                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+                }
+              )}
             {validationChildToRender && validationMap && validationResult && validationMessageId && (
               <ValidationAnimationContainer show>
                 <InputValidation validationStatus={validationMap[validationResult]} id={validationMessageId}>
