@@ -1,5 +1,42 @@
 # @primer/components
 
+## 35.12.0
+
+### Minor Changes
+
+- [#2435](https://github.com/primer/react/pull/2435) [`e335cc4b`](https://github.com/primer/react/commit/e335cc4b39eb626e327d1c6e6a1adab29a437245) Thanks [@colebemis](https://github.com/colebemis)! - SplitPageLayout has moved from `@primer/react/drafts` to `@primer/react`:
+
+  ```diff
+  - import {SplitPageLayout} from '@primer/react/drafts'
+  + import {SplitPageLayout} from '@primer/react'
+  ```
+
+### Patch Changes
+
+- [#2428](https://github.com/primer/react/pull/2428) [`7ad9e77d`](https://github.com/primer/react/commit/7ad9e77d6dfe7736874ac87ae73570030171cf8c) Thanks [@joshblack](https://github.com/joshblack)! - Update TreeView focus ring styles and call event.preventDefault() in arrow key events
+
+* [#2444](https://github.com/primer/react/pull/2444) [`2b6323ca`](https://github.com/primer/react/commit/2b6323caf0878157deb212ccab38f81835da6b14) Thanks [@colebemis](https://github.com/colebemis)! - Dialog: Remove landmark elements to improve accessibility
+
+- [#2429](https://github.com/primer/react/pull/2429) [`e7802ed9`](https://github.com/primer/react/commit/e7802ed9ab501e4badd41c099969eb55a3ee4df7) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Add `state` prop to `TreeView.SubTree` component
+
+* [#2432](https://github.com/primer/react/pull/2432) [`99309e00`](https://github.com/primer/react/commit/99309e00da96454aafbcf3145fb3e9ee61408712) Thanks [@joshblack](https://github.com/joshblack)! - Update useStickyPaneHeight and useMedia to not warn during SSR
+
+- [#2433](https://github.com/primer/react/pull/2433) [`a08997b3`](https://github.com/primer/react/commit/a08997b3ec6a58046242ac2fef4e884479ab6893) Thanks [@joshblack](https://github.com/joshblack)! - Update TreeView hover and focus styles to work in Windows High Contrast Mode
+
+* [#2446](https://github.com/primer/react/pull/2446) [`e00d03c1`](https://github.com/primer/react/commit/e00d03c140987cec4e957f769638aef77e3dd8b5) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Use correct design tokens and icons
+
+- [#2429](https://github.com/primer/react/pull/2429) [`e7802ed9`](https://github.com/primer/react/commit/e7802ed9ab501e4badd41c099969eb55a3ee4df7) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Improve accessibility of async items
+
+* [#2434](https://github.com/primer/react/pull/2434) [`57c3b4d8`](https://github.com/primer/react/commit/57c3b4d840e619c76e72f4e5d9de75e7732ae41b) Thanks [@joshblack](https://github.com/joshblack)! - Add support for labels in TreeView.LeadingVisual and TreeView.TrailingVisual
+
+- [#2360](https://github.com/primer/react/pull/2360) [`0f41dfec`](https://github.com/primer/react/commit/0f41dfec6ba995b448358d13fa7f8bb0f1951490) Thanks [@joshblack](https://github.com/joshblack)! - Update types to support TypeScript v4.8.3
+
+* [#2326](https://github.com/primer/react/pull/2326) [`31bbec8c`](https://github.com/primer/react/commit/31bbec8cbfd64880eed120e7b6449433b54e91bd) Thanks [@joshblack](https://github.com/joshblack)! - Update the sticky layout algorithm for PageLayout and PageLayout.Pane
+
+- [#2442](https://github.com/primer/react/pull/2442) [`6b559a97`](https://github.com/primer/react/commit/6b559a97694d483c5603d202d81fc1e9f37ff3fb) Thanks [@joshblack](https://github.com/joshblack)! - Inline ESM-only dependencies in CommonJS bundle
+
+* [#2443](https://github.com/primer/react/pull/2443) [`3012faec`](https://github.com/primer/react/commit/3012faec1b185935bd30c11711d88e92bcc00af0) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Use roving tabindex instead of `aria-activedescendant` for improved VoiceOver support in Safari
+
 ## 35.11.0
 
 ### Minor Changes
