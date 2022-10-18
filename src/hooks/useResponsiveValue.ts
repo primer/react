@@ -49,9 +49,9 @@ export function isResponsiveValue(value: any): value is ResponsiveValue<any> {
 export function useResponsiveValue<T, F>(value: T, fallback: F): FlattenResponsiveValue<T> | F {
   // Check viewport size
   // TODO: What is the performance cost of creating media query listeners in this hook?
-  const isNarrowViewport = useMedia(viewportRanges.narrow)
-  const isRegularViewport = useMedia(viewportRanges.regular)
-  const isWideViewport = useMedia(viewportRanges.wide)
+  const isNarrowViewport = useMedia(viewportRanges.narrow, false)
+  const isRegularViewport = useMedia(viewportRanges.regular, false)
+  const isWideViewport = useMedia(viewportRanges.wide, false)
 
   if (isResponsiveValue(value)) {
     // If we've reached this line, we know that value is a responsive value

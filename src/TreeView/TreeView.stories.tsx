@@ -112,8 +112,8 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Avatar.tsx
-                <TreeView.TrailingVisual>
-                  <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
+                <TreeView.TrailingVisual label="added">
+                  <StyledOcticon icon={DiffAddedIcon} color="success.fg" />
                 </TreeView.TrailingVisual>
               </TreeView.LinkItem>
               <TreeView.Item defaultExpanded>
@@ -127,8 +127,8 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                       <FileIcon />
                     </TreeView.LeadingVisual>
                     Button.tsx
-                    <TreeView.TrailingVisual>
-                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+                    <TreeView.TrailingVisual label="modified">
+                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
                     </TreeView.TrailingVisual>
                   </TreeView.LinkItem>
                   <TreeView.LinkItem href="#button-test-tsx">
@@ -136,8 +136,8 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                       <FileIcon />
                     </TreeView.LeadingVisual>
                     Button.test.tsx
-                    <TreeView.TrailingVisual>
-                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+                    <TreeView.TrailingVisual label="modified">
+                      <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
                     </TreeView.TrailingVisual>
                   </TreeView.LinkItem>
                 </TreeView.SubTree>
@@ -147,8 +147,8 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 ReallyLongFileNameThatShouldBeTruncated.tsx
-                <TreeView.TrailingVisual>
-                  <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+                <TreeView.TrailingVisual label="modified">
+                  <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
                 </TreeView.TrailingVisual>
               </TreeView.Item>
             </TreeView.SubTree>
@@ -164,8 +164,8 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 index.html
-                <TreeView.TrailingVisual>
-                  <StyledOcticon icon={DiffRenamedIcon} aria-label="renamed" />
+                <TreeView.TrailingVisual label="renamed">
+                  <StyledOcticon icon={DiffRenamedIcon} />
                 </TreeView.TrailingVisual>
               </TreeView.LinkItem>
               <TreeView.LinkItem href="#favicon-ico">
@@ -173,8 +173,8 @@ export const FileTreeWithoutDirectoryLinks: Story = () => {
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 favicon.ico
-                <TreeView.TrailingVisual>
-                  <StyledOcticon icon={DiffRemovedIcon} color="danger.fg" aria-label="removed" />
+                <TreeView.TrailingVisual label="removed">
+                  <StyledOcticon icon={DiffRemovedIcon} color="danger.fg" />
                 </TreeView.TrailingVisual>
               </TreeView.LinkItem>
             </TreeView.SubTree>
