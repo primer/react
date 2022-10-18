@@ -679,8 +679,23 @@ CustomStickyHeader.args = {
   numParagraphsInContent: 30
 }
 
+CustomStickyHeader.argTypes = {
+  sticky: {
+    type: 'boolean'
+  },
+  offsetHeader: {
+    type: 'string'
+  },
+  numParagraphsInPane: {
+    type: 'number'
+  },
+  numParagraphsInContent: {
+    type: 'number'
+  }
+}
+
 export const ResizablePane: Story = args => (
-  <PageLayout containerWidth="full" padding={args.padding} rowGap={args.rowGap} columnGap={args.columnGap} sx={args.sx}>
+  <PageLayout containerWidth="full" padding={args.padding} rowGap={args.rowGap} columnGap={args.columnGap}>
     {args['Render header?'] ? (
       <PageLayout.Header
         padding={args['Header.padding']}
@@ -749,18 +764,30 @@ export const ResizablePane: Story = args => (
   </PageLayout>
 )
 
-CustomStickyHeader.argTypes = {
-  sticky: {
-    type: 'boolean'
+ResizablePane.args = {
+  padding: 1,
+  rowGap: 1,
+  columnGap: 1
+}
+
+ResizablePane.argTypes = {
+  padding: {
+    type: {
+      name: 'enum',
+      value: ['none', 'condensed', 'normal']
+    }
   },
-  offsetHeader: {
-    type: 'string'
+  rowGap: {
+    type: {
+      name: 'enum',
+      value: ['none', 'condensed', 'normal']
+    }
   },
-  numParagraphsInPane: {
-    type: 'number'
-  },
-  numParagraphsInContent: {
-    type: 'number'
+  columnGap: {
+    type: {
+      name: 'enum',
+      value: ['none', 'condensed', 'normal']
+    }
   }
 }
 
