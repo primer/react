@@ -598,14 +598,22 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         </Box>
         <Box
           ref={paneRef}
+          style={
+            paneWidth
+              ? {
+                  // @ts-ignore CSS Custom Property
+                  '--page-layout-pane-width': `${paneWidth}px`
+                }
+              : undefined
+          }
           sx={(theme: Theme) => ({
             padding: SPACING_MAP[padding],
             overflow: 'auto',
             ...(paneWidth
               ? {
-                  width: `clamp(256px, ${paneWidth}px, 100vw - 511px)`,
+                  width: `clamp(256px, var(--page-layout-pane-width), 100vw - 511px)`,
                   [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
-                    width: `clamp(256px, ${paneWidth}px, 100vw - 959px)`
+                    width: `clamp(256px, var(--page-layout-pane-width), 100vw - 959px)`
                   }
                 }
               : {width: paneWidths[width]})
