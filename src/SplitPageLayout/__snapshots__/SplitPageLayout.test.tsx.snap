@@ -92,12 +92,19 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 .c10 {
+  position: relative;
   height: 100%;
   margin-left: 0;
 }
 
 .c11 {
-  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: none;
+}
+
+.c12 {
   padding: 16px;
   overflow: auto;
   width: 100%;
@@ -121,7 +128,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-top: 0;
 }
 
-.c12 {
+.c13 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
@@ -129,7 +136,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-top: 0;
 }
 
-.c13 {
+.c14 {
   margin-left: 0;
   margin-right: 0;
   display: block;
@@ -169,14 +176,13 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c11 {
+  .c12 {
     width: 256px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c11 {
-    width: 296px;
+  .c12 {
     padding: 24px;
     width: 296px;
   }
@@ -196,7 +202,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c13 {
+  .c14 {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
@@ -248,19 +254,23 @@ exports[`SplitPageLayout renders default layout 1`] = `
           />
           <div
             class="c10"
-          />
+          >
+            <div
+              class="c11"
+            />
+          </div>
           <div
-            class="c11"
+            class="c12"
           >
             Pane
           </div>
         </div>
       </div>
       <footer
-        class="c12"
+        class="c13"
       >
         <div
-          class="c13"
+          class="c14"
         />
         <div
           class="c3"
