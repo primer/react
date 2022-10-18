@@ -191,6 +191,8 @@ export const UnderlineNav = forwardRef(
       React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement> | null
     >(null)
 
+    const [asNavItem, setAsNavItem] = useState('a')
+
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
@@ -249,6 +251,7 @@ export const UnderlineNav = forwardRef(
           setSelectedLink,
           selectedLinkText,
           setSelectedLinkText,
+          setAsNavItem,
           selectEvent,
           afterSelect: afterSelectHandler,
           variant,
@@ -274,28 +277,32 @@ export const UnderlineNav = forwardRef(
                       {actions.map((action, index) => {
                         const {children: actionElementChildren, ...actionElementProps} = action.props
                         return (
-                          <ActionList.Item
-                            sx={menuItemStyles}
-                            key={index}
-                            {...actionElementProps}
-                            onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                              swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                              setSelectEvent(event)
-                            }}
-                          >
-                            <Box
-                              as="span"
-                              sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
+                          <Box key={index} as="li">
+                            <ActionList.Item
+                              sx={menuItemStyles}
+                              as={asNavItem}
+                              {...actionElementProps}
+                              onSelect={(
+                                event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
+                              ) => {
+                                swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                                setSelectEvent(event)
+                              }}
                             >
-                              {actionElementChildren}
+                              <Box
+                                as="span"
+                                sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
+                              >
+                                {actionElementChildren}
 
-                              {loadingCounters ? (
-                                <LoadingCounter />
-                              ) : (
-                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                              )}
-                            </Box>
-                          </ActionList.Item>
+                                {loadingCounters ? (
+                                  <LoadingCounter />
+                                ) : (
+                                  <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                )}
+                              </Box>
+                            </ActionList.Item>
+                          </Box>
                         )
                       })}
                     </ActionList>
