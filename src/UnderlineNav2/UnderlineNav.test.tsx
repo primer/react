@@ -30,11 +30,6 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 })
 
-Object.defineProperty(window.Element.prototype, 'scrollTo', {
-  value: jest.fn(),
-  writable: true
-})
-
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
   loadingCounters = false
