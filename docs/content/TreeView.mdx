@@ -223,6 +223,7 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
     name="onSelect"
     type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
   />
+  <PropsTableRefRow refType="HTMLElement" />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
@@ -267,12 +268,9 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
     name="onSelect"
     type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
   />
+  <PropsTableRefRow refType="HTMLElement" />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
-
-### TreeView.LoadingItem
-
-<PropsTable>{/* <PropsTableSxRow /> */}</PropsTable>
 
 ### TreeView.SubTree
 
@@ -320,6 +318,11 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
     type={`| React.ReactNode
 | (props: {isExpanded: boolean}) => React.ReactNode`}
   />
+  <PropsTableRow
+    name="label"
+    type="string"
+    description="Provide an accessible label for the leading visual. This is not necessary for decorative visuals"
+  />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
@@ -330,6 +333,11 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
     name="children"
     type={`| React.ReactNode
 | (props: {isExpanded: boolean}) => React.ReactNode`}
+  />
+  <PropsTableRow
+    name="label"
+    type="string"
+    description="Provide an accessible label for the trailing visual. This is not necessary for decorative visuals"
   />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
