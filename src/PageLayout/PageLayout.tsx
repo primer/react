@@ -447,7 +447,7 @@ export type PageLayoutPaneProps = {
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
   resizable?: boolean
-  paneWidthStorageKey?: string
+  widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
@@ -489,7 +489,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       width = 'medium',
       padding = 'none',
       resizable = false,
-      paneWidthStorageKey = 'paneWidth',
+      widthStorageKey = 'paneWidth',
       divider: responsiveDivider = 'none',
       dividerWhenNarrow = 'inherit',
       sticky = false,
@@ -538,7 +538,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       position,
       paneRef,
       containerRef,
-      paneWidthStorageKey
+      widthStorageKey
     )
 
     return (

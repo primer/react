@@ -739,7 +739,7 @@ export const ResizablePane: Story = args => (
           wide: args['Pane.divider.wide']
         }}
         resizable={true}
-        paneWidthStorageKey="primer-react.pane-width"
+        widthStorageKey="primer-react.pane-width"
       >
         <Placeholder height={args['Pane placeholder height']} label="Pane" />
       </PageLayout.Pane>
