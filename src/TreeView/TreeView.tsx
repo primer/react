@@ -288,7 +288,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                   borderTopLeftRadius: level === 1 ? 2 : 0,
                   borderBottomLeftRadius: level === 1 ? 2 : 0,
                   '&:hover': {
-                    backgroundColor: onSelect ? 'actionListItem.default.hoverBg' : null
+                    backgroundColor: onSelect ? 'treeViewItem.chevron.hoverBg' : null
                   }
                 }}
               >
@@ -555,8 +555,7 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 const DirectoryIcon = () => {
   const {isExpanded} = React.useContext(ItemContext)
   const icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
-  // TODO: Use correct color
-  return <StyledOcticon icon={icon} />
+  return <StyledOcticon icon={icon} color="treeViewItem.directory.fill" />
 }
 
 // ----------------------------------------------------------------------------
