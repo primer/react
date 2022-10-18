@@ -5,7 +5,7 @@ exports[`snapshot theme-preval.js 1`] = `
 
 // this file was prevaled
 // This file needs to be a JavaScript file using CommonJS to be compatible with preval
-// Cache bust: 2022-07-25 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
+// Cache bust: 2022-10-17 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
 var themePreval = {
   "animation": {
     "easeOutCubic": "cubic-bezier(0.33, 1, 0.68, 1)"
@@ -382,6 +382,14 @@ var themePreval = {
             "selected": {
               "border": "#6e7781"
             }
+          }
+        },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "rgba(208,215,222,0.32)"
+          },
+          "directory": {
+            "fill": "#54aeff"
           }
         },
         "fg": {
@@ -879,6 +887,14 @@ var themePreval = {
             }
           }
         },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "#ced5dc"
+          },
+          "directory": {
+            "fill": "#368cf9"
+          }
+        },
         "fg": {
           "default": "#0e1116",
           "muted": "#0e1116",
@@ -1372,6 +1388,14 @@ var themePreval = {
             "selected": {
               "border": "#6e7781"
             }
+          }
+        },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "rgba(208,215,222,0.32)"
+          },
+          "directory": {
+            "fill": "#54aeff"
           }
         },
         "fg": {
@@ -1869,6 +1893,14 @@ var themePreval = {
             }
           }
         },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "rgba(208,215,222,0.32)"
+          },
+          "directory": {
+            "fill": "#54aeff"
+          }
+        },
         "fg": {
           "default": "#24292f",
           "muted": "#57606a",
@@ -2364,6 +2396,14 @@ var themePreval = {
             }
           }
         },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "rgba(177,186,196,0.12)"
+          },
+          "directory": {
+            "fill": "#8b949e"
+          }
+        },
         "fg": {
           "default": "#c9d1d9",
           "muted": "#8b949e",
@@ -2457,7 +2497,7 @@ var themePreval = {
       },
       "shadows": {
         "checks": {
-          "inputShadow": "0 0 0 1px (obj) => get_1.default(obj, path)"
+          "inputShadow": "0 0 0 1px (obj) => (0, get_1.default)(obj, path)"
         },
         "mktg": {
           "btn": {
@@ -2862,6 +2902,14 @@ var themePreval = {
             }
           }
         },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "rgba(144,157,171,0.12)"
+          },
+          "directory": {
+            "fill": "#768390"
+          }
+        },
         "fg": {
           "default": "#adbac7",
           "muted": "#768390",
@@ -2955,7 +3003,7 @@ var themePreval = {
       },
       "shadows": {
         "checks": {
-          "inputShadow": "0 0 0 1px (obj) => get_1.default(obj, path)"
+          "inputShadow": "0 0 0 1px (obj) => (0, get_1.default)(obj, path)"
         },
         "mktg": {
           "btn": {
@@ -3360,6 +3408,14 @@ var themePreval = {
             }
           }
         },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "#525964"
+          },
+          "directory": {
+            "fill": "#f0f3f6"
+          }
+        },
         "fg": {
           "default": "#f0f3f6",
           "muted": "#f0f3f6",
@@ -3453,7 +3509,7 @@ var themePreval = {
       },
       "shadows": {
         "checks": {
-          "inputShadow": "0 0 0 1px (obj) => get_1.default(obj, path)"
+          "inputShadow": "0 0 0 1px (obj) => (0, get_1.default)(obj, path)"
         },
         "mktg": {
           "btn": {
@@ -3858,6 +3914,14 @@ var themePreval = {
             }
           }
         },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "rgba(177,186,196,0.12)"
+          },
+          "directory": {
+            "fill": "#8b949e"
+          }
+        },
         "fg": {
           "default": "#c9d1d9",
           "muted": "#8b949e",
@@ -3951,7 +4015,7 @@ var themePreval = {
       },
       "shadows": {
         "checks": {
-          "inputShadow": "0 0 0 1px (obj) => get_1.default(obj, path)"
+          "inputShadow": "0 0 0 1px (obj) => (0, get_1.default)(obj, path)"
         },
         "mktg": {
           "btn": {
@@ -4356,6 +4420,14 @@ var themePreval = {
             }
           }
         },
+        "treeViewItem": {
+          "chevron": {
+            "hoverBg": "rgba(177,186,196,0.12)"
+          },
+          "directory": {
+            "fill": "#8b949e"
+          }
+        },
         "fg": {
           "default": "#c9d1d9",
           "muted": "#8b949e",
@@ -4449,7 +4521,7 @@ var themePreval = {
       },
       "shadows": {
         "checks": {
-          "inputShadow": "0 0 0 1px (obj) => get_1.default(obj, path)"
+          "inputShadow": "0 0 0 1px (obj) => (0, get_1.default)(obj, path)"
         },
         "mktg": {
           "btn": {
