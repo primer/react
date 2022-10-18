@@ -63,6 +63,7 @@
     "codemods",
     "dist",
     "lib",
+    "lib/node_modules",
     "lib-esm",
     "index.d.ts",
     "drafts/package.json",
