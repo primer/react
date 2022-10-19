@@ -37,6 +37,40 @@ jobs:
         working-directory: examples/nextjs
         run: npm ci
 
-      - name: Build examples
-        working-directory: examples/nextjs
+  examples:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        example: [nextjs, consumer-test]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
         run: npm run build
+
+      - name: Install example dependencies
+        run: npm ci
+        working-directory: examples
+
+      - name: Build example
+        run: npm run --if-present build
+        working-directory: examples/${{ matrix.example }}
+
+      - name: Run checks
+        run: npm run --if-present check
+        id: check
+        working-directory: examples/${{ matrix.example }}
+
+      - name: Add annotation
+        if: matrix.example == "consumer-test" && failure() && steps.check.conclusion == 'failure'
+        run: |
+          echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/examples/consumer-test"
