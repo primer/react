@@ -3,7 +3,7 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
-    "@primer/react": "*",
+    "@primer/react": "file:../../",
     "typescript": "~4.7.2"
   }
 }
