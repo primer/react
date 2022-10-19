@@ -507,8 +507,8 @@ const SkeletonItem = styled.span`
   &::before {
     content: '';
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
     background-color: ${get('colors.neutral.subtle')};
     border-radius: 3px;
     @media (forced-colors: active) {
@@ -521,7 +521,7 @@ const SkeletonItem = styled.span`
     content: '';
     display: block;
     width: var(--tree-item-loading-width, 67%);
-    height: 16px;
+    height: 1rem;
     background-color: ${get('colors.neutral.subtle')};
     border-radius: 3px;
     @media (forced-colors: active) {
