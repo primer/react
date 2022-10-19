@@ -6,8 +6,9 @@ import {
 } from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
+import {get} from '../constants'
 import {useControllableState} from '../hooks/useControllableState'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import Spinner from '../Spinner'
@@ -499,13 +500,68 @@ type LoadingItemProps = {
   count?: number
 }
 
+const shimmer = keyframes`
+  from { mask-position: 200%; }
+  to { mask-position: 0%; }
+`
+
+const SkeletonItem = styled.span`
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  height: 2rem;
+  mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+  mask-size: 200%;
+  animation: ${shimmer};
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-color: ${get('colors.neutral.subtle')};
+    border-radius: 3px;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    width: var(--tree-item-loading-width, 80%);
+    height: 16px;
+    background-color: ${get('colors.neutral.subtle')};
+    border-radius: 3px;
+  }
+
+  &:nth-of-type(1n) {
+    --tree-item-loading-width: 67%;
+  }
+
+  &:nth-of-type(2n) {
+    --tree-item-loading-width: 47%;
+  }
+
+  &:nth-of-type(3n) {
+    --tree-item-loading-width: 73%;
+  }
+
+  &:nth-of-type(4n) {
+    --tree-item-loading-width: 64%;
+  }
+
+  &:nth-of-type(5n) {
+    --tree-item-loading-width: 47%;
+  }
+`
+
 const LoadingItem = (props: LoadingItemProps) => {
   const {count} = props
   if (count) {
     return (
       <Item>
         {Array.from({length: count}).map((_, i) => {
-          return <Box as="span" aria-hidden={true} key={i} sx={loadingItem} />
+          return <SkeletonItem aria-hidden={true} key={i} />
         })}
         <VisuallyHidden>Loading {count} items</VisuallyHidden>
       </Item>
@@ -520,44 +576,6 @@ const LoadingItem = (props: LoadingItemProps) => {
       <Text sx={{color: 'fg.muted'}}>Loading...</Text>
     </Item>
   )
-}
-
-const loadingItem = {
-  display: 'flex',
-  alignItems: 'center',
-  columnGap: '0.5rem',
-  height: '2rem',
-  '&:before': {
-    content: '""',
-    display: 'block',
-    width: 16,
-    height: 16,
-    backgroundColor: 'neutral.subtle',
-    borderRadius: '3px'
-  },
-  '&:after': {
-    content: '""',
-    display: 'block',
-    width: 'var(--tree-item-loading-width, 80%)',
-    height: 16,
-    backgroundColor: 'neutral.subtle',
-    borderRadius: '3px'
-  },
-  '&:nth-of-type(1n)': {
-    '--tree-item-loading-width': '67%'
-  },
-  '&:nth-of-type(2n)': {
-    '--tree-item-loading-width': '47%'
-  },
-  '&:nth-of-type(3n)': {
-    '--tree-item-loading-width': '73%'
-  },
-  '&:nth-of-type(4n)': {
-    '--tree-item-loading-width': '64%'
-  },
-  '&:nth-of-type(5n)': {
-    '--tree-item-loading-width': '47%'
-  }
 }
 
 function useSubTree(children: React.ReactNode) {
