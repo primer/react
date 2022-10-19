@@ -118,7 +118,7 @@ export type TreeViewItemProps = {
   expanded?: boolean
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | KeyboardEvent) => void
-}
+} & SxProp
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
@@ -128,7 +128,8 @@ const Item: React.FC<TreeViewItemProps> = ({
   expanded,
   onExpandedChange,
   onSelect,
-  children
+  children,
+  sx
 }) => {
   const {setActiveDescendant} = React.useContext(RootContext)
   const itemId = useSSRSafeId()
@@ -286,7 +287,8 @@ const Item: React.FC<TreeViewItemProps> = ({
                 bg: 'accent.fg',
                 borderRadius: 2
               }
-            }
+            },
+            ...sx
           }}
         >
           <Box sx={{gridArea: 'spacer', display: 'flex'}}>
@@ -510,56 +512,80 @@ const SkeletonItem = styled.span`
   align-items: center;
   column-gap: 0.5rem;
   height: 2rem;
-  mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
-  mask-size: 200%;
-  animation: ${shimmer};
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
 
-  &:before {
+  @media (prefers-reduced-motion: no-preference) {
+    mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+    mask-size: 200%;
+    animation: ${shimmer};
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
+
+  &::before {
     content: '';
     display: block;
     width: 16px;
     height: 16px;
     background-color: ${get('colors.neutral.subtle')};
     border-radius: 3px;
+
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+    }
   }
 
-  &:after {
+  &::after {
     content: '';
     display: block;
-    width: var(--tree-item-loading-width, 80%);
+    width: var(--tree-item-loading-width, 67%);
     height: 16px;
     background-color: ${get('colors.neutral.subtle')};
     border-radius: 3px;
+
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+    }
   }
 
-  &:nth-of-type(1n) {
+  &:nth-of-type(5n + 1) {
     --tree-item-loading-width: 67%;
   }
 
-  &:nth-of-type(2n) {
+  &:nth-of-type(5n + 2) {
     --tree-item-loading-width: 47%;
   }
 
-  &:nth-of-type(3n) {
+  &:nth-of-type(5n + 3) {
     --tree-item-loading-width: 73%;
   }
 
-  &:nth-of-type(4n) {
+  &:nth-of-type(5n + 4) {
     --tree-item-loading-width: 64%;
   }
 
-  &:nth-of-type(5n) {
-    --tree-item-loading-width: 47%;
+  &:nth-of-type(5n + 5) {
+    --tree-item-loading-width: 50%;
   }
 `
 
 const LoadingItem = (props: LoadingItemProps) => {
   const {count} = props
+
   if (count) {
     return (
-      <Item>
+      <Item
+        sx={{
+          '&:hover': {
+            backgroundColor: 'transparent',
+            cursor: 'default',
+            '@media (forced-colors: active)': {
+              outline: 'none'
+            }
+          }
+        }}
+      >
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
