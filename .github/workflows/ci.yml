@@ -71,6 +71,6 @@ jobs:
         working-directory: examples/${{ matrix.example }}
 
       - name: Add annotation
-        if: matrix.example == "consumer-test" && failure() && steps.check.conclusion == 'failure'
+        if: failure() && steps.check.conclusion == 'failure' && matrix.example == 'consumer-test'
         run: |
           echo "::error file=tsconfig.build.json::Test package could not build. See https://github.com/primer/react/blob/main/examples/consumer-test"
