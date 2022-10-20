@@ -34,14 +34,12 @@ const ItemContext = React.createContext<{
   itemId: string
   level: number
   isExpanded: boolean
-  expandParents: () => void
   leadingVisualId: string
   trailingVisualId: string
 }>({
   itemId: '',
   level: 1,
   isExpanded: false,
-  expandParents: () => {},
   leadingVisualId: '',
   trailingVisualId: ''
 })
@@ -128,7 +126,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       value: expanded,
       onChange: onExpandedChange
     })
-    const {level, expandParents} = React.useContext(ItemContext)
+    const {level} = React.useContext(ItemContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
     // Expand or collapse the subtree
@@ -142,23 +140,17 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [isExpanded]
     )
 
-    // Expand all parents of this item including itself
-    const expandParentsAndSelf = React.useCallback(
+    // If this item is the current item, expand it
+    React.useLayoutEffect(
       () => {
-        expandParents()
-        setIsExpanded(true)
+        if (isCurrentItem) {
+          setIsExpanded(true)
+        }
       },
       // setIsExpanded is stable
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [expandParents]
+      [isCurrentItem]
     )
-
-    // If this item is the current item, expand it and all its parents
-    React.useLayoutEffect(() => {
-      if (isCurrentItem) {
-        expandParentsAndSelf()
-      }
-    }, [isCurrentItem, expandParentsAndSelf])
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLElement>) => {
@@ -193,7 +185,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           itemId,
           level: level + 1,
           isExpanded,
-          expandParents: expandParentsAndSelf,
           leadingVisualId,
           trailingVisualId
         }}
