@@ -438,7 +438,7 @@ export const AsyncSuccess: Story = args => {
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Directory with async items
-            <TreeView.SubTree state={state} count={args.count}>
+            <TreeView.SubTree state={state}>
               {asyncItems.map(item => (
                 <TreeView.Item key={item}>
                   <TreeView.LeadingVisual>
@@ -456,11 +456,65 @@ export const AsyncSuccess: Story = args => {
 }
 
 AsyncSuccess.args = {
-  responseTime: 2000,
-  count: null
+  responseTime: 2000
 }
 
-AsyncSuccess.argTypes = {
+export const AsyncWithCount: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item
+            onExpandedChange={async isExpanded => {
+              if (asyncItems.length === 0 && isExpanded) {
+                setIsLoading(true)
+
+                // Load items
+                const items = await loadItems(args.responseTime)
+
+                setIsLoading(false)
+                setAsyncItems(items)
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree state={state} count={args.count}>
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+AsyncWithCount.args = {
+  responseTime: 2000,
+  count: 5
+}
+
+AsyncWithCount.argTypes = {
   count: {
     type: 'number'
   }

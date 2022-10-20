@@ -13,7 +13,7 @@ import {useControllableState} from '../hooks/useControllableState'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import Spinner from '../Spinner'
 import StyledOcticon from '../StyledOcticon'
-import sx, {SxProp} from '../sx'
+import sx, {SxProp, merge} from '../sx'
 import Text from '../Text'
 import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
@@ -119,7 +119,7 @@ const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
   (
-    {current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children, sx},
+    {current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children, sx = {}},
     ref
   ) => {
     const itemId = useSSRSafeId()
@@ -223,55 +223,57 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 toggle(event)
               }
             }}
-            sx={{
-              '--toggle-width': '1rem', // 16px
-              position: 'relative',
-              display: 'grid',
-              gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
-              gridTemplateAreas: `"spacer toggle content"`,
-              width: '100%',
-              height: '2rem', // 32px
-              fontSize: 1,
-              color: 'fg.default',
-              borderRadius: 2,
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: 'actionListItem.default.hoverBg',
-                '@media (forced-colors: active)': {
-                  outline: '2px solid transparent',
-                  outlineOffset: -2
+            sx={merge.all([
+              {
+                '--toggle-width': '1rem', // 16px
+                position: 'relative',
+                display: 'grid',
+                gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
+                gridTemplateAreas: `"spacer toggle content"`,
+                width: '100%',
+                height: '2rem', // 32px
+                fontSize: 1,
+                color: 'fg.default',
+                borderRadius: 2,
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'actionListItem.default.hoverBg',
+                  '@media (forced-colors: active)': {
+                    outline: '2px solid transparent',
+                    outlineOffset: -2
+                  }
+                },
+                '@media (pointer: coarse)': {
+                  '--toggle-width': '1.5rem', // 24px
+                  height: '2.75rem' // 44px
+                },
+                // WARNING: styled-components v5.2 introduced a bug that changed
+                // how it expands `&` in CSS selectors. The following selectors
+                // are unnecessarily specific to work around that styled-components bug.
+                // Reference issue: https://github.com/styled-components/styled-components/issues/3265
+                [`#${itemId}:focus-visible  > &:is(div)`]: {
+                  boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
+                  '@media (forced-colors: active)': {
+                    outline: '2px solid SelectedItem',
+                    outlineOffset: -2
+                  }
+                },
+                '[role=treeitem][aria-current=true] > &:is(div)': {
+                  bg: 'actionListItem.default.selectedBg',
+                  '&::after': {
+                    position: 'absolute',
+                    top: 'calc(50% - 12px)',
+                    left: -2,
+                    width: '4px',
+                    height: '24px',
+                    content: '""',
+                    bg: 'accent.fg',
+                    borderRadius: 2
+                  }
                 }
               },
-              '@media (pointer: coarse)': {
-                '--toggle-width': '1.5rem', // 24px
-                height: '2.75rem' // 44px
-              },
-              // WARNING: styled-components v5.2 introduced a bug that changed
-              // how it expands `&` in CSS selectors. The following selectors
-              // are unnecessarily specific to work around that styled-components bug.
-              // Reference issue: https://github.com/styled-components/styled-components/issues/3265
-              [`#${itemId}:focus-visible  > &:is(div)`]: {
-                boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
-                '@media (forced-colors: active)': {
-                  outline: '2px solid SelectedItem',
-                  outlineOffset: -2
-                }
-              },
-              '[role=treeitem][aria-current=true] > &:is(div)': {
-                bg: 'actionListItem.default.selectedBg',
-                '&::after': {
-                  position: 'absolute',
-                  top: 'calc(50% - 12px)',
-                  left: -2,
-                  width: '4px',
-                  height: '24px',
-                  content: '""',
-                  bg: 'accent.fg',
-                  borderRadius: 2
-                }
-              },
-              ...sx
-            }}
+              sx as SxProp
+            ])}
           >
             <Box sx={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
