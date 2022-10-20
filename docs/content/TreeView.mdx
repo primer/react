@@ -11,8 +11,8 @@ description: A hierarchical list of items where nested items can be expanded and
 
 ```jsx live drafts
 <Box sx={{maxWidth: 400}}>
-  <nav aria-label="File navigation">
-    <TreeView aria-label="File navigation">
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
       <TreeView.Item>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -57,8 +57,8 @@ description: A hierarchical list of items where nested items can be expanded and
 
 ```jsx live drafts
 <Box sx={{maxWidth: 400}}>
-  <nav aria-label="File navigation">
-    <TreeView aria-label="File navigation">
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
       <TreeView.LinkItem href="#">
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -113,8 +113,8 @@ function ControlledTreeView() {
   return (
     <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
       <Button onClick={() => setExpanded(!expanded)}>{expanded ? 'Collapse' : 'Expand'}</Button>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
           <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
             src
             <TreeView.SubTree>
@@ -139,8 +139,8 @@ To render stateful visuals, pass a render function to `TreeView.LeadingVisual` o
 
 ```jsx live drafts
 <Box sx={{maxWidth: 400}}>
-  <nav aria-label="File navigation">
-    <TreeView aria-label="File navigation">
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
       <TreeView.Item>
         <TreeView.LeadingVisual>
           {({isExpanded}) => (isExpanded ? <FileDirectoryOpenFillIcon /> : <FileDirectoryFillIcon />)}
@@ -162,8 +162,8 @@ Since stateful directory icons are a common use case for TreeView, we provide a 
 
 ```jsx live drafts
 <Box sx={{maxWidth: 400}}>
-  <nav aria-label="File navigation">
-    <TreeView aria-label="File navigation">
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
       <TreeView.Item>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />

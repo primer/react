@@ -19,8 +19,8 @@ const meta: Meta = {
 
 export const FileTreeWithDirectoryLinks: Story = () => (
   <Box sx={{p: 3, maxWidth: 400}}>
-    <nav aria-label="File navigation">
-      <TreeView aria-label="File navigation">
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
         <TreeView.LinkItem href="#src">
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
@@ -99,8 +99,8 @@ export const FileTreeWithDirectoryLinks: Story = () => (
 export const FileTreeWithoutDirectoryLinks: Story = () => {
   return (
     <Box sx={{p: 3, maxWidth: 400}}>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
           <TreeView.Item defaultExpanded>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
@@ -344,9 +344,9 @@ export const Controlled: Story = () => {
           </ActionMenu.Overlay>
         </ActionMenu>
       </Box>
-      <nav aria-label="File navigation">
+      <nav aria-label="Files">
         <CurrentPathContext.Provider value={{currentPath, setCurrentPath}}>
-          <TreeView aria-label="File navigation">
+          <TreeView aria-label="Files">
             {tree.map(item => (
               <TreeItem
                 key={item.data.name}
@@ -419,8 +419,8 @@ export const AsyncSuccess: Story = args => {
 
   return (
     <Box sx={{p: 3}}>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
           <TreeView.Item
             onExpandedChange={async isExpanded => {
               if (asyncItems.length === 0 && isExpanded) {
@@ -473,8 +473,8 @@ export const AsyncWithCount: Story = args => {
 
   return (
     <Box sx={{p: 3}}>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
           <TreeView.Item
             onExpandedChange={async isExpanded => {
               if (asyncItems.length === 0 && isExpanded) {
@@ -600,8 +600,8 @@ export const AsyncError: Story = args => {
 
   return (
     <Box sx={{p: 3}}>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
           <TreeView.Item
             expanded={isExpanded}
             onExpandedChange={isExpanded => {
