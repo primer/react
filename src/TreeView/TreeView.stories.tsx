@@ -503,6 +503,46 @@ export const AsyncWithCount: Story = args => {
               ))}
             </TreeView.SubTree>
           </TreeView.Item>
+          <TreeView.LinkItem href="#src">
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            src
+            <TreeView.SubTree>
+              <TreeView.LinkItem href="#avatar-tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Avatar.tsx
+              </TreeView.LinkItem>
+              <TreeView.LinkItem href="#button" current>
+                <TreeView.LeadingVisual>
+                  <TreeView.DirectoryIcon />
+                </TreeView.LeadingVisual>
+                Button
+                <TreeView.SubTree>
+                  <TreeView.LinkItem href="#button-tsx">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Button.tsx
+                  </TreeView.LinkItem>
+                  <TreeView.LinkItem href="#button-test-tsx">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Button.test.tsx
+                  </TreeView.LinkItem>
+                </TreeView.SubTree>
+              </TreeView.LinkItem>
+              <TreeView.Item>
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                ReallyLongFileNameThatShouldBeTruncated.tsx
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.LinkItem>
         </TreeView>
       </nav>
     </Box>

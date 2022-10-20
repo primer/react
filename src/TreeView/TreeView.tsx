@@ -231,7 +231,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
                 gridTemplateAreas: `"spacer toggle content"`,
                 width: '100%',
-                height: '2rem', // 32px
+                minHeight: '2rem', // 32px
                 fontSize: 1,
                 color: 'fg.default',
                 borderRadius: 2,
@@ -497,6 +497,10 @@ const SkeletonItem = styled.span`
   align-items: center;
   column-gap: 0.5rem;
   height: 2rem;
+
+  @media (pointer: coarse) {
+    height: 2.75rem;
+  }
 
   @media (prefers-reduced-motion: no-preference) {
     mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
