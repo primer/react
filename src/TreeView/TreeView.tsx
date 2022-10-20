@@ -209,7 +209,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-current={isCurrentItem ? 'true' : undefined}
           onKeyDown={handleKeyDown}
           onFocus={event => {
-            // Scroll the firt child into view when the item receives focus
+            // Scroll the first child into view when the item receives focus
             event.currentTarget.firstElementChild?.scrollIntoView({block: 'nearest', inline: 'nearest'})
           }}
           sx={{
