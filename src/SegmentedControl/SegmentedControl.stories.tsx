@@ -1,6 +1,8 @@
 import React from 'react'
 import {Story, Meta} from '@storybook/react'
 import {SegmentedControl} from '.'
+import SegmentedControlIconButton from './SegmentedControlIconButton'
+import SegmentedControlButton from './SegmentedControlButton'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 
 type ResponsiveVariantOptions = 'dropdown' | 'hideLabels' | 'default'
@@ -37,6 +39,7 @@ const parseFullWidthFromArgs = ({fullWidth, fullWidthAtNarrow, fullWidthAtRegula
 export default {
   title: 'Components/SegmentedControl',
   component: SegmentedControl,
+  subcomponents: {SegmentedControlButton, SegmentedControlIconButton},
   args: {
     fullWidth: false,
     fullWidthAtNarrow: false,
