@@ -8,6 +8,7 @@ import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
+import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import {get} from '../constants'
 import {useControllableState} from '../hooks/useControllableState'
 import useSafeTimeout from '../hooks/useSafeTimeout'
@@ -35,6 +36,7 @@ const ItemContext = React.createContext<{
   itemId: string
   level: number
   isExpanded: boolean
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
   expandParents: () => void
   leadingVisualId: string
   trailingVisualId: string
@@ -42,6 +44,7 @@ const ItemContext = React.createContext<{
   itemId: '',
   level: 1,
   isExpanded: false,
+  setIsExpanded: () => {},
   expandParents: () => {},
   leadingVisualId: '',
   trailingVisualId: ''
@@ -174,13 +177,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               toggle(event)
             }
             break
-
           case 'ArrowRight':
             event.preventDefault()
             event.stopPropagation()
             setIsExpanded(true)
             break
-
           case 'ArrowLeft':
             event.preventDefault()
             event.stopPropagation()
@@ -197,6 +198,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           itemId,
           level: level + 1,
           isExpanded,
+          setIsExpanded,
           expandParents: expandParentsAndSelf,
           leadingVisualId,
           trailingVisualId
@@ -299,7 +301,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                   }
                 }}
               >
-                {isExpanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
+                {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
               </Box>
             ) : null}
             <Box
@@ -668,6 +670,56 @@ const DirectoryIcon = () => {
 }
 
 // ----------------------------------------------------------------------------
+// TreeView.ErrorDialog
+
+export type TreeViewErrorDialogProps = {
+  children: React.ReactNode
+  title?: string
+  onRetry?: () => void
+  onDismiss?: () => void
+}
+
+const ErrorDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
+  const {itemId, setIsExpanded} = React.useContext(ItemContext)
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      onKeyDown={event => {
+        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+          // Prevent keyboard events from bubbling up to the TreeView
+          // and interfering with keyboard navigation
+          event.stopPropagation()
+        }
+      }}
+    >
+      <ConfirmationDialog
+        title={title}
+        onClose={gesture => {
+          // Focus parent item after the dialog is closed
+          setTimeout(() => {
+            const parentElement = document.getElementById(itemId)
+            parentElement?.focus()
+          })
+
+          if (gesture === 'confirm') {
+            onRetry?.()
+          } else {
+            setIsExpanded(false)
+            onDismiss?.()
+          }
+        }}
+        confirmButtonContent="Retry"
+        cancelButtonContent="Dismiss"
+      >
+        {children}
+      </ConfirmationDialog>
+    </div>
+  )
+}
+
+ErrorDialog.displayName = 'TreeView.ErrorDialog'
+
+// ----------------------------------------------------------------------------
 // Export
 
 export const TreeView = Object.assign(Root, {
@@ -676,5 +728,6 @@ export const TreeView = Object.assign(Root, {
   SubTree,
   LeadingVisual,
   TrailingVisual,
-  DirectoryIcon
+  DirectoryIcon,
+  ErrorDialog
 })

@@ -1,4 +1,4 @@
-import {fireEvent, render} from '@testing-library/react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
 import {SubTreeState, TreeView} from './TreeView'
@@ -1120,5 +1120,81 @@ describe('Asyncronous loading', () => {
       // First child should be focused
       expect(firstChild).toHaveFocus()
     })
+  })
+
+  it.only('moves focus to parent item after closing error dialog', async () => {
+    function TestTree() {
+      const [error, setError] = React.useState('Test error')
+
+      return (
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree>
+              {error ? (
+                <TreeView.ErrorDialog
+                  onRetry={() => {
+                    setError('')
+                  }}
+                  onDismiss={() => setError('')}
+                >
+                  {error}
+                </TreeView.ErrorDialog>
+              ) : null}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+    }
+
+    const {getByRole} = renderWithTheme(<TestTree />)
+
+    const dialog = getByRole('alertdialog')
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+    // Parent item should not be focused
+    expect(parentItem).not.toHaveFocus()
+
+    // Dialog should be visible
+    expect(dialog).toBeVisible()
+
+    // Press esc to close error dialog
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Escape'})
+
+    // Dialog should not be visible
+    expect(dialog).not.toBeVisible()
+
+    await waitFor(() => {
+      // Parent item should be focused
+      expect(parentItem).toHaveFocus()
+    })
+  })
+
+  it('ignores arrow keys when error dialog is open', async () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item defaultExpanded>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.ErrorDialog>Opps</TreeView.ErrorDialog>
+            <TreeView.Item>Child</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    )
+
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+    // Parent item should be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+    // Focus first item
+    parentItem.focus()
+
+    // Press ←
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+
+    // Parent item should still be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 })

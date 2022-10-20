@@ -272,6 +272,42 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
+### TreeView.LeadingVisual
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type={`| React.ReactNode
+| (props: {isExpanded: boolean}) => React.ReactNode`}
+  />
+  <PropsTableRow
+    name="label"
+    type="string"
+    description="Provide an accessible label for the leading visual. This is not necessary for decorative visuals"
+  />
+  {/* <PropsTableSxRow /> */}
+</PropsTable>
+
+### TreeView.TrailingVisual
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type={`| React.ReactNode
+| (props: {isExpanded: boolean}) => React.ReactNode`}
+  />
+  <PropsTableRow
+    name="label"
+    type="string"
+    description="Provide an accessible label for the trailing visual. This is not necessary for decorative visuals"
+  />
+  {/* <PropsTableSxRow /> */}
+</PropsTable>
+
+### TreeView.DirectoryIcon
+
+<PropsTable>{/* <PropsTableSxRow /> */}</PropsTable>
+
 ### TreeView.SubTree
 
 <PropsTable>
@@ -315,41 +351,29 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
   <PropsTableSxRow />
 </PropsTable>
 
-### TreeView.LeadingVisual
+### TreeView.ErrorDialog
 
 <PropsTable>
   <PropsTableRow
     name="children"
-    type={`| React.ReactNode
-| (props: {isExpanded: boolean}) => React.ReactNode`}
+    type="React.ReactNode"
+    required
+    description="The content of the dialog. This is usually a message explaining the error."
   />
   <PropsTableRow
-    name="label"
+    name="title"
     type="string"
-    description="Provide an accessible label for the leading visual. This is not necessary for decorative visuals"
+    defaultValue="'Error'"
+    description="The title of the dialog. This is usually a short description of the error."
   />
+  <PropsTableRow
+    name="onRetry"
+    type="() => void"
+    description="Event handler called when the user clicks the retry button."
+  />
+  <PropsTableRow name="onDismiss" type="() => void" description="Event handler called when the dialog is dismissed." />
   {/* <PropsTableSxRow /> */}
 </PropsTable>
-
-### TreeView.TrailingVisual
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type={`| React.ReactNode
-| (props: {isExpanded: boolean}) => React.ReactNode`}
-  />
-  <PropsTableRow
-    name="label"
-    type="string"
-    description="Provide an accessible label for the trailing visual. This is not necessary for decorative visuals"
-  />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.DirectoryIcon
-
-<PropsTable>{/* <PropsTableSxRow /> */}</PropsTable>
 
 ## Status
 

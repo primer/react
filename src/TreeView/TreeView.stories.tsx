@@ -5,7 +5,6 @@ import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import Box from '../Box'
 import {Button} from '../Button'
-import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import StyledOcticon from '../StyledOcticon'
 import {SubTreeState, TreeView} from './TreeView'
 
@@ -421,6 +420,12 @@ export const AsyncSuccess: Story = args => {
     <Box sx={{p: 3}}>
       <nav aria-label="Files">
         <TreeView aria-label="Files">
+          <TreeView.Item>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Some file
+          </TreeView.Item>
           <TreeView.Item
             onExpandedChange={async isExpanded => {
               if (asyncItems.length === 0 && isExpanded) {
@@ -448,6 +453,12 @@ export const AsyncSuccess: Story = args => {
                 </TreeView.Item>
               ))}
             </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Another file
           </TreeView.Item>
         </TreeView>
       </nav>
@@ -568,7 +579,6 @@ async function alwaysFails(responseTime: number) {
 
 export const AsyncError: Story = args => {
   const [isLoading, setIsLoading] = React.useState(false)
-  const [isExpanded, setIsExpanded] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
   const [error, setError] = React.useState<Error | null>(null)
 
@@ -602,11 +612,14 @@ export const AsyncError: Story = args => {
     <Box sx={{p: 3}}>
       <nav aria-label="Files">
         <TreeView aria-label="Files">
+          <TreeView.Item>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Some file
+          </TreeView.Item>
           <TreeView.Item
-            expanded={isExpanded}
             onExpandedChange={isExpanded => {
-              setIsExpanded(isExpanded)
-
               if (isExpanded) {
                 loadItems()
               }
@@ -618,21 +631,17 @@ export const AsyncError: Story = args => {
             Directory with async items
             <TreeView.SubTree state={state}>
               {error ? (
-                <ConfirmationDialog
-                  title="Error"
-                  onClose={gesture => {
+                <TreeView.ErrorDialog
+                  onRetry={() => {
                     setError(null)
-
-                    if (gesture === 'confirm') {
-                      loadItems()
-                    } else {
-                      setIsExpanded(false)
-                    }
+                    loadItems()
                   }}
-                  confirmButtonContent="Retry"
+                  onDismiss={() => {
+                    setError(null)
+                  }}
                 >
                   {error.message}
-                </ConfirmationDialog>
+                </TreeView.ErrorDialog>
               ) : null}
               {asyncItems.map(item => (
                 <TreeView.Item key={item}>
@@ -643,6 +652,12 @@ export const AsyncError: Story = args => {
                 </TreeView.Item>
               ))}
             </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Another file
           </TreeView.Item>
         </TreeView>
       </nav>
