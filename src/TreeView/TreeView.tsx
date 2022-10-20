@@ -245,7 +245,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 },
                 '@media (pointer: coarse)': {
                   '--toggle-width': '1.5rem', // 24px
-                  height: '2.75rem' // 44px
+                  minHeight: '2.75rem' // 44px
                 },
                 // WARNING: styled-components v5.2 introduced a bug that changed
                 // how it expands `&` in CSS selectors. The following selectors
