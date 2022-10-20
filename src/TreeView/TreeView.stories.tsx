@@ -3,7 +3,6 @@ import {Meta, Story} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
-import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import StyledOcticon from '../StyledOcticon'
 import {SubTreeState, TreeView} from './TreeView'
 
@@ -17,8 +16,8 @@ const meta: Meta = {
 
 export const FileTreeWithDirectoryLinks: Story = () => (
   <Box sx={{p: 3, maxWidth: 400}}>
-    <nav aria-label="File navigation">
-      <TreeView aria-label="File navigation">
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
         <TreeView.LinkItem href="#src" defaultExpanded>
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
@@ -97,8 +96,8 @@ export const FileTreeWithDirectoryLinks: Story = () => (
 export const FileTreeWithoutDirectoryLinks: Story = () => {
   return (
     <Box sx={{p: 3, maxWidth: 400}}>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
           <TreeView.Item defaultExpanded>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
@@ -270,9 +269,9 @@ export const Controlled: Story = () => {
         <Button onClick={() => setTree(collapseAll)}>Collapse all</Button>
         <Button onClick={() => setTree(expandAll)}>Expand all</Button>
       </Box>
-      <nav aria-label="File navigation">
+      <nav aria-label="Files">
         <CurrentPathContext.Provider value={{currentPath, setCurrentPath}}>
-          <TreeView aria-label="File navigation">
+          <TreeView aria-label="Files">
             {tree.map(item => (
               <TreeItem
                 key={item.data.name}
@@ -345,8 +344,14 @@ export const AsyncSuccess: Story = args => {
 
   return (
     <Box sx={{p: 3}}>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
+          <TreeView.Item>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Some file
+          </TreeView.Item>
           <TreeView.Item
             onExpandedChange={async isExpanded => {
               if (asyncItems.length === 0 && isExpanded) {
@@ -375,6 +380,12 @@ export const AsyncSuccess: Story = args => {
               ))}
             </TreeView.SubTree>
           </TreeView.Item>
+          <TreeView.Item>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Another file
+          </TreeView.Item>
         </TreeView>
       </nav>
     </Box>
@@ -385,6 +396,107 @@ AsyncSuccess.args = {
   responseTime: 2000
 }
 
+export const AsyncWithCount: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
+          <TreeView.Item
+            onExpandedChange={async isExpanded => {
+              if (asyncItems.length === 0 && isExpanded) {
+                setIsLoading(true)
+
+                // Load items
+                const items = await loadItems(args.responseTime)
+
+                setIsLoading(false)
+                setAsyncItems(items)
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree state={state} count={args.count}>
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.LinkItem href="#src">
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            src
+            <TreeView.SubTree>
+              <TreeView.LinkItem href="#avatar-tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Avatar.tsx
+              </TreeView.LinkItem>
+              <TreeView.LinkItem href="#button" current>
+                <TreeView.LeadingVisual>
+                  <TreeView.DirectoryIcon />
+                </TreeView.LeadingVisual>
+                Button
+                <TreeView.SubTree>
+                  <TreeView.LinkItem href="#button-tsx">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Button.tsx
+                  </TreeView.LinkItem>
+                  <TreeView.LinkItem href="#button-test-tsx">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Button.test.tsx
+                  </TreeView.LinkItem>
+                </TreeView.SubTree>
+              </TreeView.LinkItem>
+              <TreeView.Item>
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                ReallyLongFileNameThatShouldBeTruncated.tsx
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.LinkItem>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+AsyncWithCount.args = {
+  responseTime: 2000,
+  count: 3
+}
+
+AsyncWithCount.argTypes = {
+  count: {
+    type: 'number'
+  }
+}
+
 async function alwaysFails(responseTime: number) {
   await wait(responseTime)
   throw new Error('Failed to load items')
@@ -393,7 +505,6 @@ async function alwaysFails(responseTime: number) {
 
 export const AsyncError: Story = args => {
   const [isLoading, setIsLoading] = React.useState(false)
-  const [isExpanded, setIsExpanded] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
   const [error, setError] = React.useState<Error | null>(null)
 
@@ -425,13 +536,16 @@ export const AsyncError: Story = args => {
 
   return (
     <Box sx={{p: 3}}>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
+          <TreeView.Item>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Some file
+          </TreeView.Item>
           <TreeView.Item
-            expanded={isExpanded}
             onExpandedChange={isExpanded => {
-              setIsExpanded(isExpanded)
-
               if (isExpanded) {
                 loadItems()
               }
@@ -443,21 +557,17 @@ export const AsyncError: Story = args => {
             Directory with async items
             <TreeView.SubTree state={state}>
               {error ? (
-                <ConfirmationDialog
-                  title="Error"
-                  onClose={gesture => {
+                <TreeView.ErrorDialog
+                  onRetry={() => {
                     setError(null)
-
-                    if (gesture === 'confirm') {
-                      loadItems()
-                    } else {
-                      setIsExpanded(false)
-                    }
+                    loadItems()
                   }}
-                  confirmButtonContent="Retry"
+                  onDismiss={() => {
+                    setError(null)
+                  }}
                 >
                   {error.message}
-                </ConfirmationDialog>
+                </TreeView.ErrorDialog>
               ) : null}
               {asyncItems.map(item => (
                 <TreeView.Item key={item}>
@@ -468,6 +578,12 @@ export const AsyncError: Story = args => {
                 </TreeView.Item>
               ))}
             </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Another file
           </TreeView.Item>
         </TreeView>
       </nav>
