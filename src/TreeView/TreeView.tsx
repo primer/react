@@ -37,7 +37,6 @@ const ItemContext = React.createContext<{
   level: number
   isExpanded: boolean
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
-  expandParents: () => void
   leadingVisualId: string
   trailingVisualId: string
 }>({
@@ -45,7 +44,6 @@ const ItemContext = React.createContext<{
   level: 1,
   isExpanded: false,
   setIsExpanded: () => {},
-  expandParents: () => {},
   leadingVisualId: '',
   trailingVisualId: ''
 })
@@ -135,7 +133,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       value: expanded,
       onChange: onExpandedChange
     })
-    const {level, expandParents} = React.useContext(ItemContext)
+    const {level} = React.useContext(ItemContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
 
     // Expand or collapse the subtree
@@ -149,23 +147,17 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [isExpanded]
     )
 
-    // Expand all parents of this item including itself
-    const expandParentsAndSelf = React.useCallback(
+    // If this item is the current item, expand it
+    React.useLayoutEffect(
       () => {
-        expandParents()
-        setIsExpanded(true)
+        if (isCurrentItem) {
+          setIsExpanded(true)
+        }
       },
       // setIsExpanded is stable
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [expandParents]
+      [isCurrentItem]
     )
-
-    // If this item is the current item, expand it and all its parents
-    React.useLayoutEffect(() => {
-      if (isCurrentItem) {
-        expandParentsAndSelf()
-      }
-    }, [isCurrentItem, expandParentsAndSelf])
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLElement>) => {
@@ -199,13 +191,14 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           level: level + 1,
           isExpanded,
           setIsExpanded,
-          expandParents: expandParentsAndSelf,
           leadingVisualId,
           trailingVisualId
         }}
       >
-        <li
-          ref={ref as React.RefObject<HTMLLIElement>}
+        <Box
+          as="li"
+          // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
+          ref={ref}
           tabIndex={0}
           id={itemId}
           role="treeitem"
@@ -214,8 +207,17 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-level={level}
           aria-expanded={hasSubTree ? isExpanded : undefined}
           aria-current={isCurrentItem ? 'true' : undefined}
-          style={{outline: 'none'}}
           onKeyDown={handleKeyDown}
+          sx={{
+            outline: 'none',
+            '&:focus-visible > div': {
+              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
+              '@media (forced-colors: active)': {
+                outline: '2px solid SelectedItem',
+                outlineOffset: -2
+              }
+            }
+          }}
         >
           <Box
             onClick={event => {
@@ -248,17 +250,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 '@media (pointer: coarse)': {
                   '--toggle-width': '1.5rem', // 24px
                   minHeight: '2.75rem' // 44px
-                },
-                // WARNING: styled-components v5.2 introduced a bug that changed
-                // how it expands `&` in CSS selectors. The following selectors
-                // are unnecessarily specific to work around that styled-components bug.
-                // Reference issue: https://github.com/styled-components/styled-components/issues/3265
-                [`#${itemId}:focus-visible  > &:is(div)`]: {
-                  boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
-                  '@media (forced-colors: active)': {
-                    outline: '2px solid SelectedItem',
-                    outlineOffset: -2
-                  }
                 },
                 '[role=treeitem][aria-current=true] > &:is(div)': {
                   bg: 'actionListItem.default.selectedBg',
@@ -337,8 +328,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </Slots>
             </Box>
           </Box>
-          {subTree}
-        </li>
+          {isExpanded ? subTree : null}
+        </Box>
       </ItemContext.Provider>
     )
   }
