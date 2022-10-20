@@ -307,7 +307,12 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
       </>
     }
   />
-  {/* <PropsTableSxRow /> */}
+  <PropsTableRow
+    name="count"
+    type="number"
+    description="The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items"
+  />
+  <PropsTableSxRow />
 </PropsTable>
 
 ### TreeView.LeadingVisual

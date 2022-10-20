@@ -6,13 +6,14 @@ import {
 } from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
+import {get} from '../constants'
 import {useControllableState} from '../hooks/useControllableState'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import Spinner from '../Spinner'
 import StyledOcticon from '../StyledOcticon'
-import sx, {SxProp} from '../sx'
+import sx, {SxProp, merge} from '../sx'
 import Text from '../Text'
 import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
@@ -112,12 +113,15 @@ export type TreeViewItemProps = {
   expanded?: boolean
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
-}
+} & SxProp
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
-  ({current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children}, ref) => {
+  (
+    {current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children, sx = {}},
+    ref
+  ) => {
     const itemId = useSSRSafeId()
     const labelId = useSSRSafeId()
     const leadingVisualId = useSSRSafeId()
@@ -219,54 +223,57 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 toggle(event)
               }
             }}
-            sx={{
-              '--toggle-width': '1rem', // 16px
-              position: 'relative',
-              display: 'grid',
-              gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
-              gridTemplateAreas: `"spacer toggle content"`,
-              width: '100%',
-              height: '2rem', // 32px
-              fontSize: 1,
-              color: 'fg.default',
-              borderRadius: 2,
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: 'actionListItem.default.hoverBg',
-                '@media (forced-colors: active)': {
-                  outline: '2px solid transparent',
-                  outlineOffset: -2
+            sx={merge.all([
+              {
+                '--toggle-width': '1rem', // 16px
+                position: 'relative',
+                display: 'grid',
+                gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
+                gridTemplateAreas: `"spacer toggle content"`,
+                width: '100%',
+                minHeight: '2rem', // 32px
+                fontSize: 1,
+                color: 'fg.default',
+                borderRadius: 2,
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'actionListItem.default.hoverBg',
+                  '@media (forced-colors: active)': {
+                    outline: '2px solid transparent',
+                    outlineOffset: -2
+                  }
+                },
+                '@media (pointer: coarse)': {
+                  '--toggle-width': '1.5rem', // 24px
+                  minHeight: '2.75rem' // 44px
+                },
+                // WARNING: styled-components v5.2 introduced a bug that changed
+                // how it expands `&` in CSS selectors. The following selectors
+                // are unnecessarily specific to work around that styled-components bug.
+                // Reference issue: https://github.com/styled-components/styled-components/issues/3265
+                [`#${itemId}:focus-visible  > &:is(div)`]: {
+                  boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
+                  '@media (forced-colors: active)': {
+                    outline: '2px solid SelectedItem',
+                    outlineOffset: -2
+                  }
+                },
+                '[role=treeitem][aria-current=true] > &:is(div)': {
+                  bg: 'actionListItem.default.selectedBg',
+                  '&::after': {
+                    position: 'absolute',
+                    top: 'calc(50% - 12px)',
+                    left: -2,
+                    width: '4px',
+                    height: '24px',
+                    content: '""',
+                    bg: 'accent.fg',
+                    borderRadius: 2
+                  }
                 }
               },
-              '@media (pointer: coarse)': {
-                '--toggle-width': '1.5rem', // 24px
-                height: '2.75rem' // 44px
-              },
-              // WARNING: styled-components v5.2 introduced a bug that changed
-              // how it expands `&` in CSS selectors. The following selectors
-              // are unnecessarily specific to work around that styled-components bug.
-              // Reference issue: https://github.com/styled-components/styled-components/issues/3265
-              [`#${itemId}:focus-visible  > &:is(div)`]: {
-                boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
-                '@media (forced-colors: active)': {
-                  outline: '2px solid SelectedItem',
-                  outlineOffset: -2
-                }
-              },
-              '[role=treeitem][aria-current=true] > &:is(div)': {
-                bg: 'actionListItem.default.selectedBg',
-                '&::after': {
-                  position: 'absolute',
-                  top: 'calc(50% - 12px)',
-                  left: -2,
-                  width: '4px',
-                  height: '24px',
-                  content: '""',
-                  bg: 'accent.fg',
-                  borderRadius: 2
-                }
-              }
-            }}
+              sx as SxProp
+            ])}
           >
             <Box sx={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
@@ -401,9 +408,13 @@ export type SubTreeState = 'initial' | 'loading' | 'done' | 'error'
 export type TreeViewSubTreeProps = {
   children?: React.ReactNode
   state?: SubTreeState
+  /**
+   * Display a skeleton loading state with the specified count of items
+   */
+  count?: number
 }
 
-const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
+const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded} = React.useContext(ItemContext)
   const [isLoadingItemVisible, setIsLoadingItemVisible] = React.useState(false)
@@ -469,14 +480,112 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({state, children}) => {
         margin: 0
       }}
     >
-      {isLoadingItemVisible ? <LoadingItem ref={loadingItemRef} /> : children}
+      {isLoadingItemVisible ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
     </Box>
   )
 }
 
 SubTree.displayName = 'TreeView.SubTree'
 
-const LoadingItem = React.forwardRef<HTMLElement>((props, ref) => {
+const shimmer = keyframes`
+  from { mask-position: 200%; }
+  to { mask-position: 0%; }
+`
+
+const SkeletonItem = styled.span`
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  height: 2rem;
+
+  @media (pointer: coarse) {
+    height: 2.75rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+    mask-size: 200%;
+    animation: ${shimmer};
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background-color: ${get('colors.neutral.subtle')};
+    border-radius: 3px;
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+    }
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    width: var(--tree-item-loading-width, 67%);
+    height: 1rem;
+    background-color: ${get('colors.neutral.subtle')};
+    border-radius: 3px;
+    @media (forced-colors: active) {
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+    }
+  }
+
+  &:nth-of-type(5n + 1) {
+    --tree-item-loading-width: 67%;
+  }
+
+  &:nth-of-type(5n + 2) {
+    --tree-item-loading-width: 47%;
+  }
+
+  &:nth-of-type(5n + 3) {
+    --tree-item-loading-width: 73%;
+  }
+
+  &:nth-of-type(5n + 4) {
+    --tree-item-loading-width: 64%;
+  }
+
+  &:nth-of-type(5n + 5) {
+    --tree-item-loading-width: 50%;
+  }
+`
+
+type LoadingItemProps = {
+  count?: number
+}
+
+const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>((props, ref) => {
+  const {count} = props
+
+  if (count) {
+    return (
+      <Item
+        ref={ref}
+        sx={{
+          '&:hover': {
+            backgroundColor: 'transparent',
+            cursor: 'default',
+            '@media (forced-colors: active)': {
+              outline: 'none'
+            }
+          }
+        }}
+      >
+        {Array.from({length: count}).map((_, i) => {
+          return <SkeletonItem aria-hidden={true} key={i} />
+        })}
+        <VisuallyHidden>Loading {count} items</VisuallyHidden>
+      </Item>
+    )
+  }
+
   return (
     <Item ref={ref}>
       <LeadingVisual>

@@ -459,6 +459,107 @@ AsyncSuccess.args = {
   responseTime: 2000
 }
 
+export const AsyncWithCount: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
+  return (
+    <Box sx={{p: 3}}>
+      <nav aria-label="File navigation">
+        <TreeView aria-label="File navigation">
+          <TreeView.Item
+            onExpandedChange={async isExpanded => {
+              if (asyncItems.length === 0 && isExpanded) {
+                setIsLoading(true)
+
+                // Load items
+                const items = await loadItems(args.responseTime)
+
+                setIsLoading(false)
+                setAsyncItems(items)
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree state={state} count={args.count}>
+              {asyncItems.map(item => (
+                <TreeView.Item key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.LinkItem href="#src">
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            src
+            <TreeView.SubTree>
+              <TreeView.LinkItem href="#avatar-tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Avatar.tsx
+              </TreeView.LinkItem>
+              <TreeView.LinkItem href="#button" current>
+                <TreeView.LeadingVisual>
+                  <TreeView.DirectoryIcon />
+                </TreeView.LeadingVisual>
+                Button
+                <TreeView.SubTree>
+                  <TreeView.LinkItem href="#button-tsx">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Button.tsx
+                  </TreeView.LinkItem>
+                  <TreeView.LinkItem href="#button-test-tsx">
+                    <TreeView.LeadingVisual>
+                      <FileIcon />
+                    </TreeView.LeadingVisual>
+                    Button.test.tsx
+                  </TreeView.LinkItem>
+                </TreeView.SubTree>
+              </TreeView.LinkItem>
+              <TreeView.Item>
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                ReallyLongFileNameThatShouldBeTruncated.tsx
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.LinkItem>
+        </TreeView>
+      </nav>
+    </Box>
+  )
+}
+
+AsyncWithCount.args = {
+  responseTime: 2000,
+  count: 3
+}
+
+AsyncWithCount.argTypes = {
+  count: {
+    type: 'number'
+  }
+}
+
 async function alwaysFails(responseTime: number) {
   await wait(responseTime)
   throw new Error('Failed to load items')
