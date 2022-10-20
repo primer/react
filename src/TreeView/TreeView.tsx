@@ -328,8 +328,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </Slots>
             </Box>
           </Box>
-          {subTree}
-        </li>
+          {isExpanded ? subTree : null}
+        </Box>
       </ItemContext.Provider>
     )
   }
