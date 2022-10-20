@@ -551,7 +551,7 @@ export const AsyncWithCount: Story = args => {
 
 AsyncWithCount.args = {
   responseTime: 2000,
-  count: 5
+  count: 3
 }
 
 AsyncWithCount.argTypes = {
