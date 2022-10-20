@@ -294,7 +294,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                   }
                 }}
               >
-                {isExpanded ? <ChevronDownIcon /> : <ChevronRightIcon />}
+                {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
               </Box>
             ) : null}
             <Box
