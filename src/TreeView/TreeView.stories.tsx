@@ -1,8 +1,6 @@
 import {DiffAddedIcon, DiffModifiedIcon, DiffRemovedIcon, DiffRenamedIcon, FileIcon} from '@primer/octicons-react'
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import {ActionList} from '../ActionList'
-import {ActionMenu} from '../ActionMenu'
 import Box from '../Box'
 import {Button} from '../Button'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
@@ -21,7 +19,7 @@ export const FileTreeWithDirectoryLinks: Story = () => (
   <Box sx={{p: 3, maxWidth: 400}}>
     <nav aria-label="File navigation">
       <TreeView aria-label="File navigation">
-        <TreeView.LinkItem href="#src">
+        <TreeView.LinkItem href="#src" defaultExpanded>
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
           </TreeView.LeadingVisual>
@@ -242,107 +240,35 @@ const CurrentPathContext = React.createContext<{
   setCurrentPath: () => {}
 })
 
-export const Controlled: Story = () => {
-  const [currentPath, setCurrentPath] = React.useState<string[]>(['src', 'Avatar.tsx'])
-  const [tree, setTree] = React.useState<TreeItem[]>([
-    {
-      data: {
-        name: 'src',
-        expanded: false
-      },
-      children: [
-        {
-          data: {
-            name: 'Avatar.tsx',
-            expanded: false
-          },
-          children: []
-        },
-        {
-          data: {
-            name: 'Button',
-            expanded: false
-          },
-          children: [
-            {
-              data: {
-                name: 'Button.tsx',
-                expanded: false
-              },
-              children: []
-            },
-            {
-              data: {
-                name: 'Button.test.tsx',
-                expanded: false
-              },
-              children: []
-            }
-          ]
-        }
-      ]
+const TREE: TreeItem[] = Array.from({length: 5}).map((_, i) => ({
+  data: {
+    name: `Item ${i}`,
+    expanded: false
+  },
+  children: Array.from({length: 5}).map((_, j) => ({
+    data: {
+      name: `Item ${i}.${j}`,
+      expanded: false
     },
-    {
+    children: Array.from({length: 5}).map((_, k) => ({
       data: {
-        name: 'public',
-        expanded: false
-      },
-      children: [
-        {
-          data: {
-            name: 'index.html',
-            expanded: false
-          },
-          children: []
-        },
-        {
-          data: {
-            name: 'favicon.ico',
-            expanded: false
-          },
-          children: []
-        }
-      ]
-    },
-    {
-      data: {
-        name: 'package.json',
+        name: `Item ${i}.${j}.${k}`,
         expanded: false
       },
       children: []
-    }
-  ])
+    }))
+  }))
+}))
+
+export const Controlled: Story = () => {
+  const [currentPath, setCurrentPath] = React.useState<string[]>(['src', 'Avatar.tsx'])
+  const [tree, setTree] = React.useState<TreeItem[]>(TREE)
 
   return (
     <Box sx={{p: 3, display: 'grid', gap: 3}}>
       <Box sx={{display: 'flex', gap: 2}}>
         <Button onClick={() => setTree(collapseAll)}>Collapse all</Button>
         <Button onClick={() => setTree(expandAll)}>Expand all</Button>
-        <ActionMenu>
-          <ActionMenu.Button>Jump to</ActionMenu.Button>
-
-          <ActionMenu.Overlay>
-            <ActionList>
-              <ActionList.Item onSelect={() => setCurrentPath(['src'])}>src</ActionList.Item>
-              <ActionList.Item onSelect={() => setCurrentPath(['src', 'Avatar.tsx'])}>src/Avatar.tsx</ActionList.Item>
-              <ActionList.Item onSelect={() => setCurrentPath(['src', 'Button'])}>src/Button</ActionList.Item>
-              <ActionList.Item onSelect={() => setCurrentPath(['src', 'Button', 'Button.tsx'])}>
-                src/Button/Button.tsx
-              </ActionList.Item>
-              <ActionList.Item onSelect={() => setCurrentPath(['src', 'Button', 'Button.test.tsx'])}>
-                src/Button/Button.test.tsx
-              </ActionList.Item>
-              <ActionList.Item onSelect={() => setCurrentPath(['public'])}>public</ActionList.Item>
-              <ActionList.Item onSelect={() => setCurrentPath(['public', 'index.html'])}>
-                public/index.html
-              </ActionList.Item>
-              <ActionList.Item onSelect={() => setCurrentPath(['public', 'favicon.ico'])}>
-                public/favicon.ico
-              </ActionList.Item>
-              <ActionList.Item onSelect={() => setCurrentPath(['package.json'])}>package.json</ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
       </Box>
       <nav aria-label="File navigation">
         <CurrentPathContext.Provider value={{currentPath, setCurrentPath}}>
