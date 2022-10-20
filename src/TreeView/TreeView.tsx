@@ -586,6 +586,7 @@ const ErrorDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', child
       <ConfirmationDialog
         title={title}
         onClose={gesture => {
+          // Focus parent item after the dialog is closed
           setTimeout(() => {
             const parentElement = document.getElementById(itemId)
             parentElement?.focus()

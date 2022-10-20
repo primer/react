@@ -1,4 +1,4 @@
-import {fireEvent, render} from '@testing-library/react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
 import {SubTreeState, TreeView} from './TreeView'
@@ -1122,7 +1122,7 @@ describe('Asyncronous loading', () => {
     })
   })
 
-  it('moves focus to parent item after closing error dialog', async () => {
+  it.only('moves focus to parent item after closing error dialog', async () => {
     function TestTree() {
       const [error, setError] = React.useState('Test error')
 
@@ -1161,12 +1161,12 @@ describe('Asyncronous loading', () => {
     // Press esc to close error dialog
     fireEvent.keyDown(document.activeElement || document.body, {key: 'Escape'})
 
-    setTimeout(() => {
+    // Dialog should not be visible
+    expect(dialog).not.toBeVisible()
+
+    await waitFor(() => {
       // Parent item should be focused
       expect(parentItem).toHaveFocus()
-
-      // Dialog should not be visible
-      expect(dialog).not.toBeVisible()
     })
   })
 
