@@ -39,7 +39,7 @@ export interface TokenBaseProps
   /**
    * The text label inside the token
    */
-  text: string
+  text: React.ReactElement | string
   /**
    * A unique identifier that can be associated with the token
    */
