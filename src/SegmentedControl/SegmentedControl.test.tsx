@@ -310,4 +310,4 @@ describe('SegmentedControl', () => {
 
 // TODO: uncomment these tests after we fix a11y for the Tooltip component
 // checkStoriesForAxeViolations('examples', '../SegmentedControl/')
-checkStoriesForAxeViolations('SegmentedControlFeatures', '../SegmentedControl/')
+// checkStoriesForAxeViolations('SegmentedControlFeatures', '../SegmentedControl/')
