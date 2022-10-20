@@ -21,24 +21,26 @@ export default {
       )
     }
   ],
+  args: {
+    width: 'xlarge',
+    height: 'auto',
+    subtitle: true
+  },
   argTypes: {
     width: {
-      defaultValue: 'xlarge',
       control: {
-        type: 'radio',
-        options: ['small', 'medium', 'large', 'xlarge']
-      }
+        type: 'radio'
+      },
+      options: ['small', 'medium', 'large', 'xlarge']
     },
     height: {
-      defaultValue: 'auto',
       control: {
-        type: 'radio',
-        options: ['small', 'large', 'auto']
-      }
+        type: 'radio'
+      },
+      options: ['small', 'large', 'auto']
     },
     subtitle: {
       name: 'show subtitle',
-      defaultValue: true,
       control: {
         type: 'boolean'
       }

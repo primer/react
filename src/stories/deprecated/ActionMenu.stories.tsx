@@ -33,7 +33,7 @@ const meta: Meta = {
   ],
   parameters: {
     controls: {
-      disabled: true
+      disable: true
     }
   }
 }

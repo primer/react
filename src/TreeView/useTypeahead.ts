@@ -1,5 +1,6 @@
 import React from 'react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import {getAccessibleName} from './shared'
 
 type TypeaheadOptions = {
   containerRef: React.RefObject<HTMLElement>
@@ -58,13 +59,11 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       // Filter out collapsed items
       .filter(element => !element.parentElement?.closest('[role=treeitem][aria-expanded=false]'))
 
-    // Get the index of active descendant
-    const activeDescendantIndex = elements.findIndex(
-      element => element.id === containerRef.current?.getAttribute('aria-activedescendant')
-    )
+    // Get the index of active element
+    const activeIndex = elements.findIndex(element => element === document.activeElement)
 
     // Wrap the array elements such that the active descendant is at the beginning
-    let sortedElements = wrapArray(elements, activeDescendantIndex)
+    let sortedElements = wrapArray(elements, activeIndex)
 
     // Remove the active descendant from the beginning of the array
     // when the user initiates a new search
@@ -83,18 +82,6 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       onFocusChangeRef.current(nextElement)
     }
   }, [searchValue, containerRef])
-}
-
-/**
- * Returns the accessible name of an element
- */
-function getAccessibleName(element: Element) {
-  const label = element.getAttribute('aria-label')
-  const labelledby = element.getAttribute('aria-labelledby')
-
-  if (label) return label
-  if (labelledby) return document.getElementById(labelledby)?.textContent ?? ''
-  return element.textContent ?? ''
 }
 
 /**

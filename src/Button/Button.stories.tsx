@@ -9,9 +9,9 @@ export default {
   argTypes: {
     size: {
       control: {
-        type: 'radio',
-        options: ['small', 'medium', 'large']
-      }
+        type: 'radio'
+      },
+      options: ['small', 'medium', 'large']
     },
     disabled: {
       control: {
@@ -46,6 +46,14 @@ export const invisibleButton = (args: ButtonProps) => {
   return (
     <Button {...args} variant="invisible">
       Invisible
+    </Button>
+  )
+}
+
+export const outlineButton = (args: ButtonProps) => {
+  return (
+    <Button {...args} variant="outline">
+      Outline
     </Button>
   )
 }

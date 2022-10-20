@@ -1,62 +1,17 @@
 import React from 'react'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
-type ActiveDescendantOptions = {
-  containerRef: React.RefObject<HTMLElement>
-}
+export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject<HTMLElement>}) {
+  // TODO: Initialize focus to the aria-current item if it exists
+  useFocusZone({
+    containerRef,
+    bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    getNextFocusable: (direction, from, event) => {
+      if (!(from instanceof HTMLElement)) return
 
-export function useActiveDescendant({
-  containerRef
-}: ActiveDescendantOptions): [string, React.Dispatch<React.SetStateAction<string>>] {
-  const [activeDescendant, setActiveDescendant] = React.useState('')
-
-  // Initialize value of active descendant
-  React.useEffect(() => {
-    if (containerRef.current && !activeDescendant) {
-      const currentItem = containerRef.current.querySelector('[role="treeitem"][aria-current="true"]')
-      const firstItem = containerRef.current.querySelector('[role="treeitem"]')
-
-      // If current item exists, use it as the initial value for active descendant
-      if (currentItem) {
-        setActiveDescendant(currentItem.id)
-      }
-      // Otherwise, initialize the active descendant to the first item in the tree
-      else if (firstItem) {
-        setActiveDescendant(firstItem.id)
-      }
+      return getNextFocusableElement(from, event) ?? from
     }
-  }, [containerRef, activeDescendant])
-
-  const handleKeyDown = React.useCallback(
-    (event: KeyboardEvent) => {
-      const activeElement = document.getElementById(activeDescendant)
-
-      if (!activeElement) return
-
-      const nextElement = getNextFocusableElement(activeElement, event)
-
-      if (nextElement) {
-        // Move active descendant if necessary
-        setActiveDescendant(nextElement.id)
-        event.preventDefault()
-      } else {
-        // If the active descendant didn't change,
-        // forward the event to the active descendant
-        activeElement.dispatchEvent(new KeyboardEvent(event.type, event))
-      }
-    },
-    [activeDescendant]
-  )
-
-  React.useEffect(() => {
-    const container = containerRef.current
-
-    if (!container) return
-
-    container.addEventListener('keydown', handleKeyDown)
-    return () => container.removeEventListener('keydown', handleKeyDown)
-  }, [containerRef, handleKeyDown])
-
-  return [activeDescendant, setActiveDescendant]
+  })
 }
 
 // DOM utilities used for focus management
@@ -111,7 +66,7 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
   }
 }
 
-function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
+export function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
   if (element.getAttribute('role') !== 'treeitem') {
     throw new Error('Element is not a treeitem')
   }
@@ -126,7 +81,7 @@ function getElementState(element: HTMLElement): 'open' | 'closed' | 'end' {
   }
 }
 
-function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
+export function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous'): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
 
   if (!root) return
@@ -152,24 +107,24 @@ function getVisibleElement(element: HTMLElement, direction: 'next' | 'previous')
   return next instanceof HTMLElement ? next : undefined
 }
 
-function getFirstChildElement(element: HTMLElement): HTMLElement | undefined {
+export function getFirstChildElement(element: HTMLElement): HTMLElement | undefined {
   const firstChild = element.querySelector('[role=treeitem]')
   return firstChild instanceof HTMLElement ? firstChild : undefined
 }
 
-function getParentElement(element: HTMLElement): HTMLElement | undefined {
+export function getParentElement(element: HTMLElement): HTMLElement | undefined {
   const group = element.closest('[role=group]')
   const parent = group?.closest('[role=treeitem]')
   return parent instanceof HTMLElement ? parent : undefined
 }
 
-function getFirstElement(element: HTMLElement): HTMLElement | undefined {
+export function getFirstElement(element: HTMLElement): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
   const first = root?.querySelector('[role=treeitem]')
   return first instanceof HTMLElement ? first : undefined
 }
 
-function getLastElement(element: HTMLElement): HTMLElement | undefined {
+export function getLastElement(element: HTMLElement): HTMLElement | undefined {
   const root = element.closest('[role=tree]')
   const items = Array.from(root?.querySelectorAll('[role=treeitem]') || [])
 

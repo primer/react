@@ -1,7 +1,7 @@
 import {fireEvent, render} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
-import {TreeView} from './TreeView'
+import {SubTreeState, TreeView} from './TreeView'
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
@@ -57,36 +57,6 @@ describe('Markup', () => {
 
     expect(parentItem).toHaveAttribute('aria-expanded', 'false')
     expect(subtree).toBeNull()
-  })
-
-  it('initializes aria-activedescendant to the current item by default', () => {
-    const {queryByRole} = renderWithTheme(
-      <TreeView aria-label="Test tree">
-        <TreeView.Item>Item 1</TreeView.Item>
-        <TreeView.Item current>Item 2</TreeView.Item>
-        <TreeView.Item>Item 3</TreeView.Item>
-      </TreeView>
-    )
-
-    const root = queryByRole('tree')
-    const currentItem = queryByRole('treeitem', {name: 'Item 2'})
-
-    expect(root).toHaveAttribute('aria-activedescendant', currentItem?.id)
-  })
-
-  it('initializes aria-activedescendant to the first item if there is no current item', () => {
-    const {queryByRole} = renderWithTheme(
-      <TreeView aria-label="Test tree">
-        <TreeView.Item>Item 1</TreeView.Item>
-        <TreeView.Item>Item 2</TreeView.Item>
-        <TreeView.Item>Item 3</TreeView.Item>
-      </TreeView>
-    )
-
-    const root = queryByRole('tree')
-    const firstItem = queryByRole('treeitem', {name: 'Item 1'})
-
-    expect(root).toHaveAttribute('aria-activedescendant', firstItem?.id)
   })
 
   it('uses aria-current', () => {
@@ -235,11 +205,94 @@ describe('Markup', () => {
     // Item 2.1 should be visible because it is a child of the current item
     expect(getByRole('treeitem', {name: 'Item 2.1'})).toBeVisible()
   })
+
+  it('should be described by leading visuals', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          <TreeView.LeadingVisual label="leading">
+            <svg aria-hidden={true} />
+          </TreeView.LeadingVisual>
+          Item 1
+        </TreeView.Item>
+        <TreeView.Item>
+          <TreeView.LeadingVisual>
+            <svg aria-hidden={true} />
+          </TreeView.LeadingVisual>
+          Item 2
+        </TreeView.Item>
+      </TreeView>
+    )
+    const item = getByLabelText(/Item 1/)
+    expect(item).toHaveAccessibleDescription('leading')
+
+    const noDescription = getByLabelText(/Item 2/)
+    expect(noDescription).not.toHaveAccessibleDescription()
+  })
+
+  it('should be described by trailing visuals', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          Item 1
+          <TreeView.TrailingVisual label="trailing">
+            <svg aria-hidden={true} />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+        <TreeView.Item>
+          Item 2
+          <TreeView.TrailingVisual>
+            <svg aria-hidden={true} />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+      </TreeView>
+    )
+    const item = getByLabelText(/Item 1/)
+    expect(item).toHaveAccessibleDescription('trailing')
+
+    const noDescription = getByLabelText(/Item 2/)
+    expect(noDescription).not.toHaveAccessibleDescription()
+  })
+
+  it('should be described by leading and trailing visuals', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          <TreeView.LeadingVisual label="leading">
+            <svg aria-hidden={true} />
+          </TreeView.LeadingVisual>
+          Item 1
+          <TreeView.TrailingVisual label="trailing">
+            <svg aria-hidden={true} />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+        <TreeView.Item>
+          <TreeView.LeadingVisual>
+            <svg aria-hidden={true} />
+          </TreeView.LeadingVisual>
+          Item 2
+          <TreeView.TrailingVisual>
+            <svg aria-hidden={true} />
+          </TreeView.TrailingVisual>
+        </TreeView.Item>
+      </TreeView>
+    )
+    const item = getByLabelText(/Item 1/)
+    expect(item).toHaveAccessibleDescription('leading trailing')
+
+    const noDescription = getByLabelText(/Item 2/)
+    // Note: it seems the computed description here is a string with a single
+    // space due to the implementation of `aria-describedby`. We currently set
+    // both trailing and visual and when the nodes are not found in
+    // `aria-describedby="uuid-leading uuid-trailing"` then it computes to a
+    // space
+    expect(noDescription).toHaveAccessibleDescription(' ')
+  })
 })
 
 describe('Keyboard interactions', () => {
   describe('ArrowDown', () => {
-    it('moves aria-activedescendant to the next visible treeitem', () => {
+    it('moves focus to the next visible treeitem', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
@@ -259,46 +312,42 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const item1 = getByRole('treeitem', {name: 'Item 1'})
       const item11 = getByRole('treeitem', {name: 'Item 1.1'})
       const item2 = getByRole('treeitem', {name: 'Item 2'})
       const item3 = getByRole('treeitem', {name: 'Item 3'})
 
-      // aria-activedescendant should be set to the first visible treeitem by default
-      expect(root).toHaveAttribute('aria-activedescendant', item1.id)
-
-      // Focus tree
-      root.focus()
+      // Focus first item
+      item1.focus()
 
       // Press ↓
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should now be set to item 1.1
-      expect(root).toHaveAttribute('aria-activedescendant', item11.id)
+      // item 1.1 should be focused
+      expect(item11).toHaveFocus()
 
       // Press ↓
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should now be set to item 2
-      expect(root).toHaveAttribute('aria-activedescendant', item2.id)
+      // item 2 should be focused
+      expect(item2).toHaveFocus()
 
       // Press ↓
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should now be set to item 3 (skips item 2.1 and item 2.2 because they are hidden)
-      expect(root).toHaveAttribute('aria-activedescendant', item3.id)
+      // item 3 should have focus (skips item 2.1 and item 2.2 because they are hidden)
+      expect(item3).toHaveFocus()
 
       // Press ↓
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should not change (item 3 is the last visible treeitem)
-      expect(root).toHaveAttribute('aria-activedescendant', item3.id)
+      // focus should not change (item 3 is the last visible treeitem)
+      expect(item3).toHaveFocus()
     })
   })
 
   describe('ArrowUp', () => {
-    it('moves aria-activedescendant to the previous visible treeitem', () => {
+    it('moves focus to the previous visible treeitem', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
@@ -318,17 +367,13 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const item1 = getByRole('treeitem', {name: 'Item 1'})
       const item11 = getByRole('treeitem', {name: 'Item 1.1'})
       const item2 = getByRole('treeitem', {name: 'Item 2'})
       const item3 = getByRole('treeitem', {name: 'Item 3'})
 
-      // aria-activedescendant should be set to the first visible treeitem by default
-      expect(root).toHaveAttribute('aria-activedescendant', item1.id)
-
-      // Focus tree
-      root.focus()
+      // Focus first item
+      item1.focus()
 
       // Press ↓ 4 times to move aria-activedescendant to item 3
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
@@ -336,32 +381,32 @@ describe('Keyboard interactions', () => {
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should now be set to item 3
-      expect(root).toHaveAttribute('aria-activedescendant', item3.id)
+      // item 3 should be focused
+      expect(item3).toHaveFocus()
 
       // Press ↑
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-      // aria-activedescendant should now be set to item 2 (skips item 2.1 and item 2.2 because they are hidden)
-      expect(root).toHaveAttribute('aria-activedescendant', item2.id)
+      // Item 2 should have focus (skips item 2.1 and item 2.2 because they are hidden)
+      expect(item2).toHaveFocus()
 
       // Press ↑
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-      // aria-activedescendant should now be set to item 1.1
-      expect(root).toHaveAttribute('aria-activedescendant', item11.id)
+      // Item 1.1 should be focused
+      expect(item11).toHaveFocus()
 
       // Press ↑
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-      // aria-activedescendant should now be set to item 1
-      expect(root).toHaveAttribute('aria-activedescendant', item1.id)
+      // Item 1 should be focused
+      expect(item1).toHaveFocus()
 
       // Press ↑
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
 
-      // aria-activedescendant should not change (item 1 is the first visible treeitem)
-      expect(root).toHaveAttribute('aria-activedescendant', item1.id)
+      // Focus should not change (item 1 is the first visible treeitem)
+      expect(item1).toHaveFocus()
     })
   })
 
@@ -378,12 +423,8 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parentItem = getByRole('treeitem', {name: 'Parent'})
       let subtree = queryByRole('group')
-
-      // aria-activedescendant should be set to the first visible treeitem by default
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
 
       // aria-expanded should be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
@@ -391,8 +432,8 @@ describe('Keyboard interactions', () => {
       // Subtree should be visible
       expect(subtree).toBeVisible()
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      parentItem.focus()
 
       // Press ←
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
@@ -400,8 +441,8 @@ describe('Keyboard interactions', () => {
       // aria-expanded should now be false
       expect(parentItem).toHaveAttribute('aria-expanded', 'false')
 
-      // aria-activedescendant should still be set to the parent treeitem
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+      // Parent item should still be focused
+      expect(parentItem).toHaveFocus()
 
       subtree = queryByRole('group')
 
@@ -421,17 +462,13 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parentItem = getByRole('treeitem', {name: 'Parent'})
-
-      // aria-activedescendant should be set to the first visible treeitem by default
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
 
       // aria-expanded should be false by default
       expect(parentItem).toHaveAttribute('aria-expanded', 'false')
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      parentItem.focus()
 
       // Press ←
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
@@ -439,8 +476,8 @@ describe('Keyboard interactions', () => {
       // aria-expanded should still be false
       expect(parentItem).toHaveAttribute('aria-expanded', 'false')
 
-      // aria-activedescendant should still be set to the parent treeitem
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+      // Focus should not change
+      expect(parentItem).toHaveFocus()
     })
 
     it('does nothing on a root-level end item', () => {
@@ -450,23 +487,19 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const item = getByRole('treeitem', {name: 'Item'})
 
-      // aria-activedescendant should be set to the first visible treeitem by default
-      expect(root).toHaveAttribute('aria-activedescendant', item.id)
-
-      // Focus tree
-      root.focus()
+      // Focus first item
+      item.focus()
 
       // Press ←
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
 
-      // aria-activedescendant should still be set to the item
-      expect(root).toHaveAttribute('aria-activedescendant', item.id)
+      // Focus should not change
+      expect(item).toHaveFocus()
     })
 
-    it('moves aria-activedescendant to parent of end item', () => {
+    it('moves focus to parent of end item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
@@ -479,28 +512,27 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parentItem = getByRole('treeitem', {name: 'Parent'})
       const child2 = getByRole('treeitem', {name: 'Child 2'})
 
-      // Focus tree
-      root.focus()
+      // Focus fist item
+      parentItem.focus()
 
-      // Press ↓ 2 times to move aria-activedescendant to child 2
+      // Press ↓ 2 times to move focus to child 2
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should now be set to child 2
-      expect(root).toHaveAttribute('aria-activedescendant', child2.id)
+      // Child 2 should be focused
+      expect(child2).toHaveFocus()
 
       // Press ←
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
 
-      // aria-activedescendant should now be set to parent
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+      // Parent item should be focused
+      expect(parentItem).toHaveFocus()
     })
 
-    it('moves aria-activedescendant to parent of collapsed item', () => {
+    it('moves focus to parent of collapsed item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
@@ -518,25 +550,24 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parentItem = getByRole('treeitem', {name: 'Parent'})
       const nestedParentItem = getByRole('treeitem', {name: 'Nested parent'})
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      parentItem.focus()
 
-      // Press ↓ 2 times to move aria-activedescendant to nested parent
+      // Press ↓ 2 times to move focus to nested parent
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should now be set to nested parent
-      expect(root).toHaveAttribute('aria-activedescendant', nestedParentItem.id)
+      // Nested parent item should be focused
+      expect(nestedParentItem).toHaveFocus()
 
       // Press ←
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
 
-      // aria-activedescendant should now be set to parent
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+      // Parent item should be focused
+      expect(parentItem).toHaveFocus()
     })
   })
 
@@ -553,17 +584,13 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parentItem = getByRole('treeitem', {name: 'Parent'})
-
-      // aria-activedescendant should be set to the first visible treeitem by default
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
 
       // aria-expanded should be false by default
       expect(parentItem).toHaveAttribute('aria-expanded', 'false')
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      parentItem.focus()
 
       // Press →
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
@@ -571,8 +598,8 @@ describe('Keyboard interactions', () => {
       // aria-expanded should now be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-      // aria-activedescendant should still be set to the parent treeitem
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
+      // Parent item should still be focused
+      expect(parentItem).toHaveFocus()
 
       const subtree = getByRole('group')
 
@@ -580,7 +607,7 @@ describe('Keyboard interactions', () => {
       expect(subtree).toBeVisible()
     })
 
-    it('moves aria-activedescendant to first child of an expanded item', () => {
+    it('moves focus to first child of an expanded item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
@@ -592,25 +619,21 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parentItem = getByRole('treeitem', {name: 'Parent'})
-
-      // aria-activedescendant should be set to the first visible treeitem by default
-      expect(root).toHaveAttribute('aria-activedescendant', parentItem.id)
 
       // aria-expanded should be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      parentItem.focus()
 
       // Press →
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
 
       const childItem = getByRole('treeitem', {name: 'Child'})
 
-      // aria-activedescendant should now be set to the first child treeitem
-      expect(root).toHaveAttribute('aria-activedescendant', childItem.id)
+      // Child item should be focused
+      expect(childItem).toHaveFocus()
 
       // aria-expanded should still be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
@@ -629,28 +652,28 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
+      const parentItem = getByRole('treeitem', {name: 'Parent'})
       const child1 = getByRole('treeitem', {name: 'Child 1'})
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      parentItem.focus()
 
-      // Press ↓ to move aria-activedescendant to child 1
+      // Press ↓ to move focus to child 1
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should now be set to child 1
-      expect(root).toHaveAttribute('aria-activedescendant', child1.id)
+      // Child 1 should be focused
+      expect(child1).toHaveFocus()
 
       // Press →
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
 
-      // aria-activedescendant should still be set to child 1
-      expect(root).toHaveAttribute('aria-activedescendant', child1.id)
+      // Focus should not change
+      expect(child1).toHaveFocus()
     })
   })
 
   describe('Home', () => {
-    it('moves aria-activedescendant to first visible item', () => {
+    it('moves focus to first visible item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>
@@ -674,29 +697,28 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parent1 = getByRole('treeitem', {name: 'Parent 1'})
       const parent3 = getByRole('treeitem', {name: 'Parent 2'})
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      parent1.focus()
 
-      // Press ↓ 2 times to move aria-activedescendant to parent 3
+      // Press ↓ 2 times to move focus to parent 3
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
 
-      // aria-activedescendant should now be set to parent 3
-      expect(root).toHaveAttribute('aria-activedescendant', parent3.id)
+      // Parent 3 should be focused
+      expect(parent3).toHaveFocus()
 
       // Press Home
       fireEvent.keyDown(document.activeElement || document.body, {key: 'Home'})
 
-      // aria-activedescendant should now be set to parent 1
-      expect(root).toHaveAttribute('aria-activedescendant', parent1.id)
+      // Parent 1 should be focused
+      expect(parent1).toHaveFocus()
     })
   })
 
   describe('End', () => {
-    it('moves aria-activedescendant to last visible item', () => {
+    it('moves focus to last visible item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>
@@ -720,21 +742,17 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parent1 = getByRole('treeitem', {name: 'Parent 1'})
       const parent3 = getByRole('treeitem', {name: 'Parent 3'})
 
-      // Focus tree
-      root.focus()
-
-      // aria-activedescendant should be set to parent 1
-      expect(root).toHaveAttribute('aria-activedescendant', parent1.id)
+      // Focus first item
+      parent1.focus()
 
       // Press End
       fireEvent.keyDown(document.activeElement || document.body, {key: 'End'})
 
-      // aria-activedescendant should now be set to parent 3
-      expect(root).toHaveAttribute('aria-activedescendant', parent3.id)
+      // Parent 3 should be focused
+      expect(parent3).toHaveFocus()
 
       // Press → to expand parent 3
       fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowRight'})
@@ -744,8 +762,8 @@ describe('Keyboard interactions', () => {
 
       const child3 = getByRole('treeitem', {name: 'Child 3'})
 
-      // aria-activedescendant should now be set to child 3
-      expect(root).toHaveAttribute('aria-activedescendant', child3.id)
+      // Child 3 should be focused
+      expect(child3).toHaveFocus()
     })
   })
 
@@ -758,10 +776,10 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
+      const item = getByRole('treeitem')
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      item.focus()
 
       // Press Enter
       fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
@@ -783,11 +801,10 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const parent = getByRole('treeitem', {name: 'Parent'})
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      parent.focus()
 
       // aria-expanded should be false
       expect(parent).toHaveAttribute('aria-expanded', 'false')
@@ -812,7 +829,13 @@ describe('Keyboard interactions', () => {
     })
 
     it('navigates to href if provided', () => {
-      const windowSpy = jest.spyOn(window, 'open')
+      const windowSpy = jest
+        .spyOn(window, 'open')
+        .mockImplementation(
+          (_url?: string | URL | undefined, _target?: string | undefined, _features?: string | undefined) => {
+            return null
+          }
+        )
       const onSelect = jest.fn()
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
@@ -822,10 +845,10 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
+      const item = getByRole('treeitem')
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      item.focus()
 
       // Press Enter
       fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
@@ -839,7 +862,7 @@ describe('Keyboard interactions', () => {
   })
 
   describe('Typeahead', () => {
-    it('moves aria-activedescendant to the next item that matches the typed character', () => {
+    it('moves focus to the next item that matches the typed character', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item>
@@ -854,23 +877,19 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const apple = getByRole('treeitem', {name: 'Apple'})
       const cherry = getByRole('treeitem', {name: 'Cherry'})
 
-      // Focus tree
-      root.focus()
-
-      // aria-activedescendant should be set to apple
-      expect(root).toHaveAttribute('aria-activedescendant', apple.id)
+      // Focus first item
+      apple.focus()
 
       // Press C
       fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
 
-      // aria-activedescendant should now be set to cherry
-      expect(root).toHaveAttribute('aria-activedescendant', cherry.id)
+      // Cherry should be focused
+      expect(cherry).toHaveFocus()
 
-      // Notice that the aria-activedescendant is not set to cantalope because
+      // Notice that the focus is not set to cantalope because
       // it is a child of apple and apple is collapsed.
     })
 
@@ -884,20 +903,19 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const apple = getByRole('treeitem', {name: 'Apple'})
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      apple.focus()
 
-      // aria-activedescendant should be set to apple
-      expect(root).toHaveAttribute('aria-activedescendant', apple.id)
+      // Apple should be focused
+      expect(apple).toHaveFocus()
 
       // Press Z
       fireEvent.keyDown(document.activeElement || document.body, {key: 'z'})
 
-      // aria-activedescendant should still be set to apple
-      expect(root).toHaveAttribute('aria-activedescendant', apple.id)
+      // Apple should still be focused
+      expect(apple).toHaveFocus()
     })
 
     it('supports multiple typed characters', () => {
@@ -911,23 +929,19 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const apple = getByRole('treeitem', {name: 'Apple'})
       const cantalope = getByRole('treeitem', {name: 'Cantalope 1'})
 
-      // Focus tree
-      root.focus()
-
-      // aria-activedescendant should be set to apple
-      expect(root).toHaveAttribute('aria-activedescendant', apple.id)
+      // Focus first item
+      apple.focus()
 
       // Press C + A + N
       fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
       fireEvent.keyDown(document.activeElement || document.body, {key: 'a'})
       fireEvent.keyDown(document.activeElement || document.body, {key: 'n'})
 
-      // aria-activedescendant should now be set to cantalope
-      expect(root).toHaveAttribute('aria-activedescendant', cantalope.id)
+      // Cantalope should be focused
+      expect(cantalope).toHaveFocus()
     })
 
     it('prioritizes items following the current aria-activedescendant', () => {
@@ -939,21 +953,24 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
+      const cucumber = getByRole('treeitem', {name: 'Cucumber'})
       const cherry = getByRole('treeitem', {name: 'Cherry'})
       const cantalope = getByRole('treeitem', {name: 'Cantalope'})
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      cucumber.focus()
 
-      // aria-activedescendant should be set to cherry
-      expect(root).toHaveAttribute('aria-activedescendant', cherry.id)
+      // Press ↓ to move focus to cherry
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+
+      // Cherry should be focused
+      expect(cherry).toHaveFocus()
 
       // Press C
       fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
 
-      // aria-activedescendant should now be set to cantalope
-      expect(root).toHaveAttribute('aria-activedescendant', cantalope.id)
+      // Cantalope should be focused
+      expect(cantalope).toHaveFocus()
     })
 
     it('wraps around to the beginning if no items match after the current aria-activedescendant', () => {
@@ -966,21 +983,24 @@ describe('Keyboard interactions', () => {
         </TreeView>
       )
 
-      const root = getByRole('tree')
       const cantalope = getByRole('treeitem', {name: 'Cantalope'})
       const cucumber = getByRole('treeitem', {name: 'Cucumber'})
 
-      // Focus tree
-      root.focus()
+      // Focus first item
+      cucumber.focus()
 
-      // aria-activedescendant should be set to cantalope
-      expect(root).toHaveAttribute('aria-activedescendant', cantalope.id)
+      // Press ↓ 2 times to move focus to cantalope
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+
+      // Cantalope should be focused
+      expect(cantalope).toHaveFocus()
 
       // Press C
       fireEvent.keyDown(document.activeElement || document.body, {key: 'c'})
 
-      // aria-activedescendant should now be set to cucumber
-      expect(root).toHaveAttribute('aria-activedescendant', cucumber.id)
+      // Cucumber should be focused
+      expect(cucumber).toHaveFocus()
     })
   })
 })
@@ -1003,7 +1023,6 @@ describe('Controlled state', () => {
 
     const {getByRole} = renderWithTheme(<TestTree />)
 
-    const root = getByRole('tree')
     const parent = getByRole('treeitem', {name: 'Parent'})
     const child = getByRole('treeitem', {name: 'Child'})
 
@@ -1011,11 +1030,8 @@ describe('Controlled state', () => {
     expect(parent).toHaveAttribute('aria-expanded', 'true')
     expect(child).toBeVisible()
 
-    // aria-activedescendant should be set to parent
-    expect(root).toHaveAttribute('aria-activedescendant', parent.id)
-
-    // Focus tree
-    root.focus()
+    // Focus first item
+    parent.focus()
 
     // Press ← to collapse the parent
     fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
@@ -1023,5 +1039,86 @@ describe('Controlled state', () => {
     // Parent should be collapsed
     expect(parent).toHaveAttribute('aria-expanded', 'false')
     expect(child).not.toBeVisible()
+  })
+})
+
+describe('Asyncronous loading', () => {
+  it('updates aria live region when loading is done', () => {
+    function TestTree() {
+      const [state, setState] = React.useState<SubTreeState>('loading')
+
+      return (
+        <div>
+          {/* Mimic the completion of async loading by clicking the button */}
+          <button onClick={() => setState('done')}>Done</button>
+          <TreeView aria-label="Test tree">
+            <TreeView.Item defaultExpanded>
+              Parent
+              <TreeView.SubTree state={state}>
+                <TreeView.Item>Child</TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView>
+        </div>
+      )
+    }
+    const {getByRole} = renderWithTheme(<TestTree />)
+
+    const doneButton = getByRole('button', {name: 'Done'})
+    const liveRegion = getByRole('status')
+
+    // Live region should be empty
+    expect(liveRegion).toHaveTextContent('')
+
+    // Click done button to mimic the completion of async loading
+    fireEvent.click(doneButton)
+
+    // Live region should be updated
+    expect(liveRegion).toHaveTextContent('Parent content loaded')
+  })
+
+  it('moves focus from loading item to first child', async () => {
+    function TestTree() {
+      const [state, setState] = React.useState<SubTreeState>('loading')
+
+      React.useEffect(() => {
+        const timer = setTimeout(() => setState('done'), 400)
+        return () => clearTimeout(timer)
+      }, [])
+
+      return (
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree state={state}>
+              <TreeView.Item>Child 1</TreeView.Item>
+              <TreeView.Item>Child 2</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+    }
+
+    const {getByRole, findByRole} = renderWithTheme(<TestTree />)
+
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+    const loadingItem = await findByRole('treeitem', {name: 'Loading...'})
+
+    // Focus first item
+    parentItem.focus()
+
+    // Press ↓ to move focus to loading item
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowDown'})
+
+    // Loading item should be focused
+    expect(loadingItem).toHaveFocus()
+
+    // Wait for async loading to complete
+    const firstChild = await findByRole('treeitem', {name: 'Child 1'})
+
+    setTimeout(() => {
+      // First child should be focused
+      expect(firstChild).toHaveFocus()
+    })
   })
 })

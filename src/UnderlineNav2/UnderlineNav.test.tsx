@@ -54,7 +54,7 @@ const ResponsiveUnderlineNav = ({
     {navigation: 'Security', icon: ShieldLockIcon}
   ]
   return (
-    <UnderlineNav label="Repository" loadingCounters={loadingCounters}>
+    <UnderlineNav aria-label="Repository" loadingCounters={loadingCounters}>
       {items.map(item => (
         <UnderlineNav.Item
           key={item.navigation}
@@ -91,7 +91,7 @@ describe('UnderlineNav', () => {
   it('fires onSelect on click and keypress', async () => {
     const onSelect = jest.fn()
     const {getByText} = render(
-      <UnderlineNav label="Test nav">
+      <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 3</UnderlineNav.Item>

@@ -17,6 +17,14 @@ export type {
   PageLayoutPaneProps,
   PageLayoutFooterProps
 } from './PageLayout'
+export {SplitPageLayout} from './SplitPageLayout'
+export type {
+  SplitPageLayoutProps,
+  SplitPageLayoutHeaderProps,
+  SplitPageLayoutContentProps,
+  SplitPageLayoutPaneProps,
+  SplitPageLayoutFooterProps
+} from './SplitPageLayout'
 
 // Hooks
 export {default as useDetails} from './hooks/useDetails'
