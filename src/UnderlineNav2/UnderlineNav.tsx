@@ -2,16 +2,21 @@ import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefO
 import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import {ActionMenu} from '../ActionMenu'
-import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps} from './types'
 
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuItemStyles, GAP} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, getMenuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
+import {Button} from '../Button'
+import {useFocusZone} from '../hooks/useFocusZone'
+import {FocusKeys} from '@primer/behaviors'
+import {TriangleDownIcon} from '@primer/octicons-react'
+import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {ActionList} from '../ActionList'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -129,6 +134,8 @@ export const UnderlineNav = forwardRef(
     const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
     const moreMenuRef = useRef<HTMLLIElement>(null)
+    const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
+    const containerRef = React.useRef<HTMLUListElement>(null)
 
     const {theme} = useTheme()
 
@@ -194,6 +201,7 @@ export const UnderlineNav = forwardRef(
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
       if (!event.defaultPrevented) {
         if (typeof afterSelect === 'function') afterSelect(event)
+        closeOverlay()
       }
     }
 
@@ -235,6 +243,46 @@ export const UnderlineNav = forwardRef(
       // eslint-disable-next-line no-console
       console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
     }
+    const [isWidgetOpen, setIsWidgetOpen] = useState(false)
+
+    const closeOverlay = React.useCallback(() => {
+      setIsWidgetOpen(false)
+    }, [setIsWidgetOpen])
+
+    const toggleOverlay = React.useCallback(() => {
+      setIsWidgetOpen(!isWidgetOpen)
+    }, [setIsWidgetOpen, isWidgetOpen])
+
+    const focusOnMoreMenuBtn = React.useCallback(() => {
+      moreMenuBtnRef.current?.focus()
+    }, [])
+
+    useFocusZone({
+      containerRef: backupRef,
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Tab
+    })
+
+    useOnEscapePress(
+      (event: KeyboardEvent) => {
+        if (isWidgetOpen) {
+          event.preventDefault()
+          closeOverlay()
+          focusOnMoreMenuBtn()
+        }
+      },
+      [isWidgetOpen]
+    )
+
+    useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
+    const onAnchorClick = useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (event.defaultPrevented || event.button !== 0) {
+          return
+        }
+        toggleOverlay()
+      },
+      [toggleOverlay]
+    )
 
     return (
       <UnderlineNavContext.Provider
@@ -265,46 +313,53 @@ export const UnderlineNav = forwardRef(
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
                 <Box sx={getDividerStyle(theme)}></Box>
-                <ActionMenu>
-                  <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
-                  <ActionMenu.Overlay align="end">
-                    <ActionList selectionVariant="single">
-                      {actions.map((action, index) => {
-                        const {children: actionElementChildren, ...actionElementProps} = action.props
-                        return (
-                          <Box key={index} as="li">
-                            <ActionList.Item
-                              sx={menuItemStyles}
-                              as={asNavItem}
-                              {...actionElementProps}
-                              onSelect={(
-                                event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
-                              ) => {
-                                swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                                setSelectEvent(event)
-                              }}
-                            >
-                              <Box
-                                as="span"
-                                sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
-                              >
-                                {actionElementChildren}
+                <Button
+                  ref={moreMenuBtnRef}
+                  sx={moreBtnStyles}
+                  aria-controls="disclosure-widget"
+                  aria-expanded={isWidgetOpen}
+                  onClick={onAnchorClick}
+                  trailingIcon={TriangleDownIcon}
+                >
+                  More
+                </Button>
+                <ActionList
+                  selectionVariant="single"
+                  ref={containerRef}
+                  id="disclosure-widget"
+                  sx={getMenuStyles(theme, isWidgetOpen)}
+                >
+                  {actions.map((action, index) => {
+                    const {children: actionElementChildren, ...actionElementProps} = action.props
+                    return (
+                      <Box key={index} as="li">
+                        <ActionList.Item
+                          {...actionElementProps}
+                          sx={menuItemStyles}
+                          as={asNavItem}
+                          onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                            swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                            setSelectEvent(event)
+                            closeOverlay()
+                            focusOnMoreMenuBtn()
+                          }}
+                        >
+                          <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                            {actionElementChildren}
 
-                                {loadingCounters ? (
-                                  <LoadingCounter />
-                                ) : (
-                                  actionElementProps.counter !== undefined && (
-                                    <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                                  )
-                                )}
-                              </Box>
-                            </ActionList.Item>
+                            {loadingCounters ? (
+                              <LoadingCounter />
+                            ) : (
+                              actionElementProps.counter !== undefined && (
+                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                              )
+                            )}
                           </Box>
-                        )
-                      })}
-                    </ActionList>
-                  </ActionMenu.Overlay>
-                </ActionMenu>
+                        </ActionList.Item>
+                      </Box>
+                    )
+                  })}
+                </ActionList>
               </MoreMenuListItem>
             )}
           </NavigationList>
