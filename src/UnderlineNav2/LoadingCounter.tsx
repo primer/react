@@ -2,8 +2,8 @@ import styled, {keyframes} from 'styled-components'
 import {get} from '../constants'
 
 const loading = keyframes`
-  from { opacity: 0.2; }
-  to { opacity: 1; }
+  from { opacity: 1; }
+  to { opacity: 0.2; }
 `
 
 export const LoadingCounter = styled.span`
