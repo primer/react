@@ -72,14 +72,14 @@ export const withCounterLabels = () => {
   )
 }
 
-const items: {navigation: string; icon: React.FC<IconProps>; counter?: number}[] = [
+const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | string}[] = [
   {navigation: 'Code', icon: CodeIcon},
-  {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
+  {navigation: 'Issues', icon: IssueOpenedIcon, counter: '12K'},
   {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
   {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
   {navigation: 'Actions', icon: PlayIcon, counter: 4},
   {navigation: 'Projects', icon: ProjectIcon, counter: 9},
-  {navigation: 'Insights', icon: GraphIcon},
+  {navigation: 'Insights', icon: GraphIcon, counter: '0'},
   {navigation: 'Settings', icon: GearIcon, counter: 10},
   {navigation: 'Security', icon: ShieldLockIcon}
 ]
