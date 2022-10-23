@@ -1,5 +1,4 @@
 import {Theme} from '../ThemeProvider'
-import {BetterSystemStyleObject} from '../sx'
 import {UnderlineNavProps} from './UnderlineNav'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
@@ -47,6 +46,7 @@ export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavPro
 export const ulStyles = {
   display: 'flex',
   listStyle: 'none',
+  whiteSpace: 'nowrap',
   paddingY: 0,
   paddingX: 0,
   margin: 0,
@@ -133,21 +133,6 @@ export const getLinkStyles = (
     }
   }
 })
-
-export const scrollStyles: BetterSystemStyleObject = {
-  whiteSpace: 'nowrap',
-  overflowX: 'auto',
-  // Hiding scrollbar on Firefox
-  scrollbarWidth: 'none',
-  // Hiding scrollbar on IE 10+
-  msOverflowStyle: 'none',
-  // Hiding scrollbar on Chrome, Safari and Opera
-  '&::-webkit-scrollbar': {
-    display: 'none'
-  }
-}
-
-export const moreMenuStyles: BetterSystemStyleObject = {whiteSpace: 'nowrap'}
 
 export const menuItemStyles = {
   // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32

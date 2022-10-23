@@ -9,7 +9,7 @@ import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps} from './types'
 
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, moreMenuStyles, menuItemStyles, GAP} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 
@@ -48,9 +48,8 @@ const overflowEffect = (
   updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void
 ) => {
   let iconsVisible = true
-  let overflowStyles: BetterSystemStyleObject | null = {}
   if (childWidthArray.length === 0) {
-    updateListAndMenu({items: childArray, actions: [], overflowStyles}, iconsVisible)
+    updateListAndMenu({items: childArray, actions: []}, iconsVisible)
   }
 
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
@@ -74,7 +73,6 @@ const overflowEffect = (
   } else {
     // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
     iconsVisible = false
-    overflowStyles = moreMenuStyles
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfItemsPossibleWithMoreMenu) {
         items.push(child)
@@ -89,7 +87,7 @@ const overflowEffect = (
     }
   }
 
-  updateListAndMenu({items, actions, overflowStyles}, iconsVisible)
+  updateListAndMenu({items, actions}, iconsVisible)
 }
 
 const getValidChildren = (children: React.ReactNode) => {
@@ -163,10 +161,7 @@ export const UnderlineNav = forwardRef(
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
       setSelectedLinkText(prospectiveListItem.props.children)
-      callback(
-        {items: updatedItemList, actions: updatedMenuItems, overflowStyles: responsiveProps.overflowStyles},
-        false
-      )
+      callback({items: updatedItemList, actions: updatedMenuItems}, false)
     }
     // How many items do we need to pull in to the menu to make room for the selected menu item.
     function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
@@ -204,8 +199,7 @@ export const UnderlineNav = forwardRef(
 
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
       items: getValidChildren(children),
-      actions: [],
-      overflowStyles: {}
+      actions: []
     })
 
     const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
@@ -266,7 +260,7 @@ export const UnderlineNav = forwardRef(
           aria-label={ariaLabel}
           ref={navRef}
         >
-          <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
+          <NavigationList sx={ulStyles} ref={listRef}>
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
