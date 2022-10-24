@@ -1,7 +1,11 @@
 import {fireEvent, render, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
+import {act} from 'react-dom/test-utils'
 import {ThemeProvider} from '../ThemeProvider'
 import {SubTreeState, TreeView} from './TreeView'
+
+jest.useFakeTimers()
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
@@ -154,6 +158,40 @@ describe('Markup', () => {
     // `aria-describedby="uuid-leading uuid-trailing"` then it computes to a
     // space
     expect(noDescription).toHaveAccessibleDescription(' ')
+  })
+
+  it('should include `aria-expanded` when a SubTree contains content', async () => {
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime
+    })
+    const {getByLabelText, getByText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item>Item 1.a</TreeView.Item>
+            <TreeView.Item>Item 1.b</TreeView.Item>
+            <TreeView.Item>Item 1.c</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item>
+          Item 2
+          <TreeView.SubTree />
+        </TreeView.Item>
+      </TreeView>
+    )
+
+    let treeitem = getByLabelText(/Item 1/)
+    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
+
+    await user.click(getByText(/Item 1/))
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+
+    treeitem = getByLabelText(/Item 2/)
+    expect(treeitem).not.toHaveAttribute('aria-expanded')
+
+    await user.click(getByText(/Item 2/))
+    expect(treeitem).not.toHaveAttribute('aria-expanded')
   })
 })
 
@@ -940,6 +978,10 @@ describe('Asyncronous loading', () => {
     // Click done button to mimic the completion of async loading
     fireEvent.click(doneButton)
 
+    act(() => {
+      jest.runAllTimers()
+    })
+
     // Live region should be updated
     expect(liveRegion).toHaveTextContent('Parent content loaded')
   })
@@ -983,13 +1025,15 @@ describe('Asyncronous loading', () => {
     // Wait for async loading to complete
     const firstChild = await findByRole('treeitem', {name: 'Child 1'})
 
-    setTimeout(() => {
-      // First child should be focused
-      expect(firstChild).toHaveFocus()
+    act(() => {
+      jest.runAllTimers()
     })
+
+    // First child should be focused
+    expect(firstChild).toHaveFocus()
   })
 
-  it.only('moves focus to parent item after closing error dialog', async () => {
+  it('moves focus to parent item after closing error dialog', async () => {
     function TestTree() {
       const [error, setError] = React.useState('Test error')
 
@@ -1063,5 +1107,54 @@ describe('Asyncronous loading', () => {
 
     // Parent item should still be expanded
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('should remove `aria-expanded` if no content is loaded in', async () => {
+    function Example() {
+      const [state, setState] = React.useState<SubTreeState>('loading')
+      const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
+      React.useEffect(() => {
+        return () => {
+          if (timeoutId.current) {
+            clearTimeout(timeoutId.current)
+            timeoutId.current = null
+          }
+        }
+      }, [])
+
+      return (
+        <TreeView aria-label="Test tree">
+          <TreeView.Item
+            onExpandedChange={expanded => {
+              if (expanded) {
+                timeoutId.current = setTimeout(() => {
+                  setState('done')
+                }, 1000)
+              }
+            }}
+          >
+            Item 1
+            <TreeView.SubTree state={state} />
+          </TreeView.Item>
+        </TreeView>
+      )
+    }
+    const {getByLabelText, getByText} = renderWithTheme(<Example />)
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime
+    })
+
+    const treeitem = getByLabelText(/Item 1/)
+    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
+
+    await user.click(getByText(/Item 1/))
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+
+    act(() => {
+      jest.runAllTimers()
+    })
+
+    expect(treeitem).not.toHaveAttribute('aria-expanded')
   })
 })
