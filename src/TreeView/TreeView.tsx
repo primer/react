@@ -423,15 +423,19 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const loadingItemRef = React.useRef<HTMLElement>(null)
   const ref = React.useRef<HTMLElement>(null)
 
-  // If `state` is undefined, then we're in a synchronous context. Otherwise,
-  // check to see if `state` is `'done'` for the asynchronous use-case.
-  if (state === undefined || state === 'done') {
-    if (!isSubTreeEmpty && !children) {
-      setIsSubTreeEmpty(true)
-    } else if (isSubTreeEmpty && children) {
-      setIsSubTreeEmpty(false)
+  React.useEffect(() => {
+    // If `state` is undefined, we're working in a synchronous context and need
+    // to detect if the sub-tree has content. If `state === 'done` then we're
+    // working in an asynchronous context and need to see if there is content
+    // that has been loaded in.
+    if (state === undefined || state === 'done') {
+      if (!isSubTreeEmpty && !children) {
+        setIsSubTreeEmpty(true)
+      } else if (isSubTreeEmpty && children) {
+        setIsSubTreeEmpty(false)
+      }
     }
-  }
+  }, [state, isSubTreeEmpty, setIsSubTreeEmpty, children])
 
   // Announce when content has loaded
   React.useEffect(() => {
