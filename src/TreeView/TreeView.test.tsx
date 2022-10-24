@@ -1145,7 +1145,7 @@ describe('Asyncronous loading', () => {
       advanceTimers: jest.advanceTimersByTime
     })
 
-    let treeitem = getByLabelText(/Item 1/)
+    const treeitem = getByLabelText(/Item 1/)
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
     await user.click(getByText(/Item 1/))
