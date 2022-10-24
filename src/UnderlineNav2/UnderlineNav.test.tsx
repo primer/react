@@ -116,6 +116,6 @@ describe('UnderlineNav', () => {
     const {container} = render(<ResponsiveUnderlineNav />)
     const heading = container.getElementsByTagName('h2')[0]
     expect(heading.className).toContain('VisuallyHidden')
-    expect(heading.textContent).toBe('Repository')
+    expect(heading.textContent).toBe('Repository navigation')
   })
 })

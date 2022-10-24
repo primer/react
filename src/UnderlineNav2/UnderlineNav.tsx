@@ -297,7 +297,7 @@ export const UnderlineNav = forwardRef(
           iconsVisible
         }}
       >
-        {ariaLabel && <VisuallyHidden as="h2">{ariaLabel}</VisuallyHidden>}
+        {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
         <Box
           as={as}
           sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
