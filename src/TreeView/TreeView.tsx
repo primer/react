@@ -451,7 +451,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
         }
       })
     }
-  }, [state, itemId, announceUpdate])
+  }, [state, itemId, announceUpdate, safeSetTimeout])
 
   // Show loading indicator after a short delay
   React.useEffect(() => {
@@ -502,7 +502,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
         padding: 0,
         margin: 0
       }}
-      // @ts-ignore
+      // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
       ref={ref}
     >
       {isLoadingItemVisible ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
