@@ -81,7 +81,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   return (
     <RootContext.Provider value={{announceUpdate}}>
       <>
-        <VisuallyHidden role="status" aria-live="polite">
+        <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
         </VisuallyHidden>
         <UlBox
