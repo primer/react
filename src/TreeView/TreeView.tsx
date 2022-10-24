@@ -22,6 +22,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
+import {set} from 'lodash'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -35,6 +36,8 @@ const RootContext = React.createContext<{
 const ItemContext = React.createContext<{
   itemId: string
   level: number
+  isSubTreeEmpty: boolean
+  setIsSubTreeEmpty: React.Dispatch<React.SetStateAction<boolean>>
   isExpanded: boolean
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
   leadingVisualId: string
@@ -42,6 +45,8 @@ const ItemContext = React.createContext<{
 }>({
   itemId: '',
   level: 1,
+  isSubTreeEmpty: false,
+  setIsSubTreeEmpty: () => {},
   isExpanded: false,
   setIsExpanded: () => {},
   leadingVisualId: '',
@@ -135,6 +140,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     })
     const {level} = React.useContext(ItemContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
+    const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
 
     // Expand or collapse the subtree
     const toggle = React.useCallback(
@@ -189,6 +195,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         value={{
           itemId,
           level: level + 1,
+          isSubTreeEmpty,
+          setIsSubTreeEmpty,
           isExpanded,
           setIsExpanded,
           leadingVisualId,
@@ -205,7 +213,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-labelledby={labelId}
           aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
           aria-level={level}
-          aria-expanded={hasSubTree ? isExpanded : undefined}
+          aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           onKeyDown={handleKeyDown}
           sx={{
@@ -328,7 +336,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               </Slots>
             </Box>
           </Box>
-          {isExpanded ? subTree : null}
+          {subTree}
         </Box>
       </ItemContext.Provider>
     )
@@ -409,11 +417,22 @@ export type TreeViewSubTreeProps = {
 
 const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {announceUpdate} = React.useContext(RootContext)
-  const {itemId, isExpanded} = React.useContext(ItemContext)
+  const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
   const [isLoadingItemVisible, setIsLoadingItemVisible] = React.useState(false)
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const timeoutId = React.useRef<number>(0)
   const loadingItemRef = React.useRef<HTMLElement>(null)
+  const ref = React.useRef<HTMLElement>(null)
+
+  // If `state` is undefined, then we're in a synchronous context. Otherwise,
+  // check to see if `state` is `'done'` for the asynchronous use-case.
+  if (state === undefined || state === 'done') {
+    if (!isSubTreeEmpty && !children) {
+      setIsSubTreeEmpty(true)
+    } else if (isSubTreeEmpty && children) {
+      setIsSubTreeEmpty(false)
+    }
+  }
 
   // Announce when content has loaded
   React.useEffect(() => {
@@ -422,8 +441,16 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
 
       if (!parentItem) return
 
+      const {current: node} = ref
       const parentName = getAccessibleName(parentItem)
-      announceUpdate(`${parentName} content loaded`)
+
+      safeSetTimeout(() => {
+        if (node && node.childElementCount > 0) {
+          announceUpdate(`${parentName} content loaded`)
+        } else {
+          announceUpdate(`${parentName} is empty`)
+        }
+      })
     }
   }, [state, itemId, announceUpdate])
 
@@ -462,6 +489,10 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
     }
   }, [state, safeSetTimeout, safeClearTimeout, isLoadingItemVisible, itemId])
 
+  if (!isExpanded) {
+    return null
+  }
+
   return (
     <Box
       as="ul"
@@ -472,6 +503,8 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
         padding: 0,
         margin: 0
       }}
+      // @ts-ignore
+      ref={ref}
     >
       {isLoadingItemVisible ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
     </Box>

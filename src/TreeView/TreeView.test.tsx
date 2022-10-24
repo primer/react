@@ -989,7 +989,7 @@ describe('Asyncronous loading', () => {
     })
   })
 
-  it.only('moves focus to parent item after closing error dialog', async () => {
+  it('moves focus to parent item after closing error dialog', async () => {
     function TestTree() {
       const [error, setError] = React.useState('Test error')
 

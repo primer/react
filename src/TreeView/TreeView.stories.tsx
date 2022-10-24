@@ -442,6 +442,9 @@ export const AsyncWithCount: Story = args => {
           </TreeView.Item>
           <TreeView.LinkItem href="#src">
             <TreeView.LeadingVisual>
+              <TreeView.LeadingVisual>
+                <TreeView.DirectoryIcon />
+              </TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             src
@@ -619,6 +622,39 @@ export const StressTest: Story = () => {
         ))}
       </TreeView>
     </Box>
+  )
+}
+
+export const EmptyDirectories: Story = () => {
+  const [state, setState] = React.useState<SubTreeState>('loading')
+
+  return (
+    <>
+      <TreeView aria-label="Test">
+        <TreeView.Item
+          onExpandedChange={expanded => {
+            if (expanded) {
+              setTimeout(() => {
+                setState('done')
+              }, 1000)
+            }
+          }}
+        >
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          src
+          <TreeView.SubTree state={state}></TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item>
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          .github
+          <TreeView.SubTree />
+        </TreeView.Item>
+      </TreeView>
+    </>
   )
 }
 
