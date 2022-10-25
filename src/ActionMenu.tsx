@@ -8,7 +8,7 @@ import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
-import {SxProp, merge} from './sx'
+import {merge, BetterSystemStyleObject} from './sx'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -83,12 +83,12 @@ const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonPro
         <Button
           type="button"
           trailingIcon={TriangleDownIcon}
-          sx={merge(
+          sx={merge<BetterSystemStyleObject>(
             {
               // override the margin on caret for optical alignment
               '[data-component=trailingIcon]': {marginX: -1}
             },
-            sxProp as SxProp
+            sxProp
           )}
           {...props}
         />

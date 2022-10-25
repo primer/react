@@ -1,4 +1,4 @@
-import React, {HTMLAttributes, ComponentPropsWithRef} from 'react'
+import React, {ComponentPropsWithRef} from 'react'
 import styled from 'styled-components'
 import {IconProps} from '@primer/octicons-react'
 import sx, {SxProp} from '../sx'
@@ -34,7 +34,7 @@ export type ButtonBaseProps = {
    */
   disabled?: boolean
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement> &
+  React.ButtonHTMLAttributes<HTMLButtonElement> &
   StyledButtonProps
 
 export type ButtonProps = {
