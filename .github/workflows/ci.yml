@@ -81,6 +81,10 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Install examples dependencies
+        working-directory: examples/nextjs
+        run: npm ci
+
       - name: Build examples
         working-directory: examples/nextjs
         run: npm run build
