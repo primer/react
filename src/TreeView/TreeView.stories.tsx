@@ -622,4 +622,48 @@ export const StressTest: Story = () => {
   )
 }
 
+export const EmptyDirectory: Story = () => {
+  const [state, setState] = React.useState<SubTreeState>('loading')
+  const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  React.useEffect(() => {
+    return () => {
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current)
+        timeoutId.current = null
+      }
+    }
+  }, [])
+
+  return (
+    <Box sx={{p: 3, maxWidth: 400}}>
+      <TreeView aria-label="Test">
+        <TreeView.Item
+          onExpandedChange={expanded => {
+            if (expanded) {
+              timeoutId.current = setTimeout(() => {
+                setState('done')
+                timeoutId.current = null
+              }, 2000)
+            }
+          }}
+        >
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          src
+          <TreeView.SubTree state={state} />
+        </TreeView.Item>
+        <TreeView.Item>
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          .github
+          <TreeView.SubTree />
+        </TreeView.Item>
+      </TreeView>
+    </Box>
+  )
+}
+
 export default meta
