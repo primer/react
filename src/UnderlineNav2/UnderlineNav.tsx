@@ -6,8 +6,7 @@ import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps} from './types'
-
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, getMenuStyles, menuItemStyles, GAP} from './styles'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 import {Button} from '../Button'
@@ -17,6 +16,7 @@ import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {ActionList} from '../ActionList'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -136,6 +136,7 @@ export const UnderlineNav = forwardRef(
     const moreMenuRef = useRef<HTMLLIElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
     const containerRef = React.useRef<HTMLUListElement>(null)
+    const disclosureWidgetId = useSSRSafeId()
 
     const {theme} = useTheme()
 
@@ -249,10 +250,6 @@ export const UnderlineNav = forwardRef(
       setIsWidgetOpen(false)
     }, [setIsWidgetOpen])
 
-    const toggleOverlay = React.useCallback(() => {
-      setIsWidgetOpen(!isWidgetOpen)
-    }, [setIsWidgetOpen, isWidgetOpen])
-
     const focusOnMoreMenuBtn = React.useCallback(() => {
       moreMenuBtnRef.current?.focus()
     }, [])
@@ -274,15 +271,12 @@ export const UnderlineNav = forwardRef(
     )
 
     useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
-    const onAnchorClick = useCallback(
-      (event: React.MouseEvent<HTMLButtonElement>) => {
-        if (event.defaultPrevented || event.button !== 0) {
-          return
-        }
-        toggleOverlay()
-      },
-      [toggleOverlay]
-    )
+    const onAnchorClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+      if (event.defaultPrevented || event.button !== 0) {
+        return
+      }
+      setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
+    }, [])
 
     return (
       <UnderlineNavContext.Provider
@@ -316,7 +310,7 @@ export const UnderlineNav = forwardRef(
                 <Button
                   ref={moreMenuBtnRef}
                   sx={moreBtnStyles}
-                  aria-controls="disclosure-widget"
+                  aria-controls={disclosureWidgetId}
                   aria-expanded={isWidgetOpen}
                   onClick={onAnchorClick}
                   trailingIcon={TriangleDownIcon}
@@ -326,8 +320,9 @@ export const UnderlineNav = forwardRef(
                 <ActionList
                   selectionVariant="single"
                   ref={containerRef}
-                  id="disclosure-widget"
-                  sx={getMenuStyles(theme, isWidgetOpen)}
+                  id={disclosureWidgetId}
+                  sx={menuStyles}
+                  style={{display: isWidgetOpen ? 'block' : 'none'}}
                 >
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props
