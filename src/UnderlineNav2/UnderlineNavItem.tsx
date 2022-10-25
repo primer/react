@@ -42,7 +42,7 @@ export type UnderlineNavItemProps = {
   /**
    * Counter
    */
-  counter?: number
+  counter?: number | string
 } & SxProp &
   LinkProps
 
@@ -71,8 +71,8 @@ export const UnderlineNavItem = forwardRef(
       setSelectedLink,
       selectedLinkText,
       setSelectedLinkText,
-      setFocusedLink,
       selectEvent,
+      setAsNavItem,
       afterSelect,
       variant,
       loadingCounters,
@@ -107,6 +107,7 @@ export const UnderlineNavItem = forwardRef(
         if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
         setSelectedLinkText('')
       }
+      setAsNavItem(Component)
     }, [
       ref,
       preSelected,
@@ -117,7 +118,9 @@ export const UnderlineNavItem = forwardRef(
       setChildrenWidth,
       setNoIconChildrenWidth,
       onSelect,
-      selectEvent
+      selectEvent,
+      setAsNavItem,
+      Component
     ])
 
     const keyPressHandler = React.useCallback(
@@ -127,7 +130,6 @@ export const UnderlineNavItem = forwardRef(
           if (typeof afterSelect === 'function') afterSelect(event)
         }
         setSelectedLink(ref as RefObject<HTMLElement>)
-        event.preventDefault()
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
@@ -138,7 +140,6 @@ export const UnderlineNavItem = forwardRef(
           if (typeof afterSelect === 'function') afterSelect(event)
         }
         setSelectedLink(ref as RefObject<HTMLElement>)
-        event.preventDefault()
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
@@ -154,7 +155,6 @@ export const UnderlineNavItem = forwardRef(
           sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
-          onFocus={() => setFocusedLink(ref as RefObject<HTMLElement>)}
         >
           <Box as="div" data-component="wrapper" sx={wrapperStyles}>
             {iconsVisible && Icon && (
@@ -172,10 +172,16 @@ export const UnderlineNavItem = forwardRef(
                 {children}
               </Box>
             )}
-            {counter && (
+            {loadingCounters ? (
               <Box as="span" data-component="counter" sx={counterStyles}>
-                {loadingCounters ? <LoadingCounter /> : <CounterLabel>{counter}</CounterLabel>}
+                <LoadingCounter />
               </Box>
+            ) : (
+              counter !== undefined && (
+                <Box as="span" data-component="counter" sx={counterStyles}>
+                  <CounterLabel>{counter}</CounterLabel>
+                </Box>
+              )
             )}
           </Box>
         </Box>
