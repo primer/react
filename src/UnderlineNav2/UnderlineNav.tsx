@@ -68,23 +68,34 @@ const overflowEffect = (
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
-  // For fine pointer devices, first we check if we can fit all the items with icons
+  // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
     items.push(...childArray)
   } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
-    // if we can't fit all the items with icons, we check if we can fit all the items without icons
+    // if we can't fit all the items with their icons, we check if we can fit all the items without their icons
     iconsVisible = false
     items.push(...childArray)
   } else {
-    // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
+    // if we can't fit all the items without their icons, we keep the icons hidden and show the ones that doesn't fit into the list in the overflow menu
     iconsVisible = false
+
+    /* Below is an accessibiility requirement. Never show only one item in the overflow menu.
+     * If there is only one item left to display in the overflow menu according to the calculation,
+     * we need to pull another item from the list into the overflow menu.
+     */
+    const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
+    const numberOfListItems =
+      numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
+
     for (const [index, child] of childArray.entries()) {
-      if (index < numberOfItemsPossibleWithMoreMenu) {
+      if (index < numberOfListItems) {
         items.push(child)
-        // keeping selected item always visible.
+        // We need to make sure to keep the selected item always visible.
       } else if (child.props.selected) {
-        // If selected item's index couldn't make the list, we swap it with the last item in the list.
-        const propsectiveAction = items.splice(numberOfItemsPossibleWithMoreMenu - 1, 1, child)[0]
+        // If selected item can't make it to the list, we swap it with the last item in the list.
+        const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
+        // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
+        const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
         actions.push(propsectiveAction)
       } else {
         actions.push(child)
