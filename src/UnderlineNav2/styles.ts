@@ -146,16 +146,15 @@ export const menuItemStyles = {
   textDecoration: 'none'
 }
 
-export const getMenuStyles = (theme?: Theme, isWidgetOpen?: boolean) => ({
+export const menuStyles = {
   position: 'absolute',
   top: '90%',
   right: '0',
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
   borderRadius: '12px',
-backgroundColor: 'canvas.overlay'
+  backgroundColor: 'canvas.overlay',
   listStyle: 'none',
   // Values are from ActionMenu
   minWidth: '192px',
-  maxWidth: '640px',
-  display: isWidgetOpen ? 'block' : 'none'
-})
+  maxWidth: '640px'
+}
