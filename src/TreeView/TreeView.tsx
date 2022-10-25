@@ -202,9 +202,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           trailingVisualId
         }}
       >
+        {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
         <Box
           as="li"
-          // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
           ref={ref}
           tabIndex={0}
           id={itemId}
@@ -215,6 +215,10 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           onKeyDown={handleKeyDown}
+          onFocus={event => {
+            // Scroll the first child into view when the item receives focus
+            event.currentTarget.firstElementChild?.scrollIntoView({block: 'nearest', inline: 'nearest'})
+          }}
           sx={{
             outline: 'none',
             '&:focus-visible > div': {

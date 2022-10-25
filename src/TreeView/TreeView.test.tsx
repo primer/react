@@ -15,6 +15,9 @@ function renderWithTheme(
   return render(<ThemeProvider>{ui}</ThemeProvider>, options)
 }
 
+// Mock `scrollIntoView` because it's not implemented in JSDOM
+Element.prototype.scrollIntoView = jest.fn()
+
 describe('Markup', () => {
   it('uses tree role', () => {
     const {queryByRole} = renderWithTheme(

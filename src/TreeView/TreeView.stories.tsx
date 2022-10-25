@@ -442,9 +442,6 @@ export const AsyncWithCount: Story = args => {
           </TreeView.Item>
           <TreeView.LinkItem href="#src">
             <TreeView.LeadingVisual>
-              <TreeView.LeadingVisual>
-                <TreeView.DirectoryIcon />
-              </TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             src
