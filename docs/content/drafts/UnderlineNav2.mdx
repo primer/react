@@ -17,9 +17,9 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 ```jsx live drafts
 <UnderlineNav aria-label="Repository">
-  <UnderlineNav.Item selected>Item 1</UnderlineNav.Item>
-  <UnderlineNav.Item>Item 2</UnderlineNav.Item>
-  <UnderlineNav.Item>Item 3</UnderlineNav.Item>
+  <UnderlineNav.Item selected>Code</UnderlineNav.Item>
+  <UnderlineNav.Item>Issues</UnderlineNav.Item>
+  <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
 </UnderlineNav>
 ```
 
@@ -48,79 +48,78 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 ### Overflow Behaviour
 
-When overflow occurs, the component first hides icons if present to optimize for space and show as many items as possible. (Only for fine pointer devices)
+Component first hides icons if they present to optimize for space and show as many items as possible. If there is still an overflow, it will display the items that don't fit in the `More` menu.
 
-#### Items Without Icons
-
-```jsx live drafts
-<UnderlineNav aria-label="Repository">
-  <UnderlineNav.Item selected icon={CodeIcon}>
-    Code
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={IssueOpenedIcon} counter={30}>
-    Issues
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={GitPullRequestIcon} counter={3}>
-    Pull Requests
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={CommentDiscussionIcon}>Discussions</UnderlineNav.Item>
-  <UnderlineNav.Item icon={PlayIcon} counter={9}>
-    Actions
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={ProjectIcon} counter={7}>
-    Projects
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={ShieldLockIcon}>Security</UnderlineNav.Item>
-  <UnderlineNav.Item icon={GraphIcon}>Insights</UnderlineNav.Item>
-  <UnderlineNav.Item icon={GearIcon} counter={1}>
-    Settings
-  </UnderlineNav.Item>
-</UnderlineNav>
+```javascript noinline live drafts
+const Navigation = () => {
+  const items = [
+    {navigation: 'Code', icon: CodeIcon},
+    {navigation: 'Issues', icon: IssueOpenedIcon, counter: 120},
+    {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
+    {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
+    {navigation: 'Actions', icon: PlayIcon, counter: 4},
+    {navigation: 'Projects', icon: ProjectIcon, counter: 9},
+    {navigation: 'Insights', icon: GraphIcon},
+    {navigation: 'Settings', icon: GearIcon, counter: 10},
+    {navigation: 'Security', icon: ShieldLockIcon}
+  ]
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  return (
+    <Box sx={{width: 750, border: '1px solid', borderBottom: 0, borderColor: 'border.default'}}>
+      <UnderlineNav aria-label="Repository">
+        {items.map((item, index) => (
+          <UnderlineNav.Item
+            key={item.navigation}
+            icon={item.icon}
+            selected={index === selectedIndex}
+            onSelect={e => {
+              setSelectedIndex(index)
+              e.preventDefault()
+            }}
+            counter={item.counter}
+          >
+            {item.navigation}
+          </UnderlineNav.Item>
+        ))}
+      </UnderlineNav>
+    </Box>
+  )
+}
+render(<Navigation />)
 ```
 
-#### Display `More` Menu
-
-If there is still overflow, the component will behave depending on the pointer.
-
-```jsx live drafts
-<UnderlineNav aria-label="Repository">
-  <UnderlineNav.Item selected icon={CodeIcon}>
-    Code
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={IssueOpenedIcon} counter={30}>
-    Issues
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={GitPullRequestIcon} counter={3}>
-    Pull Requests
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={CommentDiscussionIcon}>Discussions</UnderlineNav.Item>
-  <UnderlineNav.Item icon={EyeIcon} counter={9}>
-    Actions
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={EyeIcon} counter={7}>
-    Projects
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={EyeIcon}>Security</UnderlineNav.Item>
-  <UnderlineNav.Item icon={EyeIcon} counter={14}>
-    Insights
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={EyeIcon} counter={1}>
-    Settings
-  </UnderlineNav.Item>
-  <UnderlineNav.Item icon={EyeIcon}>Wiki</UnderlineNav.Item>
-</UnderlineNav>
-```
-
-### Loading state for counters
+### Loading State For Counters
 
 ```jsx live drafts
 <UnderlineNav aria-label="Repository" loadingCounters={true}>
   <UnderlineNav.Item counter={4} selected>
-    Item 1
+    Code
   </UnderlineNav.Item>
-  <UnderlineNav.Item counter={44}>Item 2</UnderlineNav.Item>
-  <UnderlineNav.Item>Item 3</UnderlineNav.Item>
+  <UnderlineNav.Item counter={44}>Issues</UnderlineNav.Item>
+  <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
 </UnderlineNav>
+```
+
+### With React Router
+
+```jsx
+import {Link} from 'react-router-dom'
+import {UnderlineNav} from '@primer/react/drafts'
+const Navigation = () => {
+  return (
+    <UnderlineNav aria-label="Repository">
+      <UnderlineNav.Item as={Link} to="code" counter={4} selected>
+        Code
+      </UnderlineNav.Item>
+      <UnderlineNav.Item counter={44} as={Link} to="issues">
+        Issues
+      </UnderlineNav.Item>
+      <UnderlineNav.Item as={Link} to="pulls">
+        Pull Requests
+      </UnderlineNav.Item>
+    </UnderlineNav>
+  )
+}
 ```
 
 ## Props
@@ -128,16 +127,20 @@ If there is still overflow, the component will behave depending on the pointer.
 ### UnderlineNav
 
 <PropsTable>
+  <PropsTableRow name="children" required type="UnderlineNav.Item[]" />
   <PropsTableRow
     name="aria-label"
     type="string"
-    description="A unique name for the rendered 'nav' landmark. It will also be used to label the arrow buttons that control the scroll behaviour on coarse pointer devices. (I.e. 'Scroll ${aria-label} left/right')"
+    description="A unique name for the rendered 'nav' landmark. It will also be used to label the arrow
+        buttons that control the scroll behaviour on coarse pointer devices. (I.e.
+        'Scroll ${aria-label} left/right')
+     "
   />
   <PropsTableRow
     name="loadingCounters"
     type="boolean"
     defaultValue="false"
-    description="Whether all of the counters are in loading state"
+    description="Whether the navigation items are in loading state. Component waits for all the counters to finish loading to prevent multiple layout shifts."
   />
   <PropsTableRow
     name="afterSelect"
@@ -150,18 +153,23 @@ If there is still overflow, the component will behave depending on the pointer.
 ### UnderlineNav.Item
 
 <PropsTable>
+  <PropsTableRow
+    name="href"
+    type="string"
+    description="The URL that the item navigates to. 'href' is passed to the underlying '<a>' element. If 'as' is specified, the component may need different props and 'href' is ignored. (Required prop for the react router is 'to' for example)"
+  />
   <PropsTableRow name="icon" type="Component" description="The leading icon comes before item label" />
   <PropsTableRow name="selected" type="boolean" description="Whether the link is selected" />
   <PropsTableRow
     name="onSelect"
     type="(event) => void"
-    description="The handler that gets called when a nav link is selected"
+    description="The handler that gets called when a nav link is selected. For example, a manual route binding can be done here(I.e. 'navigate(href)' for the react router.)"
   />
   <PropsTableRow
     name="as"
-    type="string | Component"
+    type="string | React.ElementType"
     defaultValue="a"
-    description="What kind of component needs to be rendered"
+    description="The underlying element to render — either a HTML element name or a React component."
   />
   <PropsTableSxRow />
 </PropsTable>
