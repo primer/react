@@ -207,8 +207,6 @@ export const UnderlineNav = forwardRef(
       React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement> | null
     >(null)
 
-    const [asNavItem, setAsNavItem] = useState('a')
-
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
@@ -300,7 +298,6 @@ export const UnderlineNav = forwardRef(
           setSelectedLink,
           selectedLinkText,
           setSelectedLinkText,
-          setAsNavItem,
           selectEvent,
           afterSelect: afterSelectHandler,
           variant,
@@ -343,8 +340,8 @@ export const UnderlineNav = forwardRef(
                       <Box key={index} as="li">
                         <ActionList.Item
                           {...actionElementProps}
+                          as={action.props.as || 'a'}
                           sx={menuItemStyles}
-                          as={asNavItem}
                           onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
                             swapMenuItemWithListItem(action, index, event, updateListAndMenu)
                             setSelectEvent(event)
