@@ -5,9 +5,12 @@ on:
       - main
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  ci:
-    name: CI
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -24,18 +27,59 @@ jobs:
       - name: Lint
         run: npm run lint
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Build
         run: npm run build
 
       - name: Test
         run: npm run test -- --coverage
 
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Type check
         run: npm run test:type-check
 
-      - name: Install dependencies for examples
-        working-directory: examples/nextjs
+  examples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
         run: npm ci
+
+      - name: Build
+        run: npm run build
 
       - name: Build examples
         working-directory: examples/nextjs
