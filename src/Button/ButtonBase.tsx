@@ -17,7 +17,7 @@ const trailingIconStyles = {
 
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-    const {leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, variant = 'default', size = 'medium'} = props
+    const {leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, variant = 'default', size = 'medium', ...rest} = props
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
       return merge.all([getButtonStyles(theme), getSizeStyles(size, variant, false), getVariantStyles(variant, theme)])
@@ -27,7 +27,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
     }, [baseStyles, sxProp])
 
     return (
-      <StyledButton as={Component} sx={sxStyles} {...props} ref={forwardedRef}>
+      <StyledButton as={Component} sx={sxStyles} {...rest} ref={forwardedRef}>
         {LeadingIcon && (
           <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
             <LeadingIcon />
