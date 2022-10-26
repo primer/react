@@ -39,8 +39,7 @@ export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavPro
   borderBottom: '1px solid',
   borderBottomColor: `${theme?.colors.border.muted}`,
   align: 'row',
-  alignItems: 'center',
-  position: 'relative'
+  alignItems: 'center'
 })
 
 export const ulStyles = {
@@ -52,7 +51,8 @@ export const ulStyles = {
   margin: 0,
   marginBottom: '-1px',
   alignItems: 'center',
-  gap: `${GAP}px`
+  gap: `${GAP}px`,
+  position: 'relative'
 }
 
 export const getDividerStyle = (theme?: Theme) => ({
@@ -71,7 +71,10 @@ export const moreBtnStyles = {
   fontWeight: 'normal',
   boxShadow: 'none',
   paddingY: 1,
-  paddingX: 2
+  paddingX: 2,
+  '& > span[data-component="trailingIcon"]': {
+    marginLeft: 0
+  }
 }
 
 export const getLinkStyles = (
@@ -141,4 +144,17 @@ export const menuItemStyles = {
   },
   // To reset the style when the menu items are rendered as react router links
   textDecoration: 'none'
+}
+
+export const menuStyles = {
+  position: 'absolute',
+  top: '90%',
+  right: '0',
+  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+  borderRadius: '12px',
+  backgroundColor: 'canvas.overlay',
+  listStyle: 'none',
+  // Values are from ActionMenu
+  minWidth: '192px',
+  maxWidth: '640px'
 }

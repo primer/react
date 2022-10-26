@@ -72,16 +72,16 @@ export const withCounterLabels = () => {
   )
 }
 
-const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | string}[] = [
-  {navigation: 'Code', icon: CodeIcon},
-  {navigation: 'Issues', icon: IssueOpenedIcon, counter: '12K'},
-  {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13},
-  {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5},
-  {navigation: 'Actions', icon: PlayIcon, counter: 4},
-  {navigation: 'Projects', icon: ProjectIcon, counter: 9},
-  {navigation: 'Insights', icon: GraphIcon, counter: '0'},
-  {navigation: 'Settings', icon: GearIcon, counter: 10},
-  {navigation: 'Security', icon: ShieldLockIcon}
+const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | string; href?: string}[] = [
+  {navigation: 'Code', icon: CodeIcon, href: '#code'},
+  {navigation: 'Issues', icon: IssueOpenedIcon, counter: '12K', href: '#issues'},
+  {navigation: 'Pull Requests', icon: GitPullRequestIcon, counter: 13, href: '#pull-requests'},
+  {navigation: 'Discussions', icon: CommentDiscussionIcon, counter: 5, href: '#discussions'},
+  {navigation: 'Actions', icon: PlayIcon, counter: 4, href: '#actions'},
+  {navigation: 'Projects', icon: ProjectIcon, counter: 9, href: '#projects'},
+  {navigation: 'Insights', icon: GraphIcon, counter: '0', href: '#insights'},
+  {navigation: 'Settings', icon: GearIcon, counter: 10, href: '#settings'},
+  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'}
 ]
 
 export const InternalResponsiveNav = () => {
@@ -96,6 +96,7 @@ export const InternalResponsiveNav = () => {
           selected={index === selectedIndex}
           onSelect={() => setSelectedIndex(index)}
           counter={item.counter}
+          href={item.href}
         >
           {item.navigation}
         </UnderlineNav.Item>
