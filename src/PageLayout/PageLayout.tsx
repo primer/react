@@ -197,6 +197,7 @@ type DraggableDividerProps = {
   onDragStart?: () => void
   onDrag?: (delta: number) => void
   onDragEnd?: () => void
+  onDoubleClick?: () => void
 }
 
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
@@ -205,6 +206,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   onDragStart,
   onDrag,
   onDragEnd,
+  onDoubleClick,
   sx = {}
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
@@ -276,6 +278,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
             setIsDragging(true)
             onDragStart?.()
           }}
+          onDoubleClick={onDoubleClick}
         />
       ) : null}
     </Box>
@@ -496,7 +499,7 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
-const defaultPaneWidth = 0.2 // Percentage of viewport width
+const defaultPaneWidth = 0.2 // 20% of viewport width
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
@@ -628,6 +631,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             if (!paneRect) return
             updatePaneWidth(paneRect.width / window.innerWidth)
           }}
+          // Reset pane width on double click
+          onDoubleClick={() => updatePaneWidth(defaultPaneWidth)}
         />
 
         <Box
