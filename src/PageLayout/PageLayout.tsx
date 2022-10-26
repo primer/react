@@ -267,6 +267,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
             inset: '0 -2px',
             cursor: 'col-resize',
             bg: isDragging ? 'accent.fg' : 'transparent',
+            transitionDelay: '0.1s',
             '&:hover': {
               bg: isDragging ? 'accent.fg' : 'neutral.muted'
             }
