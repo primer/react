@@ -1,7 +1,9 @@
 import React from 'react'
 import Box from '../Box'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import {canUseDOM} from '../utils/environment'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
@@ -493,7 +495,7 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
-const defaultPaneWidth = 320
+const defaultPaneWidth = 0.2 // Percentage of viewport width
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
@@ -542,6 +544,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
 
+    // paneWidth is a number between 0 and 1 representing a percentage of the viewport width
     const [paneWidth, setPaneWidth] = React.useState(() => {
       if (!canUseDOM) {
         return defaultPaneWidth
@@ -551,14 +554,16 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : defaultPaneWidth
     })
 
-    const resizePane = (width: number) => {
+    const updatePaneWidth = (width: number) => {
       setPaneWidth(width)
       localStorage.setItem(widthStorageKey, width.toString())
     }
 
+    const paneRef = React.useRef<HTMLDivElement>(null)
+    useRefObjectAsForwardedRef(forwardRef, paneRef)
+
     return (
       <Box
-        // ref={containerRef}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sx={(theme: any) =>
           merge<BetterSystemStyleObject>(
@@ -608,21 +613,41 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
           sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
-          onDrag={delta => resizePane(paneWidth + (position === 'end' ? -delta : delta))}
+          onDrag={delta => {
+            // Get the number of pixels the divider was dragged
+            const deltaWithDirection = position === 'end' ? -delta : delta
+            // Calculate the new width of the pane in pixels
+            const pxWidth = window.innerWidth * paneWidth + deltaWithDirection
+            // Save the new width as a percentage of the viewport width
+            updatePaneWidth(pxWidth / window.innerWidth)
+          }}
+          // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
+          onDragEnd={() => {
+            const paneRect = paneRef.current?.getBoundingClientRect()
+            if (!paneRect) return
+            updatePaneWidth(paneRect.width / window.innerWidth)
+          }}
         />
 
         <Box
-          ref={forwardRef}
+          ref={paneRef}
           style={{
             // @ts-ignore CSS custom properties are not supported by TypeScript
-            '--pane-width': `${paneWidth}px`
+            '--pane-width': `${paneWidth * 100}vw`
           }}
-          sx={{
-            // TODO: Clamp width to min/max values
-            width: resizable ? ['100%', null, 'var(--pane-width)'] : paneWidths[width],
+          sx={(theme: Theme) => ({
+            '--pane-min-width': `256px`,
+            '--pane-max-width': `calc(100vw - 511px)`,
+            width: resizable
+              ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
+              : paneWidths[width],
             padding: SPACING_MAP[padding],
-            overflow: 'auto'
-          }}
+            overflow: 'auto',
+
+            [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
+              '--pane-max-width': 'calc(100vw - 959px)'
+            }
+          })}
         >
           {children}
         </Box>
