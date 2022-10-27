@@ -518,7 +518,7 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
-const defaultPaneWidth = 0.2 // 20% of viewport width
+const defaultPaneWidth = 256
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
@@ -567,7 +567,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
 
-    // paneWidth is a number between 0 and 1 representing a percentage of the viewport width
     const [paneWidth, setPaneWidth] = React.useState(() => {
       if (!canUseDOM) {
         return defaultPaneWidth
@@ -651,16 +650,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           onDrag={delta => {
             // Get the number of pixels the divider was dragged
             const deltaWithDirection = position === 'end' ? -delta : delta
-            // Calculate the new width of the pane in pixels
-            const pxWidth = window.innerWidth * paneWidth + deltaWithDirection
-            // Save the new width as a percentage of the viewport width
-            updatePaneWidth(pxWidth / window.innerWidth)
+            updatePaneWidth(paneWidth + deltaWithDirection)
           }}
           // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
           onDragEnd={() => {
             const paneRect = paneRef.current?.getBoundingClientRect()
             if (!paneRect) return
-            updatePaneWidth(paneRect.width / window.innerWidth)
+            updatePaneWidth(paneRect.width)
           }}
           // Reset pane width on double click
           onDoubleClick={() => updatePaneWidth(defaultPaneWidth)}
@@ -670,7 +666,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           ref={paneRef}
           style={{
             // @ts-ignore CSS custom properties are not supported by TypeScript
-            '--pane-width': `${paneWidth * 100}vw`
+            '--pane-width': `${paneWidth}px`
           }}
           sx={(theme: Theme) => ({
             '--pane-min-width': `256px`,
