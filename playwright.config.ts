@@ -18,7 +18,13 @@ const config: Config = {
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   use: {
-    baseURL: 'http://localhost:6006'
+    baseURL: 'http://localhost:6006',
+    screenshot: 'only-on-failure'
+  },
+  expect: {
+    toHaveScreenshot: {
+      animations: 'disabled'
+    }
   },
   reporter: [
     ['line'],
