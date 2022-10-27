@@ -64,16 +64,11 @@ exports[`PageLayout renders condensed layout 1`] = `
 }
 
 .c11 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: none;
-}
-
-.c12 {
+  --pane-min-width: 256px;
+  --pane-max-width: calc(100vw - 511px);
+  width: 100%;
   padding: 0;
   overflow: auto;
-  width: 100%;
 }
 
 .c3 {
@@ -109,8 +104,9 @@ exports[`PageLayout renders condensed layout 1`] = `
 }
 
 .c10 {
-  position: relative;
   height: 100%;
+  position: relative;
+  display: none;
   margin-right: 16px;
 }
 
@@ -126,7 +122,7 @@ exports[`PageLayout renders condensed layout 1`] = `
   margin-top: 16px;
 }
 
-.c13 {
+.c12 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
@@ -135,14 +131,20 @@ exports[`PageLayout renders condensed layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c12 {
+  .c11 {
     width: 256px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c12 {
+  .c11 {
     width: 296px;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .c11 {
+    --pane-max-width: calc(100vw - 959px);
   }
 }
 
@@ -218,20 +220,17 @@ exports[`PageLayout renders condensed layout 1`] = `
           />
           <div
             class="c10"
-          >
-            <div
-              class="c11"
-            />
-          </div>
+          />
           <div
-            class="c12"
+            class="c11"
+            style="--pane-width: 20vw;"
           >
             Pane
           </div>
         </div>
       </div>
       <footer
-        class="c13"
+        class="c12"
       >
         <div
           class="c9"
@@ -339,22 +338,18 @@ exports[`PageLayout renders default layout 1`] = `
 }
 
 .c10 {
-  position: relative;
   height: 100%;
+  position: relative;
+  display: none;
   margin-right: 16px;
 }
 
 .c11 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: none;
-}
-
-.c12 {
+  --pane-min-width: 256px;
+  --pane-max-width: calc(100vw - 511px);
+  width: 100%;
   padding: 0;
   overflow: auto;
-  width: 100%;
 }
 
 .c2 {
@@ -373,7 +368,7 @@ exports[`PageLayout renders default layout 1`] = `
   margin-top: 16px;
 }
 
-.c13 {
+.c12 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
@@ -427,14 +422,20 @@ exports[`PageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c12 {
+  .c11 {
     width: 256px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c12 {
+  .c11 {
     width: 296px;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .c11 {
+    --pane-max-width: calc(100vw - 959px);
   }
 }
 
@@ -460,7 +461,7 @@ exports[`PageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:1012px) {
-  .c13 {
+  .c12 {
     margin-top: 24px;
   }
 }
@@ -511,20 +512,17 @@ exports[`PageLayout renders default layout 1`] = `
           />
           <div
             class="c10"
-          >
-            <div
-              class="c11"
-            />
-          </div>
+          />
           <div
-            class="c12"
+            class="c11"
+            style="--pane-width: 20vw;"
           >
             Pane
           </div>
         </div>
       </div>
       <footer
-        class="c13"
+        class="c12"
       >
         <div
           class="c9"
@@ -632,22 +630,18 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 }
 
 .c10 {
-  position: relative;
   height: 100%;
+  position: relative;
+  display: none;
   margin-right: 16px;
 }
 
 .c11 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: none;
-}
-
-.c12 {
+  --pane-min-width: 256px;
+  --pane-max-width: calc(100vw - 511px);
+  width: 100%;
   padding: 0;
   overflow: auto;
-  width: 100%;
 }
 
 .c2 {
@@ -666,7 +660,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
   margin-top: 16px;
 }
 
-.c13 {
+.c12 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
@@ -720,14 +714,20 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c12 {
+  .c11 {
     width: 256px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c12 {
+  .c11 {
     width: 296px;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .c11 {
+    --pane-max-width: calc(100vw - 959px);
   }
 }
 
@@ -753,7 +753,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 }
 
 @media screen and (min-width:1012px) {
-  .c13 {
+  .c12 {
     margin-top: 24px;
   }
 }
@@ -804,20 +804,17 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
           />
           <div
             class="c10"
-          >
-            <div
-              class="c11"
-            />
-          </div>
+          />
           <div
-            class="c12"
+            class="c11"
+            style="--pane-width: 20vw;"
           >
             Pane
           </div>
         </div>
       </div>
       <footer
-        class="c13"
+        class="c12"
       >
         <div
           class="c9"
@@ -900,7 +897,7 @@ exports[`PageLayout renders with dividers 1`] = `
   padding: 0;
 }
 
-.c13 {
+.c12 {
   margin-left: -16px;
   margin-right: -16px;
   display: none;
@@ -908,16 +905,11 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 .c10 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: none;
-}
-
-.c11 {
+  --pane-min-width: 256px;
+  --pane-max-width: calc(100vw - 511px);
+  width: 100%;
   padding: 0;
   overflow: auto;
-  width: 100%;
 }
 
 .c2 {
@@ -936,7 +928,7 @@ exports[`PageLayout renders with dividers 1`] = `
   margin-top: 16px;
 }
 
-.c12 {
+.c11 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
@@ -962,8 +954,9 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 .c9 {
-  position: relative;
   height: 100%;
+  position: relative;
+  display: none;
   margin-left: 16px;
 }
 
@@ -974,14 +967,14 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c13 {
+  .c12 {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c13 {
+  .c12 {
     margin-left: -24px;
     margin-right: -24px;
     margin-bottom: 24px;
@@ -989,14 +982,20 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c11 {
+  .c10 {
     width: 256px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c11 {
+  .c10 {
     width: 296px;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .c10 {
+    --pane-max-width: calc(100vw - 959px);
   }
 }
 
@@ -1022,7 +1021,7 @@ exports[`PageLayout renders with dividers 1`] = `
 }
 
 @media screen and (min-width:1012px) {
-  .c12 {
+  .c11 {
     margin-top: 24px;
   }
 }
@@ -1097,23 +1096,20 @@ exports[`PageLayout renders with dividers 1`] = `
           />
           <div
             class="c9"
-          >
-            <div
-              class="c10"
-            />
-          </div>
+          />
           <div
-            class="c11"
+            class="c10"
+            style="--pane-width: 20vw;"
           >
             Pane
           </div>
         </div>
       </div>
       <footer
-        class="c12"
+        class="c11"
       >
         <div
-          class="c13"
+          class="c12"
         />
         <div
           class="c3"

@@ -40,6 +40,7 @@ const meta: Meta = {
     'Pane.position.wide': 'end',
     'Pane.width': 'medium',
     'Pane.sticky': false,
+    'Pane.resizable': false,
     'Pane.padding': 'none',
     'Pane.divider.regular': 'none',
     'Pane.divider.narrow': 'none',
@@ -242,6 +243,10 @@ const meta: Meta = {
       type: 'boolean',
       table: {category: 'Pane props'}
     },
+    'Pane.resizable': {
+      type: 'boolean',
+      table: {category: 'Pane props'}
+    },
     'Pane.padding': {
       type: {
         name: 'enum',
@@ -380,6 +385,7 @@ const Template: Story = args => (
         }}
         width={args['Pane.width']}
         sticky={args['Pane.sticky']}
+        resizable={args['Pane.resizable']}
         padding={args['Pane.padding']}
         divider={{
           narrow: args['Pane.divider.narrow'],
@@ -509,7 +515,7 @@ export const StickyPane: Story = args => (
         })}
       </Box>
     </PageLayout.Content>
-    <PageLayout.Pane position="start" padding="normal" divider="line" sticky={args.sticky}>
+    <PageLayout.Pane position="start" resizable padding="normal" divider="line" sticky={args.sticky}>
       <Box sx={{display: 'grid', gap: 3}}>
         {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
           const testId = `paragraph${i}`
@@ -694,101 +700,21 @@ CustomStickyHeader.argTypes = {
   }
 }
 
-export const ResizablePane: Story = args => (
-  <PageLayout containerWidth="full" padding={args.padding} rowGap={args.rowGap} columnGap={args.columnGap}>
-    {args['Render header?'] ? (
-      <PageLayout.Header
-        padding={args['Header.padding']}
-        divider={{
-          narrow: args['Header.divider.narrow'],
-          regular: args['Header.divider.regular'],
-          wide: args['Header.divider.wide']
-        }}
-        hidden={{
-          narrow: args['Header.hidden.narrow'],
-          regular: args['Header.hidden.regular'],
-          wide: args['Header.hidden.wide']
-        }}
-      >
-        <Placeholder height={args['Header placeholder height']} label="Header" />
-      </PageLayout.Header>
-    ) : null}
-    <PageLayout.Content
-      width={args['Content.width']}
-      padding={args['Content.padding']}
-      hidden={{
-        narrow: args['Content.hidden.narrow'],
-        regular: args['Content.hidden.regular'],
-        wide: args['Content.hidden.wide']
-      }}
-    >
-      <Placeholder height={args['Content placeholder height']} label="Content" />
+export const ResizablePane: Story = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable position="start">
+      <Placeholder height={320} label="Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
     </PageLayout.Content>
-    {args['Render pane?'] ? (
-      <PageLayout.Pane
-        width={args['Content.width']}
-        padding={args['Content.padding']}
-        position={{
-          narrow: args['Pane.position.narrow'],
-          regular: args['Pane.position.regular'],
-          wide: args['Pane.position.wide']
-        }}
-        divider={{
-          narrow: args['Pane.divider.narrow'],
-          regular: args['Pane.divider.regular'],
-          wide: args['Pane.divider.wide']
-        }}
-        resizable={true}
-        widthStorageKey="primer-react.pane-width"
-      >
-        <Placeholder height={args['Pane placeholder height']} label="Pane" />
-      </PageLayout.Pane>
-    ) : null}
-    {args['Render footer?'] ? (
-      <PageLayout.Footer
-        padding={args['Footer.padding']}
-        divider={{
-          narrow: args['Footer.divider.narrow'],
-          regular: args['Footer.divider.regular'],
-          wide: args['Footer.divider.wide']
-        }}
-        hidden={{
-          narrow: args['Footer.hidden.narrow'],
-          regular: args['Footer.hidden.regular'],
-          wide: args['Footer.hidden.wide']
-        }}
-      >
-        <Placeholder height={args['Footer placeholder height']} label="Footer" />
-      </PageLayout.Footer>
-    ) : null}
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
   </PageLayout>
 )
-
-ResizablePane.args = {
-  padding: 1,
-  rowGap: 1,
-  columnGap: 1
-}
-
-ResizablePane.argTypes = {
-  padding: {
-    type: {
-      name: 'enum',
-      value: ['none', 'condensed', 'normal']
-    }
-  },
-  rowGap: {
-    type: {
-      name: 'enum',
-      value: ['none', 'condensed', 'normal']
-    }
-  },
-  columnGap: {
-    type: {
-      name: 'enum',
-      value: ['none', 'condensed', 'normal']
-    }
-  }
-}
 
 export default meta

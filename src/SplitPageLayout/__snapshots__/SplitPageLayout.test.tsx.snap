@@ -92,22 +92,18 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 .c10 {
-  position: relative;
   height: 100%;
+  position: relative;
+  display: none;
   margin-left: 0;
 }
 
 .c11 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: none;
-}
-
-.c12 {
+  --pane-min-width: 256px;
+  --pane-max-width: calc(100vw - 511px);
+  width: 100%;
   padding: 16px;
   overflow: auto;
-  width: 100%;
 }
 
 .c2 {
@@ -128,7 +124,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-top: 0;
 }
 
-.c13 {
+.c12 {
   -webkit-order: 4;
   -ms-flex-order: 4;
   order: 4;
@@ -136,7 +132,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   margin-top: 0;
 }
 
-.c14 {
+.c13 {
   margin-left: 0;
   margin-right: 0;
   display: block;
@@ -159,7 +155,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
     position: -webkit-sticky;
     position: sticky;
     top: 0px;
-    overflow: hidden;
     max-height: var(--sticky-pane-height);
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
@@ -176,15 +171,21 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c12 {
+  .c11 {
     width: 256px;
   }
 }
 
 @media screen and (min-width:1012px) {
-  .c12 {
-    padding: 24px;
+  .c11 {
     width: 296px;
+    padding: 24px;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .c11 {
+    --pane-max-width: calc(100vw - 959px);
   }
 }
 
@@ -202,7 +203,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
 }
 
 @media screen and (min-width:768px) {
-  .c14 {
+  .c13 {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
@@ -254,23 +255,20 @@ exports[`SplitPageLayout renders default layout 1`] = `
           />
           <div
             class="c10"
-          >
-            <div
-              class="c11"
-            />
-          </div>
+          />
           <div
-            class="c12"
+            class="c11"
+            style="--pane-width: 20vw;"
           >
             Pane
           </div>
         </div>
       </div>
       <footer
-        class="c13"
+        class="c12"
       >
         <div
-          class="c14"
+          class="c13"
         />
         <div
           class="c3"
