@@ -6,6 +6,7 @@ export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject
   useFocusZone({
     containerRef,
     bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    preventScroll: true,
     getNextFocusable: (direction, from, event) => {
       if (!(from instanceof HTMLElement)) return
 

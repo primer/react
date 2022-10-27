@@ -30,11 +30,6 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 })
 
-Object.defineProperty(window.Element.prototype, 'scrollTo', {
-  value: jest.fn(),
-  writable: true
-})
-
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
   loadingCounters = false
@@ -116,5 +111,11 @@ describe('UnderlineNav', () => {
     const loadingCounter = item?.getElementsByTagName('span')[2]
     expect(loadingCounter?.className).toContain('LoadingCounter')
     expect(loadingCounter?.textContent).toBe('')
+  })
+  it('renders a visually hidden h2 heading for screen readers when aria-label is present', () => {
+    const {container} = render(<ResponsiveUnderlineNav />)
+    const heading = container.getElementsByTagName('h2')[0]
+    expect(heading.className).toContain('VisuallyHidden')
+    expect(heading.textContent).toBe('Repository navigation')
   })
 })

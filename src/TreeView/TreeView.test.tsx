@@ -1,7 +1,11 @@
-import {fireEvent, render} from '@testing-library/react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
+import {act} from 'react-dom/test-utils'
 import {ThemeProvider} from '../ThemeProvider'
 import {SubTreeState, TreeView} from './TreeView'
+
+jest.useFakeTimers()
 
 // TODO: Move this function into a shared location
 function renderWithTheme(
@@ -10,6 +14,9 @@ function renderWithTheme(
 ): ReturnType<typeof render> {
   return render(<ThemeProvider>{ui}</ThemeProvider>, options)
 }
+
+// Mock `scrollIntoView` because it's not implemented in JSDOM
+Element.prototype.scrollIntoView = jest.fn()
 
 describe('Markup', () => {
   it('uses tree role', () => {
@@ -71,139 +78,6 @@ describe('Markup', () => {
     const currentItem = getByRole('treeitem', {name: 'Item 2'})
 
     expect(currentItem).toHaveAttribute('aria-current', 'true')
-  })
-
-  it('expands the path to the current item (level 2) by default', () => {
-    const {getByRole} = renderWithTheme(
-      <TreeView aria-label="Test tree">
-        <TreeView.Item>
-          Item 1
-          <TreeView.SubTree>
-            <TreeView.Item>Item 1.1</TreeView.Item>
-          </TreeView.SubTree>
-        </TreeView.Item>
-        <TreeView.Item>
-          Item 2
-          <TreeView.SubTree>
-            <TreeView.Item>Item 2.1</TreeView.Item>
-            <TreeView.Item current>
-              Item 2.2
-              <TreeView.SubTree>
-                <TreeView.Item>Item 2.2.1</TreeView.Item>
-              </TreeView.SubTree>
-            </TreeView.Item>
-          </TreeView.SubTree>
-        </TreeView.Item>
-        <TreeView.Item>Item 3</TreeView.Item>
-      </TreeView>
-    )
-
-    const item1 = getByRole('treeitem', {name: 'Item 1'})
-    const item2 = getByRole('treeitem', {name: 'Item 2'})
-    const item22 = getByRole('treeitem', {name: 'Item 2.2'})
-    const item221 = getByRole('treeitem', {name: 'Item 2.2.1'})
-
-    // Item 1 should not be expanded because it is not the parent of the current item
-    expect(item1).toHaveAttribute('aria-expanded', 'false')
-
-    // Item 2 should be expanded because it is the parent of the current item
-    expect(item2).toHaveAttribute('aria-expanded', 'true')
-
-    // Item 2.2 should be expanded because it is the current item
-    expect(item22).toHaveAttribute('aria-expanded', 'true')
-
-    // Item 2.2 should have an aria-current value of true
-    expect(item22).toHaveAttribute('aria-current', 'true')
-
-    // Item 2.2.1 should be visible because it is a child of the current item
-    expect(item221).toBeVisible()
-  })
-
-  it('expands the path to the current item (level 3) by default', () => {
-    const {getByRole} = renderWithTheme(
-      <TreeView aria-label="Test tree">
-        <TreeView.Item>
-          Item 1
-          <TreeView.SubTree>
-            <TreeView.Item>Item 1.1</TreeView.Item>
-          </TreeView.SubTree>
-        </TreeView.Item>
-        <TreeView.Item>
-          Item 2
-          <TreeView.SubTree>
-            <TreeView.Item>Item 2.1</TreeView.Item>
-            <TreeView.Item>
-              Item 2.2
-              <TreeView.SubTree>
-                <TreeView.Item current>Item 2.2.1</TreeView.Item>
-              </TreeView.SubTree>
-            </TreeView.Item>
-          </TreeView.SubTree>
-        </TreeView.Item>
-        <TreeView.Item>Item 3</TreeView.Item>
-      </TreeView>
-    )
-
-    const item1 = getByRole('treeitem', {name: 'Item 1'})
-    const item2 = getByRole('treeitem', {name: 'Item 2'})
-    const item22 = getByRole('treeitem', {name: 'Item 2.2'})
-    const item221 = getByRole('treeitem', {name: 'Item 2.2.1'})
-
-    // Item 1 should not be expanded because it is not the parent of the current item
-    expect(item1).toHaveAttribute('aria-expanded', 'false')
-
-    // Item 2 should be expanded because it is the parent of the current item
-    expect(item2).toHaveAttribute('aria-expanded', 'true')
-
-    // Item 2.2 should be expanded because it is the current item
-    expect(item22).toHaveAttribute('aria-expanded', 'true')
-
-    // Item 2.2.1 should be the current item
-    expect(item221).toHaveAttribute('aria-current', 'true')
-  })
-
-  it('expands the path to the current item when the current item is changed', () => {
-    function TestTree() {
-      const [current, setCurrent] = React.useState('item1')
-      return (
-        <div>
-          <button onClick={() => setCurrent('item2')}>Jump to Item 2</button>
-          <TreeView aria-label="Test tree">
-            <TreeView.Item current={current === 'item1'}>Item 1</TreeView.Item>
-            <TreeView.Item current={current === 'item2'}>
-              Item 2
-              <TreeView.SubTree>
-                <TreeView.Item current={current === 'item2.1'}>Item 2.1</TreeView.Item>
-              </TreeView.SubTree>
-            </TreeView.Item>
-            <TreeView.Item current={current === 'item3'}>Item 3</TreeView.Item>
-          </TreeView>
-        </div>
-      )
-    }
-
-    const {getByRole, getByText} = renderWithTheme(<TestTree />)
-
-    const item1 = getByRole('treeitem', {name: 'Item 1'})
-    const item2 = getByRole('treeitem', {name: 'Item 2'})
-
-    // Item 1 should have an aria-current value of true
-    expect(item1).toHaveAttribute('aria-current', 'true')
-
-    // Item 2 should not be expanded because it is not the current item or the parent of the current item
-    expect(item2).toHaveAttribute('aria-expanded', 'false')
-
-    // Click the button to change the current item to Item 2
-    fireEvent.click(getByText('Jump to Item 2'))
-
-    // Item 1 should not have an aria-current value
-    expect(item1).not.toHaveAttribute('aria-current')
-
-    // Item 2 should be expanded because it is the current item
-    expect(item2).toHaveAttribute('aria-expanded', 'true')
-
-    // Item 2.1 should be visible because it is a child of the current item
-    expect(getByRole('treeitem', {name: 'Item 2.1'})).toBeVisible()
   })
 
   it('should be described by leading visuals', () => {
@@ -287,6 +161,40 @@ describe('Markup', () => {
     // `aria-describedby="uuid-leading uuid-trailing"` then it computes to a
     // space
     expect(noDescription).toHaveAccessibleDescription(' ')
+  })
+
+  it('should include `aria-expanded` when a SubTree contains content', async () => {
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime
+    })
+    const {getByLabelText, getByText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item>
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item>Item 1.a</TreeView.Item>
+            <TreeView.Item>Item 1.b</TreeView.Item>
+            <TreeView.Item>Item 1.c</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item>
+          Item 2
+          <TreeView.SubTree />
+        </TreeView.Item>
+      </TreeView>
+    )
+
+    let treeitem = getByLabelText(/Item 1/)
+    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
+
+    await user.click(getByText(/Item 1/))
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+
+    treeitem = getByLabelText(/Item 2/)
+    expect(treeitem).not.toHaveAttribute('aria-expanded')
+
+    await user.click(getByText(/Item 2/))
+    expect(treeitem).not.toHaveAttribute('aria-expanded')
   })
 })
 
@@ -1073,6 +981,10 @@ describe('Asyncronous loading', () => {
     // Click done button to mimic the completion of async loading
     fireEvent.click(doneButton)
 
+    act(() => {
+      jest.runAllTimers()
+    })
+
     // Live region should be updated
     expect(liveRegion).toHaveTextContent('Parent content loaded')
   })
@@ -1116,9 +1028,136 @@ describe('Asyncronous loading', () => {
     // Wait for async loading to complete
     const firstChild = await findByRole('treeitem', {name: 'Child 1'})
 
-    setTimeout(() => {
-      // First child should be focused
-      expect(firstChild).toHaveFocus()
+    act(() => {
+      jest.runAllTimers()
     })
+
+    // First child should be focused
+    expect(firstChild).toHaveFocus()
+  })
+
+  it('moves focus to parent item after closing error dialog', async () => {
+    function TestTree() {
+      const [error, setError] = React.useState('Test error')
+
+      return (
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree>
+              {error ? (
+                <TreeView.ErrorDialog
+                  onRetry={() => {
+                    setError('')
+                  }}
+                  onDismiss={() => setError('')}
+                >
+                  {error}
+                </TreeView.ErrorDialog>
+              ) : null}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+    }
+
+    const {getByRole} = renderWithTheme(<TestTree />)
+
+    const dialog = getByRole('alertdialog')
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+    // Parent item should not be focused
+    expect(parentItem).not.toHaveFocus()
+
+    // Dialog should be visible
+    expect(dialog).toBeVisible()
+
+    // Press esc to close error dialog
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Escape'})
+
+    // Dialog should not be visible
+    expect(dialog).not.toBeVisible()
+
+    await waitFor(() => {
+      // Parent item should be focused
+      expect(parentItem).toHaveFocus()
+    })
+  })
+
+  it('ignores arrow keys when error dialog is open', async () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item defaultExpanded>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.ErrorDialog>Opps</TreeView.ErrorDialog>
+            <TreeView.Item>Child</TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    )
+
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+    // Parent item should be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+    // Focus first item
+    parentItem.focus()
+
+    // Press ←
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+
+    // Parent item should still be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('should remove `aria-expanded` if no content is loaded in', async () => {
+    function Example() {
+      const [state, setState] = React.useState<SubTreeState>('loading')
+      const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
+      React.useEffect(() => {
+        return () => {
+          if (timeoutId.current) {
+            clearTimeout(timeoutId.current)
+            timeoutId.current = null
+          }
+        }
+      }, [])
+
+      return (
+        <TreeView aria-label="Test tree">
+          <TreeView.Item
+            onExpandedChange={expanded => {
+              if (expanded) {
+                timeoutId.current = setTimeout(() => {
+                  setState('done')
+                }, 1000)
+              }
+            }}
+          >
+            Item 1
+            <TreeView.SubTree state={state} />
+          </TreeView.Item>
+        </TreeView>
+      )
+    }
+    const {getByLabelText, getByText} = renderWithTheme(<Example />)
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime
+    })
+
+    const treeitem = getByLabelText(/Item 1/)
+    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
+
+    await user.click(getByText(/Item 1/))
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+
+    act(() => {
+      jest.runAllTimers()
+    })
+
+    expect(treeitem).not.toHaveAttribute('aria-expanded')
   })
 })
