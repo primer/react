@@ -248,6 +248,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       event.preventDefault()
     }
 
+    // TODO: Support touch events
     if (isDragging) {
       window.addEventListener('mousemove', handleDrag)
       window.addEventListener('mouseup', handleDragEnd)
