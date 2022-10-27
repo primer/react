@@ -119,12 +119,6 @@ jobs:
         run: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/4"
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: vrt
-          path: .playwright
 
   vrt:
     if: ${{ always() }}
@@ -162,9 +156,3 @@ jobs:
         run: npx playwright test --grep @avt
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: avt-report
-          path: .playwright
