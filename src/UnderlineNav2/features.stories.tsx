@@ -15,9 +15,10 @@ import {
 import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {BaseStyles, ThemeProvider} from '..'
+import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 
 export default {
-  title: 'Components/UnderlineNav',
+  title: 'Drafts/Components/UnderlineNav/Features',
   decorators: [
     Story => {
       return (
@@ -31,7 +32,7 @@ export default {
   ]
 } as Meta
 
-export const DefaultNav = () => {
+export const Default = () => {
   return (
     <UnderlineNav aria-label="Repository">
       <UnderlineNav.Item selected>Code</UnderlineNav.Item>
@@ -62,7 +63,7 @@ export const withIcons = () => {
 export const withCounterLabels = () => {
   return (
     <UnderlineNav aria-label="Repository with counters">
-      <UnderlineNav.Item selected icon={CodeIcon}>
+      <UnderlineNav.Item selected icon={CodeIcon} counter="11K">
         Code
       </UnderlineNav.Item>
       <UnderlineNav.Item icon={IssueOpenedIcon} counter={12}>
@@ -84,25 +85,46 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
   {navigation: 'Security', icon: ShieldLockIcon, href: '#security'}
 ]
 
-export const InternalResponsiveNav = () => {
+export const OverflowBehaviour = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   return (
-    <UnderlineNav aria-label="Repository">
-      {items.map((item, index) => (
-        <UnderlineNav.Item
-          key={item.navigation}
-          icon={item.icon}
-          selected={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
-          counter={item.counter}
-          href={item.href}
-        >
-          {item.navigation}
-        </UnderlineNav.Item>
-      ))}
-    </UnderlineNav>
+    <div style={{zoom: '400%'}}>
+      <UnderlineNav aria-label="Repository">
+        {items.map((item, index) => (
+          <UnderlineNav.Item
+            key={item.navigation}
+            icon={item.icon}
+            selected={index === selectedIndex}
+            onSelect={event => {
+              event.preventDefault()
+              setSelectedIndex(index)
+            }}
+            counter={item.counter}
+            href={item.href}
+          >
+            {item.navigation}
+          </UnderlineNav.Item>
+        ))}
+      </UnderlineNav>
+    </div>
   )
+}
+
+OverflowBehaviour.parameters = {
+  viewport: {
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      narrowScreen: {
+        name: 'Narrow Screen',
+        styles: {
+          width: '800px',
+          height: '100%'
+        }
+      }
+    },
+    defaultViewport: 'narrowScreen'
+  }
 }
 
 export const CountersLoadingState = () => {

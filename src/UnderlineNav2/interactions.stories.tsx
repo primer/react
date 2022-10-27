@@ -4,10 +4,10 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider} from '..'
 import {within, userEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
-import {DefaultNav} from './examples.stories'
+import {Default} from './features.stories'
 
 export default {
-  title: 'Components/UnderlineNav/Interactions',
+  title: 'Drafts/Components/UnderlineNav/Interactions',
   decorators: [
     Story => {
       return (
@@ -23,7 +23,7 @@ export default {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-DefaultNav.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+Default.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const canvas = within(canvasElement)
   const item = await canvas.getByText('Code')
   const aElem = await item.closest('a')
@@ -35,4 +35,4 @@ DefaultNav.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   expect(aElem).toHaveAttribute('aria-current', 'page')
 }
 
-export {DefaultNav}
+export {Default}
