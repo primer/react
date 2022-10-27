@@ -1965,7 +1965,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
     <button
       className="c3"
       onClick={[MockFunction]}
-      size="small"
       type="button"
     >
       <span
@@ -2438,7 +2437,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       <button
         className="c4"
         onClick={[MockFunction]}
-        size="small"
         type="button"
       >
         <span
