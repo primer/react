@@ -135,28 +135,6 @@ test.describe('TreeView', () => {
     })
   })
 
-  test.describe('Stress Test', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-treeview--stress-test',
-          globals: {
-            colorScheme: theme
-          }
-        })
-
-        expect(await page.screenshot()).toMatchSnapshot(`Stress Test.${theme}.png`)
-      })
-    })
-
-    test('axe @avt', async ({page}) => {
-      await visit(page, {
-        id: 'components-treeview--stress-test'
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
   test.describe('Empty Directory', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
