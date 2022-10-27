@@ -2,16 +2,22 @@ import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefO
 import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import {ActionMenu} from '../ActionMenu'
-import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps} from './types'
-
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuItemStyles, GAP} from './styles'
+import VisuallyHidden from '../_VisuallyHidden'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
+import {Button} from '../Button'
+import {useFocusZone} from '../hooks/useFocusZone'
+import {FocusKeys} from '@primer/behaviors'
+import {TriangleDownIcon} from '@primer/octicons-react'
+import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {ActionList} from '../ActionList'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -63,23 +69,34 @@ const overflowEffect = (
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
-  // For fine pointer devices, first we check if we can fit all the items with icons
+  // First, we check if we can fit all the items with their icons
   if (childArray.length <= numberOfItemsPossible) {
     items.push(...childArray)
   } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
-    // if we can't fit all the items with icons, we check if we can fit all the items without icons
+    // if we can't fit all the items with their icons, we check if we can fit all the items without their icons
     iconsVisible = false
     items.push(...childArray)
   } else {
-    // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
+    // if we can't fit all the items without their icons, we keep the icons hidden and show the ones that doesn't fit into the list in the overflow menu
     iconsVisible = false
+
+    /* Below is an accessibiility requirement. Never show only one item in the overflow menu.
+     * If there is only one item left to display in the overflow menu according to the calculation,
+     * we need to pull another item from the list into the overflow menu.
+     */
+    const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
+    const numberOfListItems =
+      numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
+
     for (const [index, child] of childArray.entries()) {
-      if (index < numberOfItemsPossibleWithMoreMenu) {
+      if (index < numberOfListItems) {
         items.push(child)
-        // keeping selected item always visible.
+        // We need to make sure to keep the selected item always visible.
       } else if (child.props.selected) {
-        // If selected item's index couldn't make the list, we swap it with the last item in the list.
-        const propsectiveAction = items.splice(numberOfItemsPossibleWithMoreMenu - 1, 1, child)[0]
+        // If selected item can't make it to the list, we swap it with the last item in the list.
+        const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
+        // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
+        const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
         actions.push(propsectiveAction)
       } else {
         actions.push(child)
@@ -129,6 +146,9 @@ export const UnderlineNav = forwardRef(
     const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
     const moreMenuRef = useRef<HTMLLIElement>(null)
+    const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
+    const containerRef = React.useRef<HTMLUListElement>(null)
+    const disclosureWidgetId = useSSRSafeId()
 
     const {theme} = useTheme()
 
@@ -187,13 +207,12 @@ export const UnderlineNav = forwardRef(
       React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement> | null
     >(null)
 
-    const [asNavItem, setAsNavItem] = useState('a')
-
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
       if (!event.defaultPrevented) {
         if (typeof afterSelect === 'function') afterSelect(event)
+        closeOverlay()
       }
     }
 
@@ -235,6 +254,39 @@ export const UnderlineNav = forwardRef(
       // eslint-disable-next-line no-console
       console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
     }
+    const [isWidgetOpen, setIsWidgetOpen] = useState(false)
+
+    const closeOverlay = React.useCallback(() => {
+      setIsWidgetOpen(false)
+    }, [setIsWidgetOpen])
+
+    const focusOnMoreMenuBtn = React.useCallback(() => {
+      moreMenuBtnRef.current?.focus()
+    }, [])
+
+    useFocusZone({
+      containerRef: backupRef,
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Tab
+    })
+
+    useOnEscapePress(
+      (event: KeyboardEvent) => {
+        if (isWidgetOpen) {
+          event.preventDefault()
+          closeOverlay()
+          focusOnMoreMenuBtn()
+        }
+      },
+      [isWidgetOpen]
+    )
+
+    useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
+    const onAnchorClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+      if (event.defaultPrevented || event.button !== 0) {
+        return
+      }
+      setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
+    }, [])
 
     return (
       <UnderlineNavContext.Provider
@@ -246,7 +298,6 @@ export const UnderlineNav = forwardRef(
           setSelectedLink,
           selectedLinkText,
           setSelectedLinkText,
-          setAsNavItem,
           selectEvent,
           afterSelect: afterSelectHandler,
           variant,
@@ -254,6 +305,7 @@ export const UnderlineNav = forwardRef(
           iconsVisible
         }}
       >
+        {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
         <Box
           as={as}
           sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
@@ -265,46 +317,54 @@ export const UnderlineNav = forwardRef(
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
                 <Box sx={getDividerStyle(theme)}></Box>
-                <ActionMenu>
-                  <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
-                  <ActionMenu.Overlay align="end">
-                    <ActionList selectionVariant="single">
-                      {actions.map((action, index) => {
-                        const {children: actionElementChildren, ...actionElementProps} = action.props
-                        return (
-                          <Box key={index} as="li">
-                            <ActionList.Item
-                              sx={menuItemStyles}
-                              as={asNavItem}
-                              {...actionElementProps}
-                              onSelect={(
-                                event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>
-                              ) => {
-                                swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                                setSelectEvent(event)
-                              }}
-                            >
-                              <Box
-                                as="span"
-                                sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
-                              >
-                                {actionElementChildren}
+                <Button
+                  ref={moreMenuBtnRef}
+                  sx={moreBtnStyles}
+                  aria-controls={disclosureWidgetId}
+                  aria-expanded={isWidgetOpen}
+                  onClick={onAnchorClick}
+                  trailingIcon={TriangleDownIcon}
+                >
+                  More
+                </Button>
+                <ActionList
+                  selectionVariant="single"
+                  ref={containerRef}
+                  id={disclosureWidgetId}
+                  sx={menuStyles}
+                  style={{display: isWidgetOpen ? 'block' : 'none'}}
+                >
+                  {actions.map((action, index) => {
+                    const {children: actionElementChildren, ...actionElementProps} = action.props
+                    return (
+                      <Box key={index} as="li">
+                        <ActionList.Item
+                          {...actionElementProps}
+                          as={action.props.as || 'a'}
+                          sx={menuItemStyles}
+                          onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                            swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                            setSelectEvent(event)
+                            closeOverlay()
+                            focusOnMoreMenuBtn()
+                          }}
+                        >
+                          <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                            {actionElementChildren}
 
-                                {loadingCounters ? (
-                                  <LoadingCounter />
-                                ) : (
-                                  actionElementProps.counter !== undefined && (
-                                    <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                                  )
-                                )}
-                              </Box>
-                            </ActionList.Item>
+                            {loadingCounters ? (
+                              <LoadingCounter />
+                            ) : (
+                              actionElementProps.counter !== undefined && (
+                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                              )
+                            )}
                           </Box>
-                        )
-                      })}
-                    </ActionList>
-                  </ActionMenu.Overlay>
-                </ActionMenu>
+                        </ActionList.Item>
+                      </Box>
+                    )
+                  })}
+                </ActionList>
               </MoreMenuListItem>
             )}
           </NavigationList>
