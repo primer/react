@@ -125,6 +125,7 @@ jobs:
 
   vrt-runner:
     strategy:
+      fail-fast: false
       matrix:
         shard: [1, 2, 3, 4]
     runs-on: macos-latest
