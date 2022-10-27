@@ -666,4 +666,16 @@ export const EmptyDirectory: Story = () => {
   )
 }
 
+export const Typeahead: Story = () => {
+  return (
+    <Box p={3}>
+      <TreeView>
+        <TreeView.Item>ab.py</TreeView.Item>
+        <TreeView.Item>ac.py</TreeView.Item>
+        <TreeView.Item>af.py</TreeView.Item>
+      </TreeView>
+    </Box>
+  )
+}
+
 export default meta
