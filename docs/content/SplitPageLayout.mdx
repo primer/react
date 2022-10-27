@@ -400,6 +400,18 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
     description="The width of the pane."
   />
   <PropsTableRow
+    name="resizable"
+    type="boolean"
+    defaultValue="false"
+    description="When true, the pane may be resized by the user."
+  />
+  <PropsTableRow
+    name="widthStorageKey"
+    type="string"
+    defaultValue="'paneWidth'"
+    description="Provide a key used by localStorage to persist the size of the pane on the client."
+  />
+  <PropsTableRow
     name="sticky"
     type="boolean"
     defaultValue="true"
