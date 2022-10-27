@@ -701,11 +701,11 @@ CustomStickyHeader.argTypes = {
 }
 
 export const ResizablePane: Story = () => (
-  <PageLayout>
+  <PageLayout containerWidth="full">
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
     </PageLayout.Header>
-    <PageLayout.Pane resizable>
+    <PageLayout.Pane resizable position="start">
       <Placeholder height={320} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Content>
