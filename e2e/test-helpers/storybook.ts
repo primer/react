@@ -2,21 +2,16 @@ import {Page} from '@playwright/test'
 import {waitForImages} from './waitForImages'
 
 interface Options {
-  story?: string
-  id?: string
+  id: string
   globals?: Record<string, string>
 }
 
 export async function visit(page: Page, options: Options) {
-  const {story, id, globals} = options
+  const {id, globals} = options
   // In CI, the static server strips `.html` extensions
-  const url = process.env.CI ? new URL('http://localhost:3000/iframe') : new URL('http://localhost:3000/iframe.html')
-  if (id) {
-    url.searchParams.set('id', id)
-  } else if (story) {
-    url.searchParams.set('id', `components-${story}`)
-  }
+  const url = process.env.CI ? new URL('http://localhost:6006/iframe') : new URL('http://localhost:6006/iframe.html')
 
+  url.searchParams.set('id', id)
   url.searchParams.set('viewMode', 'story')
 
   if (globals) {
