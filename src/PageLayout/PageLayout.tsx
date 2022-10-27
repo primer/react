@@ -278,7 +278,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     >
       {draggable ? (
         // Drag handle
-        // TODO: Prevent cursor from changing to text selection when dragging
         <>
           <Box
             sx={{
