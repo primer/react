@@ -573,13 +573,25 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         return defaultPaneWidth
       }
 
-      const storedWidth = localStorage.getItem(widthStorageKey)
+      let storedWidth
+
+      try {
+        storedWidth = localStorage.getItem(widthStorageKey)
+      } catch (error) {
+        storedWidth = null
+      }
+
       return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : defaultPaneWidth
     })
 
     const updatePaneWidth = (width: number) => {
       setPaneWidth(width)
-      localStorage.setItem(widthStorageKey, width.toString())
+
+      try {
+        localStorage.setItem(widthStorageKey, width.toString())
+      } catch (error) {
+        // Ignore errors
+      }
     }
 
     const paneRef = React.useRef<HTMLDivElement>(null)
