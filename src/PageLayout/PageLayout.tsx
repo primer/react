@@ -1,4 +1,5 @@
 import React from 'react'
+import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -200,6 +201,18 @@ type DraggableDividerProps = {
   onDoubleClick?: () => void
 }
 
+const DraggingGlobalStyles = createGlobalStyle`
+  /* Maintain resize cursor while dragging */
+  body[data-page-layout-dragging="true"] {
+    cursor: col-resize;
+  }
+
+  /* Disable text selection while dragging */
+  body[data-page-layout-dragging="true"] * {
+    user-select: none;
+  }
+`
+
 const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
@@ -238,14 +251,17 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     if (isDragging) {
       window.addEventListener('mousemove', handleDrag)
       window.addEventListener('mouseup', handleDragEnd)
+      document.body.setAttribute('data-page-layout-dragging', 'true')
     } else {
       window.removeEventListener('mousemove', handleDrag)
       window.removeEventListener('mouseup', handleDragEnd)
+      document.body.removeAttribute('data-page-layout-dragging')
     }
 
     return () => {
       window.removeEventListener('mousemove', handleDrag)
       window.removeEventListener('mouseup', handleDragEnd)
+      document.body.removeAttribute('data-page-layout-dragging')
     }
   }, [isDragging])
 
@@ -263,23 +279,26 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
       {draggable ? (
         // Drag handle
         // TODO: Prevent cursor from changing to text selection when dragging
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: '0 -2px',
-            cursor: 'col-resize',
-            bg: isDragging ? 'accent.fg' : 'transparent',
-            transitionDelay: '0.1s',
-            '&:hover': {
-              bg: isDragging ? 'accent.fg' : 'neutral.muted'
-            }
-          }}
-          onMouseDown={() => {
-            setIsDragging(true)
-            onDragStart?.()
-          }}
-          onDoubleClick={onDoubleClick}
-        />
+        <>
+          <Box
+            sx={{
+              position: 'absolute',
+              inset: '0 -2px',
+              cursor: 'col-resize',
+              bg: isDragging ? 'accent.fg' : 'transparent',
+              transitionDelay: '0.1s',
+              '&:hover': {
+                bg: isDragging ? 'accent.fg' : 'neutral.muted'
+              }
+            }}
+            onMouseDown={() => {
+              setIsDragging(true)
+              onDragStart?.()
+            }}
+            onDoubleClick={onDoubleClick}
+          />
+          <DraggingGlobalStyles />
+        </>
       ) : null}
     </Box>
   )
