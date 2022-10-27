@@ -40,7 +40,7 @@ export interface ConfirmationDialogProps {
   confirmButtonType?: 'normal' | 'primary' | 'danger'
 }
 
-const StyledConfirmationHeader = styled.header`
+const StyledConfirmationHeader = styled.div`
   padding: ${get('space.2')};
   display: flex;
   flex-direction: row;
