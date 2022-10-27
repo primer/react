@@ -211,7 +211,7 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
-      - name: Run VRT
+      - name: Run AVT
         run: npx playwright test --grep @avt
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
