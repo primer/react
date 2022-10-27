@@ -272,7 +272,10 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                     height: '24px',
                     content: '""',
                     bg: 'accent.fg',
-                    borderRadius: 2
+                    borderRadius: 2,
+                    '@media (forced-colors: active)': {
+                      backgroundColor: 'SelectedItem'
+                    }
                   }
                 }
               },
