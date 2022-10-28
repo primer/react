@@ -89,25 +89,23 @@ export const OverflowBehaviour = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   return (
-    <div style={{zoom: '400%'}}>
-      <UnderlineNav aria-label="Repository">
-        {items.map((item, index) => (
-          <UnderlineNav.Item
-            key={item.navigation}
-            icon={item.icon}
-            selected={index === selectedIndex}
-            onSelect={event => {
-              event.preventDefault()
-              setSelectedIndex(index)
-            }}
-            counter={item.counter}
-            href={item.href}
-          >
-            {item.navigation}
-          </UnderlineNav.Item>
-        ))}
-      </UnderlineNav>
-    </div>
+    <UnderlineNav aria-label="Repository">
+      {items.map((item, index) => (
+        <UnderlineNav.Item
+          key={item.navigation}
+          icon={item.icon}
+          selected={index === selectedIndex}
+          onSelect={event => {
+            event.preventDefault()
+            setSelectedIndex(index)
+          }}
+          counter={item.counter}
+          href={item.href}
+        >
+          {item.navigation}
+        </UnderlineNav.Item>
+      ))}
+    </UnderlineNav>
   )
 }
 
