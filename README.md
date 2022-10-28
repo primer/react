@@ -24,7 +24,7 @@ fdgdfg
 
 ## Documentation
 
-Our documentation site lives at [primer.style/react](https://primer.style/react). You'll be able to find detailed documentation on getting started, all of the components, our theme, our principles, and more.
+Our documentation site lives at [primer.style/react](https://primer.style/react). You'll be able to find detailed documentation on getting started, all of the components, our theme, our principles, and more.ddddd
 
 ## Installation
 
