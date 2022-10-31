@@ -180,6 +180,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             setIsExpanded(true)
             break
           case 'ArrowLeft':
+          case 'Backspace':
             event.preventDefault()
             event.stopPropagation()
             setIsExpanded(false)
@@ -716,7 +717,7 @@ const ErrorDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', child
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       onKeyDown={event => {
-        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+        if (['Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
           // Prevent keyboard events from bubbling up to the TreeView
           // and interfering with keyboard navigation
           event.stopPropagation()
