@@ -666,4 +666,31 @@ export const EmptyDirectory: Story = () => {
   )
 }
 
+export const NestedScrollContainer: Story = () => {
+  return (
+    <Box sx={{p: 3, maxWidth: 400, maxHeight: '50vh', overflow: 'auto'}}>
+      <TreeView aria-label="Files">
+        {Array.from({length: 100}).map((_, index) => (
+          <TreeView.Item key={index}>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory {index}
+            <TreeView.SubTree>
+              {Array.from({length: 10}).map((_, index) => (
+                <TreeView.Item key={index}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  File {index}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        ))}
+      </TreeView>
+    </Box>
+  )
+}
+
 export default meta
