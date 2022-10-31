@@ -1,6 +1,8 @@
 import {Theme} from '../ThemeProvider'
-import {BetterSystemStyleObject} from '../sx'
 import {UnderlineNavProps} from './UnderlineNav'
+
+// The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
+export const GAP = 8
 
 export const iconWrapStyles = {
   alignItems: 'center',
@@ -32,22 +34,25 @@ export const counterStyles = {
 
 export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavProps, 'align'>>) => ({
   display: 'flex',
-  paddingX: 2,
+  paddingX: 3,
   justifyContent: props?.align === 'right' ? 'flex-end' : 'flex-start',
   borderBottom: '1px solid',
   borderBottomColor: `${theme?.colors.border.muted}`,
   align: 'row',
-  alignItems: 'center',
-  position: 'relative'
+  alignItems: 'center'
 })
 
 export const ulStyles = {
   display: 'flex',
   listStyle: 'none',
-  padding: '0',
-  margin: '0',
+  whiteSpace: 'nowrap',
+  paddingY: 0,
+  paddingX: 0,
+  margin: 0,
   marginBottom: '-1px',
-  alignItems: 'center'
+  alignItems: 'center',
+  gap: `${GAP}px`,
+  position: 'relative'
 }
 
 export const getDividerStyle = (theme?: Theme) => ({
@@ -66,59 +71,11 @@ export const moreBtnStyles = {
   fontWeight: 'normal',
   boxShadow: 'none',
   paddingY: 1,
-  paddingX: 2
-}
-
-export const btnWrapperStyles = (
-  theme?: Theme,
-  direction = 'left',
-  show = false,
-  translateX = 0,
-  display = 'flex'
-) => ({
-  position: 'absolute',
-  zIndex: 1,
-  top: 0,
-  bottom: 0,
-  left: direction === 'left' ? 0 : 'auto',
-  right: direction === 'right' ? 0 : 'auto',
-  alignItems: 'center',
-  background: show
-    ? `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
-    : 'transparent',
-  transform: `translateX(${translateX}px)`,
-  display: `${display}`
-})
-
-export const getArrowBtnStyles = (theme?: Theme, direction = 'left') => ({
-  fontWeight: 'normal',
-  boxShadow: 'none',
-  margin: 0,
-  border: 0,
-  borderRadius: 2,
-  paddingX: '14px',
-  paddingY: 0,
-  background: 'transparent',
-  height: '60%',
-
-  '&:hover:not([disabled]), &:focus-visible': {
-    background: theme?.colors.canvas.default
-  },
-  '&:focus:not(:disabled)': {
-    outline: 0,
-    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
-    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
-  },
-  // where focus-visible is supported, remove the focus box-shadow
-  '&:not(:focus-visible)': {
-    boxShadow: 'none',
-    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
-  },
-  '&:focus-visible:not(:disabled)': {
-    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`,
-    background: `linear-gradient(to ${direction} ,#fff0, ${theme?.colors.canvas.default} 14px, ${theme?.colors.canvas.default} 100%)`
+  paddingX: 2,
+  '& > span[data-component="trailingIcon"]': {
+    marginLeft: 0
   }
-})
+}
 
 export const getLinkStyles = (
   theme?: Theme,
@@ -131,7 +88,6 @@ export const getLinkStyles = (
   color: 'fg.default',
   textAlign: 'center',
   textDecoration: 'none',
-  paddingX: 1,
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
   '@media (hover:hover)': {
     '&:hover > div[data-component="wrapper"] ': {
@@ -166,7 +122,7 @@ export const getLinkStyles = (
     position: 'absolute',
     right: '50%',
     bottom: 0,
-    width: `calc(100% - 8px)`,
+    width: '100%',
     height: 2,
     content: '""',
     bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
@@ -181,24 +137,24 @@ export const getLinkStyles = (
   }
 })
 
-export const scrollStyles: BetterSystemStyleObject = {
-  whiteSpace: 'nowrap',
-  overflowX: 'auto',
-  // Hiding scrollbar on Firefox
-  scrollbarWidth: 'none',
-  // Hiding scrollbar on IE 10+
-  msOverflowStyle: 'none',
-  // Hiding scrollbar on Chrome, Safari and Opera
-  '&::-webkit-scrollbar': {
-    display: 'none'
-  }
-}
-
-export const moreMenuStyles: BetterSystemStyleObject = {whiteSpace: 'nowrap'}
-
 export const menuItemStyles = {
   // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32
   '& > span': {
     display: 'none'
-  }
+  },
+  // To reset the style when the menu items are rendered as react router links
+  textDecoration: 'none'
+}
+
+export const menuStyles = {
+  position: 'absolute',
+  top: '90%',
+  right: '0',
+  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+  borderRadius: '12px',
+  backgroundColor: 'canvas.overlay',
+  listStyle: 'none',
+  // Values are from ActionMenu
+  minWidth: '192px',
+  maxWidth: '640px'
 }

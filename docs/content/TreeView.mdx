@@ -11,8 +11,8 @@ description: A hierarchical list of items where nested items can be expanded and
 
 ```jsx live drafts
 <Box sx={{maxWidth: 400}}>
-  <nav aria-label="File navigation">
-    <TreeView aria-label="File navigation">
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
       <TreeView.Item>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -57,8 +57,8 @@ description: A hierarchical list of items where nested items can be expanded and
 
 ```jsx live drafts
 <Box sx={{maxWidth: 400}}>
-  <nav aria-label="File navigation">
-    <TreeView aria-label="File navigation">
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
       <TreeView.LinkItem href="#">
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -113,8 +113,8 @@ function ControlledTreeView() {
   return (
     <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
       <Button onClick={() => setExpanded(!expanded)}>{expanded ? 'Collapse' : 'Expand'}</Button>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
           <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
             src
             <TreeView.SubTree>
@@ -139,8 +139,8 @@ To render stateful visuals, pass a render function to `TreeView.LeadingVisual` o
 
 ```jsx live drafts
 <Box sx={{maxWidth: 400}}>
-  <nav aria-label="File navigation">
-    <TreeView aria-label="File navigation">
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
       <TreeView.Item>
         <TreeView.LeadingVisual>
           {({isExpanded}) => (isExpanded ? <FileDirectoryOpenFillIcon /> : <FileDirectoryFillIcon />)}
@@ -162,8 +162,8 @@ Since stateful directory icons are a common use case for TreeView, we provide a 
 
 ```jsx live drafts
 <Box sx={{maxWidth: 400}}>
-  <nav aria-label="File navigation">
-    <TreeView aria-label="File navigation">
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
       <TreeView.Item>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -272,44 +272,6 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
   {/* <PropsTableSxRow /> */}
 </PropsTable>
 
-### TreeView.SubTree
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" />
-  <PropsTableRow
-    name="state"
-    type={`| 'initial' 
-| 'loading'
-| 'done'
-| 'error'`}
-    description={
-      <>
-        <p>Specify a state if items in the subtree are loaded asynchronously.</p>
-        <p>
-          An asynchronous subtree can be in one of the following states:
-          <ul>
-            <li>
-              <InlineCode>initial</InlineCode>: Items are neither loaded nor loading.
-            </li>
-            <li>
-              <InlineCode>loading</InlineCode>: Currently loading items. The subtree will render a loading indicator
-              when in this state (after a 300ms delay).
-            </li>
-            <li>
-              <InlineCode>done</InlineCode>: Done loading items. Screen readers will announce when a subtree enters this
-              state.
-            </li>
-            <li>
-              <InlineCode>error</InlineCode>: An error occured while loading items.
-            </li>
-          </ul>
-        </p>
-      </>
-    }
-  />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
 ### TreeView.LeadingVisual
 
 <PropsTable>
@@ -345,6 +307,73 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
 ### TreeView.DirectoryIcon
 
 <PropsTable>{/* <PropsTableSxRow /> */}</PropsTable>
+
+### TreeView.SubTree
+
+<PropsTable>
+  <PropsTableRow name="children" type="React.ReactNode" />
+  <PropsTableRow
+    name="state"
+    type={`| 'initial' 
+| 'loading'
+| 'done'
+| 'error'`}
+    description={
+      <>
+        <p>Specify a state if items in the subtree are loaded asynchronously.</p>
+        <p>
+          An asynchronous subtree can be in one of the following states:
+          <ul>
+            <li>
+              <InlineCode>initial</InlineCode>: Items are neither loaded nor loading.
+            </li>
+            <li>
+              <InlineCode>loading</InlineCode>: Currently loading items. The subtree will render a loading indicator
+              when in this state (after a 300ms delay).
+            </li>
+            <li>
+              <InlineCode>done</InlineCode>: Done loading items. Screen readers will announce when a subtree enters this
+              state.
+            </li>
+            <li>
+              <InlineCode>error</InlineCode>: An error occured while loading items.
+            </li>
+          </ul>
+        </p>
+      </>
+    }
+  />
+  <PropsTableRow
+    name="count"
+    type="number"
+    description="The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items"
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### TreeView.ErrorDialog
+
+<PropsTable>
+  <PropsTableRow
+    name="children"
+    type="React.ReactNode"
+    required
+    description="The content of the dialog. This is usually a message explaining the error."
+  />
+  <PropsTableRow
+    name="title"
+    type="string"
+    defaultValue="'Error'"
+    description="The title of the dialog. This is usually a short description of the error."
+  />
+  <PropsTableRow
+    name="onRetry"
+    type="() => void"
+    description="Event handler called when the user clicks the retry button."
+  />
+  <PropsTableRow name="onDismiss" type="() => void" description="Event handler called when the dialog is dismissed." />
+  {/* <PropsTableSxRow /> */}
+</PropsTable>
 
 ## Status
 
