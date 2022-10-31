@@ -98,7 +98,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
               return (
                 <>
                   {slots.Header}
-                  <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap'}}>{children}</Box>
+                  <Box sx={{display: 'flex', flex: '1 1 100%', flexWrap: 'wrap', maxWidth: '100%'}}>{children}</Box>
                   {slots.Footer}
                 </>
               )
