@@ -15,14 +15,14 @@ import {
   XIcon
 } from '@primer/octicons-react'
 
-import {Heading, ThemeProvider} from '../..'
-import {ActionList} from '../../ActionList'
-import BaseStyles from '../../BaseStyles'
-import Avatar from '../../Avatar'
-import TextInput from '../../TextInput'
-import Spinner from '../../Spinner'
-import Box from '../../Box'
-import Text from '../../Text'
+import {Heading, ThemeProvider} from '..'
+import {ActionList} from '.'
+import BaseStyles from '../BaseStyles'
+import Avatar from '../Avatar'
+import TextInput from '../TextInput'
+import Spinner from '../Spinner'
+import Box from '../Box'
+import Text from '../Text'
 
 const meta: Meta = {
   title: 'Components/ActionList/examples',
