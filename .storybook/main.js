@@ -21,7 +21,7 @@ module.exports = {
     builder: {
       name: 'webpack5',
       options: {
-        // lazyCompilation: true,
+        lazyCompilation: true,
         fsCache: true
       }
     }
