@@ -2,10 +2,9 @@ import React from 'react'
 import {Story, Meta} from '@storybook/react'
 import {ActionList, ActionListItemProps, LinkItem, Group, Divider, Description} from '.'
 import {Item} from './Item'
-import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
+import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
-const unset = undefined
-const icons = {unset, FileCodeIcon, EyeIcon, PeopleIcon}
+const icons = ['unset', 'TypographyIcon', 'VersionsIcon', 'SearchIcon', 'ArrowRightIcon', 'ArrowLeftIcon']
 
 export default {
   title: 'Components/ActionList/Item',
@@ -50,16 +49,15 @@ export default {
     },
     leadingVisual: {
       control: {
-        type: 'select',
-        options: Object.keys(icons)
+        type: 'select'
       },
-      mapping: icons
+      options: icons
     },
     trailingVisual: {
       control: {
-        type: 'radio'
+        type: 'select'
       },
-      options: ['EyeIcon', 'danger']
+      options: icons
     },
     selectionVariant: {
       control: {
@@ -77,25 +75,46 @@ export default {
 } as Meta<typeof Item>
 
 export const Playground: Story<typeof Item> = args => {
-  // console.log(args.trailingVisual)
-  let visual
-  if (args.trailingVisual === 'EyeIcon') {
-    visual = <EyeIcon />
-  } else if (args.trailingVisual === 'FileCodeIcon') {
-    visual = <FileCodeIcon />
+  let leadingVisual
+  if (args.leadingVisual === 'TypographyIcon') {
+    leadingVisual = <TypographyIcon />
+  } else if (args.leadingVisual === 'VersionsIcon') {
+    leadingVisual = <VersionsIcon />
+  } else if (args.leadingVisual === 'SearchIcon') {
+    leadingVisual = <SearchIcon />
+  } else if (args.leadingVisual === 'ArrowRightIcon') {
+    leadingVisual = <ArrowRightIcon />
+  } else if (args.leadingVisual === 'ArrowLeftIcon') {
+    leadingVisual = <ArrowLeftIcon />
+  } else if (args.leadingVisual === 'unset') {
+    leadingVisual = null
   }
+
+  let trailingVisual
+  if (args.trailingVisual === 'TypographyIcon') {
+    trailingVisual = <TypographyIcon />
+  } else if (args.trailingVisual === 'VersionsIcon') {
+    trailingVisual = <VersionsIcon />
+  } else if (args.trailingVisual === 'SearchIcon') {
+    trailingVisual = <SearchIcon />
+  } else if (args.trailingVisual === 'ArrowRightIcon') {
+    trailingVisual = <ArrowRightIcon />
+  } else if (args.trailingVisual === 'ArrowLeftIcon') {
+    trailingVisual = <ArrowLeftIcon />
+  } else if (args.trailingVisual === 'unset') {
+    trailingVisual = null
+  }
+
   return (
     <ActionList {...args}>
       <ActionList.Item {...args}>
-        {/* <ActionList.LeadingVisual>{visuals}</ActionList.LeadingVisual> */}
+        {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         <ActionList.Description variant="block">
           Create a brand new Codespace with a fresh image and checkout this branch.
         </ActionList.Description>
-        <ActionList.TrailingVisual>{visual}</ActionList.TrailingVisual>
+        {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
       </ActionList.Item>
     </ActionList>
   )
 }
-
-// const myConsole = new console.Console(args.leadingVisual)
