@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Avatar from './Avatar'
+import Avatar, {AvatarProps} from './Avatar'
 import {get} from './constants'
 import Box, {BoxProps} from './Box'
 
@@ -15,13 +15,17 @@ export type AvatarPairProps = BoxProps
 
 const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
   const avatars = React.Children.map(children, (child, i) => {
-    if (!React.isValidElement(child)) return child
-    return i === 0 ? (
-      React.cloneElement(child, {size: 40})
-    ) : (
-      <ChildAvatar bg="canvas.default" {...child.props} size={20} />
-    )
+    if (!React.isValidElement(child)) {
+      return child
+    }
+
+    if (i === 0) {
+      return React.cloneElement(child as React.ReactElement<AvatarProps>, {size: 40})
+    }
+
+    return <ChildAvatar bg="canvas.default" {...child.props} size={20} />
   })
+
   return (
     <Box position="relative" display="inline-flex" {...rest}>
       {avatars}

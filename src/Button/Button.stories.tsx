@@ -2,29 +2,16 @@ import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, TriangleRig
 import {Meta} from '@storybook/react'
 import React, {useState, forwardRef} from 'react'
 import {Button, ButtonProps, IconButton} from '.'
-import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 
 export default {
   title: 'Components/Button',
-
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
   argTypes: {
     size: {
       control: {
-        type: 'radio',
-        options: ['small', 'medium', 'large']
-      }
+        type: 'radio'
+      },
+      options: ['small', 'medium', 'large']
     },
     disabled: {
       control: {
@@ -59,6 +46,14 @@ export const invisibleButton = (args: ButtonProps) => {
   return (
     <Button {...args} variant="invisible">
       Invisible
+    </Button>
+  )
+}
+
+export const outlineButton = (args: ButtonProps) => {
+  return (
+    <Button {...args} variant="outline">
+      Outline
     </Button>
   )
 }

@@ -313,7 +313,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 })
 _Dialog.displayName = 'Dialog'
 
-const Header = styled.div.attrs<SxProp>({as: 'header'})`
+const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
@@ -344,7 +344,7 @@ const Body = styled.div<SxProp>`
   ${sx};
 `
 
-const Footer = styled.div.attrs<SxProp>({as: 'footer'})`
+const Footer = styled.div<SxProp>`
   box-shadow: 0 -1px 0 ${get('colors.border.default')};
   padding: ${get('space.3')};
   display: flex;

@@ -1,5 +1,6 @@
 import componentMetadata from '@primer/component-metadata'
-import {Link, Label, Text} from '@primer/react'
+import {Link, Label, StyledOcticon} from '@primer/react'
+import {AccessibilityInsetIcon} from '@primer/octicons-react'
 import StatusLabel from '@primer/gatsby-theme-doctocat/src/components/status-label'
 import Table from '@primer/gatsby-theme-doctocat/src/components/table'
 import {graphql, Link as GatsbyLink, useStaticQuery} from 'gatsby'
@@ -63,13 +64,35 @@ export function ComponentStatuses() {
                   </Link>
                 </td>
                 <td align="center" valign="top" style={{whiteSpace: 'nowrap'}}>
-                  <StatusLabel status={status} />
+                  <StatusLabel size="large" status={status} />
                 </td>
                 <td align="center" valign="top" style={{whiteSpace: 'nowrap'}}>
                   {a11yReviewed ? (
-                    <Label variant="primary">Reviewed</Label>
+                    <Label
+                      size="large"
+                      sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        backgroundColor: 'done.subtle',
+                        fontWeight: 'normal',
+                        borderColor: 'transparent'
+                      }}
+                    >
+                      <StyledOcticon icon={AccessibilityInsetIcon} sx={{fill: 'done.fg'}} />
+                      Reviewed
+                    </Label>
                   ) : (
-                    <Text sx={{color: 'fg.subtle'}}>Review pending</Text>
+                    <Label
+                      size="large"
+                      sx={{
+                        backgroundColor: 'neutral.subtle',
+                        fontWeight: 'normal',
+                        borderColor: 'transparent'
+                      }}
+                    >
+                      Not reviewed
+                    </Label>
                   )}
                 </td>
                 <td>{description}</td>
