@@ -106,13 +106,10 @@ export const Playground: Story<typeof Item> = args => {
   }
 
   return (
-    <ActionList {...args}>
+    <ActionList selectionVariant={args.selectionVariant}>
       <ActionList.Item {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
-        <ActionList.Description variant="block">
-          Create a brand new Codespace with a fresh image and checkout this branch.
-        </ActionList.Description>
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
       </ActionList.Item>
     </ActionList>
