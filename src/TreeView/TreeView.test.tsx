@@ -616,7 +616,7 @@ describe('Keyboard interactions', () => {
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
-      let subtree = queryByRole('group')
+      const subtree = queryByRole('group')
 
       // aria-expanded should be true
       expect(parentItem).toHaveAttribute('aria-expanded', 'true')
