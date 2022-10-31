@@ -180,7 +180,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             setIsExpanded(true)
             break
           case 'ArrowLeft':
-          case 'Backspace':
             event.preventDefault()
             event.stopPropagation()
             setIsExpanded(false)

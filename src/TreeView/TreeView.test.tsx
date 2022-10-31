@@ -581,7 +581,29 @@ describe('Keyboard interactions', () => {
   })
 
   describe('Backspace', () => {
-    it('collapses an expanded item', () => {
+    it('should move focus to the parent item', () => {
+      const {getByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+
+      const parentItem = getByRole('treeitem', {name: 'Parent'})
+      const child = getByRole('treeitem', {name: 'Child'})
+      child.focus()
+
+      // Press Backspace
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+
+      expect(parentItem).toHaveFocus()
+    })
+
+    it('should not collapse an expanded item', () => {
       const {getByRole, queryByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item defaultExpanded>
@@ -608,65 +630,11 @@ describe('Keyboard interactions', () => {
       // Press Backspace
       fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
 
-      // aria-expanded should now be false
-      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
+      // aria-expanded should stay set as true
+      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
       // Parent item should still be focused
       expect(parentItem).toHaveFocus()
-
-      subtree = queryByRole('group')
-
-      // Subtree should now be hidden
-      expect(subtree).toBeNull()
-    })
-
-    it('does nothing on a root-level collapsed item', () => {
-      const {getByRole} = renderWithTheme(
-        <TreeView aria-label="Test tree">
-          <TreeView.Item>
-            Parent
-            <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
-            </TreeView.SubTree>
-          </TreeView.Item>
-        </TreeView>
-      )
-
-      const parentItem = getByRole('treeitem', {name: 'Parent'})
-
-      // aria-expanded should be false by default
-      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
-
-      // Focus first item
-      parentItem.focus()
-
-      // Press Backspace
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
-
-      // aria-expanded should still be false
-      expect(parentItem).toHaveAttribute('aria-expanded', 'false')
-
-      // Focus should not change
-      expect(parentItem).toHaveFocus()
-    })
-
-    it('does nothing on a root-level end item', () => {
-      const {getByRole} = renderWithTheme(
-        <TreeView aria-label="Test tree">
-          <TreeView.Item>Item</TreeView.Item>
-        </TreeView>
-      )
-
-      const item = getByRole('treeitem', {name: 'Item'})
-
-      // Focus first item
-      item.focus()
-
-      // Press Backspace
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
-
-      // Focus should not change
-      expect(item).toHaveFocus()
     })
   })
 
