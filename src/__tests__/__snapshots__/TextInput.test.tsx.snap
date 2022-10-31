@@ -849,12 +849,8 @@ exports[`TextInput renders leadingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
-      dangerouslySetInnerHTML={
-        {
-          "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-        }
-      }
       fill="currentColor"
+      focusable="false"
       height={16}
       role="img"
       style={
@@ -867,7 +863,12 @@ exports[`TextInput renders leadingVisual 1`] = `
       }
       viewBox="0 0 16 16"
       width={16}
-    />
+    >
+      <path
+        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+        fillRule="evenodd"
+      />
+    </svg>
   </span>
   <input
     className="c1"
@@ -1702,12 +1703,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -1720,7 +1717,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </span>
       </button>
     </span>
@@ -1963,7 +1965,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
     <button
       className="c3"
       onClick={[MockFunction]}
-      size="small"
       type="button"
     >
       <span
@@ -2436,7 +2437,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       <button
         className="c4"
         onClick={[MockFunction]}
-        size="small"
         type="button"
       >
         <span
@@ -2573,12 +2573,8 @@ exports[`TextInput renders trailingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
-      dangerouslySetInnerHTML={
-        {
-          "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-        }
-      }
       fill="currentColor"
+      focusable="false"
       height={16}
       role="img"
       style={
@@ -2591,7 +2587,12 @@ exports[`TextInput renders trailingVisual 1`] = `
       }
       viewBox="0 0 16 16"
       width={16}
-    />
+    >
+      <path
+        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+        fillRule="evenodd"
+      />
+    </svg>
   </span>
 </span>
 `;
@@ -2732,6 +2733,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2827,12 +2834,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -2897,6 +2898,18 @@ exports[`TextInput renders with a loading indicator 1`] = `
   display: -ms-flexbox;
   display: flex;
   position: relative;
+}
+
+.c2 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
 }
 
 .c0 {
@@ -2992,18 +3005,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c3:focus {
   outline: 0;
-}
-
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
 }
 
 @media (min-width:768px) {
@@ -3110,6 +3111,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3205,12 +3212,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -3281,6 +3282,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3376,23 +3394,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -3418,12 +3419,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -3436,7 +3433,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -3532,6 +3534,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3627,23 +3646,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -3669,12 +3671,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -3687,7 +3685,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -3783,6 +3786,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3878,23 +3898,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -3920,12 +3923,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -3938,7 +3937,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -4034,6 +4038,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4129,17 +4144,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -4172,12 +4176,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4190,7 +4190,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c4"
@@ -4239,6 +4244,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c4 {
   visibility: visible;
+}
+
+.c2 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
 }
 
 .c0 {
@@ -4336,23 +4358,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -4423,12 +4428,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4441,7 +4442,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c5"
@@ -4490,6 +4496,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c3 {
   visibility: hidden;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
 }
 
 .c0 {
@@ -4587,17 +4604,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -4630,12 +4636,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4648,7 +4650,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c4"
@@ -4701,6 +4708,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c5 {
   visibility: visible;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
 }
 
 .c0 {
@@ -4805,28 +4834,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -4853,12 +4860,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4871,7 +4874,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -4929,12 +4937,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4947,7 +4951,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c6"
@@ -5000,6 +5009,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c5 {
   visibility: visible;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
 }
 
 .c0 {
@@ -5097,28 +5128,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -5144,12 +5153,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5162,7 +5167,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -5220,12 +5230,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5238,7 +5244,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c6"
@@ -5291,6 +5302,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c2 {
   visibility: visible;
+}
+
+.c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
 }
 
 .c0 {
@@ -5393,28 +5426,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -5441,12 +5452,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5459,7 +5466,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -5517,12 +5529,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5535,7 +5543,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c6"

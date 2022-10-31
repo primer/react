@@ -1,5 +1,6 @@
 import React from 'react'
-import {Box, useSSRSafeId} from '..'
+import Box from '../Box'
+import {useSSRSafeId} from '../utils/ssr'
 import ValidationAnimationContainer from '../_ValidationAnimationContainer'
 import CheckboxOrRadioGroupCaption from './_CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './_CheckboxOrRadioGroupLabel'

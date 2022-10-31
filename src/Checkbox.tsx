@@ -4,7 +4,7 @@ import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext
 import sx, {SxProp} from './sx'
 import useLayoutEffect from './utils/useIsomorphicLayoutEffect'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
-import {CheckboxGroupContext} from './CheckboxGroup'
+import {CheckboxGroupContext} from './CheckboxGroupContext'
 import getGlobalFocusStyles from './_getGlobalFocusStyles'
 
 export type CheckboxProps = {

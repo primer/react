@@ -132,7 +132,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:hover:not([disabled])': {
         color: 'btn.outline.hoverText',
         backgroundColor: 'btn.outline.hoverBg',
-        borderColor: 'outline.hoverBorder',
+        borderColor: 'btn.outline.hoverBorder',
         boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
         '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.outline.hoverCounterBg',

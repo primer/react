@@ -3,6 +3,7 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, Box, FormControl, Radio, RadioProps, ThemeProvider} from '..'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypesWithoutValidation,
   getFormControlArgsByChildComponent
 } from '../utils/story-helpers'
@@ -10,7 +11,7 @@ import {
 const excludedControlKeys = ['required', 'value', 'name', 'validationStatus', 'sx']
 
 export default {
-  title: 'Forms/Form Controls/Radio',
+  title: 'Components/Forms/Radio',
   component: Radio,
   decorators: [
     Story => {
@@ -24,9 +25,12 @@ export default {
     }
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
+  args: {
+    ...formControlArgs,
+    checked: false
+  },
   argTypes: {
     checked: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }

@@ -56,12 +56,12 @@ export const variants: Record<LabelColorOptions, BetterSystemStyleObject> = {
     color: 'danger.fg'
   },
   done: {
-    borderColor: 'done.fg',
-    color: 'done.emphasis'
+    borderColor: 'done.emphasis',
+    color: 'done.fg'
   },
   sponsors: {
-    borderColor: 'sponsors.fg',
-    color: 'sponsors.emphasis'
+    borderColor: 'sponsors.emphasis',
+    color: 'sponsors.fg'
   }
 }
 

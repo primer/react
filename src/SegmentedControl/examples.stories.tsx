@@ -12,6 +12,7 @@ type Args = {
   fullWidthAtNarrow?: boolean
   fullWidthAtRegular?: boolean
   fullWidthAtWide?: boolean
+  size?: 'small' | 'medium'
   variantAtNarrow: ResponsiveVariantOptions
   variantAtRegular: ResponsiveVariantOptions
   variantAtWide: ResponsiveVariantOptions
@@ -45,56 +46,65 @@ const parseFullWidthFromArgs = ({fullWidth, fullWidthAtNarrow, fullWidthAtRegula
       }
 
 export default {
-  title: 'SegmentedControl/examples',
+  title: 'Components/SegmentedControl',
   component: SegmentedControl,
+  args: {
+    fullWidth: false,
+    fullWidthAtNarrow: false,
+    fullWidthAtRegular: false,
+    fullWidthAtWide: false,
+    size: 'medium',
+    variantAtNarrow: 'default',
+    variantAtRegular: 'default',
+    variantAtWide: 'defualt'
+  },
   argTypes: {
     fullWidth: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     fullWidthAtNarrow: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     fullWidthAtRegular: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
     fullWidthAtWide: {
-      defaultValue: false,
       control: {
         type: 'boolean'
       }
     },
+    size: {
+      control: {
+        type: 'radio'
+      },
+      options: ['small', 'medium']
+    },
     variantAtNarrow: {
       name: 'variant.narrow',
-      defaultValue: 'default',
       control: {
-        type: 'radio',
-        options: variantOptions
-      }
+        type: 'radio'
+      },
+      options: variantOptions
     },
     variantAtRegular: {
       name: 'variant.regular',
-      defaultValue: 'default',
       control: {
-        type: 'radio',
-        options: variantOptions
-      }
+        type: 'radio'
+      },
+      options: variantOptions
     },
     variantAtWide: {
       name: 'variant.wide',
-      defaultValue: 'default',
       control: {
-        type: 'radio',
-        options: variantOptions
-      }
+        type: 'radio'
+      },
+      options: variantOptions
     }
   },
   parameters: {controls: {exclude: excludedControlKeys}},
@@ -116,6 +126,7 @@ export const Default = (args: Args) => (
     aria-label="File view"
     fullWidth={parseFullWidthFromArgs(args)}
     variant={parseVariantFromArgs(args)}
+    size={args.size}
   >
     <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
@@ -135,6 +146,7 @@ export const Controlled = (args: Args) => {
       onChange={handleChange}
       fullWidth={parseFullWidthFromArgs(args)}
       variant={parseVariantFromArgs(args)}
+      size={args.size}
     >
       <SegmentedControl.Button selected={selectedIndex === 0}>Preview</SegmentedControl.Button>
       <SegmentedControl.Button selected={selectedIndex === 1}>Raw</SegmentedControl.Button>
@@ -151,6 +163,7 @@ export const WithIconsAndLabels = (args: Args) => (
       aria-label="File view"
       fullWidth={parseFullWidthFromArgs(args)}
       variant={parseVariantFromArgs(args)}
+      size={args.size}
     >
       <SegmentedControl.Button selected leadingIcon={EyeIcon}>
         Preview
@@ -169,6 +182,7 @@ export const IconsOnly = (args: Args) => (
       aria-label="File view"
       fullWidth={parseFullWidthFromArgs(args)}
       variant={parseVariantFromArgs(args)}
+      size={args.size}
     >
       <SegmentedControl.IconButton selected icon={EyeIcon} aria-label="Preview" />
       <SegmentedControl.IconButton icon={FileCodeIcon} aria-label="Raw" />

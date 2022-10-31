@@ -1,10 +1,11 @@
 import React, {forwardRef} from 'react'
 import {IconProps} from '@primer/octicons-react'
-import {Box, Button, IconButton, Tooltip} from '.'
-import {ButtonProps} from './Button'
+import Box from './Box'
+import {Button, IconButton, ButtonProps} from './Button'
+import Tooltip from './Tooltip'
 import {BetterSystemStyleObject, merge, SxProp} from './sx'
 
-type TextInputActionProps = Omit<React.HTMLProps<HTMLButtonElement>, 'aria-label' | 'size'> & {
+type TextInputActionProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label' | 'size'> & {
   /** @deprecated Text input action buttons should only use icon buttons */
   children?: React.ReactNode
   /** Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies. */
