@@ -26,10 +26,7 @@ export default {
   parameters: {
     controls: {
       expanded: true,
-      // variant and size are developed in the first design iteration but then they are abondened.
-      // Still keeping them on the source code for future reference but they are not exposed as props.
-      // exclude: ['sx', 'as', 'variant', 'align']
-      exclude: ['sx', 'as']
+      exclude: ['as']
     }
   },
   args: {
@@ -52,14 +49,12 @@ export default {
       mapping: icons
     }
   }
-} as Meta
+} as Meta<typeof UnderlineNavItem>
 
 export const Playground: Story = args => {
   return (
-    // <UnderlineNav>
     <UnderlineNav.Item selected {...args}>
       {args.children}
     </UnderlineNav.Item>
-    // </UnderlineNav>
   )
 }
