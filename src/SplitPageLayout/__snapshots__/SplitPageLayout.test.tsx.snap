@@ -29,6 +29,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .c6 {
