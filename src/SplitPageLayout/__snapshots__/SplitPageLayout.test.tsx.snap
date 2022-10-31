@@ -94,11 +94,14 @@ exports[`SplitPageLayout renders default layout 1`] = `
 
 .c10 {
   height: 100%;
+  position: relative;
   display: none;
   margin-left: 0;
 }
 
 .c11 {
+  --pane-min-width: 256px;
+  --pane-max-width: calc(100vw - 511px);
   width: 100%;
   padding: 16px;
   overflow: auto;
@@ -153,7 +156,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
     position: -webkit-sticky;
     position: sticky;
     top: 0px;
-    overflow: hidden;
     max-height: var(--sticky-pane-height);
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
@@ -179,6 +181,12 @@ exports[`SplitPageLayout renders default layout 1`] = `
   .c11 {
     width: 296px;
     padding: 24px;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .c11 {
+    --pane-max-width: calc(100vw - 959px);
   }
 }
 
@@ -251,6 +259,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
           />
           <div
             class="c11"
+            style="--pane-width: 256px;"
           >
             Pane
           </div>

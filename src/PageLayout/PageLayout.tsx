@@ -1,9 +1,13 @@
 import React from 'react'
-import {useStickyPaneHeight} from './useStickyPaneHeight'
+import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
+import {canUseDOM} from '../utils/environment'
+import {useStickyPaneHeight} from './useStickyPaneHeight'
 
 const {Slots, Slot} = createSlots(['Header', 'Footer'])
 
@@ -189,18 +193,114 @@ const verticalDividerVariants = {
   }
 }
 
-const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
+type DraggableDividerProps = {
+  draggable?: boolean
+  onDragStart?: () => void
+  onDrag?: (delta: number) => void
+  onDragEnd?: () => void
+  onDoubleClick?: () => void
+}
+
+const DraggingGlobalStyles = createGlobalStyle`
+  /* Maintain resize cursor while dragging */
+  body[data-page-layout-dragging="true"] {
+    cursor: col-resize;
+  }
+
+  /* Disable text selection while dragging */
+  body[data-page-layout-dragging="true"] * {
+    user-select: none;
+  }
+`
+
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
+  variant = 'none',
+  draggable = false,
+  onDragStart,
+  onDrag,
+  onDragEnd,
+  onDoubleClick,
+  sx = {}
+}) => {
+  const [isDragging, setIsDragging] = React.useState(false)
   const responsiveVariant = useResponsiveValue(variant, 'none')
+
+  const stableOnDrag = React.useRef(onDrag)
+  const stableOnDragEnd = React.useRef(onDragEnd)
+
+  React.useEffect(() => {
+    stableOnDrag.current = onDrag
+  }, [onDrag])
+
+  React.useEffect(() => {
+    stableOnDragEnd.current = onDragEnd
+  }, [onDragEnd])
+
+  React.useEffect(() => {
+    function handleDrag(event: MouseEvent) {
+      stableOnDrag.current?.(event.movementX)
+      event.preventDefault()
+    }
+
+    function handleDragEnd(event: MouseEvent) {
+      setIsDragging(false)
+      stableOnDragEnd.current?.()
+      event.preventDefault()
+    }
+
+    // TODO: Support touch events
+    if (isDragging) {
+      window.addEventListener('mousemove', handleDrag)
+      window.addEventListener('mouseup', handleDragEnd)
+      document.body.setAttribute('data-page-layout-dragging', 'true')
+    } else {
+      window.removeEventListener('mousemove', handleDrag)
+      window.removeEventListener('mouseup', handleDragEnd)
+      document.body.removeAttribute('data-page-layout-dragging')
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleDrag)
+      window.removeEventListener('mouseup', handleDragEnd)
+      document.body.removeAttribute('data-page-layout-dragging')
+    }
+  }, [isDragging])
+
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
           height: '100%',
+          position: 'relative',
           ...verticalDividerVariants[responsiveVariant]
         },
         sx
       )}
-    />
+    >
+      {draggable ? (
+        // Drag handle
+        <>
+          <Box
+            sx={{
+              position: 'absolute',
+              inset: '0 -2px',
+              cursor: 'col-resize',
+              bg: isDragging ? 'accent.fg' : 'transparent',
+              transitionDelay: '0.1s',
+              '&:hover': {
+                bg: isDragging ? 'accent.fg' : 'neutral.muted'
+              }
+            }}
+            onMouseDown={() => {
+              setIsDragging(true)
+              onDragStart?.()
+            }}
+            onDoubleClick={onDoubleClick}
+          />
+          <DraggingGlobalStyles />
+        </>
+      ) : null}
+    </Box>
   )
 }
 
@@ -383,6 +483,8 @@ export type PageLayoutPaneProps = {
    */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
   width?: keyof typeof paneWidths
+  resizable?: boolean
+  widthStorageKey?: string
   padding?: keyof typeof SPACING_MAP
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
@@ -416,6 +518,8 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
+const defaultPaneWidth = 256
+
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
@@ -423,6 +527,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       positionWhenNarrow = 'inherit',
       width = 'medium',
       padding = 'none',
+      resizable = false,
+      widthStorageKey = 'paneWidth',
       divider: responsiveDivider = 'none',
       dividerWhenNarrow = 'inherit',
       sticky = false,
@@ -461,6 +567,35 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }, [sticky, enableStickyPane, disableStickyPane, offsetHeader])
 
+    const [paneWidth, setPaneWidth] = React.useState(() => {
+      if (!canUseDOM) {
+        return defaultPaneWidth
+      }
+
+      let storedWidth
+
+      try {
+        storedWidth = localStorage.getItem(widthStorageKey)
+      } catch (error) {
+        storedWidth = null
+      }
+
+      return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : defaultPaneWidth
+    })
+
+    const updatePaneWidth = (width: number) => {
+      setPaneWidth(width)
+
+      try {
+        localStorage.setItem(widthStorageKey, width.toString())
+      } catch (error) {
+        // Ignore errors
+      }
+    }
+
+    const paneRef = React.useRef<HTMLDivElement>(null)
+    useRefObjectAsForwardedRef(forwardRef, paneRef)
+
     return (
       <Box
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -486,7 +621,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                       // If offsetHeader has value, it will stick the pane to the position where the sticky top ends
                       // else top will be 0 as the default value of offsetHeader
                       top: typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
-                      overflow: 'hidden',
                       maxHeight: 'var(--sticky-pane-height)'
                     }
                   : {}),
@@ -505,11 +639,49 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           sx={{[position === 'end' ? 'marginBottom' : 'marginTop']: SPACING_MAP[rowGap]}}
         />
         <VerticalDivider
-          variant={{narrow: 'none', regular: dividerVariant}}
+          variant={{
+            narrow: 'none',
+            // If pane is resizable, always show a vertical divider on regular viewports
+            regular: resizable ? 'line' : dividerVariant
+          }}
+          // If pane is resizable, the divider should be draggable
+          draggable={resizable}
           sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+          onDrag={delta => {
+            // Get the number of pixels the divider was dragged
+            const deltaWithDirection = position === 'end' ? -delta : delta
+            updatePaneWidth(paneWidth + deltaWithDirection)
+          }}
+          // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
+          onDragEnd={() => {
+            const paneRect = paneRef.current?.getBoundingClientRect()
+            if (!paneRect) return
+            updatePaneWidth(paneRect.width)
+          }}
+          // Reset pane width on double click
+          onDoubleClick={() => updatePaneWidth(defaultPaneWidth)}
         />
 
-        <Box ref={forwardRef} sx={{width: paneWidths[width], padding: SPACING_MAP[padding], overflow: 'auto'}}>
+        <Box
+          ref={paneRef}
+          style={{
+            // @ts-ignore CSS custom properties are not supported by TypeScript
+            '--pane-width': `${paneWidth}px`
+          }}
+          sx={(theme: Theme) => ({
+            '--pane-min-width': `256px`,
+            '--pane-max-width': `calc(100vw - 511px)`,
+            width: resizable
+              ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
+              : paneWidths[width],
+            padding: SPACING_MAP[padding],
+            overflow: 'auto',
+
+            [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
+              '--pane-max-width': 'calc(100vw - 959px)'
+            }
+          })}
+        >
           {children}
         </Box>
       </Box>
