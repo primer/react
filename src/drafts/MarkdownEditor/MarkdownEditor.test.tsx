@@ -770,9 +770,14 @@ describe('MarkdownEditor', () => {
       it('forces links to open in a new tab', async () => {
         // eslint-disable-next-line github/unescaped-html-literal
         const html = '<a href="https://example.com">Link</a>'
+        const user = userEvent.setup()
+        const windowOpenSpy = jest.spyOn(window, 'open')
+        windowOpenSpy.mockImplementation(jest.fn())
         const {getPreview} = await render(<UncontrolledEditor onRenderPreview={async () => html} viewMode="preview" />)
         const link = await waitFor(() => within(getPreview()).getByText('Link'))
-        expect(link).toHaveAttribute('target', '_blank')
+
+        await user.click(link)
+        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
       })
     })
   })
