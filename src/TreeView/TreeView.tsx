@@ -224,7 +224,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             '&:focus-visible > div': {
               boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
               '@media (forced-colors: active)': {
-                outline: '2px solid SelectedItem',
+                outline: '2px solid HighlightText',
                 outlineOffset: -2
               }
             }
@@ -274,7 +274,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                     bg: 'accent.fg',
                     borderRadius: 2,
                     '@media (forced-colors: active)': {
-                      backgroundColor: 'SelectedItem'
+                      backgroundColor: 'HighlightText'
                     }
                   }
                 }
