@@ -30,26 +30,20 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
       // Close node; don't change focus
       return
 
-    // Focus parent element
-    case 'open Backspace':
-      return getParentElement(activeElement)
-
     case 'closed ArrowRight':
       // Open node; don't change focus
       return
 
-    // Focus parent element
     case 'closed ArrowLeft':
-    case 'closed Backspace':
+      // Focus parent element
       return getParentElement(activeElement)
 
     case 'end ArrowRight':
       // Do nothing
       return
 
-    // Focus parent element
     case 'end ArrowLeft':
-    case 'end Backspace':
+      // Focus parent element
       return getParentElement(activeElement)
   }
 
@@ -62,6 +56,9 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
     case 'ArrowDown':
       // Focus next visible element
       return getVisibleElement(activeElement, 'next')
+
+    case 'Backspace':
+      return getParentElement(activeElement)
 
     case 'Home':
       // Focus first visible element
