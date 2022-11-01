@@ -1,6 +1,6 @@
 import React from 'react'
 import {Story, Meta} from '@storybook/react'
-import {ActionList, ActionListItemProps, LinkItem, Group, Divider, Description} from '.'
+import {ActionList} from '.'
 import {Item} from './Item'
 import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
@@ -74,7 +74,8 @@ export default {
   // parameters: {controls: {exclude: excludedControlKeys}}
 } as Meta<typeof Item>
 
-export const Playground: Story<typeof Item> = args => {
+// @ts-ignore ignoring types here to pass in options for icon selection in Storybook
+export const Playground = args => {
   let leadingVisual
   if (args.leadingVisual === 'TypographyIcon') {
     leadingVisual = <TypographyIcon />
