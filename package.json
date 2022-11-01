@@ -144,7 +144,7 @@
     "@types/lodash.isempty": "4.4.7",
     "@types/lodash.isobject": "3.0.7",
     "@types/node": "16.11.11",
-    "@typescript-eslint/eslint-plugin": "4.31.2",
+    "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "@whitespace/storybook-addon-html": "5.0.0",
     "@wojtekmaj/enzyme-adapter-react-17": "0.6.7",
