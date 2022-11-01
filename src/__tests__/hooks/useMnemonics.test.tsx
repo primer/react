@@ -5,10 +5,12 @@ import {useMnemonics} from '../../hooks'
 const Fixture = ({
   onSelect = () => null,
   hasInput = false,
+  hasTextarea = false,
   refNotAttached = false
 }: {
   onSelect?: (event: React.KeyboardEvent<HTMLButtonElement>) => void
   hasInput?: boolean
+  hasTextarea?: boolean
   refNotAttached?: boolean
 }) => {
   const containerRef = React.createRef<HTMLDivElement>()
@@ -19,6 +21,8 @@ const Fixture = ({
       <div ref={refNotAttached ? undefined : containerRef} data-testid="container">
         {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
         {hasInput && <input autoFocus type="text" placeholder="Filter options" />}
+        {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+        {hasTextarea && <textarea autoFocus placeholder="Filter options" />}
         <button onKeyDown={onSelect}>button 1</button>
         <button onKeyDown={onSelect}>Button 2</button>
         <button onKeyDown={onSelect}>third button</button>
@@ -152,6 +156,17 @@ describe('useTypeaheadFocus', () => {
 
     fireEvent.keyDown(container, {key: 'b', code: 'b'})
     expect(input).toEqual(document.activeElement)
+  })
+
+  it('Text area: when a textarea has focus, typeahead should not do anything', async () => {
+    const {getByTestId, getByPlaceholderText} = render(<Fixture hasTextarea={true} />)
+    const container = getByTestId('container')
+
+    const textArea = getByPlaceholderText('Filter options')
+    expect(textArea).toEqual(document.activeElement)
+
+    fireEvent.keyDown(container, {key: 'b', code: 'b'})
+    expect(textArea).toEqual(document.activeElement)
   })
 
   it('Missing ref: when a ref is not attached, typeahead should break the component', async () => {
