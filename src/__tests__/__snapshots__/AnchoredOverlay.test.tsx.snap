@@ -58,8 +58,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 }
 
 .c1:focus {
-  border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: solid 2px #0969da;
 }
 
 .c1:active {
@@ -150,8 +149,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
 }
 
 .c1:focus {
-  border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: solid 2px #0969da;
 }
 
 .c1:active {

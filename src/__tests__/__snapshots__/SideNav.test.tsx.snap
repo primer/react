@@ -69,17 +69,15 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
 
 .c1.variant-normal > .c0:hover {
   background-color: rgba(234,238,242,0.5);
-  outline: none;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1.variant-normal > .c0:focus {
   background-color: rgba(234,238,242,0.5);
-  outline: none;
   -webkit-text-decoration: none;
   text-decoration: none;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: solid 2px #0969da;
   z-index: 1;
 }
 
@@ -102,15 +100,13 @@ exports[`SideNav SideNav.Link renders consistently 1`] = `
   color: #24292f;
   -webkit-text-decoration: none;
   text-decoration: none;
-  outline: none;
 }
 
 .c1.variant-lightweight > .c0:focus {
   color: #24292f;
   -webkit-text-decoration: none;
   text-decoration: none;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: solid 1px #0969da;
   z-index: 1;
 }
 
