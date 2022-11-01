@@ -105,7 +105,7 @@ export default {
   parameters: {controls: {exclude: excludedControlKeys}}
 } as Meta<typeof SegmentedControl>
 
-export const Playground: Story<typeof SegmentedControl> = args => (
+export const Playground: Story<Args> = args => (
   <SegmentedControl
     aria-label="File view"
     fullWidth={parseFullWidthFromArgs(args)}

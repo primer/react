@@ -1,6 +1,6 @@
 import React from 'react'
 import {Story, Meta} from '@storybook/react'
-import SegmentedControlIconButton from './SegmentedControlIconButton'
+import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 
@@ -41,6 +41,6 @@ export default {
   ]
 } as Meta<typeof SegmentedControlIconButton>
 
-export const Playground: Story<typeof SegmentedControlIconButton> = args => (
+export const Playground: Story<SegmentedControlIconButtonProps> = args => (
   <SegmentedControlIconButton {...args} aria-label="test" />
 )
