@@ -26,3 +26,7 @@ jobs:
       install: npm ci && cd docs && npm ci && cd ..
       build: npm run build:docs:preview
       output_dir: docs/public
+  deployment_url:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{jobs.deploy.outputs.deployment_url}}
