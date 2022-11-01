@@ -37,7 +37,7 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
       const handler = (event: KeyboardEvent) => {
         // skip if a TextInput has focus
         const activeElement = document.activeElement as HTMLElement
-        if (activeElement.tagName === 'INPUT') return
+        if (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') return
 
         // skip if used with modifier to preserve shortcuts like ⌘ + F
         const hasModifier = event.ctrlKey || event.altKey || event.metaKey

@@ -112,6 +112,27 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
 </Box>
 ```
 
+### With resizable pane
+
+```jsx live drafts
+<Box sx={{height: 320, overflowY: 'auto', border: '1px solid', borderColor: 'border.default'}}>
+  <SplitPageLayout>
+    <SplitPageLayout.Header>
+      <Placeholder label="Header" height={64} />
+    </SplitPageLayout.Header>
+    <SplitPageLayout.Pane resizable>
+      <Placeholder label="Pane" height={120} />
+    </SplitPageLayout.Pane>
+    <SplitPageLayout.Content>
+      <Placeholder label="Content" height={420} />
+    </SplitPageLayout.Content>
+    <SplitPageLayout.Footer>
+      <Placeholder label="Footer" height={64} />
+    </SplitPageLayout.Footer>
+  </SplitPageLayout>
+</Box>
+```
+
 ### Without dividers
 
 ```jsx live drafts
@@ -377,6 +398,18 @@ If you need a more flexible layout component, consider using the [PageLayout](/P
 | 'large'`}
     defaultValue="'medium'"
     description="The width of the pane."
+  />
+  <PropsTableRow
+    name="resizable"
+    type="boolean"
+    defaultValue="false"
+    description="When true, the pane may be resized by the user."
+  />
+  <PropsTableRow
+    name="widthStorageKey"
+    type="string"
+    defaultValue="'paneWidth'"
+    description="Provide a key used by localStorage to persist the size of the pane on the client."
   />
   <PropsTableRow
     name="sticky"
