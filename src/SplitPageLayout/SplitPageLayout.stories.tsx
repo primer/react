@@ -191,6 +191,11 @@ const meta: Meta = {
       defaultValue: true,
       table: {category: 'Pane props'}
     },
+    'Pane.resizable': {
+      type: 'boolean',
+      defaultValue: false,
+      table: {category: 'Pane props'}
+    },
     'Pane.padding': {
       type: {
         name: 'enum',
@@ -327,6 +332,7 @@ const Template: Story = args => (
     </SplitPageLayout.Content>
     {args['Render pane?'] ? (
       <SplitPageLayout.Pane
+        resizable={args['Pane.resizable']}
         position={{
           narrow: args['Pane.position.narrow'],
           regular: args['Pane.position.regular'],
