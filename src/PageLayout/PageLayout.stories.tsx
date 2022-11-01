@@ -40,6 +40,7 @@ const meta: Meta = {
     'Pane.position.wide': 'end',
     'Pane.width': 'medium',
     'Pane.sticky': false,
+    'Pane.resizable': false,
     'Pane.padding': 'none',
     'Pane.divider.regular': 'none',
     'Pane.divider.narrow': 'none',
@@ -242,6 +243,10 @@ const meta: Meta = {
       type: 'boolean',
       table: {category: 'Pane props'}
     },
+    'Pane.resizable': {
+      type: 'boolean',
+      table: {category: 'Pane props'}
+    },
     'Pane.padding': {
       type: {
         name: 'enum',
@@ -380,6 +385,7 @@ const Template: Story = args => (
         }}
         width={args['Pane.width']}
         sticky={args['Pane.sticky']}
+        resizable={args['Pane.resizable']}
         padding={args['Pane.padding']}
         divider={{
           narrow: args['Pane.divider.narrow'],
@@ -509,7 +515,7 @@ export const StickyPane: Story = args => (
         })}
       </Box>
     </PageLayout.Content>
-    <PageLayout.Pane position="start" padding="normal" divider="line" sticky={args.sticky}>
+    <PageLayout.Pane position="start" resizable padding="normal" divider="line" sticky={args.sticky}>
       <Box sx={{display: 'grid', gap: 3}}>
         {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
           const testId = `paragraph${i}`
@@ -693,5 +699,22 @@ CustomStickyHeader.argTypes = {
     type: 'number'
   }
 }
+
+export const ResizablePane: Story = () => (
+  <PageLayout containerWidth="full">
+    <PageLayout.Header>
+      <Placeholder height={64} label="Header" />
+    </PageLayout.Header>
+    <PageLayout.Pane resizable position="start">
+      <Placeholder height={320} label="Pane" />
+    </PageLayout.Pane>
+    <PageLayout.Content>
+      <Placeholder height={640} label="Content" />
+    </PageLayout.Content>
+    <PageLayout.Footer>
+      <Placeholder height={64} label="Footer" />
+    </PageLayout.Footer>
+  </PageLayout>
+)
 
 export default meta

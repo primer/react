@@ -10,24 +10,22 @@ type UseLinkInterceptionSettings = {
  * Updates all links in the container to open a new tab and call `onLinkClick` on click.
  */
 export const useLinkInterception = ({htmlContainer, onLinkClick, openLinksInNewTab}: UseLinkInterceptionSettings) => {
-  useEffect(function transformLinks() {
-    const links = htmlContainer.querySelectorAll('a')
+  useEffect(() => {
+    const clickHandler = (event: MouseEvent) => {
+      const link = (event.target as Element).closest('a')
+      if (!link) return
 
-    const cleanupFns = Array.from(links).map(link => {
-      const clickHandler = onLinkClick
-      if (clickHandler) link.addEventListener('click', clickHandler)
+      onLinkClick?.(event)
 
-      const prevTarget = link.target
-      if (openLinksInNewTab) link.setAttribute('target', '_blank')
-
-      return () => {
-        if (clickHandler) link.removeEventListener('click', clickHandler)
-        link.setAttribute('target', prevTarget)
+      if (!event.defaultPrevented && openLinksInNewTab && link.href) {
+        window.open(link.href, '_blank')
       }
-    })
+    }
+
+    htmlContainer.addEventListener('click', clickHandler)
 
     return () => {
-      for (const fn of cleanupFns) fn()
+      htmlContainer.removeEventListener('click', clickHandler)
     }
-  })
+  }, [htmlContainer, onLinkClick, openLinksInNewTab])
 }

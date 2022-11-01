@@ -4,7 +4,7 @@ import MatchMediaMock from 'jest-matchmedia-mock'
 import {render, fireEvent, waitFor} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SegmentedControl} from '.' // TODO: update import when we move this to the global index
 import theme from '../theme'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
@@ -310,4 +310,4 @@ describe('SegmentedControl', () => {
 
 // TODO: uncomment these tests after we fix a11y for the Tooltip component
 // checkStoriesForAxeViolations('examples', '../SegmentedControl/')
-checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
+// checkStoriesForAxeViolations('SegmentedControlFeatures', '../SegmentedControl/')
