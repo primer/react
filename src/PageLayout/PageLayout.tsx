@@ -518,7 +518,7 @@ const paneWidths = {
   large: ['100%', null, '256px', '320px', '336px']
 }
 
-const defaultPaneWidth = 256
+const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
 const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
@@ -569,7 +569,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     const [paneWidth, setPaneWidth] = React.useState(() => {
       if (!canUseDOM) {
-        return defaultPaneWidth
+        return defaultPaneWidth[width]
       }
 
       let storedWidth
@@ -580,7 +580,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         storedWidth = null
       }
 
-      return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : defaultPaneWidth
+      return storedWidth && !isNaN(Number(storedWidth)) ? Number(storedWidth) : defaultPaneWidth[width]
     })
 
     const updatePaneWidth = (width: number) => {
@@ -659,7 +659,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             updatePaneWidth(paneRect.width)
           }}
           // Reset pane width on double click
-          onDoubleClick={() => updatePaneWidth(defaultPaneWidth)}
+          onDoubleClick={() => updatePaneWidth(defaultPaneWidth[width])}
         />
 
         <Box
