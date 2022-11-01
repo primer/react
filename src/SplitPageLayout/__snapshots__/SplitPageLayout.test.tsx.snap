@@ -259,7 +259,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
           />
           <div
             class="c11"
-            style="--pane-width: 256px;"
+            style="--pane-width: 296px;"
           >
             Pane
           </div>

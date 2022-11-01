@@ -224,7 +224,7 @@ exports[`PageLayout renders condensed layout 1`] = `
           />
           <div
             class="c11"
-            style="--pane-width: 256px;"
+            style="--pane-width: 296px;"
           >
             Pane
           </div>
@@ -517,7 +517,7 @@ exports[`PageLayout renders default layout 1`] = `
           />
           <div
             class="c11"
-            style="--pane-width: 256px;"
+            style="--pane-width: 296px;"
           >
             Pane
           </div>
@@ -810,7 +810,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
           />
           <div
             class="c11"
-            style="--pane-width: 256px;"
+            style="--pane-width: 296px;"
           >
             Pane
           </div>
@@ -1103,7 +1103,7 @@ exports[`PageLayout renders with dividers 1`] = `
           />
           <div
             class="c10"
-            style="--pane-width: 256px;"
+            style="--pane-width: 296px;"
           >
             Pane
           </div>
