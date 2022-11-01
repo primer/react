@@ -92,13 +92,18 @@ text after list`
   })
 
   describe('link interception', () => {
-    it('makes all links open in a new tab when enabled', () => {
+    it('makes all links open in a new tab when enabled', async () => {
+      const user = userEvent.setup()
+      const windowOpenSpy = jest.spyOn(window, 'open')
+      windowOpenSpy.mockImplementation(jest.fn())
+
       const {getByRole} = render(
         // eslint-disable-next-line github/unescaped-html-literal
         <MarkdownViewer dangerousRenderedHTML={{__html: '<a href="https://example.com">link</a>'}} openLinksInNewTab />
       )
       const link = getByRole('link') as HTMLAnchorElement
-      expect(link.target).toBe('_blank')
+      await user.click(link)
+      expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
     })
 
     it('calls onLinkClick on link click', async () => {
