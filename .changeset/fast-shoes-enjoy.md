@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Add support for Backspace to collapse group in TreeView
+TreeView: Add support for Backspace to move focus to parent item
