@@ -670,19 +670,20 @@ export const NestedScrollContainer: Story = () => {
   return (
     <Box sx={{p: 3, maxWidth: 400, maxHeight: '50vh', overflow: 'auto'}}>
       <TreeView aria-label="Files">
-        {Array.from({length: 100}).map((_, index) => (
-          <TreeView.Item key={index}>
+        {Array.from({length: 100}).map((_, i) => (
+          <TreeView.Item key={i}>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
-            Directory {index}
+            Directory {i}
             <TreeView.SubTree>
-              {Array.from({length: 10}).map((_, index) => (
-                <TreeView.Item key={index}>
+              {Array.from({length: 10}).map((_, j) => (
+                // eslint-disable-next-line no-console
+                <TreeView.Item key={j} onSelect={() => console.log(`Directory ${i}/File ${j}`)}>
                   <TreeView.LeadingVisual>
                     <FileIcon />
                   </TreeView.LeadingVisual>
-                  File {index}
+                  File {j}
                 </TreeView.Item>
               ))}
             </TreeView.SubTree>
