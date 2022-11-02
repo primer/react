@@ -28,5 +28,6 @@ jobs:
       output_dir: docs/public
   deployment_url:
     runs-on: ubuntu-latest
+    needs: deploy-preview
     steps:
-      - run: echo ${{jobs.deploy.outputs.deployment_url}}
+      - run: echo ${{needs['deploy-preview'].outputs.deployment_url}}
