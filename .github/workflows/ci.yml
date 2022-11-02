@@ -124,6 +124,8 @@ jobs:
           node-version: '16.x'
       - name: Install dependencies
         run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps
       - uses: actions/download-artifact@v3
         with:
           name: storybook
@@ -166,6 +168,8 @@ jobs:
           node-version: '16.x'
       - name: Install dependencies
         run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps
       - uses: actions/download-artifact@v3
         with:
           name: storybook
