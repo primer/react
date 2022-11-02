@@ -2,7 +2,8 @@
 global.ResizeObserver = jest.fn().mockImplementation(() => {
   return {
     observe: jest.fn(),
-    disconnect: jest.fn()
+    disconnect: jest.fn(),
+    unobserve: jest.fn()
   }
 })
 
