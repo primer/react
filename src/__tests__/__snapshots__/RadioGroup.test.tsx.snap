@@ -24,12 +24,23 @@ exports[`RadioGroup renders consistently 1`] = `
   margin-right: 0;
 }
 
+.c7 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .c2 {
   display: block;
   font-size: 16px;
 }
 
-.c7 {
+.c8 {
   font-weight: 600;
   font-size: 14px;
   display: block;
@@ -114,12 +125,17 @@ exports[`RadioGroup renders consistently 1`] = `
             value="one"
           />
         </div>
-        <label
+        <div
           className="c7"
-          htmlFor="react-aria-2"
+          display="flex"
         >
-          Choice one
-        </label>
+          <label
+            className="c8"
+            htmlFor="react-aria-2"
+          >
+            Choice one
+          </label>
+        </div>
       </div>
       <div
         className="c4"
@@ -141,12 +157,17 @@ exports[`RadioGroup renders consistently 1`] = `
             value="two"
           />
         </div>
-        <label
+        <div
           className="c7"
-          htmlFor="react-aria-3"
+          display="flex"
         >
-          Choice two
-        </label>
+          <label
+            className="c8"
+            htmlFor="react-aria-3"
+          >
+            Choice two
+          </label>
+        </div>
       </div>
       <div
         className="c4"
@@ -168,12 +189,17 @@ exports[`RadioGroup renders consistently 1`] = `
             value="three"
           />
         </div>
-        <label
+        <div
           className="c7"
-          htmlFor="react-aria-4"
+          display="flex"
         >
-          Choice three
-        </label>
+          <label
+            className="c8"
+            htmlFor="react-aria-4"
+          >
+            Choice three
+          </label>
+        </div>
       </div>
     </div>
   </fieldset>
