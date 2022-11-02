@@ -224,7 +224,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             '&:focus-visible > div': {
               boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.fg}`,
               '@media (forced-colors: active)': {
-                outline: '2px solid SelectedItem',
+                outline: '2px solid HighlightText',
                 outlineOffset: -2
               }
             }
@@ -272,7 +272,10 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                     height: '24px',
                     content: '""',
                     bg: 'accent.fg',
-                    borderRadius: 2
+                    borderRadius: 2,
+                    '@media (forced-colors: active)': {
+                      backgroundColor: 'HighlightText'
+                    }
                   }
                 }
               },
@@ -712,7 +715,7 @@ const ErrorDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', child
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       onKeyDown={event => {
-        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+        if (['Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
           // Prevent keyboard events from bubbling up to the TreeView
           // and interfering with keyboard navigation
           event.stopPropagation()

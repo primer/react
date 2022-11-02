@@ -94,7 +94,8 @@ describe('Textarea', () => {
 
   it('renders a value in the textarea', () => {
     const mockValue = 'mock value'
-    const {getByRole} = render(<Textarea value={mockValue} />)
+    const onChange = jest.fn()
+    const {getByRole} = render(<Textarea onChange={onChange} value={mockValue} />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
 
