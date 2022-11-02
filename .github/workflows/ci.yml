@@ -109,8 +109,6 @@ jobs:
 
   vrt-runner:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.27.0-focal
     strategy:
       fail-fast: false
       matrix:
@@ -136,7 +134,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        run: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/4"
+        run: ./script/test:e2e --network host --grep @vrt --shard="${{ matrix.shard }}/4"
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
