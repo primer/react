@@ -61,7 +61,109 @@ export type TreeViewProps = {
   children: React.ReactNode
 }
 
-const UlBox = styled.ul<SxProp>(sx)
+const UlBox = styled.ul<SxProp>`
+  [role='treeitem'] {
+    outline: none;
+
+    &:focus-visible > div {
+      box-shadow: inset 0 0 0 2px ${get(`colors.accent.emphasis`)};
+      @media (forced-colors: active) {
+        outline: 2px solid HighlightText;
+        outline-offset: -2;
+      }
+    }
+  }
+
+  [role='treeitem'] > div:first-child {
+    --level: 1; /* default level */
+    --toggle-width: 1rem; /* 16px */
+    position: relative;
+    display: grid;
+    grid-template-columns: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2)) var(--toggle-width) 1fr;
+    grid-template-areas: 'spacer toggle content';
+    width: 100%;
+    min-height: 2rem; /* 32px */
+    font-size: ${get('fontSizes.1')};
+    color: ${get('colors.fg.default')};
+    border-radius: ${get('radii.2')};
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${get('colors.actionListItem.default.hoverBg')};
+
+      @media (forced-colors: active) {
+        outline: 2px solid transparent;
+        outline-offset: -2px;
+      }
+    }
+
+    @media (pointer: coarse) {
+      --toggle-width: 1.5rem; /* 24px */
+      min-height: 2.75rem; /* 44px */
+    }
+  }
+
+  .TreeView-item-toggle {
+    grid-area: toggle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: ${get('colors.fg.muted')};
+  }
+
+  .TreeView-item-content {
+    grid-area: content;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 ${get('space.2')};
+    gap: ${get('space.2')};
+  }
+
+  .TreeView-item-content-text {
+    /* Truncate text label */
+    flex: 1 1 auto;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .TreeView-item-visual {
+    display: flex;
+    color: ${get('colors.fg.muted')};
+  }
+
+  .TreeView-item-level-line {
+    width: 100%;
+    height: 100%;
+    border-right: 1px solid;
+
+    /*
+      On devices without hover, the nesting indicator lines
+      appear at all times.
+    */
+    border-color: ${get('colors.border.subtle')};
+
+    /* 
+      On devices with :hover support, the nesting indicator lines 
+      fade in when the user mouses over the entire component,
+      or when there's focus inside the component. This makes
+      sure the component remains simple when not in use.
+    */
+    /* @media (hover: hover) {
+      border-color: transparent;
+
+      [role='tree']:hover &,
+      [role='tree']:focus-within & {
+        border-color: ${get('colors.border.subtle')};
+      }
+    } */
+  }
+
+  ${sx}
+`
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -203,9 +305,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         }}
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
-        <Box
-          as="li"
-          ref={ref}
+        <li
+          ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
           id={itemId}
           role="treeitem"
@@ -222,18 +323,13 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             // Prevent focus event from bubbling up to parent items
             event.stopPropagation()
           }}
-          sx={{
-            outline: 'none',
-            '&:focus-visible > div': {
-              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
-              '@media (forced-colors: active)': {
-                outline: '2px solid HighlightText',
-                outlineOffset: -2
-              }
-            }
-          }}
         >
-          <Box
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+          <div
+            style={{
+              // @ts-ignore CSS custom property
+              '--level': level
+            }}
             onClick={event => {
               if (onSelect) {
                 onSelect(event)
@@ -241,112 +337,37 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 toggle(event)
               }
             }}
-            sx={merge.all([
-              {
-                '--toggle-width': '1rem', // 16px
-                position: 'relative',
-                display: 'grid',
-                gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
-                gridTemplateAreas: `"spacer toggle content"`,
-                width: '100%',
-                minHeight: '2rem', // 32px
-                fontSize: 1,
-                color: 'fg.default',
-                borderRadius: 2,
-                cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'actionListItem.default.hoverBg',
-                  '@media (forced-colors: active)': {
-                    outline: '2px solid transparent',
-                    outlineOffset: -2
-                  }
-                },
-                '@media (pointer: coarse)': {
-                  '--toggle-width': '1.5rem', // 24px
-                  minHeight: '2.75rem' // 44px
-                },
-                '[role=treeitem][aria-current=true] > &:is(div)': {
-                  bg: 'actionListItem.default.selectedBg',
-                  '&::after': {
-                    position: 'absolute',
-                    top: 'calc(50% - 12px)',
-                    left: -2,
-                    width: '4px',
-                    height: '24px',
-                    content: '""',
-                    bg: 'accent.fg',
-                    borderRadius: 2,
-                    '@media (forced-colors: active)': {
-                      backgroundColor: 'HighlightText'
-                    }
-                  }
-                }
-              },
-              sx as SxProp
-            ])}
           >
-            <Box sx={{gridArea: 'spacer', display: 'flex'}}>
+            <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
-            </Box>
+            </div>
             {hasSubTree ? (
-              <Box
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+              <div
+                className="TreeView-item-toggle"
                 onClick={event => {
                   if (onSelect) {
                     toggle(event)
                   }
                 }}
-                sx={{
-                  gridArea: 'toggle',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  color: 'fg.muted',
-                  borderTopLeftRadius: level === 1 ? 2 : 0,
-                  borderBottomLeftRadius: level === 1 ? 2 : 0,
-                  '&:hover': {
-                    backgroundColor: onSelect ? 'treeViewItem.chevron.hoverBg' : null
-                  }
-                }}
               >
                 {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
-              </Box>
+              </div>
             ) : null}
-            <Box
-              id={labelId}
-              sx={{
-                gridArea: 'content',
-                display: 'flex',
-                alignItems: 'center',
-                height: '100%',
-                px: 2,
-                gap: 2
-              }}
-            >
+            <div id={labelId} className="TreeView-item-content">
               <Slots>
                 {slots => (
                   <>
                     {slots.LeadingVisual}
-                    <Text
-                      sx={{
-                        // Truncate text label
-                        flex: '1 1 auto',
-                        width: 0,
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis'
-                      }}
-                    >
-                      {childrenWithoutSubTree}
-                    </Text>
+                    <span className="TreeView-item-content-text">{childrenWithoutSubTree}</span>
                     {slots.TrailingVisual}
                   </>
                 )}
               </Slots>
-            </Box>
-          </Box>
+            </div>
+          </div>
           {subTree}
-        </Box>
+        </li>
       </ItemContext.Provider>
     )
   }
@@ -355,33 +376,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
   return (
-    <Box sx={{width: '100%', display: 'flex'}}>
+    <div style={{width: '100%', display: 'flex'}}>
       {Array.from({length: level - 1}).map((_, index) => (
-        <Box
-          key={index}
-          sx={{
-            width: '100%',
-            height: '100%',
-            borderRight: '1px solid',
-
-            // On devices without hover, the nesting indicator lines
-            // appear at all times.
-            borderColor: 'border.subtle',
-
-            // On devices with :hover support, the nesting indicator lines
-            // fade in when the user mouses over the entire component,
-            // or when there's focus inside the component. This makes
-            // sure the component remains simple when not in use.
-            '@media (hover: hover)': {
-              borderColor: 'transparent',
-              '[role=tree]:hover &, [role=tree]:focus-within &': {
-                borderColor: 'border.subtle'
-              }
-            }
-          }}
-        />
+        <div key={index} className="TreeView-item-level-line" />
       ))}
-    </Box>
+    </div>
   )
 }
 
@@ -507,11 +506,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   }
 
   return (
-    <Box
-      as="ul"
+    <ul
       role="group"
-      hidden={!isExpanded}
-      sx={{
+      style={{
         listStyle: 'none',
         padding: 0,
         margin: 0
@@ -520,7 +517,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       ref={ref}
     >
       {isLoadingItemVisible ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
-    </Box>
+    </ul>
   )
 }
 
@@ -671,9 +668,9 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
       <VisuallyHidden aria-hidden={true} id={leadingVisualId}>
         {props.label}
       </VisuallyHidden>
-      <Box aria-hidden={true} sx={{display: 'flex', color: 'fg.muted'}}>
+      <div className="TreeView-item-visual" aria-hidden={true}>
         {children}
-      </Box>
+      </div>
     </Slot>
   )
 }
@@ -688,9 +685,9 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
       <VisuallyHidden aria-hidden={true} id={trailingVisualId}>
         {props.label}
       </VisuallyHidden>
-      <Box aria-hidden={true} sx={{display: 'flex', color: 'fg.muted'}}>
+      <div className="TreeView-item-visual" aria-hidden={true}>
         {children}
-      </Box>
+      </div>
     </Slot>
   )
 }
