@@ -22,33 +22,10 @@ import {
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
-import {
-  BaseStyles,
-  ThemeProvider,
-  Avatar,
-  StyledOcticon,
-  Button,
-  Box,
-  Heading,
-  Link,
-  Text,
-  StateLabel,
-  BranchName
-} from '..'
+import {Avatar, StyledOcticon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Examples',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ]
+  title: 'Drafts/Components/UnderlineNav/Examples'
 } as Meta
 
 export const PullRequestPage = () => {

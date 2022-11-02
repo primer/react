@@ -1,6 +1,5 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {BaseStyles, ThemeProvider} from '..'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 import {CodeIcon, GitPullRequestIcon, PeopleIcon} from '@primer/octicons-react'
@@ -12,13 +11,9 @@ export default {
   decorators: [
     Story => {
       return (
-        <ThemeProvider>
-          <BaseStyles>
-            <UnderlineNav aria-label="Repository">
-              <Story />
-            </UnderlineNav>
-          </BaseStyles>
-        </ThemeProvider>
+        <UnderlineNav aria-label="Repository">
+          <Story />
+        </UnderlineNav>
       )
     }
   ],

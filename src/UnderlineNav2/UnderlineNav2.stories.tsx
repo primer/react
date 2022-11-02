@@ -1,6 +1,5 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {BaseStyles, ThemeProvider} from '..'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 
@@ -10,17 +9,6 @@ export default {
   title: 'Drafts/Components/UnderlineNav',
   component: UnderlineNav,
   subcomponents: {UnderlineNavItem},
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
   parameters: {
     controls: {
       expanded: true,

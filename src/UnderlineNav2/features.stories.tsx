@@ -14,22 +14,10 @@ import {
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
-import {BaseStyles, ThemeProvider} from '..'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Features',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ]
+  title: 'Drafts/Components/UnderlineNav/Features'
 } as Meta
 
 export const Default = () => {

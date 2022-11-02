@@ -1,24 +1,10 @@
-import React from 'react'
 import {Meta} from '@storybook/react'
-
-import {BaseStyles, ThemeProvider} from '..'
 import {within, userEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
 import {Default} from './features.stories'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Interactions',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ]
+  title: 'Drafts/Components/UnderlineNav/Interactions'
 } as Meta
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
