@@ -222,7 +222,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           sx={{
             outline: 'none',
             '&:focus-visible > div': {
-              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
+              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.fg}`,
               '@media (forced-colors: active)': {
                 outline: '2px solid SelectedItem',
                 outlineOffset: -2
