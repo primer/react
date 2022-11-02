@@ -1,5 +1,38 @@
 # @primer/components
 
+## 35.14.0
+
+### Minor Changes
+
+- [#2466](https://github.com/primer/react/pull/2466) [`9ff856de`](https://github.com/primer/react/commit/9ff856ded581f70ded3eb9c2704e1ada8eb77c13) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Introduce disclosure widget pattern
+
+- [#2466](https://github.com/primer/react/pull/2466) [`9ff856de`](https://github.com/primer/react/commit/9ff856ded581f70ded3eb9c2704e1ada8eb77c13) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Always show at least two items in the overflow menu
+
+- [#2352](https://github.com/primer/react/pull/2352) [`0c2db835`](https://github.com/primer/react/commit/0c2db835b9aca091558d46ac60df1b1bba1c8f0e) Thanks [@japf](https://github.com/japf)! - Add resizable support to the PageLayout component.
+
+### Patch Changes
+
+- [#2502](https://github.com/primer/react/pull/2502) [`6199b10c`](https://github.com/primer/react/commit/6199b10cf3c0f58c3197f69abfcd1c46f4fa680b) Thanks [@joshblack](https://github.com/joshblack)! - Add maxWidth to container of PageLayout.{Pane, Content}
+
+- [#2490](https://github.com/primer/react/pull/2490) [`776fb958`](https://github.com/primer/react/commit/776fb958b8f179f37f4c3da826e164fae904538a) Thanks [@colebemis](https://github.com/colebemis)! - ConfirmationDialog: Remove header landmark to improve accessibility
+
+- [#2492](https://github.com/primer/react/pull/2492) [`cbf0ccfe`](https://github.com/primer/react/commit/cbf0ccfeb48fa4cf5c576da167beeefa84784ff1) Thanks [@joshblack](https://github.com/joshblack)! - Add support for aria-current styles in high contrast mode for TreeView
+
+- [#2317](https://github.com/primer/react/pull/2317) [`a60f0f8d`](https://github.com/primer/react/commit/a60f0f8d449b2e0cf705d94280fed5a8a8f5070e) Thanks [@willglas](https://github.com/willglas)! - useMnemonics hook ignores keydown events from textarea elements
+
+- [#2467](https://github.com/primer/react/pull/2467) [`d396c89a`](https://github.com/primer/react/commit/d396c89aa4beb655bb8e6bae0863aa94057ce736) Thanks [@josepmartins](https://github.com/josepmartins)! - Align status components table to primer.style/status table
+
+- [#2509](https://github.com/primer/react/pull/2509) [`cbcc0225`](https://github.com/primer/react/commit/cbcc0225b82e66be55460b666bfc2824bf0082f3) Thanks [@joshblack](https://github.com/joshblack)! - Update FormControl to correctly render Checkbox labels
+
+- [#2487](https://github.com/primer/react/pull/2487) [`6a30812c`](https://github.com/primer/react/commit/6a30812c1d47a64144f0675f8a540136af04726b) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - fixes colors for done and sponsors label
+
+- [#2493](https://github.com/primer/react/pull/2493) [`7ea92ab4`](https://github.com/primer/react/commit/7ea92ab422f89af458626be2e8f380043d00168d) Thanks [@nicolleromero](https://github.com/nicolleromero)! - Address scenario in useLinkInterception where onLinkClick was not being called when the DOM was updated outside of React
+
+- [#2359](https://github.com/primer/react/pull/2359) [`b05fa743`](https://github.com/primer/react/commit/b05fa74367a15a3a929c2858e09e12b439758538) Thanks [@joshblack](https://github.com/joshblack)! - Update `Button` to only spread additional `props` onto underlying `<button>`
+  element.
+
+- [#2466](https://github.com/primer/react/pull/2466) [`9ff856de`](https://github.com/primer/react/commit/9ff856ded581f70ded3eb9c2704e1ada8eb77c13) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Render a visually hidden heading for screen readers when aria-label is present
+
 ## 35.13.0
 
 ### Minor Changes

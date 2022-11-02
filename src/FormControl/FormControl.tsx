@@ -182,9 +182,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   {slots.LeadingVisual}
                 </Box>
               )}
-              {(React.isValidElement(slots.Label) &&
-                slots.Label.type === FormControlLabel &&
-                !(slots.Label.props as FormControlLabelProps).visuallyHidden) ||
+              {(React.isValidElement(slots.Label) && !(slots.Label.props as FormControlLabelProps).visuallyHidden) ||
               slots.Caption ? (
                 <Box display="flex" flexDirection="column" ml={2}>
                   {slots.Label}
