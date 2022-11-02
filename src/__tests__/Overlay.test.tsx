@@ -3,13 +3,11 @@ import {Overlay, Box, Text} from '..'
 import {ButtonDanger, Button} from '../deprecated'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay} from '../stories/Overlay.stories'
-
-expect.extend(toHaveNoViolations)
 
 type TestComponentSettings = {
   initialFocus?: 'button'
@@ -107,6 +105,14 @@ describe('Overlay', () => {
   })
 
   it('should close the top most overlay on escape', async () => {
+    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+      if (!message.startsWith('global handler')) {
+        throw new Error(
+          `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`
+        )
+      }
+    })
+
     const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
@@ -131,6 +137,8 @@ describe('Overlay', () => {
     // hitting escape again in first overlay should close it
     fireEvent.keyDown(container.getByText('Add to list'), {key: 'Escape', code: 'Escape'})
     expect(container.queryByText('Add to list')).not.toBeInTheDocument()
+
+    spy.mockRestore()
   })
 
   it('memex repro: should only close the dropdown when escape is pressed', async () => {
