@@ -223,10 +223,7 @@ export type TreeViewItemProps = {
 const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
-  (
-    {current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children, sx = {}},
-    ref
-  ) => {
+  ({current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children}, ref) => {
     const itemId = useSSRSafeId()
     const labelId = useSSRSafeId()
     const leadingVisualId = useSSRSafeId()
