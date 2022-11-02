@@ -31,3 +31,13 @@ jobs:
     needs: deploy-preview
     steps:
       - run: echo ${{needs['deploy-preview'].outputs.deployment_url}}
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+      - name: Update deployment url in artifact
+        uses: jossef/action-set-json-field@v2
+        with:
+          file: deployments.json
+          field: ${{ steps.package-version.outputs.current-version}}
+          value: ${{needs['deploy-preview'].outputs.deployment_url}}
+      - run: cat deployments.json
