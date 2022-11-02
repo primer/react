@@ -5,6 +5,7 @@ import {
   FileDirectoryOpenFillIcon
 } from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
+import classnames from 'classnames'
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
 import {get} from '../constants'
@@ -60,6 +61,15 @@ export type TreeViewProps = {
 }
 
 const UlBox = styled.ul<SxProp>`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  /*
+    Performance optimization:
+    We define styles for the tree items at the root level of the tree
+    to avoid having to recompute styles for each item when the tree updates.
+  */
   [role='treeitem'] {
     outline: none;
 
@@ -72,7 +82,7 @@ const UlBox = styled.ul<SxProp>`
     }
   }
 
-  [role='treeitem'] > div:first-child {
+  .TreeView-item-container {
     --level: 1; /* default level */
     --toggle-width: 1rem; /* 16px */
     position: relative;
@@ -101,6 +111,26 @@ const UlBox = styled.ul<SxProp>`
     }
   }
 
+  [role='treeitem'][aria-current='true'] > .TreeView-item-container {
+    background-color: ${get('colors.actionListItem.default.selectedBg')};
+
+    /* Current item indicator */
+    &::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 0.75rem); /* 50% - 12px */
+      left: -${get('space.2')};
+      width: 0.25rem; /* 4px */
+      height: 1.5rem; /* 24px */
+      background-color: ${get('colors.accent.fg')};
+      border-radius: ${get('radii.2')};
+
+      @media (forced-colors: active) {
+        background-color: HighlightText;
+      }
+    }
+  }
+
   .TreeView-item-toggle {
     grid-area: toggle;
     display: flex;
@@ -108,6 +138,15 @@ const UlBox = styled.ul<SxProp>`
     justify-content: center;
     height: 100%;
     color: ${get('colors.fg.muted')};
+  }
+
+  .TreeView-item-toggle--hover:hover {
+    background-color: ${get('colors.treeViewItem.chevron.hoverBg')};
+  }
+
+  .TreeView-item-toggle--end {
+    border-top-left-radius: ${get('radii.2')};
+    border-bottom-left-radius: ${get('radii.2')};
   }
 
   .TreeView-item-content {
@@ -143,21 +182,23 @@ const UlBox = styled.ul<SxProp>`
       appear at all times.
     */
     border-color: ${get('colors.border.subtle')};
+  }
 
-    /* 
-      On devices with :hover support, the nesting indicator lines 
-      fade in when the user mouses over the entire component,
-      or when there's focus inside the component. This makes
-      sure the component remains simple when not in use.
-    */
-    /* @media (hover: hover) {
+  /*
+    On devices with :hover support, the nesting indicator lines
+    fade in when the user mouses over the entire component,
+    or when there's focus inside the component. This makes
+    sure the component remains simple when not in use.
+  */
+  @media (hover: hover) {
+    .TreeView-item-level-line {
       border-color: transparent;
+    }
 
-      [role='tree']:hover &,
-      [role='tree']:focus-within & {
-        border-color: ${get('colors.border.subtle')};
-      }
-    } */
+    &:hover .TreeView-item-level-line,
+    &:focus-within .TreeView-item-level-line {
+      border-color: ${get('colors.border.subtle')};
+    }
   }
 
   ${sx}
@@ -188,17 +229,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
         <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
         </VisuallyHidden>
-        <UlBox
-          ref={containerRef}
-          role="tree"
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledby}
-          sx={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 0
-          }}
-        >
+        <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
           {children}
         </UlBox>
       </>
@@ -321,6 +352,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         >
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div
+            className="TreeView-item-container"
             style={{
               // @ts-ignore CSS custom property
               '--level': level
@@ -339,7 +371,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             {hasSubTree ? (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
-                className="TreeView-item-toggle"
+                className={classnames(
+                  'TreeView-item-toggle',
+                  onSelect && 'TreeView-item-toggle--hover',
+                  level === 1 && 'TreeView-item-toggle--end'
+                )}
                 onClick={event => {
                   if (onSelect) {
                     toggle(event)
