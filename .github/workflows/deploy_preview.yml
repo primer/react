@@ -38,6 +38,7 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
       - run: echo ${{ steps.package-version.outputs.current-version}}
+      - run: echo {} > deployments.json
       - name: Update deployment url in artifact
         uses: jossef/action-set-json-field@v2
         with:
@@ -45,3 +46,8 @@ jobs:
           field: ${{ steps.package-version.outputs.current-version}}
           value: ${{needs['deploy-preview'].outputs.deployment_url}}
       - run: cat deployments.json
+      - name: Upload file to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployments.json
+          path: deployments.json
