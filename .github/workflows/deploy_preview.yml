@@ -30,7 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy-preview
     steps:
-      - run: echo ${{needs['deploy-preview'].outputs.deployment_url}}
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
