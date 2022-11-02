@@ -34,6 +34,7 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
+      - run: echo ${{ steps.package-version.outputs.current-version}}
       - name: Update deployment url in artifact
         uses: jossef/action-set-json-field@v2
         with:
