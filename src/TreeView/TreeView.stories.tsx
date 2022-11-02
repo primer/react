@@ -678,6 +678,7 @@ export const NestedScrollContainer: Story = () => {
             Directory {i}
             <TreeView.SubTree>
               {Array.from({length: 10}).map((_, j) => (
+                // eslint-disable-next-line no-console
                 <TreeView.Item key={j} onSelect={() => console.log(`Directory ${i}/File ${j}`)}>
                   <TreeView.LeadingVisual>
                     <FileIcon />
