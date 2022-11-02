@@ -4,8 +4,7 @@ import {BaseStyles, ThemeProvider} from '..'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 import {CodeIcon, GitPullRequestIcon, PeopleIcon} from '@primer/octicons-react'
-
-const icons = {CodeIcon, GitPullRequestIcon, PeopleIcon}
+import {OcticonArgType} from '../utils/story-helpers'
 
 export default {
   title: 'Drafts/Components/UnderlineNav/UnderlineNav.Item',
@@ -41,13 +40,7 @@ export default {
     counter: {
       type: 'string'
     },
-    icon: {
-      options: Object.keys(icons),
-      control: {
-        type: 'select'
-      },
-      mapping: icons
-    }
+    icon: OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon])
   }
 } as Meta<typeof UnderlineNavItem>
 
