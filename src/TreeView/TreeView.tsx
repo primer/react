@@ -218,6 +218,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           onFocus={event => {
             // Scroll the first child into view when the item receives focus
             event.currentTarget.firstElementChild?.scrollIntoView({block: 'nearest', inline: 'nearest'})
+
+            // Prevent focus event from bubbling up to parent items
+            event.stopPropagation()
           }}
           sx={{
             outline: 'none',
