@@ -141,7 +141,7 @@ describe('ChoiceInputField', () => {
 
   describe('warnings', () => {
     it('should warn users if they do not pass an input', async () => {
-      const consoleSpy = jest.spyOn(global.console, 'warn')
+      const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation(() => {})
       render(
         <SSRProvider>
           <ChoiceInputField>
@@ -151,11 +151,13 @@ describe('ChoiceInputField', () => {
         </SSRProvider>
       )
 
-      expect(consoleSpy).toHaveBeenCalled()
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'To correctly render this field with the correct ARIA attributes passed to the input, please pass the Checkbox or Radio component from @primer/react as a direct child of the ChoiceInputField component'
+      )
     })
 
     it('should warn users if they pass an id directly to the input', async () => {
-      const consoleSpy = jest.spyOn(global.console, 'warn')
+      const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation(() => {})
       render(
         <SSRProvider>
           <ChoiceInputField>
@@ -166,11 +168,13 @@ describe('ChoiceInputField', () => {
         </SSRProvider>
       )
 
-      expect(consoleSpy).toHaveBeenCalled()
+      expect(consoleSpy).toHaveBeenCalledWith(
+        `instead of passing the 'id' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`
+      )
     })
 
     it('should warn users if they pass a `disabled` prop directly to the input', async () => {
-      const consoleSpy = jest.spyOn(global.console, 'warn')
+      const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation(() => {})
       render(
         <SSRProvider>
           <ChoiceInputField>
@@ -181,11 +185,13 @@ describe('ChoiceInputField', () => {
         </SSRProvider>
       )
 
-      expect(consoleSpy).toHaveBeenCalled()
+      expect(consoleSpy).toHaveBeenCalledWith(
+        `instead of passing the 'disabled' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`
+      )
     })
 
     it('should warn users if they pass a `required` prop directly to the input', async () => {
-      const consoleSpy = jest.spyOn(global.console, 'warn')
+      const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation(() => {})
       render(
         <SSRProvider>
           <ChoiceInputField>
@@ -196,7 +202,9 @@ describe('ChoiceInputField', () => {
         </SSRProvider>
       )
 
-      expect(consoleSpy).toHaveBeenCalled()
+      expect(consoleSpy).toHaveBeenCalledWith(
+        `instead of passing the 'required' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`
+      )
     })
   })
 
