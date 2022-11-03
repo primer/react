@@ -136,7 +136,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        run: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/4"
+        run: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/1"
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
