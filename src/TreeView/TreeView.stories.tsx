@@ -440,7 +440,7 @@ export const AsyncWithCount: Story = args => {
               ))}
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.LinkItem href="#src">
+          <TreeView.Item>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
@@ -452,7 +452,7 @@ export const AsyncWithCount: Story = args => {
                 </TreeView.LeadingVisual>
                 Avatar.tsx
               </TreeView.LinkItem>
-              <TreeView.LinkItem href="#button" current>
+              <TreeView.Item current>
                 <TreeView.LeadingVisual>
                   <TreeView.DirectoryIcon />
                 </TreeView.LeadingVisual>
@@ -471,7 +471,7 @@ export const AsyncWithCount: Story = args => {
                     Button.test.tsx
                   </TreeView.LinkItem>
                 </TreeView.SubTree>
-              </TreeView.LinkItem>
+              </TreeView.Item>
               <TreeView.Item>
                 <TreeView.LeadingVisual>
                   <FileIcon />
@@ -479,7 +479,7 @@ export const AsyncWithCount: Story = args => {
                 ReallyLongFileNameThatShouldBeTruncated.tsx
               </TreeView.Item>
             </TreeView.SubTree>
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView>
       </nav>
     </Box>
@@ -661,6 +661,34 @@ export const EmptyDirectory: Story = () => {
           .github
           <TreeView.SubTree />
         </TreeView.Item>
+      </TreeView>
+    </Box>
+  )
+}
+
+export const NestedScrollContainer: Story = () => {
+  return (
+    <Box sx={{p: 3, maxWidth: 400, maxHeight: '50vh', overflow: 'auto'}}>
+      <TreeView aria-label="Files">
+        {Array.from({length: 100}).map((_, i) => (
+          <TreeView.Item key={i}>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory {i}
+            <TreeView.SubTree>
+              {Array.from({length: 10}).map((_, j) => (
+                // eslint-disable-next-line no-console
+                <TreeView.Item key={j} onSelect={() => console.log(`Directory ${i}/File ${j}`)}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  File {j}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        ))}
       </TreeView>
     </Box>
   )
