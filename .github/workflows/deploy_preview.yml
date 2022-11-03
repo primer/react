@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy-preview
     steps:
-      - name: "Checkout repository"
+      - name: 'Checkout repository'
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -43,7 +43,7 @@ jobs:
         uses: jossef/action-set-json-field@v2
         with:
           file: deployments.json
-          field: ${{ steps.package-version.outputs.current-version}}
+          field: '${{ steps.package-version.outputs.current-version}}'
           value: ${{needs['deploy-preview'].outputs.deployment_url}}
       - run: cat deployments.json
       - name: Upload file to artifacts
