@@ -622,6 +622,10 @@ export const StressTest: Story = () => {
   )
 }
 
+StressTest.parameters = {
+  chromatic: {disableSnapshot: true}
+}
+
 export const EmptyDirectory: Story = () => {
   const [state, setState] = React.useState<SubTreeState>('loading')
   const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
