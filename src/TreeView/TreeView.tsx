@@ -210,6 +210,11 @@ const UlBox = styled.ul<SxProp>`
     }
   }
 
+  .PRIVATE_TreeView-directory-icon {
+    display: grid;
+    color: ${get('colors.treeViewItem.directory.fill')};
+  }
+
   .PRIVATE_VisuallyHidden {
     position: absolute;
     width: 1px;
@@ -748,8 +753,12 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 
 const DirectoryIcon = () => {
   const {isExpanded} = React.useContext(ItemContext)
-  const icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
-  return <StyledOcticon icon={icon} color="treeViewItem.directory.fill" />
+  const Icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
+  return (
+    <div className="PRIVATE_TreeView-directory-icon">
+      <Icon />
+    </div>
+  )
 }
 
 // ----------------------------------------------------------------------------
