@@ -1,45 +1,27 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {ActionList} from '.'
-import {Item} from './Item'
+import {LinkItem} from './LinkItem'
 import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
 const icons = ['unset', 'TypographyIcon', 'VersionsIcon', 'SearchIcon', 'ArrowRightIcon', 'ArrowLeftIcon']
 
 export default {
-  title: 'Components/ActionList/Item',
-  component: Item,
+  title: 'Components/ActionList/LinkItem',
+  component: LinkItem,
   args: {
-    selected: false,
     active: false,
     disabled: false,
-    variant: 'default',
     role: 'listitem',
     id: 'item-1',
     leadingVisual: null,
     trailingVisual: null
   },
   argTypes: {
-    selected: {
-      control: {
-        type: 'boolean'
-      }
-    },
     active: {
       control: {
         type: 'boolean'
       }
-    },
-    disabled: {
-      control: {
-        type: 'boolean'
-      }
-    },
-    variant: {
-      control: {
-        type: 'radio'
-      },
-      options: ['default', 'danger']
     },
     role: {
       type: 'string'
@@ -59,22 +41,12 @@ export default {
       },
       options: icons
     },
-    // margin: { control: 'number', if: { arg: 'advanced' } },
-    selectionVariant: {
-      control: {
-        type: 'radio',
-        labels: ['single', 'multiple', 'unset'],
-        if: {arg: 'selected'}
-      },
-      options: [0, 1, 2],
-      mapping: ['single', 'multiple', null],
-      table: {
-        category: 'ActionList'
-      }
+    href: {
+      type: 'string'
     }
   }
   // parameters: {controls: {exclude: excludedControlKeys}}
-} as Meta<typeof Item>
+} as Meta<typeof LinkItem>
 
 // @ts-ignore ignoring types here to pass in options for icon selection in Storybook
 export const Playground = args => {
@@ -109,12 +81,12 @@ export const Playground = args => {
   }
 
   return (
-    <ActionList selectionVariant={args.selectionVariant}>
-      <ActionList.Item {...args}>
+    <ActionList>
+      <ActionList.LinkItem {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
-      </ActionList.Item>
+      </ActionList.LinkItem>
     </ActionList>
   )
 }
