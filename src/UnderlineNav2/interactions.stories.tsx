@@ -77,8 +77,8 @@ KeyboardNavigation.play = async ({canvasElement}: {canvasElement: HTMLElement}) 
 // @ts-ignore
 SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-  await delay(2000)
   canvasElement.style.width = '800px'
+  await delay(2000)
   const canvas = within(canvasElement)
   const moreBtn = canvas.getByText('More').closest('button') as HTMLButtonElement
   userEvent.hover(moreBtn)
