@@ -71,11 +71,13 @@ const UlBox = styled.ul<SxProp>`
    * We define styles for the tree items at the root level of the tree
    * to avoid recomputing the styles for each item when the tree updates.
    * We're sacraficing maintainability for performance because TreeView
-   * needs to be performant enough to handle large trees (thousands of items).
-   * Do NOT copy this pattern without understanding the tradeoffs.
+   * needs to be performant enough to handle large trees (thousands of items). 
    *
    * This is intended to be a temporary solution until we can improve the
    * performance of our styling patterns.
+   *
+   * Do NOT copy this pattern without understanding the tradeoffs.
+   * Do NOT reference PRIVATE_* classnames outside of this file.
    */
   .PRIVATE_TreeView-item {
     outline: none;
