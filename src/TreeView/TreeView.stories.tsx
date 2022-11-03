@@ -622,6 +622,11 @@ export const StressTest: Story = () => {
   )
 }
 
+StressTest.parameters = {
+  // disables Chromatic's snapshotting on a story level
+  chromatic: {disableSnapshot: true}
+}
+
 export const EmptyDirectory: Story = () => {
   const [state, setState] = React.useState<SubTreeState>('loading')
   const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
