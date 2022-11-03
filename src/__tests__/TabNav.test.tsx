@@ -17,7 +17,6 @@ describe('TabNav', () => {
         </TabNav.Link>
         <TabNav.Link id="middle" href="#" selected>
           Middle
-          <a href="https://example.com">Focuseable Link</a>
         </TabNav.Link>
         <TabNav.Link id="last" href="#">
           Last
@@ -103,16 +102,12 @@ describe('TabNav', () => {
     const user = userEvent.setup()
     const {getByText, getByRole} = HTMLRender(tabNavMarkup)
     const middleTab = getByText('Middle')
-    const link = getByText('Focuseable Link')
     const button = getByRole('button')
 
     await user.click(middleTab)
     expect(middleTab).toHaveFocus()
-    await user.tab()
 
-    expect(link).toHaveFocus()
     await user.tab()
-
     expect(button).toHaveFocus()
   })
 
