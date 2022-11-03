@@ -218,13 +218,16 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           onFocus={event => {
             // Scroll the first child into view when the item receives focus
             event.currentTarget.firstElementChild?.scrollIntoView({block: 'nearest', inline: 'nearest'})
+
+            // Prevent focus event from bubbling up to parent items
+            event.stopPropagation()
           }}
           sx={{
             outline: 'none',
             '&:focus-visible > div': {
-              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.emphasis}`,
+              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.fg}`,
               '@media (forced-colors: active)': {
-                outline: '2px solid SelectedItem',
+                outline: '2px solid HighlightText',
                 outlineOffset: -2
               }
             }
@@ -272,7 +275,10 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                     height: '24px',
                     content: '""',
                     bg: 'accent.fg',
-                    borderRadius: 2
+                    borderRadius: 2,
+                    '@media (forced-colors: active)': {
+                      backgroundColor: 'HighlightText'
+                    }
                   }
                 }
               },
@@ -422,8 +428,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
   const [isLoadingItemVisible, setIsLoadingItemVisible] = React.useState(false)
-  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
-  const timeoutId = React.useRef<number>(0)
+  const {safeSetTimeout} = useSafeTimeout()
   const loadingItemRef = React.useRef<HTMLElement>(null)
   const ref = React.useRef<HTMLElement>(null)
 
@@ -461,14 +466,12 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
     }
   }, [state, itemId, announceUpdate, safeSetTimeout])
 
-  // Show loading indicator after a short delay
+  // Manage loading indicator state
   React.useEffect(() => {
     // If we're in the loading state, but not showing the loading indicator yet,
-    // start a timer to show the loading indicator after a short delay.
+    // show the loading indicator
     if (state === 'loading' && !isLoadingItemVisible) {
-      timeoutId.current = safeSetTimeout(() => {
-        setIsLoadingItemVisible(true)
-      }, 300)
+      setIsLoadingItemVisible(true)
     }
 
     // If we're not in the loading state, but we're still showing a loading indicator,
@@ -476,11 +479,10 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
     if (state !== 'loading' && isLoadingItemVisible) {
       const isLoadingItemFocused = document.activeElement === loadingItemRef.current
 
-      safeClearTimeout(timeoutId.current)
       setIsLoadingItemVisible(false)
 
       if (isLoadingItemFocused) {
-        setTimeout(() => {
+        safeSetTimeout(() => {
           const parentElement = document.getElementById(itemId)
           if (!parentElement) return
 
@@ -494,7 +496,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
         })
       }
     }
-  }, [state, safeSetTimeout, safeClearTimeout, isLoadingItemVisible, itemId])
+  }, [state, safeSetTimeout, isLoadingItemVisible, itemId])
 
   if (!isExpanded) {
     return null
@@ -716,7 +718,7 @@ const ErrorDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', child
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       onKeyDown={event => {
-        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
+        if (['Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter'].includes(event.key)) {
           // Prevent keyboard events from bubbling up to the TreeView
           // and interfering with keyboard navigation
           event.stopPropagation()
