@@ -13,7 +13,6 @@ import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import {useControllableState} from '../hooks/useControllableState'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import Spinner from '../Spinner'
-import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
 import createSlots from '../utils/create-slots'
@@ -117,6 +116,15 @@ const UlBox = styled.ul<SxProp>`
     @media (pointer: coarse) {
       --toggle-width: 1.5rem; /* 24px */
       min-height: 2.75rem; /* 44px */
+    }
+
+    &:has(.PRIVATE_TreeView-item-skeleton):hover {
+      background-color: transparent;
+      cursor: default;
+
+      @media (forced-colors: active) {
+        outline: none;
+      }
     }
   }
 
@@ -275,7 +283,7 @@ export type TreeViewItemProps = {
   expanded?: boolean
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
-} & SxProp
+}
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
@@ -582,7 +590,7 @@ const shimmer = keyframes`
   to { mask-position: 0%; }
 `
 
-const SkeletonItem = styled.span`
+const SkeletonItem = styled.span.attrs({className: 'PRIVATE_TreeView-item-skeleton'})`
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
@@ -656,18 +664,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>((props, ref)
 
   if (count) {
     return (
-      <Item
-        ref={ref}
-        sx={{
-          '&:hover': {
-            backgroundColor: 'transparent',
-            cursor: 'default',
-            '@media (forced-colors: active)': {
-              outline: 'none'
-            }
-          }
-        }}
-      >
+      <Item ref={ref}>
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
