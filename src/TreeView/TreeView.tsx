@@ -17,7 +17,6 @@ import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
 import createSlots from '../utils/create-slots'
-import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
@@ -208,6 +207,18 @@ const UlBox = styled.ul<SxProp>`
     }
   }
 
+  .PRIVATE_VisuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
   ${sx}
 `
 
@@ -233,9 +244,9 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   return (
     <RootContext.Provider value={{announceUpdate}}>
       <>
-        <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
+        <div className="PRIVATE_VisuallyHidden" role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
-        </VisuallyHidden>
+        </div>
         <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
           {children}
         </UlBox>
@@ -652,7 +663,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>((props, ref)
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
-        <VisuallyHidden>Loading {count} items</VisuallyHidden>
+        <div className="PRIVATE_VisuallyHidden">Loading {count} items</div>
       </Item>
     )
   }
@@ -700,9 +711,9 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="LeadingVisual">
-      <VisuallyHidden aria-hidden={true} id={leadingVisualId}>
+      <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={leadingVisualId}>
         {props.label}
-      </VisuallyHidden>
+      </div>
       <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
       </div>
@@ -717,9 +728,9 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="TrailingVisual">
-      <VisuallyHidden aria-hidden={true} id={trailingVisualId}>
+      <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={trailingVisualId}>
         {props.label}
-      </VisuallyHidden>
+      </div>
       <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
       </div>
