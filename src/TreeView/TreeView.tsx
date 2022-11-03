@@ -66,11 +66,18 @@ const UlBox = styled.ul<SxProp>`
   margin: 0;
 
   /*
-    Performance optimization:
-    We define styles for the tree items at the root level of the tree
-    to avoid having to recompute styles for each item when the tree updates.
-  */
-  [role='treeitem'] {
+   * WARNING: This is a performance optimization.
+   *
+   * We define styles for the tree items at the root level of the tree
+   * to avoid recomputing the styles for each item when the tree updates.
+   * We're sacraficing maintainability for performance because TreeView
+   * needs to be performant enough to handle large trees (thousands of items).
+   * Do NOT copy this pattern without understanding the tradeoffs.
+   *
+   * This is intended to be a temporary solution until we can improve the
+   * performance of our styling patterns.
+   */
+  .PRIVATE_TreeView-item {
     outline: none;
 
     &:focus-visible > div {
@@ -82,7 +89,7 @@ const UlBox = styled.ul<SxProp>`
     }
   }
 
-  .TreeView-item-container {
+  .PRIVATE_TreeView-item-container {
     --level: 1; /* default level */
     --toggle-width: 1rem; /* 16px */
     position: relative;
@@ -111,7 +118,7 @@ const UlBox = styled.ul<SxProp>`
     }
   }
 
-  [role='treeitem'][aria-current='true'] > .TreeView-item-container {
+  .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
     background-color: ${get('colors.actionListItem.default.selectedBg')};
 
     /* Current item indicator */
@@ -131,7 +138,7 @@ const UlBox = styled.ul<SxProp>`
     }
   }
 
-  .TreeView-item-toggle {
+  .PRIVATE_TreeView-item-toggle {
     grid-area: toggle;
     display: flex;
     align-items: center;
@@ -140,16 +147,16 @@ const UlBox = styled.ul<SxProp>`
     color: ${get('colors.fg.muted')};
   }
 
-  .TreeView-item-toggle--hover:hover {
+  .PRIVATE_TreeView-item-toggle--hover:hover {
     background-color: ${get('colors.treeViewItem.chevron.hoverBg')};
   }
 
-  .TreeView-item-toggle--end {
+  .PRIVATE_TreeView-item-toggle--end {
     border-top-left-radius: ${get('radii.2')};
     border-bottom-left-radius: ${get('radii.2')};
   }
 
-  .TreeView-item-content {
+  .PRIVATE_TreeView-item-content {
     grid-area: content;
     display: flex;
     align-items: center;
@@ -158,7 +165,7 @@ const UlBox = styled.ul<SxProp>`
     gap: ${get('space.2')};
   }
 
-  .TreeView-item-content-text {
+  .PRIVATE_TreeView-item-content-text {
     /* Truncate text label */
     flex: 1 1 auto;
     width: 0;
@@ -167,36 +174,36 @@ const UlBox = styled.ul<SxProp>`
     text-overflow: ellipsis;
   }
 
-  .TreeView-item-visual {
+  .PRIVATE_TreeView-item-visual {
     display: flex;
     color: ${get('colors.fg.muted')};
   }
 
-  .TreeView-item-level-line {
+  .PRIVATE_TreeView-item-level-line {
     width: 100%;
     height: 100%;
     border-right: 1px solid;
 
     /*
-      On devices without hover, the nesting indicator lines
-      appear at all times.
-    */
+     * On devices without hover, the nesting indicator lines
+     * appear at all times.
+     */
     border-color: ${get('colors.border.subtle')};
   }
 
   /*
-    On devices with :hover support, the nesting indicator lines
-    fade in when the user mouses over the entire component,
-    or when there's focus inside the component. This makes
-    sure the component remains simple when not in use.
-  */
+   * On devices with :hover support, the nesting indicator lines
+   * fade in when the user mouses over the entire component,
+   * or when there's focus inside the component. This makes
+   * sure the component remains simple when not in use.
+   */
   @media (hover: hover) {
-    .TreeView-item-level-line {
+    .PRIVATE_TreeView-item-level-line {
       border-color: transparent;
     }
 
-    &:hover .TreeView-item-level-line,
-    &:focus-within .TreeView-item-level-line {
+    &:hover .PRIVATE_TreeView-item-level-line,
+    &:focus-within .PRIVATE_TreeView-item-level-line {
       border-color: ${get('colors.border.subtle')};
     }
   }
@@ -332,6 +339,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
         <li
+          className="PRIVATE_TreeView-item"
           ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
           id={itemId}
@@ -352,7 +360,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         >
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div
-            className="TreeView-item-container"
+            className="PRIVATE_TreeView-item-container"
             style={{
               // @ts-ignore CSS custom property
               '--level': level
@@ -372,9 +380,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
                 className={classnames(
-                  'TreeView-item-toggle',
-                  onSelect && 'TreeView-item-toggle--hover',
-                  level === 1 && 'TreeView-item-toggle--end'
+                  'PRIVATE_TreeView-item-toggle',
+                  onSelect && 'PRIVATE_TreeView-item-toggle--hover',
+                  level === 1 && 'PRIVATE_TreeView-item-toggle--end'
                 )}
                 onClick={event => {
                   if (onSelect) {
@@ -385,12 +393,12 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
               </div>
             ) : null}
-            <div id={labelId} className="TreeView-item-content">
+            <div id={labelId} className="PRIVATE_TreeView-item-content">
               <Slots>
                 {slots => (
                   <>
                     {slots.LeadingVisual}
-                    <span className="TreeView-item-content-text">{childrenWithoutSubTree}</span>
+                    <span className="PRIVATE_TreeView-item-content-text">{childrenWithoutSubTree}</span>
                     {slots.TrailingVisual}
                   </>
                 )}
@@ -409,7 +417,7 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
   return (
     <div style={{width: '100%', display: 'flex'}}>
       {Array.from({length: level - 1}).map((_, index) => (
-        <div key={index} className="TreeView-item-level-line" />
+        <div key={index} className="PRIVATE_TreeView-item-level-line" />
       ))}
     </div>
   )
@@ -695,7 +703,7 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
       <VisuallyHidden aria-hidden={true} id={leadingVisualId}>
         {props.label}
       </VisuallyHidden>
-      <div className="TreeView-item-visual" aria-hidden={true}>
+      <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
       </div>
     </Slot>
@@ -712,7 +720,7 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
       <VisuallyHidden aria-hidden={true} id={trailingVisualId}>
         {props.label}
       </VisuallyHidden>
-      <div className="TreeView-item-visual" aria-hidden={true}>
+      <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
       </div>
     </Slot>
