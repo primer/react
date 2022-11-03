@@ -1,15 +1,36 @@
+import React from 'react'
 import {Meta} from '@storybook/react'
 import {within, userEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
-import {OverflowBehaviour, KeepSelectedItemVisible} from './features.stories'
+import {Template} from './features.stories'
 
 export default {
   title: 'Drafts/Components/UnderlineNav/Interactions'
 } as Meta
 
+const SelectAMenuItem = () => {
+  return <Template initialSelectedIndex={1} />
+}
+
+SelectAMenuItem.parameters = {
+  viewport: {
+    viewports: {
+      narrowScreen: {
+        name: 'Narrow Screen',
+        styles: {
+          width: '800px',
+          height: '100%'
+        }
+      }
+    },
+    defaultViewport: 'narrowScreen'
+  },
+  // disables Chromatic's snapshotting on a story level - chromatic doesn't respect storybook viewport changes
+  chromatic: {disableSnapshot: true}
+}
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-OverflowBehaviour.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
   await delay(2000)
   const canvas = within(canvasElement)
@@ -50,6 +71,14 @@ OverflowBehaviour.play = async ({canvasElement}: {canvasElement: HTMLElement}) =
   expect(lastListItem).toEqual(menuListItem)
 }
 
+const KeepSelectedItemVisible = () => {
+  return <Template initialSelectedIndex={7} />
+}
+
+KeepSelectedItemVisible.parameters = {
+  // disables Chromatic's snapshotting on a story level
+  chromatic: {disableSnapshot: true}
+}
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
@@ -73,4 +102,5 @@ KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLEleme
   expect(selectedItem).toHaveAttribute('aria-current', 'page')
   canvasElement.style.width = '500px'
 }
-export {OverflowBehaviour, KeepSelectedItemVisible}
+
+export {SelectAMenuItem, KeepSelectedItemVisible}

@@ -73,9 +73,8 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
   {navigation: 'Security', icon: ShieldLockIcon, href: '#security'}
 ]
 
-export const OverflowBehaviour = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
-
+export const Template = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(initialSelectedIndex)
   return (
     <UnderlineNav aria-label="Repository">
       {items.map((item, index) => (
@@ -95,6 +94,10 @@ export const OverflowBehaviour = () => {
       ))}
     </UnderlineNav>
   )
+}
+
+export const OverflowBehaviour = () => {
+  return <Template initialSelectedIndex={1} />
 }
 
 OverflowBehaviour.parameters = {
