@@ -143,7 +143,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
-          name: report-${{ matrix.shard }}
+          name: vrt-${{ matrix.shard }}
           path: .playwright/report
 
   vrt:
@@ -187,5 +187,5 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
-          name: report
+          name: avt
           path: .playwright/report
