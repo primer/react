@@ -13,26 +13,15 @@ const SelectAMenuItem = () => {
 }
 
 SelectAMenuItem.parameters = {
-  viewport: {
-    viewports: {
-      narrowScreen: {
-        name: 'Narrow Screen',
-        styles: {
-          width: '800px',
-          height: '100%'
-        }
-      }
-    },
-    defaultViewport: 'narrowScreen'
-  },
   // disables Chromatic's snapshotting on a story level - chromatic doesn't respect storybook viewport changes
-  chromatic: {disableSnapshot: true}
+  // chromatic: {disableSnapshot: true}
 }
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
   await delay(2000)
+  canvasElement.style.width = '800px'
   const canvas = within(canvasElement)
   const firstItem = canvas.getByText('Code').closest('a') as HTMLAnchorElement
   firstItem.focus()
@@ -77,7 +66,7 @@ const KeepSelectedItemVisible = () => {
 
 KeepSelectedItemVisible.parameters = {
   // disables Chromatic's snapshotting on a story level
-  chromatic: {disableSnapshot: true}
+  // chromatic: {disableSnapshot: true}
 }
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
