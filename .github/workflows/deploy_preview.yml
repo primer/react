@@ -38,7 +38,11 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
       - run: echo ${{ steps.package-version.outputs.current-version}}
-      - run: echo {} > deployments.json
+      - name: Download deployments.json from artefact
+        uses: actions/download-artifact@v3
+        with:
+          name: deployments.json
+      - run: cat deployments.json
       - name: Update deployment url in artifact
         uses: jossef/action-set-json-field@v2
         with:
