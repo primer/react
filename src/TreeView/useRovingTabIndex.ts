@@ -5,7 +5,7 @@ export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject
   // TODO: Initialize focus to the aria-current item if it exists
   useFocusZone({
     containerRef,
-    bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Backspace,
     preventScroll: true,
     getNextFocusable: (direction, from, event) => {
       if (!(from instanceof HTMLElement)) return
@@ -56,6 +56,9 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
     case 'ArrowDown':
       // Focus next visible element
       return getVisibleElement(activeElement, 'next')
+
+    case 'Backspace':
+      return getParentElement(activeElement)
 
     case 'Home':
       // Focus first visible element

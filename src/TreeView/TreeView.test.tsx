@@ -580,6 +580,64 @@ describe('Keyboard interactions', () => {
     })
   })
 
+  describe('Backspace', () => {
+    it('should move focus to the parent item', () => {
+      const {getByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+
+      const parentItem = getByRole('treeitem', {name: 'Parent'})
+      const child = getByRole('treeitem', {name: 'Child'})
+      child.focus()
+
+      // Press Backspace
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+
+      expect(parentItem).toHaveFocus()
+    })
+
+    it('should not collapse an expanded item', () => {
+      const {getByRole, queryByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item defaultExpanded>
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item>Child</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>
+      )
+
+      const parentItem = getByRole('treeitem', {name: 'Parent'})
+      const subtree = queryByRole('group')
+
+      // aria-expanded should be true
+      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+      // Subtree should be visible
+      expect(subtree).toBeVisible()
+
+      // Focus first item
+      parentItem.focus()
+
+      // Press Backspace
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
+
+      // aria-expanded should stay set as true
+      expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+      // Parent item should still be focused
+      expect(parentItem).toHaveFocus()
+    })
+  })
+
   describe('Home', () => {
     it('moves focus to first visible item', () => {
       const {getByRole} = renderWithTheme(
@@ -1107,6 +1165,12 @@ describe('Asyncronous loading', () => {
 
     // Press ←
     fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
+
+    // Parent item should still be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+    // Press Backspace
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Backspace'})
 
     // Parent item should still be expanded
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')

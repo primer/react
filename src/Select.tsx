@@ -87,10 +87,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         disabled={disabled}
         aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         data-hasplaceholder={Boolean(placeholder)}
+        defaultValue={placeholder ?? undefined}
         {...rest}
       >
         {placeholder && (
-          <option value="" disabled={required} selected hidden={required}>
+          <option value="" disabled={required} hidden={required}>
             {placeholder}
           </option>
         )}
