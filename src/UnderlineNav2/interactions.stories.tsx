@@ -12,13 +12,12 @@ const SelectAMenuItem = () => {
   return <Template initialSelectedIndex={1} />
 }
 
-SelectAMenuItem.parameters = {
-  // disables Chromatic's snapshotting on a story level - chromatic doesn't respect storybook viewport changes
-  // chromatic: {disableSnapshot: true}
+const KeyboardNavigation = () => {
+  return <Template initialSelectedIndex={1} />
 }
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+
+KeyboardNavigation.storyName = 'Keyboard navigation'
+KeyboardNavigation.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
   await delay(2000)
   canvasElement.style.width = '800px'
@@ -38,7 +37,7 @@ SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => 
   await userEvent.keyboard('{ArrowRight}')
   await delay(500)
   // current focus element
-  const activeElement = document.activeElement
+  let activeElement = document.activeElement
   // check if the active element is the more button
   expect(activeElement).toHaveTextContent('More')
   // Open the more Menu
@@ -58,22 +57,57 @@ SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => 
   const menuListItem = canvas.getByText('Settings').closest('li') as HTMLLIElement
   // expect Settings be the last element on the list.
   expect(lastListItem).toEqual(menuListItem)
+  userEvent.keyboard('{ArrowLeft}')
+  await delay(500)
+  userEvent.keyboard('{ArrowLeft}')
+  await delay(500)
+  userEvent.keyboard('{ArrowLeft}')
+  await delay(500)
+  userEvent.keyboard('{ArrowLeft}')
+  await delay(500)
+  userEvent.keyboard('{ArrowLeft}')
+  await delay(500)
+  // current focus element
+  activeElement = document.activeElement
+  userEvent.keyboard('{Enter}')
+  expect(activeElement).toHaveTextContent('Pull Requests')
+}
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
+  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+  await delay(2000)
+  canvasElement.style.width = '800px'
+  const canvas = within(canvasElement)
+  const moreBtn = canvas.getByText('More').closest('button') as HTMLButtonElement
+  userEvent.hover(moreBtn)
+  await delay(1000)
+  userEvent.click(moreBtn)
+
+  await delay(1000)
+  let menuItem = canvas.getByText('Settings').closest('a') as HTMLAnchorElement
+  userEvent.click(menuItem)
+
+  expect(moreBtn).toHaveFocus()
+  menuItem = canvas.getByText('Settings').closest('a') as HTMLAnchorElement
+
+  expect(menuItem).toHaveAttribute('aria-current', 'page')
+  const lastListItem = canvas.getByRole('list').children[5]
+  const menuListItem = canvas.getByText('Settings').closest('li') as HTMLLIElement
+  // expect Settings be the last element on the list.
+  expect(lastListItem).toEqual(menuListItem)
 }
 
 const KeepSelectedItemVisible = () => {
   return <Template initialSelectedIndex={7} />
-}
-
-KeepSelectedItemVisible.parameters = {
-  // disables Chromatic's snapshotting on a story level
-  // chromatic: {disableSnapshot: true}
 }
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
   const canvas = within(canvasElement)
-  await delay(2000)
+  // await delay(2000)
   const selectedItem = canvas.getByText('Settings').closest('a') as HTMLAnchorElement
   expect(selectedItem).toHaveAttribute('aria-current', 'page')
   // change viewport
@@ -92,4 +126,4 @@ KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLEleme
   canvasElement.style.width = '500px'
 }
 
-export {SelectAMenuItem, KeepSelectedItemVisible}
+export {KeyboardNavigation, SelectAMenuItem, KeepSelectedItemVisible}
