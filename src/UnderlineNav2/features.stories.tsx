@@ -113,6 +113,30 @@ OverflowBehaviour.parameters = {
   }
 }
 
+export const KeepSelectedItemVisible = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(7)
+
+  return (
+    <UnderlineNav aria-label="Repository">
+      {items.map((item, index) => (
+        <UnderlineNav.Item
+          key={item.navigation}
+          icon={item.icon}
+          selected={index === selectedIndex}
+          onSelect={event => {
+            event.preventDefault()
+            setSelectedIndex(index)
+          }}
+          counter={item.counter}
+          href={item.href}
+        >
+          {item.navigation}
+        </UnderlineNav.Item>
+      ))}
+    </UnderlineNav>
+  )
+}
+
 export const CountersLoadingState = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
