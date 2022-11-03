@@ -17,6 +17,7 @@ import StyledOcticon from '../StyledOcticon'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
 import createSlots from '../utils/create-slots'
+import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
@@ -244,9 +245,9 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   return (
     <RootContext.Provider value={{announceUpdate}}>
       <>
-        <div className="PRIVATE_VisuallyHidden" role="status" aria-live="polite" aria-atomic="true">
+        <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
-        </div>
+        </VisuallyHidden>
         <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
           {children}
         </UlBox>
