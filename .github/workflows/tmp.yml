@@ -20,7 +20,7 @@ jobs:
             const fs = require('fs')
             const fileName = 'CHANGELOG.md'
 
-            const contentToInsert = '\n### [Permalink to documentation](${github.run_id})\n'
+            const contentToInsert = '\n### [Permalink to documentation](${{github.run_id}})\n'
             const originalContents = fs.readFileSync(fileName, 'utf8')
 
             let modifiedContents = originalContents.split('\n')
