@@ -156,8 +156,6 @@
   children:
     - title: Dialog v2
       url: /drafts/Dialog
-    - title: Hidden
-      url: /Hidden
     - title: InlineAutocomplete
       url: /drafts/InlineAutocomplete
     - title: MarkdownEditor
