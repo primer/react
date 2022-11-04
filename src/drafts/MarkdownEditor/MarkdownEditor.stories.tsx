@@ -7,7 +7,7 @@ import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
 const meta: Meta = {
-  title: 'Components/Forms/MarkdownEditor',
+  title: 'Drafts/Components/MarkdownEditor',
   decorators: [
     Story => {
       return (
