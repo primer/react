@@ -24,11 +24,8 @@ jobs:
         with:
           path: deployments.json
           key: deployments.json
+      - run: echo cache-hit ${{steps.cached.outputs.cache-hit}}
       - run: cat deployments.json
-        continue-on-error: true
-      - name: Create deployments.json if it's not in cache
-        if: steps.cached.outputs.cache-hit != 'true'
-        run: echo {} > deployments.json
 
       # add deployment url
       - name: get-npm-version
@@ -42,11 +39,3 @@ jobs:
           field: '${{ steps.package-version.outputs.current-version}}'
           value: ${{'TODO' || needs['deploy-preview'].outputs.deployment_url}}
       - run: cat deployments.json
-
-      # update cache
-      - name: Cached deployments.json
-        uses: actions/cache@v3
-        with:
-          path: deployments.json
-          key: deployments.json-${{ github.run_id }}
-          restore-keys: deployments.json
