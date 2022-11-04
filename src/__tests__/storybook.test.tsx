@@ -1,25 +1,30 @@
-import fs from 'fs'
+import path from 'node:path'
 import glob from 'fast-glob'
 
+const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 // Components opted into the new story format
 const components = ['TreeView']
-
-const storyFiles = glob
-  .sync('src/**/*.stories.tsx')
+const stories = glob
+  .sync('src/**/*.stories.tsx', {
+    cwd: ROOT_DIRECTORY
+  })
   .filter(file => components.some(component => file.includes(component)))
   .filter(file => !file.endsWith('.features.stories.tsx'))
-
-for (const storyFile of storyFiles) {
-  describe(`${storyFile}`, () => {
-    const storyFileContents = fs.readFileSync(storyFile, 'utf8')
-
-    test('exports a Default story', () => {
-      expect(storyFileContents).toMatch(/export const Default/)
-    })
-
-    test('Default story does not use args', () => {
-      expect(storyFileContents).not.toMatch(/Default\.args = /)
-      expect(storyFileContents).not.toMatch(/Default\.argTypes = /)
-    })
+  .map(file => {
+    const filepath = path.join(ROOT_DIRECTORY, file)
+    return [path.basename(file, '.stories.tsx'), require(filepath)]
   })
-}
+
+describe.each(stories)('%s', (_component, mod) => {
+  it('should have a `Default` story', () => {
+    expect(mod.Default).toBeDefined()
+  })
+
+  it('should not set `args` on the `Default` story', () => {
+    expect(mod.Default.args).not.toBeDefined()
+  })
+
+  it('should not set `argTypes` on the `Default` story', () => {
+    expect(mod.Default.argTypes).not.toBeDefined()
+  })
+})
