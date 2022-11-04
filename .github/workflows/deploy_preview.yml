@@ -47,6 +47,6 @@ jobs:
       - name: Cached deployments.json
         uses: actions/cache@v3
         with:
-          path: deplyoments.json
-          key: deplyments.json-${{ github.run_id }}
+          path: deployments.json
+          key: deployments.json-${{ github.run_id }}
           restore-keys: deployments.json
