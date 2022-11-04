@@ -22,7 +22,7 @@ const meta: Meta = {
 export const Default: Story = () => (
   <nav aria-label="Files changed">
     <TreeView aria-label="Files changed">
-      <TreeView.Item>
+      <TreeView.Item defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
