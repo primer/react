@@ -63,11 +63,11 @@ jobs:
             fs.writeFileSync(fileName, modifiedContents)
 
       - id: get-current-sha
-        uses: actions/github-script@0.9.0
+        uses: actions/github-script@v5
         with:
           script: |
-            const sha = ${{github.sha}}
-            core.setOutput('sha', sha.slice(0,7))
+            const shortSha = '${{github.sha}}'.slice(0,7)
+            core.setOutput('sha', shortSha)
       - uses: EndBug/add-and-commit@v4
         with:
           add: 'CHANGELOG.md'
