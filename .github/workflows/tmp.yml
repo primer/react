@@ -1,0 +1,20 @@
+name: Temporary
+on:
+  pull_request:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  get_cached_value:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo 'hello' > CHANGELOG.md
+      - uses: EndBug/add-and-commit@v4
+        with:
+          add: 'CHANGELOG.md'
+          message: 'test commit'
+          author_email: actions@github.com
