@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: date > changelog.md
+      - run: echo 'hello' > CHANGELOG.md
       - uses: EndBug/add-and-commit@v4
         with:
           add: 'CHANGELOG.md'
