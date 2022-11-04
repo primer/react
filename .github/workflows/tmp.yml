@@ -17,3 +17,4 @@ jobs:
         with:
           commit_message: "[skip actions] Empty commit"
           commit_options: '--allow-empty'
+          file_pattern: 'CHANGELOG.md'
