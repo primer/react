@@ -48,7 +48,7 @@ jobs:
       - uses: EndBug/add-and-commit@v4
         with:
           add: 'CHANGELOG.md'
-          message: 'test commit'
+          message: 'Update permalink to documentation in CHANGELOG.md'
           author_email: actions@github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
