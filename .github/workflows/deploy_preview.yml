@@ -34,24 +34,36 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          
+      # setup    
+      - name: Get cached deployments.json
+        uses: actions/cache@v3
+        id: cached
+        with:
+          path: deplyoments.json
+          key: deplyments.json
+      - run: cat deployments.json
+      - name: Create deployments.json if it's not in cache
+        if: steps.cached.outputs.cache-hit != 'true'
+        run: echo {} > deployments.json
+
+      # add deployment url
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
       - run: echo ${{ steps.package-version.outputs.current-version}}
-      - name: Download deployments.json from artefact
-        uses: actions/download-artifact@v3
-        with:
-          name: deployments.json
-      - run: cat deployments.json
-      - name: Update deployment url in artifact
+      - name: Update deployment url in deployments.json
         uses: jossef/action-set-json-field@v2
         with:
           file: deployments.json
           field: '${{ steps.package-version.outputs.current-version}}'
           value: ${{needs['deploy-preview'].outputs.deployment_url}}
       - run: cat deployments.json
-      - name: Upload file to artifacts
-        uses: actions/upload-artifact@v3
+
+      # update cache
+      - name: Cached deployments.json
+        uses: actions/cache@v3
         with:
-          name: deployments.json
-          path: deployments.json
+          path: deplyoments.json
+          key: deplyments.json-${{ github.run_id }}
+          restore-keys: deployments.json
