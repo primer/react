@@ -15,16 +15,16 @@ const stories = glob
     return [path.basename(file, '.stories.tsx'), require(filepath)]
   })
 
-describe.each(stories)('%s', (_component, mod) => {
+describe.each(stories)('%s', (_component, story) => {
   it('should have a `Default` story', () => {
-    expect(mod.Default).toBeDefined()
+    expect(story.Default).toBeDefined()
   })
 
   it('should not set `args` on the `Default` story', () => {
-    expect(mod.Default.args).not.toBeDefined()
+    expect(story.Default.args).not.toBeDefined()
   })
 
   it('should not set `argTypes` on the `Default` story', () => {
-    expect(mod.Default.argTypes).not.toBeDefined()
+    expect(story.Default.argTypes).not.toBeDefined()
   })
 })
