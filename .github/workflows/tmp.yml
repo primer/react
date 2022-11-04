@@ -12,9 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "anything to" > CHANGELOG.md
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "[skip actions] Empty commit"
-          commit_options: '--allow-empty'
-          file_pattern: 'CHANGELOG.md'
+      - run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
