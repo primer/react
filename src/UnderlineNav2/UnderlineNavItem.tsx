@@ -31,9 +31,9 @@ export type UnderlineNavItemProps = {
    */
   onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   /**
-   * Is the `Link` is currently selected?
+   * Is the `Link` current page?
    */
-  selected?: boolean
+  'aria-current'?: 'page' | undefined
   /**
    *  Icon before the text
    */
@@ -55,7 +55,7 @@ export const UnderlineNavItem = forwardRef(
       children,
       counter,
       onSelect,
-      selected: preSelected = false,
+      'aria-current': ariaCurrent,
       icon: Icon,
       ...props
     },
@@ -98,7 +98,14 @@ export const UnderlineNavItem = forwardRef(
 
       setChildrenWidth({text, width: domRect.width})
       setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
-      preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
+
+      if (
+        selectedLink === undefined &&
+        ariaCurrent !== undefined &&
+        ref.current?.getAttribute('aria-current') !== 'false'
+      ) {
+        setSelectedLink(ref as RefObject<HTMLElement>)
+      }
 
       // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
       if (selectedLinkText === text) {
@@ -108,7 +115,6 @@ export const UnderlineNavItem = forwardRef(
       }
     }, [
       ref,
-      preSelected,
       selectedLink,
       selectedLinkText,
       setSelectedLinkText,
@@ -116,7 +122,8 @@ export const UnderlineNavItem = forwardRef(
       setChildrenWidth,
       setNoIconChildrenWidth,
       onSelect,
-      selectEvent
+      selectEvent,
+      ariaCurrent
     ])
 
     const keyPressHandler = React.useCallback(
@@ -139,7 +146,6 @@ export const UnderlineNavItem = forwardRef(
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
-
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Box
@@ -149,8 +155,8 @@ export const UnderlineNavItem = forwardRef(
           onClick={clickHandler}
           {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
           sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
-          {...props}
           ref={ref}
+          {...props}
         >
           <Box as="div" data-component="wrapper" sx={wrapperStyles}>
             {iconsVisible && Icon && (

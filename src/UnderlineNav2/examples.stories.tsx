@@ -34,7 +34,7 @@ export default {
 export const DefaultNav = () => {
   return (
     <UnderlineNav aria-label="Repository">
-      <UnderlineNav.Item selected>Code</UnderlineNav.Item>
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
       <UnderlineNav.Item>Issues</UnderlineNav.Item>
       <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
     </UnderlineNav>
@@ -48,7 +48,7 @@ export const withIcons = () => {
       <UnderlineNav.Item icon={EyeIcon} counter={6}>
         Issues
       </UnderlineNav.Item>
-      <UnderlineNav.Item selected icon={GitPullRequestIcon}>
+      <UnderlineNav.Item aria-current="page" icon={GitPullRequestIcon}>
         Pull Requests
       </UnderlineNav.Item>
       <UnderlineNav.Item icon={CommentDiscussionIcon} counter={7}>
@@ -62,10 +62,8 @@ export const withIcons = () => {
 export const withCounterLabels = () => {
   return (
     <UnderlineNav aria-label="Repository with counters">
-      <UnderlineNav.Item selected icon={CodeIcon}>
-        Code
-      </UnderlineNav.Item>
-      <UnderlineNav.Item icon={IssueOpenedIcon} counter={12}>
+      <UnderlineNav.Item icon={CodeIcon}>Code</UnderlineNav.Item>
+      <UnderlineNav.Item aria-current="page" icon={IssueOpenedIcon} counter={12}>
         Issues
       </UnderlineNav.Item>
     </UnderlineNav>
@@ -85,18 +83,19 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
 ]
 
 export const InternalResponsiveNav = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
-
+  const currentHref = '#code'
   return (
     <UnderlineNav aria-label="Repository">
-      {items.map((item, index) => (
+      {items.map(item => (
         <UnderlineNav.Item
           key={item.navigation}
           icon={item.icon}
-          selected={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
+          aria-current={currentHref === item.href ? 'page' : undefined}
           counter={item.counter}
           href={item.href}
+          onSelect={e => {
+            e.preventDefault()
+          }}
         >
           {item.navigation}
         </UnderlineNav.Item>
@@ -106,17 +105,15 @@ export const InternalResponsiveNav = () => {
 }
 
 export const CountersLoadingState = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
-
+  const currentHref = '#code'
   return (
     <UnderlineNav aria-label="Repository with loading counters" loadingCounters={true}>
-      {items.map((item, index) => (
+      {items.map(item => (
         <UnderlineNav.Item
           key={item.navigation}
           icon={item.icon}
-          selected={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
           counter={item.counter}
+          aria-current={currentHref === item.href ? 'page' : undefined}
         >
           {item.navigation}
         </UnderlineNav.Item>
