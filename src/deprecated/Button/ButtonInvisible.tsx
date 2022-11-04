@@ -15,7 +15,7 @@ const ButtonInvisible = styled(ButtonBase)<ButtonBaseProps & SxProp>`
     color: ${get('colors.primer.fg.disabled')};
   }
   &:focus {
-    box-shadow: ${get('shadows.btn.focusShadow')};
+    outline: solid 2px ${get('colors.accent.fg')};
   }
   &:hover {
     background-color: ${get('colors.btn.hoverBg')};
