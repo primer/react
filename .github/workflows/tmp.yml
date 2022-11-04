@@ -11,11 +11,9 @@ jobs:
   get_cached_value:
     runs-on: ubuntu-latest
     steps:
-      - name: Get script
-        uses: actions/github-script@v6
-        id: my-script
-        with:
-          result-encoding: string
-          script: return "Hello!"
-      - name: Get result
-        run: echo "${{steps.set-result.outputs.result}}"
+      - uses: actions/checkout@v3
+
+      - name: commit
+        run: |
+          git commit -am --allow-empty "[skip actions] Empty commit"
+          git push origin HEAD
