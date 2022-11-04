@@ -1,8 +1,26 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
+import {viewports} from '../test-helpers/viewports'
 
 test.describe('UnderlineNav', () => {
+  Object.keys(viewports).forEach(key => {
+    themes.forEach(theme => {
+      test(`VRT @ ${key} (${viewports[key]}px) on ${theme} theme`, async ({page}) => {
+        await page.setViewportSize({width: viewports[key], height: 768})
+        await visit(page, {
+          id: 'components-underlinenav--internal-responsive-nav',
+          globals: {
+            colorScheme: theme
+          }
+        })
+        expect(await page.screenshot()).toMatchSnapshot()
+      })
+    })
+  })
+})
+
+test.describe('UnderlineNav Interaction', () => {
   test('Internal Responsive Nav', async ({page}) => {
     await visit(page, {
       id: 'components-underlinenav--internal-responsive-nav'
@@ -11,10 +29,7 @@ test.describe('UnderlineNav', () => {
     // Default state
     expect(await page.screenshot()).toMatchSnapshot()
 
-    await page.setViewportSize({
-      width: 640,
-      height: 480
-    })
+    await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
 
     // Resize
     expect(await page.screenshot()).toMatchSnapshot()
@@ -34,10 +49,7 @@ test.describe('UnderlineNav', () => {
     expect(await page.screenshot()).toMatchSnapshot()
 
     // Resize
-    await page.setViewportSize({
-      width: 1100,
-      height: 480
-    })
+    await page.setViewportSize({width: viewports['primer.breakpoint.md'], height: 768})
 
     // Icons should be hidden
     expect(await page.screenshot()).toMatchSnapshot()
@@ -130,34 +142,16 @@ test.describe('UnderlineNav keyboard Navigation', () => {
 })
 
 test.describe('UnderlineNav Loading Counters', () => {
-  test.describe('Wide Screen', () => {
+  Object.keys(viewports).forEach(key => {
     themes.forEach(theme => {
-      test(`${theme} theme @vrt`, async ({page}) => {
+      test(`VRT @ ${key} (${viewports[key]}px) on ${theme} theme`, async ({page}) => {
+        await page.setViewportSize({width: viewports[key], height: 768})
         await visit(page, {
           id: 'components-underlinenav--counters-loading-state',
           globals: {
             colorScheme: theme
           }
         })
-        expect(await page.screenshot()).toMatchSnapshot()
-      })
-    })
-  })
-  test.describe('Narrow Screen', () => {
-    themes.forEach(theme => {
-      test(`${theme} theme @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-underlinenav--counters-loading-state',
-          globals: {
-            colorScheme: theme
-          }
-        })
-        await page.setViewportSize({
-          width: 640,
-          height: 480
-        })
-
-        await page.getByRole('button', {name: 'More'}).click()
         expect(await page.screenshot()).toMatchSnapshot()
       })
     })
