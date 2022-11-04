@@ -27,6 +27,7 @@ jobs:
       build: npm run build:docs:preview
       output_dir: docs/public
   deployments_cache:
+    needs: deploy-preview
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout repository'
