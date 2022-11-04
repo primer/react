@@ -29,7 +29,7 @@ export const parameters = {
             [
               '*',
               // Within a set of stories, set the order to the following
-              ['*', 'Features', 'Examples']
+              ['*', 'Playground', /Playground$/, 'Features', 'Examples']
             ]
           ]
         ],
@@ -48,9 +48,17 @@ export const parameters = {
       function getPosition(order, item) {
         const position = order.findIndex(value => {
           if (Array.isArray(value)) {
-            return value[0] === item
+            if (typeof value[0] === 'string') {
+              return value[0] === item
+            }
+            return value[0].exec(item)
           }
-          return value === item
+
+          if (typeof value === 'string') {
+            return value === item
+          }
+
+          return value.exec(item)
         })
 
         if (position === -1) {
