@@ -12,12 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with: 
-          ref: tmp-store-deployments
-      - run: |
-          date > generated.txt
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "generated"
-          git push
+      - run: date > changelog.md
+      - uses: EndBug/add-and-commit@v4
+        with:
+          add: 'CHANGELOG.md'
+          message: 'test commit'
+          author_email: actions@github.com
