@@ -15,5 +15,5 @@ jobs:
 
       - name: commit
         run: |
-          git commit -am --allow-empty "[skip actions] Empty commit"
+          git commit --allow-empty -m "[skip actions] Empty commit"
           git push origin HEAD
