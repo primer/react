@@ -5,18 +5,16 @@ import {
   FileDirectoryOpenFillIcon
 } from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
+import classnames from 'classnames'
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
-import Box from '../Box'
-import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import {get} from '../constants'
+import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import {useControllableState} from '../hooks/useControllableState'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import Spinner from '../Spinner'
-import StyledOcticon from '../StyledOcticon'
-import sx, {SxProp, merge} from '../sx'
+import sx, {SxProp} from '../sx'
 import Text from '../Text'
-import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
@@ -61,7 +59,184 @@ export type TreeViewProps = {
   children: React.ReactNode
 }
 
-const UlBox = styled.ul<SxProp>(sx)
+const UlBox = styled.ul<SxProp>`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  /*
+   * WARNING: This is a performance optimization.
+   *
+   * We define styles for the tree items at the root level of the tree
+   * to avoid recomputing the styles for each item when the tree updates.
+   * We're sacraficing maintainability for performance because TreeView
+   * needs to be performant enough to handle large trees (thousands of items). 
+   *
+   * This is intended to be a temporary solution until we can improve the
+   * performance of our styling patterns.
+   *
+   * Do NOT copy this pattern without understanding the tradeoffs.
+   * Do NOT reference PRIVATE_* classnames outside of this file.
+   */
+  .PRIVATE_TreeView-item {
+    outline: none;
+
+    &:focus-visible > div {
+      box-shadow: inset 0 0 0 2px ${get(`colors.accent.fg`)};
+      @media (forced-colors: active) {
+        outline: 2px solid HighlightText;
+        outline-offset: -2;
+      }
+    }
+  }
+
+  .PRIVATE_TreeView-item-container {
+    --level: 1; /* default level */
+    --toggle-width: 1rem; /* 16px */
+    position: relative;
+    display: grid;
+    grid-template-columns: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2)) var(--toggle-width) 1fr;
+    grid-template-areas: 'spacer toggle content';
+    width: 100%;
+    min-height: 2rem; /* 32px */
+    font-size: ${get('fontSizes.1')};
+    color: ${get('colors.fg.default')};
+    border-radius: ${get('radii.2')};
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${get('colors.actionListItem.default.hoverBg')};
+
+      @media (forced-colors: active) {
+        outline: 2px solid transparent;
+        outline-offset: -2px;
+      }
+    }
+
+    @media (pointer: coarse) {
+      --toggle-width: 1.5rem; /* 24px */
+      min-height: 2.75rem; /* 44px */
+    }
+
+    &:has(.PRIVATE_TreeView-item-skeleton):hover {
+      background-color: transparent;
+      cursor: default;
+
+      @media (forced-colors: active) {
+        outline: none;
+      }
+    }
+  }
+
+  .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
+    background-color: ${get('colors.actionListItem.default.selectedBg')};
+
+    /* Current item indicator */
+    &::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 0.75rem); /* 50% - 12px */
+      left: -${get('space.2')};
+      width: 0.25rem; /* 4px */
+      height: 1.5rem; /* 24px */
+      background-color: ${get('colors.accent.fg')};
+      border-radius: ${get('radii.2')};
+
+      @media (forced-colors: active) {
+        background-color: HighlightText;
+      }
+    }
+  }
+
+  .PRIVATE_TreeView-item-toggle {
+    grid-area: toggle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: ${get('colors.fg.muted')};
+  }
+
+  .PRIVATE_TreeView-item-toggle--hover:hover {
+    background-color: ${get('colors.treeViewItem.chevron.hoverBg')};
+  }
+
+  .PRIVATE_TreeView-item-toggle--end {
+    border-top-left-radius: ${get('radii.2')};
+    border-bottom-left-radius: ${get('radii.2')};
+  }
+
+  .PRIVATE_TreeView-item-content {
+    grid-area: content;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 ${get('space.2')};
+    gap: ${get('space.2')};
+  }
+
+  .PRIVATE_TreeView-item-content-text {
+    /* Truncate text label */
+    flex: 1 1 auto;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .PRIVATE_TreeView-item-visual {
+    display: flex;
+    color: ${get('colors.fg.muted')};
+  }
+
+  .PRIVATE_TreeView-item-level-line {
+    width: 100%;
+    height: 100%;
+    border-right: 1px solid;
+
+    /*
+     * On devices without hover, the nesting indicator lines
+     * appear at all times.
+     */
+    border-color: ${get('colors.border.subtle')};
+  }
+
+  /*
+   * On devices with :hover support, the nesting indicator lines
+   * fade in when the user mouses over the entire component,
+   * or when there's focus inside the component. This makes
+   * sure the component remains simple when not in use.
+   */
+  @media (hover: hover) {
+    .PRIVATE_TreeView-item-level-line {
+      border-color: transparent;
+    }
+
+    &:hover .PRIVATE_TreeView-item-level-line,
+    &:focus-within .PRIVATE_TreeView-item-level-line {
+      border-color: ${get('colors.border.subtle')};
+    }
+  }
+
+  .PRIVATE_TreeView-directory-icon {
+    display: grid;
+    color: ${get('colors.treeViewItem.directory.fill')};
+  }
+
+  .PRIVATE_VisuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  ${sx}
+`
 
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -88,17 +263,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
         <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
         </VisuallyHidden>
-        <UlBox
-          ref={containerRef}
-          role="tree"
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledby}
-          sx={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 0
-          }}
-        >
+        <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
           {children}
         </UlBox>
       </>
@@ -118,15 +283,12 @@ export type TreeViewItemProps = {
   expanded?: boolean
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
-} & SxProp
+}
 
 const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
-  (
-    {current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children, sx = {}},
-    ref
-  ) => {
+  ({current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children}, ref) => {
     const itemId = useSSRSafeId()
     const labelId = useSSRSafeId()
     const leadingVisualId = useSSRSafeId()
@@ -203,9 +365,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         }}
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
-        <Box
-          as="li"
-          ref={ref}
+        <li
+          className="PRIVATE_TreeView-item"
+          ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
           id={itemId}
           role="treeitem"
@@ -222,18 +384,14 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             // Prevent focus event from bubbling up to parent items
             event.stopPropagation()
           }}
-          sx={{
-            outline: 'none',
-            '&:focus-visible > div': {
-              boxShadow: (theme: Theme) => `inset 0 0 0 2px ${theme.colors.accent.fg}`,
-              '@media (forced-colors: active)': {
-                outline: '2px solid HighlightText',
-                outlineOffset: -2
-              }
-            }
-          }}
         >
-          <Box
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+          <div
+            className="PRIVATE_TreeView-item-container"
+            style={{
+              // @ts-ignore CSS custom property
+              '--level': level
+            }}
             onClick={event => {
               if (onSelect) {
                 onSelect(event)
@@ -241,112 +399,41 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 toggle(event)
               }
             }}
-            sx={merge.all([
-              {
-                '--toggle-width': '1rem', // 16px
-                position: 'relative',
-                display: 'grid',
-                gridTemplateColumns: `calc(${level - 1} * (var(--toggle-width) / 2)) var(--toggle-width) 1fr`,
-                gridTemplateAreas: `"spacer toggle content"`,
-                width: '100%',
-                minHeight: '2rem', // 32px
-                fontSize: 1,
-                color: 'fg.default',
-                borderRadius: 2,
-                cursor: 'pointer',
-                '&:hover': {
-                  backgroundColor: 'actionListItem.default.hoverBg',
-                  '@media (forced-colors: active)': {
-                    outline: '2px solid transparent',
-                    outlineOffset: -2
-                  }
-                },
-                '@media (pointer: coarse)': {
-                  '--toggle-width': '1.5rem', // 24px
-                  minHeight: '2.75rem' // 44px
-                },
-                '[role=treeitem][aria-current=true] > &:is(div)': {
-                  bg: 'actionListItem.default.selectedBg',
-                  '&::after': {
-                    position: 'absolute',
-                    top: 'calc(50% - 12px)',
-                    left: -2,
-                    width: '4px',
-                    height: '24px',
-                    content: '""',
-                    bg: 'accent.fg',
-                    borderRadius: 2,
-                    '@media (forced-colors: active)': {
-                      backgroundColor: 'HighlightText'
-                    }
-                  }
-                }
-              },
-              sx as SxProp
-            ])}
           >
-            <Box sx={{gridArea: 'spacer', display: 'flex'}}>
+            <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
-            </Box>
+            </div>
             {hasSubTree ? (
-              <Box
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+              <div
+                className={classnames(
+                  'PRIVATE_TreeView-item-toggle',
+                  onSelect && 'PRIVATE_TreeView-item-toggle--hover',
+                  level === 1 && 'PRIVATE_TreeView-item-toggle--end'
+                )}
                 onClick={event => {
                   if (onSelect) {
                     toggle(event)
                   }
                 }}
-                sx={{
-                  gridArea: 'toggle',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  color: 'fg.muted',
-                  borderTopLeftRadius: level === 1 ? 2 : 0,
-                  borderBottomLeftRadius: level === 1 ? 2 : 0,
-                  '&:hover': {
-                    backgroundColor: onSelect ? 'treeViewItem.chevron.hoverBg' : null
-                  }
-                }}
               >
                 {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
-              </Box>
+              </div>
             ) : null}
-            <Box
-              id={labelId}
-              sx={{
-                gridArea: 'content',
-                display: 'flex',
-                alignItems: 'center',
-                height: '100%',
-                px: 2,
-                gap: 2
-              }}
-            >
+            <div id={labelId} className="PRIVATE_TreeView-item-content">
               <Slots>
                 {slots => (
                   <>
                     {slots.LeadingVisual}
-                    <Text
-                      sx={{
-                        // Truncate text label
-                        flex: '1 1 auto',
-                        width: 0,
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis'
-                      }}
-                    >
-                      {childrenWithoutSubTree}
-                    </Text>
+                    <span className="PRIVATE_TreeView-item-content-text">{childrenWithoutSubTree}</span>
                     {slots.TrailingVisual}
                   </>
                 )}
               </Slots>
-            </Box>
-          </Box>
+            </div>
+          </div>
           {subTree}
-        </Box>
+        </li>
       </ItemContext.Provider>
     )
   }
@@ -355,33 +442,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
   return (
-    <Box sx={{width: '100%', display: 'flex'}}>
+    <div style={{width: '100%', display: 'flex'}}>
       {Array.from({length: level - 1}).map((_, index) => (
-        <Box
-          key={index}
-          sx={{
-            width: '100%',
-            height: '100%',
-            borderRight: '1px solid',
-
-            // On devices without hover, the nesting indicator lines
-            // appear at all times.
-            borderColor: 'border.subtle',
-
-            // On devices with :hover support, the nesting indicator lines
-            // fade in when the user mouses over the entire component,
-            // or when there's focus inside the component. This makes
-            // sure the component remains simple when not in use.
-            '@media (hover: hover)': {
-              borderColor: 'transparent',
-              '[role=tree]:hover &, [role=tree]:focus-within &': {
-                borderColor: 'border.subtle'
-              }
-            }
-          }}
-        />
+        <div key={index} className="PRIVATE_TreeView-item-level-line" />
       ))}
-    </Box>
+    </div>
   )
 }
 
@@ -503,11 +568,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   }
 
   return (
-    <Box
-      as="ul"
+    <ul
       role="group"
-      hidden={!isExpanded}
-      sx={{
+      style={{
         listStyle: 'none',
         padding: 0,
         margin: 0
@@ -516,7 +579,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       ref={ref}
     >
       {isLoadingItemVisible ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
-    </Box>
+    </ul>
   )
 }
 
@@ -527,7 +590,7 @@ const shimmer = keyframes`
   to { mask-position: 0%; }
 `
 
-const SkeletonItem = styled.span`
+const SkeletonItem = styled.span.attrs({className: 'PRIVATE_TreeView-item-skeleton'})`
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
@@ -601,22 +664,11 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>((props, ref)
 
   if (count) {
     return (
-      <Item
-        ref={ref}
-        sx={{
-          '&:hover': {
-            backgroundColor: 'transparent',
-            cursor: 'default',
-            '@media (forced-colors: active)': {
-              outline: 'none'
-            }
-          }
-        }}
-      >
+      <Item ref={ref}>
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
-        <VisuallyHidden>Loading {count} items</VisuallyHidden>
+        <div className="PRIVATE_VisuallyHidden">Loading {count} items</div>
       </Item>
     )
   }
@@ -664,12 +716,12 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="LeadingVisual">
-      <VisuallyHidden aria-hidden={true} id={leadingVisualId}>
+      <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={leadingVisualId}>
         {props.label}
-      </VisuallyHidden>
-      <Box aria-hidden={true} sx={{display: 'flex', color: 'fg.muted'}}>
+      </div>
+      <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
-      </Box>
+      </div>
     </Slot>
   )
 }
@@ -681,12 +733,12 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <Slot name="TrailingVisual">
-      <VisuallyHidden aria-hidden={true} id={trailingVisualId}>
+      <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={trailingVisualId}>
         {props.label}
-      </VisuallyHidden>
-      <Box aria-hidden={true} sx={{display: 'flex', color: 'fg.muted'}}>
+      </div>
+      <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
         {children}
-      </Box>
+      </div>
     </Slot>
   )
 }
@@ -698,8 +750,12 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 
 const DirectoryIcon = () => {
   const {isExpanded} = React.useContext(ItemContext)
-  const icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
-  return <StyledOcticon icon={icon} color="treeViewItem.directory.fill" />
+  const Icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
+  return (
+    <div className="PRIVATE_TreeView-directory-icon">
+      <Icon />
+    </div>
+  )
 }
 
 // ----------------------------------------------------------------------------

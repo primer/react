@@ -69,13 +69,13 @@ export const ListLinkItem = () => (
       </ActionList.LeadingVisual>
       ActionList.LinkItem with anchor attributes
     </ActionList.LinkItem>
-    <ActionList.LinkItem as={ReactRouterLikeLink} to="?path=/story/composite-components-actionlist--simple-list-story">
+    <ActionList.LinkItem as={ReactRouterLikeLink} to="?path=/story/components-actionlist--default">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
       as ReactRouterLink
     </ActionList.LinkItem>
-    <NextJSLikeLink href="?path=/story/composite-components-actionlist--simple-list-story">
+    <NextJSLikeLink href="?path=/story/components-actionlist--default">
       <ActionList.LinkItem>
         <ActionList.LeadingVisual>
           <LinkIcon />
@@ -83,7 +83,7 @@ export const ListLinkItem = () => (
         NextJS style Link
       </ActionList.LinkItem>
     </NextJSLikeLink>
-    <ActionList.LinkItem href="?path=/story/composite-components-actionlist--simple-list-story">
+    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>

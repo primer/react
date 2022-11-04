@@ -606,7 +606,7 @@ export const StressTest: Story = () => {
             </TreeView.LeadingVisual>
             Directory {index}
             <TreeView.SubTree>
-              {Array.from({length: 100}).map((_, index) => (
+              {Array.from({length: 1000}).map((_, index) => (
                 <TreeView.Item key={index}>
                   <TreeView.LeadingVisual>
                     <FileIcon />
@@ -620,6 +620,10 @@ export const StressTest: Story = () => {
       </TreeView>
     </Box>
   )
+}
+
+StressTest.parameters = {
+  chromatic: {disableSnapshot: true}
 }
 
 export const EmptyDirectory: Story = () => {
