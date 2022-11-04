@@ -25,7 +25,6 @@ jobs:
           path: deployments.json
           key: deployments.json-${{ github.run_id }} # https://github.com/actions/cache/blob/main/workarounds.md#update-a-cache
           restore-keys: deployments.json
-      - run: echo cache-hit ${{steps.cached.outputs.cache-hit}}
       - run: cat deployments.json
 
       # add deployment url
