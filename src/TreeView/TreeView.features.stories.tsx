@@ -656,4 +656,8 @@ export const StressTest: Story = () => {
   )
 }
 
+StressTest.parameters = {
+  chromatic: {disableSnapshot: true}
+}
+
 export default meta
