@@ -12,7 +12,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: date > CHANGELOG.md
+
+      - name: Update CHANGELOG.md
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs')
+            const fileName = 'CHANGELOG.md'
+
+            const contentToInsert = '\n### [Permalink to documentation](${github.run_id})\n'
+            const originalContents = fs.readFileSync(fileName, 'utf8')
+
+            let modifiedContents = originalContents.split('\n')
+            // [ '# @primer/components', '', '## 35.14.0', '', '### Minor Changes' ]
+            // the format of this file is fixed, so it's safe to add a line between
+            // version number and "Minor changes"
+
+            modifiedContents[3] = contentToInsert
+            modifiedContents = modifiedContents.join('\n')
+
+            fs.writeFileSync(fileName, modifiedContents)
+
       - uses: EndBug/add-and-commit@v4
         with:
           add: 'CHANGELOG.md'
@@ -20,3 +40,4 @@ jobs:
           author_email: actions@github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       
