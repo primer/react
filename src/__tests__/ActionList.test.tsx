@@ -143,6 +143,6 @@ describe('ActionList', () => {
     expect(option).toBeInTheDocument()
   })
 
-  checkStoriesForAxeViolations('ActionList/fixtures')
-  checkStoriesForAxeViolations('ActionList/examples')
+  checkStoriesForAxeViolations('', 'ActionList/ActionList.features.stories.tsx')
+  checkStoriesForAxeViolations('', 'ActionList/ActionList.examples.stories.tsx')
 })
