@@ -62,10 +62,16 @@ jobs:
             modifiedContents = modifiedContents.join('\n\n')
             fs.writeFileSync(fileName, modifiedContents)
 
+      - id: get-current-sha
+        uses: actions/github-script@0.9.0
+        with:
+          script: |
+            const sha = ${{github.sha}}
+            core.setOutput('sha', sha.slice(0,7))
       - uses: EndBug/add-and-commit@v4
         with:
           add: 'CHANGELOG.md'
-          message: 'Update permalink to documentation in CHANGELOG.md'
+          message: 'Update permalink to documentation in CHANGELOG.md (for ${{steps.get-current-sha.outputs.sha}})'
           author_email: actions@github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
