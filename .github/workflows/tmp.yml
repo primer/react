@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: commit
-        run: |
-          git commit --allow-empty -m "[skip actions] Empty commit"
-          git push origin HEAD
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[skip actions] Empty commit"
+          commit_options: '--allow-empty'
