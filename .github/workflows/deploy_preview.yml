@@ -22,8 +22,8 @@ jobs:
         uses: actions/cache@v3
         id: cached
         with:
-          path: deplyoments.json
-          key: deplyments.json
+          path: deployments.json
+          key: deployments.json
       - run: cat deployments.json
         continue-on-error: true
       - name: Create deployments.json if it's not in cache
