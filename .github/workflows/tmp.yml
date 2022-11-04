@@ -18,3 +18,5 @@ jobs:
           add: 'CHANGELOG.md'
           message: 'test commit'
           author_email: actions@github.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
