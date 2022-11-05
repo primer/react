@@ -277,6 +277,7 @@ Root.displayName = 'TreeView'
 // TreeView.Item
 
 export type TreeViewItemProps = {
+  id: string
   children: React.ReactNode
   current?: boolean
   defaultExpanded?: boolean
@@ -288,8 +289,18 @@ export type TreeViewItemProps = {
 const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
-  ({current: isCurrentItem = false, defaultExpanded = false, expanded, onExpandedChange, onSelect, children}, ref) => {
-    const itemId = useSSRSafeId()
+  (
+    {
+      id: itemId,
+      current: isCurrentItem = false,
+      defaultExpanded = false,
+      expanded,
+      onExpandedChange,
+      onSelect,
+      children
+    },
+    ref
+  ) => {
     const labelId = useSSRSafeId()
     const leadingVisualId = useSSRSafeId()
     const trailingVisualId = useSSRSafeId()
@@ -659,12 +670,12 @@ type LoadingItemProps = {
   count?: number
 }
 
-const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>((props, ref) => {
-  const {count} = props
+const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
+  const itemId = useSSRSafeId()
 
   if (count) {
     return (
-      <Item ref={ref}>
+      <Item id={itemId} ref={ref}>
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
@@ -674,7 +685,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>((props, ref)
   }
 
   return (
-    <Item ref={ref}>
+    <Item id={itemId} ref={ref}>
       <LeadingVisual>
         <Spinner size="small" />
       </LeadingVisual>
