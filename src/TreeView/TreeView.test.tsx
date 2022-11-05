@@ -971,7 +971,58 @@ describe('Keyboard interactions', () => {
   })
 })
 
-describe('Controlled state', () => {
+describe('State', () => {
+  it('persists expanded state of nested items', () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item defaultExpanded>
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item>
+              Item 2
+              <TreeView.SubTree>
+                <TreeView.Item>Item 3</TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    )
+
+    const item1 = getByRole('treeitem', {name: 'Item 1'})
+    const item2 = getByRole('treeitem', {name: 'Item 2'})
+
+    // Item 2 should be collapsed by default
+    expect(item2).toHaveAttribute('aria-expanded', 'false')
+
+    // Focus item 2
+    item2.focus()
+
+    // Press Enter to expand item 2
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+    // Item 2 should be expanded
+    expect(item2).toHaveAttribute('aria-expanded', 'true')
+
+    // Press ↑ to move focus to item 1
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+
+    // Press Enter to collapse item 1
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+    // Item 1 should be collapsed
+    expect(item1).toHaveAttribute('aria-expanded', 'false')
+
+    // Press Enter again to expand item 1
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+    // Item 1 should be expanded
+    expect(item1).toHaveAttribute('aria-expanded', 'true')
+
+    // Item 2 should still be expanded
+    expect(getByRole('treeitem', {name: 'Item 2'})).toHaveAttribute('aria-expanded', 'true')
+  })
+
   it('can be controlled', () => {
     function TestTree() {
       const [expanded, setExpanded] = React.useState(true)
