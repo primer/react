@@ -26,8 +26,12 @@ import {useTypeahead} from './useTypeahead'
 
 const RootContext = React.createContext<{
   announceUpdate: (message: string) => void
+  expandedStateCache: React.RefObject<Map<string, boolean>>
+  setExpandedStateCache: React.Dispatch<React.SetStateAction<Map<string, boolean>>>
 }>({
-  announceUpdate: () => {}
+  announceUpdate: () => {},
+  expandedStateCache: {current: new Map()},
+  setExpandedStateCache: () => {}
 })
 
 const ItemContext = React.createContext<{
@@ -36,7 +40,7 @@ const ItemContext = React.createContext<{
   isSubTreeEmpty: boolean
   setIsSubTreeEmpty: React.Dispatch<React.SetStateAction<boolean>>
   isExpanded: boolean
-  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
+  setIsExpanded: (isExpanded: boolean) => void
   leadingVisualId: string
   trailingVisualId: string
 }>({
@@ -257,8 +261,22 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     setAriaLiveMessage(message)
   }, [])
 
+  const [expandedStateCache, setExpandedStateCache] = React.useState<Map<string, boolean>>(new Map())
+
+  const expandedStateCacheRef = React.useRef(expandedStateCache)
+
+  React.useEffect(() => {
+    expandedStateCacheRef.current = expandedStateCache
+  }, [expandedStateCache])
+
   return (
-    <RootContext.Provider value={{announceUpdate}}>
+    <RootContext.Provider
+      value={{
+        announceUpdate,
+        expandedStateCache: expandedStateCacheRef,
+        setExpandedStateCache
+      }}
+    >
       <>
         <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
@@ -290,23 +308,20 @@ const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
   (
-    {
-      id: itemId,
-      current: isCurrentItem = false,
-      defaultExpanded = false,
-      expanded,
-      onExpandedChange,
-      onSelect,
-      children
-    },
+    {id: itemId, current: isCurrentItem = false, defaultExpanded, expanded, onExpandedChange, onSelect, children},
     ref
   ) => {
+    const {expandedStateCache, setExpandedStateCache} = React.useContext(RootContext)
     const labelId = useSSRSafeId()
     const leadingVisualId = useSSRSafeId()
     const trailingVisualId = useSSRSafeId()
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
-      defaultValue: defaultExpanded,
+      // If the item was previously mounted, it's expanded state might be cached.
+      // We check the cache first, and then fall back to the defaultExpanded prop.
+      // If defaultExpanded is not provided, we default to false unless the item
+      // is the current item, in which case we default to true.
+      defaultValue: () => expandedStateCache.current?.get(itemId) ?? defaultExpanded ?? isCurrentItem,
       value: expanded,
       onChange: onExpandedChange
     })
@@ -314,27 +329,26 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
     const [isSubTreeEmpty, setIsSubTreeEmpty] = React.useState(!hasSubTree)
 
+    // Set the expanded state and cache it
+    const setIsExpandedWithCache = React.useCallback(
+      (newIsExpanded: boolean) => {
+        setIsExpanded(newIsExpanded)
+        setExpandedStateCache(prevExpandedStateCache => {
+          const newExpandedStateCache = new Map(prevExpandedStateCache)
+          newExpandedStateCache.set(itemId, newIsExpanded)
+          return newExpandedStateCache
+        })
+      },
+      [itemId, setIsExpanded, setExpandedStateCache]
+    )
+
     // Expand or collapse the subtree
     const toggle = React.useCallback(
       (event?: React.MouseEvent | React.KeyboardEvent) => {
-        setIsExpanded(!isExpanded)
+        setIsExpandedWithCache(!isExpanded)
         event?.stopPropagation()
       },
-      // setIsExpanded is stable
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [isExpanded]
-    )
-
-    // If this item is the current item, expand it
-    React.useLayoutEffect(
-      () => {
-        if (isCurrentItem) {
-          setIsExpanded(true)
-        }
-      },
-      // setIsExpanded is stable
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [isCurrentItem]
+      [isExpanded, setIsExpandedWithCache]
     )
 
     const handleKeyDown = React.useCallback(
@@ -350,16 +364,16 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           case 'ArrowRight':
             event.preventDefault()
             event.stopPropagation()
-            setIsExpanded(true)
+            setIsExpandedWithCache(true)
             break
           case 'ArrowLeft':
             event.preventDefault()
             event.stopPropagation()
-            setIsExpanded(false)
+            setIsExpandedWithCache(false)
             break
         }
       },
-      [onSelect, setIsExpanded, toggle]
+      [onSelect, setIsExpandedWithCache, toggle]
     )
 
     return (
@@ -370,7 +384,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           isSubTreeEmpty,
           setIsSubTreeEmpty,
           isExpanded,
-          setIsExpanded,
+          setIsExpanded: setIsExpandedWithCache,
           leadingVisualId,
           trailingVisualId
         }}
