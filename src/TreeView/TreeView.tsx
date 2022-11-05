@@ -27,11 +27,9 @@ import {useTypeahead} from './useTypeahead'
 const RootContext = React.createContext<{
   announceUpdate: (message: string) => void
   expandedStateCache: React.RefObject<Map<string, boolean>>
-  setExpandedStateCache: React.Dispatch<React.SetStateAction<Map<string, boolean>>>
 }>({
   announceUpdate: () => {},
-  expandedStateCache: {current: new Map()},
-  setExpandedStateCache: () => {}
+  expandedStateCache: {current: new Map()}
 })
 
 const ItemContext = React.createContext<{
@@ -261,20 +259,13 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     setAriaLiveMessage(message)
   }, [])
 
-  const [expandedStateCache, setExpandedStateCache] = React.useState<Map<string, boolean>>(new Map())
-
-  const expandedStateCacheRef = React.useRef(expandedStateCache)
-
-  React.useEffect(() => {
-    expandedStateCacheRef.current = expandedStateCache
-  }, [expandedStateCache])
+  const expandedStateCache = React.useRef(new Map())
 
   return (
     <RootContext.Provider
       value={{
         announceUpdate,
-        expandedStateCache: expandedStateCacheRef,
-        setExpandedStateCache
+        expandedStateCache
       }}
     >
       <>
@@ -311,7 +302,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     {id: itemId, current: isCurrentItem = false, defaultExpanded, expanded, onExpandedChange, onSelect, children},
     ref
   ) => {
-    const {expandedStateCache, setExpandedStateCache} = React.useContext(RootContext)
+    const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useSSRSafeId()
     const leadingVisualId = useSSRSafeId()
     const trailingVisualId = useSSRSafeId()
@@ -333,13 +324,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const setIsExpandedWithCache = React.useCallback(
       (newIsExpanded: boolean) => {
         setIsExpanded(newIsExpanded)
-        setExpandedStateCache(prevExpandedStateCache => {
-          const newExpandedStateCache = new Map(prevExpandedStateCache)
-          newExpandedStateCache.set(itemId, newIsExpanded)
-          return newExpandedStateCache
-        })
+        expandedStateCache.current?.set(itemId, newIsExpanded)
       },
-      [itemId, setIsExpanded, setExpandedStateCache]
+      [itemId, setIsExpanded, expandedStateCache]
     )
 
     // Expand or collapse the subtree
