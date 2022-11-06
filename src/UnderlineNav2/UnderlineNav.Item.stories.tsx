@@ -41,8 +41,8 @@ export default {
 
 export const Playground: Story = args => {
   return (
-    <UnderlineNav.Item selected {...args}>
+    <UnderlineNavItem selected {...args}>
       {args.children}
-    </UnderlineNav.Item>
+    </UnderlineNavItem>
   )
 }

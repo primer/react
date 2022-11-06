@@ -73,7 +73,7 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
   {navigation: 'Security', icon: ShieldLockIcon, href: '#security'}
 ]
 
-export const Template = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
+export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(initialSelectedIndex)
   return (
     <UnderlineNav aria-label="Repository">
@@ -96,11 +96,11 @@ export const Template = ({initialSelectedIndex = 1}: {initialSelectedIndex?: num
   )
 }
 
-export const OverflowBehaviour = () => {
-  return <Template initialSelectedIndex={1} />
+export const OverflowOnNarrowScreen = () => {
+  return <OverflowTemplate initialSelectedIndex={1} />
 }
 
-OverflowBehaviour.parameters = {
+OverflowOnNarrowScreen.parameters = {
   viewport: {
     viewports: {
       ...INITIAL_VIEWPORTS,

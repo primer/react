@@ -23,12 +23,6 @@ export default {
         name: 'string'
       }
     },
-    children: {
-      options: ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki', 'Security', 'Insights', 'Settings'],
-      control: {
-        type: 'multi-select'
-      }
-    },
     loadingCounters: {
       control: {
         type: 'boolean'
@@ -37,15 +31,15 @@ export default {
   },
   args: {
     'aria-label': 'Repository',
-    loadingCounters: false,
-    children: ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
+    loadingCounters: false
   }
 } as Meta<typeof UnderlineNav>
 
 export const Playground: Story = args => {
+  const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
   return (
     <UnderlineNav {...args}>
-      {args.children.map((child: string, index: number) => (
+      {children.map((child: string, index: number) => (
         <UnderlineNavItem key={index} href="#" selected={index === 0}>
           {child}
         </UnderlineNavItem>

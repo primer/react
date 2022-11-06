@@ -2,18 +2,18 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {within, userEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
-import {Template} from './features.stories'
+import {OverflowTemplate} from './features.stories'
 
 export default {
   title: 'Drafts/Components/UnderlineNav/Interactions'
 } as Meta
 
 const SelectAMenuItem = () => {
-  return <Template initialSelectedIndex={1} />
+  return <OverflowTemplate initialSelectedIndex={1} />
 }
 
 const KeyboardNavigation = () => {
-  return <Template initialSelectedIndex={1} />
+  return <OverflowTemplate initialSelectedIndex={1} />
 }
 
 KeyboardNavigation.storyName = 'Keyboard navigation'
@@ -100,7 +100,7 @@ SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => 
 }
 
 const KeepSelectedItemVisible = () => {
-  return <Template initialSelectedIndex={7} />
+  return <OverflowTemplate initialSelectedIndex={7} />
 }
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
