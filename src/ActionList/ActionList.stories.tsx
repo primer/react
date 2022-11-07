@@ -121,9 +121,7 @@ ItemPlayground.argTypes = {
     }
   },
   variant: {
-    control: {
-      type: 'radio'
-    },
+    control: 'radio',
     options: ['default', 'danger']
   },
   role: {
@@ -145,12 +143,9 @@ ItemPlayground.argTypes = {
     options: icons
   },
   selectionVariant: {
-    control: {
-      type: 'radio',
-      labels: ['single', 'multiple', 'unset']
-    },
-    options: [0, 1, 2],
-    mapping: ['single', 'multiple', null],
+    control: 'radio',
+    if: {arg: 'selected'},
+    options: ['single', 'multiple'],
     table: {
       category: 'ActionList'
     }
@@ -164,7 +159,8 @@ ItemPlayground.args = {
   role: 'listitem',
   id: 'item-1',
   leadingVisual: null,
-  trailingVisual: null
+  trailingVisual: null,
+  selectionVariant: 'single'
 }
 
 // @ts-ignore ignoring types here to pass in options for icon selection in Storybook
