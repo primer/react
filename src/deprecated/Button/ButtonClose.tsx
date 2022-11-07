@@ -9,13 +9,12 @@ const StyledButton = styled.button<SxProp>`
   border: none;
   padding: 0;
   background: transparent;
-  outline: none;
   cursor: pointer;
   border-radius: ${get('radii.2')};
   color: ${get('colors.fg.muted')};
 
   &:focus {
-    box-shadow: ${get('shadows.btn.focusShadow')};
+    outline: solid 2px ${get('colors.accent.fg')};
   }
 
   &:hover {

@@ -468,8 +468,7 @@ export const MemexIssueOverlay = () => {
                   color: 'fg.default',
                   p: 2,
                   textAlign: 'left',
-                  borderRadius: '2',
-                  '&:hover': {boxShadow: 'primer.shadow.focus'}
+                  borderRadius: '2'
                 }}
               >
                 {title}
