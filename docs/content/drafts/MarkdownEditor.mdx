@@ -3,7 +3,7 @@ componentId: markdown_editor
 title: MarkdownEditor
 status: Draft
 description: Full-featured Markdown input.
-storybook: '/react/storybook?path=/story/forms-markdowneditor--default'
+storybook: '/react/storybook?path=/story/components-forms-markdowneditor--default'
 ---
 
 ```js
@@ -27,20 +27,16 @@ import {MarkdownEditor} from '@primer/react/drafts'
 A `Label` is always required for accessibility:
 
 ```javascript live noinline drafts
-const renderMarkdown = async (markdown) => {
+const renderMarkdown = async markdown => {
   // In production code, this would make a query to some external API endpoint to render
-  return "Rendered Markdown."
+  return 'Rendered Markdown.'
 }
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')
 
   return (
-    <MarkdownEditor
-      value={value}
-      onChange={setValue}
-      onRenderPreview={renderMarkdown}
-    >
+    <MarkdownEditor value={value} onChange={setValue} onRenderPreview={renderMarkdown}>
       <MarkdownEditor.Label>Minimal Example</MarkdownEditor.Label>
     </MarkdownEditor>
   )
@@ -52,9 +48,9 @@ render(MinimalExample)
 ### Suggestions, File Uploads, and Saved Replies
 
 ```javascript live noinline drafts
-const renderMarkdown = async (markdown) => "Rendered Markdown."
+const renderMarkdown = async markdown => 'Rendered Markdown.'
 
-const uploadFile = async (file) => ({
+const uploadFile = async file => ({
   url: `https://example.com/${encodeURIComponent(file.name)}`,
   file
 })
@@ -107,13 +103,10 @@ const MinimalExample = () => {
       value={value}
       onChange={setValue}
       onRenderPreview={renderMarkdown}
-
       onUploadFile={uploadFile}
-
       emojiSuggestions={emojis}
       referenceSuggestions={references}
       mentionSuggestions={mentionables}
-
       savedReplies={savedReplies}
     >
       <MarkdownEditor.Label>Suggestions, File Uploads, and Saved Replies Example</MarkdownEditor.Label>
@@ -127,17 +120,13 @@ render(MinimalExample)
 ### Custom Buttons
 
 ```javascript live noinline drafts
-const renderMarkdown = async (markdown) => "Rendered Markdown."
+const renderMarkdown = async markdown => 'Rendered Markdown.'
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')
 
   return (
-    <MarkdownEditor
-      value={value}
-      onChange={setValue}
-      onRenderPreview={renderMarkdown}
-    >
+    <MarkdownEditor value={value} onChange={setValue} onRenderPreview={renderMarkdown}>
       <MarkdownEditor.Label visuallyHidden>Custom Buttons</MarkdownEditor.Label>
 
       <MarkdownEditor.Toolbar>
@@ -147,12 +136,8 @@ const MinimalExample = () => {
       </MarkdownEditor.Toolbar>
 
       <MarkdownEditor.Actions>
-        <MarkdownEditor.ActionButton variant="danger">
-          Cancel
-        </MarkdownEditor.ActionButton>
-        <MarkdownEditor.ActionButton variant="primary">
-          Submit
-        </MarkdownEditor.ActionButton>
+        <MarkdownEditor.ActionButton variant="danger">Cancel</MarkdownEditor.ActionButton>
+        <MarkdownEditor.ActionButton variant="primary">Submit</MarkdownEditor.ActionButton>
       </MarkdownEditor.Actions>
     </MarkdownEditor>
   )
