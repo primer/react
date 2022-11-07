@@ -53,7 +53,7 @@ const GlobalStyleMultiTheme = createGlobalStyle`
 
 export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryContext>>, context: StoryContext) => {
   // used for testing ThemeProvider.stories.tsx
-  if (context.parameters.disableThemeDecorator) return <Story {...context} />
+  if (context.parameters.disableThemeDecorator) return Story(context)
 
   const {colorScheme} = context.globals
 
@@ -78,9 +78,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
                   color: 'fg.default'
                 }}
               >
-                <div id={`html-addon-root-${scheme}`}>
-                  <Story {...context} />
-                </div>
+                <div id={`html-addon-root-${scheme}`}>{Story(context)}</div>
               </Box>
             </BaseStyles>
           </ThemeProvider>
@@ -93,9 +91,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
     <ThemeProvider colorMode="day" dayScheme={colorScheme}>
       <GlobalStyle />
       <BaseStyles>
-        <div id="html-addon-root">
-          <Story {...context} />
-        </div>
+        <div id="html-addon-root">{Story(context)}</div>
       </BaseStyles>
     </ThemeProvider>
   )
