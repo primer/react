@@ -1,6 +1,7 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import {fireEvent, render} from '@testing-library/react'
+import {render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {
   IconProps,
   CodeIcon,
@@ -91,106 +92,129 @@ describe('UnderlineNav', () => {
     UnderlineNav
   })
   it('renders aria-current attribute to be pages when an item is selected', () => {
-    const {getByText} = render(<ResponsiveUnderlineNav />)
-    const selectedNavLink = getByText('Code').closest('a')
-
-    expect(selectedNavLink?.getAttribute('aria-current')).toBe('page')
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const selectedNavLink = getByRole('link', {name: 'Code'})
+    expect(selectedNavLink.getAttribute('aria-current')).toBe('page')
   })
   it('renders aria-label attribute correctly', () => {
-    const {container} = render(<ResponsiveUnderlineNav />)
+    const {container, getByRole} = render(<ResponsiveUnderlineNav />)
     expect(container.getElementsByTagName('nav').length).toEqual(1)
-    const nav = container.getElementsByTagName('nav')[0]
-
+    const nav = getByRole('navigation')
     expect(nav.getAttribute('aria-label')).toBe('Repository')
   })
   it('renders icons correctly', () => {
-    const {container} = render(<ResponsiveUnderlineNav />)
-    const nav = container.getElementsByTagName('nav')[0]
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const nav = getByRole('navigation')
     expect(nav.getElementsByTagName('svg').length).toEqual(7)
   })
-  it('fires onSelect on click and keypress', async () => {
+  it('fires onSelect on click', async () => {
     const onSelect = jest.fn()
-    const {getByText} = render(
+    const {getByRole} = render(
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 3</UnderlineNav.Item>
       </UnderlineNav>
     )
-    const item = getByText('Item 1')
-    fireEvent.click(item)
+    const item = getByRole('link', {name: 'Item 1'})
+    const user = userEvent.setup()
+    await user.click(item)
     expect(onSelect).toHaveBeenCalledTimes(1)
-    fireEvent.keyPress(item, enter)
+  })
+  it('fires onSelect on keypress', async () => {
+    const onSelect = jest.fn()
+    const {getByRole} = render(
+      <UnderlineNav aria-label="Test Navigation">
+        <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
+        <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
+        <UnderlineNav.Item selected onSelect={onSelect}>
+          Item 3
+        </UnderlineNav.Item>
+      </UnderlineNav>
+    )
+    const item = getByRole('link', {name: 'Item 1'})
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first link
+    expect(item).toEqual(document.activeElement)
+    await user.keyboard('{Enter}')
+    // Enter keypress fires both click and keypress events
     expect(onSelect).toHaveBeenCalledTimes(2)
-    fireEvent.keyPress(item, space)
+    await user.keyboard(' ') // space
     expect(onSelect).toHaveBeenCalledTimes(3)
   })
   it('respects counter prop', () => {
-    const {getByText} = render(<ResponsiveUnderlineNav />)
-    const item = getByText('Issues').closest('a')
-    const counter = item?.getElementsByTagName('span')[3]
-    expect(counter?.className).toContain('CounterLabel')
-    expect(counter?.textContent).toBe('120')
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Issues 120'})
+    const counter = item.getElementsByTagName('span')[3]
+    expect(counter.className).toContain('CounterLabel')
+    expect(counter.textContent).toBe('120')
   })
   it('respects loadingCounters prop', () => {
-    const {getByText} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
-    const item = getByText('Actions').closest('a')
-    const loadingCounter = item?.getElementsByTagName('span')[2]
-    expect(loadingCounter?.className).toContain('LoadingCounter')
-    expect(loadingCounter?.textContent).toBe('')
+    const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
+    const item = getByRole('link', {name: 'Actions'})
+    const loadingCounter = item.getElementsByTagName('span')[2]
+    expect(loadingCounter.className).toContain('LoadingCounter')
+    expect(loadingCounter.textContent).toBe('')
   })
   it('renders a visually hidden h2 heading for screen readers when aria-label is present', () => {
-    const {container} = render(<ResponsiveUnderlineNav />)
-    const heading = container.getElementsByTagName('h2')[0]
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const heading = getByRole('heading', {name: 'Repository navigation'})
+    // check if heading is h2 tag
+    expect(heading.tagName).toBe('H2')
     expect(heading.className).toContain('VisuallyHidden')
     expect(heading.textContent).toBe('Repository navigation')
   })
 })
 
 describe('Keyboard Navigation', () => {
-  it('should move focus to the next/previous item on the list with horizontal arrow keys', () => {
-    const {getByText} = render(<ResponsiveUnderlineNav />)
-    const item = getByText('Code').closest('a') as HTMLAnchorElement
-    const nextItem = getByText('Issues').closest('a') as HTMLAnchorElement
-    // Focus first item
-    item.focus()
+  it('should move focus to the next/previous item on the list with horizontal arrow keys', async () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Code'})
+    const nextItem = getByRole('link', {name: 'Issues 120'})
+
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first link
+    expect(item).toEqual(document.activeElement) // check if the first item is focused
     // Press right arrow
-    fireEvent.keyDown(item, arrowRight)
+    await user.keyboard('{ArrowRight}')
     // focus should be on the next item
     expect(nextItem).toHaveFocus()
+    expect(nextItem).toEqual(document.activeElement)
     expect(nextItem.getAttribute('tabindex')).toBe('0')
-    fireEvent.keyDown(nextItem, arrowLeft)
-    // focus should be on the previous item
+    await user.keyboard('{ArrowLeft}')
+    // // focus should be on the previous item
     expect(item).toHaveFocus()
     expect(nextItem.getAttribute('tabindex')).toBe('-1')
     expect(item.getAttribute('tabindex')).toBe('0')
   })
-  it('should move focus to the next/previous item on the list with vertical arrow keys', () => {
-    const {getByText} = render(<ResponsiveUnderlineNav />)
-    const item = getByText('Code').closest('a') as HTMLAnchorElement
-    const nextItem = getByText('Issues').closest('a') as HTMLAnchorElement
-    // Focus first item
-    item.focus()
-    // Press down arrow
-    fireEvent.keyDown(item, arrowDown)
+  it('should move focus to the next/previous item on the list with vertical arrow keys', async () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Code'})
+    const nextItem = getByRole('link', {name: 'Issues 120'})
+
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first link
+    expect(item).toEqual(document.activeElement) // check if the first item is focused
+    // Press right arrow
+    await user.keyboard('{ArrowDOwn}')
     // focus should be on the next item
     expect(nextItem).toHaveFocus()
+    expect(nextItem).toEqual(document.activeElement)
     expect(nextItem.getAttribute('tabindex')).toBe('0')
-    // Press up arrow
-    fireEvent.keyDown(nextItem, arrowUp)
-    // focus should be on the previous item
+    await user.keyboard('{ArrowUp}')
+    // // focus should be on the previous item
     expect(item).toHaveFocus()
     expect(nextItem.getAttribute('tabindex')).toBe('-1')
     expect(item.getAttribute('tabindex')).toBe('0')
   })
-  it('should move focus to the next/previous item on the list with the tab key', () => {
-    const {getByText} = render(<ResponsiveUnderlineNav />)
-    const item = getByText('Code').closest('a') as HTMLAnchorElement
-    const nextItem = getByText('Issues').closest('a') as HTMLAnchorElement
-    // Focus first item
-    item.focus()
-    // Press down arrow
-    fireEvent.keyDown(item, tab)
+  it('should move focus to the next/previous item on the list with the tab key', async () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Code'})
+    const nextItem = getByRole('link', {name: 'Issues 120'})
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first link
+    expect(item).toEqual(document.activeElement) // check if the first item is focused
+    await user.tab()
     // focus should be on the next item
     expect(nextItem).toHaveFocus()
     expect(nextItem.getAttribute('tabindex')).toBe('0')
