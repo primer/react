@@ -1,5 +1,4 @@
 import React from 'react'
-import {DashIcon, PlusIcon} from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 
 import ButtonGroup from '../ButtonGroup'
@@ -28,12 +27,5 @@ export const Default = (args: ButtonProps) => (
     <Button {...args}>Button 1</Button>
     <Button {...args}>Button 2</Button>
     <Button {...args}>Button 3</Button>
-  </ButtonGroup>
-)
-
-export const WithIcons = (args: ButtonProps) => (
-  <ButtonGroup>
-    <IconButton {...args} aria-label="Zoom out" icon={DashIcon} />
-    <IconButton {...args} aria-label="Zoom in" icon={PlusIcon} />
   </ButtonGroup>
 )
