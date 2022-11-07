@@ -241,9 +241,57 @@ const UlBox = styled.ul<SxProp>`
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
+  const announceUpdate = React.useCallback((message: string) => {
+    setAriaLiveMessage(message)
+  }, [])
+
+  /**
+   * Manage the active element when the user presses `PageUp` or `PageDown`
+   * while using the TreeView
+   */
+  function onKeyDown(event: React.KeyboardEvent) {
+    if (containerRef.current === null) {
+      return
+    }
+
+    // When pressing PageUp, look at treeitem's above the current active element
+    // and find the first one that is not in the viewport. If one exists, focus it
+    if (event.key === 'PageUp') {
+      const {activeElement} = document
+      const items = Array.from(containerRef.current.querySelectorAll('[role="treeitem"]'))
+        .filter(item => {
+          const position = activeElement.compareDocumentPosition(item)
+          return position & Node.DOCUMENT_POSITION_PRECEDING
+        })
+        .reverse()
+
+      for (const item of items) {
+        if (!isInViewport(item)) {
+          item.focus()
+          break
+        }
+      }
+    }
+
+    // When pressing PageDown, look at treeitem's below the current active element
+    // and find the first one that is not in the viewport. If one exists, focus it
+    if (event.key === 'PageDown') {
+      const {activeElement} = document
+      const items = Array.from(containerRef.current.querySelectorAll('[role="treeitem"]')).filter(item => {
+        const position = activeElement.compareDocumentPosition(item)
+        return position & Node.DOCUMENT_POSITION_FOLLOWING
+      })
+
+      for (const item of items) {
+        if (!isInViewport(item)) {
+          item.focus()
+          break
+        }
+      }
+    }
+  }
 
   useRovingTabIndex({containerRef})
-
   useTypeahead({
     containerRef,
     onFocusChange: element => {
@@ -253,17 +301,19 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     }
   })
 
-  const announceUpdate = React.useCallback((message: string) => {
-    setAriaLiveMessage(message)
-  }, [])
-
   return (
     <RootContext.Provider value={{announceUpdate}}>
       <>
         <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
         </VisuallyHidden>
-        <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
+        <UlBox
+          ref={containerRef}
+          role="tree"
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledby}
+          onKeyDown={onKeyDown}
+        >
           {children}
         </UlBox>
       </>
@@ -272,6 +322,16 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
 }
 
 Root.displayName = 'TreeView'
+
+function isInViewport(element: HTMLElement): boolean {
+  const rect = element.getBoundingClientRect()
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  )
+}
 
 // ----------------------------------------------------------------------------
 // TreeView.Item
