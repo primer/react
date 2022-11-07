@@ -64,7 +64,7 @@ const AutocompleteInput = React.forwardRef(
           }
         }, 0)
       },
-      [onBlur, setShowMenu, inputRef]
+      [onBlur, setShowMenu, inputRef, safeSetTimeout]
     )
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
