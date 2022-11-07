@@ -23,7 +23,7 @@ export default {
   }
 } as Meta
 
-export const defaultButtonGroup = (args: ButtonProps) => (
+export const Default = (args: ButtonProps) => (
   <ButtonGroup>
     <Button {...args}>Button 1</Button>
     <Button {...args}>Button 2</Button>
@@ -31,7 +31,7 @@ export const defaultButtonGroup = (args: ButtonProps) => (
   </ButtonGroup>
 )
 
-export const iconButtonGroup = (args: ButtonProps) => (
+export const WithIcons = (args: ButtonProps) => (
   <ButtonGroup>
     <IconButton {...args} aria-label="Zoom out" icon={DashIcon} />
     <IconButton {...args} aria-label="Zoom in" icon={PlusIcon} />
