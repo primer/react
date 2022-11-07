@@ -10,7 +10,7 @@
 
 - [#2504](https://github.com/primer/react/pull/2504) [`ea4a3c2a`](https://github.com/primer/react/commit/ea4a3c2a11d8d9cdc972405495902ac8e7b61e54) Thanks [@joshblack](https://github.com/joshblack)! - TreeView: Add support for Backspace to move focus to parent item
 
-- [#2511](https://github.com/primer/react/pull/2511) [`0a94420e`](https://github.com/primer/react/commit/0a94420e96a1989a0183f36ec7b90954c4ff4c7b) Thanks [@joshblack](https://github.com/joshblack)! - Remove selected from <option> and add defaultValue for <select> when placeholder is provided
+- [#2511](https://github.com/primer/react/pull/2511) [`0a94420e`](https://github.com/primer/react/commit/0a94420e96a1989a0183f36ec7b90954c4ff4c7b) Thanks [@joshblack](https://github.com/joshblack)! - Remove selected from `<option>` and add defaultValue for `<select>` when placeholder is provided
 
 - [#2523](https://github.com/primer/react/pull/2523) [`50ed6441`](https://github.com/primer/react/commit/50ed644180733ab7baa8ee79dc019a9b6f61bf99) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Performance improvements
 
