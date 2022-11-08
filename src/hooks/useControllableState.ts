@@ -43,8 +43,6 @@ export function useControllableState<T>({
   const controlled = React.useRef<boolean | null>(null)
   const stableOnChange = React.useRef(onChange)
 
-  // console.log('useState', state)
-
   React.useEffect(() => {
     stableOnChange.current = onChange
   })
