@@ -32,14 +32,6 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 })
 
-const arrowLeft = {key: 'ArrowLeft', code: 37, charCode: 37}
-const arrowRight = {key: 'ArrowRight', code: 39, charCode: 39}
-const arrowUp = {key: 'ArrowUp', code: 38, charCode: 38}
-const arrowDown = {key: 'ArrowDown', code: 40, charCode: 40}
-const tab = {key: 'Tab', code: 9, charCode: 9}
-const enter = {key: 'Enter', code: 13, charCode: 13}
-const space = {key: ' ', code: 32, charCode: 32}
-
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
   loadingCounters = false,
@@ -167,46 +159,6 @@ describe('UnderlineNav', () => {
 })
 
 describe('Keyboard Navigation', () => {
-  it('should move focus to the next/previous item on the list with horizontal arrow keys', async () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const item = getByRole('link', {name: 'Code'})
-    const nextItem = getByRole('link', {name: 'Issues 120'})
-
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first link
-    expect(item).toEqual(document.activeElement) // check if the first item is focused
-    // Press right arrow
-    await user.keyboard('{ArrowRight}')
-    // focus should be on the next item
-    expect(nextItem).toHaveFocus()
-    expect(nextItem).toEqual(document.activeElement)
-    expect(nextItem.getAttribute('tabindex')).toBe('0')
-    await user.keyboard('{ArrowLeft}')
-    // // focus should be on the previous item
-    expect(item).toHaveFocus()
-    expect(nextItem.getAttribute('tabindex')).toBe('-1')
-    expect(item.getAttribute('tabindex')).toBe('0')
-  })
-  it('should move focus to the next/previous item on the list with vertical arrow keys', async () => {
-    const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const item = getByRole('link', {name: 'Code'})
-    const nextItem = getByRole('link', {name: 'Issues 120'})
-
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first link
-    expect(item).toEqual(document.activeElement) // check if the first item is focused
-    // Press right arrow
-    await user.keyboard('{ArrowDOwn}')
-    // focus should be on the next item
-    expect(nextItem).toHaveFocus()
-    expect(nextItem).toEqual(document.activeElement)
-    expect(nextItem.getAttribute('tabindex')).toBe('0')
-    await user.keyboard('{ArrowUp}')
-    // // focus should be on the previous item
-    expect(item).toHaveFocus()
-    expect(nextItem.getAttribute('tabindex')).toBe('-1')
-    expect(item.getAttribute('tabindex')).toBe('0')
-  })
   it('should move focus to the next/previous item on the list with the tab key', async () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const item = getByRole('link', {name: 'Code'})
