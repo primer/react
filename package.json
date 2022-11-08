@@ -198,7 +198,6 @@
     "rollup-plugin-visualizer": "5.8.1",
     "semver": "7.3.5",
     "size-limit": "7.0.3",
-    "storybook-addon-performance": "0.16.1",
     "storybook-addon-turbo-build": "1.1.0",
     "styled-components": "4.4.1",
     "ts-toolbelt": "9.6.0",
