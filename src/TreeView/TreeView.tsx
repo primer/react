@@ -245,8 +245,8 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
   const announceUpdate = React.useCallback((message: string) => {
     setAriaLiveMessage(message)
   }, [])
-  const {onKeyDown} = usePageUpDown(containerRef)
 
+  usePageUpDown(containerRef)
   useRovingTabIndex({containerRef})
   useTypeahead({
     containerRef,
@@ -263,13 +263,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
         <VisuallyHidden role="status" aria-live="polite" aria-atomic="true">
           {ariaLiveMessage}
         </VisuallyHidden>
-        <UlBox
-          ref={containerRef}
-          role="tree"
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledby}
-          onKeyDown={onKeyDown}
-        >
+        <UlBox ref={containerRef} role="tree" aria-label={ariaLabel} aria-labelledby={ariaLabelledby}>
           {children}
         </UlBox>
       </>
