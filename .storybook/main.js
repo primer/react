@@ -6,7 +6,6 @@ module.exports = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     '@storybook/addon-links',
-    'storybook-addon-performance/register',
     {
       name: 'storybook-addon-turbo-build',
       options: {
@@ -30,5 +29,9 @@ module.exports = {
     interactionsDebugger: true,
     storyStoreV7: true
   },
-  framework: '@storybook/react'
+  framework: '@storybook/react',
+  reactOptions: {
+    fastRefresh: true,
+    strictMode: true
+  }
 }
