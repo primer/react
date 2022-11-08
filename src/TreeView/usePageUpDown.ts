@@ -97,7 +97,7 @@ export function usePageUpDown(ref: React.RefObject<HTMLElement>) {
  * detects that the application is no longer scrolling.
  */
 function useScrollEnd() {
-  // Keep tracking of the current timeout and scroll listener in case the owner
+  // Keep track of the current timeout and scroll listener in case the owner
   // component unmounts before the timer has a chance to complete
   const timeoutId = React.useRef<number | null>(null)
   const activeListener = React.useRef<(() => void) | null>(null)
