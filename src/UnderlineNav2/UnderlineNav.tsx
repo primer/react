@@ -325,10 +325,10 @@ export const UnderlineNav = forwardRef(
                   onClick={onAnchorClick}
                   trailingIcon={TriangleDownIcon}
                 >
-                  <Box as="span" aria-hidden="true">
-                    More
+                  <Box as="span">
+                    More <VisuallyHidden as="span">{`${ariaLabel} items`}</VisuallyHidden>
                   </Box>
-                  <VisuallyHidden as="span">{`More: ${ariaLabel} items`}</VisuallyHidden>
+                  
                 </Button>
                 <ActionList
                   selectionVariant="single"
