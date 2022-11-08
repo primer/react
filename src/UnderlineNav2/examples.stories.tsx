@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   IconProps,
-  EyeIcon,
   CodeIcon,
   IssueOpenedIcon,
   GitPullRequestIcon,
@@ -10,65 +9,58 @@ import {
   ProjectIcon,
   GraphIcon,
   ShieldLockIcon,
-  GearIcon
+  GearIcon,
+  CommitIcon,
+  ChecklistIcon,
+  FileDiffIcon,
+  BookIcon,
+  RepoIcon,
+  PackageIcon,
+  StarIcon,
+  ThreeBarsIcon,
+  PeopleIcon
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
-import {BaseStyles, ThemeProvider} from '..'
+import {Avatar, StyledOcticon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
 
 export default {
-  title: 'Components/UnderlineNav',
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ]
+  title: 'Drafts/Components/UnderlineNav/Examples'
 } as Meta
 
-export const DefaultNav = () => {
+export const PullRequestPage = () => {
   return (
-    <UnderlineNav aria-label="Repository">
-      <UnderlineNav.Item selected>Code</UnderlineNav.Item>
-      <UnderlineNav.Item>Issues</UnderlineNav.Item>
-      <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
-    </UnderlineNav>
-  )
-}
-
-export const withIcons = () => {
-  return (
-    <UnderlineNav aria-label="Repository with icons">
-      <UnderlineNav.Item icon={CodeIcon}>Code</UnderlineNav.Item>
-      <UnderlineNav.Item icon={EyeIcon} counter={6}>
-        Issues
-      </UnderlineNav.Item>
-      <UnderlineNav.Item selected icon={GitPullRequestIcon}>
-        Pull Requests
-      </UnderlineNav.Item>
-      <UnderlineNav.Item icon={CommentDiscussionIcon} counter={7}>
-        Discussions
-      </UnderlineNav.Item>
-      <UnderlineNav.Item icon={ProjectIcon}>Projects</UnderlineNav.Item>
-    </UnderlineNav>
-  )
-}
-
-export const withCounterLabels = () => {
-  return (
-    <UnderlineNav aria-label="Repository with counters">
-      <UnderlineNav.Item selected icon={CodeIcon}>
-        Code
-      </UnderlineNav.Item>
-      <UnderlineNav.Item icon={IssueOpenedIcon} counter={12}>
-        Issues
-      </UnderlineNav.Item>
-    </UnderlineNav>
+    <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
+      <Box>
+        <Heading as="h1" sx={{fontWeight: 'normal'}}>
+          Switch to new UnderlineNav <Text sx={{color: 'fg.muted', fontWeight: 'light'}}>#1111</Text>
+        </Heading>
+        <Box sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
+          <StateLabel status="pullOpened">Open</StateLabel>
+          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+            <Link href="#" muted sx={{fontWeight: 'bold'}}>
+              broccolinisoup
+            </Link>{' '}
+            wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
+            <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
+          </Text>
+        </Box>
+      </Box>
+      <UnderlineNav aria-label="Pull Request">
+        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="0" selected>
+          Conversation
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={3} icon={CommitIcon}>
+          Commits
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
+          Checks
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={4} icon={FileDiffIcon}>
+          Files Changes
+        </UnderlineNav.Item>
+      </UnderlineNav>
+    </Box>
   )
 }
 
@@ -84,7 +76,7 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
   {navigation: 'Security', icon: ShieldLockIcon, href: '#security'}
 ]
 
-export const InternalResponsiveNav = () => {
+export const ReposPage = () => {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
 
   return (
@@ -94,7 +86,10 @@ export const InternalResponsiveNav = () => {
           key={item.navigation}
           icon={item.icon}
           selected={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
+          onSelect={event => {
+            event.preventDefault()
+            setSelectedIndex(index)
+          }}
           counter={item.counter}
           href={item.href}
         >
@@ -105,22 +100,81 @@ export const InternalResponsiveNav = () => {
   )
 }
 
-export const CountersLoadingState = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
+const profileItems: {navigation: string; icon: React.FC<IconProps>; counter?: number | string; href?: string}[] = [
+  {navigation: 'Overview', icon: BookIcon, href: '#overview'},
+  {navigation: 'Repositories', icon: RepoIcon, counter: '12', href: '#repositories'},
+  {navigation: 'Projects', icon: ProjectIcon, counter: 3, href: '#projects'},
+  {navigation: 'Packages', icon: PackageIcon, counter: '0', href: '#packages'},
+  {navigation: 'Stars', icon: StarIcon, counter: '0', href: '#stars'},
+  {navigation: 'Activity', icon: ThreeBarsIcon, counter: 67, href: '#activity'}
+]
 
+export const ProfilePage = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
   return (
-    <UnderlineNav aria-label="Repository with loading counters" loadingCounters={true}>
-      {items.map((item, index) => (
-        <UnderlineNav.Item
-          key={item.navigation}
-          icon={item.icon}
-          selected={index === selectedIndex}
-          onSelect={() => setSelectedIndex(index)}
-          counter={item.counter}
+    <Box sx={{display: 'flex', flexDirection: 'row', gap: 3, alignItems: 'flex-start'}}>
+      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', height: '100%'}}>
+        <Avatar size={256} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="mona user avatar" />
+        <Box>
+          {/* Initial bio info */}
+          <Box sx={{paddingY: 3}}>
+            <Heading as="h1" sx={{fontSize: 24}}>
+              Monalisa Octocat
+            </Heading>
+            <Heading as="h1" sx={{fontSize: 20, fontWeight: 300, color: 'fg.subtle'}}>
+              mona
+            </Heading>
+          </Box>
+
+          {/* Edit Profile / Profile details */}
+          <Box sx={{display: 'flex', flexDirection: 'column', color: 'fg.onEmphasis'}}>
+            <Button sx={{width: '100%'}}>Edit Profile</Button>
+
+            <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 3}}>
+              <StyledOcticon icon={PeopleIcon} size={16} color="fg.subtle" sx={{marginRight: 1}} />
+              <Link href="https://github.com" muted sx={{marginRight: 2}}>
+                47 Followers
+              </Link>
+              <span> · </span>
+              <Link href="https://github.com" muted sx={{marginLeft: 2}}>
+                54 Following
+              </Link>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      <Box sx={{flexGrow: 1}}>
+        <UnderlineNav aria-label="Repository">
+          {profileItems.map((item, index) => (
+            <UnderlineNav.Item
+              key={item.navigation}
+              icon={item.icon}
+              selected={index === selectedIndex}
+              onSelect={event => {
+                event.preventDefault()
+                setSelectedIndex(index)
+              }}
+              counter={item.counter}
+              href={item.href}
+            >
+              {item.navigation}
+            </UnderlineNav.Item>
+          ))}
+        </UnderlineNav>
+        <Box
+          sx={{
+            border: '1px solid',
+            marginTop: 2,
+            borderColor: 'border.default',
+            borderRadius: '12px',
+            height: '300px',
+            width: '80%',
+            padding: 4
+          }}
         >
-          {item.navigation}
-        </UnderlineNav.Item>
-      ))}
-    </UnderlineNav>
+          <Text color="fg.subtle"> mona/README.md</Text>
+        </Box>
+      </Box>
+    </Box>
   )
 }
