@@ -1,0 +1,673 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnderlineNav renders consistently 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 16px;
+  padding-right: 16px;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  border-bottom: 1px solid;
+  border-bottom-color: hsla(210,18%,87%,1);
+  align: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  color: #24292f;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
+.c4:focus > div[data-component="wrapper"] {
+  box-shadow: inset 0 0 0 2px #0969da;
+}
+
+.c4:focus:not(:focus-visible) > div[data-component="wrapper"] {
+  box-shadow: none;
+}
+
+.c4:focus-visible > div[data-component="wrapper"] {
+  box-shadow: inset 0 0 0 2px #0969da;
+}
+
+.c4 span[data-content]::before {
+  content: attr(data-content);
+  display: block;
+  height: 0;
+  font-weight: 600;
+  visibility: hidden;
+  white-space: nowrap;
+}
+
+.c4::after {
+  position: absolute;
+  right: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  content: "";
+  background-color: transparent;
+  border-radius: 0;
+  -webkit-transform: translate(50%,-50%);
+  -ms-transform: translate(50%,-50%);
+  transform: translate(50%,-50%);
+}
+
+.c5 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 6px;
+}
+
+.c6 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-right: 8px;
+}
+
+.c7 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c8 {
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 20px;
+  color: #24292f;
+  background-color: rgba(175,184,193,0.2);
+}
+
+.c8:empty {
+  display: none;
+}
+
+.c0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  white-space: nowrap;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  margin-bottom: -1px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+@media (hover:hover) {
+  .c4:hover > div[data-component="wrapper"] {
+    background-color: rgba(175,184,193,0.2);
+    -webkit-transition: background .12s ease-out;
+    transition: background .12s ease-out;
+  }
+}
+
+@media (forced-colors:active) {
+  .c4::after {
+    background-color: transparent;
+  }
+}
+
+<div>
+  <h2
+    className="c0"
+  >
+    Repository navigation
+  </h2>
+  <nav
+    aria-label="Repository"
+    className="c1"
+  >
+    <ul
+      className="c2"
+    >
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className="c6"
+              data-component="icon"
+            >
+              <svg
+                aria-hidden="true"
+                className="octicon octicon-code"
+                fill="currentColor"
+                focusable="false"
+                height={16}
+                role="img"
+                style={
+                  {
+                    "display": "inline-block",
+                    "overflow": "visible",
+                    "userSelect": "none",
+                    "verticalAlign": "text-bottom",
+                  }
+                }
+                viewBox="0 0 16 16"
+                width={16}
+              >
+                <path
+                  d="M4.72 3.22a.75.75 0 011.06 1.06L2.06 8l3.72 3.72a.75.75 0 11-1.06 1.06L.47 8.53a.75.75 0 010-1.06l4.25-4.25zm6.56 0a.75.75 0 10-1.06 1.06L13.94 8l-3.72 3.72a.75.75 0 101.06 1.06l4.25-4.25a.75.75 0 000-1.06l-4.25-4.25z"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              className=""
+              data-component="text"
+              data-content="Code"
+            >
+              Code
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className="c6"
+              data-component="icon"
+            >
+              <svg
+                aria-hidden="true"
+                className="octicon octicon-issue-opened"
+                fill="currentColor"
+                focusable="false"
+                height={16}
+                role="img"
+                style={
+                  {
+                    "display": "inline-block",
+                    "overflow": "visible",
+                    "userSelect": "none",
+                    "verticalAlign": "text-bottom",
+                  }
+                }
+                viewBox="0 0 16 16"
+                width={16}
+              >
+                <path
+                  d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                />
+                <path
+                  d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              className=""
+              data-component="text"
+              data-content="Issues"
+            >
+              Issues
+            </span>
+            <span
+              className="c7"
+              data-component="counter"
+            >
+              <span
+                className="c8"
+              >
+                120
+              </span>
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className="c6"
+              data-component="icon"
+            >
+              <svg
+                aria-hidden="true"
+                className="octicon octicon-git-pull-request"
+                fill="currentColor"
+                focusable="false"
+                height={16}
+                role="img"
+                style={
+                  {
+                    "display": "inline-block",
+                    "overflow": "visible",
+                    "userSelect": "none",
+                    "verticalAlign": "text-bottom",
+                  }
+                }
+                viewBox="0 0 16 16"
+                width={16}
+              >
+                <path
+                  d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              className=""
+              data-component="text"
+              data-content="Pull Requests"
+            >
+              Pull Requests
+            </span>
+            <span
+              className="c7"
+              data-component="counter"
+            >
+              <span
+                className="c8"
+              >
+                13
+              </span>
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className="c6"
+              data-component="icon"
+            >
+              <svg
+                aria-hidden="true"
+                className="octicon octicon-comment-discussion"
+                fill="currentColor"
+                focusable="false"
+                height={16}
+                role="img"
+                style={
+                  {
+                    "display": "inline-block",
+                    "overflow": "visible",
+                    "userSelect": "none",
+                    "verticalAlign": "text-bottom",
+                  }
+                }
+                viewBox="0 0 16 16"
+                width={16}
+              >
+                <path
+                  d="M1.5 2.75a.25.25 0 01.25-.25h8.5a.25.25 0 01.25.25v5.5a.25.25 0 01-.25.25h-3.5a.75.75 0 00-.53.22L3.5 11.44V9.25a.75.75 0 00-.75-.75h-1a.25.25 0 01-.25-.25v-5.5zM1.75 1A1.75 1.75 0 000 2.75v5.5C0 9.216.784 10 1.75 10H2v1.543a1.457 1.457 0 002.487 1.03L7.061 10h3.189A1.75 1.75 0 0012 8.25v-5.5A1.75 1.75 0 0010.25 1h-8.5zM14.5 4.75a.25.25 0 00-.25-.25h-.5a.75.75 0 110-1.5h.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0114.25 12H14v1.543a1.457 1.457 0 01-2.487 1.03L9.22 12.28a.75.75 0 111.06-1.06l2.22 2.22v-2.19a.75.75 0 01.75-.75h1a.25.25 0 00.25-.25v-5.5z"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              className=""
+              data-component="text"
+              data-content="Discussions"
+            >
+              Discussions
+            </span>
+            <span
+              className="c7"
+              data-component="counter"
+            >
+              <span
+                className="c8"
+              >
+                5
+              </span>
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className=""
+              data-component="text"
+              data-content="Actions"
+            >
+              Actions
+            </span>
+            <span
+              className="c7"
+              data-component="counter"
+            >
+              <span
+                className="c8"
+              >
+                4
+              </span>
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className="c6"
+              data-component="icon"
+            >
+              <svg
+                aria-hidden="true"
+                className="octicon octicon-project"
+                fill="currentColor"
+                focusable="false"
+                height={16}
+                role="img"
+                style={
+                  {
+                    "display": "inline-block",
+                    "overflow": "visible",
+                    "userSelect": "none",
+                    "verticalAlign": "text-bottom",
+                  }
+                }
+                viewBox="0 0 16 16"
+                width={16}
+              >
+                <path
+                  d="M1.75 0A1.75 1.75 0 000 1.75v12.5C0 15.216.784 16 1.75 16h12.5A1.75 1.75 0 0016 14.25V1.75A1.75 1.75 0 0014.25 0H1.75zM1.5 1.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v12.5a.25.25 0 01-.25.25H1.75a.25.25 0 01-.25-.25V1.75zM11.75 3a.75.75 0 00-.75.75v7.5a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75zm-8.25.75a.75.75 0 011.5 0v5.5a.75.75 0 01-1.5 0v-5.5zM8 3a.75.75 0 00-.75.75v3.5a.75.75 0 001.5 0v-3.5A.75.75 0 008 3z"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              className=""
+              data-component="text"
+              data-content="Projects"
+            >
+              Projects
+            </span>
+            <span
+              className="c7"
+              data-component="counter"
+            >
+              <span
+                className="c8"
+              >
+                9
+              </span>
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className="c6"
+              data-component="icon"
+            >
+              <svg
+                aria-hidden="true"
+                className="octicon octicon-graph"
+                fill="currentColor"
+                focusable="false"
+                height={16}
+                role="img"
+                style={
+                  {
+                    "display": "inline-block",
+                    "overflow": "visible",
+                    "userSelect": "none",
+                    "verticalAlign": "text-bottom",
+                  }
+                }
+                viewBox="0 0 16 16"
+                width={16}
+              >
+                <path
+                  d="M1.5 1.75a.75.75 0 00-1.5 0v12.5c0 .414.336.75.75.75h14.5a.75.75 0 000-1.5H1.5V1.75zm14.28 2.53a.75.75 0 00-1.06-1.06L10 7.94 7.53 5.47a.75.75 0 00-1.06 0L3.22 8.72a.75.75 0 001.06 1.06L7 7.06l2.47 2.47a.75.75 0 001.06 0l5.25-5.25z"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              className=""
+              data-component="text"
+              data-content="Insights"
+            >
+              Insights
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className=""
+              data-component="text"
+              data-content="Settings"
+            >
+              Settings
+            </span>
+            <span
+              className="c7"
+              data-component="counter"
+            >
+              <span
+                className="c8"
+              >
+                10
+              </span>
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        className="c3"
+      >
+        <a
+          className="c4"
+          href="#"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+        >
+          <div
+            className="c5"
+            data-component="wrapper"
+          >
+            <span
+              className="c6"
+              data-component="icon"
+            >
+              <svg
+                aria-hidden="true"
+                className="octicon octicon-shield-lock"
+                fill="currentColor"
+                focusable="false"
+                height={16}
+                role="img"
+                style={
+                  {
+                    "display": "inline-block",
+                    "overflow": "visible",
+                    "userSelect": "none",
+                    "verticalAlign": "text-bottom",
+                  }
+                }
+                viewBox="0 0 16 16"
+                width={16}
+              >
+                <path
+                  d="M8.533.133a1.75 1.75 0 00-1.066 0l-5.25 1.68A1.75 1.75 0 001 3.48V7c0 1.566.32 3.182 1.303 4.682.983 1.498 2.585 2.813 5.032 3.855a1.7 1.7 0 001.33 0c2.447-1.042 4.049-2.357 5.032-3.855C14.68 10.182 15 8.566 15 7V3.48a1.75 1.75 0 00-1.217-1.667L8.533.133zm-.61 1.429a.25.25 0 01.153 0l5.25 1.68a.25.25 0 01.174.238V7c0 1.358-.275 2.666-1.057 3.86-.784 1.194-2.121 2.34-4.366 3.297a.2.2 0 01-.154 0c-2.245-.956-3.582-2.104-4.366-3.298C2.775 9.666 2.5 8.36 2.5 7V3.48a.25.25 0 01.174-.237l5.25-1.68zM9.5 6.5a1.5 1.5 0 01-.75 1.3v2.45a.75.75 0 01-1.5 0V7.8A1.5 1.5 0 119.5 6.5z"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              className=""
+              data-component="text"
+              data-content="Security"
+            >
+              Security
+            </span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
