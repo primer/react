@@ -26,7 +26,7 @@ import {useTypeahead} from './useTypeahead'
 
 const RootContext = React.createContext<{
   announceUpdate: (message: string) => void
-  // We cache the expanded state of tree items so we can persist the state
+  // We cache the expanded state of tree items so we can preserve the state
   // across remounts. This is necessary because we unmount tree items
   // when their parent is collapsed.
   expandedStateCache: React.RefObject<Map<string, boolean>>
