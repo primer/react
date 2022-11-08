@@ -27,7 +27,9 @@ exports[`Radio renders consistently 1`] = `
   aria-invalid="false"
   aria-required="false"
   className="c0"
+  name="mock"
   onChange={[Function]}
   type="radio"
+  value="mock value"
 />
 `;
