@@ -39,7 +39,7 @@ expect.extend({
     const elem = React.cloneElement(element, {sx: sxPropValue})
 
     function checkStylesDeep(rendered: ReactTestRendererJSON): boolean {
-      const className = rendered.props.className
+      const className = rendered.props.className || rendered.props.class
       const styles = getComputedStyles(className)
       const mediaStyles = styles[mediaKey] as Record<string, string> | null
       if (mediaStyles && mediaStyles.color) {
