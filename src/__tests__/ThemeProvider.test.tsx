@@ -107,13 +107,18 @@ it('defaults to dark color scheme in night mode', () => {
 })
 
 it('defaults to first color scheme when passed an invalid color scheme name', () => {
+  const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
+
   render(
     <ThemeProvider theme={exampleTheme} dayScheme="foo">
       <Text color="text">Hello</Text>
     </ThemeProvider>
   )
 
+  expect(spy).toHaveBeenCalledWith('`foo` scheme not defined in `theme.colorSchemes`')
   expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
+
+  spy.mockRestore()
 })
 
 it('respects nightScheme prop', () => {
@@ -509,6 +514,7 @@ describe('useTheme().resolvedColorScheme', () => {
   })
 
   it('is the value of the fallback colorScheme applied when attempting to apply an invalid colorScheme', () => {
+    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
     const Component = () => {
       const {resolvedColorScheme} = useTheme()
 
@@ -524,9 +530,12 @@ describe('useTheme().resolvedColorScheme', () => {
 
     const defaultThemeColorScheme = Object.keys(exampleTheme.colorSchemes)[0]
 
+    expect(spy).toHaveBeenCalledWith('`totally-invalid-colorscheme` scheme not defined in `theme.colorSchemes`')
     expect(defaultThemeColorScheme).not.toEqual(schemeToApply)
     expect(exampleTheme.colorSchemes).not.toHaveProperty(schemeToApply)
     expect(screen.getByTestId('text').textContent).toEqual('light')
+
+    spy.mockRestore()
   })
 
   describe('nested theme', () => {
@@ -552,6 +561,8 @@ describe('useTheme().resolvedColorScheme', () => {
     })
 
     it('is the value of the fallback colorScheme applied when attempting to apply an invalid colorScheme', () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
       const Component = () => {
         const {resolvedColorScheme} = useTheme()
 
@@ -569,9 +580,12 @@ describe('useTheme().resolvedColorScheme', () => {
 
       const defaultThemeColorScheme = Object.keys(exampleTheme.colorSchemes)[0]
 
+      expect(spy).toHaveBeenCalledWith('`totally-invalid-colorscheme` scheme not defined in `theme.colorSchemes`')
       expect(defaultThemeColorScheme).not.toEqual(schemeToApply)
       expect(exampleTheme.colorSchemes).not.toHaveProperty(schemeToApply)
       expect(screen.getByTestId('text').textContent).toEqual('light')
+
+      spy.mockRestore()
     })
   })
 })

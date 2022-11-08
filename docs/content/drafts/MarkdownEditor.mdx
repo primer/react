@@ -27,7 +27,7 @@ import {MarkdownEditor} from '@primer/react/drafts'
 A `Label` is always required for accessibility:
 
 ```javascript live noinline drafts
-const renderMarkdown = async markdown => {
+const renderMarkdown = async (markdown) => {
   // In production code, this would make a query to some external API endpoint to render
   return 'Rendered Markdown.'
 }
@@ -48,9 +48,9 @@ render(MinimalExample)
 ### Suggestions, File Uploads, and Saved Replies
 
 ```javascript live noinline drafts
-const renderMarkdown = async markdown => 'Rendered Markdown.'
+const renderMarkdown = async (markdown) => 'Rendered Markdown.'
 
-const uploadFile = async file => ({
+const uploadFile = async (file) => ({
   url: `https://example.com/${encodeURIComponent(file.name)}`,
   file
 })
@@ -120,7 +120,7 @@ render(MinimalExample)
 ### Custom Buttons
 
 ```javascript live noinline drafts
-const renderMarkdown = async markdown => 'Rendered Markdown.'
+const renderMarkdown = async (markdown) => 'Rendered Markdown.'
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')
