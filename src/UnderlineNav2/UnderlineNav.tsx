@@ -328,7 +328,6 @@ export const UnderlineNav = forwardRef(
                   <Box as="span">
                     More <VisuallyHidden as="span">{`${ariaLabel} items`}</VisuallyHidden>
                   </Box>
-                  
                 </Button>
                 <ActionList
                   selectionVariant="single"
