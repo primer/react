@@ -1,4 +1,4 @@
-import {RelativeTime} from './RelativeTime'
+import RelativeTime from './RelativeTime'
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 
@@ -8,7 +8,9 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
     controls: {
-      exclude: /^(getFormatted.*|datetime|sx|as|theme|forwardedAs|.*Callback)$/g
+      // StoryBook infers from type info of the component which includes CE Lifecycle,
+      // SX props, and methods we want to otherwise ignore
+      exclude: /^(getFormatted.*|datetime|sx|as|theme|forwardedAs|.*Callback|update)$/g
     }
   },
   args: {
