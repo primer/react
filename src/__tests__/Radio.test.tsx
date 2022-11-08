@@ -16,7 +16,7 @@ describe('Radio', () => {
     jest.resetAllMocks()
   })
 
-  behavesAsComponent({Component: Radio})
+  behavesAsComponent({Component: Radio, toRender: () => <Radio {...defaultProps} />})
 
   checkExports('Radio', {
     default: Radio
