@@ -4,6 +4,7 @@ import {createGlobalStyle} from 'styled-components'
 import {ComponentProps} from './types'
 import {ArgTypes} from '@storybook/react'
 import {InputType} from '@storybook/csf'
+import {Icon} from '@primer/octicons-react'
 
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
@@ -334,3 +335,19 @@ export const getFormControlArgsByChildComponent = ({
   captionArgs: {children: captionChildren},
   validationArgs: {children: validationChildren, variant}
 })
+
+// Use this function for icon options in the controls. Desired icons are passed in as an array of Octicons
+export const OcticonArgType = (iconList: Icon[]) => {
+  const icons = iconList.reduce<Record<string, Icon>>((obj, icon) => {
+    obj[icon.displayName || 'Icon'] = icon
+    return obj
+  }, {})
+
+  return {
+    options: Object.keys(icons),
+    control: {
+      type: 'select'
+    },
+    mapping: icons
+  }
+}
