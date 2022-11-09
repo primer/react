@@ -353,9 +353,7 @@ export const UnderlineNav = forwardRef(
                             {actionElementChildren}
 
                             {loadingCounters ? (
-                              <Box as="span" data-component="counter">
-                                <LoadingCounter />
-                              </Box>
+                              <LoadingCounter />
                             ) : (
                               actionElementProps.counter !== undefined && (
                                 <Box as="span" data-component="counter">
