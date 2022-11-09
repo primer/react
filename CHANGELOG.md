@@ -2,10 +2,6 @@
 
 ## 35.14.0
 
-### [Permalink to documentation](3395236117)
-
-### [Permalink to documentation](${github.run_id})
-
 ### Minor Changes
 
 - [#2466](https://github.com/primer/react/pull/2466) [`9ff856de`](https://github.com/primer/react/commit/9ff856ded581f70ded3eb9c2704e1ada8eb77c13) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Introduce disclosure widget pattern
