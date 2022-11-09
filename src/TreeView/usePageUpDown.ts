@@ -26,13 +26,22 @@ export function usePageUpDown(ref: React.RefObject<HTMLElement>) {
       if (event.key === 'PageUp' || event.key === 'PageDown') {
         onScrollEnd(() => {
           const scrollContainer = getScrollContainer(tree)
-
-          if (document.activeElement && isVisible(document.activeElement as HTMLElement, scrollContainer)) {
+          const {activeElement} = document
+          if (activeElement === null) {
             return
           }
 
-          const items = Array.from(tree.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
+          if (isVisible(document.activeElement as HTMLElement, scrollContainer)) {
+            return
+          }
 
+          const items = Array.from(tree.querySelectorAll('[role="treeitem"]')).filter((item): item is HTMLElement => {
+            const position = activeElement.compareDocumentPosition(item)
+            if (event.key === 'PageUp') {
+              return !!(position & Node.DOCUMENT_POSITION_PRECEDING)
+            }
+            return !!(position & Node.DOCUMENT_POSITION_FOLLOWING)
+          })
           if (event.key === 'PageUp') {
             items.reverse()
           }
