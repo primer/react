@@ -103,6 +103,7 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.5.0",
     "@babel/cli": "7.17.6",
     "@babel/core": "7.14.8",
     "@babel/eslint-parser": "7.15.7",
@@ -114,6 +115,7 @@
     "@changesets/changelog-github": "0.4.3",
     "@changesets/cli": "2.25.1",
     "@github/prettier-config": "0.0.4",
+    "@playwright/test": "1.27.1",
     "@rollup/plugin-babel": "6.0.2",
     "@rollup/plugin-commonjs": "23.0.0",
     "@rollup/plugin-node-resolve": "14.1.0",
