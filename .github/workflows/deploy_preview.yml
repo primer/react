@@ -29,6 +29,7 @@ jobs:
   add-permalink-to-changelog:
     needs: deploy-preview
     runs-on: ubuntu-latest
+    if: ${{GITHUB_HEAD_REF}} === 'changeset-release/main'
     steps:
       - uses: actions/checkout@v3
       - name: Update CHANGELOG.md
