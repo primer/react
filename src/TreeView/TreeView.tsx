@@ -262,8 +262,11 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     setAriaLiveMessage(message)
   }, [])
 
-  const expandedStateCache = React.useRef(new Map())
+  const expandedStateCache = React.useRef(null)
 
+  if (expandedStateCache.current === null) {
+    expandedStateCache.current = new Map();
+  }
   return (
     <RootContext.Provider
       value={{
