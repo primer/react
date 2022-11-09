@@ -2,6 +2,8 @@
 
 ## 35.14.1
 
+### [Permalink to documentation](https://primer-3c8c1d9c2e-13348165.drafts.github.io/)
+
 ### Patch Changes
 
 - [#2510](https://github.com/primer/react/pull/2510) [`c326777e`](https://github.com/primer/react/commit/c326777ec0369968e49d9d9ceb21f7f5609f697b) Thanks [@langermank](https://github.com/langermank)! - Remove deprecated focus style primitives
