@@ -115,6 +115,7 @@ function useScrollEnd(ref: React.RefObject<HTMLElement>) {
         callback()
       }
 
+      // eslint-disable-next-line github/prefer-observers
       container.addEventListener('scroll', onScroll)
       activeListener.current = onScroll
 
