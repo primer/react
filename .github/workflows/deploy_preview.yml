@@ -3,7 +3,7 @@ on:
   pull_request:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -26,3 +26,52 @@ jobs:
       install: npm ci && cd docs && npm ci && cd ..
       build: npm run build:docs:preview
       output_dir: docs/public
+  add-permalink-to-changelog:
+    needs: deploy-preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update CHANGELOG.md
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs')
+            const fileName = 'CHANGELOG.md'
+            const contentToInsert = '### [Permalink to documentation](${{ needs['deploy-preview'].outputs.deployment_url }})'
+            const originalContents = fs.readFileSync(fileName, 'utf8')
+
+            let modifiedContents = originalContents.split('\n\n')
+
+            // the format of this file is standard
+            // so it's safe to add a line between version number and changes
+            //
+            //   [
+            // 0  '# @primer/components',
+            // 1  '## 35.14.0',
+            // 2+ '### [Permalink to documentation](https://primer-cc8b6b2260-13348165.drafts.github.io)',
+            // 3  '### Minor Changes',
+            //   ]
+
+            const index = 2
+            if (modifiedContents[index].includes('Permalink to documentation')) {
+              modifiedContents[index] = contentToInsert
+            } else {
+              modifiedContents.splice(index, 0, contentToInsert)
+            }
+
+            modifiedContents = modifiedContents.join('\n\n')
+            fs.writeFileSync(fileName, modifiedContents)
+
+      - id: get-current-sha
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const shortSha = '${{github.sha}}'.slice(0,7)
+            core.setOutput('sha', shortSha)
+      - uses: EndBug/add-and-commit@v4
+        with:
+          add: 'CHANGELOG.md'
+          message: 'Update permalink to documentation in CHANGELOG.md (for ${{steps.get-current-sha.outputs.sha}})'
+          author_email: actions@github.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
