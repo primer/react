@@ -28,7 +28,7 @@
     "examples/nextjs/**",
     // Note: this file is inlined from an external dependency
     "src/utils/polymorphic.ts",
-    "storybook-static/**"
+    "storybook-static"
   ],
   "globals": {
     "__DEV__": "readonly"
@@ -146,6 +146,15 @@
         "@typescript-eslint/no-unused-vars": 0,
         "primer-react/no-deprecated-colors": ["error", {"skipImportCheck": true}],
         "no-redeclare": 0
+      }
+    },
+    {
+      "parserOptions": {
+        "project": "tsconfig.json"
+      },
+      "files": ["playwright.config.ts", "e2e/**/*.{ts,tsx}"],
+      "rules": {
+        "github/array-foreach": "off"
       }
     }
   ]

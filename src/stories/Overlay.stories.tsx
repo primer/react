@@ -1,14 +1,14 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
-import styled from 'styled-components'
 import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react'
 import {
   Overlay,
   ButtonGroup,
+  Button,
   Text,
   Box,
-  StyledOcticon,
   Checkbox,
+  CheckboxGroup,
   FormControl,
   TextInput,
   Link,
@@ -16,10 +16,7 @@ import {
   ActionList,
   ActionMenu
 } from '..'
-import {Button, ButtonInvisible, ButtonPrimary, ButtonDanger} from '../deprecated'
 import type {AnchorSide} from '@primer/behaviors'
-import {DropdownMenu, DropdownButton} from '../deprecated/DropdownMenu'
-import {ItemInput} from '../deprecated/ActionList/List'
 
 export default {
   title: 'Private components/Overlay',
@@ -47,24 +44,6 @@ export default {
   }
 } as Meta
 
-const DummyItem = styled.button`
-  border-radius: 6px;
-  font-weight: 400;
-  padding: 6px 8px;
-  font-weight: 400;
-  text-align: left;
-  margin: 0;
-  font-size: 14px;
-  background: none;
-  border: none;
-  &:hover {
-    background: #f0f3f5;
-  }
-
-  &:focus {
-    background: red;
-  }
-`
 interface OverlayProps {
   anchorSide: AnchorSide
 }
@@ -87,13 +66,14 @@ export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
           onClickOutside={() => setIsOpen(false)}
           anchorSide={anchorSide}
         >
-          <Box display="flex" flexDirection="column" p={2}>
-            <DummyItem>Copy link</DummyItem>
-            <DummyItem>Quote reply</DummyItem>
-            <DummyItem>Reference in new issue</DummyItem>
-            <DummyItem>Edit</DummyItem>
-            <DummyItem>Delete</DummyItem>
-          </Box>
+          <ActionList>
+            <ActionList.Item>Copy link</ActionList.Item>
+            <ActionList.Item>Quote reply</ActionList.Item>
+            <ActionList.Item>Reference in new issue</ActionList.Item>
+            <ActionList.Item>Edit</ActionList.Item>
+            <ActionList.Divider />
+            <ActionList.Item variant="danger">Delete</ActionList.Item>
+          </ActionList>
         </Overlay>
       ) : null}
     </>
@@ -107,7 +87,7 @@ export const DialogOverlay = ({anchorSide}: OverlayProps) => {
   const anchorRef = useRef<HTMLDivElement>(null)
   const closeOverlay = () => setIsOpen(false)
   return (
-    <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+    <Box ref={anchorRef}>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
@@ -123,7 +103,9 @@ export const DialogOverlay = ({anchorSide}: OverlayProps) => {
         >
           <Box display="flex" flexDirection="column" p={2}>
             <Text>Are you sure?</Text>
-            <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
+            <Button variant="danger" onClick={closeOverlay}>
+              Cancel
+            </Button>
             <Button onClick={closeOverlay} ref={confirmButtonRef}>
               Confirm
             </Button>
@@ -143,30 +125,9 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
   const anchorRef = useRef<HTMLDivElement>(null)
   const closeOverlay = () => setIsOpen(false) // intentionally not memoized
   const closeSecondaryOverlay = useCallback(() => setIsSecondaryOpen(false), [setIsSecondaryOpen])
-  const items = React.useMemo(
-    () => [
-      {
-        text: '🔵 Cyan',
-        onMouseDown: (e: React.MouseEvent) => {
-          e.preventDefault()
-        }
-      },
-      {
-        text: '🔴 Magenta',
-        onMouseDown: (e: React.MouseEvent) => {
-          e.preventDefault()
-        }
-      },
-      {
-        text: '🟡 Yellow',
-        onMouseDown: (e: React.MouseEvent) => {
-          e.preventDefault()
-        }
-      }
-    ],
-    []
-  )
-  const [selectedItem, setSelectedItem] = React.useState<ItemInput | undefined>()
+  const items = ['🔵 Cyan', '🔴 Magenta', '🟡 Yellow']
+  const [selectedItem, setSelectedItem] = React.useState(items[0])
+
   return (
     <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
       <input placeholder="Input for focus testing" />
@@ -198,117 +159,28 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
             >
               <Box display="flex" flexDirection="column" p={2}>
                 <Text>Select an option!</Text>
-                <DropdownMenu
-                  renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-                    <DropdownButton aria-labelledby={`favorite-color-label ${ariaLabelledBy}`} {...anchorProps}>
-                      {children}
-                    </DropdownButton>
-                  )}
-                  placeholder="🎨"
-                  items={items}
-                  selectedItem={selectedItem}
-                  onChange={setSelectedItem}
-                />
+                <ActionMenu>
+                  <ActionMenu.Button sx={{width: 200}}>{selectedItem}</ActionMenu.Button>
+                  <ActionMenu.Overlay>
+                    <ActionList selectionVariant="single">
+                      {items.map(item => (
+                        <ActionList.Item
+                          key={item}
+                          selected={item === selectedItem}
+                          onSelect={() => setSelectedItem(item)}
+                        >
+                          {item}
+                        </ActionList.Item>
+                      ))}
+                    </ActionList>
+                  </ActionMenu.Overlay>
+                </ActionMenu>
               </Box>
             </Overlay>
           ) : null}
         </Overlay>
       ) : null}
     </Box>
-  )
-}
-
-export const NestedOverlays = () => {
-  const [listOverlayOpen, setListOverlayOpen] = React.useState(false)
-  const [createListOverlayOpen, setCreateListOverlayOpen] = React.useState(false)
-
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const secondaryButtonRef = useRef<HTMLButtonElement>(null)
-
-  React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    const handler = (event: KeyboardEvent) => console.log('global handler:', event.key)
-    document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
-  }, [])
-
-  return (
-    <div>
-      <TextInput />
-      <div>
-        primary overlay open: {String(listOverlayOpen)}, secondary overlay open: {String(createListOverlayOpen)}
-      </div>
-      <ButtonGroup>
-        <Button>Star</Button>
-        <Button
-          aria-label="Add this repository to a list"
-          ref={buttonRef}
-          onClick={() => setListOverlayOpen(!listOverlayOpen)}
-          sx={{paddingX: 2}}
-        >
-          <TriangleDownIcon />
-        </Button>
-      </ButtonGroup>
-      {listOverlayOpen && (
-        <Overlay
-          width="medium"
-          onEscape={() => setListOverlayOpen(false)}
-          onClickOutside={() => setListOverlayOpen(false)}
-          returnFocusRef={buttonRef}
-          ignoreClickRefs={[buttonRef]}
-          top={100}
-          left={16}
-        >
-          <Box sx={{display: 'flex', flexDirection: 'column', py: 2}}>
-            <Box sx={{paddingX: 3}}>
-              <Text color="fg.muted" sx={{fontSize: 1}}>
-                Add to list
-              </Text>
-              <Box sx={{marginY: 1}}>
-                <FormControl>
-                  <FormControl.Label>My stack</FormControl.Label>
-                  <Checkbox value="my-stack" />
-                </FormControl>
-                <FormControl>
-                  <FormControl.Label>Want to try</FormControl.Label>
-                  <Checkbox value="wanna-try" />
-                </FormControl>
-              </Box>
-            </Box>
-            <ActionList.Divider />
-            <ButtonInvisible
-              ref={secondaryButtonRef}
-              sx={{textAlign: 'left', px: 2, mx: 2}}
-              onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
-            >
-              <StyledOcticon icon={PlusIcon} sx={{mr: 1}} />
-              Create list
-            </ButtonInvisible>
-          </Box>
-          {createListOverlayOpen && (
-            <Overlay
-              width="large"
-              onEscape={() => setCreateListOverlayOpen(false)}
-              onClickOutside={() => setCreateListOverlayOpen(false)}
-              returnFocusRef={secondaryButtonRef}
-              ignoreClickRefs={[secondaryButtonRef]}
-              top={120}
-              left={64}
-            >
-              <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}}>
-                <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
-                  Create a list to organize your starred repositories.
-                </Text>
-                <TextInput placeholder="Name this list" sx={{mb: 2}} />
-                <TextInput as="textarea" placeholder="Write a description" rows={3} sx={{mb: 2, textarea: {p: 2}}} />
-
-                <ButtonPrimary onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}>Create</ButtonPrimary>
-              </Box>
-            </Overlay>
-          )}
-        </Overlay>
-      )}
-    </div>
   )
 }
 
@@ -366,9 +238,106 @@ export const MemexNestedOverlays = () => {
             <ActionList.Divider />
             <Box sx={{display: 'flex', justifyContent: 'flex-end', px: 2, gap: 1}}>
               <Button>Cancel</Button>
-              <ButtonPrimary>Add</ButtonPrimary>
+              <Button variant="primary">Add</Button>
             </Box>
           </Box>
+        </Overlay>
+      )}
+    </div>
+  )
+}
+
+export const NestedOverlays = () => {
+  const [listOverlayOpen, setListOverlayOpen] = React.useState(false)
+  const [createListOverlayOpen, setCreateListOverlayOpen] = React.useState(false)
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const secondaryButtonRef = useRef<HTMLButtonElement>(null)
+
+  React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    const handler = (event: KeyboardEvent) => console.log('global handler:', event.key)
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [])
+
+  return (
+    <div>
+      <TextInput placeholder="Input for focus testing" />
+      <div>
+        primary overlay open: {String(listOverlayOpen)}, secondary overlay open: {String(createListOverlayOpen)}
+      </div>
+      <ButtonGroup>
+        <Button>Star</Button>
+        <Button
+          aria-label="Add this repository to a list"
+          ref={buttonRef}
+          onClick={() => setListOverlayOpen(!listOverlayOpen)}
+          sx={{paddingX: 2}}
+        >
+          <TriangleDownIcon />
+        </Button>
+      </ButtonGroup>
+      {listOverlayOpen && (
+        <Overlay
+          width="medium"
+          onEscape={() => setListOverlayOpen(false)}
+          onClickOutside={() => setListOverlayOpen(false)}
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          top={100}
+          left={16}
+        >
+          <Box sx={{display: 'flex', flexDirection: 'column', py: 2}}>
+            <Box sx={{paddingX: 3, paddingY: 2}}>
+              <CheckboxGroup>
+                <CheckboxGroup.Label>Add to list</CheckboxGroup.Label>
+                <FormControl>
+                  <FormControl.Label>My stack</FormControl.Label>
+                  <FormControl.Caption id="custom-checkbox-one-caption">Personal repositories</FormControl.Caption>
+                  <Checkbox value="my-stack" />
+                </FormControl>
+                <FormControl>
+                  <FormControl.Label>Want to try</FormControl.Label>
+                  <FormControl.Caption id="custom-checkbox-one-caption">Testing new libraries</FormControl.Caption>
+                  <Checkbox value="wanna-try" />
+                </FormControl>
+              </CheckboxGroup>
+            </Box>
+            <ActionList.Divider />
+            <Button
+              variant="invisible"
+              ref={secondaryButtonRef}
+              sx={{px: 2, mx: 2, display: 'flex'}}
+              leadingIcon={PlusIcon}
+              onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
+            >
+              Create list
+            </Button>
+          </Box>
+          {createListOverlayOpen && (
+            <Overlay
+              width="medium"
+              onEscape={() => setCreateListOverlayOpen(false)}
+              onClickOutside={() => setCreateListOverlayOpen(false)}
+              returnFocusRef={secondaryButtonRef}
+              ignoreClickRefs={[secondaryButtonRef]}
+              top={120}
+              left={64}
+            >
+              <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}}>
+                <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
+                  Create a list to organize your starred repositories.
+                </Text>
+                <TextInput placeholder="Name this list" sx={{mb: 2}} />
+                <TextInput as="textarea" placeholder="Write a description" rows={3} sx={{mb: 2, textarea: {p: 2}}} />
+
+                <Button variant="primary" onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}>
+                  Create
+                </Button>
+              </Box>
+            </Overlay>
+          )}
         </Overlay>
       )}
     </div>
@@ -458,7 +427,8 @@ export const MemexIssueOverlay = () => {
                 }}
               />
             ) : (
-              <ButtonInvisible
+              <Button
+                variant="invisible"
                 ref={buttonRef}
                 onClick={() => setEditing(true)}
                 aria-label="Change issue title"
@@ -472,7 +442,7 @@ export const MemexIssueOverlay = () => {
                 }}
               >
                 {title}
-              </ButtonInvisible>
+              </Button>
             )}
           </Box>
         </Overlay>
