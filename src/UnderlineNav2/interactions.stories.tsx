@@ -22,19 +22,20 @@ KeyboardNavigation.play = async ({canvasElement}: {canvasElement: HTMLElement}) 
   await delay(2000)
   canvasElement.style.width = '800px'
   const canvas = within(canvasElement)
-  const firstItem = canvas.getByText('Code').closest('a') as HTMLAnchorElement
+  const firstItem = canvas.getByRole('link', {name: 'Code'})
   firstItem.focus()
-  await userEvent.keyboard('{Tab}')
+
+  await userEvent.tab()
   await delay(500)
-  await userEvent.keyboard('{Tab}')
+  await userEvent.tab()
   await delay(500)
-  await userEvent.keyboard('{Tab}')
+  await userEvent.tab()
   await delay(500)
-  await userEvent.keyboard('{Tab}')
+  await userEvent.tab()
   await delay(500)
-  await userEvent.keyboard('{Tab}')
+  await userEvent.tab()
   await delay(500)
-  await userEvent.keyboard('{Tab}')
+  await userEvent.tab()
   await delay(500)
   // current focus element
   let activeElement = document.activeElement
@@ -42,30 +43,28 @@ KeyboardNavigation.play = async ({canvasElement}: {canvasElement: HTMLElement}) 
   expect(activeElement).toHaveTextContent('More')
   // Open the more Menu
   activeElement && userEvent.click(activeElement)
-  userEvent.keyboard('{Tab}')
+  await userEvent.tab()
   await delay(500)
-  userEvent.keyboard('{Tab}')
+  await userEvent.tab()
   await delay(500)
-  let menuItem = canvas.getByText('Settings').closest('a') as HTMLAnchorElement
+  let menuItem = canvas.getByRole('link', {name: 'Settings 10'})
   userEvent.click(menuItem)
 
   expect(activeElement).toHaveFocus()
-  menuItem = canvas.getByText('Settings').closest('a') as HTMLAnchorElement
+  menuItem = canvas.getByRole('link', {name: 'Settings 10'})
 
   expect(menuItem).toHaveAttribute('aria-current', 'page')
   const lastListItem = canvas.getByRole('list').children[5]
   const menuListItem = canvas.getByText('Settings').closest('li') as HTMLLIElement
   // expect Settings be the last element on the list.
   expect(lastListItem).toEqual(menuListItem)
-  userEvent.keyboard('{Shift>}{Tab}')
+  userEvent.tab({shift: true})
   await delay(500)
-  userEvent.keyboard('{Shift>}{Tab}')
+  userEvent.tab({shift: true})
   await delay(500)
-  userEvent.keyboard('{Shift>}{Tab}')
+  userEvent.tab({shift: true})
   await delay(500)
-  userEvent.keyboard('{Shift>}{Tab}')
-  await delay(500)
-  userEvent.keyboard('{Shift>}{Tab}')
+  userEvent.tab({shift: true})
   await delay(500)
   // current focus element
   activeElement = document.activeElement
@@ -80,17 +79,17 @@ SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => 
   canvasElement.style.width = '800px'
   await delay(2000)
   const canvas = within(canvasElement)
-  const moreBtn = canvas.getByText('More').closest('button') as HTMLButtonElement
+  const moreBtn = canvas.getByRole('button', {name: 'More'})
   userEvent.hover(moreBtn)
   await delay(1000)
   userEvent.click(moreBtn)
 
   await delay(1000)
-  let menuItem = canvas.getByText('Settings').closest('a') as HTMLAnchorElement
+  let menuItem = canvas.getByRole('link', {name: 'Settings 10'})
   userEvent.click(menuItem)
 
   expect(moreBtn).toHaveFocus()
-  menuItem = canvas.getByText('Settings').closest('a') as HTMLAnchorElement
+  menuItem = canvas.getByRole('link', {name: 'Settings 10'})
 
   expect(menuItem).toHaveAttribute('aria-current', 'page')
   const lastListItem = canvas.getByRole('list').children[5]
@@ -108,7 +107,7 @@ KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLEleme
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
   const canvas = within(canvasElement)
   // await delay(2000)
-  const selectedItem = canvas.getByText('Settings').closest('a') as HTMLAnchorElement
+  const selectedItem = canvas.getByRole('link', {name: 'Settings 10'})
   expect(selectedItem).toHaveAttribute('aria-current', 'page')
   // change viewport
   canvasElement.style.width = '900px'

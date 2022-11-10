@@ -11,8 +11,6 @@ import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menu
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 import {Button} from '../Button'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '@primer/behaviors'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
@@ -263,11 +261,6 @@ export const UnderlineNav = forwardRef(
     const focusOnMoreMenuBtn = React.useCallback(() => {
       moreMenuBtnRef.current?.focus()
     }, [])
-
-    useFocusZone({
-      containerRef: backupRef,
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Tab
-    })
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
