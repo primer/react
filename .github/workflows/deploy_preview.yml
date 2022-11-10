@@ -41,7 +41,7 @@ jobs:
         id: storybook
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          environment: Storybook Preview (${{ github.event.number }})
+          environment: storybook-preview-${{ github.event.number }}
           environment_url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
       - name: Update storybook deployment status (success)
         if: success()
