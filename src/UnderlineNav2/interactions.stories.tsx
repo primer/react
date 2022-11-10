@@ -79,7 +79,7 @@ SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => 
   canvasElement.style.width = '800px'
   await delay(2000)
   const canvas = within(canvasElement)
-  const moreBtn = canvas.getByRole('button', {name: 'More'})
+  const moreBtn = canvas.getByRole('button', {name: 'More Repository items'})
   userEvent.hover(moreBtn)
   await delay(1000)
   userEvent.click(moreBtn)
