@@ -47,7 +47,7 @@ jobs:
       - name: Test
         run: npm run test -- --coverage
 
-  react-18:
+  react-17:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -58,12 +58,14 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: |
-          # Rewrite enzyme-adapter for react-18
-          echo "$(jq '.devDependencies."@wojtekmaj/enzyme-adapter-react-17" = "npm:@mnajdova/enzyme-adapter-react-18"' package.json)" > package.json
+          # Rewrite dependencies for React 17
+          echo "$(jq '.devDependencies."@mnajdova/enzyme-adapter-react-18" = "npm:@wojtekmaj/enzyme-adapter-react-17"' package.json)" > package.json
+          echo "$(jq '.devDependencies."@testing-library/react" = "12.x"' package.json)" > package.json
+          echo "$(jq '.devDependencies."react" = "17.x"' package.json)" > package.json
+          echo "$(jq '.devDependencies."react-dom" = "17.x"' package.json)" > package.json
+          echo "$(jq '.devDependencies."react-test-renderer" = "17.x"' package.json)" > package.json
 
           npm ci
-          npm i @testing-library/react@latest --save-dev --legacy-peer-deps
-          npm i react@18 react-dom@18 react-test-renderer@18 --save-dev --legacy-peer-deps
 
       - name: Build
         run: npm run build
