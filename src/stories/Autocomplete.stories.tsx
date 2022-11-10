@@ -1,11 +1,10 @@
 import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider} from '..'
+import {BaseStyles, Box, ThemeProvider, Button} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import {ButtonInvisible} from '../deprecated/Button'
 import FormControl from '../FormControl'
 import {ComponentProps} from '../utils/types'
 import {
@@ -700,7 +699,7 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
         height="xsmall"
         focusTrapSettings={{initialFocusRef: inputRef}}
         side="inside-top"
-        renderAnchor={props => <ButtonInvisible {...props}>open overlay</ButtonInvisible>}
+        renderAnchor={props => <Button {...props}>open overlay</Button>}
       >
         <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel" visuallyHidden>
           Pick tags
