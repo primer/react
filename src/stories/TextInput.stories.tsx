@@ -232,8 +232,8 @@ WithLoadingIndicator.parameters = {
   }
 }
 
-export const ValidationOnSubmitExample = () => {
-  const getNameErrors = value => {
+export const ValidationOnSubmit = () => {
+  const getNameErrors = (value: string) => {
     if (!value.replace(/\s/g, '').length) {
       return ['nameEmpty']
     }
@@ -241,7 +241,7 @@ export const ValidationOnSubmitExample = () => {
     return []
   }
 
-  const getGHHandleErrors = value => {
+  const getGHHandleErrors = (value: string) => {
     const validationKeys = []
 
     if (!value.replace(/\s/g, '').length) {
@@ -254,27 +254,27 @@ export const ValidationOnSubmitExample = () => {
 
     return validationKeys
   }
-  const [nameValue, setNameValue] = React.useState('')
-  const [nameErrors, setNameErrors] = React.useState([])
-  const [ghHandleValue, setGHHandleValue] = React.useState('mona lisa')
-  const [ghHandleErrors, setGHHandleErrors] = React.useState([])
-  const [isGHHandleAvailable, setIsGHHandleAvailable] = React.useState()
-  const [hasSubmissionRun, setHasSubmissionRun] = React.useState(false)
-  const nameInputRef = React.useRef(null)
-  const handleInputRef = React.useRef(null)
-  const nameChangeCallback = e => {
-    setNameValue(e.currentTarget.value)
+  const [nameValue, setNameValue] = React.useState<string>('')
+  const [nameErrors, setNameErrors] = React.useState<Array<string | undefined>>([])
+  const [ghHandleValue, setGHHandleValue] = React.useState<string>('mona lisa')
+  const [ghHandleErrors, setGHHandleErrors] = React.useState<Array<string | undefined>>([])
+  const [isGHHandleAvailable, setIsGHHandleAvailable] = React.useState<boolean>()
+  const [hasSubmissionRun, setHasSubmissionRun] = React.useState<boolean>(false)
+  const nameInputRef = React.useRef<HTMLInputElement | null>(null)
+  const handleInputRef = React.useRef<HTMLInputElement | null>(null)
+  const nameChangeCallback: React.ChangeEventHandler<HTMLInputElement> = event => {
+    setNameValue(event.currentTarget.value)
 
     // remove error if it is corrected after the first validation
-    if (nameErrors.length > 0 && getNameErrors(e.currentTarget.value).length === 0) {
+    if (nameErrors.length > 0 && getNameErrors(event.currentTarget.value).length === 0) {
       setNameErrors([])
     }
   }
-  const ghHandleChangeCallback = e => {
-    setGHHandleValue(e.currentTarget.value)
+  const ghHandleChangeCallback: React.ChangeEventHandler<HTMLInputElement> = event => {
+    setGHHandleValue(event.currentTarget.value)
 
     // remove errors if they are corrected after the first validation
-    if (ghHandleErrors.length > 0 && getGHHandleErrors(e.currentTarget.value).length === 0) {
+    if (ghHandleErrors.length > 0 && getGHHandleErrors(event.currentTarget.value).length === 0) {
       setGHHandleErrors([])
     } else {
       // do not show any success message if the field has errors
@@ -283,15 +283,15 @@ export const ValidationOnSubmitExample = () => {
   }
 
   // validate on submit
-  const submitCallback = e => {
+  const submitCallback = (event: React.FormEvent<HTMLFormElement>) => {
     const nameFieldErrors = getNameErrors(nameValue)
     const handleFieldErrors = getGHHandleErrors(ghHandleValue)
 
-    e.preventDefault()
+    event.preventDefault()
 
     setHasSubmissionRun(true)
     setNameErrors(nameFieldErrors)
-    if (handleFieldErrors) {
+    if (handleFieldErrors.length) {
       setGHHandleErrors(handleFieldErrors)
     } else {
       // mark the handle as available if there are no errors
@@ -327,7 +327,14 @@ export const ValidationOnSubmitExample = () => {
   }
 
   return (
-    <Box display="grid" gridGap={3} as="form" onSubmit={submitCallback} noValidate>
+    <Box
+      display="grid"
+      gridGap={3}
+      as="form"
+      // typescript complains unless we cast `submitCallback` with `React.FormEventHandler<HTMLDivElement>`
+      onSubmit={submitCallback as React.FormEventHandler<HTMLDivElement> & React.FormEventHandler<HTMLFormElement>}
+      noValidate
+    >
       <FormControl required>
         <FormControl.Label>Name</FormControl.Label>
         <TextInput
@@ -361,7 +368,9 @@ export const ValidationOnSubmitExample = () => {
         {isGHHandleAvailable === true && (
           <FormControl.Validation variant="success">{ghHandleValue} is available</FormControl.Validation>
         )}
-        <FormControl.Caption>With or without "@". For example "monalisa" or "@monalisa"</FormControl.Caption>
+        <FormControl.Caption>
+          With or without &quot;@&quot;. For example &quot;monalisa&quot; or &quot;@monalisa&quot;
+        </FormControl.Caption>
       </FormControl>
 
       <Box as="button" type="submit" justifySelf="flex-start">
