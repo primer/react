@@ -8,7 +8,10 @@ import {Icon} from '@primer/octicons-react'
 
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
-type StoryContext = Record<string, unknown> & {globals: {colorScheme: string}; parameters: Record<string, unknown>}
+type StoryContext = Record<string, unknown> & {
+  globals: {colorScheme: string; showSurroundingElements: boolean}
+  parameters: Record<string, unknown>
+}
 
 type CheckboxOrRadioGroupWrapperArgs = ComponentProps<typeof CheckboxGroup>
 type CheckboxOrRadioGroupLabelArgs = ComponentProps<typeof CheckboxGroup.Label> & {
@@ -107,7 +110,8 @@ export const toolbarTypes = {
       icon: 'photo',
       items: [...Object.keys(theme.colorSchemes), 'all'],
       title: 'Color scheme'
-    }
+    },
+    showSurroundingElements: {}
   }
 }
 
@@ -346,4 +350,25 @@ export const OcticonArgType = (iconList: Icon[]) => {
     },
     mapping: icons
   }
+}
+
+export const withSurroundingElements = (
+  Story: React.FC<React.PropsWithChildren<StoryContext>>,
+  context: StoryContext
+) => {
+  return (
+    <>
+      {context.globals.showSurroundingElements ? (
+        <a href="https://github.com/primer/react">Primer documentation</a>
+      ) : (
+        ''
+      )}
+      {Story(context)}
+      {context.globals.showSurroundingElements ? (
+        <a href="https://github.com/primer/react">Primer documentation</a>
+      ) : (
+        ''
+      )}
+    </>
+  )
 }
