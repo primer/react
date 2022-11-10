@@ -353,7 +353,7 @@ export const UnderlineNav = forwardRef(
                               actionElementProps.counter !== undefined && (
                                 <Box as="span" data-component="counter">
                                   <CounterLabel aria-hidden="true">{actionElementProps.counter}</CounterLabel>
-                                  <VisuallyHidden>&nbsp;({actionElementProps.counter})</VisuallyHidden>
+                                  <VisuallyHidden>{`&nbsp;(${actionElementProps.counter})`}</VisuallyHidden>
                                 </Box>
                               )
                             )}
