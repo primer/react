@@ -1,11 +1,17 @@
 import React from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
+import {getScrollContainer} from '../utils/scroll'
 
 export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject<HTMLElement>}) {
   // TODO: Initialize focus to the aria-current item if it exists
   useFocusZone({
     containerRef,
-    bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Backspace,
+    bindKeys:
+      FocusKeys.ArrowVertical |
+      FocusKeys.ArrowHorizontal |
+      FocusKeys.HomeAndEnd |
+      FocusKeys.Backspace |
+      FocusKeys.PageUpDown,
     preventScroll: true,
     getNextFocusable: (direction, from, event) => {
       if (!(from instanceof HTMLElement)) return
@@ -67,6 +73,12 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
     case 'End':
       // Focus last visible element
       return getLastElement(activeElement)
+
+    case 'PageUp':
+      return getPreviousPageElement(activeElement)
+
+    case 'PageDown':
+      return getNextPageElement(activeElement)
   }
 }
 
@@ -149,4 +161,69 @@ export function getLastElement(element: HTMLElement): HTMLElement | undefined {
   }
 
   return last instanceof HTMLElement ? last : undefined
+}
+
+function getNextPageElement(element: HTMLElement): HTMLElement | undefined {
+  const root = element.closest('[role="tree"]')
+  if (!root) {
+    return
+  }
+
+  const items = Array.from(root.querySelectorAll('[role="treeitem"]')).filter((item): item is HTMLElement => {
+    return item.nodeType === Node.ELEMENT_NODE
+  })
+  const scrollContainer = getScrollContainer(root)
+  const visible = items.filter(item => {
+    return isVisible(item.firstElementChild as HTMLElement, scrollContainer)
+  })
+  const pageSize = items.indexOf(visible[visible.length - 1]) - items.indexOf(visible[0]) + 1
+  const page = Math.floor(items.indexOf(element) / pageSize)
+  return items[Math.min(items.length - 1, (page + 1) * pageSize)]
+}
+
+function getPreviousPageElement(element: HTMLElement): HTMLElement | undefined {
+  const root = element.closest('[role="tree"]')
+  if (!root) {
+    return
+  }
+
+  const items = Array.from(root.querySelectorAll('[role="treeitem"]')).filter((item): item is HTMLElement => {
+    return item.nodeType === Node.ELEMENT_NODE
+  })
+  const scrollContainer = getScrollContainer(root)
+  const visible = items.filter(item => {
+    return isVisible(item.firstElementChild as HTMLElement, scrollContainer)
+  })
+  const pageSize = items.indexOf(visible[visible.length - 1]) - items.indexOf(visible[0]) + 1
+  const page = Math.floor(items.indexOf(element) / pageSize)
+  return items[Math.max(0, (page - 1) * pageSize)]
+}
+
+/**
+ * Determine the visibility of an element
+ */
+function isVisible(element: HTMLElement, scrollContainer?: Element | null): boolean {
+  // If a scroll container is present, check to see if the element is visible
+  // within it
+  if (scrollContainer) {
+    const elementTop = element.offsetTop
+    const elementBottom = elementTop + element.clientHeight
+    const parentTop = scrollContainer.scrollTop
+    const parentBottom = parentTop + scrollContainer.clientHeight
+
+    return elementTop >= parentTop && elementBottom <= parentBottom
+  }
+
+  // Otherwise, check to see if the element is visible in the viewport
+  return isInViewport(element)
+}
+
+function isInViewport(element: Element): boolean {
+  const rect = element.getBoundingClientRect()
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  )
 }
