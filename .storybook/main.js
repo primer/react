@@ -1,3 +1,6 @@
+/**
+ * @type {import('@storybook/core-common').StorybookConfig}
+ */
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -6,7 +9,6 @@ module.exports = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     '@storybook/addon-links',
-    'storybook-addon-performance/register',
     {
       name: 'storybook-addon-turbo-build',
       options: {
@@ -28,7 +30,12 @@ module.exports = {
   },
   features: {
     interactionsDebugger: true,
-    storyStoreV7: true
+    storyStoreV7: true,
+    buildStoriesJson: true
   },
-  framework: '@storybook/react'
+  framework: '@storybook/react',
+  reactOptions: {
+    fastRefresh: true,
+    strictMode: true
+  }
 }
