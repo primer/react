@@ -1,5 +1,42 @@
 # @primer/components
 
+## 35.14.2
+
+### [Permalink to documentation](https://primer-d5e3dada59-13348165.drafts.github.io/)
+
+### Patch Changes
+
+- [#2553](https://github.com/primer/react/pull/2553) [`3a4b3124`](https://github.com/primer/react/commit/3a4b3124b92700a871ee2ff9b42fa3b158b50b18) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Only allow `Enter` and `Space` key to select an UnderlineNav item
+
+- [#2506](https://github.com/primer/react/pull/2506) [`a20faba0`](https://github.com/primer/react/commit/a20faba0f20cb5142b72716cc454af133b93975c) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Prevent item width calculation when they are null
+
+- [#2549](https://github.com/primer/react/pull/2549) [`205e1d29`](https://github.com/primer/react/commit/205e1d29cef2c0d44c67031e76ad5d0b14ac36b7) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a focus style to ActionList.LinkItem that is used when the primary input method is a cursor. Before this change, there was only a focus style for when the keyboard is being used as the primary input method.
+
+- [#2546](https://github.com/primer/react/pull/2546) [`8a8b1a4f`](https://github.com/primer/react/commit/8a8b1a4fa7002f33f5f1c999b69d80346263da98) Thanks [@joshblack](https://github.com/joshblack)! - Add support for PageUp and PageDown for TreeView
+
+- [#2485](https://github.com/primer/react/pull/2485) [`e2a2d78c`](https://github.com/primer/react/commit/e2a2d78cc81a81767f3ba10bd74b9de8a81abaf2) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Only run overflow layout function when nav item has a width
+
+- [#2552](https://github.com/primer/react/pull/2552) [`7877f895`](https://github.com/primer/react/commit/7877f895d902e32ce6878e57895ed90f47574789) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Add aria-hidden and sr-only class support for a descriptive "More" button label
+
+- [#2550](https://github.com/primer/react/pull/2550) [`e13e8ad7`](https://github.com/primer/react/commit/e13e8ad751d31db738e185031fba477da4874aa4) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Remove focus zone and unnecessary 'Arrow keys' & 'Home' & 'End' button navigation support
+
+- [#2551](https://github.com/primer/react/pull/2551) [`5bc5c703`](https://github.com/primer/react/commit/5bc5c703e26175231bfaa1209a3f9b3d0791ff23) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Add aria-hidden and sr-only class support for descriptive counters
+
+- [#2538](https://github.com/primer/react/pull/2538) [`bdbccaaf`](https://github.com/primer/react/commit/bdbccaaff826d0378e3d1af4d5c1c4197dfcc9ac) Thanks [@colebemis](https://github.com/colebemis)! - TreeView: Preserve expanded state of nested items when parent item is collapsed.
+
+  **Breaking change**
+
+  `TreeView.Item` and `TreeView.LinkItem` now require an `id` prop:
+
+  ```diff
+  - <TreeView.Item>...</TreeView.Item>
+  + <TreeView.Item id="unqiue-id">...</TreeView.Item>
+  ```
+
+  This is not in a major release because TreeView is still a `draft` component.
+
+- [#2555](https://github.com/primer/react/pull/2555) [`dc1cf6da`](https://github.com/primer/react/commit/dc1cf6da2864dd7dfa4ed0cb2c5362f9ff9dd60f) Thanks [@josepmartins](https://github.com/josepmartins)! - Remove deprecated components usage in Overlay stories
+
 ## 35.14.1
 
 ### Patch Changes
