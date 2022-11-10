@@ -22,9 +22,9 @@ describe('Markup', () => {
   it('uses tree role', () => {
     const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item>Item 1</TreeView.Item>
-        <TreeView.Item>Item 2</TreeView.Item>
-        <TreeView.Item>Item 3</TreeView.Item>
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
       </TreeView>
     )
 
@@ -36,9 +36,9 @@ describe('Markup', () => {
   it('uses treeitem role', () => {
     const {queryAllByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item>Item 1</TreeView.Item>
-        <TreeView.Item>Item 2</TreeView.Item>
-        <TreeView.Item>Item 3</TreeView.Item>
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
       </TreeView>
     )
 
@@ -50,10 +50,10 @@ describe('Markup', () => {
   it('hides subtrees by default', () => {
     const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item>
+        <TreeView.Item id="parent">
           Parent
           <TreeView.SubTree>
-            <TreeView.Item>Child</TreeView.Item>
+            <TreeView.Item id="child">Child</TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
       </TreeView>
@@ -69,9 +69,11 @@ describe('Markup', () => {
   it('uses aria-current', () => {
     const {getByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item>Item 1</TreeView.Item>
-        <TreeView.Item current>Item 2</TreeView.Item>
-        <TreeView.Item>Item 3</TreeView.Item>
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2" current>
+          Item 2
+        </TreeView.Item>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
       </TreeView>
     )
 
@@ -83,13 +85,13 @@ describe('Markup', () => {
   it('should be described by leading visuals', () => {
     const {getByLabelText} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item>
+        <TreeView.Item id="item-1">
           <TreeView.LeadingVisual label="leading">
             <svg aria-hidden={true} />
           </TreeView.LeadingVisual>
           Item 1
         </TreeView.Item>
-        <TreeView.Item>
+        <TreeView.Item id="item-2">
           <TreeView.LeadingVisual>
             <svg aria-hidden={true} />
           </TreeView.LeadingVisual>
@@ -107,13 +109,13 @@ describe('Markup', () => {
   it('should be described by trailing visuals', () => {
     const {getByLabelText} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item>
+        <TreeView.Item id="item-1">
           Item 1
           <TreeView.TrailingVisual label="trailing">
             <svg aria-hidden={true} />
           </TreeView.TrailingVisual>
         </TreeView.Item>
-        <TreeView.Item>
+        <TreeView.Item id="item-2">
           Item 2
           <TreeView.TrailingVisual>
             <svg aria-hidden={true} />
@@ -131,7 +133,7 @@ describe('Markup', () => {
   it('should be described by leading and trailing visuals', () => {
     const {getByLabelText} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item>
+        <TreeView.Item id="item-1">
           <TreeView.LeadingVisual label="leading">
             <svg aria-hidden={true} />
           </TreeView.LeadingVisual>
@@ -140,7 +142,7 @@ describe('Markup', () => {
             <svg aria-hidden={true} />
           </TreeView.TrailingVisual>
         </TreeView.Item>
-        <TreeView.Item>
+        <TreeView.Item id="item-2">
           <TreeView.LeadingVisual>
             <svg aria-hidden={true} />
           </TreeView.LeadingVisual>
@@ -169,15 +171,15 @@ describe('Markup', () => {
     })
     const {getByLabelText, getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item>
+        <TreeView.Item id="item-1">
           Item 1
           <TreeView.SubTree>
-            <TreeView.Item>Item 1.a</TreeView.Item>
-            <TreeView.Item>Item 1.b</TreeView.Item>
-            <TreeView.Item>Item 1.c</TreeView.Item>
+            <TreeView.Item id="item-1-a">Item 1.a</TreeView.Item>
+            <TreeView.Item id="item-1-b">Item 1.b</TreeView.Item>
+            <TreeView.Item id="item-1-c">Item 1.c</TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
-        <TreeView.Item>
+        <TreeView.Item id="item-2">
           Item 2
           <TreeView.SubTree />
         </TreeView.Item>
@@ -203,20 +205,20 @@ describe('Keyboard interactions', () => {
     it('moves focus to the next visible treeitem', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="item-1" defaultExpanded>
             Item 1
             <TreeView.SubTree>
-              <TreeView.Item>Item 1.1</TreeView.Item>
+              <TreeView.Item id="item-1-1">Item 1.1</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>
+          <TreeView.Item id="item-2">
             Item 2
             <TreeView.SubTree>
-              <TreeView.Item>Item 2.1</TreeView.Item>
-              <TreeView.Item>Item 2.2</TreeView.Item>
+              <TreeView.Item id="item-2-1">Item 2.1</TreeView.Item>
+              <TreeView.Item id="item-2-2">Item 2.2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>Item 3</TreeView.Item>
+          <TreeView.Item id="item-3">Item 3</TreeView.Item>
         </TreeView>
       )
 
@@ -258,20 +260,20 @@ describe('Keyboard interactions', () => {
     it('moves focus to the previous visible treeitem', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="item-1" defaultExpanded>
             Item 1
             <TreeView.SubTree>
-              <TreeView.Item>Item 1.1</TreeView.Item>
+              <TreeView.Item id="item-1-1">Item 1.1</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>
+          <TreeView.Item id="item-2">
             Item 2
             <TreeView.SubTree>
-              <TreeView.Item>Item 2.1</TreeView.Item>
-              <TreeView.Item>Item 2.2</TreeView.Item>
+              <TreeView.Item id="item-2-1">Item 2.1</TreeView.Item>
+              <TreeView.Item id="item-2-2">Item 2.2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>Item 3</TreeView.Item>
+          <TreeView.Item id="item-3">Item 3</TreeView.Item>
         </TreeView>
       )
 
@@ -322,10 +324,10 @@ describe('Keyboard interactions', () => {
     it('collapses an expanded item', () => {
       const {getByRole, queryByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
+              <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -361,10 +363,10 @@ describe('Keyboard interactions', () => {
     it('does nothing on a root-level collapsed item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>
+          <TreeView.Item id="parent">
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
+              <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -391,7 +393,7 @@ describe('Keyboard interactions', () => {
     it('does nothing on a root-level end item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>Item</TreeView.Item>
+          <TreeView.Item id="item">Item</TreeView.Item>
         </TreeView>
       )
 
@@ -410,11 +412,11 @@ describe('Keyboard interactions', () => {
     it('moves focus to parent of end item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child 1</TreeView.Item>
-              <TreeView.Item>Child 2</TreeView.Item>
+              <TreeView.Item id="child-1">Child 1</TreeView.Item>
+              <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -443,14 +445,14 @@ describe('Keyboard interactions', () => {
     it('moves focus to parent of collapsed item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
-              <TreeView.Item>
+              <TreeView.Item id="child">Child</TreeView.Item>
+              <TreeView.Item id="nested-parent">
                 Nested parent
                 <TreeView.SubTree>
-                  <TreeView.Item>Nested child</TreeView.Item>
+                  <TreeView.Item id="nested-child">Nested child</TreeView.Item>
                 </TreeView.SubTree>
               </TreeView.Item>
             </TreeView.SubTree>
@@ -483,10 +485,10 @@ describe('Keyboard interactions', () => {
     it('expands a collapsed item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>
+          <TreeView.Item id="parent">
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
+              <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -518,10 +520,10 @@ describe('Keyboard interactions', () => {
     it('moves focus to first child of an expanded item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
+              <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -550,11 +552,11 @@ describe('Keyboard interactions', () => {
     it('does nothing on an end item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child 1</TreeView.Item>
-              <TreeView.Item>Child 2</TreeView.Item>
+              <TreeView.Item id="child-1">Child 1</TreeView.Item>
+              <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -584,10 +586,10 @@ describe('Keyboard interactions', () => {
     it('should move focus to the parent item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
+              <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -606,10 +608,10 @@ describe('Keyboard interactions', () => {
     it('should not collapse an expanded item', () => {
       const {getByRole, queryByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
+              <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -642,22 +644,22 @@ describe('Keyboard interactions', () => {
     it('moves focus to first visible item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>
+          <TreeView.Item id="parent-1">
             Parent 1
             <TreeView.SubTree>
-              <TreeView.Item>Child 1</TreeView.Item>
+              <TreeView.Item id="child-1">Child 1</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>
+          <TreeView.Item id="parent-2">
             Parent 2
             <TreeView.SubTree>
-              <TreeView.Item>Child 2</TreeView.Item>
+              <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>
+          <TreeView.Item id="parent-3">
             Parent 3
             <TreeView.SubTree>
-              <TreeView.Item>Child 3</TreeView.Item>
+              <TreeView.Item id="child-3">Child 3</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -687,22 +689,22 @@ describe('Keyboard interactions', () => {
     it('moves focus to last visible item', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>
+          <TreeView.Item id="parent-1">
             Parent 1
             <TreeView.SubTree>
-              <TreeView.Item>Child 1</TreeView.Item>
+              <TreeView.Item id="child-1">Child 1</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>
+          <TreeView.Item id="parent-2">
             Parent 2
             <TreeView.SubTree>
-              <TreeView.Item>Child 2</TreeView.Item>
+              <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>
+          <TreeView.Item id="parent-3">
             Parent 3
             <TreeView.SubTree>
-              <TreeView.Item>Child 3</TreeView.Item>
+              <TreeView.Item id="child-3">Child 3</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -738,7 +740,9 @@ describe('Keyboard interactions', () => {
       const onSelect = jest.fn()
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item onSelect={onSelect}>Item</TreeView.Item>
+          <TreeView.Item id="item" onSelect={onSelect}>
+            Item
+          </TreeView.Item>
         </TreeView>
       )
 
@@ -757,11 +761,11 @@ describe('Keyboard interactions', () => {
     it('toggles expanded state if no onSelect function is provided', () => {
       const {getByRole, queryByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>
+          <TreeView.Item id="parent">
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child 1</TreeView.Item>
-              <TreeView.Item>Child 2</TreeView.Item>
+              <TreeView.Item id="child-1">Child 1</TreeView.Item>
+              <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -805,7 +809,7 @@ describe('Keyboard interactions', () => {
       const onSelect = jest.fn()
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.LinkItem href="#" onSelect={onSelect}>
+          <TreeView.LinkItem id="item" href="#" onSelect={onSelect}>
             Item
           </TreeView.LinkItem>
         </TreeView>
@@ -831,15 +835,15 @@ describe('Keyboard interactions', () => {
     it('moves focus to the next item that matches the typed character', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>
+          <TreeView.Item id="apple">
             Apple
             <TreeView.SubTree>
-              <TreeView.Item>Cantalope</TreeView.Item>
+              <TreeView.Item id="cantalope">Cantalope</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item>Banana</TreeView.Item>
-          <TreeView.Item>Cherry</TreeView.Item>
-          <TreeView.Item>Cucumber</TreeView.Item>
+          <TreeView.Item id="banana">Banana</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+          <TreeView.Item id="cucumber">Cucumber</TreeView.Item>
         </TreeView>
       )
 
@@ -862,10 +866,10 @@ describe('Keyboard interactions', () => {
     it('does nothing if no items match the typed character', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>Apple</TreeView.Item>
-          <TreeView.Item>Banana</TreeView.Item>
-          <TreeView.Item>Cherry</TreeView.Item>
-          <TreeView.Item>Durian</TreeView.Item>
+          <TreeView.Item id="apple">Apple</TreeView.Item>
+          <TreeView.Item id="banana">Banana</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+          <TreeView.Item id="durian">Durian</TreeView.Item>
         </TreeView>
       )
 
@@ -887,11 +891,11 @@ describe('Keyboard interactions', () => {
     it('supports multiple typed characters', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>Apple</TreeView.Item>
-          <TreeView.Item>Banana</TreeView.Item>
-          <TreeView.Item>Cherry</TreeView.Item>
-          <TreeView.Item>Cantalope 1</TreeView.Item>
-          <TreeView.Item>Cantalope 2</TreeView.Item>
+          <TreeView.Item id="apple">Apple</TreeView.Item>
+          <TreeView.Item id="banana">Banana</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+          <TreeView.Item id="cantalope-1">Cantalope 1</TreeView.Item>
+          <TreeView.Item id="cantalope-2">Cantalope 2</TreeView.Item>
         </TreeView>
       )
 
@@ -913,9 +917,11 @@ describe('Keyboard interactions', () => {
     it('prioritizes items following the current aria-activedescendant', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>Cucumber</TreeView.Item>
-          <TreeView.Item current>Cherry</TreeView.Item>
-          <TreeView.Item>Cantalope</TreeView.Item>
+          <TreeView.Item id="cucumber">Cucumber</TreeView.Item>
+          <TreeView.Item id="cherry" current>
+            Cherry
+          </TreeView.Item>
+          <TreeView.Item id="cantalope">Cantalope</TreeView.Item>
         </TreeView>
       )
 
@@ -942,10 +948,12 @@ describe('Keyboard interactions', () => {
     it('wraps around to the beginning if no items match after the current aria-activedescendant', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.Item>Cucumber</TreeView.Item>
-          <TreeView.Item>Cherry</TreeView.Item>
-          <TreeView.Item current>Cantalope</TreeView.Item>
-          <TreeView.Item>Apple</TreeView.Item>
+          <TreeView.Item id="cucumber">Cucumber</TreeView.Item>
+          <TreeView.Item id="cherry">Cherry</TreeView.Item>
+          <TreeView.Item id="cantalope" current>
+            Cantalope
+          </TreeView.Item>
+          <TreeView.Item id="apple">Apple</TreeView.Item>
         </TreeView>
       )
 
@@ -971,16 +979,67 @@ describe('Keyboard interactions', () => {
   })
 })
 
-describe('Controlled state', () => {
+describe('State', () => {
+  it('persists expanded state of nested items', () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1" defaultExpanded>
+          Item 1
+          <TreeView.SubTree>
+            <TreeView.Item id="item-2">
+              Item 2
+              <TreeView.SubTree>
+                <TreeView.Item id="item-3">Item 3</TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>
+    )
+
+    const item1 = getByRole('treeitem', {name: 'Item 1'})
+    const item2 = getByRole('treeitem', {name: 'Item 2'})
+
+    // Item 2 should be collapsed by default
+    expect(item2).toHaveAttribute('aria-expanded', 'false')
+
+    // Focus item 2
+    item2.focus()
+
+    // Press Enter to expand item 2
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+    // Item 2 should be expanded
+    expect(item2).toHaveAttribute('aria-expanded', 'true')
+
+    // Press ↑ to move focus to item 1
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowUp'})
+
+    // Press Enter to collapse item 1
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+    // Item 1 should be collapsed
+    expect(item1).toHaveAttribute('aria-expanded', 'false')
+
+    // Press Enter again to expand item 1
+    fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+    // Item 1 should be expanded
+    expect(item1).toHaveAttribute('aria-expanded', 'true')
+
+    // Item 2 should still be expanded
+    expect(getByRole('treeitem', {name: 'Item 2'})).toHaveAttribute('aria-expanded', 'true')
+  })
+
   it('can be controlled', () => {
     function TestTree() {
       const [expanded, setExpanded] = React.useState(true)
       return (
         <TreeView aria-label="Test tree">
-          <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
+          <TreeView.Item id="parent" expanded={expanded} onExpandedChange={setExpanded}>
             Parent
             <TreeView.SubTree>
-              <TreeView.Item>Child</TreeView.Item>
+              <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -1018,10 +1077,10 @@ describe('Asyncronous loading', () => {
           {/* Mimic the completion of async loading by clicking the button */}
           <button onClick={() => setState('done')}>Done</button>
           <TreeView aria-label="Test tree">
-            <TreeView.Item defaultExpanded>
+            <TreeView.Item id="parent" defaultExpanded>
               Parent
               <TreeView.SubTree state={state}>
-                <TreeView.Item>Child</TreeView.Item>
+                <TreeView.Item id="child">Child</TreeView.Item>
               </TreeView.SubTree>
             </TreeView.Item>
           </TreeView>
@@ -1058,11 +1117,11 @@ describe('Asyncronous loading', () => {
 
       return (
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree state={state}>
-              <TreeView.Item>Child 1</TreeView.Item>
-              <TreeView.Item>Child 2</TreeView.Item>
+              <TreeView.Item id="child-1">Child 1</TreeView.Item>
+              <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -1100,7 +1159,7 @@ describe('Asyncronous loading', () => {
 
       return (
         <TreeView aria-label="Test tree">
-          <TreeView.Item defaultExpanded>
+          <TreeView.Item id="parent" defaultExpanded>
             Parent
             <TreeView.SubTree>
               {error ? (
@@ -1145,11 +1204,11 @@ describe('Asyncronous loading', () => {
   it('ignores arrow keys when error dialog is open', async () => {
     const {getByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">
-        <TreeView.Item defaultExpanded>
+        <TreeView.Item id="parent" defaultExpanded>
           Parent
           <TreeView.SubTree>
             <TreeView.ErrorDialog>Opps</TreeView.ErrorDialog>
-            <TreeView.Item>Child</TreeView.Item>
+            <TreeView.Item id="child">Child</TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
       </TreeView>
@@ -1193,6 +1252,7 @@ describe('Asyncronous loading', () => {
       return (
         <TreeView aria-label="Test tree">
           <TreeView.Item
+            id="item-1"
             onExpandedChange={expanded => {
               if (expanded) {
                 timeoutId.current = setTimeout(() => {

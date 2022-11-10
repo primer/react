@@ -13,13 +13,13 @@ description: A hierarchical list of items where nested items can be expanded and
 <Box sx={{maxWidth: 400}}>
   <nav aria-label="Files">
     <TreeView aria-label="Files">
-      <TreeView.Item>
+      <TreeView.Item id="src">
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem href="#">
+          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -28,7 +28,7 @@ description: A hierarchical list of items where nested items can be expanded and
               <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
             </TreeView.TrailingVisual>
           </TreeView.LinkItem>
-          <TreeView.LinkItem href="#" current>
+          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -39,7 +39,7 @@ description: A hierarchical list of items where nested items can be expanded and
           </TreeView.LinkItem>
         </TreeView.SubTree>
       </TreeView.Item>
-      <TreeView.LinkItem href="#">
+      <TreeView.LinkItem id="package.json" href="#">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
@@ -59,31 +59,31 @@ description: A hierarchical list of items where nested items can be expanded and
 <Box sx={{maxWidth: 400}}>
   <nav aria-label="Files">
     <TreeView aria-label="Files">
-      <TreeView.LinkItem href="#">
+      <TreeView.LinkItem id="src" href="#">
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem href="#">
+          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             Avatar.tsx
           </TreeView.LinkItem>
-          <TreeView.LinkItem href="#" current>
+          <TreeView.LinkItem id="src/Button" href="#" current>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Button
             <TreeView.SubTree>
-              <TreeView.LinkItem href="#">
+              <TreeView.LinkItem id="src/Button/Button.tsx" href="#">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.tsx
               </TreeView.LinkItem>
-              <TreeView.LinkItem href="#">
+              <TreeView.LinkItem id="src/Button/Button.test.tsx" href="#">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
@@ -93,7 +93,7 @@ description: A hierarchical list of items where nested items can be expanded and
           </TreeView.LinkItem>
         </TreeView.SubTree>
       </TreeView.LinkItem>
-      <TreeView.LinkItem href="#">
+      <TreeView.LinkItem id="package.json" href="#">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
@@ -115,11 +115,13 @@ function ControlledTreeView() {
       <Button onClick={() => setExpanded(!expanded)}>{expanded ? 'Collapse' : 'Expand'}</Button>
       <nav aria-label="Files">
         <TreeView aria-label="Files">
-          <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
+          <TreeView.Item id="src" expanded={expanded} onExpandedChange={setExpanded}>
             src
             <TreeView.SubTree>
-              <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-              <TreeView.LinkItem href="#" current>
+              <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+                Avatar.tsx
+              </TreeView.LinkItem>
+              <TreeView.LinkItem id="src/Button.tsx" href="#" current>
                 Button.tsx
               </TreeView.LinkItem>
             </TreeView.SubTree>
@@ -141,14 +143,16 @@ To render stateful visuals, pass a render function to `TreeView.LeadingVisual` o
 <Box sx={{maxWidth: 400}}>
   <nav aria-label="Files">
     <TreeView aria-label="Files">
-      <TreeView.Item>
+      <TreeView.Item id="src">
         <TreeView.LeadingVisual>
           {({isExpanded}) => (isExpanded ? <FileDirectoryOpenFillIcon /> : <FileDirectoryFillIcon />)}
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-          <TreeView.LinkItem href="#" current>
+          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+            Avatar.tsx
+          </TreeView.LinkItem>
+          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
             Button.tsx
           </TreeView.LinkItem>
         </TreeView.SubTree>
@@ -164,14 +168,16 @@ Since stateful directory icons are a common use case for TreeView, we provide a 
 <Box sx={{maxWidth: 400}}>
   <nav aria-label="Files">
     <TreeView aria-label="Files">
-      <TreeView.Item>
+      <TreeView.Item id="src">
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-          <TreeView.LinkItem href="#" current>
+          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+            Avatar.tsx
+          </TreeView.LinkItem>
+          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
             Button.tsx
           </TreeView.LinkItem>
         </TreeView.SubTree>
@@ -197,6 +203,7 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
 ### TreeView.Item
 
 <PropsTable>
+  <PropsTableRow name="id" type="string" required description="Unique identifier for the item." />
   <PropsTableRow name="children" type="React.ReactNode" required />
   <PropsTableRow
     name="current"
@@ -230,6 +237,7 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
 ### TreeView.LinkItem
 
 <PropsTable>
+  <PropsTableRow name="id" type="string" required description="Unique identifier for the item." />
   <PropsTableRow name="children" type="React.ReactNode" required />
   <PropsTableRow
     name="href"
