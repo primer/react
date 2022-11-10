@@ -200,6 +200,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   >
     <ul
       className="c2"
+      role="list"
     >
       <li
         className="c3"

@@ -169,7 +169,6 @@ describe('Keyboard Navigation', () => {
     await user.tab()
     // focus should be on the next item
     expect(nextItem).toHaveFocus()
-    expect(nextItem.getAttribute('tabindex')).toBe('0')
   })
 })
 
