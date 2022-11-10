@@ -30,7 +30,7 @@ const RootContext = React.createContext<{
   // We cache the expanded state of tree items so we can preserve the state
   // across remounts. This is necessary because we unmount tree items
   // when their parent is collapsed.
-  expandedStateCache: React.RefObject<Map<string, boolean>>
+  expandedStateCache: React.RefObject<Map<string, boolean> | null>
 }>({
   announceUpdate: () => {},
   expandedStateCache: {current: new Map()}
@@ -261,13 +261,13 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
       }
     }
   })
-  
-  const expandedStateCache = React.useRef(null)
+
+  const expandedStateCache = React.useRef<Map<string, boolean> | null>(null)
 
   if (expandedStateCache.current === null) {
-    expandedStateCache.current = new Map();
+    expandedStateCache.current = new Map()
   }
-  
+
   return (
     <RootContext.Provider
       value={{
