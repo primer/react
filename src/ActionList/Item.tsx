@@ -91,12 +91,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled).hoverColor
         },
-        ':focus:not([data-focus-visible-added])': {
+        ':focus:not([data-focus-visible-added]), > a:focus:not([data-focus-visible-added])': {
           backgroundColor: `actionListItem.${variant}.selectedBg`,
           color: getVariantStyles(variant, disabled).hoverColor,
           outline: 'none'
         },
-        '&[data-focus-visible-added]': {
+        '&[data-focus-visible-added], > a[data-focus-visible-added]': {
           // we don't use :focus-visible because not all browsers (safari) have it yet
           outline: 'none',
           border: `2 solid`,

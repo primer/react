@@ -1,4 +1,4 @@
-import React, {HTMLAttributes} from 'react'
+import React, {ButtonHTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -15,7 +15,7 @@ export type SegmentedControlButtonProps = {
   /** The leading icon comes before item label */
   leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement | HTMLLIElement>
+  ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlButtonStyled = styled.button`
   ${sx};

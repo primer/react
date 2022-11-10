@@ -4,6 +4,7 @@ import {createGlobalStyle} from 'styled-components'
 import {ComponentProps} from './types'
 import {ArgTypes} from '@storybook/react'
 import {InputType} from '@storybook/csf'
+import {Icon} from '@primer/octicons-react'
 
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
@@ -53,7 +54,7 @@ const GlobalStyleMultiTheme = createGlobalStyle`
 
 export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryContext>>, context: StoryContext) => {
   // used for testing ThemeProvider.stories.tsx
-  if (context.parameters.disableThemeDecorator) return <Story {...context} />
+  if (context.parameters.disableThemeDecorator) return Story(context)
 
   const {colorScheme} = context.globals
 
@@ -78,9 +79,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
                   color: 'fg.default'
                 }}
               >
-                <div id={`html-addon-root-${scheme}`}>
-                  <Story {...context} />
-                </div>
+                <div id={`html-addon-root-${scheme}`}>{Story(context)}</div>
               </Box>
             </BaseStyles>
           </ThemeProvider>
@@ -93,9 +92,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
     <ThemeProvider colorMode="day" dayScheme={colorScheme}>
       <GlobalStyle />
       <BaseStyles>
-        <div id="html-addon-root">
-          <Story {...context} />
-        </div>
+        <div id="html-addon-root">{Story(context)}</div>
       </BaseStyles>
     </ThemeProvider>
   )
@@ -109,7 +106,7 @@ export const toolbarTypes = {
     toolbar: {
       icon: 'photo',
       items: [...Object.keys(theme.colorSchemes), 'all'],
-      showName: true
+      title: 'Color scheme'
     }
   }
 }
@@ -237,10 +234,19 @@ export const textInputWithTokensArgTypes: ArgTypes = {
   }
 }
 
+export const formControlArgs = {
+  required: false,
+  disabled: false,
+  labelChildren: 'Label',
+  visuallyHidden: false,
+  captionChildren: '',
+  validationChildren: '',
+  variant: 'error'
+}
+
 export const formControlArgTypes: ArgTypes = {
   // FormControl
   required: {
-    defaultValue: false,
     control: {
       type: 'boolean'
     },
@@ -249,7 +255,6 @@ export const formControlArgTypes: ArgTypes = {
     }
   },
   disabled: {
-    defaultValue: false,
     control: {
       type: 'boolean'
     },
@@ -262,13 +267,11 @@ export const formControlArgTypes: ArgTypes = {
   labelChildren: {
     name: 'children',
     type: 'string',
-    defaultValue: 'Label',
     table: {
       category: 'FormControl.Label'
     }
   },
   visuallyHidden: {
-    defaultValue: false,
     type: 'boolean',
     table: {
       category: 'FormControl.Label'
@@ -279,7 +282,6 @@ export const formControlArgTypes: ArgTypes = {
   captionChildren: {
     name: 'children',
     type: 'string',
-    defaultValue: '',
     table: {
       category: 'FormControl.Caption'
     }
@@ -289,17 +291,15 @@ export const formControlArgTypes: ArgTypes = {
   validationChildren: {
     name: 'children',
     type: 'string',
-    defaultValue: '',
     table: {
       category: 'FormControl.Validation'
     }
   },
   variant: {
-    defaultValue: 'error',
     control: {
-      type: 'radio',
-      options: ['error', 'success', 'warning']
+      type: 'radio'
     },
+    options: ['error', 'success', 'warning'],
     table: {
       category: 'FormControl.Validation'
     }
@@ -331,3 +331,19 @@ export const getFormControlArgsByChildComponent = ({
   captionArgs: {children: captionChildren},
   validationArgs: {children: validationChildren, variant}
 })
+
+// Use this function for icon options in the controls. Desired icons are passed in as an array of Octicons
+export const OcticonArgType = (iconList: Icon[]) => {
+  const icons = iconList.reduce<Record<string, Icon>>((obj, icon) => {
+    obj[icon.displayName || 'Icon'] = icon
+    return obj
+  }, {})
+
+  return {
+    options: Object.keys(icons),
+    control: {
+      type: 'select'
+    },
+    mapping: icons
+  }
+}

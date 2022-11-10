@@ -94,6 +94,7 @@ describe('Button', () => {
     expect(IconOnlyButton).toHaveStyleRule('padding-right', '8px')
     expect(IconOnlyButton).toMatchSnapshot()
   })
+
   it('makes sure icon button has an aria-label', () => {
     const container = render(<IconButton icon={SearchIcon} aria-label="Search button" />)
     const IconOnlyButton = container.getByLabelText('Search button')

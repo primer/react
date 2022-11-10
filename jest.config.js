@@ -3,11 +3,8 @@ module.exports = {
   testEnvironment: 'jsdom',
   cacheDirectory: '.test',
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
-  setupFilesAfterEnv: [
-    '<rootDir>/src/utils/test-matchers.tsx',
-    '<rootDir>/src/utils/test-deprecations.tsx',
-    '<rootDir>/src/utils/test-helpers.tsx'
-  ],
+  setupFiles: ['<rootDir>/src/utils/test-helpers.tsx'],
+  setupFilesAfterEnv: ['<rootDir>/src/utils/test-matchers.tsx', '<rootDir>/src/utils/test-deprecations.tsx'],
   testMatch: ['<rootDir>/(src|codemods)/**/*.test.[jt]s?(x)', '!**/*.types.test.[jt]s?(x)'],
   transformIgnorePatterns: [
     'node_modules/(?!@github/combobox-nav|@koddsson/textarea-caret|@github/markdown-toolbar-element)'

@@ -4,7 +4,8 @@ componentId: page_layout
 status: Alpha
 # description: TODO
 source: https://github.com/primer/react/tree/main/src/PageLayout
-storybook: https://primer.style/react/storybook?path=/story/layout-pagelayout--default
+storybook: '/react/storybook?path=/story/components-pagelayout--default'
+a11yReviewed: true
 ---
 
 ```js
@@ -15,7 +16,7 @@ import {PageLayout} from '@primer/react'
 
 <Note>
 
-See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayout) for fullscreen examples.
+See [storybook](https://primer.style/react/storybook?path=/story/components-pagelayout) for fullscreen examples.
 
 </Note>
 
@@ -156,7 +157,7 @@ See [storybook](https://primer.style/react/storybook?path=/story/layout-pagelayo
       <Placeholder label="Header" height={64} />
     </PageLayout.Header>
     <PageLayout.Content>
-      <Placeholder label="Content" height={320} />
+      <Placeholder label="Content" height={420} />
     </PageLayout.Content>
     <PageLayout.Pane sticky>
       <Placeholder label="Pane" height={120} />
@@ -183,7 +184,8 @@ Add `offsetHeader` prop to specify the height of the custom sticky header along 
       placeItems: 'center',
       backgroundColor: 'canvas.subtle',
       borderBottom: '1px solid',
-      borderColor: 'border.default'
+      borderColor: 'border.default',
+      zIndex: 1
     }}
   >
     Custom sticky header
@@ -277,6 +279,25 @@ Using `aria-labelledby` along with `PageLayout.Header`, `PageLayout.Content`, or
 </PageLayout>
 ```
 
+### With resizable pane
+
+```jsx live
+<PageLayout>
+  <PageLayout.Header>
+    <Placeholder label="Header" height={64} />
+  </PageLayout.Header>
+  <PageLayout.Content>
+    <Placeholder label="Content" height={240} />
+  </PageLayout.Content>
+  <PageLayout.Pane resizable>
+    <Placeholder label="Pane" height={120} />
+  </PageLayout.Pane>
+  <PageLayout.Footer>
+    <Placeholder label="Footer" height={64} />
+  </PageLayout.Footer>
+</PageLayout>
+```
+
 ## Accessibility
 
 The `PageLayout` component uses [landmark roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role) for `PageLayout.Header`, `PageLayout.Content`, and `PageLayout.Footer` in order to make it easier for screen reader users to navigate between sections of the page.
@@ -363,6 +384,7 @@ On macOS, you can open the VoiceOver rotor by pressing `VO-U`. You can navigate 
 | 'normal'`}
     defaultValue="'normal'"
   />
+
   <PropsTableSxRow />
 </PropsTable>
 
@@ -509,6 +531,18 @@ On macOS, you can open the VoiceOver rotor by pressing `VO-U`. You can navigate 
 | 'large'`}
     defaultValue="'medium'"
     description="The width of the pane."
+  />
+  <PropsTableRow
+    name="resizable"
+    type="boolean"
+    defaultValue="false"
+    description="When true, the pane may be resized by the user."
+  />
+  <PropsTableRow
+    name="widthStorageKey"
+    type="string"
+    defaultValue="'paneWidth'"
+    description="Provide a key used by localStorage to persist the size of the pane on the client."
   />
   <PropsTableRow
     name="sticky"

@@ -1,7 +1,8 @@
 import {DiffAddedIcon} from '@primer/octicons-react'
 import {fireEvent, render as _render, waitFor, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React, {forwardRef, useLayoutEffect, useRef, useState} from 'react'
+import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
+import React, {forwardRef, useRef, useState} from 'react'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
@@ -19,17 +20,6 @@ const UncontrolledEditor = forwardRef<MarkdownEditorHandle, UncontrolledEditorPr
   }
 
   const onRenderPreview = async () => 'Preview'
-
-  useLayoutEffect(() => {
-    // combobox-nav attempts to filter out 'hidden' options by checking if the option has an
-    // offsetHeight or width > 0. In JSDom, all elements have offsetHeight = offsetWidth = 0,
-    // so we need to override at least one to make the class recognize that any options exist.
-    for (const option of document.querySelectorAll('[role=option]'))
-      Object.defineProperty(option, 'offsetHeight', {
-        value: 1,
-        writable: true
-      })
-  })
 
   return (
     <ThemeProvider>
@@ -116,6 +106,20 @@ const render = async (ui: React.ReactElement) => {
 }
 
 describe('MarkdownEditor', () => {
+  // combobox-nav attempts to filter out 'hidden' options by checking if the option has an
+  // offsetHeight or width > 0. In JSDom, all elements have offsetHeight = offsetWidth = 0,
+  // so we need to override at least one to make the class recognize that any options exist.
+  const originalOffsetHeight = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetHeight')
+  beforeAll(() => {
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 10
+    })
+  })
+  afterAll(() => {
+    if (originalOffsetHeight) Object.defineProperty(HTMLElement.prototype, 'offsetHeight', originalOffsetHeight)
+  })
+
   beforeEach(() => {
     jest.mock('@primer/behaviors/utils', () => ({
       // for all tests, default to Non-Mac (Ctrl) keybindings
@@ -766,9 +770,14 @@ describe('MarkdownEditor', () => {
       it('forces links to open in a new tab', async () => {
         // eslint-disable-next-line github/unescaped-html-literal
         const html = '<a href="https://example.com">Link</a>'
+        const user = userEvent.setup()
+        const windowOpenSpy = jest.spyOn(window, 'open')
+        windowOpenSpy.mockImplementation(jest.fn())
         const {getPreview} = await render(<UncontrolledEditor onRenderPreview={async () => html} viewMode="preview" />)
         const link = await waitFor(() => within(getPreview()).getByText('Link'))
-        expect(link).toHaveAttribute('target', '_blank')
+
+        await user.click(link)
+        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
       })
     })
   })
@@ -831,8 +840,6 @@ describe('MarkdownEditor', () => {
   })
 
   describe('suggestions', () => {
-    // we don't test filtering logic here because that's up to the consumer
-
     const emojis: Emoji[] = [
       {name: '+1', character: '👍'},
       {name: '-1', character: '👎'},
@@ -846,7 +853,10 @@ describe('MarkdownEditor', () => {
       {identifier: 'github', description: 'GitHub'},
       {identifier: 'primer', description: 'Primer'},
       {identifier: 'actions', description: 'Actions'},
-      {identifier: 'primer-css', description: ''}
+      {identifier: 'primer-css', description: ''},
+      {identifier: 'mnl', description: ''},
+      {identifier: 'gth', description: ''},
+      {identifier: 'mla', description: ''}
     ]
 
     const references: Reference[] = [
@@ -981,6 +991,20 @@ describe('MarkdownEditor', () => {
       })
     })
 
+    it('applies suggestion and hides list on %s-press', async () => {
+      const {queryForSuggestionsList, getAllSuggestions, getInput, user} = await render(<EditorWithSuggestions />)
+
+      const input = getInput()
+      await user.type(input, `hello :`)
+      expect(queryForSuggestionsList()).toBeInTheDocument()
+
+      await waitFor(() => expect(getAllSuggestions()[0]).toHaveAttribute('data-combobox-option-default'))
+
+      await user.keyboard(`{Enter}`)
+      expect(input.value).toBe(`hello 👍 `) // suggestions are inserted with a following space
+      expect(queryForSuggestionsList()).not.toBeInTheDocument()
+    })
+
     it('filters mention suggestions using fuzzy match against name', async () => {
       const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
       await user.type(getInput(), '@octct')
@@ -990,9 +1014,9 @@ describe('MarkdownEditor', () => {
 
     it('filters mention suggestions using fuzzy match against ID', async () => {
       const {getInput, getAllSuggestions, user} = await render(<EditorWithSuggestions />)
-      await user.type(getInput(), '@prmrcss')
+      await user.type(getInput(), '@git')
       expect(getAllSuggestions()).toHaveLength(1)
-      expect(getAllSuggestions()[0]).toHaveTextContent('primer-css')
+      expect(getAllSuggestions()[0]).toHaveTextContent('github')
     })
 
     it('filters reference suggestions using fuzzy match against name', async () => {
@@ -1081,6 +1105,13 @@ describe('MarkdownEditor', () => {
       expect(queryByRole('listbox')).not.toBeInTheDocument()
     })
 
+    it('autofocuses filter and filters replies based only on name', async () => {
+      const {getToolbarButton, getByRole, user} = await render(<UncontrolledEditor savedReplies={replies} />)
+      await user.click(getToolbarButton(buttonLabel))
+      await user.keyboard('Thanks')
+      expect(within(getByRole('listbox')).getAllByRole('option')).toHaveLength(1)
+    })
+
     it('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
       const {getToolbarButton, getInput, user, queryByRole} = await render(
         <UncontrolledEditor savedReplies={replies} />
@@ -1091,7 +1122,7 @@ describe('MarkdownEditor', () => {
       input.setSelectionRange(10, 10)
       await user.click(getToolbarButton(buttonLabel))
 
-      await user.keyboard('{Control>}3{/Control}')
+      await user.keyboard('Thanks{Enter}')
 
       expect(queryByRole('listbox')).not.toBeInTheDocument()
       await waitFor(() => expect(getInput().value).toBe('preceding Thanks for your contribution! following'))
@@ -1132,5 +1163,35 @@ describe('MarkdownEditor', () => {
         </MarkdownEditor>
       )
     }
+  })
+
+  describe('pasting URLs', () => {
+    const typeAndPaste = async (user: UserEvent, input: HTMLTextAreaElement) => {
+      await user.type(input, 'lorem ipsum dolor sit amet')
+      input.setSelectionRange(6, 11)
+
+      // userEvent.paste() doesn't seem to fire the `paste` event that paste-markdown listens for.
+      // So we simulate it. This approach is somewhat fragile because it relies on the internals
+      // of paste-markdown not using any other properties on the event or DataTransfer instance.
+      // We can't just construct a `new DataTransfer` because that's not implemented in JSDOM.
+      fireEvent.paste(input, {clipboardData: {types: ['text/plain'], getData: () => 'https://github.com'}})
+    }
+
+    const linkifiedResult = 'lorem [ipsum](https://github.com) dolor sit amet'
+    const plainResult = 'lorem ipsum dolor sit amet' // the real-world plain text result should have "https://github.com" instead of "ipsum", but fireEvent.paste doesn't actually update the input value
+
+    it('pastes URLs onto selected text as links by default', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor />)
+      const input = getInput()
+      await typeAndPaste(user, input)
+      expect(input).toHaveValue(linkifiedResult)
+    })
+
+    it('pastes URLs onto selected text as plain text when `pasteUrlsAsPlainText` enabled', async () => {
+      const {getInput, user} = await render(<UncontrolledEditor pasteUrlsAsPlainText />)
+      const input = getInput()
+      await typeAndPaste(user, input)
+      expect(input).toHaveValue(plainResult)
+    })
   })
 })

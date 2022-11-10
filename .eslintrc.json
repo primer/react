@@ -25,8 +25,10 @@
     "types/**/*",
     "consumer-test/**/*",
     "contributor-docs/adrs/*",
+    "examples/nextjs/**",
     // Note: this file is inlined from an external dependency
-    "src/utils/polymorphic.ts"
+    "src/utils/polymorphic.ts",
+    "storybook-static"
   ],
   "globals": {
     "__DEV__": "readonly"
@@ -45,6 +47,7 @@
   },
   // rules which apply to JS, TS, etc.
   "rules": {
+    "no-shadow": 0,
     "react/prop-types": 0,
     "react/display-name": 0,
     "react-hooks/exhaustive-deps": "error",
@@ -69,7 +72,6 @@
       "rules": {
         "eslint-comments/no-use": 0,
         "import/no-namespace": 0,
-        "no-shadow": 0,
         "no-unused-vars": [
           "error",
           {
@@ -93,6 +95,14 @@
           "error",
           {
             "argsIgnorePattern": "^_"
+          }
+        ],
+        "@typscript-eslint/no-shadow": 0,
+        "@typescript-eslint/no-empty-function": 0,
+        "@typescript-eslint/ban-ts-comment": [
+          "error",
+          {
+            "ts-ignore": "allow-with-description"
           }
         ]
       }
@@ -136,6 +146,15 @@
         "@typescript-eslint/no-unused-vars": 0,
         "primer-react/no-deprecated-colors": ["error", {"skipImportCheck": true}],
         "no-redeclare": 0
+      }
+    },
+    {
+      "parserOptions": {
+        "project": "tsconfig.json"
+      },
+      "files": ["playwright.config.ts", "e2e/**/*.{ts,tsx}"],
+      "rules": {
+        "github/array-foreach": "off"
       }
     }
   ]

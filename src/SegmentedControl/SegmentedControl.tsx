@@ -162,8 +162,9 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           selected: index === selectedIndex,
           sx: {
             '--separator-color':
-              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : theme?.colors.border.default
-          } as React.CSSProperties
+              index === selectedIndex || index === selectedIndex - 1 ? 'transparent' : theme?.colors.border.default,
+            ...child.props.sx
+          }
         }
 
         // Render the 'hideLabels' variant of the SegmentedControlButton

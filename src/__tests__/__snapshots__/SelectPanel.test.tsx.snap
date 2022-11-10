@@ -58,8 +58,7 @@ exports[`SelectPanel renders consistently 1`] = `
 }
 
 .c1:focus {
-  border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: solid 2px #0969da;
 }
 
 .c1:active {
@@ -86,7 +85,7 @@ exports[`SelectPanel renders consistently 1`] = `
   <button
     aria-haspopup="true"
     className="c1"
-    id="react-aria-2"
+    id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}
     tabIndex={0}
@@ -96,12 +95,8 @@ exports[`SelectPanel renders consistently 1`] = `
     <svg
       aria-hidden="true"
       className="c2"
-      dangerouslySetInnerHTML={
-        {
-          "__html": "<path d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"></path>",
-        }
-      }
       fill="currentColor"
+      focusable="false"
       height={16}
       role="img"
       style={
@@ -114,7 +109,11 @@ exports[`SelectPanel renders consistently 1`] = `
       }
       viewBox="0 0 16 16"
       width={16}
-    />
+    >
+      <path
+        d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"
+      />
+    </svg>
   </button>
   <div
     id="portal-root"

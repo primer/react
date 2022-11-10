@@ -1,11 +1,13 @@
 import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
-import {merge, SxProp, BetterSystemStyleObject} from '../sx'
+import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
-import {Theme, useTheme} from '../ThemeProvider'
+import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
+import {LoadingCounter} from './LoadingCounter'
+import VisuallyHidden from '../_VisuallyHidden'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -36,12 +38,12 @@ export type UnderlineNavItemProps = {
   /**
    *  Icon before the text
    */
-  leadingIcon?: React.FunctionComponent<IconProps>
+  icon?: React.FunctionComponent<IconProps>
   as?: React.ElementType
   /**
    * Counter
    */
-  counter?: number
+  counter?: number | string
 } & SxProp &
   LinkProps
 
@@ -55,109 +57,81 @@ export const UnderlineNavItem = forwardRef(
       counter,
       onSelect,
       selected: preSelected = false,
-      leadingIcon: LeadingIcon,
+      icon: Icon,
       ...props
     },
     forwardedRef
   ) => {
     const backupRef = useRef<HTMLElement>(null)
-    const ref = forwardedRef ?? backupRef
-    const {setChildrenWidth, selectedLink, setSelectedLink, afterSelect, variant} = useContext(UnderlineNavContext)
-    const {theme} = useTheme()
+    const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
+    const {
+      theme,
+      setChildrenWidth,
+      setNoIconChildrenWidth,
+      selectedLink,
+      setSelectedLink,
+      selectedLinkText,
+      setSelectedLinkText,
+      selectEvent,
+      afterSelect,
+      variant,
+      loadingCounters,
+      iconsVisible
+    } = useContext(UnderlineNavContext)
+
     useLayoutEffect(() => {
-      const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-      setChildrenWidth({width: domRect.width})
-      preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
-    }, [ref, preSelected, selectedLink, setSelectedLink, setChildrenWidth])
+      if (ref.current) {
+        const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
 
-    const iconWrapStyles = {
-      alignItems: 'center',
-      display: 'inline-flex',
-      marginRight: 2
-    }
+        const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
+          child => child.getAttribute('data-component') === 'icon'
+        )
 
-    const textStyles: BetterSystemStyleObject = {
-      whiteSpace: 'nowrap'
-    }
+        const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
+          child => child.getAttribute('data-component') === 'text'
+        ) as HTMLElement
+        const text = content.textContent as string
 
-    const wrapperStyles = {
-      display: 'inline-flex',
-      paddingY: 1,
-      paddingX: 2,
-      borderRadius: 2
-    }
-    const smallVariantLinkStyles = {
-      paddingY: 1,
-      fontSize: 0
-    }
-    const defaultVariantLinkStyles = {
-      paddingY: 2,
-      fontSize: 1
-    }
+        const iconWidthWithMargin = icon
+          ? icon.getBoundingClientRect().width +
+            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
+            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
+          : 0
 
-    // eslint-disable-next-line no-shadow
-    const linkStyles = (theme?: Theme) => ({
-      position: 'relative',
-      display: 'inline-flex',
-      color: 'fg.default',
-      textAlign: 'center',
-      textDecoration: 'none',
-      paddingX: 1,
-      ...(variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
-      '&:hover > div[data-component="wrapper"] ': {
-        backgroundColor: theme?.colors.neutral.muted,
-        transition: 'background .12s ease-out'
-      },
-      '&:focus': {
-        outline: 0,
-        '& > div[data-component="wrapper"]': {
-          boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
-        },
-        // where focus-visible is supported, remove the focus box-shadow
-        '&:not(:focus-visible) > div[data-component="wrapper"]': {
-          boxShadow: 'none'
+        setChildrenWidth({text, width: domRect.width})
+        setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
+        preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
+
+        // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
+        if (selectedLinkText === text) {
+          setSelectedLink(ref as RefObject<HTMLElement>)
+          if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
+          setSelectedLinkText('')
         }
-      },
-      '&:focus-visible > div[data-component="wrapper"]': {
-        boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
-      },
-      // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
-      '& span[data-content]::before': {
-        content: 'attr(data-content)',
-        display: 'block',
-        height: 0,
-        fontWeight: '600',
-        visibility: 'hidden'
-      },
-      // selected state styles
-      '&::after': {
-        position: 'absolute',
-        right: '50%',
-        bottom: 0,
-        width: `calc(100% - 8px)`,
-        height: 2,
-        content: '""',
-        bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
-        borderRadius: 0,
-        transform: 'translate(50%, -50%)'
       }
-    })
+    }, [
+      ref,
+      preSelected,
+      selectedLink,
+      selectedLinkText,
+      setSelectedLinkText,
+      setSelectedLink,
+      setChildrenWidth,
+      setNoIconChildrenWidth,
+      onSelect,
+      selectEvent
+    ])
 
-    const counterStyles = {
-      marginLeft: 2
-    }
     const keyPressHandler = React.useCallback(
       event => {
-        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-          if (typeof onSelect === 'function') onSelect(event)
-          if (typeof afterSelect === 'function') afterSelect(event)
+        if (event.key === ' ' || event.key === 'Enter') {
+          if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
+          if (!event.defaultPrevented && typeof afterSelect === 'function') afterSelect(event)
+          setSelectedLink(ref as RefObject<HTMLElement>)
         }
-        setSelectedLink(ref as RefObject<HTMLElement>)
-        event.preventDefault()
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
-
     const clickHandler = React.useCallback(
       event => {
         if (!event.defaultPrevented) {
@@ -165,10 +139,10 @@ export const UnderlineNavItem = forwardRef(
           if (typeof afterSelect === 'function') afterSelect(event)
         }
         setSelectedLink(ref as RefObject<HTMLElement>)
-        event.preventDefault()
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
+
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Box
@@ -177,14 +151,14 @@ export const UnderlineNavItem = forwardRef(
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
           {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
-          sx={merge(linkStyles(theme), sxProp as SxProp)}
+          sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
         >
           <Box as="div" data-component="wrapper" sx={wrapperStyles}>
-            {LeadingIcon && (
-              <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
-                <LeadingIcon />
+            {iconsVisible && Icon && (
+              <Box as="span" data-component="icon" sx={iconWrapStyles}>
+                <Icon />
               </Box>
             )}
             {children && (
@@ -192,15 +166,22 @@ export const UnderlineNavItem = forwardRef(
                 as="span"
                 data-component="text"
                 data-content={children}
-                sx={selectedLink === ref ? {fontWeight: 600, ...{textStyles}} : {textStyles}}
+                sx={selectedLink === ref ? {fontWeight: 600} : {}}
               >
                 {children}
               </Box>
             )}
-            {counter && (
+            {loadingCounters ? (
               <Box as="span" data-component="counter" sx={counterStyles}>
-                <CounterLabel>{counter}</CounterLabel>
+                <LoadingCounter />
               </Box>
+            ) : (
+              counter !== undefined && (
+                <Box as="span" data-component="counter" sx={counterStyles}>
+                  <CounterLabel aria-hidden="true">{counter}</CounterLabel>
+                  <VisuallyHidden>{`&nbsp;(${counter})`}</VisuallyHidden>
+                </Box>
+              )
             )}
           </Box>
         </Box>
@@ -208,3 +189,5 @@ export const UnderlineNavItem = forwardRef(
     )
   }
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
+
+UnderlineNavItem.displayName = 'UnderlineNavItem'

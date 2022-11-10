@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Checkbox, Radio, useSSRSafeId} from '..'
+import {Box, Checkbox, CheckboxProps, Radio, RadioProps, useSSRSafeId} from '..'
 import {get} from '../constants'
 import {Slots} from './InputField/slots'
 import ChoiceInputLeadingVisual from './_ChoiceInputLeadingVisual'
@@ -86,7 +86,7 @@ const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({
           <Box display="flex" alignItems={slots.LeadingVisual ? 'center' : undefined}>
             <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
               {React.isValidElement(ChoiceInput) &&
-                React.cloneElement(ChoiceInput, {
+                React.cloneElement(ChoiceInput as React.ReactElement<CheckboxProps | RadioProps>, {
                   id,
                   disabled,
                   ['aria-describedby']: captionId
