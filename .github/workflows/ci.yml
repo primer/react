@@ -65,7 +65,7 @@ jobs:
           echo "$(jq '.devDependencies."react-dom" = "17.x"' package.json)" > package.json
           echo "$(jq '.devDependencies."react-test-renderer" = "17.x"' package.json)" > package.json
 
-          npm ci --legacy-peer-deps
+          npm install --legacy-peer-deps
 
       - name: Build
         run: npm run build
