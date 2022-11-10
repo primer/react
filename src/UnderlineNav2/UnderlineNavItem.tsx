@@ -123,11 +123,11 @@ export const UnderlineNavItem = forwardRef(
 
     const keyPressHandler = React.useCallback(
       event => {
-        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-          if (typeof onSelect === 'function') onSelect(event)
-          if (typeof afterSelect === 'function') afterSelect(event)
+        if (event.key === ' ' || event.key === 'Enter') {
+          if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
+          if (!event.defaultPrevented && typeof afterSelect === 'function') afterSelect(event)
+          setSelectedLink(ref as RefObject<HTMLElement>)
         }
-        setSelectedLink(ref as RefObject<HTMLElement>)
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
