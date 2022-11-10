@@ -1,0 +1,25 @@
+name: Assign Release Conductor
+
+on:
+  pull_request:
+    branches:
+      - changeset-release/main
+
+jobs:
+  assign-release-conductor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask PagerDuty for release conductor
+        id: pagerduty
+        uses: mxie/pagerduty-oncall-action@main
+        with:
+          token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
+          schedule-id: P3IIVC4
+
+      - run: echo ${{ steps.pagerduty.outputs.person }} is release conductor
+
+      - name: Assign pull request to release conductor
+        uses: hkusu/review-assign-action@v1
+        with:
+          assignees: ${{ steps.pagerduty.outputs.person }}
+          reviewers: ${{ steps.pagerduty.outputs.person }}
