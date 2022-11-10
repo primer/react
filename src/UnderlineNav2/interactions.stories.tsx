@@ -47,11 +47,11 @@ KeyboardNavigation.play = async ({canvasElement}: {canvasElement: HTMLElement}) 
   await delay(500)
   await userEvent.tab()
   await delay(500)
-  let menuItem = canvas.getByRole('link', {name: 'Settings 10'})
+  let menuItem = canvas.getByRole('link', {name: 'Settings &nbsp;(10)'})
   userEvent.click(menuItem)
 
   expect(activeElement).toHaveFocus()
-  menuItem = canvas.getByRole('link', {name: 'Settings 10'})
+  menuItem = canvas.getByRole('link', {name: 'Settings &nbsp;(10)'})
 
   expect(menuItem).toHaveAttribute('aria-current', 'page')
   const lastListItem = canvas.getByRole('list').children[5]
@@ -85,11 +85,11 @@ SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => 
   userEvent.click(moreBtn)
 
   await delay(1000)
-  let menuItem = canvas.getByRole('link', {name: 'Settings 10'})
+  let menuItem = canvas.getByRole('link', {name: 'Settings &nbsp;(10)'})
   userEvent.click(menuItem)
 
   expect(moreBtn).toHaveFocus()
-  menuItem = canvas.getByRole('link', {name: 'Settings 10'})
+  menuItem = canvas.getByRole('link', {name: 'Settings &nbsp;(10)'})
 
   expect(menuItem).toHaveAttribute('aria-current', 'page')
   const lastListItem = canvas.getByRole('list').children[5]
@@ -107,7 +107,7 @@ KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLEleme
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
   const canvas = within(canvasElement)
   // await delay(2000)
-  const selectedItem = canvas.getByRole('link', {name: 'Settings 10'})
+  const selectedItem = canvas.getByRole('link', {name: 'Settings &nbsp;(10)'})
   expect(selectedItem).toHaveAttribute('aria-current', 'page')
   // change viewport
   canvasElement.style.width = '900px'

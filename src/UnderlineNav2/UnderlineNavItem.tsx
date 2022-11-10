@@ -7,6 +7,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
+import VisuallyHidden from '../_VisuallyHidden'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -177,7 +178,8 @@ export const UnderlineNavItem = forwardRef(
             ) : (
               counter !== undefined && (
                 <Box as="span" data-component="counter" sx={counterStyles}>
-                  <CounterLabel>{counter}</CounterLabel>
+                  <CounterLabel aria-hidden="true">{counter}</CounterLabel>
+                  <VisuallyHidden>{`&nbsp;(${counter})`}</VisuallyHidden>
                 </Box>
               )
             )}
