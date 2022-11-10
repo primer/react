@@ -2,6 +2,8 @@
 
 ## 35.14.2
 
+### [Permalink to documentation](https://primer-d5e3dada59-13348165.drafts.github.io/)
+
 ### Patch Changes
 
 - [#2553](https://github.com/primer/react/pull/2553) [`3a4b3124`](https://github.com/primer/react/commit/3a4b3124b92700a871ee2ff9b42fa3b158b50b18) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Only allow `Enter` and `Space` key to select an UnderlineNav item
