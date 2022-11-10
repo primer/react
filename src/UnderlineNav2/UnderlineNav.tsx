@@ -305,7 +305,7 @@ export const UnderlineNav = forwardRef(
           aria-label={ariaLabel}
           ref={navRef}
         >
-          <NavigationList sx={ulStyles} ref={listRef}>
+          <NavigationList sx={ulStyles} ref={listRef} role="list">
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
@@ -318,7 +318,9 @@ export const UnderlineNav = forwardRef(
                   onClick={onAnchorClick}
                   trailingIcon={TriangleDownIcon}
                 >
-                  More
+                  <Box as="span">
+                    More <VisuallyHidden as="span">{`${ariaLabel} items`}</VisuallyHidden>
+                  </Box>
                 </Button>
                 <ActionList
                   selectionVariant="single"
