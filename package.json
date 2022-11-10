@@ -47,6 +47,8 @@
     "test": "jest",
     "test:storybook": "test-storybook",
     "test:update": "npm run test -- --updateSnapshot",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage",
     "test:type-check": "tsc --noEmit",
     "release": "npm run build && changeset publish",
     "size": "size-limit",

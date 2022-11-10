@@ -66,8 +66,9 @@ We make sure that every component has [these fundamental unit tests](https://git
 | :------------------ | :----------------------- |
 | Run unit tests      | `npm test`               |
 | Run a specific test | `npm test ComponentName` |
-| Debug unit tests    | `npm test -- --watch`    |
-| Update snapshots    | `npm test:update`        |
+| Debug unit tests    | `npm run test:watch`     |
+| Update snapshots    | `npm run test:update`    |
+| Unit test coverage  | `npm run test:coverage`  |
 
 ##Interaction Tests
 
@@ -178,8 +179,13 @@ To be written in the collaboration with Eric Bailey.
 
 ## Continous Integration
 
-Playwright tests are included in the `avt` and `vrt` jobs of the CI workflow.
-The results of the test run are uploaded at the end of the job and are available
+All the tests are ran on our continous integration workflows.
+
+Unit tests are included in the `test` job, playwright tests are included in the `avt` and `vrt` jobs of the `CI` workflow.
+
+Storybook tests are ran in `Storybook Tests` workflow.
+
+The results of the playwright test run are uploaded at the end of the job and are available
 to download and view locally.
 
 If you notice that `vrt` or `avt` are failing, you can view the report of the
