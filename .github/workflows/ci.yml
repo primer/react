@@ -58,10 +58,13 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: |
+          # Rewrite enzyme-adapter for react-18
+          echo "$(jq '.devDependencies."@wojtekmaj/enzyme-adapter-react-17" = "npm:@mnajdova/enzyme-adapter-react-18"' package.json)" > package.json
+
           npm ci
-          npm i @mnajdova/enzyme-adapter-react-18 --save-dev --legacy-peer-deps
           npm i @testing-library/react@latest --save-dev --legacy-peer-deps
-          npm i react@18 react-dom@18 react-test-renderer@18 --save-dev
+          npm i react@18 react-dom@18 react-test-renderer@18 --save-dev --legacy-peer-deps
+
       - name: Build
         run: npm run build
       - name: Test
