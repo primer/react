@@ -13,7 +13,7 @@ jobs:
         id: pagerduty
         uses: mxie/pagerduty-oncall-action@main
         with:
-          token: ${{ secrets.PAGERDUTY_TOKEN }}
+          token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
           schedule-id: P3IIVC4
 
       - run: echo ${{ steps.pagerduty.outputs.person }} is release conductor
