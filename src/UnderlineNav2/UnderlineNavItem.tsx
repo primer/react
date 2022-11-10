@@ -7,6 +7,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
+import VisuallyHidden from '../_VisuallyHidden'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -123,11 +124,11 @@ export const UnderlineNavItem = forwardRef(
 
     const keyPressHandler = React.useCallback(
       event => {
-        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-          if (typeof onSelect === 'function') onSelect(event)
-          if (typeof afterSelect === 'function') afterSelect(event)
+        if (event.key === ' ' || event.key === 'Enter') {
+          if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
+          if (!event.defaultPrevented && typeof afterSelect === 'function') afterSelect(event)
+          setSelectedLink(ref as RefObject<HTMLElement>)
         }
-        setSelectedLink(ref as RefObject<HTMLElement>)
       },
       [onSelect, afterSelect, ref, setSelectedLink]
     )
@@ -177,7 +178,8 @@ export const UnderlineNavItem = forwardRef(
             ) : (
               counter !== undefined && (
                 <Box as="span" data-component="counter" sx={counterStyles}>
-                  <CounterLabel>{counter}</CounterLabel>
+                  <CounterLabel aria-hidden="true">{counter}</CounterLabel>
+                  <VisuallyHidden>{`&nbsp;(${counter})`}</VisuallyHidden>
                 </Box>
               )
             )}

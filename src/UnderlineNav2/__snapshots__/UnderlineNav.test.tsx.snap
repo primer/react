@@ -200,6 +200,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   >
     <ul
       className="c2"
+      role="list"
     >
       <li
         className="c3"
@@ -308,9 +309,15 @@ exports[`UnderlineNav renders consistently 1`] = `
               data-component="counter"
             >
               <span
+                aria-hidden="true"
                 className="c8"
               >
                 120
+              </span>
+              <span
+                className="c0"
+              >
+                &nbsp;(120)
               </span>
             </span>
           </div>
@@ -369,9 +376,15 @@ exports[`UnderlineNav renders consistently 1`] = `
               data-component="counter"
             >
               <span
+                aria-hidden="true"
                 className="c8"
               >
                 13
+              </span>
+              <span
+                className="c0"
+              >
+                &nbsp;(13)
               </span>
             </span>
           </div>
@@ -430,9 +443,15 @@ exports[`UnderlineNav renders consistently 1`] = `
               data-component="counter"
             >
               <span
+                aria-hidden="true"
                 className="c8"
               >
                 5
+              </span>
+              <span
+                className="c0"
+              >
+                &nbsp;(5)
               </span>
             </span>
           </div>
@@ -463,9 +482,15 @@ exports[`UnderlineNav renders consistently 1`] = `
               data-component="counter"
             >
               <span
+                aria-hidden="true"
                 className="c8"
               >
                 4
+              </span>
+              <span
+                className="c0"
+              >
+                &nbsp;(4)
               </span>
             </span>
           </div>
@@ -524,9 +549,15 @@ exports[`UnderlineNav renders consistently 1`] = `
               data-component="counter"
             >
               <span
+                aria-hidden="true"
                 className="c8"
               >
                 9
+              </span>
+              <span
+                className="c0"
+              >
+                &nbsp;(9)
               </span>
             </span>
           </div>
@@ -608,9 +639,15 @@ exports[`UnderlineNav renders consistently 1`] = `
               data-component="counter"
             >
               <span
+                aria-hidden="true"
                 className="c8"
               >
                 10
+              </span>
+              <span
+                className="c0"
+              >
+                &nbsp;(10)
               </span>
             </span>
           </div>

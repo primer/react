@@ -18,6 +18,7 @@ import Text from '../Text'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
+import {usePageUpDown} from './usePageUpDown'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
 
@@ -246,9 +247,12 @@ const UlBox = styled.ul<SxProp>`
 const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
+  const announceUpdate = React.useCallback((message: string) => {
+    setAriaLiveMessage(message)
+  }, [])
 
+  usePageUpDown(containerRef)
   useRovingTabIndex({containerRef})
-
   useTypeahead({
     containerRef,
     onFocusChange: element => {
@@ -257,16 +261,13 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
       }
     }
   })
-
-  const announceUpdate = React.useCallback((message: string) => {
-    setAriaLiveMessage(message)
-  }, [])
-
+  
   const expandedStateCache = React.useRef(null)
 
   if (expandedStateCache.current === null) {
     expandedStateCache.current = new Map();
   }
+  
   return (
     <RootContext.Provider
       value={{
