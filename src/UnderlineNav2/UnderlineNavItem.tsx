@@ -79,32 +79,34 @@ export const UnderlineNavItem = forwardRef(
     } = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
-      const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+      if (ref.current) {
+        const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
 
-      const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
-        child => child.getAttribute('data-component') === 'icon'
-      )
+        const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
+          child => child.getAttribute('data-component') === 'icon'
+        )
 
-      const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
-        child => child.getAttribute('data-component') === 'text'
-      ) as HTMLElement
-      const text = content.textContent as string
+        const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
+          child => child.getAttribute('data-component') === 'text'
+        ) as HTMLElement
+        const text = content.textContent as string
 
-      const iconWidthWithMargin = icon
-        ? icon.getBoundingClientRect().width +
-          Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-          Number(getComputedStyle(icon).marginLeft.slice(0, -2))
-        : 0
+        const iconWidthWithMargin = icon
+          ? icon.getBoundingClientRect().width +
+            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
+            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
+          : 0
 
-      setChildrenWidth({text, width: domRect.width})
-      setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
-      preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
+        setChildrenWidth({text, width: domRect.width})
+        setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
+        preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
 
-      // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
-      if (selectedLinkText === text) {
-        setSelectedLink(ref as RefObject<HTMLElement>)
-        if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
-        setSelectedLinkText('')
+        // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
+        if (selectedLinkText === text) {
+          setSelectedLink(ref as RefObject<HTMLElement>)
+          if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
+          setSelectedLinkText('')
+        }
       }
     }, [
       ref,
@@ -185,3 +187,5 @@ export const UnderlineNavItem = forwardRef(
     )
   }
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
+
+UnderlineNavItem.displayName = 'UnderlineNavItem'

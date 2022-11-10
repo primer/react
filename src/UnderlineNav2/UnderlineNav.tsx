@@ -11,8 +11,6 @@ import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menu
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 import {Button} from '../Button'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '@primer/behaviors'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
@@ -57,7 +55,6 @@ const overflowEffect = (
   if (childWidthArray.length === 0) {
     updateListAndMenu({items: childArray, actions: []}, iconsVisible)
   }
-
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
   // We need to take more menu width into account when calculating the number of items possible
@@ -91,19 +88,20 @@ const overflowEffect = (
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
         items.push(child)
-        // We need to make sure to keep the selected item always visible.
-      } else if (child.props.selected) {
-        // If selected item can't make it to the list, we swap it with the last item in the list.
-        const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
-        // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
-        const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
-        actions.push(propsectiveAction)
       } else {
-        actions.push(child)
+        // We need to make sure to keep the selected item always visible.
+        if (child.props.selected) {
+          // If selected item couldn't make in to the list, we swap it with the last item in the list.
+          const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
+          // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
+          const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
+          actions.push(propsectiveAction)
+        } else {
+          actions.push(child)
+        }
       }
     }
   }
-
   updateListAndMenu({items, actions}, iconsVisible)
 }
 
@@ -124,7 +122,6 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
       sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
     }
   }
-
   return breakpoint
 }
 
@@ -247,7 +244,8 @@ export const UnderlineNav = forwardRef(
       const childArray = getValidChildren(children)
       const navWidth = resizeObserverEntries[0].contentRect.width
       const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-      overflowEffect(navWidth, moreMenuWidth, childArray, childWidthArray, noIconChildWidthArray, updateListAndMenu)
+      navWidth !== 0 &&
+        overflowEffect(navWidth, moreMenuWidth, childArray, childWidthArray, noIconChildWidthArray, updateListAndMenu)
     }, navRef as RefObject<HTMLElement>)
 
     if (!ariaLabel) {
@@ -263,11 +261,6 @@ export const UnderlineNav = forwardRef(
     const focusOnMoreMenuBtn = React.useCallback(() => {
       moreMenuBtnRef.current?.focus()
     }, [])
-
-    useFocusZone({
-      containerRef: backupRef,
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Tab
-    })
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
@@ -312,7 +305,7 @@ export const UnderlineNav = forwardRef(
           aria-label={ariaLabel}
           ref={navRef}
         >
-          <NavigationList sx={ulStyles} ref={listRef}>
+          <NavigationList sx={ulStyles} ref={listRef} role="list">
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
@@ -325,7 +318,9 @@ export const UnderlineNav = forwardRef(
                   onClick={onAnchorClick}
                   trailingIcon={TriangleDownIcon}
                 >
-                  More
+                  <Box as="span">
+                    More <VisuallyHidden as="span">{`${ariaLabel} items`}</VisuallyHidden>
+                  </Box>
                 </Button>
                 <ActionList
                   selectionVariant="single"
@@ -373,3 +368,5 @@ export const UnderlineNav = forwardRef(
     )
   }
 )
+
+UnderlineNav.displayName = 'UnderlineNav'
