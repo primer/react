@@ -47,6 +47,28 @@ jobs:
       - name: Test
         run: npm run test -- --coverage
 
+  react-18:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm i @mnajdova/enzyme-adapter-react-18 --save-dev --legacy-peer-deps
+          npm i @testing-library/react@latest --save-dev --legacy-peer-deps
+          npm i react@18 react-dom@18 react-test-renderer@18 --save-dev
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm run test -- --coverage
+      - name: Type check
+        run: npm run test:type-check
+
   type-check:
     runs-on: ubuntu-latest
     steps:
