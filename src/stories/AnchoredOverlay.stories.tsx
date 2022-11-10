@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider, Button} from '..'
+import {BaseStyles, Box, ThemeProvider} from '..'
 import Heading from '../Heading'
+import {Button} from '../Button'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {registerPortalRoot} from '../Portal'
 

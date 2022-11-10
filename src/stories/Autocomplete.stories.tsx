@@ -1,11 +1,12 @@
 import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ThemeProvider, Button} from '..'
+import {BaseStyles, Box, ThemeProvider} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import FormControl from '../FormControl'
+import {Button} from '../Button'
 import {ComponentProps} from '../utils/types'
 import {
   FormControlArgs,
