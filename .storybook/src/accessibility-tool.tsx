@@ -19,12 +19,8 @@ export const Tool = () => {
 
   return (
     <ThemeProvider colorMode="day" dayScheme={colorScheme}>
-      <div style={{display: 'flex', alignItems: 'center', position: 'relative'}}>
-        <Tooltip
-          aria-label={`${showSurroundingElements ? 'Hide' : 'Show'} surrounding elements`}
-          direction="s"
-          sx={{position: 'absolute'}}
-        >
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        <Tooltip aria-label={`${showSurroundingElements ? 'Hide' : 'Show'} surrounding elements`} direction="s">
           <IconButton
             key={TOOL_ID}
             icon={AccessibilityIcon}
