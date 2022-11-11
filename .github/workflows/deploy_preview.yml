@@ -6,6 +6,9 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  deployments: write
+  statuses: write
+  checks: write
 
 jobs:
   deploy-preview:
@@ -26,3 +29,32 @@ jobs:
       install: npm ci && cd docs && npm ci && cd ..
       build: npm run build:docs:preview
       output_dir: docs/public
+
+  deploy-storybook:
+    if: ${{ github.repository == 'primer/react' }}
+    name: Preview Storybook
+    runs-on: ubuntu-latest
+    needs: deploy-preview
+    steps:
+      - uses: chrnorm/deployment-action@v2.0.3
+        name: Create GitHub deployment for storybook
+        id: storybook
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: storybook-preview-${{ github.event.number }}
+          environment_url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
+      - name: Update storybook deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
+          state: 'success'
+          deployment-id: ${{ steps.storybook.outputs.deployment_id }}
+      - name: Update storybook deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: 'failure'
+          deployment-id: ${{ steps.storybook.outputs.deployment_id }}
