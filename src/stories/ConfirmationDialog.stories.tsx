@@ -1,9 +1,10 @@
 import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, Box, ThemeProvider, useTheme} from '..'
-import {Button} from '../deprecated'
+import {Button} from '../Button'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
-import {ActionMenu} from '../deprecated/ActionMenu'
 
 export default {
   title: 'Components/ConfirmationDialog',
@@ -56,7 +57,7 @@ export const ShorthandHook = () => {
         (await confirm({title: 'Are you sure?', content: 'Do you really want to turn this button green?'})) &&
         event.target instanceof HTMLElement
       ) {
-        event.target.style.backgroundColor = theme?.colors.auto.green[3] ?? 'green'
+        event.target.style.color = theme?.colors.success.fg ?? 'green'
         event.target.textContent = "I'm green!"
       }
     },
@@ -91,15 +92,15 @@ export const ShorthandHookFromActionMenu = () => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start">
-      <ActionMenu
-        renderAnchor={props => <Button {...props}>{text}</Button>}
-        items={[
-          {
-            text: 'Do a trick!',
-            onAction: onButtonClick
-          }
-        ]}
-      />
+      <ActionMenu>
+        <ActionMenu.Button>{text}</ActionMenu.Button>
+
+        <ActionMenu.Overlay>
+          <ActionList>
+            <ActionList.Item onSelect={onButtonClick}>Do a trick!</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
     </Box>
   )
 }
