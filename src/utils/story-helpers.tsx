@@ -356,19 +356,14 @@ export const withSurroundingElements = (
   Story: React.FC<React.PropsWithChildren<StoryContext>>,
   context: StoryContext
 ) => {
+  const showSurroundingElements =
+    context.globals.showSurroundingElements ?? window?.localStorage?.getItem('showSurroundingElements') === 'true'
+
   return (
     <>
-      {context.globals.showSurroundingElements ? (
-        <a href="https://github.com/primer/react">Primer documentation</a>
-      ) : (
-        ''
-      )}
+      {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
       {Story(context)}
-      {context.globals.showSurroundingElements ? (
-        <a href="https://github.com/primer/react">Primer documentation</a>
-      ) : (
-        ''
-      )}
+      {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
     </>
   )
 }
