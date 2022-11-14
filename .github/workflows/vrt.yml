@@ -32,8 +32,27 @@ jobs:
         run: npm ci
       - name: Install browsers
         run: npx playwright install --with-deps
-      - name: Build storybook
-        run: npx build-storybook
+      - uses: actions/github-script@v3.1.0
+        name: Download built storybook from CI
+        with:
+          script: |
+            const fs = require('fs');
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.event.workflow_run.id }},
+            });
+            const [matchArtifact] = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "storybook"
+            });
+            const download = await github.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: matchArtifact.id,
+              archive_format: 'zip',
+            });
+            fs.writeFileSync('${{github.workspace}}/storybook.zip', Buffer.from(download.data));
+      - run: unzip storybook.zip -d storybook-static
       - name: Run storybook
         id: storybook
         run: |
