@@ -1,9 +1,8 @@
 import React, {useCallback} from 'react'
 import {useGlobals} from '@storybook/api'
-import {IconButton, ThemeProvider, Tooltip} from '../../src'
-import {AccessibilityIcon} from '@primer/octicons-react'
+import {ThemeProvider, ToggleSwitch, Box} from '../../src'
 
-export const ADDON_ID = 'myaddon'
+export const ADDON_ID = 'show-surrounding-links'
 export const TOOL_ID = `${ADDON_ID}/tool`
 
 export const Tool = () => {
@@ -22,15 +21,17 @@ export const Tool = () => {
   return (
     <ThemeProvider colorMode="day" dayScheme={colorScheme}>
       <div style={{display: 'flex', alignItems: 'center'}}>
-        <Tooltip aria-label={`${showSurroundingElements ? 'Hide' : 'Show'} surrounding elements`} direction="s">
-          <IconButton
-            key={TOOL_ID}
-            icon={AccessibilityIcon}
-            aria-pressed={!!showSurroundingElements}
-            aria-label={`${showSurroundingElements ? 'Hide' : 'Show'} surrounding elements`}
-            onClick={toggleMyTool}
-          />
-        </Tooltip>
+        <Box fontSize={1} fontWeight="bold" id={`${ADDON_ID}-label`} sx={{color: 'fg.default'}}>
+          Wrap links
+        </Box>
+        <ToggleSwitch
+          key={TOOL_ID}
+          aria-labelledby={`${ADDON_ID}-label`}
+          onClick={toggleMyTool}
+          defaultChecked={showSurroundingElements ?? window?.localStorage.getItem('showSurroundingElements') === 'true'}
+          checked={showSurroundingElements}
+          size="small"
+        />
       </div>
     </ThemeProvider>
   )
