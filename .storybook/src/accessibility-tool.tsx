@@ -20,8 +20,8 @@ export const Tool = () => {
 
   return (
     <ThemeProvider colorMode="day" dayScheme={colorScheme}>
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <Box fontSize={1} fontWeight="bold" id={`${ADDON_ID}-label`} sx={{color: 'fg.default'}}>
+      <Box style={{display: 'flex', alignItems: 'center'}}>
+        <Box fontSize={0} fontWeight="bold" id={`${ADDON_ID}-label`} color="black">
           Wrap links
         </Box>
         <ToggleSwitch
@@ -32,7 +32,7 @@ export const Tool = () => {
           checked={showSurroundingElements}
           size="small"
         />
-      </div>
+      </Box>
     </ThemeProvider>
   )
 }
