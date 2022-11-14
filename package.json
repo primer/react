@@ -162,7 +162,7 @@
     "babel-polyfill": "6.26.0",
     "chroma-js": "2.4.2",
     "chromatic": "6.1.0",
-    "concurrently": "6.4.0",
+    "concurrently": "7.5.0",
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
     "enzyme": "3.11.0",
