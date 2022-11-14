@@ -1,9 +1,8 @@
 import React, {useCallback, useRef, useState} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
-
 import {Box, BaseStyles, Flash, theme, ThemeProvider} from '..'
-import {Button, ButtonDanger, ButtonPrimary} from '../deprecated'
+import {Button} from '../Button'
 import {FocusKeys} from '@primer/behaviors'
 import type {Direction} from '@primer/behaviors'
 import {themeGet} from '@styled-system/theme-get'
@@ -47,7 +46,6 @@ export const BasicFocusZone = () => {
   const [fzEnabled, setFzEnabled] = useState(true)
   const {containerRef} = useFocusZone({disabled: !fzEnabled}, [fzEnabled])
 
-  const ToggleButton = fzEnabled ? ButtonDanger : ButtonPrimary
   const toggleFz = useCallback(() => {
     setFzEnabled(!fzEnabled)
   }, [fzEnabled])
@@ -59,9 +57,9 @@ export const BasicFocusZone = () => {
         <Box position="absolute" right={5} top={2}>
           Last key pressed: {lastKey}
         </Box>
-        <ToggleButton onClick={toggleFz} sx={{mb: 3}}>
+        <Button variant={fzEnabled ? 'danger' : 'primary'} onClick={toggleFz} sx={{mb: 3}}>
           {fzEnabled ? 'Disable' : 'Enable'} Focus Zone
-        </ToggleButton>
+        </Button>
         <MarginButton>Apple</MarginButton>
         <MarginButton>Banana</MarginButton>
         <MarginButton>Cantaloupe</MarginButton>
