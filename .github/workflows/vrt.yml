@@ -1,0 +1,51 @@
+name: vrt
+on:
+  workflow_run:
+    workflows: [ci]
+    types:
+      - completed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  update-snapshots:
+    if: >
+      github.repository == 'primer/react' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      contains(github.event.pull_request.labels.*.name, 'visual changes approved')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps
+      - name: Build storybook
+        run: npx build-storybook
+      - name: Run storybook
+        id: storybook
+        run: |
+          npx serve -l 6006 storybook-static &
+          pid=$!
+          echo "pid=$pid" >> $GITHUB_OUTPUT
+          sleep 5
+      - name: Run VRT
+        run: npx playwright test --grep @vrt
+      - name: Stop storybook
+        if: ${{ always() }}
+        run: kill ${{ steps.storybook.outputs.pid }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'test(vrt): update snapshots'
