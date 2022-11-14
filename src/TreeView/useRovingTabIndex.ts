@@ -169,9 +169,7 @@ function getNextPageElement(element: HTMLElement): HTMLElement | undefined {
     return
   }
 
-  const items = Array.from(root.querySelectorAll('[role="treeitem"]')).filter((item): item is HTMLElement => {
-    return item.nodeType === Node.ELEMENT_NODE
-  })
+  const items = Array.from(root.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
   const scrollContainer = getScrollContainer(root)
   const visible = items.filter(item => {
     return isVisible(item.firstElementChild as HTMLElement, scrollContainer)
@@ -187,9 +185,7 @@ function getPreviousPageElement(element: HTMLElement): HTMLElement | undefined {
     return
   }
 
-  const items = Array.from(root.querySelectorAll('[role="treeitem"]')).filter((item): item is HTMLElement => {
-    return item.nodeType === Node.ELEMENT_NODE
-  })
+  const items = Array.from(root.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
   const scrollContainer = getScrollContainer(root)
   const visible = items.filter(item => {
     return isVisible(item.firstElementChild as HTMLElement, scrollContainer)
