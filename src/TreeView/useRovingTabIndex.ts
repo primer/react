@@ -176,7 +176,7 @@ function getNextPageElement(element: HTMLElement): HTMLElement | undefined {
   const visible = items.filter(item => {
     return isVisible(item.firstElementChild as HTMLElement, scrollContainer)
   })
-  const pageSize = items.indexOf(visible[visible.length - 1]) - items.indexOf(visible[0]) + 1
+  const pageSize = visible.length
   const page = Math.floor(items.indexOf(element) / pageSize)
   return items[Math.min(items.length - 1, (page + 1) * pageSize)]
 }
@@ -194,7 +194,7 @@ function getPreviousPageElement(element: HTMLElement): HTMLElement | undefined {
   const visible = items.filter(item => {
     return isVisible(item.firstElementChild as HTMLElement, scrollContainer)
   })
-  const pageSize = items.indexOf(visible[visible.length - 1]) - items.indexOf(visible[0]) + 1
+  const pageSize = visible.length
   const page = Math.floor(items.indexOf(element) / pageSize)
   return items[Math.max(0, (page - 1) * pageSize)]
 }
