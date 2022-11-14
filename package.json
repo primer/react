@@ -112,7 +112,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.19.6",
     "@babel/preset-react": "7.18.6",
     "@babel/preset-typescript": "7.18.6",
-    "@changesets/changelog-github": "0.4.3",
+    "@changesets/changelog-github": "0.4.7",
     "@changesets/cli": "2.25.1",
     "@github/prettier-config": "0.0.4",
     "@playwright/test": "1.27.1",
