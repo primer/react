@@ -1,8 +1,6 @@
 import React from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
-import enzyme from 'enzyme'
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import type {Story as StoryType} from '@storybook/react'
@@ -16,10 +14,8 @@ const readFile = promisify(require('fs').readFile)
 
 export const COMPONENT_DISPLAY_NAME_REGEX = /^[A-Z][A-Za-z]+(\.[A-Z][A-Za-z]+)*$/
 
-enzyme.configure({adapter: new Adapter()})
-
-export function mount(component: React.ReactElement) {
-  return enzyme.mount(component)
+export function mount(_component: React.ReactElement) {
+  throw new Error('Enzyme is unsupported')
 }
 
 declare global {
