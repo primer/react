@@ -9,7 +9,7 @@ import {Icon} from '@primer/octicons-react'
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
 type StoryContext = Record<string, unknown> & {
-  globals: {colorScheme: string; showSurroundingElements: boolean}
+  globals: {colorScheme: string; showSurroundingElements?: boolean}
   parameters: Record<string, unknown>
 }
 
@@ -357,7 +357,7 @@ export const withSurroundingElements = (
   context: StoryContext
 ) => {
   const showSurroundingElements =
-    context.globals.showSurroundingElements ?? window?.localStorage?.getItem('showSurroundingElements') === 'true'
+    context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
 
   return (
     <>

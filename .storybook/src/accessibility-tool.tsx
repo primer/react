@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback} from 'react'
 import {useGlobals} from '@storybook/api'
 import {IconButton, ThemeProvider, Tooltip} from '../../src'
 import {AccessibilityIcon} from '@primer/octicons-react'
@@ -10,10 +10,12 @@ export const Tool = () => {
   const [{showSurroundingElements, colorScheme}, updateGlobals] = useGlobals()
 
   const toggleMyTool = useCallback(() => {
-    window?.localStorage?.setItem('showSurroundingElements', `${!showSurroundingElements}`)
+    const currentValue = showSurroundingElements ?? window?.localStorage.getItem('showSurroundingElements') === 'true'
+
+    window?.localStorage?.setItem('showSurroundingElements', `${!currentValue}`)
 
     updateGlobals({
-      showSurroundingElements: !showSurroundingElements
+      showSurroundingElements: !currentValue
     })
   }, [showSurroundingElements])
 
