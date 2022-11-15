@@ -19,10 +19,10 @@ export const Tool = () => {
   }, [showSurroundingElements])
 
   return (
-    <ThemeProvider colorMode="day" dayScheme={colorScheme}>
+    <ThemeProvider colorMode="day" dayScheme="light">
       <Box style={{display: 'flex', alignItems: 'center'}}>
         <Box fontSize={0} fontWeight="bold" id={`${ADDON_ID}-label`} color="black">
-          Wrap links
+          Links before/after
         </Box>
         <ToggleSwitch
           key={TOOL_ID}
