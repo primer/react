@@ -35,7 +35,7 @@ Strategy
 
 ### Overview
 
-We use [Jest](https://jestjs.io/) as our test runner to write and run our unit tests. Our prefered way of structuring tests is with `describe/it` block format and they are authored within the components's source directory with the file name of `componentName.test.tsx`
+We use [Jest](https://jestjs.io/) as our test runner to write and run our unit tests. Our prefered way of structuring tests is with `describe/it` block format and they are authored within the components's source directory with the file name of `ComponentName.test.tsx`
 
 We predominantly use [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)'s testing helpers such as
 
