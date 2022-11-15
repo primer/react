@@ -163,6 +163,23 @@ export function getLastElement(element: HTMLElement): HTMLElement | undefined {
   return last instanceof HTMLElement ? last : undefined
 }
 
+const defaultSize = {
+  height: 32
+}
+
+/**
+ * Determine the page size for the given tree based on an item in the tree. We
+ * estimate this size by trying to see how many items will fit in the given
+ * tree. If the tree is within a scroll container, we will use the height of
+ * that container. Otherwise, we'll use the current window height
+ */
+function getPageSize(root: Element, item: HTMLElement | null) {
+  const scrollContainer = getScrollContainer(root)
+  const {height: itemHeight} = item?.getBoundingClientRect() ?? defaultSize
+  const availableHeight = scrollContainer?.clientHeight ?? window.innerHeight
+  return Math.floor(availableHeight / itemHeight)
+}
+
 function getNextPageElement(element: HTMLElement): HTMLElement | undefined {
   const root = element.closest('[role="tree"]')
   if (!root) {
@@ -170,11 +187,12 @@ function getNextPageElement(element: HTMLElement): HTMLElement | undefined {
   }
 
   const items = Array.from(root.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
-  const scrollContainer = getScrollContainer(root)
-  const visible = items.filter(item => {
-    return isVisible(item.firstElementChild as HTMLElement, scrollContainer)
-  })
-  const pageSize = visible.length + 1
+  if (items.length === 0) {
+    return
+  }
+
+  const itemLabel = items[0].firstElementChild as HTMLElement
+  const pageSize = getPageSize(root, itemLabel)
   const page = Math.floor(items.indexOf(element) / pageSize)
   const offset = items.indexOf(element) - pageSize * page
 
@@ -188,42 +206,14 @@ function getPreviousPageElement(element: HTMLElement): HTMLElement | undefined {
   }
 
   const items = Array.from(root.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
-  const scrollContainer = getScrollContainer(root)
-  const visible = items.filter(item => {
-    return isVisible(item.firstElementChild as HTMLElement, scrollContainer)
-  })
-  const pageSize = visible.length + 1
+  if (items.length === 0) {
+    return
+  }
+
+  const itemLabel = items[0].firstElementChild as HTMLElement
+  const pageSize = getPageSize(root, itemLabel)
   const page = Math.floor(items.indexOf(element) / pageSize)
   const offset = items.indexOf(element) - pageSize * page
 
   return items[Math.max(0, (page - 1) * pageSize + offset)]
-}
-
-/**
- * Determine the visibility of an element
- */
-function isVisible(element: HTMLElement, scrollContainer?: Element | null): boolean {
-  // If a scroll container is present, check to see if the element is visible
-  // within it
-  if (scrollContainer) {
-    const elementTop = element.offsetTop
-    const elementBottom = elementTop + element.clientHeight
-    const parentTop = scrollContainer.scrollTop
-    const parentBottom = parentTop + scrollContainer.clientHeight
-
-    return elementTop >= parentTop && elementBottom <= parentBottom
-  }
-
-  // Otherwise, check to see if the element is visible in the viewport
-  return isInViewport(element)
-}
-
-function isInViewport(element: Element): boolean {
-  const rect = element.getBoundingClientRect()
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  )
 }
