@@ -1,4 +1,4 @@
-import {getByRole, render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {SelectMenu, Button} from '../deprecated'
