@@ -18,7 +18,7 @@ jobs:
       github.repository == 'primer/react' &&
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success' &&
-      contains(github.event.pull_request.labels.*.name, 'visual changes approved')
+      contains(github.event.pull_request.labels.*.name, 'update snapshots')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
