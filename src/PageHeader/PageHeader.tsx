@@ -4,32 +4,28 @@ import {useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
 import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
 import {IconButton} from '../Button'
-import {ChevronLeftIcon} from '@primer/octicons-react'
+import {ArrowLeftIcon, ChevronLeftIcon} from '@primer/octicons-react'
 import Link from '../Link'
 
 /* Todos (will be deleted soon)
 
 Reference figma - https://www.figma.com/file/Ee0OrXuOLXMDqUW83EnDHP/PageHeader-(FY23-Q1)?node-id=2%3A2259
-- ContextArea should only be visible in narrow.
 - Header rows should not wrap ever. be small?
-- ParentTitle should have a back arrow
-- Actions should all align right
 - Button size for content actions must icon. Should have href.
 - grid or flex? regions or areas?
 - Backbutton, TrailingAction only on regular viewport
 - Start writing some docs.
-- Use 3 dots icon
 - I don't think I need a context. There's no dependencies between rows.
-- Example with localnav and underlinenav?
 */
 
 const REGION_ORDER = {
   ContextArea: 0,
   titleArea: 1,
   description: 2,
-  localNav: 3
+  Navigation: 3
 }
-
+// Root
+// -----------------------------------------------------------------------------
 export type PageHeaderProps = {
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
@@ -39,60 +35,133 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
     marginX: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    flexBasis: 0,
+    flexGrow: 1,
+    flexShrink: 1,
+    minWidth: 1
   }
   return <Box sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>{children}</Box>
 }
 
-// PageHeader.ContextArea : Only visible on narrow viewports to provide user context of where they are at their journey.
+// PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
+// to manage their custom visibility but consumers should be careful to hide this on narrow viewports.
 // PageHeader.ContexArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextNavActions
 // ---------------------------------------------------------------------
-export type ContextAreaProps = SxProp
+export type ContextAreaProps = {
+  hidden?: boolean | ResponsiveValue<boolean>
+} & SxProp
 
-const ContextArea: React.FC<React.PropsWithChildren<ContextAreaProps>> = ({children, sx = {}}) => {
-  const isContextAreaHidden = {
+const ContextArea: React.FC<React.PropsWithChildren<ContextAreaProps>> = ({
+  children,
+  hidden = {
     narrow: false,
     regular: true,
     wide: true
-  }
-  const isHidden = useResponsiveValue(isContextAreaHidden, false)
+  },
+  sx = {}
+}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   const contentNavStyles = {
     display: isHidden ? 'none' : 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    order: REGION_ORDER.ContextArea,
-    // want same behaviour as PageLayout
-    flexBasis: 0,
-    flexGrow: 1,
-    flexShrink: 1,
-    minWidth: 1 // Hack to prevent overflowing content from pushing the pane region to the next line
+    gap: '8px',
+    order: REGION_ORDER.ContextArea
   }
-  return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
+  return (
+    <Box hidden={isHidden} sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
+      {children}
+    </Box>
+  )
 }
 
 export type ParentLinkProps = {
   href?: string
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const ParentLink: React.FC<React.PropsWithChildren<ParentLinkProps>> = ({children, sx = {}, href}) => {
+const ParentLink: React.FC<React.PropsWithChildren<ParentLinkProps>> = ({
+  children,
+  sx = {},
+  href,
+  hidden = {
+    narrow: false,
+    regular: true,
+    wide: true
+  }
+}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <>
-      <Link muted sx={merge<BetterSystemStyleObject>({display: 'flex', alignItems: 'center'}, sx)} href={href}>
-        <ChevronLeftIcon />
-        {children}
+      <Link
+        hidden={isHidden}
+        muted
+        sx={merge<BetterSystemStyleObject>({display: 'flex', alignItems: 'center'}, sx)}
+        href={href}
+      >
+        <ArrowLeftIcon />
+        <Box sx={{marginLeft: 2}}>{children}</Box>
       </Link>
     </>
   )
 }
 
+// ContextBar
 // Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
-const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
-  return <Box sx={sx}>{children}</Box>
-}
-const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
+// ---------------------------------------------------------------------
+
+export type ContextBarProps = {
+  hidden?: boolean | ResponsiveValue<boolean>
+} & SxProp
+
+const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
+  children,
+  sx = {},
+  hidden = {
+    narrow: false,
+    regular: true,
+    wide: true
+  }
+}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
-    <Box sx={merge<BetterSystemStyleObject>({display: 'flex', flexDirection: 'row', alignItems: 'center'}, sx)}>
+    <Box hidden={isHidden} sx={sx}>
+      {children}
+    </Box>
+  )
+}
+
+// ContextAreaActions
+// ---------------------------------------------------------------------
+export type ContextAreaActionsProps = {
+  hidden?: boolean | ResponsiveValue<boolean>
+} & SxProp
+const ContextAreaActions: React.FC<React.PropsWithChildren<ContextAreaActionsProps>> = ({
+  children,
+  sx = {},
+  hidden = {
+    narrow: false,
+    regular: true,
+    wide: true
+  }
+}) => {
+  const isHidden = useResponsiveValue(hidden, false)
+  return (
+    <Box
+      hidden={isHidden}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: '8px',
+          flexGrow: '1',
+          justifyContent: 'right'
+        },
+        sx
+      )}
+    >
       {children}
     </Box>
   )
@@ -103,8 +172,11 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
 // PageHeader.BackButton and PageHeader.TrailingAction are only visible on regular viewports therefore they come as hidden on narrow viewports and their visibility can be managed by their exposed `hidden` prop
 // ---------------------------------------------------------------------
 const TitleArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
+  console.log({children})
   return (
-    <Box sx={merge<BetterSystemStyleObject>({display: 'flex', flexDirection: 'row', alignItems: 'center'}, sx)}>
+    <Box
+      sx={merge<BetterSystemStyleObject>({display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '8px'}, sx)}
+    >
       {children}
     </Box>
   )
@@ -143,22 +215,42 @@ const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chil
 }
 
 export type TitleProps = {
-  variant?: 'subtitle' | 'medium' | 'large'
+  variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 const Title: React.FC<React.PropsWithChildren<PageHeaderProps & TitleProps>> = ({
   children,
   sx = {},
-  variant = 'large',
+  variant = {
+    narrow: 'medium',
+    regular: 'large',
+    wide: 'large'
+  },
   as = 'h1'
 }) => {
+  const currentVariant = useResponsiveValue(variant, 'medium')
   return (
     // Not sure about h1 - check with design and a11y
+    // TODO: use primitives for font styles
     <Heading
       as={as}
       sx={merge<BetterSystemStyleObject>(
         {
-          fontSize: variant === 'large' ? 6 : variant === 'medium' ? 5 : 4
+          fontSize: {
+            large: '32px',
+            medium: '20px',
+            subtitle: '20px'
+          }[currentVariant],
+          lineHeight: {
+            large: '48px',
+            medium: '32px',
+            subtitle: '32px'
+          }[currentVariant],
+          fontWeight: {
+            large: '600',
+            medium: '600',
+            subtitle: '400'
+          }[currentVariant]
         },
         sx
       )}
@@ -170,18 +262,59 @@ const Title: React.FC<React.PropsWithChildren<PageHeaderProps & TitleProps>> = (
 const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
   return <Box sx={sx}>{children}</Box>
 }
-const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
-  return <Box sx={sx}>{children}</Box>
+
+export type TrailingActionsProps = {
+  hidden?: boolean | ResponsiveValue<boolean>
+} & SxProp
+
+const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
+  children,
+  sx = {},
+  hidden = {
+    narrow: true,
+    regular: false,
+    wide: false
+  }
+}) => {
+  const isHidden = useResponsiveValue(hidden, true)
+  return (
+    <Box hidden={isHidden} sx={sx}>
+      {children}
+    </Box>
+  )
 }
 
 const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
-  return <Box sx={merge<BetterSystemStyleObject>({display: 'flex', flexDirection: 'row'}, sx)}>{children}</Box>
+  return (
+    <Box
+      sx={merge<BetterSystemStyleObject>(
+        {display: 'flex', flexDirection: 'row', gap: '8px', flexGrow: '1', justifyContent: 'right'},
+        sx
+      )}
+    >
+      {children}
+    </Box>
+  )
 }
-const Summary: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
-  return <Box sx={sx}>{children}</Box>
+const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
+  return (
+    <Box
+      sx={merge<BetterSystemStyleObject>(
+        {
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: '8px'
+        },
+        sx
+      )}
+    >
+      {children}
+    </Box>
+  )
 }
 
-const LocalNav: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
+const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
   return <Box sx={sx}>{children}</Box>
 }
 
@@ -197,6 +330,6 @@ export const PageHeader = Object.assign(Root, {
   TrailingVisual,
   TrailingAction,
   Actions,
-  Summary,
-  LocalNav
+  Description,
+  Navigation
 })

@@ -1,0 +1,170 @@
+import React from 'react'
+import {Meta, Story} from '@storybook/react'
+import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName} from '..'
+import Label from '../Label'
+import {
+  PencilIcon,
+  KebabHorizontalIcon,
+  GitBranchIcon,
+  CodeIcon,
+  CommentDiscussionIcon,
+  CommitIcon,
+  ChecklistIcon,
+  FileDiffIcon,
+  ArrowRightIcon
+} from '@primer/octicons-react'
+
+import {PageHeader} from './PageHeader'
+import Hidden from '../Hidden'
+import {UnderlineNav} from '../UnderlineNav2'
+
+const meta: Meta = {
+  title: 'Drafts/Components/PageHeader/Examples',
+  parameters: {
+    layout: 'fullscreen',
+    controls: {expanded: true}
+  },
+  args: {}
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Template: Story = args => (
+  <PageHeader sx={{padding: 2}}>
+    <PageHeader.ContextArea>
+      <PageHeader.ParentLink href="http://github.com">Code</PageHeader.ParentLink>
+      <PageHeader.ContextAreaActions>
+        <Button size="small" leadingIcon={GitBranchIcon}>
+          Main
+        </Button>
+        <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
+      </PageHeader.ContextAreaActions>
+    </PageHeader.ContextArea>
+    <PageHeader.TitleArea sx={{paddingTop: 3}}>
+      <PageHeader.BackButton />
+      <PageHeader.LeadingVisual>
+        <GitBranchIcon />
+      </PageHeader.LeadingVisual>
+      <PageHeader.Title as="h2">Branches</PageHeader.Title>
+      <PageHeader.TrailingVisual>
+        <Label>Beta</Label>
+      </PageHeader.TrailingVisual>
+      <PageHeader.TrailingAction>
+        <IconButton icon={PencilIcon} />
+      </PageHeader.TrailingAction>
+      <PageHeader.Actions>
+        <Hidden on={['narrow']}>
+          <Button variant="primary">New Branch</Button>
+        </Hidden>
+
+        <Hidden on={['regular', 'wide']}>
+          <Button variant="primary">New</Button>
+        </Hidden>
+        <IconButton aria-label="More" icon={KebabHorizontalIcon} />
+      </PageHeader.Actions>
+    </PageHeader.TitleArea>
+  </PageHeader>
+)
+
+export const WebHooks = () => (
+  <PageHeader sx={{padding: 3}}>
+    <PageHeader.ContextArea>
+      <PageHeader.ParentLink href="http://github.com">Repository Settings</PageHeader.ParentLink>
+    </PageHeader.ContextArea>
+    <PageHeader.TitleArea sx={{paddingTop: 2, paddingX: 1}}>
+      <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
+
+      <PageHeader.Actions>
+        <Hidden on={['narrow']}>
+          <Button variant="primary">New Webhook</Button>
+        </Hidden>
+
+        <Hidden on={['regular', 'wide']}>
+          <Button variant="primary">New</Button>
+        </Hidden>
+      </PageHeader.Actions>
+    </PageHeader.TitleArea>
+  </PageHeader>
+)
+
+export const PullRequestPage = () => (
+  <PageHeader sx={{padding: 2, paddingTop: 3}}>
+    <PageHeader.ContextArea sx={{paddingX: 2}}>
+      <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
+    </PageHeader.ContextArea>
+    <PageHeader.TitleArea sx={{paddingTop: 2, paddingX: 2}}>
+      <PageHeader.Title as="h2">PageHeader Component initial layout explorations</PageHeader.Title>
+      <PageHeader.Actions>
+        <Hidden on={['regular', 'wide']}>
+          <IconButton aria-label="More" icon={KebabHorizontalIcon} />
+          {/* Pop up actions */}
+        </Hidden>
+
+        <Hidden on={['narrow']}>
+          <Button>Edit</Button>
+          <Button leadingIcon={CodeIcon}>Code</Button>
+        </Hidden>
+      </PageHeader.Actions>
+    </PageHeader.TitleArea>
+    <PageHeader.Description sx={{padding: 2}}>
+      <StateLabel status="pullOpened">Open</StateLabel>
+      <Hidden on={['narrow']}>
+        <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+          <Link href="#" muted sx={{fontWeight: 'bold'}}>
+            broccolinisoup
+          </Link>{' '}
+          wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
+          <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
+        </Text>
+      </Hidden>
+      <Hidden on={['regular', 'wide']}>
+        <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+          <BranchName href="#">main</BranchName>
+          <ArrowRightIcon />
+          <BranchName href="#">page-header-initial</BranchName>
+        </Text>
+      </Hidden>
+    </PageHeader.Description>
+    <PageHeader.Navigation sx={{paddingTop: 2}}>
+      <UnderlineNav aria-label="Pull Request">
+        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" selected>
+          Conversation
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={3} icon={CommitIcon}>
+          Commits
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
+          Checks
+        </UnderlineNav.Item>
+        <UnderlineNav.Item counter={4} icon={FileDiffIcon}>
+          Files Changes
+        </UnderlineNav.Item>
+      </UnderlineNav>
+    </PageHeader.Navigation>
+  </PageHeader>
+)
+
+export const FilesPage = () => (
+  <PageHeader sx={{padding: 2}}>
+    <PageHeader.ContextArea>
+      <PageHeader.ParentLink>Files</PageHeader.ParentLink>
+      <PageHeader.ContextAreaActions>
+        <Button size="small" leadingIcon={GitBranchIcon}>
+          Main
+        </Button>
+        <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
+      </PageHeader.ContextAreaActions>
+    </PageHeader.ContextArea>
+    <PageHeader.TitleArea sx={{paddingTop: 3}}>
+      <Breadcrumbs>
+        <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+      </Breadcrumbs>
+    </PageHeader.TitleArea>
+  </PageHeader>
+)
+
+export default meta

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {Button, IconButton, Breadcrumbs} from '..'
+import {Button, IconButton} from '..'
 import Label from '../Label'
 import {PencilIcon, KebabHorizontalIcon, GitBranchIcon} from '@primer/octicons-react'
 
@@ -8,7 +8,7 @@ import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
 
 const meta: Meta = {
-  title: 'Drafts/Components/PageHeader',
+  title: 'Drafts/Components/PageHeader/Features',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true}
@@ -54,6 +54,8 @@ const Template: Story = args => (
   </PageHeader>
 )
 
-export const Playground = Template.bind({})
+export const TitleWithLeadingVisual = Template.bind({})
+export const TitleWithTrailingVisual = Template.bind({})
+export const TitleWithTrailingAction = Template.bind({})
 
 export default meta
