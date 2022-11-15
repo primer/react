@@ -11,8 +11,6 @@ import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menu
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 import {Button} from '../Button'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '@primer/behaviors'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
@@ -264,11 +262,6 @@ export const UnderlineNav = forwardRef(
       moreMenuBtnRef.current?.focus()
     }, [])
 
-    useFocusZone({
-      containerRef: backupRef,
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Tab
-    })
-
     useOnEscapePress(
       (event: KeyboardEvent) => {
         if (isWidgetOpen) {
@@ -312,7 +305,7 @@ export const UnderlineNav = forwardRef(
           aria-label={ariaLabel}
           ref={navRef}
         >
-          <NavigationList sx={ulStyles} ref={listRef}>
+          <NavigationList sx={ulStyles} ref={listRef} role="list">
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
@@ -325,7 +318,9 @@ export const UnderlineNav = forwardRef(
                   onClick={onAnchorClick}
                   trailingIcon={TriangleDownIcon}
                 >
-                  More
+                  <Box as="span">
+                    More <VisuallyHidden as="span">{`${ariaLabel} items`}</VisuallyHidden>
+                  </Box>
                 </Button>
                 <ActionList
                   selectionVariant="single"
@@ -356,7 +351,10 @@ export const UnderlineNav = forwardRef(
                               <LoadingCounter />
                             ) : (
                               actionElementProps.counter !== undefined && (
-                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                <Box as="span" data-component="counter">
+                                  <CounterLabel aria-hidden="true">{actionElementProps.counter}</CounterLabel>
+                                  <VisuallyHidden>{`&nbsp;(${actionElementProps.counter})`}</VisuallyHidden>
+                                </Box>
                               )
                             )}
                           </Box>

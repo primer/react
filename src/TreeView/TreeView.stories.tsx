@@ -22,13 +22,13 @@ const meta: Meta = {
 export const Default: Story = () => (
   <nav aria-label="Files changed">
     <TreeView aria-label="Files changed">
-      <TreeView.Item defaultExpanded>
+      <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem href="#">
+          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -37,7 +37,7 @@ export const Default: Story = () => (
               <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
             </TreeView.TrailingVisual>
           </TreeView.LinkItem>
-          <TreeView.LinkItem href="#" current>
+          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -48,7 +48,7 @@ export const Default: Story = () => (
           </TreeView.LinkItem>
         </TreeView.SubTree>
       </TreeView.Item>
-      <TreeView.LinkItem href="#">
+      <TreeView.LinkItem id="package.json" href="#">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
