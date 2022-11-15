@@ -1,12 +1,11 @@
 import React from 'react'
 import {TabNav} from '..'
-import {mount, behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import {Button} from '../Button'
 import Box from '../Box'
-expect.extend(toHaveNoViolations)
 
 describe('TabNav', () => {
   const tabNavMarkup = (
@@ -17,7 +16,7 @@ describe('TabNav', () => {
         </TabNav.Link>
         <TabNav.Link id="middle" href="#" selected as="div">
           Middle
-          <a href="https://example.com">Focuseable Link</a>
+          <a href="https://example.com">Focusable Link</a>
         </TabNav.Link>
         <TabNav.Link id="last" href="#">
           Last
@@ -50,9 +49,8 @@ describe('TabNav', () => {
   })
 
   it('selects a tab when tab is loaded', () => {
-    const component = mount(tabNavMarkup)
-    const tab = component.find('#middle').first()
-    expect(tab.getDOMNode().classList).toContain('selected')
+    const {getByRole} = HTMLRender(tabNavMarkup)
+    expect(getByRole('tab', {name: /Middle/})).toHaveClass('selected')
   })
 
   it('selects next tab when pressing right arrow', () => {
@@ -103,7 +101,7 @@ describe('TabNav', () => {
     const user = userEvent.setup()
     const {getByText, getByRole} = HTMLRender(tabNavMarkup)
     const middleTab = getByText('Middle')
-    const link = getByText('Focuseable Link')
+    const link = getByText('Focusable Link')
     const button = getByRole('button')
 
     await user.click(middleTab)
