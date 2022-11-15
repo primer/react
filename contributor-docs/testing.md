@@ -27,13 +27,13 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
 
-##Strategy
+## Strategy
 
 Strategy
 
-##Unit Tests
+## Unit Tests
 
-###Overview
+### Overview
 
 We use [Jest](https://jestjs.io/) as our test runner to write and run our unit tests. Our prefered way of structuring tests is with `describe/it` block format and they are authored within the components's source directory with the file name of `componentName.test.tsx`
 
@@ -80,7 +80,7 @@ We write user interaction tests leveraging [@testing-library/react](https://test
 
 ### Storybook Tests
 
-We recently introduced [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to our testing practises. They are particularly useful for cases where writing unit tests are not practical due the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
+We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to our testing practises. They are particularly useful for cases where writing unit tests are not practical due the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
 
 Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
 
