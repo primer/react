@@ -25,7 +25,7 @@ export const Tool = () => {
       title="Links before/after"
       onClick={toggleMyTool}
       defaultChecked={showSurroundingElements ?? window?.localStorage.getItem('showSurroundingElements') === 'true'}
-      aria-selected={showSurroundingElements}
+      aria-pressed={showSurroundingElements ?? window?.localStorage.getItem('showSurroundingElements') === 'true'}
     >
       <Icons icon="accessibilityalt" />
     </IconButton>
