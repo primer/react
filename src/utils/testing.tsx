@@ -14,10 +14,6 @@ const readFile = promisify(require('fs').readFile)
 
 export const COMPONENT_DISPLAY_NAME_REGEX = /^[A-Z][A-Za-z]+(\.[A-Z][A-Za-z]+)*$/
 
-export function mount(_component: React.ReactElement) {
-  throw new Error('Enzyme is unsupported')
-}
-
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
