@@ -44,18 +44,6 @@ const components = new Map([
           importPath: './src/ActionList/ActionList.features.stories.tsx'
         },
         {
-          id: 'components-actionlist-features--group-with-filled-title',
-          title: 'Components/ActionList/Features',
-          name: 'Group With Filled Title',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
-        },
-        {
-          id: 'components-actionlist-features--group-with-subtle-title',
-          title: 'Components/ActionList/Features',
-          name: 'Group With Subtle Title',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
-        },
-        {
           id: 'components-actionlist-features--inline-description',
           title: 'Components/ActionList/Features',
           name: 'Inline Description',
