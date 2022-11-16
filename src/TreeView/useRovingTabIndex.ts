@@ -1,11 +1,17 @@
 import React from 'react'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
+import {getScrollContainer} from '../utils/scroll'
 
 export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject<HTMLElement>}) {
   // TODO: Initialize focus to the aria-current item if it exists
   useFocusZone({
     containerRef,
-    bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Backspace,
+    bindKeys:
+      FocusKeys.ArrowVertical |
+      FocusKeys.ArrowHorizontal |
+      FocusKeys.HomeAndEnd |
+      FocusKeys.Backspace |
+      FocusKeys.PageUpDown,
     preventScroll: true,
     getNextFocusable: (direction, from, event) => {
       if (!(from instanceof HTMLElement)) return
@@ -67,6 +73,12 @@ export function getNextFocusableElement(activeElement: HTMLElement, event: Keybo
     case 'End':
       // Focus last visible element
       return getLastElement(activeElement)
+
+    case 'PageUp':
+      return getPreviousPageElement(activeElement)
+
+    case 'PageDown':
+      return getNextPageElement(activeElement)
   }
 }
 
@@ -149,4 +161,59 @@ export function getLastElement(element: HTMLElement): HTMLElement | undefined {
   }
 
   return last instanceof HTMLElement ? last : undefined
+}
+
+const defaultSize = {
+  height: 32
+}
+
+/**
+ * Determine the page size for the given tree based on an item in the tree. We
+ * estimate this size by trying to see how many items will fit in the given
+ * tree. If the tree is within a scroll container, we will use the height of
+ * that container. Otherwise, we'll use the current window height
+ */
+function getPageSize(root: Element, item: HTMLElement | null) {
+  const scrollContainer = getScrollContainer(root)
+  const {height: itemHeight} = item?.getBoundingClientRect() ?? defaultSize
+  const availableHeight = scrollContainer?.clientHeight ?? window.innerHeight
+  return Math.floor(availableHeight / itemHeight)
+}
+
+function getNextPageElement(element: HTMLElement): HTMLElement | undefined {
+  const root = element.closest('[role="tree"]')
+  if (!root) {
+    return
+  }
+
+  const items = Array.from(root.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
+  if (items.length === 0) {
+    return
+  }
+
+  const itemLabel = items[0].firstElementChild as HTMLElement
+  const pageSize = getPageSize(root, itemLabel)
+  const page = Math.floor(items.indexOf(element) / pageSize)
+  const offset = items.indexOf(element) - pageSize * page
+
+  return items[Math.min(items.length - 1, (page + 1) * pageSize + offset)]
+}
+
+function getPreviousPageElement(element: HTMLElement): HTMLElement | undefined {
+  const root = element.closest('[role="tree"]')
+  if (!root) {
+    return
+  }
+
+  const items = Array.from(root.querySelectorAll('[role="treeitem"]')) as HTMLElement[]
+  if (items.length === 0) {
+    return
+  }
+
+  const itemLabel = items[0].firstElementChild as HTMLElement
+  const pageSize = getPageSize(root, itemLabel)
+  const page = Math.floor(items.indexOf(element) / pageSize)
+  const offset = items.indexOf(element) - pageSize * page
+
+  return items[Math.max(0, (page - 1) * pageSize + offset)]
 }
