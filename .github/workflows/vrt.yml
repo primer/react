@@ -15,8 +15,8 @@ permissions:
 jobs:
   update-snapshots:
     if: >
-      github.repository == 'primer/react' &&
       github.event.workflow_run.event == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == 'primer/react'
       contains(github.event.pull_request.labels.*.name, 'update snapshots')
     runs-on: ubuntu-latest
     steps:
