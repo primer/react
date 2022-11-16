@@ -17,7 +17,6 @@ const config: Config = {
 
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
   use: {
     screenshot: 'only-on-failure'
   },
