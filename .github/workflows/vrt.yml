@@ -1,0 +1,70 @@
+name: vrt
+on:
+  workflow_run:
+    workflows: [CI]
+    types:
+      - completed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  update-snapshots:
+    if: >
+      github.repository == 'primer/react' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      contains(github.event.pull_request.labels.*.name, 'update snapshots')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps
+      - uses: actions/github-script@v3.1.0
+        name: Download built storybook from CI
+        with:
+          script: |
+            const fs = require('fs');
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.event.workflow_run.id }},
+            });
+            const [matchArtifact] = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "storybook"
+            });
+            const download = await github.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: matchArtifact.id,
+              archive_format: 'zip',
+            });
+            fs.writeFileSync('${{github.workspace}}/storybook.zip', Buffer.from(download.data));
+      - run: unzip storybook.zip -d storybook-static
+      - name: Run storybook
+        id: storybook
+        run: |
+          npx serve -l 6006 storybook-static &
+          pid=$!
+          echo "pid=$pid" >> $GITHUB_OUTPUT
+          sleep 5
+      - name: Run VRT
+        run: npx playwright test --grep @vrt
+      - name: Stop storybook
+        if: ${{ always() }}
+        run: kill ${{ steps.storybook.outputs.pid }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'test(vrt): update snapshots'
