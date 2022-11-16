@@ -15,6 +15,7 @@ const config: Config = {
   outputDir: path.join(__dirname, '.playwright', 'results'),
   snapshotDir: path.join(__dirname, '.playwright', 'snapshots'),
 
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   use: {

@@ -22,7 +22,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--default-button'
       })
@@ -49,7 +49,7 @@ test.describe('Button', () => {
       })
     })
 
-    test.fixme('axe @avt', async ({page}) => {
+    test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--primary-button'
       })
@@ -76,7 +76,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--danger-button'
       })
@@ -103,7 +103,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--invisible-button'
       })
@@ -130,7 +130,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--outline-button'
       })
@@ -157,7 +157,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--icon-before-button'
       })
@@ -184,7 +184,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--icon-button'
       })
@@ -211,7 +211,7 @@ test.describe('Button', () => {
       })
     })
 
-    test.fixme('axe @avt', async ({page}) => {
+    test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--watch-counter-button'
       })
@@ -238,7 +238,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--watch-icon-button'
       })
@@ -265,7 +265,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--caret-button'
       })
@@ -292,7 +292,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--block-button'
       })
@@ -319,7 +319,7 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--disabled-button'
       })
@@ -346,7 +346,7 @@ test.describe('Button', () => {
       })
     })
 
-    test.fixme('axe @avt', async ({page}) => {
+    test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
         id: 'components-button--link-button'
       })
