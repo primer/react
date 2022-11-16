@@ -6,7 +6,7 @@ description: A hierarchical list of items where nested items can be expanded and
 ---
 
 ```js
-import {TreeView} from '@primer/react/drafts'
+import {TreeView} from '@primer/react'
 ```
 
 ## Examples
@@ -112,7 +112,7 @@ import {TreeView} from '@primer/react/drafts'
 
 ```jsx
 import {Link, useMatch, useResolvedPath, navigate} from 'react-router-dom'
-import {TreeView} from '@primer/react/drafts'
+import {TreeView} from '@primer/react'
 
 function LinkItem({id, to, children}) {
   const resolved = useResolvedPath(to)
@@ -152,11 +152,11 @@ function App() {
 ```jsx
 import {useRouter} from 'next/router'
 import Link from 'next/link'
-import {TreeView} from '@primer/react/drafts'
+import {TreeView} from '@primer/react'
 
 function LinkItem({id, href, children}) {
   const router = useRouter()
-  const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname == href.pathname
+  const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
   return (
     <Link href={href} passHref>
       <TreeView.Item
