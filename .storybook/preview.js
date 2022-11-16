@@ -1,8 +1,8 @@
 import {addons} from '@storybook/addons'
-import {withThemeProvider, toolbarTypes} from '../src/utils/story-helpers'
+import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
 
 export const globalTypes = toolbarTypes
-export const decorators = [withThemeProvider]
+export const decorators = [withThemeProvider, withSurroundingElements]
 
 addons.setConfig({
   // Some stories may set up keyboard event handlers, which can be interfered

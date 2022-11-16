@@ -3,6 +3,7 @@ import {fireEvent, render as _render, waitFor, within} from '@testing-library/re
 import userEvent from '@testing-library/user-event'
 import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
 import React, {forwardRef, useRef, useState} from 'react'
+import {act} from 'react-dom/test-utils'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
@@ -602,8 +603,6 @@ describe('MarkdownEditor', () => {
         fireEvent.dragLeave(input)
         expect(button).not.toHaveTextContent('Drop to add files')
       })
-
-      // Can't test clicking it and selecting a file because there's not a real file select dialog we can interact with
     })
 
     describe.each<['drop' | 'paste', string]>([
@@ -700,9 +699,9 @@ describe('MarkdownEditor', () => {
       const {getViewSwitch, queryForPreview, user} = await render(<UncontrolledEditor />)
       const viewSwitch = getViewSwitch()
       expect(queryForPreview()).not.toBeInTheDocument()
-      user.click(viewSwitch)
+      await user.click(viewSwitch)
       await waitFor(() => expect(queryForPreview()).toBeInTheDocument())
-      user.click(viewSwitch)
+      await user.click(viewSwitch)
       await waitFor(() => expect(queryForPreview()).not.toBeInTheDocument())
     })
 
@@ -711,7 +710,10 @@ describe('MarkdownEditor', () => {
       const {getViewSwitch, queryForPreview} = await render(
         <UncontrolledEditor viewMode="edit" onChangeViewMode={onViewModeChange} />
       )
-      fireEvent.click(getViewSwitch())
+      await act(async () => {
+        fireEvent.click(getViewSwitch())
+        await new Promise(process.nextTick)
+      })
       expect(onViewModeChange).toHaveBeenCalledWith('preview')
       expect(queryForPreview()).not.toBeInTheDocument()
     })
@@ -725,7 +727,12 @@ describe('MarkdownEditor', () => {
       it('prefetches the preview when the view switch is focused', async () => {
         const renderPreviewMock = jest.fn()
         const {getViewSwitch} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} />)
-        fireEvent.focus(getViewSwitch())
+
+        await act(async () => {
+          fireEvent.focus(getViewSwitch())
+          await new Promise(process.nextTick)
+        })
+
         expect(renderPreviewMock).toHaveBeenCalled()
       })
 
@@ -751,9 +758,17 @@ describe('MarkdownEditor', () => {
       it('fetches the preview when the `viewMode` prop is changed externally', async () => {
         const renderPreviewMock = jest.fn()
         const {rerender} = await render(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
-        rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="preview" />)
+
+        await act(async () => {
+          rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="preview" />)
+          await new Promise(process.nextTick)
+        })
         expect(renderPreviewMock).toHaveBeenCalledTimes(1)
-        rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
+
+        await act(async () => {
+          rerender(<UncontrolledEditor onRenderPreview={renderPreviewMock} viewMode="edit" />)
+          await new Promise(process.nextTick)
+        })
         expect(renderPreviewMock).toHaveBeenCalledTimes(1)
       })
     })
@@ -768,6 +783,8 @@ describe('MarkdownEditor', () => {
       })
 
       it('forces links to open in a new tab', async () => {
+        const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
         // eslint-disable-next-line github/unescaped-html-literal
         const html = '<a href="https://example.com">Link</a>'
         const user = userEvent.setup()
@@ -777,7 +794,19 @@ describe('MarkdownEditor', () => {
         const link = await waitFor(() => within(getPreview()).getByText('Link'))
 
         await user.click(link)
+        // Note: navigation is not implemented in JSDOM and will log out an
+        // error when clicking the link above. The spy here captures this error
+        // and will assert that it is called only once, otherwise another error
+        // in this test has occurred
+        expect(spy).toHaveBeenCalledTimes(1)
+        expect(spy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            message: 'Not implemented: navigation (except hash changes)'
+          })
+        )
         expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
+
+        spy.mockRestore()
       })
     })
   })
@@ -821,7 +850,12 @@ describe('MarkdownEditor', () => {
       const {getEditorContainer, rerender} = await render(<UncontrolledEditor viewMode="edit" />)
       expect(getEditorContainer()).toHaveAccessibleDescription('Markdown input: edit mode selected.')
 
-      rerender(<UncontrolledEditor viewMode="preview" />)
+      await act(async () => {
+        rerender(<UncontrolledEditor viewMode="preview" />)
+        // Wait one tick as this switch triggers a promise that is resolved
+        // within `MarkdownEditor` from `useSafeAsyncCallback`
+        await new Promise(process.nextTick)
+      })
 
       expect(getEditorContainer()).toHaveAccessibleDescription('Markdown input: preview mode selected.')
     })

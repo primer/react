@@ -1,7 +1,6 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, Box, ThemeProvider} from '..'
-import {ButtonPrimary} from '../deprecated'
 import {useAnchoredPosition} from '../hooks'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -307,9 +306,9 @@ export const WithPortal = () => {
           with <code>useAnchoredPosition</code>, we can break out of this constraint.
         </p>
         <Box sx={{textAlign: 'right'}}>
-          <ButtonPrimary onClick={toggleMenu} ref={anchorElementRef as React.RefObject<HTMLButtonElement>}>
+          <Button variant="primary" onClick={toggleMenu} ref={anchorElementRef as React.RefObject<HTMLButtonElement>}>
             Show the overlay!
-          </ButtonPrimary>
+          </Button>
           {showMenu ? (
             <Portal>
               <Float
