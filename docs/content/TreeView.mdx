@@ -6,7 +6,7 @@ description: A hierarchical list of items where nested items can be expanded and
 ---
 
 ```js
-import {TreeView} from '@primer/react'
+import {TreeView} from '@primer/react/drafts'
 ```
 
 ## Examples
@@ -111,16 +111,21 @@ import {TreeView} from '@primer/react'
 ### With React Router
 
 ```jsx
-import {Link, useMatch, useResolvedPath} from 'react-router-dom'
-import {TreeView} from '@primer/react'
+import {Link, useMatch, useResolvedPath, navigate} from 'react-router-dom'
+import {TreeView} from '@primer/react/drafts'
 
-function LinkItem({id, href, children}) {
-  const resolved = useResolvedPath(href)
+function LinkItem({id, to, children}) {
+  const resolved = useResolvedPath(to)
   const isCurrent = useMatch({path: resolved.pathname, end: true})
   return (
-    <TreeList.LinkItem id={id} href={href} aria-current={isCurrent ? 'page' : undefined} current={isCurrent}>
+    <TreeList.Item
+      id={id}
+      aria-current={isCurrent ? 'page' : undefined}
+      current={isCurrent}
+      onSelect={() => navigate(to)}
+    >
       {children}
-    </TreeList.LinkItem>
+    </TreeList.Item>
   )
 }
 
@@ -129,10 +134,10 @@ function App() {
     <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
       <nav aria-label="Files">
         <TreeList aria-label="Files">
-          <LinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
+          <LinkItem id="src/Avatar.tsx" to="/src/Avatar.tsx">
             Avatar.tsx
           </LinkItem>
-          <LinkItem id="src/Button.tsx" href="/src/Button.tsx">
+          <LinkItem id="src/Button.tsx" to="/src/Button.tsx">
             Button.tsx
           </LinkItem>
         </TreeList>
@@ -147,7 +152,7 @@ function App() {
 ```jsx
 import {useRouter} from 'next/router'
 import Link from 'next/link'
-import {TreeView} from '@primer/react'
+import {TreeView} from '@primer/react/drafts'
 
 function LinkItem({id, href, children}) {
   const router = useRouter()
