@@ -5,6 +5,10 @@ status: Draft
 description: A hierarchical list of items where nested items can be expanded and collapsed.
 ---
 
+```js
+import {TreeView} from '@primer/react'
+```
+
 ## Examples
 
 ### File tree navigation without directory links
@@ -102,6 +106,87 @@ description: A hierarchical list of items where nested items can be expanded and
     </TreeView>
   </nav>
 </Box>
+```
+
+### With React Router
+
+```jsx
+import {Link, useMatch, useResolvedPath} from 'react-router-dom'
+import {TreeView} from '@primer/react'
+
+function LinkItem({id, href, children}) {
+  const resolved = useResolvedPath(href)
+  const isCurrent = useMatch({path: resolved.pathname, end: true})
+  return (
+    <TreeList.LinkItem id={id} href={href} aria-current={isCurrent ? 'page' : undefined} current={isCurrent}>
+      {children}
+    </TreeList.LinkItem>
+  )
+}
+
+function App() {
+  return (
+    <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
+      <nav aria-label="Files">
+        <TreeList aria-label="Files">
+          <LinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
+            Avatar.tsx
+          </LinkItem>
+          <LinkItem id="src/Button.tsx" href="/src/Button.tsx">
+            Button.tsx
+          </LinkItem>
+        </TreeList>
+      </nav>
+    </Box>
+  )
+}
+```
+
+### With Next.js
+
+```jsx
+import {useRouter} from 'next/router'
+import Link from 'next/link'
+import {TreeView} from '@primer/react'
+
+function LinkItem({id, href, children}) {
+  const router = useRouter()
+  const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname == href.pathname
+  return (
+    <Link href={href} passHref>
+      <TreeView.Item
+        id={id}
+        aria-current={isCurrent ? 'page' : false}
+        current={isCurrent}
+      >
+        {children}
+      </TreeView.Item>
+    </Link>
+  )
+}
+
+function App() {
+  return (
+    <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
+      <nav aria-label="Files">
+        <TreeList aria-label="Files">
+          <LinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
+            Avatar.tsx
+          </LinkItem>
+          <LinkItem 
+            id="${component}.${filetype}" 
+            href={{ 
+              pathname: "/src/[component].[filetype]",
+              query: { component, impl }
+            }}
+          >
+            {"${component}.${filetype}"}
+          </LinkItem>
+        </TreeList>
+      </nav>
+    </Box>
+  )
+}
 ```
 
 ### With controlled expanded state
