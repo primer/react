@@ -18,7 +18,6 @@ import Text from '../Text'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
-import {usePageUpDown} from './usePageUpDown'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
 
@@ -251,7 +250,6 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     setAriaLiveMessage(message)
   }, [])
 
-  usePageUpDown(containerRef)
   useRovingTabIndex({containerRef})
   useTypeahead({
     containerRef,
