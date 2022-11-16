@@ -13,16 +13,25 @@ permissions:
   contents: write
 
 jobs:
-  update-snapshots:
+  pull_request:
     if: >
-      github.event.workflow_run.event == 'pull_request' &&
-      github.event.pull_request.head.repo.full_name == 'primer/react' &&
-      contains(github.event.pull_request.labels.*.name, 'update snapshots')
+      github.repository == 'primer/react' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    outputs:
+      labels: ${{ steps.get-pull-request.outputs.pullRequestLabels }}
+    steps:
+      - uses: potiuk/get-workflow-origin@v1_1
+        id: get-pull-request
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  update-snapshots:
+    needs: pull_request
+    if: contains(needs.pull_request.outputs.labels.*.name, 'update snapshots')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
@@ -58,8 +67,8 @@ jobs:
               artifact_id: matchArtifact.id,
               archive_format: 'zip',
             });
-            fs.writeFileSync('${{github.workspace}}/storybook.zip', Buffer.from(download.data));
 
+            fs.writeFileSync('${{github.workspace}}/storybook.zip', Buffer.from(download.data));
             core.setOutput('status', 'uploaded');
 
       - run: unzip storybook.zip -d storybook-static
@@ -78,7 +87,3 @@ jobs:
       - name: Stop storybook
         if: ${{ steps.storybook-artifact.outputs.status == 'uploaded' }}
         run: kill ${{ steps.storybook.outputs.pid }}
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        if: ${{ steps.storybook-artifact.outputs.status == 'uploaded' }}
-        with:
-          commit_message: 'test(vrt): update snapshots'
