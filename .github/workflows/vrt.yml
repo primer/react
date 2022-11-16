@@ -17,7 +17,6 @@ jobs:
     if: >
       github.repository == 'primer/react' &&
       github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' &&
       contains(github.event.pull_request.labels.*.name, 'update snapshots')
     runs-on: ubuntu-latest
     steps:
@@ -34,6 +33,7 @@ jobs:
         run: npx playwright install --with-deps
       - uses: actions/github-script@v3.1.0
         name: Download built storybook from CI
+        id: storybook-artifact
         with:
           script: |
             const fs = require('fs');
@@ -45,6 +45,13 @@ jobs:
             const [matchArtifact] = artifacts.data.artifacts.filter((artifact) => {
               return artifact.name == "storybook"
             });
+
+            if (!matchArtifact) {
+              core.setOutput('status', 'not-uploaded');
+              core.warning('No storybook artifact was uploaded from the CI workflow');
+              return;
+            }
+
             const download = await github.actions.downloadArtifact({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -52,8 +59,13 @@ jobs:
               archive_format: 'zip',
             });
             fs.writeFileSync('${{github.workspace}}/storybook.zip', Buffer.from(download.data));
+
+            core.setOutput('status', 'uploaded');
+
       - run: unzip storybook.zip -d storybook-static
+        if: ${{ steps.storybook-artifact.outputs.status == 'uploaded' }}
       - name: Run storybook
+        if: ${{ steps.storybook-artifact.outputs.status == 'uploaded' }}
         id: storybook
         run: |
           npx serve -l 6006 storybook-static &
@@ -61,10 +73,12 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
+        if: ${{ steps.storybook-artifact.outputs.status == 'uploaded' }}
         run: npx playwright test --grep @vrt --update-snapshots
       - name: Stop storybook
-        if: ${{ always() }}
+        if: ${{ steps.storybook-artifact.outputs.status == 'uploaded' }}
         run: kill ${{ steps.storybook.outputs.pid }}
       - uses: stefanzweifel/git-auto-commit-action@v4
+        if: ${{ steps.storybook-artifact.outputs.status == 'uploaded' }}
         with:
           commit_message: 'test(vrt): update snapshots'
