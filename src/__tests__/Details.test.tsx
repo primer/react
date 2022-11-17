@@ -1,12 +1,11 @@
+import {render} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Details, useDetails, Box} from '..'
 import {Button, ButtonPrimary} from '../deprecated'
 import {ButtonProps} from '../deprecated/Button/Button'
-import {mount, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {behavesAsComponent, checkExports} from '../utils/testing'
+import {axe} from 'jest-axe'
 
 describe('Details', () => {
   behavesAsComponent({Component: Details})
@@ -16,7 +15,7 @@ describe('Details', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Details />)
+    const {container} = render(<Details />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
@@ -25,91 +24,82 @@ describe('Details', () => {
     const Component = () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
       return (
-        <Details {...getDetailsProps()}>
+        <Details data-testid="details" {...getDetailsProps()}>
           <summary>hi</summary>
         </Details>
       )
     }
 
-    const wrapper = mount(<Component />)
+    const {getByTestId} = render(<Component />)
 
     document.body.click()
 
-    const dom = wrapper.getDOMNode()
-
-    expect(dom.hasAttribute('open')).toEqual(false)
-
-    wrapper.unmount()
+    expect(getByTestId('details')).not.toHaveAttribute('open')
   })
 
   it('Accurately passes down open state', () => {
     const Component = () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
       return (
-        <Details {...getDetailsProps()}>
-          <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
+        <Details {...getDetailsProps()} data-testid="details">
+          <Button as="summary" data-testid="summary">
+            {open ? 'Open' : 'Closed'}
+          </Button>
         </Details>
       )
     }
 
-    const wrapper = mount(<Component />)
+    const {getByTestId} = render(<Component />)
 
     document.body.click()
 
-    const dom = wrapper.getDOMNode()
-    const summary = wrapper.find('summary')
-    expect(summary.text()).toEqual('Closed')
-
-    expect(dom.hasAttribute('open')).toEqual(false)
-
-    wrapper.unmount()
+    expect(getByTestId('summary')).toHaveTextContent('Closed')
+    expect(getByTestId('details')).not.toHaveAttribute('open')
   })
 
-  it('Can manipulate state with setOpen', () => {
+  it('Can manipulate state with setOpen', async () => {
+    const user = userEvent.setup()
     const CloseButton = (props: ButtonProps) => <Button {...props} />
     const Component = () => {
       const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
-        <Details {...getDetailsProps()}>
-          <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
-          <CloseButton onClick={() => setOpen(false)} />
+        <Details {...getDetailsProps()} data-testid="details">
+          <Button as="summary" data-testid="summary">
+            {open ? 'Open' : 'Closed'}
+          </Button>
+          <CloseButton onClick={() => setOpen(false)}>Close</CloseButton>
         </Details>
       )
     }
 
-    const wrapper = mount(<Component />)
+    const {getByRole, getByTestId} = render(<Component />)
 
-    wrapper.find(CloseButton).simulate('click')
+    await user.click(getByRole('button', {name: 'Close'}))
 
-    const dom = wrapper.getDOMNode()
-    const summary = wrapper.find('summary')
-    expect(summary.text()).toEqual('Closed')
-
-    expect(dom.hasAttribute('open')).toEqual(false)
-
-    wrapper.unmount()
+    expect(getByTestId('summary')).toHaveTextContent('Closed')
+    expect(getByTestId('details')).not.toHaveAttribute('open')
   })
 
-  it('Does not toggle when you click inside', () => {
+  it('Does not toggle when you click inside', async () => {
+    const user = userEvent.setup()
     const Component = () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
         <Details {...getDetailsProps()}>
-          <Button as="summary">{open ? 'Open' : 'Closed'}</Button>
+          <Button as="summary" data-testid="summary">
+            {open ? 'Open' : 'Closed'}
+          </Button>
           <Box>
-            <ButtonPrimary>hi</ButtonPrimary>
+            <ButtonPrimary>test</ButtonPrimary>
           </Box>
         </Details>
       )
     }
 
-    const wrapper = mount(<Component />)
-    const summary = wrapper.find('summary')
+    const {getByRole, getByTestId} = render(<Component />)
 
-    wrapper.find(ButtonPrimary).simulate('click')
+    await user.click(getByRole('button', {name: 'test'}))
 
-    expect(summary.text()).toEqual('Open')
-
-    wrapper.unmount()
+    expect(getByTestId('summary')).toHaveTextContent('Open')
   })
 })
