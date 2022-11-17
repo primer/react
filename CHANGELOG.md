@@ -26,7 +26,7 @@
 
   **Breaking change**
 
-  `TreeView.Item` and `TreeView.LinkItem` now require an `id` prop:
+  `TreeView.Item` now requires an `id` prop:
 
   ```diff
   - <TreeView.Item>...</TreeView.Item>
@@ -227,7 +227,7 @@
 
 - [#2338](https://github.com/primer/react/pull/2338) [`68c49803`](https://github.com/primer/react/commit/68c498038c097cfd339ff3feddc54221e6ed438d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Reverted SelectPanel breaking behavioral changes
 
-* [#2348](https://github.com/primer/react/pull/2348) [`c76e1610`](https://github.com/primer/react/commit/c76e161081573240c212b3dcfad5af5457a7312a) Thanks [@colebemis](https://github.com/colebemis)! - Add a `current` prop to `TreeView.Item` and `TreeView.LinkItem`
+* [#2348](https://github.com/primer/react/pull/2348) [`c76e1610`](https://github.com/primer/react/commit/c76e161081573240c212b3dcfad5af5457a7312a) Thanks [@colebemis](https://github.com/colebemis)! - Add a `current` prop to `TreeView.Item`
 
 - [#2356](https://github.com/primer/react/pull/2356) [`e2fb2fca`](https://github.com/primer/react/commit/e2fb2fca2792470dda584a81f18d1389b57239f6) Thanks [@nicolleromero](https://github.com/nicolleromero)! - MarkdownViewer bug fix: Only run `replaceChildren` when `htmlContainer` changes
 
