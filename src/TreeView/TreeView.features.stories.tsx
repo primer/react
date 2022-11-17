@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [
     Story => {
       return (
+        // Prevent TreeView from expanding to the full width of the screen
         <Box sx={{maxWidth: 400}}>
           <Story />
         </Box>
