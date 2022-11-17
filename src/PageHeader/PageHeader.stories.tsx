@@ -270,7 +270,6 @@ const meta: Meta = {
 // context bar action visiblity doesn't work because the context bar has upper layer visibility.
 // You might want to set conditional visibility on the context bar itself.
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Template: Story = args => (
   <PageHeader sx={{padding: 2}}>
     <PageHeader.ContextArea
