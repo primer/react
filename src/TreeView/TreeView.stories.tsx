@@ -28,7 +28,7 @@ export const Default: Story = () => (
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+          <TreeView.Item id="src/Avatar.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -36,8 +36,8 @@ export const Default: Story = () => (
             <TreeView.TrailingVisual>
               <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
             </TreeView.TrailingVisual>
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -45,10 +45,10 @@ export const Default: Story = () => (
             <TreeView.TrailingVisual>
               <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
             </TreeView.TrailingVisual>
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
-      <TreeView.LinkItem id="package.json" href="#">
+      <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
@@ -56,7 +56,7 @@ export const Default: Story = () => (
         <TreeView.TrailingVisual>
           <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
         </TreeView.TrailingVisual>
-      </TreeView.LinkItem>
+      </TreeView.Item>
     </TreeView>
   </nav>
 )
