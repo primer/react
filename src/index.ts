@@ -39,6 +39,7 @@ export {useFocusTrap} from './hooks/useFocusTrap'
 export type {FocusTrapHookSettings} from './hooks/useFocusTrap'
 export {useFocusZone} from './hooks/useFocusZone'
 export type {FocusZoneHookSettings} from './hooks/useFocusZone'
+export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 
 // Components
 export {default as Radio} from './Radio'
