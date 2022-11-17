@@ -41,6 +41,7 @@
     "build:docs": "script/build-docs",
     "build:docs:preview": "script/build-docs preview",
     "build:storybook:visual-testing": "build-storybook",
+    "build:components.json": "ts-node script/build-components-json",
     "install:docs": "(cd docs && npm install --legacy-peer-deps)",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
@@ -206,6 +207,7 @@
     "size-limit": "7.0.3",
     "storybook-addon-turbo-build": "1.1.0",
     "styled-components": "4.4.1",
+    "ts-node": "10.9.1",
     "ts-toolbelt": "9.6.0",
     "typescript": "4.8.3",
     "webpack": "5.74.0"
