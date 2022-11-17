@@ -66,7 +66,6 @@ export const Files: Story = () => (
       </TreeView.Item>
       <TreeView.Item
         id="public"
-       
         // eslint-disable-next-line no-console
         onExpandedChange={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
       >
