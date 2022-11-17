@@ -174,7 +174,7 @@ function App() {
   return (
     <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
       <nav aria-label="Files">
-        <TreeList aria-label="Files">
+        <TreeView aria-label="Files">
           <LinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
             Avatar.tsx
           </LinkItem>
@@ -187,7 +187,7 @@ function App() {
           >
             {"${component}.${filetype}"}
           </LinkItem>
-        </TreeList>
+        </TreeView>
       </nav>
     </Box>
   )
