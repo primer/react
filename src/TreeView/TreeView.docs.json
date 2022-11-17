@@ -1,0 +1,37 @@
+{
+  "id": "tree-view",
+  "name": "TreeView",
+  "status": "draft",
+  "stories": ["components-treeview-features--files", "components-treeview-features--files-changed"],
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TreeView.Item",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "A unique identifier for the item"
+        },
+        {
+          "name": "current",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Indicates whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
+        }
+      ]
+    }
+  ]
+}
