@@ -14,6 +14,10 @@
     {
       "fileMatch": ["*.docs.json"],
       "url": "./script/components-json/component.schema.json"
+    },
+    {
+      "fileMatch": ["generated/components.json"],
+      "url": "./script/components-json/output.schema.json"
     }
   ]
 }

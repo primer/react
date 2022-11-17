@@ -54,7 +54,7 @@
     },
     "stories": {
       "type": "array",
-      "description": "An array of Storybook story IDs for use in the docs.",
+      "description": "An array of Storybook story IDs to embed in the docs.",
       "items": {
         "type": "string"
       }
