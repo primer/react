@@ -131,17 +131,16 @@ function LinkItem({id, to, children}) {
 
 function App() {
   return (
-      <nav aria-label="Files">
-        <TreeView aria-label="Files">
-          <LinkItem id="src/Avatar.tsx" to="/src/Avatar.tsx">
-            Avatar.tsx
-          </LinkItem>
-          <LinkItem id="src/Button.tsx" to="/src/Button.tsx">
-            Button.tsx
-          </LinkItem>
-        </TreeView>
-      </nav>
-    </Box>
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
+        <LinkItem id="src/Avatar.tsx" to="/src/Avatar.tsx">
+          Avatar.tsx
+        </LinkItem>
+        <LinkItem id="src/Button.tsx" to="/src/Button.tsx">
+          Button.tsx
+        </LinkItem>
+      </TreeView>
+    </nav>
   )
 }
 ```
@@ -177,7 +176,7 @@ function App() {
           <LinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
             Avatar.tsx
           </LinkItem>
-          <LinkItem 
+          <LinkItem
             id="src/Button.tsx"
             // You can also pass a URL object
             // https://nextjs.org/docs/api-reference/next/link#with-url-object
