@@ -8,7 +8,6 @@
 - [Strategy](#strategy)
 - [Unit Tests](#unit-tests)
   - [Overview](#overview)
-  - [What We Test](#what-we-test)
   - [Running Tests](#running-tests)
 - [Visual Regression Tests](#visual-regression-tests)
   - [Overview](#overview)
@@ -29,7 +28,35 @@
 
 ## Strategy
 
-Strategy
+We aim to follow the behavioral testing paradigm as our testing strategy where we focus on testing the interface of the component with the given input and expected output rather than implementation details. This approach helps us think the possible ways of how an end-user would interact with, or use, the component therefore help us cover both happy and unhappy paths.
+
+As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-base testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples can be used as a starting point to help measure the test coverage:
+
+- Variants of the component (I.e. default, primary, success, error)
+- The states of the component (I.e. open/closed, selected, disabled)
+- The look/appereance of the component
+- The layouts of the component
+  - Does component have a different layout on various viewports?
+  - Does component have a different layout on various states?
+  - Does component have a different layout on various variants?
+- The behaviour of the component
+  - Does component behave differently on various viewports?
+  - Does component behave differently on various states?
+  - Does component behave differently on various variants?
+- Component API (props, events and callback)
+  - Does the component have `hidden` prop `true` when it is on narrow viewport?
+  - Does it trigger `afterSelect` callback function when the link item is selected?
+  - Does it trigger `onClick` event when clicking outside of the dialog?
+- Accessibility
+  - Does [axe](https://www.deque.com/axe/) check stories for accessibility violations?
+
+We also have extra set of functions to test common functionalities of components. They are
+
+- BehavesAsComponent
+- checkExports
+- checkStoriesForAxeViolations
+
+We make sure that every component has [these fundamental unit tests](https://github.com/primer/react/blob/main/src/utils/testing.tsx).
 
 ## Unit Tests
 
@@ -48,27 +75,15 @@ To make assertions about the elements we use [Jest](https://jestjs.io/) and [jes
 
 \*: You can read about the differences between `fireEvent` and `UserEvent` [here](https://testing-library.com/docs/user-event/intro/#differences-from-fireevent).
 
-###What We Test
-
-We try to achieve high coverage on unit tests and make sure to test components' API such as their props, events and callback functions.
-
-We also have extra set of functions to test common functionalities of components. They are
-
-- BehavesAsComponent
-- checkExports
-- checkStoriesForAxeViolations
-
-We make sure that every component has [these fundamental unit tests](https://github.com/primer/react/blob/main/src/utils/testing.tsx).
-
 ###Running Unit Tests
 
 | Task                | Command                  |
 | :------------------ | :----------------------- |
 | Run unit tests      | `npm test`               |
 | Run a specific test | `npm test ComponentName` |
-| Debug unit tests    | `npm run test:watch`     |
-| Update snapshots    | `npm run test:update`    |
-| Unit test coverage  | `npm run test:coverage`  |
+| Debug unit tests    | `npm test -- --watch`    |
+| Unit test coverage  | `npm test -- --coverage` |
+| Update snapshots    | `npm test -- -u`         |
 
 ##Interaction Tests
 
@@ -80,7 +95,7 @@ We write user interaction tests leveraging [@testing-library/react](https://test
 
 ### Storybook Tests
 
-We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to our testing practises. They are particularly useful for cases where writing unit tests are not practical due the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
+We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests are not practical due the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
 
 Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
 
@@ -172,10 +187,6 @@ the following command:
 ```bash
 script/test:e2e --grep @avt
 ```
-
-## Accessibility Tests
-
-To be written in the collaboration with Eric Bailey.
 
 ## Continous Integration
 
