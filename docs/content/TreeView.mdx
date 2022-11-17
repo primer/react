@@ -179,13 +179,15 @@ function App() {
             Avatar.tsx
           </LinkItem>
           <LinkItem 
-            id="${component}.${filetype}" 
+            id="src/Button.tsx"
+            // You can also pass a URL object
+            // https://nextjs.org/docs/api-reference/next/link#with-url-object
             href={{ 
               pathname: "/src/[component].[filetype]",
-              query: { component, impl }
+              query: { component: 'Button', filetype: 'tsx' }
             }}
           >
-            {"${component}.${filetype}"}
+            Button.tsx
           </LinkItem>
         </TreeView>
       </nav>
