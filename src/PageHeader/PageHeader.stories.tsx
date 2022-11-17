@@ -20,7 +20,6 @@ import {OcticonArgType} from '../utils/story-helpers'
 
 import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
-import {Actions} from '../drafts/MarkdownEditor/Actions'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader',
@@ -29,12 +28,12 @@ const meta: Meta = {
     controls: {expanded: true}
   },
   args: {
-    isContextAreaVisible: true,
+    'ContextArea.hidden': false,
     ParentLink: 'Previous Page',
     'ParentLink.hidden': false,
     'ContextBar.hidden': true,
     'ContextAreaAction.hidden': true,
-    'BackButton.hidden': true,
+    'BackButton.hidden': false,
     Title: 'Branches',
     'Title.as': 'h2',
     'Title.variant': 'medium',
@@ -42,19 +41,33 @@ const meta: Meta = {
     'LeadingVisual.hidden': false,
     'TrailingVisual.hidden': false,
     'TrailingAction.hidden': false,
+    'Actions.hidden': false,
     'Description.hidden': false,
     'Navigation.hidden': false
   },
   argTypes: {
-    isContextAreaVisible: {
+    'ContextArea.hidden': {
       type: 'boolean',
       table: {
-        category: 'ContextArea Slot'
-      }
+        category: 'ContextArea Slot',
+        type: {summary: 'string'},
+        defaultValue: {
+          summary: `
+        {
+          narrow: false,
+          regular: true,
+          wide: true
+        }
+        `
+        }
+      },
+      description:
+        'ContextArea is only visible on narrow viewports by default to provide user context of where they are at their journey.',
+      defaultValue: {summary: 'hidden', detail: 'narrow', another: 'false'}
     },
     ParentLink: {
       type: 'string',
-      if: {arg: 'isContextAreaVisible'},
+      if: {arg: 'ContextArea.hidden', truthy: false},
       table: {
         category: 'ContextArea Slot'
       },
@@ -62,32 +75,68 @@ const meta: Meta = {
     },
     'ParentLink.hidden': {
       type: 'boolean',
-      if: {arg: 'isContextAreaVisible'},
+      if: {arg: 'ContextArea.hidden', truthy: false},
       table: {
-        category: 'ContextArea Slot'
+        category: 'ContextArea Slot',
+        defaultValue: {
+          summary: `
+        {
+          narrow: false,
+          regular: true,
+          wide: true
+        }
+        `
+        }
       },
       description: 'Parent '
     },
     'ContextBar.hidden': {
       type: 'boolean',
-      if: {arg: 'isContextAreaVisible'},
+      if: {arg: 'ContextArea.hidden', truthy: false},
       table: {
-        category: 'ContextArea Slot'
+        category: 'ContextArea Slot',
+        defaultValue: {
+          summary: `
+        {
+          narrow: false,
+          regular: true,
+          wide: true
+        }
+        `
+        }
       },
       description:
         'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.'
     },
     'ContextAreaAction.hidden': {
       type: 'boolean',
-      if: {arg: 'isContextAreaVisible'},
+      if: {arg: 'ContextArea.hidden', truthy: false},
       table: {
-        category: 'ContextArea Slot'
+        category: 'ContextArea Slot',
+        defaultValue: {
+          summary: `
+        {
+          narrow: false,
+          regular: true,
+          wide: true
+        }
+        `
+        }
       }
     },
     'BackButton.hidden': {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
+        defaultValue: {
+          summary: `
+        {
+          narrow: true,
+          regular: false,
+          wide: false
+        }
+        `
+        }
       },
       description:
         'A back button can be used as a leading action for local navigation. On Narrow viewports, use parentLink instead.'
@@ -113,27 +162,55 @@ const meta: Meta = {
       },
       options: ['large', 'medium', 'subtitle'],
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
+        defaultValue: {
+          summary: `
+          {
+            narrow: 'medium',
+            regular: 'large',
+            wide: 'large'
+          } `
+        }
       },
       description:
         '`medium` is the most common page title size. Use for static titles in most situations. `large` for for user-generated content such as issues, pull requests, or discussions. `subtitle` when a PageHeader.Title is already present in the page, such as in a SplitPageLayout.'
     },
     LeadingVisual: {
       ...OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon]),
-      table: {category: 'TitleArea Slot'},
+      table: {
+        category: 'TitleArea Slot'
+      },
       description:
         'Leading visualLeading visuals are optional and appear at the start of the title. They can be octicons, avatars, and other custom visuals that fit a small area.'
     },
     'LeadingVisual.hidden': {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
+        defaultValue: {
+          summary: `
+      {
+        narrow: false,
+        regular: false,
+        wide: false
+      }
+      `
+        }
       }
     },
     'TrailingVisual.hidden': {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
+        defaultValue: {
+          summary: `
+      {
+        narrow: false,
+        regular: false,
+        wide: false
+      }
+      `
+        }
       },
       description:
         'Trailing visualTrailing visual and trailing text can display auxiliary information. They are placed at the right of the item, and can denote status, privacy details, etc.'
@@ -141,7 +218,16 @@ const meta: Meta = {
     'TrailingAction.hidden': {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
+        defaultValue: {
+          summary: `
+      {
+        narrow: true,
+        regular: false,
+        wide: false
+      }
+      `
+        }
       }
     },
     'Actions.hidden': {
@@ -189,9 +275,9 @@ const Template: Story = args => (
   <PageHeader sx={{padding: 2}}>
     <PageHeader.ContextArea
       hidden={{
-        narrow: !args.isContextAreaVisible,
-        regular: !args.isContextAreaVisible,
-        wide: !args.isContextAreaVisible
+        narrow: args['ContextArea.hidden'],
+        regular: args['ContextArea.hidden'],
+        wide: args['ContextArea.hidden']
       }}
     >
       <PageHeader.ParentLink

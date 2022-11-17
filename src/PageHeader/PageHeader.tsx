@@ -7,17 +7,6 @@ import {IconButton} from '../Button'
 import {ArrowLeftIcon, ChevronLeftIcon} from '@primer/octicons-react'
 import Link from '../Link'
 
-/* Todos (will be deleted soon)
-
-Reference figma - https://www.figma.com/file/Ee0OrXuOLXMDqUW83EnDHP/PageHeader-(FY23-Q1)?node-id=2%3A2259
-- Header rows should not wrap ever. be small?
-- Button size for content actions must icon. Should have href.
-- grid or flex? regions or areas?
-- Backbutton, TrailingAction only on regular viewport
-- Start writing some docs.
-- I don't think I need a context. There's no dependencies between rows.
-*/
-
 const REGION_ORDER = {
   ContextArea: 0,
   TitleArea: 1,
@@ -79,6 +68,7 @@ export type ParentLinkProps = {
   href?: string
 } & PageHeaderProps
 
+// TODO: add `as` and `aria-label` props
 const ParentLink: React.FC<React.PropsWithChildren<ParentLinkProps>> = ({
   children,
   sx = {},
@@ -86,7 +76,6 @@ const ParentLink: React.FC<React.PropsWithChildren<ParentLinkProps>> = ({
   hidden = onlyVisibleOnNarrowView
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
-  // console.log('is hidden', isHidden)
   return (
     <>
       <Link
