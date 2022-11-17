@@ -9,5 +9,11 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["*.docs.json"],
+      "url": "./script/components-json/component.schema.json"
+    }
+  ]
 }
