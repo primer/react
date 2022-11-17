@@ -809,9 +809,9 @@ describe('Keyboard interactions', () => {
       const onSelect = jest.fn()
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
-          <TreeView.LinkItem id="item" href="#" onSelect={onSelect}>
+          <TreeView.Item id="item" onSelect={onSelect}>
             Item
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView>
       )
 
