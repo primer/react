@@ -21,6 +21,7 @@ const components = jsonFiles.map(file => {
 
   // TODO: Assert that component ids use kebab-case
   // TODO: Provide default type and description for sx and ref props
+  // TODO: Sort component props
   return json
 })
 
