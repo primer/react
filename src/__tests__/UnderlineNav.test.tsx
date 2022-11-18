@@ -1,10 +1,8 @@
 import React from 'react'
 import {UnderlineNav} from '..'
-import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
+import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('UnderlineNav', () => {
   behavesAsComponent({Component: UnderlineNav})
@@ -40,18 +38,20 @@ describe('UnderlineNav', () => {
   })
 
   it('wraps its children in an "PRC-UnderlineNav-body" div', () => {
-    const children = <b>yo</b>
-    const wrapper = mount(<UnderlineNav>{children}</UnderlineNav>)
-    const body = wrapper.find('.PRC-UnderlineNav-body')
-    expect(body.exists()).toEqual(true)
-    expect(body.childAt(0).type()).toEqual('b')
+    const {getByTestId} = HTMLRender(
+      <UnderlineNav>
+        <b data-testid="content">test</b>
+      </UnderlineNav>
+    )
+
+    expect(getByTestId('content')).toBeInTheDocument()
+    expect(getByTestId('content').parentElement).toHaveClass('PRC-UnderlineNav-body')
   })
 
   it('respects the "actions" prop', () => {
-    const content = <h1>hi!</h1>
-    const wrapper = mount(<UnderlineNav actions={content} />)
-    const actions = wrapper.find('.PRC-UnderlineNav-actions')
-    expect(actions.exists()).toEqual(true)
-    expect(actions.text()).toEqual('hi!')
+    const {getByTestId} = HTMLRender(<UnderlineNav actions={<span data-testid="action">test</span>} />)
+
+    expect(getByTestId('action')).toBeInTheDocument()
+    expect(getByTestId('action').parentElement).toHaveClass('PRC-UnderlineNav-actions')
   })
 })

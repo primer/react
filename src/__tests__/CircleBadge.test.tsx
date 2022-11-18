@@ -1,11 +1,9 @@
 import React from 'react'
 import {CircleBadge} from '..'
 import {CheckIcon} from '@primer/octicons-react'
-import {render, mount, behavesAsComponent, checkExports} from '../utils/testing'
+import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 const imgInput = <img alt="" src="primer.jpg" />
 
@@ -55,11 +53,11 @@ describe('CircleBadge', () => {
   })
 
   it('preserves child class names', () => {
-    const comp = mount(
+    const {getByRole} = HTMLRender(
       <CircleBadge>
         <img className="primer" alt="" src="primer.jpg" />
       </CircleBadge>
     )
-    expect(comp.find('img').hasClass('primer')).toEqual(true)
+    expect(getByRole('img')).toHaveClass('primer')
   })
 })

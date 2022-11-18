@@ -1,5 +1,10 @@
 import {addons, types} from '@storybook/addons'
 import {Tool, TOOL_ID, ADDON_ID} from './src/accessibility-tool'
+import theme from './theme'
+
+addons.setConfig({
+  theme
+})
 
 addons.register(ADDON_ID, () => {
   // Register the tool
