@@ -39,6 +39,15 @@
               "description": "Indicates whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
             }
           ]
+        },
+        {
+          "name": "TreeView.SubTree",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            }
+          ]
         }
       ]
     }
