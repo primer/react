@@ -1,6 +1,7 @@
 report/
 results/
 results.json
-snapshots/
+
 # Only include snapshots from Linux as these are used in CI
-!snapshots/components/**/*-linux.png
+*.png
+!*-linux.png
