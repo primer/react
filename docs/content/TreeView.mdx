@@ -112,7 +112,7 @@ import {TreeView} from '@primer/react/drafts'
 
 ```jsx
 import {Link, useMatch, useResolvedPath, navigate} from 'react-router-dom'
-import {TreeView} from '@primer/react'
+import {TreeView} from '@primer/react/drafts'
 
 function LinkItem({id, to, children}) {
   const resolved = useResolvedPath(to)
@@ -150,18 +150,14 @@ function App() {
 ```jsx
 import {useRouter} from 'next/router'
 import Link from 'next/link'
-import {TreeView} from '@primer/react'
+import {TreeView} from '@primer/react/drafts'
 
 function LinkItem({id, href, children}) {
   const router = useRouter()
   const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
   return (
     <Link href={href} passHref>
-      <TreeView.Item
-        id={id}
-        aria-current={isCurrent ? 'page' : false}
-        current={isCurrent}
-      >
+      <TreeView.Item id={id} aria-current={isCurrent ? 'page' : false} current={isCurrent}>
         {children}
       </TreeView.Item>
     </Link>
@@ -180,9 +176,9 @@ function App() {
             id="src/Button.tsx"
             // You can also pass a URL object
             // https://nextjs.org/docs/api-reference/next/link#with-url-object
-            href={{ 
-              pathname: "/src/[component].[filetype]",
-              query: { component: 'Button', filetype: 'tsx' }
+            href={{
+              pathname: '/src/[component].[filetype]',
+              query: {component: 'Button', filetype: 'tsx'}
             }}
           >
             Button.tsx
