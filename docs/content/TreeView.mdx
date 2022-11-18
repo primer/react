@@ -114,7 +114,7 @@ import {TreeView} from '@primer/react/drafts'
 import {Link, useMatch, useResolvedPath, navigate} from 'react-router-dom'
 import {TreeView} from '@primer/react/drafts'
 
-function LinkItem({id, to, children}) {
+function TreeLinkItem({id, to, children}) {
   const resolved = useResolvedPath(to)
   const isCurrent = useMatch({path: resolved.pathname, end: true})
   return (
@@ -133,12 +133,12 @@ function App() {
   return (
     <nav aria-label="Files">
       <TreeView aria-label="Files">
-        <LinkItem id="src/Avatar.tsx" to="/src/Avatar.tsx">
+        <TreeLinkItem id="src/Avatar.tsx" to="/src/Avatar.tsx">
           Avatar.tsx
-        </LinkItem>
-        <LinkItem id="src/Button.tsx" to="/src/Button.tsx">
+        </TreeLinkItem>
+        <TreeLinkItem id="src/Button.tsx" to="/src/Button.tsx">
           Button.tsx
-        </LinkItem>
+        </TreeLinkItem>
       </TreeView>
     </nav>
   )
@@ -152,7 +152,7 @@ import {useRouter} from 'next/router'
 import Link from 'next/link'
 import {TreeView} from '@primer/react/drafts'
 
-function LinkItem({id, href, children}) {
+function TreeLinkItem({id, href, children}) {
   const router = useRouter()
   const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
   return (
@@ -166,26 +166,24 @@ function LinkItem({id, href, children}) {
 
 function App() {
   return (
-    <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
-      <nav aria-label="Files">
-        <TreeView aria-label="Files">
-          <LinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
-            Avatar.tsx
-          </LinkItem>
-          <LinkItem
-            id="src/Button.tsx"
-            // You can also pass a URL object
-            // https://nextjs.org/docs/api-reference/next/link#with-url-object
-            href={{
-              pathname: '/src/[component].[filetype]',
-              query: {component: 'Button', filetype: 'tsx'}
-            }}
-          >
-            Button.tsx
-          </LinkItem>
-        </TreeView>
-      </nav>
-    </Box>
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
+        <TreeLinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
+          Avatar.tsx
+        </TreeLinkItem>
+        <TreeLinkItem
+          id="src/Button.tsx"
+          // You can also pass a URL object
+          // https://nextjs.org/docs/api-reference/next/link#with-url-object
+          href={{
+            pathname: '/src/[component].[filetype]',
+            query: {component: 'Button', filetype: 'tsx'}
+          }}
+        >
+          Button.tsx
+        </TreeLinkItem>
+      </TreeView>
+    </nav>
   )
 }
 ```
