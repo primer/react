@@ -1,6 +1,6 @@
 name: vrt
 on:
-  pull_request:
+  pull_request_target:
     types:
       - labeled
 
@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
@@ -38,6 +41,9 @@ jobs:
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'test(vrt): update snapshots'
       - uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: 'update snapshots'
