@@ -1,7 +1,8 @@
 {
   "$id": "component.schema.json",
   "type": "object",
-  "required": ["id", "name", "status"],
+  "required": ["id", "name", "status", "a11yReviewed", "stories", "props"],
+  "additionalProperties": false,
   "definitions": {
     "prop": {
       "type": "object",
@@ -21,7 +22,7 @@
         },
         "required": {
           "type": "boolean",
-          "description": "Indicate hether the prop is required."
+          "description": "Indicate whether the prop is required."
         },
         "deprecated": {
           "type": "boolean",
@@ -30,6 +31,22 @@
         "description": {
           "type": "string",
           "description": "A concise description of the prop."
+        }
+      }
+    },
+    "passthrough": {
+      "type": "object",
+      "description": "Indicate that the component passes through any additional props to an underlying element.",
+      "required": ["element", "url"],
+      "additionalItems": false,
+      "properties": {
+        "element": {
+          "type": "string",
+          "description": "The name of the underlying element additional props are passed to."
+        },
+        "url": {
+          "type": "string",
+          "description": "Link to a page that documents the props accepted by the underlying element."
         }
       }
     }
@@ -66,6 +83,9 @@
         "$ref": "#/definitions/prop"
       }
     },
+    "passthrough": {
+      "$ref": "#/definitions/passthrough"
+    },
     "subcomponents": {
       "type": "array",
       "description": "Information about the subcomponents.",
@@ -87,6 +107,9 @@
             "items": {
               "$ref": "#/definitions/prop"
             }
+          },
+          "passthrough": {
+            "$ref": "#/definitions/passthrough"
           }
         }
       }
