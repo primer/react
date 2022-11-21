@@ -2,8 +2,7 @@ name: Assign Release Conductor
 
 on:
   pull_request:
-    branches:
-      - changeset-release/main
+    branches: ["changeset-release/main"]
 
 jobs:
   assign-release-conductor:
