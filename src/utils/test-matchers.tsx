@@ -17,15 +17,6 @@ expect.extend({
     }
   },
 
-  toHaveClass(node, klass) {
-    const classes = getClasses(node)
-    const pass = classes.includes(klass)
-    return {
-      pass,
-      message: () => `expected ${stringify(classes)} to include: ${stringify(klass)}`
-    }
-  },
-
   toHaveClasses(node, klasses, only = false) {
     const classes = getClasses(node)
     const pass = only

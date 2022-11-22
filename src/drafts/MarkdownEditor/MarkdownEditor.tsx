@@ -1,5 +1,14 @@
 import {useSSRSafeId} from '@react-aria/ssr'
-import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 import Box from '../../Box'
 import {FileType} from '../hooks/useUnifiedFileSelect'
 import {useIgnoreKeyboardActionsWhileComposing} from '../hooks/useIgnoreKeyboardActionsWhileComposing'
@@ -244,6 +253,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
 
     // use state instead of ref since we need to recalculate when the element mounts
     const containerRef = useRef<HTMLDivElement>(null)
+
     const [condensed, setCondensed] = useState(false)
     const onResize = useCallback(
       // it's fine that this isn't debounced because calling setCondensed with the current value will not trigger a render
@@ -251,6 +261,17 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       []
     )
     useResizeObserver(onResize, containerRef)
+
+    // workaround for Safari bug where layout is otherwise not recalculated
+    useLayoutEffect(() => {
+      const container = containerRef.current
+      if (!container) return
+
+      const parent = container.parentElement
+      const nextSibling = containerRef.current.nextSibling
+      parent?.removeChild(container)
+      parent?.insertBefore(container, nextSibling)
+    }, [condensed])
 
     // the ID must be unique for each instance while remaining constant across renders
     const id = useSSRSafeId()

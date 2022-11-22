@@ -797,38 +797,6 @@ describe('Keyboard interactions', () => {
       // Subtree should no longer be visible
       expect(queryByRole('group')).not.toBeInTheDocument()
     })
-
-    it('navigates to href if provided', () => {
-      const windowSpy = jest
-        .spyOn(window, 'open')
-        .mockImplementation(
-          (_url?: string | URL | undefined, _target?: string | undefined, _features?: string | undefined) => {
-            return null
-          }
-        )
-      const onSelect = jest.fn()
-      const {getByRole} = renderWithTheme(
-        <TreeView aria-label="Test tree">
-          <TreeView.LinkItem id="item" href="#" onSelect={onSelect}>
-            Item
-          </TreeView.LinkItem>
-        </TreeView>
-      )
-
-      const item = getByRole('treeitem')
-
-      // Focus first item
-      item.focus()
-
-      // Press Enter
-      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
-
-      // window.open should have been called
-      expect(windowSpy).toHaveBeenCalledWith('#', '_self')
-
-      // onSelect should have been called
-      expect(onSelect).toHaveBeenCalledTimes(1)
-    })
   })
 
   describe('Typeahead', () => {

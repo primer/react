@@ -1,0 +1,49 @@
+name: vrt
+on:
+  pull_request_target:
+    types:
+      - labeled
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs: 
+  update-snapshots:
+    if: >
+      github.repository == 'primer/react' &&
+      contains(github.event.pull_request.labels.*.name, 'update snapshots')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref }}
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps
+      - name: Build storybook
+        run: npx build-storybook
+      - name: Run storybook
+        id: storybook
+        run: |
+          npx serve -l 6006 storybook-static &
+          pid=$!
+          echo "pid=$pid" >> $GITHUB_OUTPUT
+          sleep 5
+      - name: Run VRT
+        run: npx playwright test --grep @vrt --update-snapshots
+      - name: Stop storybook
+        if: ${{ always() }}
+        run: kill ${{ steps.storybook.outputs.pid }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'test(vrt): update snapshots'
+      - uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: 'update snapshots'
