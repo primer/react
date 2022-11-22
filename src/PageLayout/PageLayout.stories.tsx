@@ -717,4 +717,27 @@ export const ResizablePane: Story = () => (
   </PageLayout>
 )
 
+export const ScrollContainerWithinPageLayoutPane: Story = () => (
+  <Box sx={{display: 'grid', gridTemplateRows: 'auto 1fr auto', height: '100vh'}}>
+    <Box sx={{overflow: 'auto'}}>
+      <Placeholder label="Above inner scroll container" height={120} />
+      <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+        <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
+          <Box sx={{overflow: 'auto'}}>
+            <PageLayout.Pane padding="normal">
+              <Placeholder label="Inner scroll container" height={800} />
+            </PageLayout.Pane>
+          </Box>
+        </PageLayout.Pane>
+        <PageLayout.Content padding="normal" width="large">
+          <Box sx={{display: 'grid'}}>
+            <Placeholder label="Page content" height={1600} />
+          </Box>
+        </PageLayout.Content>
+      </PageLayout>
+      <Placeholder label="Beneath inner scroll container" height={120} />
+    </Box>
+  </Box>
+)
+
 export default meta
