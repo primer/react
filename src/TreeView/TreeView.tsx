@@ -470,29 +470,6 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
 Item.displayName = 'TreeView.Item'
 
 // ----------------------------------------------------------------------------
-// TreeView.LinkItem
-
-export type TreeViewLinkItemProps = TreeViewItemProps & {
-  href?: string
-}
-
-// TODO: Use an <a> element to enable native browser behavior like opening links in a new tab
-const LinkItem = React.forwardRef<HTMLElement, TreeViewLinkItemProps>(({href, onSelect, ...props}, ref) => {
-  return (
-    <Item
-      ref={ref}
-      onSelect={event => {
-        window.open(href, '_self')
-        onSelect?.(event)
-      }}
-      {...props}
-    />
-  )
-})
-
-LinkItem.displayName = 'TreeView.LinkItem'
-
-// ----------------------------------------------------------------------------
 // TreeView.SubTree
 
 export type SubTreeState = 'initial' | 'loading' | 'done' | 'error'
@@ -830,7 +807,6 @@ ErrorDialog.displayName = 'TreeView.ErrorDialog'
 
 export const TreeView = Object.assign(Root, {
   Item,
-  LinkItem,
   SubTree,
   LeadingVisual,
   TrailingVisual,

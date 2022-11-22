@@ -24,38 +24,38 @@ const meta: Meta = {
 export const Files: Story = () => (
   <nav aria-label="Files">
     <TreeView aria-label="Files">
-      <TreeView.LinkItem id="src" href="#src" defaultExpanded>
+      <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#avatar-tsx">
+          <TreeView.Item id="src/Avatar.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             Avatar.tsx
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button" href="#button" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button" current>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Button
             <TreeView.SubTree>
-              <TreeView.LinkItem id="src/Button/Button.tsx" href="#button-tsx">
+              <TreeView.Item id="src/Button/Button.tsx">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.tsx
-              </TreeView.LinkItem>
-              <TreeView.LinkItem id="src/Button/Button.test.tsx" href="#button-test-tsx">
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.test.tsx
-              </TreeView.LinkItem>
+              </TreeView.Item>
             </TreeView.SubTree>
-          </TreeView.LinkItem>
+          </TreeView.Item>
           <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
@@ -63,10 +63,9 @@ export const Files: Story = () => (
             ReallyLongFileNameThatShouldBeTruncated.tsx
           </TreeView.Item>
         </TreeView.SubTree>
-      </TreeView.LinkItem>
-      <TreeView.LinkItem
+      </TreeView.Item>
+      <TreeView.Item
         id="public"
-        href="#public"
         // eslint-disable-next-line no-console
         onExpandedChange={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
       >
@@ -75,26 +74,26 @@ export const Files: Story = () => (
         </TreeView.LeadingVisual>
         public
         <TreeView.SubTree>
-          <TreeView.LinkItem id="public/index.html" href="#index-html">
+          <TreeView.Item id="public/index.html">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             index.html
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="public/favicon.ico" href="#favicon-ico">
+          </TreeView.Item>
+          <TreeView.Item id="public/favicon.ico">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             favicon.ico
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
-      </TreeView.LinkItem>
-      <TreeView.LinkItem id="package.json" href="#package-json">
+      </TreeView.Item>
+      <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
         package.json
-      </TreeView.LinkItem>
+      </TreeView.Item>
     </TreeView>
   </nav>
 )
@@ -109,7 +108,7 @@ export const FilesChanged: Story = () => {
           </TreeView.LeadingVisual>
           src
           <TreeView.SubTree>
-            <TreeView.LinkItem id="src/Avatar.tsx" href="#avatar-tsx">
+            <TreeView.Item id="src/Avatar.tsx">
               <TreeView.LeadingVisual>
                 <FileIcon />
               </TreeView.LeadingVisual>
@@ -117,14 +116,14 @@ export const FilesChanged: Story = () => {
               <TreeView.TrailingVisual label="added">
                 <StyledOcticon icon={DiffAddedIcon} color="success.fg" />
               </TreeView.TrailingVisual>
-            </TreeView.LinkItem>
+            </TreeView.Item>
             <TreeView.Item id="src/Button" defaultExpanded>
               <TreeView.LeadingVisual>
                 <TreeView.DirectoryIcon />
               </TreeView.LeadingVisual>
               Button
               <TreeView.SubTree>
-                <TreeView.LinkItem id="src/Button/Button.tsx" href="#button-tsx" current>
+                <TreeView.Item id="src/Button/Button.tsx" current>
                   <TreeView.LeadingVisual>
                     <FileIcon />
                   </TreeView.LeadingVisual>
@@ -132,8 +131,8 @@ export const FilesChanged: Story = () => {
                   <TreeView.TrailingVisual label="modified">
                     <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
                   </TreeView.TrailingVisual>
-                </TreeView.LinkItem>
-                <TreeView.LinkItem id="src/Button/Button.test.tsx" href="#button-test-tsx">
+                </TreeView.Item>
+                <TreeView.Item id="src/Button/Button.test.tsx">
                   <TreeView.LeadingVisual>
                     <FileIcon />
                   </TreeView.LeadingVisual>
@@ -141,7 +140,7 @@ export const FilesChanged: Story = () => {
                   <TreeView.TrailingVisual label="modified">
                     <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
                   </TreeView.TrailingVisual>
-                </TreeView.LinkItem>
+                </TreeView.Item>
               </TreeView.SubTree>
             </TreeView.Item>
             <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
@@ -161,7 +160,7 @@ export const FilesChanged: Story = () => {
           </TreeView.LeadingVisual>
           public
           <TreeView.SubTree>
-            <TreeView.LinkItem id="public/index.html" href="#index-html">
+            <TreeView.Item id="public/index.html">
               <TreeView.LeadingVisual>
                 <FileIcon />
               </TreeView.LeadingVisual>
@@ -169,8 +168,8 @@ export const FilesChanged: Story = () => {
               <TreeView.TrailingVisual label="renamed">
                 <StyledOcticon icon={DiffRenamedIcon} />
               </TreeView.TrailingVisual>
-            </TreeView.LinkItem>
-            <TreeView.LinkItem id="public/favicon.ico" href="#favicon-ico">
+            </TreeView.Item>
+            <TreeView.Item id="public/favicon.ico">
               <TreeView.LeadingVisual>
                 <FileIcon />
               </TreeView.LeadingVisual>
@@ -178,7 +177,7 @@ export const FilesChanged: Story = () => {
               <TreeView.TrailingVisual label="removed">
                 <StyledOcticon icon={DiffRemovedIcon} color="danger.fg" />
               </TreeView.TrailingVisual>
-            </TreeView.LinkItem>
+            </TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
       </TreeView>
