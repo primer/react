@@ -23,7 +23,7 @@ import {TreeView} from '@primer/react/drafts'
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+          <TreeView.Item id="src/Avatar.tsx" onSelect={() => console.log('src/Avatar.tsx')}>
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -31,8 +31,8 @@ import {TreeView} from '@primer/react/drafts'
             <TreeView.TrailingVisual>
               <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
             </TreeView.TrailingVisual>
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -40,10 +40,10 @@ import {TreeView} from '@primer/react/drafts'
             <TreeView.TrailingVisual>
               <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
             </TreeView.TrailingVisual>
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
-      <TreeView.LinkItem id="package.json" href="#">
+      <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
@@ -51,7 +51,7 @@ import {TreeView} from '@primer/react/drafts'
         <TreeView.TrailingVisual>
           <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
         </TreeView.TrailingVisual>
-      </TreeView.LinkItem>
+      </TreeView.Item>
     </TreeView>
   </nav>
 </Box>
@@ -63,46 +63,46 @@ import {TreeView} from '@primer/react/drafts'
 <Box sx={{maxWidth: 400}}>
   <nav aria-label="Files">
     <TreeView aria-label="Files">
-      <TreeView.LinkItem id="src" href="#">
+      <TreeView.Item id="src">
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+          <TreeView.Item id="src/Avatar.tsx"> 
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             Avatar.tsx
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button" href="#" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button" current>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Button
             <TreeView.SubTree>
-              <TreeView.LinkItem id="src/Button/Button.tsx" href="#">
+              <TreeView.Item id="src/Button/Button.tsx">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.tsx
-              </TreeView.LinkItem>
-              <TreeView.LinkItem id="src/Button/Button.test.tsx" href="#">
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.test.tsx
-              </TreeView.LinkItem>
+              </TreeView.Item>
             </TreeView.SubTree>
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
-      </TreeView.LinkItem>
-      <TreeView.LinkItem id="package.json" href="#">
+      </TreeView.Item>
+      <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
         package.json
-      </TreeView.LinkItem>
+      </TreeView.Item>
     </TreeView>
   </nav>
 </Box>
@@ -202,12 +202,12 @@ function ControlledTreeView() {
           <TreeView.Item id="src" expanded={expanded} onExpandedChange={setExpanded}>
             src
             <TreeView.SubTree>
-              <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+              <TreeView.Item id="src/Avatar.tsx">
                 Avatar.tsx
-              </TreeView.LinkItem>
-              <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+              </TreeView.Item>
+              <TreeView.Item id="src/Button.tsx" current>
                 Button.tsx
-              </TreeView.LinkItem>
+              </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -233,12 +233,12 @@ To render stateful visuals, pass a render function to `TreeView.LeadingVisual` o
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+          <TreeView.Item id="src/Avatar.tsx">
             Avatar.tsx
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
             Button.tsx
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
     </TreeView>
@@ -258,12 +258,12 @@ Since stateful directory icons are a common use case for TreeView, we provide a 
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+          <TreeView.Item id="src/Avatar.tsx">
             Avatar.tsx
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
             Button.tsx
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
     </TreeView>
@@ -299,52 +299,6 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
     name="defaultExpanded"
     type="boolean"
     description="The expanded state of the item when it is initially rendered. Use when you do not need to control the state."
-  />
-  <PropsTableRow
-    name="expanded"
-    type="boolean"
-    description="The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
-  />
-  <PropsTableRow
-    name="onExpandedChange"
-    type="(expanded: boolean) => void"
-    description="Event handler called when the expanded state of the item changes."
-  />
-  <PropsTableRow
-    name="onSelect"
-    type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
-  />
-  <PropsTableRefRow refType="HTMLElement" />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.LinkItem
-
-<PropsTable>
-  <PropsTableRow name="id" type="string" required description="Unique identifier for the item." />
-  <PropsTableRow name="children" type="React.ReactNode" required />
-  <PropsTableRow
-    name="href"
-    type="string"
-    description={
-      <>
-        The URL that the item navigates to. <InlineCode>href</InlineCode> is passed to the underlying{' '}
-        <InlineCode>&lt;a&gt;</InlineCode> element. If <InlineCode>as</InlineCode> is specified, the component may need
-        different props. If the item contains a sub-nav, the item is rendered as a{' '}
-        <InlineCode>&lt;button&gt;</InlineCode> and <InlineCode>href</InlineCode> is ignored.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="current"
-    type="boolean"
-    defaultValue="false"
-    description="Whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
-  />
-  <PropsTableRow
-    name="defaultExpanded"
-    type="boolean"
-    description="The expanded state of the item when it is initially rendered. Use when you do not need to control its state."
   />
   <PropsTableRow
     name="expanded"
@@ -406,7 +360,7 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
   <PropsTableRow name="children" type="React.ReactNode" />
   <PropsTableRow
     name="state"
-    type={`| 'initial' 
+    type={`| 'initial'
 | 'loading'
 | 'done'
 | 'error'`}
