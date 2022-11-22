@@ -21,5 +21,4 @@ describe('RelativeTime', () => {
   it('renders a <relative-time>', () => {
     expect(render(<RelativeTime />).type).toEqual('relative-time')
   })
-  
 })

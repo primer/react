@@ -3,6 +3,8 @@ root.customElements ??= {
   define() {},
   get() {},
   update() {},
-  whenDefined() { return new Promise(() => {}) }
+  whenDefined() {
+    return new Promise(() => {})
+  }
 } as unknown as CustomElementRegistry
 root.HTMLElement ??= class HTMLElement {} as unknown as typeof HTMLElement
