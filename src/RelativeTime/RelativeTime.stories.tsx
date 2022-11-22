@@ -152,7 +152,7 @@ export const CountDownTimer: Story = args => {
   const {...rest} = args
   return <RelativeTime {...rest} />
 }
-CountDownTimer.args = {date: new Date("2038-01-19T03:14:08Z"), format: 'elapsed', day: '', month: ''}
+CountDownTimer.args = {date: new Date('2038-01-19T03:14:08Z'), format: 'elapsed', day: '', month: ''}
 CountDownTimer.argTypes = {date: {control: false}, format: {control: false}}
 
 export default meta
