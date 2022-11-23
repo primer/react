@@ -22,6 +22,8 @@ type LinkProps = {
 export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx'> & LinkProps
 
 export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...props}, forwardedRef) => {
+  // extract the key shortcuts to be used by Item wrapper
+  const {'aria-keyshortcuts': keyshortcuts, ...rest} = props
   const styles = {
     // occupy full size of Item
     paddingX: 2,
@@ -34,16 +36,18 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
     color: 'inherit',
     '&:hover': {color: 'inherit', textDecoration: 'none'}
   }
-
   return (
     <Item
       active={active}
       sx={{paddingY: 0, paddingX: 0}}
-      _PrivateItemWrapper={({children}) => (
-        <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
-          {children}
-        </Link>
-      )}
+      _PrivateItemWrapper={({children}) => {
+        return (
+          <Link as={Component} sx={merge(styles, sx as SxProp)} ref={forwardedRef} {...rest}>
+            {children}
+          </Link>
+        )
+      }}
+      {...(keyshortcuts && {'aria-keyshortcuts': keyshortcuts})}
     >
       {props.children}
     </Item>
