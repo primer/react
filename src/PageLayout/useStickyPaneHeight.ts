@@ -2,6 +2,7 @@ import React from 'react'
 import {useInView} from 'react-intersection-observer'
 import {canUseDOM} from '../utils/environment'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {getScrollContainer} from '../utils/scroll'
 
 /**
  * Calculates the height of the sticky pane such that it always
@@ -100,28 +101,6 @@ export function useStickyPaneHeight() {
     contentBottomRef,
     stickyPaneHeight: height
   }
-}
-
-/**
- * Returns the nearest scrollable parent of the element or `null` if the element
- * is not contained in a scrollable element.
- */
-function getScrollContainer(element: Element | null): Element | null {
-  if (!element || element === document.body) {
-    return null
-  }
-
-  return isScrollable(element) ? element : getScrollContainer(element.parentElement)
-}
-
-/** Returns `true` if the element is scrollable */
-function isScrollable(element: Element) {
-  const hasScrollableContent = element.scrollHeight > element.clientHeight
-
-  const overflowYStyle = window.getComputedStyle(element).overflowY
-  const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
-
-  return hasScrollableContent && !isOverflowHidden
 }
 
 // TODO: there is currently an issue with dvh on Desktop Safari 15.6, 16.0. To

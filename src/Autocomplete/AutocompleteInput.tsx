@@ -12,6 +12,7 @@ import {AutocompleteContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {ComponentProps} from '../utils/types'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,6 +41,7 @@ const AutocompleteInput = React.forwardRef(
     } = autocompleteContext
     useRefObjectAsForwardedRef(forwardedRef, inputRef)
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
+    const {safeSetTimeout} = useSafeTimeout()
 
     const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
       event => {
@@ -56,13 +58,13 @@ const AutocompleteInput = React.forwardRef(
         // HACK: wait a tick and check the focused element before hiding the autocomplete menu
         // this prevents the menu from hiding when the user is clicking an option in the Autoselect.Menu,
         // but still hides the menu when the user blurs the input by tabbing out or clicking somewhere else on the page
-        setTimeout(() => {
+        safeSetTimeout(() => {
           if (document.activeElement !== inputRef.current) {
             setShowMenu(false)
           }
         }, 0)
       },
-      [onBlur, setShowMenu, inputRef]
+      [onBlur, setShowMenu, inputRef, safeSetTimeout]
     )
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(

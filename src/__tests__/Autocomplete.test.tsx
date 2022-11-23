@@ -1,17 +1,15 @@
-import React from 'react'
-import {render} from '../utils/testing'
 import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
-import {toHaveNoViolations} from 'jest-axe'
-import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
-import {SSRProvider} from '../index'
-import theme from '../theme'
-import BaseStyles from '../BaseStyles'
-import {ThemeProvider} from '../ThemeProvider'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
+import Autocomplete, {AutocompleteInputProps} from '../Autocomplete'
 import {AutocompleteMenuInternalProps} from '../Autocomplete/AutocompleteMenu'
+import BaseStyles from '../BaseStyles'
+import theme from '../theme'
+import {ThemeProvider} from '../ThemeProvider'
 import {ItemProps} from '../deprecated/ActionList'
+import {SSRProvider} from '../utils/ssr'
+import {render} from '../utils/testing'
 import {MandateProps} from '../utils/types'
-expect.extend(toHaveNoViolations)
 
 const mockItems = [
   {text: 'zero', id: 0},
@@ -60,137 +58,6 @@ const LabelledAutocomplete = <T extends AutocompleteItemProps>({
 }
 
 describe('Autocomplete', () => {
-  describe('snapshots', () => {
-    it('renders a single select input', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <Autocomplete id="autocompleteId">
-              <Autocomplete.Input />
-              <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-            </Autocomplete>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('renders a multiselect input', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <Autocomplete id="autocompleteId">
-              <Autocomplete.Input />
-              <Autocomplete.Menu
-                aria-labelledby="labelId"
-                items={mockItems}
-                selectedItemIds={[]}
-                selectionVariant="multiple"
-              />
-            </Autocomplete>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('renders a multiselect input with selected menu items', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <Autocomplete id="autocompleteId">
-              <Autocomplete.Input />
-              <Autocomplete.Menu
-                aria-labelledby="labelId"
-                items={mockItems}
-                selectedItemIds={[0, 1, 2]}
-                selectionVariant="multiple"
-              />
-            </Autocomplete>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('renders a menu that contains an item to add to the menu', () => {
-      const handleAddItemMock = jest.fn()
-      expect(
-        render(
-          <SSRProvider>
-            <Autocomplete id="autocompleteId">
-              <Autocomplete.Input />
-              <Autocomplete.Menu
-                aria-labelledby="labelId"
-                items={mockItems}
-                selectionVariant="multiple"
-                selectedItemIds={[]}
-                addNewItem={{
-                  text: 'Add new item',
-                  handleAddItem: handleAddItemMock
-                }}
-              />
-            </Autocomplete>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('renders a custom empty state message', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <Autocomplete id="autocompleteId">
-              <Autocomplete.Input />
-              <Autocomplete.Menu
-                aria-labelledby="labelId"
-                items={[]}
-                selectedItemIds={[]}
-                emptyStateText="No results"
-              />
-            </Autocomplete>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('renders a loading state', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <Autocomplete id="autocompleteId">
-              <Autocomplete.Input />
-              <Autocomplete.Menu aria-labelledby="labelId" loading items={[]} selectedItemIds={[]} />
-            </Autocomplete>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('renders with a custom text input component', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <Autocomplete id="autocompleteId">
-              <Autocomplete.Input as={() => <input type="text" id="customInput" />} />
-              <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-            </Autocomplete>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-
-    it('renders with an input value', () => {
-      expect(
-        render(
-          <SSRProvider>
-            <Autocomplete id="autocompleteId">
-              <Autocomplete.Input value="test" />
-              <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-            </Autocomplete>
-          </SSRProvider>
-        )
-      ).toMatchSnapshot()
-    })
-  })
-
   describe('Autocomplete.Input', () => {
     it('calls onChange', async () => {
       const user = userEvent.setup()
@@ -202,7 +69,6 @@ describe('Autocomplete', () => {
         />
       )
       const inputNode = container.querySelector('#autocompleteInput')
-
       expect(onChangeMock).not.toHaveBeenCalled()
       inputNode && (await user.type(inputNode, 'z'))
       expect(onChangeMock).toHaveBeenCalled()
@@ -395,10 +261,7 @@ describe('Autocomplete', () => {
         await user.type(inputNode, '{enter}')
       }
 
-      // wait a tick for the keyboard event to be dispatched to the menu item
-      setTimeout(() => {
-        expect(onSelectedChangeMock).toHaveBeenCalledWith([mockItems[0]])
-      }, 0)
+      expect(onSelectedChangeMock).toHaveBeenCalledWith([mockItems[0]])
     })
 
     it('does not close the menu when clicking an item in the menu if selectionVariant=multiple', async () => {
@@ -457,11 +320,145 @@ describe('Autocomplete', () => {
 
   describe('null context', () => {
     it('throws errors when Autocomplete context is null', () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
       expect(() => HTMLRender(<Autocomplete.Overlay />)).toThrowError('AutocompleteContext returned null values')
       expect(() => HTMLRender(<Autocomplete.Input />)).toThrowError('AutocompleteContext returned null values')
       expect(() => HTMLRender(<Autocomplete.Menu items={mockItems} selectedItemIds={[]} />)).toThrowError(
         'AutocompleteContext returned null values'
       )
+
+      spy.mockRestore()
     })
+  })
+})
+
+describe('snapshots', () => {
+  it('renders a single select input', () => {
+    expect(
+      render(
+        <SSRProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input />
+            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+          </Autocomplete>
+        </SSRProvider>
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders a multiselect input', () => {
+    expect(
+      render(
+        <SSRProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input />
+            <Autocomplete.Menu
+              aria-labelledby="labelId"
+              items={mockItems}
+              selectedItemIds={[]}
+              selectionVariant="multiple"
+            />
+          </Autocomplete>
+        </SSRProvider>
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders a multiselect input with selected menu items', () => {
+    expect(
+      render(
+        <SSRProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input />
+            <Autocomplete.Menu
+              aria-labelledby="labelId"
+              items={mockItems}
+              selectedItemIds={[0, 1, 2]}
+              selectionVariant="multiple"
+            />
+          </Autocomplete>
+        </SSRProvider>
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders a menu that contains an item to add to the menu', () => {
+    const handleAddItemMock = jest.fn()
+    expect(
+      render(
+        <SSRProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input />
+            <Autocomplete.Menu
+              aria-labelledby="labelId"
+              items={mockItems}
+              selectionVariant="multiple"
+              selectedItemIds={[]}
+              addNewItem={{
+                text: 'Add new item',
+                handleAddItem: handleAddItemMock
+              }}
+            />
+          </Autocomplete>
+        </SSRProvider>
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders a custom empty state message', () => {
+    expect(
+      render(
+        <SSRProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input />
+            <Autocomplete.Menu aria-labelledby="labelId" items={[]} selectedItemIds={[]} emptyStateText="No results" />
+          </Autocomplete>
+        </SSRProvider>
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders a loading state', () => {
+    expect(
+      render(
+        <SSRProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input />
+            <Autocomplete.Menu aria-labelledby="labelId" loading items={[]} selectedItemIds={[]} />
+          </Autocomplete>
+        </SSRProvider>
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders with a custom text input component', () => {
+    const CustomInput = React.forwardRef<HTMLInputElement>(function CustomInput(_props, ref) {
+      return <input ref={ref} type="text" id="customInput" />
+    })
+
+    expect(
+      render(
+        <SSRProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input as={CustomInput} />
+            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+          </Autocomplete>
+        </SSRProvider>
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('renders with an input value', () => {
+    expect(
+      render(
+        <SSRProvider>
+          <Autocomplete id="autocompleteId">
+            <Autocomplete.Input value="test" />
+            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+          </Autocomplete>
+        </SSRProvider>
+      )
+    ).toMatchSnapshot()
   })
 })

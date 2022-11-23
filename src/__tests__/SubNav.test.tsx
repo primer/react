@@ -1,10 +1,8 @@
 import React from 'react'
 import {SubNav} from '..'
-import {mount, render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
+import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
-
-expect.extend(toHaveNoViolations)
+import {axe} from 'jest-axe'
 
 describe('SubNav', () => {
   behavesAsComponent({Component: SubNav})
@@ -32,18 +30,20 @@ describe('SubNav', () => {
   })
 
   it('wraps its children in an "SubNav-body" div', () => {
-    const children = <b>yo</b>
-    const wrapper = mount(<SubNav>{children}</SubNav>)
-    const body = wrapper.find('.SubNav-body')
-    expect(body.exists()).toEqual(true)
-    expect(body.childAt(0).type()).toEqual('b')
+    const {getByTestId} = HTMLRender(
+      <SubNav>
+        <b data-testid="children">test</b>
+      </SubNav>
+    )
+
+    const parent = getByTestId('children').parentElement
+    expect(parent?.tagName).toBe('DIV')
+    expect(parent).toHaveClass('SubNav-body')
   })
 
   it('respects the "actions" prop', () => {
-    const content = <h1>hi!</h1>
-    const wrapper = mount(<SubNav actions={content} />)
-    const actions = wrapper.find('.SubNav-actions')
-    expect(actions.exists()).toEqual(true)
-    expect(actions.text()).toEqual('hi!')
+    const {getByTestId} = HTMLRender(<SubNav actions={<span data-testid="action">action</span>} />)
+    expect(getByTestId('action')).toBeInTheDocument()
+    expect(getByTestId('action').parentElement).toHaveClass('SubNav-actions')
   })
 })

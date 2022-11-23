@@ -1,10 +1,10 @@
+import {render as HTMLRender} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {SelectMenu, Button} from '../deprecated'
-import {mount, render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {render, renderRoot, COMPONENT_DISPLAY_NAME_REGEX, checkExports} from '../utils/testing'
+import {axe} from 'jest-axe'
 import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../deprecated/SelectMenu'
-expect.extend(toHaveNoViolations)
 
 const BasicSelectMenu = ({
   onClick,
@@ -90,8 +90,8 @@ describe('SelectMenu', () => {
   })
 
   it('does not allow the "as" prop on SelectMenu', () => {
-    const component = mount(<BasicSelectMenu as="span" />)
-    expect(component.find('details').length).toEqual(1)
+    const {container} = HTMLRender(<BasicSelectMenu as="span" />)
+    expect(container.firstElementChild?.tagName).toBe('DETAILS')
   })
 
   it('shows correct initial tab', () => {
@@ -99,11 +99,13 @@ describe('SelectMenu', () => {
     expect(testInstance.findByProps({'aria-selected': true}).props.children).toBe('Organization')
   })
 
-  it('clicking on a tab opens the tab', () => {
-    const component = mount(<MenuWithTabs />)
-    const tab = component.find("[data-test='repo-tab']").first()
-    tab.simulate('click')
-    expect(tab.getDOMNode().attributes.getNamedItem('aria-selected')).toBeTruthy()
+  it('clicking on a tab opens the tab', async () => {
+    const user = userEvent.setup()
+    const {getByRole} = HTMLRender(<MenuWithTabs />)
+
+    await user.click(getByRole('tab', {name: 'Repository'}))
+
+    expect(getByRole('tab', {name: 'Repository'})).toHaveAttribute('aria-selected', 'true')
   })
 
   it('selected items have aria-checked', () => {
@@ -111,27 +113,33 @@ describe('SelectMenu', () => {
     expect(testInstance.findByProps({'aria-checked': true}).props.children[1]).toBe('Primer Components bugs')
   })
 
-  it('clicking on a list item calls user provided onClick handler', () => {
-    const mockClick = jest.fn()
-    const component = mount(<BasicSelectMenu onClick={mockClick} />)
-    const item = component.find("[data-test='menu-item']").first()
-    item.simulate('click')
-    expect(mockClick.mock.calls.length).toEqual(1)
+  it('clicking on a list item calls user provided onClick handler', async () => {
+    const user = userEvent.setup()
+    const onClick = jest.fn()
+    const {getByRole} = HTMLRender(<BasicSelectMenu onClick={onClick} />)
+
+    await user.click(getByRole('menuitemcheckbox', {name: 'Primer Components roadmap'}))
+
+    expect(onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('clicking on a tab calls user provided onClick handler', () => {
-    const mockClick = jest.fn()
-    const component = mount(<MenuWithTabs onClick={mockClick} />)
-    const item = component.find("[data-test='repo-tab']").first()
-    item.simulate('click')
-    expect(mockClick.mock.calls.length).toEqual(1)
+  it('clicking on a tab calls user provided onClick handler', async () => {
+    const user = userEvent.setup()
+    const onClick = jest.fn()
+    const {getByRole} = HTMLRender(<MenuWithTabs onClick={onClick} />)
+
+    await user.click(getByRole('tab', {name: 'Repository'}))
+
+    expect(onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('clicking on an item closes the modal', () => {
-    const component = mount(<BasicSelectMenu />)
-    const item = component.find("[data-test='menu-item']").first()
-    item.simulate('click')
-    expect(component.getDOMNode().attributes.getNamedItem('open')).toBeFalsy()
+  it('clicking on an item closes the modal', async () => {
+    const user = userEvent.setup()
+    const {container, getByRole} = HTMLRender(<BasicSelectMenu />)
+
+    await user.click(getByRole('menuitemcheckbox', {name: 'Primer Components roadmap'}))
+
+    expect(container.firstElementChild).not.toHaveAttribute('open')
   })
 
   it('right-aligned modal has right: 0px', () => {

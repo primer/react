@@ -1,25 +1,61 @@
 import fs from 'fs'
 import glob from 'fast-glob'
+import groupBy from 'lodash.groupby'
 
 // Components opted into the new story format
 const components = ['TreeView']
 
-const storyFiles = glob
-  .sync('src/**/*.stories.tsx')
-  .filter(file => components.some(component => file.includes(component)))
-  .filter(file => !file.endsWith('.features.stories.tsx'))
+const storyPaths = glob.sync('src/**/*.stories.tsx')
 
-for (const storyFile of storyFiles) {
-  describe(`${storyFile}`, () => {
-    const storyFileContents = fs.readFileSync(storyFile, 'utf8')
+const storyPathsByComponent = groupBy(
+  storyPaths.filter(path => components.some(component => path.includes(component))),
+  path => path.split('/').slice(0, -1).join('/')
+)
 
-    test('exports a Default story', () => {
-      expect(storyFileContents).toMatch(/export const Default/)
-    })
+for (const [component, componentStoryFiles] of Object.entries(storyPathsByComponent)) {
+  describe(`${component}`, () => {
+    const defaultStoryPath = componentStoryFiles.find(path => /\/\w+\.stories\.tsx$/.test(path))
+    const featuresStoryPath = componentStoryFiles.find(path => /\/\w+\.features\.stories\.tsx$/.test(path))
 
-    test('Default story does not use args', () => {
-      expect(storyFileContents).not.toMatch(/Default\.args = /)
-      expect(storyFileContents).not.toMatch(/Default\.argTypes = /)
-    })
+    if (defaultStoryPath) {
+      const defaultStoryFilename = defaultStoryPath.split('/').slice(-1)[0]
+      const defaultStoryContents = fs.readFileSync(defaultStoryPath, 'utf8')
+
+      describe(`${defaultStoryFilename}`, () => {
+        test('title follows naming convention ("Components/<name>")', () => {
+          // Matches:
+          // - title: 'Components/TreeView'
+          // Does not match:
+          // -  title: 'Component/TreeView/Features'
+          // -  title: 'TreeView'
+          expect(defaultStoryContents).toMatch(/title: 'Components\/\w+'/)
+        })
+
+        test('exports a "Default" story', () => {
+          expect(defaultStoryContents).toMatch(/export const Default/)
+        })
+
+        test('"Default" story does not use args', () => {
+          expect(defaultStoryContents).not.toMatch(/Default\.args = /)
+          expect(defaultStoryContents).not.toMatch(/Default\.argTypes = /)
+        })
+      })
+    }
+
+    if (featuresStoryPath) {
+      const featuresStoryFilename = featuresStoryPath.split('/').slice(-1)[0]
+      const featuresStoryContents = fs.readFileSync(featuresStoryPath, 'utf8')
+
+      describe(`${featuresStoryFilename}`, () => {
+        test('title follows naming convention ("Components/<name>/Features")', () => {
+          // Matches:
+          // - title: 'Components/TreeView/Features'
+          // Does not match:
+          // -  title: 'Component/TreeView'
+          // -  title: 'TreeView'
+          expect(featuresStoryContents).toMatch(/title: 'Components\/\w+\/Features'/)
+        })
+      })
+    }
   })
 }
