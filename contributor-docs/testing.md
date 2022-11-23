@@ -75,7 +75,7 @@ To make assertions about the elements we use [Jest](https://jestjs.io/) and [jes
 
 \*: You can read about the differences between `fireEvent` and `UserEvent` [here](https://testing-library.com/docs/user-event/intro/#differences-from-fireevent).
 
-###Running Unit Tests
+### Running Unit Tests
 
 | Task                | Command                  |
 | :------------------ | :----------------------- |
@@ -85,7 +85,7 @@ To make assertions about the elements we use [Jest](https://jestjs.io/) and [jes
 | Unit test coverage  | `npm test -- --coverage` |
 | Update snapshots    | `npm test -- -u`         |
 
-##Interaction Tests
+## Interaction Tests
 
 ### As A Part Of Unit Tests
 
@@ -99,9 +99,9 @@ We use [Storybook interactions tests](https://storybook.js.org/docs/react/writin
 
 Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
 
-##Visual Regression Tests
+## Visual Regression Tests
 
-###Overview
+### Overview
 
 We use Playwright to run visual regression tests against our components along with automated accessibility checks. These tests are authored within the `e2e` directory and match the file pattern:
 `*-test.ts`.
@@ -190,7 +190,7 @@ script/test:e2e --grep @avt
 
 ## Continous Integration
 
-All the tests are ran on our continous integration workflows.
+All of the tests run on our continuous integration workflows.
 
 Unit tests are included in the `test` job, Playwright tests are included in the `avt` and `vrt` jobs of the `CI` workflow.
 
