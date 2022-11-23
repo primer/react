@@ -5,11 +5,20 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Components](#components)
-  - [Visual Regression Testing](#visual-regression-testing)
-  - [Accessibility Verification Testing](#accessibility-verification-testing)
+- [Strategy](#strategy)
+- [Unit Tests](#unit-tests)
+  - [Overview](#overview)
+  - [Running Tests](#running-tests)
+- [Visual Regression Tests](#visual-regression-tests)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Components](#components)
+    - [Visual Regression Testing](#visual-regression-testing)
+    - [Accessibility Verification Testing](#accessibility-verification-testing)
+- [Interaction Tests](#interaction-tests)
+  - [As A Part Of Unit Tests](#as-a-part-of-unit-tests)
+  - [Storybook Interaction Tests](#storybook-interaction-tests)
+- [Accessibility Tests](#accessibility-tests)
 - [Continous Integration](#continous-integration)
 - [FAQ](#faq)
   - [Why am I seeing `browserType.launch: Executable doesn't exist at ../path`?](#why-am-i-seeing-browsertypelaunch-executable-doesnt-exist-at-path)
@@ -17,7 +26,82 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
 
-## Overview
+## Strategy
+
+We aim to follow the behavioral testing paradigm as our testing strategy where we focus on testing the interface of the component with the given input and expected output rather than implementation details. This approach helps us think the possible ways of how an end-user would interact with, or use, the component therefore help us cover both happy and unhappy paths.
+
+As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-base testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples can be used as a starting point to help measure the test coverage:
+
+- Variants of the component (I.e. default, primary, success, error)
+- The states of the component (I.e. open/closed, selected, disabled)
+- The look/appereance of the component
+- The layouts of the component
+  - Does component have a different layout on various viewports?
+  - Does component have a different layout on various states?
+  - Does component have a different layout on various variants?
+- The behaviour of the component
+  - Does component behave differently on various viewports?
+  - Does component behave differently on various states?
+  - Does component behave differently on various variants?
+- Component API (props, events and callback)
+  - Does the component have `hidden` prop `true` when it is on narrow viewport?
+  - Does it trigger `afterSelect` callback function when the link item is selected?
+  - Does it trigger `onClick` event when clicking outside of the dialog?
+- Accessibility
+  - Does [axe](https://www.deque.com/axe/) check stories for accessibility violations?
+
+We also have extra set of functions to test common functionalities of components. They are
+
+- BehavesAsComponent
+- checkExports
+- checkStoriesForAxeViolations
+
+We make sure that every component has [these fundamental unit tests](https://github.com/primer/react/blob/main/src/utils/testing.tsx).
+
+## Unit Tests
+
+### Overview
+
+We use [Jest](https://jestjs.io/) as our test runner to write and run our unit tests. Our prefered way of structuring tests is with `describe/it` block format and they are authored within the components's source directory with the file name of `ComponentName.test.tsx`
+
+We predominantly use [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)'s testing helpers such as
+
+- [render](https://testing-library.com/docs/react-testing-library/api#render) to render components
+- [userEvent](https://testing-library.com/docs/user-event/intro/) or [Event API](https://testing-library.com/docs/dom-testing-library/api-events/) to fire events and simulate user interaction on the component\*
+- `screen`
+- `act`
+
+To make assertions about the elements we use [Jest](https://jestjs.io/) and [jest-dom](https://github.com/testing-library/jest-dom).
+
+\*: You can read about the differences between `fireEvent` and `UserEvent` [here](https://testing-library.com/docs/user-event/intro/#differences-from-fireevent).
+
+### Running Unit Tests
+
+| Task                | Command                  |
+| :------------------ | :----------------------- |
+| Run unit tests      | `npm test`               |
+| Run a specific test | `npm test ComponentName` |
+| Debug unit tests    | `npm test -- --watch`    |
+| Unit test coverage  | `npm test -- --coverage` |
+| Update snapshots    | `npm test -- -u`         |
+
+## Interaction Tests
+
+### As A Part Of Unit Tests
+
+We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interations is a core part of our testing practise.
+
+We write user interaction tests leveraging [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)’s [userEvent](<[userEvent](https://testing-library.com/docs/user-event/intro/)>) testing helper.
+
+### Storybook Tests
+
+We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests are not practical due the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
+
+Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
+
+## Visual Regression Tests
+
+### Overview
 
 We use Playwright to run visual regression tests against our components along with automated accessibility checks. These tests are authored within the `e2e` directory and match the file pattern:
 `*-test.ts`.
@@ -47,7 +131,7 @@ available, check out the table below.
 > However, screenshots will not match and new ones will need to be generated on
 > your first test run.
 
-## Prerequisites
+### Prerequisites
 
 To run Playwright locally, first install the dependencies of the project by
 running `npm install`. Next, run the following command to install any necessary
@@ -66,9 +150,9 @@ Desktop](https://www.docker.com/products/docker-desktop/) which can help you
 quickly get started. Otherwise, follow the instructions for installing Docker on
 your specific Operating System.
 
-## Components
+### Components
 
-### Visual Regression Testing
+#### Visual Regression Testing
 
 In order to run Visual Regression Tests, you will need to first run Storybook by
 running `npm start` or by directly running: `STORYBOOK=true npx start-storybook -p 6006`.
@@ -90,7 +174,7 @@ npx playwright test --grep @vrt
 However, screenshots will need to be generated locally for your specific
 platform on the first test run.
 
-### Accessibility Verification Testing
+#### Accessibility Verification Testing
 
 We use [axe](https://www.deque.com/axe/) to run automated accessibility
 checks against our components. In order to run these checks, you will need to first run Storybook by
@@ -106,8 +190,13 @@ script/test:e2e --grep @avt
 
 ## Continous Integration
 
-Playwright tests are included in the `avt` and `vrt` jobs of the CI workflow.
-The results of the test run are uploaded at the end of the job and are available
+All of the tests run on our continuous integration workflows.
+
+Unit tests are included in the `test` job, Playwright tests are included in the `avt` and `vrt` jobs of the `CI` workflow.
+
+Storybook tests are ran in `Storybook Tests` workflow.
+
+The results of the Playwright test run are uploaded at the end of the job and are available
 to download and view locally.
 
 If you notice that `vrt` or `avt` are failing, you can view the report of the
