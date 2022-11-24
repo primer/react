@@ -18,21 +18,27 @@ Formats a timestamp as a localized string or as relative text that auto-updates 
 ```jsx live
 <>
   <RelativeTime datetime="2014-04-01T16:30:00-08:00" />
-  <RelativeTime datetime="2014-04-01T16:30:00-08:00" format="micro"/>
+  <br/>
+  <RelativeTime date={new Date('2014-04-01T16:30:00-08:00')} format="micro" tense="past"/>
+  <br/>
   <RelativeTime datetime="2014-04-01T16:30:00-08:00" format="elapsed"/>
 </>
 ```
 
 ## Props
 
-### Flash
+### RelativeTime
 
 <PropsTable>
-  <PropsTableRow name="full" type="boolean" defaultValue="false" description="Creates a full width Flash component" />
   <PropsTableRow
     name="datetime"
     type="string"
     description="An ISO8601 time represeting the time"
+  />
+  <PropsTableRow
+    name="date"
+    type="string"
+    description="Instead of passing the `datetime`, it is possible to pass a full `Date` object into the `date` prop"
   />
   <PropsTableRow
     name="format"
@@ -105,7 +111,7 @@ Formats a timestamp as a localized string or as relative text that auto-updates 
     description="The format with which to render the time zone"
   />
   <PropsTableBasePropRows
-    elementType="relative-ttime"
+    elementType="relative-time"
     refType="RelativeTimeElement"
     passthroughPropsLink={
       <Link href="https://github.com/github/relative-time-element/">@github/relative-time-element</Link>
