@@ -18,7 +18,9 @@ jobs:
         with:
           script: |
             const fetch = require('node-fetch');
-            const response = await fetch('https://api.pagerduty.com/schedules/P3IIVC4', {
+            const today = new Date().toISOString().slice(0, 10) // format: 2022-11-24
+            const url = `https://api.pagerduty.com/schedules/P3IIVC4?since=${today}&until=${today}`
+            const response = await fetch(url, {
               headers: {
                'Content-Type': 'application/json',
                'Authorization': 'Token token=${{ secrets.PAGERDUTY_API_KEY_SID }}'
