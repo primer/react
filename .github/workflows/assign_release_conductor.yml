@@ -11,7 +11,8 @@ jobs:
         id: pagerduty
         uses: actions/github-script@v5
         with:
-          script: |      
+          script: |
+            const fetch = require('node-fetch');
             const response = await fetch('https://api.pagerduty.com/schedules/P3IIVC4', {
               headers: {
                'Content-Type': 'application/json',
