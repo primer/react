@@ -1,24 +1,33 @@
-name: Assign Release Conductor
+name: z_ignore
 
 on:
   pull_request:
 
 jobs:
-  assign-release-conductor:
-    if:  github.head_ref == 'changeset-release/main'
+  z_ignore:
     runs-on: ubuntu-latest
-    steps:
-      - name: Ask PagerDuty for release conductor
+    steps:      
+      - name: Fetch schedule from pagerduty
         id: pagerduty
-        uses: mxie/pagerduty-oncall-action@main
+        uses: actions/github-script@v5
         with:
-          token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
-          schedule-id: P3IIVC4
-
-      - run: echo ${{ steps.pagerduty.outputs.person }} is release conductor
+          script: |      
+            const response = await fetch('https://api.pagerduty.com/schedules/P3IIVC4', {
+              headers: {
+               'Content-Type': 'application/json',
+               'Authorization': 'Token token=${{ secrets.PAGERDUTY_API_KEY_SID }}'
+              }
+            })
+            const data = await response.json()
+            console.log(data)
+            console.log(data.schedule.final_schedule.rendered_schedule_entries[0].user.summary)
+            
+            return data.schedule.final_schedule.rendered_schedule_entries[0].user.summary
+            
+      - run: echo ${{ steps.pagerduty.outputs.result }} is release conductor
 
       - name: Assign pull request to release conductor
         uses: hkusu/review-assign-action@v1
         with:
-          assignees: ${{ steps.pagerduty.outputs.person }}
-          reviewers: ${{ steps.pagerduty.outputs.person }}
+          assignees: ${{ steps.pagerduty.outputs.result }}
+          reviewers: ${{ steps.pagerduty.outputs.result }}
