@@ -6,7 +6,12 @@ on:
 jobs:
   z_ignore:
     runs-on: ubuntu-latest
-    steps:      
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
       - name: Fetch schedule from pagerduty
         id: pagerduty
         uses: actions/github-script@v5
