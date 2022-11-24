@@ -2,10 +2,10 @@ name: Assign Release Conductor
 
 on:
   pull_request:
-    branches: ["changeset-release/main"]
 
 jobs:
   assign-release-conductor:
+    if:  github.head_ref == 'changeset-release/main'
     runs-on: ubuntu-latest
     steps:
       - name: Ask PagerDuty for release conductor
