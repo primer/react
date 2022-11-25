@@ -43,3 +43,10 @@ jobs:
               repo: context.repo.repo,
               assignees: [${{ steps.pagerduty.outputs.result }}]
             })
+            
+            github.rest.pulls.requestReviewers({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              reviewers: [${{ steps.pagerduty.outputs.result }}]
+            })
