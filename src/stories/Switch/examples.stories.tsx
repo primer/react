@@ -113,3 +113,13 @@ export const StatusLabelPositionedAtEnd = (args: Args) => (
   </>
 )
 StatusLabelPositionedAtEnd.storyName = 'statusLabelPosition="end"'
+
+export const StatusLabelsChanged = (args: Args) => (
+  <>
+    <Text fontSize={2} fontWeight="bold" id="switchLabel" display="block" mb={1}>
+      Gate
+    </Text>
+    <ToggleSwitch statusLabels={["Opened", "Closed"]} {...args} aria-labelledby="switchLabel" />
+  </>
+)
+StatusLabelsChanged.storyName = 'statusLabels=["Opened", "Closed"]'

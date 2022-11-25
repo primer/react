@@ -12,7 +12,7 @@ import VisuallyHidden from './_VisuallyHidden'
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
-type SwitchProps = {
+export type SwitchProps = {
   /** The id of the DOM node that describes the switch */
   ['aria-describedby']?: string
   /** The id of the DOM node that labels the switch */
@@ -35,6 +35,8 @@ type SwitchProps = {
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
   statusLabelPosition?: 'start' | 'end'
+  /** Customize the on and and labels, defaults to "On" and "Off". */
+  statusLabels?: [string, string]
 } & SxProp
 
 const sizeVariants = variant({
@@ -222,6 +224,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
   onClick,
   size,
   statusLabelPosition,
+  statusLabels,
   sx: sxProp
 }) => {
   const isControlled = typeof checked !== 'undefined'
@@ -259,10 +262,10 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
         sx={{position: 'relative'}}
       >
         <Box textAlign="right" sx={isOn ? null : hiddenTextStyles}>
-          On
+          {statusLabels?.length ? statusLabels[0] : 'On'}
         </Box>
         <Box textAlign="right" sx={isOn ? hiddenTextStyles : null}>
-          Off
+          {statusLabels?.length ? statusLabels[1] : 'Off'}
         </Box>
       </Text>
       <SwitchButton
