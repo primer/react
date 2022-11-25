@@ -45,7 +45,7 @@ jobs:
             })
             
             github.rest.pulls.requestReviewers({
-              issue_number: context.issue.number,
+              pull_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               reviewers: [${{ steps.pagerduty.outputs.result }}]
