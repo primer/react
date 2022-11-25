@@ -279,7 +279,9 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
         size={size}
         disabled={!acceptsInteraction}
       >
-        <VisuallyHidden>{isOn ? 'On' : 'Off'}</VisuallyHidden>
+        <VisuallyHidden>
+          {isOn ? statusLabels?.length ? statusLabels[0] : 'On' : statusLabels?.length ? statusLabels[1] : 'Off'}
+        </VisuallyHidden>
         <Box aria-hidden="true" display="flex" alignItems="center" width="100%" height="100%" overflow="hidden">
           <Box
             flexGrow={1}
