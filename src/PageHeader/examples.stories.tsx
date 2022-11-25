@@ -40,7 +40,7 @@ const Template: Story = args => (
       </PageHeader.ContextAreaActions>
     </PageHeader.ContextArea>
     <PageHeader.TitleArea sx={{paddingTop: 3}}>
-      <PageHeader.BackButton />
+      <PageHeader.LeadingAction />
       <PageHeader.LeadingVisual>
         <GitBranchIcon />
       </PageHeader.LeadingVisual>
@@ -53,7 +53,7 @@ const Template: Story = args => (
       </PageHeader.TrailingAction>
       <PageHeader.Actions>
         <Hidden on={['narrow']}>
-          <Button variant="primary">New Branch</Button>
+          <Button variant="primary">New branch</Button>
         </Hidden>
 
         <Hidden on={['regular', 'wide']}>
@@ -65,17 +65,17 @@ const Template: Story = args => (
   </PageHeader>
 )
 
-export const WebHooks = () => (
+export const Webhooks = () => (
   <PageHeader sx={{padding: 3}}>
     <PageHeader.ContextArea>
-      <PageHeader.ParentLink href="http://github.com">Repository Settings</PageHeader.ParentLink>
+      <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
     </PageHeader.ContextArea>
     <PageHeader.TitleArea sx={{paddingTop: 2, paddingX: 1}}>
       <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
 
       <PageHeader.Actions>
         <Hidden on={['narrow']}>
-          <Button variant="primary">New Webhook</Button>
+          <Button variant="primary">New webhook</Button>
         </Hidden>
 
         <Hidden on={['regular', 'wide']}>
@@ -87,12 +87,14 @@ export const WebHooks = () => (
 )
 
 export const PullRequestPage = () => (
-  <PageHeader sx={{padding: 2, paddingTop: 3}}>
-    <PageHeader.ContextArea sx={{paddingX: 2}}>
+  <PageHeader>
+    <PageHeader.ContextArea>
       <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
     </PageHeader.ContextArea>
-    <PageHeader.TitleArea sx={{paddingTop: 2, paddingX: 2}}>
-      <PageHeader.Title as="h2">PageHeader Component initial layout explorations</PageHeader.Title>
+    <PageHeader.TitleArea>
+      <PageHeader.Title as="h2">
+        PageHeader component initial layout explorations extra long pull request title
+      </PageHeader.Title>
       <PageHeader.Actions>
         <Hidden on={['regular', 'wide']}>
           <IconButton aria-label="More" icon={KebabHorizontalIcon} />
@@ -105,7 +107,7 @@ export const PullRequestPage = () => (
         </Hidden>
       </PageHeader.Actions>
     </PageHeader.TitleArea>
-    <PageHeader.Description sx={{padding: 2}}>
+    <PageHeader.Description>
       <StateLabel status="pullOpened">Open</StateLabel>
       <Hidden on={['narrow']}>
         <Text sx={{fontSize: 1, color: 'fg.muted'}}>
@@ -124,7 +126,7 @@ export const PullRequestPage = () => (
         </Text>
       </Hidden>
     </PageHeader.Description>
-    <PageHeader.Navigation sx={{paddingTop: 2}}>
+    <PageHeader.Navigation>
       <UnderlineNav aria-label="Pull Request">
         <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" selected>
           Conversation
@@ -144,7 +146,7 @@ export const PullRequestPage = () => (
 )
 
 export const FilesPage = () => (
-  <PageHeader sx={{padding: 2}}>
+  <PageHeader>
     <PageHeader.ContextArea>
       <PageHeader.ParentLink>Files</PageHeader.ParentLink>
       <PageHeader.ContextAreaActions>
@@ -154,7 +156,7 @@ export const FilesPage = () => (
         <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
       </PageHeader.ContextAreaActions>
     </PageHeader.ContextArea>
-    <PageHeader.TitleArea sx={{paddingTop: 3}}>
+    <PageHeader.TitleArea>
       <Breadcrumbs>
         <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
         <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>

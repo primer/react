@@ -14,7 +14,8 @@ import {
   CommitIcon,
   ChecklistIcon,
   FileDiffIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  SidebarExpandIcon
 } from '@primer/octicons-react'
 import {OcticonArgType} from '../utils/story-helpers'
 
@@ -28,25 +29,26 @@ const meta: Meta = {
     controls: {expanded: true}
   },
   args: {
-    'ContextArea.hidden': false,
-    ParentLink: 'Previous Page',
-    'ParentLink.hidden': false,
-    'ContextBar.hidden': true,
-    'ContextAreaAction.hidden': true,
-    'BackButton.hidden': false,
+    hasContextArea: false,
+    hasParentLink: true,
+    ParentLink: 'Previous page',
+    hasContextBar: false,
+    hasContextAreaAction: true,
+    hasLeadingAction: false,
+    hasTitle: true,
     Title: 'Branches',
     'Title.as': 'h2',
     'Title.variant': 'medium',
+    hasLeadingVisual: false,
     LeadingVisual: GitBranchIcon,
-    'LeadingVisual.hidden': false,
-    'TrailingVisual.hidden': false,
-    'TrailingAction.hidden': false,
-    'Actions.hidden': false,
-    'Description.hidden': false,
-    'Navigation.hidden': false
+    hasTrailingVisual: false,
+    hasTrailingAction: false,
+    hasActions: false,
+    hasDescription: false,
+    hasNavigation: false
   },
   argTypes: {
-    'ContextArea.hidden': {
+    hasContextArea: {
       type: 'boolean',
       table: {
         category: 'ContextArea Slot',
@@ -54,9 +56,9 @@ const meta: Meta = {
         defaultValue: {
           summary: `
         {
-          narrow: false,
-          regular: true,
-          wide: true
+          narrow: true,
+          regular: false,
+          wide: false
         }
         `
         }
@@ -67,15 +69,15 @@ const meta: Meta = {
     },
     ParentLink: {
       type: 'string',
-      if: {arg: 'ContextArea.hidden', truthy: false},
+      if: {arg: 'hasContextArea'},
       table: {
         category: 'ContextArea Slot'
       },
       description: 'The default way to let users navigate up in the hierarchy on Narrow viewports.'
     },
-    'ParentLink.hidden': {
+    hasParentLink: {
       type: 'boolean',
-      if: {arg: 'ContextArea.hidden', truthy: false},
+      if: {arg: 'hasContextArea'},
       table: {
         category: 'ContextArea Slot',
         defaultValue: {
@@ -90,9 +92,9 @@ const meta: Meta = {
       },
       description: 'Parent '
     },
-    'ContextBar.hidden': {
+    hasContextBar: {
       type: 'boolean',
-      if: {arg: 'ContextArea.hidden', truthy: false},
+      if: {arg: 'hasContextArea'},
       table: {
         category: 'ContextArea Slot',
         defaultValue: {
@@ -108,9 +110,9 @@ const meta: Meta = {
       description:
         'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.'
     },
-    'ContextAreaAction.hidden': {
+    hasContextAreaAction: {
       type: 'boolean',
-      if: {arg: 'ContextArea.hidden', truthy: false},
+      if: {arg: 'hasContextArea'},
       table: {
         category: 'ContextArea Slot',
         defaultValue: {
@@ -124,7 +126,7 @@ const meta: Meta = {
         }
       }
     },
-    'BackButton.hidden': {
+    hasLeadingAction: {
       type: 'boolean',
       table: {
         category: 'TitleArea Slot',
@@ -140,6 +142,17 @@ const meta: Meta = {
       },
       description:
         'A back button can be used as a leading action for local navigation. On Narrow viewports, use parentLink instead.'
+    },
+    hasTitle: {
+      type: 'boolean',
+      table: {
+        category: 'TitleArea Slot',
+        defaultValue: {
+          summary: `true`
+        }
+      },
+      description:
+        'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.'
     },
     Title: {
       type: 'string',
@@ -175,15 +188,7 @@ const meta: Meta = {
       description:
         '`medium` is the most common page title size. Use for static titles in most situations. `large` for for user-generated content such as issues, pull requests, or discussions. `subtitle` when a PageHeader.Title is already present in the page, such as in a SplitPageLayout.'
     },
-    LeadingVisual: {
-      ...OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon]),
-      table: {
-        category: 'TitleArea Slot'
-      },
-      description:
-        'Leading visualLeading visuals are optional and appear at the start of the title. They can be octicons, avatars, and other custom visuals that fit a small area.'
-    },
-    'LeadingVisual.hidden': {
+    hasLeadingVisual: {
       type: 'boolean',
       table: {
         category: 'TitleArea Slot',
@@ -198,7 +203,15 @@ const meta: Meta = {
         }
       }
     },
-    'TrailingVisual.hidden': {
+    LeadingVisual: {
+      ...OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon]),
+      table: {
+        category: 'TitleArea Slot'
+      },
+      description:
+        'Leading visualLeading visuals are optional and appear at the start of the title. They can be octicons, avatars, and other custom visuals that fit a small area.'
+    },
+    hasTrailingVisual: {
       type: 'boolean',
       table: {
         category: 'TitleArea Slot',
@@ -215,7 +228,7 @@ const meta: Meta = {
       description:
         'Trailing visualTrailing visual and trailing text can display auxiliary information. They are placed at the right of the item, and can denote status, privacy details, etc.'
     },
-    'TrailingAction.hidden': {
+    hasTrailingAction: {
       type: 'boolean',
       table: {
         category: 'TitleArea Slot',
@@ -230,33 +243,21 @@ const meta: Meta = {
         }
       }
     },
-    'Actions.hidden': {
+    hasActions: {
       type: 'boolean',
       table: {
         category: 'TitleArea Slot'
       },
       description: 'Description region/slot'
     },
-    Description: {
-      table: {
-        category: 'Other Slots'
-      },
-      description: 'Description Slots'
-    },
-    'Description.hidden': {
+    hasDescription: {
       type: 'boolean',
       table: {
         category: 'Other Slots'
       },
       description: 'Description region/slot'
     },
-    Navigation: {
-      table: {
-        category: 'Other Slots'
-      },
-      description: 'Navigation Slots'
-    },
-    'Navigation.hidden': {
+    hasNavigation: {
       type: 'boolean',
       table: {
         category: 'Other Slots'
@@ -266,31 +267,21 @@ const meta: Meta = {
   }
 }
 
-// TODO: THink about it after lunch.
-// context bar action visiblity doesn't work because the context bar has upper layer visibility.
-// You might want to set conditional visibility on the context bar itself.
-
 const Template: Story = args => (
-  <PageHeader sx={{padding: 2}}>
-    <PageHeader.ContextArea
-      hidden={{
-        narrow: args['ContextArea.hidden'],
-        regular: args['ContextArea.hidden'],
-        wide: args['ContextArea.hidden']
-      }}
-    >
+  <PageHeader>
+    <PageHeader.ContextArea visible={args.hasContextArea}>
       <PageHeader.ParentLink
         href="http://github.com"
-        hidden={{
-          narrow: args['ParentLink.hidden'],
-          regular: args['ParentLink.hidden'],
-          wide: args['ParentLink.hidden']
+        visible={{
+          narrow: args.hasParentLink,
+          regular: args.hasParentLink,
+          wide: args.hasParentLink
         }}
       >
         {args.ParentLink}
       </PageHeader.ParentLink>
 
-      <PageHeader.ContextBar hidden={args['ContextBar.hidden']}>
+      <PageHeader.ContextBar visible={args.hasContextBar}>
         <Breadcrumbs>
           <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
           <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
@@ -302,10 +293,10 @@ const Template: Story = args => (
       </PageHeader.ContextBar>
 
       <PageHeader.ContextAreaActions
-        hidden={{
-          narrow: args['ContextAreaAction.hidden'],
-          regular: args['ContextAreaAction.hidden'],
-          wide: args['ContextAreaAction.hidden']
+        visible={{
+          narrow: args.hasContextAreaAction,
+          regular: args.hasContextAreaAction,
+          wide: args.hasContextAreaAction
         }}
       >
         <Button size="small" leadingIcon={GitBranchIcon}>
@@ -314,19 +305,21 @@ const Template: Story = args => (
         <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
       </PageHeader.ContextAreaActions>
     </PageHeader.ContextArea>
-    <PageHeader.TitleArea sx={{paddingTop: 3}}>
-      <PageHeader.BackButton
-        hidden={{
-          narrow: args['BackButton.hidden'],
-          regular: args['BackButton.hidden'],
-          wide: args['BackButton.hidden']
+    <PageHeader.TitleArea>
+      <PageHeader.LeadingAction
+        visible={{
+          narrow: args.hasLeadingAction,
+          regular: args.hasLeadingAction,
+          wide: args.hasLeadingAction
         }}
-      />
+      >
+        <IconButton icon={SidebarExpandIcon} variant="invisible" />{' '}
+      </PageHeader.LeadingAction>
       <PageHeader.LeadingVisual
-        hidden={{
-          narrow: args['LeadingVisual.hidden'],
-          regular: args['LeadingVisual.hidden'],
-          wide: args['LeadingVisual.hidden']
+        visible={{
+          narrow: args.hasLeadingVisual,
+          regular: args.hasLeadingVisual,
+          wide: args.hasLeadingVisual
         }}
       >
         {<args.LeadingVisual />}
@@ -338,39 +331,40 @@ const Template: Story = args => (
           regular: args['Title.variant'],
           wide: args['Title.variant']
         }}
+        visible={args.hasTitle}
       >
         {args.Title}
       </PageHeader.Title>
       <PageHeader.TrailingVisual
-        hidden={{
-          narrow: args['TrailingVisual.hidden'],
-          regular: args['TrailingVisual.hidden'],
-          wide: args['TrailingVisual.hidden']
+        visible={{
+          narrow: args.hasTrailingVisual,
+          regular: args.hasTrailingVisual,
+          wide: args.hasTrailingVisual
         }}
       >
         <Label>Beta</Label>
       </PageHeader.TrailingVisual>
       <PageHeader.TrailingAction
-        hidden={{
-          narrow: args['TrailingAction.hidden'],
-          regular: args['TrailingAction.hidden'],
-          wide: args['TrailingAction.hidden']
+        visible={{
+          narrow: args.hasTrailingAction,
+          regular: args.hasTrailingAction,
+          wide: args.hasTrailingAction
         }}
       >
         <IconButton icon={PencilIcon} variant="invisible" />
       </PageHeader.TrailingAction>
-      <PageHeader.Actions hidden={args['Actions.hidden']}>
+      <PageHeader.Actions visible={args.hasActions}>
         <Hidden on={['narrow']}>
           <Button variant="primary">New Branch</Button>
         </Hidden>
 
-        <Hidden on={['regular', 'wide']}>
+        <Hidden on={['regular', 'wide', 'narrow']}>
           <Button variant="primary">New</Button>
         </Hidden>
         <IconButton aria-label="More" icon={KebabHorizontalIcon} />
       </PageHeader.Actions>
     </PageHeader.TitleArea>
-    <PageHeader.Description sx={{padding: 2}} hidden={args['Description.hidden']}>
+    <PageHeader.Description visible={args.hasDescription}>
       <StateLabel status="pullOpened">Open</StateLabel>
       <Hidden on={['narrow']}>
         <Text sx={{fontSize: 1, color: 'fg.muted'}}>
@@ -389,7 +383,7 @@ const Template: Story = args => (
         </Text>
       </Hidden>
     </PageHeader.Description>
-    <PageHeader.Navigation sx={{paddingTop: 2}} hidden={args['Navigation.hidden']}>
+    <PageHeader.Navigation visible={args.hasNavigation}>
       <UnderlineNav aria-label="Pull Request">
         <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" selected>
           Conversation

@@ -29,7 +29,7 @@ const Template: Story = args => (
       </PageHeader.ContextAreaActions>
     </PageHeader.ContextArea>
     <PageHeader.TitleArea sx={{paddingTop: 3}}>
-      <PageHeader.BackButton />
+      <PageHeader.LeadingAction />
       <PageHeader.LeadingVisual>
         <GitBranchIcon />
       </PageHeader.LeadingVisual>
