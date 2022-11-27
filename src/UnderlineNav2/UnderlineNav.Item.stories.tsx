@@ -45,7 +45,7 @@ export default {
 
 export const Playground: Story = args => {
   return (
-    <UnderlineNavItem selected {...args}>
+    <UnderlineNavItem aria-current="page" {...args}>
       {args.children}
     </UnderlineNavItem>
   )

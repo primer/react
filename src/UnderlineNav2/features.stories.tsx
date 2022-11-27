@@ -81,7 +81,7 @@ export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedInd
         <UnderlineNav.Item
           key={item.navigation}
           icon={item.icon}
-          selected={index === selectedIndex}
+          aria-current={index === selectedIndex ? 'page' : undefined}
           onSelect={event => {
             event.preventDefault()
             setSelectedIndex(index)
@@ -125,7 +125,7 @@ export const CountersLoadingState = () => {
         <UnderlineNav.Item
           key={item.navigation}
           icon={item.icon}
-          selected={index === selectedIndex}
+          aria-current={index === selectedIndex ? 'page' : undefined}
           onSelect={() => setSelectedIndex(index)}
           counter={item.counter}
         >

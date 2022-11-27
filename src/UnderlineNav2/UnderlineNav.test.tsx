@@ -60,7 +60,7 @@ const ResponsiveUnderlineNav = ({
           <UnderlineNav.Item
             key={item.navigation}
             icon={item.icon}
-            selected={item.navigation === selectedItemText}
+            aria-current={item.navigation === selectedItemText ? 'page' : undefined}
             counter={item.counter}
           >
             {item.navigation}
