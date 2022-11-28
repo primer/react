@@ -15,10 +15,17 @@ jobs:
       contains(github.event.pull_request.labels.*.name, 'update snapshots')
     runs-on: ubuntu-latest
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
       - uses: actions/checkout@v3
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.head_ref }}
+          token: ${{ steps.generate_token.outputs.token }}
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
@@ -41,11 +48,9 @@ jobs:
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
-      - uses: EndBug/add-and-commit@v4
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          add: '.playwright'
-          message: 'test(vrt): update snapshots'
-          author_email: actions@github.com
+          commit_message: 'test(vrt): update snapshots'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions-ecosystem/action-remove-labels@v1
