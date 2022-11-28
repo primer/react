@@ -90,8 +90,10 @@ const overflowEffect = (
       if (index < numberOfListItems) {
         items.push(child)
       } else {
+        const ariaCurrent = child.props['aria-current']
+        const isCurrent = ariaCurrent !== undefined && ariaCurrent !== 'false' && ariaCurrent !== false
         // We need to make sure to keep the selected item always visible.
-        if (child.props['aria-current'] === 'page') {
+        if (isCurrent) {
           // If selected item couldn't make in to the list, we swap it with the last item in the list.
           const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
           // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
