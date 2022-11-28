@@ -59,7 +59,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        run: npx playwright test --grep @vrt --update-snapshots --shard="${{ matrix.shard }}/2"
+        run: npx playwright test --grep @vrt --update-snapshots --shard "${{ matrix.shard }}/${{ strategy.job-total }}"
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
@@ -87,6 +87,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: snapshots
+          path: .playwright/snapshots
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'test(vrt): update snapshots'
