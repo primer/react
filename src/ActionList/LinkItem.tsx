@@ -39,8 +39,8 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
     <Item
       active={active}
       sx={{paddingY: 0, paddingX: 0}}
-      _PrivateItemWrapper={({children}) => (
-        <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
+      _PrivateItemWrapper={({children, ...rest}) => (
+        <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} {...rest} ref={forwardedRef}>
           {children}
         </Link>
       )}
