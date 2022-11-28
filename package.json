@@ -101,7 +101,7 @@
     "focus-visible": "^5.2.0",
     "fzy.js": "0.4.1",
     "history": "^5.0.0",
-    "react-intersection-observer": "9.4.0",
+    "react-intersection-observer": "9.4.1",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
