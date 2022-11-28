@@ -8,7 +8,6 @@
    - [Component patterns](#component-patterns)
    - [Adding the sx prop](#adding-the-sx-prop)
    - [Linting](#linting)
-   - [Testing](#testing)
    - [TypeScript support](#typescript-support)
    - [Additional resources](#additional-resources)
 5. [Writing documentation](#writing-documentation)
@@ -130,16 +129,6 @@ npm run lint -- --fix
 ```
 
 **Protip:** `npm run lint -- --quiet` (or `npx eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
-
-### Testing
-
-We test our components with [Jest](https://facebook.github.io/jest/) and [react-test-renderer](https://reactjs.org/docs/test-renderer.html). You can run the tests locally with `npm test`. To run the tests as you work, run Jest in watch mode with:
-
-```sh
-npm test -- --watch
-```
-
-See [`src/__tests__/example.js`](src/__tests__/example.js) for examples of ways that we test our components.
 
 ### TypeScript support
 

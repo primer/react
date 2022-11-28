@@ -317,7 +317,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(120)
+                 
+                (120)
               </span>
             </span>
           </div>
@@ -384,7 +385,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(13)
+                 
+                (13)
               </span>
             </span>
           </div>
@@ -451,7 +453,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(5)
+                 
+                (5)
               </span>
             </span>
           </div>
@@ -490,7 +493,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(4)
+                 
+                (4)
               </span>
             </span>
           </div>
@@ -557,7 +561,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(9)
+                 
+                (9)
               </span>
             </span>
           </div>
@@ -647,7 +652,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(10)
+                 
+                (10)
               </span>
             </span>
           </div>
