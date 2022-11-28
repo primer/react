@@ -292,7 +292,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
 const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   children,
   sx = {},
-  visible = visibleOnRegularView
+  visible = onlyVisibleOnNarrowView
 }) => {
   const isVisible = useResponsiveValue(visible, true)
   return <Box sx={merge<BetterSystemStyleObject>({display: isVisible ? 'flex' : 'none'}, sx)}>{children}</Box>

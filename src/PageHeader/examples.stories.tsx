@@ -1,9 +1,7 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import {Meta} from '@storybook/react'
 import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName} from '..'
-import Label from '../Label'
 import {
-  PencilIcon,
   KebabHorizontalIcon,
   GitBranchIcon,
   CodeIcon,
@@ -27,50 +25,67 @@ const meta: Meta = {
   args: {}
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Template: Story = args => (
-  <PageHeader sx={{padding: 2}}>
-    <PageHeader.ContextArea>
-      <PageHeader.ParentLink href="http://github.com">Code</PageHeader.ParentLink>
-      <PageHeader.ContextAreaActions>
-        <Button size="small" leadingIcon={GitBranchIcon}>
-          Main
-        </Button>
-        <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
-      </PageHeader.ContextAreaActions>
-    </PageHeader.ContextArea>
-    <PageHeader.TitleArea sx={{paddingTop: 3}}>
-      <PageHeader.LeadingAction />
-      <PageHeader.LeadingVisual>
-        <GitBranchIcon />
-      </PageHeader.LeadingVisual>
-      <PageHeader.Title as="h2">Branches</PageHeader.Title>
-      <PageHeader.TrailingVisual>
-        <Label>Beta</Label>
-      </PageHeader.TrailingVisual>
-      <PageHeader.TrailingAction>
-        <IconButton icon={PencilIcon} />
-      </PageHeader.TrailingAction>
-      <PageHeader.Actions>
-        <Hidden on={['narrow']}>
-          <Button variant="primary">New branch</Button>
-        </Hidden>
+// See if there is an interest to take this into global params
 
-        <Hidden on={['regular', 'wide']}>
-          <Button variant="primary">New</Button>
-        </Hidden>
-        <IconButton aria-label="More" icon={KebabHorizontalIcon} />
-      </PageHeader.Actions>
-    </PageHeader.TitleArea>
-  </PageHeader>
-)
+export const PrimerViewports = {
+  xsmall: {
+    name: 'Xsmall',
+    styles: {
+      width: '320px',
+      height: '100%'
+    }
+  },
+  small: {
+    name: 'Small',
+    styles: {
+      width: '540px',
+      height: '100%'
+    }
+  },
+  medium: {
+    name: 'Medium',
+    styles: {
+      width: '768px',
+      height: '100%'
+    }
+  },
+  large: {
+    name: 'Large',
+    styles: {
+      width: '1012px',
+      height: '100%'
+    }
+  },
+  xlarge: {
+    name: 'Xlarge',
+    styles: {
+      width: '1280px',
+      height: '100%'
+    }
+  },
+  xxlarge: {
+    name: 'XXlarge',
+    styles: {
+      width: '1400px',
+      height: '100%'
+    }
+  }
+}
 
+const setViewportParamToNarrow = {
+  viewport: {
+    viewports: {
+      ...PrimerViewports
+    },
+    defaultViewport: 'small'
+  }
+}
 export const Webhooks = () => (
-  <PageHeader sx={{padding: 3}}>
+  <PageHeader>
     <PageHeader.ContextArea>
       <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
     </PageHeader.ContextArea>
-    <PageHeader.TitleArea sx={{paddingTop: 2, paddingX: 1}}>
+    <PageHeader.TitleArea>
       <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
 
       <PageHeader.Actions>
@@ -85,6 +100,12 @@ export const Webhooks = () => (
     </PageHeader.TitleArea>
   </PageHeader>
 )
+
+export const WebhooksOnNarrowViewport = () => {
+  return <Webhooks />
+}
+
+WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
   <PageHeader>
@@ -145,6 +166,12 @@ export const PullRequestPage = () => (
   </PageHeader>
 )
 
+export const PullRequestPageOnNarrowViewport = () => {
+  return <PullRequestPage />
+}
+
+PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
+
 export const FilesPage = () => (
   <PageHeader>
     <PageHeader.ContextArea>
@@ -168,5 +195,11 @@ export const FilesPage = () => (
     </PageHeader.TitleArea>
   </PageHeader>
 )
+
+export const FilesPageOnNarrowViewport = () => {
+  return <FilesPage />
+}
+
+FilesPageOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export default meta
