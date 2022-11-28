@@ -20,24 +20,6 @@ const components = new Map([
           importPath: './src/ActionList/ActionList.features.stories.tsx'
         },
         {
-          id: 'components-actionlist-features--child-with-side-effects',
-          title: 'Components/ActionList/Features',
-          name: 'Child With Side Effects',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
-        },
-        {
-          id: 'components-actionlist-features--conditional-children',
-          title: 'Components/ActionList/Features',
-          name: 'Conditional Children',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
-        },
-        {
-          id: 'components-actionlist-features--custom-item-children',
-          title: 'Components/ActionList/Features',
-          name: 'Custom Item Children',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
-        },
-        {
           id: 'components-actionlist-features--disabled-item',
           title: 'Components/ActionList/Features',
           name: 'Disabled Item',
