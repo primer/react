@@ -5,6 +5,7 @@ import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link from '../Link'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 const REGION_ORDER = {
   ContextArea: 0,
@@ -25,6 +26,7 @@ const onlyVisibleOnNarrowView = {
   wide: false
 }
 
+// Default state for the `visible` prop when a sub component is visible on regular and wide viewport
 const visibleOnRegularView = {
   narrow: false,
   regular: true,
@@ -33,13 +35,17 @@ const visibleOnRegularView = {
 
 // Root
 // -----------------------------------------------------------------------------
-export type PageHeaderProps = sharedPropTypes
+export type PageHeaderProps = {
+  'aria-label'?: React.AriaAttributes['aria-label']
+  as?: React.ElementType
+} & sharedPropTypes
 
 const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
   const rootStyles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '8px',
+    // 24px for wide and regular, 16px for narrow viewports
     padding: useResponsiveValue(
       {
         narrow: 3,
@@ -48,14 +54,13 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
       },
       false
     )
-    // flexWrap: 'wrap'
   }
   return <Box sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>{children}</Box>
 }
 
-// PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
-// to manage their custom visibility but consumers should be careful to hide this on narrow viewports.
-// PageHeader.ContexArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextNavActions
+// PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `visible` prop available
+// to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
+// PageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions
 // ---------------------------------------------------------------------
 
 const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
@@ -73,42 +78,60 @@ const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   }
   return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
-
-export type ParentLinkProps = {
+// adopted from React.AnchorHTMLAttributes
+type LinkProps = {
+  download?: string
   href?: string
-} & PageHeaderProps
-
-// TODO: add `as` and `aria-label` props
-const ParentLink: React.FC<React.PropsWithChildren<ParentLinkProps>> = ({
-  children,
-  sx = {},
-  href,
-  visible = onlyVisibleOnNarrowView
-}) => {
-  const isVisible = useResponsiveValue(visible, false)
-  return (
-    <>
-      <Link
-        muted
-        sx={merge<BetterSystemStyleObject>(
-          {
-            display: isVisible ? 'flex' : 'none',
-            alignItems: 'center',
-            // min touch target size 44px (20 + (12x2))
-            lineHeight: '20px',
-            paddingY: '12px',
-            gap: '8px'
-          },
-          sx
-        )}
-        href={href}
-      >
-        <ArrowLeftIcon />
-        <Box>{children}</Box>
-      </Link>
-    </>
-  )
+  hrefLang?: string
+  media?: string
+  ping?: string
+  rel?: string
+  target?: string
+  type?: string
+  referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
 }
+export type ParentLinkProps = PageHeaderProps & LinkProps
+
+const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
+  (
+    {
+      children,
+      sx = {},
+      href,
+      'aria-label': ariaLabel = `Back to ${children}`,
+      as = 'a',
+      visible = onlyVisibleOnNarrowView
+    },
+    ref
+  ) => {
+    const isVisible = useResponsiveValue(visible, false)
+    return (
+      <>
+        <Link
+          ref={ref}
+          as={as}
+          aria-label={ariaLabel}
+          muted
+          sx={merge<BetterSystemStyleObject>(
+            {
+              display: isVisible ? 'flex' : 'none',
+              alignItems: 'center',
+              // min touch target size 44px (20 + (12x2))
+              lineHeight: '20px',
+              paddingY: '12px',
+              gap: '8px'
+            },
+            sx
+          )}
+          href={href}
+        >
+          <ArrowLeftIcon />
+          <Box>{children}</Box>
+        </Link>
+      </>
+    )
+  }
+) as PolymorphicForwardRefComponent<'a', ParentLinkProps>
 
 // ContextBar
 // Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
@@ -152,7 +175,7 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
 
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
 // PageHeader.TitleArea Sub Components: PageHeader.LeadingAction, PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual, PageHeader.TrailingAction, PageHeader.Actions
-// PageHeader.LeadingAction and PageHeader.TrailingAction are only visible on regular viewports therefore they come as hidden on narrow viewports and their visibility can be managed by their exposed `hidden` prop
+// PageHeader.LeadingAction and PageHeader.TrailingAction are only visible on regular viewports therefore they come as visible on narrow viewports and their visibility can be managed by their exposed `visible` prop
 // ---------------------------------------------------------------------
 const TitleArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
   return (
