@@ -220,7 +220,7 @@ export const UnderlineNav = forwardRef(
 
     /*
      * This is needed to make sure responsiveProps.items and ResponsiveProps.actions are updated when children are changed
-     *  Particually when an item is selected. It adds 'aria-current="page"' attribute to the child and we need to make sure
+     * Particually when an item is selected. It adds 'aria-current="page"' attribute to the child and we need to make sure
      * responsiveProps.items and ResponsiveProps.actions are updated with that attribute
      */
     useEffect(() => {
