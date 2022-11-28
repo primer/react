@@ -41,9 +41,13 @@ jobs:
       - name: Stop storybook
         if: ${{ always() }}
         run: kill ${{ steps.storybook.outputs.pid }}
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: EndBug/add-and-commit@v4
         with:
-          commit_message: 'test(vrt): update snapshots'
+          add: '.playwright/screenshots'
+          message: 'test(vrt): update snapshots'
+          author_email: actions@github.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: 'update snapshots'
