@@ -17,7 +17,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 ```jsx live drafts
 <UnderlineNav aria-label="Repository">
-  <UnderlineNav.Item selected>Code</UnderlineNav.Item>
+  <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
   <UnderlineNav.Item>Issues</UnderlineNav.Item>
   <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
 </UnderlineNav>
@@ -27,7 +27,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 ```jsx live drafts
 <UnderlineNav aria-label="Repository">
-  <UnderlineNav.Item selected icon={CodeIcon}>
+  <UnderlineNav.Item aria-current="page" icon={CodeIcon}>
     Code
   </UnderlineNav.Item>
   <UnderlineNav.Item icon={IssueOpenedIcon} counter={30}>
@@ -71,7 +71,7 @@ const Navigation = () => {
           <UnderlineNav.Item
             key={item.navigation}
             icon={item.icon}
-            selected={index === selectedIndex}
+            aria-current={index === selectedIndex ? 'page' : undefined}
             onSelect={e => {
               setSelectedIndex(index)
               e.preventDefault()
@@ -92,7 +92,7 @@ render(<Navigation />)
 
 ```jsx live drafts
 <UnderlineNav aria-label="Repository" loadingCounters={true}>
-  <UnderlineNav.Item counter={4} selected>
+  <UnderlineNav.Item counter={4} aria-current="page">
     Code
   </UnderlineNav.Item>
   <UnderlineNav.Item counter={44}>Issues</UnderlineNav.Item>
@@ -108,7 +108,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 const Navigation = () => {
   return (
     <UnderlineNav aria-label="Repository">
-      <UnderlineNav.Item as={Link} to="code" counter={4} selected>
+      <UnderlineNav.Item as={Link} to="code" counter={4} aria-current="page">
         Code
       </UnderlineNav.Item>
       <UnderlineNav.Item counter={44} as={Link} to="issues">
@@ -154,11 +154,27 @@ const Navigation = () => {
 
 <PropsTable>
   <PropsTableRow
-    name="as"
-    type="string | React.ElementType"
-    defaultValue="a"
-    description="The underlying element to render — either a HTML element name or a React component."
+    name="aria-current"
+    type={`| 'page'
+| 'step'
+| 'location'
+| 'date'
+| 'time'
+| true
+| false`}
+    defaultValue="false"
+    description={
+      <>
+        Set <InlineCode>aria-current</InlineCode> to <InlineCode>"page"</InlineCode> to indicate that the item
+        represents the current page. Set <InlineCode>aria-current</InlineCode> to <InlineCode>"location"</InlineCode> to
+        indicate that the item represents the current location on a page. For more information about{' '}
+        <InlineCode>aria-current</InlineCode>, see{' '}
+        <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current">MDN</Link>.
+      </>
+    }
   />
+
+  <PropsTableAsRow defaultElementType="a" />
   <PropsTableRow name="counter" type="number" description="The number to display in the counter label." />
   <PropsTableRow
     name="href"
@@ -171,8 +187,12 @@ const Navigation = () => {
     type="(event) => void"
     description="The handler that gets called when a nav link is selected. For example, a manual route binding can be done here(I.e. 'navigate(href)' for the react router.)"
   />
-  <PropsTableRow name="selected" type="boolean" description="Whether the link is selected" />
-  <PropsTableSxRow />
+  <PropsTableBasePropRows
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
+    }
+    elementType="a"
+  />
 </PropsTable>
 
 ## Status

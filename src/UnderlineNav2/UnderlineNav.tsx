@@ -20,11 +20,12 @@ import {useSSRSafeId} from '@react-aria/ssr'
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-  align?: 'right'
   sx?: SxProp
+  // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
+  align?: 'right'
   /**
-   * loading state for all counters (to prevent multiple layout shifts)
+   * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
