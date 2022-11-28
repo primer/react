@@ -2,7 +2,6 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {IconButton, ActionMenu, ActionList} from '..'
 import {PencilIcon, KebabHorizontalIcon, ArchiveIcon, TrashIcon} from '@primer/octicons-react'
-import {PrimerViewports} from './examples.stories'
 
 import {PageHeader} from './PageHeader'
 
@@ -13,6 +12,51 @@ const meta: Meta = {
     controls: {expanded: true}
   },
   args: {}
+}
+
+const PrimerViewports = {
+  xsmall: {
+    name: 'Xsmall',
+    styles: {
+      width: '320px',
+      height: '100%'
+    }
+  },
+  small: {
+    name: 'Small',
+    styles: {
+      width: '540px',
+      height: '100%'
+    }
+  },
+  medium: {
+    name: 'Medium',
+    styles: {
+      width: '768px',
+      height: '100%'
+    }
+  },
+  large: {
+    name: 'Large',
+    styles: {
+      width: '1012px',
+      height: '100%'
+    }
+  },
+  xlarge: {
+    name: 'Xlarge',
+    styles: {
+      width: '1280px',
+      height: '100%'
+    }
+  },
+  xxlarge: {
+    name: 'XXlarge',
+    styles: {
+      width: '1400px',
+      height: '100%'
+    }
+  }
 }
 
 export const TitleWithTrailingAction = () => (

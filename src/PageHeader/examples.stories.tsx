@@ -27,7 +27,7 @@ const meta: Meta = {
 
 // See if there is an interest to take this into global params
 
-export const PrimerViewports = {
+const PrimerViewports = {
   xsmall: {
     name: 'Xsmall',
     styles: {

@@ -177,10 +177,14 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
 // PageHeader.TitleArea Sub Components: PageHeader.LeadingAction, PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual, PageHeader.TrailingAction, PageHeader.Actions
 // PageHeader.LeadingAction and PageHeader.TrailingAction are only visible on regular viewports therefore they come as visible on narrow viewports and their visibility can be managed by their exposed `visible` prop
 // ---------------------------------------------------------------------
-const TitleArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}}) => {
+const TitleArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, visible = true}) => {
+  const isVisible = useResponsiveValue(visible, false)
   return (
     <Box
-      sx={merge<BetterSystemStyleObject>({display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '8px'}, sx)}
+      sx={merge<BetterSystemStyleObject>(
+        {display: isVisible ? 'flex' : 'none', flexDirection: 'row', alignItems: 'center', gap: '8px'},
+        sx
+      )}
     >
       {children}
     </Box>
