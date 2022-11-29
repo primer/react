@@ -753,7 +753,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           })}
         >
           {resizable && (
-            <VisuallyHidden isVisible={true}>
+            <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
                 <p id={`${paneId}-input-hint`}>
                   Use a value between {minPercent}% and {maxPercent}%
