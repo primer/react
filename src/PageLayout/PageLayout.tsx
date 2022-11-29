@@ -1,3 +1,4 @@
+import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
@@ -541,6 +542,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       offsetHeader = 0,
       hidden: responsiveHidden = false,
       children,
+      id,
       sx = {}
     },
     forwardRef
@@ -645,6 +647,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       updatePaneWidth((percent / 100) * maxWidth)
     }
 
+    const paneId = useSSRSafeId(id)
+
     return (
       <Box
         ref={measuredRef}
@@ -734,26 +738,28 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             }
           })}
         >
-          <div className="sr-only">
-            {/* TODO: Figure out why the sr-only class isn't handled in storybook */}
-            <form onSubmit={handleWidthFormSubmit}>
-              <label htmlFor="TODO need to actually generate this">
-                Pane width
-                <input
-                  id="TODO need to actually generate this"
-                  name="pane-width"
-                  value={widthPercent}
-                  autoCorrect="off"
-                  autoComplete="off"
-                  type="tel"
-                  onChange={event => {
-                    setWidthPercent(event.target.value)
-                  }}
-                />
-              </label>
-              <button type="submit">Change width</button>
-            </form>
-          </div>
+          {resizable && (
+            <div className="sr-only">
+              {/* TODO: Figure out why the sr-only class isn't handled in storybook */}
+              <form onSubmit={handleWidthFormSubmit}>
+                <label htmlFor={`${paneId}-width-input`}>
+                  Pane width
+                  <input
+                    id={`${paneId}-width-input`}
+                    name="pane-width"
+                    value={widthPercent}
+                    autoCorrect="off"
+                    autoComplete="off"
+                    type="tel"
+                    onChange={event => {
+                      setWidthPercent(event.target.value)
+                    }}
+                  />
+                </label>
+                <button type="submit">Change width</button>
+              </form>
+            </div>
+          )}
           {children}
         </Box>
       </Box>
