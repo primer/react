@@ -206,6 +206,7 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
+          aria-current="page"
           className="c4"
           href="#"
           onClick={[Function]}
