@@ -9,87 +9,59 @@ const components = new Map([
       stories: [
         {
           id: 'components-actionlist--default',
-          title: 'Components/ActionList',
-          name: 'Default',
-          importPath: './src/ActionList/ActionList.stories.tsx'
+          name: 'Default'
         },
         {
           id: 'components-actionlist-features--block-description',
-          title: 'Components/ActionList/Features',
-          name: 'Block Description',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Block Description'
         },
         {
           id: 'components-actionlist-features--disabled-item',
-          title: 'Components/ActionList/Features',
-          name: 'Disabled Item',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Disabled Item'
         },
         {
           id: 'components-actionlist-features--inline-description',
-          title: 'Components/ActionList/Features',
-          name: 'Inline Description',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Inline Description'
         },
         {
           id: 'components-actionlist-features--inside-overlay',
-          title: 'Components/ActionList/Features',
-          name: 'Inside Overlay',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Inside Overlay'
         },
         {
           id: 'components-actionlist-features--item-dividers',
-          title: 'Components/ActionList/Features',
-          name: 'Item Dividers',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Item Dividers'
         },
         {
           id: 'components-actionlist-features--links',
-          title: 'Components/ActionList/Features',
-          name: 'Links',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Links'
         },
         {
           id: 'components-actionlist-features--multi-select',
-          title: 'Components/ActionList/Features',
-          name: 'Multi Select',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Multi Select'
         },
         {
           id: 'components-actionlist-features--simple-list',
-          title: 'Components/ActionList/Features',
-          name: 'Simple List',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Simple List'
         },
         {
           id: 'components-actionlist-features--single-divider',
-          title: 'Components/ActionList/Features',
-          name: 'Single Divider',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Single Divider'
         },
         {
           id: 'components-actionlist-features--single-select',
-          title: 'Components/ActionList/Features',
-          name: 'Single Select',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Single Select'
         },
         {
           id: 'components-actionlist-features--text-wrap-and-truncation',
-          title: 'Components/ActionList/Features',
-          name: 'Text Wrap And Truncation',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'Text Wrap And Truncation'
         },
         {
           id: 'components-actionlist-features--with-avatars',
-          title: 'Components/ActionList/Features',
-          name: 'With Avatars',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'With Avatars'
         },
         {
           id: 'components-actionlist-features--with-icons',
-          title: 'Components/ActionList/Features',
-          name: 'With Icons',
-          importPath: './src/ActionList/ActionList.features.stories.tsx'
+          name: 'With Icons'
         }
       ]
     }
