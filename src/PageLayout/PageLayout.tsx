@@ -513,6 +513,7 @@ export type PageLayoutPaneProps = {
   sticky?: boolean
   offsetHeader?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
+  id?: string
 } & SxProp
 
 const panePositions = {
@@ -610,20 +611,24 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const [maxPercent, setMaxPercent] = React.useState(0)
 
     const measuredRef = React.useCallback(() => {
-      const maxPaneWidthDiffPixels = getComputedStyle(paneRef.current).getPropertyValue('--pane-max-width-diff')
-      const paneWidth = paneRef.current?.getBoundingClientRect().width
-      const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
-      const viewportWidth = window.innerWidth
-      const maxPaneWidth = viewportWidth - maxPaneWidthDiff
+      if (paneRef.current !== null) {
+        const maxPaneWidthDiffPixels = getComputedStyle(paneRef.current as Element).getPropertyValue(
+          '--pane-max-width-diff'
+        )
+        const paneWidth = paneRef.current.getBoundingClientRect().width
+        const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
+        const viewportWidth = window.innerWidth
+        const maxPaneWidth = viewportWidth - maxPaneWidthDiff
 
-      const minPercent = Math.round((100 * MIN_PANE_WIDTH) / viewportWidth)
-      setMinPercent(minPercent)
+        const minPercent = Math.round((100 * MIN_PANE_WIDTH) / viewportWidth)
+        setMinPercent(minPercent)
 
-      const maxPercent = Math.round((100 * maxPaneWidth) / viewportWidth)
-      setMaxPercent(maxPercent)
+        const maxPercent = Math.round((100 * maxPaneWidth) / viewportWidth)
+        setMaxPercent(maxPercent)
 
-      const widthPercent = Math.round((100 * paneWidth) / viewportWidth)
-      setWidthPercent(widthPercent.toString())
+        const widthPercent = Math.round((100 * paneWidth) / viewportWidth)
+        setWidthPercent(widthPercent.toString())
+      }
     }, [paneRef])
 
     const [widthPercent, setWidthPercent] = React.useState('')
