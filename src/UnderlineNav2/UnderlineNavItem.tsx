@@ -23,7 +23,7 @@ type LinkProps = {
 
 export type UnderlineNavItemProps = {
   /**
-   * Primary content for an NavLink
+   * Primary content for an UnderlineNav
    */
   children?: React.ReactNode
   /**
@@ -31,13 +31,16 @@ export type UnderlineNavItemProps = {
    */
   onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   /**
-   * Is the `Link` is currently selected?
+   * Is `UnderlineNav.Item` current page?
    */
-  selected?: boolean
+  'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
   /**
    *  Icon before the text
    */
   icon?: React.FunctionComponent<IconProps>
+  /**
+   * Renders `UnderlineNav.Item` as given component
+   **/
   as?: React.ElementType
   /**
    * Counter
@@ -55,7 +58,7 @@ export const UnderlineNavItem = forwardRef(
       children,
       counter,
       onSelect,
-      selected: preSelected = false,
+      'aria-current': ariaCurrent,
       icon: Icon,
       ...props
     },
@@ -99,7 +102,10 @@ export const UnderlineNavItem = forwardRef(
 
         setChildrenWidth({text, width: domRect.width})
         setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
-        preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
+
+        if (selectedLink === undefined && Boolean(ariaCurrent) && ariaCurrent !== 'false') {
+          setSelectedLink(ref as RefObject<HTMLElement>)
+        }
 
         // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
         if (selectedLinkText === text) {
@@ -110,7 +116,7 @@ export const UnderlineNavItem = forwardRef(
       }
     }, [
       ref,
-      preSelected,
+      ariaCurrent,
       selectedLink,
       selectedLinkText,
       setSelectedLinkText,
@@ -149,7 +155,7 @@ export const UnderlineNavItem = forwardRef(
           href={href}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
-          {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
+          aria-current={ariaCurrent}
           sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
