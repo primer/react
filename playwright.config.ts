@@ -18,7 +18,12 @@ const config: Config = {
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   use: {
-    screenshot: 'only-on-failure'
+    screenshot: 'only-on-failure',
+    viewport: {
+      // Large breakpoint
+      // @see https://primer.style/primitives/spacing#breakpoints
+      width: 1012
+    }
   },
   expect: {
     toHaveScreenshot: {
