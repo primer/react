@@ -40,7 +40,7 @@ export const Playground: Story = args => {
   return (
     <UnderlineNav {...args}>
       {children.map((child: string, index: number) => (
-        <UnderlineNavItem key={index} href="#" selected={index === 0}>
+        <UnderlineNavItem key={index} href="#" aria-current={index === 0 ? 'page' : undefined}>
           {child}
         </UnderlineNavItem>
       ))}

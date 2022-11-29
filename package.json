@@ -103,7 +103,7 @@
     "focus-visible": "^5.2.0",
     "fzy.js": "0.4.1",
     "history": "^5.0.0",
-    "react-intersection-observer": "9.4.0",
+    "react-intersection-observer": "9.4.1",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
@@ -207,7 +207,7 @@
     "storybook-addon-turbo-build": "1.1.0",
     "styled-components": "4.4.1",
     "ts-toolbelt": "9.6.0",
-    "typescript": "4.8.3",
+    "typescript": "4.9.3",
     "webpack": "5.74.0"
   },
   "peerDependencies": {
