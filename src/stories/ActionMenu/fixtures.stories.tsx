@@ -759,6 +759,25 @@ export function MnemonicsTest(): JSX.Element {
                 </Box>
               </ActionList.TrailingVisual>
             </ActionList.Item>
+            <ActionList.LinkItem aria-keyshortcuts="d" href="//github.com">
+              Test Link Item (with manually set shortcut)
+              <ActionList.TrailingVisual>
+                <Box
+                  as="span"
+                  sx={{
+                    backgroundColor: 'canvas.default',
+                    border: '1px solid',
+                    borderColor: 'border.default',
+                    borderRadius: 2,
+                    padding: '2px 6px',
+                    fontSize: 0
+                  }}
+                >
+                  d
+                </Box>
+              </ActionList.TrailingVisual>
+            </ActionList.LinkItem>
+            <ActionList.LinkItem href="//github.com">Test Link Item (with mnemonic shortcut)</ActionList.LinkItem>
             <ActionList.Item disabled>Disabled</ActionList.Item>
           </ActionList>
         </ActionMenu.Overlay>
