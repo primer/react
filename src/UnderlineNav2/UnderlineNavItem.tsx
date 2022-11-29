@@ -104,8 +104,9 @@ export const UnderlineNavItem = forwardRef(
         setChildrenWidth({text, width: domRect.width})
         setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
 
-        if (selectedLink === undefined && ariaCurrent !== undefined && ariaCurrent !== 'false' && ariaCurrent !== false)
+        if (selectedLink === undefined && ariaCurrent !== undefined && ariaCurrent !== 'false' && ariaCurrent !== false) {
           setSelectedLink(ref as RefObject<HTMLElement>)
+        }
 
         // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
         if (selectedLinkText === text) {

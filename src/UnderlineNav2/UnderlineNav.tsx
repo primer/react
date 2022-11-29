@@ -91,7 +91,7 @@ const overflowEffect = (
         items.push(child)
       } else {
         const ariaCurrent = child.props['aria-current']
-        const isCurrent = ariaCurrent !== undefined && ariaCurrent !== 'false' && ariaCurrent !== false
+        const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
         // We need to make sure to keep the selected item always visible.
         if (isCurrent) {
           // If selected item couldn't make in to the list, we swap it with the last item in the list.
