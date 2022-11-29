@@ -1,4 +1,4 @@
-import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject} from 'react'
+import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject, useEffect} from 'react'
 import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -20,11 +20,12 @@ import {useSSRSafeId} from '@react-aria/ssr'
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-  align?: 'right'
   sx?: SxProp
+  // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
+  align?: 'right'
   /**
-   * loading state for all counters (to prevent multiple layout shifts)
+   * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
@@ -89,8 +90,10 @@ const overflowEffect = (
       if (index < numberOfListItems) {
         items.push(child)
       } else {
+        const ariaCurrent = child.props['aria-current']
+        const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
         // We need to make sure to keep the selected item always visible.
-        if (child.props.selected) {
+        if (isCurrent) {
           // If selected item couldn't make in to the list, we swap it with the last item in the list.
           const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
           // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
@@ -218,6 +221,29 @@ export const UnderlineNav = forwardRef(
       actions: []
     })
 
+    /*
+     * This is needed to make sure responsiveProps.items and ResponsiveProps.actions are updated when children are changed
+     * Particually when an item is selected. It adds 'aria-current="page"' attribute to the child and we need to make sure
+     * responsiveProps.items and ResponsiveProps.actions are updated with that attribute
+     */
+    useEffect(() => {
+      const childArray = getValidChildren(children)
+
+      const updatedItems = responsiveProps.items.map(item => {
+        return childArray.find(child => child.key === item.key) || item
+      })
+
+      const updatedActions = responsiveProps.actions.map(action => {
+        return childArray.find(child => child.key === action.key) || action
+      })
+
+      setResponsiveProps({
+        items: updatedItems,
+        actions: updatedActions
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [children])
+
     const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
       setResponsiveProps(props)
       setIconsVisible(displayIcons)
@@ -332,7 +358,7 @@ export const UnderlineNav = forwardRef(
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props
                     return (
-                      <Box key={index} as="li">
+                      <Box key={actionElementChildren} as="li">
                         <ActionList.Item
                           {...actionElementProps}
                           as={action.props.as || 'a'}
