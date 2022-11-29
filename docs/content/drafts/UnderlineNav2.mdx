@@ -4,7 +4,7 @@ componentId: underline_nav_2
 status: Draft
 description: Use an underlined nav to allow tab like navigation with overflow behaviour in your UI.
 source: https://github.com/primer/react/tree/main/src/UnderlineNav2
-storybook: '/react/storybook/?path=/story/components-underlinenav'
+storybook: '/react/storybook/?path=/story/drafts-components-underlinenav--playground'
 ---
 
 ```js
@@ -17,7 +17,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 ```jsx live drafts
 <UnderlineNav aria-label="Repository">
-  <UnderlineNav.Item selected>Code</UnderlineNav.Item>
+  <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
   <UnderlineNav.Item>Issues</UnderlineNav.Item>
   <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
 </UnderlineNav>
@@ -27,7 +27,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 
 ```jsx live drafts
 <UnderlineNav aria-label="Repository">
-  <UnderlineNav.Item selected icon={CodeIcon}>
+  <UnderlineNav.Item aria-current="page" icon={CodeIcon}>
     Code
   </UnderlineNav.Item>
   <UnderlineNav.Item icon={IssueOpenedIcon} counter={30}>
@@ -71,7 +71,7 @@ const Navigation = () => {
           <UnderlineNav.Item
             key={item.navigation}
             icon={item.icon}
-            selected={index === selectedIndex}
+            aria-current={index === selectedIndex ? 'page' : undefined}
             onSelect={e => {
               setSelectedIndex(index)
               e.preventDefault()
@@ -92,7 +92,7 @@ render(<Navigation />)
 
 ```jsx live drafts
 <UnderlineNav aria-label="Repository" loadingCounters={true}>
-  <UnderlineNav.Item counter={4} selected>
+  <UnderlineNav.Item counter={4} aria-current="page">
     Code
   </UnderlineNav.Item>
   <UnderlineNav.Item counter={44}>Issues</UnderlineNav.Item>
@@ -108,7 +108,7 @@ import {UnderlineNav} from '@primer/react/drafts'
 const Navigation = () => {
   return (
     <UnderlineNav aria-label="Repository">
-      <UnderlineNav.Item as={Link} to="code" counter={4} selected>
+      <UnderlineNav.Item as={Link} to="code" counter={4} aria-current="page">
         Code
       </UnderlineNav.Item>
       <UnderlineNav.Item counter={44} as={Link} to="issues">
@@ -127,7 +127,11 @@ const Navigation = () => {
 ### UnderlineNav
 
 <PropsTable>
-  <PropsTableRow name="children" required type="UnderlineNav.Item[]" />
+  <PropsTableRow
+    name="afterSelect"
+    type="(event) => void"
+    description="The handler that gets called when a nav link child is selected"
+  />
   <PropsTableRow
     name="aria-label"
     type="string"
@@ -136,16 +140,12 @@ const Navigation = () => {
         'Scroll ${aria-label} left/right')
      "
   />
+  <PropsTableRow name="children" required type="UnderlineNav.Item[]" />
   <PropsTableRow
     name="loadingCounters"
     type="boolean"
     defaultValue="false"
     description="Whether the navigation items are in loading state. Component waits for all the counters to finish loading to prevent multiple layout shifts."
-  />
-  <PropsTableRow
-    name="afterSelect"
-    type="(event) => void"
-    description="The handler that gets called when a nav link child is selected"
   />
   <PropsTableSxRow />
 </PropsTable>
@@ -154,24 +154,45 @@ const Navigation = () => {
 
 <PropsTable>
   <PropsTableRow
+    name="aria-current"
+    type={`| 'page'
+| 'step'
+| 'location'
+| 'date'
+| 'time'
+| true
+| false`}
+    defaultValue="false"
+    description={
+      <>
+        Set <InlineCode>aria-current</InlineCode> to <InlineCode>"page"</InlineCode> to indicate that the item
+        represents the current page. Set <InlineCode>aria-current</InlineCode> to <InlineCode>"location"</InlineCode> to
+        indicate that the item represents the current location on a page. For more information about{' '}
+        <InlineCode>aria-current</InlineCode>, see{' '}
+        <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current">MDN</Link>.
+      </>
+    }
+  />
+
+  <PropsTableAsRow defaultElementType="a" />
+  <PropsTableRow name="counter" type="number" description="The number to display in the counter label." />
+  <PropsTableRow
     name="href"
     type="string"
     description="The URL that the item navigates to. 'href' is passed to the underlying '<a>' element. If 'as' is specified, the component may need different props and 'href' is ignored. (Required prop for the react router is 'to' for example)"
   />
   <PropsTableRow name="icon" type="Component" description="The leading icon comes before item label" />
-  <PropsTableRow name="selected" type="boolean" description="Whether the link is selected" />
   <PropsTableRow
     name="onSelect"
     type="(event) => void"
     description="The handler that gets called when a nav link is selected. For example, a manual route binding can be done here(I.e. 'navigate(href)' for the react router.)"
   />
-  <PropsTableRow
-    name="as"
-    type="string | React.ElementType"
-    defaultValue="a"
-    description="The underlying element to render — either a HTML element name or a React component."
+  <PropsTableBasePropRows
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
+    }
+    elementType="a"
   />
-  <PropsTableSxRow />
 </PropsTable>
 
 ## Status
@@ -184,9 +205,9 @@ const Navigation = () => {
     adaptsToScreenSizes: true,
     fullTestCoverage: false,
     usedInProduction: false,
-    usageExamplesDocumented: false,
-    hasStorybookStories: false,
-    designReviewed: false,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: true,
     a11yReviewed: false,
     stableApi: false,
     addressedApiFeedback: false,
