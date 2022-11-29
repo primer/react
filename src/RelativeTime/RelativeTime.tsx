@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {RelativeTimeElement} from '@github/time-elements'
+import {RelativeTimeElement} from '@github/relative-time-element'
 import {createComponent} from '@lit-labs/react'
 import {ComponentProps} from '../utils/types'
 import sx from '../sx'

@@ -54,7 +54,7 @@ const ESM_ONLY = new Set([
   '@github/combobox-nav',
   '@github/markdown-toolbar-element',
   '@github/paste-markdown',
-  '@github/time-elements',
+  '@github/relative-time-element',
   '@lit-labs/react'
 ])
 const dependencies = [
