@@ -104,7 +104,7 @@ export const UnderlineNavItem = forwardRef(
         setChildrenWidth({text, width: domRect.width})
         setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
 
-        if (selectedLink === undefined && ariaCurrent !== undefined && ariaCurrent !== 'false' && ariaCurrent !== false) {
+        if (selectedLink === undefined && Boolean(ariaCurrent) && ariaCurrent !== 'false') {
           setSelectedLink(ref as RefObject<HTMLElement>)
         }
 
