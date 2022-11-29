@@ -74,25 +74,30 @@ test.describe('Storybook', () => {
       for (const story of component.stories) {
         test.describe(story.name, () => {
           for (const theme of themes) {
-            test(`${theme} @vrt`, async ({page}) => {
-              await visit(page, {
-                id: story.id,
-                globals: {
-                  colorScheme: theme
-                }
+            test.describe(theme, () => {
+              test('default @vrt', async ({page}) => {
+                await visit(page, {
+                  id: story.id,
+                  globals: {
+                    colorScheme: theme
+                  }
+                })
+
+                // Default state
+                expect(await page.screenshot()).toMatchSnapshot(`${key}.${story.name}.${theme}.png`)
               })
 
-              // Default state
-              expect(await page.screenshot()).toMatchSnapshot(`${key} ${story.name}.${theme}.png`)
+              test('axe @aat', async ({page}) => {
+                await visit(page, {
+                  id: story.id,
+                  globals: {
+                    colorScheme: theme
+                  }
+                })
+                await expect(page).toHaveNoViolations()
+              })
             })
           }
-
-          test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id
-            })
-            await expect(page).toHaveNoViolations()
-          })
         })
       }
     })

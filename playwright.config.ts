@@ -22,7 +22,8 @@ const config: Config = {
     viewport: {
       // Large breakpoint
       // @see https://primer.style/primitives/spacing#breakpoints
-      width: 1012
+      width: 1012,
+      height: 768
     }
   },
   expect: {
