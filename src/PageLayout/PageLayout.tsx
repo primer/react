@@ -606,16 +606,15 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
     const MIN_PANE_WIDTH = 256 // 256px, related to `--pane-min-width CSS var.
-    const [maxPaneWidth, setMaxPaneWidth] = React.useState(0)
     const [minPercent, setMinPercent] = React.useState(0)
     const [maxPercent, setMaxPercent] = React.useState(0)
 
     const measuredRef = React.useCallback(() => {
       const maxPaneWidthDiffPixels = getComputedStyle(paneRef.current).getPropertyValue('--pane-max-width-diff')
+      const paneWidth = paneRef.current?.getBoundingClientRect().width
       const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
       const viewportWidth = window.innerWidth
       const maxPaneWidth = viewportWidth - maxPaneWidthDiff
-      setMaxPaneWidth(maxPaneWidth)
 
       const minPercent = Math.round((100 * MIN_PANE_WIDTH) / viewportWidth)
       setMinPercent(minPercent)
@@ -625,9 +624,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
       const widthPercent = Math.round((100 * paneWidth) / viewportWidth)
       setWidthPercent(widthPercent.toString())
-    }, [paneWidth])
+    }, [paneRef])
 
     const [widthPercent, setWidthPercent] = React.useState('')
+    const [prevPercent, setPrevPercent] = React.useState('')
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
       let diff = 0
@@ -646,12 +646,16 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       event.preventDefault()
       let percent = Number(widthPercent)
       if (Number.isNaN(percent)) {
-        percent = 0
-      } else if (percent > 100) {
+        percent = Number(prevPercent) || minPercent
+      } else if (percent > maxPercent) {
         percent = maxPercent
-      } else if (percent < 0) {
+      } else if (percent < minPercent) {
         percent = minPercent
       }
+
+      setWidthPercent(percent.toString())
+      // Cache previous valid percent.
+      setPrevPercent(percent.toString())
 
       updatePaneWidth((percent / 100) * window.innerWidth)
     }
