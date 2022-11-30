@@ -1,5 +1,8 @@
-import {Page, expect} from '@playwright/test'
+import {Page, expect, test} from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import {AxeResults} from 'axe-core'
+import path from 'node:path'
+import fs from 'node:fs'
 
 const defaultOptions = {
   rules: {
@@ -36,6 +39,8 @@ expect.extend({
       })
       .analyze()
 
+    saveResult(result)
+
     if (result.violations.length === 0) {
       return {
         pass: true
@@ -68,3 +73,26 @@ ${violations.join('\n\n')}`
     }
   }
 })
+
+function saveResult(result: AxeResults) {
+  const testInfo = test.info()
+  const resultsDir = testInfo.snapshotDir.replace(/snapshots/g, 'axe')
+
+  if (!fs.existsSync(resultsDir)) {
+    fs.mkdirSync(resultsDir, {
+      recursive: true
+    })
+  }
+
+  fs.writeFileSync(
+    path.join(
+      resultsDir,
+      path.format({
+        name: testInfo.titlePath.slice(1).join('-').replace(/ /g, '-'),
+        ext: '.json'
+      })
+    ),
+    JSON.stringify(result, null, 2),
+    'utf8'
+  )
+}

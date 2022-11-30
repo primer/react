@@ -9,7 +9,7 @@ export {}
 declare global {
   namespace PlaywrightTest {
     interface Matchers<R> {
-      toHaveNoViolations(options?: import('axe').RunOptions): Promise<R>
+      toHaveNoViolations(options?: import('axe-core').RunOptions): Promise<R>
     }
   }
 }
