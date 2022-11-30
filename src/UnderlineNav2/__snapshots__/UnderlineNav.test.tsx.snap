@@ -132,8 +132,8 @@ exports[`UnderlineNav renders consistently 1`] = `
   font-weight: 600;
   line-height: 1;
   border-radius: 20px;
-  color: #24292f;
   background-color: rgba(175,184,193,0.2);
+  color: #24292f;
 }
 
 .c8:empty {
@@ -206,6 +206,7 @@ exports[`UnderlineNav renders consistently 1`] = `
         className="c3"
       >
         <a
+          aria-current="page"
           className="c4"
           href="#"
           onClick={[Function]}
@@ -317,7 +318,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(120)
+                 
+                (120)
               </span>
             </span>
           </div>
@@ -384,7 +386,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(13)
+                 
+                (13)
               </span>
             </span>
           </div>
@@ -451,7 +454,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(5)
+                 
+                (5)
               </span>
             </span>
           </div>
@@ -490,7 +494,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(4)
+                 
+                (4)
               </span>
             </span>
           </div>
@@ -557,7 +562,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(9)
+                 
+                (9)
               </span>
             </span>
           </div>
@@ -647,7 +653,8 @@ exports[`UnderlineNav renders consistently 1`] = `
               <span
                 className="c0"
               >
-                &nbsp;(10)
+                 
+                (10)
               </span>
             </span>
           </div>

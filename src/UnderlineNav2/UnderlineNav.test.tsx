@@ -60,7 +60,7 @@ const ResponsiveUnderlineNav = ({
           <UnderlineNav.Item
             key={item.navigation}
             icon={item.icon}
-            selected={item.navigation === selectedItemText}
+            aria-current={item.navigation === selectedItemText ? 'page' : undefined}
             counter={item.counter}
           >
             {item.navigation}
@@ -119,7 +119,7 @@ describe('UnderlineNav', () => {
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
-        <UnderlineNav.Item selected onSelect={onSelect}>
+        <UnderlineNav.Item aria-current="page" onSelect={onSelect}>
           Item 3
         </UnderlineNav.Item>
       </UnderlineNav>
@@ -136,10 +136,17 @@ describe('UnderlineNav', () => {
   })
   it('respects counter prop', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
-    const item = getByRole('link', {name: 'Issues &nbsp;(120)'})
+    const item = getByRole('link', {name: 'Issues (120)'})
     const counter = item.getElementsByTagName('span')[3]
-    expect(counter.className).toContain('CounterLabel')
     expect(counter.textContent).toBe('120')
+    expect(counter).toHaveAttribute('aria-hidden', 'true')
+  })
+  it('renders the content of visually hidden span properly for screen readers', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Issues (120)'})
+    const counter = item.getElementsByTagName('span')[4]
+    // non breaking space unified code
+    expect(counter.textContent).toBe('\u00A0(120)')
   })
   it('respects loadingCounters prop', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)
@@ -162,7 +169,7 @@ describe('Keyboard Navigation', () => {
   it('should move focus to the next/previous item on the list with the tab key', async () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const item = getByRole('link', {name: 'Code'})
-    const nextItem = getByRole('link', {name: 'Issues &nbsp;(120)'})
+    const nextItem = getByRole('link', {name: 'Issues (120)'})
     const user = userEvent.setup()
     await user.tab() // tab into the story, this should focus on the first link
     expect(item).toEqual(document.activeElement) // check if the first item is focused

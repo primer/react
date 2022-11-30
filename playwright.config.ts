@@ -15,10 +15,16 @@ const config: Config = {
   outputDir: path.join(__dirname, '.playwright', 'results'),
   snapshotDir: path.join(__dirname, '.playwright', 'snapshots'),
 
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
   use: {
-    screenshot: 'only-on-failure'
+    screenshot: 'only-on-failure',
+    viewport: {
+      // Large breakpoint
+      // @see https://primer.style/primitives/spacing#breakpoints
+      width: 1012,
+      height: 768
+    }
   },
   expect: {
     toHaveScreenshot: {
