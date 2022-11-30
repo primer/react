@@ -22,13 +22,17 @@ const defaultOptions = {
 }
 
 expect.extend({
-  async toHaveNoViolations(page: Page, options = {}) {
+  async toHaveNoViolations(page: Page, options = {rules: {}}) {
     // @ts-ignore Page from @playwright/test should satisfy Page from
     // playwright-core
     const result = await new AxeBuilder({page})
       .options({
         ...defaultOptions,
-        ...options
+        ...options,
+        rules: {
+          ...defaultOptions.rules,
+          ...options.rules
+        }
       })
       .analyze()
 

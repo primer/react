@@ -25,7 +25,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -53,7 +57,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -81,7 +89,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -109,7 +121,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -137,7 +153,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -165,7 +185,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -193,7 +217,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -221,7 +249,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -249,7 +281,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -277,7 +313,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -305,7 +345,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -333,7 +377,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -361,7 +409,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }
@@ -389,7 +441,11 @@ test.describe('ActionList', () => {
               colorScheme: theme
             }
           })
-          await expect(page).toHaveNoViolations()
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': theme !== 'dark_dimmed'
+            }
+          })
         })
       })
     }

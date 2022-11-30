@@ -97,7 +97,11 @@ for (const [component, info] of components) {
             colorScheme: theme
           }
         })
-        await expect(page).toHaveNoViolations()
+        await expect(page).toHaveNoViolations({
+          rules: {
+            'color-contrast': theme !== 'dark_dimmed'
+          },
+        })
       })
     });
   }
