@@ -10,7 +10,7 @@ type ControllableStateOptions<T> = {
    * The default value used for the state. This will be
    * the fallback value used if `value` is not defined.
    * */
-  defaultValue: T
+  defaultValue: T | (() => T)
   /**
    * A controlled value. Omitting this means that the state is uncontrolled.
    */

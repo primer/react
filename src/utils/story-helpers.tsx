@@ -4,10 +4,14 @@ import {createGlobalStyle} from 'styled-components'
 import {ComponentProps} from './types'
 import {ArgTypes} from '@storybook/react'
 import {InputType} from '@storybook/csf'
+import {Icon} from '@primer/octicons-react'
 
 // we don't import StoryContext from storybook because of exports that conflict
 // with primer/react more: https://github.com/primer/react/runs/6129115026?check_suite_focus=true
-type StoryContext = Record<string, unknown> & {globals: {colorScheme: string}; parameters: Record<string, unknown>}
+type StoryContext = Record<string, unknown> & {
+  globals: {colorScheme: string; showSurroundingElements?: boolean}
+  parameters: Record<string, unknown>
+}
 
 type CheckboxOrRadioGroupWrapperArgs = ComponentProps<typeof CheckboxGroup>
 type CheckboxOrRadioGroupLabelArgs = ComponentProps<typeof CheckboxGroup.Label> & {
@@ -53,7 +57,7 @@ const GlobalStyleMultiTheme = createGlobalStyle`
 
 export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryContext>>, context: StoryContext) => {
   // used for testing ThemeProvider.stories.tsx
-  if (context.parameters.disableThemeDecorator) return <Story {...context} />
+  if (context.parameters.disableThemeDecorator) return Story(context)
 
   const {colorScheme} = context.globals
 
@@ -78,9 +82,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
                   color: 'fg.default'
                 }}
               >
-                <div id={`html-addon-root-${scheme}`}>
-                  <Story {...context} />
-                </div>
+                <div id={`html-addon-root-${scheme}`}>{Story(context)}</div>
               </Box>
             </BaseStyles>
           </ThemeProvider>
@@ -93,9 +95,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
     <ThemeProvider colorMode="day" dayScheme={colorScheme}>
       <GlobalStyle />
       <BaseStyles>
-        <div id="html-addon-root">
-          <Story {...context} />
-        </div>
+        <div id="html-addon-root">{Story(context)}</div>
       </BaseStyles>
     </ThemeProvider>
   )
@@ -110,7 +110,8 @@ export const toolbarTypes = {
       icon: 'photo',
       items: [...Object.keys(theme.colorSchemes), 'all'],
       title: 'Color scheme'
-    }
+    },
+    showSurroundingElements: {}
   }
 }
 
@@ -334,3 +335,35 @@ export const getFormControlArgsByChildComponent = ({
   captionArgs: {children: captionChildren},
   validationArgs: {children: validationChildren, variant}
 })
+
+// Use this function for icon options in the controls. Desired icons are passed in as an array of Octicons
+export const OcticonArgType = (iconList: Icon[]) => {
+  const icons = iconList.reduce<Record<string, Icon>>((obj, icon) => {
+    obj[icon.displayName || 'Icon'] = icon
+    return obj
+  }, {})
+
+  return {
+    options: Object.keys(icons),
+    control: {
+      type: 'select'
+    },
+    mapping: icons
+  }
+}
+
+export const withSurroundingElements = (
+  Story: React.FC<React.PropsWithChildren<StoryContext>>,
+  context: StoryContext
+) => {
+  const showSurroundingElements =
+    context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'
+
+  return (
+    <>
+      {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+      {Story(context)}
+      {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+    </>
+  )
+}

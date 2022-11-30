@@ -1,4 +1,4 @@
-import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject} from 'react'
+import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefObject, useEffect} from 'react'
 import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
@@ -11,8 +11,6 @@ import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menu
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 import {Button} from '../Button'
-import {useFocusZone} from '../hooks/useFocusZone'
-import {FocusKeys} from '@primer/behaviors'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
@@ -22,11 +20,12 @@ import {useSSRSafeId} from '@react-aria/ssr'
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-  align?: 'right'
   sx?: SxProp
+  // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
+  align?: 'right'
   /**
-   * loading state for all counters (to prevent multiple layout shifts)
+   * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
@@ -57,7 +56,6 @@ const overflowEffect = (
   if (childWidthArray.length === 0) {
     updateListAndMenu({items: childArray, actions: []}, iconsVisible)
   }
-
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
   // We need to take more menu width into account when calculating the number of items possible
@@ -91,19 +89,22 @@ const overflowEffect = (
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
         items.push(child)
-        // We need to make sure to keep the selected item always visible.
-      } else if (child.props.selected) {
-        // If selected item can't make it to the list, we swap it with the last item in the list.
-        const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
-        // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
-        const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
-        actions.push(propsectiveAction)
       } else {
-        actions.push(child)
+        const ariaCurrent = child.props['aria-current']
+        const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
+        // We need to make sure to keep the selected item always visible.
+        if (isCurrent) {
+          // If selected item couldn't make in to the list, we swap it with the last item in the list.
+          const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
+          // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
+          const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
+          actions.push(propsectiveAction)
+        } else {
+          actions.push(child)
+        }
       }
     }
   }
-
   updateListAndMenu({items, actions}, iconsVisible)
 }
 
@@ -124,7 +125,6 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
       sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
     }
   }
-
   return breakpoint
 }
 
@@ -221,6 +221,29 @@ export const UnderlineNav = forwardRef(
       actions: []
     })
 
+    /*
+     * This is needed to make sure responsiveProps.items and ResponsiveProps.actions are updated when children are changed
+     * Particually when an item is selected. It adds 'aria-current="page"' attribute to the child and we need to make sure
+     * responsiveProps.items and ResponsiveProps.actions are updated with that attribute
+     */
+    useEffect(() => {
+      const childArray = getValidChildren(children)
+
+      const updatedItems = responsiveProps.items.map(item => {
+        return childArray.find(child => child.key === item.key) || item
+      })
+
+      const updatedActions = responsiveProps.actions.map(action => {
+        return childArray.find(child => child.key === action.key) || action
+      })
+
+      setResponsiveProps({
+        items: updatedItems,
+        actions: updatedActions
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [children])
+
     const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
       setResponsiveProps(props)
       setIconsVisible(displayIcons)
@@ -247,7 +270,8 @@ export const UnderlineNav = forwardRef(
       const childArray = getValidChildren(children)
       const navWidth = resizeObserverEntries[0].contentRect.width
       const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-      overflowEffect(navWidth, moreMenuWidth, childArray, childWidthArray, noIconChildWidthArray, updateListAndMenu)
+      navWidth !== 0 &&
+        overflowEffect(navWidth, moreMenuWidth, childArray, childWidthArray, noIconChildWidthArray, updateListAndMenu)
     }, navRef as RefObject<HTMLElement>)
 
     if (!ariaLabel) {
@@ -263,11 +287,6 @@ export const UnderlineNav = forwardRef(
     const focusOnMoreMenuBtn = React.useCallback(() => {
       moreMenuBtnRef.current?.focus()
     }, [])
-
-    useFocusZone({
-      containerRef: backupRef,
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd | FocusKeys.Tab
-    })
 
     useOnEscapePress(
       (event: KeyboardEvent) => {
@@ -312,7 +331,7 @@ export const UnderlineNav = forwardRef(
           aria-label={ariaLabel}
           ref={navRef}
         >
-          <NavigationList sx={ulStyles} ref={listRef}>
+          <NavigationList sx={ulStyles} ref={listRef} role="list">
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
@@ -325,7 +344,9 @@ export const UnderlineNav = forwardRef(
                   onClick={onAnchorClick}
                   trailingIcon={TriangleDownIcon}
                 >
-                  More
+                  <Box as="span">
+                    More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                  </Box>
                 </Button>
                 <ActionList
                   selectionVariant="single"
@@ -337,7 +358,7 @@ export const UnderlineNav = forwardRef(
                   {actions.map((action, index) => {
                     const {children: actionElementChildren, ...actionElementProps} = action.props
                     return (
-                      <Box key={index} as="li">
+                      <Box key={actionElementChildren} as="li">
                         <ActionList.Item
                           {...actionElementProps}
                           as={action.props.as || 'a'}
@@ -356,7 +377,9 @@ export const UnderlineNav = forwardRef(
                               <LoadingCounter />
                             ) : (
                               actionElementProps.counter !== undefined && (
-                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                <Box as="span" data-component="counter">
+                                  <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                </Box>
                               )
                             )}
                           </Box>
@@ -373,3 +396,5 @@ export const UnderlineNav = forwardRef(
     )
   }
 )
+
+UnderlineNav.displayName = 'UnderlineNav'

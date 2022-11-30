@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
 import Heading from '../Heading'
-import DropdownButton from '../deprecated/Button'
+import {Button} from '../Button'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {registerPortalRoot} from '../Portal'
 
@@ -50,7 +50,7 @@ const ButtonWithAnchoredOverlay = ({portalContainerName}: {portalContainerName?:
       onClose={() => setOpen(false)}
       width="small"
       height="auto"
-      renderAnchor={props => <DropdownButton {...props}>Kitten, please</DropdownButton>}
+      renderAnchor={props => <Button {...props}>Kitten, please</Button>}
       overlayProps={{portalContainerName}}
     >
       <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">

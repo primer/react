@@ -5,8 +5,8 @@ import {BaseStyles, Box, ThemeProvider} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import {ButtonInvisible} from '../deprecated/Button'
 import FormControl from '../FormControl'
+import {Button} from '../Button'
 import {ComponentProps} from '../utils/types'
 import {
   FormControlArgs,
@@ -700,7 +700,7 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
         height="xsmall"
         focusTrapSettings={{initialFocusRef: inputRef}}
         side="inside-top"
-        renderAnchor={props => <ButtonInvisible {...props}>open overlay</ButtonInvisible>}
+        renderAnchor={props => <Button {...props}>open overlay</Button>}
       >
         <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel" visuallyHidden>
           Pick tags

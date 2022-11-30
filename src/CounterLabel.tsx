@@ -1,50 +1,48 @@
-import styled from 'styled-components'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
+import React from 'react'
+import Box from './Box'
+import {BetterSystemStyleObject, SxProp, merge} from './sx'
+import VisuallyHidden from './_VisuallyHidden'
 
-type StyledCounterLabelProps = {
+export type CounterLabelProps = {
   scheme?: 'primary' | 'secondary'
 } & SxProp
 
-const colorStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
-  return {
-    color:
-      scheme === 'secondary'
-        ? get('colors.fg.default')(props)
-        : scheme === 'primary'
-        ? get('colors.fg.onEmphasis')(props)
-        : get('colors.fg.default')(props)
-  }
+const CounterLabel: React.FC<React.PropsWithChildren<CounterLabelProps>> = ({
+  scheme = 'secondary',
+  sx = {},
+  children,
+  ...props
+}) => {
+  return (
+    <>
+      <Box
+        as="span"
+        aria-hidden="true"
+        sx={merge<BetterSystemStyleObject>(
+          {
+            display: 'inline-block',
+            padding: '2px 5px',
+            fontSize: 0,
+            fontWeight: 'bold',
+            lineHeight: 'condensedUltra',
+            borderRadius: '20px',
+            backgroundColor: scheme === 'primary' ? 'neutral.emphasis' : 'neutral.muted',
+            color: scheme === 'primary' ? 'fg.onEmphasis' : 'fg.default',
+            '&:empty': {
+              display: 'none'
+            }
+          },
+          sx
+        )}
+        {...props}
+      >
+        {children}
+      </Box>
+      <VisuallyHidden>&nbsp;{`(${children})`}</VisuallyHidden>
+    </>
+  )
 }
 
-const bgStyles = ({scheme, ...props}: StyledCounterLabelProps) => {
-  return {
-    backgroundColor:
-      scheme === 'secondary'
-        ? get('colors.neutral.muted')(props)
-        : scheme === 'primary'
-        ? get('colors.neutral.emphasis')(props)
-        : get('colors.neutral.muted')(props)
-  }
-}
+CounterLabel.displayName = 'CounterLabel'
 
-const CounterLabel = styled.span<StyledCounterLabelProps>`
-  display: inline-block;
-  padding: 2px 5px;
-  font-size: ${get('fontSizes.0')};
-  font-weight: ${get('fontWeights.bold')};
-  line-height: ${get('lineHeights.condensedUltra')};
-  border-radius: 20px;
-  ${colorStyles};
-  ${bgStyles};
-
-  &:empty {
-    display: none;
-  }
-
-  ${sx};
-`
-
-export type CounterLabelProps = ComponentProps<typeof CounterLabel>
 export default CounterLabel
