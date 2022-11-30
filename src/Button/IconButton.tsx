@@ -4,8 +4,12 @@ import {useTheme} from '../ThemeProvider'
 import Box from '../Box'
 import {IconButtonProps, StyledButton} from './types'
 import {getBaseStyles, getSizeStyles, getVariantStyles} from './styles'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwardedRef): JSX.Element => {
+const IconButton: PolymorphicForwardRefComponent<'button', IconButtonProps> = forwardRef<
+  HTMLButtonElement,
+  IconButtonProps
+>((props, forwardedRef): JSX.Element => {
   const {variant = 'default', size = 'medium', sx: sxProp = {}, icon: Icon, ...rest} = props
   const {theme} = useTheme()
   const sxStyles = merge.all([
