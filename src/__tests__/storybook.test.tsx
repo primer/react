@@ -25,26 +25,24 @@ const components = Object.entries(
 )
 
 describe.each(components)('%s', (_component, stories) => {
-  for (const [_name, story, type] of stories) {
-    describe(story.default.title, () => {
+  for (const [, story, type] of stories) {
+    describe(`${story.default.title}`, () => {
       test('title follows naming convention', () => {
-        if (type === 'default') {
-          // Matches:
-          // - title: 'Components/TreeView'
-          // Does not match:
-          // -  title: 'Component/TreeView/Features'
-          // -  title: 'TreeView'
-          expect(story.default.title).toMatch(/Components\/\w+/)
-        }
+        // Matches:
+        // - title: 'Components/TreeView'
+        // Does not match:
+        // -  title: 'Component/TreeView/Features'
+        // -  title: 'TreeView'
+        const defaultTitlePattern = /Components\/\w+/
 
-        if (type === 'feature') {
-          // Matches:
-          // - title: 'Components/TreeView/Features'
-          // Does not match:
-          // -  title: 'Component/TreeView'
-          // -  title: 'TreeView'
-          expect(story.default.title).toMatch(/Components\/\w+\/Features/)
-        }
+        // Matches:
+        // - title: 'Components/TreeView/Features'
+        // Does not match:
+        // -  title: 'Component/TreeView'
+        // -  title: 'TreeView'
+        const featureTitlePattern = /Components\/\w+\/Features/
+
+        expect(story.default.title).toMatch(type === 'default' ? defaultTitlePattern : featureTitlePattern)
       })
 
       if (type === 'default') {
