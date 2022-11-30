@@ -8,17 +8,44 @@ jobs:
     if:  github.head_ref == 'changeset-release/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Ask PagerDuty for release conductor
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - name: Fetch user from pagerduty schedule
         id: pagerduty
-        uses: mxie/pagerduty-oncall-action@main
+        uses: actions/github-script@v5
         with:
-          token: ${{ secrets.PAGERDUTY_API_KEY_SID }}
-          schedule-id: P3IIVC4
+          script: |
+            const fetch = require('node-fetch');
+            const today = new Date().toISOString().slice(0, 10) // format: 2022-11-24
+            const url = `https://api.pagerduty.com/schedules/P3IIVC4?since=${today}&until=${today}`
+            const response = await fetch(url, {
+              headers: {
+               'Content-Type': 'application/json',
+               'Authorization': 'Token token=${{ secrets.PAGERDUTY_API_KEY_SID }}'
+              }
+            })
+            const data = await response.json()            
+            return data.schedule.final_schedule.rendered_schedule_entries[0].user.summary
+            
+      - run: echo ${{ steps.pagerduty.outputs.result }} is release conductor
 
-      - run: echo ${{ steps.pagerduty.outputs.person }} is release conductor
-
-      - name: Assign pull request to release conductor
-        uses: hkusu/review-assign-action@v1
+      - name: Add user as assignee and reviewer
+        uses: actions/github-script@v6
         with:
-          assignees: ${{ steps.pagerduty.outputs.person }}
-          reviewers: ${{ steps.pagerduty.outputs.person }}
+          script: |
+            github.rest.issues.addAssignees({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              assignees: [${{ steps.pagerduty.outputs.result }}]
+            })
+            
+            github.rest.pulls.requestReviewers({
+              pull_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              reviewers: [${{ steps.pagerduty.outputs.result }}]
+            })

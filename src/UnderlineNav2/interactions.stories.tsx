@@ -123,6 +123,11 @@ KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLEleme
   await delay(1000)
   expect(selectedItem).toHaveAttribute('aria-current', 'page')
   canvasElement.style.width = '500px'
+  await delay(1000)
+  const lastListItem = canvas.getByRole('list').children[2].children[0]
+  const menuListItem = canvas.getByRole('link', {name: 'Settings (10)'})
+  // expect Settings be the last element on the list.
+  expect(lastListItem).toEqual(menuListItem)
 }
 
 export {KeyboardNavigation, SelectAMenuItem, KeepSelectedItemVisible}
