@@ -99,7 +99,9 @@ for (const [component, info] of components) {
         })
         await expect(page).toHaveNoViolations({
           rules: {
-            'color-contrast': theme !== 'dark_dimmed'
+            'color-contrast': {
+              enabled: theme !== 'dark_dimmed'
+            },
           },
         })
       })

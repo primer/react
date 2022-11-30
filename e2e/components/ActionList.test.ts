@@ -27,7 +27,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -59,7 +61,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -91,7 +95,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -123,7 +129,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -155,7 +163,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -187,7 +197,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -219,7 +231,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -251,7 +265,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -283,7 +299,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -315,7 +333,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -347,7 +367,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -379,7 +401,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -411,7 +435,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
@@ -443,7 +469,9 @@ test.describe('ActionList', () => {
           })
           await expect(page).toHaveNoViolations({
             rules: {
-              'color-contrast': theme !== 'dark_dimmed'
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
             }
           })
         })
