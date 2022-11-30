@@ -47,7 +47,7 @@ export const PullRequestPage = () => {
         </Box>
       </Box>
       <UnderlineNav aria-label="Pull Request">
-        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="0" selected>
+        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="0" aria-current="page">
           Conversation
         </UnderlineNav.Item>
         <UnderlineNav.Item counter={3} icon={CommitIcon}>
@@ -85,7 +85,7 @@ export const ReposPage = () => {
         <UnderlineNav.Item
           key={item.navigation}
           icon={item.icon}
-          selected={index === selectedIndex}
+          aria-current={index === selectedIndex ? 'page' : undefined}
           onSelect={event => {
             event.preventDefault()
             setSelectedIndex(index)
@@ -149,7 +149,7 @@ export const ProfilePage = () => {
             <UnderlineNav.Item
               key={item.navigation}
               icon={item.icon}
-              selected={index === selectedIndex}
+              aria-current={index === selectedIndex ? 'page' : undefined}
               onSelect={event => {
                 event.preventDefault()
                 setSelectedIndex(index)
