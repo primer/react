@@ -618,7 +618,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         const paneWidth = paneRef.current.getBoundingClientRect().width
         const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
         const viewportWidth = window.innerWidth
-        const maxPaneWidth = viewportWidth - maxPaneWidthDiff
+        const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
 
         const minPercent = Math.round((100 * MIN_PANE_WIDTH) / viewportWidth)
         setMinPercent(minPercent)
