@@ -1,21 +1,31 @@
 import React from 'react'
 import {CounterLabel} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
-import theme from '../theme'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 
 expect.extend(toHaveNoViolations)
 
 describe('CounterLabel', () => {
-  behavesAsComponent({Component: CounterLabel})
+  behavesAsComponent({Component: CounterLabel, options: {skipAs: true, skipSx: true}})
 
   checkExports('CounterLabel', {
     default: CounterLabel
   })
 
   it('renders a <span>', () => {
-    expect(render(<CounterLabel />).type).toEqual('span')
+    const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
+    expect(container.firstChild?.nodeName).toEqual('SPAN')
+  })
+
+  it('renders the counter correctly', () => {
+    const {container} = HTMLRender(<CounterLabel>12K</CounterLabel>)
+    expect(container.firstChild).toHaveTextContent('12K')
+  })
+
+  it('renders the visually visible span with "aria-hidden=true"', () => {
+    const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
+    expect(container.firstChild).toHaveAttribute('aria-hidden', 'true')
   })
 
   it('should have no axe violations', async () => {
@@ -25,24 +35,19 @@ describe('CounterLabel', () => {
   })
 
   it('respects the primary "scheme" prop', () => {
-    expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule(
-      'color',
-      theme.colorSchemes.light.colors.fg?.onEmphasis.trim()
-    )
-    expect(render(<CounterLabel scheme="primary" />)).toHaveStyleRule(
-      'background-color',
-      theme.colorSchemes.light.colors.neutral?.emphasis.trim()
-    )
+    const {container} = HTMLRender(<CounterLabel scheme="primary">1234</CounterLabel>)
+    expect(container).toMatchSnapshot()
   })
 
-  it('respects the secondary "scheme" prop', () => {
-    expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule(
-      'color',
-      theme.colorSchemes.light.colors.fg?.default.trim()
-    )
-    expect(render(<CounterLabel scheme="secondary" />)).toHaveStyleRule(
-      'background-color',
-      theme.colorSchemes.light.colors.neutral?.muted
-    )
+  it('renders with secondary scheme when no "scheme" prop is provided', () => {
+    const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
+    expect(container).toMatchSnapshot()
+  })
+
+  it('should render visually hidden span correctly for screen readers', () => {
+    const {container} = HTMLRender(<CounterLabel>1234</CounterLabel>)
+    // Second span renders as visually hidden for screen readers and the content is &nbsp;(counter).
+    // Non-breaking space is used because browsers tend to strip a standard space.
+    expect(container.children[1].textContent).toEqual('\u00a0(1234)')
   })
 })
