@@ -112,7 +112,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1]
+        shard: [1, 2]
     needs: storybook
     steps:
       - uses: actions/checkout@v3
@@ -136,7 +136,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        run: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/1"
+        run: npx playwright test --grep @vrt --shard="${{ matrix.shard }}/2"
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
@@ -155,7 +155,7 @@ jobs:
         if: ${{ needs.vrt-runner.result != 'success' }}
         run: exit 1
 
-  avt:
+  aat:
     runs-on: ubuntu-latest
     needs: storybook
     steps:
@@ -179,13 +179,13 @@ jobs:
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
-      - name: Run AVT
-        run: npx playwright test --grep @avt
+      - name: Run AAT
+        run: npx playwright test --grep @aat
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
-          name: avt
+          name: aat
           path: .playwright/report
