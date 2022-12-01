@@ -114,17 +114,17 @@ available, check out the table below.
 
 | Task                                                  | Command                                         |
 | :---------------------------------------------------- | :---------------------------------------------- |
-| Run playwright tests                                  | `scripts/test:e2e`                              |
-| Run a specific test                                   | `scripts/test:e2e TestName`                     |
+| Run playwright tests                                  | `scripts/test-e2e`                              |
+| Run a specific test                                   | `scripts/test-e2e TestName`                     |
 | View the report from a test run                       | `npx playwright show-report .playwright/report` |
-| Update snapshots                                      | `scripts/test:e2e --update-snapshots`           |
+| Update snapshots                                      | `scripts/test-e2e --update-snapshots`           |
 | Debug playwright tests                                | `npx playwright test --debug`                   |
 | Run playwright with browser visible                   | `npx playwright test --headed`                  |
-| Run playwright tests that match a specific tag        | `scripts/test:e2e --grep @tag-name`             |
-| Run playwright tests that do not match a specific tag | `scripts/test:e2e --grep-invert @tag-name`      |
+| Run playwright tests that match a specific tag        | `scripts/test-e2e --grep @tag-name`             |
+| Run playwright tests that do not match a specific tag | `scripts/test-e2e --grep-invert @tag-name`      |
 
 > **Note**
-> The `scripts/test:e2e` file is a helper to run Playwright in an environment
+> The `scripts/test-e2e` file is a helper to run Playwright in an environment
 > that mirrors CI. You can optionally run these tests natively on your machine
 > using `npx playwright test` if you would like to interact or debug tests.
 > However, screenshots will not match and new ones will need to be generated on
@@ -160,7 +160,7 @@ After starting storybook, you can run all of the Visual Regression Tests with
 the following command:
 
 ```bash
-script/test:e2e --grep @vrt
+script/test-e2e --grep @vrt
 ```
 
 This will run each test within an environment that mirrors what is used in CI.
@@ -184,7 +184,7 @@ Tests with
 the following command:
 
 ```bash
-script/test:e2e --grep @avt
+script/test-e2e --grep @avt
 ```
 
 ## Continous Integration

@@ -1,6 +1,8 @@
+axe/
 report/
 results/
 results.json
-screenshots/
-# Only include screenshots from Linux as these are used in CI
-!screenshots/components/*/*-linux.png
+
+# Only include snapshots from Linux as these are used in CI
+*.png
+!*-linux.png
