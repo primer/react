@@ -69,6 +69,29 @@ const components = new Map([
         }
       ]
     }
+  ],
+  [
+    'TreeView',
+    {
+      stories: [
+        {
+          id: 'components-treeview--default',
+          name: 'Default'
+        },
+        {
+          id: 'components-treeview-features--empty-directories',
+          name: 'Empty Directories'
+        },
+        {
+          id: 'components-treeview-features--files',
+          name: 'Files'
+        },
+        {
+          id: 'components-treeview-features--files-changed',
+          name: 'Files Changed'
+        }
+      ]
+    }
   ]
 ])
 
