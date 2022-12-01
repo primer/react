@@ -71,7 +71,8 @@
     "!lib/__tests__",
     "!lib/stories",
     "!lib-esm/__tests__",
-    "!lib-esm/stories"
+    "!lib-esm/stories",
+    "generated"
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
