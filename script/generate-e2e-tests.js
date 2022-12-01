@@ -82,6 +82,45 @@ const components = new Map([
     }
   ],
   [
+    'UnderlineNav',
+    {
+      stories: [
+        {
+          id: 'drafts-components-underlinenav-examples--profile-page',
+          name: 'Profile Page'
+        },
+        {
+          id: 'drafts-components-underlinenav-examples--pull-request-page',
+          name: 'Pull Request Page'
+        },
+        {
+          id: 'drafts-components-underlinenav-examples--repos-page',
+          name: 'Repos Page'
+        },
+        {
+          id: 'drafts-components-underlinenav-features--counters-loading-state',
+          name: 'Counters Loading State'
+        },
+        {
+          id: 'drafts-components-underlinenav-features--default',
+          name: 'Default'
+        },
+        {
+          id: 'drafts-components-underlinenav-features--overflow-template',
+          name: 'Overflow Template'
+        },
+        {
+          id: 'drafts-components-underlinenav-features--with-counter-labels',
+          name: 'With Counter Labels'
+        },
+        {
+          id: 'drafts-components-underlinenav-features--with-icons',
+          name: 'With Icons'
+        }
+      ]
+    }
+  ],
+  [
     'TreeView',
     {
       stories: [
