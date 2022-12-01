@@ -71,6 +71,17 @@ const components = new Map([
     }
   ],
   [
+    'RadioGroup',
+    {
+      stories: [
+        {
+          id: 'components-forms-radiogroup-examples--default',
+          name: 'Default'
+        }
+      ]
+    }
+  ],
+  [
     'TreeView',
     {
       stories: [
@@ -97,6 +108,11 @@ const components = new Map([
 
 for (const [component, info] of components) {
   const filepath = path.join(E2E_DIR, path.format({name: `${component}.test`, ext: '.ts'}))
+
+  if (fs.existsSync(filepath)) {
+    continue
+  }
+
   const stories = info.stories.map(story => {
     return `test.describe('${story.name}', () => {
   for (const theme of themes) {
