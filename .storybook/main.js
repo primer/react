@@ -7,7 +7,7 @@ module.exports = {
     {name: '@storybook/addon-essentials', options: {backgrounds: false}},
     '@storybook/addon-storysource',
     '@storybook/addon-interactions',
-    '@storybook/addon-a11y',
+    // '@storybook/addon-a11y',
     '@storybook/addon-links',
     {
       name: 'storybook-addon-turbo-build',

@@ -644,15 +644,15 @@ export const NestedScrollContainer: Story = () => {
 export const StressTest: Story = () => {
   return (
     <TreeView aria-label="Files">
-      {Array.from({length: 1000}).map((_, i) => (
-        <TreeView.Item key={i} id={`directory-${i}`}>
+      {Array.from({length: 10}).map((_, i) => (
+        <TreeView.Item key={i} id={`directory-${i}`} defaultExpanded>
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
           </TreeView.LeadingVisual>
           Directory {i}
           <TreeView.SubTree>
-            {Array.from({length: 100}).map((_, j) => (
-              <TreeView.Item key={i} id={`directory-${i}/file-${j}`}>
+            {Array.from({length: 1200}).map((_, j) => (
+              <TreeView.Item key={j} id={`directory-${i}/file-${j}`}>
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>

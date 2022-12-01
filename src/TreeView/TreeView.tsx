@@ -401,6 +401,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             // Prevent focus event from bubbling up to parent items
             event.stopPropagation()
           }}
+          style={{
+            contentVisibility: isSubTreeEmpty ? 'auto' : undefined,
+            // @ts-ignore CSS custom property
+            'contain-intrinsic-size': isSubTreeEmpty ? '2rem' : undefined
+          }}
         >
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
           <div
