@@ -76,7 +76,6 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         name={name}
         ref={ref}
         disabled={disabled}
-        aria-disabled={disabled ? 'true' : 'false'}
         checked={checked}
         aria-checked={checked ? 'true' : 'false'}
         required={required}
