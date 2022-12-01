@@ -1,5 +1,34 @@
 # @primer/components
 
+## 35.15.0
+
+### Minor Changes
+
+- [#2591](https://github.com/primer/react/pull/2591) [`764bf6b9`](https://github.com/primer/react/commit/764bf6b9789560e071506912abf033d8592ce052) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `useRefObjectAsForwardedRef` to public hooks
+
+- [#2618](https://github.com/primer/react/pull/2618) [`04683150`](https://github.com/primer/react/commit/046831500afb7915a9fd109536ad3bc873a109dc) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: expose aria-current in the API to enable it to be used as the selected status of UnderlineNav.Item
+
+### Patch Changes
+
+- [#2592](https://github.com/primer/react/pull/2592) [`d9c7290a`](https://github.com/primer/react/commit/d9c7290aa9ce31f975e03bfd2ed2cf433bba73fc) Thanks [@radglob](https://github.com/radglob)! - Delete `TreeView.LinkItem`. Use `TreeView.Item` and call a navigation function inside the `onSelect` callback instead:
+
+  ```diff
+  - <TreeView.LinkItem href="#">...
+  + <TreeView.Item onSelect={() => navigate('#')}>...
+  ```
+
+- [#2545](https://github.com/primer/react/pull/2545) [`eb30fdad`](https://github.com/primer/react/commit/eb30fdad958c9e9c8a8656f2fe1ca9416551e1ab) Thanks [@joshblack](https://github.com/joshblack)! - Update setTimeout in AutocompleteInput to cancel when unmounting
+
+- [#2615](https://github.com/primer/react/pull/2615) [`a7455696`](https://github.com/primer/react/commit/a7455696f8bcfd318d04fac777d72e73044fec64) Thanks [@Swiftwork](https://github.com/Swiftwork)! - Fix Windows checkout by removing unsupported colon in filename
+
+- [#2603](https://github.com/primer/react/pull/2603) [`22059e9f`](https://github.com/primer/react/commit/22059e9fb81d65f59b8d7908bcbc3fd0b0b93393) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Render non-breaking space properly for screen readers
+
+- [#2563](https://github.com/primer/react/pull/2563) [`3085fde0`](https://github.com/primer/react/commit/3085fde046bed4961c69ab1fde8d5f50fdc7aefb) Thanks [@josepmartins](https://github.com/josepmartins)! - Remove deprecated component instances in stories
+
+- [#2569](https://github.com/primer/react/pull/2569) [`0e7a6388`](https://github.com/primer/react/commit/0e7a63883e1733db38aba4e7934cd7d66d8fa219) Thanks [@nicolleromero](https://github.com/nicolleromero)! - Present MarkdownEditor from resizing when rendered in a condensed state
+
+- [#2604](https://github.com/primer/react/pull/2604) [`7e9e3678`](https://github.com/primer/react/commit/7e9e3678eb37e4ed65373706fd84543c367d427d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Accessibility improvements on CounterLabel for better screen reader announcing
+
 ## 35.14.2
 
 ### [Permalink to documentation](https://primer-d5e3dada59-13348165.drafts.github.io/)
