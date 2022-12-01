@@ -1,4 +1,4 @@
-import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject, RefObject} from 'react'
+import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
@@ -7,6 +7,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
