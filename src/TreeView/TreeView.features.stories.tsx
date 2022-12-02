@@ -644,14 +644,14 @@ export const NestedScrollContainer: Story = () => {
 export const StressTest: Story = () => {
   return (
     <TreeView aria-label="Files">
-      {Array.from({length: 10}).map((_, i) => (
-        <TreeView.Item key={i} id={`directory-${i}`} defaultExpanded>
+      {Array.from({length: 1000}).map((_, i) => (
+        <TreeView.Item key={i} id={`directory-${i}`}>
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
           </TreeView.LeadingVisual>
           Directory {i}
           <TreeView.SubTree>
-            {Array.from({length: 1200}).map((_, j) => (
+            {Array.from({length: 100}).map((_, j) => (
               <TreeView.Item key={j} id={`directory-${i}/file-${j}`}>
                 <TreeView.LeadingVisual>
                   <FileIcon />
@@ -668,6 +668,35 @@ export const StressTest: Story = () => {
 
 StressTest.parameters = {
   chromatic: {disableSnapshot: true},
+}
+
+export const ContainIntrinsicSize: Story = () => {
+  return (
+    <TreeView aria-label="Files">
+      {Array.from({length: 10}).map((_, i) => (
+        <TreeView.Item key={i} id={`directory-${i}`} defaultExpanded containIntrinsicSize="2rem">
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          Directory {i}
+          <TreeView.SubTree>
+            {Array.from({length: 1000}).map((_, j) => (
+              <TreeView.Item key={j} id={`directory-${i}/file-${j}`} containIntrinsicSize="2rem">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                File {j}
+              </TreeView.Item>
+            ))}
+          </TreeView.SubTree>
+        </TreeView.Item>
+      ))}
+    </TreeView>
+  )
+}
+
+ContainIntrinsicSize.parameters = {
+  chromatic: {disableSnapshot: true}
 }
 
 export default meta
