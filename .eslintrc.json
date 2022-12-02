@@ -104,6 +104,29 @@
           {
             "ts-ignore": "allow-with-description"
           }
+        ],
+        "@typescript-eslint/ban-types": [
+          "error",
+          {
+            "types": {
+              "React.StatelessComponent": {
+                "message": "Use React.FC instead, and define types for children based on usage. This is deprecated in types for React 18",
+                "fixWith": "React.FC"
+              },
+              "React.StatelessFunctionalComponent": {
+                "message": "Use React.FC instead, and define types for children based on usage. This is deprecated in types for React 18",
+                "fixWith": "React.FC"
+              },
+              "React.VoidFunctionalComponent": {
+                "message": "Use React.FC instead, and define types for children based on usage. This is deprecated in types for React 18",
+                "fixWith": "React.FC"
+              },
+              "React.VFC": {
+                "message": "Use React.FC instead, and define types for children based on usage. This is deprecated in types for React 18",
+                "fixWith": "React.FC"
+              }
+            }
+          }
         ]
       }
     },
