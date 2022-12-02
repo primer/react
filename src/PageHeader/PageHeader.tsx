@@ -16,21 +16,21 @@ const REGION_ORDER = {
 
 // Types that are shared between sub components
 export type sharedPropTypes = {
-  visible?: boolean | ResponsiveValue<boolean>
+  hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
 // Default state for the `visible` prop when a sub component is only visible on narrow viewport
-const onlyVisibleOnNarrowView = {
-  narrow: true,
-  regular: false,
-  wide: false
-}
-
-// Default state for the `visible` prop when a sub component is visible on regular and wide viewport
-const visibleOnRegularView = {
+const hiddenOnRegularAndWide = {
   narrow: false,
   regular: true,
   wide: true
+}
+
+// Default state for the `visible` prop when a sub component is visible on regular and wide viewport
+const hiddenOnNarrow = {
+  narrow: true,
+  regular: false,
+  wide: false
 }
 
 // Root
@@ -65,12 +65,12 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
 
 const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   children,
-  visible = onlyVisibleOnNarrowView,
+  hidden = hiddenOnRegularAndWide,
   sx = {}
 }) => {
-  const isVisible = useResponsiveValue(visible, false)
+  const isHidden = useResponsiveValue(hidden, false)
   const contentNavStyles = {
-    display: isVisible ? 'flex' : 'none',
+    display: isHidden ? 'none' : 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: '8px',
@@ -100,11 +100,11 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
       href,
       'aria-label': ariaLabel = `Back to ${children}`,
       as = 'a',
-      visible = onlyVisibleOnNarrowView
+      hidden = hiddenOnRegularAndWide
     },
     ref
   ) => {
-    const isVisible = useResponsiveValue(visible, false)
+    const isHidden = useResponsiveValue(hidden, false)
     return (
       <>
         <Link
@@ -114,7 +114,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           muted
           sx={merge<BetterSystemStyleObject>(
             {
-              display: isVisible ? 'flex' : 'none',
+              display: isHidden ? 'none' : 'flex',
               alignItems: 'center',
               // min touch target size 44px (20 + (12x2))
               lineHeight: '20px',
@@ -140,10 +140,10 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
 const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   children,
   sx = {},
-  visible = onlyVisibleOnNarrowView
+  hidden = hiddenOnRegularAndWide
 }) => {
-  const isVisible = useResponsiveValue(visible, false)
-  return <Box sx={merge<BetterSystemStyleObject>({display: isVisible ? 'flex' : 'none'}, sx)}>{children}</Box>
+  const isHidden = useResponsiveValue(hidden, false)
+  return <Box sx={merge<BetterSystemStyleObject>({display: isHidden ? 'none' : 'flex'}, sx)}>{children}</Box>
 }
 
 // ContextAreaActions
@@ -151,14 +151,14 @@ const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
 const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   children,
   sx = {},
-  visible = onlyVisibleOnNarrowView
+  hidden = hiddenOnRegularAndWide
 }) => {
-  const isVisible = useResponsiveValue(visible, false)
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          display: isVisible ? 'flex' : 'none',
+          display: isHidden ? 'none' : 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           gap: '8px',
@@ -177,12 +177,12 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
 // PageHeader.TitleArea Sub Components: PageHeader.LeadingAction, PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual, PageHeader.TrailingAction, PageHeader.Actions
 // PageHeader.LeadingAction and PageHeader.TrailingAction are only visible on regular viewports therefore they come as visible on narrow viewports and their visibility can be managed by their exposed `visible` prop
 // ---------------------------------------------------------------------
-const TitleArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, visible = true}) => {
-  const isVisible = useResponsiveValue(visible, false)
+const TitleArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
-        {display: isVisible ? 'flex' : 'none', flexDirection: 'row', alignItems: 'center', gap: '8px'},
+        {display: isHidden ? 'none' : 'flex', flexDirection: 'row', alignItems: 'center', gap: '8px'},
         sx
       )}
     >
@@ -194,27 +194,19 @@ const TitleArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children
 const LeadingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   children,
   sx = {},
-  visible = visibleOnRegularView
+  hidden = hiddenOnNarrow
 }) => {
-  const isVisible = useResponsiveValue(visible, true)
-  return <Box sx={merge<BetterSystemStyleObject>({display: isVisible ? 'flex' : 'none'}, sx)}>{children}</Box>
+  const isHidden = useResponsiveValue(hidden, false)
+  return <Box sx={merge<BetterSystemStyleObject>({display: isHidden ? 'none' : 'flex'}, sx)}>{children}</Box>
 }
 
-const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
-  children,
-  sx = {},
-  visible = {
-    narrow: true,
-    regular: false,
-    wide: false
-  }
-}) => {
-  const isVisible = useResponsiveValue(visible, false)
+const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          display: isVisible ? 'flex' : 'none'
+          display: isHidden ? 'none' : 'flex'
         },
         sx
       )}
@@ -234,11 +226,11 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
   children,
   sx = {},
   variant = 'medium',
-  visible = true,
+  hidden = false,
   as = 'h3'
 }) => {
   const currentVariant = useResponsiveValue(variant, 'medium')
-  const isVisible = useResponsiveValue(visible, true)
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     // TODO: use primitives for font styles
     <Heading
@@ -260,7 +252,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
             medium: '400',
             subtitle: '400'
           }[currentVariant],
-          display: isVisible ? 'flex' : 'none'
+          display: isHidden ? 'none' : 'flex'
         },
         sx
       )}
@@ -269,21 +261,13 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
     </Heading>
   )
 }
-const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
-  children,
-  sx = {},
-  visible = {
-    narrow: false,
-    regular: true,
-    wide: true
-  }
-}) => {
-  const isVisible = useResponsiveValue(visible, false)
+const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          display: isVisible ? 'flex' : 'none'
+          display: isHidden ? 'none' : 'flex'
         },
         sx
       )}
@@ -296,19 +280,19 @@ const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
 const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   children,
   sx = {},
-  visible = onlyVisibleOnNarrowView
+  hidden = hiddenOnNarrow
 }) => {
-  const isVisible = useResponsiveValue(visible, true)
-  return <Box sx={merge<BetterSystemStyleObject>({display: isVisible ? 'flex' : 'none'}, sx)}>{children}</Box>
+  const isHidden = useResponsiveValue(hidden, false)
+  return <Box sx={merge<BetterSystemStyleObject>({display: isHidden ? 'none' : 'flex'}, sx)}>{children}</Box>
 }
 
-const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, visible = true}) => {
-  const isVisible = useResponsiveValue(visible, true)
+const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          display: isVisible ? 'flex' : 'none',
+          display: isHidden ? 'none' : 'flex',
           flexDirection: 'row',
           gap: '8px',
           flexGrow: '1',
@@ -323,13 +307,13 @@ const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, 
 }
 
 // PageHeader.Description: The description area of the header. Visible on all viewports
-const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, visible = true}) => {
-  const isVisible = useResponsiveValue(visible, true)
+const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+  const isHidden = useResponsiveValue(hidden, true)
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          display: isVisible ? 'flex' : 'none',
+          display: isHidden ? 'none' : 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           gap: '8px'
@@ -343,13 +327,13 @@ const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childr
 }
 
 // PageHeader.Navigation: The local navigation area of the header. Visible on all viewports
-const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, visible = true}) => {
-  const isVisible = useResponsiveValue(visible, true)
+const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
+  const isHidden = useResponsiveValue(hidden, false)
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          display: isVisible ? 'block' : 'none'
+          display: isHidden ? 'none' : 'block'
         },
         sx
       )}

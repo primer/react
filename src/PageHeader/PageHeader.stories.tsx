@@ -269,19 +269,12 @@ const meta: Meta = {
 
 const Template: Story = args => (
   <PageHeader>
-    <PageHeader.ContextArea visible={args.hasContextArea}>
-      <PageHeader.ParentLink
-        href="http://github.com"
-        visible={{
-          narrow: args.hasParentLink,
-          regular: args.hasParentLink,
-          wide: args.hasParentLink
-        }}
-      >
+    <PageHeader.ContextArea hidden={!args.hasContextArea}>
+      <PageHeader.ParentLink href="http://github.com" hidden={!args.hasParentLink}>
         {args.ParentLink}
       </PageHeader.ParentLink>
 
-      <PageHeader.ContextBar visible={args.hasContextBar}>
+      <PageHeader.ContextBar hidden={!args.hasContextBar}>
         <Breadcrumbs>
           <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
           <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
@@ -292,13 +285,7 @@ const Template: Story = args => (
         </Breadcrumbs>
       </PageHeader.ContextBar>
 
-      <PageHeader.ContextAreaActions
-        visible={{
-          narrow: args.hasContextAreaAction,
-          regular: args.hasContextAreaAction,
-          wide: args.hasContextAreaAction
-        }}
-      >
+      <PageHeader.ContextAreaActions hidden={!args.hasContextAreaAction}>
         <Button size="small" leadingIcon={GitBranchIcon}>
           Main
         </Button>
@@ -306,24 +293,10 @@ const Template: Story = args => (
       </PageHeader.ContextAreaActions>
     </PageHeader.ContextArea>
     <PageHeader.TitleArea>
-      <PageHeader.LeadingAction
-        visible={{
-          narrow: args.hasLeadingAction,
-          regular: args.hasLeadingAction,
-          wide: args.hasLeadingAction
-        }}
-      >
+      <PageHeader.LeadingAction hidden={!args.hasLeadingAction}>
         <IconButton icon={SidebarExpandIcon} variant="invisible" />{' '}
       </PageHeader.LeadingAction>
-      <PageHeader.LeadingVisual
-        visible={{
-          narrow: args.hasLeadingVisual,
-          regular: args.hasLeadingVisual,
-          wide: args.hasLeadingVisual
-        }}
-      >
-        {<args.LeadingVisual />}
-      </PageHeader.LeadingVisual>
+      <PageHeader.LeadingVisual hidden={!args.hasLeadingVisual}>{<args.LeadingVisual />}</PageHeader.LeadingVisual>
       <PageHeader.Title
         as={args['Title.as']}
         variant={{
@@ -331,29 +304,17 @@ const Template: Story = args => (
           regular: args['Title.variant'],
           wide: args['Title.variant']
         }}
-        visible={args.hasTitle}
+        hidden={!args.hasTitle}
       >
         {args.Title}
       </PageHeader.Title>
-      <PageHeader.TrailingVisual
-        visible={{
-          narrow: args.hasTrailingVisual,
-          regular: args.hasTrailingVisual,
-          wide: args.hasTrailingVisual
-        }}
-      >
+      <PageHeader.TrailingVisual hidden={!args.hasTrailingVisual}>
         <Label>Beta</Label>
       </PageHeader.TrailingVisual>
-      <PageHeader.TrailingAction
-        visible={{
-          narrow: args.hasTrailingAction,
-          regular: args.hasTrailingAction,
-          wide: args.hasTrailingAction
-        }}
-      >
+      <PageHeader.TrailingAction hidden={!args.hasTrailingAction}>
         <IconButton icon={PencilIcon} variant="invisible" />
       </PageHeader.TrailingAction>
-      <PageHeader.Actions visible={args.hasActions}>
+      <PageHeader.Actions hidden={!args.hasActions}>
         <Hidden on={['narrow']}>
           <Button variant="primary">New Branch</Button>
         </Hidden>
@@ -364,7 +325,7 @@ const Template: Story = args => (
         <IconButton aria-label="More" icon={KebabHorizontalIcon} />
       </PageHeader.Actions>
     </PageHeader.TitleArea>
-    <PageHeader.Description visible={args.hasDescription}>
+    <PageHeader.Description hidden={!args.hasDescription}>
       <StateLabel status="pullOpened">Open</StateLabel>
       <Hidden on={['narrow']}>
         <Text sx={{fontSize: 1, color: 'fg.muted'}}>
@@ -383,9 +344,9 @@ const Template: Story = args => (
         </Text>
       </Hidden>
     </PageHeader.Description>
-    <PageHeader.Navigation visible={args.hasNavigation}>
+    <PageHeader.Navigation hidden={!args.hasNavigation}>
       <UnderlineNav aria-label="Pull Request">
-        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" selected>
+        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
           Conversation
         </UnderlineNav.Item>
         <UnderlineNav.Item counter={3} icon={CommitIcon}>

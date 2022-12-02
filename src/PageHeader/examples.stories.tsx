@@ -149,7 +149,7 @@ export const PullRequestPage = () => (
     </PageHeader.Description>
     <PageHeader.Navigation>
       <UnderlineNav aria-label="Pull Request">
-        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" selected>
+        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
           Conversation
         </UnderlineNav.Item>
         <UnderlineNav.Item counter={3} icon={CommitIcon}>

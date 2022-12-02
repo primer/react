@@ -71,10 +71,10 @@ export const TitleWithTrailingAction = () => (
         <IconButton icon={PencilIcon} variant="invisible" label="Rename Title" />
       </PageHeader.TrailingAction>
       <PageHeader.Actions
-        visible={{
-          narrow: false,
-          regular: true,
-          wide: true
+        hidden={{
+          narrow: true,
+          regular: false,
+          wide: false
         }}
       >
         <ActionMenu>
