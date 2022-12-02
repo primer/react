@@ -52,20 +52,10 @@ const meta: Meta = {
       type: 'boolean',
       table: {
         category: 'ContextArea Slot',
-        type: {summary: 'string'},
-        defaultValue: {
-          summary: `
-        {
-          narrow: true,
-          regular: false,
-          wide: false
-        }
-        `
-        }
+        type: {summary: 'string'}
       },
       description:
-        'ContextArea is only visible on narrow viewports by default to provide user context of where they are at their journey.',
-      defaultValue: {summary: 'hidden', detail: 'narrow', another: 'false'}
+        'ContextArea is only visible on narrow viewports by default to provide user context of where they are at their journey.'
     },
     ParentLink: {
       type: 'string',
@@ -79,16 +69,7 @@ const meta: Meta = {
       type: 'boolean',
       if: {arg: 'hasContextArea'},
       table: {
-        category: 'ContextArea Slot',
-        defaultValue: {
-          summary: `
-        {
-          narrow: false,
-          regular: true,
-          wide: true
-        }
-        `
-        }
+        category: 'ContextArea Slot'
       },
       description: 'Parent '
     },
@@ -96,16 +77,7 @@ const meta: Meta = {
       type: 'boolean',
       if: {arg: 'hasContextArea'},
       table: {
-        category: 'ContextArea Slot',
-        defaultValue: {
-          summary: `
-        {
-          narrow: false,
-          regular: true,
-          wide: true
-        }
-        `
-        }
+        category: 'ContextArea Slot'
       },
       description:
         'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.'
@@ -114,31 +86,13 @@ const meta: Meta = {
       type: 'boolean',
       if: {arg: 'hasContextArea'},
       table: {
-        category: 'ContextArea Slot',
-        defaultValue: {
-          summary: `
-        {
-          narrow: false,
-          regular: true,
-          wide: true
-        }
-        `
-        }
+        category: 'ContextArea Slot'
       }
     },
     hasLeadingAction: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot',
-        defaultValue: {
-          summary: `
-        {
-          narrow: true,
-          regular: false,
-          wide: false
-        }
-        `
-        }
+        category: 'TitleArea Slot'
       },
       description:
         'A back button can be used as a leading action for local navigation. On Narrow viewports, use parentLink instead.'
@@ -146,10 +100,7 @@ const meta: Meta = {
     hasTitle: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot',
-        defaultValue: {
-          summary: `true`
-        }
+        category: 'TitleArea Slot'
       },
       description:
         'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.'
@@ -175,15 +126,7 @@ const meta: Meta = {
       },
       options: ['large', 'medium', 'subtitle'],
       table: {
-        category: 'TitleArea Slot',
-        defaultValue: {
-          summary: `
-          {
-            narrow: 'medium',
-            regular: 'large',
-            wide: 'large'
-          } `
-        }
+        category: 'TitleArea Slot'
       },
       description:
         '`medium` is the most common page title size. Use for static titles in most situations. `large` for for user-generated content such as issues, pull requests, or discussions. `subtitle` when a PageHeader.Title is already present in the page, such as in a SplitPageLayout.'
@@ -191,16 +134,7 @@ const meta: Meta = {
     hasLeadingVisual: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot',
-        defaultValue: {
-          summary: `
-      {
-        narrow: false,
-        regular: false,
-        wide: false
-      }
-      `
-        }
+        category: 'TitleArea Slot'
       }
     },
     LeadingVisual: {
@@ -214,16 +148,7 @@ const meta: Meta = {
     hasTrailingVisual: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot',
-        defaultValue: {
-          summary: `
-      {
-        narrow: false,
-        regular: false,
-        wide: false
-      }
-      `
-        }
+        category: 'TitleArea Slot'
       },
       description:
         'Trailing visualTrailing visual and trailing text can display auxiliary information. They are placed at the right of the item, and can denote status, privacy details, etc.'
@@ -231,16 +156,7 @@ const meta: Meta = {
     hasTrailingAction: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot',
-        defaultValue: {
-          summary: `
-      {
-        narrow: true,
-        regular: false,
-        wide: false
-      }
-      `
-        }
+        category: 'TitleArea Slot'
       }
     },
     hasActions: {
