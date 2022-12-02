@@ -1,4 +1,4 @@
-import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject} from 'react'
+import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
@@ -7,7 +7,6 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
-import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -68,7 +67,6 @@ export const UnderlineNavItem = forwardRef(
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
     const {
-      theme,
       setChildrenWidth,
       setNoIconChildrenWidth,
       selectedLink,
@@ -157,7 +155,7 @@ export const UnderlineNavItem = forwardRef(
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
           aria-current={ariaCurrent}
-          sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
+          sx={merge(getLinkStyles({variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
         >

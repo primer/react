@@ -1,8 +1,6 @@
 import React, {createContext, RefObject} from 'react'
-import {Theme} from '../ThemeProvider'
 
 export const UnderlineNavContext = createContext<{
-  theme: Theme | undefined
   setChildrenWidth: React.Dispatch<{text: string; width: number}>
   setNoIconChildrenWidth: React.Dispatch<{text: string; width: number}>
   selectedLink: RefObject<HTMLElement> | undefined
@@ -15,7 +13,6 @@ export const UnderlineNavContext = createContext<{
   loadingCounters: boolean
   iconsVisible: boolean
 }>({
-  theme: {},
   setChildrenWidth: () => null,
   setNoIconChildrenWidth: () => null,
   selectedLink: undefined,

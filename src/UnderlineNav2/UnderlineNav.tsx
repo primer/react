@@ -4,10 +4,9 @@ import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import CounterLabel from '../CounterLabel'
-import {useTheme} from '../ThemeProvider'
 import {ChildWidthArray, ResponsiveProps} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
-import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
+import {moreBtnStyles, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
 import {Button} from '../Button'
@@ -149,8 +148,6 @@ export const UnderlineNav = forwardRef(
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
     const containerRef = React.useRef<HTMLUListElement>(null)
     const disclosureWidgetId = useSSRSafeId()
-
-    const {theme} = useTheme()
 
     function getItemsWidth(itemText: string): number {
       return noIconChildWidthArray.find(item => item.text === itemText)?.width || 0
@@ -310,7 +307,6 @@ export const UnderlineNav = forwardRef(
     return (
       <UnderlineNavContext.Provider
         value={{
-          theme,
           setChildrenWidth,
           setNoIconChildrenWidth,
           selectedLink,
@@ -327,7 +323,7 @@ export const UnderlineNav = forwardRef(
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
         <Box
           as={as}
-          sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
+          sx={merge<BetterSystemStyleObject>(getNavStyles({align}), sxProp)}
           aria-label={ariaLabel}
           ref={navRef}
         >
@@ -335,7 +331,15 @@ export const UnderlineNav = forwardRef(
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
-                <Box sx={getDividerStyle(theme)}></Box>
+                <Box
+                  sx={{
+                    display: 'inline-block',
+                    borderLeft: '1px solid',
+                    width: '1px',
+                    borderLeftColor: 'border.muted',
+                    marginRight: 1
+                  }}
+                ></Box>
                 <Button
                   ref={moreMenuBtnRef}
                   sx={moreBtnStyles}

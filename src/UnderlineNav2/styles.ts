@@ -1,4 +1,3 @@
-import {Theme} from '../ThemeProvider'
 import {UnderlineNavProps} from './UnderlineNav'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
@@ -32,12 +31,12 @@ export const counterStyles = {
   alignItems: 'center'
 }
 
-export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavProps, 'align'>>) => ({
+export const getNavStyles = (props?: Partial<Pick<UnderlineNavProps, 'align'>>) => ({
   display: 'flex',
   paddingX: 3,
   justifyContent: props?.align === 'right' ? 'flex-end' : 'flex-start',
   borderBottom: '1px solid',
-  borderBottomColor: `${theme?.colors.border.muted}`,
+  borderBottomColor: 'border.muted',
   align: 'row',
   alignItems: 'center'
 })
@@ -55,14 +54,6 @@ export const ulStyles = {
   position: 'relative'
 }
 
-export const getDividerStyle = (theme?: Theme) => ({
-  display: 'inline-block',
-  borderLeft: '1px solid',
-  width: '1px',
-  borderLeftColor: `${theme?.colors.border.muted}`,
-  marginRight: 1
-})
-
 export const moreBtnStyles = {
   //set margin 0 here because safari puts extra margin around the button, rest is to reset style to make it look like a list element
   margin: 0,
@@ -78,7 +69,6 @@ export const moreBtnStyles = {
 }
 
 export const getLinkStyles = (
-  theme?: Theme,
   props?: Partial<Pick<UnderlineNavProps, 'variant'>>,
   selectedLink?: React.RefObject<HTMLElement>,
   ref?: React.RefObject<HTMLElement>
@@ -91,14 +81,14 @@ export const getLinkStyles = (
   ...(props?.variant === 'small' ? smallVariantLinkStyles : defaultVariantLinkStyles),
   '@media (hover:hover)': {
     '&:hover > div[data-component="wrapper"] ': {
-      backgroundColor: theme?.colors.neutral.muted,
+      backgroundColor: 'neutral.muted',
       transition: 'background .12s ease-out'
     }
   },
   '&:focus': {
     outline: 0,
     '& > div[data-component="wrapper"]': {
-      boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
+      boxShadow: `inset 0 0 0 2px accent.fg`
     },
     // where focus-visible is supported, remove the focus box-shadow
     '&:not(:focus-visible) > div[data-component="wrapper"]': {
@@ -106,7 +96,7 @@ export const getLinkStyles = (
     }
   },
   '&:focus-visible > div[data-component="wrapper"]': {
-    boxShadow: `inset 0 0 0 2px ${theme?.colors.accent.fg}`
+    boxShadow: `inset 0 0 0 2px accent.fg`
   },
   // renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected
   '& span[data-content]::before': {
@@ -125,7 +115,7 @@ export const getLinkStyles = (
     width: '100%',
     height: 2,
     content: '""',
-    bg: selectedLink === ref ? theme?.colors.primer.border.active : 'transparent',
+    bg: selectedLink === ref ? 'primer.border.active' : 'transparent',
     borderRadius: 0,
     transform: 'translate(50%, -50%)'
   },
