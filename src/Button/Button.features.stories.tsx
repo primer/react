@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Button} from '.'
 
 export default {
-  title: 'Components/Button/Features'
+  title: 'Components/Button/Features',
 }
 
 export const Default = () => <Button>Default</Button>
