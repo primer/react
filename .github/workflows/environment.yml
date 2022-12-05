@@ -18,7 +18,7 @@ jobs:
           script: |
             const environments = [];
 
-            for await (const response of github.paginate(
+            for await (const response of github.paginate.iterator(
               github.rest.repos.getAllEnvironments,
               {
                 owner: 'primer',
