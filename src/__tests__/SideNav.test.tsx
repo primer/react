@@ -8,7 +8,7 @@ describe('SideNav', () => {
   behavesAsComponent({Component: SideNav})
 
   checkExports('SideNav', {
-    default: SideNav
+    default: SideNav,
   })
 
   describe('SideNav.Link', () => {
@@ -22,7 +22,7 @@ describe('SideNav', () => {
         <SideNav.Link href="#" selected>
           Two
         </SideNav.Link>
-      </SideNav>
+      </SideNav>,
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()
@@ -44,7 +44,7 @@ describe('SideNav', () => {
         <SideNav.Link href="#two" selected>
           Two
         </SideNav.Link>
-      </SideNav>
+      </SideNav>,
     )
     expect(getByRole('link', {name: 'Two'})).toHaveAttribute('aria-current', 'page')
   })

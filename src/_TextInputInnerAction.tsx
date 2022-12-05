@@ -35,9 +35,9 @@ const invisibleButtonStyleOverrides = {
       right: 0,
       transform: 'translateY(-50%)',
       top: '50%',
-      minHeight: '44px'
-    }
-  }
+      minHeight: '44px',
+    },
+  },
 }
 
 const ConditionalTooltip: React.FC<
@@ -53,7 +53,7 @@ const ConditionalTooltip: React.FC<
         sx={{
           /* inline-block is used to ensure the tooltip dimensions don't
              collapse when being used with `grid` or `inline` children */
-          display: 'inline-block'
+          display: 'inline-block',
         }}
       >
         {children}
@@ -100,11 +100,11 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
         )}
       </Box>
     )
-  }
+  },
 )
 
 TextInputAction.defaultProps = {
-  variant: 'invisible'
+  variant: 'invisible',
 }
 
 export default TextInputAction

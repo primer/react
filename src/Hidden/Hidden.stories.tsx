@@ -15,23 +15,23 @@ const meta: Meta = {
           <Story />
         </BaseStyles>
       </ThemeProvider>
-    )
+    ),
   ],
   parameters: {
     controls: {
-      expanded: true
-    }
+      expanded: true,
+    },
   },
   argTypes: {
     on: {
       type: {
         name: 'enum',
-        value: ['narrow', 'regular', 'wide']
+        value: ['narrow', 'regular', 'wide'],
       },
       defaultValue: 'regular',
-      control: {type: 'radio'}
-    }
-  }
+      control: {type: 'radio'},
+    },
+  },
 }
 export default meta
 

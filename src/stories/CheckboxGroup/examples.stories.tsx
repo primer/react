@@ -13,55 +13,55 @@ export default {
     visuallyHidden: false,
     captionChildren: '',
     validationChildren: '',
-    variant: 'error'
+    variant: 'error',
   },
   argTypes: {
     // CheckboxGroup
     disabled: {
-      type: 'boolean'
+      type: 'boolean',
     },
     required: {
-      type: 'boolean'
+      type: 'boolean',
     },
 
     // CheckboxGroup.Label
     labelChildren: {
       type: 'string',
       table: {
-        category: 'CheckboxGroup.Label'
-      }
+        category: 'CheckboxGroup.Label',
+      },
     },
     visuallyHidden: {
       type: 'boolean',
       table: {
-        category: 'CheckboxGroup.Label'
-      }
+        category: 'CheckboxGroup.Label',
+      },
     },
 
     // CheckboxGroup.Caption
     captionChildren: {
       type: 'string',
       table: {
-        category: 'CheckboxGroup.Caption'
-      }
+        category: 'CheckboxGroup.Caption',
+      },
     },
 
     // CheckboxGroup.Validation
     validationChildren: {
       type: 'string',
       table: {
-        category: 'CheckboxGroup.Validation'
-      }
+        category: 'CheckboxGroup.Validation',
+      },
     },
     variant: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       options: ['error', 'success', 'warning'],
       table: {
-        category: 'CheckboxGroup.Validation'
-      }
-    }
+        category: 'CheckboxGroup.Validation',
+      },
+    },
   },
   parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange', 'sx']}},
   decorators: [
@@ -73,8 +73,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const Default = ({
@@ -84,7 +84,7 @@ export const Default = ({
   visuallyHidden,
   captionChildren,
   validationChildren,
-  variant
+  variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
   const labelArgs = {children: labelChildren, visuallyHidden}

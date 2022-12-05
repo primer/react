@@ -10,7 +10,7 @@ describe('Grid', () => {
   behavesAsComponent({Component: Grid})
 
   checkExports('deprecated/Grid', {
-    default: Grid
+    default: Grid,
   })
 
   it('should have no axe violations', async () => {

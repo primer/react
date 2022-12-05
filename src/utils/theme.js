@@ -45,7 +45,7 @@ function filterObject(obj, predicate) {
 function partitionColors(colors) {
   return {
     colors: filterObject(colors, value => isColorValue(value)),
-    shadows: filterObject(colors, value => isShadowValue(value))
+    shadows: filterObject(colors, value => isShadowValue(value)),
   }
 }
 
@@ -60,5 +60,5 @@ module.exports = {
   isColorValue,
   filterObject,
   partitionColors,
-  omitScale
+  omitScale,
 }

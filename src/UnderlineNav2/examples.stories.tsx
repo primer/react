@@ -18,14 +18,14 @@ import {
   PackageIcon,
   StarIcon,
   ThreeBarsIcon,
-  PeopleIcon
+  PeopleIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {Avatar, StyledOcticon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Examples'
+  title: 'Drafts/Components/UnderlineNav/Examples',
 } as Meta
 
 export const PullRequestPage = () => {
@@ -73,7 +73,7 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
   {navigation: 'Projects', icon: ProjectIcon, counter: 9, href: '#projects'},
   {navigation: 'Insights', icon: GraphIcon, counter: '0', href: '#insights'},
   {navigation: 'Settings', icon: GearIcon, counter: 10, href: '#settings'},
-  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'}
+  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'},
 ]
 
 export const ReposPage = () => {
@@ -106,7 +106,7 @@ const profileItems: {navigation: string; icon: React.FC<IconProps>; counter?: nu
   {navigation: 'Projects', icon: ProjectIcon, counter: 3, href: '#projects'},
   {navigation: 'Packages', icon: PackageIcon, counter: '0', href: '#packages'},
   {navigation: 'Stars', icon: StarIcon, counter: '0', href: '#stars'},
-  {navigation: 'Activity', icon: ThreeBarsIcon, counter: 67, href: '#activity'}
+  {navigation: 'Activity', icon: ThreeBarsIcon, counter: 67, href: '#activity'},
 ]
 
 export const ProfilePage = () => {
@@ -169,7 +169,7 @@ export const ProfilePage = () => {
             borderRadius: '12px',
             height: '300px',
             width: '80%',
-            padding: 4
+            padding: 4,
           }}
         >
           <Text> mona/README.md</Text>

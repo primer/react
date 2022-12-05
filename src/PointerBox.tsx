@@ -30,7 +30,7 @@ function PointerBox(props: PointerBoxProps) {
     borderColor: borderColor || sx?.borderColor,
     borderWidth: border,
     location: caret,
-    theme
+    theme,
   }
 
   const defaultBoxProps = {borderWidth: '1px', borderStyle: 'solid', borderColor: 'border.default', borderRadius: 2}

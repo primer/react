@@ -25,7 +25,7 @@ describe('SplitPageLayout', () => {
           <SplitPageLayout.Pane>Pane</SplitPageLayout.Pane>
           <SplitPageLayout.Footer>Footer</SplitPageLayout.Footer>
         </SplitPageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })

@@ -15,7 +15,7 @@ export type {
   PageLayoutHeaderProps,
   PageLayoutContentProps,
   PageLayoutPaneProps,
-  PageLayoutFooterProps
+  PageLayoutFooterProps,
 } from './PageLayout'
 export {SplitPageLayout} from './SplitPageLayout'
 export type {
@@ -23,7 +23,7 @@ export type {
   SplitPageLayoutHeaderProps,
   SplitPageLayoutContentProps,
   SplitPageLayoutPaneProps,
-  SplitPageLayoutFooterProps
+  SplitPageLayoutFooterProps,
 } from './SplitPageLayout'
 
 // Hooks
@@ -53,7 +53,7 @@ export type {
   ActionListDividerProps,
   ActionListDescriptionProps,
   ActionListLeadingVisualProps,
-  ActionListTrailingVisualProps
+  ActionListTrailingVisualProps,
 } from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
@@ -113,7 +113,7 @@ export type {
   NavListGroupProps,
   NavListLeadingVisualProps,
   NavListTrailingVisualProps,
-  NavListDividerProps
+  NavListDividerProps,
 } from './NavList'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
@@ -160,7 +160,7 @@ export type {
   TimelineBadgeProps,
   TimelineBodyProps,
   TimelineBreakProps,
-  TimelineItemsProps
+  TimelineItemsProps,
 } from './Timeline'
 export {default as Token, IssueLabelToken, AvatarToken} from './Token'
 export type {TokenProps} from './Token'

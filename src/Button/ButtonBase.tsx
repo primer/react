@@ -8,11 +8,11 @@ import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 
 const defaultSxProp = {}
 const iconWrapStyles = {
-  display: 'inline-block'
+  display: 'inline-block',
 }
 const trailingIconStyles = {
   ...iconWrapStyles,
-  ml: 2
+  ml: 2,
 }
 
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
@@ -41,7 +41,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         )}
       </StyledButton>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
 
 export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>

@@ -21,13 +21,13 @@ const meta: Meta = {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {
     controls: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 
@@ -55,7 +55,7 @@ const items = [
   {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
   {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
   {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7}
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
 ]
 
 export function MultiSelectStory(): JSX.Element {
@@ -220,7 +220,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
   const [fetchedItems, setFetchedItems] = useState<typeof items>([])
   const filteredItems = React.useMemo(
     () => fetchedItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())),
-    [fetchedItems, filter]
+    [fetchedItems, filter],
   )
   const [open, setOpen] = useState(false)
   const [height, setHeight] = useState<OverlayProps['height']>('auto')
@@ -289,7 +289,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
       <div
         style={{
           backgroundColor: 'cornflowerblue',
-          height: '100vh'
+          height: '100vh',
         }}
       >
         This element makes the body really tall. This is to test that we do not have layout/focus issues if the Portal
@@ -345,7 +345,7 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
         showItemDividers={true}
         overlayProps={{
           height: 'auto',
-          maxHeight: 'medium'
+          maxHeight: 'medium',
         }}
       />
     </>

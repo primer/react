@@ -61,7 +61,7 @@ const overflowCountFontSizeMap: Record<TokenSizeKeys, number> = {
   medium: 1,
   large: 1,
   extralarge: 2,
-  xlarge: 2 // will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
+  xlarge: 2, // will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
 }
 
 // using forwardRef is important so that other components (ex. Autocomplete) can use the ref
@@ -92,7 +92,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     visibleTokenCount,
     ...rest
   }: TextInputWithTokensProps<TokenComponentType>,
-  forwardedRef: React.ForwardedRef<HTMLInputElement>
+  forwardedRef: React.ForwardedRef<HTMLInputElement>,
 ) {
   const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
   const ref = useRef<HTMLInputElement>(null)
@@ -126,9 +126,9 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         }
 
         return containerRef.current?.children[nextIndex] as HTMLElement
-      }
+      },
     },
-    [selectedTokenIndex]
+    [selectedTokenIndex],
   )
 
   const handleTokenRemove = (tokenId: string | number) => {
@@ -241,7 +241,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     medium: 'small',
     large: 'medium',
     extralarge: 'medium',
-    xlarge: 'medium' // will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
+    xlarge: 'medium', // will eventually replace "extralarge" per this ADR: https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md
   }
   const showLeadingLoadingIndicator =
     loading && (loaderPosition === 'leading' || Boolean(LeadingVisual && loaderPosition !== 'trailing'))
@@ -269,24 +269,24 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
         ...(block
           ? {
               display: 'flex',
-              width: '100%'
+              width: '100%',
             }
           : {}),
 
         ...(maxHeight
           ? {
               maxHeight,
-              overflow: 'auto'
+              overflow: 'auto',
             }
           : {}),
 
         ...(preventTokenWrapping
           ? {
-              overflow: 'auto'
+              overflow: 'auto',
             }
           : {}),
 
-        ...sxProp
+        ...sxProp,
       }}
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
@@ -310,14 +310,14 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           '> *': {
             flexShrink: 0,
             marginLeft: '0.25rem',
-            marginBottom: '0.25rem'
-          }
+            marginBottom: '0.25rem',
+          },
         }}
       >
         <Box
           sx={{
             order: 1,
-            flexGrow: 1
+            flexGrow: 1,
           }}
         >
           <UnstyledTextInput
@@ -375,7 +375,7 @@ TextInputWithTokens.defaultProps = {
   size: 'xlarge',
   hideTokenRemoveButtons: false,
   preventTokenWrapping: false,
-  loaderPosition: 'auto'
+  loaderPosition: 'auto',
 }
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'

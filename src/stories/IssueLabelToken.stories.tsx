@@ -13,14 +13,14 @@ export default {
   component: IssueLabelToken,
   args: {
     fillColor: '#0366d6',
-    text: 'good first issue'
+    text: 'good first issue',
   },
   argTypes: {
     fillColor: {
       control: {
-        type: 'color'
-      }
-    }
+        type: 'color',
+      },
+    },
   },
   decorators: [
     Story => {
@@ -31,8 +31,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 const excludedControlKeys = ['id', 'as', 'tabIndex', 'onRemove']
@@ -43,7 +43,7 @@ const SingleExampleContainer: React.FC<React.PropsWithChildren<{label?: string}>
     sx={{
       alignItems: 'start',
       flexDirection: 'column',
-      gap: get('space.0')
+      gap: get('space.0'),
     }}
   >
     {label ? (
@@ -61,7 +61,7 @@ const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = (
     sx={{
       alignItems: 'start',
       flexDirection: 'column',
-      gap: get('space.6')
+      gap: get('space.6'),
     }}
   >
     <Text fontSize={1} color="fg.subtle">
@@ -88,7 +88,7 @@ export const Interactive = (args: Omit<IssueLabelTokenProps, 'ref' | 'text'>) =>
         display="flex"
         sx={{
           alignItems: 'start',
-          gap: get('space.2')
+          gap: get('space.2'),
         }}
       >
         <IssueLabelToken as="a" href="http://google.com/" {...args} text="Link" />
@@ -111,7 +111,7 @@ export const WithOnRemoveFn = (args: Omit<IssueLabelTokenProps, 'ref'>) => {
           display="flex"
           sx={{
             alignItems: 'start',
-            gap: get('space.2')
+            gap: get('space.2'),
           }}
         >
           <IssueLabelToken as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />

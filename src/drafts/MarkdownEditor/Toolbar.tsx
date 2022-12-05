@@ -10,7 +10,7 @@ import {
   ListUnorderedIcon,
   MentionIcon,
   QuoteIcon,
-  TasklistIcon
+  TasklistIcon,
 } from '@primer/octicons-react'
 import React, {forwardRef, memo, useContext, useRef} from 'react'
 
@@ -127,7 +127,7 @@ export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
     containerRef,
     focusInStrategy: 'closest',
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    focusOutBehavior: 'wrap'
+    focusOutBehavior: 'wrap',
   })
 
   return (
