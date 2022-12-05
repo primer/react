@@ -63,7 +63,18 @@
         "allow": ["dark_dimmed"]
       }
     ],
-    "primer-react/no-deprecated-colors": ["warn", {"checkAllStrings": true}]
+    "primer-react/no-deprecated-colors": ["warn", {"checkAllStrings": true}],
+    "filenames/match-regex": "off",
+    "import/no-commonjs": "off",
+    "import/no-dynamic-require": "off",
+    "import/no-nodejs-modules": "off",
+    "import/no-unresolved": "off",
+    "import/named": "off",
+    "import/no-named-as-default": "off",
+    "i18n-text/no-en": "off",
+    "import/default": "off",
+    "import/namespace": "off",
+    "import/extensions": "off"
   },
   "overrides": [
     // rules which apply only to JS
@@ -113,6 +124,17 @@
       "extends": ["plugin:mdx/recommended"],
       "settings": {
         "mdx/code-blocks": true
+      },
+      "globals": {
+        "ComponentChecklist": "readonly",
+        "InlineCode": "readonly",
+        "Note": "readonly",
+        "Props": "readonly",
+        "PropsTable": "readonly",
+        "PropsTableRow": "readonly",
+        "PropsTableRefRow": "readonly",
+        "PropsTableSxRow": "readonly",
+        "Link": "readonly"
       },
       "rules": {
         "prettier/prettier": 0
