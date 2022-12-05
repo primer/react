@@ -10,8 +10,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton--playground',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -22,15 +22,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton--playground',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -44,8 +44,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--danger',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -56,15 +56,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--danger',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -78,8 +78,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -90,15 +90,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -112,8 +112,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--disabled',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -124,15 +124,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--disabled',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -146,8 +146,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--invisible',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -158,15 +158,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--invisible',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -180,8 +180,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--large',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -192,15 +192,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--large',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -214,8 +214,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--medium',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -226,15 +226,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--medium',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -248,8 +248,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--primary',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -260,15 +260,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--primary',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -282,8 +282,8 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--small',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -294,15 +294,15 @@ test.describe('IconButton', () => {
           await visit(page, {
             id: 'components-iconbutton-features--small',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })

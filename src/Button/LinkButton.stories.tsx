@@ -10,26 +10,26 @@ export default {
     size: {
       control: {
         type: 'radio',
-        options: ['small', 'medium', 'large']
-      }
+        options: ['small', 'medium', 'large'],
+      },
     },
     variant: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible', 'outline']
-      }
+        options: ['default', 'primary', 'danger', 'invisible', 'outline'],
+      },
     },
     leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
-    href: {control: 'text'}
+    href: {control: 'text'},
   },
   args: {
     size: 'medium',
     variant: 'default',
     trailingIcon: null,
     leadingIcon: null,
-    href: '/'
-  }
+    href: '/',
+  },
 } as Meta<typeof Button>
 
 export const Playground: Story<typeof Button> = args => (
