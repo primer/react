@@ -121,7 +121,7 @@ export const ProfilePage = () => {
             <Heading as="h1" sx={{fontSize: 24}}>
               Monalisa Octocat
             </Heading>
-            <Heading as="h1" sx={{fontSize: 20, fontWeight: 300, color: 'fg.subtle'}}>
+            <Heading as="h1" sx={{fontSize: 20, fontWeight: 300}}>
               mona
             </Heading>
           </Box>
@@ -131,7 +131,7 @@ export const ProfilePage = () => {
             <Button sx={{width: '100%'}}>Edit Profile</Button>
 
             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 3}}>
-              <StyledOcticon icon={PeopleIcon} size={16} color="fg.subtle" sx={{marginRight: 1}} />
+              <StyledOcticon icon={PeopleIcon} size={16} sx={{marginRight: 1}} />
               <Link href="https://github.com" muted sx={{marginRight: 2}}>
                 47 Followers
               </Link>
@@ -172,7 +172,7 @@ export const ProfilePage = () => {
             padding: 4
           }}
         >
-          <Text color="fg.subtle"> mona/README.md</Text>
+          <Text> mona/README.md</Text>
         </Box>
       </Box>
     </Box>

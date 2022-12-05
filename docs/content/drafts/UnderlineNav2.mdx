@@ -104,20 +104,61 @@ render(<Navigation />)
 ### With React Router
 
 ```jsx
-import {Link} from 'react-router-dom'
+import {Link, useMatch, useResolvedPath} from 'react-router-dom'
 import {UnderlineNav} from '@primer/react/drafts'
+
+function UnderlineNavItem({to, children, ...rest}) {
+  const resolved = useResolvedPath(to)
+  const isCurrent = useMatch({path: resolved.pathname, end: true})
+  return (
+    <UnderlineNav.Item as={Link} to={to} aria-current={isCurrent ? 'page' : undefined} {...rest}>
+      {children}
+    </UnderlineNav.Item>
+  )
+}
+
 const Navigation = () => {
   return (
     <UnderlineNav aria-label="Repository">
-      <UnderlineNav.Item as={Link} to="code" counter={4} aria-current="page">
+      <UnderlineNavItem to="/code" counter={4}>
         Code
-      </UnderlineNav.Item>
-      <UnderlineNav.Item counter={44} as={Link} to="issues">
+      </UnderlineNavItem>
+      <UnderlineNavItem to="/issues" counter={44}>
         Issues
-      </UnderlineNav.Item>
-      <UnderlineNav.Item as={Link} to="pulls">
-        Pull Requests
-      </UnderlineNav.Item>
+      </UnderlineNavItem>
+      <UnderlineNavItem to="/pulls">Pull Requests</UnderlineNavItem>
+    </UnderlineNav>
+  )
+}
+```
+
+### With Next.js
+
+```jsx
+import {useRouter} from 'next/router'
+import Link from 'next/link'
+import {UnderlineNav} from '@primer/react/drafts'
+
+function UnderlineNavItem({href, children, ...rest}) {
+  const router = useRouter()
+  const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
+  return (
+    <UnderlineNav.Item s={Link} href={href} aria-current={isCurrent ? 'page' : undefined} {...rest}>
+      {children}
+    </UnderlineNav.Item>
+  )
+}
+
+const Navigation = () => {
+  return (
+    <UnderlineNav aria-label="Repository">
+      <UnderlineNavItem href="/code" counter={4}>
+        Code
+      </UnderlineNavItem>
+      <UnderlineNavItem href="/issues" counter={44}>
+        Issues
+      </UnderlineNavItem>
+      <UnderlineNavItem href="/pulls">Pull Requests</UnderlineNavItem>
     </UnderlineNav>
   )
 }

@@ -105,7 +105,6 @@ exports[`SplitPageLayout renders default layout 1`] = `
   --pane-max-width: calc(100vw - var(--pane-max-width-diff));
   width: 100%;
   padding: 16px;
-  overflow: auto;
 }
 
 .c2 {
@@ -174,7 +173,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
 
 @media screen and (min-width:768px) {
   .c11 {
-    width: 256px;
+    overflow: auto;
   }
 }
 
