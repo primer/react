@@ -12,9 +12,9 @@ export default {
   argTypes: {
     size: {
       control: {
-        type: 'radio',
-        options: ['small', 'medium', 'large']
-      }
+        type: 'radio'
+      },
+      options: ['small', 'medium', 'large']
     },
     disabled: {
       control: {

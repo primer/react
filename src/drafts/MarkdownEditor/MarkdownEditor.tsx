@@ -1,5 +1,14 @@
 import {useSSRSafeId} from '@react-aria/ssr'
-import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import Box from '../../Box'
 import {FileType} from '../hooks/useUnifiedFileSelect'
 import {useIgnoreKeyboardActionsWhileComposing} from '../hooks/useIgnoreKeyboardActionsWhileComposing'
@@ -24,6 +33,7 @@ import {Emoji} from './suggestions/_useEmojiSuggestions'
 import {Mentionable} from './suggestions/_useMentionSuggestions'
 import {Reference} from './suggestions/_useReferenceSuggestions'
 import {isModifierKey} from './utils'
+import {SuggestionOptions} from './suggestions'
 
 export type MarkdownEditorProps = SxProp & {
   /** Current value of the editor as a multiline markdown string. */
@@ -69,12 +79,21 @@ export type MarkdownEditorProps = SxProp & {
    * @default 35
    */
   maxHeightLines?: number
-  /** Array of all possible emojis to suggest. Leave `undefined` to disable emoji autocomplete. */
-  emojiSuggestions?: Array<Emoji>
-  /** Array of all possible mention suggestions. Leave `undefined` to disable `@`-mention autocomplete. */
-  mentionSuggestions?: Array<Mentionable>
-  /** Array of all possible references to suggest. Leave `undefined` to disable `#`-reference autocomplete. */
-  referenceSuggestions?: Array<Reference>
+  /**
+   * Array of all possible emojis to suggest. Leave `undefined` to disable emoji autocomplete.
+   * For lazy-loading suggestions, an async function can be provided instead.
+   */
+  emojiSuggestions?: SuggestionOptions<Emoji>
+  /**
+   * Array of all possible mention suggestions. Leave `undefined` to disable `@`-mention autocomplete.
+   * For lazy-loading suggestions, an async function can be provided instead.
+   */
+  mentionSuggestions?: SuggestionOptions<Mentionable>
+  /**
+   * Array of all possible references to suggest. Leave `undefined` to disable `#`-reference autocomplete.
+   * For lazy-loading suggestions, an async function can be provided instead.
+   */
+  referenceSuggestions?: SuggestionOptions<Reference>
   /**
    * Uploads a file to a hosting service and returns the URL. If not provided, file uploads
    * will be disabled.
@@ -166,9 +185,9 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       name,
       children,
       savedReplies,
-      pasteUrlsAsPlainText = false
+      pasteUrlsAsPlainText = false,
     },
-    ref
+    ref,
   ) => {
     const [uncontrolledViewMode, uncontrolledSetViewMode] = useState<MarkdownViewMode>('edit')
     const [view, setView] =
@@ -202,8 +221,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       () =>
         ({
           focus: opts => inputRef.current?.focus(opts),
-          scrollIntoView: opts => containerRef.current?.scrollIntoView(opts)
-        } as MarkdownEditorHandle)
+          scrollIntoView: opts => containerRef.current?.scrollIntoView(opts),
+        } as MarkdownEditorHandle),
     )
 
     const inputHeight = useRef(0)
@@ -213,7 +232,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         onChange(e.target.value)
       },
-      [onChange]
+      [onChange],
     )
 
     const emitChange = useSyntheticChange({inputRef, fallbackEventHandler: onInputChange})
@@ -224,7 +243,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       inputRef,
       disabled,
       onUploadFile,
-      acceptedFileTypes
+      acceptedFileTypes,
     })
 
     const listEditor = useListEditing({emitChange})
@@ -234,13 +253,25 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
 
     // use state instead of ref since we need to recalculate when the element mounts
     const containerRef = useRef<HTMLDivElement>(null)
+
     const [condensed, setCondensed] = useState(false)
     const onResize = useCallback(
       // it's fine that this isn't debounced because calling setCondensed with the current value will not trigger a render
       () => setCondensed(containerRef.current !== null && containerRef.current.clientWidth < CONDENSED_WIDTH_THRESHOLD),
-      []
+      [],
     )
     useResizeObserver(onResize, containerRef)
+
+    // workaround for Safari bug where layout is otherwise not recalculated
+    useLayoutEffect(() => {
+      const container = containerRef.current
+      if (!container) return
+
+      const parent = container.parentElement
+      const nextSibling = containerRef.current.nextSibling
+      parent?.removeChild(container)
+      parent?.insertBefore(container, nextSibling)
+    }, [condensed])
 
     // the ID must be unique for each instance while remaining constant across renders
     const id = useSSRSafeId()
@@ -282,7 +313,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
           listEditor.onKeyDown(e)
           indenter.onKeyDown(e)
         }
-      }
+      },
     )
 
     useEffect(() => {
@@ -316,7 +347,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     // If we don't memoize the context object, every child will rerender on every render even if memoized
     const context = useMemo(
       () => ({disabled, formattingToolsRef, condensed, required}),
-      [disabled, formattingToolsRef, condensed, required]
+      [disabled, formattingToolsRef, condensed, required],
     )
 
     // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
@@ -329,7 +360,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                 disabled /* if we set disabled={true}, we can't enable the buttons that should be enabled */
               }
               aria-describedby={describedBy ? `${descriptionId} ${describedBy}` : descriptionId}
-              style={{appearance: 'none', border: 'none'}}
+              style={{appearance: 'none', border: 'none', minInlineSize: 'auto'}}
             >
               <FormattingTools ref={formattingToolsRef} forInputId={id} />
               <div style={{display: 'none'}}>{children}</div>
@@ -350,7 +381,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                   minInlineSize: 'auto',
                   bg: 'canvas.default',
                   color: disabled ? 'fg.subtle' : 'fg.default',
-                  ...sx
+                  ...sx,
                 }}
                 ref={containerRef}
               >
@@ -411,7 +442,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                       overflow: 'auto',
                       height: fullHeight ? '100%' : undefined,
                       minHeight: inputHeight.current,
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
                     }}
                     aria-live="polite"
                     tabIndex={-1}
@@ -439,7 +470,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
         )}
       </Slots>
     )
-  }
+  },
 )
 
 export default MarkdownEditor

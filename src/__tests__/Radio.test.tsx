@@ -9,17 +9,17 @@ expect.extend(toHaveNoViolations)
 describe('Radio', () => {
   const defaultProps = {
     name: 'mock',
-    value: 'mock value'
+    value: 'mock value',
   }
 
   beforeEach(() => {
     jest.resetAllMocks()
   })
 
-  behavesAsComponent({Component: Radio})
+  behavesAsComponent({Component: Radio, toRender: () => <Radio {...defaultProps} />})
 
   checkExports('Radio', {
-    default: Radio
+    default: Radio,
   })
 
   it('renders a valid radio input', () => {

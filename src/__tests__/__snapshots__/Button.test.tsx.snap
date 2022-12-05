@@ -1151,8 +1151,16 @@ exports[`Button styles danger button appropriately 1`] = `
     class="c1"
     data-component="buttonContent"
   >
-    <span
-      data-component="text"
+    <svg
+      aria-hidden="true"
+      class="octicon octicon-search"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      role="img"
+      style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+      viewBox="0 0 16 16"
+      width="16"
     >
       Danger
     </span>
@@ -1354,7 +1362,15 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0:hover:not([disabled]) {
-  background-color: actionListItem.default.hoverBg;
+  color: btn.outline.hoverText;
+  background-color: btn.outline.hoverBg;
+  border-color: btn.outline.hoverBorder;
+  box-shadow: undefined;
+}
+
+.c0:hover:not([disabled]) [data-component=ButtonCounter] {
+  background-color: btn.outline.hoverCounterBg;
+  color: inherit;
 }
 
 .c0:active:not([disabled]) {

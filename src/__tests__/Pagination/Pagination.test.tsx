@@ -20,9 +20,9 @@ describe('Pagination', () => {
         // and is not relevant to this component.
         // See https://dequeuniversity.com/rules/axe/3.3/skip-link?application=axeAPI
         'skip-link': {
-          enabled: false
-        }
-      }
+          enabled: false,
+        },
+      },
     })
     expect(results).toHaveNoViolations()
   })

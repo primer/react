@@ -6,10 +6,11 @@ import TextInput, {TextInputProps} from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
-  textInputExcludedControlKeys
+  textInputExcludedControlKeys,
 } from '../utils/story-helpers'
 
 export default {
@@ -24,19 +25,23 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {controls: {exclude: textInputExcludedControlKeys}},
+  args: {
+    ...formControlArgs,
+    type: 'text',
+    onChange: () => {},
+  },
   argTypes: {
     type: {
-      defaultValue: 'text',
       control: {
-        type: 'text'
-      }
+        type: 'text',
+      },
     },
     ...getTextInputArgTypes(),
-    ...formControlArgTypes
-  }
+    ...formControlArgTypes,
+  },
 } as Meta
 
 export const Default = (args: FormControlArgs<TextInputProps>) => {
@@ -219,10 +224,10 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => (
 )
 
 WithLoadingIndicator.args = {
-  loading: true
+  loading: true,
 }
 WithLoadingIndicator.parameters = {
   controls: {
-    exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children']
-  }
+    exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children'],
+  },
 }

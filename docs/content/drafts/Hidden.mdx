@@ -1,0 +1,56 @@
+---
+title: Hidden
+description: Use Hidden to responsively hide or show content in narrow, regular and wide viewports.
+source: https://github.com/primer/react/blob/main/src/Hidden/index.tsx
+status: Alpha
+componentId: hidden
+---
+
+The `Hidden` component is a utility component that will help you hide or show content/components in different viewports.
+**Attention:** Use Hidden only to control behaviour in a responsive manner. It does not take any `sx` props.
+
+## Example
+
+```jsx live
+<Hidden when="narrow">
+  <Placeholder height="80px" label="This is not visible in narrow viewport" />
+</Hidden>
+```
+
+## Array as `when` prop
+
+```jsx live
+<Hidden when={['narrow', 'wide']}>
+  <Placeholder height="80px" label="This is not visible in narrow and wide viewport" />
+</Hidden>
+```
+
+## Props
+
+<PropsTable>
+  <PropsTableRow
+    name="when"
+    type="string or Array"
+    description="Can be one or more values of 'narrow', 'wide', 'regular'"
+  />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false
+  }}
+/>

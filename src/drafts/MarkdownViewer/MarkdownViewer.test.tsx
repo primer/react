@@ -35,7 +35,7 @@ text after list`
           dangerousRenderedHTML={htmlObject}
           markdownValue={noItemsCheckedMarkdown}
           onChange={jest.fn()}
-        />
+        />,
       )
       const items = getAllByRole('checkbox')
       for (const item of items) expect(item).not.toBeDisabled()
@@ -48,7 +48,7 @@ text after list`
           markdownValue={noItemsCheckedMarkdown}
           onChange={jest.fn()}
           disabled
-        />
+        />,
       )
       const items = getAllByRole('checkbox')
       for (const item of items) expect(item).toBeDisabled()
@@ -68,7 +68,7 @@ text after list`
           markdownValue={noItemsCheckedMarkdown}
           onChange={onChangeMock}
           disabled
-        />
+        />,
       )
       const items = getAllByRole('checkbox')
       fireEvent.change(items[0])
@@ -83,7 +83,7 @@ text after list`
           markdownValue={firstItemCheckedMarkdown}
           onChange={onChangeMock}
           disabled
-        />
+        />,
       )
       const items = getAllByRole('checkbox')
       fireEvent.change(items[0])
@@ -92,13 +92,18 @@ text after list`
   })
 
   describe('link interception', () => {
-    it('makes all links open in a new tab when enabled', () => {
+    it('makes all links open in a new tab when enabled', async () => {
+      const user = userEvent.setup()
+      const windowOpenSpy = jest.spyOn(window, 'open')
+      windowOpenSpy.mockImplementation(jest.fn())
+
       const {getByRole} = render(
         // eslint-disable-next-line github/unescaped-html-literal
-        <MarkdownViewer dangerousRenderedHTML={{__html: '<a href="https://example.com">link</a>'}} openLinksInNewTab />
+        <MarkdownViewer dangerousRenderedHTML={{__html: '<a href="https://example.com">link</a>'}} openLinksInNewTab />,
       )
       const link = getByRole('link') as HTMLAnchorElement
-      expect(link.target).toBe('_blank')
+      await user.click(link)
+      expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
     })
 
     it('calls onLinkClick on link click', async () => {
@@ -109,7 +114,7 @@ text after list`
           // eslint-disable-next-line github/unescaped-html-literal
           dangerousRenderedHTML={{__html: '<a href="https://example.com">link</a>'}}
           onLinkClick={onLinkClick}
-        />
+        />,
       )
       const link = getByRole('link') as HTMLAnchorElement
       await user.click(link)

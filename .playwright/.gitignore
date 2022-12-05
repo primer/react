@@ -1,0 +1,8 @@
+axe/
+report/
+results/
+results.json
+
+# Only include snapshots from Linux as these are used in CI
+*.png
+!*-linux.png

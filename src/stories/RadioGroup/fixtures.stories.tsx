@@ -8,60 +8,62 @@ const excludedControlKeys = ['aria-labelledby', 'id', 'name', 'onChange', 'sx', 
 export default {
   title: 'Components/Forms/RadioGroup/fixtures',
   component: RadioGroup,
+  args: {
+    disabled: false,
+    required: false,
+    labelChildren: 'Choices',
+    visuallyHidden: false,
+    captionChildren: '',
+    validationChildren: '',
+    variant: 'error',
+  },
   argTypes: {
     // RadioGroup
     disabled: {
-      defaultValue: false,
-      type: 'boolean'
+      type: 'boolean',
     },
     required: {
-      defaultValue: false,
-      type: 'boolean'
+      type: 'boolean',
     },
 
     // RadioGroup.Label
     labelChildren: {
-      defaultValue: 'Choices',
       type: 'string',
       table: {
-        category: 'RadioGroup.Label'
-      }
+        category: 'RadioGroup.Label',
+      },
     },
     visuallyHidden: {
-      defaultValue: false,
       type: 'boolean',
       table: {
-        category: 'RadioGroup.Label'
-      }
+        category: 'RadioGroup.Label',
+      },
     },
 
     // RadioGroup.Caption
     captionChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
-        category: 'RadioGroup.Caption'
-      }
+        category: 'RadioGroup.Caption',
+      },
     },
 
     // RadioGroup.Validation
     validationChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
-        category: 'RadioGroup.Validation'
-      }
+        category: 'RadioGroup.Validation',
+      },
     },
     variant: {
-      defaultValue: 'error',
       control: {
         type: 'radio',
-        options: ['error', 'success', 'warning']
+        options: ['error', 'success', 'warning'],
       },
       table: {
-        category: 'RadioGroup.Validation'
-      }
-    }
+        category: 'RadioGroup.Validation',
+      },
+    },
   },
   parameters: {controls: {exclude: excludedControlKeys}},
   decorators: [
@@ -73,8 +75,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const WithExternalLabel = ({
@@ -83,7 +85,7 @@ export const WithExternalLabel = ({
   labelChildren,
   captionChildren,
   validationChildren,
-  variant
+  variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
   const validationArgs = {children: validationChildren, variant}
@@ -129,7 +131,7 @@ export const WithHiddenLabel = ({
   visuallyHidden,
   captionChildren,
   validationChildren,
-  variant
+  variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
   const labelArgs = {children: labelChildren, visuallyHidden}
@@ -156,5 +158,5 @@ export const WithHiddenLabel = ({
   )
 }
 WithHiddenLabel.args = {
-  visuallyHidden: true
+  visuallyHidden: true,
 }

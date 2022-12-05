@@ -7,60 +7,62 @@ import Radio from '../../Radio'
 export default {
   title: 'Components/Forms/RadioGroup/examples',
   component: RadioGroup,
+  args: {
+    disabled: false,
+    required: false,
+    labelChildren: 'Choices',
+    visuallyHidden: false,
+    captionChildren: '',
+    validationChildren: '',
+    variant: 'error',
+  },
   argTypes: {
     // RadioGroup
     disabled: {
-      defaultValue: false,
-      type: 'boolean'
+      type: 'boolean',
     },
     required: {
-      defaultValue: false,
-      type: 'boolean'
+      type: 'boolean',
     },
 
     // RadioGroup.Label
     labelChildren: {
-      defaultValue: 'Choices',
       type: 'string',
       table: {
-        category: 'RadioGroup.Label'
-      }
+        category: 'RadioGroup.Label',
+      },
     },
     visuallyHidden: {
-      defaultValue: false,
       type: 'boolean',
       table: {
-        category: 'RadioGroup.Label'
-      }
+        category: 'RadioGroup.Label',
+      },
     },
 
     // RadioGroup.Caption
     captionChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
-        category: 'RadioGroup.Caption'
-      }
+        category: 'RadioGroup.Caption',
+      },
     },
 
     // RadioGroup.Validation
     validationChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
-        category: 'RadioGroup.Validation'
-      }
+        category: 'RadioGroup.Validation',
+      },
     },
     variant: {
-      defaultValue: 'error',
       control: {
         type: 'radio',
-        options: ['error', 'success', 'warning']
       },
+      options: ['error', 'success', 'warning'],
       table: {
-        category: 'RadioGroup.Validation'
-      }
-    }
+        category: 'RadioGroup.Validation',
+      },
+    },
   },
   parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange', 'sx', 'name']}},
   decorators: [
@@ -72,8 +74,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const Default = ({
@@ -83,7 +85,7 @@ export const Default = ({
   visuallyHidden,
   captionChildren,
   validationChildren,
-  variant
+  variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
   const labelArgs = {children: labelChildren, visuallyHidden}

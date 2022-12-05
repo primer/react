@@ -1,4 +1,4 @@
-import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject, RefObject} from 'react'
+import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
@@ -7,6 +7,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -23,7 +24,7 @@ type LinkProps = {
 
 export type UnderlineNavItemProps = {
   /**
-   * Primary content for an NavLink
+   * Primary content for an UnderlineNav
    */
   children?: React.ReactNode
   /**
@@ -31,18 +32,21 @@ export type UnderlineNavItemProps = {
    */
   onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
   /**
-   * Is the `Link` is currently selected?
+   * Is `UnderlineNav.Item` current page?
    */
-  selected?: boolean
+  'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
   /**
    *  Icon before the text
    */
   icon?: React.FunctionComponent<IconProps>
+  /**
+   * Renders `UnderlineNav.Item` as given component
+   **/
   as?: React.ElementType
   /**
    * Counter
    */
-  counter?: number
+  counter?: number | string
 } & SxProp &
   LinkProps
 
@@ -55,11 +59,11 @@ export const UnderlineNavItem = forwardRef(
       children,
       counter,
       onSelect,
-      selected: preSelected = false,
+      'aria-current': ariaCurrent,
       icon: Icon,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
@@ -75,40 +79,45 @@ export const UnderlineNavItem = forwardRef(
       afterSelect,
       variant,
       loadingCounters,
-      iconsVisible
+      iconsVisible,
     } = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
-      const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+      if (ref.current) {
+        const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
 
-      const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
-        child => child.getAttribute('data-component') === 'icon'
-      )
+        const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
+          child => child.getAttribute('data-component') === 'icon',
+        )
 
-      const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
-        child => child.getAttribute('data-component') === 'text'
-      ) as HTMLElement
-      const text = content.textContent as string
+        const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
+          child => child.getAttribute('data-component') === 'text',
+        ) as HTMLElement
+        const text = content.textContent as string
 
-      const iconWidthWithMargin = icon
-        ? icon.getBoundingClientRect().width +
-          Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
-          Number(getComputedStyle(icon).marginLeft.slice(0, -2))
-        : 0
+        const iconWidthWithMargin = icon
+          ? icon.getBoundingClientRect().width +
+            Number(getComputedStyle(icon).marginRight.slice(0, -2)) +
+            Number(getComputedStyle(icon).marginLeft.slice(0, -2))
+          : 0
 
-      setChildrenWidth({text, width: domRect.width})
-      setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
-      preSelected && selectedLink === undefined && setSelectedLink(ref as RefObject<HTMLElement>)
+        setChildrenWidth({text, width: domRect.width})
+        setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
 
-      // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
-      if (selectedLinkText === text) {
-        setSelectedLink(ref as RefObject<HTMLElement>)
-        if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
-        setSelectedLinkText('')
+        if (selectedLink === undefined && Boolean(ariaCurrent) && ariaCurrent !== 'false') {
+          setSelectedLink(ref as RefObject<HTMLElement>)
+        }
+
+        // Only runs when a menu item is selected (swapping the menu item with the list item to keep it visible)
+        if (selectedLinkText === text) {
+          setSelectedLink(ref as RefObject<HTMLElement>)
+          if (typeof onSelect === 'function' && selectEvent !== null) onSelect(selectEvent)
+          setSelectedLinkText('')
+        }
       }
     }, [
       ref,
-      preSelected,
+      ariaCurrent,
       selectedLink,
       selectedLinkText,
       setSelectedLinkText,
@@ -116,19 +125,18 @@ export const UnderlineNavItem = forwardRef(
       setChildrenWidth,
       setNoIconChildrenWidth,
       onSelect,
-      selectEvent
+      selectEvent,
     ])
 
     const keyPressHandler = React.useCallback(
       event => {
-        if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
-          if (typeof onSelect === 'function') onSelect(event)
-          if (typeof afterSelect === 'function') afterSelect(event)
+        if (event.key === ' ' || event.key === 'Enter') {
+          if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
+          if (!event.defaultPrevented && typeof afterSelect === 'function') afterSelect(event)
+          setSelectedLink(ref as RefObject<HTMLElement>)
         }
-        setSelectedLink(ref as RefObject<HTMLElement>)
-        event.preventDefault()
       },
-      [onSelect, afterSelect, ref, setSelectedLink]
+      [onSelect, afterSelect, ref, setSelectedLink],
     )
     const clickHandler = React.useCallback(
       event => {
@@ -137,9 +145,8 @@ export const UnderlineNavItem = forwardRef(
           if (typeof afterSelect === 'function') afterSelect(event)
         }
         setSelectedLink(ref as RefObject<HTMLElement>)
-        event.preventDefault()
       },
-      [onSelect, afterSelect, ref, setSelectedLink]
+      [onSelect, afterSelect, ref, setSelectedLink],
     )
 
     return (
@@ -149,7 +156,7 @@ export const UnderlineNavItem = forwardRef(
           href={href}
           onKeyPress={keyPressHandler}
           onClick={clickHandler}
-          {...(selectedLink === ref ? {'aria-current': 'page'} : {})}
+          aria-current={ariaCurrent}
           sx={merge(getLinkStyles(theme, {variant}, selectedLink, ref), sxProp as SxProp)}
           {...props}
           ref={ref}
@@ -170,14 +177,22 @@ export const UnderlineNavItem = forwardRef(
                 {children}
               </Box>
             )}
-            {counter && (
+            {loadingCounters ? (
               <Box as="span" data-component="counter" sx={counterStyles}>
-                {loadingCounters ? <LoadingCounter /> : <CounterLabel>{counter}</CounterLabel>}
+                <LoadingCounter />
               </Box>
+            ) : (
+              counter !== undefined && (
+                <Box as="span" data-component="counter" sx={counterStyles}>
+                  <CounterLabel>{counter}</CounterLabel>
+                </Box>
+              )
             )}
           </Box>
         </Box>
       </Box>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
+
+UnderlineNavItem.displayName = 'UnderlineNavItem'

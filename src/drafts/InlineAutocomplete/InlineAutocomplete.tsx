@@ -89,7 +89,7 @@ const InlineAutocomplete = ({
 
   const emitSyntheticChange = useSyntheticChange({
     inputRef,
-    fallbackEventHandler: externalInput.props.onChange ?? noop
+    fallbackEventHandler: externalInput.props.onChange ?? noop,
   })
 
   /** Stores the query that caused the current suggestion list to appear. */
@@ -105,7 +105,7 @@ const InlineAutocomplete = ({
     inputRef.current && showEventRef.current && suggestionsVisible
       ? getAbsoluteCharacterCoordinates(
           inputRef.current,
-          (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length
+          (getSelectionStart(inputRef.current) ?? 0) - showEventRef.current.query.length,
         )
       : {top: 0, left: 0, height: 0}
   const suggestionsOffset = {top: triggerCharCoords.top + triggerCharCoords.height, left: triggerCharCoords.left}
@@ -161,7 +161,7 @@ const InlineAutocomplete = ({
     onBlur: augmentHandler(externalInput.props.onBlur, onBlur),
     onKeyDown: augmentHandler(externalInput.props.onKeyDown, onKeyDown),
     onChange: augmentHandler(externalInput.props.onChange, onChange),
-    ref: inputRef
+    ref: inputRef,
   })
 
   /**

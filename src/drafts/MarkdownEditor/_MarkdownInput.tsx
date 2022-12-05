@@ -7,6 +7,7 @@ import {Emoji, useEmojiSuggestions} from './suggestions/_useEmojiSuggestions'
 import {Mentionable, useMentionSuggestions} from './suggestions/_useMentionSuggestions'
 import {Reference, useReferenceSuggestions} from './suggestions/_useReferenceSuggestions'
 import {useRefObjectAsForwardedRef} from '../../hooks'
+import {SuggestionOptions} from './suggestions'
 
 interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   value: string
@@ -18,9 +19,9 @@ interface MarkdownInputProps extends Omit<TextareaProps, 'onChange'> {
   maxLength?: number
   fullHeight?: boolean
   isDraggedOver: boolean
-  emojiSuggestions?: Array<Emoji>
-  mentionSuggestions?: Array<Mentionable>
-  referenceSuggestions?: Array<Reference>
+  emojiSuggestions?: SuggestionOptions<Emoji>
+  mentionSuggestions?: SuggestionOptions<Mentionable>
+  referenceSuggestions?: SuggestionOptions<Reference>
   minHeightLines: number
   maxHeightLines: number
   monospace: boolean
@@ -51,32 +52,33 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       pasteUrlsAsPlainText,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
     const {trigger: emojiTrigger, calculateSuggestions: calculateEmojiSuggestions} = useEmojiSuggestions(
-      emojiSuggestions ?? []
+      emojiSuggestions ?? [],
     )
     const {trigger: mentionsTrigger, calculateSuggestions: calculateMentionSuggestions} = useMentionSuggestions(
-      mentionSuggestions ?? []
+      mentionSuggestions ?? [],
     )
     const {trigger: referencesTrigger, calculateSuggestions: calculateReferenceSuggestions} = useReferenceSuggestions(
-      referenceSuggestions ?? []
+      referenceSuggestions ?? [],
     )
 
     const triggers = useMemo(
       () => [mentionsTrigger, referencesTrigger, emojiTrigger],
-      [mentionsTrigger, referencesTrigger, emojiTrigger]
+      [mentionsTrigger, referencesTrigger, emojiTrigger],
     )
 
-    const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+    const onShowSuggestions = async (event: ShowSuggestionsEvent) => {
+      setSuggestions('loading')
       if (event.trigger.triggerChar === emojiTrigger.triggerChar) {
-        setSuggestions(calculateEmojiSuggestions(event.query))
+        setSuggestions(await calculateEmojiSuggestions(event.query))
       } else if (event.trigger.triggerChar === mentionsTrigger.triggerChar) {
-        setSuggestions(calculateMentionSuggestions(event.query))
+        setSuggestions(await calculateMentionSuggestions(event.query))
       } else if (event.trigger.triggerChar === referencesTrigger.triggerChar) {
-        setSuggestions(calculateReferenceSuggestions(event.query))
+        setSuggestions(await calculateReferenceSuggestions(event.query))
       }
     }
 
@@ -97,7 +99,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       <InlineAutocomplete
         triggers={triggers}
         suggestions={suggestions}
-        onShowSuggestions={onShowSuggestions}
+        onShowSuggestions={e => onShowSuggestions(e)}
         onHideSuggestions={() => setSuggestions(null)}
         sx={{flex: 'auto'}}
         tabInsertsSuggestions
@@ -116,20 +118,22 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
             width: '100%',
             borderStyle: 'none',
             height: fullHeight ? '100%' : undefined,
-            boxShadow: isDraggedOver ? 'primer.shadow.focus' : 'none',
+            outline: theme => {
+              return isDraggedOver ? `solid 2px ${theme.colors.accent.fg}` : undefined
+            },
             display: visible ? undefined : 'none',
             '& textarea': {
               lineHeight: 1.2,
               resize: fullHeight ? 'none' : 'vertical',
               p: 2,
               fontFamily: monospace ? 'mono' : 'normal',
-              ...heightStyles
-            }
+              ...heightStyles,
+            },
           }}
           {...props}
         />
       </InlineAutocomplete>
     )
-  }
+  },
 )
 MarkdownInput.displayName = 'MarkdownInput'

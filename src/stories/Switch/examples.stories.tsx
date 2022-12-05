@@ -14,38 +14,40 @@ const excludedControlKeys = [
   'onChange',
   'onClick',
   'statusLabelPosition',
-  'sx'
+  'sx',
 ]
 
 export default {
   title: 'Components/ToggleSwitch/examples',
   component: ToggleSwitch,
+  args: {
+    on: undefined,
+    disabled: false,
+    loading: false,
+    size: 'medium',
+  },
   argTypes: {
     on: {
-      defaultValue: undefined,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     disabled: {
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     loading: {
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     size: {
-      defaultValue: 'medium',
       control: {
         type: 'radio',
-        options: ['small', 'medium']
-      }
-    }
+      },
+      options: ['small', 'medium'],
+    },
   },
   parameters: {controls: {exclude: excludedControlKeys}},
   decorators: [
@@ -57,8 +59,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const Default = (args: Args) => (

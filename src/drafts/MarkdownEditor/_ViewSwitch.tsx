@@ -23,14 +23,14 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
   const {label, icon, ...sharedProps} =
     selectedView === 'preview'
       ? {
-          variant: 'invisible',
+          variant: 'invisible' as const,
           sx: {color: 'fg.default', px: 2},
           onClick: () => onViewSelect?.('edit'),
           icon: PencilIcon,
-          label: 'Edit'
+          label: 'Edit',
         }
       : {
-          variant: 'invisible',
+          variant: 'invisible' as const,
           sx: {color: 'fg.default', px: 2},
           onClick: () => {
             onLoadPreview()
@@ -39,7 +39,7 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
           onMouseOver: () => onLoadPreview(),
           onFocus: () => onLoadPreview(),
           icon: EyeIcon,
-          label: 'Preview'
+          label: 'Preview',
         }
 
   return (

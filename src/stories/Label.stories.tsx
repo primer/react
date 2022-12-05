@@ -9,32 +9,34 @@ type Args = ComponentProps<typeof Label>
 export default {
   title: 'Components/Label',
   component: Label,
+  args: {
+    variant: 'default',
+    size: 'large',
+  },
   argTypes: {
     variant: {
-      defaultValue: 'default',
       control: {
-        options: [
-          'default',
-          'primary',
-          'secondary',
-          'accent',
-          'success',
-          'attention',
-          'severe',
-          'danger',
-          'done',
-          'sponsors'
-        ],
-        type: 'select'
-      }
+        type: 'select',
+      },
+      options: [
+        'default',
+        'primary',
+        'secondary',
+        'accent',
+        'success',
+        'attention',
+        'severe',
+        'danger',
+        'done',
+        'sponsors',
+      ],
     },
     size: {
-      defaultValue: 'large',
       control: {
-        options: ['small', 'large'],
-        type: 'radio'
-      }
-    }
+        type: 'radio',
+      },
+      options: ['small', 'large'],
+    },
   },
   decorators: [
     Story => {
@@ -45,8 +47,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const label = (args: Args) => <Label {...args}>Label</Label>

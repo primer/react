@@ -2,37 +2,30 @@ import React, {useRef, forwardRef, useCallback, useState, MutableRefObject, RefO
 import Box from '../Box'
 import sx, {merge, BetterSystemStyleObject, SxProp} from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import {ActionMenu} from '../ActionMenu'
-import {ActionList} from '../ActionList'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
-import {useMedia} from '../hooks/useMedia'
-import {scrollIntoView} from '@primer/behaviors'
-import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
-import {ChildWidthArray, ResponsiveProps, OnScrollWithButtonEventType} from './types'
-
-import {
-  moreBtnStyles,
-  getDividerStyle,
-  getNavStyles,
-  ulStyles,
-  scrollStyles,
-  moreMenuStyles,
-  menuItemStyles
-} from './styles'
-import {LeftArrowButton, RightArrowButton} from './UnderlineNavArrowButton'
+import {ChildWidthArray, ResponsiveProps} from './types'
+import VisuallyHidden from '../_VisuallyHidden'
+import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
 import {LoadingCounter} from './LoadingCounter'
+import {Button} from '../Button'
+import {TriangleDownIcon} from '@primer/octicons-react'
+import {useOnEscapePress} from '../hooks/useOnEscapePress'
+import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {ActionList} from '../ActionList'
+import {useSSRSafeId} from '@react-aria/ssr'
 
 export type UnderlineNavProps = {
-  label: string
+  'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-  align?: 'right'
   sx?: SxProp
+  // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
+  align?: 'right'
   /**
-   * loading state for all counters (to prevent multiple layout shifts)
+   * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
   afterSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
@@ -41,14 +34,6 @@ export type UnderlineNavProps = {
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
 const MORE_BTN_WIDTH = 86
-const ARROW_BTN_WIDTH = 36
-
-const underlineNavScrollMargins: ScrollIntoViewOptions = {
-  startMargin: ARROW_BTN_WIDTH,
-  endMargin: ARROW_BTN_WIDTH,
-  direction: 'horizontal',
-  behavior: 'smooth'
-}
 
 // Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
 const NavigationList = styled.ul`
@@ -59,68 +44,60 @@ const MoreMenuListItem = styled.li`
   display: flex;
 `
 
-const handleArrowBtnsVisibility = (
-  scrollableList: RefObject<HTMLUListElement>,
-  callback: (scroll: {scrollLeft: number; scrollRight: number}) => void
-) => {
-  const {scrollLeft, scrollWidth, clientWidth} = scrollableList.current as HTMLElement
-  const scrollRight = scrollWidth - scrollLeft - clientWidth
-  const scrollOffsets = {scrollLeft, scrollRight}
-  callback(scrollOffsets)
-}
 const overflowEffect = (
   navWidth: number,
   moreMenuWidth: number,
   childArray: Array<React.ReactElement>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
-  isCoarsePointer: boolean,
-  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void
+  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void,
 ) => {
   let iconsVisible = true
-  let overflowStyles: BetterSystemStyleObject | null = {}
   if (childWidthArray.length === 0) {
-    updateListAndMenu({items: childArray, actions: [], overflowStyles}, iconsVisible)
+    updateListAndMenu({items: childArray, actions: []}, iconsVisible)
   }
-
   const numberOfItemsPossible = calculatePossibleItems(childWidthArray, navWidth)
   const numberOfItemsWithoutIconPossible = calculatePossibleItems(noIconChildWidthArray, navWidth)
   // We need to take more menu width into account when calculating the number of items possible
   const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
     noIconChildWidthArray,
     navWidth,
-    moreMenuWidth || MORE_BTN_WIDTH
+    moreMenuWidth || MORE_BTN_WIDTH,
   )
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
 
-  if (isCoarsePointer) {
-    // If it is a coarse pointer, we never show the icons even if they fit into the screen.
+  // First, we check if we can fit all the items with their icons
+  if (childArray.length <= numberOfItemsPossible) {
+    items.push(...childArray)
+  } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
+    // if we can't fit all the items with their icons, we check if we can fit all the items without their icons
     iconsVisible = false
     items.push(...childArray)
-    // If we have more items than we can fit, we add the scroll styles
-    if (childArray.length > numberOfItemsWithoutIconPossible) {
-      overflowStyles = scrollStyles
-    }
   } else {
-    // For fine pointer devices, first we check if we can fit all the items with icons
-    if (childArray.length <= numberOfItemsPossible) {
-      items.push(...childArray)
-    } else if (childArray.length <= numberOfItemsWithoutIconPossible) {
-      // if we can't fit all the items with icons, we check if we can fit all the items without icons
-      iconsVisible = false
-      items.push(...childArray)
-    } else {
-      // if we can't fit all the items without icons, we keep the icons hidden and show the rest in the menu
-      iconsVisible = false
-      overflowStyles = moreMenuStyles
-      for (const [index, child] of childArray.entries()) {
-        if (index < numberOfItemsPossibleWithMoreMenu) {
-          items.push(child)
-          // keeping selected item always visible.
-        } else if (child.props.selected) {
-          // If selected item's index couldn't make the list, we swap it with the last item in the list.
-          const propsectiveAction = items.splice(numberOfItemsPossibleWithMoreMenu - 1, 1, child)[0]
+    // if we can't fit all the items without their icons, we keep the icons hidden and show the ones that doesn't fit into the list in the overflow menu
+    iconsVisible = false
+
+    /* Below is an accessibiility requirement. Never show only one item in the overflow menu.
+     * If there is only one item left to display in the overflow menu according to the calculation,
+     * we need to pull another item from the list into the overflow menu.
+     */
+    const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
+    const numberOfListItems =
+      numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
+
+    for (const [index, child] of childArray.entries()) {
+      if (index < numberOfListItems) {
+        items.push(child)
+      } else {
+        const ariaCurrent = child.props['aria-current']
+        const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
+        // We need to make sure to keep the selected item always visible.
+        if (isCurrent) {
+          // If selected item couldn't make in to the list, we swap it with the last item in the list.
+          const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
+          // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
+          const propsectiveAction = items.splice(indexToReplaceAt, 1, child)[0]
           actions.push(propsectiveAction)
         } else {
           actions.push(child)
@@ -128,8 +105,7 @@ const overflowEffect = (
       }
     }
   }
-
-  updateListAndMenu({items, actions, overflowStyles}, iconsVisible)
+  updateListAndMenu({items, actions}, iconsVisible)
 }
 
 const getValidChildren = (children: React.ReactNode) => {
@@ -145,10 +121,10 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
       breakpoint = index - 1
       break
     } else {
-      sumsOfChildWidth = sumsOfChildWidth + childWidth.width
+      // The the gap between items into account when calculating the number of items possible
+      sumsOfChildWidth = sumsOfChildWidth + childWidth.width + GAP
     }
   }
-
   return breakpoint
 }
 
@@ -157,19 +133,22 @@ export const UnderlineNav = forwardRef(
     {
       as = 'nav',
       align,
-      label,
+      'aria-label': ariaLabel,
       sx: sxProp = {},
       afterSelect,
       variant = 'default',
       loadingCounters = false,
-      children
+      children,
     }: UnderlineNavProps,
-    forwardedRef
+    forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
     const listRef = useRef<HTMLUListElement>(null)
     const moreMenuRef = useRef<HTMLLIElement>(null)
+    const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
+    const containerRef = React.useRef<HTMLUListElement>(null)
+    const disclosureWidgetId = useSSRSafeId()
 
     const {theme} = useTheme()
 
@@ -181,7 +160,7 @@ export const UnderlineNav = forwardRef(
       prospectiveListItem: React.ReactElement,
       indexOfProspectiveListItem: number,
       event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
-      callback: (props: ResponsiveProps, displayIcons: boolean) => void
+      callback: (props: ResponsiveProps, displayIcons: boolean) => void,
     ) => {
       // get the selected menu item's width
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
@@ -202,10 +181,7 @@ export const UnderlineNav = forwardRef(
       // Add itemsToAddToMenu array's items to the menu at the index of the prospectiveListItem and remove 1 count of items (prospectiveListItem)
       updatedMenuItems.splice(indexOfProspectiveListItem, 1, ...itemsToAddToMenu)
       setSelectedLinkText(prospectiveListItem.props.children)
-      callback(
-        {items: updatedItemList, actions: updatedMenuItems, overflowStyles: responsiveProps.overflowStyles},
-        false
-      )
+      callback({items: updatedItemList, actions: updatedMenuItems}, false)
     }
     // How many items do we need to pull in to the menu to make room for the selected menu item.
     function getBreakpointForItemSwapping(widthToFitIntoList: number, availableSpace: number) {
@@ -221,8 +197,6 @@ export const UnderlineNav = forwardRef(
       return breakpoint
     }
 
-    const isCoarsePointer = useMedia('(pointer: coarse)')
-
     const [selectedLink, setSelectedLink] = useState<RefObject<HTMLElement> | undefined>(undefined)
 
     // selectedLinkText is needed to be able set the selected menu item as selectedLink.
@@ -235,41 +209,45 @@ export const UnderlineNav = forwardRef(
 
     const [iconsVisible, setIconsVisible] = useState<boolean>(true)
 
-    const [scrollValues, setScrollValues] = useState<{scrollLeft: number; scrollRight: number}>({
-      scrollLeft: 0,
-      scrollRight: 0
-    })
-
     const afterSelectHandler = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
       if (!event.defaultPrevented) {
         if (typeof afterSelect === 'function') afterSelect(event)
+        closeOverlay()
       }
     }
 
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
       items: getValidChildren(children),
       actions: [],
-      overflowStyles: {}
     })
+
+    /*
+     * This is needed to make sure responsiveProps.items and ResponsiveProps.actions are updated when children are changed
+     * Particually when an item is selected. It adds 'aria-current="page"' attribute to the child and we need to make sure
+     * responsiveProps.items and ResponsiveProps.actions are updated with that attribute
+     */
+    useEffect(() => {
+      const childArray = getValidChildren(children)
+
+      const updatedItems = responsiveProps.items.map(item => {
+        return childArray.find(child => child.key === item.key) || item
+      })
+
+      const updatedActions = responsiveProps.actions.map(action => {
+        return childArray.find(child => child.key === action.key) || action
+      })
+
+      setResponsiveProps({
+        items: updatedItems,
+        actions: updatedActions,
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [children])
 
     const updateListAndMenu = useCallback((props: ResponsiveProps, displayIcons: boolean) => {
       setResponsiveProps(props)
       setIconsVisible(displayIcons)
     }, [])
-
-    const updateOffsetValues = useCallback((scrollOffsets: {scrollLeft: number; scrollRight: number}) => {
-      setScrollValues(scrollOffsets)
-    }, [])
-
-    const scrollOnList = useCallback(() => {
-      handleArrowBtnsVisibility(listRef, updateOffsetValues)
-    }, [updateOffsetValues])
-
-    const onScrollWithButton: OnScrollWithButtonEventType = (event, direction) => {
-      if (!listRef.current) return
-      const ScrollAmount = direction * 200
-      listRef.current.scrollBy({left: ScrollAmount, top: 0, behavior: 'smooth'})
-    }
 
     const actions = responsiveProps.actions
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
@@ -292,32 +270,42 @@ export const UnderlineNav = forwardRef(
       const childArray = getValidChildren(children)
       const navWidth = resizeObserverEntries[0].contentRect.width
       const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
-      overflowEffect(
-        navWidth,
-        moreMenuWidth,
-        childArray,
-        childWidthArray,
-        noIconChildWidthArray,
-        isCoarsePointer,
-        updateListAndMenu
-      )
-      handleArrowBtnsVisibility(listRef, updateOffsetValues)
+      navWidth !== 0 &&
+        overflowEffect(navWidth, moreMenuWidth, childArray, childWidthArray, noIconChildWidthArray, updateListAndMenu)
     }, navRef as RefObject<HTMLElement>)
 
-    useEffect(() => {
-      const listEl = listRef.current
-      // eslint-disable-next-line github/prefer-observers
-      listEl?.addEventListener('scroll', scrollOnList)
-      return () => listEl?.removeEventListener('scroll', scrollOnList)
-    }, [scrollOnList])
+    if (!ariaLabel) {
+      // eslint-disable-next-line no-console
+      console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
+    }
+    const [isWidgetOpen, setIsWidgetOpen] = useState(false)
 
-    useEffect(() => {
-      // scroll the selected link into the view (coarse pointer behaviour)
-      if (isCoarsePointer && selectedLink?.current && listRef.current) {
-        scrollIntoView(selectedLink.current, listRef.current, underlineNavScrollMargins)
+    const closeOverlay = React.useCallback(() => {
+      setIsWidgetOpen(false)
+    }, [setIsWidgetOpen])
+
+    const focusOnMoreMenuBtn = React.useCallback(() => {
+      moreMenuBtnRef.current?.focus()
+    }, [])
+
+    useOnEscapePress(
+      (event: KeyboardEvent) => {
+        if (isWidgetOpen) {
+          event.preventDefault()
+          closeOverlay()
+          focusOnMoreMenuBtn()
+        }
+      },
+      [isWidgetOpen],
+    )
+
+    useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
+    const onAnchorClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+      if (event.defaultPrevented || event.button !== 0) {
         return
       }
-    }, [selectedLink, isCoarsePointer])
+      setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
+    }, [])
 
     return (
       <UnderlineNavContext.Provider
@@ -333,67 +321,80 @@ export const UnderlineNav = forwardRef(
           afterSelect: afterSelectHandler,
           variant,
           loadingCounters,
-          iconsVisible
+          iconsVisible,
         }}
       >
+        {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
         <Box
           as={as}
           sx={merge<BetterSystemStyleObject>(getNavStyles(theme, {align}), sxProp)}
-          aria-label={label}
+          aria-label={ariaLabel}
           ref={navRef}
         >
-          {isCoarsePointer && (
-            <LeftArrowButton show={scrollValues.scrollLeft > 0} onScrollWithButton={onScrollWithButton} />
-          )}
-
-          <NavigationList sx={merge<BetterSystemStyleObject>(responsiveProps.overflowStyles, ulStyles)} ref={listRef}>
+          <NavigationList sx={ulStyles} ref={listRef} role="list">
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
                 <Box sx={getDividerStyle(theme)}></Box>
-                <ActionMenu>
-                  <ActionMenu.Button sx={moreBtnStyles}>More</ActionMenu.Button>
-                  <ActionMenu.Overlay align="end">
-                    <ActionList selectionVariant="single">
-                      {actions.map((action, index) => {
-                        const {children: actionElementChildren, ...actionElementProps} = action.props
-                        return (
-                          <ActionList.Item
-                            sx={menuItemStyles}
-                            key={index}
-                            {...actionElementProps}
-                            onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                              swapMenuItemWithListItem(action, index, event, updateListAndMenu)
-                              setSelectEvent(event)
-                            }}
-                          >
-                            <Box
-                              as="span"
-                              sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
-                            >
-                              {actionElementChildren}
+                <Button
+                  ref={moreMenuBtnRef}
+                  sx={moreBtnStyles}
+                  aria-controls={disclosureWidgetId}
+                  aria-expanded={isWidgetOpen}
+                  onClick={onAnchorClick}
+                  trailingIcon={TriangleDownIcon}
+                >
+                  <Box as="span">
+                    More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                  </Box>
+                </Button>
+                <ActionList
+                  selectionVariant="single"
+                  ref={containerRef}
+                  id={disclosureWidgetId}
+                  sx={menuStyles}
+                  style={{display: isWidgetOpen ? 'block' : 'none'}}
+                >
+                  {actions.map((action, index) => {
+                    const {children: actionElementChildren, ...actionElementProps} = action.props
+                    return (
+                      <Box key={actionElementChildren} as="li">
+                        <ActionList.Item
+                          {...actionElementProps}
+                          as={action.props.as || 'a'}
+                          sx={menuItemStyles}
+                          onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                            swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                            setSelectEvent(event)
+                            closeOverlay()
+                            focusOnMoreMenuBtn()
+                          }}
+                        >
+                          <Box as="span" sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                            {actionElementChildren}
 
-                              {loadingCounters ? (
-                                <LoadingCounter />
-                              ) : (
-                                <CounterLabel>{actionElementProps.counter}</CounterLabel>
-                              )}
-                            </Box>
-                          </ActionList.Item>
-                        )
-                      })}
-                    </ActionList>
-                  </ActionMenu.Overlay>
-                </ActionMenu>
+                            {loadingCounters ? (
+                              <LoadingCounter />
+                            ) : (
+                              actionElementProps.counter !== undefined && (
+                                <Box as="span" data-component="counter">
+                                  <CounterLabel>{actionElementProps.counter}</CounterLabel>
+                                </Box>
+                              )
+                            )}
+                          </Box>
+                        </ActionList.Item>
+                      </Box>
+                    )
+                  })}
+                </ActionList>
               </MoreMenuListItem>
             )}
           </NavigationList>
-
-          {isCoarsePointer && (
-            <RightArrowButton show={scrollValues.scrollRight > 0} onScrollWithButton={onScrollWithButton} />
-          )}
         </Box>
       </UnderlineNavContext.Provider>
     )
-  }
+  },
 )
+
+UnderlineNav.displayName = 'UnderlineNav'

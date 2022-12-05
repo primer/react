@@ -5,15 +5,16 @@ import {BaseStyles, Box, ThemeProvider} from '..'
 import TextInputTokens from '../TextInputWithTokens'
 import Autocomplete from '../Autocomplete/Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import {ButtonInvisible} from '../deprecated/Button'
 import FormControl from '../FormControl'
+import {Button} from '../Button'
 import {ComponentProps} from '../utils/types'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
-  textInputWithTokensArgTypes
+  textInputWithTokensArgTypes,
 } from '../utils/story-helpers'
 import {within, userEvent} from '@storybook/testing-library'
 import {expect} from '@storybook/jest'
@@ -51,7 +52,7 @@ const getArgsByChildComponent = ({
   maxHeight: textInputWithTokensMaxHeight,
   preventTokenWrapping,
   size: tokenSize,
-  visibleTokenCount
+  visibleTokenCount,
 }: AutocompleteArgs) => {
   const textInputArgs = {
     block,
@@ -61,7 +62,7 @@ const getArgsByChildComponent = ({
     loading,
     loaderPosition,
     placeholder,
-    validationStatus
+    validationStatus,
   }
   return {
     menuArgs: {emptyStateText, loading: menuLoading, selectionVariant},
@@ -73,9 +74,9 @@ const getArgsByChildComponent = ({
       preventTokenWrapping,
       size: tokenSize,
       visibleTokenCount,
-      ...textInputArgs
+      ...textInputArgs,
       // ...formControlArgTypes
-    }
+    },
   }
 }
 
@@ -97,7 +98,7 @@ const items: Datum[] = [
   {text: 'javascript', id: 3},
   {text: 'typescript', id: 4},
   {text: 'react', id: 5},
-  {text: 'design-systems', id: 6}
+  {text: 'design-systems', id: 6},
 ]
 
 const mockTokens: Datum[] = [...items].slice(0, 3)
@@ -125,93 +126,96 @@ const autocompleteStoryMeta: Meta = {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
+  args: {
+    ...formControlArgs,
+    emptyStateText: 'No selectable options',
+    menuLoading: false,
+    selectionVariant: 'single',
+    anchorSide: undefined,
+    height: 'auto',
+    overlayMaxHeight: undefined,
+    width: 'auto',
+  },
   argTypes: {
     // Autocomplete.Menu
     emptyStateText: {
-      defaultValue: 'No selectable options',
       control: {type: 'text'},
       table: {
-        category: 'Autocomplete.Menu'
-      }
+        category: 'Autocomplete.Menu',
+      },
     },
     menuLoading: {
       name: 'loading',
-      defaultValue: false,
       control: {type: 'boolean'},
       table: {
-        category: 'Autocomplete.Menu'
-      }
+        category: 'Autocomplete.Menu',
+      },
     },
     selectionVariant: {
-      defaultValue: 'single',
       control: {
         type: 'radio',
-        options: ['single', 'multiple']
       },
+      options: ['single', 'multiple'],
       table: {
-        category: 'Autocomplete.Menu'
-      }
+        category: 'Autocomplete.Menu',
+      },
     },
 
     // Autocomplete.Overlay
     anchorSide: {
-      defaultValue: undefined,
       control: {
         type: 'select',
-        options: [
-          'inside-top',
-          'inside-bottom',
-          'inside-left',
-          'inside-right',
-          'inside-center',
-          'outside-top',
-          'outside-bottom',
-          'outside-left',
-          'outside-right'
-        ]
       },
+      options: [
+        'inside-top',
+        'inside-bottom',
+        'inside-left',
+        'inside-right',
+        'inside-center',
+        'outside-top',
+        'outside-bottom',
+        'outside-left',
+        'outside-right',
+      ],
       table: {
-        category: 'Autocomplete.Overlay'
-      }
+        category: 'Autocomplete.Overlay',
+      },
     },
     height: {
-      defaultValue: 'auto',
       control: {
         type: 'select',
-        options: ['auto', 'initial', 'small', 'medium', 'large', 'xlarge', 'xsmall']
       },
+      options: ['auto', 'initial', 'small', 'medium', 'large', 'xlarge', 'xsmall'],
       table: {
-        category: 'Autocomplete.Overlay'
-      }
+        category: 'Autocomplete.Overlay',
+      },
     },
     // needs a key other than 'maxHeight' because TextInputWithTokens also has a maxHeight prop
     overlayMaxHeight: {
       name: 'maxHeight',
-      defaultValue: undefined,
       control: {
         type: 'select',
-        options: ['small', 'medium', 'large', 'xlarge', 'xsmall', undefined]
       },
+      options: ['small', 'medium', 'large', 'xlarge', 'xsmall', undefined],
       table: {
-        category: 'Autocomplete.Overlay'
-      }
+        category: 'Autocomplete.Overlay',
+      },
     },
     width: {
-      defaultValue: 'auto',
       control: {
         type: 'select',
-        options: ['auto', 'small', 'medium', 'large', 'xlarge', 'xxlarge']
       },
+      options: ['auto', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
       table: {
-        category: 'Autocomplete.Overlay'
-      }
+        category: 'Autocomplete.Overlay',
+      },
     },
     ...getTextInputArgTypes('TextInput props'),
-    ...formControlArgTypes
-  }
+    ...formControlArgTypes,
+  },
 } as Meta
 
 export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
@@ -326,16 +330,16 @@ export const WithTokenInput = (args: FormControlArgs<AutocompleteArgs>) => {
 WithTokenInput.argTypes = {
   ...autocompleteStoryMeta.argTypes,
   ...getTextInputArgTypes('TextInput props'),
-  ...textInputWithTokensArgTypes
+  ...textInputWithTokensArgTypes,
 }
 WithTokenInput.args = {
   block: true,
-  selectionVariant: 'multiple'
+  selectionVariant: 'multiple',
 }
 WithTokenInput.parameters = {
   controls: {
-    exclude: [...excludedControlKeys, 'size']
-  }
+    exclude: [...excludedControlKeys, 'size'],
+  },
 }
 
 export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
@@ -405,10 +409,10 @@ export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
                         onItemSelect({
                           ...item,
                           text: filterVal,
-                          selected: true
+                          selected: true,
                         })
                         setFilterVal('')
-                      }
+                      },
                     }
                   : undefined
               }
@@ -430,17 +434,17 @@ export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
 }
 AddNewItem.args = {
   block: true,
-  selectionVariant: 'multiple'
+  selectionVariant: 'multiple',
 }
 AddNewItem.argTypes = {
   ...autocompleteStoryMeta.argTypes,
   ...getTextInputArgTypes('TextInput props'),
-  ...textInputWithTokensArgTypes
+  ...textInputWithTokensArgTypes,
 }
 AddNewItem.parameters = {
   controls: {
-    exclude: [...excludedControlKeys, 'size']
-  }
+    exclude: [...excludedControlKeys, 'size'],
+  },
 }
 
 export const CustomSearchFilterFn = (args: FormControlArgs<AutocompleteArgs>) => {
@@ -477,7 +481,7 @@ export const CustomSearchFilterFn = (args: FormControlArgs<AutocompleteArgs>) =>
   )
 }
 CustomSearchFilterFn.args = {
-  captionChildren: 'Items in dropdown are filtered if their text has no part that matches the input value'
+  captionChildren: 'Items in dropdown are filtered if their text has no part that matches the input value',
 }
 
 export const CustomSortAfterMenuClose = (args: FormControlArgs<AutocompleteArgs>) => {
@@ -521,7 +525,7 @@ export const CustomSortAfterMenuClose = (args: FormControlArgs<AutocompleteArgs>
   )
 }
 CustomSortAfterMenuClose.args = {
-  captionChildren: 'When the dropdown closes, selected items are sorted to the end'
+  captionChildren: 'When the dropdown closes, selected items are sorted to the end',
 }
 
 export const WithCallbackWhenOverlayOpenStateChanges = (args: FormControlArgs<AutocompleteArgs>) => {
@@ -619,8 +623,8 @@ export const RenderingTheMenuOutsideAnOverlay = (args: FormControlArgs<Autocompl
 }
 RenderingTheMenuOutsideAnOverlay.parameters = {
   controls: {
-    exclude: [...excludedControlKeys, 'anchorSide', 'height', 'maxHeight', 'width']
-  }
+    exclude: [...excludedControlKeys, 'anchorSide', 'height', 'maxHeight', 'width'],
+  },
 }
 
 export const CustomOverlayMenuAnchor = (args: FormControlArgs<AutocompleteArgs>) => {
@@ -634,7 +638,7 @@ export const CustomOverlayMenuAnchor = (args: FormControlArgs<AutocompleteArgs>)
     flexShrink: 0,
     flexBasis: '25%',
     border: '1px solid black',
-    padding: '1em'
+    padding: '1em',
   }
 
   return (
@@ -652,8 +656,8 @@ export const CustomOverlayMenuAnchor = (args: FormControlArgs<AutocompleteArgs>)
                 boxShadow: 'none',
                 ':focus-within': {
                   border: '0',
-                  boxShadow: 'none'
-                }
+                  boxShadow: 'none',
+                },
               }}
               {...textInputArgs}
               size={textInputArgs.inputSize}
@@ -672,7 +676,7 @@ export const CustomOverlayMenuAnchor = (args: FormControlArgs<AutocompleteArgs>)
   )
 }
 CustomOverlayMenuAnchor.args = {
-  captionChildren: `The overlay menu's position is anchored to the div with the black border instead of to the text input`
+  captionChildren: `The overlay menu's position is anchored to the div with the black border instead of to the text input`,
 }
 
 export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<AutocompleteArgs>) => {
@@ -696,7 +700,7 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
         height="xsmall"
         focusTrapSettings={{initialFocusRef: inputRef}}
         side="inside-top"
-        renderAnchor={props => <ButtonInvisible {...props}>open overlay</ButtonInvisible>}
+        renderAnchor={props => <Button {...props}>open overlay</Button>}
       >
         <FormControl.Label htmlFor="autocompleteInput" id="autocompleteLabel" visuallyHidden>
           Pick tags
@@ -714,8 +718,8 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
                   boxShadow: 'none',
                   ':focus-within': {
                     border: '0',
-                    boxShadow: 'none'
-                  }
+                    boxShadow: 'none',
+                  },
                 }}
                 {...textInputArgs}
                 size={textInputArgs.inputSize}
@@ -747,9 +751,9 @@ InOverlayWithCustomScrollContainerRef.parameters = {
       'height',
       'maxHeight',
       'width',
-      'children'
-    ]
-  }
+      'children',
+    ],
+  },
 }
 
 export default autocompleteStoryMeta

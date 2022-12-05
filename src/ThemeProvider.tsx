@@ -34,7 +34,7 @@ const ThemeContext = React.createContext<{
 }>({
   setColorMode: () => null,
   setDayScheme: () => null,
-  setNightScheme: () => null
+  setNightScheme: () => null,
 })
 
 // inspired from __NEXT_DATA__, we use application/json to avoid CSRF policy with inline scripts
@@ -54,7 +54,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
     theme: fallbackTheme,
     colorMode: fallbackColorMode,
     dayScheme: fallbackDayScheme,
-    nightScheme: fallbackNightScheme
+    nightScheme: fallbackNightScheme,
   } = useTheme()
 
   // Initialize state
@@ -71,7 +71,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
   const colorScheme = chooseColorScheme(resolvedColorMode, dayScheme, nightScheme)
   const {resolvedTheme, resolvedColorScheme} = React.useMemo(
     () => applyColorScheme(theme, colorScheme),
-    [theme, colorScheme]
+    [theme, colorScheme],
   )
 
   // this effect will only run on client
@@ -93,7 +93,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         resolvedColorModePassthrough.current = null
       }
     },
-    [colorMode, systemColorMode]
+    [colorMode, systemColorMode],
   )
 
   // Update state if props change
@@ -121,7 +121,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         nightScheme,
         setColorMode,
         setDayScheme,
-        setNightScheme
+        setNightScheme,
       }}
     >
       <SCThemeProvider theme={resolvedTheme}>
@@ -212,12 +212,12 @@ function chooseColorScheme(colorMode: ColorMode, dayScheme: string, nightScheme:
 
 function applyColorScheme(
   theme: Theme,
-  colorScheme: string
+  colorScheme: string,
 ): {resolvedTheme: Theme; resolvedColorScheme: string | undefined} {
   if (!theme.colorSchemes) {
     return {
       resolvedTheme: theme,
-      resolvedColorScheme: undefined
+      resolvedColorScheme: undefined,
     }
   }
 
@@ -229,13 +229,13 @@ function applyColorScheme(
     const defaultColorScheme = Object.keys(theme.colorSchemes)[0]
     return {
       resolvedTheme: deepmerge(theme, theme.colorSchemes[defaultColorScheme]),
-      resolvedColorScheme: defaultColorScheme
+      resolvedColorScheme: defaultColorScheme,
     }
   }
 
   return {
     resolvedTheme: deepmerge(theme, theme.colorSchemes[colorScheme]),
-    resolvedColorScheme: colorScheme
+    resolvedColorScheme: colorScheme,
   }
 }
 

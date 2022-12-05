@@ -37,10 +37,10 @@ describe('CheckboxOrRadioGroup', () => {
           </FormControl>
         </CheckboxOrRadioGroup>
       </SSRProvider>
-    )
+    ),
   })
   checkExports('_CheckboxOrRadioGroup', {
-    default: CheckboxOrRadioGroup
+    default: CheckboxOrRadioGroup,
   })
   it('renders a group of inputs with a caption in the <legend>', () => {
     render(
@@ -59,7 +59,7 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
     const legend = document.getElementsByTagName('legend')[0]
     const caption = within(legend).getByText('Caption text')
@@ -84,7 +84,7 @@ describe('CheckboxOrRadioGroup', () => {
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
         <CheckboxOrRadioGroup.Validation variant="error">Validation text</CheckboxOrRadioGroup.Validation>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
     const legend = document.getElementsByTagName('legend')[0]
     const validationMsg = within(legend).getByText('Validation text')
@@ -107,7 +107,7 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
     const legend = getByText(INPUT_GROUP_LABEL)
 
@@ -129,7 +129,7 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
 
     expect(getByRole('group', {name: INPUT_GROUP_LABEL})).toBeTruthy()
@@ -153,7 +153,7 @@ describe('CheckboxOrRadioGroup', () => {
             <FormControl.Label>Choice three</FormControl.Label>
           </FormControl>
         </CheckboxOrRadioGroup>
-      </>
+      </>,
     )
     const fieldset = getByLabelText(INPUT_GROUP_LABEL)
 
@@ -176,7 +176,7 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
 
     expect(consoleSpy).toHaveBeenCalled()
@@ -199,7 +199,7 @@ describe('CheckboxOrRadioGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxOrRadioGroup>
+      </CheckboxOrRadioGroup>,
     )
 
     expect(consoleSpy).toHaveBeenCalled()

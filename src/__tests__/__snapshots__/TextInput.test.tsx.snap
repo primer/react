@@ -849,12 +849,8 @@ exports[`TextInput renders leadingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
-      dangerouslySetInnerHTML={
-        {
-          "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-        }
-      }
       fill="currentColor"
+      focusable="false"
       height={16}
       role="img"
       style={
@@ -867,7 +863,12 @@ exports[`TextInput renders leadingVisual 1`] = `
       }
       viewBox="0 0 16 16"
       width={16}
-    />
+    >
+      <path
+        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+        fillRule="evenodd"
+      />
+    </svg>
   </span>
   <input
     className="c1"
@@ -1782,28 +1783,33 @@ exports[`TextInput renders trailingAction icon button 1`] = `
         onClick={[MockFunction]}
         type="button"
       >
-        <svg
-          aria-hidden="true"
-          className="octicon octicon-search"
-          dangerouslySetInnerHTML={
-            {
-              "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
+        <span
+          className="c5"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            role="img"
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
             }
-          }
-          fill="currentColor"
-          height={16}
-          role="img"
-          style={
-            {
-              "display": "inline-block",
-              "overflow": "visible",
-              "userSelect": "none",
-              "verticalAlign": "text-bottom",
-            }
-          }
-          viewBox="0 0 16 16"
-          width={16}
-        />
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
+        </span>
       </button>
     </span>
   </span>
@@ -2166,7 +2172,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
       data-component={null}
       data-size="small"
       onClick={[MockFunction]}
-      size="small"
       type="button"
     >
       <span
@@ -2765,7 +2770,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
         data-component={null}
         data-size="small"
         onClick={[MockFunction]}
-        size="small"
         type="button"
       >
         <span
@@ -2907,12 +2911,8 @@ exports[`TextInput renders trailingVisual 1`] = `
     <svg
       aria-hidden="true"
       className="octicon octicon-search"
-      dangerouslySetInnerHTML={
-        {
-          "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-        }
-      }
       fill="currentColor"
+      focusable="false"
       height={16}
       role="img"
       style={
@@ -2925,7 +2925,12 @@ exports[`TextInput renders trailingVisual 1`] = `
       }
       viewBox="0 0 16 16"
       width={16}
-    />
+    >
+      <path
+        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+        fillRule="evenodd"
+      />
+    </svg>
   </span>
 </span>
 `;
@@ -3752,12 +3757,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -3770,7 +3771,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -4003,12 +4009,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4021,7 +4023,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -4254,12 +4261,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4272,7 +4275,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -4506,12 +4514,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4524,7 +4528,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c4"
@@ -4757,12 +4766,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4775,7 +4780,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c5"
@@ -4964,12 +4974,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -4982,7 +4988,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c4"
@@ -5187,12 +5198,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5205,7 +5212,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -5263,12 +5275,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5281,7 +5289,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c6"
@@ -5478,12 +5491,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5496,7 +5505,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -5554,12 +5568,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5572,7 +5582,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c6"
@@ -5775,12 +5790,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5793,7 +5804,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c3"
@@ -5851,12 +5867,8 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <svg
             aria-hidden="true"
             className="octicon octicon-search"
-            dangerouslySetInnerHTML={
-              {
-                "__html": "<path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"></path>",
-              }
-            }
             fill="currentColor"
+            focusable="false"
             height={16}
             role="img"
             style={
@@ -5869,7 +5881,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
             }
             viewBox="0 0 16 16"
             width={16}
-          />
+          >
+            <path
+              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+              fillRule="evenodd"
+            />
+          </svg>
         </div>
         <svg
           className="c6"

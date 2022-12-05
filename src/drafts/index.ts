@@ -6,13 +6,15 @@
  */
 export * from '../Dialog/Dialog'
 
+export * from '../Hidden' // Will be moved from drafts to main bundle after utility is proven
+
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
   InlineAutocompleteProps,
   ShowSuggestionsEvent,
   Suggestion,
   Suggestions,
-  Trigger
+  Trigger,
 } from './InlineAutocomplete'
 
 export {default as MarkdownViewer} from './MarkdownViewer'

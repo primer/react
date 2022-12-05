@@ -153,5 +153,5 @@ export default Object.assign(Dropdown, {
   Caret: DropdownCaret,
   Menu: DropdownMenu,
   Item: DropdownItem,
-  Button: DropdownButton
+  Button: DropdownButton,
 })

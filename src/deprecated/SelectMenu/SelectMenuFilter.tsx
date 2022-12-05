@@ -41,7 +41,7 @@ const SelectMenuFilter = forwardRef<HTMLInputElement, SelectMenuFilterInternalPr
         <TextInput ref={ref} width="100%" block value={value} contrast {...rest} />
       </StyledForm>
     )
-  }
+  },
 )
 
 SelectMenuFilter.displayName = 'SelectMenu.Filter'

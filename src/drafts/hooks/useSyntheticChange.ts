@@ -3,7 +3,7 @@ import {useCallback} from 'react'
 const calculateNewCaretPosition = (
   originalCaretPosition: number,
   replaceRange: [number, number],
-  insertLength: number
+  insertLength: number,
 ): number => {
   const deleteLength = replaceRange[1] - replaceRange[0]
   const lengthDifference = insertLength - deleteLength
@@ -25,7 +25,7 @@ const calculateNewCaretPosition = (
 const SyntheticChangeEvent = <Element extends HTMLElement>(
   dispatchedEvent: InputEvent,
   // Could use dispatchedEvent.target, but that would require a type assertion because InputEvent is not generic
-  target: Element
+  target: Element,
 ): React.ChangeEvent<Element> => ({
   // Spreading the event is particularly imperfect. Functions called on the `SyntheticEvent`
   // will have the wrong `this` binding and shallow object properties may fall out of sync.
@@ -45,11 +45,11 @@ const SyntheticChangeEvent = <Element extends HTMLElement>(
   // longer pooled" -  https://reactjs.org/docs/events.html#overview
   persist: () => ({
     /* noop */
-  })
+  }),
 })
 
 type UseSyntheticChangeSettings<
-  Element extends HTMLTextAreaElement | HTMLInputElement = HTMLTextAreaElement | HTMLInputElement
+  Element extends HTMLTextAreaElement | HTMLInputElement = HTMLTextAreaElement | HTMLInputElement,
 > = {
   /** Ref to the input element to change. */
   inputRef: React.RefObject<Element>
@@ -77,7 +77,7 @@ type UseSyntheticChangeSettings<
 export type SyntheticChangeEmitter = (
   insertValue: string,
   replaceRange?: [startIndexInclusive: number, endIndexExclusive: number],
-  newSelection?: number | [number, number]
+  newSelection?: number | [number, number],
 ) => void
 
 /**
@@ -98,7 +98,7 @@ export const useSyntheticChange = ({inputRef, fallbackEventHandler}: UseSyntheti
 
       const replaceRange = replaceRange_ ?? [
         input.selectionStart ?? input.value.length,
-        input.selectionEnd ?? input.value.length
+        input.selectionEnd ?? input.value.length,
       ]
 
       const newSelectionStart =
@@ -147,5 +147,5 @@ export const useSyntheticChange = ({inputRef, fallbackEventHandler}: UseSyntheti
         fallbackEventHandler(SyntheticChangeEvent(event, inputRef.current))
       }
     },
-    [inputRef, fallbackEventHandler]
+    [inputRef, fallbackEventHandler],
   )

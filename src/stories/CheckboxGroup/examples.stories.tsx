@@ -6,60 +6,62 @@ import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
 export default {
   title: 'Components/Forms/CheckboxGroup/examples',
   component: CheckboxGroup,
+  args: {
+    disabled: false,
+    required: false,
+    labelChildren: 'Choices',
+    visuallyHidden: false,
+    captionChildren: '',
+    validationChildren: '',
+    variant: 'error',
+  },
   argTypes: {
     // CheckboxGroup
     disabled: {
-      defaultValue: false,
-      type: 'boolean'
+      type: 'boolean',
     },
     required: {
-      defaultValue: false,
-      type: 'boolean'
+      type: 'boolean',
     },
 
     // CheckboxGroup.Label
     labelChildren: {
-      defaultValue: 'Choices',
       type: 'string',
       table: {
-        category: 'CheckboxGroup.Label'
-      }
+        category: 'CheckboxGroup.Label',
+      },
     },
     visuallyHidden: {
-      defaultValue: false,
       type: 'boolean',
       table: {
-        category: 'CheckboxGroup.Label'
-      }
+        category: 'CheckboxGroup.Label',
+      },
     },
 
     // CheckboxGroup.Caption
     captionChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
-        category: 'CheckboxGroup.Caption'
-      }
+        category: 'CheckboxGroup.Caption',
+      },
     },
 
     // CheckboxGroup.Validation
     validationChildren: {
-      defaultValue: '',
       type: 'string',
       table: {
-        category: 'CheckboxGroup.Validation'
-      }
+        category: 'CheckboxGroup.Validation',
+      },
     },
     variant: {
-      defaultValue: 'error',
       control: {
         type: 'radio',
-        options: ['error', 'success', 'warning']
       },
+      options: ['error', 'success', 'warning'],
       table: {
-        category: 'CheckboxGroup.Validation'
-      }
-    }
+        category: 'CheckboxGroup.Validation',
+      },
+    },
   },
   parameters: {controls: {exclude: ['aria-labelledby', 'id', 'onChange', 'sx']}},
   decorators: [
@@ -71,8 +73,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const Default = ({
@@ -82,7 +84,7 @@ export const Default = ({
   visuallyHidden,
   captionChildren,
   validationChildren,
-  variant
+  variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
   const labelArgs = {children: labelChildren, visuallyHidden}

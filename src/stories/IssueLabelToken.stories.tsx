@@ -11,16 +11,16 @@ import Text from '../Text'
 export default {
   title: 'Components/IssueLabelToken',
   component: IssueLabelToken,
+  args: {
+    fillColor: '#0366d6',
+    text: 'good first issue',
+  },
   argTypes: {
     fillColor: {
-      defaultValue: '#0366d6',
       control: {
-        type: 'color'
-      }
+        type: 'color',
+      },
     },
-    text: {
-      defaultValue: 'good first issue'
-    }
   },
   decorators: [
     Story => {
@@ -31,8 +31,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 const excludedControlKeys = ['id', 'as', 'tabIndex', 'onRemove']
@@ -43,7 +43,7 @@ const SingleExampleContainer: React.FC<React.PropsWithChildren<{label?: string}>
     sx={{
       alignItems: 'start',
       flexDirection: 'column',
-      gap: get('space.0')
+      gap: get('space.0'),
     }}
   >
     {label ? (
@@ -61,7 +61,7 @@ const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = (
     sx={{
       alignItems: 'start',
       flexDirection: 'column',
-      gap: get('space.6')
+      gap: get('space.6'),
     }}
   >
     <Text fontSize={1} color="fg.subtle">
@@ -88,12 +88,12 @@ export const Interactive = (args: Omit<IssueLabelTokenProps, 'ref' | 'text'>) =>
         display="flex"
         sx={{
           alignItems: 'start',
-          gap: get('space.2')
+          gap: get('space.2'),
         }}
       >
-        <IssueLabelToken as="a" href="http://google.com/" text="Link" {...args} />
-        <IssueLabelToken as="button" onClick={action('clicked')} text="Button" {...args} />
-        <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
+        <IssueLabelToken as="a" href="http://google.com/" {...args} text="Link" />
+        <IssueLabelToken as="button" onClick={action('clicked')} {...args} text="Button" />
+        <IssueLabelToken as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
       </Box>
     </ExampleCollectionContainer>
   )
@@ -111,7 +111,7 @@ export const WithOnRemoveFn = (args: Omit<IssueLabelTokenProps, 'ref'>) => {
           display="flex"
           sx={{
             alignItems: 'start',
-            gap: get('space.2')
+            gap: get('space.2'),
           }}
         >
           <IssueLabelToken as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />

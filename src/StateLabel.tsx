@@ -5,7 +5,7 @@ import {
   SkipIcon,
   IssueDraftIcon,
   IssueOpenedIcon,
-  QuestionIcon
+  QuestionIcon,
 } from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
@@ -23,7 +23,7 @@ const octiconMap = {
   pullClosed: GitPullRequestIcon,
   pullMerged: GitMergeIcon,
   draft: GitPullRequestIcon,
-  issueDraft: IssueDraftIcon
+  issueDraft: IssueDraftIcon,
 }
 
 const colorVariants = variant({
@@ -31,37 +31,37 @@ const colorVariants = variant({
   variants: {
     issueClosed: {
       backgroundColor: 'done.emphasis',
-      color: 'fg.onEmphasis'
+      color: 'fg.onEmphasis',
     },
     issueClosedNotPlanned: {
       backgroundColor: 'neutral.emphasis',
-      color: 'fg.onEmphasis'
+      color: 'fg.onEmphasis',
     },
     pullClosed: {
       backgroundColor: 'danger.emphasis',
-      color: 'fg.onEmphasis'
+      color: 'fg.onEmphasis',
     },
     pullMerged: {
       backgroundColor: 'done.emphasis',
-      color: 'fg.onEmphasis'
+      color: 'fg.onEmphasis',
     },
     issueOpened: {
       backgroundColor: 'success.emphasis',
-      color: 'fg.onEmphasis'
+      color: 'fg.onEmphasis',
     },
     pullOpened: {
       backgroundColor: 'success.emphasis',
-      color: 'fg.onEmphasis'
+      color: 'fg.onEmphasis',
     },
     draft: {
       backgroundColor: 'neutral.emphasis',
-      color: 'fg.onEmphasis'
+      color: 'fg.onEmphasis',
     },
     issueDraft: {
       backgroundColor: 'neutral.emphasis',
-      color: 'fg.onEmphasis'
-    }
-  }
+      color: 'fg.onEmphasis',
+    },
+  },
 })
 
 const sizeVariants = variant({
@@ -70,14 +70,14 @@ const sizeVariants = variant({
     small: {
       paddingX: 2,
       paddingY: 1,
-      fontSize: 0
+      fontSize: 0,
     },
     normal: {
       paddingX: '12px',
       paddingY: 2,
-      fontSize: 1
-    }
-  }
+      fontSize: 1,
+    },
+  },
 })
 
 type StyledStateLabelBaseProps = {
@@ -112,7 +112,7 @@ function StateLabel({children, status, variant: variantProp, ...rest}: StateLabe
 }
 
 StateLabel.defaultProps = {
-  variant: 'normal'
+  variant: 'normal',
 }
 
 export default StateLabel
