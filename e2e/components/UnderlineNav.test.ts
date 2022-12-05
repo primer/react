@@ -284,7 +284,7 @@ test.describe('UnderlineNav', () => {
   test.describe('UnderlineNav Interactions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('Overflow interaction', async ({page}) => {
+        test('Overflow interaction @vrt', async ({page}) => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
