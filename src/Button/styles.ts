@@ -177,7 +177,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
   In icon these have to be square.
 */
 export const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
-  let paddingY, paddingX, fontSize
+  let paddingY
+  let paddingX
+  let fontSize
   switch (size) {
     case 'small':
       paddingY = 3

@@ -131,13 +131,16 @@
         "Note": "readonly",
         "Props": "readonly",
         "PropsTable": "readonly",
-        "PropsTableRow": "readonly",
+        "PropsTableBasePropRows": "readonly",
+        "PropsTablePassthroughPropsRow": "readonly",
         "PropsTableRefRow": "readonly",
+        "PropsTableRow": "readonly",
         "PropsTableSxRow": "readonly",
         "Link": "readonly"
       },
       "rules": {
-        "prettier/prettier": 0
+        "prettier/prettier": 0,
+        "react/no-unescaped-entities": 0
       }
     },
     // rules which apply only to Markdown code blocks
