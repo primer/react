@@ -43,7 +43,7 @@ jobs:
               // Assumes that environments are named `storybook-preview-123`
               const segments = preview.name.split('-');
               const number = segments[2];
-              const pull = await github.rest.pulls.get({
+              const { data: pull } = await github.rest.pulls.get({
                 owner: 'primer',
                 repo: 'react',
                 pull_number: number,
