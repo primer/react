@@ -82,7 +82,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: [nextjs, react-17]
+        example: [react-17, react-18]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

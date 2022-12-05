@@ -72,7 +72,9 @@
     "!lib/__tests__",
     "!lib/stories",
     "!lib-esm/__tests__",
-    "!lib-esm/stories"
+    "!lib-esm/stories",
+    "deprecated/package.json",
+    "drafts/package.json"
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
