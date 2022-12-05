@@ -25,7 +25,7 @@
     "types/**/*",
     "consumer-test/**/*",
     "contributor-docs/adrs/*",
-    "examples/nextjs/**",
+    "examples/**",
     // Note: this file is inlined from an external dependency
     "src/utils/polymorphic.ts",
     "storybook-static"

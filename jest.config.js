@@ -14,7 +14,7 @@ module.exports = {
         '^react-dom/server$': require.resolve('react-dom-18/server'),
         '^react-dom/test-utils$': require.resolve('react-dom-18/test-utils'),
         '^react-test-renderer$': require.resolve('react-test-renderer-18'),
-        '^@testing-library/react$': require.resolve('@testing-library/react-18')
+        '^@testing-library/react$': require.resolve('@testing-library/react-18'),
       }
     : {},
   setupFiles: ['<rootDir>/src/utils/test-helpers.tsx'],
