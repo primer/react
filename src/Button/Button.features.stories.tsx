@@ -1,9 +1,9 @@
-import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
 
 export default {
-  title: 'Components/Button/Features',
+  title: 'Components/Button/Features'
 }
 
 export const Default = () => <Button>Default</Button>

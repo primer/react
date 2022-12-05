@@ -1,5 +1,5 @@
 import React from 'react'
-import {EyeClosedIcon, EyeIcon, SearchIcon, ChevronRightIcon, XIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import {Story, Meta} from '@storybook/react'
 import {Button} from '.'
 import {OcticonArgType} from '../utils/story-helpers'
@@ -10,26 +10,26 @@ export default {
     size: {
       control: {
         type: 'radio',
-        options: ['small', 'medium', 'large'],
-      },
+        options: ['small', 'medium', 'large']
+      }
     },
     variant: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible', 'outline'],
-      },
+        options: ['default', 'primary', 'danger', 'invisible', 'outline']
+      }
     },
     leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
-    href: {control: 'text'},
+    href: {control: 'text'}
   },
   args: {
     size: 'medium',
     variant: 'default',
     trailingIcon: null,
     leadingIcon: null,
-    href: '/',
-  },
+    href: '/'
+  }
 } as Meta<typeof Button>
 
 export const Playground: Story<typeof Button> = args => (

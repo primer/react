@@ -1,9 +1,9 @@
-import {EyeIcon, ChevronRightIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeIcon, HeartIcon} from '@primer/octicons-react'
 import React, {forwardRef} from 'react'
 import {Button} from '.'
 
 export default {
-  title: 'Components/LinkButton/Features',
+  title: 'Components/LinkButton/Features'
 }
 
 export const Default = () => (
@@ -71,7 +71,7 @@ const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkPro
   ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a ref={ref} href={to} {...props} />
-  },
+  }
 )
 
 export const WithReactRouter = () => (
