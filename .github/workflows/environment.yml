@@ -37,7 +37,9 @@ jobs:
 
             core.info(`${previews.length} preview environments found`);
 
-            const merged = [];
+            core.startGroup('Status');
+            
+            const changes = [];
 
             for (const preview of previews) {
               // Assumes that environments are named `storybook-preview-123`
@@ -51,14 +53,54 @@ jobs:
 
               if (pull.state === 'open') {
                 core.info(`${preview.name} is still being used by: ${pull.html_url}`);
+                changes.push({
+                  preview,
+                  pull,
+                  type: 'none',
+                });
                 continue;
               }
 
               core.info(`Removing ${preview.name} since ${pull.html_url} is ${pull.state}`);
 
-              // await github.rest.repos.deleteAnEnvironment({
-              //   owner: 'primer',
-              //   repo: 'react',
-              //   environment_name: preview.name,
-              // });
+              await github.rest.repos.deleteAnEnvironment({
+                owner: 'primer',
+                repo: 'react',
+                environment_name: preview.name,
+              });
+
+              changes.push({
+                preview,
+                pull,
+                type: 'removed',
+              });
             }
+            
+            core.endGroup();
+            
+            await core.summary
+              .addHeading('Environments');
+              .addTable([
+                [
+                  {
+                    data: 'Environment',
+                    header: true,
+                  },
+                  {
+                    data: 'Status',
+                    header: true,
+                  },
+                  {
+                    data: 'Pull Request',
+                    header: true,
+                  },
+                ],
+                ...changes.map((change) => {
+                  return [
+                    change.preview.name,
+                    change.type === 'removed' ? 'Removed' : '',
+                    change.pull.html_url,
+                  ];
+                }),
+              ])
+              .write();
