@@ -210,7 +210,7 @@ describe('Markup', () => {
             </TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
 
     // The test runner removes the contain-intrinsic-size and content-visibility

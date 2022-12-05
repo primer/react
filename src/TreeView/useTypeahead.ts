@@ -55,7 +55,7 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
         onFocusChangeRef.current(nextElement)
       }
     },
-    [containerRef]
+    [containerRef],
   )
 
   // Update the search value when the user types

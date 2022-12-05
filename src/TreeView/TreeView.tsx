@@ -314,7 +314,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       expanded,
       onExpandedChange,
       onSelect,
-      children
+      children,
     },
     ref,
   ) => {

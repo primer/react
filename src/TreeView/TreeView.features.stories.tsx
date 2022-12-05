@@ -696,7 +696,7 @@ export const ContainIntrinsicSize: Story = () => {
 }
 
 ContainIntrinsicSize.parameters = {
-  chromatic: {disableSnapshot: true}
+  chromatic: {disableSnapshot: true},
 }
 
 export default meta
