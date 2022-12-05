@@ -98,13 +98,13 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Install examples dependencies
-        working-directory: examples/${{ matrix.example }}
-        run: npm ci
+      # - name: Install examples dependencies
+      # working-directory: 'examples/${{ matrix.example }}'
+      # run: npm ci
 
-      - name: Build examples
-        working-directory: examples/${{ matrix.example }}
-        run: npm run build --if-present
+      # - name: Build examples
+      # working-directory: 'examples/${{ matrix.example }}'
+      # run: npm run build --if-present
 
   storybook:
     runs-on: ubuntu-latest
