@@ -79,6 +79,9 @@ jobs:
         run: npm run test:type-check
 
   examples:
+    strategy:
+      matrix:
+        example: [nextjs, react-18]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -96,12 +99,12 @@ jobs:
         run: npm run build
 
       - name: Install examples dependencies
-        working-directory: examples/nextjs
+        working-directory: examples/${{ matrix.example }}
         run: npm ci
 
       - name: Build examples
-        working-directory: examples/nextjs
-        run: npm run build
+        working-directory: examples/${{ matrix.example }}
+        run: npm run build --if-present
 
   storybook:
     runs-on: ubuntu-latest
