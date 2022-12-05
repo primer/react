@@ -65,11 +65,11 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
   required,
   selected,
   validationMap,
-  validationResult
+  validationResult,
 }: ChoiceFieldsetProps<T>) => {
   const fieldsetId = useSSRSafeId(id)
   const validationChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
-    React.isValidElement(child) && child.type === ChoiceFieldsetValidation ? child : null
+    React.isValidElement(child) && child.type === ChoiceFieldsetValidation ? child : null,
   )?.filter(Boolean)
   const validationChildToRender = validationChildren?.find(child => child.props.validationKey === validationResult)
   const validationMessageId = validationChildToRender ? `${fieldsetId}-validationMsg` : undefined
@@ -82,7 +82,7 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
         onSelect,
         required,
         selected,
-        validationMessageId
+        validationMessageId,
       }}
     >
       {slots => {
@@ -98,7 +98,7 @@ const ChoiceFieldset = <T extends Record<string, FormValidationStatus>>({
               aria-describedby={[validationMessageId].filter(Boolean).join(' ')}
             >
               {React.Children.toArray(children).filter(
-                child => React.isValidElement(child) && child.type !== ChoiceFieldsetValidation
+                child => React.isValidElement(child) && child.type !== ChoiceFieldsetValidation,
               )}
               <Box mb={isLegendVisible ? 3 : undefined}>
                 {slots.Legend}
@@ -135,5 +135,5 @@ export default Object.assign(ChoiceFieldset, {
   Item: ChoiceFieldsetListItem,
   Legend: ChoiceFieldsetLegend,
   List: ChoiceFieldsetList,
-  Validation: ChoiceFieldsetValidation
+  Validation: ChoiceFieldsetValidation,
 })

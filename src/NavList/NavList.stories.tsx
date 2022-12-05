@@ -7,8 +7,8 @@ const meta: Meta = {
   title: 'Components/NavList',
   component: NavList,
   parameters: {
-    layout: 'fullscreen'
-  }
+    layout: 'fullscreen',
+  },
 }
 
 export const Simple: Story = () => (
@@ -79,10 +79,10 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
     const child = React.Children.only(children)
     const childProps = {
       ref,
-      href
+      href,
     }
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
-  }
+  },
 )
 
 export const WithNextJSLink = () => (

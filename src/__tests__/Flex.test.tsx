@@ -10,7 +10,7 @@ describe('Flex', () => {
   behavesAsComponent({Component: Flex})
 
   checkExports('deprecated/Flex', {
-    default: Flex
+    default: Flex,
   })
 
   it('should have no axe violations', async () => {

@@ -13,7 +13,7 @@ export type CheckboxOrRadioGroupValidationProps = {
 const CheckboxOrRadioGroupValidation: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupValidationProps>> = ({
   children,
   variant,
-  sx
+  sx,
 }) => (
   <Slot name="Validation">
     {({validationMessageId = ''}: CheckboxOrRadioGroupContext) => (

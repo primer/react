@@ -102,7 +102,7 @@ const render = async (ui: React.ReactElement) => {
     getEditorContainer,
     queryForSuggestionsList,
     getAllSuggestions,
-    queryForToolbarButton
+    queryForToolbarButton,
   }
 }
 
@@ -114,7 +114,7 @@ describe('MarkdownEditor', () => {
   beforeAll(() => {
     Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
       configurable: true,
-      value: 10
+      value: 10,
     })
   })
   afterAll(() => {
@@ -124,7 +124,7 @@ describe('MarkdownEditor', () => {
   beforeEach(() => {
     jest.mock('@primer/behaviors/utils', () => ({
       // for all tests, default to Non-Mac (Ctrl) keybindings
-      isMacOS: jest.fn().mockReturnValue(false)
+      isMacOS: jest.fn().mockReturnValue(false),
     }))
   })
 
@@ -141,7 +141,7 @@ describe('MarkdownEditor', () => {
     ['Add a numbered list', '1. text', ['7', true]],
     ['Add a task list', 'text\n\n- [ ] ', ['l', true]],
     ['Mention a user or team (@)', 'text @'],
-    ['Reference an issue, pull request, or discussion (#)', 'text #']
+    ['Reference an issue, pull request, or discussion (#)', 'text #'],
   ])('formatting (%s)', (description, result, shortcut, caretPosition = result.length) => {
     it('works using toolbar button', async () => {
       const {getInput, getToolbarButton, user} = await render(<UncontrolledEditor />)
@@ -259,7 +259,7 @@ describe('MarkdownEditor', () => {
           <MarkdownEditor.Actions>
             <MarkdownEditor.ActionButton>Example</MarkdownEditor.ActionButton>
           </MarkdownEditor.Actions>
-        </UncontrolledEditor>
+        </UncontrolledEditor>,
       )
       expect(getActionButton('Example')).toBeInTheDocument()
     })
@@ -271,7 +271,7 @@ describe('MarkdownEditor', () => {
             <MarkdownEditor.ActionButton>A</MarkdownEditor.ActionButton>
             <MarkdownEditor.ActionButton disabled={false}>B</MarkdownEditor.ActionButton>
           </MarkdownEditor.Actions>
-        </UncontrolledEditor>
+        </UncontrolledEditor>,
       )
 
       expect(getActionButton('A')).toBeDisabled()
@@ -285,7 +285,7 @@ describe('MarkdownEditor', () => {
           <MarkdownEditor.Actions>
             <MarkdownEditor.ActionButton ref={ref}>Example</MarkdownEditor.ActionButton>
           </MarkdownEditor.Actions>
-        </UncontrolledEditor>
+        </UncontrolledEditor>,
       )
       expect(ref.current).toBeInstanceOf(HTMLButtonElement)
     })
@@ -298,7 +298,7 @@ describe('MarkdownEditor', () => {
           <MarkdownEditor.Toolbar>
             <MarkdownEditor.ToolbarButton icon={DiffAddedIcon} aria-label="Test Button" />
           </MarkdownEditor.Toolbar>
-        </UncontrolledEditor>
+        </UncontrolledEditor>,
       )
 
       expect(() => getToolbarButton('Test Button')).not.toThrow()
@@ -311,7 +311,7 @@ describe('MarkdownEditor', () => {
           <MarkdownEditor.Toolbar>
             <MarkdownEditor.ToolbarButton ref={ref} icon={DiffAddedIcon} aria-label="Test Button" />
           </MarkdownEditor.Toolbar>
-        </UncontrolledEditor>
+        </UncontrolledEditor>,
       )
       expect(ref.current).toBeInstanceOf(HTMLButtonElement)
     })
@@ -323,7 +323,7 @@ describe('MarkdownEditor', () => {
           <MarkdownEditor.Toolbar>
             <MarkdownEditor.ToolbarButton icon={DiffAddedIcon} aria-label="Test Button" onClick={onClick} />
           </MarkdownEditor.Toolbar>
-        </UncontrolledEditor>
+        </UncontrolledEditor>,
       )
 
       const input = getInput()
@@ -342,7 +342,7 @@ describe('MarkdownEditor', () => {
             <MarkdownEditor.ToolbarButton aria-label="Test Button B" icon={DiffAddedIcon} disabled={false} />
             <MarkdownEditor.DefaultToolbarButtons />
           </MarkdownEditor.Toolbar>
-        </UncontrolledEditor>
+        </UncontrolledEditor>,
       )
 
       const a = getToolbarButton('Test Button A')
@@ -400,7 +400,7 @@ describe('MarkdownEditor', () => {
               <MarkdownEditor.ToolbarButton aria-label="Test Button B" icon={DiffAddedIcon} />
               <MarkdownEditor.DefaultToolbarButtons />
             </MarkdownEditor.Toolbar>
-          </UncontrolledEditor>
+          </UncontrolledEditor>,
         )
 
         const a = getToolbarButton('Test Button A')
@@ -435,10 +435,10 @@ describe('MarkdownEditor', () => {
     it.each([
       ['*', '*'],
       ['-', '-'],
-      ['1.', '2.']
+      ['1.', '2.'],
     ])('adds task items when editing task lists', async (firstDelimeter, secondDelimeter) => {
       expect(await resultOfTypingInEditor(`${firstDelimeter} {[} {]} task one{Enter}task two`)).toBe(
-        `${firstDelimeter} [ ] task one\n${secondDelimeter} [ ] task two`
+        `${firstDelimeter} [ ] task one\n${secondDelimeter} [ ] task two`,
       )
     })
 
@@ -607,12 +607,12 @@ describe('MarkdownEditor', () => {
 
     describe.each<['drop' | 'paste', string]>([
       ['drop', 'dataTransfer'],
-      ['paste', 'clipboardData']
+      ['paste', 'clipboardData'],
     ])('selecting files by %s', (method, dataKey) => {
       const expectFilesToBeAdded = async (onChangeMock: jest.Mock, ...files: Array<File>) => {
         for (const file of files) {
           await waitFor(() =>
-            expect(onChangeMock).toHaveBeenCalledWith(expect.stringContaining(`Uploading "${file.name}"...`))
+            expect(onChangeMock).toHaveBeenCalledWith(expect.stringContaining(`Uploading "${file.name}"...`)),
           )
         }
 
@@ -647,7 +647,7 @@ describe('MarkdownEditor', () => {
       it('rejects disallows file types while accepting allowed ones', async () => {
         const onChange = jest.fn()
         const {getInput, getFooter} = await render(
-          <UncontrolledEditor onUploadFile={mockUploadFile} onChange={onChange} acceptedFileTypes={['image/*']} />
+          <UncontrolledEditor onUploadFile={mockUploadFile} onChange={onChange} acceptedFileTypes={['image/*']} />,
         )
         const input = getInput()
 
@@ -669,7 +669,7 @@ describe('MarkdownEditor', () => {
             }}
             onChange={onChange}
             acceptedFileTypes={['image/*']}
-          />
+          />,
         )
 
         const input = getInput()
@@ -678,7 +678,7 @@ describe('MarkdownEditor', () => {
         fireEvent[method](input, {[dataKey]: {files: [file], types: ['Files']}})
 
         await waitFor(() =>
-          expect(onChange).toHaveBeenCalledWith(expect.stringContaining(`Failed to upload "${file.name}"`))
+          expect(onChange).toHaveBeenCalledWith(expect.stringContaining(`Failed to upload "${file.name}"`)),
         )
       })
     })
@@ -708,7 +708,7 @@ describe('MarkdownEditor', () => {
     it('calls view mode change handler without automatically changing the view when the button is clicked and viewMode is controlled', async () => {
       const onViewModeChange = jest.fn()
       const {getViewSwitch, queryForPreview} = await render(
-        <UncontrolledEditor viewMode="edit" onChangeViewMode={onViewModeChange} />
+        <UncontrolledEditor viewMode="edit" onChangeViewMode={onViewModeChange} />,
       )
       await act(async () => {
         fireEvent.click(getViewSwitch())
@@ -801,8 +801,8 @@ describe('MarkdownEditor', () => {
         expect(spy).toHaveBeenCalledTimes(1)
         expect(spy).toHaveBeenCalledWith(
           expect.objectContaining({
-            message: 'Not implemented: navigation (except hash changes)'
-          })
+            message: 'Not implemented: navigation (except hash changes)',
+          }),
         )
         expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
 
@@ -865,7 +865,7 @@ describe('MarkdownEditor', () => {
         <>
           <p id="example-description">Example description.</p>
           <UncontrolledEditor viewMode="edit" aria-describedby="example-description" />
-        </>
+        </>,
       )
 
       const container = getEditorContainer()
@@ -879,7 +879,7 @@ describe('MarkdownEditor', () => {
       {name: '-1', character: '👎'},
       {name: 'heart', character: '❤️'},
       {name: 'wave', character: '👋'},
-      {name: 'raised_hands', character: '🙌'}
+      {name: 'raised_hands', character: '🙌'},
     ]
 
     const mentionables: Mentionable[] = [
@@ -890,7 +890,7 @@ describe('MarkdownEditor', () => {
       {identifier: 'primer-css', description: ''},
       {identifier: 'mnl', description: ''},
       {identifier: 'gth', description: ''},
-      {identifier: 'mla', description: ''}
+      {identifier: 'mla', description: ''},
     ]
 
     const references: Reference[] = [
@@ -898,11 +898,11 @@ describe('MarkdownEditor', () => {
       {
         id: '2',
         titleText: 'Error: `Failed to install` when installing',
-        titleHtml: 'Error: <code>Failed to install</code> when installing'
+        titleHtml: 'Error: <code>Failed to install</code> when installing',
       },
       {id: '11', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
       {id: '4', titleText: 'Add a new function', titleHtml: 'Add a new function'},
-      {id: '5', titleText: 'Fails to exit gracefully', titleHtml: 'Fails to exit gracefully'}
+      {id: '5', titleText: 'Fails to exit gracefully', titleHtml: 'Fails to exit gracefully'},
     ]
 
     const EditorWithSuggestions = () => (
@@ -921,7 +921,7 @@ describe('MarkdownEditor', () => {
     describe.each([
       [':', emojis[0].character],
       ['@', `@${mentionables[0].identifier}`],
-      ['#', `#${references[0].id}`]
+      ['#', `#${references[0].id}`],
     ])('%s-suggestions', (triggerChar, first) => {
       it('does not show suggestions when no handler is defined', async () => {
         const {queryForSuggestionsList, getInput, user} = await render(<UncontrolledEditor />)
@@ -1090,7 +1090,7 @@ describe('MarkdownEditor', () => {
       {name: 'Duplicate', content: 'Duplicate of #'},
       {name: 'Welcome', content: 'Welcome to the project!\n\nPlease be sure to read the contributor guidelines.'},
       {name: 'Thanks', content: 'Thanks for your contribution!'},
-      {name: 'Thx', content: 'Thank you!'}
+      {name: 'Thx', content: 'Thank you!'},
     ]
 
     const defaultScrollTo = window.Element.prototype.scrollTo
@@ -1098,14 +1098,14 @@ describe('MarkdownEditor', () => {
     beforeEach(() => {
       Object.defineProperty(window.Element.prototype, 'scrollTo', {
         value: jest.fn(),
-        writable: true
+        writable: true,
       })
     })
 
     afterEach(() => {
       Object.defineProperty(window.Element.prototype, 'scrollTo', {
         value: defaultScrollTo,
-        writable: true
+        writable: true,
       })
     })
 
@@ -1148,7 +1148,7 @@ describe('MarkdownEditor', () => {
 
     it('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
       const {getToolbarButton, getInput, user, queryByRole} = await render(
-        <UncontrolledEditor savedReplies={replies} />
+        <UncontrolledEditor savedReplies={replies} />,
       )
       const input = getInput()
 
@@ -1165,7 +1165,7 @@ describe('MarkdownEditor', () => {
 
     it('inserts reply on Ctrl + number', async () => {
       const {getInput, queryByRole, user, getToolbarButton} = await render(
-        <UncontrolledEditor savedReplies={replies} />
+        <UncontrolledEditor savedReplies={replies} />,
       )
 
       await user.click(getToolbarButton(buttonLabel))
@@ -1173,7 +1173,7 @@ describe('MarkdownEditor', () => {
 
       expect(queryByRole('listbox')).not.toBeInTheDocument()
       await waitFor(() =>
-        expect(getInput().value).toBe('Welcome to the project!\n\nPlease be sure to read the contributor guidelines.')
+        expect(getInput().value).toBe('Welcome to the project!\n\nPlease be sure to read the contributor guidelines.'),
       )
       expect(getInput()).toHaveFocus()
     })

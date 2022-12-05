@@ -24,7 +24,7 @@ const variantOptions = ['dropdown', 'hideLabels', 'default']
 const parseVariantFromArgs = ({variantAtNarrow, variantAtRegular, variantAtWide}: Args) => ({
   narrow: variantAtNarrow,
   regular: variantAtRegular,
-  wide: variantAtWide
+  wide: variantAtWide,
 })
 
 const parseFullWidthFromArgs = ({fullWidth, fullWidthAtNarrow, fullWidthAtRegular, fullWidthAtWide}: Args) =>
@@ -33,7 +33,7 @@ const parseFullWidthFromArgs = ({fullWidth, fullWidthAtNarrow, fullWidthAtRegula
     : {
         narrow: fullWidthAtNarrow,
         regular: fullWidthAtRegular,
-        wide: fullWidthAtWide
+        wide: fullWidthAtWide,
       }
 
 export default {
@@ -48,61 +48,61 @@ export default {
     size: 'medium',
     variantAtNarrow: 'default',
     variantAtRegular: 'default',
-    variantAtWide: 'defualt'
+    variantAtWide: 'defualt',
   },
   argTypes: {
     fullWidth: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     fullWidthAtNarrow: {
       name: 'fullWidth.narrow',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     fullWidthAtRegular: {
       name: 'fullWidth.regular',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     fullWidthAtWide: {
       name: 'fullWidth.wide',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     size: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'medium']
+      options: ['small', 'medium'],
     },
     variantAtNarrow: {
       name: 'variant.narrow',
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: variantOptions
+      options: variantOptions,
     },
     variantAtRegular: {
       name: 'variant.regular',
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: variantOptions
+      options: variantOptions,
     },
     variantAtWide: {
       name: 'variant.wide',
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: variantOptions
-    }
+      options: variantOptions,
+    },
   },
-  parameters: {controls: {exclude: excludedControlKeys}}
+  parameters: {controls: {exclude: excludedControlKeys}},
 } as Meta<typeof SegmentedControl>
 
 export const Playground: Story<Args> = args => (

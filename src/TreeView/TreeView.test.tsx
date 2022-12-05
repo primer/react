@@ -10,7 +10,7 @@ jest.useFakeTimers()
 // TODO: Move this function into a shared location
 function renderWithTheme(
   ui: Parameters<typeof render>[0],
-  options?: Parameters<typeof render>[1]
+  options?: Parameters<typeof render>[1],
 ): ReturnType<typeof render> {
   return render(<ThemeProvider>{ui}</ThemeProvider>, options)
 }
@@ -25,7 +25,7 @@ describe('Markup', () => {
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TreeView.Item id="item-2">Item 2</TreeView.Item>
         <TreeView.Item id="item-3">Item 3</TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
 
     const root = queryByRole('tree')
@@ -39,7 +39,7 @@ describe('Markup', () => {
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
         <TreeView.Item id="item-2">Item 2</TreeView.Item>
         <TreeView.Item id="item-3">Item 3</TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
 
     const items = queryAllByRole('treeitem')
@@ -56,7 +56,7 @@ describe('Markup', () => {
             <TreeView.Item id="child">Child</TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
 
     const parentItem = queryByRole('treeitem', {name: 'Parent'})
@@ -74,7 +74,7 @@ describe('Markup', () => {
           Item 2
         </TreeView.Item>
         <TreeView.Item id="item-3">Item 3</TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
 
     const currentItem = getByRole('treeitem', {name: 'Item 2'})
@@ -97,7 +97,7 @@ describe('Markup', () => {
           </TreeView.LeadingVisual>
           Item 2
         </TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
     const item = getByLabelText(/Item 1/)
     expect(item).toHaveAccessibleDescription('leading')
@@ -121,7 +121,7 @@ describe('Markup', () => {
             <svg aria-hidden={true} />
           </TreeView.TrailingVisual>
         </TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
     const item = getByLabelText(/Item 1/)
     expect(item).toHaveAccessibleDescription('trailing')
@@ -151,7 +151,7 @@ describe('Markup', () => {
             <svg aria-hidden={true} />
           </TreeView.TrailingVisual>
         </TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
     const item = getByLabelText(/Item 1/)
     expect(item).toHaveAccessibleDescription('leading trailing')
@@ -167,7 +167,7 @@ describe('Markup', () => {
 
   it('should include `aria-expanded` when a SubTree contains content', async () => {
     const user = userEvent.setup({
-      advanceTimers: jest.advanceTimersByTime
+      advanceTimers: jest.advanceTimersByTime,
     })
     const {getByLabelText, getByText} = renderWithTheme(
       <TreeView aria-label="Test tree">
@@ -183,7 +183,7 @@ describe('Markup', () => {
           Item 2
           <TreeView.SubTree />
         </TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
 
     let treeitem = getByLabelText(/Item 1/)
@@ -219,7 +219,7 @@ describe('Keyboard interactions', () => {
             </TreeView.SubTree>
           </TreeView.Item>
           <TreeView.Item id="item-3">Item 3</TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const item1 = getByRole('treeitem', {name: 'Item 1'})
@@ -274,7 +274,7 @@ describe('Keyboard interactions', () => {
             </TreeView.SubTree>
           </TreeView.Item>
           <TreeView.Item id="item-3">Item 3</TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const item1 = getByRole('treeitem', {name: 'Item 1'})
@@ -330,7 +330,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -369,7 +369,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -394,7 +394,7 @@ describe('Keyboard interactions', () => {
       const {getByRole} = renderWithTheme(
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item">Item</TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const item = getByRole('treeitem', {name: 'Item'})
@@ -419,7 +419,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -457,7 +457,7 @@ describe('Keyboard interactions', () => {
               </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -491,7 +491,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -526,7 +526,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -559,7 +559,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -592,7 +592,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -614,7 +614,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child">Child</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -662,7 +662,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child-3">Child 3</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parent1 = getByRole('treeitem', {name: 'Parent 1'})
@@ -707,7 +707,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child-3">Child 3</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parent1 = getByRole('treeitem', {name: 'Parent 1'})
@@ -743,7 +743,7 @@ describe('Keyboard interactions', () => {
           <TreeView.Item id="item" onSelect={onSelect}>
             Item
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const item = getByRole('treeitem')
@@ -768,7 +768,7 @@ describe('Keyboard interactions', () => {
               <TreeView.Item id="child-2">Child 2</TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const parent = getByRole('treeitem', {name: 'Parent'})
@@ -812,7 +812,7 @@ describe('Keyboard interactions', () => {
           <TreeView.Item id="banana">Banana</TreeView.Item>
           <TreeView.Item id="cherry">Cherry</TreeView.Item>
           <TreeView.Item id="cucumber">Cucumber</TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const apple = getByRole('treeitem', {name: 'Apple'})
@@ -838,7 +838,7 @@ describe('Keyboard interactions', () => {
           <TreeView.Item id="banana">Banana</TreeView.Item>
           <TreeView.Item id="cherry">Cherry</TreeView.Item>
           <TreeView.Item id="durian">Durian</TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const apple = getByRole('treeitem', {name: 'Apple'})
@@ -864,7 +864,7 @@ describe('Keyboard interactions', () => {
           <TreeView.Item id="cherry">Cherry</TreeView.Item>
           <TreeView.Item id="cantalope-1">Cantalope 1</TreeView.Item>
           <TreeView.Item id="cantalope-2">Cantalope 2</TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const apple = getByRole('treeitem', {name: 'Apple'})
@@ -890,7 +890,7 @@ describe('Keyboard interactions', () => {
             Cherry
           </TreeView.Item>
           <TreeView.Item id="cantalope">Cantalope</TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const cucumber = getByRole('treeitem', {name: 'Cucumber'})
@@ -922,7 +922,7 @@ describe('Keyboard interactions', () => {
             Cantalope
           </TreeView.Item>
           <TreeView.Item id="apple">Apple</TreeView.Item>
-        </TreeView>
+        </TreeView>,
       )
 
       const cantalope = getByRole('treeitem', {name: 'Cantalope'})
@@ -962,7 +962,7 @@ describe('State', () => {
             </TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
 
     const item1 = getByRole('treeitem', {name: 'Item 1'})
@@ -1179,7 +1179,7 @@ describe('Asyncronous loading', () => {
             <TreeView.Item id="child">Child</TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
-      </TreeView>
+      </TreeView>,
     )
 
     const parentItem = getByRole('treeitem', {name: 'Parent'})
@@ -1237,7 +1237,7 @@ describe('Asyncronous loading', () => {
     }
     const {getByLabelText, getByText} = renderWithTheme(<Example />)
     const user = userEvent.setup({
-      advanceTimers: jest.advanceTimersByTime
+      advanceTimers: jest.advanceTimersByTime,
     })
 
     const treeitem = getByLabelText(/Item 1/)

@@ -13,8 +13,8 @@ type StyledLinkProps = {
 const hoverColor = system({
   hoverColor: {
     property: 'color',
-    scale: 'colors'
-  }
+    scale: 'colors',
+  },
 })
 
 const Link = styled.a<StyledLinkProps>`

@@ -13,14 +13,14 @@ const sizeDeprecatedVariants = variant({
       px: 2,
       py: '3px',
       fontSize: 0,
-      lineHeight: '20px'
+      lineHeight: '20px',
     },
     large: {
       px: 2,
       py: '10px',
-      fontSize: 3
-    }
-  }
+      fontSize: 3,
+    },
+  },
 })
 
 const sizeVariants = variant({
@@ -31,14 +31,14 @@ const sizeVariants = variant({
       px: 2,
       py: '3px',
       fontSize: 0,
-      lineHeight: '20px'
+      lineHeight: '20px',
     },
     large: {
       px: 2,
       py: '10px',
-      fontSize: 3
-    }
-  }
+      fontSize: 3,
+    },
+  },
 })
 
 export type StyledBaseWrapperProps = {

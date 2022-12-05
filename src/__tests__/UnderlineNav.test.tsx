@@ -8,7 +8,7 @@ describe('UnderlineNav', () => {
   behavesAsComponent({Component: UnderlineNav})
 
   checkExports('UnderlineNav', {
-    default: UnderlineNav
+    default: UnderlineNav,
   })
 
   it('should have no axe violations', async () => {
@@ -41,7 +41,7 @@ describe('UnderlineNav', () => {
     const {getByTestId} = HTMLRender(
       <UnderlineNav>
         <b data-testid="content">test</b>
-      </UnderlineNav>
+      </UnderlineNav>,
     )
 
     expect(getByTestId('content')).toBeInTheDocument()

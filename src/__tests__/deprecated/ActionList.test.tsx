@@ -17,7 +17,7 @@ function SimpleActionList(): JSX.Element {
             ActionList.Divider,
             {text: 'Copy link'},
             {text: 'Edit file'},
-            {text: 'Delete file', variant: 'danger'}
+            {text: 'Delete file', variant: 'danger'},
           ]}
         />
       </BaseStyles>
@@ -29,12 +29,12 @@ describe('ActionList', () => {
   behavesAsComponent({
     Component: ActionList,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <ActionList items={[]} />
+    toRender: () => <ActionList items={[]} />,
   })
 
   checkExports('deprecated/ActionList', {
     default: undefined,
-    ActionList
+    ActionList,
   })
 
   it('should have no axe violations', async () => {
@@ -46,6 +46,6 @@ describe('ActionList', () => {
 
 describe('ActionList.Item', () => {
   behavesAsComponent({
-    Component: ActionList.Item
+    Component: ActionList.Item,
   })
 })

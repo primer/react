@@ -19,9 +19,9 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
           justifyContent: 'center',
           alignItems: 'center',
           flexShrink: 0,
-          marginRight: 2
+          marginRight: 2,
         },
-        sx as SxProp
+        sx as SxProp,
       )}
       {...props}
     />
@@ -37,9 +37,9 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
           sx={merge(
             {
               color: getVariantStyles(variant, disabled).iconColor,
-              svg: {fontSize: 0}
+              svg: {fontSize: 0},
             },
-            sx as SxProp
+            sx as SxProp,
           )}
           {...props}
         >
@@ -63,9 +63,9 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
               flexShrink: 0,
               color: getVariantStyles(variant, disabled).annotationColor,
               marginLeft: 2,
-              fontWeight: 'initial'
+              fontWeight: 'initial',
             },
-            sx as SxProp
+            sx as SxProp,
           )}
           {...props}
         >

@@ -76,7 +76,7 @@ export function ComponentStatuses() {
                         gap: 1,
                         backgroundColor: 'done.subtle',
                         fontWeight: 'normal',
-                        borderColor: 'transparent'
+                        borderColor: 'transparent',
                       }}
                     >
                       <StyledOcticon icon={AccessibilityInsetIcon} sx={{fill: 'done.fg'}} />
@@ -88,7 +88,7 @@ export function ComponentStatuses() {
                       sx={{
                         backgroundColor: 'neutral.subtle',
                         fontWeight: 'normal',
-                        borderColor: 'transparent'
+                        borderColor: 'transparent',
                       }}
                     >
                       Not reviewed
