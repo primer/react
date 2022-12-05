@@ -80,9 +80,9 @@ jobs:
 
   examples:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        example: [nextjs, react-17]
+    # strategy:
+    # matrix:
+    # example: [nextjs, react-17]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
