@@ -26,7 +26,7 @@ const heightMap = {
   large: '432px',
   xlarge: '600px',
   auto: 'auto',
-  initial: 'auto' // Passing 'initial' initially applies 'auto'
+  initial: 'auto', // Passing 'initial' initially applies 'auto'
 }
 
 const widthMap = {
@@ -35,7 +35,7 @@ const widthMap = {
   large: '480px',
   xlarge: '640px',
   xxlarge: '960px',
-  auto: 'auto'
+  auto: 'auto',
 }
 const animationDuration = 200
 
@@ -139,7 +139,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       preventFocusOnOpen,
       ...rest
     },
-    forwardedRef
+    forwardedRef,
   ): ReactElement => {
     const overlayRef = useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
@@ -154,7 +154,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       ignoreClickRefs,
       onClickOutside,
       initialFocusRef,
-      preventFocusOnOpen
+      preventFocusOnOpen,
     })
 
     useEffect(() => {
@@ -174,8 +174,8 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
         {transform: [`translate(${slideAnimationDistance * x}px, ${slideAnimationDistance * y}px)`, `translate(0, 0)`]},
         {
           duration: animationDuration,
-          easing: slideAnimationEasing
-        }
+          easing: slideAnimationEasing,
+        },
       )
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
@@ -190,20 +190,20 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
             {
               top: `${top || 0}px`,
               left: `${left || 0}px`,
-              '--styled-overlay-visibility': visibility
+              '--styled-overlay-visibility': visibility,
             } as React.CSSProperties
           }
         />
       </Portal>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'div', OwnOverlayProps>
 
 export type OverlayProps = ComponentPropsWithRef<typeof Overlay>
 
 Overlay.defaultProps = {
   height: 'auto',
-  width: 'auto'
+  width: 'auto',
 }
 
 export default Overlay

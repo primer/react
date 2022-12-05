@@ -10,8 +10,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-examples--profile-page',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -22,15 +22,15 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-examples--profile-page',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -44,8 +44,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-examples--pull-request-page',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -56,8 +56,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-examples--pull-request-page',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // These themes currently have a contrast violation due to
@@ -67,9 +67,9 @@ test.describe('UnderlineNav', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: !denylist.has(theme)
-              }
-            }
+                enabled: !denylist.has(theme),
+              },
+            },
           })
         })
       })
@@ -83,8 +83,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-examples--repos-page',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -95,15 +95,15 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-examples--repos-page',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -117,8 +117,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--counters-loading-state',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -129,15 +129,15 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--counters-loading-state',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -151,8 +151,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -163,15 +163,15 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -185,8 +185,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -197,15 +197,15 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -219,8 +219,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--with-counter-labels',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -231,15 +231,15 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--with-counter-labels',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -253,8 +253,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--with-icons',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -265,15 +265,15 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--with-icons',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })

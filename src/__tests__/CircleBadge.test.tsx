@@ -10,17 +10,17 @@ const imgInput = <img alt="" src="primer.jpg" />
 describe('CircleBadge', () => {
   behavesAsComponent({
     Component: CircleBadge,
-    toRender: () => <CircleBadge>{imgInput}</CircleBadge>
+    toRender: () => <CircleBadge>{imgInput}</CircleBadge>,
   })
 
   checkExports('CircleBadge', {
-    default: CircleBadge
+    default: CircleBadge,
   })
 
   describe('CircleBadge.Icon', () => {
     behavesAsComponent({
       Component: CircleBadge.Icon,
-      toRender: () => <CircleBadge.Icon icon={CheckIcon} />
+      toRender: () => <CircleBadge.Icon icon={CheckIcon} />,
     })
   })
 
@@ -47,8 +47,8 @@ describe('CircleBadge', () => {
       render(
         <CircleBadge as="a" title="primer logo">
           {imgInput}
-        </CircleBadge>
-      ).props['title']
+        </CircleBadge>,
+      ).props['title'],
     ).toEqual('primer logo')
   })
 
@@ -56,7 +56,7 @@ describe('CircleBadge', () => {
     const {getByRole} = HTMLRender(
       <CircleBadge>
         <img className="primer" alt="" src="primer.jpg" />
-      </CircleBadge>
+      </CircleBadge>,
     )
     expect(getByRole('img')).toHaveClass('primer')
   })

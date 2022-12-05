@@ -7,7 +7,7 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react'
 import Box from '../../Box'
 import {FileType} from '../hooks/useUnifiedFileSelect'
@@ -185,9 +185,9 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       name,
       children,
       savedReplies,
-      pasteUrlsAsPlainText = false
+      pasteUrlsAsPlainText = false,
     },
-    ref
+    ref,
   ) => {
     const [uncontrolledViewMode, uncontrolledSetViewMode] = useState<MarkdownViewMode>('edit')
     const [view, setView] =
@@ -221,8 +221,8 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       () =>
         ({
           focus: opts => inputRef.current?.focus(opts),
-          scrollIntoView: opts => containerRef.current?.scrollIntoView(opts)
-        } as MarkdownEditorHandle)
+          scrollIntoView: opts => containerRef.current?.scrollIntoView(opts),
+        } as MarkdownEditorHandle),
     )
 
     const inputHeight = useRef(0)
@@ -232,7 +232,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         onChange(e.target.value)
       },
-      [onChange]
+      [onChange],
     )
 
     const emitChange = useSyntheticChange({inputRef, fallbackEventHandler: onInputChange})
@@ -243,7 +243,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
       inputRef,
       disabled,
       onUploadFile,
-      acceptedFileTypes
+      acceptedFileTypes,
     })
 
     const listEditor = useListEditing({emitChange})
@@ -258,7 +258,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     const onResize = useCallback(
       // it's fine that this isn't debounced because calling setCondensed with the current value will not trigger a render
       () => setCondensed(containerRef.current !== null && containerRef.current.clientWidth < CONDENSED_WIDTH_THRESHOLD),
-      []
+      [],
     )
     useResizeObserver(onResize, containerRef)
 
@@ -313,7 +313,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
           listEditor.onKeyDown(e)
           indenter.onKeyDown(e)
         }
-      }
+      },
     )
 
     useEffect(() => {
@@ -347,7 +347,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     // If we don't memoize the context object, every child will rerender on every render even if memoized
     const context = useMemo(
       () => ({disabled, formattingToolsRef, condensed, required}),
-      [disabled, formattingToolsRef, condensed, required]
+      [disabled, formattingToolsRef, condensed, required],
     )
 
     // We are using MarkdownEditorContext instead of the built-in Slots context because Slots' context is not typesafe
@@ -381,7 +381,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                   minInlineSize: 'auto',
                   bg: 'canvas.default',
                   color: disabled ? 'fg.subtle' : 'fg.default',
-                  ...sx
+                  ...sx,
                 }}
                 ref={containerRef}
               >
@@ -442,7 +442,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
                       overflow: 'auto',
                       height: fullHeight ? '100%' : undefined,
                       minHeight: inputHeight.current,
-                      boxSizing: 'border-box'
+                      boxSizing: 'border-box',
                     }}
                     aria-live="polite"
                     tabIndex={-1}
@@ -470,7 +470,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
         )}
       </Slots>
     )
-  }
+  },
 )
 
 export default MarkdownEditor

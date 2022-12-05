@@ -19,5 +19,5 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'v12'
+  'v12',
 )

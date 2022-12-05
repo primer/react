@@ -62,7 +62,7 @@ export const useOnOutsideClick = ({containerRef, ignoreClickRefs, onClickOutside
 
       onClickOutside(event)
     },
-    [containerRef, ignoreClickRefs, onClickOutside]
+    [containerRef, ignoreClickRefs, onClickOutside],
   )
 
   useEffect(() => {

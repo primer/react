@@ -14,7 +14,7 @@ describe('Checkbox', () => {
   behavesAsComponent({Component: Checkbox})
 
   checkExports('Checkbox', {
-    default: Checkbox
+    default: Checkbox,
   })
 
   it('renders a valid checkbox input', () => {

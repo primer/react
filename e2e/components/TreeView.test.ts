@@ -10,8 +10,8 @@ test.describe('TreeView', () => {
           await visit(page, {
             id: 'components-treeview--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -22,15 +22,15 @@ test.describe('TreeView', () => {
           await visit(page, {
             id: 'components-treeview--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -44,8 +44,8 @@ test.describe('TreeView', () => {
           await visit(page, {
             id: 'components-treeview-features--empty-directories',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -56,15 +56,15 @@ test.describe('TreeView', () => {
           await visit(page, {
             id: 'components-treeview-features--empty-directories',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -78,8 +78,8 @@ test.describe('TreeView', () => {
           await visit(page, {
             id: 'components-treeview-features--files',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -90,15 +90,15 @@ test.describe('TreeView', () => {
           await visit(page, {
             id: 'components-treeview-features--files',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -112,8 +112,8 @@ test.describe('TreeView', () => {
           await visit(page, {
             id: 'components-treeview-features--files-changed',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -124,15 +124,15 @@ test.describe('TreeView', () => {
           await visit(page, {
             id: 'components-treeview-features--files-changed',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })

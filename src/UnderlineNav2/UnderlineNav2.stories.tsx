@@ -14,25 +14,25 @@ export default {
       expanded: true,
       // variant and size are developed in the first design iteration but then they are abondened.
       // Still keeping them on the source code for future reference but they are not exposed as props.
-      exclude: excludedControlKeys
-    }
+      exclude: excludedControlKeys,
+    },
   },
   argTypes: {
     'aria-label': {
       type: {
-        name: 'string'
-      }
+        name: 'string',
+      },
     },
     loadingCounters: {
       control: {
-        type: 'boolean'
-      }
-    }
+        type: 'boolean',
+      },
+    },
   },
   args: {
     'aria-label': 'Repository',
-    loadingCounters: false
-  }
+    loadingCounters: false,
+  },
 } as Meta<typeof UnderlineNav>
 
 export const Playground: Story = args => {

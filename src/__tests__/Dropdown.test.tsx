@@ -10,7 +10,7 @@ describe('Dropdown', () => {
   behavesAsComponent({Component: Dropdown, toRender: () => <Dropdown>Hello!</Dropdown>})
 
   checkExports('deprecated/Dropdown', {
-    default: Dropdown
+    default: Dropdown,
   })
 
   it('should have no axe violations', async () => {
@@ -23,14 +23,14 @@ describe('Dropdown', () => {
 describe('Dropdown.Item', () => {
   behavesAsComponent({
     Component: Dropdown.Item,
-    toRender: () => <Dropdown.Item>Hello!</Dropdown.Item>
+    toRender: () => <Dropdown.Item>Hello!</Dropdown.Item>,
   })
 })
 
 describe('Dropdown.Button', () => {
   behavesAsComponent({
     Component: Dropdown.Button,
-    toRender: () => <Dropdown.Button>Hello!</Dropdown.Button>
+    toRender: () => <Dropdown.Button>Hello!</Dropdown.Button>,
   })
 })
 
@@ -47,6 +47,6 @@ describe('Dropdown.Menu', () => {
         <li key="b">2</li>
         <li key="c">3</li>
       </Dropdown.Menu>
-    )
+    ),
   })
 })

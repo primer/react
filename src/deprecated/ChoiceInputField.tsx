@@ -17,11 +17,11 @@ export interface Props extends Pick<InputFieldProps, 'disabled' | 'id'> {
 const getInputToRender = (inputType: 'radio' | 'checkbox', children?: React.ReactNode) => {
   const inputComponentMap = {
     radio: Radio,
-    checkbox: Checkbox
+    checkbox: Checkbox,
   }
 
   return React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === inputComponentMap[inputType] ? child : null
+    React.isValidElement(child) && child.type === inputComponentMap[inputType] ? child : null,
   )
 }
 
@@ -29,15 +29,15 @@ const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   disabled,
   id: idProp,
-  validationStatus
+  validationStatus,
 }) => {
   const id = useSSRSafeId(idProp)
   const captionChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
-    React.isValidElement(child) && child.type === InputFieldCaption ? child : null
+    React.isValidElement(child) && child.type === InputFieldCaption ? child : null,
   )?.filter(Boolean)
   const captionId = captionChildren?.length ? `${id}-caption` : undefined
   const inputType = React.Children.toArray(children).some(child =>
-    React.isValidElement(child) ? child.type === Checkbox : false
+    React.isValidElement(child) ? child.type === Checkbox : false,
   )
     ? 'checkbox'
     : 'radio'
@@ -47,27 +47,27 @@ const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({
   if (!ChoiceInput) {
     // eslint-disable-next-line no-console
     console.warn(
-      'To correctly render this field with the correct ARIA attributes passed to the input, please pass the Checkbox or Radio component from @primer/react as a direct child of the ChoiceInputField component'
+      'To correctly render this field with the correct ARIA attributes passed to the input, please pass the Checkbox or Radio component from @primer/react as a direct child of the ChoiceInputField component',
     )
   } else {
     if (choiceInputProps?.id) {
       // eslint-disable-next-line no-console
       console.warn(
-        `instead of passing the 'id' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`
+        `instead of passing the 'id' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`,
       )
     }
 
     if (choiceInputProps?.disabled) {
       // eslint-disable-next-line no-console
       console.warn(
-        `instead of passing the 'disabled' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`
+        `instead of passing the 'disabled' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`,
       )
     }
 
     if (choiceInputProps?.required) {
       // eslint-disable-next-line no-console
       console.warn(
-        `instead of passing the 'required' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`
+        `instead of passing the 'required' prop directly to the ${inputType} input, it should be passed to the parent component, <ChoiceInputField>`,
       )
     }
   }
@@ -78,7 +78,7 @@ const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({
         captionId,
         disabled,
         id,
-        validationStatus
+        validationStatus,
       }}
     >
       {slots => {
@@ -89,12 +89,12 @@ const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({
                 React.cloneElement(ChoiceInput as React.ReactElement<CheckboxProps | RadioProps>, {
                   id,
                   disabled,
-                  ['aria-describedby']: captionId
+                  ['aria-describedby']: captionId,
                 })}
               {React.Children.toArray(children).filter(
                 child =>
                   React.isValidElement(child) &&
-                  ![Checkbox, Radio].some(inputComponent => child.type === inputComponent)
+                  ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
               )}
             </Box>
             {slots.LeadingVisual && (
@@ -104,8 +104,8 @@ const ChoiceInputField: React.FC<React.PropsWithChildren<Props>> = ({
                   '> *': {
                     minWidth: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
                     minHeight: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
-                    fill: 'currentColor'
-                  }
+                    fill: 'currentColor',
+                  },
                 }}
                 ml={2}
               >
@@ -140,5 +140,5 @@ const Label: React.FC<React.PropsWithChildren<unknown>> = ({children}) => (
 export default Object.assign(ChoiceInputField, {
   Label,
   Caption: InputField.Caption,
-  LeadingVisual: ChoiceInputLeadingVisual
+  LeadingVisual: ChoiceInputLeadingVisual,
 })

@@ -23,13 +23,13 @@ const config: Config = {
       // Large breakpoint
       // @see https://primer.style/primitives/spacing#breakpoints
       width: 1012,
-      height: 768
-    }
+      height: 768,
+    },
   },
   expect: {
     toHaveScreenshot: {
-      animations: 'disabled'
-    }
+      animations: 'disabled',
+    },
   },
   reporter: [
     ['line'],
@@ -37,10 +37,10 @@ const config: Config = {
     [
       'json',
       {
-        outputFile: path.join(__dirname, '.playwright', 'results.json')
-      }
-    ]
-  ]
+        outputFile: path.join(__dirname, '.playwright', 'results.json'),
+      },
+    ],
+  ],
 }
 
 export default config

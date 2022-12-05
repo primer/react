@@ -11,7 +11,7 @@ import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon}
 export default {
   title: 'Components/ActionList',
   component: ActionList,
-  subcomponents: {Item, LinkItem, Group, Divider, Description}
+  subcomponents: {Item, LinkItem, Group, Divider, Description},
 } as Meta<typeof ActionList>
 
 export const Default = () => (
@@ -33,31 +33,31 @@ Playground.args = {
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
-  role: 'listbox'
+  role: 'listbox',
 }
 Playground.argTypes = {
   showDividers: {
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   variant: {
     control: {
-      type: 'radio'
+      type: 'radio',
     },
-    options: ['inset', 'full']
+    options: ['inset', 'full'],
   },
   selectionVariant: {
     control: {
       type: 'radio',
-      labels: ['single', 'multiple', 'unset']
+      labels: ['single', 'multiple', 'unset'],
     },
     options: [0, 1, 2],
-    mapping: ['single', 'multiple', null]
+    mapping: ['single', 'multiple', null],
   },
   role: {
-    type: 'string'
-  }
+    type: 'string',
+  },
 }
 
 const icons = ['unset', 'TypographyIcon', 'VersionsIcon', 'SearchIcon', 'ArrowRightIcon', 'ArrowLeftIcon']
@@ -107,49 +107,49 @@ export const ItemPlayground = args => {
 ItemPlayground.argTypes = {
   selected: {
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   active: {
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   disabled: {
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   variant: {
     control: 'radio',
-    options: ['default', 'danger']
+    options: ['default', 'danger'],
   },
   role: {
-    type: 'string'
+    type: 'string',
   },
   id: {
-    type: 'string'
+    type: 'string',
   },
   leadingVisual: {
     control: {
-      type: 'select'
+      type: 'select',
     },
-    options: icons
+    options: icons,
   },
   trailingVisual: {
     control: {
-      type: 'select'
+      type: 'select',
     },
-    options: icons
+    options: icons,
   },
   selectionVariant: {
     control: 'radio',
     if: {arg: 'selected'},
     options: ['single', 'multiple'],
     table: {
-      category: 'ActionList'
-    }
-  }
+      category: 'ActionList',
+    },
+  },
 }
 ItemPlayground.args = {
   selected: false,
@@ -160,7 +160,7 @@ ItemPlayground.args = {
   id: 'item-1',
   leadingVisual: null,
   trailingVisual: null,
-  selectionVariant: 'single'
+  selectionVariant: 'single',
 }
 
 // @ts-ignore ignoring types here to pass in options for icon selection in Storybook
@@ -211,35 +211,35 @@ LinkItemPlayground.args = {
   role: 'listitem',
   id: 'item-1',
   leadingVisual: null,
-  trailingVisual: null
+  trailingVisual: null,
 }
 LinkItemPlayground.argTypes = {
   active: {
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   role: {
-    type: 'string'
+    type: 'string',
   },
   id: {
-    type: 'string'
+    type: 'string',
   },
   leadingVisual: {
     control: {
-      type: 'select'
+      type: 'select',
     },
-    options: icons
+    options: icons,
   },
   trailingVisual: {
     control: {
-      type: 'select'
+      type: 'select',
     },
-    options: icons
+    options: icons,
   },
   href: {
-    type: 'string'
-  }
+    type: 'string',
+  },
 }
 
 export const GroupPlayground: Story<ActionListGroupProps> = args => (
@@ -253,23 +253,23 @@ export const GroupPlayground: Story<ActionListGroupProps> = args => (
 GroupPlayground.argTypes = {
   variant: {
     control: {
-      type: 'radio'
+      type: 'radio',
     },
-    options: ['subtle', 'filled']
+    options: ['subtle', 'filled'],
   },
   role: {
-    type: 'string'
+    type: 'string',
   },
   title: {
-    type: 'string'
+    type: 'string',
   },
   auxiliaryText: {
-    type: 'string'
-  }
+    type: 'string',
+  },
 }
 GroupPlayground.args = {
   variant: 'subtle',
   role: 'listbox',
   title: 'Group title',
-  auxiliaryText: ''
+  auxiliaryText: '',
 }

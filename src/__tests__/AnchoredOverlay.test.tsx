@@ -19,7 +19,7 @@ type TestComponentSettings = {
 const AnchoredOverlayTestComponent = ({
   initiallyOpen = false,
   onOpenCallback,
-  onCloseCallback
+  onCloseCallback,
 }: TestComponentSettings = {}) => {
   const [open, setOpen] = useState(initiallyOpen)
   const onOpen = useCallback(
@@ -27,14 +27,14 @@ const AnchoredOverlayTestComponent = ({
       setOpen(true)
       onOpenCallback?.(gesture)
     },
-    [onOpenCallback]
+    [onOpenCallback],
   )
   const onClose = useCallback(
     (gesture: string) => {
       setOpen(true)
       onCloseCallback?.(gesture)
     },
-    [onCloseCallback]
+    [onCloseCallback],
   )
   return (
     <ThemeProvider theme={theme}>
@@ -58,12 +58,12 @@ describe('AnchoredOverlay', () => {
   behavesAsComponent({
     Component: AnchoredOverlay,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <AnchoredOverlayTestComponent />
+    toRender: () => <AnchoredOverlayTestComponent />,
   })
 
   checkExports('AnchoredOverlay', {
     default: undefined,
-    AnchoredOverlay
+    AnchoredOverlay,
   })
 
   it('should have no axe violations when open', async () => {
@@ -82,7 +82,7 @@ describe('AnchoredOverlay', () => {
     const mockOpenCallback = jest.fn()
     const mockCloseCallback = jest.fn()
     const anchoredOverlay = HTMLRender(
-      <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />
+      <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />,
     )
     const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
     fireEvent.click(anchor)
@@ -96,7 +96,7 @@ describe('AnchoredOverlay', () => {
     const mockOpenCallback = jest.fn()
     const mockCloseCallback = jest.fn()
     const anchoredOverlay = HTMLRender(
-      <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />
+      <AnchoredOverlayTestComponent onOpenCallback={mockOpenCallback} onCloseCallback={mockCloseCallback} />,
     )
     const anchor = anchoredOverlay.baseElement.querySelector('[aria-haspopup="true"]')!
     fireEvent.keyDown(anchor, {key: ' '})
@@ -114,7 +114,7 @@ describe('AnchoredOverlay', () => {
         initiallyOpen={true}
         onOpenCallback={mockOpenCallback}
         onCloseCallback={mockCloseCallback}
-      />
+      />,
     )
     fireEvent.mouseDown(anchoredOverlay.baseElement)
 
@@ -131,7 +131,7 @@ describe('AnchoredOverlay', () => {
         initiallyOpen={true}
         onOpenCallback={mockOpenCallback}
         onCloseCallback={mockCloseCallback}
-      />
+      />,
     )
     const overlay = await anchoredOverlay.findByRole('none')
     fireEvent.keyDown(overlay, {key: 'Escape'})

@@ -10,7 +10,7 @@ const sharedPlugins = [
   'add-react-displayname',
   'babel-plugin-styled-components',
   '@babel/plugin-proposal-nullish-coalescing-operator',
-  '@babel/plugin-proposal-optional-chaining'
+  '@babel/plugin-proposal-optional-chaining',
 ]
 
 function makePresets(moduleValue) {
@@ -27,19 +27,19 @@ module.exports = {
           : process.env.STORYBOOK
           ? []
           : [
-              'transform-commonjs' // theme-preval is commonjs and needs to be transformed to esm
+              'transform-commonjs', // theme-preval is commonjs and needs to be transformed to esm
             ]),
         ...sharedPlugins,
-        replacementPlugin('development')
-      ]
+        replacementPlugin('development'),
+      ],
     },
     production: {
       presets: makePresets(false),
-      plugins: [...sharedPlugins, replacementPlugin('production')]
+      plugins: [...sharedPlugins, replacementPlugin('production')],
     },
     test: {
       presets: makePresets('commonjs'),
-      plugins: [...sharedPlugins, ['@babel/plugin-transform-modules-commonjs'], replacementPlugin('test')]
-    }
-  }
+      plugins: [...sharedPlugins, ['@babel/plugin-transform-modules-commonjs'], replacementPlugin('test')],
+    },
+  },
 }

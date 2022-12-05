@@ -31,7 +31,7 @@ function CircleOcticon(props: CircleOcticonProps) {
 
 CircleOcticon.defaultProps = {
   ...Box.defaultProps,
-  size: 32
+  size: 32,
 }
 
 export default CircleOcticon
