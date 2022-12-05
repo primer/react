@@ -7,14 +7,6 @@ import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 
 const defaultSxProp = {}
-// const iconWrapStyles = {
-//   display: 'inline-block'
-// }
-// const trailingIconStyles = {
-//   ...iconWrapStyles,
-//   ml: 2
-// }
-
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {
