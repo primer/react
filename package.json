@@ -202,7 +202,7 @@
     "rollup": "2.79.0",
     "rollup-plugin-terser": "7.0.2",
     "rollup-plugin-visualizer": "5.8.1",
-    "semver": "7.3.5",
+    "semver": "7.3.8",
     "size-limit": "7.0.3",
     "storybook-addon-turbo-build": "1.1.0",
     "styled-components": "4.4.1",
