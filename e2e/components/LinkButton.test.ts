@@ -2,25 +2,25 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('Button', () => {
+test.describe('LinkButton', () => {
   test.describe('Playground', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button--playground',
+            id: 'components-linkbutton--playground',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Playground.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Playground.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button--playground',
+            id: 'components-linkbutton--playground',
             globals: {
               colorScheme: theme
             }
@@ -42,19 +42,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--danger',
+            id: 'components-linkbutton-features--danger',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Danger.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Danger.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--danger',
+            id: 'components-linkbutton-features--danger',
             globals: {
               colorScheme: theme
             }
@@ -76,53 +76,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--default',
+            id: 'components-linkbutton-features--default',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--default',
-            globals: {
-              colorScheme: theme
-            }
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Disabled', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--disabled',
-            globals: {
-              colorScheme: theme
-            }
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Disabled.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--disabled',
+            id: 'components-linkbutton-features--default',
             globals: {
               colorScheme: theme
             }
@@ -144,19 +110,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--invisible',
+            id: 'components-linkbutton-features--invisible',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Invisible.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Invisible.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--invisible',
+            id: 'components-linkbutton-features--invisible',
             globals: {
               colorScheme: theme
             }
@@ -178,19 +144,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--large',
+            id: 'components-linkbutton-features--large',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Large.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Large.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--large',
+            id: 'components-linkbutton-features--large',
             globals: {
               colorScheme: theme
             }
@@ -212,19 +178,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--leading-visual',
+            id: 'components-linkbutton-features--leading-visual',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Leading Visual.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Leading Visual.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--leading-visual',
+            id: 'components-linkbutton-features--leading-visual',
             globals: {
               colorScheme: theme
             }
@@ -246,19 +212,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--medium',
+            id: 'components-linkbutton-features--medium',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Medium.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Medium.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--medium',
+            id: 'components-linkbutton-features--medium',
             globals: {
               colorScheme: theme
             }
@@ -280,19 +246,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--outline',
+            id: 'components-linkbutton-features--outline',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Outline.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Outline.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--outline',
+            id: 'components-linkbutton-features--outline',
             globals: {
               colorScheme: theme
             }
@@ -314,19 +280,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--primary',
+            id: 'components-linkbutton-features--primary',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Primary.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Primary.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--primary',
+            id: 'components-linkbutton-features--primary',
             globals: {
               colorScheme: theme
             }
@@ -348,53 +314,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--small',
+            id: 'components-linkbutton-features--small',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Small.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Small.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--small',
-            globals: {
-              colorScheme: theme
-            }
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Trailing Counter', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-counter',
-            globals: {
-              colorScheme: theme
-            }
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Counter.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-counter',
+            id: 'components-linkbutton-features--small',
             globals: {
               colorScheme: theme
             }
@@ -416,19 +348,53 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--trailing-visual',
+            id: 'components-linkbutton-features--trailing-visual',
             globals: {
               colorScheme: theme
             }
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Visual.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Trailing Visual.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--trailing-visual',
+            id: 'components-linkbutton-features--trailing-visual',
+            globals: {
+              colorScheme: theme
+            }
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed'
+              }
+            }
+          })
+        })
+      })
+    }
+  })
+
+  test.describe('With React Router', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-linkbutton-features--with-react-router',
+            globals: {
+              colorScheme: theme
+            }
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`LinkButton.With React Router.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-linkbutton-features--with-react-router',
             globals: {
               colorScheme: theme
             }
