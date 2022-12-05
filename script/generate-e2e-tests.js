@@ -3,6 +3,7 @@
 const fs = require('node:fs')
 const path = require('node:path')
 const prettier = require('prettier')
+const prettierConfig = require('@github/prettier-config')
 const recast = require('recast')
 
 const E2E_DIR = path.join(__dirname, '..', 'e2e', 'components')
@@ -188,12 +189,7 @@ test.describe('${component}', () => {
   const {code} = recast.print(source)
   const formatted = prettier.format(code, {
     parser: 'typescript',
-    printWidth: 120,
-    semi: false,
-    singleQuote: true,
-    bracketSpacing: false,
-    trailingComma: 'none',
-    arrowParens: 'avoid',
+    ...prettierConfig,
   })
   fs.writeFileSync(filepath, formatted, 'utf8')
 }
