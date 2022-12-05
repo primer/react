@@ -1,0 +1,64 @@
+name: environments
+on:
+  # schedule:
+  # # https://crontab.guru/every-night-at-midnight
+  # - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  deployments: write
+
+jobs:
+  cleanup:
+    if: ${{ github.repository == 'primer/react' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const environments = [];
+
+            for await (const response of github.paginate(
+              github.rest.repos.getAllEnvironments,
+              {
+                owner: 'primer',
+                repo: 'react',
+                per_page: 100,
+              }
+            )) {
+              environments.push(...response.data);
+            }
+
+            core.info(`${environments.length} environments found`);
+
+            const previews = environments.filter(environment => {
+              return environment.name.startsWith('storybook-preview');
+            });
+
+            core.info(`${previews.length} preview environments found`);
+
+            const merged = [];
+
+            for (const preview of previews) {
+              // Assumes that environments are named `storybook-preview-123`
+              const segments = preview.name.split('-');
+              const number = segments[2];
+              const pull = await github.rest.pulls.get({
+                owner: 'primer',
+                repo: 'react',
+                pull_number: number,
+              });
+
+              if (pull.state === 'open') {
+                core.info(`${preview.name} is still being used by: ${pull.html_url}`);
+                continue;
+              }
+
+              core.info(`Removing ${preview.name} since ${pull.html_url} is ${pull.state}`);
+
+              // await github.rest.repos.deleteAnEnvironment({
+              //   owner: 'primer',
+              //   repo: 'react',
+              //   environment_name: preview.name,
+              // });
+            }
