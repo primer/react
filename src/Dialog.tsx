@@ -113,7 +113,7 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
       initialFocusRef,
       closeButtonRef,
       returnFocusRef,
-      overlayRef
+      overlayRef,
     })
     return isOpen ? (
       <>
@@ -128,15 +128,15 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
         </DialogBase>
       </>
     ) : null
-  }
+  },
 )
 
 DialogHeader.defaultProps = {
-  backgroundColor: 'canvas.subtle'
+  backgroundColor: 'canvas.subtle',
 }
 
 DialogHeader.propTypes = {
-  ...Box.propTypes
+  ...Box.propTypes,
 }
 
 DialogHeader.displayName = 'Dialog.Header'

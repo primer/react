@@ -7,7 +7,7 @@ import {
   FormControlArgs,
   formControlArgTypes,
   formControlArgs,
-  getFormControlArgsByChildComponent
+  getFormControlArgsByChildComponent,
 } from '../utils/story-helpers'
 
 export default {
@@ -22,7 +22,7 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   args: {
     ...formControlArgs,
@@ -31,36 +31,36 @@ export default {
     disabled: false,
     resize: DEFAULT_TEXTAREA_RESIZE,
     rows: DEFAULT_TEXTAREA_ROWS,
-    validationStatus: undefined
+    validationStatus: undefined,
   },
   argTypes: {
     block: {
-      control: {type: 'boolean'}
+      control: {type: 'boolean'},
     },
     cols: {
-      control: {type: 'number'}
+      control: {type: 'number'},
     },
     disabled: {
-      control: {type: 'boolean'}
+      control: {type: 'boolean'},
     },
     resize: {
       options: ['none', 'both', 'horizontal', 'vertical'],
-      control: {type: 'radio'}
+      control: {type: 'radio'},
     },
     rows: {
-      control: {type: 'number'}
+      control: {type: 'number'},
     },
     sx: {
       table: {
-        disable: true
-      }
+        disable: true,
+      },
     },
     validationStatus: {
       options: ['error', 'success', 'warning'],
-      control: {type: 'radio'}
+      control: {type: 'radio'},
     },
-    ...formControlArgTypes
-  }
+    ...formControlArgTypes,
+  },
 } as Meta
 
 export const TextareaStory = (args: FormControlArgs<TextareaProps>) => {

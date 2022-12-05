@@ -29,10 +29,10 @@ const CounterLabel: React.FC<React.PropsWithChildren<CounterLabelProps>> = ({
             backgroundColor: scheme === 'primary' ? 'neutral.emphasis' : 'neutral.muted',
             color: scheme === 'primary' ? 'fg.onEmphasis' : 'fg.default',
             '&:empty': {
-              display: 'none'
-            }
+              display: 'none',
+            },
           },
-          sx
+          sx,
         )}
         {...props}
       >

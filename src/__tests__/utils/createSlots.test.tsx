@@ -39,7 +39,7 @@ describe('ComponentWithSlots', () => {
         <SlotItem1>first</SlotItem1>
         <SlotItem2>second</SlotItem2>
         free form
-      </ComponentWithSlots>
+      </ComponentWithSlots>,
     )
 
     await waitFor(() => component.getByText('first'))
@@ -56,7 +56,7 @@ describe('ComponentWithSlots', () => {
       <ComponentWithSlots>
         <SlotItem1>first</SlotItem1>
         free form
-      </ComponentWithSlots>
+      </ComponentWithSlots>,
     )
     expect(component.container).toMatchSnapshot()
   })
@@ -66,7 +66,7 @@ describe('ComponentWithSlots', () => {
       <ComponentWithSlots context={{salutation: 'hi'}}>
         <SlotItem3>third</SlotItem3>
         free form
-      </ComponentWithSlots>
+      </ComponentWithSlots>,
     )
     expect(component.container).toMatchSnapshot()
   })

@@ -1,5 +1,13 @@
 # @primer/components
 
+## 35.15.1
+
+### Patch Changes
+
+- [#2625](https://github.com/primer/react/pull/2625) [`404e2b15`](https://github.com/primer/react/commit/404e2b15f4fe53e4cbeccb138c0d680beacb3045) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Use useIsomorphicLayoutEffect to make it SSR friendly
+
+- [#2606](https://github.com/primer/react/pull/2606) [`e98bcdf9`](https://github.com/primer/react/commit/e98bcdf966fea513dc79c73da35e610039aaba3d) Thanks [@radglob](https://github.com/radglob)! - Fix issue where scroll containers nested inside of PageLayout.Pane would be hard to use on mobile.
+
 ## 35.15.0
 
 ### Minor Changes

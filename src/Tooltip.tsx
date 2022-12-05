@@ -247,7 +247,7 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
     `tooltipped-${direction}`,
     align && `tooltipped-align-${align}-2`,
     noDelay && 'tooltipped-no-delay',
-    wrap && 'tooltipped-multiline'
+    wrap && 'tooltipped-multiline',
   )
   return (
     <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>

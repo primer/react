@@ -39,7 +39,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
-  children
+  children,
 }: ActionMenuProps) => {
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
@@ -71,7 +71,7 @@ export type ActionMenuAnchorProps = {children: React.ReactElement}
 const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnchorProps>(
   ({children, ...anchorProps}, anchorRef) => {
     return React.cloneElement(children, {...anchorProps, ref: anchorRef})
-  }
+  },
 )
 
 /** this component is syntactical sugar 🍭 */
@@ -86,15 +86,15 @@ const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonPro
           sx={merge<BetterSystemStyleObject>(
             {
               // override the margin on caret for optical alignment
-              '[data-component=trailingIcon]': {marginX: -1}
+              '[data-component=trailingIcon]': {marginX: -1},
             },
-            sxProp
+            sxProp,
           )}
           {...props}
         />
       </Anchor>
     )
-  }
+  },
 )
 
 type MenuOverlayProps = Partial<OverlayProps> &
@@ -134,7 +134,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({children,
             listRole: 'menu',
             listLabelledBy: anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
-            afterSelect: onClose
+            afterSelect: onClose,
           }}
         >
           {children}

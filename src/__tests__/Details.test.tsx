@@ -11,7 +11,7 @@ describe('Details', () => {
   behavesAsComponent({Component: Details})
 
   checkExports('Details', {
-    default: Details
+    default: Details,
   })
 
   it('should have no axe violations', async () => {

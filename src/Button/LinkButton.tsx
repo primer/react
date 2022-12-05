@@ -11,15 +11,15 @@ const LinkButton = forwardRef<HTMLElement, MyProps>(
     const style = {
       width: 'fit-content',
       '&:hover:not([disabled])': {
-        textDecoration: 'underline'
+        textDecoration: 'underline',
       },
       // focus must come before :active so that the active box shadow overrides
       '&:focus:not([disabled])': {
-        textDecoration: 'underline'
+        textDecoration: 'underline',
       },
       '&:active:not([disabled])': {
-        textDecoration: 'underline'
-      }
+        textDecoration: 'underline',
+      },
     }
     const sxStyle = merge.all([style, sx as SxProp])
     return (
@@ -27,7 +27,7 @@ const LinkButton = forwardRef<HTMLElement, MyProps>(
         {children}
       </ButtonBase>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'a', ButtonBaseProps>
 
 export {LinkButton}
