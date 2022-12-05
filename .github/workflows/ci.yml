@@ -99,11 +99,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Install examples dependencies
+      - name: Install examples/${{ matrix.example }} dependencies
         working-directory: examples/${{ matrix.example }}
         run: npm ci
 
-      - name: Build examples
+      - name: Build examples/${{ matrix.example }}
         working-directory: examples/${{ matrix.example }}
         run: npm run build --if-present
 
