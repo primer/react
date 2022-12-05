@@ -79,7 +79,7 @@ jobs:
             core.endGroup();
             
             await core.summary
-              .addHeading('Environments');
+              .addHeading('Environments')
               .addTable([
                 [
                   {
