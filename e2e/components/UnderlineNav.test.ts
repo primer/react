@@ -284,12 +284,12 @@ test.describe('UnderlineNav', () => {
   test.describe('UnderlineNav Interactions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('Overflow interaction @vrt', async ({page}) => {
+        test('Overflow interaction', async ({page}) => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -311,8 +311,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default State
@@ -329,8 +329,8 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
@@ -345,7 +345,7 @@ test.describe('UnderlineNav', () => {
           // Resize
           await page.setViewportSize({
             width: 1100,
-            height: 480
+            height: 480,
           })
 
           // Current state
@@ -354,7 +354,7 @@ test.describe('UnderlineNav', () => {
           // Resize
           await page.setViewportSize({
             width: 800,
-            height: 480
+            height: 480,
           })
 
           // Current state
@@ -363,7 +363,7 @@ test.describe('UnderlineNav', () => {
           // Resize
           await page.setViewportSize({
             width: 600,
-            height: 480
+            height: 480,
           })
 
           // Current state
@@ -374,15 +374,15 @@ test.describe('UnderlineNav', () => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
