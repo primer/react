@@ -86,6 +86,7 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item {
     outline: none;
 
+    &:focus-visible > div,
     &.focus-visible > div {
       box-shadow: inset 0 0 0 2px ${get(`colors.accent.fg`)};
       @media (forced-colors: active) {
