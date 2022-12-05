@@ -138,7 +138,7 @@
     "@storybook/testing-library": "0.0.13",
     "@storybook/theming": "6.5.13",
     "@testing-library/dom": "8.13.0",
-    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.5",
     "@testing-library/react-hooks": "7.0.2",
     "@testing-library/user-event": "^14.3.0",
