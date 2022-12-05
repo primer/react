@@ -6,7 +6,7 @@ const Fixture = ({
   onSelect = () => null,
   hasInput = false,
   hasTextarea = false,
-  refNotAttached = false
+  refNotAttached = false,
 }: {
   onSelect?: (event: React.KeyboardEvent<HTMLButtonElement>) => void
   hasInput?: boolean

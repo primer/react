@@ -52,7 +52,7 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
 
     for (const tokenSizeKey of tokenSizeKeys) {
       expect(
-        render(<Component text="token" size={tokenSizeKey as TokenSizeKeys} onRemove={onRemoveMock} />)
+        render(<Component text="token" size={tokenSizeKey as TokenSizeKeys} onRemove={onRemoveMock} />),
       ).toMatchSnapshot()
     }
   })
@@ -89,7 +89,7 @@ describe('Token components', () => {
 
     it('renders with a leadingVisual', () => {
       expect(
-        render(<Token text="token" leadingVisual={() => <div style={{backgroundColor: 'blue'}} />} />)
+        render(<Token text="token" leadingVisual={() => <div style={{backgroundColor: 'blue'}} />} />),
       ).toMatchSnapshot()
     })
   })

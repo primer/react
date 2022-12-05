@@ -6,7 +6,7 @@ import {ComponentProps} from './utils/types'
 const sizeMap = {
   small: '16px',
   medium: '32px',
-  large: '64px'
+  large: '64px',
 }
 
 export interface SpinnerInternalProps {

@@ -53,7 +53,7 @@ const StyledRadio = styled.input`
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     {checked, disabled, name: nameProp, onChange, sx: sxProp, required, validationStatus, value, ...rest}: RadioProps,
-    ref
+    ref,
   ): ReactElement => {
     const radioGroupContext = useContext(RadioGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
@@ -65,7 +65,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     if (!name) {
       // eslint-disable-next-line no-console
       console.warn(
-        'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop'
+        'A radio input must have a `name` attribute. Pass `name` as a prop directly to each Radio, or nest them in a `RadioGroup` component with a `name` prop',
       )
     }
 
@@ -87,7 +87,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         {...rest}
       />
     )
-  }
+  },
 )
 
 Radio.displayName = 'Radio'

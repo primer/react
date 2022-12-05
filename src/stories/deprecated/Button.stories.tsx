@@ -8,7 +8,7 @@ import {
   ButtonInvisible,
   ButtonOutline,
   ButtonPrimary,
-  ButtonTableList
+  ButtonTableList,
 } from '../../deprecated'
 import {ButtonStyleProps} from 'styled-system'
 import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
@@ -19,26 +19,26 @@ export default {
   argTypes: {
     as: {
       table: {
-        disable: true
-      }
+        disable: true,
+      },
     },
     theme: {
       table: {
-        disable: true
-      }
+        disable: true,
+      },
     },
     sx: {
       table: {
-        disable: true
-      }
+        disable: true,
+      },
     },
     variant: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'medium', 'large']
-    }
-  }
+      options: ['small', 'medium', 'large'],
+    },
+  },
 } as Meta
 
 export const defaultButton = (args: StrictButtonStyleProps) => <Button {...args}>Default Button</Button>

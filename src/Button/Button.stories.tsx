@@ -9,17 +9,17 @@ export default {
   argTypes: {
     size: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'medium', 'large']
+      options: ['small', 'medium', 'large'],
     },
     disabled: {
       control: {
         type: 'boolean',
-        default: false
-      }
-    }
-  }
+        default: false,
+      },
+    },
+  },
 } as Meta
 
 export const defaultButton = (args: ButtonProps) => {
@@ -199,7 +199,7 @@ const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkPro
   ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a ref={ref} href={to} {...props} />
-  }
+  },
 )
 
 export const linkButton = ({...args}: ButtonProps) => {

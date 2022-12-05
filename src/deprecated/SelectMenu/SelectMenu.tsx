@@ -53,7 +53,7 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
       setSelectedTab,
       setOpen,
       open,
-      initialTab
+      initialTab,
     }
 
     const onClickOutside = useCallback(
@@ -64,7 +64,7 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
           }
         }
       },
-      [ref, setOpen]
+      [ref, setOpen],
     )
 
     // handles the overlay behavior - closing the menu when clicking outside of it
@@ -90,7 +90,7 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
         </StyledSelectMenu>
       </MenuContext.Provider>
     )
-  }
+  },
 )
 
 SelectMenu.displayName = 'SelectMenu'
@@ -123,5 +123,5 @@ export default Object.assign(SelectMenu, {
   Tab: SelectMenuTab,
   TabPanel: SelectMenuTabPanel,
   Header: SelectMenuHeader,
-  LoadingAnimation: SelectMenuLoadingAnimation
+  LoadingAnimation: SelectMenuLoadingAnimation,
 })

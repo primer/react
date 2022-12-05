@@ -36,12 +36,12 @@ const SuggestionListItem = ({suggestion}: {suggestion: Suggestion}) => {
     role: 'option',
     sx: {
       '&[aria-selected]': {
-        backgroundColor: 'actionListItem.default.activeBg'
+        backgroundColor: 'actionListItem.default.activeBg',
       },
       '&[data-combobox-option-default]:not([aria-selected])': {
-        backgroundColor: 'actionListItem.default.selectedBg'
-      }
-    }
+        backgroundColor: 'actionListItem.default.selectedBg',
+      },
+    },
   }
 
   return typeof suggestion === 'string' ? <ActionList.Item {...sharedProps} /> : suggestion.render(sharedProps)
@@ -60,7 +60,7 @@ const AutocompleteSuggestions = ({
   onCommit: externalOnCommit,
   inputRef,
   visible,
-  tabInsertsSuggestions
+  tabInsertsSuggestions,
 }: AutoCompleteSuggestionsProps) => {
   // It seems wierd to use state instead of a ref here, but because the list is inside an
   // AnchoredOverlay it is not always mounted - so we want to reinitialize the Combobox when it mounts
@@ -70,7 +70,7 @@ const AutocompleteSuggestions = ({
     ({option}: ComboboxCommitEvent<Suggestion>) => {
       externalOnCommit(getSuggestionValue(option))
     },
-    [externalOnCommit]
+    [externalOnCommit],
   )
 
   // Setup keyboard navigation
@@ -82,7 +82,7 @@ const AutocompleteSuggestions = ({
     onCommit,
     options: Array.isArray(suggestions) ? suggestions : [],
     tabInsertsSuggestions,
-    defaultFirstOption: true
+    defaultFirstOption: true,
   })
 
   // Conditional rendering appears wrong at first - it means that we are reconstructing the

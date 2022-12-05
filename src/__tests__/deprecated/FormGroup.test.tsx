@@ -10,7 +10,7 @@ describe('FormGroup', () => {
   behavesAsComponent({Component: FormGroup})
 
   checkExports('deprecated/FormGroup', {
-    default: FormGroup
+    default: FormGroup,
   })
 
   it('should have no axe violations', async () => {
@@ -18,7 +18,7 @@ describe('FormGroup', () => {
       <FormGroup>
         <FormGroup.Label htmlFor="example-text">Example text</FormGroup.Label>
         <input id="example-text" value="Example Value" readOnly />
-      </FormGroup>
+      </FormGroup>,
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()

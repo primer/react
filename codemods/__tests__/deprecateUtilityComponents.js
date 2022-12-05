@@ -20,7 +20,7 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )
 
 defineInlineTest(
@@ -42,7 +42,7 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )
 
 defineInlineTest(
@@ -64,7 +64,7 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )
 
 defineInlineTest(
@@ -86,7 +86,7 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )
 
 defineInlineTest(
@@ -108,7 +108,7 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )
 
 defineInlineTest(
@@ -130,7 +130,7 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )
 
 defineInlineTest(
@@ -152,7 +152,7 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )
 
 defineInlineTest(
@@ -174,7 +174,7 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )
 
 defineInlineTest(
@@ -196,5 +196,5 @@ export default () => (
   </Box>
 )
 `.trim(),
-  'deprecateUtilityComponents'
+  'deprecateUtilityComponents',
 )

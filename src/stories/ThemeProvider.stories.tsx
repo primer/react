@@ -12,10 +12,10 @@ export default {
   argTypes: {
     theme: {
       table: {
-        disable: true
-      }
-    }
-  }
+        disable: true,
+      },
+    },
+  },
 } as Meta
 
 const GlobalStyle = createGlobalStyle`
@@ -43,7 +43,7 @@ export const Default: Story<ThemeProviderProps> = args => {
 Default.args = {
   colorMode: 'day',
   dayScheme: 'light',
-  nightScheme: 'dark'
+  nightScheme: 'dark',
 }
 
 function NightMode() {

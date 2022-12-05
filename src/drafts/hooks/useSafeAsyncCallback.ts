@@ -24,7 +24,7 @@ export type CallbackCancelledResult = typeof callbackCancelledResult
  */
 export const useSafeAsyncCallback = <A extends unknown[], R>(
   fn: (...args: A) => R,
-  allowCallingAfterUnmount = false
+  allowCallingAfterUnmount = false,
 ): ((...args: A) => R | CallbackCancelledResult) => {
   const trackingRef = useRef(fn)
   useLayoutEffect(() => {
@@ -41,6 +41,6 @@ export const useSafeAsyncCallback = <A extends unknown[], R>(
 
   return useCallback(
     (...args: A) => (isMountedRef.current ? trackingRef.current(...args) : callbackCancelledResult),
-    [] // this dependency array must always be empty
+    [], // this dependency array must always be empty
   )
 }

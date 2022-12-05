@@ -49,7 +49,7 @@ describe('Pagination model', () => {
       {type: 'NUM', num: 1},
       {type: 'NUM', num: 2},
       {type: 'BREAK'},
-      {type: 'NUM'}
+      {type: 'NUM'},
     ]
 
     expect(slice).toMatchObject(expected)
@@ -64,7 +64,7 @@ describe('Pagination model', () => {
       {type: 'BREAK'},
       {type: 'NUM', num: 9},
       {type: 'NUM', num: 10},
-      {type: 'NEXT', num: 2}
+      {type: 'NEXT', num: 2},
     ]
 
     expect(slice).toMatchObject(expected)
@@ -81,7 +81,7 @@ describe('Pagination model', () => {
       {type: 'NUM', num: 6},
       {type: 'BREAK'},
       {type: 'NUM', num: 10},
-      {type: 'NEXT', num: 6}
+      {type: 'NEXT', num: 6},
     ]
     expect(model).toMatchObject(expected)
   })
@@ -96,7 +96,7 @@ describe('Pagination model', () => {
       // normally with a surround of 1, only 1 and 3 would be shown
       // however, since 1 was already shown, we extend to 4
       {type: 'NUM', num: 4},
-      {type: 'BREAK'}
+      {type: 'BREAK'},
     ]
     expect(first(model, 6)).toMatchObject(expected)
   })
@@ -111,7 +111,7 @@ describe('Pagination model', () => {
       {type: 'NUM', num: 13},
       {type: 'NUM', num: 14, selected: true},
       {type: 'NUM', num: 15},
-      {type: 'NEXT', num: 15}
+      {type: 'NEXT', num: 15},
     ]
     expect(last(model, 6)).toMatchObject(expected)
   })
@@ -125,7 +125,7 @@ describe('Pagination model', () => {
       {type: 'NUM', num: 5, selected: true},
       {type: 'NUM', num: 6},
       {type: 'BREAK', num: 10},
-      {type: 'NEXT'}
+      {type: 'NEXT'},
     ]
     expect(model).toMatchObject(expected)
   })

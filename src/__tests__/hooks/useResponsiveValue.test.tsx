@@ -44,7 +44,7 @@ it('returns wide value when viewport is wide', () => {
   const Component = () => {
     const value = useResponsiveValue(
       {narrow: 'narrowValue', regular: 'regularValue', wide: 'wideValue'} as ResponsiveValue<string>,
-      'fallbackValue'
+      'fallbackValue',
     )
     return <div>{value}</div>
   }
@@ -63,7 +63,7 @@ it('returns regular value when viewport is regular', () => {
   const Component = () => {
     const value = useResponsiveValue(
       {narrow: 'narrowValue', regular: 'regularValue', wide: 'wideValue'} as ResponsiveValue<string>,
-      'fallbackValue'
+      'fallbackValue',
     )
     return <div>{value}</div>
   }
@@ -83,7 +83,7 @@ it('returns fallback when no value is defined for current viewport', () => {
     const value = useResponsiveValue(
       // Missing value for `regular` viewports
       {narrow: 'narrowValue', wide: 'wideValue'} as ResponsiveValue<string>,
-      'fallbackValue'
+      'fallbackValue',
     )
     return <div>{value}</div>
   }

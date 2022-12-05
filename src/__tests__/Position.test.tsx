@@ -16,7 +16,7 @@ describe('position components', () => {
       Absolute,
       Fixed,
       Relative,
-      Sticky
+      Sticky,
     })
 
     it('should have no axe violations', async () => {
@@ -31,7 +31,7 @@ describe('position components', () => {
 
     it('can render other components with the as prop', () => {
       const result = render(
-        <Absolute as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} />
+        <Absolute as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} />,
       )
       expect(result).toHaveStyleRule('position', 'absolute')
       expect(result).toHaveStyleRule('border-width', '1px')
@@ -58,7 +58,7 @@ describe('position components', () => {
 
     it('can render other components with the as prop', () => {
       const result = render(
-        <Fixed as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} />
+        <Fixed as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} />,
       )
       expect(result).toHaveStyleRule('position', 'fixed')
       expect(result).toHaveStyleRule('border-width', '1px')
@@ -81,7 +81,7 @@ describe('position components', () => {
 
     it('can render other components with the as prop', () => {
       const result = render(
-        <Relative as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} />
+        <Relative as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} />,
       )
       expect(result).toHaveStyleRule('position', 'relative')
       expect(result).toHaveStyleRule('border-width', '1px')
@@ -104,7 +104,7 @@ describe('position components', () => {
 
     it('can render other components with the as prop', () => {
       const result = render(
-        <Sticky as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} />
+        <Sticky as={Box} borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} />,
       )
       expect(result).toHaveStyleRule('position', 'sticky')
       expect(result).toHaveStyleRule('border-width', '1px')
