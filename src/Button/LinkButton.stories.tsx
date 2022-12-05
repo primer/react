@@ -1,21 +1,16 @@
 import React from 'react'
-import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeClosedIcon, EyeIcon, SearchIcon, ChevronRightIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import {Story, Meta} from '@storybook/react'
 import {Button} from '.'
 import {OcticonArgType} from '../utils/story-helpers'
 
 export default {
-  title: 'Components/Button',
+  title: 'Components/LinkButton',
   argTypes: {
     size: {
       control: {
-        type: 'radio'
-      },
-      options: ['small', 'medium', 'large']
-    },
-    disabled: {
-      control: {
-        type: 'boolean'
+        type: 'radio',
+        options: ['small', 'medium', 'large']
       }
     },
     variant: {
@@ -25,15 +20,20 @@ export default {
       }
     },
     leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
-    trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon])
+    trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    href: {control: 'text'}
   },
   args: {
     size: 'medium',
-    disabled: false,
     variant: 'default',
     trailingIcon: null,
-    leadingIcon: null
+    leadingIcon: null,
+    href: '/'
   }
 } as Meta<typeof Button>
 
-export const Playground: Story<typeof Button> = args => <Button {...args}>Default</Button>
+export const Playground: Story<typeof Button> = args => (
+  <Button as="a" {...args}>
+    Default
+  </Button>
+)
