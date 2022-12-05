@@ -7,10 +7,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--default-button',
+          id: 'components-button-features--default',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -24,7 +24,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--default-button',
+        id: 'components-button-features--default'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -34,10 +34,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--primary-button',
+          id: 'components-button-features--primary',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -51,7 +51,7 @@ test.describe('Button', () => {
 
     test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--primary-button',
+        id: 'components-button-features--primary'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -61,10 +61,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--danger-button',
+          id: 'components-button-features--danger',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -78,7 +78,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--danger-button',
+        id: 'components-button-features--danger'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -88,10 +88,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--invisible-button',
+          id: 'components-button-features--invisible',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -105,7 +105,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--invisible-button',
+        id: 'components-button-features--invisible'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -115,10 +115,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--outline-button',
+          id: 'components-button-features--outline',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -132,7 +132,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--outline-button',
+        id: 'components-button-features--outline'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -142,10 +142,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--icon-before-button',
+          id: 'components-button-features--leading-visual',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -159,7 +159,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--icon-before-button',
+        id: 'components-button-features--leading-visual'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -169,10 +169,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--icon-button',
+          id: 'components-iconbutton-features--default',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -186,7 +186,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--icon-button',
+        id: 'components-iconbutton-features--default'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -196,10 +196,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--watch-counter-button',
+          id: 'components-button-features--trailing-counter',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -213,34 +213,7 @@ test.describe('Button', () => {
 
     test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--watch-counter-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('Watch Icon Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--watch-icon-button',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Watch Icon Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Watch Icon Button.${theme}.focused.png`)
-      })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--watch-icon-button',
+        id: 'components-button-features--trailing-counter'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -250,10 +223,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--caret-button',
+          id: 'components-button-features--trailing-action',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -267,7 +240,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--caret-button',
+        id: 'components-button-features--trailing-action'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -277,10 +250,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--block-button',
+          id: 'components-button-features--block',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -294,7 +267,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--block-button',
+        id: 'components-button-features--block'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -304,10 +277,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--disabled-button',
+          id: 'components-button-features--disabled',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -321,7 +294,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--disabled-button',
+        id: 'components-button-features--disabled'
       })
       await expect(page).toHaveNoViolations()
     })
@@ -331,10 +304,10 @@ test.describe('Button', () => {
     themes.forEach(theme => {
       test(`${theme} @vrt`, async ({page}) => {
         await visit(page, {
-          id: 'components-button--link-button',
+          id: 'components-linkbutton-features--default',
           globals: {
-            colorScheme: theme,
-          },
+            colorScheme: theme
+          }
         })
 
         // Default state
@@ -348,7 +321,7 @@ test.describe('Button', () => {
 
     test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--link-button',
+        id: 'components-linkbutton-features--default'
       })
       await expect(page).toHaveNoViolations()
     })
