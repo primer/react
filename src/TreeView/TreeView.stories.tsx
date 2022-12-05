@@ -15,8 +15,8 @@ const meta: Meta = {
           <Story />
         </Box>
       )
-    }
-  ]
+    },
+  ],
 }
 
 export const Default: Story = () => (

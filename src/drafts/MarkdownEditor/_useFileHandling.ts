@@ -55,7 +55,7 @@ export const useFileHandling = ({
   inputRef,
   disabled,
   onUploadFile,
-  acceptedFileTypes
+  acceptedFileTypes,
 }: UseFileHandlingProps): UseFileHandlingResult | null => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
 
@@ -79,7 +79,7 @@ export const useFileHandling = ({
           const parts = name.split('.')
           return parts.length > 1 ? `.${parts.at(-1)}` : ''
         })
-        .filter(s => s !== '')
+        .filter(s => s !== ''),
     )
     if (types.size > 0) setErrorMessage(`File type${types.size > 1 ? 's' : ''} not allowed: ${[...types].join(', ')}`)
   })
@@ -94,7 +94,7 @@ export const useFileHandling = ({
 
       emitChange(placeholders)
     },
-    [inputRef, emitChange]
+    [inputRef, emitChange],
   )
 
   const replacePlaceholderWithMarkdown = (file: File, url: string | null) => {
@@ -125,7 +125,7 @@ export const useFileHandling = ({
 
         safeHandleCompletedFileUpload(result)
       }),
-    [onUploadFile, safeHandleCompletedFileUpload]
+    [onUploadFile, safeHandleCompletedFileUpload],
   )
 
   const onSelectFiles = useCallback(
@@ -142,30 +142,30 @@ export const useFileHandling = ({
       // so only call it after successful files are uploaded
       safeSetRejectedFiles(rejected)
     },
-    [safeSetRejectedFiles, insertPlaceholder, uploadFiles, safeClearUploadProgress]
+    [safeSetRejectedFiles, insertPlaceholder, uploadFiles, safeClearUploadProgress],
   )
 
   let fileSelect = useUnifiedFileSelect({
     acceptedFileTypes,
     multi: true,
-    onSelect: onSelectFiles
+    onSelect: onSelectFiles,
   })
 
   if (disabled) {
     fileSelect = {
       clickTargetProps: {
-        onClick: noop
+        onClick: noop,
       },
       dropTargetProps: {
         onDragEnter: noop,
         onDragLeave: noop,
         onDrop: noop,
-        onDragOver: noop
+        onDragOver: noop,
       },
       pasteTargetProps: {
-        onPaste: noop
+        onPaste: noop,
       },
-      isDraggedOver: false
+      isDraggedOver: false,
     }
   }
 

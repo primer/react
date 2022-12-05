@@ -10,8 +10,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -22,15 +22,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -44,8 +44,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--block-description',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -56,15 +56,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--block-description',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -78,8 +78,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--disabled-item',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -90,15 +90,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--disabled-item',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -112,8 +112,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--inline-description',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -124,15 +124,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--inline-description',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -146,8 +146,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--inside-overlay',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -158,15 +158,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--inside-overlay',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -180,8 +180,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--item-dividers',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -192,15 +192,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--item-dividers',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -214,8 +214,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--links',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -226,15 +226,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--links',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -248,8 +248,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--multi-select',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -260,15 +260,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--multi-select',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -282,8 +282,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--simple-list',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -294,15 +294,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--simple-list',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -316,8 +316,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--single-divider',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -328,15 +328,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--single-divider',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -350,8 +350,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--single-select',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -362,15 +362,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--single-select',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -384,8 +384,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--text-wrap-and-truncation',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -396,15 +396,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--text-wrap-and-truncation',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -418,8 +418,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--with-avatars',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -430,15 +430,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--with-avatars',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
@@ -452,8 +452,8 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--with-icons',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -464,15 +464,15 @@ test.describe('ActionList', () => {
           await visit(page, {
             id: 'components-actionlist-features--with-icons',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })

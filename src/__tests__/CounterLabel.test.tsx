@@ -10,7 +10,7 @@ describe('CounterLabel', () => {
   behavesAsComponent({Component: CounterLabel, options: {skipAs: true, skipSx: true}})
 
   checkExports('CounterLabel', {
-    default: CounterLabel
+    default: CounterLabel,
   })
 
   it('renders a <span>', () => {

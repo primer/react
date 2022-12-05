@@ -27,7 +27,7 @@ function useDialog({
   isOpen,
   onDismiss = noop,
   initialFocusRef,
-  closeButtonRef
+  closeButtonRef,
 }: UseDialogParameters) {
   const onClickOutside = useCallback(
     e => {
@@ -40,7 +40,7 @@ function useDialog({
         onDismiss()
       }
     },
-    [onDismiss, modalRef, overlayRef]
+    [onDismiss, modalRef, overlayRef],
   )
 
   useEffect(() => {
@@ -80,7 +80,7 @@ function useDialog({
         return focusableItem as HTMLElement
       }
     },
-    [modalRef]
+    [modalRef],
   )
 
   const handleTab = useCallback(
@@ -93,7 +93,7 @@ function useDialog({
 
       focusableItem.focus()
     },
-    [getFocusableItem]
+    [getFocusableItem],
   )
 
   const onKeyDown = useCallback(
@@ -108,7 +108,7 @@ function useDialog({
           break
       }
     },
-    [handleTab, onDismiss]
+    [handleTab, onDismiss],
   )
 
   const getDialogProps = () => {

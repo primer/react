@@ -5,7 +5,7 @@ import {
   PageLayoutContentProps,
   PageLayoutFooterProps,
   PageLayoutHeaderProps,
-  PageLayoutPaneProps
+  PageLayoutPaneProps,
 } from '../PageLayout'
 
 // ----------------------------------------------------------------------------
@@ -87,5 +87,5 @@ export const SplitPageLayout = Object.assign(Root, {
   Header,
   Content,
   Pane,
-  Footer
+  Footer,
 })

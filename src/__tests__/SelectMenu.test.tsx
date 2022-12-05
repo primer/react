@@ -9,7 +9,7 @@ import {SelectMenuModalProps, SelectMenuItemProps, SelectMenuTabProps} from '../
 const BasicSelectMenu = ({
   onClick,
   as,
-  align = 'left'
+  align = 'left',
 }: {
   onClick?: SelectMenuItemProps['onClick']
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,7 +63,7 @@ const MenuWithTabs = ({onClick}: {onClick?: SelectMenuTabProps['onClick']}) => {
 
 describe('SelectMenu', () => {
   checkExports('deprecated/SelectMenu', {
-    default: SelectMenu
+    default: SelectMenu,
   })
 
   for (const Comp of [
@@ -76,7 +76,7 @@ describe('SelectMenu', () => {
     SelectMenu.Tabs,
     SelectMenu.Tab,
     SelectMenu.TabPanel,
-    SelectMenu.Header
+    SelectMenu.Header,
   ]) {
     it('sets a valid displayName', () => {
       expect(Comp.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)

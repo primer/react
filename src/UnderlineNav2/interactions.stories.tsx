@@ -5,7 +5,7 @@ import {expect} from '@storybook/jest'
 import {OverflowTemplate} from './features.stories'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Interactions'
+  title: 'Drafts/Components/UnderlineNav/Interactions',
 } as Meta
 
 const SelectAMenuItem = () => {

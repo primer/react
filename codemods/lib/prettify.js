@@ -8,9 +8,9 @@ module.exports = function prettify(ast, file) {
     Object.assign(
       {
         parser: 'typescript',
-        filepath: file.path
+        filepath: file.path,
       },
-      config
-    )
+      config,
+    ),
   )
 }

@@ -26,54 +26,54 @@ type LabelSizeKeys = 'small' | 'large'
 
 export const variants: Record<LabelColorOptions, BetterSystemStyleObject> = {
   default: {
-    borderColor: 'border.default'
+    borderColor: 'border.default',
   },
   primary: {
-    borderColor: 'fg.default'
+    borderColor: 'fg.default',
   },
   secondary: {
     borderColor: 'border.muted',
-    color: 'fg.muted'
+    color: 'fg.muted',
   },
   accent: {
     borderColor: 'accent.emphasis',
-    color: 'accent.fg'
+    color: 'accent.fg',
   },
   success: {
     borderColor: 'success.emphasis',
-    color: 'success.fg'
+    color: 'success.fg',
   },
   attention: {
     borderColor: 'attention.emphasis',
-    color: 'attention.fg'
+    color: 'attention.fg',
   },
   severe: {
     borderColor: 'severe.emphasis',
-    color: 'severe.fg'
+    color: 'severe.fg',
   },
   danger: {
     borderColor: 'danger.emphasis',
-    color: 'danger.fg'
+    color: 'danger.fg',
   },
   done: {
     borderColor: 'done.emphasis',
-    color: 'done.fg'
+    color: 'done.fg',
   },
   sponsors: {
     borderColor: 'sponsors.emphasis',
-    color: 'sponsors.fg'
-  }
+    color: 'sponsors.fg',
+  },
 }
 
 const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
   small: {
     height: '20px',
-    padding: '0 7px' // hard-coded to align with Primer ViewComponents and Primer CSS
+    padding: '0 7px', // hard-coded to align with Primer ViewComponents and Primer CSS
   },
   large: {
     height: '24px',
-    padding: '0 10px' // hard-coded to align with Primer ViewComponents and Primer CSS
-  }
+    padding: '0 10px', // hard-coded to align with Primer ViewComponents and Primer CSS
+  },
 }
 
 const Label = styled.span<LabelProps>`
@@ -94,7 +94,7 @@ const Label = styled.span<LabelProps>`
 
 Label.defaultProps = {
   size: 'small',
-  variant: 'default'
+  variant: 'default',
 }
 
 export default Label

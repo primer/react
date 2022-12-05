@@ -16,7 +16,7 @@ export const tokenSizes: Record<TokenSizeKeys, string> = {
   medium: '20px',
   large: '24px',
   extralarge: xlargeSize,
-  xlarge: xlargeSize
+  xlarge: xlargeSize,
 }
 
 export const defaultTokenSize: TokenSizeKeys = 'medium'
@@ -56,7 +56,7 @@ export const isTokenInteractive = ({
   as = 'span',
   onClick,
   onFocus,
-  tabIndex = -1
+  tabIndex = -1,
 }: Pick<TokenBaseProps, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 
@@ -67,7 +67,7 @@ const xlargeVariantStyles = {
   paddingLeft: 3,
   paddingRight: 3,
   paddingTop: 0,
-  paddingBottom: 0
+  paddingBottom: 0,
 }
 
 const variants = variant<
@@ -94,7 +94,7 @@ const variants = variant<
       // need to explicitly set padding top and bottom to "0" to override default `<button>` element styles
       // without setting these, the "x" appears vertically mis-aligned
       paddingTop: 0,
-      paddingBottom: 0
+      paddingBottom: 0,
     },
     medium: {
       fontSize: 0,
@@ -103,7 +103,7 @@ const variants = variant<
       paddingLeft: 2,
       paddingRight: 2,
       paddingTop: 0,
-      paddingBottom: 0
+      paddingBottom: 0,
     },
     large: {
       fontSize: 0,
@@ -112,11 +112,11 @@ const variants = variant<
       paddingLeft: 2,
       paddingRight: 2,
       paddingTop: 0,
-      paddingBottom: 0
+      paddingBottom: 0,
     },
     extralarge: xlargeVariantStyles,
-    xlarge: xlargeVariantStyles
-  }
+    xlarge: xlargeVariantStyles,
+  },
 })
 
 const StyledTokenBase = styled.span<SxProp>`
@@ -150,12 +150,12 @@ const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
         ref={forwardedRef}
       />
     )
-  }
+  },
 )
 
 TokenBase.defaultProps = {
   as: 'span',
-  size: defaultTokenSize
+  size: defaultTokenSize,
 }
 
 export default TokenBase

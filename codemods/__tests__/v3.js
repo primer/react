@@ -20,5 +20,5 @@ export default () => (
   </Donut>
 )
 `.trim(),
-  'v3'
+  'v3',
 )

@@ -37,12 +37,12 @@ describe('ActionMenu', () => {
   behavesAsComponent({
     Component: ActionList,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <Example />
+    toRender: () => <Example />,
   })
 
   checkExports('ActionMenu', {
     default: undefined,
-    ActionMenu
+    ActionMenu,
   })
 
   it('should open Menu on MenuButton click', async () => {
@@ -111,7 +111,7 @@ describe('ActionMenu', () => {
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
         <SingleSelection />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     const button = component.getByLabelText('Field type')
 
@@ -131,7 +131,7 @@ describe('ActionMenu', () => {
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
         <MixedSelection />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     const button = component.getByLabelText('Group by')
 
@@ -192,7 +192,7 @@ describe('ActionMenu', () => {
       <>
         <Example />
         <input type="text" placeholder="next focusable element" />
-      </>
+      </>,
     )
     const anchor = component.getByRole('button')
 

@@ -15,28 +15,28 @@ export default {
           <Story />
         </UnderlineNav>
       )
-    }
+    },
   ],
   parameters: {
     controls: {
       expanded: true,
-      exclude: ['as']
-    }
+      exclude: ['as'],
+    },
   },
   args: {
     children: 'Code',
     counter: '12K',
-    icon: PeopleIcon
+    icon: PeopleIcon,
   },
   argTypes: {
     children: {
-      type: 'string'
+      type: 'string',
     },
     counter: {
-      type: 'string'
+      type: 'string',
     },
-    icon: OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon])
-  }
+    icon: OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon]),
+  },
 } as Meta<typeof UnderlineNavItem>
 
 export const Playground: Story = args => {

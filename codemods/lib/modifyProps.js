@@ -17,16 +17,16 @@ module.exports = (ast, j, moduleName, propsMap) => {
         name: {
           name: name => {
             return name in importsByName
-          }
-        }
-      }
+          },
+        },
+      },
     })
     .forEach(el => {
       j(el)
         .find(j.JSXAttribute, {
           name: name => {
             return name.name in propsMap
-          }
+          },
         })
         .forEach(attr => {
           const name = attr.value.name.name

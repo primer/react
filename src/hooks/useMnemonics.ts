@@ -26,7 +26,7 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
         if (firstLetter) item.setAttribute('aria-keyshortcuts', firstLetter)
       })
     },
-    [open, containerRef]
+    [open, containerRef],
   )
 
   React.useEffect(
@@ -79,7 +79,7 @@ export const useMnemonics = (open: boolean, providedRef?: React.RefObject<HTMLEl
       container.addEventListener('keydown', handler)
       return () => container.removeEventListener('keydown', handler)
     },
-    [open, containerRef]
+    [open, containerRef],
   )
 
   const isAlphabetKey = (event: KeyboardEvent) => {
