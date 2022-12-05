@@ -101,11 +101,11 @@ jobs:
         run: npm run build
 
       - name: Install examples dependencies
-        working-directory: examples/${{ strategy.matrix.example }}
+        working-directory: examples/${{ matrix.example }}
         run: npm ci
 
       - name: Build examples
-        working-directory: examples/${{ strategy.matrix.example }}
+        working-directory: examples/${{ matrix.example }}
         run: npm run build --if-present
 
   storybook:
