@@ -5,7 +5,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
-import {ChildWidthArray, ResponsiveProps} from './types'
+import {ChildWidthArray, ChildWidth, ResponsiveProps} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
@@ -251,7 +251,7 @@ export const UnderlineNav = forwardRef(
 
     const actions = responsiveProps.actions
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
-    const setChildrenWidth = useCallback(size => {
+    const setChildrenWidth = useCallback((size: ChildWidth) => {
       setChildWidthArray(arr => {
         const newArr = [...arr, size]
         return newArr
@@ -259,7 +259,7 @@ export const UnderlineNav = forwardRef(
     }, [])
 
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
-    const setNoIconChildrenWidth = useCallback(size => {
+    const setNoIconChildrenWidth = useCallback((size: ChildWidth) => {
       setNoIconChildWidthArray(arr => {
         const newArr = [...arr, size]
         return newArr

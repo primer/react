@@ -356,7 +356,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
   const descriptionId = useSSRSafeId()
 
   const keyPressHandler = useCallback(
-    event => {
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (disabled) {
         return
       }
@@ -370,7 +370,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
   )
 
   const clickHandler = useCallback(
-    event => {
+    (event: React.MouseEvent<HTMLDivElement>) => {
       if (disabled) {
         return
       }

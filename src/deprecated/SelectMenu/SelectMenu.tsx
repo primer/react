@@ -57,8 +57,8 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
     }
 
     const onClickOutside = useCallback(
-      event => {
-        if ('current' in ref && ref.current && !ref.current.contains(event.target)) {
+      (event: MouseEvent) => {
+        if ('current' in ref && ref.current && event.target instanceof Node && !ref.current.contains(event.target)) {
           if (!event.defaultPrevented) {
             setOpen(false)
           }
