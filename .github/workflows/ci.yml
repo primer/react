@@ -100,14 +100,12 @@ jobs:
         run: npm run build
 
       - name: Install examples/${{ matrix.example }} dependencies
-        run: |
-          cd examples/${{ matrix.example }}
-          npm ci
+        working-directory: examples/${{ matrix.example }}
+        run: npm install
 
       - name: Build examples/${{ matrix.example }}
-        run: |
-          cd examples/${{ matrix.example }}
-          npm run build --if-present
+        working-directory: examples/${{ matrix.example }}
+        run: npm run build --if-present
 
   storybook:
     runs-on: ubuntu-latest
