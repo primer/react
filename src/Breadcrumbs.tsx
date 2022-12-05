@@ -61,7 +61,7 @@ type StyledBreadcrumbsItemProps = {
 const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(props.selected && SELECTED_CLASS, props.className),
-  'aria-current': props.selected ? 'page' : null
+  'aria-current': props.selected ? 'page' : null,
 }))<StyledBreadcrumbsItemProps>`
   color: ${get('colors.accent.fg')};
   display: inline-block;

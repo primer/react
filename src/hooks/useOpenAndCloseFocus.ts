@@ -12,7 +12,7 @@ export function useOpenAndCloseFocus({
   initialFocusRef,
   returnFocusRef,
   containerRef,
-  preventFocusOnOpen
+  preventFocusOnOpen,
 }: UseOpenAndCloseFocusSettings): void {
   useEffect(() => {
     if (preventFocusOnOpen) {

@@ -10,7 +10,7 @@ import {
   CommentDiscussionIcon,
   ProjectIcon,
   ShieldLockIcon,
-  GraphIcon
+  GraphIcon,
 } from '@primer/octicons-react'
 
 import {UnderlineNav} from '.'
@@ -28,14 +28,14 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: jest.fn(), // deprecated
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn()
-  }))
+    dispatchEvent: jest.fn(),
+  })),
 })
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
   loadingCounters = false,
-  displayExtraEl = false
+  displayExtraEl = false,
 }: {
   selectedItemText?: string
   loadingCounters?: boolean
@@ -50,7 +50,7 @@ const ResponsiveUnderlineNav = ({
     {navigation: 'Projects', icon: ProjectIcon, counter: 9},
     {navigation: 'Insights', icon: GraphIcon},
     {navigation: 'Settings', counter: 10},
-    {navigation: 'Security', icon: ShieldLockIcon}
+    {navigation: 'Security', icon: ShieldLockIcon},
   ]
 
   return (
@@ -76,12 +76,12 @@ describe('UnderlineNav', () => {
   behavesAsComponent({
     Component: UnderlineNav,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <ResponsiveUnderlineNav />
+    toRender: () => <ResponsiveUnderlineNav />,
   })
 
   checkExports('UnderlineNav2', {
     default: undefined,
-    UnderlineNav
+    UnderlineNav,
   })
   it('renders aria-current attribute to be pages when an item is selected', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
@@ -106,7 +106,7 @@ describe('UnderlineNav', () => {
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 3</UnderlineNav.Item>
-      </UnderlineNav>
+      </UnderlineNav>,
     )
     const item = getByRole('link', {name: 'Item 1'})
     const user = userEvent.setup()
@@ -122,7 +122,7 @@ describe('UnderlineNav', () => {
         <UnderlineNav.Item aria-current="page" onSelect={onSelect}>
           Item 3
         </UnderlineNav.Item>
-      </UnderlineNav>
+      </UnderlineNav>,
     )
     const item = getByRole('link', {name: 'Item 1'})
     const user = userEvent.setup()

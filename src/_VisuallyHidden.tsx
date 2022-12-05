@@ -26,7 +26,7 @@ const VisuallyHidden = styled.span<Props & SxProp>`
 `
 
 VisuallyHidden.defaultProps = {
-  isVisible: false
+  isVisible: false,
 }
 
 export default VisuallyHidden

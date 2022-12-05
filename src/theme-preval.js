@@ -8,7 +8,7 @@ const {partitionColors, fontStack, omitScale} = require('./utils/theme')
 const {lineHeight: lineHeights} = primitives.typography.normal
 
 const animation = {
-  easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)'
+  easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',
 }
 
 const breakpoints = ['544px', '768px', '1012px', '1280px']
@@ -22,16 +22,16 @@ const fonts = {
     'Arial',
     'sans-serif',
     'Apple Color Emoji',
-    'Segoe UI Emoji'
+    'Segoe UI Emoji',
   ]),
-  mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace'])
+  mono: fontStack(['SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', 'monospace']),
 }
 
 const fontWeights = {
   light: 300,
   normal: 400,
   semibold: 500,
-  bold: 600
+  bold: 600,
 }
 
 const borderWidths = [0, '1px']
@@ -42,7 +42,7 @@ const sizes = {
   small: '544px',
   medium: '768px',
   large: '1012px',
-  xlarge: '1280px'
+  xlarge: '1280px',
 }
 
 const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px']
@@ -56,7 +56,7 @@ const colorSchemes = Object.entries(primitives.colors).reduce((acc, [name, varia
   const {colors, shadows} = partitionColors(variables)
   acc[name] = {
     colors: omitScale(colors),
-    shadows: omitScale(shadows)
+    shadows: omitScale(shadows),
   }
   return acc
 }, {})
@@ -72,7 +72,7 @@ const theme = {
   radii,
   sizes,
   space,
-  colorSchemes
+  colorSchemes,
 }
 
 module.exports = theme

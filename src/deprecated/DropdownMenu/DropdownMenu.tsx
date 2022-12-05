@@ -72,7 +72,7 @@ export function DropdownMenu({
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) =>
       renderAnchor({
         ...props,
-        children: selectedItem?.text ?? placeholder
+        children: selectedItem?.text ?? placeholder,
       })
   }, [placeholder, renderAnchor, selectedItem?.text])
 
@@ -91,7 +91,7 @@ export function DropdownMenu({
 
           onClose()
           onChange?.(item === selectedItem ? undefined : item)
-        }
+        },
       } as ItemProps
     })
   }, [items, onChange, onClose, selectedItem])

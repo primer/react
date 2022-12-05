@@ -24,7 +24,7 @@ const initialState = {
   showMenu: false,
   isMenuDirectlyActivated: false,
   autocompleteSuggestion: '',
-  selectedItemLength: 0
+  selectedItemLength: 0,
 }
 
 const reducer = (state: State, action: Action) => {
@@ -84,7 +84,7 @@ const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({childre
         setIsMenuDirectlyActivated,
         setShowMenu,
         setSelectedItemLength,
-        showMenu
+        showMenu,
       }}
     >
       {children}
@@ -100,5 +100,5 @@ export default Object.assign(Autocomplete, {
   Context: AutocompleteContext,
   Input: AutocompleteInput,
   Menu: AutocompleteMenu,
-  Overlay: AutocompleteOverlay
+  Overlay: AutocompleteOverlay,
 })

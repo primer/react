@@ -17,7 +17,7 @@ export default function useSafeTimeout(): {safeSetTimeout: SetTimeout; safeClear
       timers.current.add(id)
       return id
     },
-    []
+    [],
   )
 
   const safeClearTimeout = useCallback((id: number) => {

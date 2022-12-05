@@ -100,7 +100,7 @@ function useOnSelectFiles(props: FileSelectProps) {
     // are putting all used properties in the dependency array. We can't use destructuring
     // to extract them or we'll lose the type link between multi & onSelect
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isAcceptableFile, props.multi, props.onSelect]
+    [isAcceptableFile, props.multi, props.onSelect],
   )
 }
 
@@ -122,9 +122,9 @@ export function useUnifiedFileSelect(props: FileSelectProps): UnifiedFileSelectR
       clickTargetProps,
       pasteTargetProps,
       dropTargetProps,
-      isDraggedOver
+      isDraggedOver,
     }),
-    [clickTargetProps, dropTargetProps, isDraggedOver, pasteTargetProps]
+    [clickTargetProps, dropTargetProps, isDraggedOver, pasteTargetProps],
   )
 }
 
@@ -143,7 +143,7 @@ export function useClickFileSelect(props: FileSelectProps): ClickTargetProps {
       // eslint-disable-next-line no-invalid-this
       if (this.files) onSelectFiles(this.files)
     },
-    [onSelectFiles]
+    [onSelectFiles],
   )
 
   // The only way to open a file select window is to click on an input type="file" so we
@@ -165,7 +165,7 @@ export function useClickFileSelect(props: FileSelectProps): ClickTargetProps {
         fileInput.parentNode?.removeChild(fileInput)
       }
     },
-    [multi, acceptedFileTypes, onInputChange]
+    [multi, acceptedFileTypes, onInputChange],
   )
 
   // Because we don't use the event object, it's tempting to change the function type from
@@ -177,10 +177,10 @@ export function useClickFileSelect(props: FileSelectProps): ClickTargetProps {
 
   return useMemo(
     () => ({
-      onClick
+      onClick,
     }),
 
-    [onClick]
+    [onClick],
   )
 }
 
@@ -222,7 +222,7 @@ export function useDropFileSelect(props: FileSelectProps): [isDraggedOver: boole
         setIsDraggedOver(false)
       }
     },
-    [onSelectFiles]
+    [onSelectFiles],
   )
 
   const dropTargetProps = useMemo(
@@ -230,10 +230,10 @@ export function useDropFileSelect(props: FileSelectProps): [isDraggedOver: boole
       onDragEnter,
       onDragOver,
       onDragLeave,
-      onDrop
+      onDrop,
       // onDragStart and onDragEnd are not relevant for system file dragging
     }),
-    [onDrop, onDragOver, onDragLeave, onDragEnter]
+    [onDrop, onDragOver, onDragLeave, onDragEnter],
   )
 
   return [isDraggedOver, dropTargetProps]
@@ -252,9 +252,9 @@ export function usePasteFileSelect(props: FileSelectProps): PasteTargetProps {
         if (onSelectFiles(event.clipboardData.files)) {
           event.preventDefault()
         }
-      }
+      },
     }),
 
-    [onSelectFiles]
+    [onSelectFiles],
   )
 }

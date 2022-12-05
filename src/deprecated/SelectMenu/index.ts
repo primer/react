@@ -11,5 +11,5 @@ export type {
   SelectMenuHeaderProps,
   SelectMenuTabProps,
   SelectMenuTabPanelProps,
-  SelectMenuLoadingAnimationProps
+  SelectMenuLoadingAnimationProps,
 } from './SelectMenu'

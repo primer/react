@@ -62,7 +62,7 @@ export function renderRoot(component: React.ReactElement) {
  */
 export function renderClasses(component: React.ReactElement): string {
   const {
-    props: {className}
+    props: {className},
   } = render(component)
   return className ? className.trim().split(' ') : []
 }
@@ -84,7 +84,7 @@ export function percent(value: number | string): string {
 
 export function renderStyles(node: React.ReactElement) {
   const {
-    props: {className}
+    props: {className},
   } = render(node)
   return getComputedStyles(className)
 }

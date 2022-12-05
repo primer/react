@@ -10,7 +10,7 @@ describe('TextInput', () => {
   behavesAsComponent({Component: TextInput, options: {skipAs: true}})
 
   checkExports('TextInput', {
-    default: TextInput
+    default: TextInput,
   })
 
   it('should have no axe violations', async () => {
@@ -70,8 +70,8 @@ describe('TextInput', () => {
           name="search"
           placeholder={'Search'}
           trailingAction={<TextInput.Action onClick={handleAction}>Clear</TextInput.Action>}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -87,8 +87,8 @@ describe('TextInput', () => {
               Clear
             </TextInput.Action>
           }
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -100,8 +100,8 @@ describe('TextInput', () => {
           name="search"
           placeholder={'Search'}
           trailingAction={<TextInput.Action onClick={handleAction} icon={SearchIcon} aria-label="iconLabel" />}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -111,7 +111,7 @@ describe('TextInput', () => {
         {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="testInput">Search</label>
         <TextInput id="testInput" name="search" placeholder={'Search'} trailingVisual={SearchIcon} />
-      </>
+      </>,
     )
 
     const icon = container.querySelector('svg')!
@@ -154,8 +154,8 @@ describe('TextInput', () => {
             trailingVisual={SearchIcon}
             loaderPosition="trailing"
           />
-        </>
-      )
+        </>,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -165,7 +165,7 @@ describe('TextInput', () => {
         {/* eslint-disable-next-line jsx-a11y/label-has-for */}
         <label htmlFor="loadingInput">Search</label>
         <TextInput loading id="loadingInput" />
-      </>
+      </>,
     )
 
     expect(container.querySelector('span[aria-busy=true]')).not.toBeNull()

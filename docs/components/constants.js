@@ -10,8 +10,8 @@ export const get = key => themeGet(key, getKey(theme, key))
 const whiteSpace = system({
   whiteSpace: {
     property: 'whiteSpace',
-    cssProperty: 'whiteSpace'
-  }
+    cssProperty: 'whiteSpace',
+  },
 })
 
 export const TYPOGRAPHY = compose(styledSystem.typography, whiteSpace)

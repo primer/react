@@ -6,5 +6,5 @@ export type {ButtonProps, IconButtonProps} from './types'
 export {IconButton, LinkButton}
 
 export const Button = Object.assign(ButtonComponent, {
-  Counter
+  Counter,
 })

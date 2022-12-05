@@ -50,7 +50,7 @@ const overflowEffect = (
   childArray: Array<React.ReactElement>,
   childWidthArray: ChildWidthArray,
   noIconChildWidthArray: ChildWidthArray,
-  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void
+  updateListAndMenu: (props: ResponsiveProps, iconsVisible: boolean) => void,
 ) => {
   let iconsVisible = true
   if (childWidthArray.length === 0) {
@@ -62,7 +62,7 @@ const overflowEffect = (
   const numberOfItemsPossibleWithMoreMenu = calculatePossibleItems(
     noIconChildWidthArray,
     navWidth,
-    moreMenuWidth || MORE_BTN_WIDTH
+    moreMenuWidth || MORE_BTN_WIDTH,
   )
   const items: Array<React.ReactElement> = []
   const actions: Array<React.ReactElement> = []
@@ -138,9 +138,9 @@ export const UnderlineNav = forwardRef(
       afterSelect,
       variant = 'default',
       loadingCounters = false,
-      children
+      children,
     }: UnderlineNavProps,
-    forwardedRef
+    forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const navRef = (forwardedRef ?? backupRef) as MutableRefObject<HTMLElement>
@@ -160,7 +160,7 @@ export const UnderlineNav = forwardRef(
       prospectiveListItem: React.ReactElement,
       indexOfProspectiveListItem: number,
       event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
-      callback: (props: ResponsiveProps, displayIcons: boolean) => void
+      callback: (props: ResponsiveProps, displayIcons: boolean) => void,
     ) => {
       // get the selected menu item's width
       const widthToFitIntoList = getItemsWidth(prospectiveListItem.props.children)
@@ -218,7 +218,7 @@ export const UnderlineNav = forwardRef(
 
     const [responsiveProps, setResponsiveProps] = useState<ResponsiveProps>({
       items: getValidChildren(children),
-      actions: []
+      actions: [],
     })
 
     /*
@@ -239,7 +239,7 @@ export const UnderlineNav = forwardRef(
 
       setResponsiveProps({
         items: updatedItems,
-        actions: updatedActions
+        actions: updatedActions,
       })
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [children])
@@ -296,7 +296,7 @@ export const UnderlineNav = forwardRef(
           focusOnMoreMenuBtn()
         }
       },
-      [isWidgetOpen]
+      [isWidgetOpen],
     )
 
     useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
@@ -321,7 +321,7 @@ export const UnderlineNav = forwardRef(
           afterSelect: afterSelectHandler,
           variant,
           loadingCounters,
-          iconsVisible
+          iconsVisible,
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
@@ -394,7 +394,7 @@ export const UnderlineNav = forwardRef(
         </Box>
       </UnderlineNavContext.Provider>
     )
-  }
+  },
 )
 
 UnderlineNav.displayName = 'UnderlineNav'

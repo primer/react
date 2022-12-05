@@ -20,7 +20,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
   const SlotsContext = React.createContext<ContextProps>({
     registerSlot: () => null,
     unregisterSlot: () => null,
-    context: {}
+    context: {},
   })
 
   // maintain a static reference to avoid infinite render loop
@@ -58,7 +58,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
         // don't render until the component mounts = all slots are registered
         if (isMounted) rerenderWithSlots()
       },
-      [isMounted, rerenderWithSlots]
+      [isMounted, rerenderWithSlots],
     )
 
     // Slot can be removed from the tree as well,
@@ -68,7 +68,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
         slotsRef.current[name] = null
         rerenderWithSlots()
       },
-      [rerenderWithSlots]
+      [rerenderWithSlots],
     )
 
     /**
