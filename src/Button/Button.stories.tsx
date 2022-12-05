@@ -1,11 +1,8 @@
+import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, TriangleDownIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import {Story, Meta} from '@storybook/react'
-import React from 'react'
 import {Button} from '.'
-const unset = undefined
-const icons = {unset, EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon}
-
-const actionIcons = {unset, TriangleDownIcon}
+import {OcticonArgType} from '../utils/story-helpers'
 
 export default {
   title: 'Components/Button',
@@ -38,27 +35,9 @@ export default {
         type: 'boolean'
       }
     },
-    leadingVisual: {
-      control: {
-        type: 'select',
-        options: Object.keys(icons)
-      },
-      mapping: icons
-    },
-    trailingVisual: {
-      control: {
-        type: 'select',
-        options: Object.keys(icons)
-      },
-      mapping: icons
-    },
-    trailingAction: {
-      control: {
-        type: 'select',
-        options: Object.keys(actionIcons)
-      },
-      mapping: actionIcons
-    },
+    leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    trailingAction: OcticonArgType([TriangleDownIcon]),
     trailingVisualCount: {
       control: {
         type: 'number'

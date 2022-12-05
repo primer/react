@@ -11,7 +11,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
   return (
     <StyledButton
       data-component="IconButton"
-      data-size={size === 'small' ? 'small' : size === 'large' ? 'large' : undefined}
+      data-size={size === 'small' || size === 'large' ? size : undefined}
       sx={sxStyles}
       {...rest}
       ref={forwardedRef}

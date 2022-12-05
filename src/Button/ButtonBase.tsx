@@ -35,7 +35,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         {...props}
         ref={forwardedRef}
         data-component={block ? 'block' : null}
-        data-size={size === 'small' ? 'small' : size === 'large' ? 'large' : undefined}
+        data-size={size === 'small' || size === 'large' ? size : undefined}
       >
         <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
           {LeadingVisual && (

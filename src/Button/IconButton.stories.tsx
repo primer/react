@@ -1,10 +1,8 @@
+import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import {Story, Meta} from '@storybook/react'
-import React from 'react'
 import {IconButton} from '.'
-
-const unset = undefined
-const icons = {unset, EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon}
+import {OcticonArgType} from '../utils/story-helpers'
 
 export default {
   title: 'Components/IconButton',
@@ -26,22 +24,15 @@ export default {
         options: ['default', 'primary', 'danger', 'invisible']
       }
     },
-    icon: {
-      control: {
-        type: 'select',
-        options: Object.keys(icons)
-      },
-      mapping: icons
-    },
-    ariaLabel: {control: 'text'}
+    icon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon])
   },
   args: {
     size: 'medium',
     disabled: false,
     variant: 'default',
-    ariaLabel: 'Icon button description',
+    'aria-label': 'Icon button description',
     icon: XIcon
   }
 } as Meta<typeof IconButton>
 
-export const Playground: Story<typeof IconButton> = args => <IconButton aria-label={args.ariaLabel} {...args} />
+export const Playground: Story<typeof IconButton> = args => <IconButton {...args} />

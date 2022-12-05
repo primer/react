@@ -29,7 +29,7 @@ describe('Button', () => {
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('respects width prop', () => {
+  it('respects block prop', () => {
     const container = render(<Button block>Block</Button>)
     const button = container.getByRole('button')
     expect(button).toMatchSnapshot()
@@ -82,5 +82,11 @@ describe('Button', () => {
     const container = render(<IconButton icon={SearchIcon} aria-label="Search button" />)
     const IconOnlyButton = container.getByLabelText('Search button')
     expect(IconOnlyButton).toBeTruthy()
+  })
+
+  it('respects the alignContent prop', () => {
+    const container = render(<Button alignContent="start">Align start</Button>)
+    const button = container.getByRole('button')
+    expect(button).toMatchSnapshot()
   })
 })

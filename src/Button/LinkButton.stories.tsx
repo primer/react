@@ -1,10 +1,8 @@
+import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, ChevronRightIcon, XIcon, HeartIcon} from '@primer/octicons-react'
 import {Story, Meta} from '@storybook/react'
-import React from 'react'
 import {Button} from '.'
-const unset = undefined
-const icons = {unset, EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon}
-const actionIcons = {unset, ChevronRightIcon}
+import {OcticonArgType} from '../utils/story-helpers'
 
 export default {
   title: 'Components/LinkButton',
@@ -32,26 +30,13 @@ export default {
         type: 'boolean'
       }
     },
-    leadingVisual: {
+    leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    trailingAction: OcticonArgType([ChevronRightIcon]),
+    trailingVisualCount: {
       control: {
-        type: 'select',
-        options: Object.keys(icons)
-      },
-      mapping: icons
-    },
-    trailingVisual: {
-      control: {
-        type: 'select',
-        options: Object.keys(icons)
-      },
-      mapping: icons
-    },
-    trailingAction: {
-      control: {
-        type: 'select',
-        options: Object.keys(actionIcons)
-      },
-      mapping: actionIcons
+        type: 'number'
+      }
     },
     href: {control: 'text'}
   },
