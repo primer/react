@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box} from '..'
-import {useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue, useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
 import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
@@ -63,23 +63,43 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
   )
 }
 
+function displayResponsively<T, F>(value: T, fallback: F): BetterSystemStyleObject {
+  if (isResponsiveValue(value)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const responsiveValue = value as Extract<T, ResponsiveValue<any>>
+
+    return {
+      [`@media screen and (max-width: 768px)`]: {
+        display: 'narrow' in responsiveValue ? (responsiveValue.narrow ? 'none' : 'flex') : fallback ? 'none' : 'flex',
+      },
+      [`@media screen and (min-width: 768px)`]: {
+        display:
+          'regular' in responsiveValue ? (responsiveValue.regular ? 'none' : 'flex') : fallback ? 'none' : 'flex',
+      },
+      [`@media screen and (min-width: 1440px)`]: {
+        display: 'wide' in responsiveValue ? (responsiveValue.wide ? 'none' : 'flex') : fallback ? 'none' : 'flex',
+      },
+    }
+  } else {
+    return {display: fallback ? 'none' : 'flex'}
+  }
+}
+
 // PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `visible` prop available
 // to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
 // PageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions
 // ---------------------------------------------------------------------
-
 const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   children,
   hidden = hiddenOnRegularAndWide,
   sx = {},
 }) => {
-  const isHidden = useResponsiveValue(hidden, false)
   const contentNavStyles = {
-    display: isHidden ? 'none' : 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: get('space.2'),
     order: REGION_ORDER.ContextArea,
+    ...displayResponsively(hidden, false),
   }
   return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
