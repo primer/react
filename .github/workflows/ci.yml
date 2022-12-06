@@ -28,6 +28,9 @@ jobs:
         run: npm run lint
 
   test:
+    strategy:
+      matrix:
+        react: [17, 18]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -38,8 +41,11 @@ jobs:
         with:
           node-version: 16
 
+      - name: Set React version
+        run: node script/set-react-version.js ${{ matrix.react }}
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci ${{ matrix.react == 18 && "--legacy-peer-deps" || "" }}
 
       - name: Build
         run: npm run build
@@ -48,6 +54,9 @@ jobs:
         run: npm run test -- --coverage
 
   type-check:
+    strategy:
+      matrix:
+        react: [17, 18]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -58,8 +67,11 @@ jobs:
         with:
           node-version: 16
 
+      - name: Set React version
+        run: node script/set-react-version.js ${{ matrix.react }}
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci ${{ matrix.react == 18 && "--legacy-peer-deps" || "" }}
 
       - name: Type check
         run: npm run test:type-check
