@@ -750,9 +750,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
               : paneWidths[width],
             padding: SPACING_MAP[padding],
-            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-              overflow: 'auto',
-            },
+            overflowY: 'auto',
 
             [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
               '--pane-max-width-diff': '959px',
