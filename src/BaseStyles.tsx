@@ -50,7 +50,7 @@ function BaseStyles(props: BaseStylesProps) {
 BaseStyles.defaultProps = {
   color: 'fg.default',
   fontFamily: 'normal',
-  lineHeight: 'default'
+  lineHeight: 'default',
 }
 
 export default BaseStyles

@@ -14,25 +14,25 @@ export default {
     children: 'Option',
     leadingIcon: null,
     selected: false,
-    defaultSelected: false
+    defaultSelected: false,
   },
   argTypes: {
     children: {
-      type: 'string'
+      type: 'string',
     },
     leadingIcon: {
       control: {
         type: 'select',
-        options: Object.keys(icons)
+        options: Object.keys(icons),
       },
-      mapping: icons
+      mapping: icons,
     },
     selected: {
-      type: 'boolean'
+      type: 'boolean',
     },
     defaultSelected: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   decorators: [
     Story => {
@@ -41,8 +41,8 @@ export default {
           <Story />
         </SegmentedControl>
       )
-    }
-  ]
+    },
+  ],
 } as Meta<typeof SegmentedControlButton>
 
 export const Playground: Story<SegmentedControlButtonProps> = args => <SegmentedControlButton {...args} />

@@ -30,7 +30,7 @@ const AvatarToken = forwardRef<HTMLElement, AvatarTokenProps>(({avatarSrc, id, s
             size={parseInt(tokenSizes[size || defaultTokenSize], 10)}
             sx={{
               width: '100%',
-              height: '100%'
+              height: '100%',
             }}
           />
         </AvatarContainer>
@@ -38,7 +38,7 @@ const AvatarToken = forwardRef<HTMLElement, AvatarTokenProps>(({avatarSrc, id, s
       size={size}
       id={id?.toString()}
       sx={{
-        paddingLeft: get('space.1')
+        paddingLeft: get('space.1'),
       }}
       {...rest}
       ref={forwardedRef}
@@ -47,7 +47,7 @@ const AvatarToken = forwardRef<HTMLElement, AvatarTokenProps>(({avatarSrc, id, s
 })
 
 AvatarToken.defaultProps = {
-  size: defaultTokenSize
+  size: defaultTokenSize,
 }
 
 AvatarToken.displayName = 'AvatarToken'

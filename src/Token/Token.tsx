@@ -20,7 +20,7 @@ const LeadingVisualContainer: React.FC<React.PropsWithChildren<Pick<TokenBasePro
     sx={{
       flexShrink: 0,
       lineHeight: 0,
-      marginRight: size && ['large', 'extralarge', 'xlarge'].includes(size) ? 2 : 1
+      marginRight: size && ['large', 'extralarge', 'xlarge'].includes(size) ? 2 : 1,
     }}
   >
     {children}
@@ -50,7 +50,7 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
     const interactiveTokenProps = {
       as,
       href,
-      onClick
+      onClick,
     }
     const sx = merge(
       {
@@ -66,12 +66,12 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
               '&:hover': {
                 backgroundColor: 'neutral.muted',
                 boxShadow: 'shadow.medium',
-                color: 'fg.default'
-              }
+                color: 'fg.default',
+              },
             }
-          : {})
+          : {}),
       },
-      sxProp as SxProp
+      sxProp as SxProp,
     )
 
     return (
@@ -102,7 +102,7 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
               hasMultipleActionTargets
                 ? {
                     position: 'relative',
-                    zIndex: '1'
+                    zIndex: '1',
                   }
                 : {}
             }
@@ -110,13 +110,13 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
         ) : null}
       </TokenBase>
     )
-  }
+  },
 )
 
 Token.displayName = 'Token'
 
 Token.defaultProps = {
-  size: defaultTokenSize
+  size: defaultTokenSize,
 }
 
 export default Token

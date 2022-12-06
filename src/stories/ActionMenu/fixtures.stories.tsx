@@ -12,7 +12,7 @@ import {
   ActionList,
   Button,
   IconButton,
-  AnchoredOverlay
+  AnchoredOverlay,
 } from '../..'
 import {
   ServerIcon,
@@ -34,7 +34,7 @@ import {
   SingleSelectIcon,
   TypographyIcon,
   IconProps,
-  IssueOpenedIcon
+  IssueOpenedIcon,
 } from '@primer/octicons-react'
 import {FocusKeys} from '@primer/behaviors'
 
@@ -48,13 +48,13 @@ const meta: Meta = {
           <Story />
         </BaseStyles>
       </ThemeProvider>
-    )
+    ),
   ],
   parameters: {
     controls: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 
@@ -181,7 +181,7 @@ export function ControlledMenu(): JSX.Element {
           ignoreClickRefs={[
             // Because the component is controlled from outside, but the anchor is still internal,
             // clicking the external button should not be counted as "clicking outside"
-            triggerRef
+            triggerRef,
           ]}
         >
           <ActionList>
@@ -289,7 +289,7 @@ export function MemexTableMenu(): JSX.Element {
           justifyContent: 'space-between',
           p: 2,
           border: '1px solid',
-          borderColor: 'border.default'
+          borderColor: 'border.default',
         }}
       >
         <Text sx={{fontSize: 0, fontWeight: 'bold'}}>{name}</Text>
@@ -345,18 +345,18 @@ const LayoutToggleItem = ({
         mb: 2,
         mt: 1,
         '&:hover': {
-          backgroundColor: !selected ? 'canvas.subtle' : ''
+          backgroundColor: !selected ? 'canvas.subtle' : '',
         },
         '&:first-of-type': {
           borderTopRightRadius: '0px',
           borderBottomRightRadius: '0px',
-          borderRight: selected ? undefined : '0'
+          borderRight: selected ? undefined : '0',
         },
         '&:last-of-type': {
           borderTopLeftRadius: '0px',
           borderBottomLeftRadius: '0px',
-          borderLeft: selected ? undefined : '0'
-        }
+          borderLeft: selected ? undefined : '0',
+        },
       }}
     >
       <FormControl.Label sx={{fontWeight: 'normal', cursor: 'pointer', px: 3, py: 2, mb: 0}} {...props}>
@@ -385,8 +385,8 @@ const ViewChangeButtons = ({setOpen}: {setOpen: (open: boolean) => void}) => (
         mb: -2,
         py: 3,
         '&:hover': {
-          bg: 'canvas.inset'
-        }
+          bg: 'canvas.inset',
+        },
       }}
     >
       Save changes
@@ -404,8 +404,8 @@ const ViewChangeButtons = ({setOpen}: {setOpen: (open: boolean) => void}) => (
         py: 3,
         fontWeight: 'normal',
         '&:hover': {
-          bg: 'canvas.inset'
-        }
+          bg: 'canvas.inset',
+        },
       }}
     >
       Discard changes
@@ -430,7 +430,7 @@ export function MemexViewOptionsMenu(): JSX.Element {
               icon={TriangleDownIcon}
               sx={{
                 padding: '0 1px',
-                lineHeight: '18px'
+                lineHeight: '18px',
               }}
             />
           </ActionMenu.Anchor>
@@ -522,7 +522,7 @@ export function MemexIteration(): JSX.Element {
           sx={{
             fontWeight: 'normal',
             color: 'fg.muted',
-            ':hover, :focus': {background: 'none !important', color: 'accent.fg'}
+            ':hover, :focus': {background: 'none !important', color: 'accent.fg'},
           }}
           aria-label="Iteration duration"
         >
@@ -547,7 +547,7 @@ const fieldTypes = [
   {icon: NumberIcon, name: 'Number'},
   {icon: CalendarIcon, name: 'Date'},
   {icon: SingleSelectIcon, name: 'Single select'},
-  {icon: IterationsIcon, name: 'Iteration'}
+  {icon: IterationsIcon, name: 'Iteration'},
 ]
 
 export function MemexAddColumn(): JSX.Element {
@@ -571,7 +571,7 @@ export function MemexAddColumn(): JSX.Element {
             leadingIcon={selectedType.icon}
             sx={{
               gridTemplateColumns: 'min-content 1fr min-content',
-              '[data-component="text"]': {textAlign: 'left'}
+              '[data-component="text"]': {textAlign: 'left'},
             }}
           >
             {selectedType.name}
@@ -607,7 +607,7 @@ export function MemexAddColumn(): JSX.Element {
                 ml: 2,
                 flexGrow: 1,
                 gridTemplateColumns: 'min-content 1fr min-content',
-                '[data-component="text"]': {textAlign: 'left'}
+                '[data-component="text"]': {textAlign: 'left'},
               }}
             >
               {durationUnit}
@@ -653,7 +653,7 @@ export function MemexKeyboardShortcut(): JSX.Element {
           p: 2,
           alignItems: 'center',
           border: '1px solid',
-          borderColor: 'border.default'
+          borderColor: 'border.default',
         }}
       >
         <IconButton
@@ -752,7 +752,7 @@ export function MnemonicsTest(): JSX.Element {
                     borderColor: 'border.default',
                     borderRadius: 2,
                     padding: '2px 6px',
-                    fontSize: 0
+                    fontSize: 0,
                   }}
                 >
                   e

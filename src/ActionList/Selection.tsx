@@ -21,7 +21,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     // fail loudly instead of silently ignoring
     if (selected) {
       throw new Error(
-        'For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined'
+        'For Item to be selected, ActionList or ActionList.Group needs to have a selectionVariant defined',
       )
     } else {
       return null
@@ -44,13 +44,13 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
         rect: {
           fill: selected ? 'accent.fg' : 'canvas.default',
           stroke: selected ? 'accent.fg' : 'border.default',
-          shapeRendering: 'auto' // this is a workaround to override global style in github/github, see primer/react#1666
+          shapeRendering: 'auto', // this is a workaround to override global style in github/github, see primer/react#1666
         },
         path: {
           fill: 'fg.onEmphasis',
           boxShadow: 'shadow.small',
-          opacity: selected ? 1 : 0
-        }
+          opacity: selected ? 1 : 0,
+        },
       }}
     >
       <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

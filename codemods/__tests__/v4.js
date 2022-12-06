@@ -20,7 +20,7 @@ export default () => (
   </Flex>
 )
 `.trim(),
-  'v4'
+  'v4',
 )
 
 defineInlineTest(
@@ -42,7 +42,7 @@ export default () => (
   </UnderlineNav>
 )
 `.trim(),
-  'v4'
+  'v4',
 )
 
 defineInlineTest(
@@ -64,5 +64,5 @@ export default () => (
   </FilterList>
 )
 `.trim(),
-  'v4'
+  'v4',
 )

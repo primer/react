@@ -35,7 +35,7 @@ export const useIndenting = ({emitChange}: UseIndentingSettings): UseIndentingRe
 
       emitChange(updatedLines, [start, end], [start, start + updatedLines.length])
     },
-    [emitChange]
+    [emitChange],
   )
 
   return {onKeyDown}

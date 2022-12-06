@@ -16,13 +16,13 @@ const validationIconMap: Record<
 > = {
   success: CheckCircleFillIcon,
   error: AlertFillIcon,
-  warning: AlertFillIcon
+  warning: AlertFillIcon,
 }
 
 const validationColorMap: Record<NonNullable<Props['validationStatus']>, string> = {
   success: 'success.fg',
   error: 'danger.fg',
-  warning: 'attention.fg'
+  warning: 'attention.fg',
 }
 
 const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id, validationStatus, sx}) => {
@@ -39,9 +39,9 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
         display: 'flex',
         a: {
           color: 'currentColor',
-          textDecoration: 'underline'
+          textDecoration: 'underline',
         },
-        ...sx
+        ...sx,
       }}
     >
       {IconComponent && (

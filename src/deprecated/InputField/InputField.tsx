@@ -47,26 +47,26 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
   id: idProp,
   required,
   validationMap,
-  validationResult
+  validationResult,
 }: Props<T>) => {
   const expectedInputComponents = [TextInput, TextInputWithTokens, Autocomplete, Select]
   const id = useSSRSafeId(idProp)
   const validationChildren: React.ReactElement<InputFieldValidationProps>[] | undefined | null = React.Children.map(
     children,
     child =>
-      React.isValidElement<InputFieldValidationProps>(child) && child.type === InputFieldValidation ? child : null
+      React.isValidElement<InputFieldValidationProps>(child) && child.type === InputFieldValidation ? child : null,
   )?.filter(Boolean)
   const captionChildren: React.ReactElement[] | undefined | null = React.Children.map(children, child =>
-    React.isValidElement(child) && child.type === InputFieldCaption ? child : null
+    React.isValidElement(child) && child.type === InputFieldCaption ? child : null,
   )?.filter(Boolean)
   const labelChild: React.ReactNode | undefined | null = React.Children.toArray(children).find(
-    child => React.isValidElement(child) && child.type === InputFieldLabel
+    child => React.isValidElement(child) && child.type === InputFieldLabel,
   )
   const validationChildToRender = validationChildren?.find(child => child.props.validationKey === validationResult)
   const validationMessageId = validationChildToRender ? `${id}-validationMsg` : undefined
   const captionId = captionChildren?.length ? `${id}-caption` : undefined
   const InputComponent = React.Children.toArray(children).find(child =>
-    expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)
+    expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
   )
   const inputProps = React.isValidElement(InputComponent) ? InputComponent.props : undefined
 
@@ -76,25 +76,25 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
       `To correctly render this field with the correct ARIA attributes passed to the input, please pass one of the component from @primer/react as a direct child of the InputField component:
       - TextInput
       - TextInputWithTokens
-      - Autocomplete`
+      - Autocomplete`,
     )
   } else {
     if (inputProps?.id) {
       // eslint-disable-next-line no-console
       console.warn(
-        `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <InputField>`
+        `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <InputField>`,
       )
     }
     if (inputProps?.disabled) {
       // eslint-disable-next-line no-console
       console.warn(
-        `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <InputField>`
+        `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <InputField>`,
       )
     }
     if (inputProps?.required) {
       // eslint-disable-next-line no-console
       console.warn(
-        `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <InputField>`
+        `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <InputField>`,
       )
     }
   }
@@ -102,7 +102,7 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
   if (!labelChild) {
     // eslint-disable-next-line no-console
     console.error(
-      `The input field with the id ${id} MUST have a InputField.Label child.\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the InputField.Label component.`
+      `The input field with the id ${id} MUST have a InputField.Label child.\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the InputField.Label component.`,
     )
   }
 
@@ -113,7 +113,7 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
         disabled,
         id,
         required,
-        validationMessageId
+        validationMessageId,
       }}
     >
       {slots => {
@@ -130,7 +130,7 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
               child =>
                 React.isValidElement(child) &&
                 child.type !== InputFieldValidation &&
-                !expectedInputComponents.some(inputComponent => child.type === inputComponent)
+                !expectedInputComponents.some(inputComponent => child.type === inputComponent),
             )}
             {slots.Label}
             {React.isValidElement(InputComponent) &&
@@ -145,8 +145,8 @@ const InputField = <T extends Record<string, FormValidationStatus>>({
                   id,
                   required,
                   disabled,
-                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
-                }
+                  ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
+                },
               )}
             {validationChildToRender && validationMap && validationResult && validationMessageId && (
               <ValidationAnimationContainer show>
@@ -167,5 +167,5 @@ export type InputFieldComponentProps = ComponentProps<typeof InputField>
 export default Object.assign(InputField, {
   Caption: InputFieldCaption,
   Label: InputFieldLabel,
-  Validation: InputFieldValidation
+  Validation: InputFieldValidation,
 })

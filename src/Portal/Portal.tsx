@@ -63,7 +63,7 @@ export interface PortalProps {
 export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   children,
   onMount,
-  containerName: _containerName
+  containerName: _containerName,
 }) => {
   const hostElement = document.createElement('div')
 
@@ -84,7 +84,7 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
 
     if (!parentElement) {
       throw new Error(
-        `Portal container '${_containerName}' is not yet registered. Container must be registered with registerPortal before use.`
+        `Portal container '${_containerName}' is not yet registered. Container must be registered with registerPortal before use.`,
       )
     }
     const element = elementRef.current

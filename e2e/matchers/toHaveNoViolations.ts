@@ -7,21 +7,21 @@ import fs from 'node:fs'
 const defaultOptions = {
   rules: {
     'document-title': {
-      enabled: false
+      enabled: false,
     },
     'html-has-lang': {
-      enabled: false
+      enabled: false,
     },
     'landmark-one-main': {
-      enabled: false
+      enabled: false,
     },
     'page-has-heading-one': {
-      enabled: false
+      enabled: false,
     },
     region: {
-      enabled: false
-    }
-  }
+      enabled: false,
+    },
+  },
 }
 
 expect.extend({
@@ -34,8 +34,8 @@ expect.extend({
         ...options,
         rules: {
           ...defaultOptions.rules,
-          ...options.rules
-        }
+          ...options.rules,
+        },
       })
       .analyze()
 
@@ -43,7 +43,7 @@ expect.extend({
 
     if (result.violations.length === 0) {
       return {
-        pass: true
+        pass: true,
       }
     }
 
@@ -69,9 +69,9 @@ expect.extend({
 
         return `${result.violations.length} axe violations
 ${violations.join('\n\n')}`
-      }
+      },
     }
-  }
+  },
 })
 
 function saveResult(result: AxeResults) {
@@ -80,7 +80,7 @@ function saveResult(result: AxeResults) {
 
   if (!fs.existsSync(resultsDir)) {
     fs.mkdirSync(resultsDir, {
-      recursive: true
+      recursive: true,
     })
   }
 
@@ -89,10 +89,10 @@ function saveResult(result: AxeResults) {
       resultsDir,
       path.format({
         name: testInfo.titlePath.slice(1).join('-').replace(/ /g, '-'),
-        ext: '.json'
-      })
+        ext: '.json',
+      }),
     ),
     JSON.stringify(result, null, 2),
-    'utf8'
+    'utf8',
   )
 }

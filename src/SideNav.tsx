@@ -173,11 +173,11 @@ const SideNavLink = styled(Link).attrs<StyledSideNavLinkProps>(props => {
 `
 
 SideNav.defaultProps = {
-  variant: 'normal'
+  variant: 'normal',
 }
 
 SideNavLink.defaultProps = {
-  variant: 'normal'
+  variant: 'normal',
 }
 
 SideNavLink.displayName = 'SideNav.Link'

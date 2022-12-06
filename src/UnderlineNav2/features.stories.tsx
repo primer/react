@@ -10,14 +10,14 @@ import {
   ProjectIcon,
   GraphIcon,
   ShieldLockIcon,
-  GearIcon
+  GearIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Features'
+  title: 'Drafts/Components/UnderlineNav/Features',
 } as Meta
 
 export const Default = () => {
@@ -70,7 +70,7 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
   {navigation: 'Projects', icon: ProjectIcon, counter: 9, href: '#projects'},
   {navigation: 'Insights', icon: GraphIcon, counter: '0', href: '#insights'},
   {navigation: 'Settings', icon: GearIcon, counter: 10, href: '#settings'},
-  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'}
+  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'},
 ]
 
 export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
@@ -108,12 +108,12 @@ OverflowOnNarrowScreen.parameters = {
         name: 'Narrow Screen',
         styles: {
           width: '800px',
-          height: '100%'
-        }
-      }
+          height: '100%',
+        },
+      },
     },
-    defaultViewport: 'narrowScreen'
-  }
+    defaultViewport: 'narrowScreen',
+  },
 }
 
 export const CountersLoadingState = () => {

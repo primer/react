@@ -8,7 +8,7 @@ import {ComponentProps} from './utils/types'
 const variantSizes = {
   small: 56,
   medium: 96,
-  large: 128
+  large: 128,
 }
 
 type StyledCircleBadgeProps = {
@@ -21,7 +21,7 @@ const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
   const calc = isNumeric(size) ? size : variantSizes[variant]
   return {
     width: calc,
-    height: calc
+    height: calc,
   }
 }
 
@@ -43,7 +43,7 @@ const CircleBadgeIcon = styled(StyledOcticon)`
 `
 
 CircleBadge.defaultProps = {
-  inline: false
+  inline: false,
 }
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
