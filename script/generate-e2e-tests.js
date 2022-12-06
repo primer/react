@@ -3,6 +3,7 @@
 const fs = require('node:fs')
 const path = require('node:path')
 const prettier = require('prettier')
+const prettierConfig = require('@github/prettier-config')
 const recast = require('recast')
 
 const E2E_DIR = path.join(__dirname, '..', 'e2e', 'components')
@@ -66,6 +67,163 @@ const components = new Map([
         {
           id: 'components-actionlist-features--with-icons',
           name: 'With Icons',
+        },
+      ],
+    },
+  ],
+  [
+    'Button',
+    {
+      stories: [
+        {
+          id: 'components-button--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-button-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-button-features--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-button-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-button-features--invisible',
+          name: 'Invisible',
+        },
+        {
+          id: 'components-button-features--large',
+          name: 'Large',
+        },
+        {
+          id: 'components-button-features--leading-visual',
+          name: 'Leading Visual',
+        },
+        {
+          id: 'components-button-features--medium',
+          name: 'Medium',
+        },
+        {
+          id: 'components-button-features--outline',
+          name: 'Outline',
+        },
+        {
+          id: 'components-button-features--primary',
+          name: 'Primary',
+        },
+        {
+          id: 'components-button-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-button-features--trailing-counter',
+          name: 'Trailing Counter',
+        },
+        {
+          id: 'components-button-features--trailing-visual',
+          name: 'Trailing Visual',
+        },
+      ],
+    },
+  ],
+  [
+    'IconButton',
+    {
+      stories: [
+        {
+          id: 'components-iconbutton--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-iconbutton-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-iconbutton-features--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-iconbutton-features--disabled',
+          name: 'Disabled',
+        },
+        {
+          id: 'components-iconbutton-features--invisible',
+          name: 'Invisible',
+        },
+        {
+          id: 'components-iconbutton-features--large',
+          name: 'Large',
+        },
+        {
+          id: 'components-iconbutton-features--medium',
+          name: 'Medium',
+        },
+        {
+          id: 'components-iconbutton-features--primary',
+          name: 'Primary',
+        },
+        {
+          id: 'components-iconbutton-features--small',
+          name: 'Small',
+        },
+      ],
+    },
+  ],
+  [
+    'LinkButton',
+    {
+      stories: [
+        {
+          id: 'components-linkbutton--playground',
+          name: 'Playground',
+        },
+        {
+          id: 'components-linkbutton-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-linkbutton-features--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-linkbutton-features--invisible',
+          name: 'Invisible',
+        },
+        {
+          id: 'components-linkbutton-features--large',
+          name: 'Large',
+        },
+        {
+          id: 'components-linkbutton-features--leading-visual',
+          name: 'Leading Visual',
+        },
+        {
+          id: 'components-linkbutton-features--medium',
+          name: 'Medium',
+        },
+        {
+          id: 'components-linkbutton-features--outline',
+          name: 'Outline',
+        },
+        {
+          id: 'components-linkbutton-features--primary',
+          name: 'Primary',
+        },
+        {
+          id: 'components-linkbutton-features--small',
+          name: 'Small',
+        },
+        {
+          id: 'components-linkbutton-features--trailing-visual',
+          name: 'Trailing Visual',
+        },
+        {
+          id: 'components-linkbutton-features--with-react-router',
+          name: 'With React Router',
         },
       ],
     },
@@ -188,12 +346,7 @@ test.describe('${component}', () => {
   const {code} = recast.print(source)
   const formatted = prettier.format(code, {
     parser: 'typescript',
-    printWidth: 120,
-    semi: false,
-    singleQuote: true,
-    bracketSpacing: false,
-    trailingComma: 'none',
-    arrowParens: 'avoid',
+    ...prettierConfig,
   })
   fs.writeFileSync(filepath, formatted, 'utf8')
 }
