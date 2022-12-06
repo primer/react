@@ -45,7 +45,7 @@ jobs:
         run: node script/set-react-version.js ${{ matrix.react }}
 
       - name: Install dependencies
-        run: npm ci ${{ matrix.react == 18 && "--legacy-peer-deps" || "" }}
+        run: npm ci ${{ matrix.react == 18 && '--legacy-peer-deps' || '' }}
 
       - name: Build
         run: npm run build
@@ -71,7 +71,7 @@ jobs:
         run: node script/set-react-version.js ${{ matrix.react }}
 
       - name: Install dependencies
-        run: npm ci ${{ matrix.react == 18 && "--legacy-peer-deps" || "" }}
+        run: npm ci ${{ matrix.react == 18 && '--legacy-peer-deps' || '' }}
 
       - name: Type check
         run: npm run test:type-check
