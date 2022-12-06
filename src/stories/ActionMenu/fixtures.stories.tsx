@@ -145,6 +145,7 @@ export function ExternalAnchor(): JSX.Element {
               Delete file
               <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
             </ActionList.Item>
+            <ActionList.Divider />
           </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
@@ -760,7 +761,7 @@ export function MnemonicsTest(): JSX.Element {
               </ActionList.TrailingVisual>
             </ActionList.Item>
             <ActionList.LinkItem aria-keyshortcuts="d" href="//github.com">
-              Test Link Item (with manually set shortcut)
+              User defined Link
               <ActionList.TrailingVisual>
                 <Box
                   as="span"
@@ -777,7 +778,7 @@ export function MnemonicsTest(): JSX.Element {
                 </Box>
               </ActionList.TrailingVisual>
             </ActionList.LinkItem>
-            <ActionList.LinkItem href="//github.com">Test Link Item (with mnemonic shortcut)</ActionList.LinkItem>
+            <ActionList.LinkItem href="//github.com">Github</ActionList.LinkItem>
             <ActionList.Item disabled>Disabled</ActionList.Item>
           </ActionList>
         </ActionMenu.Overlay>
