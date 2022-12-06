@@ -185,11 +185,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             'aria-labelledby': `${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`,
             'aria-describedby': slots.BlockDescription ? blockDescriptionId : undefined,
             ...(selectionAttribute && {[selectionAttribute]: selected}),
-            role: role || itemRole
+            role: role || itemRole,
           }
           const containerProps = _PrivateItemWrapper
             ? {
-                role: role || itemRole ? 'none' : undefined
+                role: role || itemRole ? 'none' : undefined,
               }
             : menuItemProps
           const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}

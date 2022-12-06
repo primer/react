@@ -771,7 +771,7 @@ export function MnemonicsTest(): JSX.Element {
                     borderColor: 'border.default',
                     borderRadius: 2,
                     padding: '2px 6px',
-                    fontSize: 0
+                    fontSize: 0,
                   }}
                 >
                   d
