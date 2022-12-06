@@ -19,25 +19,25 @@ const sizeVariant = variant({
     small: {
       fontSize: 0,
       lineHeight: '16px',
-      padding: '0px 8px'
+      padding: '0px 8px',
     },
     medium: {
       fontSize: 0,
       lineHeight: '20px',
-      padding: '0 8px'
+      padding: '0 8px',
     },
     large: {
       fontSize: 0,
       lineHeight: '24px',
-      padding: '0 12px'
+      padding: '0 12px',
     },
     // corresponds to StateLabel fontSize/lineHeight/padding
     xl: {
       fontSize: 1,
       lineHeight: '16px',
-      padding: '8px 12px'
-    }
-  }
+      padding: '8px 12px',
+    },
+  },
 })
 
 /** @deprecated Use the new Label instead. See https://primer.style/react/Label for more details. */
@@ -66,7 +66,7 @@ const Label = styled.span<
 `
 
 Label.defaultProps = {
-  variant: 'medium'
+  variant: 'medium',
 }
 
 Label.displayName = 'Label'

@@ -3,7 +3,7 @@ export function buildPaginationModel(
   currentPage: number,
   showPages: boolean,
   marginPageCount: number,
-  surroundingPageCount: number
+  surroundingPageCount: number,
 ) {
   const pages = []
 
@@ -71,13 +71,13 @@ export function buildPaginationModel(
           // we need to add a break
           pages.push({
             type: 'BREAK',
-            num: 1
+            num: 1,
           })
         }
         pages.push({
           type: 'NUM',
           num,
-          selected
+          selected,
         })
       } else {
         const last = sorted[idx - 1]
@@ -86,18 +86,18 @@ export function buildPaginationModel(
           pages.push({
             type: 'NUM',
             num,
-            selected
+            selected,
           })
         } else {
           // We skipped some, so add a break
           pages.push({
             type: 'BREAK',
-            num: num - 1
+            num: num - 1,
           })
           pages.push({
             type: 'NUM',
             num,
-            selected
+            selected,
           })
         }
       }
@@ -109,7 +109,7 @@ export function buildPaginationModel(
       // so we need an additional break
       pages.push({
         type: 'BREAK',
-        num: pageCount
+        num: pageCount,
       })
     }
   }
@@ -129,7 +129,7 @@ type PageType = {
 export function buildComponentData(
   page: PageType,
   hrefBuilder: (n: number) => string,
-  onClick: (e: React.MouseEvent) => void
+  onClick: (e: React.MouseEvent) => void,
 ) {
   const props = {}
   let content = ''
@@ -146,7 +146,7 @@ export function buildComponentData(
           rel: 'prev',
           href: hrefBuilder(page.num),
           'aria-label': 'Previous Page',
-          onClick
+          onClick,
         })
       }
       break
@@ -161,7 +161,7 @@ export function buildComponentData(
           rel: 'next',
           href: hrefBuilder(page.num),
           'aria-label': 'Next Page',
-          onClick
+          onClick,
         })
       }
       break

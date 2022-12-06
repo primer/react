@@ -24,7 +24,7 @@ export const useOverlay = ({
   onEscape,
   ignoreClickRefs,
   onClickOutside,
-  preventFocusOnOpen
+  preventFocusOnOpen,
 }: UseOverlaySettings): OverlayReturnProps => {
   const overlayRef = useProvidedRefOrCreate<HTMLDivElement>(_overlayRef)
   useOpenAndCloseFocus({containerRef: overlayRef, returnFocusRef, initialFocusRef, preventFocusOnOpen})

@@ -33,7 +33,7 @@ const COMMON = [
   'backgroundColor',
   'opacity',
   'bg',
-  'display'
+  'display',
 ]
 
 const TYPOGRAPHY = [
@@ -44,7 +44,7 @@ const TYPOGRAPHY = [
   'letterSpacing',
   'textAlign',
   'fontStyle',
-  'whiteSpace'
+  'whiteSpace',
 ]
 
 const BORDER = [
@@ -76,7 +76,7 @@ const BORDER = [
   'borderRightColor',
   'borderRightStyle',
   'boxShadow',
-  'textShadow'
+  'textShadow',
 ]
 
 const LAYOUT = [
@@ -91,7 +91,7 @@ const LAYOUT = [
   'overflowX',
   'overflowY',
   'display',
-  'verticalAlign'
+  'verticalAlign',
 ]
 
 const POSITION = ['position', 'zIndex', 'top', 'right', 'bottom', 'left']
@@ -109,7 +109,7 @@ const FLEX = [
   'flexBasis',
   'justifySelf',
   'alignSelf',
-  'order'
+  'order',
 ]
 
 // const GRID = [
@@ -179,7 +179,7 @@ const stylePropsMap = {
   Timeline: [...COMMON],
   Tooltip: [...COMMON],
   Truncate: [...TYPOGRAPHY, ...COMMON],
-  UnderlineNav: [...COMMON]
+  UnderlineNav: [...COMMON],
 }
 
 const expressionToString = expression => {
@@ -243,9 +243,9 @@ module.exports = (file, api) => {
         name: {
           name: name => {
             return name in stylePropsMap
-          }
-        }
-      }
+          },
+        },
+      },
     })
     .forEach(el => {
       const sx = {}
@@ -256,14 +256,14 @@ module.exports = (file, api) => {
         name: name => {
           const isInElement = name.start >= el.node.start && name.end <= el.value.openingElement.end
           return systemProps && systemProps.includes(name.name) && isInElement
-        }
+        },
       })
 
       const sxNodes = j(el).find(j.JSXAttribute, {
         name: name => {
           const isInElement = name.start >= el.node.start && name.end <= el.value.openingElement.end
           return name.name === 'sx' && isInElement
-        }
+        },
       })
 
       const existingSx = {}

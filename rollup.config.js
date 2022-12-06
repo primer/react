@@ -30,7 +30,7 @@ const input = new Set([
       'src/polyfills/*',
 
       // "./lib-esm/utils/*"
-      'src/utils/*'
+      'src/utils/*',
     ],
     {
       cwd: __dirname,
@@ -43,18 +43,24 @@ const input = new Set([
 
         // Files use dependencies which are not listed by package
         'src/utils/testing.tsx',
-        'src/utils/test-matchers.tsx'
-      ]
-    }
-  )
+        'src/utils/test-matchers.tsx',
+      ],
+    },
+  ),
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
-const ESM_ONLY = new Set(['@github/combobox-nav', '@github/markdown-toolbar-element', '@github/paste-markdown'])
+const ESM_ONLY = new Set([
+  '@github/combobox-nav',
+  '@github/markdown-toolbar-element',
+  '@github/paste-markdown',
+  '@github/relative-time-element',
+  '@lit-labs/react',
+])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
-  ...Object.keys(packageJson.devDependencies ?? {})
+  ...Object.keys(packageJson.devDependencies ?? {}),
 ]
 
 function createPackageRegex(name) {
@@ -77,9 +83,9 @@ const baseConfig = {
         [
           '@babel/preset-react',
           {
-            modules: false
-          }
-        ]
+            modules: false,
+          },
+        ],
       ],
       plugins: [
         'macros',
@@ -92,19 +98,19 @@ const baseConfig = {
           'babel-plugin-transform-replace-expressions',
           {
             replace: {
-              __DEV__: "process.env.NODE_ENV !== 'production'"
-            }
-          }
-        ]
-      ]
+              __DEV__: "process.env.NODE_ENV !== 'production'",
+            },
+          },
+        ],
+      ],
     }),
     commonjs({
-      extensions
+      extensions,
     }),
     resolve({
-      extensions
-    })
-  ]
+      extensions,
+    }),
+  ],
 }
 
 export default [
@@ -116,8 +122,8 @@ export default [
       dir: 'lib-esm',
       format: 'esm',
       preserveModules: true,
-      preserveModulesRoot: 'src'
-    }
+      preserveModulesRoot: 'src',
+    },
   },
 
   // CommonJS
@@ -129,8 +135,8 @@ export default [
       format: 'commonjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
-      exports: 'auto'
-    }
+      exports: 'auto',
+    },
   },
 
   // Bundles
@@ -141,11 +147,11 @@ export default [
     plugins: [
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
-        preventAssignment: true
+        preventAssignment: true,
       }),
       ...baseConfig.plugins,
       terser(),
-      visualizer({sourcemap: true})
+      visualizer({sourcemap: true}),
     ],
     output: ['esm', 'umd'].map(format => ({
       file: `dist/browser.${format}.js`,
@@ -155,8 +161,8 @@ export default [
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
-        'styled-components': 'styled'
-      }
-    }))
-  }
+        'styled-components': 'styled',
+      },
+    })),
+  },
 ]

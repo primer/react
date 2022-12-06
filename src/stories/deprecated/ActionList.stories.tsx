@@ -9,7 +9,7 @@ import {
   FilterIcon,
   GearIcon,
   ArrowRightIcon,
-  ArrowLeftIcon
+  ArrowLeftIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
@@ -21,7 +21,7 @@ import BaseStyles from '../../BaseStyles'
 import sx from '../../sx'
 
 const ActionList = Object.assign(_ActionList, {
-  Header
+  Header,
 })
 
 const meta: Meta = {
@@ -34,13 +34,13 @@ const meta: Meta = {
           <Story />
         </BaseStyles>
       </ThemeProvider>
-    )
+    ),
   ],
   parameters: {
     controls: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 
@@ -64,14 +64,14 @@ export function ActionsStory(): JSX.Element {
               text: 'Open current Codespace',
               description:
                 "Your existing Codespace will be opened to its previous state, and you'll be asked to manually switch to new-branch.",
-              descriptionVariant: 'block'
+              descriptionVariant: 'block',
             },
             {
               leadingVisual: PlusCircleIcon,
               text: 'Create new Codespace',
               description: 'Create a brand new Codespace with a fresh image and checkout this branch.',
-              descriptionVariant: 'block'
-            }
+              descriptionVariant: 'block',
+            },
           ]}
         />
       </ErsatzOverlay>
@@ -91,7 +91,7 @@ export function SimpleListStory(): JSX.Element {
             ActionList.Divider,
             {text: 'Copy link', showDivider: true},
             {text: 'Edit file', showDivider: true},
-            {text: 'Delete file', variant: 'danger', showDivider: true}
+            {text: 'Delete file', variant: 'danger', showDivider: true},
           ]}
         />
       </ErsatzOverlay>
@@ -103,7 +103,7 @@ SimpleListStory.storyName = 'Simple List'
 const selectListItems = new Array(6).fill(undefined).map((_, i) => {
   return {
     text: `Item ${i}`,
-    id: i
+    id: i,
   }
 })
 
@@ -115,7 +115,7 @@ export function SingleSelectListStory(): JSX.Element {
         <ActionList
           items={selectListItems.map((item, index) => ({
             ...item,
-            selected: index === 1
+            selected: index === 1,
           }))}
         />
       </ErsatzOverlay>
@@ -133,7 +133,7 @@ export function MultiSelectListStory(): JSX.Element {
           selectionVariant="multiple"
           items={selectListItems.map((item, index) => ({
             ...item,
-            selected: index === 1 || index === 3
+            selected: index === 1 || index === 3,
           }))}
         />
       </ErsatzOverlay>
@@ -171,8 +171,8 @@ export function ComplexListInsetVariantStory(): JSX.Element {
               ),
               renderGroup: ({sx: sxProps, ...props}) => (
                 <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              )
-            }
+              ),
+            },
           ]}
           items={[
             {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
@@ -181,35 +181,35 @@ export function ComplexListInsetVariantStory(): JSX.Element {
               text: 'Duplicate',
               description: 'Create a copy',
               descriptionVariant: 'inline',
-              groupId: '0'
+              groupId: '0',
             },
             {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
             },
             {
               leadingVisual: NoteIcon,
               text: 'Table',
               description: 'Information-dense table optimized for operations across teams',
               descriptionVariant: 'block',
-              groupId: '2'
+              groupId: '2',
             },
             {
               leadingVisual: ProjectIcon,
               text: 'Board',
               description: 'Kanban-style board focused on visual states',
               descriptionVariant: 'block',
-              groupId: '2'
+              groupId: '2',
             },
             {
               leadingVisual: FilterIcon,
               text: 'Save sort and filters to current view',
-              groupId: '3'
+              groupId: '3',
             },
             {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
+            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'},
           ]}
         />
       </ErsatzOverlay>
@@ -248,8 +248,8 @@ export function ComplexListFullVariantStory(): JSX.Element {
               ),
               renderGroup: ({sx: sxProps, ...props}) => (
                 <ActionList.Group {...props} sx={{...sxProps, backgroundColor: 'cornflowerblue', color: 'white'}} />
-              )
-            }
+              ),
+            },
           ]}
           items={[
             {leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
@@ -258,29 +258,29 @@ export function ComplexListFullVariantStory(): JSX.Element {
               leadingVisual: SearchIcon,
               text: 'repo:github/memex,github/github',
               groupId: '1',
-              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />
+              renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
             },
             {
               leadingVisual: NoteIcon,
               text: 'Table',
               description: 'Information-dense table optimized for operations across teams',
               descriptionVariant: 'block',
-              groupId: '2'
+              groupId: '2',
             },
             {
               leadingVisual: ProjectIcon,
               text: 'Board',
               description: 'Kanban-style board focused on visual states',
               descriptionVariant: 'block',
-              groupId: '2'
+              groupId: '2',
             },
             {
               leadingVisual: FilterIcon,
               text: 'Save sort and filters to current view',
-              groupId: '3'
+              groupId: '3',
             },
             {leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
+            {leadingVisual: GearIcon, text: 'View settings', groupId: '4'},
           ]}
         />
       </ErsatzOverlay>
@@ -312,8 +312,8 @@ export function CustomItemChildren(): JSX.Element {
             {
               leadingVisual: ArrowRightIcon,
               children: <Label>Choose this one</Label>,
-              trailingIcon: ArrowLeftIcon
-            }
+              trailingIcon: ArrowLeftIcon,
+            },
           ]}
         />
       </ErsatzOverlay>
@@ -335,21 +335,21 @@ export function SizeStressTestingStory(): JSX.Element {
               description: 'This description is long, but it is block so it wraps',
               descriptionVariant: 'block',
               trailingVisual: ArrowLeftIcon,
-              showDivider: true
+              showDivider: true,
             },
             {
               leadingVisual: ArrowRightIcon,
               text: 'Inline Description',
               description: 'This description gets truncated because it is inline',
               trailingVisual: ArrowLeftIcon,
-              showDivider: true
+              showDivider: true,
             },
             {
               leadingVisual: ArrowRightIcon,
               text: 'Really long text without a description should wrap',
               trailingIcon: ArrowLeftIcon, // backward compatible
-              showDivider: true
-            }
+              showDivider: true,
+            },
           ]}
         />
       </ErsatzOverlay>
@@ -363,7 +363,7 @@ const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkPro
   ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a ref={ref} href={to} {...props} />
-  }
+  },
 )
 
 const NextJSLikeLink = forwardRef(
@@ -371,10 +371,10 @@ const NextJSLikeLink = forwardRef(
     const child = React.Children.only(children)
     const childProps = {
       ref,
-      href
+      href,
     }
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
-  }
+  },
 )
 
 export function LinkItemStory(): JSX.Element {
@@ -386,15 +386,15 @@ export function LinkItemStory(): JSX.Element {
           items={[
             {
               text: 'A. Vanilla action',
-              renderItem: props => <ActionList.Item onAction={() => alert('hi?')} {...props} />
+              renderItem: props => <ActionList.Item onAction={() => alert('hi?')} {...props} />,
             },
             {
               text: 'B. Vanilla link',
-              renderItem: props => <ActionList.Item as="a" href="/about" {...props} />
+              renderItem: props => <ActionList.Item as="a" href="/about" {...props} />,
             },
             {
               text: 'C. React Router link',
-              renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />
+              renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />,
             },
             {
               text: 'D. NextJS style',
@@ -402,8 +402,8 @@ export function LinkItemStory(): JSX.Element {
                 <NextJSLikeLink href="/about">
                   <ActionList.Item as="a" {...props} />
                 </NextJSLikeLink>
-              )
-            }
+              ),
+            },
           ]}
         />
       </ErsatzOverlay>
@@ -421,8 +421,8 @@ export function DOMPropsStory(): JSX.Element {
           items={[
             {
               text: 'One',
-              onClick: () => alert('Hello')
-            }
+              onClick: () => alert('Hello'),
+            },
           ]}
         />
       </ErsatzOverlay>

@@ -16,7 +16,7 @@ describe('Popover', () => {
   behavesAsComponent({Component: Popover, toRender: () => comp})
 
   checkExports('Popover', {
-    default: Popover
+    default: Popover,
   })
 
   describe('Popover.Content', () => {
@@ -27,7 +27,7 @@ describe('Popover', () => {
     const {container} = HTMLRender(
       <Popover caret="top" open>
         <Popover.Content>Hello!</Popover.Content>
-      </Popover>
+      </Popover>,
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()
@@ -45,7 +45,7 @@ describe('Popover', () => {
     'left-bottom',
     'left-top',
     'right-bottom',
-    'right-top'
+    'right-top',
   ]
 
   for (const pos of CARET_POSITIONS) {

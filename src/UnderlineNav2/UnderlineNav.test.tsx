@@ -10,7 +10,7 @@ import {
   CommentDiscussionIcon,
   ProjectIcon,
   ShieldLockIcon,
-  GraphIcon
+  GraphIcon,
 } from '@primer/octicons-react'
 
 import {UnderlineNav} from '.'
@@ -28,14 +28,14 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: jest.fn(), // deprecated
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn()
-  }))
+    dispatchEvent: jest.fn(),
+  })),
 })
 
 const ResponsiveUnderlineNav = ({
   selectedItemText = 'Code',
   loadingCounters = false,
-  displayExtraEl = false
+  displayExtraEl = false,
 }: {
   selectedItemText?: string
   loadingCounters?: boolean
@@ -50,7 +50,7 @@ const ResponsiveUnderlineNav = ({
     {navigation: 'Projects', icon: ProjectIcon, counter: 9},
     {navigation: 'Insights', icon: GraphIcon},
     {navigation: 'Settings', counter: 10},
-    {navigation: 'Security', icon: ShieldLockIcon}
+    {navigation: 'Security', icon: ShieldLockIcon},
   ]
 
   return (
@@ -60,7 +60,7 @@ const ResponsiveUnderlineNav = ({
           <UnderlineNav.Item
             key={item.navigation}
             icon={item.icon}
-            selected={item.navigation === selectedItemText}
+            aria-current={item.navigation === selectedItemText ? 'page' : undefined}
             counter={item.counter}
           >
             {item.navigation}
@@ -76,12 +76,12 @@ describe('UnderlineNav', () => {
   behavesAsComponent({
     Component: UnderlineNav,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <ResponsiveUnderlineNav />
+    toRender: () => <ResponsiveUnderlineNav />,
   })
 
   checkExports('UnderlineNav2', {
     default: undefined,
-    UnderlineNav
+    UnderlineNav,
   })
   it('renders aria-current attribute to be pages when an item is selected', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
@@ -106,7 +106,7 @@ describe('UnderlineNav', () => {
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 3</UnderlineNav.Item>
-      </UnderlineNav>
+      </UnderlineNav>,
     )
     const item = getByRole('link', {name: 'Item 1'})
     const user = userEvent.setup()
@@ -119,10 +119,10 @@ describe('UnderlineNav', () => {
       <UnderlineNav aria-label="Test Navigation">
         <UnderlineNav.Item onSelect={onSelect}>Item 1</UnderlineNav.Item>
         <UnderlineNav.Item onSelect={onSelect}>Item 2</UnderlineNav.Item>
-        <UnderlineNav.Item selected onSelect={onSelect}>
+        <UnderlineNav.Item aria-current="page" onSelect={onSelect}>
           Item 3
         </UnderlineNav.Item>
-      </UnderlineNav>
+      </UnderlineNav>,
     )
     const item = getByRole('link', {name: 'Item 1'})
     const user = userEvent.setup()
@@ -138,8 +138,15 @@ describe('UnderlineNav', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav />)
     const item = getByRole('link', {name: 'Issues (120)'})
     const counter = item.getElementsByTagName('span')[3]
-    expect(counter.className).toContain('CounterLabel')
     expect(counter.textContent).toBe('120')
+    expect(counter).toHaveAttribute('aria-hidden', 'true')
+  })
+  it('renders the content of visually hidden span properly for screen readers', () => {
+    const {getByRole} = render(<ResponsiveUnderlineNav />)
+    const item = getByRole('link', {name: 'Issues (120)'})
+    const counter = item.getElementsByTagName('span')[4]
+    // non breaking space unified code
+    expect(counter.textContent).toBe('\u00A0(120)')
   })
   it('respects loadingCounters prop', () => {
     const {getByRole} = render(<ResponsiveUnderlineNav loadingCounters={true} />)

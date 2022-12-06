@@ -34,9 +34,9 @@ function AutocompleteOverlay({
     {
       side: 'outside-bottom',
       align: 'start',
-      anchorElementRef: menuAnchorRef ? menuAnchorRef : inputRef
+      anchorElementRef: menuAnchorRef ? menuAnchorRef : inputRef,
     },
-    [showMenu, selectedItemLength]
+    [showMenu, selectedItemLength],
   )
 
   useRefObjectAsForwardedRef(scrollContainerRef, floatingElementRef)
@@ -60,7 +60,7 @@ function AutocompleteOverlay({
       left={position?.left}
       visibility={showMenu ? 'visible' : 'hidden'}
       sx={{
-        overflow: 'auto'
+        overflow: 'auto',
       }}
       {...overlayProps}
     >

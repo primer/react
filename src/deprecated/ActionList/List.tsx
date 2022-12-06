@@ -129,13 +129,13 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
     case 'full':
       return {
         headerStyle: {paddingX: get('space.2')},
-        itemStyle: {borderRadius: 0}
+        itemStyle: {borderRadius: 0},
       }
     default:
       return {
         firstGroupStyle: {marginTop: get('space.2')},
         lastGroupStyle: {marginBottom: get('space.2')},
-        itemStyle: {marginX: get('space.2')}
+        itemStyle: {marginX: get('space.2')},
       }
   }
 }
@@ -153,7 +153,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
    * the default `Group` renderer.
    */
   const renderGroup = (
-    groupProps: GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})
+    groupProps: GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group}),
   ) => {
     const GroupComponent = (('renderGroup' in groupProps && groupProps.renderGroup) ?? props.renderGroup) || Group
     return <GroupComponent {...groupProps} key={groupProps.groupId} />
@@ -197,7 +197,7 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
      */
     const groupMap = props.groupMetadata.reduce(
       (groupAccumulator, groupMetadata) => groupAccumulator.set(groupMetadata.groupId, groupMetadata),
-      new Map<string, GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})>()
+      new Map<string, GroupProps | (Partial<GroupProps> & {renderItem?: typeof Item; renderGroup?: typeof Group})>(),
     )
 
     for (const itemProps of props.items) {
@@ -214,12 +214,12 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
             {
               showDivider: group?.showItemDividers,
               ...(group && 'renderItem' in group && {renderItem: group.renderItem}),
-              ...itemProps
+              ...itemProps,
             },
             itemProps,
-            itemIndex
-          )
-        ]
+            itemIndex,
+          ),
+        ],
       })
     }
 
@@ -238,15 +238,15 @@ export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwarde
               sx: {
                 ...(index === 0 && firstGroupStyle),
                 ...(index === groups.length - 1 && lastGroupStyle),
-                ...(index > 0 && !shouldShowDivider && {mt: 2})
+                ...(index > 0 && !shouldShowDivider && {mt: 2}),
               },
               ...(header && {
                 header: {
                   ...header,
-                  sx: {...headerStyle, ...header.sx}
-                }
+                  sx: {...headerStyle, ...header.sx},
+                },
               }),
-              ...groupProps
+              ...groupProps,
             })}
           </React.Fragment>
         )

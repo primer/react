@@ -24,7 +24,7 @@ export type {
   DropdownCaretProps,
   DropdownButtonProps,
   DropdownItemProps,
-  DropdownMenuProps
+  DropdownMenuProps,
 } from './Dropdown'
 export {default as FormGroup} from './FormGroup'
 export type {FormGroupProps, FormGroupLabelProps} from './FormGroup'
@@ -44,7 +44,7 @@ export type {
   SelectMenuHeaderProps,
   SelectMenuTabProps,
   SelectMenuTabPanelProps,
-  SelectMenuLoadingAnimationProps
+  SelectMenuLoadingAnimationProps,
 } from './SelectMenu'
 export {ActionList} from './ActionList'
 export type {ActionListProps} from './ActionList'
@@ -60,7 +60,7 @@ export {
   ButtonPrimary,
   ButtonInvisible,
   ButtonTableList,
-  ButtonClose
+  ButtonClose,
 } from './Button'
 export type {
   ButtonProps,
@@ -69,6 +69,6 @@ export type {
   ButtonPrimaryProps,
   ButtonInvisibleProps,
   ButtonTableListProps,
-  ButtonCloseProps
+  ButtonCloseProps,
 } from './Button'
 // end of v35.0.0

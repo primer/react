@@ -17,8 +17,8 @@ const meta: Meta = {
           <Story />
         </Box>
       )
-    }
-  ]
+    },
+  ],
 }
 
 export const Files: Story = () => (
@@ -197,9 +197,9 @@ function expandAll(tree: TreeItem[]): TreeItem[] {
   return tree.map(item => ({
     data: {
       ...item.data,
-      expanded: true
+      expanded: true,
     },
-    children: expandAll(item.children)
+    children: expandAll(item.children),
   }))
 }
 
@@ -207,9 +207,9 @@ function collapseAll(tree: TreeItem[]): TreeItem[] {
   return tree.map(item => ({
     data: {
       ...item.data,
-      expanded: false
+      expanded: false,
     },
-    children: collapseAll(item.children)
+    children: collapseAll(item.children),
   }))
 }
 
@@ -220,13 +220,13 @@ function setExpanded(tree: TreeItem[], path: string[], expanded: boolean): TreeI
         ...item,
         data: {
           ...item.data,
-          expanded
-        }
+          expanded,
+        },
       }
     } else if (item.data.name === path[0]) {
       return {
         ...item,
-        children: setExpanded(item.children, path.slice(1), expanded)
+        children: setExpanded(item.children, path.slice(1), expanded),
       }
     } else {
       return item
@@ -239,27 +239,27 @@ const CurrentPathContext = React.createContext<{
   setCurrentPath: React.Dispatch<React.SetStateAction<string[]>>
 }>({
   currentPath: [],
-  setCurrentPath: () => {}
+  setCurrentPath: () => {},
 })
 
 const intialTree: TreeItem[] = Array.from({length: 5}).map((_, i) => ({
   data: {
     name: `Item ${i}`,
-    expanded: false
+    expanded: false,
   },
   children: Array.from({length: 5}).map((_, j) => ({
     data: {
       name: `Item ${i}.${j}`,
-      expanded: false
+      expanded: false,
     },
     children: Array.from({length: 5}).map((_, k) => ({
       data: {
         name: `Item ${i}.${j}.${k}`,
-        expanded: false
+        expanded: false,
       },
-      children: []
-    }))
-  }))
+      children: [],
+    })),
+  })),
 }))
 
 export const Controlled: Story = () => {
@@ -293,7 +293,7 @@ export const Controlled: Story = () => {
 function TreeItem({
   item,
   path,
-  onExpandedChange
+  onExpandedChange,
 }: {
   item: TreeItem
   path: string[]
@@ -396,7 +396,7 @@ export const AsyncSuccess: Story = args => {
 }
 
 AsyncSuccess.args = {
-  responseTime: 2000
+  responseTime: 2000,
 }
 
 export const AsyncWithCount: Story = args => {
@@ -462,13 +462,13 @@ export const AsyncWithCount: Story = args => {
 
 AsyncWithCount.args = {
   responseTime: 2000,
-  count: 3
+  count: 3,
 }
 
 AsyncWithCount.argTypes = {
   count: {
-    type: 'number'
-  }
+    type: 'number',
+  },
 }
 
 async function alwaysFails(responseTime: number) {
@@ -563,7 +563,7 @@ export const AsyncError: Story = args => {
 }
 
 AsyncError.args = {
-  responseTime: 2000
+  responseTime: 2000,
 }
 
 export const EmptyDirectories: Story = () => {
@@ -667,7 +667,7 @@ export const StressTest: Story = () => {
 }
 
 StressTest.parameters = {
-  chromatic: {disableSnapshot: true}
+  chromatic: {disableSnapshot: true},
 }
 
 export default meta
