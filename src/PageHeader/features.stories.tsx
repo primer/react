@@ -9,9 +9,9 @@ const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Features',
   parameters: {
     layout: 'fullscreen',
-    controls: {expanded: true}
+    controls: {expanded: true},
   },
-  args: {}
+  args: {},
 }
 
 const PrimerViewports = {
@@ -19,44 +19,44 @@ const PrimerViewports = {
     name: 'Xsmall',
     styles: {
       width: '320px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   small: {
     name: 'Small',
     styles: {
       width: '540px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   medium: {
     name: 'Medium',
     styles: {
       width: '768px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   large: {
     name: 'Large',
     styles: {
       width: '1012px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   xlarge: {
     name: 'Xlarge',
     styles: {
       width: '1280px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   xxlarge: {
     name: 'XXlarge',
     styles: {
       width: '1400px',
-      height: '100%'
-    }
-  }
+      height: '100%',
+    },
+  },
 }
 
 export const TitleWithTrailingAction = () => (
@@ -74,7 +74,7 @@ export const TitleWithTrailingAction = () => (
         hidden={{
           narrow: true,
           regular: false,
-          wide: false
+          wide: false,
         }}
       >
         <ActionMenu>
@@ -113,10 +113,10 @@ export const TitleWithTrailingAction = () => (
 TitleWithTrailingAction.parameters = {
   viewport: {
     viewports: {
-      ...PrimerViewports
+      ...PrimerViewports,
     },
-    defaultViewport: 'medium'
-  }
+    defaultViewport: 'medium',
+  },
 }
 
 export const TitleWithTrailingActionOnNarrowViewports = () => {
@@ -126,10 +126,10 @@ export const TitleWithTrailingActionOnNarrowViewports = () => {
 TitleWithTrailingActionOnNarrowViewports.parameters = {
   viewport: {
     viewports: {
-      ...PrimerViewports
+      ...PrimerViewports,
     },
-    defaultViewport: 'small'
-  }
+    defaultViewport: 'small',
+  },
 }
 
 // TODO: Complete the below stories

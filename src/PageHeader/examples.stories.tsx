@@ -9,7 +9,7 @@ import {
   CommitIcon,
   ChecklistIcon,
   FileDiffIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
 } from '@primer/octicons-react'
 
 import {PageHeader} from './PageHeader'
@@ -20,9 +20,9 @@ const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Examples',
   parameters: {
     layout: 'fullscreen',
-    controls: {expanded: true}
+    controls: {expanded: true},
   },
-  args: {}
+  args: {},
 }
 
 // See if there is an interest to take this into global params
@@ -32,53 +32,53 @@ const PrimerViewports = {
     name: 'Xsmall',
     styles: {
       width: '320px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   small: {
     name: 'Small',
     styles: {
       width: '540px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   medium: {
     name: 'Medium',
     styles: {
       width: '768px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   large: {
     name: 'Large',
     styles: {
       width: '1012px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   xlarge: {
     name: 'Xlarge',
     styles: {
       width: '1280px',
-      height: '100%'
-    }
+      height: '100%',
+    },
   },
   xxlarge: {
     name: 'XXlarge',
     styles: {
       width: '1400px',
-      height: '100%'
-    }
-  }
+      height: '100%',
+    },
+  },
 }
 
 const setViewportParamToNarrow = {
   viewport: {
     viewports: {
-      ...PrimerViewports
+      ...PrimerViewports,
     },
-    defaultViewport: 'small'
-  }
+    defaultViewport: 'small',
+  },
 }
 export const Webhooks = () => (
   <PageHeader>

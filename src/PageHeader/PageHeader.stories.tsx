@@ -15,7 +15,7 @@ import {
   ChecklistIcon,
   FileDiffIcon,
   ArrowRightIcon,
-  SidebarExpandIcon
+  SidebarExpandIcon,
 } from '@primer/octicons-react'
 import {OcticonArgType} from '../utils/story-helpers'
 
@@ -26,7 +26,7 @@ const meta: Meta = {
   title: 'Drafts/Components/PageHeader',
   parameters: {
     layout: 'fullscreen',
-    controls: {expanded: true}
+    controls: {expanded: true},
   },
   args: {
     hasContextArea: false,
@@ -45,142 +45,142 @@ const meta: Meta = {
     hasTrailingAction: false,
     hasActions: false,
     hasDescription: false,
-    hasNavigation: false
+    hasNavigation: false,
   },
   argTypes: {
     hasContextArea: {
       type: 'boolean',
       table: {
         category: 'ContextArea Slot',
-        type: {summary: 'string'}
+        type: {summary: 'string'},
       },
       description:
-        'ContextArea is only visible on narrow viewports by default to provide user context of where they are at their journey.'
+        'ContextArea is only visible on narrow viewports by default to provide user context of where they are at their journey.',
     },
     ParentLink: {
       type: 'string',
       if: {arg: 'hasContextArea'},
       table: {
-        category: 'ContextArea Slot'
+        category: 'ContextArea Slot',
       },
-      description: 'The default way to let users navigate up in the hierarchy on Narrow viewports.'
+      description: 'The default way to let users navigate up in the hierarchy on Narrow viewports.',
     },
     hasParentLink: {
       type: 'boolean',
       if: {arg: 'hasContextArea'},
       table: {
-        category: 'ContextArea Slot'
+        category: 'ContextArea Slot',
       },
-      description: 'Parent '
+      description: 'Parent ',
     },
     hasContextBar: {
       type: 'boolean',
       if: {arg: 'hasContextArea'},
       table: {
-        category: 'ContextArea Slot'
+        category: 'ContextArea Slot',
       },
       description:
-        'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.'
+        'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.',
     },
     hasContextAreaAction: {
       type: 'boolean',
       if: {arg: 'hasContextArea'},
       table: {
-        category: 'ContextArea Slot'
-      }
+        category: 'ContextArea Slot',
+      },
     },
     hasLeadingAction: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
       },
       description:
-        'A back button can be used as a leading action for local navigation. On Narrow viewports, use parentLink instead.'
+        'A back button can be used as a leading action for local navigation. On Narrow viewports, use parentLink instead.',
     },
     hasTitle: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
       },
       description:
-        'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.'
+        'ContextBar is generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.',
     },
     Title: {
       type: 'string',
       table: {
-        category: 'TitleArea Slot'
-      }
+        category: 'TitleArea Slot',
+      },
     },
     'Title.as': {
       control: {
-        type: 'select'
+        type: 'select',
       },
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
       table: {
-        category: 'TitleArea Slot'
-      }
+        category: 'TitleArea Slot',
+      },
     },
     'Title.variant': {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       options: ['large', 'medium', 'subtitle'],
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
       },
       description:
-        '`medium` is the most common page title size. Use for static titles in most situations. `large` for for user-generated content such as issues, pull requests, or discussions. `subtitle` when a PageHeader.Title is already present in the page, such as in a SplitPageLayout.'
+        '`medium` is the most common page title size. Use for static titles in most situations. `large` for for user-generated content such as issues, pull requests, or discussions. `subtitle` when a PageHeader.Title is already present in the page, such as in a SplitPageLayout.',
     },
     hasLeadingVisual: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
-      }
+        category: 'TitleArea Slot',
+      },
     },
     LeadingVisual: {
       ...OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon]),
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
       },
       description:
-        'Leading visualLeading visuals are optional and appear at the start of the title. They can be octicons, avatars, and other custom visuals that fit a small area.'
+        'Leading visualLeading visuals are optional and appear at the start of the title. They can be octicons, avatars, and other custom visuals that fit a small area.',
     },
     hasTrailingVisual: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
       },
       description:
-        'Trailing visualTrailing visual and trailing text can display auxiliary information. They are placed at the right of the item, and can denote status, privacy details, etc.'
+        'Trailing visualTrailing visual and trailing text can display auxiliary information. They are placed at the right of the item, and can denote status, privacy details, etc.',
     },
     hasTrailingAction: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
-      }
+        category: 'TitleArea Slot',
+      },
     },
     hasActions: {
       type: 'boolean',
       table: {
-        category: 'TitleArea Slot'
+        category: 'TitleArea Slot',
       },
-      description: 'Description region/slot'
+      description: 'Description region/slot',
     },
     hasDescription: {
       type: 'boolean',
       table: {
-        category: 'Other Slots'
+        category: 'Other Slots',
       },
-      description: 'Description region/slot'
+      description: 'Description region/slot',
     },
     hasNavigation: {
       type: 'boolean',
       table: {
-        category: 'Other Slots'
+        category: 'Other Slots',
       },
-      description: 'Description region/slot'
-    }
-  }
+      description: 'Description region/slot',
+    },
+  },
 }
 
 const Template: Story = args => (
@@ -218,7 +218,7 @@ const Template: Story = args => (
         variant={{
           narrow: args['Title.variant'],
           regular: args['Title.variant'],
-          wide: args['Title.variant']
+          wide: args['Title.variant'],
         }}
         hidden={!args.hasTitle}
       >
