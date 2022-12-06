@@ -29,6 +29,7 @@ jobs:
 
   test:
     strategy:
+      fail-fast: false
       matrix:
         react: [17, 18]
     runs-on: ubuntu-latest
@@ -60,6 +61,7 @@ jobs:
 
   type-check:
     strategy:
+      fail-fast: false
       matrix:
         react: [17, 18]
     runs-on: ubuntu-latest
