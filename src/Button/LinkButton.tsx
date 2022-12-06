@@ -14,7 +14,7 @@ const LinkButton = forwardRef<HTMLElement, MyProps>(
         {children}
       </ButtonBase>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'a', ButtonBaseProps>
 
 export {LinkButton}

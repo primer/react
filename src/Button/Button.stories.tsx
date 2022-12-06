@@ -9,40 +9,40 @@ export default {
   argTypes: {
     size: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'medium', 'large']
+      options: ['small', 'medium', 'large'],
     },
     disabled: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     variant: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible']
-      }
+        options: ['default', 'primary', 'danger', 'invisible'],
+      },
     },
     alignContent: {
       control: {
         type: 'radio',
-        options: ['center', 'start']
-      }
+        options: ['center', 'start'],
+      },
     },
     block: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingAction: OcticonArgType([TriangleDownIcon]),
     trailingVisualCount: {
       control: {
-        type: 'number'
-      }
-    }
+        type: 'number',
+      },
+    },
   },
   args: {
     block: false,
@@ -53,8 +53,8 @@ export default {
     trailingVisual: null,
     leadingVisual: null,
     trailingAction: null,
-    trailingVisualCount: undefined
-  }
+    trailingVisualCount: undefined,
+  },
 } as Meta<typeof Button>
 
 export const Playground: Story<typeof Button> = args => <Button {...args}>Default</Button>

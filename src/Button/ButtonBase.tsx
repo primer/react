@@ -28,7 +28,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
     }, [baseStyles, sxProp])
     const iconWrapStyles = {
       display: 'flex',
-      pointerEvents: 'none'
+      pointerEvents: 'none',
     }
 
     return (
@@ -60,7 +60,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         )}
       </StyledButton>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
 
 export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>

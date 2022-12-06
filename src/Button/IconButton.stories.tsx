@@ -10,29 +10,29 @@ export default {
     size: {
       control: {
         type: 'radio',
-        options: ['small', 'medium', 'large']
-      }
+        options: ['small', 'medium', 'large'],
+      },
     },
     disabled: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     variant: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'danger', 'invisible']
-      }
+        options: ['default', 'primary', 'danger', 'invisible'],
+      },
     },
-    icon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon])
+    icon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   },
   args: {
     size: 'medium',
     disabled: false,
     variant: 'default',
     'aria-label': 'Icon button description',
-    icon: XIcon
-  }
+    icon: XIcon,
+  },
 } as Meta<typeof IconButton>
 
 export const Playground: Story<typeof IconButton> = args => <IconButton {...args} />

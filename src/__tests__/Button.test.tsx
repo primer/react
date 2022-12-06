@@ -40,7 +40,7 @@ describe('Button', () => {
     const container = render(
       <Button onClick={onClick} disabled>
         Disabled
-      </Button>
+      </Button>,
     )
     const button = container.getByRole('button')
     expect(button.hasAttribute('disabled')).toEqual(true)

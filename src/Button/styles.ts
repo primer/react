@@ -9,22 +9,22 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
       '&:hover:not([disabled])': {
         backgroundColor: 'btn.hoverBg',
-        borderColor: 'btn.hoverBorder'
+        borderColor: 'btn.hoverBorder',
       },
       '&:active:not([disabled])': {
         backgroundColor: 'btn.activeBg',
-        borderColor: 'btn.activeBorder'
+        borderColor: 'btn.activeBorder',
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
         '[data-component=ButtonCounter]': {
-          color: 'inherit'
-        }
+          color: 'inherit',
+        },
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.activeBg',
-        borderColor: 'btn.activeBorder'
-      }
+        borderColor: 'btn.activeBorder',
+      },
     },
     primary: {
       color: 'btn.primary.text',
@@ -33,33 +33,33 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       boxShadow: `${theme?.shadows.btn.primary.shadow}`,
       '&:hover:not([disabled])': {
         color: 'btn.primary.hoverText',
-        backgroundColor: 'btn.primary.hoverBg'
+        backgroundColor: 'btn.primary.hoverBg',
       },
       '&:focus:not([disabled])': {
-        boxShadow: 'inset 0 0 0 3px'
+        boxShadow: 'inset 0 0 0 3px',
       },
       '&:focus-visible:not([disabled])': {
-        boxShadow: 'inset 0 0 0 3px'
+        boxShadow: 'inset 0 0 0 3px',
       },
       '&:active:not([disabled])': {
         backgroundColor: 'btn.primary.selectedBg',
-        boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`
+        boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`,
       },
       '&:disabled': {
         color: 'btn.primary.disabledText',
         backgroundColor: 'btn.primary.disabledBg',
         '[data-component=ButtonCounter]': {
-          color: 'inherit'
-        }
+          color: 'inherit',
+        },
       },
       '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.primary.counterBg',
-        color: 'btn.primary.text'
+        color: 'btn.primary.text',
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.primary.selectedBg',
-        boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`
-      }
+        boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`,
+      },
     },
     danger: {
       color: 'btn.danger.text',
@@ -72,14 +72,14 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         boxShadow: `${theme?.shadows.btn.danger.hoverShadow}`,
         '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.danger.hoverCounterBg',
-          color: 'btn.danger.hoverText'
-        }
+          color: 'btn.danger.hoverText',
+        },
       },
       '&:active:not([disabled])': {
         color: 'btn.danger.selectedText',
         backgroundColor: 'btn.danger.selectedBg',
         boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
-        borderColor: 'btn.danger.selectedBorder'
+        borderColor: 'btn.danger.selectedBorder',
       },
       '&:disabled': {
         color: 'btn.danger.disabledText',
@@ -87,19 +87,19 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: 'btn.danger.disabledBorder',
         '[data-component=ButtonCounter]': {
           color: 'inherit',
-          backgroundColor: 'btn.danger.disabledCounterBg'
-        }
+          backgroundColor: 'btn.danger.disabledCounterBg',
+        },
       },
       '[data-component=ButtonCounter]': {
         color: 'btn.danger.text',
-        backgroundColor: 'btn.danger.counterBg'
+        backgroundColor: 'btn.danger.counterBg',
       },
       '&[aria-expanded=true]': {
         color: 'btn.danger.selectedText',
         backgroundColor: 'btn.danger.selectedBg',
         boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
-        borderColor: 'btn.danger.selectedBorder'
-      }
+        borderColor: 'btn.danger.selectedBorder',
+      },
     },
     invisible: {
       color: 'accent.fg',
@@ -107,23 +107,23 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       borderColor: 'transparent',
       boxShadow: 'none',
       '&:hover:not([disabled])': {
-        backgroundColor: 'actionListItem.default.hoverBg'
+        backgroundColor: 'actionListItem.default.hoverBg',
       },
       '&:active:not([disabled])': {
-        backgroundColor: 'actionListItem.default.activeBg'
+        backgroundColor: 'actionListItem.default.activeBg',
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
         '[data-component=ButtonCounter]': {
-          color: 'inherit'
-        }
+          color: 'inherit',
+        },
       },
       '&[aria-expanded=true]': {
-        backgroundColor: 'actionListItem.default.selectedBg'
+        backgroundColor: 'actionListItem.default.selectedBg',
       },
       svg: {
-        color: 'fg.muted'
-      }
+        color: 'fg.muted',
+      },
     },
     outline: {
       color: 'btn.outline.text',
@@ -138,14 +138,14 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         boxShadow: `${theme?.shadows.btn.outline.hoverShadow}`,
         '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.outline.hoverCounterBg',
-          color: 'inherit'
-        }
+          color: 'inherit',
+        },
       },
       '&:active:not([disabled])': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: 'btn.outline.selectedBorder'
+        borderColor: 'btn.outline.selectedBorder',
       },
 
       '&:disabled': {
@@ -154,20 +154,20 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: 'btn.border',
         '[data-component=ButtonCounter]': {
           backgroundColor: 'btn.outline.disabledCounterBg',
-          color: 'inherit'
-        }
+          color: 'inherit',
+        },
       },
       '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.outline.counterBg',
-        color: 'btn.outline.text'
+        color: 'btn.outline.text',
       },
       '&[aria-expanded=true]': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
-        borderColor: 'btn.outline.selectedBorder'
-      }
-    }
+        borderColor: 'btn.outline.selectedBorder',
+      },
+    },
   }
   return style[variant]
 }
@@ -196,33 +196,33 @@ export const getBaseStyles = (theme?: Theme) => ({
   '&[href]': {
     display: 'inline-flex',
     '&:hover': {
-      textDecoration: 'none'
-    }
+      textDecoration: 'none',
+    },
   },
   '&:hover': {
-    transitionDuration: '80ms'
+    transitionDuration: '80ms',
   },
   '&:active': {
-    transition: 'none'
+    transition: 'none',
   },
   '&:disabled': {
     cursor: 'not-allowed',
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   '@media (forced-colors: active)': {
     '&:focus': {
       // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
-      outline: 'solid 1px transparent'
-    }
+      outline: 'solid 1px transparent',
+    },
   },
   '[data-component=ButtonCounter]': {
-    fontSize: '2'
+    fontSize: '2',
   },
   '&[data-component=IconButton]': {
     display: 'grid',
     padding: 'unset',
     placeContent: 'center',
-    width: '32px'
+    width: '32px',
   },
   '&[data-size="small"]': {
     padding: '0 8px',
@@ -231,21 +231,21 @@ export const getBaseStyles = (theme?: Theme) => ({
     fontSize: '0',
 
     '[data-component="text"]': {
-      lineHeight: 'calc(20 / 12)'
+      lineHeight: 'calc(20 / 12)',
     },
 
     '[data-component=ButtonCounter]': {
-      fontSize: '0'
+      fontSize: '0',
     },
 
     '[data-component="buttonContent"] > :not(:last-child)': {
-      mr: '4px'
+      mr: '4px',
     },
 
     '&[data-component=IconButton]': {
       width: '28px',
-      padding: 'unset'
-    }
+      padding: 'unset',
+    },
   },
   '&[data-size="large"]': {
     padding: '0 16px',
@@ -253,35 +253,35 @@ export const getBaseStyles = (theme?: Theme) => ({
     gap: '8px',
 
     '[data-component="buttonContent"] > :not(:last-child)': {
-      mr: '8px'
+      mr: '8px',
     },
 
     '&[data-component=IconButton]': {
       width: '40px',
-      padding: 'unset'
-    }
-  }
+      padding: 'unset',
+    },
+  },
 })
 
 export const getButtonStyles = (theme?: Theme) => {
   const styles = {
     ...getBaseStyles(theme),
     '&[data-component="block"]': {
-      width: '100%'
+      width: '100%',
     },
     '[data-component="leadingVisual"]': {
-      gridArea: 'leadingVisual'
+      gridArea: 'leadingVisual',
     },
     '[data-component="text"]': {
       gridArea: 'text',
       lineHeight: 'calc(20/14)',
-      whiteSpace: 'nowrap'
+      whiteSpace: 'nowrap',
     },
     '[data-component="trailingVisual"]': {
-      gridArea: 'trailingVisual'
+      gridArea: 'trailingVisual',
     },
     '[data-component="trailingAction"]': {
-      marginRight: '-4px'
+      marginRight: '-4px',
     },
     '[data-component="buttonContent"]': {
       flex: '1 0 auto',
@@ -289,11 +289,11 @@ export const getButtonStyles = (theme?: Theme) => {
       gridTemplateAreas: '"leadingVisual text trailingVisual"',
       gridTemplateColumns: 'min-content minmax(0, auto) min-content',
       alignItems: 'center',
-      alignContent: 'center'
+      alignContent: 'center',
     },
     '[data-component="buttonContent"] > :not(:last-child)': {
-      mr: '8px'
-    }
+      mr: '8px',
+    },
   }
   return styles
 }
@@ -301,11 +301,11 @@ export const getButtonStyles = (theme?: Theme) => {
 export const getAlignContentSize = (alignContent: AlignContent = 'center') => {
   const style = {
     center: {
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
     start: {
-      justifyContent: 'flex-start'
-    }
+      justifyContent: 'flex-start',
+    },
   }
   return style[alignContent]
 }
