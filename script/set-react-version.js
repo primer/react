@@ -8,7 +8,7 @@ const versions = new Map([
   [
     '17',
     {
-      dependencies: [
+      devDependencies: [
         {
           name: 'react',
           version: '17.0.2',
@@ -31,7 +31,15 @@ const versions = new Map([
   [
     '18',
     {
-      dependencies: [
+      devDependencies: [
+        {
+          name: '@types/react',
+          version: '18.0.26',
+        },
+        {
+          name: '@types/react-dom',
+          version: '18.0.9',
+        },
         {
           name: 'react',
           version: '18.2.0',
@@ -58,15 +66,11 @@ async function main(version = 17) {
     throw new Error(`No React version defined for input: ${version}`)
   }
 
-  const {dependencies} = versions.get(version)
+  const {devDependencies} = versions.get(version)
   const packageJsonPath = path.resolve(__dirname, '..', 'package.json')
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'))
 
-  for (const dependency of dependencies) {
-    if (!packageJson.devDependencies[dependency.name]) {
-      throw new Error(`Dependency: ${dependency.name} was not found in devDependencies in ${packageJsonPath}`)
-    }
-
+  for (const dependency of devDependencies) {
     packageJson.devDependencies[dependency.name] = dependency.version
   }
 
@@ -76,7 +80,9 @@ async function main(version = 17) {
 
 const [version] = process.argv.slice(2)
 
+// eslint-disable-next-line github/no-then
 main(version).catch(error => {
+  // eslint-disable-next-line no-console
   console.log(error)
   process.exit(1)
 })
