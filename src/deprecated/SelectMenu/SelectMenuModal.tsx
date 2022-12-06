@@ -105,12 +105,12 @@ const SelectMenuModal = React.forwardRef<HTMLDivElement, SelectMenuModalInternal
         </Modal>
       </ModalWrapper>
     )
-  }
+  },
 )
 
 SelectMenuModal.defaultProps = {
   align: 'left',
-  width: '300px'
+  width: '300px',
 }
 
 SelectMenuModal.displayName = 'SelectMenu.Modal'

@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useState
+  useState,
 } from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
@@ -22,7 +22,7 @@ type InternalAutocompleteInputProps = {
 const AutocompleteInput = React.forwardRef(
   (
     {as: Component = TextInput, onFocus, onBlur, onChange, onKeyDown, onKeyUp, onKeyPress, value, ...props},
-    forwardedRef
+    forwardedRef,
   ) => {
     const autocompleteContext = useContext(AutocompleteContext)
     if (autocompleteContext === null) {
@@ -37,7 +37,7 @@ const AutocompleteInput = React.forwardRef(
       isMenuDirectlyActivated,
       setInputValue,
       setShowMenu,
-      showMenu
+      showMenu,
     } = autocompleteContext
     useRefObjectAsForwardedRef(forwardedRef, inputRef)
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
@@ -48,7 +48,7 @@ const AutocompleteInput = React.forwardRef(
         onFocus && onFocus(event)
         setShowMenu(true)
       },
-      [onFocus, setShowMenu]
+      [onFocus, setShowMenu],
     )
 
     const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
@@ -64,7 +64,7 @@ const AutocompleteInput = React.forwardRef(
           }
         }, 0)
       },
-      [onBlur, setShowMenu, inputRef, safeSetTimeout]
+      [onBlur, setShowMenu, inputRef, safeSetTimeout],
     )
 
     const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -75,7 +75,7 @@ const AutocompleteInput = React.forwardRef(
           setShowMenu(true)
         }
       },
-      [onChange, setInputValue, setShowMenu, showMenu]
+      [onChange, setInputValue, setShowMenu, showMenu],
     )
 
     const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -91,7 +91,7 @@ const AutocompleteInput = React.forwardRef(
           inputRef.current.value = ''
         }
       },
-      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown]
+      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown],
     )
 
     const handleInputKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -102,7 +102,7 @@ const AutocompleteInput = React.forwardRef(
           setHighlightRemainingText(true)
         }
       },
-      [setHighlightRemainingText, onKeyUp]
+      [setHighlightRemainingText, onKeyUp],
     )
 
     const onInputKeyPress: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -118,7 +118,7 @@ const AutocompleteInput = React.forwardRef(
           activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
         }
       },
-      [activeDescendantRef, showMenu, onKeyPress]
+      [activeDescendantRef, showMenu, onKeyPress],
     )
 
     useEffect(() => {
@@ -170,7 +170,7 @@ const AutocompleteInput = React.forwardRef(
         {...props}
       />
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<typeof TextInput, InternalAutocompleteInputProps>
 
 AutocompleteInput.displayName = 'AutocompleteInput'

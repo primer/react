@@ -48,7 +48,7 @@ function TextInput({onChange, value: controlledValue}: {onChange?: (value: strin
   const [value, setValue] = useControllableState({
     value: controlledValue,
     defaultValue: '',
-    onChange
+    onChange,
   })
 
   function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {

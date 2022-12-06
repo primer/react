@@ -26,7 +26,7 @@ type StyledPopoverProps = {
 
 const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret}) => {
   return {
-    className: classnames(className, `caret-pos--${caret}`)
+    className: classnames(className, `caret-pos--${caret}`),
   }
 })<StyledPopoverProps>`
   position: ${props => (props.relative ? 'relative' : 'absolute')};
@@ -215,7 +215,7 @@ const PopoverContent = styled.div<SxProp>`
 `
 
 Popover.defaultProps = {
-  caret: 'top'
+  caret: 'top',
 }
 
 PopoverContent.displayName = 'Popover.Content'

@@ -42,9 +42,9 @@ const sizeVariants = variant({
   variants: {
     small: {
       height: '24px',
-      width: '48px'
-    }
-  }
+      width: '48px',
+    },
+  },
 })
 
 type SwitchButtonProps = {
@@ -208,7 +208,7 @@ const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
 
 const hiddenTextStyles: BetterSystemStyleObject = {
   visibility: 'hidden',
-  height: 0
+  height: 0,
 }
 
 const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
@@ -222,7 +222,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
   onClick,
   size,
   statusLabelPosition,
-  sx: sxProp
+  sx: sxProp,
 }) => {
   const isControlled = typeof checked !== 'undefined'
   const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
@@ -234,7 +234,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
       }
       onClick && onClick(e)
     },
-    [onClick, isControlled, isOn, setIsOn]
+    [onClick, isControlled, isOn, setIsOn],
   )
 
   useEffect(() => {
@@ -287,7 +287,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
             sx={{
               transform: `translateX(${isOn ? '0' : '-100%'})`,
               transitionProperty: 'transform',
-              transitionDuration: TRANSITION_DURATION
+              transitionDuration: TRANSITION_DURATION,
             }}
           >
             <LineIcon size={size} />
@@ -301,7 +301,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
             sx={{
               transform: `translateX(${isOn ? '100%' : '0'})`,
               transitionProperty: 'transform',
-              transitionDuration: TRANSITION_DURATION
+              transitionDuration: TRANSITION_DURATION,
             }}
           >
             <CircleIcon size={size} />
@@ -315,7 +315,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
 
 Switch.defaultProps = {
   statusLabelPosition: 'start',
-  size: 'medium'
+  size: 'medium',
 }
 
 export default Switch

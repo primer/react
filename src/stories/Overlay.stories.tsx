@@ -14,7 +14,7 @@ import {
   Link,
   Label,
   ActionList,
-  ActionMenu
+  ActionMenu,
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
 
@@ -22,12 +22,12 @@ export default {
   title: 'Private components/Overlay',
   component: Overlay,
   args: {
-    anchorSide: 'inside-top'
+    anchorSide: 'inside-top',
   },
   argTypes: {
     anchorSide: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       options: [
         'inside-top',
@@ -38,10 +38,10 @@ export default {
         'outside-top',
         'outside-bottom',
         'outside-left',
-        'outside-right'
-      ]
-    }
-  }
+        'outside-right',
+      ],
+    },
+  },
 } as Meta
 
 interface OverlayProps {
@@ -374,8 +374,8 @@ export const MemexIssueOverlay = () => {
           borderColor: 'border.default',
           p: 2,
           ':hover': {
-            backgroundColor: 'canvas.subtle'
-          }
+            backgroundColor: 'canvas.subtle',
+          },
         }}
       >
         <IssueDraftIcon /> {title}
@@ -423,7 +423,7 @@ export const MemexIssueOverlay = () => {
                   px: '7px',
                   textAlign: 'left',
                   color: 'fg.default',
-                  input: {fontWeight: 'bold', fontSize: 4, px: 0}
+                  input: {fontWeight: 'bold', fontSize: 4, px: 0},
                 }}
               />
             ) : (
@@ -438,7 +438,7 @@ export const MemexIssueOverlay = () => {
                   color: 'fg.default',
                   p: 2,
                   textAlign: 'left',
-                  borderRadius: '2'
+                  borderRadius: '2',
                 }}
               >
                 {title}

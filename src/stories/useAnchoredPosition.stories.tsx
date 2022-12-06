@@ -19,50 +19,50 @@ export default {
           <BaseStyles>{Story()}</BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   argTypes: {
     anchorX: {
-      control: {type: 'range', min: 0, max: 500}
+      control: {type: 'range', min: 0, max: 500},
     },
     anchorY: {
-      control: {type: 'range', min: 0, max: 500}
+      control: {type: 'range', min: 0, max: 500},
     },
     anchorWidth: {
-      control: {type: 'range', min: 50, max: 500}
+      control: {type: 'range', min: 50, max: 500},
     },
     anchorHeight: {
-      control: {type: 'range', min: 50, max: 500}
+      control: {type: 'range', min: 50, max: 500},
     },
     floatWidth: {
-      control: {type: 'range', min: 50, max: 500}
+      control: {type: 'range', min: 50, max: 500},
     },
     floatHeight: {
-      control: {type: 'range', min: 50, max: 500}
+      control: {type: 'range', min: 50, max: 500},
     },
     anchorPosition: {
       control: {type: 'inline-radio'},
-      options: ['inside', 'outside']
+      options: ['inside', 'outside'],
     },
     anchorSide: {
       control: {type: 'inline-radio'},
       options: ['top', 'bottom', 'left', 'right', 'center'],
-      description: 'note'
+      description: 'note',
     },
     anchorAlignment: {
       control: {type: 'inline-radio'},
-      options: ['start', 'center', 'end']
+      options: ['start', 'center', 'end'],
     },
     anchorOffset: {
-      control: {type: 'range', min: -100, max: 100}
+      control: {type: 'range', min: -100, max: 100},
     },
     alignmentOffset: {
-      control: {type: 'range', min: -100, max: 100}
+      control: {type: 'range', min: -100, max: 100},
     },
     allowOutOfBounds: {
-      control: {type: 'boolean'}
-    }
-  }
+      control: {type: 'boolean'},
+    },
+  },
 } as Meta
 
 const Float = styled(Box)`
@@ -98,7 +98,7 @@ export const UseAnchoredPosition = (args: any) => {
       align: args.anchorAlignment ?? 'start',
       anchorOffset: args.anchorOffset && parseInt(args.anchorOffset, 10),
       alignmentOffset: args.alignmentOffset && parseInt(args.alignmentOffset, 10),
-      allowOutOfBounds: args.allowOutOfBounds ?? undefined
+      allowOutOfBounds: args.allowOutOfBounds ?? undefined,
     },
     [
       args.anchorY,
@@ -110,8 +110,8 @@ export const UseAnchoredPosition = (args: any) => {
       args.alignmentOffset,
       args.allowOutOfBounds,
       args.floatHeight,
-      args.floatWidth
-    ]
+      args.floatWidth,
+    ],
   )
 
   return (
@@ -140,7 +140,7 @@ export const UseAnchoredPosition = (args: any) => {
 export const CenteredOnScreen = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({
     side: 'inside-center',
-    align: 'center'
+    align: 'center',
   })
   // The outer Position element simply fills all available space
   return (
@@ -173,9 +173,9 @@ export const ComplexAncestry = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
     {
       side: 'outside-bottom',
-      align: 'start'
+      align: 'start',
     },
-    [recalculateSignal]
+    [recalculateSignal],
   )
   const onRecalculateClick = React.useCallback(() => {
     setRecalculateSignal(recalculateSignal + 1)
@@ -193,7 +193,7 @@ export const ComplexAncestry = () => {
           backgroundColor: 'blue.1',
           height: '440px',
           overflow: 'auto',
-          position: 'relative'
+          position: 'relative',
         }}
       >
         Clipping container - this element has <code>overflow</code> set to something other than <code>visible</code>
@@ -279,9 +279,9 @@ export const WithPortal = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
     {
       side: 'outside-bottom',
-      align: 'start'
+      align: 'start',
     },
-    [showMenu]
+    [showMenu],
   )
 
   // Register <Main> as the Portal root

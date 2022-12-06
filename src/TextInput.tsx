@@ -78,7 +78,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       // end deprecated props
       ...inputProps
     },
-    ref
+    ref,
   ) => {
     const [isInputFocused, setIsInputFocused] = useState<boolean>(false)
     const inputRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
@@ -96,14 +96,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         setIsInputFocused(true)
         onFocus && onFocus(e)
       },
-      [onFocus]
+      [onFocus],
     )
     const handleInputBlur = useCallback(
       e => {
         setIsInputFocused(false)
         onBlur && onBlur(e)
       },
-      [onBlur]
+      [onBlur],
     )
 
     return (
@@ -154,16 +154,16 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         {trailingAction}
       </TextInputWrapper>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'input', TextInputProps>
 
 TextInput.defaultProps = {
   type: 'text',
-  loaderPosition: 'auto'
+  loaderPosition: 'auto',
 }
 
 TextInput.displayName = 'TextInput'
 
 export default Object.assign(TextInput, {
-  Action: TextInputAction
+  Action: TextInputAction,
 })

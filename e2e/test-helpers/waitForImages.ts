@@ -17,7 +17,7 @@ export async function waitForImages(page: Page) {
           img.addEventListener('load', resolve)
           img.addEventListener('error', reject)
         })
-      })
+      }),
     )
   })
 }

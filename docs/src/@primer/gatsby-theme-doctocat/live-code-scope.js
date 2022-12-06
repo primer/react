@@ -24,6 +24,6 @@ export default function resolveScope(metastring) {
     ...(metastring.includes('deprecated') ? deprecated : {}),
     ReactRouterLink,
     State,
-    Placeholder
+    Placeholder,
   }
 }

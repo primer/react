@@ -34,7 +34,7 @@ const TextInputInnerVisualSlot: React.FC<
                   height: '100%',
                   maxWidth: '100%',
                   visibility: showLoadingIndicator ? 'visible' : 'hidden',
-                  ...(visualPosition === 'leading' ? {left: 0} : {right: 0})
+                  ...(visualPosition === 'leading' ? {left: 0} : {right: 0}),
                 }
               : {visibility: showLoadingIndicator ? 'visible' : 'hidden'}
           }

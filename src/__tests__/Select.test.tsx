@@ -19,7 +19,7 @@ describe('Select', () => {
           <Select.Option value="five">Choice five</Select.Option>
           <Select.Option value="six">Choice six</Select.Option>
         </Select>
-      </>
+      </>,
     )
 
     const select = getByLabelText('Choice')
@@ -44,7 +44,7 @@ describe('Select', () => {
             <Select.Option value="six">Choice six</Select.Option>
           </Select.OptGroup>
         </Select>
-      </>
+      </>,
     )
 
     const select = getByLabelText('Choice')
@@ -65,7 +65,7 @@ describe('Select', () => {
           <Select.Option value="five">Choice five</Select.Option>
           <Select.Option value="six">Choice six</Select.Option>
         </Select>
-      </>
+      </>,
     )
 
     const placeholderOption = getByText('Pick a choice')
@@ -94,7 +94,7 @@ describe('Select', () => {
           <Select.Option value="five">Choice five</Select.Option>
           <Select.Option value="six">Choice six</Select.Option>
         </Select>
-      </>
+      </>,
     )
 
     const placeholderOption = getByText('Pick a choice')
@@ -123,7 +123,7 @@ describe('Select', () => {
           <Select.Option value="five">Choice five</Select.Option>
           <Select.Option value="six">Choice six</Select.Option>
         </Select>
-      </>
+      </>,
     )
 
     const select = getByLabelText('Choice')

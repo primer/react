@@ -8,7 +8,7 @@ module.exports = (file, api) => {
   renameImports(ast, j, 'primer-react', {
     Box: 'BorderBox',
     Block: 'Box',
-    CaretBox: 'PointerBox'
+    CaretBox: 'PointerBox',
   })
 
   return prettify(ast, file)

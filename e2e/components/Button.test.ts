@@ -9,8 +9,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--default-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -22,9 +22,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--default-button'
+        id: 'components-button--default-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -36,8 +36,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--primary-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -49,9 +49,9 @@ test.describe('Button', () => {
       })
     })
 
-    test.fixme('axe @avt', async ({page}) => {
+    test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--primary-button'
+        id: 'components-button--primary-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -63,8 +63,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--danger-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -76,9 +76,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--danger-button'
+        id: 'components-button--danger-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -90,8 +90,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--invisible-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -103,9 +103,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--invisible-button'
+        id: 'components-button--invisible-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -117,8 +117,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--outline-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -130,9 +130,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--outline-button'
+        id: 'components-button--outline-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -144,8 +144,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--icon-before-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -157,9 +157,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--icon-before-button'
+        id: 'components-button--icon-before-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -171,8 +171,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--icon-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -184,9 +184,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--icon-button'
+        id: 'components-button--icon-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -198,8 +198,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--watch-counter-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -211,9 +211,9 @@ test.describe('Button', () => {
       })
     })
 
-    test.fixme('axe @avt', async ({page}) => {
+    test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--watch-counter-button'
+        id: 'components-button--watch-counter-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -225,8 +225,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--watch-icon-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -238,9 +238,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--watch-icon-button'
+        id: 'components-button--watch-icon-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -252,8 +252,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--caret-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -265,9 +265,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--caret-button'
+        id: 'components-button--caret-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -279,8 +279,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--block-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -292,9 +292,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--block-button'
+        id: 'components-button--block-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -306,8 +306,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--disabled-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -319,9 +319,9 @@ test.describe('Button', () => {
       })
     })
 
-    test('axe @avt', async ({page}) => {
+    test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--disabled-button'
+        id: 'components-button--disabled-button',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -333,8 +333,8 @@ test.describe('Button', () => {
         await visit(page, {
           id: 'components-button--link-button',
           globals: {
-            colorScheme: theme
-          }
+            colorScheme: theme,
+          },
         })
 
         // Default state
@@ -346,9 +346,9 @@ test.describe('Button', () => {
       })
     })
 
-    test.fixme('axe @avt', async ({page}) => {
+    test.fixme('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--link-button'
+        id: 'components-button--link-button',
       })
       await expect(page).toHaveNoViolations()
     })

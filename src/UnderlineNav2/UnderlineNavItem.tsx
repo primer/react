@@ -1,4 +1,4 @@
-import React, {forwardRef, useLayoutEffect, useRef, useContext, MutableRefObject, RefObject} from 'react'
+import React, {forwardRef, useRef, useContext, MutableRefObject, RefObject} from 'react'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {IconProps} from '@primer/octicons-react'
@@ -7,7 +7,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import CounterLabel from '../CounterLabel'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
-import VisuallyHidden from '../_VisuallyHidden'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -63,7 +63,7 @@ export const UnderlineNavItem = forwardRef(
       icon: Icon,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLElement>
@@ -79,7 +79,7 @@ export const UnderlineNavItem = forwardRef(
       afterSelect,
       variant,
       loadingCounters,
-      iconsVisible
+      iconsVisible,
     } = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
@@ -87,11 +87,11 @@ export const UnderlineNavItem = forwardRef(
         const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
 
         const icon = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
-          child => child.getAttribute('data-component') === 'icon'
+          child => child.getAttribute('data-component') === 'icon',
         )
 
         const content = Array.from((ref as MutableRefObject<HTMLElement>).current.children[0].children).find(
-          child => child.getAttribute('data-component') === 'text'
+          child => child.getAttribute('data-component') === 'text',
         ) as HTMLElement
         const text = content.textContent as string
 
@@ -125,7 +125,7 @@ export const UnderlineNavItem = forwardRef(
       setChildrenWidth,
       setNoIconChildrenWidth,
       onSelect,
-      selectEvent
+      selectEvent,
     ])
 
     const keyPressHandler = React.useCallback(
@@ -136,7 +136,7 @@ export const UnderlineNavItem = forwardRef(
           setSelectedLink(ref as RefObject<HTMLElement>)
         }
       },
-      [onSelect, afterSelect, ref, setSelectedLink]
+      [onSelect, afterSelect, ref, setSelectedLink],
     )
     const clickHandler = React.useCallback(
       event => {
@@ -146,7 +146,7 @@ export const UnderlineNavItem = forwardRef(
         }
         setSelectedLink(ref as RefObject<HTMLElement>)
       },
-      [onSelect, afterSelect, ref, setSelectedLink]
+      [onSelect, afterSelect, ref, setSelectedLink],
     )
 
     return (
@@ -184,8 +184,7 @@ export const UnderlineNavItem = forwardRef(
             ) : (
               counter !== undefined && (
                 <Box as="span" data-component="counter" sx={counterStyles}>
-                  <CounterLabel aria-hidden="true">{counter}</CounterLabel>
-                  <VisuallyHidden>&nbsp;{`(${counter})`}</VisuallyHidden>
+                  <CounterLabel>{counter}</CounterLabel>
                 </Box>
               )
             )}
@@ -193,7 +192,7 @@ export const UnderlineNavItem = forwardRef(
         </Box>
       </Box>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
 
 UnderlineNavItem.displayName = 'UnderlineNavItem'

@@ -24,7 +24,7 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: Use
         }
       }
     },
-    [customRef, setOpen, onClickOutside]
+    [customRef, setOpen, onClickOutside],
   )
 
   // handles the overlay behavior - closing the menu when clicking outside of it
