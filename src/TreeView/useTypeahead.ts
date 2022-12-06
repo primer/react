@@ -29,8 +29,6 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
 
       // Get focusable elements
       const elements = Array.from(container.querySelectorAll('[role="treeitem"]'))
-        // Filter out collapsed items
-        .filter(element => !element.parentElement?.closest('[role=treeitem][aria-expanded=false]'))
 
       // Get the index of active element
       const activeIndex = elements.findIndex(element => element === document.activeElement)

@@ -420,8 +420,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               // @ts-ignore CSS custom property
               '--level': level,
               contentVisibility: containIntrinsicSize ? 'auto' : undefined,
-              // @ts-ignore CSS custom property
-              'contain-intrinsic-size': containIntrinsicSize,
+              containIntrinsicSize,
             }}
             onClick={event => {
               if (onSelect) {
