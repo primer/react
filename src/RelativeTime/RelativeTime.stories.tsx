@@ -10,8 +10,8 @@ const meta: Meta = {
     controls: {
       // StoryBook infers from type info of the component which includes CE Lifecycle,
       // SX props, and methods we want to otherwise ignore
-      exclude: /^(getFormatted.*|datetime|sx|as|theme|forwardedAs|.*Callback|update)$/g
-    }
+      exclude: /^(getFormatted.*|datetime|sx|as|theme|forwardedAs|.*Callback|update)$/g,
+    },
   },
   args: {
     date: new Date('2020-01-01T00:00:00Z'),
@@ -22,112 +22,112 @@ const meta: Meta = {
     day: 'numeric',
     month: 'short',
     year: '',
-    timeZoneName: ''
+    timeZoneName: '',
   },
   argTypes: {
     hour: {
       type: {
         name: 'enum',
-        value: ['', 'numeric', '2-digit']
+        value: ['', 'numeric', '2-digit'],
       },
       control: {
         type: 'select',
         labels: {
-          '': '(None)'
-        }
-      }
+          '': '(None)',
+        },
+      },
     },
     minute: {
       type: {
         name: 'enum',
-        value: ['', 'numeric', '2-digit']
+        value: ['', 'numeric', '2-digit'],
       },
       control: {
         type: 'select',
         labels: {
-          '': '(None)'
-        }
-      }
+          '': '(None)',
+        },
+      },
     },
     second: {
       type: {
         name: 'enum',
-        value: ['', 'numeric', '2-digit']
+        value: ['', 'numeric', '2-digit'],
       },
       control: {
         type: 'select',
         labels: {
-          '': '(None)'
-        }
-      }
+          '': '(None)',
+        },
+      },
     },
     weekday: {
       type: {
         name: 'enum',
-        value: ['', 'short', 'long', 'narrow']
+        value: ['', 'short', 'long', 'narrow'],
       },
       control: {
         type: 'select',
         labels: {
-          '': '(None)'
-        }
-      }
+          '': '(None)',
+        },
+      },
     },
     day: {
       type: {
         name: 'enum',
-        value: ['', 'numeric', '2-digit']
+        value: ['', 'numeric', '2-digit'],
       },
       control: {
         type: 'select',
         labels: {
-          '': '(None)'
-        }
-      }
+          '': '(None)',
+        },
+      },
     },
     month: {
       type: {
         name: 'enum',
-        value: ['', 'numeric', '2-digit', 'long', 'short', 'narrow']
+        value: ['', 'numeric', '2-digit', 'long', 'short', 'narrow'],
       },
       control: {
         type: 'select',
         labels: {
-          '': '(None)'
-        }
-      }
+          '': '(None)',
+        },
+      },
     },
     year: {
       type: {
         name: 'enum',
-        value: ['', 'numeric', '2-digit']
+        value: ['', 'numeric', '2-digit'],
       },
       control: {
         type: 'select',
         labels: {
-          '': '(None)'
-        }
-      }
+          '': '(None)',
+        },
+      },
     },
     timeZoneName: {
       type: {
         name: 'enum',
-        value: ['', 'long', 'short', 'longOffset', 'shortOffset', 'longGeneric', 'shortGeneric']
+        value: ['', 'long', 'short', 'longOffset', 'shortOffset', 'longGeneric', 'shortGeneric'],
       },
       control: {
         type: 'select',
         labels: {
-          '': '(None)'
-        }
-      }
+          '': '(None)',
+        },
+      },
     },
     date: {
-      control: 'date'
+      control: 'date',
     },
     format: {
-      control: 'string'
-    }
-  }
+      control: 'string',
+    },
+  },
 }
 
 export const Default: Story = args => {

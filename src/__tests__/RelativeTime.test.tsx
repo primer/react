@@ -9,7 +9,7 @@ describe('RelativeTime', () => {
   behavesAsComponent({Component: RelativeTime})
 
   checkExports('RelativeTime', {
-    default: RelativeTime
+    default: RelativeTime,
   })
 
   it('should have no axe violations', async () => {

@@ -55,7 +55,7 @@ const ESM_ONLY = new Set([
   '@github/markdown-toolbar-element',
   '@github/paste-markdown',
   '@github/relative-time-element',
-  '@lit-labs/react'
+  '@lit-labs/react',
 ])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
