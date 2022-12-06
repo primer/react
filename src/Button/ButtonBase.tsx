@@ -1,6 +1,6 @@
 import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
 import {mergeRefs} from 'react-merge-refs'
-import {ForwardRefComponent as PolymorphicForwardRefComponent, IntrinsicElement} from '../utils/polymorphic'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
@@ -9,11 +9,11 @@ import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 
 const defaultSxProp = {}
 const iconWrapStyles = {
-  display: 'inline-block'
+  display: 'inline-block',
 }
 const trailingIconStyles = {
   ...iconWrapStyles,
-  ml: 2
+  ml: 2,
 }
 
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
@@ -29,11 +29,8 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
     }, [baseStyles, sxProp])
 
     React.useEffect(() => {
-      if (
-        innerRef &&
-        !(innerRef.current instanceof HTMLButtonElement) &&
-        !(innerRef.current instanceof HTMLAnchorElement)
-      ) {
+      if (!(innerRef.current instanceof HTMLButtonElement) && !(innerRef.current instanceof HTMLAnchorElement)) {
+        // eslint-disable-next-line no-console
         console.warn('This component should be an instanceof a semantic button or anchor')
       }
     }, [innerRef])
@@ -53,7 +50,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         )}
       </StyledButton>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
 
 export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>
