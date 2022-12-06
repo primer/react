@@ -54,7 +54,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       </StyledButton>
     )
   }
-) as PolymorphicForwardRefComponent<IntrinsicElement<'button'> | IntrinsicElement<'a'>, ButtonProps>
+) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
 
 export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>
 
