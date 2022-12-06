@@ -1,5 +1,6 @@
 import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {mergeRefs} from 'react-merge-refs'
+import {ForwardRefComponent as PolymorphicForwardRefComponent, IntrinsicElement} from '../utils/polymorphic'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
@@ -8,16 +9,17 @@ import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 
 const defaultSxProp = {}
 const iconWrapStyles = {
-  display: 'inline-block',
+  display: 'inline-block'
 }
 const trailingIconStyles = {
   ...iconWrapStyles,
-  ml: 2,
+  ml: 2
 }
 
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, variant = 'default', size = 'medium', ...rest} = props
+    const innerRef = React.useRef<HTMLElement>()
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
       return merge.all([getButtonStyles(theme), getSizeStyles(size, variant, false), getVariantStyles(variant, theme)])
@@ -26,8 +28,18 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       return merge(baseStyles, sxProp as SxProp)
     }, [baseStyles, sxProp])
 
+    React.useEffect(() => {
+      if (
+        innerRef &&
+        !(innerRef.current instanceof HTMLButtonElement) &&
+        !(innerRef.current instanceof HTMLAnchorElement)
+      ) {
+        console.warn('This component should be an instanceof a semantic button or anchor')
+      }
+    }, [innerRef])
+
     return (
-      <StyledButton as={Component} sx={sxStyles} {...rest} ref={forwardedRef}>
+      <StyledButton as={Component} sx={sxStyles} {...rest} ref={mergeRefs([innerRef, forwardedRef])}>
         {LeadingIcon && (
           <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
             <LeadingIcon />
@@ -41,8 +53,8 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         )}
       </StyledButton>
     )
-  },
-) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
+  }
+) as PolymorphicForwardRefComponent<IntrinsicElement<'button'> | IntrinsicElement<'a'>, ButtonProps>
 
 export type ButtonBaseProps = ComponentPropsWithRef<typeof ButtonBase>
 
