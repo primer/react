@@ -68,6 +68,7 @@
     "lib/node_modules",
     "lib-esm",
     "index.d.ts",
+    "deprecated/package.json",
     "drafts/package.json",
     "!lib/__tests__",
     "!lib/stories",
