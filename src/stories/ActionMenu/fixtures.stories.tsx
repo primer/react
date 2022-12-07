@@ -543,11 +543,11 @@ export function MemexIteration(): JSX.Element {
 }
 
 const fieldTypes = [
-  {icon: TypographyIcon, name: 'Text'},
-  {icon: NumberIcon, name: 'Number'},
-  {icon: CalendarIcon, name: 'Date'},
-  {icon: SingleSelectIcon, name: 'Single select'},
-  {icon: IterationsIcon, name: 'Iteration'},
+  {icon: <TypographyIcon />, name: 'Text'},
+  {icon: <NumberIcon />, name: 'Number'},
+  {icon: <CalendarIcon />, name: 'Date'},
+  {icon: <SingleSelectIcon />, name: 'Single select'},
+  {icon: <IterationsIcon />, name: 'Iteration'},
 ]
 
 export function MemexAddColumn(): JSX.Element {

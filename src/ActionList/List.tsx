@@ -5,7 +5,7 @@ import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 
-export type ActionListProps = {
+export type ActionListProps = React.PropsWithChildren<{
   /**
    * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
    */
@@ -22,7 +22,8 @@ export type ActionListProps = {
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
-} & SxProp
+}> &
+  SxProp
 
 type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'>
 export const ListContext = React.createContext<ContextProps>({})
