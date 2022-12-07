@@ -3,354 +3,445 @@ import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
 test.describe('Button', () => {
-  test.describe('Default Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--default-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Playground', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button--playground',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Playground.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Default Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Default Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button--playground',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--default-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Primary Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--primary-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Danger', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--danger',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Danger.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Primary Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Primary Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--danger',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test.fixme('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--primary-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Danger Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--danger-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Default', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--default',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Default.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Danger Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Danger Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--default',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--danger-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Invisible Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--invisible-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Disabled', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--disabled',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Disabled.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Invisible Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Invisible Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--disabled',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--invisible-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Outline Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--outline-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Invisible', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--invisible',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Invisible.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Outline Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Outline Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--invisible',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--outline-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Icon Before Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--icon-before-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Large', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--large',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Large.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Icon Before Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Icon Before Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--large',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--icon-before-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Icon Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--icon-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Leading Visual', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--leading-visual',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Leading Visual.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Icon Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Icon Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--leading-visual',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--icon-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Watch Counter Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--watch-counter-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Medium', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--medium',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Medium.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Watch Counter Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Watch Counter Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--medium',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test.fixme('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--watch-counter-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Watch Icon Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--watch-icon-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Outline', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--outline',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Outline.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Watch Icon Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Watch Icon Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--outline',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--watch-icon-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Caret Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--caret-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Primary', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--primary',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Primary.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Caret Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Caret Button.${theme}.focused.png`)
+        test.fixme('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--primary',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--caret-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Block Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--block-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Small', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--small',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Small.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Block Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Block Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--small',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--block-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Disabled Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--disabled-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Trailing Counter', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--trailing-counter',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Counter.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Disabled Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Disabled Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--trailing-counter',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--disabled-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 
-  test.describe('Link Button', () => {
-    themes.forEach(theme => {
-      test(`${theme} @vrt`, async ({page}) => {
-        await visit(page, {
-          id: 'components-button--link-button',
-          globals: {
-            colorScheme: theme,
-          },
+  test.describe('Trailing Visual', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--trailing-visual',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Visual.${theme}.png`)
         })
 
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Link Button.${theme}.png`)
-
-        // Focus state
-        await page.keyboard.press('Tab')
-        expect(await page.screenshot()).toMatchSnapshot(`Link Button.${theme}.focused.png`)
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--trailing-visual',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
       })
-    })
-
-    test.fixme('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button--link-button',
-      })
-      await expect(page).toHaveNoViolations()
-    })
+    }
   })
 })
