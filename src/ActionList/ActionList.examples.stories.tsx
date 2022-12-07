@@ -245,6 +245,7 @@ export function MemexSortable(): JSX.Element {
   const hiddenOptions = options.filter(option => !option.selected)
 
   return (
+    // @ts-ignore react-dnd needs to be updated to support React 18
     <DndProvider backend={HTML5Backend}>
       <ActionList selectionVariant="multiple" role="menu">
         <ActionList.Group title="Visible fields (can be reordered)">
