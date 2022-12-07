@@ -1,4 +1,4 @@
-import React, {ComponentPropsWithRef, ForwardedRef, forwardRef, useMemo} from 'react'
+import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
 import {merge, SxProp} from '../sx'
