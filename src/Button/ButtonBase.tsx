@@ -33,7 +33,9 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
     React.useEffect(() => {
       if (!(innerRef.current instanceof HTMLButtonElement) && !(innerRef.current instanceof HTMLAnchorElement)) {
         // eslint-disable-next-line no-console
-        console.warn('This component should be an instanceof a semantic button or anchor')
+        if (__DEV__) {
+          console.warn('This component should be an instanceof a semantic button or anchor')
+        }
       }
     }, [innerRef])
 
