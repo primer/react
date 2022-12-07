@@ -144,7 +144,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const clickHandler = React.useCallback(
-      event => {
+      (event: React.MouseEvent<HTMLLIElement>) => {
         if (disabled) return
         if (!event.defaultPrevented) {
           if (typeof onSelect === 'function') onSelect(event)
@@ -156,7 +156,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     const keyPressHandler = React.useCallback(
-      event => {
+      (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled) return
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
           if (typeof onSelect === 'function') onSelect(event)

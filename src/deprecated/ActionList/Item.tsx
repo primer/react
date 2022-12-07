@@ -59,7 +59,7 @@ export interface ItemProps extends SxProp {
   /**
    * Icon or text positioned after `Item` text.
    */
-  trailingVisual?: React.ReactNode
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactNode
 
   /**
    * Style variations associated with various `Item` types.
@@ -356,7 +356,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
   const descriptionId = useSSRSafeId()
 
   const keyPressHandler = useCallback(
-    event => {
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (disabled) {
         return
       }
@@ -370,7 +370,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
   )
 
   const clickHandler = useCallback(
-    event => {
+    (event: React.MouseEvent<HTMLDivElement>) => {
       if (disabled) {
         return
       }

@@ -42,9 +42,9 @@ type SelectMenuInternalProps = {
 } & ComponentProps<typeof StyledSelectMenu>
 
 // 'as' is spread out because we don't want users to be able to change the tag.
-const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
+const SelectMenu = React.forwardRef<HTMLDetailsElement, SelectMenuInternalProps>(
   ({children, initialTab = '', as: _ignoredAs, ...rest}, forwardedRef) => {
-    const backupRef = useRef<HTMLElement>(null)
+    const backupRef = useRef<HTMLDetailsElement>(null)
     const ref = forwardedRef ?? backupRef
     const [selectedTab, setSelectedTab] = useState(initialTab)
     const [open, setOpen] = useState(false)
@@ -57,8 +57,8 @@ const SelectMenu = React.forwardRef<HTMLElement, SelectMenuInternalProps>(
     }
 
     const onClickOutside = useCallback(
-      event => {
-        if ('current' in ref && ref.current && !ref.current.contains(event.target)) {
+      (event: MouseEvent) => {
+        if ('current' in ref && ref.current && event.target instanceof Node && !ref.current.contains(event.target)) {
           if (!event.defaultPrevented) {
             setOpen(false)
           }

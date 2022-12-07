@@ -183,7 +183,7 @@ export function ComplexListStory(): JSX.Element {
               text: 'repo:github/github',
               groupId: '1',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
-              trailingVisual: () => (
+              trailingVisual: (
                 <>
                   ⌘S
                   <ArrowRightIcon />

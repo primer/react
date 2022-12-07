@@ -92,14 +92,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       inputRef.current?.focus()
     }
     const handleInputFocus = useCallback(
-      e => {
+      (e: React.FocusEvent<HTMLInputElement>) => {
         setIsInputFocused(true)
         onFocus && onFocus(e)
       },
       [onFocus],
     )
     const handleInputBlur = useCallback(
-      e => {
+      (e: React.FocusEvent<HTMLInputElement>) => {
         setIsInputFocused(false)
         onBlur && onBlur(e)
       },
