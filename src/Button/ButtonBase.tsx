@@ -6,6 +6,7 @@ import {useTheme} from '../ThemeProvider'
 import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+declare let __DEV__: boolean
 
 const defaultSxProp = {}
 const iconWrapStyles = {
