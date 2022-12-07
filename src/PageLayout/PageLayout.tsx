@@ -201,8 +201,6 @@ type DraggableDividerProps = {
   onDrag?: (delta: number) => void
   onDragEnd?: () => void
   onDoubleClick?: () => void
-  onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void
-  tabIndex: number
 }
 
 const DraggingGlobalStyles = createGlobalStyle`
@@ -224,9 +222,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   onDrag,
   onDragEnd,
   onDoubleClick,
-  onKeyDown,
   sx = {},
-  tabIndex,
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const responsiveVariant = useResponsiveValue(variant, 'none')
@@ -302,8 +298,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
               onDragStart?.()
             }}
             onDoubleClick={onDoubleClick}
-            tabIndex={tabIndex}
-            onKeyDown={onKeyDown}
           />
           <DraggingGlobalStyles />
         </>
@@ -634,19 +628,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const [widthPercent, setWidthPercent] = React.useState('')
     const [prevPercent, setPrevPercent] = React.useState('')
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      let diff = 0
-      switch (event.key) {
-        case 'ArrowRight':
-          diff = 1
-          break
-        case 'ArrowLeft':
-          diff = -1
-          break
-      }
-      updatePaneWidth(paneWidth + diff)
-    }
-
     const handleWidthFormSubmit = (event: React.FormEvent<HTMLElement>) => {
       event.preventDefault()
       let percent = Number(widthPercent)
@@ -732,8 +713,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
           // Reset pane width on double click
           onDoubleClick={() => updatePaneWidth(defaultPaneWidth[width])}
-          onKeyDown={handleKeyDown}
-          tabIndex={resizable === true ? 0 : -1}
         />
 
         <Box
