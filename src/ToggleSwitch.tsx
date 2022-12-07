@@ -282,7 +282,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
             flexGrow={1}
             flexShrink={0}
             flexBasis="50%"
-            color={acceptsInteraction ? 'accent.fg' : 'fg.subtle'}
+            color={acceptsInteraction ? 'switchKnob.checked.bg' : 'switchKnob.checked.disabledBg'}
             lineHeight="0"
             sx={{
               transform: `translateX(${isOn ? '0' : '-100%'})`,
