@@ -174,7 +174,7 @@ const TitleArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
-        {display: isHidden ? 'none' : 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem'},
+        {gap: '0.5rem', display: isHidden ? 'none' : 'flex', flexDirection: 'row', alignItems: 'flex-start'},
         sx,
       )}
     >
@@ -189,7 +189,16 @@ const LeadingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   hidden = hiddenOnNarrow,
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
-  return <Box sx={merge<BetterSystemStyleObject>({display: isHidden ? 'none' : 'flex'}, sx)}>{children}</Box>
+  return (
+    <Box
+      sx={merge<BetterSystemStyleObject>(
+        {display: isHidden ? 'none' : 'flex', alignItems: 'center', height: '2rem'},
+        sx,
+      )}
+    >
+      {children}
+    </Box>
+  )
 }
 
 const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
@@ -199,6 +208,8 @@ const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chil
       sx={merge<BetterSystemStyleObject>(
         {
           display: isHidden ? 'none' : 'flex',
+          alignItems: 'center',
+          height: '2rem',
         },
         sx,
       )}
@@ -259,6 +270,8 @@ const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chi
       sx={merge<BetterSystemStyleObject>(
         {
           display: isHidden ? 'none' : 'flex',
+          alignItems: 'center',
+          height: '2rem',
         },
         sx,
       )}
@@ -274,7 +287,16 @@ const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   hidden = hiddenOnNarrow,
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
-  return <Box sx={merge<BetterSystemStyleObject>({display: isHidden ? 'none' : 'flex'}, sx)}>{children}</Box>
+  return (
+    <Box
+      sx={merge<BetterSystemStyleObject>(
+        {display: isHidden ? 'none' : 'flex', alignItems: 'center', height: '2rem'},
+        sx,
+      )}
+    >
+      {children}
+    </Box>
+  )
 }
 
 const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
@@ -288,6 +310,8 @@ const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, 
           gap: '0.5rem',
           flexGrow: '1',
           justifyContent: 'right',
+          height: '2rem',
+          alignItems: 'center',
         },
         sx,
       )}
