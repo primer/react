@@ -6,7 +6,6 @@ import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link from '../Link'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {get} from '../constants'
 const REGION_ORDER = {
   ContextArea: 0,
   TitleArea: 1,
@@ -37,7 +36,6 @@ const hiddenOnNarrow = {
 // -----------------------------------------------------------------------------
 export type PageHeaderProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
-  // TODO: check if we need any other types
   as?: React.ElementType | 'header' | 'div'
 } & sharedPropTypes
 
@@ -45,16 +43,7 @@ const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx 
   const rootStyles = {
     display: 'flex',
     flexDirection: 'column',
-    gap: get('space.2'),
-    // 24px for wide and regular, 16px for narrow viewports
-    padding: useResponsiveValue(
-      {
-        narrow: 3,
-        regular: 4,
-        wide: 4,
-      },
-      false,
-    ),
+    gap: '0.5rem',
   }
   return (
     <Box as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
@@ -78,7 +67,7 @@ const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
     display: isHidden ? 'none' : 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: get('space.2'),
+    gap: '0.5rem',
     order: REGION_ORDER.ContextArea,
   }
   return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
@@ -121,12 +110,8 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
             {
               display: isHidden ? 'none' : 'flex',
               alignItems: 'center',
-              // min touch target size 44px (20 + (12x2))
-              // TODO: rem for line height?
-              // TODO: no 12px in theme - is that okay?
-              lineHeight: '20px',
-              paddingY: '12px',
-              gap: get('space.2'),
+              lineHeight: '2.75rem', // min touch target size 44px (16*2.75)
+              gap: '0.5rem',
             },
             sx,
           )}
@@ -168,7 +153,7 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
           display: isHidden ? 'none' : 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          gap: get('space.2'),
+          gap: '0.5rem',
           flexGrow: '1',
           justifyContent: 'right',
         },
@@ -239,7 +224,6 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
   const currentVariant = useResponsiveValue(variant, 'medium')
   const isHidden = useResponsiveValue(hidden, false)
   return (
-    // TODO: clarify if we want rem for line height or not
     <Heading
       as={as}
       sx={merge<BetterSystemStyleObject>(
@@ -250,14 +234,14 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
             subtitle: '1.25rem',
           }[currentVariant],
           lineHeight: {
-            large: '48px',
-            medium: '32px',
-            subtitle: '32px',
+            large: 1.5, // calc(48/32)
+            medium: 1.6, // calc(32/20)
+            subtitle: 1.6, // calc(32/20)
           }[currentVariant],
           fontWeight: {
             large: '400',
-            medium: '400',
-            subtitle: '400',
+            medium: '600',
+            subtitle: '600',
           }[currentVariant],
           display: isHidden ? 'none' : 'flex',
         },
@@ -301,7 +285,7 @@ const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, 
         {
           display: isHidden ? 'none' : 'flex',
           flexDirection: 'row',
-          gap: get('space.2'),
+          gap: '0.5rem',
           flexGrow: '1',
           justifyContent: 'right',
         },
@@ -323,7 +307,7 @@ const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childr
           display: isHidden ? 'none' : 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          gap: get('space.2'),
+          gap: '0.5rem',
         },
         sx,
       )}

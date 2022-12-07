@@ -60,7 +60,7 @@ const PrimerViewports = {
 }
 
 export const TitleWithTrailingAction = () => (
-  <PageHeader>
+  <PageHeader sx={{padding: 3}}>
     <PageHeader.ContextArea>
       <PageHeader.ParentLink href="http://github.com">Projects</PageHeader.ParentLink>
     </PageHeader.ContextArea>

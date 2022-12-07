@@ -184,7 +184,7 @@ const meta: Meta = {
 }
 
 const Template: Story = args => (
-  <PageHeader>
+  <PageHeader sx={{padding: 3}}>
     <PageHeader.ContextArea hidden={!args.hasContextArea}>
       <PageHeader.ParentLink href="http://github.com" hidden={!args.hasParentLink}>
         {args.ParentLink}

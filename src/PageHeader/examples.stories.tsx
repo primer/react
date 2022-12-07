@@ -81,7 +81,7 @@ const setViewportParamToNarrow = {
   },
 }
 export const Webhooks = () => (
-  <PageHeader>
+  <PageHeader sx={{padding: 3}}>
     <PageHeader.ContextArea>
       <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
     </PageHeader.ContextArea>
@@ -108,7 +108,7 @@ export const WebhooksOnNarrowViewport = () => {
 WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
-  <PageHeader>
+  <PageHeader sx={{padding: 3}}>
     <PageHeader.ContextArea>
       <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
     </PageHeader.ContextArea>
@@ -173,7 +173,7 @@ export const PullRequestPageOnNarrowViewport = () => {
 PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const FilesPage = () => (
-  <PageHeader>
+  <PageHeader sx={{padding: 3}}>
     <PageHeader.ContextArea>
       <PageHeader.ParentLink>Files</PageHeader.ParentLink>
       <PageHeader.ContextAreaActions>
