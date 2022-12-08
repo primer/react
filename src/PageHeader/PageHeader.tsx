@@ -103,7 +103,6 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
             {
               display: isHidden ? 'none' : 'flex',
               alignItems: 'center',
-              lineHeight: '2.75rem', // min touch target size 44px (16*2.75)
               gap: '0.5rem',
             },
             sx,
@@ -257,6 +256,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
             medium: '1.25rem',
             subtitle: '1.25rem',
           }[titleVariant],
+          // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
           lineHeight: {
             large: 1.5, // calc(48/32)
             medium: 1.6, // calc(32/20)
