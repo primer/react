@@ -134,13 +134,4 @@ TitleWithTrailingActionOnNarrowViewports.parameters = {
   },
 }
 
-// TODO: Complete the below stories
-
-export const WithContextBar = TitleWithTrailingAction.bind({})
-export const WithParentLink = TitleWithTrailingAction.bind({})
-export const TitleWithLeadingVisual = TitleWithTrailingAction.bind({})
-export const TitleWithLeadingAction = TitleWithTrailingAction.bind({})
-export const ButtonActionOnNarrowViewports = TitleWithTrailingAction.bind({}) // New
-export const ButtonActionOnRegularViewports = TitleWithTrailingAction.bind({}) // New Webhook
-
 export default meta
