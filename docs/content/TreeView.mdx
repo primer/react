@@ -301,6 +301,11 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
     description="The expanded state of the item when it is initially rendered. Use when you do not need to control the state."
   />
   <PropsTableRow
+    name="containIntrinsicSize"
+    type="string"
+    description="The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport."
+  />
+  <PropsTableRow
     name="expanded"
     type="boolean"
     description="The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
