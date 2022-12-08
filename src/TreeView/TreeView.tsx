@@ -86,7 +86,8 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item {
     outline: none;
 
-    &:focus-visible > div {
+    &:focus-visible > div,
+    &.focus-visible > div {
       box-shadow: inset 0 0 0 2px ${get(`colors.accent.fg`)};
       @media (forced-colors: active) {
         outline: 2px solid HighlightText;
@@ -293,6 +294,7 @@ Root.displayName = 'TreeView'
 export type TreeViewItemProps = {
   id: string
   children: React.ReactNode
+  containIntrinsicSize?: string
   current?: boolean
   defaultExpanded?: boolean
   expanded?: boolean
@@ -304,7 +306,16 @@ const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
   (
-    {id: itemId, current: isCurrentItem = false, defaultExpanded, expanded, onExpandedChange, onSelect, children},
+    {
+      id: itemId,
+      containIntrinsicSize,
+      current: isCurrentItem = false,
+      defaultExpanded,
+      expanded,
+      onExpandedChange,
+      onSelect,
+      children,
+    },
     ref,
   ) => {
     const {expandedStateCache} = React.useContext(RootContext)
@@ -408,6 +419,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             style={{
               // @ts-ignore CSS custom property
               '--level': level,
+              contentVisibility: containIntrinsicSize ? 'auto' : undefined,
+              containIntrinsicSize,
             }}
             onClick={event => {
               if (onSelect) {
