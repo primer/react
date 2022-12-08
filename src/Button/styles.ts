@@ -216,7 +216,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     },
   },
   '[data-component=ButtonCounter]': {
-    fontSize: '2',
+    fontSize: '1',
   },
   '&[data-component=IconButton]': {
     display: 'grid',
