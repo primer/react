@@ -1,4 +1,5 @@
 import {render, screen, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import 'jest-styled-components'
 import React from 'react'
 import {Text, ThemeProvider, useColorSchemeVar, useTheme} from '..'
@@ -195,6 +196,8 @@ it('works in auto mode (dark)', () => {
 })
 
 it('updates when colorMode prop changes', async () => {
+  const user = userEvent.setup()
+
   function App() {
     const [colorMode, setColorMode] = React.useState<'day' | 'night'>('day')
     return (
@@ -210,7 +213,7 @@ it('updates when colorMode prop changes', async () => {
   // starts in day mode (light scheme)
   expect(screen.getByText('day')).toHaveStyleRule('color', 'black')
 
-  screen.getByRole('button').click()
+  await user.click(screen.getByRole('button'))
 
   await waitFor(() =>
     // clicking the toggle button enables night mode (dark scheme)
@@ -219,6 +222,8 @@ it('updates when colorMode prop changes', async () => {
 })
 
 it('updates when dayScheme prop changes', async () => {
+  const user = userEvent.setup()
+
   function App() {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
@@ -234,7 +239,7 @@ it('updates when dayScheme prop changes', async () => {
   // starts in day mode (light scheme)
   expect(screen.getByText('light')).toHaveStyleRule('color', 'black')
 
-  screen.getByRole('button').click()
+  await user.click(screen.getByRole('button'))
 
   await waitFor(() =>
     // clicking the toggle sets the day scheme to dark_dimmed
@@ -243,6 +248,8 @@ it('updates when dayScheme prop changes', async () => {
 })
 
 it('updates when nightScheme prop changes', async () => {
+  const user = userEvent.setup()
+
   function App() {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
@@ -258,7 +265,7 @@ it('updates when nightScheme prop changes', async () => {
   // starts in night mode (dark scheme)
   expect(screen.getByText('dark')).toHaveStyleRule('color', 'white')
 
-  screen.getByRole('button').click()
+  await user.click(screen.getByRole('button'))
 
   await waitFor(() =>
     // clicking the toggle button sets the night scheme to dark_dimmed
@@ -267,6 +274,8 @@ it('updates when nightScheme prop changes', async () => {
 })
 
 it('inherits colorMode from parent', async () => {
+  const user = userEvent.setup()
+
   function App() {
     const [colorMode, setcolorMode] = React.useState<'day' | 'night'>('day')
     return (
@@ -283,12 +292,14 @@ it('inherits colorMode from parent', async () => {
 
   expect(screen.getByText('day')).toHaveStyleRule('color', 'black')
 
-  screen.getByRole('button').click()
+  await user.click(screen.getByRole('button'))
 
   await waitFor(() => expect(screen.getByText('night')).toHaveStyleRule('color', 'white'))
 })
 
 it('inherits dayScheme from parent', async () => {
+  const user = userEvent.setup()
+
   function App() {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
@@ -305,12 +316,14 @@ it('inherits dayScheme from parent', async () => {
 
   expect(screen.getByText('light')).toHaveStyleRule('color', 'black')
 
-  screen.getByRole('button').click()
+  await user.click(screen.getByRole('button'))
 
   await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray'))
 })
 
 it('inherits nightScheme from parent', async () => {
+  const user = userEvent.setup()
+
   function App() {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
@@ -327,13 +340,15 @@ it('inherits nightScheme from parent', async () => {
 
   expect(screen.getByText('dark')).toHaveStyleRule('color', 'white')
 
-  screen.getByRole('button').click()
+  await user.click(screen.getByRole('button'))
 
   await waitFor(() => expect(screen.getByText('dark_dimmed')).toHaveStyleRule('color', 'gray'))
 })
 
 describe('setColorMode', () => {
-  it('changes the color mode', () => {
+  it('changes the color mode', async () => {
+    const user = userEvent.setup()
+
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
       return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
@@ -349,7 +364,7 @@ describe('setColorMode', () => {
     // starts in day mode (light scheme)
     expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
 
-    screen.getByRole('button').click()
+    await user.click(screen.getByRole('button'))
 
     // clicking the toggle button enables night mode (dark scheme)
     expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
@@ -357,7 +372,9 @@ describe('setColorMode', () => {
 })
 
 describe('setDayScheme', () => {
-  it('changes the day scheme', () => {
+  it('changes the day scheme', async () => {
+    const user = userEvent.setup()
+
     function ToggleDayScheme() {
       const {dayScheme, setDayScheme} = useTheme()
       return <button onClick={() => setDayScheme(dayScheme === 'light' ? 'dark' : 'light')}>Toggle</button>
@@ -373,7 +390,7 @@ describe('setDayScheme', () => {
     // starts in day mode (light scheme)
     expect(screen.getByText('Hello')).toHaveStyleRule('color', 'black')
 
-    screen.getByRole('button').click()
+    await user.click(screen.getByRole('button'))
 
     // clicking the toggle button sets day scheme to dark
     expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
@@ -381,7 +398,9 @@ describe('setDayScheme', () => {
 })
 
 describe('setNightScheme', () => {
-  it('changes the night scheme', () => {
+  it('changes the night scheme', async () => {
+    const user = userEvent.setup()
+
     function ToggleNightScheme() {
       const {nightScheme, setNightScheme} = useTheme()
       return <button onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>Toggle</button>
@@ -397,7 +416,7 @@ describe('setNightScheme', () => {
     // starts in night mode (dark scheme)
     expect(screen.getByText('Hello')).toHaveStyleRule('color', 'white')
 
-    screen.getByRole('button').click()
+    await user.click(screen.getByRole('button'))
 
     // clicking the toggle button sets night scheme to dark_dimmed
     expect(screen.getByText('Hello')).toHaveStyleRule('color', 'gray')
@@ -405,7 +424,9 @@ describe('setNightScheme', () => {
 })
 
 describe('useColorSchemeVar', () => {
-  it('updates value when scheme changes', () => {
+  it('updates value when scheme changes', async () => {
+    const user = userEvent.setup()
+
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
       return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
@@ -433,12 +454,14 @@ describe('useColorSchemeVar', () => {
 
     expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'red')
 
-    screen.getByRole('button').click()
+    await user.click(screen.getByRole('button'))
 
     expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'green')
   })
 
-  it('supports fallback value', () => {
+  it('supports fallback value', async () => {
+    const user = userEvent.setup()
+
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
       return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
@@ -459,7 +482,7 @@ describe('useColorSchemeVar', () => {
 
     expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'red')
 
-    screen.getByRole('button').click()
+    await user.click(screen.getByRole('button'))
 
     expect(screen.getByText('Hello')).toHaveStyleRule('background-color', 'blue')
   })
