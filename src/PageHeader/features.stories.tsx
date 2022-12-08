@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {IconButton, ActionMenu, ActionList} from '..'
-import {PencilIcon, KebabHorizontalIcon, ArchiveIcon, TrashIcon} from '@primer/octicons-react'
+import {PencilIcon, KebabHorizontalIcon, ArchiveIcon, TrashIcon, Box} from '@primer/octicons-react'
 
 import {PageHeader} from './PageHeader'
 
@@ -60,54 +60,56 @@ const PrimerViewports = {
 }
 
 export const TitleWithTrailingAction = () => (
-  <PageHeader sx={{padding: 3}}>
-    <PageHeader.ContextArea>
-      <PageHeader.ParentLink href="http://github.com">Projects</PageHeader.ParentLink>
-    </PageHeader.ContextArea>
-    <PageHeader.TitleArea>
-      <PageHeader.Title>Primer Backlog</PageHeader.Title>
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.ContextArea>
+        <PageHeader.ParentLink href="http://github.com">Projects</PageHeader.ParentLink>
+      </PageHeader.ContextArea>
+      <PageHeader.TitleArea>
+        <PageHeader.Title>Primer Backlog</PageHeader.Title>
 
-      <PageHeader.TrailingAction>
-        <IconButton icon={PencilIcon} variant="invisible" label="Rename Title" />
-      </PageHeader.TrailingAction>
-      <PageHeader.Actions
-        hidden={{
-          narrow: true,
-          regular: false,
-          wide: false,
-        }}
-      >
-        <ActionMenu>
-          <ActionMenu.Anchor>
-            <IconButton aria-label="More Action" icon={KebabHorizontalIcon} />
-          </ActionMenu.Anchor>
+        <PageHeader.TrailingAction>
+          <IconButton icon={PencilIcon} variant="invisible" label="Rename Title" />
+        </PageHeader.TrailingAction>
+        <PageHeader.Actions
+          hidden={{
+            narrow: true,
+            regular: false,
+            wide: false,
+          }}
+        >
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton aria-label="More Action" icon={KebabHorizontalIcon} />
+            </ActionMenu.Anchor>
 
-          <ActionMenu.Overlay>
-            <ActionList>
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <PencilIcon />
-                </ActionList.LeadingVisual>
-                Rename Title
-              </ActionList.Item>
-              <ActionList.Item>
-                <ActionList.LeadingVisual>
-                  <ArchiveIcon />
-                </ActionList.LeadingVisual>
-                Archive all cards
-              </ActionList.Item>
-              <ActionList.Item variant="danger">
-                <ActionList.LeadingVisual>
-                  <TrashIcon />
-                </ActionList.LeadingVisual>
-                Delete
-              </ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      </PageHeader.Actions>
-    </PageHeader.TitleArea>
-  </PageHeader>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <PencilIcon />
+                  </ActionList.LeadingVisual>
+                  Rename Title
+                </ActionList.Item>
+                <ActionList.Item>
+                  <ActionList.LeadingVisual>
+                    <ArchiveIcon />
+                  </ActionList.LeadingVisual>
+                  Archive all cards
+                </ActionList.Item>
+                <ActionList.Item variant="danger">
+                  <ActionList.LeadingVisual>
+                    <TrashIcon />
+                  </ActionList.LeadingVisual>
+                  Delete
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </PageHeader.Actions>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
 )
 
 TitleWithTrailingAction.parameters = {

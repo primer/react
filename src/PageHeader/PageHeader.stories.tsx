@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName} from '..'
+import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box} from '..'
 import {UnderlineNav} from '../UnderlineNav2'
 import Label from '../Label'
 import {
@@ -184,99 +184,99 @@ const meta: Meta = {
 }
 
 const Template: Story = args => (
-  <PageHeader sx={{padding: 3}}>
-    <PageHeader.ContextArea hidden={!args.hasContextArea}>
-      <PageHeader.ParentLink href="http://github.com" hidden={!args.hasParentLink}>
-        {args.ParentLink}
-      </PageHeader.ParentLink>
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.ContextArea hidden={!args.hasContextArea}>
+        <PageHeader.ParentLink href="http://github.com" hidden={!args.hasParentLink}>
+          {args.ParentLink}
+        </PageHeader.ParentLink>
 
-      <PageHeader.ContextBar hidden={!args.hasContextBar}>
-        <Breadcrumbs>
-          <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-          <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
-        </Breadcrumbs>
-      </PageHeader.ContextBar>
+        <PageHeader.ContextBar hidden={!args.hasContextBar}>
+          <Breadcrumbs>
+            <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+          </Breadcrumbs>
+        </PageHeader.ContextBar>
 
-      <PageHeader.ContextAreaActions hidden={!args.hasContextAreaAction}>
-        <Button size="small" leadingIcon={GitBranchIcon}>
-          Main
-        </Button>
-        <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
-      </PageHeader.ContextAreaActions>
-    </PageHeader.ContextArea>
-    <PageHeader.TitleArea>
-      <PageHeader.LeadingAction hidden={!args.hasLeadingAction}>
-        <IconButton icon={SidebarExpandIcon} variant="invisible" />{' '}
-      </PageHeader.LeadingAction>
-      <PageHeader.LeadingVisual hidden={!args.hasLeadingVisual}>{<args.LeadingVisual />}</PageHeader.LeadingVisual>
-      <PageHeader.Title
-        as={args['Title.as']}
+        <PageHeader.ContextAreaActions hidden={!args.hasContextAreaAction}>
+          <Button size="small" leadingIcon={GitBranchIcon}>
+            Main
+          </Button>
+          <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
+        </PageHeader.ContextAreaActions>
+      </PageHeader.ContextArea>
+      <PageHeader.TitleArea
         variant={{
           narrow: args['Title.variant'],
           regular: args['Title.variant'],
           wide: args['Title.variant'],
         }}
-        hidden={!args.hasTitle}
       >
-        {args.Title}
-      </PageHeader.Title>
-      <PageHeader.TrailingVisual hidden={!args.hasTrailingVisual}>
-        <Label>Beta</Label>
-      </PageHeader.TrailingVisual>
-      <PageHeader.TrailingAction hidden={!args.hasTrailingAction}>
-        <IconButton icon={PencilIcon} variant="invisible" />
-      </PageHeader.TrailingAction>
-      <PageHeader.Actions hidden={!args.hasActions}>
-        <Hidden on={['narrow']}>
-          <Button variant="primary">New Branch</Button>
-        </Hidden>
+        <PageHeader.LeadingAction hidden={!args.hasLeadingAction}>
+          <IconButton icon={SidebarExpandIcon} variant="invisible" />{' '}
+        </PageHeader.LeadingAction>
+        <PageHeader.LeadingVisual hidden={!args.hasLeadingVisual}>{<args.LeadingVisual />}</PageHeader.LeadingVisual>
+        <PageHeader.Title as={args['Title.as']} hidden={!args.hasTitle}>
+          {args.Title}
+        </PageHeader.Title>
+        <PageHeader.TrailingVisual hidden={!args.hasTrailingVisual}>
+          <Label>Beta</Label>
+        </PageHeader.TrailingVisual>
+        <PageHeader.TrailingAction hidden={!args.hasTrailingAction}>
+          <IconButton icon={PencilIcon} variant="invisible" />
+        </PageHeader.TrailingAction>
+        <PageHeader.Actions hidden={!args.hasActions}>
+          <Hidden on={['narrow']}>
+            <Button variant="primary">New Branch</Button>
+          </Hidden>
 
-        <Hidden on={['regular', 'wide', 'narrow']}>
-          <Button variant="primary">New</Button>
+          <Hidden on={['regular', 'wide', 'narrow']}>
+            <Button variant="primary">New</Button>
+          </Hidden>
+          <IconButton aria-label="More" icon={KebabHorizontalIcon} />
+        </PageHeader.Actions>
+      </PageHeader.TitleArea>
+      <PageHeader.Description hidden={!args.hasDescription}>
+        <StateLabel status="pullOpened">Open</StateLabel>
+        <Hidden on={['narrow']}>
+          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+            <Link href="#" muted sx={{fontWeight: 'bold'}}>
+              broccolinisoup
+            </Link>{' '}
+            wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
+            <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
+          </Text>
         </Hidden>
-        <IconButton aria-label="More" icon={KebabHorizontalIcon} />
-      </PageHeader.Actions>
-    </PageHeader.TitleArea>
-    <PageHeader.Description hidden={!args.hasDescription}>
-      <StateLabel status="pullOpened">Open</StateLabel>
-      <Hidden on={['narrow']}>
-        <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-          <Link href="#" muted sx={{fontWeight: 'bold'}}>
-            broccolinisoup
-          </Link>{' '}
-          wants to merge 3 commits into <BranchName href="#">main</BranchName> from{' '}
-          <BranchName href="#">broccolinisoup/switch-to-new-underlineNav</BranchName>
-        </Text>
-      </Hidden>
-      <Hidden on={['regular', 'wide']}>
-        <Text sx={{fontSize: 1, color: 'fg.muted'}}>
-          <BranchName href="#">main</BranchName>
-          <ArrowRightIcon />
-          <BranchName href="#">page-header-initial</BranchName>
-        </Text>
-      </Hidden>
-    </PageHeader.Description>
-    <PageHeader.Navigation hidden={!args.hasNavigation}>
-      <UnderlineNav aria-label="Pull Request">
-        <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
-          Conversation
-        </UnderlineNav.Item>
-        <UnderlineNav.Item counter={3} icon={CommitIcon}>
-          Commits
-        </UnderlineNav.Item>
-        <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
-          Checks
-        </UnderlineNav.Item>
-        <UnderlineNav.Item counter={4} icon={FileDiffIcon}>
-          Files Changes
-        </UnderlineNav.Item>
-      </UnderlineNav>
-    </PageHeader.Navigation>
-  </PageHeader>
+        <Hidden on={['regular', 'wide']}>
+          <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+            <BranchName href="#">main</BranchName>
+            <ArrowRightIcon />
+            <BranchName href="#">page-header-initial</BranchName>
+          </Text>
+        </Hidden>
+      </PageHeader.Description>
+      <PageHeader.Navigation hidden={!args.hasNavigation}>
+        <UnderlineNav aria-label="Pull Request">
+          <UnderlineNav.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
+            Conversation
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={3} icon={CommitIcon}>
+            Commits
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={7} icon={ChecklistIcon}>
+            Checks
+          </UnderlineNav.Item>
+          <UnderlineNav.Item counter={4} icon={FileDiffIcon}>
+            Files Changes
+          </UnderlineNav.Item>
+        </UnderlineNav>
+      </PageHeader.Navigation>
+    </PageHeader>
+  </Box>
 )
 
 export const Playground = Template.bind({})
