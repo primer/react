@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {IconButton, ActionMenu, ActionList} from '..'
-import {PencilIcon, KebabHorizontalIcon, ArchiveIcon, TrashIcon, Box} from '@primer/octicons-react'
+import {IconButton, ActionMenu, ActionList, Box} from '..'
+import {PencilIcon, KebabHorizontalIcon, ArchiveIcon, TrashIcon} from '@primer/octicons-react'
 
 import {PageHeader} from './PageHeader'
 
