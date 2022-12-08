@@ -5,6 +5,8 @@ import {merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
+import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+declare let __DEV__: boolean
 
 const defaultSxProp = {}
 const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
@@ -19,6 +21,10 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       block = false,
       ...rest
     } = props
+
+    const innerRef = React.useRef<HTMLElement>(null)
+    useRefObjectAsForwardedRef(forwardedRef, innerRef)
+
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
       return merge.all([getButtonStyles(theme), getVariantStyles(variant, theme)])
@@ -31,12 +37,21 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       pointerEvents: 'none',
     }
 
+    React.useEffect(() => {
+      if (!(innerRef.current instanceof HTMLButtonElement) && !(innerRef.current instanceof HTMLAnchorElement)) {
+        if (__DEV__) {
+          // eslint-disable-next-line no-console
+          console.warn('This component should be an instanceof a semantic button or anchor')
+        }
+      }
+    }, [innerRef])
+
     return (
       <StyledButton
         as={Component}
         sx={sxStyles}
         {...rest}
-        ref={forwardedRef}
+        ref={innerRef}
         data-component={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
       >
