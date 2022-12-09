@@ -3,7 +3,7 @@ import Overlay, {OverlayProps} from '../Overlay'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
-import {useSSRSafeId} from '@react-aria/ssr'
+import {useId} from '../hooks/useId'
 import type {PositionSettings} from '@primer/behaviors'
 
 interface AnchoredOverlayPropsWithAnchor {
@@ -104,7 +104,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
-  const anchorId = useSSRSafeId(externalAnchorId)
+  const anchorId = useId(externalAnchorId)
 
   const onClickOutside = useCallback(() => onClose?.('click-outside'), [onClose])
   const onEscape = useCallback(() => onClose?.('escape'), [onClose])

@@ -12,7 +12,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-import {useSSRSafeId} from '@react-aria/ssr'
+import {useId} from '../hooks/useId'
 
 const ANIMATION_DURATION = '200ms'
 
@@ -263,8 +263,8 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     height = 'auto',
     footerButtons = [],
   } = props
-  const dialogLabelId = useSSRSafeId()
-  const dialogDescriptionId = useSSRSafeId()
+  const dialogLabelId = useId()
+  const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
