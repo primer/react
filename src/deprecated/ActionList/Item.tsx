@@ -13,7 +13,7 @@ import {
   activeDescendantActivatedIndirectly,
   isActiveDescendantAttribute,
 } from '@primer/behaviors'
-import {useSSRSafeId} from '@react-aria/ssr'
+import {useId} from '../../hooks/useId'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import {AriaRole} from '../../utils/types'
 
@@ -352,8 +352,8 @@ export const Item = React.forwardRef((itemProps, ref) => {
     ...props
   } = itemProps
 
-  const labelId = useSSRSafeId()
-  const descriptionId = useSSRSafeId()
+  const labelId = useId()
+  const descriptionId = useId()
 
   const keyPressHandler = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {

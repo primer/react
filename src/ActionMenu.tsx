@@ -1,5 +1,4 @@
 import React from 'react'
-import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
@@ -7,6 +6,7 @@ import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigat
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
+import {useId} from './hooks/useId'
 import {MandateProps} from './utils/types'
 import {merge, BetterSystemStyleObject} from './sx'
 
@@ -46,7 +46,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
-  const anchorId = useSSRSafeId()
+  const anchorId = useId()
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
 
   // 🚨 Hack for good API!
