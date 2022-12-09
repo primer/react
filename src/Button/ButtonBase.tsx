@@ -31,14 +31,21 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       return merge(baseStyles, sxProp as SxProp)
     }, [baseStyles, sxProp])
 
-    React.useEffect(() => {
-      if (!(innerRef.current instanceof HTMLButtonElement) && !(innerRef.current instanceof HTMLAnchorElement)) {
-        if (__DEV__) {
+    if (__DEV__) {
+      /**
+       * The Linter yells because it thinks this conditionally calls an effect,
+       * but since this is a compile-time flag and not a runtime conditional
+       * this is safe, and ensures the entire effect is kept out of prod builds
+       * shaving precious bytes from the output, and avoiding mounting a noop effect
+       */
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      React.useEffect(() => {
+        if (!(innerRef.current instanceof HTMLButtonElement) && !(innerRef.current instanceof HTMLAnchorElement)) {
           // eslint-disable-next-line no-console
           console.warn('This component should be an instanceof a semantic button or anchor')
         }
-      }
-    }, [innerRef])
+      }, [innerRef])
+    }
 
     return (
       <StyledButton as={Component} sx={sxStyles} {...rest} ref={innerRef}>
