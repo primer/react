@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-namespace
 import * as React from 'react'
+// eslint-disable-next-line no-restricted-imports
 import {useSSRSafeId} from '@react-aria/ssr'
 
 /**
