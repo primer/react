@@ -13,10 +13,6 @@ exports[`PageHeader renders consistently 1`] = `
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -62,6 +58,27 @@ exports[`PageHeader renders consistently 1`] = `
 
 .c4 {
   display: block;
+}
+
+@media screen and (max-width:768px) {
+  .c1 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (min-width:1440px) {
+  .c1 {
+    display: none;
+  }
 }
 
 <div
@@ -95,10 +112,6 @@ exports[`PageHeader renders default layout 1`] = `
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -144,6 +157,27 @@ exports[`PageHeader renders default layout 1`] = `
 
 .c4 {
   display: block;
+}
+
+@media screen and (max-width:768px) {
+  .c1 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (min-width:1440px) {
+  .c1 {
+    display: none;
+  }
 }
 
 <div>
