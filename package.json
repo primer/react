@@ -153,7 +153,6 @@
     "@types/node": "16.11.11",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
-    "@whitespace/storybook-addon-html": "5.0.0",
     "axe-core": "4.5.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^8.2.2",
