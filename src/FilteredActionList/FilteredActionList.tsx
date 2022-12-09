@@ -1,5 +1,4 @@
 import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react'
-import {useSSRSafeId} from '@react-aria/ssr'
 import {GroupedListProps, ListPropsBase} from '../deprecated/ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
@@ -14,6 +13,7 @@ import useScrollFlash from '../hooks/useScrollFlash'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {SxProp} from '../sx'
+import {useId} from '../hooks/useId'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -59,7 +59,7 @@ export function FilteredActionList({
   const listContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
-  const listId = useSSRSafeId()
+  const listId = useId()
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
