@@ -14,8 +14,8 @@ import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
-import {useSSRSafeId} from '@react-aria/ssr'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -148,7 +148,7 @@ export const UnderlineNav = forwardRef(
     const moreMenuRef = useRef<HTMLLIElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
     const containerRef = React.useRef<HTMLUListElement>(null)
-    const disclosureWidgetId = useSSRSafeId()
+    const disclosureWidgetId = useId()
 
     const {theme} = useTheme()
 

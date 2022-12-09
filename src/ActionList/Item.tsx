@@ -1,10 +1,10 @@
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'
 import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
+import {useId} from '../hooks/useId'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {ActionListGroupProps, GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
@@ -168,9 +168,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     // use props.id if provided, otherwise generate one.
-    const labelId = useSSRSafeId(id)
-    const inlineDescriptionId = useSSRSafeId(id && `${id}--inline-description`)
-    const blockDescriptionId = useSSRSafeId(id && `${id}--block-description`)
+    const labelId = useId(id)
+    const inlineDescriptionId = useId(id && `${id}--inline-description`)
+    const blockDescriptionId = useId(id && `${id}--block-description`)
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 
