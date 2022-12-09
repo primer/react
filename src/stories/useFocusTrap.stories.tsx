@@ -1,4 +1,4 @@
-import React, {Key, useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {Meta} from '@storybook/react'
 import styled, {createGlobalStyle} from 'styled-components'
 
