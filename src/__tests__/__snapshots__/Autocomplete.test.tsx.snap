@@ -694,7 +694,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           className="c2"
         >
           <div
-            aria-labelledby="react-aria-1"
+            aria-labelledby=":r1s:"
             aria-selected={false}
             className="c3 c4"
             data-id={0}
@@ -742,7 +742,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-1"
+                  id=":r1s:"
                 >
                   zero
                 </span>
@@ -750,7 +750,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-3"
+            aria-labelledby=":r1u:"
             aria-selected={false}
             className="c3 c4"
             data-id={1}
@@ -798,7 +798,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-3"
+                  id=":r1u:"
                 >
                   one
                 </span>
@@ -806,7 +806,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-5"
+            aria-labelledby=":r20:"
             aria-selected={false}
             className="c3 c4"
             data-id={2}
@@ -854,7 +854,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-5"
+                  id=":r20:"
                 >
                   two
                 </span>
@@ -862,7 +862,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-7"
+            aria-labelledby=":r22:"
             aria-selected={false}
             className="c3 c4"
             data-id={3}
@@ -910,7 +910,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-7"
+                  id=":r22:"
                 >
                   three
                 </span>
@@ -918,7 +918,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-9"
+            aria-labelledby=":r24:"
             aria-selected={false}
             className="c3 c4"
             data-id={4}
@@ -966,7 +966,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-9"
+                  id=":r24:"
                 >
                   four
                 </span>
@@ -974,7 +974,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-11"
+            aria-labelledby=":r26:"
             aria-selected={false}
             className="c3 c4"
             data-id={5}
@@ -1022,7 +1022,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-11"
+                  id=":r26:"
                 >
                   five
                 </span>
@@ -1030,7 +1030,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-13"
+            aria-labelledby=":r28:"
             aria-selected={false}
             className="c3 c4"
             data-id={6}
@@ -1078,7 +1078,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-13"
+                  id=":r28:"
                 >
                   six
                 </span>
@@ -1086,7 +1086,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-15"
+            aria-labelledby=":r2a:"
             aria-selected={false}
             className="c3 c4"
             data-id={7}
@@ -1134,7 +1134,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-15"
+                  id=":r2a:"
                 >
                   seven
                 </span>
@@ -1142,7 +1142,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-17"
+            aria-labelledby=":r2c:"
             aria-selected={false}
             className="c3 c4"
             data-id={20}
@@ -1190,7 +1190,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-17"
+                  id=":r2c:"
                 >
                   twenty
                 </span>
@@ -1198,7 +1198,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-19"
+            aria-labelledby=":r2e:"
             aria-selected={false}
             className="c3 c4"
             data-id={21}
@@ -1246,7 +1246,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-19"
+                  id=":r2e:"
                 >
                   twentyone
                 </span>
@@ -1254,7 +1254,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-21"
+            aria-labelledby=":r2g:"
             className="c3 c4"
             onClick={[Function]}
             onKeyPress={[Function]}
@@ -1300,7 +1300,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               >
                 <span
                   className=""
-                  id="react-aria-21"
+                  id=":r2g:"
                 >
                   Add new item
                 </span>
@@ -1616,7 +1616,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           className="c2"
         >
           <div
-            aria-labelledby="react-aria-1"
+            aria-labelledby=":rk:"
             aria-selected={false}
             className="c3 c4"
             data-id={0}
@@ -1664,7 +1664,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-1"
+                  id=":rk:"
                 >
                   zero
                 </span>
@@ -1672,7 +1672,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-3"
+            aria-labelledby=":rm:"
             aria-selected={false}
             className="c3 c4"
             data-id={1}
@@ -1720,7 +1720,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-3"
+                  id=":rm:"
                 >
                   one
                 </span>
@@ -1728,7 +1728,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-5"
+            aria-labelledby=":ro:"
             aria-selected={false}
             className="c3 c4"
             data-id={2}
@@ -1776,7 +1776,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-5"
+                  id=":ro:"
                 >
                   two
                 </span>
@@ -1784,7 +1784,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-7"
+            aria-labelledby=":rq:"
             aria-selected={false}
             className="c3 c4"
             data-id={3}
@@ -1832,7 +1832,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-7"
+                  id=":rq:"
                 >
                   three
                 </span>
@@ -1840,7 +1840,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-9"
+            aria-labelledby=":rs:"
             aria-selected={false}
             className="c3 c4"
             data-id={4}
@@ -1888,7 +1888,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-9"
+                  id=":rs:"
                 >
                   four
                 </span>
@@ -1896,7 +1896,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-11"
+            aria-labelledby=":ru:"
             aria-selected={false}
             className="c3 c4"
             data-id={5}
@@ -1944,7 +1944,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-11"
+                  id=":ru:"
                 >
                   five
                 </span>
@@ -1952,7 +1952,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-13"
+            aria-labelledby=":r10:"
             aria-selected={false}
             className="c3 c4"
             data-id={6}
@@ -2000,7 +2000,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-13"
+                  id=":r10:"
                 >
                   six
                 </span>
@@ -2008,7 +2008,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-15"
+            aria-labelledby=":r12:"
             aria-selected={false}
             className="c3 c4"
             data-id={7}
@@ -2056,7 +2056,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-15"
+                  id=":r12:"
                 >
                   seven
                 </span>
@@ -2064,7 +2064,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-17"
+            aria-labelledby=":r14:"
             aria-selected={false}
             className="c3 c4"
             data-id={20}
@@ -2112,7 +2112,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-17"
+                  id=":r14:"
                 >
                   twenty
                 </span>
@@ -2120,7 +2120,7 @@ exports[`snapshots renders a multiselect input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-19"
+            aria-labelledby=":r16:"
             aria-selected={false}
             className="c3 c4"
             data-id={21}
@@ -2168,7 +2168,7 @@ exports[`snapshots renders a multiselect input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-19"
+                  id=":r16:"
                 >
                   twentyone
                 </span>
@@ -2495,7 +2495,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           className="c2"
         >
           <div
-            aria-labelledby="react-aria-1"
+            aria-labelledby=":r18:"
             aria-selected={true}
             className="c3 c4"
             data-id={0}
@@ -2543,7 +2543,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-1"
+                  id=":r18:"
                 >
                   zero
                 </span>
@@ -2551,7 +2551,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-3"
+            aria-labelledby=":r1a:"
             aria-selected={true}
             className="c3 c4"
             data-id={1}
@@ -2599,7 +2599,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-3"
+                  id=":r1a:"
                 >
                   one
                 </span>
@@ -2607,7 +2607,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-5"
+            aria-labelledby=":r1c:"
             aria-selected={true}
             className="c3 c4"
             data-id={2}
@@ -2655,7 +2655,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-5"
+                  id=":r1c:"
                 >
                   two
                 </span>
@@ -2663,7 +2663,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-7"
+            aria-labelledby=":r1e:"
             aria-selected={false}
             className="c3 c4"
             data-id={3}
@@ -2711,7 +2711,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-7"
+                  id=":r1e:"
                 >
                   three
                 </span>
@@ -2719,7 +2719,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-9"
+            aria-labelledby=":r1g:"
             aria-selected={false}
             className="c3 c4"
             data-id={4}
@@ -2767,7 +2767,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-9"
+                  id=":r1g:"
                 >
                   four
                 </span>
@@ -2775,7 +2775,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-11"
+            aria-labelledby=":r1i:"
             aria-selected={false}
             className="c3 c4"
             data-id={5}
@@ -2823,7 +2823,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-11"
+                  id=":r1i:"
                 >
                   five
                 </span>
@@ -2831,7 +2831,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-13"
+            aria-labelledby=":r1k:"
             aria-selected={false}
             className="c3 c4"
             data-id={6}
@@ -2879,7 +2879,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-13"
+                  id=":r1k:"
                 >
                   six
                 </span>
@@ -2887,7 +2887,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-15"
+            aria-labelledby=":r1m:"
             aria-selected={false}
             className="c3 c4"
             data-id={7}
@@ -2935,7 +2935,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-15"
+                  id=":r1m:"
                 >
                   seven
                 </span>
@@ -2943,7 +2943,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-17"
+            aria-labelledby=":r1o:"
             aria-selected={false}
             className="c3 c4"
             data-id={20}
@@ -2991,7 +2991,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-17"
+                  id=":r1o:"
                 >
                   twenty
                 </span>
@@ -2999,7 +2999,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-19"
+            aria-labelledby=":r1q:"
             aria-selected={false}
             className="c3 c4"
             data-id={21}
@@ -3047,7 +3047,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-19"
+                  id=":r1q:"
                 >
                   twentyone
                 </span>
@@ -3331,7 +3331,7 @@ exports[`snapshots renders a single select input 1`] = `
           className="c2"
         >
           <div
-            aria-labelledby="react-aria-1"
+            aria-labelledby=":r0:"
             className="c3 c4"
             data-id={0}
             onClick={[Function]}
@@ -3352,7 +3352,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-1"
+                  id=":r0:"
                 >
                   zero
                 </span>
@@ -3360,7 +3360,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-3"
+            aria-labelledby=":r2:"
             className="c3 c4"
             data-id={1}
             onClick={[Function]}
@@ -3381,7 +3381,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-3"
+                  id=":r2:"
                 >
                   one
                 </span>
@@ -3389,7 +3389,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-5"
+            aria-labelledby=":r4:"
             className="c3 c4"
             data-id={2}
             onClick={[Function]}
@@ -3410,7 +3410,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-5"
+                  id=":r4:"
                 >
                   two
                 </span>
@@ -3418,7 +3418,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-7"
+            aria-labelledby=":r6:"
             className="c3 c4"
             data-id={3}
             onClick={[Function]}
@@ -3439,7 +3439,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-7"
+                  id=":r6:"
                 >
                   three
                 </span>
@@ -3447,7 +3447,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-9"
+            aria-labelledby=":r8:"
             className="c3 c4"
             data-id={4}
             onClick={[Function]}
@@ -3468,7 +3468,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-9"
+                  id=":r8:"
                 >
                   four
                 </span>
@@ -3476,7 +3476,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-11"
+            aria-labelledby=":ra:"
             className="c3 c4"
             data-id={5}
             onClick={[Function]}
@@ -3497,7 +3497,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-11"
+                  id=":ra:"
                 >
                   five
                 </span>
@@ -3505,7 +3505,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-13"
+            aria-labelledby=":rc:"
             className="c3 c4"
             data-id={6}
             onClick={[Function]}
@@ -3526,7 +3526,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-13"
+                  id=":rc:"
                 >
                   six
                 </span>
@@ -3534,7 +3534,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-15"
+            aria-labelledby=":re:"
             className="c3 c4"
             data-id={7}
             onClick={[Function]}
@@ -3555,7 +3555,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-15"
+                  id=":re:"
                 >
                   seven
                 </span>
@@ -3563,7 +3563,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-17"
+            aria-labelledby=":rg:"
             className="c3 c4"
             data-id={20}
             onClick={[Function]}
@@ -3584,7 +3584,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-17"
+                  id=":rg:"
                 >
                   twenty
                 </span>
@@ -3592,7 +3592,7 @@ exports[`snapshots renders a single select input 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-19"
+            aria-labelledby=":ri:"
             className="c3 c4"
             data-id={21}
             onClick={[Function]}
@@ -3613,7 +3613,7 @@ exports[`snapshots renders a single select input 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-19"
+                  id=":ri:"
                 >
                   twentyone
                 </span>
@@ -3774,7 +3774,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           className="c2"
         >
           <div
-            aria-labelledby="react-aria-1"
+            aria-labelledby=":r2i:"
             className="c3 c4"
             data-id={0}
             onClick={[Function]}
@@ -3795,7 +3795,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-1"
+                  id=":r2i:"
                 >
                   zero
                 </span>
@@ -3803,7 +3803,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-3"
+            aria-labelledby=":r2k:"
             className="c3 c4"
             data-id={1}
             onClick={[Function]}
@@ -3824,7 +3824,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-3"
+                  id=":r2k:"
                 >
                   one
                 </span>
@@ -3832,7 +3832,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-5"
+            aria-labelledby=":r2m:"
             className="c3 c4"
             data-id={2}
             onClick={[Function]}
@@ -3853,7 +3853,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-5"
+                  id=":r2m:"
                 >
                   two
                 </span>
@@ -3861,7 +3861,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-7"
+            aria-labelledby=":r2o:"
             className="c3 c4"
             data-id={3}
             onClick={[Function]}
@@ -3882,7 +3882,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-7"
+                  id=":r2o:"
                 >
                   three
                 </span>
@@ -3890,7 +3890,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-9"
+            aria-labelledby=":r2q:"
             className="c3 c4"
             data-id={4}
             onClick={[Function]}
@@ -3911,7 +3911,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-9"
+                  id=":r2q:"
                 >
                   four
                 </span>
@@ -3919,7 +3919,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-11"
+            aria-labelledby=":r2s:"
             className="c3 c4"
             data-id={5}
             onClick={[Function]}
@@ -3940,7 +3940,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-11"
+                  id=":r2s:"
                 >
                   five
                 </span>
@@ -3948,7 +3948,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-13"
+            aria-labelledby=":r2u:"
             className="c3 c4"
             data-id={6}
             onClick={[Function]}
@@ -3969,7 +3969,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-13"
+                  id=":r2u:"
                 >
                   six
                 </span>
@@ -3977,7 +3977,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-15"
+            aria-labelledby=":r30:"
             className="c3 c4"
             data-id={7}
             onClick={[Function]}
@@ -3998,7 +3998,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-15"
+                  id=":r30:"
                 >
                   seven
                 </span>
@@ -4006,7 +4006,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-17"
+            aria-labelledby=":r32:"
             className="c3 c4"
             data-id={20}
             onClick={[Function]}
@@ -4027,7 +4027,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-17"
+                  id=":r32:"
                 >
                   twenty
                 </span>
@@ -4035,7 +4035,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
             </div>
           </div>
           <div
-            aria-labelledby="react-aria-19"
+            aria-labelledby=":r34:"
             className="c3 c4"
             data-id={21}
             onClick={[Function]}
@@ -4056,7 +4056,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
               >
                 <span
                   className=""
-                  id="react-aria-19"
+                  id=":r34:"
                 >
                   twentyone
                 </span>
