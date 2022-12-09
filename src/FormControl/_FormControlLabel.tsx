@@ -16,7 +16,7 @@ const FormControlLabel: React.FC<React.PropsWithChildren<{htmlFor?: string; id?:
   htmlFor,
   id,
   visuallyHidden,
-  sx
+  sx,
 }) => (
   <Slot name="Label">
     {({disabled, id: formControlId, required}: FormControlContext) => (

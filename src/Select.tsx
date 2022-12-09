@@ -71,9 +71,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         position: 'relative',
         '@media screen and (forced-colors: active)': {
           svg: {
-            fill: disabled ? 'GrayText' : 'FieldText'
-          }
-        }
+            fill: disabled ? 'GrayText' : 'FieldText',
+          },
+        },
       }}
       block={block}
       contrast={contrast}
@@ -99,7 +99,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       </StyledSelect>
       <ArrowIndicator />
     </TextInputWrapper>
-  )
+  ),
 )
 
 const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
@@ -112,5 +112,5 @@ const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupEle
 
 export default Object.assign(Select, {
   Option,
-  OptGroup
+  OptGroup,
 })

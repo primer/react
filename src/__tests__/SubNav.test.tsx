@@ -8,7 +8,7 @@ describe('SubNav', () => {
   behavesAsComponent({Component: SubNav})
 
   checkExports('SubNav', {
-    default: SubNav
+    default: SubNav,
   })
 
   it('should have no axe violations', async () => {
@@ -33,7 +33,7 @@ describe('SubNav', () => {
     const {getByTestId} = HTMLRender(
       <SubNav>
         <b data-testid="children">test</b>
-      </SubNav>
+      </SubNav>,
     )
 
     const parent = getByTestId('children').parentElement

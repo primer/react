@@ -17,5 +17,5 @@ export const ActionList = Object.assign(List, {
   Item,
 
   /** Visually separates `Item`s or `Group`s in an `ActionList`. */
-  Divider
+  Divider,
 })

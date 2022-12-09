@@ -25,7 +25,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     flexGrow: 1,
     flexBasis: 0,
     minWidth: 0,
-    marginLeft: variant === 'block' ? 0 : 2
+    marginLeft: variant === 'block' ? 0 : 2,
   }
 
   return (

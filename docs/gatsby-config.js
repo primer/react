@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: 'Primer React',
     shortName: 'React',
-    description: 'React components for the Primer design system'
+    description: 'React components for the Primer design system',
   },
   plugins: [
     'gatsby-plugin-typescript',
@@ -12,8 +12,8 @@ module.exports = {
       resolve: '@primer/gatsby-theme-doctocat',
       options: {
         repoRootPath: '..',
-        defaultBranch: 'main'
-      }
+        defaultBranch: 'main',
+      },
     },
     {
       resolve: `gatsby-plugin-alias-imports`,
@@ -22,10 +22,10 @@ module.exports = {
           '@primer/components': path.resolve(__dirname, '../src'),
           '@primer/react': path.resolve(__dirname, '../src'),
           'styled-components': path.resolve(__dirname, '..', 'node_modules', 'styled-components'),
-          react: path.resolve(__dirname, 'node_modules', 'react')
-        }
-      }
-    }
+          react: path.resolve(__dirname, 'node_modules', 'react'),
+        },
+      },
+    },
   ],
-  pathPrefix: '/react'
+  pathPrefix: '/react',
 }

@@ -7,7 +7,7 @@ const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 const allowlist = ['TreeView']
 const stories = glob
   .sync('src/**/*.stories.tsx', {
-    cwd: ROOT_DIRECTORY
+    cwd: ROOT_DIRECTORY,
   })
   .filter(file => allowlist.some(component => file.includes(component)))
   .map(file => {
@@ -21,7 +21,7 @@ const stories = glob
 const components = Object.entries(
   groupBy(stories, ([name]) => {
     return name
-  })
+  }),
 )
 
 describe.each(components)('%s', (_component, stories) => {

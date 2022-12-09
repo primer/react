@@ -29,7 +29,7 @@ describe('TabNav', () => {
   behavesAsComponent({Component: TabNav})
 
   checkExports('TabNav', {
-    default: TabNav
+    default: TabNav,
   })
 
   describe('TabNav.Link', () => {

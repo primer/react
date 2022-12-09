@@ -75,7 +75,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       block,
       ...rest
     }: TextareaProps,
-    ref
+    ref,
   ): ReactElement => {
     return (
       <TextInputBaseWrapper sx={sxProp} validationStatus={validationStatus} disabled={disabled} block={block}>
@@ -93,7 +93,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         />
       </TextInputBaseWrapper>
     )
-  }
+  },
 )
 
 Textarea.displayName = 'Textarea'

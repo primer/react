@@ -6,25 +6,25 @@ import fs from 'node:fs'
 const defaultOptions = {
   rules: {
     'document-title': {
-      enabled: false
+      enabled: false,
     },
     'html-has-lang': {
-      enabled: false
+      enabled: false,
     },
     'landmark-one-main': {
-      enabled: false
+      enabled: false,
     },
     'page-has-heading-one': {
-      enabled: false
+      enabled: false,
     },
     region: {
-      enabled: false
+      enabled: false,
     },
     // Custom rules
     'avoid-both-disabled-and-aria-disabled': {
-      enabled: true
-    }
-  }
+      enabled: true,
+    },
+  },
 }
 
 expect.extend({
@@ -34,8 +34,8 @@ expect.extend({
       ...options,
       rules: {
         ...defaultOptions.rules,
-        ...options.rules
-      }
+        ...options.rules,
+      },
     }
 
     await page.evaluate(source)
@@ -54,10 +54,10 @@ expect.extend({
             any: [],
             metadata: {
               help: '[aria-disabled] may be used in place of native HTML [disabled] to allow tab-focus on an otherwise ignored element. Setting both attributes is contradictory.',
-              helpUrl: 'https://www.w3.org/TR/html-aria/#docconformance-attr'
+              helpUrl: 'https://www.w3.org/TR/html-aria/#docconformance-attr',
             },
-            tags: ['custom-github-rule']
-          }
+            tags: ['custom-github-rule'],
+          },
         ],
         checks: [
           {
@@ -67,10 +67,10 @@ expect.extend({
              */
             evaluate: (el: Element) => !(el.hasAttribute('aria-disabled') && el.hasAttribute('disabled')),
             metadata: {
-              impact: 'critical'
-            }
-          }
-        ]
+              impact: 'critical',
+            },
+          },
+        ],
       })
 
       // @ts-ignore `axe` is a global variable defined by page.evaluate() above
@@ -81,7 +81,7 @@ expect.extend({
 
     if (result.violations.length === 0) {
       return {
-        pass: true
+        pass: true,
       }
     }
 
@@ -106,10 +106,10 @@ expect.extend({
         })
 
         return `${result.violations.length} axe violations
-    ${violations.join('\n\n')}`
-      }
+${violations.join('\n\n')}`
+      },
     }
-  }
+  },
 })
 
 function saveResult(result: AxeResults) {
@@ -118,7 +118,7 @@ function saveResult(result: AxeResults) {
 
   if (!fs.existsSync(resultsDir)) {
     fs.mkdirSync(resultsDir, {
-      recursive: true
+      recursive: true,
     })
   }
 
@@ -127,10 +127,10 @@ function saveResult(result: AxeResults) {
       resultsDir,
       path.format({
         name: testInfo.titlePath.slice(1).join('-').replace(/ /g, '-'),
-        ext: '.json'
-      })
+        ext: '.json',
+      }),
     ),
     JSON.stringify(result, null, 2),
-    'utf8'
+    'utf8',
   )
 }

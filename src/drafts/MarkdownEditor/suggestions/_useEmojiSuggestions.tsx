@@ -12,7 +12,7 @@ export type Emoji = {
 
 const trigger: Trigger = {
   triggerChar: ':',
-  keepTriggerCharOnCommit: false
+  keepTriggerCharOnCommit: false,
 }
 
 const emojiToSugggestion = (emoji: Emoji): Suggestion => ({
@@ -23,7 +23,7 @@ const emojiToSugggestion = (emoji: Emoji): Suggestion => ({
       <ActionList.LeadingVisual>{emoji.character}</ActionList.LeadingVisual>
       {emoji.name}
     </ActionList.Item>
-  )
+  ),
 })
 
 // for emojis we don't use a fuzzy search because they are short and easy to accurately search through
@@ -42,5 +42,5 @@ const scoreSuggestion = (query: string, emoji: Emoji): number => {
 
 export const useEmojiSuggestions: UseSuggestionsHook<Emoji> = emojis => ({
   calculateSuggestions: suggestionsCalculator(emojis, scoreSuggestion, emojiToSugggestion),
-  trigger
+  trigger,
 })

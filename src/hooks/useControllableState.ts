@@ -37,7 +37,7 @@ export function useControllableState<T>({
   name = 'custom',
   defaultValue,
   value,
-  onChange
+  onChange,
 }: ControllableStateOptions<T>): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [state, internalSetState] = React.useState(value ?? defaultValue)
   const controlled = React.useRef<boolean | null>(null)
@@ -65,7 +65,7 @@ export function useControllableState<T>({
 
       stableOnChange.current?.(value)
     },
-    [state]
+    [state],
   )
 
   React.useEffect(() => {
@@ -80,7 +80,7 @@ export function useControllableState<T>({
           'from undefined. Decide between using a controlled or uncontrolled ' +
           'value for the lifetime of the component. ' +
           'More info: https://reactjs.org/link/controlled-components',
-        name
+        name,
       )
     }
 
@@ -93,7 +93,7 @@ export function useControllableState<T>({
           'from a defined one. Decide between using a controlled or ' +
           'uncontrolled value for the lifetime of the component. ' +
           'More info: https://reactjs.org/link/controlled-components',
-        name
+        name,
       )
     }
   }, [name, value])
