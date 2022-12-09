@@ -1133,7 +1133,7 @@ describe('MarkdownEditor', () => {
       expect(queryByRole('listbox')).toBeInTheDocument()
     })
 
-    xit('opens the saved reply menu on Ctrl + .', async () => {
+    it('opens the saved reply menu on Ctrl + .', async () => {
       const {getInput, queryByRole, user} = await render(<UncontrolledEditor savedReplies={replies} />)
 
       await user.type(getInput(), 'test{Control>}.{/Control}')
@@ -1153,7 +1153,7 @@ describe('MarkdownEditor', () => {
       expect(within(getByRole('listbox')).getAllByRole('option')).toHaveLength(1)
     })
 
-    xit('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
+    it('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
       const {getToolbarButton, getInput, user, queryByRole} = await render(
         <UncontrolledEditor savedReplies={replies} />,
       )
