@@ -17,7 +17,12 @@ const IconButton = forwardRef((props, forwardedRef): JSX.Element => {
     sxProp as SxProp,
   ])
   return (
-    <StyledButton sx={sxStyles} {...rest} ref={forwardedRef}>
+    <StyledButton
+      sx={sxStyles}
+      {...rest}
+      // @ts-expect-error StyledButton wants both Anchor and Button refs, not one or the other
+      ref={forwardedRef}
+    >
       <Box as="span" sx={{display: 'inline-block'}}>
         <Icon />
       </Box>

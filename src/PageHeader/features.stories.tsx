@@ -69,7 +69,7 @@ export const TitleWithTrailingAction = () => (
         <PageHeader.Title>Primer Backlog</PageHeader.Title>
 
         <PageHeader.TrailingAction>
-          <IconButton icon={PencilIcon} variant="invisible" label="Rename Title" />
+          <IconButton icon={PencilIcon} variant="invisible" aria-label="Rename Title" />
         </PageHeader.TrailingAction>
         <PageHeader.Actions
           hidden={{

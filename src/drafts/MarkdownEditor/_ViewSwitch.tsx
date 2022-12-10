@@ -45,7 +45,7 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
   return (
     <Box sx={{display: 'flex', flexDirection: 'row'}}>
       {condensed ? (
-        <IconButton {...sharedProps} disabled={disabled} icon={icon} label={label} />
+        <IconButton {...sharedProps} disabled={disabled} icon={icon} aria-label={label} />
       ) : (
         <Button {...sharedProps} leadingIcon={icon} disabled={disabled}>
           {label}

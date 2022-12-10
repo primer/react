@@ -21,7 +21,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-  sx?: SxProp
+  sx?: SxProp['sx']
   // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
   align?: 'right'

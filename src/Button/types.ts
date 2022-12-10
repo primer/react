@@ -37,11 +37,11 @@ export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | null | undefined
   /**
    * The trailing icon comes after button content
    */
-  trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | null | undefined
   children: React.ReactNode
 } & ButtonBaseProps
 

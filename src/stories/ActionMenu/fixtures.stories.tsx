@@ -427,6 +427,7 @@ export function MemexViewOptionsMenu(): JSX.Element {
         <ActionMenu open={open} onOpenChange={setOpen}>
           <ActionMenu.Anchor aria-label="Open View options menu">
             <IconButton
+              aria-label="Open View options menu"
               icon={TriangleDownIcon}
               sx={{
                 padding: '0 1px',
