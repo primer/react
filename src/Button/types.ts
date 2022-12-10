@@ -31,7 +31,7 @@ export type ButtonBaseProps = {
    */
   disabled?: boolean
 } & SxProp &
-  React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
   /**
