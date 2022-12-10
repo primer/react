@@ -5,6 +5,7 @@ import sx, {merge, SxProp} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import Tooltip from '../Tooltip'
 import Box from '../Box'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
@@ -31,7 +32,7 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   'aria-label': ariaLabel,
   icon: Icon,
   selected,
-  sx: sxProp = {},
+  sx: sxProp = defaultSxProp,
   ...rest
 }) => {
   const mergedSx = merge(

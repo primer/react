@@ -10,6 +10,7 @@ import {ActionListGroupProps, GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, Slots, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -21,7 +22,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       selected = undefined,
       active = false,
       onSelect,
-      sx: sxProp = {},
+      sx: sxProp = defaultSxProp,
       id,
       role,
       _PrivateItemWrapper,

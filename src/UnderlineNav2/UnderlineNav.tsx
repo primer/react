@@ -16,6 +16,7 @@ import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {ActionList} from '../ActionList'
 import {useSSRSafeId} from '@react-aria/ssr'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
@@ -134,7 +135,7 @@ export const UnderlineNav = forwardRef(
       as = 'nav',
       align,
       'aria-label': ariaLabel,
-      sx: sxProp = {},
+      sx: sxProp = defaultSxProp,
       afterSelect,
       variant = 'default',
       loadingCounters = false,

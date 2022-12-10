@@ -8,6 +8,7 @@ import CounterLabel from '../CounterLabel'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -53,7 +54,7 @@ export type UnderlineNavItemProps = {
 export const UnderlineNavItem = forwardRef(
   (
     {
-      sx: sxProp = {},
+      sx: sxProp = defaultSxProp,
       as: Component = 'a',
       href = '#',
       children,
