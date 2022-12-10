@@ -1,4 +1,4 @@
-import React, {ComponentPropsWithRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {IconProps} from '@primer/octicons-react'
 import sx, {SxProp} from '../sx'
@@ -13,14 +13,9 @@ export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outl
 
 export type Size = 'small' | 'medium' | 'large'
 
-/**
- * Remove styled-components polymorphic as prop, which conflicts with radix's
- */
-type StyledButtonProps = Omit<ComponentPropsWithRef<typeof StyledButton>, 'as'>
-
 type ButtonA11yProps =
-  | {'aria-label': string; 'aria-labelledby'?: never}
-  | {'aria-label'?: never; 'aria-labelledby': string}
+  | {'aria-label': string; 'aria-labelledby'?: undefined}
+  | {'aria-label'?: undefined; 'aria-labelledby': string}
 
 export type ButtonBaseProps = {
   /**
@@ -36,8 +31,7 @@ export type ButtonBaseProps = {
    */
   disabled?: boolean
 } & SxProp &
-  React.ButtonHTMLAttributes<HTMLButtonElement> &
-  StyledButtonProps
+  React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 export type ButtonProps = {
   /**
@@ -53,7 +47,7 @@ export type ButtonProps = {
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.FunctionComponent<React.PropsWithChildren<IconProps>>
-} & ButtonBaseProps
+} & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkButtonProps = {

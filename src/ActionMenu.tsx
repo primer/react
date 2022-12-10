@@ -9,6 +9,7 @@ import {ActionListContainerContext} from './ActionList/ActionListContainerContex
 import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
 import {merge, BetterSystemStyleObject} from './sx'
+import {defaultSxProp} from './utils/defaultSxProp'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -76,8 +77,8 @@ const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnc
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
-  ({sx: sxProp = {}, ...props}, anchorRef) => {
+const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuButtonProps>(
+  ({sx: sxProp = defaultSxProp, ...props}, anchorRef) => {
     return (
       <Anchor ref={anchorRef}>
         <Button

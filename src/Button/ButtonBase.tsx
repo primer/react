@@ -1,14 +1,14 @@
 import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
-import {merge, SxProp} from '../sx'
+import {BetterSystemStyleObject, merge} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
+import {defaultSxProp} from '../utils/defaultSxProp'
 declare let __DEV__: boolean
 
-const defaultSxProp = {}
 const iconWrapStyles = {
   display: 'inline-block',
 }
@@ -17,18 +17,18 @@ const trailingIconStyles = {
   ml: 2,
 }
 
-const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
+const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, variant = 'default', size = 'medium', ...rest} = props
-    const innerRef = React.useRef<HTMLElement>(null)
+    const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
       return merge.all([getButtonStyles(theme), getSizeStyles(size, variant, false), getVariantStyles(variant, theme)])
     }, [theme, size, variant])
-    const sxStyles = useMemo(() => {
-      return merge(baseStyles, sxProp as SxProp)
+    const sxStyles: BetterSystemStyleObject = useMemo(() => {
+      return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])
 
     if (__DEV__) {
@@ -40,7 +40,10 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
        */
       // eslint-disable-next-line react-hooks/rules-of-hooks
       React.useEffect(() => {
-        if (!(innerRef.current instanceof HTMLButtonElement) && !(innerRef.current instanceof HTMLAnchorElement)) {
+        if (
+          !(innerRef.current instanceof HTMLButtonElement) &&
+          !((innerRef.current as unknown) instanceof HTMLAnchorElement)
+        ) {
           // eslint-disable-next-line no-console
           console.warn('This component should be an instanceof a semantic button or anchor')
         }
