@@ -234,10 +234,10 @@ const components = new Map([
       stories: [
         {
           id: 'components-forms-radiogroup-examples--default',
-          name: 'Default'
-        }
-      ]
-    }
+          name: 'Default',
+        },
+      ],
+    },
   ],
   [
     'UnderlineNav',

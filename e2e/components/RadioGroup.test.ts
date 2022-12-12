@@ -10,8 +10,8 @@ test.describe('RadioGroup', () => {
           await visit(page, {
             id: 'components-forms-radiogroup-examples--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
 
           // Default state
@@ -22,11 +22,11 @@ test.describe('RadioGroup', () => {
           await visit(page, {
             id: 'components-forms-radiogroup-examples--default',
             globals: {
-              colorScheme: theme
+              colorScheme: theme,
             },
             args: {
-              disabled: true
-            }
+              disabled: true,
+            },
           })
 
           expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.Default.disabled.${theme}.png`)
@@ -34,9 +34,9 @@ test.describe('RadioGroup', () => {
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
 
@@ -44,19 +44,19 @@ test.describe('RadioGroup', () => {
           await visit(page, {
             id: 'components-forms-radiogroup-examples--default',
             globals: {
-              colorScheme: theme
+              colorScheme: theme,
             },
             args: {
-              disabled: true
-            }
+              disabled: true,
+            },
           })
 
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
 
@@ -64,15 +64,15 @@ test.describe('RadioGroup', () => {
           await visit(page, {
             id: 'components-forms-radiogroup-examples--default',
             globals: {
-              colorScheme: theme
-            }
+              colorScheme: theme,
+            },
           })
           await expect(page).toHaveNoViolations({
             rules: {
               'color-contrast': {
-                enabled: theme !== 'dark_dimmed'
-              }
-            }
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
           })
         })
       })
