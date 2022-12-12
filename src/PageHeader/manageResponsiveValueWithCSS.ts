@@ -1,8 +1,30 @@
 import {isResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject} from '../sx'
 
-export function displayResponsively<T, F, A, B, C>(
-  // what is your value that you want to render responsivley? - responsiveValue
+/**
+ * This function is inspired by the `useResponsiveValue` hook and it's used to render responsive values with CSS.
+ * @param value - The value that we want to render responsively
+ * @param fallback - The fallback value
+ * @param cssProperty - The CSS property that we want to render
+ * @param truety - The value that we want to render when the value is true
+ * @param falsy - The value that we want to render when the value is false
+ 
+ * @example
+ * CSSManagedResponsiveValue({narrow: true, regular: true, wide: false}, false, 'display', 'none', 'flex')
+ * @returns
+ * {
+ *   "@media screen and (max-width: 768px)": {
+ *     "display": "none"
+ *   },
+ *   "@media screen and (min-width: 768px)": {
+ *     "display": "none"
+ *   },
+ *   "@media screen and (min-width: 1440px)": {
+ *     "display": "flex"
+ *   }
+ * }
+ */
+export function CSSManagedResponsiveValue<T, F, B, C>(
   value: T,
   fallback: F,
   cssProperty: string,
@@ -13,12 +35,6 @@ export function displayResponsively<T, F, A, B, C>(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responsiveValue = value as Extract<T, ResponsiveValue<any>>
     const checkFallback = fallback ? truety : falsy
-
-    // arguments
-    // what is the value that we want to render responsively? - responsiveValue
-    // what is your css property? - display
-    // truety value - none
-    // falsy value - flex
 
     return {
       [`@media screen and (max-width: 768px)`]: {
