@@ -4,8 +4,6 @@ import {render} from '@testing-library/react'
 import {PageHeader} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations, renderStyles} from '../utils/testing'
-import {act} from 'react-test-renderer'
-import {viewportRanges} from '../hooks/useResponsiveValue'
 import {IconButton} from '../Button'
 import {ChevronLeftIcon, GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
 
