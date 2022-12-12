@@ -14,6 +14,13 @@ import {useSSRSafeId} from '@react-aria/ssr'
 const useReactId: undefined | (() => string) = (React as any)['useId' + '']
 
 export function useId(id?: string) {
+  // Force useSSRSafeId in test environments to maintain snapshot parity between
+  // major versions of React
+  if (process.env.NODE_ENV === 'test') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useSSRSafeId(id)
+  }
+
   if (useReactId !== undefined) {
     if (id) {
       return id
@@ -21,6 +28,7 @@ export function useId(id?: string) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     return useReactId()
   }
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useSSRSafeId(id)
 }
