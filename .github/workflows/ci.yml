@@ -58,6 +58,8 @@ jobs:
 
       - name: Test
         run: npm run test -- --coverage
+        with:
+          REACT_VERSION_17: ${{ matrix.react == 17 }}
 
   type-check:
     strategy:

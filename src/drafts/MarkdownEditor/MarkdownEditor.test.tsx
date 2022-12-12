@@ -7,6 +7,8 @@ import {act} from 'react-dom/test-utils'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
+declare const REACT_VERSION_LATEST: boolean
+
 type UncontrolledEditorProps = Omit<MarkdownEditorProps, 'value' | 'onChange' | 'onRenderPreview' | 'children'> &
   Partial<Pick<MarkdownEditorProps, 'onChange' | 'onRenderPreview' | 'children'>> & {
     hideLabel?: boolean
@@ -1140,15 +1142,18 @@ describe('MarkdownEditor', () => {
 
       await user.type(getInput(), 'test{Control>}.{/Control}')
 
-      // Note: this spy is currently catching a:
-      // "Warning: An update to %s inside a test was not wrapped in act(...)."
-      // log statement. It seems like this is triggered within the `type`
+      // Note: this spy is currently catching a: "Warning: An update to %s inside a test was not wrapped in act(...)."
+      // error in React 18. It seems like this is triggered within the `type`
       // interaction, specifically through `useOpenAndCloseFocus` when the
       // TextInput is being opened
       //
       // At the moment, it doesn't seem clear how to appropriately wrap this
       // interaction in an act() in order to cover this warning
-      expect(spy).toHaveBeenCalled()
+      if (REACT_VERSION_LATEST) {
+        expect(spy).toHaveBeenCalled()
+      } else {
+        expect(spy).not.toHaveBeenCalled()
+      }
       expect(queryByRole('listbox')).toBeInTheDocument()
 
       spy.mockClear()
