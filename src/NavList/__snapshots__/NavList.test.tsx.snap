@@ -305,7 +305,7 @@ exports[`NavList renders a simple list 1`] = `
       class="c0"
     >
       <li
-        aria-labelledby=":r0: "
+        aria-labelledby="react-aria-1 "
         class="c1 c2"
       >
         <a
@@ -319,7 +319,7 @@ exports[`NavList renders a simple list 1`] = `
           >
             <span
               class="c5"
-              id=":r0:"
+              id="react-aria-1"
             >
               Home
             </span>
@@ -327,7 +327,7 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        aria-labelledby=":r3: "
+        aria-labelledby="react-aria-4 "
         class="c1 c6"
       >
         <a
@@ -340,7 +340,7 @@ exports[`NavList renders a simple list 1`] = `
           >
             <span
               class="c5"
-              id=":r3:"
+              id="react-aria-4"
             >
               About
             </span>
@@ -348,7 +348,7 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        aria-labelledby=":r6: "
+        aria-labelledby="react-aria-7 "
         class="c1 c6"
       >
         <a
@@ -361,7 +361,7 @@ exports[`NavList renders a simple list 1`] = `
           >
             <span
               class="c5"
-              id=":r6:"
+              id="react-aria-7"
             >
               Contact
             </span>
@@ -725,17 +725,17 @@ exports[`NavList renders with groups 1`] = `
           role="presentation"
         >
           <span
-            id=":r9:"
+            id="react-aria-1"
           >
             Overview
           </span>
         </div>
         <ul
-          aria-labelledby=":r9:"
+          aria-labelledby="react-aria-1"
           class="c4"
         >
           <li
-            aria-labelledby=":ra: "
+            aria-labelledby="react-aria-2 "
             class="c5 c6"
           >
             <a
@@ -749,7 +749,7 @@ exports[`NavList renders with groups 1`] = `
               >
                 <span
                   class="c9"
-                  id=":ra:"
+                  id="react-aria-2"
                 >
                   Getting started
                 </span>
@@ -772,17 +772,17 @@ exports[`NavList renders with groups 1`] = `
           role="presentation"
         >
           <span
-            id=":rd:"
+            id="react-aria-5"
           >
             Components
           </span>
         </div>
         <ul
-          aria-labelledby=":rd:"
+          aria-labelledby="react-aria-5"
           class="c4"
         >
           <li
-            aria-labelledby=":re: "
+            aria-labelledby="react-aria-6 "
             class="c5 c10"
           >
             <a
@@ -795,7 +795,7 @@ exports[`NavList renders with groups 1`] = `
               >
                 <span
                   class="c9"
-                  id=":re:"
+                  id="react-aria-6"
                 >
                   Avatar
                 </span>
@@ -1202,13 +1202,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <li
-        aria-labelledby=":r3b:"
+        aria-labelledby="react-aria-1"
         class="c1"
       >
         <button
-          aria-controls=":r3c:"
+          aria-controls="react-aria-2"
           aria-expanded="true"
-          aria-labelledby=":r3b: "
+          aria-labelledby="react-aria-1 "
           class="c2 c3"
           tabindex="0"
         >
@@ -1221,7 +1221,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <span
                 class="c6"
-                id=":r3b:"
+                id="react-aria-1"
               >
                 Item
               </span>
@@ -1250,12 +1250,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         </button>
         <div>
           <ul
-            aria-labelledby=":r3b:"
+            aria-labelledby="react-aria-1"
             class="c9"
-            id=":r3c:"
+            id="react-aria-2"
           >
             <li
-              aria-labelledby=":r3d: "
+              aria-labelledby="react-aria-3 "
               class="c2 c10"
             >
               <a
@@ -1269,7 +1269,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                 >
                   <span
                     class="c6"
-                    id=":r3d:"
+                    id="react-aria-3"
                   >
                     Sub Item
                   </span>
@@ -1689,13 +1689,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <li
-        aria-labelledby=":r36:"
+        aria-labelledby="react-aria-1"
         class="c1"
       >
         <button
-          aria-controls=":r37:"
+          aria-controls="react-aria-2"
           aria-expanded="false"
-          aria-labelledby=":r36: "
+          aria-labelledby="react-aria-1 "
           class="c2 c3"
           tabindex="0"
         >
@@ -1708,7 +1708,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <span
                 class="c6"
-                id=":r36:"
+                id="react-aria-1"
               >
                 Item
               </span>
@@ -1737,12 +1737,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         </button>
         <div>
           <ul
-            aria-labelledby=":r36:"
+            aria-labelledby="react-aria-1"
             class="c9"
-            id=":r37:"
+            id="react-aria-2"
           >
             <li
-              aria-labelledby=":r38: "
+              aria-labelledby="react-aria-3 "
               class="c2 c10"
             >
               <a
@@ -1756,7 +1756,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 >
                   <span
                     class="c6"
-                    id=":r38:"
+                    id="react-aria-3"
                   >
                     Sub Item
                   </span>
