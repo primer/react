@@ -7,7 +7,6 @@ import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
-declare let __DEV__: boolean
 
 const iconWrapStyles = {
   display: 'inline-block',
