@@ -198,6 +198,28 @@ describe('Markup', () => {
     await user.click(getByText(/Item 2/))
     expect(treeitem).not.toHaveAttribute('aria-expanded')
   })
+
+  it('should render with containIntrinsicSize', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="parent" containIntrinsicSize="2rem" defaultExpanded>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.Item containIntrinsicSize="2rem" id="child">
+              Child
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    // The test runner removes the contain-intrinsic-size and content-visibility
+    // properties, so we can only test that the elements are still rendering.
+    const childItem = getByLabelText(/Child/)
+    expect(childItem).toBeInTheDocument()
+    const parentItem = getByLabelText(/Parent/)
+    expect(parentItem).toBeInTheDocument()
+  })
 })
 
 describe('Keyboard interactions', () => {
