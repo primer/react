@@ -296,7 +296,12 @@ export function MemexTableMenu(): JSX.Element {
 
         <ActionMenu open={open} onOpenChange={setOpen}>
           <ActionMenu.Anchor>
-            <IconButton icon={TriangleDownIcon} aria-label="Open Estimate column options menu" sx={{padding: 0}} />
+            <IconButton
+              size="small"
+              icon={TriangleDownIcon}
+              aria-label="Open Estimate column options menu"
+              sx={{padding: 0}}
+            />
           </ActionMenu.Anchor>
 
           <ActionMenu.Overlay onClickOutside={handleClickOutside}>
@@ -379,14 +384,9 @@ const ViewChangeButtons = ({setOpen}: {setOpen: (open: boolean) => void}) => (
         flex: 'auto',
         minWidth: '50%',
         borderRight: '1px solid',
-        borderColor: 'border.default',
         borderRadius: 0,
         mt: -2,
         mb: -2,
-        py: 3,
-        '&:hover': {
-          bg: 'canvas.inset',
-        },
       }}
     >
       Save changes
@@ -401,11 +401,6 @@ const ViewChangeButtons = ({setOpen}: {setOpen: (open: boolean) => void}) => (
         borderRadius: 0,
         mt: -2,
         mb: -2,
-        py: 3,
-        fontWeight: 'normal',
-        '&:hover': {
-          bg: 'canvas.inset',
-        },
       }}
     >
       Discard changes
@@ -426,7 +421,7 @@ export function MemexViewOptionsMenu(): JSX.Element {
         </Text>
         <ActionMenu open={open} onOpenChange={setOpen}>
           <ActionMenu.Anchor aria-label="Open View options menu">
-            <IconButton icon={TriangleDownIcon} />
+            <IconButton icon={TriangleDownIcon} size="small" />
           </ActionMenu.Anchor>
 
           <ActionMenu.Overlay width="medium">
