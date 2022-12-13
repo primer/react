@@ -25,6 +25,9 @@ const StyledButton = styled.button<SxProp>`
 
 const ButtonClose = forwardRef<
   HTMLButtonElement,
+  // Include {theme?: any} in the intersection as it mirrors the generated type
+  // from styled-components
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   React.ButtonHTMLAttributes<HTMLButtonElement> & {theme?: any} & SxProp
 >((props, ref) => {
   return (
