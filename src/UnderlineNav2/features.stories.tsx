@@ -82,6 +82,10 @@ export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedInd
           key={item.navigation}
           icon={item.icon}
           aria-current={index === selectedIndex ? 'page' : undefined}
+          // Set so that navigation in interaction tests does not cause the
+          // page to load the storybook iframe URL and instead keeps the test in
+          // the local preview
+          target="_self"
           onSelect={event => {
             event.preventDefault()
             setSelectedIndex(index)
