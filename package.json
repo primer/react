@@ -107,7 +107,6 @@
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.5.0",
     "@babel/cli": "7.19.3",
     "@babel/core": "7.14.8",
     "@babel/eslint-parser": "7.15.7",
