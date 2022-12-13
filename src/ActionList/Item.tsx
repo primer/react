@@ -176,44 +176,56 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <Slots context={{variant, disabled, inlineDescriptionId, blockDescriptionId}}>
-        {slots => (
-          <LiBox
-            ref={forwardedRef}
-            sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-            onClick={clickHandler}
-            onKeyPress={keyPressHandler}
-            aria-disabled={disabled ? true : undefined}
-            tabIndex={disabled || _PrivateItemWrapper ? undefined : 0}
-            aria-labelledby={`${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`}
-            aria-describedby={slots.BlockDescription ? blockDescriptionId : undefined}
-            role={role || itemRole}
-            {...(selectionAttribute && {[selectionAttribute]: selected})}
-            {...props}
-          >
-            <ItemWrapper>
-              <Selection selected={selected} />
-              {slots.LeadingVisual}
-              <Box
-                data-component="ActionList.Item--DividerContainer"
-                sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
-              >
-                <ConditionalBox if={Boolean(slots.TrailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
-                  <ConditionalBox
-                    if={Boolean(slots.InlineDescription)}
-                    sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
-                  >
-                    <Box as="span" id={labelId} sx={{flexGrow: slots.InlineDescription ? 0 : 1}}>
-                      {props.children}
-                    </Box>
-                    {slots.InlineDescription}
+        {slots => {
+          const menuItemProps = {
+            onClick: clickHandler,
+            onKeyPress: keyPressHandler,
+            'aria-disabled': disabled ? true : undefined,
+            tabIndex: disabled ? undefined : 0,
+            'aria-labelledby': `${labelId} ${slots.InlineDescription ? inlineDescriptionId : ''}`,
+            'aria-describedby': slots.BlockDescription ? blockDescriptionId : undefined,
+            ...(selectionAttribute && {[selectionAttribute]: selected}),
+            role: role || itemRole,
+          }
+          const containerProps = _PrivateItemWrapper
+            ? {
+                role: role || itemRole ? 'none' : undefined,
+              }
+            : menuItemProps
+          const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+
+          return (
+            <LiBox
+              ref={forwardedRef}
+              sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+              {...containerProps}
+              {...props}
+            >
+              <ItemWrapper {...wrapperProps}>
+                <Selection selected={selected} />
+                {slots.LeadingVisual}
+                <Box
+                  data-component="ActionList.Item--DividerContainer"
+                  sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+                >
+                  <ConditionalBox if={Boolean(slots.TrailingVisual)} sx={{display: 'flex', flexGrow: 1}}>
+                    <ConditionalBox
+                      if={Boolean(slots.InlineDescription)}
+                      sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
+                    >
+                      <Box as="span" id={labelId} sx={{flexGrow: slots.InlineDescription ? 0 : 1}}>
+                        {props.children}
+                      </Box>
+                      {slots.InlineDescription}
+                    </ConditionalBox>
+                    {slots.TrailingVisual}
                   </ConditionalBox>
-                  {slots.TrailingVisual}
-                </ConditionalBox>
-                {slots.BlockDescription}
-              </Box>
-            </ItemWrapper>
-          </LiBox>
-        )}
+                  {slots.BlockDescription}
+                </Box>
+              </ItemWrapper>
+            </LiBox>
+          )
+        }}
       </Slots>
     )
   },
