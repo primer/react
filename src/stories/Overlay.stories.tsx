@@ -5,6 +5,7 @@ import {
   Overlay,
   ButtonGroup,
   Button,
+  IconButton,
   Text,
   Box,
   Checkbox,
@@ -195,14 +196,12 @@ export const MemexNestedOverlays = () => {
     <div>
       <ButtonGroup>
         <Button>Add iteration</Button>
-        <Button
+        <IconButton
           aria-label="Add custom iteration"
           ref={buttonRef}
           onClick={() => setOverlayOpen(!overlayOpen)}
-          sx={{paddingX: 2}}
-        >
-          <TriangleDownIcon />
-        </Button>
+          icon={TriangleDownIcon}
+        />
       </ButtonGroup>
       {overlayOpen && (
         <Overlay
@@ -269,14 +268,12 @@ export const NestedOverlays = () => {
       </div>
       <ButtonGroup>
         <Button>Star</Button>
-        <Button
+        <IconButton
           aria-label="Add this repository to a list"
           ref={buttonRef}
           onClick={() => setListOverlayOpen(!listOverlayOpen)}
-          sx={{paddingX: 2}}
-        >
-          <TriangleDownIcon />
-        </Button>
+          icon={TriangleDownIcon}
+        />
       </ButtonGroup>
       {listOverlayOpen && (
         <Overlay

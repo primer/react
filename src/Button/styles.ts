@@ -219,7 +219,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     fontSize: '1',
   },
   '&[data-component=IconButton]': {
-    display: 'grid',
+    display: 'inline-grid',
     padding: 'unset',
     placeContent: 'center',
     width: '32px',

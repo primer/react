@@ -21,7 +21,7 @@ See also [Overlay positioning](/Overlay#positioning).
     return (
       <AnchoredOverlay
         renderAnchor={anchorProps => (
-          <Button {...anchorProps} trailingIcon={TriangleDownIcon}>
+          <Button {...anchorProps} trailingAction={TriangleDownIcon}>
             Click me to open
           </Button>
         )}
@@ -92,14 +92,14 @@ See also [Overlay positioning](/Overlay#positioning).
   />
   <PropsTableRow
     name="side"
-    type={`| 'inside-top' 
-| 'inside-bottom' 
-| 'inside-left' 
-| 'inside-right' 
-| 'inside-center' 
-| 'outside-top' 
-| 'outside-bottom' 
-| 'outside-left' 
+    type={`| 'inside-top'
+| 'inside-bottom'
+| 'inside-left'
+| 'inside-right'
+| 'inside-center'
+| 'outside-top'
+| 'outside-bottom'
+| 'outside-left'
 | 'outside-right'`}
     defaultValue="'outside-bottom'"
   />
@@ -162,6 +162,6 @@ See also [Overlay positioning](/Overlay#positioning).
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />

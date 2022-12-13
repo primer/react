@@ -70,7 +70,7 @@ export function MultiSelectStory(): JSX.Element {
       <div>Please select labels that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -101,7 +101,7 @@ export function SingleSelectStory(): JSX.Element {
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -130,7 +130,7 @@ export function ExternalAnchorStory(): JSX.Element {
   return (
     <>
       <h1>Select Panel With External Anchor</h1>
-      <Button trailingIcon={TriangleDownIcon} ref={buttonRef} onClick={() => setOpen(!open)}>
+      <Button trailingAction={TriangleDownIcon} ref={buttonRef} onClick={() => setOpen(!open)}>
         Custom: {selected?.text || 'Click Me'}
       </Button>
       <SelectPanel
@@ -163,7 +163,7 @@ export function SelectPanelHeightInitialWithOverflowingItemsStory(): JSX.Element
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -195,7 +195,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsStory(): JSX.Elemen
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -239,7 +239,7 @@ export function SelectPanelHeightInitialWithUnderflowingItemsAfterFetch(): JSX.E
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -272,7 +272,7 @@ export function SelectPanelAboveTallBody(): JSX.Element {
       <div>Please select a label that describe your issue:</div>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -314,7 +314,7 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
       <h2>With height:medium</h2>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}
@@ -331,7 +331,7 @@ export function SelectPanelHeightAndScroll(): JSX.Element {
       <h2>With height:auto, maxheight:medium</h2>
       <SelectPanel
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button trailingIcon={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
           </Button>
         )}

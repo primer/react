@@ -83,13 +83,7 @@ const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonPro
         <Button
           type="button"
           trailingAction={TriangleDownIcon}
-          sx={merge<BetterSystemStyleObject>(
-            {
-              // override the margin on caret for optical alignment
-              '[data-component=trailingIcon]': {marginX: -1},
-            },
-            sxProp,
-          )}
+          sx={merge<BetterSystemStyleObject>(sxProp)}
           {...props}
         />
       </Anchor>
