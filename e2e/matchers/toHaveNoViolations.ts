@@ -1,6 +1,5 @@
 import {Page, expect, test} from '@playwright/test'
-import AxeBuilder from '@axe-core/playwright'
-import {AxeResults} from 'axe-core'
+import {AxeResults, source} from 'axe-core'
 import path from 'node:path'
 import fs from 'node:fs'
 
@@ -21,23 +20,62 @@ const defaultOptions = {
     region: {
       enabled: false,
     },
+    // Custom rules
+    'avoid-both-disabled-and-aria-disabled': {
+      enabled: true,
+    },
   },
 }
 
 expect.extend({
   async toHaveNoViolations(page: Page, options = {rules: {}}) {
-    // @ts-ignore Page from @playwright/test should satisfy Page from
-    // playwright-core
-    const result = await new AxeBuilder({page})
-      .options({
-        ...defaultOptions,
-        ...options,
-        rules: {
-          ...defaultOptions.rules,
-          ...options.rules,
-        },
+    const runConfig = {
+      ...defaultOptions,
+      ...options,
+      rules: {
+        ...defaultOptions.rules,
+        ...options.rules,
+      },
+    }
+
+    await page.evaluate(source)
+
+    const result: AxeResults = await page.evaluate(runConfig => {
+      // @ts-ignore `axe` is a global variable defined by page.evaluate() above
+      const axe = window.axe
+
+      axe.configure({
+        rules: [
+          {
+            id: 'avoid-both-disabled-and-aria-disabled',
+            excludeHidden: true,
+            selector: 'button, fieldset, input, optgroup, option, select, textarea',
+            all: ['check-avoid-both-disabled-and-aria-disabled'],
+            any: [],
+            metadata: {
+              help: '[aria-disabled] may be used in place of native HTML [disabled] to allow tab-focus on an otherwise ignored element. Setting both attributes is contradictory.',
+              helpUrl: 'https://www.w3.org/TR/html-aria/#docconformance-attr',
+            },
+            tags: ['custom-github-rule'],
+          },
+        ],
+        checks: [
+          {
+            id: 'check-avoid-both-disabled-and-aria-disabled',
+            /**
+             * Check an element with native `disabled` support doesn't have both `disabled` and `aria-disabled` set.
+             */
+            evaluate: (el: Element) => !(el.hasAttribute('aria-disabled') && el.hasAttribute('disabled')),
+            metadata: {
+              impact: 'critical',
+            },
+          },
+        ],
       })
-      .analyze()
+
+      // @ts-ignore `axe` is a global variable defined by page.evaluate() above
+      return axe.run(runConfig)
+    }, runConfig)
 
     saveResult(result)
 
