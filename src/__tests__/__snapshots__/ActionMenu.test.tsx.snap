@@ -116,7 +116,7 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .c1[data-component=IconButton] {

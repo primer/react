@@ -426,13 +426,7 @@ export function MemexViewOptionsMenu(): JSX.Element {
         </Text>
         <ActionMenu open={open} onOpenChange={setOpen}>
           <ActionMenu.Anchor aria-label="Open View options menu">
-            <IconButton
-              icon={TriangleDownIcon}
-              sx={{
-                padding: '0 1px',
-                lineHeight: '18px',
-              }}
-            />
+            <IconButton icon={TriangleDownIcon} />
           </ActionMenu.Anchor>
 
           <ActionMenu.Overlay width="medium">
@@ -517,15 +511,7 @@ export function MemexIteration(): JSX.Element {
       <h1>Memex Iteration Menu</h1>
 
       <ActionMenu>
-        <ActionMenu.Button
-          variant="invisible"
-          sx={{
-            fontWeight: 'normal',
-            color: 'fg.muted',
-            ':hover, :focus': {background: 'none !important', color: 'accent.fg'},
-          }}
-          aria-label="Iteration duration"
-        >
+        <ActionMenu.Button variant="invisible" aria-label="Iteration duration">
           {duration} {duration > 1 ? 'weeks' : 'week'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -566,14 +552,7 @@ export function MemexAddColumn(): JSX.Element {
           <TextInput defaultValue="Estimate" aria-label="Field Name" sx={{mb: 2}} />
         </FormControl>
         <ActionMenu>
-          <ActionMenu.Button
-            aria-label="Field type"
-            leadingIcon={selectedType.icon}
-            sx={{
-              gridTemplateColumns: 'min-content 1fr min-content',
-              '[data-component="text"]': {textAlign: 'left'},
-            }}
-          >
+          <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
             {selectedType.name}
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
@@ -599,17 +578,7 @@ export function MemexAddColumn(): JSX.Element {
           <TextInput id="duration" type="number" defaultValue="2" sx={{width: '6ch'}} />
 
           <ActionMenu>
-            <ActionMenu.Button
-              id="duration"
-              aria-label="Field type"
-              sx={{
-                textAlign: 'left',
-                ml: 2,
-                flexGrow: 1,
-                gridTemplateColumns: 'min-content 1fr min-content',
-                '[data-component="text"]': {textAlign: 'left'},
-              }}
-            >
+            <ActionMenu.Button id="duration" aria-label="Field type" alignContent="start">
               {durationUnit}
             </ActionMenu.Button>
             <ActionMenu.Overlay width="medium">
@@ -661,7 +630,6 @@ export function MemexKeyboardShortcut(): JSX.Element {
           onClick={() => setOpen(!open)}
           icon={TriangleDownIcon}
           aria-label="Open Estimate column options menu"
-          sx={{padding: 0}}
         />
 
         <ActionMenu open={open} onOpenChange={setOpen} anchorRef={anchorRef}>

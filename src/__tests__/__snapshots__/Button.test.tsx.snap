@@ -102,7 +102,7 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .c0[data-component=IconButton] {
@@ -326,7 +326,7 @@ exports[`Button respects block prop 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .c0[data-component=IconButton] {
@@ -556,7 +556,7 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .c0[data-component=IconButton] {
@@ -785,7 +785,7 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .c0[data-component=IconButton] {
@@ -1015,7 +1015,7 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .c0[data-component=IconButton] {
@@ -1248,7 +1248,7 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
   color: btn.danger.text;
   background-color: btn.danger.counterBg;
 }
@@ -1491,7 +1491,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .c0[data-component=IconButton] {
@@ -1723,7 +1723,7 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 .c0 [data-component=ButtonCounter] {
-  font-size: 16px;
+  font-size: 14px;
   background-color: btn.primary.counterBg;
   color: btn.primary.text;
 }
