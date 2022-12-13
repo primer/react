@@ -1,10 +1,11 @@
 import React from 'react'
-import {act, render, screen} from '@testing-library/react'
+import {act, fireEvent, render, screen} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
+import {Placeholder} from '../Placeholder'
 
 let matchMedia: MatchMediaMock
 
@@ -170,6 +171,33 @@ describe('PageLayout', () => {
         </ThemeProvider>,
       )
       expect(ref).toHaveBeenCalledWith(screen.getByTestId('content').parentNode)
+    })
+
+    it('should be resizable if `resizable` is set correctly', async () => {
+      render(
+        <ThemeProvider>
+          <PageLayout>
+            <PageLayout.Pane resizable>
+              <Placeholder height={320} label="Pane" />
+            </PageLayout.Pane>
+            <PageLayout.Content>
+              <Placeholder height={640} label="Content" />
+            </PageLayout.Content>
+          </PageLayout>
+        </ThemeProvider>,
+      )
+
+      const placeholder = await screen.findByText('Pane')
+      const pane = placeholder.parentNode
+      const initialWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
+
+      const divider = await screen.findByRole('separator')
+      // Moving divider should resize pane.
+      fireEvent.mouseDown(divider)
+      fireEvent.mouseMove(divider)
+      fireEvent.mouseUp(divider)
+      const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
+      expect(finalWidth).not.toEqual(initialWidth)
     })
   })
 })

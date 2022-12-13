@@ -291,6 +291,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
                 bg: isDragging ? 'accent.fg' : 'neutral.muted',
               },
             }}
+            role="separator"
             onMouseDown={() => {
               setIsDragging(true)
               onDragStart?.()
