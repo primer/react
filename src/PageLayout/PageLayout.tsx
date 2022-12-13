@@ -739,24 +739,26 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           {resizable && (
             <VisuallyHidden>
               <form onSubmit={handleWidthFormSubmit}>
+                <label htmlFor={`${paneId}-width-input`}>
+                  Pane width
+                </label>
                 <p id={`${paneId}-input-hint`}>
                   Use a value between {minPercent}% and {maxPercent}%
                 </p>
-                <label htmlFor={`${paneId}-width-input`}>
-                  Pane width
                   <input
                     id={`${paneId}-width-input`}
                     aria-describedby={`${paneId}-input-hint`}
                     name="pane-width"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
                     value={widthPercent}
                     autoCorrect="off"
                     autoComplete="off"
-                    type="tel"
+                    type="text"
                     onChange={event => {
                       setWidthPercent(event.target.value)
                     }}
                   />
-                </label>
                 <button type="submit">Change width</button>
               </form>
             </VisuallyHidden>
