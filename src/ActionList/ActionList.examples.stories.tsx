@@ -57,7 +57,7 @@ export const ListLinkItem = () => (
       </ActionList.LeadingVisual>
       not a link, just an Item for comparison
     </ActionList.Item>
-    <ActionList.LinkItem href="https://github.com/primer">
+    <ActionList.LinkItem href="https://github.com/primer" aria-keyshortcuts="g">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>

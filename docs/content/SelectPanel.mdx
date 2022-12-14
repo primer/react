@@ -33,7 +33,7 @@ const items = [
   {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
   {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
   {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7}
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
 ]
 
 function DemoComponent() {
@@ -113,18 +113,16 @@ alternative to activating the save button.
   <PropsTableRow name="title" type="string" />
   <PropsTableRow name="inputLabel" type="string" />
   <PropsTableRow name="inputPlaceholder" type="string" />
-
-    <PropsTableRow
-      name="selected"
-      type="ItemInput | ItemInput[] | undefined"
-      description="Specify the selected item(s)"
-    />
-    <PropsTableRow
-      name="onSelectedChange"
-      type="(selected: ItemInput | ItemInput[]) => void"
-      description="Provide a callback called when the selected item(s) change"
-    />
-
+  <PropsTableRow
+    name="selected"
+    type="ItemInput | ItemInput[] | undefined"
+    description="Specify the selected item(s)"
+  />
+  <PropsTableRow
+    name="onSelectedChange"
+    type="(selected: ItemInput | ItemInput[]) => void"
+    description="Provide a callback called when the selected item(s) change"
+  />
 </PropsTable>
 
 ## Status
@@ -144,6 +142,6 @@ alternative to activating the save button.
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />
