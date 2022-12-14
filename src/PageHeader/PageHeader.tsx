@@ -63,13 +63,37 @@ const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   hidden = hiddenOnRegularAndWide,
   sx = {},
 }) => {
+  // const mediaQueryStyles = merge<BetterSystemStyleObject>(
+  //   CSSManagedResponsiveValue(hidden, 'display', value => {
+  //     return value ? 'none' : 'flex'
+  //   }),
+  //   CSSManagedResponsiveValue(
+  //     {
+  //       narrow: 'none',
+  //       regular: 'line',
+  //       wide: 'filled',
+  //     },
+  //     'backgroundColor',
+  //     (value): string => {
+  //       return {
+  //         none: 'pink',
+  //         line: 'salmon',
+  //         filled: 'blue',
+  //       }[value]
+  //     },
+  //   ),
+  // )
+
   const contentNavStyles = {
     flexDirection: 'row',
     alignItems: 'center',
     gap: '0.5rem',
     order: REGION_ORDER.ContextArea,
-    ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+    ...CSSManagedResponsiveValue(hidden, 'display', value => {
+      return value ? 'none' : 'flex'
+    }),
   }
+
   return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
 type LinkProps = Pick<
@@ -101,7 +125,9 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
             {
               alignItems: 'center',
               gap: '0.5rem',
-              ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+              ...CSSManagedResponsiveValue(hidden, 'display', value => {
+                return value ? 'none' : 'flex'
+              }),
             },
             sx,
           )}
@@ -125,7 +151,14 @@ const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
-    <Box sx={merge<BetterSystemStyleObject>(CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'), sx)}>
+    <Box
+      sx={merge<BetterSystemStyleObject>(
+        CSSManagedResponsiveValue(hidden, 'display', value => {
+          return value ? 'none' : 'flex'
+        }),
+        sx,
+      )}
+    >
       {children}
     </Box>
   )
@@ -147,7 +180,9 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
           gap: '0.5rem',
           flexGrow: '1',
           justifyContent: 'right',
-          ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
         },
         sx,
       )}
@@ -190,7 +225,9 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
         sx={merge<BetterSystemStyleObject>(
           {
             gap: '0.5rem',
-            ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+            ...CSSManagedResponsiveValue(hidden, 'display', value => {
+              return value ? 'none' : 'flex'
+            }),
             flexDirection: 'row',
             alignItems: 'flex-start',
           },
@@ -214,7 +251,9 @@ const LeadingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
           alignItems: 'center',
           height: titleAreaHeight,
         },
@@ -232,7 +271,9 @@ const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chil
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
           alignItems: 'center',
           height: titleAreaHeight,
         },
@@ -272,7 +313,9 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
             medium: '600',
             subtitle: '400',
           }[titleVariant],
-          ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
         },
         sx,
       )}
@@ -288,7 +331,9 @@ const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chi
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
           alignItems: 'center',
           height: titleAreaHeight,
         },
@@ -311,7 +356,9 @@ const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
           alignItems: 'center',
           height: titleAreaHeight,
         },
@@ -329,7 +376,9 @@ const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, 
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
           flexDirection: 'row',
           gap: '0.5rem',
           flexGrow: '1',
@@ -351,7 +400,9 @@ const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childr
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
-          ...CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'flex'),
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
           flexDirection: 'row',
           alignItems: 'center',
           gap: '0.5rem',
@@ -367,7 +418,14 @@ const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childr
 // PageHeader.Navigation: The local navigation area of the header. Visible on all viewports
 const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, hidden = false}) => {
   return (
-    <Box sx={merge<BetterSystemStyleObject>(CSSManagedResponsiveValue(hidden, false, 'display', 'none', 'block'), sx)}>
+    <Box
+      sx={merge<BetterSystemStyleObject>(
+        CSSManagedResponsiveValue(hidden, 'display', value => {
+          return value ? 'none' : 'block'
+        }),
+        sx,
+      )}
+    >
       {children}
     </Box>
   )

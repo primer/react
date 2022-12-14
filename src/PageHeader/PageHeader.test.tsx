@@ -61,9 +61,6 @@ describe('PageHeader', () => {
       [`@media screen and (min-width:768px)`]: {
         display: 'none',
       },
-      [`@media screen and (min-width:1440px)`]: {
-        display: 'none',
-      },
       'align-items': 'center',
       'flex-direction': 'row',
       gap: '0.5rem',
@@ -121,9 +118,6 @@ describe('PageHeader', () => {
         display: 'none',
       },
       [`@media screen and (min-width:768px)`]: {
-        display: 'flex',
-      },
-      [`@media screen and (min-width:1440px)`]: {
         display: 'flex',
       },
       'align-items': 'center',
