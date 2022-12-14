@@ -1,11 +1,15 @@
 import {XIcon} from '@primer/octicons-react'
-import React, {forwardRef} from 'react'
+import React, {ComponentPropsWithRef} from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
-import {ComponentProps} from '../../utils/types'
 
-const StyledButton = styled.button<SxProp>`
+const ButtonClose = styled.button.attrs(props => {
+  return {
+    children: <XIcon />,
+    'aria-label': props['aria-label'] ?? 'Close',
+  }
+})<SxProp & {children: never}>`
   border: none;
   padding: 0;
   background: transparent;
@@ -23,13 +27,6 @@ const StyledButton = styled.button<SxProp>`
   ${sx};
 `
 
-const ButtonClose = forwardRef<HTMLButtonElement, ComponentProps<typeof StyledButton>>((props, ref) => {
-  return (
-    <StyledButton ref={ref} aria-label="Close" {...props}>
-      <XIcon />
-    </StyledButton>
-  )
-})
+export type ButtonCloseProps = ComponentPropsWithRef<typeof ButtonClose>
 
-export type ButtonCloseProps = ComponentProps<typeof ButtonClose>
 export default ButtonClose
