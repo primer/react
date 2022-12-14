@@ -22,12 +22,6 @@ export default {
   ],
 } as Meta
 
-export const TextTooltip = () => (
-  <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} p={3}>
-    <Tooltip aria-label="Hello, Tooltip!">Text with a tooltip</Tooltip>
-  </Box>
-)
-
 export const IconButtonTooltip = () => (
   <Box sx={{p: 5}}>
     <Tooltip aria-label="Search">
