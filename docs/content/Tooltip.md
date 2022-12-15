@@ -4,7 +4,7 @@ title: Tooltip
 status: Alpha
 ---
 
-The Tooltip component adds a tooltip to add context to elements on the page.
+The Tooltip component adds a tooltip to add context to interactive elements on the page.
 
 **_⚠️ Usage warning! ⚠️_**
 
@@ -14,11 +14,15 @@ Before adding a tooltip, please consider: Is this information essential and nece
 
 **Attention:** we use aria-label for tooltip contents, because it is crucial that they are accessible to screen reader users. However, aria-label replaces the text content of an element in screen readers, so only use Tooltip on elements with no existing text content, or consider using `title` for supplemental information.
 
+A tooltip may only be used on an element that is interactive such as a button or a link. Even if an element is focusable, a tooltip may only be used if the element does something when it's clicked.
+
 ## Default example
 
 ```jsx live
 <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2} p={3}>
-  <Tooltip aria-label="Hello, Tooltip!">Text with a tooltip</Tooltip>
+  <Tooltip aria-label="Hello, Tooltip!">
+    <Button>Hover me</Button>
+  </Tooltip>
 </Box>
 ```
 

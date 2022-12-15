@@ -10,3 +10,4 @@ public/
 stats.html
 .env
 storybook-static
+.tool-versions
