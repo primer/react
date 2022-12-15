@@ -10,6 +10,8 @@ export {default as Box} from './Box'
 export type {BoxProps} from './Box'
 export * from './Button'
 export {PageLayout} from './PageLayout'
+export {PageHeader} from './PageHeader'
+export * from './Hidden'
 export type {
   PageLayoutProps,
   PageLayoutHeaderProps,
@@ -178,6 +180,11 @@ export type {CheckboxProps} from './Checkbox'
 
 export {default as Textarea} from './Textarea'
 export type {TextareaProps} from './Textarea'
+
+export {default as Hidden} from './Hidden'
+export type {HiddenProps} from './Hidden'
+
+export {UnderlineNav as UnderlineNav2} from './UnderlineNav2'
 
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'

@@ -25,6 +25,8 @@ export * from './MarkdownEditor'
 
 export * from '../UnderlineNav2'
 
+export * from '../PageHeader'
+
 export * from './hooks'
 
 export * from '../TreeView'
