@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-PageHeader: Manage responsive visibility with CSS breakpoints
+PageHeader: Add a util function that returns breakpoint styles with the given CSS property and values
