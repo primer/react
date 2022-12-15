@@ -183,6 +183,12 @@ jobs:
         run: npx playwright test --grep @aat
       - name: Stop storybook
         run: kill ${{ steps.storybook.outputs.pid }}
+      - name: Upload axe reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: axe
+          path: .playwright/axe
       - name: Upload report
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
