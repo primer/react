@@ -52,13 +52,13 @@ export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
 
 export const getVariantStyles = (
   variant: ActionListItemProps['variant'],
-  disabled: ActionListItemProps['disabled']
+  disabled: ActionListItemProps['disabled'],
 ) => {
   if (disabled) {
     return {
       color: 'primer.fg.disabled',
       iconColor: 'primer.fg.disabled',
-      annotationColor: 'primer.fg.disabled'
+      annotationColor: 'primer.fg.disabled',
     }
   }
 
@@ -68,14 +68,14 @@ export const getVariantStyles = (
         color: 'danger.fg',
         iconColor: 'danger.fg',
         annotationColor: 'fg.muted',
-        hoverColor: 'actionListItem.danger.hoverText'
+        hoverColor: 'actionListItem.danger.hoverText',
       }
     default:
       return {
         color: 'fg.default',
         iconColor: 'fg.muted',
         annotationColor: 'fg.muted',
-        hoverColor: 'fg.default'
+        hoverColor: 'fg.default',
       }
   }
 }

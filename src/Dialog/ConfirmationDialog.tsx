@@ -84,7 +84,7 @@ const StyledConfirmationFooter = styled(Box)`
 const ConfirmationFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
-    focusInStrategy: 'closest'
+    focusInStrategy: 'closest',
   })
   // Must have exactly 2 buttons!
   return (
@@ -107,7 +107,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     cancelButtonContent = 'Cancel',
     confirmButtonContent = 'OK',
     confirmButtonType = 'normal',
-    children
+    children,
   } = props
 
   const onCancelButtonClick = useCallback(() => {
@@ -120,13 +120,13 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
   const cancelButton: DialogButtonProps = {
     content: cancelButtonContent,
     onClick: onCancelButtonClick,
-    autoFocus: isConfirmationDangerous
+    autoFocus: isConfirmationDangerous,
   }
   const confirmButton: DialogButtonProps = {
     content: confirmButtonContent,
     buttonType: confirmButtonType,
     onClick: onConfirmButtonClick,
-    autoFocus: !isConfirmationDangerous
+    autoFocus: !isConfirmationDangerous,
   }
   const footerButtons = [cancelButton, confirmButton]
   return (
@@ -164,7 +164,7 @@ async function confirm(themeProps: ThemeProviderProps, options: ConfirmOptions):
           {content}
         </ConfirmationDialog>
       </ThemeProvider>,
-      hostElement
+      hostElement,
     )
   })
 }
@@ -181,7 +181,7 @@ export function useConfirm() {
       const themeProps: ThemeProviderProps = {theme, colorMode, dayScheme, nightScheme}
       return confirm(themeProps, options)
     },
-    [theme, colorMode, dayScheme, nightScheme]
+    [theme, colorMode, dayScheme, nightScheme],
   )
   return result
 }

@@ -24,6 +24,9 @@ function Example(): JSX.Element {
                 <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
                   Delete file
                 </ActionList.Item>
+                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                  Github
+                </ActionList.LinkItem>
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
@@ -37,12 +40,12 @@ describe('ActionMenu', () => {
   behavesAsComponent({
     Component: ActionList,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <Example />
+    toRender: () => <Example />,
   })
 
   checkExports('ActionMenu', {
     default: undefined,
-    ActionMenu
+    ActionMenu,
   })
 
   it('should open Menu on MenuButton click', async () => {
@@ -111,7 +114,7 @@ describe('ActionMenu', () => {
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
         <SingleSelection />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     const button = component.getByLabelText('Field type')
 
@@ -131,7 +134,7 @@ describe('ActionMenu', () => {
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
         <MixedSelection />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     const button = component.getByLabelText('Group by')
 
@@ -169,6 +172,26 @@ describe('ActionMenu', () => {
 
     expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
   })
+  it('should be able to select an Item with aria-keyshortcuts after opening Menu with click', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
+    expect(component.queryByRole('menu')).toBeInTheDocument()
+
+    // linkItem button is the active element at this point
+    await user.keyboard('{ArrowDown}{s}')
+
+    expect(component.getAllByRole('menuitem')[4]).toEqual(document.activeElement)
+    await user.keyboard('{ArrowUp}')
+    expect(component.getAllByRole('menuitem')[3]).toEqual(document.activeElement)
+
+    // assumes mnemonics aria-keyshortcuts are ignored
+    await user.keyboard('{g}')
+    expect(component.getAllByRole('menuitem')[3]).toEqual(document.activeElement)
+  })
 
   it('should select last element when ArrowUp is pressed after opening Menu with click', async () => {
     const component = HTMLRender(<Example />)
@@ -192,7 +215,7 @@ describe('ActionMenu', () => {
       <>
         <Example />
         <input type="text" placeholder="next focusable element" />
-      </>
+      </>,
     )
     const anchor = component.getByRole('button')
 

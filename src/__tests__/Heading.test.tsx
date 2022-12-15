@@ -9,31 +9,31 @@ expect.extend(toHaveNoViolations)
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
   colors: {
-    green: ['#010', '#020', '#030', '#040', '#050', '#060']
+    green: ['#010', '#020', '#030', '#040', '#050', '#060'],
   },
   fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
   fonts: {
     normal: 'Helvetica,sans-serif',
-    mono: 'Consolas,monospace'
+    mono: 'Consolas,monospace',
   },
   lineHeights: {
     normal: 1.5,
     condensed: 1.25,
-    condensedUltra: 1
+    condensedUltra: 1,
   },
   fontWeights: {
     light: '300',
     normal: '400',
     semibold: '500',
-    bold: '600'
-  }
+    bold: '600',
+  },
 }
 
 describe('Heading', () => {
   behavesAsComponent({Component: Heading})
 
   checkExports('Heading', {
-    default: Heading
+    default: Heading,
   })
 
   it('renders <h2> by default', () => {
@@ -51,29 +51,29 @@ describe('Heading', () => {
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{fontWeight: 'bold'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('font-weight', theme.fontWeights.bold)
     expect(
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{fontWeight: 'normal'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('font-weight', theme.fontWeights.normal)
     expect(
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{fontWeight: 'semibold'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('font-weight', theme.fontWeights.semibold)
     expect(
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{fontWeight: 'light'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('font-weight', theme.fontWeights.light)
   })
 
@@ -82,22 +82,22 @@ describe('Heading', () => {
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{lineHeight: 'normal'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('line-height', String(theme.lineHeights.normal))
     expect(
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{lineHeight: 'condensed'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('line-height', String(theme.lineHeights.condensed))
     expect(
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{lineHeight: 'condensedUltra'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('line-height', String(theme.lineHeights.condensedUltra))
   })
 
@@ -106,8 +106,8 @@ describe('Heading', () => {
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{fontFamily: 'mono'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('font-family', theme.fonts.mono)
   })
 
@@ -117,8 +117,8 @@ describe('Heading', () => {
         render(
           <ThemeProvider theme={theme}>
             <Heading sx={{fontSize}} />
-          </ThemeProvider>
-        )
+          </ThemeProvider>,
+        ),
       ).toHaveStyleRule('font-size', `${fontSize}`)
     }
   })
@@ -128,8 +128,8 @@ describe('Heading', () => {
       render(
         <ThemeProvider theme={theme}>
           <Heading sx={{fontStyle: 'italic'}} />
-        </ThemeProvider>
-      )
+        </ThemeProvider>,
+      ),
     ).toHaveStyleRule('font-style', 'italic')
   })
 })

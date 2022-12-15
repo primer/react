@@ -19,7 +19,7 @@ import {
   space,
   SpaceProps,
   typography,
-  TypographyProps
+  TypographyProps,
 } from 'styled-system'
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
@@ -47,7 +47,7 @@ const Box = styled.div<StyledBoxProps>(
   border,
   position,
   shadow,
-  sx
+  sx,
 )
 
 export type BoxProps = ComponentProps<typeof Box>

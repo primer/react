@@ -37,9 +37,9 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   const mergedSx = merge(
     {
       width: '32px', // TODO: use primitive `control.medium.size` when it is available
-      ...getSegmentedControlListItemStyles()
+      ...getSegmentedControlListItemStyles(),
     },
-    sxProp as SxProp
+    sxProp as SxProp,
   )
 
   return (

@@ -15,7 +15,7 @@ const Bar = styled.span<ProgressProp & SxProp>`
 const sizeMap = {
   small: '5px',
   large: '10px',
-  default: '8px'
+  default: '8px',
 }
 
 type StyledProgressContainerProps = {
@@ -47,7 +47,7 @@ function ProgressBar({progress, bg, ...rest}: ProgressBarProps) {
 
 ProgressBar.defaultProps = {
   bg: 'success.emphasis',
-  barSize: 'default'
+  barSize: 'default',
 }
 
 export default ProgressBar

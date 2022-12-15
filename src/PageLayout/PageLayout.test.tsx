@@ -26,7 +26,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -40,7 +40,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -58,7 +58,7 @@ describe('PageLayout', () => {
           </PageLayout.Pane>
           <PageLayout.Footer dividerWhenNarrow="line">Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -72,7 +72,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane positionWhenNarrow="start">Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -91,7 +91,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane hidden={{narrow: true}}>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     expect(getByText('Pane')).not.toBeVisible()
@@ -111,7 +111,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane hidden={{narrow: true}}>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     expect(getByText('Pane')).toBeVisible()
@@ -126,7 +126,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer aria-label="footer">Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('header')
@@ -149,7 +149,7 @@ describe('PageLayout', () => {
             <span id="footer-label">footer</span>
           </PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('header')
@@ -167,7 +167,7 @@ describe('PageLayout', () => {
               <div data-testid="content">Pane</div>
             </PageLayout.Pane>
           </PageLayout>
-        </ThemeProvider>
+        </ThemeProvider>,
       )
       expect(ref).toHaveBeenCalledWith(screen.getByTestId('content').parentNode)
     })

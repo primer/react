@@ -12,7 +12,7 @@ BorderBox.defaultProps = {
   borderWidth: '1px',
   borderStyle: 'solid',
   borderColor: 'border.default',
-  borderRadius: 2
+  borderRadius: 2,
 }
 
 export default BorderBox

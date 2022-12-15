@@ -127,7 +127,7 @@ function usePaginationPages({
   hrefBuilder,
   marginPageCount,
   showPages,
-  surroundingPageCount
+  surroundingPageCount,
 }: UsePaginationPagesParameters) {
   const pageChange = React.useCallback(n => (e: React.MouseEvent) => onPageChange(e, n), [onPageChange])
 
@@ -186,7 +186,7 @@ function Pagination({
     hrefBuilder,
     marginPageCount,
     showPages,
-    surroundingPageCount
+    surroundingPageCount,
   })
   return (
     <PaginationContainer aria-label="Pagination" {...rest} theme={theme}>
@@ -208,7 +208,7 @@ Pagination.defaultProps = {
   marginPageCount: 1,
   onPageChange: noop,
   showPages: true,
-  surroundingPageCount: 2
+  surroundingPageCount: 2,
 }
 
 export default Pagination

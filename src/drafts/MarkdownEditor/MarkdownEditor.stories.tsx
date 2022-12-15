@@ -17,7 +17,7 @@ const meta: Meta = {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {
     controls: {
@@ -31,9 +31,9 @@ const meta: Meta = {
         'Required',
         'Enable File Uploads',
         'Enable Saved Replies',
-        'Enable Plain-Text URL Pasting'
-      ]
-    }
+        'Enable Plain-Text URL Pasting',
+      ],
+    },
   },
   component: MarkdownEditor,
   args: {
@@ -46,78 +46,78 @@ const meta: Meta = {
     hideLabel: false,
     required: false,
     fileUploadsEnabled: true,
-    savedRepliesEnabled: true
+    savedRepliesEnabled: true,
   },
   argTypes: {
     disabled: {
       name: 'Disabled',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     fullHeight: {
       name: 'Full Height',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     monospace: {
       name: 'Monospace Font',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     pasteUrlsAsPlainText: {
       name: 'Enable Plain-Text URL Pasting',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     minHeightLines: {
       name: 'Minimum Height (Lines)',
       control: {
-        type: 'number'
-      }
+        type: 'number',
+      },
     },
     maxHeightLines: {
       name: 'Maximum Height (Lines)',
       control: {
-        type: 'number'
-      }
+        type: 'number',
+      },
     },
     hideLabel: {
       name: 'Hide Label',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     required: {
       name: 'Required',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     fileUploadsEnabled: {
       name: 'Enable File Uploads',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     savedRepliesEnabled: {
       name: 'Enable Saved Replies',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     onSubmit: {
       name: 'onSubmit',
-      action: 'submitted'
+      action: 'submitted',
     },
     onDiffClick: {
       name: 'onDiffClick',
-      action: 'diff-clicked'
-    }
-  }
+      action: 'diff-clicked',
+    },
+  },
 }
 
 export default meta
@@ -144,7 +144,7 @@ const fakeFileUrl = (file: File) => `https://image-store.example/file/${encodeUR
 const mentionables: Mentionable[] = [
   {identifier: 'monalisa', description: 'Monalisa Octocat'},
   {identifier: 'github', description: 'GitHub'},
-  {identifier: 'primer', description: 'Primer'}
+  {identifier: 'primer', description: 'Primer'},
 ]
 
 const emojis: Emoji[] = [
@@ -162,7 +162,7 @@ const emojis: Emoji[] = [
   {name: 'point_right', character: '👉'},
   {name: 'raised_hand', character: '✋'},
   {name: 'thumbsup', character: '👍'},
-  {name: 'thumbsdown', character: '👎'}
+  {name: 'thumbsdown', character: '👎'},
 ]
 
 const references: Reference[] = [
@@ -170,9 +170,9 @@ const references: Reference[] = [
   {
     id: '2',
     titleText: 'Error: `Failed to install` when installing',
-    titleHtml: 'Error: <code>Failed to install</code> when installing'
+    titleHtml: 'Error: <code>Failed to install</code> when installing',
   },
-  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'}
+  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
 ]
 
 const savedReplies: SavedReply[] = [
@@ -182,8 +182,8 @@ const savedReplies: SavedReply[] = [
   {
     name: 'Long Lorem Ipsum',
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales ligula commodo ex venenatis molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur vulputate elementum dolor ac sollicitudin. Duis tellus quam, hendrerit sit amet metus quis, pharetra consectetur eros. Duis purus justo, convallis nec velit nec, feugiat pharetra nibh. Aenean vulputate urna sollicitudin vehicula fermentum. Vestibulum semper iaculis metus, quis ullamcorper dui feugiat a. Donec nulla sapien, tincidunt ut arcu sit amet, ultrices fringilla massa. Integer ac justo lacus.\n\nFusce sed pharetra sem. Nulla rutrum turpis magna, sit amet sodales dui vehicula in. Cras lacinia, dui sit amet dictum lobortis, arcu erat semper lectus, placerat accumsan diam dolor nec quam. Vivamus accumsan ut magna eget maximus. Integer scelerisque justo et quam pharetra, nec placerat nibh auctor. Vestibulum cursus, mauris id euismod convallis, justo sapien faucibus dolor, nec dictum erat urna at velit. Quisque egestas massa eget odio consectetur vehicula. Aliquam a imperdiet lacus, eu facilisis mauris. Etiam tempor neque vitae erat elementum bibendum. Fusce ultricies nunc tortor.\n\nQuisque in posuere sapien. Nulla ornare sagittis tellus eu laoreet. Sed molestie sem in turpis blandit pretium. Vivamus gravida dui id gravida aliquam. Vestibulum vestibulum, justo vitae cursus mattis, urna mauris pulvinar dolor, eu suscipit magna libero eget diam. Praesent id rutrum libero, a feugiat nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur ornare libero id augue fringilla maximus sed sed ante. Quisque finibus accumsan lorem ut lobortis. Maecenas lobortis lacus sed mattis rutrum. Aliquam a mi sodales, blandit nisi ut, volutpat ex. Duis tristique, erat quis fermentum ultricies, leo ipsum placerat nunc, eu aliquam nibh mauris vitae lectus. Proin vitae tellus nec lorem vulputate faucibus. In hac habitasse platea dictumst. Suspendisse dictum odio in faucibus mattis.'
-  }
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales ligula commodo ex venenatis molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur vulputate elementum dolor ac sollicitudin. Duis tellus quam, hendrerit sit amet metus quis, pharetra consectetur eros. Duis purus justo, convallis nec velit nec, feugiat pharetra nibh. Aenean vulputate urna sollicitudin vehicula fermentum. Vestibulum semper iaculis metus, quis ullamcorper dui feugiat a. Donec nulla sapien, tincidunt ut arcu sit amet, ultrices fringilla massa. Integer ac justo lacus.\n\nFusce sed pharetra sem. Nulla rutrum turpis magna, sit amet sodales dui vehicula in. Cras lacinia, dui sit amet dictum lobortis, arcu erat semper lectus, placerat accumsan diam dolor nec quam. Vivamus accumsan ut magna eget maximus. Integer scelerisque justo et quam pharetra, nec placerat nibh auctor. Vestibulum cursus, mauris id euismod convallis, justo sapien faucibus dolor, nec dictum erat urna at velit. Quisque egestas massa eget odio consectetur vehicula. Aliquam a imperdiet lacus, eu facilisis mauris. Etiam tempor neque vitae erat elementum bibendum. Fusce ultricies nunc tortor.\n\nQuisque in posuere sapien. Nulla ornare sagittis tellus eu laoreet. Sed molestie sem in turpis blandit pretium. Vivamus gravida dui id gravida aliquam. Vestibulum vestibulum, justo vitae cursus mattis, urna mauris pulvinar dolor, eu suscipit magna libero eget diam. Praesent id rutrum libero, a feugiat nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur ornare libero id augue fringilla maximus sed sed ante. Quisque finibus accumsan lorem ut lobortis. Maecenas lobortis lacus sed mattis rutrum. Aliquam a mi sodales, blandit nisi ut, volutpat ex. Duis tristique, erat quis fermentum ultricies, leo ipsum placerat nunc, eu aliquam nibh mauris vitae lectus. Proin vitae tellus nec lorem vulputate faucibus. In hac habitasse platea dictumst. Suspendisse dictum odio in faucibus mattis.',
+  },
 ]
 
 const onUploadFile = async (file: File) => {
@@ -212,7 +212,7 @@ export const Default = ({
   fileUploadsEnabled,
   onSubmit,
   savedRepliesEnabled,
-  pasteUrlsAsPlainText
+  pasteUrlsAsPlainText,
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -256,7 +256,7 @@ export const CustomButtons = ({
   onSubmit,
   onDiffClick,
   savedRepliesEnabled,
-  pasteUrlsAsPlainText
+  pasteUrlsAsPlainText,
 }: ArgProps) => {
   const [value, setValue] = useState('')
 
@@ -330,7 +330,7 @@ export const LazyLoadedSuggestions = ({
   fileUploadsEnabled,
   onSubmit,
   savedRepliesEnabled,
-  pasteUrlsAsPlainText
+  pasteUrlsAsPlainText,
 }: ArgProps) => {
   const [value, setValue] = useState('')
 

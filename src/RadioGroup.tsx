@@ -46,7 +46,7 @@ const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, dis
             updateSelectedCheckboxes(e)
             onChange(selectedRadioValue.current, e)
           }
-        }
+        },
       }}
     >
       <CheckboxOrRadioGroup disabled={disabled} {...rest}>
@@ -59,5 +59,5 @@ const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, dis
 export default Object.assign(RadioGroup, {
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
-  Validation: CheckboxOrRadioGroupValidation
+  Validation: CheckboxOrRadioGroupValidation,
 })

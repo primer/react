@@ -16,18 +16,18 @@ const emojis = ['heart', 'smile', '+1']
 const issues = [
   ['1', 'add emoji feature'],
   ['2', 'fails to save'],
-  ['3', 'updates too slowly']
+  ['3', 'updates too slowly'],
 ] as const
 
 const triggers: Trigger[] = [
   {triggerChar: '@'},
   {triggerChar: ':', keepTriggerCharOnCommit: false},
-  {triggerChar: '#', multiWord: true}
+  {triggerChar: '#', multiWord: true},
 ]
 
 const UncontrolledInlineAutocomplete = ({
   loading = false,
-  tabInsertsSuggestions
+  tabInsertsSuggestions,
 }: {
   loading?: boolean
   tabInsertsSuggestions?: boolean
@@ -46,8 +46,8 @@ const UncontrolledInlineAutocomplete = ({
         .map(emoji => ({
           key: emoji,
           value: `:${emoji}:`,
-          render: props => <ActionList.Item {...props}>{emoji}</ActionList.Item>
-        }))
+          render: props => <ActionList.Item {...props}>{emoji}</ActionList.Item>,
+        })),
     )
   }
 
@@ -63,8 +63,8 @@ const UncontrolledInlineAutocomplete = ({
         .map(([id, title]) => ({
           key: id,
           value: id,
-          render: props => <ActionList.Item {...props}>{title}</ActionList.Item>
-        }))
+          render: props => <ActionList.Item {...props}>{title}</ActionList.Item>,
+        })),
     )
   }
 
@@ -89,7 +89,7 @@ const UncontrolledInlineAutocomplete = ({
     for (const option of document.querySelectorAll('[role=option]'))
       Object.defineProperty(option, 'offsetHeight', {
         value: 1,
-        writable: true
+        writable: true,
       })
   })
 
@@ -444,14 +444,14 @@ describe('InlineAutocomplete', () => {
     await user.type(input, 'hello @')
 
     const statusMessage = queryByText(
-      '3 autocomplete suggestions available; "monalisa" is highlighted. Press Enter to insert.'
+      '3 autocomplete suggestions available; "monalisa" is highlighted. Press Enter to insert.',
     )
     expect(statusMessage).toBeInTheDocument()
     expect(statusMessage).toHaveAttribute('aria-live', 'assertive')
 
     await user.keyboard('gith')
     expect(statusMessage).toHaveTextContent(
-      '1 autocomplete suggestion available; "github" is highlighted. Press Enter to insert.'
+      '1 autocomplete suggestion available; "github" is highlighted. Press Enter to insert.',
     )
   })
 
@@ -463,7 +463,7 @@ describe('InlineAutocomplete', () => {
     await user.type(input, 'hello @')
 
     const statusMessage = queryByText(
-      '3 autocomplete suggestions available; "monalisa" is highlighted. Press Enter or Tab to insert.'
+      '3 autocomplete suggestions available; "monalisa" is highlighted. Press Enter or Tab to insert.',
     )
     expect(statusMessage).toBeInTheDocument()
   })

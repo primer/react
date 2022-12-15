@@ -11,7 +11,7 @@ import {useTheme} from '../../ThemeProvider'
 import {
   activeDescendantActivatedDirectly,
   activeDescendantActivatedIndirectly,
-  isActiveDescendantAttribute
+  isActiveDescendantAttribute,
 } from '@primer/behaviors'
 import {useSSRSafeId} from '@react-aria/ssr'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
@@ -126,7 +126,7 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
       color: get('colors.primer.fg.disabled'),
       iconColor: get('colors.primer.fg.disabled'),
       annotationColor: get('colors.primer.fg.disabled'),
-      hoverCursor: 'default'
+      hoverCursor: 'default',
     }
   }
 
@@ -139,7 +139,7 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
         hoverCursor: 'pointer',
         hoverBg: get('colors.actionListItem.danger.hoverBg'),
         focusBg: get('colors.actionListItem.danger.activeBg'),
-        hoverText: get('colors.actionListItem.danger.hoverText')
+        hoverText: get('colors.actionListItem.danger.hoverText'),
       }
     default:
       return {
@@ -148,7 +148,7 @@ const getItemVariant = (variant = 'default', disabled?: boolean) => {
         annotationColor: get('colors.fg.muted'),
         hoverCursor: 'pointer',
         hoverBg: get('colors.actionListItem.default.hoverBg'),
-        focusBg: get('colors.actionListItem.default.activeBg')
+        focusBg: get('colors.actionListItem.default.activeBg'),
       }
   }
 }
@@ -366,7 +366,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
         onAction?.(itemProps, event)
       }
     },
-    [onAction, disabled, itemProps, onKeyPress]
+    [onAction, disabled, itemProps, onKeyPress],
   )
 
   const clickHandler = useCallback(
@@ -379,7 +379,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
         onAction?.(itemProps, event)
       }
     },
-    [onAction, disabled, itemProps, onClick]
+    [onAction, disabled, itemProps, onClick],
   )
 
   const {theme} = useTheme()
@@ -448,7 +448,7 @@ export const Item = React.forwardRef((itemProps, ref) => {
               style={
                 {
                   '--description-container-margin-left': descriptionVariant === 'inline' ? get('space.2')(theme) : 0,
-                  '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto'
+                  '--description-container-flex-basis': descriptionVariant === 'inline' ? 0 : 'auto',
                 } as React.CSSProperties
               }
             >

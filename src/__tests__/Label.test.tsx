@@ -14,7 +14,7 @@ describe('Label', () => {
   it('default size is rendered as "small"', () => {
     const expectedStyles = {
       height: '20px',
-      padding: '0 7px'
+      padding: '0 7px',
     }
     const defaultStyles = renderStyles(<Label />)
 
@@ -22,7 +22,7 @@ describe('Label', () => {
   })
   it('default variant is rendered as "default"', () => {
     const expectedStyles = {
-      ['border-color']: '#d0d7de'
+      ['border-color']: '#d0d7de',
     }
     const defaultStyles = renderStyles(<Label />)
 

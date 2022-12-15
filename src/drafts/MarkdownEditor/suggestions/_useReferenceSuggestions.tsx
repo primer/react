@@ -14,7 +14,7 @@ export type Reference = {
 
 const trigger: Trigger = {
   triggerChar: '#',
-  multiWord: true
+  multiWord: true,
 }
 
 const referenceToSuggestion = (reference: Reference): Suggestion => ({
@@ -33,14 +33,14 @@ const referenceToSuggestion = (reference: Reference): Suggestion => ({
           textOverflow: 'ellipsis',
           display: 'block',
           overflow: 'hidden',
-          maxWidth: 400
+          maxWidth: 400,
         }}
       >
         <span dangerouslySetInnerHTML={{__html: reference.titleHtml}} />
       </Text>{' '}
       <ActionList.Description>#{reference.id}</ActionList.Description>
     </ActionList.Item>
-  )
+  ),
 })
 
 const scoreSuggestion = (query: string, reference: Reference): number => {
@@ -56,5 +56,5 @@ export const useReferenceSuggestions: UseSuggestionsHook<Reference> = references
     if (/^\d+\s/.test(query)) return [] // don't return anything if the query is in the form #123 ..., assuming they already have the number they want
     return suggestionsCalculator(references, scoreSuggestion, referenceToSuggestion)(query)
   },
-  trigger
+  trigger,
 })

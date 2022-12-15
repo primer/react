@@ -20,7 +20,7 @@ import {CompositionEventHandler, KeyboardEventHandler, useCallback, useMemo, use
  * @returns props which should be spread onto an `<input>` element
  **/
 export const useIgnoreKeyboardActionsWhileComposing = (
-  onKeyDown: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement>
+  onKeyDown: KeyboardEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLDivElement>,
 ) => {
   const isComposingRef = useRef(false)
   const hasCompositionEndedRef = useRef(false)
@@ -58,14 +58,14 @@ export const useIgnoreKeyboardActionsWhileComposing = (
       }
       onKeyDown(event)
     },
-    [onKeyDown]
+    [onKeyDown],
   )
 
   const inputProps = useMemo(() => {
     return {
       onCompositionStart: handleComposition,
       onCompositionEnd: handleComposition,
-      onKeyDown: wrappedOnKeyDown
+      onKeyDown: wrappedOnKeyDown,
     }
   }, [handleComposition, wrappedOnKeyDown])
 

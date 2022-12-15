@@ -18,5 +18,5 @@ export default {
   PropsTablePassthroughPropsRow: PropsTable.PassthroughPropsRow,
   PropsTableAsRow: PropsTable.AsRow,
   PropsTableRefRow: PropsTable.RefRow,
-  PropsTableSxRow: PropsTable.SxRow
+  PropsTableSxRow: PropsTable.SxRow,
 }

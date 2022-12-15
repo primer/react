@@ -15,13 +15,13 @@ const meta: Meta = {
           <Story />
         </BaseStyles>
       </ThemeProvider>
-    )
+    ),
   ],
   parameters: {
     controls: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 
@@ -49,7 +49,7 @@ const items = [
   {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
   {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
   {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
-  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7}
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
 ]
 
 export function Default(): JSX.Element {

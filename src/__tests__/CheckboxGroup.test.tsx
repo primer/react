@@ -36,11 +36,11 @@ describe('CheckboxGroup', () => {
           </FormControl>
         </CheckboxGroup>
       </SSRProvider>
-    )
+    ),
   })
   checkExports('CheckboxGroup', {
     default: CheckboxGroup,
-    CheckboxGroupContext
+    CheckboxGroupContext,
   })
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
@@ -58,7 +58,7 @@ describe('CheckboxGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     )
     const checkboxInputs = getAllByRole('checkbox') as HTMLInputElement[]
     const fieldset = getByRole('group') as HTMLFieldSetElement
@@ -85,7 +85,7 @@ describe('CheckboxGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     )
     const requiredIndicator = getByTitle('required field')
 
@@ -110,7 +110,7 @@ describe('CheckboxGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     )
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
 
@@ -138,7 +138,7 @@ describe('CheckboxGroup', () => {
           <Checkbox value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     )
 
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
@@ -149,18 +149,18 @@ describe('CheckboxGroup', () => {
       ['two', 'one'],
       expect.objectContaining({
         target: expect.objectContaining({
-          value: 'one'
-        })
-      })
+          value: 'one',
+        }),
+      }),
     )
     await user.click(checkbox)
     expect(handleParentChange).toHaveBeenCalledWith(
       ['two'],
       expect.objectContaining({
         target: expect.objectContaining({
-          value: 'one'
-        })
-      })
+          value: 'one',
+        }),
+      }),
     )
   })
 })

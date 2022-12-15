@@ -21,7 +21,7 @@ export function ShouldAcceptKnownButtonPropsAndDomProps() {
         buttonEl.current = e.currentTarget
       }}
       sx={{
-        m: 1
+        m: 1,
       }}
     >
       Child

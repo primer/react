@@ -8,7 +8,7 @@ import FormControl from '../FormControl'
 import {
   FormControlArgs,
   formControlArgTypesWithoutValidation,
-  getFormControlArgsByChildComponent
+  getFormControlArgsByChildComponent,
 } from '../utils/story-helpers'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
@@ -26,26 +26,26 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
   args: {
     checked: false,
-    indeterminate: false
+    indeterminate: false,
   },
   argTypes: {
     checked: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     indeterminate: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
-    ...formControlArgTypesWithoutValidation
-  }
+    ...formControlArgTypesWithoutValidation,
+  },
 } as Meta
 
 export const Default = ({value: _value, checked, ...args}: FormControlArgs<CheckboxProps>) => {
@@ -63,7 +63,7 @@ export const Default = ({value: _value, checked, ...args}: FormControlArgs<Check
 }
 Default.args = {
   labelChildren: 'Default checkbox',
-  captionChildren: 'Always unchecked unless `checked` is set to true in Storybook controls'
+  captionChildren: 'Always unchecked unless `checked` is set to true in Storybook controls',
 }
 
 export const WithLeadingVisual = ({value: _value, checked, ...args}: FormControlArgs<CheckboxProps>) => {
@@ -84,7 +84,7 @@ export const WithLeadingVisual = ({value: _value, checked, ...args}: FormControl
 }
 WithLeadingVisual.args = {
   labelChildren: 'Default checkbox',
-  captionChildren: 'Always unchecked unless `checked` is set to true in Storybook controls'
+  captionChildren: 'Always unchecked unless `checked` is set to true in Storybook controls',
 }
 
 export const Controlled = (args: FormControlArgs<CheckboxProps>) => {
@@ -109,7 +109,7 @@ export const Controlled = (args: FormControlArgs<CheckboxProps>) => {
 Controlled.parameters = {controls: {exclude: [...excludedControlKeys, 'checked']}}
 Controlled.args = {
   labelChildren: 'Controlled checkbox',
-  captionChildren: 'Checked attribute is controlled by React state update on change'
+  captionChildren: 'Checked attribute is controlled by React state update on change',
 }
 
 export const Uncontrolled = (args: FormControlArgs<CheckboxProps>) => {
@@ -135,5 +135,5 @@ export const Uncontrolled = (args: FormControlArgs<CheckboxProps>) => {
 Uncontrolled.parameters = {controls: {exclude: [...excludedControlKeys, 'checked']}}
 Uncontrolled.args = {
   labelChildren: 'Uncontrolled checkbox',
-  captionChildren: 'Checked attribute is set in a useLayoutEffect hook'
+  captionChildren: 'Checked attribute is set in a useLayoutEffect hook',
 }

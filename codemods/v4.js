@@ -9,7 +9,7 @@ module.exports = (file, api) => {
     FlexContainer: 'Flex',
     FlexItem: 'Flex.Item',
     UnderlineNavItem: 'UnderlineNav.Item',
-    FilterListItem: 'FilterList.Item'
+    FilterListItem: 'FilterList.Item',
   })
 
   return prettify(ast, file)

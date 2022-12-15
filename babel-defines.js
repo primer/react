@@ -1,5 +1,5 @@
 const shared = {
-  __DEV__: "process.env.NODE_ENV !== 'production'"
+  __DEV__: "process.env.NODE_ENV !== 'production'",
 }
 
 module.exports = {
@@ -8,6 +8,6 @@ module.exports = {
   production: {
     ...shared,
     __DEV__: 'false',
-    'process.env.NODE_ENV': "'production'"
-  }
+    'process.env.NODE_ENV': "'production'",
+  },
 }

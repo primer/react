@@ -5,7 +5,7 @@ import {
   FormControlArgs,
   formControlArgs,
   formControlArgTypesWithoutValidation,
-  getFormControlArgsByChildComponent
+  getFormControlArgsByChildComponent,
 } from '../utils/story-helpers'
 
 const excludedControlKeys = ['required', 'value', 'name', 'validationStatus', 'sx']
@@ -22,21 +22,21 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {controls: {exclude: excludedControlKeys}},
   args: {
     ...formControlArgs,
-    checked: false
+    checked: false,
   },
   argTypes: {
     checked: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
-    ...formControlArgTypesWithoutValidation
-  }
+    ...formControlArgTypesWithoutValidation,
+  },
 } as Meta
 
 export const Default = ({value: _value, ...args}: FormControlArgs<RadioProps>) => {
@@ -53,5 +53,5 @@ export const Default = ({value: _value, ...args}: FormControlArgs<RadioProps>) =
   )
 }
 Default.args = {
-  labelChildren: 'Default radio button'
+  labelChildren: 'Default radio button',
 }

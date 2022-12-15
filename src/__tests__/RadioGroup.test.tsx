@@ -36,11 +36,11 @@ describe('RadioGroup', () => {
           </FormControl>
         </RadioGroup>
       </SSRProvider>
-    )
+    ),
   })
   checkExports('RadioGroup', {
     default: RadioGroup,
-    RadioGroupContext
+    RadioGroupContext,
   })
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
@@ -58,7 +58,7 @@ describe('RadioGroup', () => {
           <Radio value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </RadioGroup>
+      </RadioGroup>,
     )
     const radioInputs = getAllByRole('radio') as HTMLInputElement[]
     const fieldset = getByRole('group') as HTMLFieldSetElement
@@ -85,7 +85,7 @@ describe('RadioGroup', () => {
           <Radio value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </RadioGroup>
+      </RadioGroup>,
     )
     const requiredIndicator = getByTitle('required field')
 
@@ -110,7 +110,7 @@ describe('RadioGroup', () => {
           <Radio value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </RadioGroup>
+      </RadioGroup>,
     )
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
 
@@ -138,7 +138,7 @@ describe('RadioGroup', () => {
           <Radio value="three" />
           <FormControl.Label>Choice three</FormControl.Label>
         </FormControl>
-      </RadioGroup>
+      </RadioGroup>,
     )
 
     const checkbox = getByLabelText('Choice one') as HTMLInputElement
@@ -149,9 +149,9 @@ describe('RadioGroup', () => {
       'one',
       expect.objectContaining({
         target: expect.objectContaining({
-          value: 'one'
-        })
-      })
+          value: 'one',
+        }),
+      }),
     )
   })
 })

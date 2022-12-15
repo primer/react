@@ -99,7 +99,7 @@ export function useStickyPaneHeight() {
     disableStickyPane,
     contentTopRef,
     contentBottomRef,
-    stickyPaneHeight: height
+    stickyPaneHeight: height,
   }
 }
 

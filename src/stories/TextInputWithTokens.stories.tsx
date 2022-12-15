@@ -12,7 +12,7 @@ import {
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
   textInputExcludedControlKeys,
-  textInputWithTokensArgTypes
+  textInputWithTokensArgTypes,
 } from '../utils/story-helpers'
 
 const excludedControls = ['tokens', 'onTokenRemove', 'tokenComponent', ...textInputExcludedControlKeys]
@@ -41,17 +41,17 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   args: {
-    ...formControlArgs
+    ...formControlArgs,
   },
   argTypes: {
     ...getTextInputArgTypes('TextInput props'),
     ...textInputWithTokensArgTypes,
-    ...formControlArgTypes
+    ...formControlArgTypes,
   },
-  parameters: {controls: {exclude: excludedControls}}
+  parameters: {controls: {exclude: excludedControls}},
 } as Meta
 
 const mockTokens = [
@@ -64,7 +64,7 @@ const mockTokens = [
   {text: 'six', id: 6},
   {text: 'seven', id: 7},
   {text: 'twenty', id: 20},
-  {text: 'twentyone', id: 21}
+  {text: 'twentyone', id: 21},
 ]
 
 export const Default = (args: FormControlArgs<TextInputWithTokensProps>) => {
@@ -159,12 +159,12 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputWithTokensPr
 }
 
 WithLoadingIndicator.args = {
-  loading: true
+  loading: true,
 }
 WithLoadingIndicator.parameters = {
   controls: {
-    exclude: [...excludedControls, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children']
-  }
+    exclude: [...excludedControls, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children'],
+  },
 }
 
 export const UsingIssueLabelTokens = (args: FormControlArgs<TextInputWithTokensProps>) => {
@@ -172,7 +172,7 @@ export const UsingIssueLabelTokens = (args: FormControlArgs<TextInputWithTokensP
   const [tokens, setTokens] = useState([
     {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
     {text: 'bug', id: 2, fillColor: '#d73a4a'},
-    {text: 'good first issue', id: 3, fillColor: '#0cf478'}
+    {text: 'good first issue', id: 3, fillColor: '#0cf478'},
   ])
   const onTokenRemove: (tokenId: string | number) => void = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -214,8 +214,8 @@ export const Unstyled = (args: FormControlArgs<TextInputWithTokensProps>) => {
             boxShadow: 'none',
             ':focus-within': {
               border: '0',
-              boxShadow: 'none'
-            }
+              boxShadow: 'none',
+            },
           }}
         />
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
@@ -228,5 +228,5 @@ export const Unstyled = (args: FormControlArgs<TextInputWithTokensProps>) => {
 }
 
 Unstyled.parameters = {
-  controls: {exclude: [...excludedControls, 'maxHeight', 'validationStatus']}
+  controls: {exclude: [...excludedControls, 'maxHeight', 'validationStatus']},
 }

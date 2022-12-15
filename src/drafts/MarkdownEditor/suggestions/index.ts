@@ -13,7 +13,7 @@ export const suggestionsCalculator =
   <T>(
     options: SuggestionOptions<T>,
     score: (query: string, option: T) => number,
-    toSuggestion: (option: T) => Suggestion
+    toSuggestion: (option: T) => Suggestion,
   ) =>
   async (query: string) => {
     const optionsArray = Array.isArray(options) ? options : await options()

@@ -10,7 +10,7 @@ describe('FilteredSearch', () => {
   behavesAsComponent({Component: FilteredSearch})
 
   checkExports('FilteredSearch', {
-    default: FilteredSearch
+    default: FilteredSearch,
   })
 
   it('should have no axe violations', async () => {

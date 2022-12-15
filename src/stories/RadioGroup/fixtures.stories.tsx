@@ -15,55 +15,55 @@ export default {
     visuallyHidden: false,
     captionChildren: '',
     validationChildren: '',
-    variant: 'error'
+    variant: 'error',
   },
   argTypes: {
     // RadioGroup
     disabled: {
-      type: 'boolean'
+      type: 'boolean',
     },
     required: {
-      type: 'boolean'
+      type: 'boolean',
     },
 
     // RadioGroup.Label
     labelChildren: {
       type: 'string',
       table: {
-        category: 'RadioGroup.Label'
-      }
+        category: 'RadioGroup.Label',
+      },
     },
     visuallyHidden: {
       type: 'boolean',
       table: {
-        category: 'RadioGroup.Label'
-      }
+        category: 'RadioGroup.Label',
+      },
     },
 
     // RadioGroup.Caption
     captionChildren: {
       type: 'string',
       table: {
-        category: 'RadioGroup.Caption'
-      }
+        category: 'RadioGroup.Caption',
+      },
     },
 
     // RadioGroup.Validation
     validationChildren: {
       type: 'string',
       table: {
-        category: 'RadioGroup.Validation'
-      }
+        category: 'RadioGroup.Validation',
+      },
     },
     variant: {
       control: {
         type: 'radio',
-        options: ['error', 'success', 'warning']
+        options: ['error', 'success', 'warning'],
       },
       table: {
-        category: 'RadioGroup.Validation'
-      }
-    }
+        category: 'RadioGroup.Validation',
+      },
+    },
   },
   parameters: {controls: {exclude: excludedControlKeys}},
   decorators: [
@@ -75,8 +75,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const WithExternalLabel = ({
@@ -85,7 +85,7 @@ export const WithExternalLabel = ({
   labelChildren,
   captionChildren,
   validationChildren,
-  variant
+  variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
   const validationArgs = {children: validationChildren, variant}
@@ -131,7 +131,7 @@ export const WithHiddenLabel = ({
   visuallyHidden,
   captionChildren,
   validationChildren,
-  variant
+  variant,
 }: CheckboxOrRadioGroupArgs) => {
   const parentArgs = {disabled, required}
   const labelArgs = {children: labelChildren, visuallyHidden}
@@ -158,5 +158,5 @@ export const WithHiddenLabel = ({
   )
 }
 WithHiddenLabel.args = {
-  visuallyHidden: true
+  visuallyHidden: true,
 }

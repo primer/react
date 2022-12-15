@@ -25,5 +25,5 @@ export const UnderlineNavContext = createContext<{
   selectEvent: null,
   variant: 'default',
   loadingCounters: false,
-  iconsVisible: true
+  iconsVisible: true,
 })

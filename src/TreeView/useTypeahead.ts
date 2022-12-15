@@ -8,7 +8,7 @@ type TypeaheadOptions = {
 }
 
 export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
-  const [searchValue, setSearchValue] = React.useState('')
+  const searchValue = React.useRef('')
   const timeoutRef = React.useRef(0)
   const onFocusChangeRef = React.useRef(onFocusChange)
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
@@ -17,6 +17,44 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
   React.useEffect(() => {
     onFocusChangeRef.current = onFocusChange
   }, [onFocusChange])
+
+  // Focus the closest element that matches the search value
+  const focusSearchValue = React.useCallback(
+    (searchValue: string) => {
+      // Don't change focus if the search value is empty
+      if (!searchValue) return
+
+      if (!containerRef.current) return
+      const container = containerRef.current
+
+      // Get focusable elements
+      const elements = Array.from(container.querySelectorAll('[role="treeitem"]'))
+
+      // Get the index of active element
+      const activeIndex = elements.findIndex(element => element === document.activeElement)
+
+      // Wrap the array elements such that the active descendant is at the beginning
+      let sortedElements = wrapArray(elements, activeIndex)
+
+      // Remove the active descendant from the beginning of the array
+      // when the user initiates a new search
+      if (searchValue.length === 1) {
+        sortedElements = sortedElements.slice(1)
+      }
+
+      // Find the first element that matches the search value
+      const nextElement = sortedElements.find(element => {
+        const name = getAccessibleName(element).toLowerCase()
+        return name.startsWith(searchValue.toLowerCase())
+      })
+
+      // If a match is found, focus it
+      if (nextElement) {
+        onFocusChangeRef.current(nextElement)
+      }
+    },
+    [containerRef],
+  )
 
   // Update the search value when the user types
   React.useEffect(() => {
@@ -31,11 +69,12 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
       if (event.ctrlKey || event.altKey || event.metaKey) return
 
       // Update the existing search value with the new key press
-      setSearchValue(value => value + event.key)
+      searchValue.current += event.key
+      focusSearchValue(searchValue.current)
 
       // Reset the timeout
       safeClearTimeout(timeoutRef.current)
-      timeoutRef.current = safeSetTimeout(() => setSearchValue(''), 300)
+      timeoutRef.current = safeSetTimeout(() => (searchValue.current = ''), 300)
 
       // Prevent default behavior
       event.preventDefault()
@@ -44,44 +83,7 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
 
     container.addEventListener('keydown', onKeyDown)
     return () => container.removeEventListener('keydown', onKeyDown)
-  }, [containerRef, safeClearTimeout, safeSetTimeout])
-
-  // Update focus when the search value changes
-  React.useEffect(() => {
-    // Don't change focus if the search value is empty
-    if (!searchValue) return
-
-    if (!containerRef.current) return
-    const container = containerRef.current
-
-    // Get focusable elements
-    const elements = Array.from(container.querySelectorAll('[role="treeitem"]'))
-      // Filter out collapsed items
-      .filter(element => !element.parentElement?.closest('[role=treeitem][aria-expanded=false]'))
-
-    // Get the index of active element
-    const activeIndex = elements.findIndex(element => element === document.activeElement)
-
-    // Wrap the array elements such that the active descendant is at the beginning
-    let sortedElements = wrapArray(elements, activeIndex)
-
-    // Remove the active descendant from the beginning of the array
-    // when the user initiates a new search
-    if (searchValue.length === 1) {
-      sortedElements = sortedElements.slice(1)
-    }
-
-    // Find the first element that matches the search value
-    const nextElement = sortedElements.find(element => {
-      const name = getAccessibleName(element).toLowerCase()
-      return name.startsWith(searchValue.toLowerCase())
-    })
-
-    // If a match is found, focus it
-    if (nextElement) {
-      onFocusChangeRef.current(nextElement)
-    }
-  }, [searchValue, containerRef])
+  }, [containerRef, focusSearchValue, safeClearTimeout, safeSetTimeout])
 }
 
 /**

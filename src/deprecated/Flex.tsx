@@ -9,7 +9,7 @@ export type FlexProps = BoxProps
 const Flex = styled(Box)``
 
 Flex.defaultProps = {
-  display: 'flex'
+  display: 'flex',
 }
 
 export default Flex

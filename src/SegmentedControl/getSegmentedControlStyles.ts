@@ -3,12 +3,12 @@ import {SegmentedControlButtonProps} from './SegmentedControlButton'
 
 export const directChildLayoutAdjustments = {
   ':first-child': {
-    marginLeft: '-1px'
+    marginLeft: '-1px',
   },
 
   ':last-child': {
-    marginRight: '-1px'
-  }
+    marginRight: '-1px',
+  },
 }
 
 export const borderedSegment = {
@@ -20,12 +20,12 @@ export const borderedSegment = {
     right: '-2px',
     top: 2,
     bottom: 2,
-    width: '1px'
-  }
+    width: '1px',
+  },
 }
 
 export const getSegmentedControlButtonStyles = (
-  props?: Partial<Pick<SegmentedControlButtonProps, 'children' | 'selected'>> & {isIconOnly?: boolean}
+  props?: Partial<Pick<SegmentedControlButtonProps, 'children' | 'selected'>> & {isIconOnly?: boolean},
 ) => ({
   '--segmented-control-button-inner-padding': '12px', // TODO: use primitive `primer.control.medium.paddingInline.normal` when it is available
   '--segmented-control-button-bg-inset': '4px',
@@ -62,24 +62,24 @@ export const getSegmentedControlButtonStyles = (
       : 'calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset))',
     paddingRight: props?.selected
       ? 'var(--segmented-control-button-inner-padding)'
-      : 'calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset))'
+      : 'calc(var(--segmented-control-button-inner-padding) - var(--segmented-control-button-bg-inset))',
   },
 
   svg: {
-    fill: 'fg.muted'
+    fill: 'fg.muted',
   },
 
   ':hover .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.hover.bg'
+    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.hover.bg',
   },
 
   ':active .segmentedControl-content': {
-    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.active.bg'
+    backgroundColor: props?.selected ? undefined : 'segmentedControl.button.active.bg',
   },
 
   // fixes an issue where the focus outline shows over the pseudo-element
   ':focus:focus-visible:not(:last-child):after': {
-    width: 0
+    width: 0,
   },
 
   '.segmentedControl-text': {
@@ -91,8 +91,8 @@ export const getSegmentedControlButtonStyles = (
       overflow: 'hidden',
       pointerEvents: 'none',
       userSelect: 'none',
-      visibility: 'hidden'
-    }
+      visibility: 'hidden',
+    },
   },
 
   '@media (pointer: coarse)': {
@@ -103,9 +103,9 @@ export const getSegmentedControlButtonStyles = (
       right: 0,
       transform: 'translateY(-50%)',
       top: '50%',
-      minHeight: '44px'
-    }
-  }
+      minHeight: '44px',
+    },
+  },
 })
 
 export const getSegmentedControlListItemStyles = () => ({
@@ -115,5 +115,5 @@ export const getSegmentedControlListItemStyles = () => ({
   marginTop: '-1px',
   marginBottom: '-1px',
   ':not(:last-child)': borderedSegment,
-  ...directChildLayoutAdjustments
+  ...directChildLayoutAdjustments,
 })

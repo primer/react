@@ -91,7 +91,7 @@ export const listItemStyles = css`
 `
 
 const StyledItem = styled.a.attrs(() => ({
-  role: 'menuitemcheckbox'
+  role: 'menuitemcheckbox',
 }))<SxProp>`
   ${listItemStyles}
   ${sx};
@@ -123,11 +123,11 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
         {children}
       </StyledItem>
     )
-  }
+  },
 )
 
 SelectMenuItem.defaultProps = {
-  selected: false
+  selected: false,
 }
 
 SelectMenuItem.displayName = 'SelectMenu.Item'

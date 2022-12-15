@@ -45,12 +45,12 @@ describe('SelectPanel', () => {
   behavesAsComponent({
     Component: SelectPanel,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <SimpleSelectPanel />
+    toRender: () => <SimpleSelectPanel />,
   })
 
   checkExports('SelectPanel', {
     default: undefined,
-    SelectPanel
+    SelectPanel,
   })
 
   it('should have no axe violations', async () => {

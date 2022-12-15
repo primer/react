@@ -64,7 +64,7 @@ type StyledSubNavLinkProps = {
 
 const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledSubNavLinkProps>`
   padding-left: ${get('space.3')};
   padding-right: ${get('space.3')};

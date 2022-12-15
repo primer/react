@@ -17,7 +17,7 @@ describe('LabelGroup', () => {
   behavesAsComponent({Component: LabelGroup})
 
   checkExports('LabelGroup', {
-    default: LabelGroup
+    default: LabelGroup,
   })
 
   it('should have no axe violations', async () => {

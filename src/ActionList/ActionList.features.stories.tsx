@@ -22,13 +22,13 @@ import {
   RepoForkedIcon,
   AlertIcon,
   TableIcon,
-  PeopleIcon
+  PeopleIcon,
 } from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionList/Features',
   component: ActionList,
-  subcomponents: {Item, LinkItem, Group, Divider, Description}
+  subcomponents: {Item, LinkItem, Group, Divider, Description},
 } as Meta<typeof ActionList>
 
 export const SimpleList = () => (
@@ -83,7 +83,7 @@ const users = [
   {login: 'mperrotti', name: 'Mike Perrotti'},
   {login: 'dgreif', name: 'Dusty Greif'},
   {login: 'smockle', name: 'Clay Miller'},
-  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'}
+  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'},
 ]
 
 export const WithAvatars = () => (
@@ -149,7 +149,7 @@ const projects = [
   {name: 'Primer Backlog', scope: 'GitHub'},
   {name: 'Accessibility', scope: 'GitHub'},
   {name: 'Octicons', scope: 'github/primer'},
-  {name: 'Primer React', scope: 'github/primer'}
+  {name: 'Primer React', scope: 'github/primer'},
 ]
 
 export const SingleSelect = () => {
@@ -316,7 +316,7 @@ export const TextWrapAndTruncation = () => (
 
 const teams = [
   {id: '5025661', type: 'team', slug: 'github/primer-reviewers', name: 'Primer Reviewers', members: 20},
-  {id: '1929972', type: 'team', slug: 'github/design-infrastructure', name: 'Design Infrastructure', members: 20}
+  {id: '1929972', type: 'team', slug: 'github/design-infrastructure', name: 'Design Infrastructure', members: 20},
 ]
 
 export const ConditionalChildren = () => {

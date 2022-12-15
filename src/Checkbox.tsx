@@ -51,7 +51,7 @@ const StyledCheckbox = styled.input`
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {checked, indeterminate, disabled, onChange, sx: sxProp, required, validationStatus, value, ...rest}: CheckboxProps,
-    ref
+    ref,
   ): ReactElement => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
@@ -84,7 +84,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         {...rest}
       />
     )
-  }
+  },
 )
 
 Checkbox.displayName = 'Checkbox'

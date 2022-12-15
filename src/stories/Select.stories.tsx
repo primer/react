@@ -8,7 +8,7 @@ import {
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
-  inputWrapperArgTypes
+  inputWrapperArgTypes,
 } from '../utils/story-helpers'
 
 export default {
@@ -16,17 +16,17 @@ export default {
   component: Select,
   args: {
     ...formControlArgs,
-    required: false
+    required: false,
   },
   argTypes: {
     ...inputWrapperArgTypes,
-    ...formControlArgTypes
+    ...formControlArgTypes,
   },
   parameters: {
     controls: {
-      exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused', 'sx', 'size']
-    }
-  }
+      exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused', 'sx', 'size'],
+    },
+  },
 } as Meta
 
 export const Default = (args: FormControlArgs<SelectProps>) => {
@@ -53,7 +53,7 @@ export const Default = (args: FormControlArgs<SelectProps>) => {
   )
 }
 Default.args = {
-  labelChildren: 'Choice'
+  labelChildren: 'Choice',
 }
 
 export const WithOptionGroups = (args: FormControlArgs<SelectProps>) => {
@@ -83,5 +83,5 @@ export const WithOptionGroups = (args: FormControlArgs<SelectProps>) => {
   )
 }
 WithOptionGroups.args = {
-  labelChildren: 'Choice'
+  labelChildren: 'Choice',
 }

@@ -18,9 +18,9 @@ try {
       signal: {
         get() {
           signalSupported = true
-        }
-      }
-    }
+        },
+      },
+    },
   )
   window.addEventListener('test', noop, options)
   window.removeEventListener('test', noop, options)
