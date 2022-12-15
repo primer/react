@@ -20,12 +20,17 @@ type TextInputActionProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 
 } & SxProp
 
 const invisibleButtonStyleOverrides = {
-  color: 'fg.default',
   paddingTop: '2px',
   paddingRight: '4px',
   paddingBottom: '2px',
   paddingLeft: '4px',
   position: 'relative',
+
+  // Button uses both a hash class and selector, so it seems important is required to override here
+  '&[data-component="IconButton"]': {
+    width: '24px !important',
+    height: '24px !important',
+  },
 
   '@media (pointer: coarse)': {
     ':after': {
@@ -77,7 +82,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     }
 
     return (
-      <Box as="span" className="TextInput-action" margin={1}>
+      <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1}>
         {icon && !children ? (
           <Tooltip aria-label={ariaLabel}>
             <IconButton

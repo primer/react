@@ -76,20 +76,13 @@ const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnc
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
-  ({sx: sxProp = {}, ...props}, anchorRef) => {
-    return (
-      <Anchor ref={anchorRef}>
-        <Button
-          type="button"
-          trailingAction={TriangleDownIcon}
-          sx={merge<BetterSystemStyleObject>(sxProp)}
-          {...props}
-        />
-      </Anchor>
-    )
-  },
-)
+const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(({...props}, anchorRef) => {
+  return (
+    <Anchor ref={anchorRef}>
+      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
+    </Anchor>
+  )
+})
 
 type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align'> & {
