@@ -42,7 +42,7 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   const customStrategy = React.useCallback(() => {
     if (customContainerRef.current) {
       const tabs = Array.from(
-        customContainerRef.current.querySelectorAll<HTMLElement>('[role=tab][aria-selected=true]')
+        customContainerRef.current.querySelectorAll<HTMLElement>('[role=tab][aria-selected=true]'),
       )
       setInitialFocus(true)
       return tabs[0]
@@ -54,9 +54,9 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
       bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
       focusOutBehavior: 'wrap',
       focusInStrategy: initialFocus ? 'previous' : customStrategy,
-      focusableElementFilter: element => element.getAttribute('role') === 'tab'
+      focusableElementFilter: element => element.getAttribute('role') === 'tab',
     },
-    [initialFocus]
+    [initialFocus],
   )
   return (
     <TabNavBase {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
@@ -77,7 +77,7 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
-  tabIndex: -1
+  tabIndex: -1,
 }))<StyledTabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};

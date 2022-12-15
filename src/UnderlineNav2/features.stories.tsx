@@ -10,20 +10,20 @@ import {
   ProjectIcon,
   GraphIcon,
   ShieldLockIcon,
-  GearIcon
+  GearIcon,
 } from '@primer/octicons-react'
 import {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Features'
+  title: 'Drafts/Components/UnderlineNav/Features',
 } as Meta
 
 export const Default = () => {
   return (
     <UnderlineNav aria-label="Repository">
-      <UnderlineNav.Item selected>Code</UnderlineNav.Item>
+      <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
       <UnderlineNav.Item>Issues</UnderlineNav.Item>
       <UnderlineNav.Item>Pull Requests</UnderlineNav.Item>
     </UnderlineNav>
@@ -37,7 +37,7 @@ export const withIcons = () => {
       <UnderlineNav.Item icon={EyeIcon} counter={6}>
         Issues
       </UnderlineNav.Item>
-      <UnderlineNav.Item selected icon={GitPullRequestIcon}>
+      <UnderlineNav.Item aria-current="page" icon={GitPullRequestIcon}>
         Pull Requests
       </UnderlineNav.Item>
       <UnderlineNav.Item icon={CommentDiscussionIcon} counter={7}>
@@ -51,7 +51,7 @@ export const withIcons = () => {
 export const withCounterLabels = () => {
   return (
     <UnderlineNav aria-label="Repository with counters">
-      <UnderlineNav.Item selected icon={CodeIcon} counter="11K">
+      <UnderlineNav.Item aria-current="page" icon={CodeIcon} counter="11K">
         Code
       </UnderlineNav.Item>
       <UnderlineNav.Item icon={IssueOpenedIcon} counter={12}>
@@ -70,7 +70,7 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
   {navigation: 'Projects', icon: ProjectIcon, counter: 9, href: '#projects'},
   {navigation: 'Insights', icon: GraphIcon, counter: '0', href: '#insights'},
   {navigation: 'Settings', icon: GearIcon, counter: 10, href: '#settings'},
-  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'}
+  {navigation: 'Security', icon: ShieldLockIcon, href: '#security'},
 ]
 
 export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
@@ -81,7 +81,7 @@ export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedInd
         <UnderlineNav.Item
           key={item.navigation}
           icon={item.icon}
-          selected={index === selectedIndex}
+          aria-current={index === selectedIndex ? 'page' : undefined}
           onSelect={event => {
             event.preventDefault()
             setSelectedIndex(index)
@@ -108,12 +108,12 @@ OverflowOnNarrowScreen.parameters = {
         name: 'Narrow Screen',
         styles: {
           width: '800px',
-          height: '100%'
-        }
-      }
+          height: '100%',
+        },
+      },
     },
-    defaultViewport: 'narrowScreen'
-  }
+    defaultViewport: 'narrowScreen',
+  },
 }
 
 export const CountersLoadingState = () => {
@@ -125,7 +125,7 @@ export const CountersLoadingState = () => {
         <UnderlineNav.Item
           key={item.navigation}
           icon={item.icon}
-          selected={index === selectedIndex}
+          aria-current={index === selectedIndex ? 'page' : undefined}
           onSelect={() => setSelectedIndex(index)}
           counter={item.counter}
         >

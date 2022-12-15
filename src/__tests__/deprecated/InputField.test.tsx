@@ -19,7 +19,7 @@ describe('InputField', () => {
             <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
             <TextInput />
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -35,7 +35,7 @@ describe('InputField', () => {
             <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
             <TextInput />
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -49,7 +49,7 @@ describe('InputField', () => {
             <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
             <TextInput />
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -63,7 +63,7 @@ describe('InputField', () => {
             <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
             <TextInput />
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByRole('textbox', {name: TEXTINPUTFIELD_LABEL_TEXT})
@@ -78,7 +78,7 @@ describe('InputField', () => {
             <TextInput />
             <InputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</InputField.Caption>
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const caption = getByText(TEXTINPUTFIELD_CAPTION_TEXT)
@@ -91,7 +91,7 @@ describe('InputField', () => {
           <InputField
             validationMap={{
               noSpaces: 'error',
-              validName: 'success'
+              validName: 'success',
             }}
             validationResult="validName"
           >
@@ -99,7 +99,7 @@ describe('InputField', () => {
             <TextInput />
             <InputField.Validation validationKey="validName">{TEXTINPUTFIELD_SUCCESS_TEXT}</InputField.Validation>
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const validationMessage = getByText(TEXTINPUTFIELD_SUCCESS_TEXT)
@@ -112,7 +112,7 @@ describe('InputField', () => {
           <InputField
             validationMap={{
               noSpaces: 'error',
-              validName: 'success'
+              validName: 'success',
             }}
             validationResult="noSpaces"
           >
@@ -120,7 +120,7 @@ describe('InputField', () => {
             <TextInput />
             <InputField.Validation validationKey="noSpaces">{TEXTINPUTFIELD_ERROR_TEXT}</InputField.Validation>
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const validationMessage = getByText(TEXTINPUTFIELD_ERROR_TEXT)
@@ -137,12 +137,12 @@ describe('InputField', () => {
               tokens={[
                 {text: 'zero', id: 0},
                 {text: 'one', id: 1},
-                {text: 'two', id: 2}
+                {text: 'two', id: 2},
               ]}
               onTokenRemove={onRemoveMock}
             />
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -158,7 +158,7 @@ describe('InputField', () => {
               <Autocomplete.Input block />
             </Autocomplete>
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -175,7 +175,7 @@ describe('InputField', () => {
             <InputField.Label>{TEXTINPUTFIELD_LABEL_TEXT}</InputField.Label>
             <TextInput />
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const inputNode = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -190,7 +190,7 @@ describe('InputField', () => {
             <TextInput />
             <InputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</InputField.Caption>
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const inputNode = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -208,7 +208,7 @@ describe('InputField', () => {
             <TextInput />
             <InputField.Validation validationKey="validName">{TEXTINPUTFIELD_SUCCESS_TEXT}</InputField.Validation>
           </InputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const inputNode = getByLabelText(TEXTINPUTFIELD_LABEL_TEXT)
@@ -227,7 +227,7 @@ describe('InputField', () => {
           <TextInput />
           <InputField.Caption>{TEXTINPUTFIELD_CAPTION_TEXT}</InputField.Caption>
         </InputField>
-      </SSRProvider>
+      </SSRProvider>,
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()

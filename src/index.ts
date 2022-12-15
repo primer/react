@@ -15,7 +15,7 @@ export type {
   PageLayoutHeaderProps,
   PageLayoutContentProps,
   PageLayoutPaneProps,
-  PageLayoutFooterProps
+  PageLayoutFooterProps,
 } from './PageLayout'
 export {SplitPageLayout} from './SplitPageLayout'
 export type {
@@ -23,7 +23,7 @@ export type {
   SplitPageLayoutHeaderProps,
   SplitPageLayoutContentProps,
   SplitPageLayoutPaneProps,
-  SplitPageLayoutFooterProps
+  SplitPageLayoutFooterProps,
 } from './SplitPageLayout'
 
 // Hooks
@@ -39,6 +39,7 @@ export {useFocusTrap} from './hooks/useFocusTrap'
 export type {FocusTrapHookSettings} from './hooks/useFocusTrap'
 export {useFocusZone} from './hooks/useFocusZone'
 export type {FocusZoneHookSettings} from './hooks/useFocusZone'
+export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 
 // Components
 export {default as Radio} from './Radio'
@@ -52,7 +53,7 @@ export type {
   ActionListDividerProps,
   ActionListDescriptionProps,
   ActionListLeadingVisualProps,
-  ActionListTrailingVisualProps
+  ActionListTrailingVisualProps,
 } from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
@@ -112,7 +113,7 @@ export type {
   NavListGroupProps,
   NavListLeadingVisualProps,
   NavListTrailingVisualProps,
-  NavListDividerProps
+  NavListDividerProps,
 } from './NavList'
 export {default as Overlay} from './Overlay'
 export type {OverlayProps} from './Overlay'
@@ -129,6 +130,8 @@ export type {PortalProps} from './Portal'
 export {default as ProgressBar} from './ProgressBar'
 export type {ProgressBarProps} from './ProgressBar'
 export {default as RadioGroup} from './RadioGroup'
+export type {RelativeTimeProps} from './RelativeTime'
+export {default as RelativeTime} from './RelativeTime'
 export {SegmentedControl} from './SegmentedControl'
 export {default as Select} from './Select'
 export type {SelectProps} from './Select'
@@ -159,7 +162,7 @@ export type {
   TimelineBadgeProps,
   TimelineBodyProps,
   TimelineBreakProps,
-  TimelineItemsProps
+  TimelineItemsProps,
 } from './Timeline'
 export {default as Token, IssueLabelToken, AvatarToken} from './Token'
 export type {TokenProps} from './Token'

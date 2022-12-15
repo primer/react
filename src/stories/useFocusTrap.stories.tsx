@@ -17,8 +17,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 // NOTE: the below styles are solely intended as a visual aid for
@@ -49,7 +49,7 @@ export const FocusTrap = () => {
         setTrapEnabled(!trapEnabled)
       }
     },
-    [trapEnabled]
+    [trapEnabled],
   )
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export const RestoreFocus = () => {
         setTrapEnabled(!trapEnabled)
       }
     },
-    [trapEnabled]
+    [trapEnabled],
   )
 
   useEffect(() => {
@@ -151,7 +151,7 @@ export const CustomInitialFocus = () => {
         setTrapEnabled(!trapEnabled)
       }
     },
-    [trapEnabled]
+    [trapEnabled],
   )
 
   useEffect(() => {
@@ -204,7 +204,7 @@ function useKeyPressListener(key: string, handler: () => void, capture = false) 
         handler()
       }
     },
-    [key, handler]
+    [key, handler],
   )
 
   useEffect(() => {
@@ -221,7 +221,7 @@ function ToggleableButton({name}: {name: string}) {
 
   useKeyPressListener(
     key,
-    useCallback(() => setShowButton(!showButton), [showButton])
+    useCallback(() => setShowButton(!showButton), [showButton]),
   )
 
   return (
@@ -238,7 +238,7 @@ export const DynamicFocusTrapContents = () => {
 
   useKeyPressListener(
     ' ',
-    useCallback(() => setTrapEnabled(!trapEnabled), [trapEnabled])
+    useCallback(() => setTrapEnabled(!trapEnabled), [trapEnabled]),
   )
 
   return (
@@ -288,7 +288,7 @@ export const MultipleFocusTraps = () => {
         setTrapEnabled2(!trapEnabled2)
       }
     },
-    [trapEnabled1, trapEnabled2]
+    [trapEnabled1, trapEnabled2],
   )
 
   useEffect(() => {

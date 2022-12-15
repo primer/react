@@ -25,7 +25,7 @@ export const useDynamicTextareaHeight = ({
   minHeightLines,
   maxHeightLines,
   element,
-  value
+  value,
 }: UseDynamicTextareaHeightSettings): SxProp['sx'] => {
   const [height, setHeight] = useState<string | undefined>(undefined)
   const [minHeight, setMinHeight] = useState<string | undefined>(undefined)

@@ -8,9 +8,8 @@ import {
   ButtonInvisible,
   ButtonOutline,
   ButtonPrimary,
-  ButtonTableList
+  ButtonTableList,
 } from '../../deprecated'
-import {ButtonGroup} from '../..'
 import {ButtonStyleProps} from 'styled-system'
 import {ButtonBaseProps} from '../../deprecated/Button/ButtonBase'
 type StrictButtonStyleProps = ButtonStyleProps & {variant: ButtonBaseProps['variant']}
@@ -20,26 +19,26 @@ export default {
   argTypes: {
     as: {
       table: {
-        disable: true
-      }
+        disable: true,
+      },
     },
     theme: {
       table: {
-        disable: true
-      }
+        disable: true,
+      },
     },
     sx: {
       table: {
-        disable: true
-      }
+        disable: true,
+      },
     },
     variant: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'medium', 'large']
-    }
-  }
+      options: ['small', 'medium', 'large'],
+    },
+  },
 } as Meta
 
 export const defaultButton = (args: StrictButtonStyleProps) => <Button {...args}>Default Button</Button>
@@ -52,13 +51,6 @@ export const invisibleButton = (args: StrictButtonStyleProps) => (
 
 export const closeButton = (args: ButtonStyleProps) => (
   <ButtonClose {...args} onClick={() => alert('button clicked.')} />
-)
-export const buttonGroup = (args: StrictButtonStyleProps) => (
-  <ButtonGroup>
-    <Button {...args}>Button 1</Button>
-    <Button {...args}>Button 2</Button>
-    <Button {...args}>Button 3</Button>
-  </ButtonGroup>
 )
 export const buttonTableList = (args: ButtonStyleProps) => (
   <ButtonTableList {...args}>Button Table List</ButtonTableList>
@@ -74,5 +66,4 @@ outlineButton.args = {variant: 'medium'}
 primaryButton.args = {variant: 'medium'}
 invisibleButton.args = {variant: 'medium'}
 closeButton.args = {variant: 'medium'}
-buttonGroup.args = {variant: 'medium'}
 buttonTableList.args = {variant: 'medium'}

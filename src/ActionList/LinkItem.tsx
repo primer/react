@@ -32,15 +32,15 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
 
     // inherit Item styles
     color: 'inherit',
-    '&:hover': {color: 'inherit', textDecoration: 'none'}
+    '&:hover': {color: 'inherit', textDecoration: 'none'},
   }
 
   return (
     <Item
       active={active}
       sx={{paddingY: 0, paddingX: 0}}
-      _PrivateItemWrapper={({children}) => (
-        <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} ref={forwardedRef}>
+      _PrivateItemWrapper={({children, ...rest}) => (
+        <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} {...rest} ref={forwardedRef}>
           {children}
         </Link>
       )}

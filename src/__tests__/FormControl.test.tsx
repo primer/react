@@ -31,7 +31,7 @@ describe('FormControl', () => {
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <TextInput />
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -47,7 +47,7 @@ describe('FormControl', () => {
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <TextInput />
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -61,7 +61,7 @@ describe('FormControl', () => {
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <TextInput />
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -75,7 +75,7 @@ describe('FormControl', () => {
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <TextInput />
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const input = getByRole('textbox')
@@ -90,7 +90,7 @@ describe('FormControl', () => {
               <TextInput />
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const caption = getByText(CAPTION_TEXT)
@@ -105,7 +105,7 @@ describe('FormControl', () => {
               <TextInput />
               <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const validationMessage = getByText(ERROR_TEXT)
@@ -120,7 +120,7 @@ describe('FormControl', () => {
               <TextInput />
               <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const validationMessage = getByText(ERROR_TEXT)
@@ -137,12 +137,12 @@ describe('FormControl', () => {
                 tokens={[
                   {text: 'zero', id: 0},
                   {text: 'one', id: 1},
-                  {text: 'two', id: 2}
+                  {text: 'two', id: 2},
                 ]}
                 onTokenRemove={onRemoveMock}
               />
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -158,7 +158,7 @@ describe('FormControl', () => {
                 <Autocomplete.Input block />
               </Autocomplete>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -176,7 +176,7 @@ describe('FormControl', () => {
                 <Select.Option value="three">Choice three</Select.Option>
               </Select>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -192,7 +192,7 @@ describe('FormControl', () => {
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <Textarea />
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -211,7 +211,7 @@ describe('FormControl', () => {
               <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
               <TextInput />
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const inputNode = getByLabelText(LABEL_TEXT)
@@ -226,7 +226,7 @@ describe('FormControl', () => {
               <TextInput />
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const inputNode = getByLabelText(LABEL_TEXT)
@@ -244,7 +244,7 @@ describe('FormControl', () => {
               <TextInput />
               <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const inputNode = getByLabelText(LABEL_TEXT)
@@ -263,7 +263,7 @@ describe('FormControl', () => {
               <TextInput />
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         expect(mockErrorFn).toHaveBeenCalled()
@@ -278,7 +278,7 @@ describe('FormControl', () => {
               <FormControl.Label>Name</FormControl.Label>
               <TextInput />
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         expect(mockWarningFn).toHaveBeenCalled()
@@ -291,7 +291,7 @@ describe('FormControl', () => {
               <TextInput id="testId" />
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         expect(mockWarningFn).toHaveBeenCalled()
@@ -304,7 +304,7 @@ describe('FormControl', () => {
               <TextInput disabled />
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         expect(mockWarningFn).toHaveBeenCalled()
@@ -317,7 +317,7 @@ describe('FormControl', () => {
               <TextInput required />
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         expect(mockWarningFn).toHaveBeenCalled()
@@ -331,7 +331,7 @@ describe('FormControl', () => {
             <TextInput />
             <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
           </FormControl>
-        </SSRProvider>
+        </SSRProvider>,
       )
       const results = await axe(container)
       expect(results).toHaveNoViolations()
@@ -350,7 +350,7 @@ describe('FormControl', () => {
                 <MarkGithubIcon aria-label="leadingVisualIcon" />
               </FormControl.LeadingVisual>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         const leadingVisual = getByLabelText('leadingVisualIcon')
@@ -370,7 +370,7 @@ describe('FormControl', () => {
               <FormControl.Validation variant="error">Some error</FormControl.Validation>
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         expect(consoleSpy).toHaveBeenCalled()
@@ -384,7 +384,7 @@ describe('FormControl', () => {
               <Checkbox required />
               <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
             </FormControl>
-          </SSRProvider>
+          </SSRProvider>,
         )
 
         expect(consoleSpy).toHaveBeenCalled()
@@ -398,7 +398,7 @@ describe('FormControl', () => {
             <Checkbox />
             <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
           </FormControl>
-        </SSRProvider>
+        </SSRProvider>,
       )
       const results = await axe(container)
       expect(results).toHaveNoViolations()

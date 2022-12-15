@@ -14,7 +14,7 @@ const isWhitespace = (char: string) => /\s/.test(char)
 export const calculateSuggestionsQuery = (
   triggers: Array<Trigger>,
   text: string,
-  caretLocation: number
+  caretLocation: number,
 ): ShowSuggestionsEvent | null => {
   // Build backwards from the caret location until the most recent trigger character or terminator
   for (
@@ -53,7 +53,7 @@ export const getSuggestionKey = (suggestion: Suggestion): string =>
 export const replaceSlice = (
   original: string,
   [startInclusive, endExclusive]: [number, number],
-  replacement: string
+  replacement: string,
 ) => {
   const before = original.substring(0, startInclusive)
   const after = original.substring(endExclusive)
@@ -68,7 +68,7 @@ export const replaceSlice = (
  */
 export function requireChildrenToBeInput(
   child: React.ReactElement,
-  childRef: React.RefObject<HTMLElement>
+  childRef: React.RefObject<HTMLElement>,
 ): TextInputCompatibleChild {
   Children.only(child) // Assert that the child is lonely
   if (
@@ -79,7 +79,7 @@ export function requireChildrenToBeInput(
     !(childRef.current instanceof HTMLTextAreaElement)
   ) {
     throw new TypeError(
-      `AutocompleteTextarea child must be a component that forwards a ref and props to an <input> or <textarea> element.`
+      `AutocompleteTextarea child must be a component that forwards a ref and props to an <input> or <textarea> element.`,
     )
   }
   return child

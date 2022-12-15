@@ -14,7 +14,7 @@ const excludedControlKeys = [
   'onChange',
   'onClick',
   'statusLabelPosition',
-  'sx'
+  'sx',
 ]
 
 export default {
@@ -24,30 +24,30 @@ export default {
     on: undefined,
     disabled: false,
     loading: false,
-    size: 'medium'
+    size: 'medium',
   },
   argTypes: {
     on: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     disabled: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     loading: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     size: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'medium']
-    }
+      options: ['small', 'medium'],
+    },
   },
   parameters: {controls: {exclude: excludedControlKeys}},
   decorators: [
@@ -59,8 +59,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const Default = (args: Args) => (

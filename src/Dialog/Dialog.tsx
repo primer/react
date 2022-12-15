@@ -167,14 +167,14 @@ const Backdrop = styled('div')`
 const heightMap = {
   small: '480px',
   large: '640px',
-  auto: 'auto'
+  auto: 'auto',
 } as const
 
 const widthMap = {
   small: '296px',
   medium: '320px',
   large: '480px',
-  xlarge: '640px'
+  xlarge: '640px',
 } as const
 
 export type DialogWidth = keyof typeof widthMap
@@ -218,7 +218,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   title,
   subtitle,
   dialogDescriptionId,
-  onClose
+  onClose,
 }) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
@@ -241,7 +241,7 @@ const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children})
 const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
-    focusInStrategy: 'closest'
+    focusInStrategy: 'closest',
   })
   return footerButtons ? (
     <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
@@ -261,7 +261,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
-    footerButtons = []
+    footerButtons = [],
   } = props
   const dialogLabelId = useSSRSafeId()
   const dialogDescriptionId = useSSRSafeId()
@@ -283,7 +283,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       onClose('escape')
       event.preventDefault()
     },
-    [onClose]
+    [onClose],
   )
 
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
@@ -366,7 +366,7 @@ const Footer = styled.div<SxProp>`
 const buttonTypes = {
   normal: Button,
   primary: ButtonPrimary,
-  danger: ButtonDanger
+  danger: ButtonDanger,
 }
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
@@ -447,5 +447,5 @@ export const Dialog = Object.assign(_Dialog, {
   Body,
   Footer,
   Buttons,
-  CloseButton
+  CloseButton,
 })

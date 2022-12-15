@@ -75,11 +75,11 @@ describe('Dialog', () => {
   behavesAsComponent({
     Component: Dialog,
     toRender: () => comp,
-    options: {skipAs: true, skipSx: true}
+    options: {skipAs: true, skipSx: true},
   })
 
   checkExports('Dialog', {
-    default: Dialog
+    default: Dialog,
   })
 
   describe('Dialog.Header', () => {

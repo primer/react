@@ -2,7 +2,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   FileDirectoryFillIcon,
-  FileDirectoryOpenFillIcon
+  FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
 import {useSSRSafeId} from '@react-aria/ssr'
 import classnames from 'classnames'
@@ -18,7 +18,6 @@ import Text from '../Text'
 import createSlots from '../utils/create-slots'
 import VisuallyHidden from '../_VisuallyHidden'
 import {getAccessibleName} from './shared'
-import {usePageUpDown} from './usePageUpDown'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
 
@@ -33,7 +32,7 @@ const RootContext = React.createContext<{
   expandedStateCache: React.RefObject<Map<string, boolean> | null>
 }>({
   announceUpdate: () => {},
-  expandedStateCache: {current: new Map()}
+  expandedStateCache: {current: new Map()},
 })
 
 const ItemContext = React.createContext<{
@@ -53,7 +52,7 @@ const ItemContext = React.createContext<{
   isExpanded: false,
   setIsExpanded: () => {},
   leadingVisualId: '',
-  trailingVisualId: ''
+  trailingVisualId: '',
 })
 
 // ----------------------------------------------------------------------------
@@ -87,7 +86,8 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item {
     outline: none;
 
-    &:focus-visible > div {
+    &:focus-visible > div,
+    &.focus-visible > div {
       box-shadow: inset 0 0 0 2px ${get(`colors.accent.fg`)};
       @media (forced-colors: active) {
         outline: 2px solid HighlightText;
@@ -251,7 +251,6 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     setAriaLiveMessage(message)
   }, [])
 
-  usePageUpDown(containerRef)
   useRovingTabIndex({containerRef})
   useTypeahead({
     containerRef,
@@ -259,7 +258,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
       if (element instanceof HTMLElement) {
         element.focus()
       }
-    }
+    },
   })
 
   const expandedStateCache = React.useRef<Map<string, boolean> | null>(null)
@@ -272,7 +271,7 @@ const Root: React.FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledb
     <RootContext.Provider
       value={{
         announceUpdate,
-        expandedStateCache
+        expandedStateCache,
       }}
     >
       <>
@@ -295,6 +294,7 @@ Root.displayName = 'TreeView'
 export type TreeViewItemProps = {
   id: string
   children: React.ReactNode
+  containIntrinsicSize?: string
   current?: boolean
   defaultExpanded?: boolean
   expanded?: boolean
@@ -306,8 +306,17 @@ const {Slots, Slot} = createSlots(['LeadingVisual', 'TrailingVisual'])
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
   (
-    {id: itemId, current: isCurrentItem = false, defaultExpanded, expanded, onExpandedChange, onSelect, children},
-    ref
+    {
+      id: itemId,
+      containIntrinsicSize,
+      current: isCurrentItem = false,
+      defaultExpanded,
+      expanded,
+      onExpandedChange,
+      onSelect,
+      children,
+    },
+    ref,
   ) => {
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useSSRSafeId()
@@ -321,7 +330,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       // is the current item, in which case we default to true.
       defaultValue: () => expandedStateCache.current?.get(itemId) ?? defaultExpanded ?? isCurrentItem,
       value: expanded,
-      onChange: onExpandedChange
+      onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
     const {hasSubTree, subTree, childrenWithoutSubTree} = useSubTree(children)
@@ -333,7 +342,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         setIsExpanded(newIsExpanded)
         expandedStateCache.current?.set(itemId, newIsExpanded)
       },
-      [itemId, setIsExpanded, expandedStateCache]
+      [itemId, setIsExpanded, expandedStateCache],
     )
 
     // Expand or collapse the subtree
@@ -342,7 +351,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         setIsExpandedWithCache(!isExpanded)
         event?.stopPropagation()
       },
-      [isExpanded, setIsExpandedWithCache]
+      [isExpanded, setIsExpandedWithCache],
     )
 
     const handleKeyDown = React.useCallback(
@@ -367,7 +376,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             break
         }
       },
-      [onSelect, setIsExpandedWithCache, toggle]
+      [onSelect, setIsExpandedWithCache, toggle],
     )
 
     return (
@@ -380,7 +389,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           isExpanded,
           setIsExpanded: setIsExpandedWithCache,
           leadingVisualId,
-          trailingVisualId
+          trailingVisualId,
         }}
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
@@ -409,13 +418,20 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             className="PRIVATE_TreeView-item-container"
             style={{
               // @ts-ignore CSS custom property
-              '--level': level
+              '--level': level,
+              contentVisibility: containIntrinsicSize ? 'auto' : undefined,
+              containIntrinsicSize,
             }}
             onClick={event => {
               if (onSelect) {
                 onSelect(event)
               } else {
                 toggle(event)
+              }
+            }}
+            onAuxClick={event => {
+              if (onSelect && event.button === 1) {
+                onSelect(event)
               }
             }}
           >
@@ -428,7 +444,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 className={classnames(
                   'PRIVATE_TreeView-item-toggle',
                   onSelect && 'PRIVATE_TreeView-item-toggle--hover',
-                  level === 1 && 'PRIVATE_TreeView-item-toggle--end'
+                  level === 1 && 'PRIVATE_TreeView-item-toggle--end',
                 )}
                 onClick={event => {
                   if (onSelect) {
@@ -455,7 +471,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         </li>
       </ItemContext.Provider>
     )
-  }
+  },
 )
 
 /** Lines to indicate the depth of an item in a TreeView */
@@ -470,29 +486,6 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
 }
 
 Item.displayName = 'TreeView.Item'
-
-// ----------------------------------------------------------------------------
-// TreeView.LinkItem
-
-export type TreeViewLinkItemProps = TreeViewItemProps & {
-  href?: string
-}
-
-// TODO: Use an <a> element to enable native browser behavior like opening links in a new tab
-const LinkItem = React.forwardRef<HTMLElement, TreeViewLinkItemProps>(({href, onSelect, ...props}, ref) => {
-  return (
-    <Item
-      ref={ref}
-      onSelect={event => {
-        window.open(href, '_self')
-        onSelect?.(event)
-      }}
-      {...props}
-    />
-  )
-})
-
-LinkItem.displayName = 'TreeView.LinkItem'
 
 // ----------------------------------------------------------------------------
 // TreeView.SubTree
@@ -592,7 +585,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       style={{
         listStyle: 'none',
         padding: 0,
-        margin: 0
+        margin: 0,
       }}
       // @ts-ignore Box doesn't have type support for `ref` used in combination with `as`
       ref={ref}
@@ -705,17 +698,17 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 function useSubTree(children: React.ReactNode) {
   return React.useMemo(() => {
     const subTree = React.Children.toArray(children).find(
-      child => React.isValidElement(child) && child.type === SubTree
+      child => React.isValidElement(child) && child.type === SubTree,
     )
 
     const childrenWithoutSubTree = React.Children.toArray(children).filter(
-      child => !(React.isValidElement(child) && child.type === SubTree)
+      child => !(React.isValidElement(child) && child.type === SubTree),
     )
 
     return {
       subTree,
       childrenWithoutSubTree,
-      hasSubTree: Boolean(subTree)
+      hasSubTree: Boolean(subTree),
     }
   }, [children])
 }
@@ -832,10 +825,9 @@ ErrorDialog.displayName = 'TreeView.ErrorDialog'
 
 export const TreeView = Object.assign(Root, {
   Item,
-  LinkItem,
   SubTree,
   LeadingVisual,
   TrailingVisual,
   DirectoryIcon,
-  ErrorDialog
+  ErrorDialog,
 })

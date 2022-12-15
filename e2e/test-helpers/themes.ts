@@ -7,5 +7,5 @@ export const themes = [
   'dark_dimmed',
   'dark_high_contrast',
   'dark_colorblind',
-  'dark_tritanopia'
+  'dark_tritanopia',
 ]

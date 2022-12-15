@@ -14,15 +14,15 @@ export default {
   component: Token,
   args: {
     text: 'Token',
-    size: 'medium'
+    size: 'medium',
   },
   argTypes: {
     size: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'medium', 'large', 'xlarge']
-    }
+      options: ['small', 'medium', 'large', 'xlarge'],
+    },
   },
   decorators: [
     Story => {
@@ -33,8 +33,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 const excludedControlKeys = ['id', 'as', 'tabIndex', 'onRemove', 'leadingVisual']
@@ -45,7 +45,7 @@ const SingleExampleContainer: React.FC<React.PropsWithChildren<{label?: string}>
     sx={{
       alignItems: 'start',
       flexDirection: 'column',
-      gap: get('space.0')
+      gap: get('space.0'),
     }}
   >
     {label ? (
@@ -63,7 +63,7 @@ const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = (
     sx={{
       alignItems: 'start',
       flexDirection: 'column',
-      gap: get('space.6')
+      gap: get('space.6'),
     }}
   >
     <Text fontSize={1} color="fg.subtle">
@@ -90,7 +90,7 @@ export const Interactive = (args: Omit<TokenProps, 'ref' | 'text'>) => {
         display="flex"
         sx={{
           alignItems: 'start',
-          gap: get('space.2')
+          gap: get('space.2'),
         }}
       >
         <Token as="a" href="http://google.com/" {...args} text="Link" />
@@ -123,7 +123,7 @@ export const WithOnRemoveFn = (args: Omit<TokenProps, 'ref'>) => {
           display="flex"
           sx={{
             alignItems: 'start',
-            gap: get('space.2')
+            gap: get('space.2'),
           }}
         >
           <Token as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />

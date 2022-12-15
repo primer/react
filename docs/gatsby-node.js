@@ -17,8 +17,8 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
       exclude: modulePath => /node_modules/.test(modulePath),
       // ...except that we want to run Primer React through webpack as well.
       // By default, Gatsby won't use the define plugin we added above on Primer React.
-      include: modulePath => /@primer\/components/.test(modulePath)
-    }
+      include: modulePath => /@primer\/components/.test(modulePath),
+    },
   ]
 
   // Polyfill `path` and stub `fs` for use in the browser
@@ -27,12 +27,12 @@ exports.onCreateWebpackConfig = ({actions, plugins, loaders, getConfig}) => {
     ...config.resolve,
     alias: {
       ...config.resolve.alias,
-      path: require.resolve('path-browserify')
+      path: require.resolve('path-browserify'),
     },
     fallback: {
       ...config.resolve.fallback,
-      fs: false
-    }
+      fs: false,
+    },
   }
 
   actions.replaceWebpackConfig(config)
@@ -55,7 +55,7 @@ exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
       }
 
       return true
-    }
+    },
   })
 
   const components = data.map(component => {
@@ -69,7 +69,7 @@ exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
             description: prop.description,
             defaultValue: prop.defaultValue ? prop.defaultValue.value : '',
             required: prop.required,
-            type: prop.type.name
+            type: prop.type.name,
           }
         })
         // Move required props to beginning of the list
@@ -77,7 +77,7 @@ exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
           if (a.required && !b.required) return -1
           if (!a.required && b.required) return 1
           return 0
-        })
+        }),
     }
   })
 
@@ -92,8 +92,8 @@ exports.sourceNodes = ({actions, createNodeId, createContentDigest}) => {
         type: `ComponentMetadata`,
         mediaType: `text/html`,
         content: nodeContent,
-        contentDigest: createContentDigest(component)
-      }
+        contentDigest: createContentDigest(component),
+      },
     }
     const node = Object.assign({}, component, nodeMeta)
     createNode(node)

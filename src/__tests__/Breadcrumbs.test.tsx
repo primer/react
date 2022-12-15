@@ -11,7 +11,7 @@ describe('Breadcrumbs', () => {
 
   checkExports('Breadcrumbs', {
     default: Breadcrumbs,
-    Breadcrumb
+    Breadcrumb,
   })
 
   it('should have no axe violations', async () => {

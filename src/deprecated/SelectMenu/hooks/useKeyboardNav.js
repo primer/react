@@ -15,8 +15,8 @@ function useKeyboardNav(details, open, setOpen) {
       const focusItem = next => {
         const options = Array.from(
           details.current.querySelectorAll(
-            '[role^="menuitem"]:not([hidden]):not([disabled]):not([aria-disabled="true"])'
-          )
+            '[role^="menuitem"]:not([hidden]):not([disabled]):not([aria-disabled="true"])',
+          ),
         )
         const selected = document.activeElement
         const index = options.indexOf(selected)
@@ -73,7 +73,7 @@ function useKeyboardNav(details, open, setOpen) {
         default:
       }
     },
-    [details, open, setOpen]
+    [details, open, setOpen],
   )
 
   useEffect(() => {

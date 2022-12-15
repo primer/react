@@ -54,7 +54,7 @@ function UnderlineNav({actions, className, align, children, full, label, theme, 
     className,
     'PRC-UnderlineNav',
     align && `PRC-UnderlineNav--${align}`,
-    full && 'PRC-UnderlineNav--full'
+    full && 'PRC-UnderlineNav--full',
   )
   return (
     <UnderlineNavBase className={classes} aria-label={label} theme={theme} {...rest}>
@@ -71,7 +71,7 @@ type StyledUnderlineNavLinkProps = {
 
 const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
-  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className)
+  className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledUnderlineNavLinkProps>`
   padding: ${get('space.3')} ${get('space.2')};
   margin-right: ${get('space.3')};

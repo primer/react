@@ -10,7 +10,7 @@ module.exports = (file, api) => {
 
   renameImports(ast, j, '@primer/components', {
     DonutChart: 'Donut',
-    DonutSlice: 'Donut.Slice'
+    DonutSlice: 'Donut.Slice',
   })
 
   return prettify(ast, file)

@@ -28,11 +28,11 @@ describe('Avatar', () => {
   behavesAsComponent({
     Component: AvatarStack,
     toRender: () => avatarComp,
-    options: {skipAs: true}
+    options: {skipAs: true},
   })
 
   checkExports('AvatarStack', {
-    default: AvatarStack
+    default: AvatarStack,
   })
 
   it('should have no axe violations', async () => {

@@ -10,7 +10,7 @@ describe('Header', () => {
   behavesAsComponent({Component: Header})
 
   checkExports('Header', {
-    default: Header
+    default: Header,
   })
 
   describe('Header.Item', () => {
@@ -31,7 +31,7 @@ describe('Header', () => {
           <Header.Link href="#">Two</Header.Link>
         </Header.Item>
         <Header.Item>Three</Header.Item>
-      </Header>
+      </Header>,
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()

@@ -21,7 +21,7 @@ export const Placeholder: React.FC<
         bg: 'canvas.inset',
         borderRadius: 2,
         border: '1px solid',
-        borderColor: 'border.subtle'
+        borderColor: 'border.subtle',
       }}
     >
       {label}

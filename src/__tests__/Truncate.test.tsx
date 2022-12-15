@@ -9,11 +9,11 @@ expect.extend(toHaveNoViolations)
 describe('Truncate', () => {
   behavesAsComponent({
     Component: Truncate,
-    toRender: () => <Truncate title="a-long-branch-name" />
+    toRender: () => <Truncate title="a-long-branch-name" />,
   })
 
   checkExports('Truncate', {
-    default: Truncate
+    default: Truncate,
   })
 
   it('renders a <div> by default', () => {
@@ -36,7 +36,7 @@ describe('Truncate', () => {
 
   it('respects the expandable prop', () => {
     expect(render(<Truncate expandable title="a-long-branch-name" />)).toHaveStyleRule('max-width', '10000px', {
-      modifier: ':hover'
+      modifier: ':hover',
     })
   })
 })

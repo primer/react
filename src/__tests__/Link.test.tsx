@@ -10,7 +10,7 @@ describe('Link', () => {
   behavesAsComponent({Component: Link})
 
   checkExports('Link', {
-    default: Link
+    default: Link,
   })
 
   it('should have no axe violations', async () => {

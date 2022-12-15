@@ -4,7 +4,7 @@ import {iterateFocusableElements} from '@primer/behaviors/utils'
 export const useMenuInitialFocus = (
   open: boolean,
   containerRef: React.RefObject<HTMLElement>,
-  anchorRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement>,
 ) => {
   /**
    * We need to pick the first element to focus based on how the menu was opened,
@@ -35,7 +35,7 @@ export const useMenuInitialFocus = (
         anchorElement?.removeEventListener('keydown', keydownHandler)
       }
     },
-    [anchorRef]
+    [anchorRef],
   )
 
   /**
@@ -72,6 +72,6 @@ export const useMenuInitialFocus = (
     // we don't want containerRef in dependencies
     // because re-renders to containerRef while it's open should not fire initialMenuFocus
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [open, openingGesture, anchorRef]
+    [open, openingGesture, anchorRef],
   )
 }

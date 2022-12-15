@@ -52,7 +52,7 @@ export function FilteredActionList({
       onFilterChange(value, e)
       setInternalFilterValue(value)
     },
-    [onFilterChange, setInternalFilterValue]
+    [onFilterChange, setInternalFilterValue],
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -71,7 +71,7 @@ export function FilteredActionList({
         activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
       }
     },
-    [activeDescendantRef]
+    [activeDescendantRef],
   )
 
   useFocusZone(
@@ -88,12 +88,12 @@ export function FilteredActionList({
         if (current && scrollContainerRef.current && directlyActivated) {
           scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
         }
-      }
+      },
     },
     [
       // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading
-    ]
+      loading,
+    ],
   )
 
   useEffect(() => {

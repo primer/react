@@ -12,7 +12,7 @@ const items = [
   {text: 'New file'},
   {text: 'Copy link'},
   {text: 'Edit file'},
-  {text: 'Delete file', variant: 'danger'}
+  {text: 'Delete file', variant: 'danger'},
 ] as ItemProps[]
 
 const mockOnActivate = jest.fn()
@@ -43,12 +43,12 @@ describe('ActionMenu', () => {
       <SSRProvider>
         <ActionMenu items={[]} />
       </SSRProvider>
-    )
+    ),
   })
 
   checkExports('deprecated/ActionMenu', {
     default: undefined,
-    ActionMenu
+    ActionMenu,
   })
 
   it('should have no axe violations', async () => {

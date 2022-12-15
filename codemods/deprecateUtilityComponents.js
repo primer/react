@@ -8,42 +8,42 @@ module.exports = (file, api) => {
     Flex: {
       identifier: 'Box',
       attributes: {
-        display: 'flex'
-      }
+        display: 'flex',
+      },
     },
     Grid: {
       identifier: 'Box',
       attributes: {
-        display: 'grid'
-      }
+        display: 'grid',
+      },
     },
     Position: {
       identifier: 'Box',
-      attributes: {}
+      attributes: {},
     },
     Absolute: {
       identifier: 'Box',
       attributes: {
-        position: 'absolute'
-      }
+        position: 'absolute',
+      },
     },
     Relative: {
       identifier: 'Box',
       attributes: {
-        position: 'relative'
-      }
+        position: 'relative',
+      },
     },
     Fixed: {
       identifier: 'Box',
       attributes: {
-        position: 'fixed'
-      }
+        position: 'fixed',
+      },
     },
     Sticky: {
       identifier: 'Box',
       attributes: {
-        position: 'sticky'
-      }
+        position: 'sticky',
+      },
     },
     BorderBox: {
       identifier: 'Box',
@@ -51,9 +51,9 @@ module.exports = (file, api) => {
         borderWidth: '1px',
         borderStyle: 'solid',
         borderColor: 'border.default',
-        borderRadius: 2
-      }
-    }
+        borderRadius: 2,
+      },
+    },
   })
 
   return prettify(ast, file)

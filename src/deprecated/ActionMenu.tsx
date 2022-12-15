@@ -66,7 +66,7 @@ const ActionMenuBase = ({
       return renderAnchor({
         'aria-label': 'menu',
         children: anchorContent,
-        ...props
+        ...props,
       })
     }
   }, [anchorContent, renderAnchor])
@@ -82,7 +82,7 @@ const ActionMenuBase = ({
           if (!event.defaultPrevented) {
             onClose()
           }
-        }
+        },
       } as ItemProps
     })
   }, [items, onAction, onClose])

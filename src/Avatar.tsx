@@ -24,7 +24,7 @@ function getBorderRadius({size, square}: StyledAvatarProps) {
 
 const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
   height: props.size,
-  width: props.size
+  width: props.size,
 }))<StyledAvatarProps>`
   display: inline-block;
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
@@ -37,7 +37,7 @@ const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
 Avatar.defaultProps = {
   size: 20,
   alt: '',
-  square: false
+  square: false,
 }
 
 export type AvatarProps = ComponentProps<typeof Avatar>

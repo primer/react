@@ -7,7 +7,7 @@ const isTaskListItem = (item: ListItem | null): item is TaskListItem => typeof i
 
 const toggleTaskListItem = (item: TaskListItem): TaskListItem => ({
   ...item,
-  taskBox: item.taskBox === '[ ]' ? '[x]' : '[ ]'
+  taskBox: item.taskBox === '[ ]' ? '[x]' : '[ ]',
 })
 
 type UseListInteractionSettings = {
@@ -27,7 +27,7 @@ export const useListInteraction = ({
   htmlContainer,
   markdownValue,
   onChange,
-  disabled = false
+  disabled = false,
 }: UseListInteractionSettings) => {
   // Storing the value in a ref allows not using the markdown value as a depdency of
   // onToggleItem, which would mean we'd have to re-bind the event handlers on every change
@@ -59,15 +59,15 @@ export const useListInteraction = ({
         taskIndex++
       }
     },
-    [onChange]
+    [onChange],
   )
 
   const checkboxElements = useMemo(
     () =>
       Array.from(
-        htmlContainer?.querySelectorAll<HTMLInputElement>('input[type=checkbox].task-list-item-checkbox') ?? []
+        htmlContainer?.querySelectorAll<HTMLInputElement>('input[type=checkbox].task-list-item-checkbox') ?? [],
       ),
-    [htmlContainer]
+    [htmlContainer],
   )
 
   // This could be combined with the other effect, but then the checkboxes might have a flicker
@@ -86,7 +86,7 @@ export const useListInteraction = ({
       // eslint-disable-next-line github/array-foreach
       return () => cleanupFns.forEach(fn => fn())
     },
-    [checkboxElements, disabled]
+    [checkboxElements, disabled],
   )
 
   useEffect(
@@ -101,6 +101,6 @@ export const useListInteraction = ({
       // eslint-disable-next-line github/array-foreach
       return () => cleanupFns.forEach(fn => fn())
     },
-    [checkboxElements, onToggleItem]
+    [checkboxElements, onToggleItem],
   )
 }

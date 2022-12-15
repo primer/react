@@ -51,7 +51,7 @@ const ShorthandHookFromActionMenu = () => {
         title: 'Confirm',
         content: 'Confirm',
         cancelButtonContent: 'Secondary',
-        confirmButtonContent: 'Primary'
+        confirmButtonContent: 'Primary',
       })
     ) {
       setText('Confirmed')
@@ -77,13 +77,13 @@ describe('ConfirmationDialog', () => {
   behavesAsComponent({
     Component: ConfirmationDialog,
     toRender: () => <Basic />,
-    options: {skipAs: true, skipSx: true}
+    options: {skipAs: true, skipSx: true},
   })
 
   checkExports('Dialog/ConfirmationDialog', {
     default: undefined,
     useConfirm,
-    ConfirmationDialog
+    ConfirmationDialog,
   })
 
   it('should have no axe violations', async () => {

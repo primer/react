@@ -21,7 +21,7 @@ const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({childre
   const formControlComponentChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child) && child.type === FormControl)
     .map(formControlComponent =>
-      React.isValidElement(formControlComponent) ? formControlComponent.props.children : []
+      React.isValidElement(formControlComponent) ? formControlComponent.props.children : [],
     )
     .flat()
 
@@ -31,7 +31,7 @@ const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({childre
       checkbox =>
         React.isValidElement(checkbox) &&
         (checkbox.props.checked || checkbox.props.defaultChecked) &&
-        checkbox.props.value
+        checkbox.props.value,
     )
     .filter(Boolean)
   const [selectedCheckboxValues, setSelectedCheckboxValues] = useRenderForcingRef<string[]>(checkedCheckboxes)
@@ -56,7 +56,7 @@ const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({childre
             updateSelectedCheckboxes(e)
             onChange(selectedCheckboxValues.current || [], e)
           }
-        }
+        },
       }}
     >
       <CheckboxOrRadioGroup disabled={disabled} {...rest}>
@@ -71,5 +71,5 @@ export {CheckboxGroupContext}
 export default Object.assign(CheckboxGroup, {
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
-  Validation: CheckboxOrRadioGroupValidation
+  Validation: CheckboxOrRadioGroupValidation,
 })

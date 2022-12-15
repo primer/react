@@ -54,7 +54,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       sx={{
         '&:not(:first-child)': {marginTop: 2},
         listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
-        ...sx
+        ...sx,
       }}
       {...props}
     >
@@ -97,8 +97,8 @@ const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({variant, title,
       marginBottom: 2,
       borderTop: '1px solid',
       borderBottom: '1px solid',
-      borderColor: 'neutral.muted'
-    })
+      borderColor: 'neutral.muted',
+    }),
   }
 
   return (

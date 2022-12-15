@@ -11,7 +11,7 @@ describe('BorderBox', () => {
   behavesAsComponent({Component: BorderBox})
 
   checkExports('deprecated/BorderBox', {
-    default: BorderBox
+    default: BorderBox,
   })
 
   it('should have no axe violations', async () => {
@@ -23,7 +23,7 @@ describe('BorderBox', () => {
   it('renders borders', () => {
     expect(render(<BorderBox borderColor="success.emphasis" />)).toHaveStyleRule(
       'border-color',
-      theme.colorSchemes.light.colors.success?.emphasis
+      theme.colorSchemes.light.colors.success?.emphasis,
     )
     expect(render(<BorderBox borderBottom={0} />)).toHaveStyleRule('border-bottom', '0')
   })
@@ -36,7 +36,7 @@ describe('BorderBox', () => {
   it('renders box shadow', () => {
     expect(render(<BorderBox boxShadow="shadow.small" />)).toHaveStyleRule(
       'box-shadow',
-      theme.colorSchemes.light.shadows.shadow?.small
+      theme.colorSchemes.light.shadows.shadow?.small,
     )
   })
 })

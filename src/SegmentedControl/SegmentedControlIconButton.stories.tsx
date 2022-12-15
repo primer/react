@@ -13,22 +13,22 @@ export default {
   args: {
     icon: 'FileCodeIcon',
     selected: false,
-    defaultSelected: false
+    defaultSelected: false,
   },
   argTypes: {
     icon: {
       control: {
         type: 'select',
-        options: Object.keys(icons)
+        options: Object.keys(icons),
       },
-      mapping: icons
+      mapping: icons,
     },
     selected: {
-      type: 'boolean'
+      type: 'boolean',
     },
     defaultSelected: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   decorators: [
     Story => {
@@ -37,8 +37,8 @@ export default {
           <Story />
         </SegmentedControl>
       )
-    }
-  ]
+    },
+  ],
 } as Meta<typeof SegmentedControlIconButton>
 
 export const Playground: Story<SegmentedControlIconButtonProps> = args => (

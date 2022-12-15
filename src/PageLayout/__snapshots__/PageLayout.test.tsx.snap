@@ -69,7 +69,6 @@ exports[`PageLayout renders condensed layout 1`] = `
   --pane-max-width: calc(100vw - 511px);
   width: 100%;
   padding: 0;
-  overflow: auto;
 }
 
 .c3 {
@@ -133,7 +132,7 @@ exports[`PageLayout renders condensed layout 1`] = `
 
 @media screen and (min-width:768px) {
   .c11 {
-    width: 256px;
+    overflow: auto;
   }
 }
 
@@ -351,7 +350,6 @@ exports[`PageLayout renders default layout 1`] = `
   --pane-max-width: calc(100vw - 511px);
   width: 100%;
   padding: 0;
-  overflow: auto;
 }
 
 .c2 {
@@ -425,7 +423,7 @@ exports[`PageLayout renders default layout 1`] = `
 
 @media screen and (min-width:768px) {
   .c11 {
-    width: 256px;
+    overflow: auto;
   }
 }
 
@@ -644,7 +642,6 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
   --pane-max-width: calc(100vw - 511px);
   width: 100%;
   padding: 0;
-  overflow: auto;
 }
 
 .c2 {
@@ -718,7 +715,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 
 @media screen and (min-width:768px) {
   .c11 {
-    width: 256px;
+    overflow: auto;
   }
 }
 
@@ -913,7 +910,6 @@ exports[`PageLayout renders with dividers 1`] = `
   --pane-max-width: calc(100vw - 511px);
   width: 100%;
   padding: 0;
-  overflow: auto;
 }
 
 .c2 {
@@ -987,7 +983,7 @@ exports[`PageLayout renders with dividers 1`] = `
 
 @media screen and (min-width:768px) {
   .c10 {
-    width: 256px;
+    overflow: auto;
   }
 }
 

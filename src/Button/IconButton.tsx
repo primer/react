@@ -12,7 +12,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
     getBaseStyles(theme),
     getSizeStyles(size, variant, true),
     getVariantStyles(variant, theme),
-    sxProp as SxProp
+    sxProp as SxProp,
   ])
   return (
     <StyledButton sx={sxStyles} {...rest} ref={forwardedRef}>

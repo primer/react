@@ -10,7 +10,7 @@ import {
   Avatar,
   ActionListItemProps,
   FormControl,
-  TextInput
+  TextInput,
 } from '../..'
 import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
 
@@ -26,26 +26,26 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   args: {
     loading: false,
-    tabInserts: false
+    tabInserts: false,
   },
   argTypes: {
     loading: {
       name: 'Loading',
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     tabInserts: {
       name: '`Tab` Key Inserts Suggestions',
       control: {
-        type: 'boolean'
-      }
-    }
-  }
+        type: 'boolean',
+      },
+    },
+  },
 } as Meta
 
 interface User {
@@ -58,13 +58,13 @@ interface User {
 const sampleUsers: User[] = [
   {login: 'monalisa', name: 'Monalisa Octocat', avatar: 'https://avatars.githubusercontent.com/github', type: 'user'},
   {login: 'primer', name: 'Primer', avatar: 'https://avatars.githubusercontent.com/primer', type: 'organization'},
-  {login: 'github', name: 'GitHub', avatar: 'https://avatars.githubusercontent.com/github', type: 'organization'}
+  {login: 'github', name: 'GitHub', avatar: 'https://avatars.githubusercontent.com/github', type: 'organization'},
 ]
 
 const filteredUsers = (query: string) =>
   sampleUsers.filter(
     user =>
-      user.login.toLowerCase().includes(query.toLowerCase()) || user.name.toLowerCase().includes(query.toLowerCase())
+      user.login.toLowerCase().includes(query.toLowerCase()) || user.name.toLowerCase().includes(query.toLowerCase()),
   )
 
 export const Default = ({loading, tabInserts}: ArgProps) => {
@@ -151,8 +151,8 @@ export const CustomRendering = ({loading, tabInserts}: ArgProps) => {
     setSuggestions(
       filteredUsers(event.query).map(user => ({
         value: user.login,
-        render: props => <UserSuggestion user={user} {...props} />
-      }))
+        render: props => <UserSuggestion user={user} {...props} />,
+      })),
     )
   }
 

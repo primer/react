@@ -12,7 +12,7 @@ import {
   IssueOpenedIcon,
   TableIcon,
   PeopleIcon,
-  XIcon
+  XIcon,
 } from '@primer/octicons-react'
 
 const meta: Meta = {
@@ -25,13 +25,13 @@ const meta: Meta = {
           <Story />
         </BaseStyles>
       </ThemeProvider>
-    )
+    ),
   ],
   parameters: {
     controls: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 
@@ -76,7 +76,7 @@ const fieldTypes = [
   {icon: NumberIcon, name: 'Number'},
   {icon: CalendarIcon, name: 'Date'},
   {icon: SingleSelectIcon, name: 'Single select'},
-  {icon: IterationsIcon, name: 'Iteration'}
+  {icon: IterationsIcon, name: 'Iteration'},
 ]
 
 export function SingleSelection(): JSX.Element {
@@ -143,7 +143,7 @@ const milestones = [
   {name: 'FY21 - Q2', due: 'December 31, 2021', progress: 90},
   {name: 'FY22 - Q3', due: 'March 31, 2022', progress: 10},
   {name: 'FY23 - Q1', due: 'June 30, 2022', progress: 0},
-  {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0}
+  {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0},
 ]
 
 export function GroupsAndDescription(): JSX.Element {
@@ -165,7 +165,7 @@ export function GroupsAndDescription(): JSX.Element {
               paddingX: 0,
               gridTemplateColumns: 'min-content 1fr min-content',
               textAlign: 'left',
-              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'}
+              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'},
             }}
           >
             Milestone
@@ -230,7 +230,7 @@ const users = [
   {login: 'mperrotti', name: 'Mike Perrotti'},
   {login: 'dgreif', name: 'Dusty Greif'},
   {login: 'smockle', name: 'Clay Miller'},
-  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'}
+  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'},
 ]
 
 export function MultipleSelection(): JSX.Element {
@@ -261,7 +261,7 @@ export function MultipleSelection(): JSX.Element {
               paddingX: 0,
               gridTemplateColumns: 'min-content 1fr min-content',
               textAlign: 'left',
-              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'}
+              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'},
             }}
           >
             Assignees
@@ -298,7 +298,7 @@ export function MixedSelection(): JSX.Element {
     {text: 'Assignee', icon: PeopleIcon},
     {text: 'Team', icon: TypographyIcon},
     {text: 'Estimate', icon: NumberIcon},
-    {text: 'Due Date', icon: CalendarIcon}
+    {text: 'Due Date', icon: CalendarIcon},
   ]
 
   const selectedOption = selectedIndex !== null && options[selectedIndex]

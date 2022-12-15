@@ -40,7 +40,7 @@ describe('Button', () => {
     const container = render(
       <Button onClick={onClick} disabled>
         Disabled
-      </Button>
+      </Button>,
     )
     const button = container.getByRole('button')
     expect(button.hasAttribute('disabled')).toEqual(true)
@@ -58,7 +58,7 @@ describe('Button', () => {
     const container = render(
       <Button size="small" sx={{fontSize: 20}}>
         Big Smol
-      </Button>
+      </Button>,
     )
     const button = container.getByRole('button')
     expect(button).toHaveStyleRule('font-size', '20px')
