@@ -778,6 +778,13 @@ describe('Keyboard interactions', () => {
 
       // onSelect should have been called
       expect(onSelect).toHaveBeenCalledTimes(1)
+
+      onSelect.mockClear()
+      // Press middle click
+      fireEvent.click(document.activeElement?.firstChild || document.body, {button: 1})
+
+      // onSelect should have been called
+      expect(onSelect).toHaveBeenCalledTimes(1)
     })
 
     it('toggles expanded state if no onSelect function is provided', () => {
