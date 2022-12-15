@@ -106,7 +106,7 @@ exports[`Button renders consistently 1`] = `
 }
 
 .c0[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;
@@ -330,7 +330,7 @@ exports[`Button respects block prop 1`] = `
 }
 
 .c0[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;
@@ -560,7 +560,7 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 .c0[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;
@@ -789,7 +789,7 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 .c0[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;
@@ -1019,7 +1019,7 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 .c0[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;
@@ -1254,7 +1254,7 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;
@@ -1495,7 +1495,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;
@@ -1729,7 +1729,7 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 .c0[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;

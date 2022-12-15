@@ -120,7 +120,7 @@ exports[`ActionMenu renders consistently 1`] = `
 }
 
 .c1[data-component=IconButton] {
-  display: grid;
+  display: inline-grid;
   padding: unset;
   place-content: center;
   width: 32px;
@@ -222,11 +222,6 @@ exports[`ActionMenu renders consistently 1`] = `
   border-color: rgba(27,31,36,0.15);
 }
 
-.c1 [data-component=trailingIcon] {
-  margin-left: -4px;
-  margin-right: -4px;
-}
-
 @media (forced-colors:active) {
   .c1:focus {
     outline: solid 1px transparent;
@@ -258,33 +253,33 @@ exports[`ActionMenu renders consistently 1`] = `
       >
         Toggle Menu
       </span>
-      <span
-        className="c3"
-        data-component="trailingVisual"
-      >
-        <svg
-          aria-hidden="true"
-          className="octicon octicon-triangle-down"
-          fill="currentColor"
-          focusable="false"
-          height={16}
-          role="img"
-          style={
-            {
-              "display": "inline-block",
-              "overflow": "visible",
-              "userSelect": "none",
-              "verticalAlign": "text-bottom",
-            }
+    </span>
+    <span
+      className="c3"
+      data-component="trailingAction"
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-triangle-down"
+        fill="currentColor"
+        focusable="false"
+        height={16}
+        role="img"
+        style={
+          {
+            "display": "inline-block",
+            "overflow": "visible",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
           }
-          viewBox="0 0 16 16"
-          width={16}
-        >
-          <path
-            d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"
-          />
-        </svg>
-      </span>
+        }
+        viewBox="0 0 16 16"
+        width={16}
+      >
+        <path
+          d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"
+        />
+      </svg>
     </span>
   </button>
 </div>

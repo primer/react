@@ -2198,8 +2198,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  padding-top: 0;
-  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -2890,8 +2888,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -3575,8 +3571,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -13820,8 +13814,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  padding-top: 0;
-  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -15540,8 +15532,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  padding-top: 0;
-  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
