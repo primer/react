@@ -55,13 +55,14 @@ describe('PageHeader', () => {
       '-webkit-box-align': 'center',
       '-webkit-flex-direction': 'row',
       '-webkit-order': '0',
-      [`@media screen and (max-width:768px)`]: {
+      [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'flex',
       },
       [`@media screen and (min-width:768px)`]: {
         display: 'none',
       },
       'align-items': 'center',
+      display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
       order: '0',
@@ -80,16 +81,17 @@ describe('PageHeader', () => {
       '-webkit-box-align': 'center',
       '-webkit-flex-direction': 'row',
       '-webkit-order': '0',
-      [`@media screen and (max-width:768px)`]: {
+      [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'flex',
       },
       [`@media screen and (min-width:768px)`]: {
         display: 'flex',
       },
-      [`@media screen and (min-width:1440px)`]: {
+      [`@media screen and (min-width:1400px)`]: {
         display: 'none',
       },
       'align-items': 'center',
+      display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
       order: '0',
@@ -114,7 +116,7 @@ describe('PageHeader', () => {
       '-ms-flex-align': 'center',
       '-webkit-align-items': 'center',
       '-webkit-box-align': 'center',
-      [`@media screen and (max-width:768px)`]: {
+      [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'none',
       },
       [`@media screen and (min-width:768px)`]: {

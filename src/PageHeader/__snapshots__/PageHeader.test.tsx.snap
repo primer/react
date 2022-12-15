@@ -13,6 +13,10 @@ exports[`PageHeader renders consistently 1`] = `
 }
 
 .c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -27,11 +31,11 @@ exports[`PageHeader renders consistently 1`] = `
 }
 
 .c2 {
-  gap: 0.5rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 0.5rem;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -60,7 +64,7 @@ exports[`PageHeader renders consistently 1`] = `
   display: block;
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:calc(768px - 0.02px)) {
   .c1 {
     display: -webkit-box;
     display: -webkit-flex;
@@ -106,6 +110,10 @@ exports[`PageHeader renders default layout 1`] = `
 }
 
 .c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -120,11 +128,11 @@ exports[`PageHeader renders default layout 1`] = `
 }
 
 .c2 {
-  gap: 0.5rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 0.5rem;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -153,7 +161,7 @@ exports[`PageHeader renders default layout 1`] = `
   display: block;
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:calc(768px - 0.02px)) {
   .c1 {
     display: -webkit-box;
     display: -webkit-flex;
