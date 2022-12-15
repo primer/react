@@ -8,7 +8,6 @@ import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
 import {MandateProps} from './utils/types'
-import {merge, BetterSystemStyleObject} from './sx'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
