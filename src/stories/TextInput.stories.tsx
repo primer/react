@@ -232,7 +232,7 @@ WithLoadingIndicator.parameters = {
   },
 }
 
-export const ValidationOnSubmit = () => {
+export const ValidateOnSubmit = () => {
   const getNameErrors = (value: string) => {
     if (!value.replace(/\s/g, '').length) {
       return ['nameEmpty']
@@ -380,7 +380,7 @@ export const ValidationOnSubmit = () => {
   )
 }
 
-export const ValidationAlertAfterSubmit = () => {
+export const ValidationAfterSubmit = () => {
   return (
     <>
       <Box mb={3}>
@@ -430,3 +430,5 @@ export const ValidationAlertAfterSubmit = () => {
     </>
   )
 }
+
+ValidationAfterSubmit.storyName = 'Validation with summary of errors'
