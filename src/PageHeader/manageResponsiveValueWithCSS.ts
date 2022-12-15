@@ -1,5 +1,6 @@
-import {isResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue, ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject} from '../sx'
+import * as CSS from 'csstype'
 
 function areAllValuesTheSame(responsiveValue: ResponsiveValue<boolean | number | string>): boolean {
   if ('narrow' in responsiveValue && 'regular' in responsiveValue && 'wide' in responsiveValue) {
@@ -19,7 +20,7 @@ function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | 
  * This function is inspired by the `useResponsiveValue` hook and it's used to render responsive values with CSS.
  * @param value - The value that needs to be rendered responsively
  * @param cssProperty - The CSS property whoes value needs to be rendered responsively
- * @param comparisonFunc - A function that evaluates which value to assign to the CSS property
+ * @param mapFn - A function that evaluates which value to assign to the CSS property
  
  * @example
  * CSSManagedResponsiveValue({narrow: true, regular: true, wide: false}, 'display', value => {
@@ -69,21 +70,21 @@ function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | 
  *   },
  * }
  */
-export function CSSManagedResponsiveValue<T>(
-  value: T,
-  cssProperty: string,
-  comparisonFunc: (value: T) => void,
+export function CSSManagedResponsiveValue<TInput, TOutput>(
+  value: TInput | ResponsiveValue<TInput>,
+  cssProperty: keyof CSS.Properties,
+  mapFn: (value: TInput) => TOutput,
 ): BetterSystemStyleObject {
   if (isResponsiveValue(value)) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const responsiveValue = value as Extract<T, ResponsiveValue<any>>
+    const responsiveValue = value as Extract<TInput, ResponsiveValue<any>>
 
-    // Build media queries with the giving cssProperty and comparisonFunc
+    // Build media queries with the giving cssProperty and mapFn
     const narrowMediaQuery =
       'narrow' in responsiveValue
         ? {
-            [`@media screen and (max-width: 768px)`]: {
-              [cssProperty]: comparisonFunc(responsiveValue.narrow),
+            [`@media screen and ${viewportRanges.narrow}`]: {
+              [cssProperty]: mapFn(responsiveValue.narrow),
             },
           }
         : {}
@@ -91,8 +92,8 @@ export function CSSManagedResponsiveValue<T>(
     const regularMediaQuery =
       'regular' in responsiveValue
         ? {
-            [`@media screen and (min-width: 768px)`]: {
-              [cssProperty]: comparisonFunc(responsiveValue.regular),
+            [`@media screen and ${viewportRanges.regular}`]: {
+              [cssProperty]: mapFn(responsiveValue.regular),
             },
           }
         : {}
@@ -100,8 +101,8 @@ export function CSSManagedResponsiveValue<T>(
     const wideMediaQuery =
       'wide' in responsiveValue
         ? {
-            [`@media screen and (min-width: 1440px)`]: {
-              [cssProperty]: comparisonFunc(responsiveValue.wide),
+            [`@media screen and ${viewportRanges.wide}`]: {
+              [cssProperty]: mapFn(responsiveValue.wide),
             },
           }
         : {}
@@ -109,7 +110,7 @@ export function CSSManagedResponsiveValue<T>(
     // check if all values are the same - this is not a recommended practise but we still should check for it
     if (areAllValuesTheSame(responsiveValue)) {
       // if all the values are the same, we can just use one of the value to determine the CSS property's value
-      return {[cssProperty]: comparisonFunc(responsiveValue.narrow)}
+      return {[cssProperty]: mapFn(responsiveValue.narrow)}
       // check if regular and wide have the same value, if so we can just return the narrow and regular media queries
     } else if (haveRegularAndWideSameValue(responsiveValue)) {
       return {
@@ -125,6 +126,6 @@ export function CSSManagedResponsiveValue<T>(
     }
   } else {
     // If the given value is not a responsive value
-    return {[cssProperty]: comparisonFunc(value)}
+    return {[cssProperty]: mapFn(value)}
   }
 }

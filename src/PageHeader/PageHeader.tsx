@@ -85,6 +85,7 @@ const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   // )
 
   const contentNavStyles = {
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: '0.5rem',
@@ -123,6 +124,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           muted
           sx={merge<BetterSystemStyleObject>(
             {
+              display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
               ...CSSManagedResponsiveValue(hidden, 'display', value => {
@@ -153,9 +155,12 @@ const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
-        CSSManagedResponsiveValue(hidden, 'display', value => {
-          return value ? 'none' : 'flex'
-        }),
+        {
+          display: 'flex',
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+        },
         sx,
       )}
     >
@@ -175,6 +180,7 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           gap: '0.5rem',
@@ -224,6 +230,7 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
       <Box
         sx={merge<BetterSystemStyleObject>(
           {
+            display: 'flex',
             gap: '0.5rem',
             ...CSSManagedResponsiveValue(hidden, 'display', value => {
               return value ? 'none' : 'flex'
@@ -251,6 +258,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          display: 'flex',
           ...CSSManagedResponsiveValue(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -271,6 +279,7 @@ const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chil
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          display: 'flex',
           ...CSSManagedResponsiveValue(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -313,6 +322,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
             medium: '600',
             subtitle: '400',
           }[titleVariant],
+          display: 'flex',
           ...CSSManagedResponsiveValue(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -331,6 +341,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chi
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          display: 'flex',
           ...CSSManagedResponsiveValue(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -356,6 +367,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          display: 'flex',
           ...CSSManagedResponsiveValue(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -376,6 +388,7 @@ const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, 
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          display: 'flex',
           ...CSSManagedResponsiveValue(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -400,6 +413,7 @@ const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childr
     <Box
       sx={merge<BetterSystemStyleObject>(
         {
+          display: 'flex',
           ...CSSManagedResponsiveValue(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -420,9 +434,12 @@ const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childre
   return (
     <Box
       sx={merge<BetterSystemStyleObject>(
-        CSSManagedResponsiveValue(hidden, 'display', value => {
-          return value ? 'none' : 'block'
-        }),
+        {
+          display: 'flex',
+          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            return value ? 'none' : 'block'
+          }),
+        },
         sx,
       )}
     >
