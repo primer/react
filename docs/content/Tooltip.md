@@ -10,9 +10,9 @@ The Tooltip component adds a tooltip to add context to interactive elements on t
 
 Tooltips as a UI pattern should be our last resort for conveying information because it is hidden by default and often with zero or little visual indicator of its existence.
 
-Before adding a tooltip, please consider: Is this information essential and necessary? Can the UI be made clearer? Can the information be shown on the page by default?
+Before adding a tooltip, please consider: Is this information essential and necessary? Can the UI be made clearer? Can the information be shown on the page by default? See [Tooltip alternatives](https://primer.style/design/accessibility/tooltip-alternatives) for more accessible alternatives.
 
-**Attention:** we use aria-label for tooltip contents, because it is crucial that they are accessible to screen reader users. However, aria-label replaces the text content of an element in screen readers, so only use Tooltip on elements with no existing text content, or consider using `title` for supplemental information.
+**Attention:** we use `aria-label` for tooltip contents. However, `aria-label` replaces the text content of an element in screen readers, so only use Tooltip on elements with no existing text content.
 
 A tooltip may only be used on an element that is interactive such as a button or a link. Even if an element is focusable, a tooltip may only be used if the element does something when it's clicked.
 
