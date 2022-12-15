@@ -1,6 +1,6 @@
 import {isResponsiveValue, ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject} from '../sx'
-import * as CSS from 'csstype'
+import type {Properties as CSSProperties} from 'csstype'
 
 function areAllValuesTheSame(responsiveValue: ResponsiveValue<boolean | number | string>): boolean {
   if ('narrow' in responsiveValue && 'regular' in responsiveValue && 'wide' in responsiveValue) {
@@ -20,7 +20,10 @@ function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | 
  * This function is inspired by the `useResponsiveValue` hook and it's used to render responsive values with CSS.
  * @param value - The value that needs to be rendered responsively
  * @param cssProperty - The CSS property whoes value needs to be rendered responsively
- * @param mapFn - A function that evaluates which value to assign to the CSS property
+ * @param mapFn - A function that maps the given value to a CSS value
+ *
+ * If the value is responsive, it will only return the given viewports' breakpoints as CSS rules with the given CSS property and their mapped value.
+ * For viewports that are not specified, we need to provide a fallback CSS declaration in the component's sx prop along with the styles that will return from this function.
  
  * @example
  * CSSManagedResponsiveValue({narrow: true, regular: true, wide: false}, 'display', value => {
@@ -72,7 +75,7 @@ function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | 
  */
 export function CSSManagedResponsiveValue<TInput, TOutput>(
   value: TInput | ResponsiveValue<TInput>,
-  cssProperty: keyof CSS.Properties,
+  cssProperty: keyof CSSProperties,
   mapFn: (value: TInput) => TOutput,
 ): BetterSystemStyleObject {
   if (isResponsiveValue(value)) {
