@@ -429,6 +429,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 toggle(event)
               }
             }}
+            onAuxClick={event => {
+              if (onSelect && event.button === 1) {
+                onSelect(event)
+              }
+            }}
           >
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />

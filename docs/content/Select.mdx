@@ -28,6 +28,12 @@ import {Select, Text} from '@primer/react'
 
 ### With grouped options
 
+<Note>
+
+`OptGroup` labels are not accessible to all screen readers, so they cannot convey critical information just information that improves usability.
+
+</Note>
+
 ```jsx live
 <FormControl>
   <FormControl.Label>Preferred Primer component interface</FormControl.Label>
@@ -45,6 +51,11 @@ import {Select, Text} from '@primer/react'
 ```
 
 ### With a placeholder
+
+<Note>
+  Select placeholders cannot be used in place of labels and should be used sparingly. They also should not convey
+  critical information.
+</Note>
 
 ```jsx live
 <FormControl>
@@ -123,6 +134,6 @@ The `Select.Option` component accepts the same props as a native HTML [`<option>
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />
