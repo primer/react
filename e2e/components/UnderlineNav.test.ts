@@ -284,7 +284,7 @@ test.describe('UnderlineNav', () => {
   test.describe('UnderlineNav Interactions', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
-        test('Overflow interaction', async ({page}) => {
+        test('Overflow interaction @vrt', async ({page}) => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
@@ -307,7 +307,7 @@ test.describe('UnderlineNav', () => {
           expect(await page.screenshot()).toMatchSnapshot()
         })
 
-        test('Hide icons when there is not enough space to display all list items', async ({page}) => {
+        test('Hide icons when there is not enough space to display all list items @vrt', async ({page}) => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {
@@ -325,7 +325,7 @@ test.describe('UnderlineNav', () => {
           expect(await page.screenshot()).toMatchSnapshot()
         })
 
-        test('Keep selected item visible', async ({page}) => {
+        test('Keep selected item visible @vrt', async ({page}) => {
           await visit(page, {
             id: 'drafts-components-underlinenav-features--overflow-template',
             globals: {

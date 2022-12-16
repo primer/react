@@ -50,7 +50,13 @@ const input = new Set([
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
-const ESM_ONLY = new Set(['@github/combobox-nav', '@github/markdown-toolbar-element', '@github/paste-markdown'])
+const ESM_ONLY = new Set([
+  '@github/combobox-nav',
+  '@github/markdown-toolbar-element',
+  '@github/paste-markdown',
+  '@github/relative-time-element',
+  '@lit-labs/react',
+])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
