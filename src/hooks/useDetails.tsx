@@ -16,7 +16,7 @@ function useDetails({ref, closeOnOutsideClick, defaultOpen, onClickOutside}: Use
     (event: MouseEvent) => {
       const {current} = customRef
       const eventTarget = event.target as HTMLElement
-      const closest = eventTarget.closest('details') as HTMLDetailsElement
+      const closest = eventTarget.closest('details')
       if (closest !== current) {
         onClickOutside && onClickOutside(event)
         if (!event.defaultPrevented) {
