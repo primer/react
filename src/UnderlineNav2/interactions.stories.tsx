@@ -16,7 +16,7 @@ const KeyboardNavigation = () => {
   return <OverflowTemplate initialSelectedIndex={1} />
 }
 
-const delay = (ms: number = 500) => new Promise(resolve => setTimeout(resolve, ms))
+const delay = (ms = 500) => new Promise(resolve => setTimeout(resolve, ms))
 
 KeyboardNavigation.storyName = 'Keyboard navigation'
 KeyboardNavigation.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
