@@ -13,9 +13,9 @@ test.describe('AvatarToken', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         for (const args of scenarios) {
-          const suffix = serialize(args)
+          const info = serialize(args)
 
-          test.describe(suffix, () => {
+          test.describe(info, () => {
             test(`default @vrt`, async ({page}) => {
               await visit(page, {
                 id: 'components-avatartoken--default-token',
@@ -26,7 +26,7 @@ test.describe('AvatarToken', () => {
               })
 
               // Default state
-              expect(await page.screenshot()).toMatchSnapshot(`AvatarToken.Default.${theme}.${suffix}.png`)
+              expect(await page.screenshot()).toMatchSnapshot(`AvatarToken.Default.${theme}.${info}.png`)
             })
 
             test('axe @aat', async ({page}) => {
