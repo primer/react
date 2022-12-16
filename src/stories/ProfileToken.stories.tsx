@@ -57,9 +57,6 @@ const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = (
       gap: get('space.6'),
     }}
   >
-    <Text fontSize={1} color="fg.subtle">
-      Hint: use the &quot;Controls&quot; tab in the Addons panel to change the token properties
-    </Text>
     {children}
   </Box>
 )
