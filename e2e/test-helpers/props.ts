@@ -27,6 +27,7 @@ export function matrix(input: MatrixInput) {
   }
 
   const combinations = combine(...values).map(result => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const combination: Record<string, any> = {}
 
     for (let i = 0; i < result.length; i++) {
