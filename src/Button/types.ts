@@ -18,7 +18,9 @@ export type Size = 'small' | 'medium' | 'large'
  */
 type StyledButtonProps = Omit<ComponentPropsWithRef<typeof StyledButton>, 'as'>
 
-type ButtonA11yProps = {'aria-label': string; 'aria-labelby'?: never} | {'aria-label'?: never; 'aria-labelby': string}
+type ButtonA11yProps =
+  | {'aria-label': string; 'aria-labelledby'?: never}
+  | {'aria-label'?: never; 'aria-labelledby': string}
 
 export type ButtonBaseProps = {
   /**

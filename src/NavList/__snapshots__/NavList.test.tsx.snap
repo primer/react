@@ -305,13 +305,14 @@ exports[`NavList renders a simple list 1`] = `
       class="c0"
     >
       <li
-        aria-labelledby="react-aria-1 "
         class="c1 c2"
       >
         <a
           aria-current="page"
+          aria-labelledby="react-aria-1 "
           class="c3"
           href="/"
+          tabindex="0"
         >
           <div
             class="c4"
@@ -327,12 +328,13 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        aria-labelledby="react-aria-4 "
         class="c1 c6"
       >
         <a
+          aria-labelledby="react-aria-4 "
           class="c3"
           href="/about"
+          tabindex="0"
         >
           <div
             class="c4"
@@ -348,12 +350,13 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        aria-labelledby="react-aria-7 "
         class="c1 c6"
       >
         <a
+          aria-labelledby="react-aria-7 "
           class="c3"
           href="/contact"
+          tabindex="0"
         >
           <div
             class="c4"
@@ -735,13 +738,14 @@ exports[`NavList renders with groups 1`] = `
           class="c4"
         >
           <li
-            aria-labelledby="react-aria-2 "
             class="c5 c6"
           >
             <a
               aria-current="page"
+              aria-labelledby="react-aria-2 "
               class="c7"
               href="/getting-started"
+              tabindex="0"
             >
               <div
                 class="c8"
@@ -782,12 +786,13 @@ exports[`NavList renders with groups 1`] = `
           class="c4"
         >
           <li
-            aria-labelledby="react-aria-6 "
             class="c5 c10"
           >
             <a
+              aria-labelledby="react-aria-6 "
               class="c7"
               href="/Avatar"
+              tabindex="0"
             >
               <div
                 class="c8"
@@ -1255,13 +1260,14 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             id="react-aria-2"
           >
             <li
-              aria-labelledby="react-aria-3 "
               class="c2 c10"
             >
               <a
                 aria-current="page"
+                aria-labelledby="react-aria-3 "
                 class="c11"
                 href="#"
+                tabindex="0"
               >
                 <div
                   class="c4"
@@ -1742,13 +1748,14 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             id="react-aria-2"
           >
             <li
-              aria-labelledby="react-aria-3 "
               class="c2 c10"
             >
               <a
                 aria-current="page"
+                aria-labelledby="react-aria-3 "
                 class="c11"
                 href="#"
+                tabindex="0"
               >
                 <div
                   class="c4"

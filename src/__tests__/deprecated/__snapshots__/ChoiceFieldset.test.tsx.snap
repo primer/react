@@ -116,7 +116,6 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -152,7 +151,6 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -309,7 +307,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -344,7 +341,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -509,7 +505,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -580,7 +575,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -991,7 +985,6 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1026,7 +1019,6 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1170,7 +1162,6 @@ exports[`ChoiceFieldset renders default 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1205,7 +1196,6 @@ exports[`ChoiceFieldset renders default 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1349,7 +1339,6 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1384,7 +1373,6 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1532,7 +1520,6 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1567,7 +1554,6 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1754,7 +1740,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -1787,7 +1772,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -2017,7 +2001,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -2050,7 +2033,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"

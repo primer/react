@@ -110,6 +110,8 @@
     #   url: /Portal
     - title: ProgressBar
       url: /ProgressBar
+    - title: RelativeTime
+      url: /RelativeTime
     - title: Radio
       url: /Radio
     - title: RadioGroup
