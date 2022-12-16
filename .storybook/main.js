@@ -20,9 +20,6 @@ module.exports = {
         optimizationLevel: 2,
       },
     },
-    ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
-      ? ['@whitespace/storybook-addon-html']
-      : []),
   ],
   features: {
     buildStoriesJson: true,

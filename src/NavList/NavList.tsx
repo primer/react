@@ -1,6 +1,5 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {useSSRSafeId} from '@react-aria/ssr'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import {
@@ -12,6 +11,7 @@ import {
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
+import {useId} from '../hooks/useId'
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -103,8 +103,8 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 // TODO: ref prop
 // TODO: Animate open/close transition
 function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps) {
-  const buttonId = useSSRSafeId()
-  const subNavId = useSSRSafeId()
+  const buttonId = useId()
+  const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState(false)
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
@@ -242,7 +242,7 @@ export type NavListGroupProps = {
 
 const defaultSx = {}
 // TODO: ref prop
-const Group: React.VFC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
+const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
