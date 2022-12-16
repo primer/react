@@ -4,7 +4,6 @@ import {
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
-import {useSSRSafeId} from '@react-aria/ssr'
 import classnames from 'classnames'
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
@@ -12,6 +11,7 @@ import {get} from '../constants'
 import {ConfirmationDialog} from '../Dialog/ConfirmationDialog'
 import {useControllableState} from '../hooks/useControllableState'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import {useId} from '../hooks/useId'
 import Spinner from '../Spinner'
 import sx, {SxProp} from '../sx'
 import Text from '../Text'
@@ -319,9 +319,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     ref,
   ) => {
     const {expandedStateCache} = React.useContext(RootContext)
-    const labelId = useSSRSafeId()
-    const leadingVisualId = useSSRSafeId()
-    const trailingVisualId = useSSRSafeId()
+    const labelId = useId()
+    const leadingVisualId = useId()
+    const trailingVisualId = useId()
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
       // If the item was previously mounted, it's expanded state might be cached.
@@ -672,7 +672,7 @@ type LoadingItemProps = {
 }
 
 const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
-  const itemId = useSSRSafeId()
+  const itemId = useId()
 
   if (count) {
     return (

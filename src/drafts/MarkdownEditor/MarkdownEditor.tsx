@@ -1,4 +1,3 @@
-import {useSSRSafeId} from '@react-aria/ssr'
 import React, {
   forwardRef,
   useCallback,
@@ -11,6 +10,7 @@ import React, {
 } from 'react'
 import Box from '../../Box'
 import {FileType} from '../hooks/useUnifiedFileSelect'
+import {useId} from '../../hooks/useId'
 import {useIgnoreKeyboardActionsWhileComposing} from '../hooks/useIgnoreKeyboardActionsWhileComposing'
 import {useResizeObserver} from '../../hooks/useResizeObserver'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
@@ -274,7 +274,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
     }, [condensed])
 
     // the ID must be unique for each instance while remaining constant across renders
-    const id = useSSRSafeId()
+    const id = useId()
     const descriptionId = `${id}-description`
 
     const savedRepliesRef = useRef<SavedRepliesHandle>(null)
