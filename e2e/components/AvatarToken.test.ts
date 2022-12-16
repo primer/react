@@ -66,8 +66,10 @@ test.describe('AvatarToken', () => {
           expect(await page.screenshot()).toMatchSnapshot(`AvatarToken.Interactive.${theme}.png`)
 
           // Hover state
-          await page.hover('button')
-          expect(await page.screenshot()).toMatchSnapshot(`AvatarToken.Interactive.${theme}.hover.png`)
+          await page.locator('button', {hasText: 'Button'}).hover()
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `AvatarToken.Interactive.${theme}.hover.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
