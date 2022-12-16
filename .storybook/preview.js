@@ -1,21 +1,14 @@
-import {addons} from '@storybook/addons'
 import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
 import theme from './theme'
 
 export const globalTypes = toolbarTypes
 export const decorators = [withThemeProvider, withSurroundingElements]
 
-addons.setConfig({
-  // Some stories may set up keyboard event handlers, which can be interfered
-  // with by these keyboard shortcuts.
-  enableShortcuts: false
-})
-
 export const parameters = {
   actions: {argTypesRegex: '^on[A-Z].*'},
   html: {
     root: '#html-addon-root',
-    removeEmptyComments: true
+    removeEmptyComments: true,
   },
   options: {
     storySort: (a, b) => {
@@ -29,15 +22,15 @@ export const parameters = {
             [
               '*',
               // Within a set of stories, set the order to the following
-              ['*', 'Playground', /Playground$/, 'Features', 'Examples']
-            ]
-          ]
+              ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+            ],
+          ],
         ],
         'Behaviors',
         'Hooks',
         'Private components',
         'Deprecated components',
-        '*'
+        '*',
       ]
 
       /**
@@ -135,6 +128,6 @@ export const parameters = {
       }
 
       return compare(getHierarchy(a), getHierarchy(b))
-    }
-  }
+    },
+  },
 }
