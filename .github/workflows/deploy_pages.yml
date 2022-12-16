@@ -1,0 +1,176 @@
+name: Deploy to GitHub Pages
+on:
+  workflow_run:
+    workflows: [CI]
+    types:
+      - completed
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create github-pages directory
+        run: mkdir github-pages
+      - name: Download storybook
+        uses: actions/github-script@v6
+        id: storybook
+        with:
+          script: |
+            const fs = require('fs');
+
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            const artifact = artifacts.data.artifacts.find((artifact) => {
+              return artifact.name == 'storybook';
+            });
+
+            if (artifact) {
+              const download = await github.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id,
+                archive_format: 'zip',
+              });
+              fs.writeFileSync('${{github.workspace}}/storybook.zip', Buffer.from(download.data));
+            }
+
+            return !!artifact;
+      - run: |
+          unzip storybook.zip -d storybook-artifact
+          mkdir github-pages/storybook
+          cp -R storybook-artifact/ github-pages/storybook/
+        if: ${{ steps.storybook.outputs.result == true }}
+      - name: Download docs
+        uses: actions/github-script@v6
+        id: docs
+        with:
+          script: |
+            const fs = require('fs');
+
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            const artifact = artifacts.data.artifacts.find((artifact) => {
+              return artifact.name == 'docs'
+            });
+
+            if (artifact) {
+              const download = await github.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id,
+                archive_format: 'zip',
+              });
+              fs.writeFileSync('${{github.workspace}}/docs.zip', Buffer.from(download.data));
+            }
+
+            return !!artifact;
+      - run: |
+          unzip docs.zip -d docs-artifact
+          cp -R docs-artifact/ github-pages/
+        if: ${{ steps.storybook.outputs.result == true }}
+      - name: Download vrt reports
+        uses: actions/github-script@v6
+        id: vrt
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            const reports = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name.startsWith('vrt')
+            });
+
+            if (reports) {
+              const directory = path.join('${{github.workspace}}', 'vrt');
+              fs.mkdirSync(directory);
+
+              for (const artifact of reports) {
+                const download = await github.actions.downloadArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id,
+                  archive_format: 'zip',
+                });
+                fs.writeFileSync(path.join(directory, `${artifact.name}.zip`), Buffer.from(download.data));
+              }
+            }
+
+            return reports.length > 0;
+      - run: |
+          unzip vrt/*.zip
+          rm vrt/*.zip
+          cp -R vrt/* github-pages
+        if: ${{ steps.vrt.outputs.result == true }}
+      - name: Download axe reports
+        uses: actions/github-script@v6
+        id: storybook
+        with:
+          script: |
+            const fs = require('fs');
+
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            const artifact = artifacts.data.artifacts.find((artifact) => {
+              return artifact.name == 'aat';
+            });
+
+            if (artifact) {
+              const download = await github.actions.downloadArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id,
+                archive_format: 'zip',
+              });
+              fs.writeFileSync('${{github.workspace}}/aat.zip', Buffer.from(download.data));
+            }
+
+            return !!artifact;
+      - run: |
+          unzip aat.zip -d aat-artifact
+          mkdir github-pages/aat
+          cp -R aat-artifact/ github-pages/aat/
+      - name: Check if any artifacts exist
+        if: >
+          steps.storybook.outputs.result != true &&
+          steps.docs.outputs.result != true &&
+          steps.vrt.outputs.result != true &&
+          steps.aat.outputs.result != true
+        run: exit 1
+      - name: Upload artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: github-pages
+          path: artifact.tar
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: upload
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    outputs:
+      deployment_url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+        with:
+          preview: true
