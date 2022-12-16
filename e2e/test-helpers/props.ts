@@ -72,7 +72,7 @@ export function serialize(combination: Record<string, boolean | string | number>
       return a[0].localeCompare(b[0])
     })
     .map(([key, value]) => {
-      return `${key}:${value}`
+      return `${key}=${value}`
     })
   return values.join(',')
 }
