@@ -89,6 +89,27 @@ jobs:
         working-directory: examples/nextjs
         run: npm run build
 
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm run setup
+      - name: Build
+        run: npm run build
+      - name: Build docs
+        run: npm run build:preview
+        working-directory: docs
+      - uses: actions/upload-artifact@v3
+        with:
+          name: docs
+          path: docs/public
+
   storybook:
     runs-on: ubuntu-latest
     steps:
