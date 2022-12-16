@@ -1,12 +1,32 @@
+type Value = boolean | string | number
+
 type MatrixInput = {
-  [key in string]: Array<boolean | string | number>
+  [key: string]: Array<Value> | Array<Record<string, Value>> | undefined
+  exclude?: Array<Record<string, Value>>
 }
 
 export function matrix(input: MatrixInput) {
-  const keys = Object.keys(input)
-  const values = Object.values(input)
+  const keys: Array<string> = []
+  const values = []
+  const excluded: Array<Record<string, Value>> = []
 
-  return combine(...values).map(result => {
+  for (const [key, value] of Object.entries(input)) {
+    if (key === 'exclude') {
+      if (Array.isArray(value)) {
+        excluded.push(...(value as Array<Record<string, Value>>))
+      }
+      continue
+    }
+
+    if (typeof value === 'undefined') {
+      continue
+    }
+
+    keys.push(key)
+    values.push(value)
+  }
+
+  const combinations = combine(...values).map(result => {
     const combination: Record<string, any> = {}
 
     for (let i = 0; i < result.length; i++) {
@@ -15,6 +35,14 @@ export function matrix(input: MatrixInput) {
     }
 
     return combination
+  })
+
+  return combinations.filter(combination => {
+    return excluded.every(options => {
+      return !Object.keys(options).every(key => {
+        return combination[key] === options[key]
+      })
+    })
   })
 }
 
@@ -41,7 +69,7 @@ function combine(...values: Array<Array<unknown>>): Array<Array<unknown>> {
 export function serialize(combination: Record<string, boolean | string | number>) {
   const values = Object.entries(combination)
     .sort((a, b) => {
-      return b[0].localeCompare(a[0])
+      return a[0].localeCompare(b[0])
     })
     .map(([key, value]) => {
       return `${key}:${value}`
