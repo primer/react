@@ -1,5 +1,33 @@
 # @primer/components
 
+## 35.16.0
+
+### Minor Changes
+
+- [#2265](https://github.com/primer/react/pull/2265) [`2ef9ad43`](https://github.com/primer/react/commit/2ef9ad430c3c74fccfe87c77c8eb7fd21335aa69) Thanks [@pksjce](https://github.com/pksjce)! - PageHeader: Draft implementation
+
+- [#2484](https://github.com/primer/react/pull/2484) [`5eb6939a`](https://github.com/primer/react/commit/5eb6939ad5a291a1f440391ffcce01a48ca952ee) Thanks [@keithamus](https://github.com/keithamus)! - Add RelativeTime component
+
+- [#2657](https://github.com/primer/react/pull/2657) [`cc909dc4`](https://github.com/primer/react/commit/cc909dc46edaf8515f80b6d718e356661679beb3) Thanks [@green6erry](https://github.com/green6erry)! - Assign aria-keyshorcuts and role properties to the correct element in LinkItem.tsx
+
+- [#2693](https://github.com/primer/react/pull/2693) [`f8939f33`](https://github.com/primer/react/commit/f8939f33b6ac9d8f2e7332ff0afcacd0c0d9fcc8) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Relative Time Element : Publish v4.1.2 in NPM and GPR
+
+### Patch Changes
+
+- [#2659](https://github.com/primer/react/pull/2659) [`84d29977`](https://github.com/primer/react/commit/84d2997764c065854695e5ecfb07ec04086a34de) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Add a console warning if the Button and IconButton as property is used incorrectly
+
+- [#2666](https://github.com/primer/react/pull/2666) [`d995bb84`](https://github.com/primer/react/commit/d995bb8485fa1dfd0a3637b4851c5ac539b8416d) Thanks [@mattcosta7](https://github.com/mattcosta7)! - make check for semantic as a compile time effect
+
+- [#2639](https://github.com/primer/react/pull/2639) [`fd9ab396`](https://github.com/primer/react/commit/fd9ab3960f5f819bd7c49a495800059545041674) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `MarkdownEditor` preview overflowing its container
+
+- [#2689](https://github.com/primer/react/pull/2689) [`7fc9acd7`](https://github.com/primer/react/commit/7fc9acd7f8bdd45e8debd96b93fa7c32ff8a544b) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes useless z-index from the remove button in tokens
+
+- [#2635](https://github.com/primer/react/pull/2635) [`95ba0790`](https://github.com/primer/react/commit/95ba079070cfdd01931f64418fbfa288a0474a97) Thanks [@joshblack](https://github.com/joshblack)! - Update Radio to only use disabled when provided and no longer set aria-disabled
+
+- [#2640](https://github.com/primer/react/pull/2640) [`a8f2289d`](https://github.com/primer/react/commit/a8f2289de81c503c4b586c82f7b25ef15783bc3e) Thanks [@jdrush89](https://github.com/jdrush89)! - TreeView: Add containIntrinsicSize prop and typeahead performance improvement
+
+- [#2692](https://github.com/primer/react/pull/2692) [`5352bccb`](https://github.com/primer/react/commit/5352bccb331c4a8941bb505c21a7a7380422f529) Thanks [@jdrush89](https://github.com/jdrush89)! - Trigger onSelect when TreeView items are middle clicked
+
 ## 35.15.1
 
 ### Patch Changes
@@ -643,7 +671,7 @@
       {text: 'Copy link'},
       {text: 'Edit file'},
       ActionList.Divider,
-      {text: 'Delete file', variant: 'danger'}
+      {text: 'Delete file', variant: 'danger'},
     ]}
   />
   ```
@@ -673,21 +701,21 @@
       {
         key: '0',
         leadingVisual: LinkIcon,
-        text: 'github/primer'
+        text: 'github/primer',
       },
       {
         key: '1',
         leadingVisual: () => <Avatar src="https://github.com/mona.png" />,
         text: 'mona',
         description: 'Monalisa Octocat',
-        descriptionVariant: 'block'
+        descriptionVariant: 'block',
       },
       {
         key: '2',
         leadingVisual: GearIcon,
         text: 'View Settings',
-        trailingVisual: ArrowRightIcon
-      }
+        trailingVisual: ArrowRightIcon,
+      },
     ]}
   />
   ```
@@ -731,13 +759,13 @@
   <ActionList
     groupMetadata={[
       {groupId: '0', header: {title: 'Live query'}},
-      {groupId: '1', header: {title: 'Layout'}}
+      {groupId: '1', header: {title: 'Layout'}},
     ]}
     items={[
       {key: '0', text: 'repo:github/github', groupId: '0'},
       {key: '1', text: 'Table', groupId: '1'},
       {key: '2', text: 'Board', groupId: '1'},
-      {key: '3', text: 'View settings'}
+      {key: '3', text: 'View settings'},
     ]}
   />
   ```
@@ -824,7 +852,7 @@
       {text: 'Copy link'},
       {text: 'Edit file'},
       ActionMenu.Divider,
-      {text: 'Delete file', variant: 'danger'}
+      {text: 'Delete file', variant: 'danger'},
     ]}
     overlayProps={{width: 'small'}}
   />
@@ -891,7 +919,7 @@
     {key: 1, text: 'Number'},
     {key: 3, text: 'Date'},
     {key: 4, text: 'Single select'},
-    {key: 5, text: 'Iteration'}
+    {key: 5, text: 'Iteration'},
   ]
 
   const Example = () => {
@@ -923,7 +951,7 @@
     {id: 1, text: 'Number'},
     {id: 3, text: 'Date'},
     {id: 4, text: 'Single select'},
-    {id: 5, text: 'Iteration'}
+    {id: 5, text: 'Iteration'},
   ]
 
   const Example = () => {
@@ -945,7 +973,7 @@
             ))}
           </ActionList>
         </ActionMenu.Overlay>
-      </ActionMenu>
+      </ActionMenu>,
     )
   }
   ```
@@ -1470,7 +1498,7 @@
   ```jsx
   const fieldTypes = [
     {leadingVisual: TypographyIcon, text: 'Text'},
-    {leadingVisual: NumberIcon, text: 'Number'}
+    {leadingVisual: NumberIcon, text: 'Number'},
   ]
 
   const Example = () => {
@@ -1494,7 +1522,7 @@
   ```jsx
   const fieldTypes = [
     {icon: <TypographyIcon />, name: 'Text'},
-    {icon: <NumberIcon />, name: 'Number'}
+    {icon: <NumberIcon />, name: 'Number'},
   ]
 
   const Example = () => {
