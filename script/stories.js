@@ -305,6 +305,29 @@ const components = new Map([
     },
   ],
   [
+    'Token',
+    {
+      stories: [
+        {
+          id: 'components-token--default-token',
+          name: 'Default',
+        },
+        {
+          id: 'components-token--interactive',
+          name: 'Interactive',
+        },
+        {
+          id: 'components-token--with-leading-visual',
+          name: 'with leadingVisual',
+        },
+        {
+          id: 'components-token--with-on-remove-fn',
+          name: 'With On Remove Fn',
+        },
+      ],
+    },
+  ],
+  [
     'TreeView',
     {
       stories: [
