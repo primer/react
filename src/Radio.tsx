@@ -4,6 +4,7 @@ import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import {RadioGroupContext} from './RadioGroup'
 import getGlobalFocusStyles from './_getGlobalFocusStyles'
+import {get} from './constants'
 
 export type RadioProps = {
   /**
@@ -40,9 +41,40 @@ export type RadioProps = {
 
 const StyledRadio = styled.input`
   cursor: pointer;
+  position: relative;
+  width: var(--base-size-16, 16px);
+  height: var(--base-size-16, 16px);
+  margin: 0;
+  margin-top: 0.125rem; /* 2px to center align with label (20px line-height) */
+  cursor: pointer;
+  border-color: ${get('colors.neutral.emphasis')};
+  border-width: ${get('borderWidths.1')};
+  border-style: solid;
+  border-radius: var(--primer-borderRadius-full, 100vh);
+  transition: background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
+  appearance: none;
 
-  ${props => props.disabled && `cursor: not-allowed;`}
-  ${getGlobalFocusStyles(0)};
+  &:disabled {
+    background-color: var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2));
+    border-color: ${get('colors.border.default')};
+  }
+
+  &:checked {
+    border-color: ${get('colors.accent.fg')};
+    border-width: var(--base-size-4, 4px);
+
+    &:disabled {
+      cursor: not-allowed;
+      border-color: ${get('colors.fg.muted')};
+    }
+  }
+
+  ${getGlobalFocusStyles()};
+
+  @media (forced-colors: active) {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 
   ${sx}
 `

@@ -6,6 +6,7 @@ import useLayoutEffect from './utils/useIsomorphicLayoutEffect'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
 import getGlobalFocusStyles from './_getGlobalFocusStyles'
+import {get} from './constants'
 
 export type CheckboxProps = {
   /**
@@ -37,12 +38,99 @@ export type CheckboxProps = {
   SxProp
 
 const StyledCheckbox = styled.input`
+  position: relative;
+  display: grid;
+  width: var(--base-size-16, 16px);
+  height: var(--base-size-16, 16px);
+  margin: 0;
+  margin-top: 0.125rem; /* 2px to center align with label (20px line-height) */
   cursor: pointer;
+  border-color: ${get('colors.neutral.emphasis')};
+  border-width: ${get('borderWidths.1')};
+  border-style: solid;
+  border-radius: ${get('radii.1')};
+  transition: background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
+  appearance: none;
+  place-content: center;
 
-  ${props => props.disabled && `cursor: not-allowed;`}
-  ${getGlobalFocusStyles(0)};
+  &:disabled {
+    background-color: var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2));
+    border-color: ${get('colors.border.default')};
+  }
 
-  ${sx}
+  &::before {
+    width: var(--base-size-16, 16px);
+    height: var(--base-size-16, 16px);
+    visibility: hidden;
+    content: '';
+    background-color: ${get('colors.fg.onEmphasis')};
+    transition: visibility 0s linear 230ms;
+    clip-path: inset(var(--base-size-16, 16px) 0 0 0);
+    mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
+    mask-size: 75%;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+      animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+  }
+
+  &:checked {
+    background: ${get('colors.accent.fg')};
+    border-color: ${get('colors.accent.fg')};
+    transition: background-color, border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
+
+    &::before {
+      visibility: visible;
+      transition: visibility 0s linear 0s;
+
+      @media screen and (prefers-reduced-motion: no-preference) {
+        animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: ${get('colors.fg.muted')};
+      border-color: ${get('colors.fg.muted')};
+      opacity: 1;
+
+      &::before {
+        background-color: ${get('colors.fg.onEmphasis')};
+      }
+    }
+
+    /* Windows High Contrast mode */
+    @media (forced-colors: active) {
+      background-color: canvastext;
+      border-color: canvastext;
+    }
+  }
+
+  ${getGlobalFocusStyles()};
+
+  ${sx};
+
+  @keyframes checkmarkIn {
+    from {
+      clip-path: inset(var(--base-size-16, 16px) 0 0 0);
+    }
+
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes checkmarkOut {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+
+    to {
+      clip-path: inset(var(--base-size-16, 16px) 0 0 0);
+    }
+  }
 `
 
 /**
