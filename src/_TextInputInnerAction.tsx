@@ -26,10 +26,9 @@ const invisibleButtonStyleOverrides = {
   paddingLeft: '4px',
   position: 'relative',
 
-  // Button uses both a hash class and selector, so it seems important is required to override here
   '&[data-component="IconButton"]': {
-    width: '24px !important',
-    height: '24px !important',
+    width: 'var(--inner-action-size)',
+    height: 'var(--inner-action-size)',
   },
 
   '@media (pointer: coarse)': {
@@ -82,7 +81,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     }
 
     return (
-      <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1}>
+      <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
         {icon && !children ? (
           <Tooltip aria-label={ariaLabel}>
             <IconButton
@@ -90,7 +89,6 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
               type="button"
               icon={icon}
               aria-label={ariaLabel}
-              size="small"
               sx={sx}
               {...rest}
               ref={forwardedRef}
@@ -98,7 +96,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
           </Tooltip>
         ) : (
           <ConditionalTooltip aria-label={ariaLabel}>
-            <Button variant={variant} size="small" type="button" sx={sx} {...rest} ref={forwardedRef}>
+            <Button variant={variant} type="button" sx={sx} {...rest} ref={forwardedRef}>
               {children}
             </Button>
           </ConditionalTooltip>
