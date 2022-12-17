@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import {IconProps} from '@primer/octicons-react'
 import sx, {SxProp} from '../sx'
 import getGlobalFocusStyles from '../_getGlobalFocusStyles'
 
@@ -37,16 +36,16 @@ export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | null | undefined
+  leadingIcon?: React.ComponentType | null | undefined
   /**
    * The trailing icon comes after button content
    */
-  trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | null | undefined
+  trailingIcon?: React.ComponentType | null | undefined
   children: React.ReactNode
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  icon: React.ComponentType
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes
