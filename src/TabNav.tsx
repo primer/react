@@ -71,6 +71,7 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
 export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
   to?: To
   selected?: boolean
+  href?: string
 } & SxProp
 
 const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
