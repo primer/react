@@ -8,10 +8,11 @@ import {buildComponentData, buildPaginationModel} from './model'
 
 const Page = styled.a`
   display: inline-block;
-  min-width: 32px;
-  padding: 5px 10px;
+  min-width: 32px; /* primer.control.medium.size */
+  height: 32px; /* primer.control.medium.size */
+  padding: 0.5rem calc((2rem - 1.25rem) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
   font-style: normal;
-  line-height: 20px;
+  line-height: 1;
   color: ${get('colors.fg.default')};
   text-align: center;
   white-space: nowrap;
@@ -26,14 +27,14 @@ const Page = styled.a`
     margin-right: 0;
   }
 
-  border: ${get('borderWidths.1')} solid transparent;
+  background-color: transparent;
   border-radius: ${get('radii.2')};
-  transition: border-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
 
   &:hover,
   &:focus {
     text-decoration: none;
-    border-color: ${get('colors.border.default')};
+    background-color: ${get('colors.actionListItem.default.hoverBg')};
     outline: 0;
     transition-duration: 0.1s;
   }
@@ -57,10 +58,12 @@ const Page = styled.a`
   }
 
   &[aria-disabled],
-  &[aria-disabled]:hover {
+  &[aria-disabled]:hover,
+  &[role='presentation'],
+  &[role='presentation']:hover {
     color: ${get('colors.primer.fg.disabled')}; // check
     cursor: default;
-    border-color: transparent;
+    background-color: transparent;
   }
 
   @supports (clip-path: polygon(50% 0, 100% 50%, 50% 100%)) {
