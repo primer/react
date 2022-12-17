@@ -99,14 +99,6 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
             size={size}
             isParentInteractive={isTokenInteractive(props)}
             aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
-            sx={
-              hasMultipleActionTargets
-                ? {
-                    position: 'relative',
-                    zIndex: '1',
-                  }
-                : {}
-            }
           />
         ) : null}
       </TokenBase>

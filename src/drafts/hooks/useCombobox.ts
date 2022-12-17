@@ -1,6 +1,6 @@
 import Combobox from '@github/combobox-nav'
-import {useSSRSafeId} from '@react-aria/ssr'
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import {useId} from '../../hooks/useId'
 
 export type ComboboxCommitEvent<T> = {
   /** The underlying `combobox-commit` event. */
@@ -64,7 +64,7 @@ export const useCombobox = <T>({
   tabInsertsSuggestions = false,
   defaultFirstOption = false,
 }: UseComboboxSettings<T>) => {
-  const id = useSSRSafeId()
+  const id = useId()
   const optionIdPrefix = `combobox-${id}__option`
 
   const isOpenRef = useRef(isOpen)
