@@ -102,7 +102,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
     },
     invisible: {
-      color: 'accent.fg',
+      color: 'btn.text',
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       boxShadow: 'none',
@@ -123,6 +123,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       svg: {
         color: 'fg.muted',
+      },
+      '&[data-no-visuals]': {
+        color: 'accent.fg',
+      },
+      '&:has([data-component="ButtonCounter"])': {
+        color: 'btn.text',
       },
     },
     outline: {

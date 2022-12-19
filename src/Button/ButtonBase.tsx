@@ -61,6 +61,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         ref={innerRef}
         data-component={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
+        data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
       >
         <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
           {LeadingIcon && (

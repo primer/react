@@ -9,13 +9,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwar
   const {theme} = useTheme()
   const sxStyles = merge.all([getBaseStyles(theme), getVariantStyles(variant, theme), sxProp as SxProp])
   return (
-    <StyledButton
-      data-component="IconButton"
-      data-size={size}
-      sx={sxStyles}
-      {...rest}
-      ref={forwardedRef}
-    >
+    <StyledButton data-component="IconButton" data-size={size} sx={sxStyles} {...rest} ref={forwardedRef}>
       <Icon />
     </StyledButton>
   )
