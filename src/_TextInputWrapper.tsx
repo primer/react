@@ -41,7 +41,6 @@ const sizeVariants = variant({
       '--inner-action-size': '28px',
       px: 2,
       py: '10px',
-      lineHeight: '0',
       height: '40px',
     },
   },
