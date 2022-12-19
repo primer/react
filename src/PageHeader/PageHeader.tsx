@@ -77,7 +77,7 @@ type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
   'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy'
 >
-export type ParentLinkProps = PageHeaderProps & LinkProps
+export type ParentLinkProps = React.PropsWithChildren<PageHeaderProps & LinkProps>
 
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
   (

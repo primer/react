@@ -73,7 +73,10 @@ export function SelectPanel({
   )
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
-  const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
+  const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
+    (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
+    [onOpenChange],
+  )
   const onClose = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection') => {
       onOpenChange(false, gesture)
