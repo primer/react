@@ -1070,7 +1070,14 @@ describe('Asyncronous loading', () => {
             <TreeView.Item id="parent" defaultExpanded>
               Parent
               <TreeView.SubTree state={state}>
-                <TreeView.Item id="child">Child</TreeView.Item>
+                <TreeView.Item id="child-item">Child Item</TreeView.Item>
+                <TreeView.Item id="child-subtree">
+                  Child Subtree
+                  <TreeView.SubTree state={'done'}>
+                    <TreeView.Item id="child-subtree-1">Child 1</TreeView.Item>
+                    <TreeView.Item id="child-subtree-2">Child 2</TreeView.Item>
+                  </TreeView.SubTree>
+                </TreeView.Item>
               </TreeView.SubTree>
             </TreeView.Item>
           </TreeView>
@@ -1093,6 +1100,7 @@ describe('Asyncronous loading', () => {
     })
 
     // Live region should be updated
+    expect(liveRegion).not.toHaveTextContent('Child 2 is empty')
     expect(liveRegion).toHaveTextContent('Parent content loaded')
   })
 
