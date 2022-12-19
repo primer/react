@@ -293,6 +293,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
                 bg: isDragging ? 'accent.fg' : 'neutral.muted',
               },
             }}
+            role="separator"
             onMouseDown={() => {
               setIsDragging(true)
               onDragStart?.()
@@ -729,7 +730,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
               : paneWidths[width],
             padding: SPACING_MAP[padding],
-            overflowY: 'auto',
+            overflow: [null, null, 'auto'],
 
             [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
               '--pane-max-width-diff': '959px',
