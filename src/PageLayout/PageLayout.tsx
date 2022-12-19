@@ -1,7 +1,7 @@
-import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
+import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
@@ -646,7 +646,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       updatePaneWidth((percent / 100) * window.innerWidth)
     }
 
-    const paneId = useSSRSafeId(id)
+    const paneId = useId(id)
 
     return (
       <Box
