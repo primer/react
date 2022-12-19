@@ -304,14 +304,6 @@ export const getButtonStyles = (theme?: Theme) => {
   return styles
 }
 
-export const getAlignContentSize = (alignContent: AlignContent = 'center') => {
-  const style = {
-    center: {
-      justifyContent: 'center',
-    },
-    start: {
-      justifyContent: 'flex-start',
-    },
-  }
-  return style[alignContent]
-}
+export const getAlignContentSize = (alignContent: AlignContent = 'center') => ({
+  justifyContent: alignContent === 'center' ? 'center' : 'flex-start' 
+})
