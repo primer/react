@@ -170,15 +170,10 @@ exports[`SplitPageLayout renders default layout 1`] = `
   }
 }
 
-@media screen and (min-width:544px) {
-  .c11 {
-    overflow: auto;
-  }
-}
-
 @media screen and (min-width:768px) {
   .c11 {
     width: 256px;
+    overflow: auto;
   }
 }
 
