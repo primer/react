@@ -129,7 +129,7 @@ function usePaginationPages({
   showPages,
   surroundingPageCount,
 }: UsePaginationPagesParameters) {
-  const pageChange = React.useCallback(n => (e: React.MouseEvent) => onPageChange(e, n), [onPageChange])
+  const pageChange = React.useCallback((n: number) => (e: React.MouseEvent) => onPageChange(e, n), [onPageChange])
 
   const model = React.useMemo(() => {
     return buildPaginationModel(pageCount, currentPage, !!showPages, marginPageCount, surroundingPageCount)
