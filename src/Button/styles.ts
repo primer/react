@@ -127,9 +127,6 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&[data-no-visuals]': {
         color: 'accent.fg',
       },
-      '&:has([data-component="ButtonCounter"])': {
-        color: 'btn.text',
-      },
     },
   }
   return style[variant]

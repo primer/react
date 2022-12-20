@@ -21,7 +21,7 @@ export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing vi
 export const TrailingCounter = () => {
   const [count, setCount] = useState(0)
   return (
-    <Button onClick={() => setCount(count + 1)} count={count}>
+    <Button onClick={() => setCount(count + 1)} trailingVisualCount={count}>
       Watch
     </Button>
   )
@@ -50,13 +50,13 @@ export const InvisibleVariants = () => {
       <Button variant="invisible" trailingAction={TriangleDownIcon}>
         Button
       </Button>
-      <Button variant="invisible" count={count}>
+      <Button variant="invisible" trailingVisualCount={count}>
         Button
       </Button>
-      <Button variant="invisible" leadingVisual={EyeIcon} count={count}>
+      <Button variant="invisible" leadingVisual={EyeIcon} trailingVisualCount={count}>
         Button
       </Button>
-      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon} count={count}>
+      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon} trailingVisualCount={count}>
         Button
       </Button>
     </div>
