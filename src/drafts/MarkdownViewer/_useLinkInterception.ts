@@ -19,6 +19,7 @@ export const useLinkInterception = ({htmlContainer, onLinkClick, openLinksInNewT
 
       if (!event.defaultPrevented && openLinksInNewTab && link.href) {
         window.open(link.href, '_blank')
+        event.preventDefault()
       }
     }
 
