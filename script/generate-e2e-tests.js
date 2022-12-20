@@ -229,6 +229,17 @@ const components = new Map([
     },
   ],
   [
+    'RadioGroup',
+    {
+      stories: [
+        {
+          id: 'components-forms-radiogroup-examples--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'UnderlineNav',
     {
       stories: [
