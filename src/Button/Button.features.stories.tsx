@@ -16,16 +16,15 @@ export const Invisible = () => <Button variant="invisible">Invisible</Button>
 
 export const Outline = () => <Button variant="outline">Outline</Button>
 
-export const LeadingVisual = () => <Button leadingIcon={HeartIcon}>Leading visual</Button>
+export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
 
-export const TrailingVisual = () => <Button trailingIcon={EyeIcon}>Trailing visual</Button>
+export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>
 
 export const TrailingCounter = () => {
   const [count, setCount] = useState(0)
   return (
-    <Button onClick={() => setCount(count + 1)}>
+    <Button onClick={() => setCount(count + 1)} count={count}>
       Watch
-      <Button.Counter>{count}</Button.Counter>
     </Button>
   )
 }
@@ -47,23 +46,20 @@ export const InvisibleVariants = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
       <Button variant="invisible">Button</Button>
-      <Button variant="invisible" leadingIcon={SearchIcon}>
+      <Button variant="invisible" leadingVisual={SearchIcon}>
         Button
       </Button>
       <Button variant="invisible" trailingAction={TriangleDownIcon}>
         Button
       </Button>
-      <Button variant="invisible">
+      <Button variant="invisible" count={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" leadingIcon={EyeIcon}>
+      <Button variant="invisible" leadingVisual={EyeIcon} count={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
-      <Button variant="invisible" leadingIcon={EyeIcon} trailingAction={TriangleDownIcon}>
+      <Button variant="invisible" leadingVisual={EyeIcon} trailingAction={TriangleDownIcon} count={count}>
         Button
-        <Button.Counter>{count}</Button.Counter>
       </Button>
     </div>
   )

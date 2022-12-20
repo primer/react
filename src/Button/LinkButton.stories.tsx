@@ -30,8 +30,8 @@ export default {
         type: 'boolean',
       },
     },
-    leadingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
-    trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
+    trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
     trailingAction: OcticonArgType([ChevronRightIcon]),
     trailingVisualCount: {
       control: {
@@ -45,8 +45,8 @@ export default {
     size: 'medium',
     variant: 'default',
     alignContent: 'center',
-    trailingIcon: null,
-    leadingIcon: null,
+    trailingVisual: null,
+    leadingVisual: null,
     href: '/',
   },
 } as Meta<typeof Button>

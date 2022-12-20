@@ -196,7 +196,7 @@ export function ComplexListStory(): JSX.Element {
               groupId: '1',
               renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
               trailingText: '⌘S', // backward compatible
-              trailingIcon: ArrowRightIcon, // backward compatible
+              trailingVisual: ArrowRightIcon, // backward compatible
             },
             {
               leadingVisual: NoteIcon,

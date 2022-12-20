@@ -64,7 +64,7 @@ export function ActionsStory(): JSX.Element {
       <h1>Actions</h1>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Open Actions Menu" trailingIcon={null}>
+        <ActionMenu.Button aria-label="Open Actions Menu" trailingVisual={null}>
           <ServerIcon />
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -548,7 +548,7 @@ export function MemexAddColumn(): JSX.Element {
           <TextInput defaultValue="Estimate" aria-label="Field Name" sx={{mb: 2}} />
         </FormControl>
         <ActionMenu>
-          <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
+          <ActionMenu.Button aria-label="Field type" leadingVisual={selectedType.icon} alignContent="start">
             {selectedType.name}
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">

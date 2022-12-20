@@ -127,7 +127,7 @@ export const PullRequestPage = () => (
 
           <Hidden on={['narrow']}>
             <Button>Edit</Button>
-            <Button leadingIcon={CodeIcon}>Code</Button>
+            <Button leadingVisual={CodeIcon}>Code</Button>
           </Hidden>
         </PageHeader.Actions>
       </PageHeader.TitleArea>
@@ -182,7 +182,7 @@ export const FilesPage = () => (
       <PageHeader.ContextArea>
         <PageHeader.ParentLink>Files</PageHeader.ParentLink>
         <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
+          <Button size="small" leadingVisual={GitBranchIcon}>
             Main
           </Button>
           <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />

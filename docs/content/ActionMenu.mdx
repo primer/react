@@ -182,7 +182,7 @@ const fieldTypes = [
   {icon: NumberIcon, name: 'Number'},
   {icon: CalendarIcon, name: 'Date'},
   {icon: SingleSelectIcon, name: 'Single select'},
-  {icon: IterationsIcon, name: 'Iteration'}
+  {icon: IterationsIcon, name: 'Iteration'},
 ]
 
 const Example = () => {
@@ -191,7 +191,7 @@ const Example = () => {
 
   return (
     <ActionMenu>
-      <ActionMenu.Button aria-label="Select field type" leadingIcon={selectedType.icon}>
+      <ActionMenu.Button aria-label="Select field type" leadingVisual={selectedType.icon}>
         {selectedType.name}
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
@@ -275,7 +275,7 @@ render(
         </ActionList.Item>
       </ActionList>
     </ActionMenu.Overlay>
-  </ActionMenu>
+  </ActionMenu>,
 )
 ```
 
@@ -368,7 +368,7 @@ render(
     stableApi: true,
     addressedApiFeedback: false,
     hasDesignGuidelines: true,
-    hasFigmaComponent: true
+    hasFigmaComponent: true,
   }}
 />
 
