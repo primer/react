@@ -44,7 +44,7 @@ export const FocusTrap = () => {
   const {containerRef} = useFocusTrap({disabled: !trapEnabled})
 
   const spaceListener = React.useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (event.key === ' ') {
         setTrapEnabled(!trapEnabled)
       }
@@ -95,7 +95,7 @@ export const RestoreFocus = () => {
   const {containerRef} = useFocusTrap({disabled: !trapEnabled, restoreFocusOnCleanUp: true})
 
   const spaceListener = React.useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (event.key === ' ') {
         setTrapEnabled(!trapEnabled)
       }
@@ -146,7 +146,7 @@ export const CustomInitialFocus = () => {
   const {containerRef, initialFocusRef} = useFocusTrap({disabled: !trapEnabled})
 
   const spaceListener = React.useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (event.key === ' ') {
         setTrapEnabled(!trapEnabled)
       }
@@ -280,7 +280,7 @@ export const MultipleFocusTraps = () => {
   const {containerRef: containerRef2} = useFocusTrap({disabled: !trapEnabled2})
 
   const keyListener = React.useCallback(
-    event => {
+    (event: KeyboardEvent) => {
       if (event.key === '1') {
         setTrapEnabled1(!trapEnabled1)
       }

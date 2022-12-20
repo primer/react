@@ -219,8 +219,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -964,8 +962,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -1565,8 +1561,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -2256,8 +2250,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   margin-left: 4px;
   height: 16px;
   width: 16px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -2947,8 +2939,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   margin-left: 4px;
   height: 20px;
   width: 20px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -3631,8 +3621,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   margin-left: 8px;
   height: 24px;
   width: 24px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -4317,8 +4305,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -5003,8 +4989,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -5691,8 +5675,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -6778,8 +6760,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -7519,8 +7499,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c8:hover,
@@ -8292,8 +8270,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -9042,8 +9018,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c9:hover,
@@ -9862,8 +9836,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c9:hover,
@@ -10682,8 +10654,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c9:hover,
@@ -11496,8 +11466,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -12278,8 +12246,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c8:hover,
@@ -13092,8 +13058,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
@@ -13888,8 +13852,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 4px;
   height: 16px;
   width: 16px;
-  position: relative;
-  z-index: 1;
 }
 
 .c9:hover,
@@ -14749,8 +14711,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c9:hover,
@@ -15608,8 +15568,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-left: 8px;
   height: 24px;
   width: 24px;
-  position: relative;
-  z-index: 1;
 }
 
 .c9:hover,
@@ -16435,8 +16393,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c6:hover,
