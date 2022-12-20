@@ -17,6 +17,7 @@ type StyledOverlayProps = {
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   visibility?: 'visible' | 'hidden'
   anchorSide?: AnchorSide
+  position?: 'left' | 'right'
 } & SxProp
 
 const heightMap = {
@@ -138,6 +139,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       anchorSide,
       portalContainerName,
       preventFocusOnOpen,
+      position,
       ...rest
     },
     forwardedRef,
@@ -180,6 +182,16 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       )
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
+    // Calculate position based on left and position props
+    let calculatedPosition: Record<string, string> = {left: `${left || 0}px`}
+    if (position && left === undefined) {
+      if (position === 'left') {
+        calculatedPosition = {left: '0px', position: 'fixed'}
+      } else {
+        calculatedPosition = {right: '0px', position: 'fixed'}
+      }
+    }
+
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
@@ -191,7 +203,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           style={
             {
               top: `${top || 0}px`,
-              left: `${left || 0}px`,
+              ...calculatedPosition,
               '--styled-overlay-visibility': visibility,
             } as React.CSSProperties
           }
