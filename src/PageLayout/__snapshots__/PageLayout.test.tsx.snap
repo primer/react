@@ -66,7 +66,8 @@ exports[`PageLayout renders condensed layout 1`] = `
 
 .c11 {
   --pane-min-width: 256px;
-  --pane-max-width: calc(100vw - 511px);
+  --pane-max-width-diff: 511px;
+  --pane-max-width: calc(100vw - var(--pane-max-width-diff));
   width: 100%;
   padding: 0;
 }
@@ -145,7 +146,7 @@ exports[`PageLayout renders condensed layout 1`] = `
 
 @media screen and (min-width:1280px) {
   .c11 {
-    --pane-max-width: calc(100vw - 959px);
+    --pane-max-width-diff: 959px;
   }
 }
 
@@ -348,7 +349,8 @@ exports[`PageLayout renders default layout 1`] = `
 
 .c11 {
   --pane-min-width: 256px;
-  --pane-max-width: calc(100vw - 511px);
+  --pane-max-width-diff: 511px;
+  --pane-max-width: calc(100vw - var(--pane-max-width-diff));
   width: 100%;
   padding: 0;
 }
@@ -437,7 +439,7 @@ exports[`PageLayout renders default layout 1`] = `
 
 @media screen and (min-width:1280px) {
   .c11 {
-    --pane-max-width: calc(100vw - 959px);
+    --pane-max-width-diff: 959px;
   }
 }
 
@@ -641,7 +643,8 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 
 .c11 {
   --pane-min-width: 256px;
-  --pane-max-width: calc(100vw - 511px);
+  --pane-max-width-diff: 511px;
+  --pane-max-width: calc(100vw - var(--pane-max-width-diff));
   width: 100%;
   padding: 0;
 }
@@ -730,7 +733,7 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
 
 @media screen and (min-width:1280px) {
   .c11 {
-    --pane-max-width: calc(100vw - 959px);
+    --pane-max-width-diff: 959px;
   }
 }
 
@@ -910,7 +913,8 @@ exports[`PageLayout renders with dividers 1`] = `
 
 .c10 {
   --pane-min-width: 256px;
-  --pane-max-width: calc(100vw - 511px);
+  --pane-max-width-diff: 511px;
+  --pane-max-width: calc(100vw - var(--pane-max-width-diff));
   width: 100%;
   padding: 0;
 }
@@ -999,7 +1003,7 @@ exports[`PageLayout renders with dividers 1`] = `
 
 @media screen and (min-width:1280px) {
   .c10 {
-    --pane-max-width: calc(100vw - 959px);
+    --pane-max-width-diff: 959px;
   }
 }
 
