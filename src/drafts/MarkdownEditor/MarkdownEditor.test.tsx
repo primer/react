@@ -798,7 +798,7 @@ describe('MarkdownEditor', () => {
         const link = await waitFor(() => within(getPreview()).getByText('Link'))
 
         await user.click(link)
-        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
+        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank', 'noopener noreferrer')
 
       })
     })
