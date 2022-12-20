@@ -27,16 +27,21 @@ const sizeVariants = variant({
   prop: 'size',
   variants: {
     small: {
+      '--inner-action-size': '20px',
       minHeight: '28px',
       px: 2,
       py: '3px',
       fontSize: 0,
       lineHeight: '20px',
     },
+    medium: {
+      '--inner-action-size': '24px',
+    },
     large: {
+      '--inner-action-size': '28px',
       px: 2,
       py: '10px',
-      fontSize: 3,
+      height: '40px',
     },
   },
 })
@@ -143,7 +148,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     css`
       font-family: ${get('fonts.mono')};
     `}
-  
+
   ${props =>
     props.validationStatus === 'error' &&
     css`
@@ -165,7 +170,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       display: flex;
       align-self: stretch;
     `}
-      
+
   // Ensures inputs don' t zoom on mobile but are body-font size on desktop
   @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
