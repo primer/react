@@ -14,8 +14,6 @@ export const Danger = () => <Button variant="danger">Danger</Button>
 
 export const Invisible = () => <Button variant="invisible">Invisible</Button>
 
-export const Outline = () => <Button variant="outline">Outline</Button>
-
 export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading visual</Button>
 
 export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>

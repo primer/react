@@ -30,12 +30,6 @@ export const Invisible = () => (
   </Button>
 )
 
-export const Outline = () => (
-  <Button as="a" href="/" variant="outline">
-    Invisible
-  </Button>
-)
-
 export const LeadingVisual = () => (
   <Button as="a" href="/" leadingVisual={HeartIcon}>
     Leading visual

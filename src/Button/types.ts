@@ -9,7 +9,7 @@ export const StyledButton = styled.button<SxProp>`
   ${sx};
 `
 
-export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outline'
+export type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
 
 export type Size = 'small' | 'medium' | 'large'
 
