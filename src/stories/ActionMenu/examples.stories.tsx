@@ -89,7 +89,7 @@ export function SingleSelection(): JSX.Element {
       <p>This pattern has a single section with the selected value shown in the button</p>
 
       <ActionMenu>
-        <ActionMenu.Button leadingIcon={selectedType.icon} alignContent="start">
+        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -122,7 +122,7 @@ export function SingleSelectionWithPlaceholder(): JSX.Element {
       <p>This pattern has a placeholder in menu button when no value is selected yet</p>
 
       <ActionMenu>
-        <ActionMenu.Button leadingIcon={selectedType.icon} alignContent="start">
+        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
           {selectedType.name || 'Pick a field type'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -154,7 +154,12 @@ export function GroupsAndDescription(): JSX.Element {
       <h1>Milestone selector</h1>
       <Box sx={{width: 200}}>
         <ActionMenu>
-          <ActionMenu.Button aria-describedby="selected-milestone" variant="invisible" trailingIcon={GearIcon}>
+          <ActionMenu.Button
+            aria-label="Milestone"
+            aria-describedby="selected-milestone"
+            variant="invisible"
+            trailingIcon={GearIcon}
+          >
             Milestone
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
@@ -245,6 +250,7 @@ export function MultipleSelection(): JSX.Element {
             <ActionList selectionVariant="multiple" showDividers>
               {users.map(user => (
                 <ActionList.Item
+                  aria-label="Assignees"
                   key={user.login}
                   selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
                   onSelect={() => toggleAssignee(user)}
