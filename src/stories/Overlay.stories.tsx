@@ -450,3 +450,62 @@ export const MemexIssueOverlay = () => {
     </>
   )
 }
+
+export const PositionedOverlays = ({left}: {left?: number}) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [direction, setDirection] = useState<'left' | 'right'>('left')
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const confirmButtonRef = useRef<HTMLButtonElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
+  const closeOverlay = () => setIsOpen(false)
+  return (
+    <Box ref={anchorRef}>
+      <Button
+        ref={buttonRef}
+        onClick={() => {
+          setIsOpen(!isOpen)
+          setDirection('left')
+        }}
+      >
+        Open left overlay
+      </Button>
+      <Button
+        ref={buttonRef}
+        onClick={() => {
+          setIsOpen(!isOpen)
+          setDirection('right')
+        }}
+        sx={{
+          mt: 2,
+        }}
+      >
+        Open right overlay
+      </Button>
+      {isOpen ? (
+        <Overlay
+          initialFocusRef={confirmButtonRef}
+          returnFocusRef={buttonRef}
+          ignoreClickRefs={[buttonRef]}
+          onEscape={closeOverlay}
+          onClickOutside={closeOverlay}
+          width="auto"
+          anchorSide="inside-left"
+          position={direction}
+          left={left}
+        >
+          <Box
+            sx={{
+              height: '100vh',
+              width: '500px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Text>Look! {direction} aligned</Text>
+          </Box>
+        </Overlay>
+      ) : null}
+    </Box>
+  )
+}
