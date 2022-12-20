@@ -20,12 +20,16 @@ type TextInputActionProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 
 } & SxProp
 
 const invisibleButtonStyleOverrides = {
-  color: 'fg.default',
   paddingTop: '2px',
   paddingRight: '4px',
   paddingBottom: '2px',
   paddingLeft: '4px',
   position: 'relative',
+
+  '&[data-component="IconButton"]': {
+    width: 'var(--inner-action-size)',
+    height: 'var(--inner-action-size)',
+  },
 
   '@media (pointer: coarse)': {
     ':after': {
@@ -77,7 +81,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     }
 
     return (
-      <Box as="span" className="TextInput-action" margin={1}>
+      <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
         {icon && !children ? (
           <Tooltip aria-label={ariaLabel}>
             <IconButton
@@ -85,7 +89,6 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
               type="button"
               icon={icon}
               aria-label={ariaLabel}
-              size="small"
               sx={sx}
               {...rest}
               ref={forwardedRef}
@@ -93,7 +96,7 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
           </Tooltip>
         ) : (
           <ConditionalTooltip aria-label={ariaLabel}>
-            <Button variant={variant} size="small" type="button" sx={sx} {...rest} ref={forwardedRef}>
+            <Button variant={variant} type="button" sx={sx} {...rest} ref={forwardedRef}>
               {children}
             </Button>
           </ConditionalTooltip>

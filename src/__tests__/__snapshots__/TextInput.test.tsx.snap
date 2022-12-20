@@ -630,11 +630,12 @@ exports[`TextInput renders large 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size: 20px;
+  height: 40px;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 0;
@@ -1142,6 +1143,7 @@ exports[`TextInput renders small 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -1251,22 +1253,18 @@ exports[`TextInput renders small 1`] = `
 
 exports[`TextInput renders trailingAction icon button 1`] = `
 .c2 {
-  margin: 4px;
-}
-
-.c5 {
-  display: inline-block;
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
 }
 
 .c4 {
   border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
+  border: 1px solid;
+  border-color: transparent;
   font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1278,14 +1276,35 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 14px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
   position: relative;
 }
 
@@ -1305,8 +1324,31 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   outline-offset: -2px;
 }
 
+.c4[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c4:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
 .c4:disabled {
-  cursor: default;
+  cursor: not-allowed;
+  box-shadow: none;
   color: #8c959f;
 }
 
@@ -1314,24 +1356,83 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: inherit;
 }
 
-.c4:disabled svg {
-  opacity: 0.6;
-}
-
 .c4 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
+.c4[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+}
+
+.c4[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c4[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c4[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c4[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c4[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
 .c4:hover:not([disabled]) {
-  background-color: #f3f4f6;
+  background-color: rgba(208,215,222,0.32);
 }
 
 .c4:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.48);
 }
 
 .c4[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c4 svg {
+  color: #57606a;
+}
+
+.c4[data-no-visuals] {
+  color: #0969da;
+}
+
+.c4:has([data-component="ButtonCounter"]) {
+  color: #24292f;
+}
+
+.c4[data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
 }
 
 .c0 {
@@ -1694,36 +1795,34 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       <button
         aria-label="iconLabel"
         className="c4"
+        data-component="IconButton"
+        data-size="medium"
         onClick={[MockFunction]}
         type="button"
       >
-        <span
-          className="c5"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
+        <svg
+          aria-hidden="true"
+          className="octicon octicon-search"
+          fill="currentColor"
+          focusable="false"
+          height={16}
+          role="img"
+          style={
+            {
+              "display": "inline-block",
+              "overflow": "visible",
+              "userSelect": "none",
+              "verticalAlign": "text-bottom",
             }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
-              fillRule="evenodd"
-            />
-          </svg>
-        </span>
+          }
+          viewBox="0 0 16 16"
+          width={16}
+        >
+          <path
+            d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+            fillRule="evenodd"
+          />
+        </svg>
       </button>
     </span>
   </span>
@@ -1732,18 +1831,25 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 exports[`TextInput renders trailingAction text button 1`] = `
 .c2 {
-  margin: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c4 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .c3 {
   border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
+  border: 1px solid;
+  border-color: transparent;
   font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1755,16 +1861,35 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 12px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
   position: relative;
 }
 
@@ -1784,8 +1909,31 @@ exports[`TextInput renders trailingAction text button 1`] = `
   outline-offset: -2px;
 }
 
+.c3[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c3:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c3:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
 .c3:disabled {
-  cursor: default;
+  cursor: not-allowed;
+  box-shadow: none;
   color: #8c959f;
 }
 
@@ -1793,40 +1941,125 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: inherit;
 }
 
-.c3:disabled svg {
-  opacity: 0.6;
+.c3 [data-component=ButtonCounter] {
+  font-size: 14px;
 }
 
-.c3 > :not(:last-child) {
+.c3[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+}
+
+.c3[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c3[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c3[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c3[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c3[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c3[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c3[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c3 [data-component="leadingIcon"] {
-  grid-area: leadingIcon;
+.c3[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c3[data-component="block"] {
+  width: 100%;
+}
+
+.c3 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
 }
 
 .c3 [data-component="text"] {
   grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
 }
 
-.c3 [data-component="trailingIcon"] {
-  grid-area: trailingIcon;
+.c3 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
 }
 
-.c3 [data-component=ButtonCounter] {
-  font-size: 12px;
+.c3 [data-component="trailingAction"] {
+  margin-right: -4px;
+}
+
+.c3 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c3 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
 }
 
 .c3:hover:not([disabled]) {
-  background-color: #f3f4f6;
+  background-color: rgba(208,215,222,0.32);
 }
 
 .c3:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.48);
 }
 
 .c3[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c3 svg {
+  color: #57606a;
+}
+
+.c3[data-no-visuals] {
+  color: #0969da;
+}
+
+.c3:has([data-component="ButtonCounter"]) {
+  color: #24292f;
+}
+
+.c3[data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
 }
 
 .c0 {
@@ -1964,13 +2197,20 @@ exports[`TextInput renders trailingAction text button 1`] = `
   >
     <button
       className="c3"
+      data-component={null}
+      data-no-visuals={true}
       onClick={[MockFunction]}
       type="button"
     >
       <span
-        data-component="text"
+        className="c4"
+        data-component="buttonContent"
       >
-        Clear
+        <span
+          data-component="text"
+        >
+          Clear
+        </span>
       </span>
     </button>
   </span>
@@ -1979,18 +2219,25 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c2 {
-  margin: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c5 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .c4 {
   border-radius: 6px;
-  border: 0;
-  border-color: rgba(27,31,36,0.15);
+  border: 1px solid;
+  border-color: transparent;
   font-family: inherit;
-  font-weight: 600;
-  line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
+  font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -2002,16 +2249,35 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  display: grid;
-  grid-template-areas: "leadingIcon text trailingIcon";
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 12px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
   position: relative;
 }
 
@@ -2031,8 +2297,31 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   outline-offset: -2px;
 }
 
+.c4[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c4:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
 .c4:disabled {
-  cursor: default;
+  cursor: not-allowed;
+  box-shadow: none;
   color: #8c959f;
 }
 
@@ -2040,40 +2329,125 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: inherit;
 }
 
-.c4:disabled svg {
-  opacity: 0.6;
+.c4 [data-component=ButtonCounter] {
+  font-size: 14px;
 }
 
-.c4 > :not(:last-child) {
+.c4[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+}
+
+.c4[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c4[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c4[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c4[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c4 [data-component="leadingIcon"] {
-  grid-area: leadingIcon;
+.c4[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c4[data-component="block"] {
+  width: 100%;
+}
+
+.c4 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
 }
 
 .c4 [data-component="text"] {
   grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
 }
 
-.c4 [data-component="trailingIcon"] {
-  grid-area: trailingIcon;
+.c4 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
 }
 
-.c4 [data-component=ButtonCounter] {
-  font-size: 12px;
+.c4 [data-component="trailingAction"] {
+  margin-right: -4px;
+}
+
+.c4 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c4 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
 }
 
 .c4:hover:not([disabled]) {
-  background-color: #f3f4f6;
+  background-color: rgba(208,215,222,0.32);
 }
 
 .c4:active:not([disabled]) {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.48);
 }
 
 .c4[aria-expanded=true] {
-  background-color: hsla(220,14%,94%,1);
+  background-color: rgba(208,215,222,0.24);
+}
+
+.c4 svg {
+  color: #57606a;
+}
+
+.c4[data-no-visuals] {
+  color: #0969da;
+}
+
+.c4:has([data-component="ButtonCounter"]) {
+  color: #24292f;
+}
+
+.c4[data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
 }
 
 .c0 {
@@ -2436,13 +2810,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     >
       <button
         className="c4"
+        data-component={null}
+        data-no-visuals={true}
         onClick={[MockFunction]}
         type="button"
       >
         <span
-          data-component="text"
+          className="c5"
+          data-component="buttonContent"
         >
-          Clear
+          <span
+            data-component="text"
+          >
+            Clear
+          </span>
         </span>
       </button>
     </span>
@@ -4751,6 +5132,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -5345,11 +5727,12 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 28px;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size: 20px;
+  height: 40px;
   background-repeat: no-repeat;
   background-position: right 8px center;
   padding-left: 12px;
