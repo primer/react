@@ -58,6 +58,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -802,6 +803,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -1215,6 +1217,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -1397,6 +1400,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -2086,6 +2090,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -2776,6 +2781,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -3466,6 +3472,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -4149,6 +4156,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -4834,6 +4842,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 5`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -5519,6 +5528,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -6206,6 +6216,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -6606,6 +6617,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -7346,6 +7358,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -8118,6 +8131,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -8867,6 +8881,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -9686,6 +9701,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -10505,6 +10521,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -11318,6 +11335,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -12099,6 +12117,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -12912,6 +12931,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -13702,6 +13722,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 20px;
   min-height: 28px;
   padding-left: 8px;
   padding-right: 8px;
@@ -14567,6 +14588,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -15427,6 +15449,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -16251,6 +16274,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -16936,6 +16960,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -17626,6 +17651,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   -ms-flex-align: stretch;
   align-items: stretch;
   min-height: 32px;
+  --inner-action-size: 24px;
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
