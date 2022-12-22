@@ -27,6 +27,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Markdownlint
+        run: npm run markdownlint
+
   test:
     strategy:
       fail-fast: false
