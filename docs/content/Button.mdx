@@ -7,6 +7,8 @@ storybook: '/react/storybook?path=/story/components-button--playground'
 description: Use button for the main actions on a page or form.
 ---
 
+import data from '../../src/Button/Button.docs.json'
+
 ```js
 import {Button} from '@primer/react'
 ```
@@ -119,55 +121,7 @@ Use the `block` prop for full width buttons.
 
 ## Props
 
-Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
-
-### Button
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    required
-    type="React.ReactNode"
-    description="Button description along with other components like Counter could be used here."
-  />
-  <PropsTableRow
-    name="variant"
-    type="'default' | 'primary' | 'danger' | 'outline' | 'invisible'"
-    description="Changes the look and feel of the button which is different for each variant"
-  />
-  <PropsTableRow
-    name="size"
-    type="'small' | 'medium' | 'large'"
-    description="Changes the size of the button component"
-  />
-  <PropsTableRow name="block" type="boolean" description="Full width button fills the parent container" />
-  <PropsTableRow
-    name="leadingIcon"
-    type="Component"
-    description="provide an octicon. It will be placed before the button text"
-  />
-  <PropsTableRow
-    name="trailingIcon"
-    type="Component"
-    description="provide an octicon. It will be placed after the button text"
-  />
-  <PropsTableAsRow defaultElementType="button" />
-  <PropsTableSxRow />
-  <PropsTablePassthroughPropsRow
-    elementName="button"
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes">MDN</Link>
-    }
-    isPolymorphic
-  />
-</PropsTable>
-
-### Button.Counter
-
-<PropsTable>
-  <PropsTableRow name="children" required type="number" description="The counter value as a number" />
-  <PropsTableSxRow />
-</PropsTable>
+<ComponentProps data={data} />
 
 ## Status
 
@@ -185,7 +139,7 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false,
+    hasFigmaComponent: false
   }}
 />
 
