@@ -45,5 +45,5 @@ fs.writeFileSync('generated/components.json', JSON.stringify(data, null, 2))
 // Print success message
 // eslint-disable-next-line no-console
 console.log(
-  `Successfully built "generated/components.json" from ${jsonFiles.length} files matching "src/**/*.docs.json"`
+  `Successfully built "generated/components.json" from ${jsonFiles.length} files matching "src/**/*.docs.json"`,
 )
