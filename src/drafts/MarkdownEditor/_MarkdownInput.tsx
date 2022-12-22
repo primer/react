@@ -52,23 +52,23 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
       pasteUrlsAsPlainText,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
     const {trigger: emojiTrigger, calculateSuggestions: calculateEmojiSuggestions} = useEmojiSuggestions(
-      emojiSuggestions ?? []
+      emojiSuggestions ?? [],
     )
     const {trigger: mentionsTrigger, calculateSuggestions: calculateMentionSuggestions} = useMentionSuggestions(
-      mentionSuggestions ?? []
+      mentionSuggestions ?? [],
     )
     const {trigger: referencesTrigger, calculateSuggestions: calculateReferenceSuggestions} = useReferenceSuggestions(
-      referenceSuggestions ?? []
+      referenceSuggestions ?? [],
     )
 
     const triggers = useMemo(
       () => [mentionsTrigger, referencesTrigger, emojiTrigger],
-      [mentionsTrigger, referencesTrigger, emojiTrigger]
+      [mentionsTrigger, referencesTrigger, emojiTrigger],
     )
 
     const onShowSuggestions = async (event: ShowSuggestionsEvent) => {
@@ -127,13 +127,13 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
               resize: fullHeight ? 'none' : 'vertical',
               p: 2,
               fontFamily: monospace ? 'mono' : 'normal',
-              ...heightStyles
-            }
+              ...heightStyles,
+            },
           }}
           {...props}
         />
       </InlineAutocomplete>
     )
-  }
+  },
 )
 MarkdownInput.displayName = 'MarkdownInput'

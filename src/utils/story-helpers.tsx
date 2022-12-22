@@ -67,7 +67,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
         sx={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))',
-          height: '100vh'
+          height: '100vh',
         }}
       >
         <GlobalStyleMultiTheme />
@@ -79,7 +79,7 @@ export const withThemeProvider = (Story: React.FC<React.PropsWithChildren<StoryC
                   padding: '1rem',
                   height: '100%',
                   backgroundColor: 'canvas.default',
-                  color: 'fg.default'
+                  color: 'fg.default',
                 }}
               >
                 <div id={`html-addon-root-${scheme}`}>{Story(context)}</div>
@@ -109,48 +109,48 @@ export const toolbarTypes = {
     toolbar: {
       icon: 'photo',
       items: [...Object.keys(theme.colorSchemes), 'all'],
-      title: 'Color scheme'
+      title: 'Color scheme',
     },
-    showSurroundingElements: {}
-  }
+    showSurroundingElements: {},
+  },
 }
 
 export const inputWrapperArgTypes: ArgTypes = {
   block: {
     defaultValue: false,
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   contrast: {
     defaultValue: false,
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   disabled: {
     defaultValue: false,
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   placeholder: {
     defaultValue: '',
     control: {
-      type: 'text'
-    }
+      type: 'text',
+    },
   },
   size: {
     name: 'size (input)', // TODO: remove '(input)'
     defaultValue: 'medium',
     options: ['small', 'medium', 'large'],
-    control: {type: 'radio'}
+    control: {type: 'radio'},
   },
   validationStatus: {
     defaultValue: undefined,
     options: ['error', 'success', 'warning', undefined],
-    control: {type: 'radio'}
-  }
+    control: {type: 'radio'},
+  },
 }
 
 const textInputArgTypesUnsorted: ArgTypes = {
@@ -158,22 +158,22 @@ const textInputArgTypesUnsorted: ArgTypes = {
   loading: {
     defaultValue: false,
     control: {
-      type: 'boolean'
-    }
+      type: 'boolean',
+    },
   },
   loaderPosition: {
     defaultValue: 'auto',
     options: ['auto', 'leading', 'trailing'],
     control: {
-      type: 'radio'
-    }
+      type: 'radio',
+    },
   },
   monospace: {
     defaultValue: false,
     control: {
-      type: 'boolean'
-    }
-  }
+      type: 'boolean',
+    },
+  },
 }
 
 // Alphabetize and optionally categorize the props
@@ -186,8 +186,8 @@ export const getTextInputArgTypes = (category?: string) =>
             // have to do weird type casting so we can spread the object
             ...(textInputArgTypesUnsorted[key] as {[key: string]: unknown}),
             table: {
-              category
-            }
+              category,
+            },
           }
         : textInputArgTypesUnsorted[key]
       return obj
@@ -200,42 +200,42 @@ export const textInputWithTokensArgTypes: ArgTypes = {
     defaultValue: false,
     type: 'boolean',
     table: {
-      category: 'TextInputWithTokens props'
-    }
+      category: 'TextInputWithTokens props',
+    },
   },
   maxHeight: {
     type: 'string',
     defaultValue: 'none',
     description: 'Any valid value for the CSS max-height property',
     table: {
-      category: 'TextInputWithTokens props'
-    }
+      category: 'TextInputWithTokens props',
+    },
   },
   preventTokenWrapping: {
     defaultValue: false,
     type: 'boolean',
     table: {
-      category: 'TextInputWithTokens props'
-    }
+      category: 'TextInputWithTokens props',
+    },
   },
   size: {
     name: 'size (token size)',
     defaultValue: 'xlarge',
     options: ['small', 'medium', 'large', 'xlarge'],
     control: {
-      type: 'radio'
+      type: 'radio',
     },
     table: {
-      category: 'TextInputWithTokens props'
-    }
+      category: 'TextInputWithTokens props',
+    },
   },
   visibleTokenCount: {
     defaultValue: 999,
     type: 'number',
     table: {
-      category: 'TextInputWithTokens props'
-    }
-  }
+      category: 'TextInputWithTokens props',
+    },
+  },
 }
 
 export const formControlArgs = {
@@ -245,26 +245,26 @@ export const formControlArgs = {
   visuallyHidden: false,
   captionChildren: '',
   validationChildren: '',
-  variant: 'error'
+  variant: 'error',
 }
 
 export const formControlArgTypes: ArgTypes = {
   // FormControl
   required: {
     control: {
-      type: 'boolean'
+      type: 'boolean',
     },
     table: {
-      category: 'FormControl'
-    }
+      category: 'FormControl',
+    },
   },
   disabled: {
     control: {
-      type: 'boolean'
+      type: 'boolean',
     },
     table: {
-      category: 'FormControl'
-    }
+      category: 'FormControl',
+    },
   },
 
   // FormControl.Label
@@ -272,14 +272,14 @@ export const formControlArgTypes: ArgTypes = {
     name: 'children',
     type: 'string',
     table: {
-      category: 'FormControl.Label'
-    }
+      category: 'FormControl.Label',
+    },
   },
   visuallyHidden: {
     type: 'boolean',
     table: {
-      category: 'FormControl.Label'
-    }
+      category: 'FormControl.Label',
+    },
   },
 
   // FormControl.Caption
@@ -287,8 +287,8 @@ export const formControlArgTypes: ArgTypes = {
     name: 'children',
     type: 'string',
     table: {
-      category: 'FormControl.Caption'
-    }
+      category: 'FormControl.Caption',
+    },
   },
 
   // FormControl.Validation
@@ -296,18 +296,18 @@ export const formControlArgTypes: ArgTypes = {
     name: 'children',
     type: 'string',
     table: {
-      category: 'FormControl.Validation'
-    }
+      category: 'FormControl.Validation',
+    },
   },
   variant: {
     control: {
-      type: 'radio'
+      type: 'radio',
     },
     options: ['error', 'success', 'warning'],
     table: {
-      category: 'FormControl.Validation'
-    }
-  }
+      category: 'FormControl.Validation',
+    },
+  },
 }
 
 const formControlArgTypeKeys = Object.keys(formControlArgTypes) as Array<keyof typeof formControlArgTypes>
@@ -328,12 +328,12 @@ export const getFormControlArgsByChildComponent = ({
   required,
   validationChildren,
   variant,
-  visuallyHidden
+  visuallyHidden,
 }: FormControlArgs) => ({
   parentArgs: {disabled, required},
   labelArgs: {visuallyHidden, children: labelChildren},
   captionArgs: {children: captionChildren},
-  validationArgs: {children: validationChildren, variant}
+  validationArgs: {children: validationChildren, variant},
 })
 
 // Use this function for icon options in the controls. Desired icons are passed in as an array of Octicons
@@ -346,15 +346,15 @@ export const OcticonArgType = (iconList: Icon[]) => {
   return {
     options: Object.keys(icons),
     control: {
-      type: 'select'
+      type: 'select',
     },
-    mapping: icons
+    mapping: icons,
   }
 }
 
 export const withSurroundingElements = (
   Story: React.FC<React.PropsWithChildren<StoryContext>>,
-  context: StoryContext
+  context: StoryContext,
 ) => {
   const showSurroundingElements =
     context.globals.showSurroundingElements ?? window.localStorage.getItem('showSurroundingElements') === 'true'

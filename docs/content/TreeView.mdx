@@ -7,6 +7,10 @@ description: A hierarchical list of items where nested items can be expanded and
 
 import data from '../../src/TreeView/TreeView.docs.json'
 
+```js
+import {TreeView} from '@primer/react/drafts'
+```
+
 ## Examples
 
 ### File tree navigation without directory links
@@ -21,7 +25,7 @@ import data from '../../src/TreeView/TreeView.docs.json'
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+          <TreeView.Item id="src/Avatar.tsx" onSelect={() => console.log('src/Avatar.tsx')}>
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -29,8 +33,8 @@ import data from '../../src/TreeView/TreeView.docs.json'
             <TreeView.TrailingVisual>
               <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
             </TreeView.TrailingVisual>
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -38,10 +42,10 @@ import data from '../../src/TreeView/TreeView.docs.json'
             <TreeView.TrailingVisual>
               <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
             </TreeView.TrailingVisual>
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
-      <TreeView.LinkItem id="package.json" href="#">
+      <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
@@ -49,7 +53,7 @@ import data from '../../src/TreeView/TreeView.docs.json'
         <TreeView.TrailingVisual>
           <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
         </TreeView.TrailingVisual>
-      </TreeView.LinkItem>
+      </TreeView.Item>
     </TreeView>
   </nav>
 </Box>
@@ -61,49 +65,129 @@ import data from '../../src/TreeView/TreeView.docs.json'
 <Box sx={{maxWidth: 400}}>
   <nav aria-label="Files">
     <TreeView aria-label="Files">
-      <TreeView.LinkItem id="src" href="#">
+      <TreeView.Item id="src">
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
+          <TreeView.Item id="src/Avatar.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             Avatar.tsx
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button" href="#" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button" current>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Button
             <TreeView.SubTree>
-              <TreeView.LinkItem id="src/Button/Button.tsx" href="#">
+              <TreeView.Item id="src/Button/Button.tsx">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.tsx
-              </TreeView.LinkItem>
-              <TreeView.LinkItem id="src/Button/Button.test.tsx" href="#">
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.test.tsx
-              </TreeView.LinkItem>
+              </TreeView.Item>
             </TreeView.SubTree>
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
-      </TreeView.LinkItem>
-      <TreeView.LinkItem id="package.json" href="#">
+      </TreeView.Item>
+      <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
         package.json
-      </TreeView.LinkItem>
+      </TreeView.Item>
     </TreeView>
   </nav>
 </Box>
+```
+
+### With React Router
+
+```jsx
+import {Link, useMatch, useResolvedPath, navigate} from 'react-router-dom'
+import {TreeView} from '@primer/react/drafts'
+
+function TreeLinkItem({id, to, children}) {
+  const resolved = useResolvedPath(to)
+  const isCurrent = useMatch({path: resolved.pathname, end: true})
+  return (
+    <TreeList.Item
+      id={id}
+      aria-current={isCurrent ? 'page' : undefined}
+      current={isCurrent}
+      onSelect={() => navigate(to)}
+    >
+      {children}
+    </TreeList.Item>
+  )
+}
+
+function App() {
+  return (
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
+        <TreeLinkItem id="src/Avatar.tsx" to="/src/Avatar.tsx">
+          Avatar.tsx
+        </TreeLinkItem>
+        <TreeLinkItem id="src/Button.tsx" to="/src/Button.tsx">
+          Button.tsx
+        </TreeLinkItem>
+      </TreeView>
+    </nav>
+  )
+}
+```
+
+### With Next.js
+
+```jsx
+import {useRouter} from 'next/router'
+import Link from 'next/link'
+import {TreeView} from '@primer/react/drafts'
+
+function TreeLinkItem({id, href, children}) {
+  const router = useRouter()
+  const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
+  return (
+    <Link href={href} passHref>
+      <TreeView.Item id={id} aria-current={isCurrent ? 'page' : false} current={isCurrent}>
+        {children}
+      </TreeView.Item>
+    </Link>
+  )
+}
+
+function App() {
+  return (
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
+        <TreeLinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
+          Avatar.tsx
+        </TreeLinkItem>
+        <TreeLinkItem
+          id="src/Button.tsx"
+          // You can also pass a URL object
+          // https://nextjs.org/docs/api-reference/next/link#with-url-object
+          href={{
+            pathname: '/src/[component].[filetype]',
+            query: {component: 'Button', filetype: 'tsx'}
+          }}
+        >
+          Button.tsx
+        </TreeLinkItem>
+      </TreeView>
+    </nav>
+  )
+}
 ```
 
 ### With controlled expanded state
@@ -120,12 +204,10 @@ function ControlledTreeView() {
           <TreeView.Item id="src" expanded={expanded} onExpandedChange={setExpanded}>
             src
             <TreeView.SubTree>
-              <TreeView.LinkItem id="src/Avatar.tsx" href="#">
-                Avatar.tsx
-              </TreeView.LinkItem>
-              <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+              <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
+              <TreeView.Item id="src/Button.tsx" current>
                 Button.tsx
-              </TreeView.LinkItem>
+              </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -151,12 +233,10 @@ To render stateful visuals, pass a render function to `TreeView.LeadingVisual` o
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
-            Avatar.tsx
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+          <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
             Button.tsx
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
     </TreeView>
@@ -176,12 +256,10 @@ Since stateful directory icons are a common use case for TreeView, we provide a 
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#">
-            Avatar.tsx
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button.tsx" href="#" current>
+          <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
             Button.tsx
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
     </TreeView>

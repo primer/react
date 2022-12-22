@@ -20,8 +20,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const BasicConfirmationDialog = () => {
@@ -61,7 +61,7 @@ export const ShorthandHook = () => {
         event.target.textContent = "I'm green!"
       }
     },
-    [confirm, theme]
+    [confirm, theme],
   )
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start">

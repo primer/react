@@ -27,20 +27,21 @@ function useDialog({
   isOpen,
   onDismiss = noop,
   initialFocusRef,
-  closeButtonRef
+  closeButtonRef,
 }: UseDialogParameters) {
   const onClickOutside = useCallback(
-    e => {
+    (e: MouseEvent) => {
       if (
         modalRef.current &&
         overlayRef.current &&
+        e.target instanceof Node &&
         !modalRef.current.contains(e.target) &&
         overlayRef.current.contains(e.target)
       ) {
         onDismiss()
       }
     },
-    [onDismiss, modalRef, overlayRef]
+    [onDismiss, modalRef, overlayRef],
   )
 
   useEffect(() => {
@@ -63,7 +64,7 @@ function useDialog({
   }, [isOpen, initialFocusRef, closeButtonRef])
 
   const getFocusableItem = useCallback(
-    (e: Event, movement: number) => {
+    (e: React.KeyboardEvent, movement: number) => {
       if (modalRef.current) {
         const items = Array.from(modalRef.current.querySelectorAll('*')).filter(focusable)
         if (items.length === 0) return
@@ -80,11 +81,11 @@ function useDialog({
         return focusableItem as HTMLElement
       }
     },
-    [modalRef]
+    [modalRef],
   )
 
   const handleTab = useCallback(
-    e => {
+    (e: React.KeyboardEvent) => {
       const movement = e.shiftKey ? -1 : 1
       const focusableItem = getFocusableItem(e, movement)
       if (!focusableItem) {
@@ -93,11 +94,11 @@ function useDialog({
 
       focusableItem.focus()
     },
-    [getFocusableItem]
+    [getFocusableItem],
   )
 
   const onKeyDown = useCallback(
-    event => {
+    (event: React.KeyboardEvent) => {
       switch (event.key) {
         case 'Tab':
           handleTab(event)
@@ -108,7 +109,7 @@ function useDialog({
           break
       }
     },
-    [handleTab, onDismiss]
+    [handleTab, onDismiss],
   )
 
   const getDialogProps = () => {

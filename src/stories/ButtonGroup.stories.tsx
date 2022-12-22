@@ -11,8 +11,8 @@ export default {
     ref: {table: {disable: true}},
     theme: {table: {disable: true}},
     forwardedAs: {table: {disable: true}},
-    sx: {table: {disable: true}}
-  }
+    sx: {table: {disable: true}},
+  },
 } as Meta<typeof ButtonGroup>
 
 export const Default = () => (
@@ -32,18 +32,18 @@ export const Playground: Story<ButtonProps> = args => (
 )
 Playground.args = {
   size: 'medium',
-  disabled: false
+  disabled: false,
 }
 Playground.argTypes = {
   size: {
     control: {
-      type: 'radio'
+      type: 'radio',
     },
-    options: ['small', 'medium', 'large']
+    options: ['small', 'medium', 'large'],
   },
   disabled: {
     control: {
-      type: 'boolean'
-    }
-  }
+      type: 'boolean',
+    },
+  },
 }

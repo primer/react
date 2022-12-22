@@ -1,17 +1,17 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {useSSRSafeId} from '@react-aria/ssr'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import {
   ActionList,
   ActionListDividerProps,
   ActionListLeadingVisualProps,
-  ActionListTrailingVisualProps
+  ActionListTrailingVisualProps,
 } from '../ActionList'
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
+import {useId} from '../hooks/useId'
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -51,7 +51,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
 
     // Get children without SubNav
     const childrenWithoutSubNav = React.Children.toArray(children).filter(child =>
-      isValidElement(child) ? child.type !== SubNav : true
+      isValidElement(child) ? child.type !== SubNav : true,
     )
 
     // Render ItemWithSubNav if SubNav is present
@@ -72,16 +72,16 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
           {
             paddingLeft: depth > 0 ? 5 : null, // Indent sub-items
             fontSize: depth > 0 ? 0 : null, // Reduce font size of sub-items
-            fontWeight: depth > 0 ? 'normal' : null // Sub-items don't get bolded
+            fontWeight: depth > 0 ? 'normal' : null, // Sub-items don't get bolded
           },
-          sxProp
+          sxProp,
         )}
         {...props}
       >
         {children}
       </ActionList.LinkItem>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'a', NavListItemProps>
 
 Item.displayName = 'NavList.Item'
@@ -97,14 +97,14 @@ type ItemWithSubNavProps = {
 const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: string; isOpen: boolean}>({
   buttonId: '',
   subNavId: '',
-  isOpen: false
+  isOpen: false,
 })
 
 // TODO: ref prop
 // TODO: Animate open/close transition
 function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps) {
-  const buttonId = useSSRSafeId()
-  const subNavId = useSSRSafeId()
+  const buttonId = useId()
+  const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState(false)
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
@@ -133,9 +133,9 @@ function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps
           onClick={() => setIsOpen(open => !open)}
           sx={merge<SxProp['sx']>(
             {
-              fontWeight: containsCurrentItem ? 'bold' : null // Parent item is bold if any of it's sub-items are current
+              fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of it's sub-items are current
             },
-            sxProp
+            sxProp,
           )}
         >
           {children}
@@ -144,7 +144,7 @@ function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps
             <StyledOcticon
               icon={ChevronDownIcon}
               sx={{
-                transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
               }}
             />
           </ActionList.TrailingVisual>
@@ -192,9 +192,9 @@ const SubNav = ({children, sx: sxProp = {}}: NavListSubNavProps) => {
           {
             padding: 0,
             margin: 0,
-            display: isOpen ? 'block' : 'none'
+            display: isOpen ? 'block' : 'none',
           },
-          sxProp
+          sxProp,
         )}
       >
         {children}
@@ -242,7 +242,7 @@ export type NavListGroupProps = {
 
 const defaultSx = {}
 // TODO: ref prop
-const Group: React.VFC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
+const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
@@ -265,5 +265,5 @@ export const NavList = Object.assign(Root, {
   LeadingVisual,
   TrailingVisual,
   Divider,
-  Group
+  Group,
 })

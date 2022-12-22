@@ -55,25 +55,25 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       TextInput,
       TextInputWithTokens,
       Textarea,
-      InlineAutocomplete
+      InlineAutocomplete,
     ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext?.disabled || disabledProp
     const id = useSSRSafeId(idProp)
     const validationChild = React.Children.toArray(children).find(child =>
-      React.isValidElement(child) && child.type === FormControlValidation ? child : null
+      React.isValidElement(child) && child.type === FormControlValidation ? child : null,
     )
     const captionChild = React.Children.toArray(children).find(child =>
-      React.isValidElement(child) && child.type === FormControlCaption ? child : null
+      React.isValidElement(child) && child.type === FormControlCaption ? child : null,
     )
     const labelChild = React.Children.toArray(children).find(
-      child => React.isValidElement(child) && child.type === FormControlLabel
+      child => React.isValidElement(child) && child.type === FormControlLabel,
     )
     const validationMessageId = validationChild && `${id}-validationMessage`
     const captionId = captionChild && `${id}-caption`
     const validationStatus = React.isValidElement(validationChild) && validationChild.props.variant
     const InputComponent = React.Children.toArray(children).find(child =>
-      expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent)
+      expectedInputComponents.some(inputComponent => React.isValidElement(child) && child.type === inputComponent),
     )
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
@@ -83,19 +83,19 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       if (inputProps?.id) {
         // eslint-disable-next-line no-console
         console.warn(
-          `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>`
+          `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
         )
       }
       if (inputProps?.disabled) {
         // eslint-disable-next-line no-console
         console.warn(
-          `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>`
+          `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
         )
       }
       if (inputProps?.required) {
         // eslint-disable-next-line no-console
         console.warn(
-          `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>`
+          `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
         )
       }
     }
@@ -103,7 +103,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     if (!labelChild) {
       // eslint-disable-next-line no-console
       console.error(
-        `The input field with the id ${id} MUST have a FormControl.Label child.\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the FormControl.Label component.`
+        `The input field with the id ${id} MUST have a FormControl.Label child.\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the FormControl.Label component.`,
       )
     }
 
@@ -111,7 +111,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       if (validationChild) {
         // eslint-disable-next-line no-console
         console.warn(
-          'Validation messages are not rendered for an individual checkbox or radio. The validation message should be shown for all options.'
+          'Validation messages are not rendered for an individual checkbox or radio. The validation message should be shown for all options.',
         )
       }
 
@@ -122,12 +122,12 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     } else {
       if (
         React.Children.toArray(children).find(
-          child => React.isValidElement(child) && child.type === FormControlLeadingVisual
+          child => React.isValidElement(child) && child.type === FormControlLeadingVisual,
         )
       ) {
         // eslint-disable-next-line no-console
         console.warn(
-          'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.'
+          'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.',
         )
       }
     }
@@ -139,7 +139,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
           disabled,
           id,
           required,
-          validationMessageId
+          validationMessageId,
         }}
       >
         {slots => {
@@ -158,13 +158,13 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                     {
                       id,
                       disabled,
-                      ['aria-describedby']: captionId as string
-                    }
+                      ['aria-describedby']: captionId as string,
+                    },
                   )}
                 {React.Children.toArray(children).filter(
                   child =>
                     React.isValidElement(child) &&
-                    ![Checkbox, Radio].some(inputComponent => child.type === inputComponent)
+                    ![Checkbox, Radio].some(inputComponent => child.type === inputComponent),
                 )}
               </Box>
               {slots.LeadingVisual && (
@@ -174,8 +174,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                     '> *': {
                       minWidth: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
                       minHeight: slots.Caption ? get('fontSizes.4') : get('fontSizes.2'),
-                      fill: 'currentColor'
-                    }
+                      fill: 'currentColor',
+                    },
                   }}
                   ml={2}
                 >
@@ -213,15 +213,15 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                       required,
                       disabled,
                       validationStatus,
-                      ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' ')
+                      ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
                     },
-                    InputComponent.props
-                  )
+                    InputComponent.props,
+                  ),
                 )}
               {React.Children.toArray(children).filter(
                 child =>
                   React.isValidElement(child) &&
-                  !expectedInputComponents.some(inputComponent => child.type === inputComponent)
+                  !expectedInputComponents.some(inputComponent => child.type === inputComponent),
               )}
               {validationChild && <ValidationAnimationContainer show>{slots.Validation}</ValidationAnimationContainer>}
               {slots.Caption}
@@ -230,16 +230,16 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         }}
       </Slots>
     )
-  }
+  },
 )
 
 FormControl.defaultProps = {
-  layout: 'vertical'
+  layout: 'vertical',
 }
 
 export default Object.assign(FormControl, {
   Caption: FormControlCaption,
   Label: FormControlLabel,
   LeadingVisual: FormControlLeadingVisual,
-  Validation: FormControlValidation
+  Validation: FormControlValidation,
 })

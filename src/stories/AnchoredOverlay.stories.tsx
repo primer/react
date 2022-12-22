@@ -18,8 +18,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 const HeaderAndLayout = ({children}: {children: JSX.Element}) => {

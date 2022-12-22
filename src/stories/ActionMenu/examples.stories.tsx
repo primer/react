@@ -12,7 +12,7 @@ import {
   IssueOpenedIcon,
   TableIcon,
   PeopleIcon,
-  XIcon
+  XIcon,
 } from '@primer/octicons-react'
 
 const meta: Meta = {
@@ -25,13 +25,13 @@ const meta: Meta = {
           <Story />
         </BaseStyles>
       </ThemeProvider>
-    )
+    ),
   ],
   parameters: {
     controls: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 
@@ -76,7 +76,7 @@ const fieldTypes = [
   {icon: NumberIcon, name: 'Number'},
   {icon: CalendarIcon, name: 'Date'},
   {icon: SingleSelectIcon, name: 'Single select'},
-  {icon: IterationsIcon, name: 'Iteration'}
+  {icon: IterationsIcon, name: 'Iteration'},
 ]
 
 export function SingleSelection(): JSX.Element {
@@ -89,7 +89,7 @@ export function SingleSelection(): JSX.Element {
       <p>This pattern has a single section with the selected value shown in the button</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon}>
+        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
           {selectedType.name}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -122,7 +122,7 @@ export function SingleSelectionWithPlaceholder(): JSX.Element {
       <p>This pattern has a placeholder in menu button when no value is selected yet</p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon}>
+        <ActionMenu.Button aria-label="Field type" leadingIcon={selectedType.icon} alignContent="start">
           {selectedType.name || 'Pick a field type'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">
@@ -143,7 +143,7 @@ const milestones = [
   {name: 'FY21 - Q2', due: 'December 31, 2021', progress: 90},
   {name: 'FY22 - Q3', due: 'March 31, 2022', progress: 10},
   {name: 'FY23 - Q1', due: 'June 30, 2022', progress: 0},
-  {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0}
+  {name: 'FY23 - Q2', due: 'December 30, 2022', progress: 0},
 ]
 
 export function GroupsAndDescription(): JSX.Element {
@@ -159,14 +159,6 @@ export function GroupsAndDescription(): JSX.Element {
             aria-describedby="selected-milestone"
             variant="invisible"
             trailingIcon={GearIcon}
-            sx={{
-              color: 'fg.muted',
-              width: '100%',
-              paddingX: 0,
-              gridTemplateColumns: 'min-content 1fr min-content',
-              textAlign: 'left',
-              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'}
-            }}
           >
             Milestone
           </ActionMenu.Button>
@@ -230,7 +222,7 @@ const users = [
   {login: 'mperrotti', name: 'Mike Perrotti'},
   {login: 'dgreif', name: 'Dusty Greif'},
   {login: 'smockle', name: 'Clay Miller'},
-  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'}
+  {login: 'siddharthkp', name: 'Siddharth Kshetrapal'},
 ]
 
 export function MultipleSelection(): JSX.Element {
@@ -251,25 +243,14 @@ export function MultipleSelection(): JSX.Element {
 
       <Box sx={{width: 200}}>
         <ActionMenu>
-          <ActionMenu.Button
-            aria-label="Assignees"
-            variant="invisible"
-            trailingIcon={GearIcon}
-            sx={{
-              color: 'fg.muted',
-              width: '100%',
-              paddingX: 0,
-              gridTemplateColumns: 'min-content 1fr min-content',
-              textAlign: 'left',
-              ':hover, :focus, &[aria-expanded=true]': {background: 'none !important', color: 'accent.fg'}
-            }}
-          >
+          <ActionMenu.Button variant="invisible" trailingIcon={GearIcon}>
             Assignees
           </ActionMenu.Button>
           <ActionMenu.Overlay>
             <ActionList selectionVariant="multiple" showDividers>
               {users.map(user => (
                 <ActionList.Item
+                  aria-label="Assignees"
                   key={user.login}
                   selected={Boolean(assignees.find(assignee => assignee.login === user.login))}
                   onSelect={() => toggleAssignee(user)}
@@ -298,7 +279,7 @@ export function MixedSelection(): JSX.Element {
     {text: 'Assignee', icon: PeopleIcon},
     {text: 'Team', icon: TypographyIcon},
     {text: 'Estimate', icon: NumberIcon},
-    {text: 'Due Date', icon: CalendarIcon}
+    {text: 'Due Date', icon: CalendarIcon},
   ]
 
   const selectedOption = selectedIndex !== null && options[selectedIndex]

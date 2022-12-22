@@ -15,8 +15,8 @@ export function canUseDivDOMProps() {
       items={[
         {
           text: 'One',
-          onMouseDown: () => undefined
-        }
+          onMouseDown: () => undefined,
+        },
       ]}
     />
   )
@@ -29,8 +29,8 @@ export function cannotUseAnchorDOMProps() {
         {
           text: 'One',
           // @ts-expect-error href is not a div DOM prop
-          href: '#'
-        }
+          href: '#',
+        },
       ]}
     />
   )
@@ -43,8 +43,8 @@ export function cannotUseAsWithoutRenderProp() {
         {
           text: 'One',
           // @ts-expect-error as is only available via manual rendering of items
-          as: 'a'
-        }
+          as: 'a',
+        },
       ]}
     />
   )

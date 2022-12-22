@@ -13,7 +13,7 @@ export type Mentionable = {
 }
 
 const trigger: Trigger = {
-  triggerChar: '@'
+  triggerChar: '@',
 }
 
 const mentionableToSuggestion = (mentionable: Mentionable): Suggestion => ({
@@ -23,7 +23,7 @@ const mentionableToSuggestion = (mentionable: Mentionable): Suggestion => ({
       <Text sx={{fontWeight: 'bold'}}>{mentionable.identifier}</Text>{' '}
       <ActionList.Description>{mentionable.description}</ActionList.Description>
     </ActionList.Item>
-  )
+  ),
 })
 
 const scoreSuggestion = (query: string, mentionable: Mentionable): number => {
@@ -39,5 +39,5 @@ const scoreSuggestion = (query: string, mentionable: Mentionable): number => {
 
 export const useMentionSuggestions: UseSuggestionsHook<Mentionable> = mentionables => ({
   calculateSuggestions: suggestionsCalculator(mentionables, scoreSuggestion, mentionableToSuggestion),
-  trigger
+  trigger,
 })

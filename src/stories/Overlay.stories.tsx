@@ -5,6 +5,7 @@ import {
   Overlay,
   ButtonGroup,
   Button,
+  IconButton,
   Text,
   Box,
   Checkbox,
@@ -14,7 +15,7 @@ import {
   Link,
   Label,
   ActionList,
-  ActionMenu
+  ActionMenu,
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
 
@@ -22,12 +23,12 @@ export default {
   title: 'Private components/Overlay',
   component: Overlay,
   args: {
-    anchorSide: 'inside-top'
+    anchorSide: 'inside-top',
   },
   argTypes: {
     anchorSide: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       options: [
         'inside-top',
@@ -38,10 +39,10 @@ export default {
         'outside-top',
         'outside-bottom',
         'outside-left',
-        'outside-right'
-      ]
-    }
-  }
+        'outside-right',
+      ],
+    },
+  },
 } as Meta
 
 interface OverlayProps {
@@ -195,14 +196,12 @@ export const MemexNestedOverlays = () => {
     <div>
       <ButtonGroup>
         <Button>Add iteration</Button>
-        <Button
+        <IconButton
           aria-label="Add custom iteration"
           ref={buttonRef}
           onClick={() => setOverlayOpen(!overlayOpen)}
-          sx={{paddingX: 2}}
-        >
-          <TriangleDownIcon />
-        </Button>
+          icon={TriangleDownIcon}
+        />
       </ButtonGroup>
       {overlayOpen && (
         <Overlay
@@ -269,14 +268,12 @@ export const NestedOverlays = () => {
       </div>
       <ButtonGroup>
         <Button>Star</Button>
-        <Button
+        <IconButton
           aria-label="Add this repository to a list"
           ref={buttonRef}
           onClick={() => setListOverlayOpen(!listOverlayOpen)}
-          sx={{paddingX: 2}}
-        >
-          <TriangleDownIcon />
-        </Button>
+          icon={TriangleDownIcon}
+        />
       </ButtonGroup>
       {listOverlayOpen && (
         <Overlay
@@ -374,8 +371,8 @@ export const MemexIssueOverlay = () => {
           borderColor: 'border.default',
           p: 2,
           ':hover': {
-            backgroundColor: 'canvas.subtle'
-          }
+            backgroundColor: 'canvas.subtle',
+          },
         }}
       >
         <IssueDraftIcon /> {title}
@@ -423,7 +420,7 @@ export const MemexIssueOverlay = () => {
                   px: '7px',
                   textAlign: 'left',
                   color: 'fg.default',
-                  input: {fontWeight: 'bold', fontSize: 4, px: 0}
+                  input: {fontWeight: 'bold', fontSize: 4, px: 0},
                 }}
               />
             ) : (
@@ -438,7 +435,7 @@ export const MemexIssueOverlay = () => {
                   color: 'fg.default',
                   p: 2,
                   textAlign: 'left',
-                  borderRadius: '2'
+                  borderRadius: '2',
                 }}
               >
                 {title}

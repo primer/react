@@ -15,37 +15,33 @@ export default {
           <Story />
         </UnderlineNav>
       )
-    }
+    },
   ],
   parameters: {
     controls: {
       expanded: true,
-      exclude: ['as']
-    }
+      exclude: ['as'],
+    },
   },
   args: {
     children: 'Code',
     counter: '12K',
-    icon: PeopleIcon
+    icon: PeopleIcon,
   },
   argTypes: {
     children: {
-      type: 'string'
+      type: 'string',
     },
     counter: {
-      type: 'string'
+      type: 'string',
     },
-    icon: OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon])
-  }
+    icon: OcticonArgType([CodeIcon, GitPullRequestIcon, PeopleIcon]),
+  },
 } as Meta<typeof UnderlineNavItem>
-
-// UnderlineNav.Item controls only work on the "Docs" tab. Because UnderlineNav children don't get re-rendered when they are changed.
-// This is an intentional behaviour of UnderlineNav for keeping a selected menu item visible. I will update here once I find a better solution.
-// In the meantime, you can use the "Docs" tab to see the controls.
 
 export const Playground: Story = args => {
   return (
-    <UnderlineNavItem selected {...args}>
+    <UnderlineNavItem aria-current="page" {...args}>
       {args.children}
     </UnderlineNavItem>
   )

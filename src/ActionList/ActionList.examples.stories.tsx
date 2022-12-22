@@ -11,7 +11,7 @@ import {
   IssueOpenedIcon,
   NumberIcon,
   LinkIcon,
-  XIcon
+  XIcon,
 } from '@primer/octicons-react'
 import {ActionList, ActionListItemProps} from '.'
 import TextInput from '../TextInput'
@@ -24,9 +24,9 @@ const meta: Meta = {
   component: ActionList,
   parameters: {
     controls: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 
@@ -35,7 +35,7 @@ const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkPro
   ({to, ...props}: {to: string; children: React.ReactNode}, ref) => {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a ref={ref} href={to} {...props} />
-  }
+  },
 )
 
 const NextJSLikeLink = forwardRef(
@@ -43,10 +43,10 @@ const NextJSLikeLink = forwardRef(
     const child = React.Children.only(children)
     const childProps = {
       ref,
-      href
+      href,
     }
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
-  }
+  },
 )
 
 export const ListLinkItem = () => (
@@ -57,7 +57,7 @@ export const ListLinkItem = () => (
       </ActionList.LeadingVisual>
       not a link, just an Item for comparison
     </ActionList.Item>
-    <ActionList.LinkItem href="https://github.com/primer">
+    <ActionList.LinkItem href="https://github.com/primer" aria-keyshortcuts="g">
       <ActionList.LeadingVisual>
         <LinkIcon />
       </ActionList.LeadingVisual>
@@ -106,7 +106,7 @@ const branches = [
   'dependabot/npm_and_yarn/docs/engine.io-4.1.2',
   'ci-order',
   'mdx-components',
-  'emoji-picker-api'
+  'emoji-picker-api',
 ]
 
 const filterSlowly = async (query: string) => {
@@ -124,7 +124,7 @@ export function MixedSelection(): JSX.Element {
     {text: 'Assignee', icon: <PeopleIcon />},
     {text: 'Team', icon: <TypographyIcon />},
     {text: 'Estimate', icon: <NumberIcon />},
-    {text: 'Due Date', icon: <CalendarIcon />}
+    {text: 'Due Date', icon: <CalendarIcon />},
   ]
 
   return (
@@ -216,7 +216,7 @@ export function MemexSortable(): JSX.Element {
     {text: 'Assignee', icon: <PeopleIcon />, selected: true},
     {text: 'Team', icon: <TypographyIcon />, selected: true},
     {text: 'Estimate', icon: <NumberIcon />, selected: false},
-    {text: 'Due Date', icon: <CalendarIcon />, selected: false}
+    {text: 'Due Date', icon: <CalendarIcon />, selected: false},
   ])
 
   const toggle = (text: string) => {
@@ -224,7 +224,7 @@ export function MemexSortable(): JSX.Element {
       options.map(option => {
         if (option.text === text) option.selected = !option.selected
         return option
-      })
+      }),
     )
   }
 
@@ -245,6 +245,7 @@ export function MemexSortable(): JSX.Element {
   const hiddenOptions = options.filter(option => !option.selected)
 
   return (
+    // @ts-ignore react-dnd needs to be updated to support React 18
     <DndProvider backend={HTML5Backend}>
       <ActionList selectionVariant="multiple" role="menu">
         <ActionList.Group title="Visible fields (can be reordered)">
@@ -296,7 +297,7 @@ const SortableItem: React.FC<React.PropsWithChildren<SortableItemProps>> = ({opt
     item: option,
     collect: monitor => {
       return {isDragging: monitor.isDragging()}
-    }
+    },
   }))
 
   const [{isOver}, dropRef] = useDrop(() => ({
@@ -306,7 +307,7 @@ const SortableItem: React.FC<React.PropsWithChildren<SortableItemProps>> = ({opt
     },
     drop: (optionDropped: Option) => {
       reorder({optionToMove: optionDropped, moveAfterOption: option})
-    }
+    },
   }))
 
   return (
@@ -318,7 +319,7 @@ const SortableItem: React.FC<React.PropsWithChildren<SortableItemProps>> = ({opt
       sx={{
         opacity: isDragging ? 0.5 : 1,
         boxShadow: isOver ? theme => `0px 2px 0 0px ${theme.colors.accent.emphasis}` : undefined,
-        borderRadius: isOver ? 0 : 2
+        borderRadius: isOver ? 0 : 2,
       }}
     >
       <ActionList.LeadingVisual>{option.icon}</ActionList.LeadingVisual>

@@ -17,45 +17,45 @@ const meta: Meta = {
           <Story />
         </Box>
       )
-    }
-  ]
+    },
+  ],
 }
 
 export const Files: Story = () => (
   <nav aria-label="Files">
     <TreeView aria-label="Files">
-      <TreeView.LinkItem id="src" href="#src" defaultExpanded>
+      <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.LinkItem id="src/Avatar.tsx" href="#avatar-tsx">
+          <TreeView.Item id="src/Avatar.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             Avatar.tsx
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="src/Button" href="#button" current>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button" current>
             <TreeView.LeadingVisual>
               <TreeView.DirectoryIcon />
             </TreeView.LeadingVisual>
             Button
             <TreeView.SubTree>
-              <TreeView.LinkItem id="src/Button/Button.tsx" href="#button-tsx">
+              <TreeView.Item id="src/Button/Button.tsx">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.tsx
-              </TreeView.LinkItem>
-              <TreeView.LinkItem id="src/Button/Button.test.tsx" href="#button-test-tsx">
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
                 Button.test.tsx
-              </TreeView.LinkItem>
+              </TreeView.Item>
             </TreeView.SubTree>
-          </TreeView.LinkItem>
+          </TreeView.Item>
           <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
@@ -63,10 +63,9 @@ export const Files: Story = () => (
             ReallyLongFileNameThatShouldBeTruncated.tsx
           </TreeView.Item>
         </TreeView.SubTree>
-      </TreeView.LinkItem>
-      <TreeView.LinkItem
+      </TreeView.Item>
+      <TreeView.Item
         id="public"
-        href="#public"
         // eslint-disable-next-line no-console
         onExpandedChange={isExpanded => console.log(`${isExpanded ? 'Expanded' : 'Collapsed'} "public" folder `)}
       >
@@ -75,26 +74,26 @@ export const Files: Story = () => (
         </TreeView.LeadingVisual>
         public
         <TreeView.SubTree>
-          <TreeView.LinkItem id="public/index.html" href="#index-html">
+          <TreeView.Item id="public/index.html">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             index.html
-          </TreeView.LinkItem>
-          <TreeView.LinkItem id="public/favicon.ico" href="#favicon-ico">
+          </TreeView.Item>
+          <TreeView.Item id="public/favicon.ico">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
             favicon.ico
-          </TreeView.LinkItem>
+          </TreeView.Item>
         </TreeView.SubTree>
-      </TreeView.LinkItem>
-      <TreeView.LinkItem id="package.json" href="#package-json">
+      </TreeView.Item>
+      <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
           <FileIcon />
         </TreeView.LeadingVisual>
         package.json
-      </TreeView.LinkItem>
+      </TreeView.Item>
     </TreeView>
   </nav>
 )
@@ -109,7 +108,7 @@ export const FilesChanged: Story = () => {
           </TreeView.LeadingVisual>
           src
           <TreeView.SubTree>
-            <TreeView.LinkItem id="src/Avatar.tsx" href="#avatar-tsx">
+            <TreeView.Item id="src/Avatar.tsx">
               <TreeView.LeadingVisual>
                 <FileIcon />
               </TreeView.LeadingVisual>
@@ -117,14 +116,14 @@ export const FilesChanged: Story = () => {
               <TreeView.TrailingVisual label="added">
                 <StyledOcticon icon={DiffAddedIcon} color="success.fg" />
               </TreeView.TrailingVisual>
-            </TreeView.LinkItem>
+            </TreeView.Item>
             <TreeView.Item id="src/Button" defaultExpanded>
               <TreeView.LeadingVisual>
                 <TreeView.DirectoryIcon />
               </TreeView.LeadingVisual>
               Button
               <TreeView.SubTree>
-                <TreeView.LinkItem id="src/Button/Button.tsx" href="#button-tsx" current>
+                <TreeView.Item id="src/Button/Button.tsx" current>
                   <TreeView.LeadingVisual>
                     <FileIcon />
                   </TreeView.LeadingVisual>
@@ -132,8 +131,8 @@ export const FilesChanged: Story = () => {
                   <TreeView.TrailingVisual label="modified">
                     <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
                   </TreeView.TrailingVisual>
-                </TreeView.LinkItem>
-                <TreeView.LinkItem id="src/Button/Button.test.tsx" href="#button-test-tsx">
+                </TreeView.Item>
+                <TreeView.Item id="src/Button/Button.test.tsx">
                   <TreeView.LeadingVisual>
                     <FileIcon />
                   </TreeView.LeadingVisual>
@@ -141,7 +140,7 @@ export const FilesChanged: Story = () => {
                   <TreeView.TrailingVisual label="modified">
                     <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" />
                   </TreeView.TrailingVisual>
-                </TreeView.LinkItem>
+                </TreeView.Item>
               </TreeView.SubTree>
             </TreeView.Item>
             <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
@@ -161,7 +160,7 @@ export const FilesChanged: Story = () => {
           </TreeView.LeadingVisual>
           public
           <TreeView.SubTree>
-            <TreeView.LinkItem id="public/index.html" href="#index-html">
+            <TreeView.Item id="public/index.html">
               <TreeView.LeadingVisual>
                 <FileIcon />
               </TreeView.LeadingVisual>
@@ -169,8 +168,8 @@ export const FilesChanged: Story = () => {
               <TreeView.TrailingVisual label="renamed">
                 <StyledOcticon icon={DiffRenamedIcon} />
               </TreeView.TrailingVisual>
-            </TreeView.LinkItem>
-            <TreeView.LinkItem id="public/favicon.ico" href="#favicon-ico">
+            </TreeView.Item>
+            <TreeView.Item id="public/favicon.ico">
               <TreeView.LeadingVisual>
                 <FileIcon />
               </TreeView.LeadingVisual>
@@ -178,7 +177,7 @@ export const FilesChanged: Story = () => {
               <TreeView.TrailingVisual label="removed">
                 <StyledOcticon icon={DiffRemovedIcon} color="danger.fg" />
               </TreeView.TrailingVisual>
-            </TreeView.LinkItem>
+            </TreeView.Item>
           </TreeView.SubTree>
         </TreeView.Item>
       </TreeView>
@@ -198,9 +197,9 @@ function expandAll(tree: TreeItem[]): TreeItem[] {
   return tree.map(item => ({
     data: {
       ...item.data,
-      expanded: true
+      expanded: true,
     },
-    children: expandAll(item.children)
+    children: expandAll(item.children),
   }))
 }
 
@@ -208,9 +207,9 @@ function collapseAll(tree: TreeItem[]): TreeItem[] {
   return tree.map(item => ({
     data: {
       ...item.data,
-      expanded: false
+      expanded: false,
     },
-    children: collapseAll(item.children)
+    children: collapseAll(item.children),
   }))
 }
 
@@ -221,13 +220,13 @@ function setExpanded(tree: TreeItem[], path: string[], expanded: boolean): TreeI
         ...item,
         data: {
           ...item.data,
-          expanded
-        }
+          expanded,
+        },
       }
     } else if (item.data.name === path[0]) {
       return {
         ...item,
-        children: setExpanded(item.children, path.slice(1), expanded)
+        children: setExpanded(item.children, path.slice(1), expanded),
       }
     } else {
       return item
@@ -240,27 +239,27 @@ const CurrentPathContext = React.createContext<{
   setCurrentPath: React.Dispatch<React.SetStateAction<string[]>>
 }>({
   currentPath: [],
-  setCurrentPath: () => {}
+  setCurrentPath: () => {},
 })
 
 const intialTree: TreeItem[] = Array.from({length: 5}).map((_, i) => ({
   data: {
     name: `Item ${i}`,
-    expanded: false
+    expanded: false,
   },
   children: Array.from({length: 5}).map((_, j) => ({
     data: {
       name: `Item ${i}.${j}`,
-      expanded: false
+      expanded: false,
     },
     children: Array.from({length: 5}).map((_, k) => ({
       data: {
         name: `Item ${i}.${j}.${k}`,
-        expanded: false
+        expanded: false,
       },
-      children: []
-    }))
-  }))
+      children: [],
+    })),
+  })),
 }))
 
 export const Controlled: Story = () => {
@@ -294,7 +293,7 @@ export const Controlled: Story = () => {
 function TreeItem({
   item,
   path,
-  onExpandedChange
+  onExpandedChange,
 }: {
   item: TreeItem
   path: string[]
@@ -397,7 +396,7 @@ export const AsyncSuccess: Story = args => {
 }
 
 AsyncSuccess.args = {
-  responseTime: 2000
+  responseTime: 2000,
 }
 
 export const AsyncWithCount: Story = args => {
@@ -463,13 +462,13 @@ export const AsyncWithCount: Story = args => {
 
 AsyncWithCount.args = {
   responseTime: 2000,
-  count: 3
+  count: 3,
 }
 
 AsyncWithCount.argTypes = {
   count: {
-    type: 'number'
-  }
+    type: 'number',
+  },
 }
 
 async function alwaysFails(responseTime: number) {
@@ -564,7 +563,7 @@ export const AsyncError: Story = args => {
 }
 
 AsyncError.args = {
-  responseTime: 2000
+  responseTime: 2000,
 }
 
 export const EmptyDirectories: Story = () => {
@@ -653,7 +652,7 @@ export const StressTest: Story = () => {
           Directory {i}
           <TreeView.SubTree>
             {Array.from({length: 100}).map((_, j) => (
-              <TreeView.Item key={i} id={`directory-${i}/file-${j}`}>
+              <TreeView.Item key={j} id={`directory-${i}/file-${j}`}>
                 <TreeView.LeadingVisual>
                   <FileIcon />
                 </TreeView.LeadingVisual>
@@ -668,7 +667,36 @@ export const StressTest: Story = () => {
 }
 
 StressTest.parameters = {
-  chromatic: {disableSnapshot: true}
+  chromatic: {disableSnapshot: true},
+}
+
+export const ContainIntrinsicSize: Story = () => {
+  return (
+    <TreeView aria-label="Files">
+      {Array.from({length: 10}).map((_, i) => (
+        <TreeView.Item key={i} id={`directory-${i}`} defaultExpanded containIntrinsicSize="2rem">
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          Directory {i}
+          <TreeView.SubTree>
+            {Array.from({length: 1000}).map((_, j) => (
+              <TreeView.Item key={j} id={`directory-${i}/file-${j}`} containIntrinsicSize="2rem">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                File {j}
+              </TreeView.Item>
+            ))}
+          </TreeView.SubTree>
+        </TreeView.Item>
+      ))}
+    </TreeView>
+  )
+}
+
+ContainIntrinsicSize.parameters = {
+  chromatic: {disableSnapshot: true},
 }
 
 export default meta

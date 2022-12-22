@@ -53,7 +53,7 @@ export const FormattingTools = forwardRef<FormattingTools, {forInputId: string}>
     orderedList: () => orderedListRef.current?.click(),
     taskList: () => taskListRef.current?.click(),
     mention: () => mentionRef.current?.click(),
-    reference: () => referenceRef.current?.click()
+    reference: () => referenceRef.current?.click(),
   }))
 
   return (

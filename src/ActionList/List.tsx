@@ -5,7 +5,7 @@ import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
 
-export type ActionListProps = {
+export type ActionListProps = React.PropsWithChildren<{
   /**
    * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
    */
@@ -22,7 +22,8 @@ export type ActionListProps = {
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
-} & SxProp
+}> &
+  SxProp
 
 type ContextProps = Pick<ActionListProps, 'variant' | 'selectionVariant' | 'showDividers' | 'role'>
 export const ListContext = React.createContext<ContextProps>({})
@@ -32,19 +33,19 @@ const ListBox = styled.ul<SxProp>(sx)
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
     {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = {}, ...props},
-    forwardedRef
+    forwardedRef,
   ): JSX.Element => {
     const styles = {
       margin: 0,
       paddingInlineStart: 0, // reset ul styles
-      paddingY: variant === 'inset' ? 2 : 0
+      paddingY: variant === 'inset' ? 2 : 0,
     }
 
     /** if list is inside a Menu, it will get a role from the Menu */
     const {
       listRole,
       listLabelledBy,
-      selectionVariant: containerSelectionVariant // TODO: Remove after DropdownMenu2 deprecation
+      selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
     } = React.useContext(ActionListContainerContext)
 
     return (
@@ -60,14 +61,14 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
             variant,
             selectionVariant: selectionVariant || containerSelectionVariant,
             showDividers,
-            role: role || listRole
+            role: role || listRole,
           }}
         >
           {props.children}
         </ListContext.Provider>
       </ListBox>
     )
-  }
+  },
 ) as PolymorphicForwardRefComponent<'ul', ActionListProps>
 
 List.displayName = 'ActionList'

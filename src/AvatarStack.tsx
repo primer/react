@@ -120,7 +120,7 @@ const transformChildren = (children: React.ReactNode) => {
     if (!React.isValidElement(child)) return child
     return React.cloneElement(child, {
       ...child.props,
-      className: classnames(child.props.className, 'pc-AvatarItem')
+      className: classnames(child.props.className, 'pc-AvatarItem'),
     })
   })
 }
@@ -135,7 +135,7 @@ const AvatarStack = ({children, alignRight, sx: sxProp}: AvatarStackProps) => {
   const wrapperClassNames = classnames({
     'pc-AvatarStack--two': count === 2,
     'pc-AvatarStack--three-plus': count > 2,
-    'pc-AvatarStack--right': alignRight
+    'pc-AvatarStack--right': alignRight,
   })
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} sx={sxProp}>

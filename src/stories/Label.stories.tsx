@@ -11,12 +11,12 @@ export default {
   component: Label,
   args: {
     variant: 'default',
-    size: 'large'
+    size: 'large',
   },
   argTypes: {
     variant: {
       control: {
-        type: 'select'
+        type: 'select',
       },
       options: [
         'default',
@@ -28,15 +28,15 @@ export default {
         'severe',
         'danger',
         'done',
-        'sponsors'
-      ]
+        'sponsors',
+      ],
     },
     size: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'large']
-    }
+      options: ['small', 'large'],
+    },
   },
   decorators: [
     Story => {
@@ -47,8 +47,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const label = (args: Args) => <Label {...args}>Label</Label>

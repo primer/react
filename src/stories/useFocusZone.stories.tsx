@@ -20,8 +20,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 // NOTE: the below styles are solely intended as a visual aid for
@@ -96,11 +96,11 @@ export const FocusOutBehavior = () => {
 
   const {containerRef: containerRef1} = useFocusZone({
     focusOutBehavior: 'stop',
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
   })
   const {containerRef: containerRef2} = useFocusZone({
     focusOutBehavior: 'wrap',
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
   })
 
   return (
@@ -216,7 +216,7 @@ export const CustomFocusMovement = () => {
         return containerRef.current.children[nextIndex] as HTMLElement
       }
     },
-    [containerRef]
+    [containerRef],
   )
 
   useFocusZone({containerRef, getNextFocusable})
@@ -265,17 +265,17 @@ export const FocusInStrategy = () => {
 
   const {containerRef: firstContainerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    focusInStrategy: 'first'
+    focusInStrategy: 'first',
   })
 
   const {containerRef: closestContainerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    focusInStrategy: 'closest'
+    focusInStrategy: 'closest',
   })
 
   const {containerRef: prevContainerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    focusInStrategy: 'previous'
+    focusInStrategy: 'previous',
   })
 
   const customContainerRef = useRef<HTMLElement>(null)
@@ -289,7 +289,7 @@ export const FocusInStrategy = () => {
   useFocusZone({
     containerRef: customContainerRef,
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    focusInStrategy: customStrategy
+    focusInStrategy: customStrategy,
   })
 
   return (
@@ -387,7 +387,7 @@ export const SpecialSituations = () => {
       FocusKeys.WS |
       FocusKeys.Tab |
       FocusKeys.PageUpDown |
-      FocusKeys.HomeAndEnd
+      FocusKeys.HomeAndEnd,
   })
   const {containerRef: hContainerRef} = useFocusZone({focusOutBehavior: 'wrap', bindKeys: FocusKeys.ArrowHorizontal})
 
@@ -482,7 +482,7 @@ export const ChangingSubtree = () => {
     buttons.push(
       <div>
         <MarginButton key={`button${i}`}>{i + 1}</MarginButton>
-      </div>
+      </div>,
     )
   }
 
@@ -534,12 +534,12 @@ export const NestedZones = () => {
 
   useFocusZone({
     containerRef: outerContainerRef,
-    bindKeys: FocusKeys.ArrowVertical
+    bindKeys: FocusKeys.ArrowVertical,
   })
 
   useFocusZone({
     containerRef: innerContainerRef,
-    bindKeys: FocusKeys.ArrowHorizontal
+    bindKeys: FocusKeys.ArrowHorizontal,
   })
 
   return (
@@ -612,7 +612,7 @@ export const ActiveDescendant = () => {
         previous.style.outline = ''
       }
     },
-    focusableElementFilter: elem => elem instanceof HTMLButtonElement
+    focusableElementFilter: elem => elem instanceof HTMLButtonElement,
   })
 
   return (

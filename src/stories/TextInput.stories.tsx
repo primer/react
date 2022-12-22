@@ -10,7 +10,7 @@ import {
   formControlArgTypes,
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
-  textInputExcludedControlKeys
+  textInputExcludedControlKeys,
 } from '../utils/story-helpers'
 
 export default {
@@ -25,23 +25,23 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {controls: {exclude: textInputExcludedControlKeys}},
   args: {
     ...formControlArgs,
     type: 'text',
-    onChange: () => {}
+    onChange: () => {},
   },
   argTypes: {
     type: {
       control: {
-        type: 'text'
-      }
+        type: 'text',
+      },
     },
     ...getTextInputArgTypes(),
-    ...formControlArgTypes
-  }
+    ...formControlArgTypes,
+  },
 } as Meta
 
 export const Default = (args: FormControlArgs<TextInputProps>) => {
@@ -224,10 +224,10 @@ export const WithLoadingIndicator = (args: FormControlArgs<TextInputProps>) => (
 )
 
 WithLoadingIndicator.args = {
-  loading: true
+  loading: true,
 }
 WithLoadingIndicator.parameters = {
   controls: {
-    exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children']
-  }
+    exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children'],
+  },
 }

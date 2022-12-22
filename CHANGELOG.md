@@ -1,5 +1,70 @@
 # @primer/components
 
+## 35.16.0
+
+### Minor Changes
+
+- [#2265](https://github.com/primer/react/pull/2265) [`2ef9ad43`](https://github.com/primer/react/commit/2ef9ad430c3c74fccfe87c77c8eb7fd21335aa69) Thanks [@pksjce](https://github.com/pksjce)! - PageHeader: Draft implementation
+
+- [#2484](https://github.com/primer/react/pull/2484) [`5eb6939a`](https://github.com/primer/react/commit/5eb6939ad5a291a1f440391ffcce01a48ca952ee) Thanks [@keithamus](https://github.com/keithamus)! - Add RelativeTime component
+
+- [#2657](https://github.com/primer/react/pull/2657) [`cc909dc4`](https://github.com/primer/react/commit/cc909dc46edaf8515f80b6d718e356661679beb3) Thanks [@green6erry](https://github.com/green6erry)! - Assign aria-keyshorcuts and role properties to the correct element in LinkItem.tsx
+
+- [#2693](https://github.com/primer/react/pull/2693) [`f8939f33`](https://github.com/primer/react/commit/f8939f33b6ac9d8f2e7332ff0afcacd0c0d9fcc8) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Relative Time Element : Publish v4.1.2 in NPM and GPR
+
+### Patch Changes
+
+- [#2659](https://github.com/primer/react/pull/2659) [`84d29977`](https://github.com/primer/react/commit/84d2997764c065854695e5ecfb07ec04086a34de) Thanks [@kendallgassner](https://github.com/kendallgassner)! - Add a console warning if the Button and IconButton as property is used incorrectly
+
+- [#2666](https://github.com/primer/react/pull/2666) [`d995bb84`](https://github.com/primer/react/commit/d995bb8485fa1dfd0a3637b4851c5ac539b8416d) Thanks [@mattcosta7](https://github.com/mattcosta7)! - make check for semantic as a compile time effect
+
+- [#2639](https://github.com/primer/react/pull/2639) [`fd9ab396`](https://github.com/primer/react/commit/fd9ab3960f5f819bd7c49a495800059545041674) Thanks [@iansan5653](https://github.com/iansan5653)! - Fix `MarkdownEditor` preview overflowing its container
+
+- [#2689](https://github.com/primer/react/pull/2689) [`7fc9acd7`](https://github.com/primer/react/commit/7fc9acd7f8bdd45e8debd96b93fa7c32ff8a544b) Thanks [@mperrotti](https://github.com/mperrotti)! - Removes useless z-index from the remove button in tokens
+
+- [#2635](https://github.com/primer/react/pull/2635) [`95ba0790`](https://github.com/primer/react/commit/95ba079070cfdd01931f64418fbfa288a0474a97) Thanks [@joshblack](https://github.com/joshblack)! - Update Radio to only use disabled when provided and no longer set aria-disabled
+
+- [#2640](https://github.com/primer/react/pull/2640) [`a8f2289d`](https://github.com/primer/react/commit/a8f2289de81c503c4b586c82f7b25ef15783bc3e) Thanks [@jdrush89](https://github.com/jdrush89)! - TreeView: Add containIntrinsicSize prop and typeahead performance improvement
+
+- [#2692](https://github.com/primer/react/pull/2692) [`5352bccb`](https://github.com/primer/react/commit/5352bccb331c4a8941bb505c21a7a7380422f529) Thanks [@jdrush89](https://github.com/jdrush89)! - Trigger onSelect when TreeView items are middle clicked
+
+## 35.15.1
+
+### Patch Changes
+
+- [#2625](https://github.com/primer/react/pull/2625) [`404e2b15`](https://github.com/primer/react/commit/404e2b15f4fe53e4cbeccb138c0d680beacb3045) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Use useIsomorphicLayoutEffect to make it SSR friendly
+
+- [#2606](https://github.com/primer/react/pull/2606) [`e98bcdf9`](https://github.com/primer/react/commit/e98bcdf966fea513dc79c73da35e610039aaba3d) Thanks [@radglob](https://github.com/radglob)! - Fix issue where scroll containers nested inside of PageLayout.Pane would be hard to use on mobile.
+
+## 35.15.0
+
+### Minor Changes
+
+- [#2591](https://github.com/primer/react/pull/2591) [`764bf6b9`](https://github.com/primer/react/commit/764bf6b9789560e071506912abf033d8592ce052) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `useRefObjectAsForwardedRef` to public hooks
+
+- [#2618](https://github.com/primer/react/pull/2618) [`04683150`](https://github.com/primer/react/commit/046831500afb7915a9fd109536ad3bc873a109dc) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: expose aria-current in the API to enable it to be used as the selected status of UnderlineNav.Item
+
+### Patch Changes
+
+- [#2592](https://github.com/primer/react/pull/2592) [`d9c7290a`](https://github.com/primer/react/commit/d9c7290aa9ce31f975e03bfd2ed2cf433bba73fc) Thanks [@radglob](https://github.com/radglob)! - Delete `TreeView.LinkItem`. Use `TreeView.Item` and call a navigation function inside the `onSelect` callback instead:
+
+  ```diff
+  - <TreeView.LinkItem href="#">...
+  + <TreeView.Item onSelect={() => navigate('#')}>...
+  ```
+
+- [#2545](https://github.com/primer/react/pull/2545) [`eb30fdad`](https://github.com/primer/react/commit/eb30fdad958c9e9c8a8656f2fe1ca9416551e1ab) Thanks [@joshblack](https://github.com/joshblack)! - Update setTimeout in AutocompleteInput to cancel when unmounting
+
+- [#2615](https://github.com/primer/react/pull/2615) [`a7455696`](https://github.com/primer/react/commit/a7455696f8bcfd318d04fac777d72e73044fec64) Thanks [@Swiftwork](https://github.com/Swiftwork)! - Fix Windows checkout by removing unsupported colon in filename
+
+- [#2603](https://github.com/primer/react/pull/2603) [`22059e9f`](https://github.com/primer/react/commit/22059e9fb81d65f59b8d7908bcbc3fd0b0b93393) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - UnderlineNav2: Render non-breaking space properly for screen readers
+
+- [#2563](https://github.com/primer/react/pull/2563) [`3085fde0`](https://github.com/primer/react/commit/3085fde046bed4961c69ab1fde8d5f50fdc7aefb) Thanks [@josepmartins](https://github.com/josepmartins)! - Remove deprecated component instances in stories
+
+- [#2569](https://github.com/primer/react/pull/2569) [`0e7a6388`](https://github.com/primer/react/commit/0e7a63883e1733db38aba4e7934cd7d66d8fa219) Thanks [@nicolleromero](https://github.com/nicolleromero)! - Present MarkdownEditor from resizing when rendered in a condensed state
+
+- [#2604](https://github.com/primer/react/pull/2604) [`7e9e3678`](https://github.com/primer/react/commit/7e9e3678eb37e4ed65373706fd84543c367d427d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Accessibility improvements on CounterLabel for better screen reader announcing
+
 ## 35.14.2
 
 ### [Permalink to documentation](https://primer-d5e3dada59-13348165.drafts.github.io/)
@@ -606,7 +671,7 @@
       {text: 'Copy link'},
       {text: 'Edit file'},
       ActionList.Divider,
-      {text: 'Delete file', variant: 'danger'}
+      {text: 'Delete file', variant: 'danger'},
     ]}
   />
   ```
@@ -636,21 +701,21 @@
       {
         key: '0',
         leadingVisual: LinkIcon,
-        text: 'github/primer'
+        text: 'github/primer',
       },
       {
         key: '1',
         leadingVisual: () => <Avatar src="https://github.com/mona.png" />,
         text: 'mona',
         description: 'Monalisa Octocat',
-        descriptionVariant: 'block'
+        descriptionVariant: 'block',
       },
       {
         key: '2',
         leadingVisual: GearIcon,
         text: 'View Settings',
-        trailingVisual: ArrowRightIcon
-      }
+        trailingVisual: ArrowRightIcon,
+      },
     ]}
   />
   ```
@@ -694,13 +759,13 @@
   <ActionList
     groupMetadata={[
       {groupId: '0', header: {title: 'Live query'}},
-      {groupId: '1', header: {title: 'Layout'}}
+      {groupId: '1', header: {title: 'Layout'}},
     ]}
     items={[
       {key: '0', text: 'repo:github/github', groupId: '0'},
       {key: '1', text: 'Table', groupId: '1'},
       {key: '2', text: 'Board', groupId: '1'},
-      {key: '3', text: 'View settings'}
+      {key: '3', text: 'View settings'},
     ]}
   />
   ```
@@ -787,7 +852,7 @@
       {text: 'Copy link'},
       {text: 'Edit file'},
       ActionMenu.Divider,
-      {text: 'Delete file', variant: 'danger'}
+      {text: 'Delete file', variant: 'danger'},
     ]}
     overlayProps={{width: 'small'}}
   />
@@ -854,7 +919,7 @@
     {key: 1, text: 'Number'},
     {key: 3, text: 'Date'},
     {key: 4, text: 'Single select'},
-    {key: 5, text: 'Iteration'}
+    {key: 5, text: 'Iteration'},
   ]
 
   const Example = () => {
@@ -886,7 +951,7 @@
     {id: 1, text: 'Number'},
     {id: 3, text: 'Date'},
     {id: 4, text: 'Single select'},
-    {id: 5, text: 'Iteration'}
+    {id: 5, text: 'Iteration'},
   ]
 
   const Example = () => {
@@ -908,7 +973,7 @@
             ))}
           </ActionList>
         </ActionMenu.Overlay>
-      </ActionMenu>
+      </ActionMenu>,
     )
   }
   ```
@@ -1433,7 +1498,7 @@
   ```jsx
   const fieldTypes = [
     {leadingVisual: TypographyIcon, text: 'Text'},
-    {leadingVisual: NumberIcon, text: 'Number'}
+    {leadingVisual: NumberIcon, text: 'Number'},
   ]
 
   const Example = () => {
@@ -1457,7 +1522,7 @@
   ```jsx
   const fieldTypes = [
     {icon: <TypographyIcon />, name: 'Text'},
-    {icon: <NumberIcon />, name: 'Number'}
+    {icon: <NumberIcon />, name: 'Number'},
   ]
 
   const Example = () => {

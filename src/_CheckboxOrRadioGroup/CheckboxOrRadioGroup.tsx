@@ -55,16 +55,16 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   disabled,
   id: idProp,
   required,
-  sx
+  sx,
 }) => {
   const labelChild = React.Children.toArray(children).find(
-    child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel
+    child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel,
   )
   const validationChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === CheckboxOrRadioGroupValidation ? child : null
+    React.isValidElement(child) && child.type === CheckboxOrRadioGroupValidation ? child : null,
   )
   const captionChild = React.Children.toArray(children).find(child =>
-    React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null
+    React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null,
   )
   const id = useSSRSafeId(idProp)
   const validationMessageId = validationChild && `${id}-validationMessage`
@@ -73,7 +73,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   if (!labelChild && !ariaLabelledby) {
     // eslint-disable-next-line no-console
     console.warn(
-      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.'
+      'A choice group must be labelled using a `CheckboxOrRadioGroup.Label` child, or by passing `aria-labelledby` to the CheckboxOrRadioGroup component.',
     )
   }
 
@@ -83,7 +83,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
         disabled,
         required,
         captionId,
-        validationMessageId
+        validationMessageId,
       }}
     >
       {slots => {
@@ -99,7 +99,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                 padding={0}
                 {...(labelChild && {
                   as: 'fieldset',
-                  disabled
+                  disabled,
                 })}
                 sx={sx}
               >
@@ -130,7 +130,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                     ['aria-labelledby']: ariaLabelledby,
                     ['aria-describedby']: [validationMessageId, captionId].filter(Boolean).join(' '),
                     as: 'div',
-                    role: 'group'
+                    role: 'group',
                   })}
                 >
                   {React.Children.toArray(children).filter(child => React.isValidElement(child))}
@@ -155,12 +155,12 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
 
 CheckboxOrRadioGroup.defaultProps = {
   disabled: false,
-  required: false
+  required: false,
 }
 
 export type {CheckboxOrRadioGroupLabelProps} from './_CheckboxOrRadioGroupLabel'
 export default Object.assign(CheckboxOrRadioGroup, {
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
-  Validation: CheckboxOrRadioGroupValidation
+  Validation: CheckboxOrRadioGroupValidation,
 })

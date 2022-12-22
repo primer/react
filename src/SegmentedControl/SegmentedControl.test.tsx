@@ -14,7 +14,7 @@ import {viewportRanges} from '../hooks/useResponsiveValue'
 const segmentData = [
   {label: 'Preview', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
   {label: 'Raw', id: 'raw', iconLabel: 'FileCodeIcon', icon: () => <FileCodeIcon aria-label="FileCodeIcon" />},
-  {label: 'Blame', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />}
+  {label: 'Blame', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />},
 ]
 
 let matchMedia: MatchMediaMock
@@ -42,12 +42,12 @@ describe('SegmentedControl', () => {
           </SegmentedControl.Button>
         ))}
       </SegmentedControl>
-    )
+    ),
   })
 
   checkExports('SegmentedControl', {
     default: undefined,
-    SegmentedControl
+    SegmentedControl,
   })
 
   it('renders with a selected segment', () => {
@@ -58,7 +58,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const selectedButton = getByText('Raw').closest('button')
@@ -78,7 +78,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
     const button = getByText(segmentData[1].label)
 
@@ -98,7 +98,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -113,7 +113,7 @@ describe('SegmentedControl', () => {
         {segmentData.map(({label}) => (
           <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const selectedButton = getByText('Preview').closest('button')
@@ -129,7 +129,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -144,7 +144,7 @@ describe('SegmentedControl', () => {
         {segmentData.map(({label, icon}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -163,7 +163,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const buttonToClick = getByText('Raw').closest('button')
@@ -182,7 +182,7 @@ describe('SegmentedControl', () => {
         {segmentData.map(({label}) => (
           <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const buttonToClick = getByText('Raw').closest('button')
@@ -204,7 +204,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const buttonToClick = getByText('Raw').closest('button')
@@ -234,7 +234,7 @@ describe('SegmentedControl', () => {
             </SegmentedControl>
           </BaseStyles>
         </SSRProvider>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     const button = component.getByText(segmentData[0].label)
 
@@ -264,7 +264,7 @@ describe('SegmentedControl', () => {
             </SegmentedControl>
           </BaseStyles>
         </SSRProvider>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     const button = component.getByText(segmentData[0].label)
 
@@ -288,7 +288,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
     expect(consoleSpy).toHaveBeenCalled()
   })
@@ -301,7 +301,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     expect(mockWarningFn).toHaveBeenCalled()

@@ -12,35 +12,35 @@ export default {
   args: {
     on: undefined,
     disabled: false,
-    loading: false
+    loading: false,
   },
   argTypes: {
     on: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     disabled: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     loading: {
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     size: {
       control: {
-        type: 'radio'
+        type: 'radio',
       },
-      options: ['small', 'medium']
-    }
+      options: ['small', 'medium'],
+    },
   },
   parameters: {
     controls: {
-      exclude: ['aria-describedby', 'aria-labelledby', 'defaultChecked', 'onChange', 'onClick', 'statusLabelPosition']
-    }
+      exclude: ['aria-describedby', 'aria-labelledby', 'defaultChecked', 'onChange', 'onClick', 'statusLabelPosition'],
+    },
   },
   decorators: [
     Story => {
@@ -51,8 +51,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 export const Small = (args: Args) => (

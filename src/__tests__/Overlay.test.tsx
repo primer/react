@@ -108,7 +108,7 @@ describe('Overlay', () => {
     const spy = jest.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
-          `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`
+          `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
         )
       }
     })
@@ -117,7 +117,7 @@ describe('Overlay', () => {
     const container = render(
       <ThemeProvider>
         <NestedOverlays />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     // open first menu
@@ -146,7 +146,7 @@ describe('Overlay', () => {
     const container = render(
       <ThemeProvider>
         <MemexNestedOverlays />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     // open first menu
@@ -169,7 +169,7 @@ describe('Overlay', () => {
     const container = render(
       <ThemeProvider>
         <MemexIssueOverlay />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     // clicking the title opens overlay

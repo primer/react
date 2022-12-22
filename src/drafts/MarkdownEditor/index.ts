@@ -31,7 +31,7 @@ const MarkdownEditor = Object.assign(_MarkdownEditor, {
    */
   Actions,
   /** A button to show in the editor footer. */
-  ActionButton
+  ActionButton,
 })
 export default MarkdownEditor
 

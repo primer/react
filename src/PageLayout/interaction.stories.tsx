@@ -8,7 +8,7 @@ const meta: Meta = {
   // component: PageLayout,
   parameters: {
     layout: 'fullscreen',
-    controls: {expanded: true}
+    controls: {expanded: true},
   },
   args: {
     // Debug controls
@@ -50,307 +50,307 @@ const meta: Meta = {
     'Footer.padding': 'none',
     'Footer.hidden.regular': false,
     'Footer.hidden.narrow': false,
-    'Footer.hidden.wide': false
+    'Footer.hidden.wide': false,
   },
   argTypes: {
     // Debug controls
     'Render header?': {
       type: 'boolean',
-      table: {category: 'Debug'}
+      table: {category: 'Debug'},
     },
     'Render pane?': {
       type: 'boolean',
-      table: {category: 'Debug'}
+      table: {category: 'Debug'},
     },
     'Render footer?': {
       type: 'boolean',
-      table: {category: 'Debug'}
+      table: {category: 'Debug'},
     },
     'Header placeholder height': {
       type: 'number',
-      table: {category: 'Debug'}
+      table: {category: 'Debug'},
     },
     'Pane placeholder height': {
       type: 'number',
-      table: {category: 'Debug'}
+      table: {category: 'Debug'},
     },
     'Content placeholder height': {
       type: 'number',
-      table: {category: 'Debug'}
+      table: {category: 'Debug'},
     },
     'Footer placeholder height': {
       type: 'number',
-      table: {category: 'Debug'}
+      table: {category: 'Debug'},
     },
 
     // PageLayout prop controls
     containerWidth: {
       type: {
         name: 'enum',
-        value: ['full', 'medium', 'large', 'xlarge']
+        value: ['full', 'medium', 'large', 'xlarge'],
       },
       control: {type: 'radio'},
-      table: {category: 'PageLayout props'}
+      table: {category: 'PageLayout props'},
     },
     padding: {
       type: {
         name: 'enum',
-        value: ['none', 'condensed', 'normal']
+        value: ['none', 'condensed', 'normal'],
       },
       control: {type: 'radio'},
-      table: {category: 'PageLayout props'}
+      table: {category: 'PageLayout props'},
     },
     rowGap: {
       type: {
         name: 'enum',
-        value: ['none', 'condensed', 'normal']
+        value: ['none', 'condensed', 'normal'],
       },
       control: {type: 'radio'},
-      table: {category: 'PageLayout props'}
+      table: {category: 'PageLayout props'},
     },
     columnGap: {
       type: {
         name: 'enum',
-        value: ['none', 'condensed', 'normal']
+        value: ['none', 'condensed', 'normal'],
       },
       control: {type: 'radio'},
-      table: {category: 'PageLayout props'}
+      table: {category: 'PageLayout props'},
     },
 
     // Header prop controls
     'Header.divider.regular': {
       type: {
         name: 'enum',
-        value: ['none', 'line']
+        value: ['none', 'line'],
       },
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       table: {
-        category: 'Header props'
-      }
+        category: 'Header props',
+      },
     },
     'Header.divider.narrow': {
       type: {
         name: 'enum',
-        value: ['none', 'line', 'filled']
+        value: ['none', 'line', 'filled'],
       },
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       table: {
-        category: 'Header props'
-      }
+        category: 'Header props',
+      },
     },
     'Header.divider.wide': {
       type: {
         name: 'enum',
-        value: ['none', 'line']
+        value: ['none', 'line'],
       },
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       table: {
-        category: 'Header props'
-      }
+        category: 'Header props',
+      },
     },
     'Header.padding': {
       type: {
         name: 'enum',
-        value: ['none', 'condensed', 'normal']
+        value: ['none', 'condensed', 'normal'],
       },
       control: {type: 'radio'},
-      table: {category: 'Header props'}
+      table: {category: 'Header props'},
     },
     'Header.hidden.regular': {
       type: 'boolean',
-      table: {category: 'Header props'}
+      table: {category: 'Header props'},
     },
     'Header.hidden.narrow': {
       type: 'boolean',
-      table: {category: 'Header props'}
+      table: {category: 'Header props'},
     },
     'Header.hidden.wide': {
       type: 'boolean',
-      table: {category: 'Header props'}
+      table: {category: 'Header props'},
     },
 
     // Content prop controls
     'Content.width': {
       type: {
         name: 'enum',
-        value: ['full', 'medium', 'large', 'xlarge']
+        value: ['full', 'medium', 'large', 'xlarge'],
       },
       control: {type: 'radio'},
-      table: {category: 'Content props'}
+      table: {category: 'Content props'},
     },
     'Content.padding': {
       type: {
         name: 'enum',
-        value: ['none', 'condensed', 'normal']
+        value: ['none', 'condensed', 'normal'],
       },
       control: {type: 'radio'},
-      table: {category: 'Content props'}
+      table: {category: 'Content props'},
     },
     'Content.hidden.regular': {
       type: 'boolean',
-      table: {category: 'Content props'}
+      table: {category: 'Content props'},
     },
     'Content.hidden.narrow': {
       type: 'boolean',
-      table: {category: 'Content props'}
+      table: {category: 'Content props'},
     },
     'Content.hidden.wide': {
       type: 'boolean',
-      table: {category: 'Content props'}
+      table: {category: 'Content props'},
     },
 
     // Pane prop controls
     'Pane.position.regular': {
       type: {
         name: 'enum',
-        value: ['start', 'end']
+        value: ['start', 'end'],
       },
       control: {type: 'radio'},
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
     'Pane.position.narrow': {
       type: {
         name: 'enum',
-        value: ['start', 'end']
+        value: ['start', 'end'],
       },
       control: {type: 'radio'},
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
     'Pane.position.wide': {
       type: {
         name: 'enum',
-        value: ['start', 'end']
+        value: ['start', 'end'],
       },
       control: {type: 'radio'},
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
     'Pane.width': {
       type: {
         name: 'enum',
-        value: ['small', 'medium', 'large']
+        value: ['small', 'medium', 'large'],
       },
       control: {type: 'radio'},
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
     'Pane.sticky': {
       type: 'boolean',
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
     'Pane.padding': {
       type: {
         name: 'enum',
-        value: ['none', 'condensed', 'normal']
+        value: ['none', 'condensed', 'normal'],
       },
       control: {type: 'radio'},
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
     'Pane.divider.regular': {
       type: {
         name: 'enum',
-        value: ['none', 'line']
+        value: ['none', 'line'],
       },
       control: {type: 'radio'},
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
     'Pane.divider.narrow': {
       type: {
         name: 'enum',
-        value: ['none', 'line', 'filled']
+        value: ['none', 'line', 'filled'],
       },
       control: {type: 'radio'},
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
     'Pane.divider.wide': {
       type: {
         name: 'enum',
-        value: ['none', 'line']
+        value: ['none', 'line'],
       },
       control: {type: 'radio'},
-      table: {category: 'Pane props'}
+      table: {category: 'Pane props'},
     },
 
     // Footer prop controls
     'Footer.divider.regular': {
       type: {
         name: 'enum',
-        value: ['none', 'line']
+        value: ['none', 'line'],
       },
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       table: {
-        category: 'Footer props'
-      }
+        category: 'Footer props',
+      },
     },
     'Footer.divider.narrow': {
       type: {
         name: 'enum',
-        value: ['none', 'line', 'filled']
+        value: ['none', 'line', 'filled'],
       },
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       table: {
-        category: 'Footer props'
-      }
+        category: 'Footer props',
+      },
     },
     'Footer.divider.wide': {
       type: {
         name: 'enum',
-        value: ['none', 'line']
+        value: ['none', 'line'],
       },
       control: {
-        type: 'radio'
+        type: 'radio',
       },
       table: {
-        category: 'Footer props'
-      }
+        category: 'Footer props',
+      },
     },
     'Footer.padding': {
       type: {
         name: 'enum',
-        value: ['none', 'condensed', 'normal']
+        value: ['none', 'condensed', 'normal'],
       },
       control: {type: 'radio'},
-      table: {category: 'Footer props'}
+      table: {category: 'Footer props'},
     },
     'Footer.hidden.regular': {
       type: 'boolean',
-      table: {category: 'Footer props'}
+      table: {category: 'Footer props'},
     },
     'Footer.hidden.narrow': {
       type: 'boolean',
-      table: {category: 'Footer props'}
+      table: {category: 'Footer props'},
     },
     'Footer.hidden.wide': {
       type: 'boolean',
-      table: {category: 'Footer props'}
-    }
-  }
+      table: {category: 'Footer props'},
+    },
+  },
 }
 
 StickyPane.args = {
   sticky: true,
   numParagraphsInPane: 3,
-  numParagraphsInContent: 30
+  numParagraphsInContent: 30,
 }
 
 StickyPane.argTypes = {
   sticky: {
-    type: 'boolean'
+    type: 'boolean',
   },
   numParagraphsInPane: {
-    type: 'number'
+    type: 'number',
   },
   numParagraphsInContent: {
-    type: 'number'
-  }
+    type: 'number',
+  },
 }
 
 const isInViewPort = (boundingRect: {top: number; left: number; right: number; bottom: number}) => {
@@ -376,19 +376,19 @@ const NonStickyPane = StickyPane.bind({})
 NonStickyPane.args = {
   sticky: false,
   numParagraphsInPane: 6,
-  numParagraphsInContent: 30
+  numParagraphsInContent: 30,
 }
 
 NonStickyPane.argTypes = {
   sticky: {
-    type: 'boolean'
+    type: 'boolean',
   },
   numParagraphsInPane: {
-    type: 'number'
+    type: 'number',
   },
   numParagraphsInContent: {
-    type: 'number'
-  }
+    type: 'number',
+  },
 }
 
 NonStickyPane.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
@@ -404,22 +404,22 @@ CustomStickyHeader.args = {
   sticky: true,
   offsetHeader: '8rem',
   numParagraphsInPane: 10,
-  numParagraphsInContent: 30
+  numParagraphsInContent: 30,
 }
 
 CustomStickyHeader.argTypes = {
   sticky: {
-    type: 'boolean'
+    type: 'boolean',
   },
   offsetHeader: {
-    type: 'string'
+    type: 'string',
   },
   numParagraphsInPane: {
-    type: 'number'
+    type: 'number',
   },
   numParagraphsInContent: {
-    type: 'number'
-  }
+    type: 'number',
+  },
 }
 
 CustomStickyHeader.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {

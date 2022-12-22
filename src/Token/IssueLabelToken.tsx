@@ -23,7 +23,7 @@ const lightModeStyles = {
   color: 'hsl(0, 0%, calc(var(--lightness-switch) * 100%))',
   borderWidth: tokenBorderWidthPx,
   borderStyle: 'solid',
-  borderColor: 'hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))'
+  borderColor: 'hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))',
 }
 
 const darkModeStyles = {
@@ -36,7 +36,7 @@ const darkModeStyles = {
   background: 'rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-alpha))',
   color: 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%))',
   borderColor:
-    'hsla(var(--label-h), calc(var(--label-s) * 1%),calc((var(--label-l) + var(--lighten-by)) * 1%),var(--border-alpha))'
+    'hsla(var(--label-h), calc(var(--label-s) * 1%),calc((var(--label-l) + var(--lighten-by)) * 1%),var(--border-alpha))',
 }
 
 const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, forwardedRef) => {
@@ -44,7 +44,7 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
   const interactiveTokenProps = {
     as,
     href,
-    onClick
+    onClick,
   }
   const {colorScheme} = useTheme()
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
@@ -78,7 +78,7 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
                 ? 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%))'
                 : darkModeStyles.background,
             ':focus': {
-              outline: 'none'
+              outline: 'none',
             },
             ':after': {
               content: '""',
@@ -95,10 +95,10 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
                   ? 'rgb(var(--label-r), var(--label-g), var(--label-b))'
                   : 'hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%))'
               }`,
-              borderRadius: '999px'
-            }
+              borderRadius: '999px',
+            },
           }
-        : {})
+        : {}),
     }
   }, [colorScheme, fillColor, isSelected, hideRemoveButton, onRemove])
 
@@ -126,7 +126,7 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
             hasMultipleActionTargets
               ? {
                   position: 'relative',
-                  zIndex: '1'
+                  zIndex: '1',
                 }
               : {}
           }
@@ -138,7 +138,7 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
 
 IssueLabelToken.defaultProps = {
   fillColor: '#999',
-  size: defaultTokenSize
+  size: defaultTokenSize,
 }
 
 IssueLabelToken.displayName = 'IssueLabelToken'

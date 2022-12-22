@@ -11,34 +11,34 @@ const variants = variant({
       backgroundColor: 'accent.subtle',
       borderColor: 'accent.muted',
       svg: {
-        color: 'accent.fg'
-      }
+        color: 'accent.fg',
+      },
     },
     success: {
       color: 'fg.default',
       backgroundColor: 'success.subtle',
       borderColor: 'success.muted',
       svg: {
-        color: 'success.fg'
-      }
+        color: 'success.fg',
+      },
     },
     danger: {
       color: 'fg.default',
       backgroundColor: 'danger.subtle',
       borderColor: 'danger.muted',
       svg: {
-        color: 'danger.fg'
-      }
+        color: 'danger.fg',
+      },
     },
     warning: {
       color: 'fg.default',
       backgroundColor: 'attention.subtle',
       borderColor: 'attention.muted',
       svg: {
-        color: 'attention.fg'
-      }
-    }
-  }
+        color: 'attention.fg',
+      },
+    },
+  },
 })
 
 const Flash = styled.div<
@@ -68,7 +68,7 @@ const Flash = styled.div<
 `
 
 Flash.defaultProps = {
-  variant: 'default'
+  variant: 'default',
 }
 
 export type FlashProps = ComponentProps<typeof Flash>

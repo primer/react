@@ -14,7 +14,7 @@ export type {
   ShowSuggestionsEvent,
   Suggestion,
   Suggestions,
-  Trigger
+  Trigger,
 } from './InlineAutocomplete'
 
 export {default as MarkdownViewer} from './MarkdownViewer'

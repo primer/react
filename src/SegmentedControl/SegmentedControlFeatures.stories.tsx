@@ -6,7 +6,7 @@ import {Box, Text} from '../'
 
 export default {
   title: 'Components/SegmentedControl/Features',
-  component: SegmentedControl
+  component: SegmentedControl,
 } as Meta<typeof SegmentedControl>
 
 export const Default = () => (

@@ -37,5 +37,5 @@ export const ActionList = Object.assign(List, {
   LeadingVisual,
 
   /** Icon (or similar) positioned after `Item` text. */
-  TrailingVisual
+  TrailingVisual,
 })

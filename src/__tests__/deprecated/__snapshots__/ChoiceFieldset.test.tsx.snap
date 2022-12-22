@@ -116,7 +116,6 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -152,7 +151,6 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -217,11 +215,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   flex-direction: column;
 }
 
-.c3 {
-  font-size: 14px;
-  color: #24292f;
-}
-
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -236,6 +229,11 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
   align-self: flex-start;
+}
+
+.c3 {
+  font-size: 14px;
+  color: #24292f;
 }
 
 .c7 {
@@ -309,7 +307,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -344,7 +341,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -423,12 +419,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   fill: currentColor;
 }
 
-.c10 {
-  font-size: 12px;
-  color: #57606a;
-  display: block;
-}
-
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -443,6 +433,12 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
   align-self: flex-start;
+}
+
+.c10 {
+  font-size: 12px;
+  color: #57606a;
+  display: block;
 }
 
 .c6 {
@@ -509,7 +505,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -580,7 +575,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -991,7 +985,6 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1026,7 +1019,6 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1170,7 +1162,6 @@ exports[`ChoiceFieldset renders default 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1205,7 +1196,6 @@ exports[`ChoiceFieldset renders default 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1349,7 +1339,6 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1384,7 +1373,6 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1532,7 +1520,6 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1567,7 +1554,6 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1648,6 +1634,22 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   display: flex;
 }
 
+.c2 {
+  font-size: 16px;
+  padding: 0;
+}
+
+.c8 {
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  color: fg.default;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
 .c11 {
   -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
   animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
@@ -1671,22 +1673,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   color: currentColor;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-}
-
-.c2 {
-  font-size: 16px;
-  padding: 0;
-}
-
-.c8 {
-  font-weight: bold;
-  font-size: 14px;
-  display: block;
-  color: fg.default;
-  cursor: pointer;
-  -webkit-align-self: flex-start;
-  -ms-flex-item-align: start;
-  align-self: flex-start;
 }
 
 .c6 {
@@ -1754,7 +1740,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -1787,7 +1772,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -1911,6 +1895,22 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   display: flex;
 }
 
+.c2 {
+  font-size: 16px;
+  padding: 0;
+}
+
+.c8 {
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  color: fg.default;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
 .c11 {
   -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
   animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
@@ -1934,22 +1934,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   color: currentColor;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-}
-
-.c2 {
-  font-size: 16px;
-  padding: 0;
-}
-
-.c8 {
-  font-weight: bold;
-  font-size: 14px;
-  display: block;
-  color: fg.default;
-  cursor: pointer;
-  -webkit-align-self: flex-start;
-  -ms-flex-item-align: start;
-  align-self: flex-start;
 }
 
 .c6 {
@@ -2017,7 +2001,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -2050,7 +2033,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"

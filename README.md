@@ -30,11 +30,11 @@ Our documentation site lives at [primer.style/react](https://primer.style/react)
 
 Install @primer/react in your project with your package manager of choice:
 
-```
+```console
 npm install @primer/react
+```
 
-// or
-
+```console
 yarn add @primer/react
 ```
 

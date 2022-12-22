@@ -22,7 +22,7 @@ describe('ChoiceInputField', () => {
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
             <Checkbox value="testCheckbox" />
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
@@ -36,7 +36,7 @@ describe('ChoiceInputField', () => {
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
             <Radio name="testRadio" value="testRadio" />
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
@@ -50,7 +50,7 @@ describe('ChoiceInputField', () => {
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
             <Checkbox value="testCheckbox" />
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
@@ -64,7 +64,7 @@ describe('ChoiceInputField', () => {
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
             <Checkbox value="testCheckbox" />
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const input = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
@@ -79,7 +79,7 @@ describe('ChoiceInputField', () => {
             <Checkbox value="testCheckbox" />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const caption = getByText(CHECKBOXINPUTFIELD_CAPTION_TEXT)
@@ -96,7 +96,7 @@ describe('ChoiceInputField', () => {
               <MarkGithubIcon aria-label="leadingVisualIcon" />
             </ChoiceInputField.LeadingVisual>
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const leadingVisual = getByLabelText('leadingVisualIcon')
@@ -113,7 +113,7 @@ describe('ChoiceInputField', () => {
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
             <Checkbox value="testCheckbox" />
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const inputNode = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
@@ -128,7 +128,7 @@ describe('ChoiceInputField', () => {
             <Checkbox value="testCheckbox" />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       const inputNode = getByLabelText(CHECKBOXINPUTFIELD_LABEL_TEXT)
@@ -148,11 +148,11 @@ describe('ChoiceInputField', () => {
             <ChoiceInputField.Label>{CHECKBOXINPUTFIELD_LABEL_TEXT}</ChoiceInputField.Label>
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        'To correctly render this field with the correct ARIA attributes passed to the input, please pass the Checkbox or Radio component from @primer/react as a direct child of the ChoiceInputField component'
+        'To correctly render this field with the correct ARIA attributes passed to the input, please pass the Checkbox or Radio component from @primer/react as a direct child of the ChoiceInputField component',
       )
     })
 
@@ -165,11 +165,11 @@ describe('ChoiceInputField', () => {
             <Checkbox value="testCheckbox" id="testId" />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        `instead of passing the 'id' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`
+        `instead of passing the 'id' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`,
       )
     })
 
@@ -182,11 +182,11 @@ describe('ChoiceInputField', () => {
             <Checkbox value="testCheckbox" disabled />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        `instead of passing the 'disabled' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`
+        `instead of passing the 'disabled' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`,
       )
     })
 
@@ -199,11 +199,11 @@ describe('ChoiceInputField', () => {
             <Checkbox value="testCheckbox" required />
             <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
           </ChoiceInputField>
-        </SSRProvider>
+        </SSRProvider>,
       )
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        `instead of passing the 'required' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`
+        `instead of passing the 'required' prop directly to the checkbox input, it should be passed to the parent component, <ChoiceInputField>`,
       )
     })
   })
@@ -216,7 +216,7 @@ describe('ChoiceInputField', () => {
           <Checkbox value="testCheckbox" />
           <ChoiceInputField.Caption>{CHECKBOXINPUTFIELD_CAPTION_TEXT}</ChoiceInputField.Caption>
         </ChoiceInputField>
-      </SSRProvider>
+      </SSRProvider>,
     )
     const results = await axe(container)
     expect(results).toHaveNoViolations()

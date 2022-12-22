@@ -20,9 +20,9 @@ export interface SystemCommonProps
 
 const whiteSpace = system({
   whiteSpace: {
-    property: 'whiteSpace'
+    property: 'whiteSpace',
     // cssProperty: 'whiteSpace',
-  }
+  },
 })
 
 export const TYPOGRAPHY = compose(styledSystem.typography, whiteSpace)

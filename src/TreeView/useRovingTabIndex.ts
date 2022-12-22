@@ -17,7 +17,7 @@ export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject
       if (!(from instanceof HTMLElement)) return
 
       return getNextFocusableElement(from, event) ?? from
-    }
+    },
   })
 }
 
@@ -164,7 +164,7 @@ export function getLastElement(element: HTMLElement): HTMLElement | undefined {
 }
 
 const defaultSize = {
-  height: 32
+  height: 32,
 }
 
 /**

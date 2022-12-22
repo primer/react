@@ -15,7 +15,7 @@ const StyledOcticon = styled(Octicon)<SxProp>`
 `
 
 StyledOcticon.defaultProps = {
-  size: 16
+  size: 16,
 }
 
 export type StyledOcticonProps = ComponentProps<typeof StyledOcticon>

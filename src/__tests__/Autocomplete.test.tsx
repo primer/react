@@ -21,7 +21,7 @@ const mockItems = [
   {text: 'six', id: 6},
   {text: 'seven', id: 7},
   {text: 'twenty', id: 20},
-  {text: 'twentyone', id: 21}
+  {text: 'twentyone', id: 21},
 ]
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,7 +30,7 @@ type AutocompleteItemProps<T = Record<string, any>> = MandateProps<ItemProps, 'i
 const AUTOCOMPLETE_LABEL = 'Autocomplete field'
 const LabelledAutocomplete = <T extends AutocompleteItemProps>({
   inputProps = {},
-  menuProps
+  menuProps,
 }: {
   inputProps?: AutocompleteInputProps
   menuProps: AutocompleteMenuInternalProps<T>
@@ -66,7 +66,7 @@ describe('Autocomplete', () => {
         <LabelledAutocomplete
           inputProps={{onChange: onChangeMock}}
           menuProps={{items: mockItems, selectedItemIds: []}}
-        />
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
       expect(onChangeMock).not.toHaveBeenCalled()
@@ -77,7 +77,10 @@ describe('Autocomplete', () => {
     it('calls onFocus', () => {
       const onFocusMock = jest.fn()
       const {container} = HTMLRender(
-        <LabelledAutocomplete inputProps={{onFocus: onFocusMock}} menuProps={{items: mockItems, selectedItemIds: []}} />
+        <LabelledAutocomplete
+          inputProps={{onFocus: onFocusMock}}
+          menuProps={{items: mockItems, selectedItemIds: []}}
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -89,7 +92,7 @@ describe('Autocomplete', () => {
     it('calls onKeyDown', () => {
       const onKeyDownMock = jest.fn()
       const {getByLabelText} = HTMLRender(
-        <LabelledAutocomplete inputProps={{onKeyDown: onKeyDownMock}} menuProps={{items: [], selectedItemIds: []}} />
+        <LabelledAutocomplete inputProps={{onKeyDown: onKeyDownMock}} menuProps={{items: [], selectedItemIds: []}} />,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
@@ -101,7 +104,7 @@ describe('Autocomplete', () => {
     it('calls onKeyUp', () => {
       const onKeyUpMock = jest.fn()
       const {getByLabelText} = HTMLRender(
-        <LabelledAutocomplete inputProps={{onKeyUp: onKeyUpMock}} menuProps={{items: [], selectedItemIds: []}} />
+        <LabelledAutocomplete inputProps={{onKeyUp: onKeyUpMock}} menuProps={{items: [], selectedItemIds: []}} />,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
@@ -114,7 +117,7 @@ describe('Autocomplete', () => {
       const user = userEvent.setup()
       const onKeyPressMock = jest.fn()
       const {getByLabelText} = HTMLRender(
-        <LabelledAutocomplete inputProps={{onKeyPress: onKeyPressMock}} menuProps={{items: [], selectedItemIds: []}} />
+        <LabelledAutocomplete inputProps={{onKeyPress: onKeyPressMock}} menuProps={{items: [], selectedItemIds: []}} />,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
@@ -149,7 +152,7 @@ describe('Autocomplete', () => {
     it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {
       const user = userEvent.setup()
       const {container, getByDisplayValue} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -160,7 +163,7 @@ describe('Autocomplete', () => {
     it('does not show or highlight suggestion text after the user hits Backspace until they hit another key', async () => {
       const user = userEvent.setup()
       const {container, getByDisplayValue} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -192,7 +195,7 @@ describe('Autocomplete', () => {
 
     it('allows the value to be 0', () => {
       const {getByDisplayValue} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} inputProps={{value: 0}} />
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: []}} inputProps={{value: 0}} />,
       )
 
       expect(getByDisplayValue('0')).toBeDefined()
@@ -204,7 +207,7 @@ describe('Autocomplete', () => {
       const user = userEvent.setup()
       const filterFnMock = jest.fn()
       const {container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], filterFn: filterFnMock}} />
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], filterFn: filterFnMock}} />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -216,7 +219,7 @@ describe('Autocomplete', () => {
       const user = userEvent.setup()
       const sortOnCloseFnMock = jest.fn()
       const {container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], sortOnCloseFn: sortOnCloseFnMock}} />
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], sortOnCloseFn: sortOnCloseFnMock}} />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -237,7 +240,7 @@ describe('Autocomplete', () => {
       const user = userEvent.setup()
       const onOpenChangeMock = jest.fn()
       const {container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], onOpenChange: onOpenChangeMock}} />
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], onOpenChange: onOpenChangeMock}} />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -251,7 +254,7 @@ describe('Autocomplete', () => {
       const {container} = HTMLRender(
         <LabelledAutocomplete
           menuProps={{items: mockItems, selectedItemIds: [], onSelectedChange: onSelectedChangeMock}}
-        />
+        />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
 
@@ -267,7 +270,7 @@ describe('Autocomplete', () => {
     it('does not close the menu when clicking an item in the menu if selectionVariant=multiple', async () => {
       const user = userEvent.setup()
       const {getByText, container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], selectionVariant: 'multiple'}} />
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], selectionVariant: 'multiple'}} />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
       const itemToClickNode = getByText(mockItems[1].text)
@@ -282,7 +285,7 @@ describe('Autocomplete', () => {
 
     it('closes the menu when clicking an item in the menu if selectionVariant=single', () => {
       const {getByText, container} = HTMLRender(
-        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], selectionVariant: 'single'}} />
+        <LabelledAutocomplete menuProps={{items: mockItems, selectedItemIds: [], selectionVariant: 'single'}} />,
       )
       const inputNode = container.querySelector('#autocompleteInput')
       const itemToClickNode = getByText(mockItems[1].text)
@@ -304,10 +307,10 @@ describe('Autocomplete', () => {
             selectionVariant: 'multiple',
             addNewItem: {
               text: 'Add new item',
-              handleAddItem: handleAddItemMock
-            }
+              handleAddItem: handleAddItemMock,
+            },
           }}
-        />
+        />,
       )
 
       const addNewItemNode = getByText('Add new item')
@@ -325,7 +328,7 @@ describe('Autocomplete', () => {
       expect(() => HTMLRender(<Autocomplete.Overlay />)).toThrowError('AutocompleteContext returned null values')
       expect(() => HTMLRender(<Autocomplete.Input />)).toThrowError('AutocompleteContext returned null values')
       expect(() => HTMLRender(<Autocomplete.Menu items={mockItems} selectedItemIds={[]} />)).toThrowError(
-        'AutocompleteContext returned null values'
+        'AutocompleteContext returned null values',
       )
 
       spy.mockRestore()
@@ -342,8 +345,8 @@ describe('snapshots', () => {
             <Autocomplete.Input />
             <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
           </Autocomplete>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -360,8 +363,8 @@ describe('snapshots', () => {
               selectionVariant="multiple"
             />
           </Autocomplete>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -378,8 +381,8 @@ describe('snapshots', () => {
               selectionVariant="multiple"
             />
           </Autocomplete>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -397,12 +400,12 @@ describe('snapshots', () => {
               selectedItemIds={[]}
               addNewItem={{
                 text: 'Add new item',
-                handleAddItem: handleAddItemMock
+                handleAddItem: handleAddItemMock,
               }}
             />
           </Autocomplete>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -414,8 +417,8 @@ describe('snapshots', () => {
             <Autocomplete.Input />
             <Autocomplete.Menu aria-labelledby="labelId" items={[]} selectedItemIds={[]} emptyStateText="No results" />
           </Autocomplete>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -427,8 +430,8 @@ describe('snapshots', () => {
             <Autocomplete.Input />
             <Autocomplete.Menu aria-labelledby="labelId" loading items={[]} selectedItemIds={[]} />
           </Autocomplete>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -444,8 +447,8 @@ describe('snapshots', () => {
             <Autocomplete.Input as={CustomInput} />
             <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
           </Autocomplete>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
 
@@ -457,8 +460,8 @@ describe('snapshots', () => {
             <Autocomplete.Input value="test" />
             <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
           </Autocomplete>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
 })
