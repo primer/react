@@ -43,6 +43,11 @@
           "description": "The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
         },
         {
+          "name": "containIntrinsicSize",
+          "type": "string",
+          "description": "The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport."
+        },
+        {
           "name": "onExpandedChange",
           "type": "(expanded: boolean) => void",
           "description": "Event handler called when the expanded state of the item changes."
@@ -100,7 +105,8 @@
         },
         {
           "name": "state",
-          "type": "| 'initial'\n| 'loading'\n| 'done'\n| 'error'"
+          "type": "| 'initial'\n| 'loading'\n| 'done'\n| 'error'",
+          "description": "Specify a state if items in the subtree are loaded asynchronously. An asynchronous subtree can be in one of the following states: 'initial', 'loading', 'done', or 'error'. In the 'initial' state, items are neither loaded nor loading. In the 'loading' state, items are loading and the subtree will render a loading indicator. In the 'done' state, items are loaded. Screen readers will announce when a subtree enters the 'done' state. An 'error' state means that an error occured while loading items."
         },
         {
           "name": "count",
