@@ -38,7 +38,7 @@
       "type": "object",
       "description": "Indicate that the component passes through any additional props to an underlying element.",
       "required": ["element", "url"],
-      "additionalItems": false,
+      "additionalProperties": false,
       "properties": {
         "element": {
           "type": "string",
