@@ -41,6 +41,7 @@
     "build:docs": "script/build-docs",
     "build:docs:preview": "script/build-docs preview",
     "build:storybook:visual-testing": "build-storybook",
+    "build:components.json": "ts-node script/components-json/build",
     "install:docs": "(cd docs && npm install --legacy-peer-deps)",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
@@ -73,7 +74,8 @@
     "!lib/__tests__",
     "!lib/stories",
     "!lib-esm/__tests__",
-    "!lib-esm/stories"
+    "!lib-esm/stories",
+    "generated"
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
@@ -150,9 +152,13 @@
     "@types/lodash.groupby": "4.6.7",
     "@types/lodash.isempty": "4.4.7",
     "@types/lodash.isobject": "3.0.7",
+    "@types/lodash.keyby": "4.6.7",
     "@types/node": "16.11.11",
+    "@types/react": "18.0.26",
+    "@types/react-dom": "18.0.9",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
+    "ajv": "8.11.2",
     "axe-core": "4.5.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^9.1.0",
@@ -192,6 +198,7 @@
     "lodash.groupby": "4.6.0",
     "lodash.isempty": "4.4.0",
     "lodash.isobject": "3.0.2",
+    "lodash.keyby": "4.6.0",
     "prettier": "2.8.1",
     "react": "18.2.0",
     "react-dnd": "14.0.4",
@@ -207,11 +214,10 @@
     "size-limit": "7.0.3",
     "storybook-addon-turbo-build": "1.1.0",
     "styled-components": "4.4.1",
+    "ts-node": "10.9.1",
     "ts-toolbelt": "9.6.0",
     "typescript": "4.9.3",
-    "webpack": "5.74.0",
-    "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.9"
+    "webpack": "5.74.0"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
