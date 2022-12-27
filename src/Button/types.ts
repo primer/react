@@ -50,7 +50,7 @@ export type ButtonProps = {
   /**
    * Trailing action appears to the right of the trailing visual and is always locked to the end
    */
-  trailingAction?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  trailingAction?: React.ComponentType | null | undefined
   children: React.ReactNode
   /**
    * Content alignment for when visuals are present
