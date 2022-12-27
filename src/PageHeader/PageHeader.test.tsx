@@ -91,11 +91,11 @@ describe('PageHeader', () => {
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
         <PageHeader.TitleArea>
           <PageHeader.LeadingAction>
-            <IconButton data-testid="LeadingAction" icon={SidebarExpandIcon} variant="invisible" />
+            <IconButton aria-label="Expand" data-testid="LeadingAction" icon={SidebarExpandIcon} variant="invisible" />
           </PageHeader.LeadingAction>
           <PageHeader.Title>Title</PageHeader.Title>
           <PageHeader.TrailingAction>
-            <IconButton data-testid="TrailingAction" icon={PencilIcon} variant="invisible" />
+            <IconButton aria-label="edit" data-testid="TrailingAction" icon={PencilIcon} variant="invisible" />
           </PageHeader.TrailingAction>
         </PageHeader.TitleArea>
         <PageHeader.Description></PageHeader.Description>
@@ -129,7 +129,7 @@ describe('PageHeader', () => {
         <PageHeader.TitleArea variant="large">
           <PageHeader.LeadingAction>
             Leading Action
-            <IconButton icon={SidebarExpandIcon} variant="invisible" />
+            <IconButton aria-label="expand" icon={SidebarExpandIcon} variant="invisible" />
           </PageHeader.LeadingAction>
           <PageHeader.LeadingVisual>
             Leading Visual
@@ -138,7 +138,7 @@ describe('PageHeader', () => {
           <PageHeader.Title>Title</PageHeader.Title>
           <PageHeader.TrailingAction>
             Trailing Action
-            <IconButton icon={PencilIcon} variant="invisible" />
+            <IconButton aria-label="edit" icon={PencilIcon} variant="invisible" />
           </PageHeader.TrailingAction>
           <PageHeader.TrailingVisual>
             Trailing Visual
