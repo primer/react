@@ -21,7 +21,7 @@ const ButtonBase = forwardRef(
       ...rest
     } = props
 
-    const innerRef = React.useRef<HTMLElement>(null)
+    const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
     const {theme} = useTheme()

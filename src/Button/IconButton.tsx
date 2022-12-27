@@ -11,7 +11,14 @@ const IconButton = forwardRef((props, forwardedRef): JSX.Element => {
   const {theme} = useTheme()
   const sxStyles = merge.all<BetterSystemStyleObject>([getBaseStyles(theme), getVariantStyles(variant, theme), sxProp])
   return (
-    <StyledButton data-component="IconButton" data-size={size} sx={sxStyles} {...rest} ref={forwardedRef}>
+    <StyledButton
+      data-component="IconButton"
+      data-size={size}
+      sx={sxStyles}
+      {...rest}
+      // @ts-expect-error StyledButton wants both Anchor and Button refs
+      ref={forwardedRef}
+    >
       <Icon />
     </StyledButton>
   )
