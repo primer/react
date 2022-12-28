@@ -22,11 +22,13 @@ function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | 
  * @param cssProperty - The CSS property whoes value needs to be rendered responsively
  * @param mapFn - A function that maps the given value to a CSS value
  *
- * If the value is responsive, it will only return the given viewports' breakpoints as CSS rules with the given CSS property and their mapped value.
- * For viewports that are not specified, we need to provide a fallback CSS declaration in the component's sx prop along with the styles that will return from this function.
- 
+ * If the value is responsive, it will only return the given viewports' breakpoints as CSS rules 
+ * with the given CSS property and their mapped value. For viewports that are not specified, 
+ * we need to provide a fallback CSS declaration in the component's sx prop along with the styles
+ * that will return from this function.
+ * 
  * @example
- * CSSManagedResponsiveValue({narrow: true, regular: true, wide: false}, 'display', value => {
+ * getBreakpointDeclarations({narrow: true, regular: true, wide: false}, 'display', value => {
       return value ? 'none' : 'flex'
     })
  * @returns
@@ -43,7 +45,7 @@ function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | 
  * }
  * 
  * * @example
- * CSSManagedResponsiveValue({regular: 'border.default', wide: 'canvas.inset'}, 'backgroundColor', (value): string => {
+ * getBreakpointDeclarations({regular: 'border.default', wide: 'canvas.inset'}, 'backgroundColor', (value): string => {
     return value
   })
  * @returns
@@ -57,7 +59,7 @@ function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | 
  * }
  * 
  * * @example
-* CSSManagedResponsiveValue({narrow: 'filled', regular: 'line'}, 'height', (value): string => {
+* getBreakpointDeclarations({narrow: 'filled', regular: 'line'}, 'height', (value): string => {
     return {
       filled: 8,
       line: 1,
@@ -72,8 +74,33 @@ function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | 
  *     "height": 1
  *   },
  * }
+ * 
+ * If multiple CSS properties need to be rendered responsively in the same CSS rule, this function 
+ * can be called multiple times but make sure to deep merge the CSS declaration objects returned from this function. 
+ * 
+ * * @example
+ * const mediaQueryStyles = merge<BetterSystemStyleObject>(
+    getBreakpointDeclarations(hidden, 'display', value => {
+      return value ? 'none' : 'flex'
+    }),
+    getBreakpointDeclarations(
+      {
+        narrow: 'none',
+        regular: 'line',
+        wide: 'filled',
+      },
+      'backgroundColor',
+      (value): string => {
+        return {
+          none: 'pink',
+          line: 'salmon',
+          filled: 'blue',
+        }[value]
+      },
+    ),
+  )
  */
-export function CSSManagedResponsiveValue<TInput, TOutput>(
+export function getBreakpointDeclarations<TInput, TOutput>(
   value: TInput | ResponsiveValue<TInput>,
   cssProperty: keyof CSSProperties,
   mapFn: (value: TInput) => TOutput,

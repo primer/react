@@ -44,7 +44,7 @@ describe('PageHeader', () => {
   })
   /** These 3 tests below are not following the user behavioural pattern testing paradigm.
    * They are testing the internal implementation of the component and checking if the component
-   * is rendering the correct styles.This approach was necessary due to the impracticality of CSS media quesry testing with Jest.
+   * is rendering the correct styles.This approach was necessary due to the impracticality of CSS media queries testing with Jest.
    */
   it('respects default visibility of ContextArea and renders CSS media styles correctly', () => {
     const expectedStyles = {

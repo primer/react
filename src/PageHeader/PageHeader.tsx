@@ -6,7 +6,7 @@ import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import Link from '../Link'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {CSSManagedResponsiveValue} from './manageResponsiveValueWithCSS'
+import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 const REGION_ORDER = {
   ContextArea: 0,
   TitleArea: 1,
@@ -63,34 +63,13 @@ const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   hidden = hiddenOnRegularAndWide,
   sx = {},
 }) => {
-  // const mediaQueryStyles = merge<BetterSystemStyleObject>(
-  //   CSSManagedResponsiveValue(hidden, 'display', value => {
-  //     return value ? 'none' : 'flex'
-  //   }),
-  //   CSSManagedResponsiveValue(
-  //     {
-  //       narrow: 'none',
-  //       regular: 'line',
-  //       wide: 'filled',
-  //     },
-  //     'backgroundColor',
-  //     (value): string => {
-  //       return {
-  //         none: 'pink',
-  //         line: 'salmon',
-  //         filled: 'blue',
-  //       }[value]
-  //     },
-  //   ),
-  // )
-
   const contentNavStyles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: '0.5rem',
     order: REGION_ORDER.ContextArea,
-    ...CSSManagedResponsiveValue(hidden, 'display', value => {
+    ...getBreakpointDeclarations(hidden, 'display', value => {
       return value ? 'none' : 'flex'
     }),
   }
@@ -127,7 +106,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              ...CSSManagedResponsiveValue(hidden, 'display', value => {
+              ...getBreakpointDeclarations(hidden, 'display', value => {
                 return value ? 'none' : 'flex'
               }),
             },
@@ -157,7 +136,7 @@ const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
         },
@@ -186,7 +165,7 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
           gap: '0.5rem',
           flexGrow: '1',
           justifyContent: 'right',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
         },
@@ -232,7 +211,7 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
           {
             display: 'flex',
             gap: '0.5rem',
-            ...CSSManagedResponsiveValue(hidden, 'display', value => {
+            ...getBreakpointDeclarations(hidden, 'display', value => {
               return value ? 'none' : 'flex'
             }),
             flexDirection: 'row',
@@ -259,7 +238,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
@@ -280,7 +259,7 @@ const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chil
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
@@ -323,7 +302,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
             subtitle: '400',
           }[titleVariant],
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
         },
@@ -342,7 +321,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chi
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
@@ -368,7 +347,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
@@ -389,7 +368,7 @@ const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, 
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           flexDirection: 'row',
@@ -414,7 +393,7 @@ const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childr
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
           flexDirection: 'row',
@@ -436,7 +415,7 @@ const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childre
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
-          ...CSSManagedResponsiveValue(hidden, 'display', value => {
+          ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
           }),
         },
