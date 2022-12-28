@@ -3,9 +3,7 @@ import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import {PageHeader} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-import {act} from 'react-test-renderer'
-import {viewportRanges} from '../hooks/useResponsiveValue'
+import {behavesAsComponent, checkExports, checkStoriesForAxeViolations, renderStyles} from '../utils/testing'
 import {IconButton} from '../Button'
 import {ChevronLeftIcon, GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
 
@@ -44,28 +42,63 @@ describe('PageHeader', () => {
     )
     expect(container).toMatchSnapshot()
   })
-  it('does not render ContextArea in wide viewport as default', () => {
-    act(() => {
-      matchmedia.useMediaQuery(viewportRanges.wide)
-    })
+  /** These 3 tests below are not following the user behavioural pattern testing paradigm.
+   * They are testing the internal implementation of the component and checking if the component
+   * is rendering the correct styles.This approach was necessary due to the impracticality of CSS media queries testing with Jest.
+   */
+  it('respects default visibility of ContextArea and renders CSS media styles correctly', () => {
+    const expectedStyles = {
+      '-ms-flex-align': 'center',
+      '-ms-flex-direction': 'row',
+      '-ms-flex-order': '0',
+      '-webkit-align-items': 'center',
+      '-webkit-box-align': 'center',
+      '-webkit-flex-direction': 'row',
+      '-webkit-order': '0',
+      [`@media screen and (max-width:calc(768px - 0.02px))`]: {
+        display: 'flex',
+      },
+      [`@media screen and (min-width:768px)`]: {
+        display: 'none',
+      },
+      'align-items': 'center',
+      display: 'flex',
+      'flex-direction': 'row',
+      gap: '0.5rem',
+      order: '0',
+    }
 
-    const {getByText} = render(
-      <PageHeader>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
-        <PageHeader.TitleArea>TitleArea</PageHeader.TitleArea>
-        <PageHeader.Description>Description</PageHeader.Description>
-        <PageHeader.Navigation>Navigation</PageHeader.Navigation>
-      </PageHeader>,
+    expect(renderStyles(<PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>)).toEqual(
+      expect.objectContaining(expectedStyles),
     )
-    expect(getByText('ContextArea')).not.toBeVisible()
   })
-  it('respects the hidden prop of ContextArea and renders accordingly', () => {
-    act(() => {
-      matchmedia.useMediaQuery(viewportRanges.regular)
-    })
+  it('respects the hidden prop of ContextArea and renders CSS media styles correctly', () => {
+    const expectedStyles = {
+      '-ms-flex-align': 'center',
+      '-ms-flex-direction': 'row',
+      '-ms-flex-order': '0',
+      '-webkit-align-items': 'center',
+      '-webkit-box-align': 'center',
+      '-webkit-flex-direction': 'row',
+      '-webkit-order': '0',
+      [`@media screen and (max-width:calc(768px - 0.02px))`]: {
+        display: 'flex',
+      },
+      [`@media screen and (min-width:768px)`]: {
+        display: 'flex',
+      },
+      [`@media screen and (min-width:1400px)`]: {
+        display: 'none',
+      },
+      'align-items': 'center',
+      display: 'flex',
+      'flex-direction': 'row',
+      gap: '0.5rem',
+      order: '0',
+    }
 
-    const {getByText} = render(
-      <PageHeader>
+    expect(
+      renderStyles(
         <PageHeader.ContextArea
           hidden={{
             narrow: false,
@@ -74,41 +107,34 @@ describe('PageHeader', () => {
           }}
         >
           ContextArea
-        </PageHeader.ContextArea>
-        <PageHeader.TitleArea>TitleArea</PageHeader.TitleArea>
-        <PageHeader.Description>Description</PageHeader.Description>
-        <PageHeader.Navigation>Navigation</PageHeader.Navigation>
-      </PageHeader>,
-    )
-    expect(getByText('ContextArea')).toBeVisible()
+        </PageHeader.ContextArea>,
+      ),
+    ).toEqual(expect.objectContaining(expectedStyles))
   })
-  it('respects default visibility of LeadingAction and TrailingAction and renders accordingly', () => {
-    act(() => {
-      matchmedia.useMediaQuery(viewportRanges.narrow)
-    })
-    const {getByTestId} = render(
-      <PageHeader>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
-        <PageHeader.TitleArea>
-          <PageHeader.LeadingAction>
-            <IconButton aria-label="Expand" data-testid="LeadingAction" icon={SidebarExpandIcon} variant="invisible" />
-          </PageHeader.LeadingAction>
-          <PageHeader.Title>Title</PageHeader.Title>
-          <PageHeader.TrailingAction>
-            <IconButton aria-label="edit" data-testid="TrailingAction" icon={PencilIcon} variant="invisible" />
-          </PageHeader.TrailingAction>
-        </PageHeader.TitleArea>
-        <PageHeader.Description></PageHeader.Description>
-        <PageHeader.Navigation></PageHeader.Navigation>
-      </PageHeader>,
-    )
-    expect(getByTestId('LeadingAction')).not.toBeVisible()
-    expect(getByTestId('TrailingAction')).not.toBeVisible()
+  it('respects default visibility of LeadingAction and TrailingAction and renders CSS media styles correctly', () => {
+    const expectedStyles = {
+      '-ms-flex-align': 'center',
+      '-webkit-align-items': 'center',
+      '-webkit-box-align': 'center',
+      [`@media screen and (max-width:calc(768px - 0.02px))`]: {
+        display: 'none',
+      },
+      [`@media screen and (min-width:768px)`]: {
+        display: 'flex',
+      },
+      'align-items': 'center',
+      height: '2rem',
+    }
+
+    expect(
+      renderStyles(
+        <PageHeader.LeadingAction>
+          <IconButton aria-label="Expand" data-testid="LeadingAction" icon={SidebarExpandIcon} variant="invisible" />
+        </PageHeader.LeadingAction>,
+      ),
+    ).toEqual(expect.objectContaining(expectedStyles))
   })
   it('respects the title variant prop', () => {
-    act(() => {
-      matchmedia.useMediaQuery(viewportRanges.narrow)
-    })
     const {getByText} = render(
       <PageHeader>
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
@@ -120,9 +146,6 @@ describe('PageHeader', () => {
     expect(getByText('Title')).toHaveStyle('font-size: 2rem')
   })
   it("respects the title variant prop and updates the children components' container height accordingly", () => {
-    act(() => {
-      matchmedia.useMediaQuery(viewportRanges.narrow)
-    })
     const {getByText} = render(
       <PageHeader>
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
