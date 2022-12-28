@@ -20,7 +20,7 @@ const BasicExample = () => {
   const [tokens, setTokens] = React.useState([
     {text: 'zero', id: 0},
     {text: 'one', id: 1},
-    {text: 'two', id: 2}
+    {text: 'two', id: 2},
   ])
   const onTokenRemove = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -46,7 +46,7 @@ const UsingIssueLabelTokens = () => {
   const [tokens, setTokens] = React.useState([
     {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
     {text: 'bug', id: 2, fillColor: '#d73a4a'},
-    {text: 'good first issue', id: 3, fillColor: '#0cf478'}
+    {text: 'good first issue', id: 3, fillColor: '#0cf478'},
   ])
   const onTokenRemove = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -75,7 +75,7 @@ const VisibleTokenCountExample = () => {
     {text: 'zero', id: 0},
     {text: 'one', id: 1},
     {text: 'two', id: 2},
-    {text: 'three', id: 3}
+    {text: 'three', id: 3},
   ])
   const onTokenRemove = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -106,7 +106,7 @@ const PreventTokenWrappingExample = () => {
     {text: 'four', id: 4},
     {text: 'five', id: 5},
     {text: 'six', id: 6},
-    {text: 'seven', id: 7}
+    {text: 'seven', id: 7},
   ])
   const onTokenRemove = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -143,7 +143,7 @@ const MaxHeightExample = () => {
     {text: 'four', id: 4},
     {text: 'five', id: 5},
     {text: 'six', id: 6},
-    {text: 'seven', id: 7}
+    {text: 'seven', id: 7},
   ])
   const onTokenRemove = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -175,7 +175,7 @@ const ErrorExample = () => {
   const [tokens, setTokens] = React.useState([
     {text: 'zero', id: 0},
     {text: 'one', id: 1},
-    {text: 'two', id: 2}
+    {text: 'two', id: 2},
   ])
   const onTokenRemove = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -206,12 +206,12 @@ const LeadingVisualExample = () => {
   const [dates, setDates] = React.useState([
     {text: '01 Jan', id: 0},
     {text: '01 Feb', id: 1},
-    {text: '01 Mar', id: 2}
+    {text: '01 Mar', id: 2},
   ])
   const [tokens, setTokens] = React.useState([
     {text: 'zero', id: 0},
     {text: 'one', id: 1},
-    {text: 'two', id: 2}
+    {text: 'two', id: 2},
   ])
   const onDateRemove = tokenId => {
     setDates(dates.filter(token => token.id !== tokenId))
@@ -244,7 +244,7 @@ const WithIconAndLoadingIndicator = () => {
   const [dates, setDates] = React.useState([
     {text: '01 Jan', id: 0},
     {text: '01 Feb', id: 1},
-    {text: '01 Mar', id: 2}
+    {text: '01 Mar', id: 2},
   ])
   const onDateRemove = tokenId => {
     setDates(dates.filter(token => token.id !== tokenId))
@@ -392,6 +392,8 @@ render(<WithIconAndLoadingIndicator />)
 
 ## Props
 
+### TextInputWithTokens
+
 <PropsTable>
   <PropsTableRow required name="tokens" type="TokenProps[]" description="The array of tokens to render" />
   <PropsTableRow
@@ -475,6 +477,6 @@ There is no function that gets called to "add" a token, so the user needs to be 
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: true,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />
