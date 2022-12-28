@@ -44,23 +44,24 @@ const components = mdxFiles.map(mdxPath => {
   const propsTables = flatFilter(ast, {type: 'mdxJsxFlowElement', name: 'PropsTable'})?.children.map(node => {
     const name = toString(findBefore(ast, find(ast, node), {type: 'heading', depth: 3}))
 
-    const props = flatFilter(node, {type: 'mdxJsxFlowElement', name: 'PropsTableRow'})?.children.map(node => {
-      const name = node.attributes.find(attr => attr.name === 'name')?.value
-      const type = jsxToMd(node.attributes.find(attr => attr.name === 'type')?.value).replace(/`/g, '')
-      const description = jsxToMd(node.attributes.find(attr => attr.name === 'description')?.value)
-      const defaultValue = jsxToMd(node.attributes.find(attr => attr.name === 'defaultValue')?.value)
-      const required = node.attributes.find(attr => attr.name === 'required')?.value
-      const deprecated = node.attributes.find(attr => attr.name === 'deprecated')?.value
+    const props =
+      flatFilter(node, {type: 'mdxJsxFlowElement', name: 'PropsTableRow'})?.children.map(node => {
+        const name = node.attributes.find(attr => attr.name === 'name')?.value
+        const type = jsxToMd(node.attributes.find(attr => attr.name === 'type')?.value).replace(/`/g, '')
+        const description = jsxToMd(node.attributes.find(attr => attr.name === 'description')?.value)
+        const defaultValue = jsxToMd(node.attributes.find(attr => attr.name === 'defaultValue')?.value)
+        const required = node.attributes.find(attr => attr.name === 'required')?.value
+        const deprecated = node.attributes.find(attr => attr.name === 'deprecated')?.value
 
-      return {
-        name,
-        type,
-        defaultValue,
-        deprecated: deprecated !== false && deprecated !== undefined ? true : undefined,
-        required: required !== false && required !== undefined ? true : undefined,
-        description,
-      }
-    })
+        return {
+          name,
+          type,
+          defaultValue,
+          deprecated: deprecated !== false && deprecated !== undefined ? true : undefined,
+          required: required !== false && required !== undefined ? true : undefined,
+          description,
+        }
+      }) ?? []
 
     // TODO: sx prop
     // TODO: ref prop
@@ -102,3 +103,25 @@ function jsxToMd(node) {
 
 // Temporary: write the JSON to a file
 fs.writeFileSync('docs.json', JSON.stringify(components, null, 2))
+
+// for (const component of components) {
+//   const docPath = component.codePath?.replace('.tsx', '.docs.json') || `src/${component.name}.docs.json`
+
+//   let existingFile = {}
+
+//   if (fs.existsSync(docPath)) {
+//     existingFile = JSON.parse(fs.readFileSync(docPath, 'utf-8'))
+//   }
+
+//   const newFile = {
+//     ...existingFile,
+//     name: component.name,
+//     status: component.status,
+//     a11yReviewed: component.a11yReviewed,
+//     stories: component.stories.length > 0 ? component.stories : existingFile.stories || [],
+//     props: component.props.length > 0 ? component.props : existingFile.props || [],
+//     subcomponents: component.subcomponents > 0 ? component.subcomponents : existingFile.subcomponents || undefined,
+//   }
+
+//   fs.writeFileSync(docPath, JSON.stringify(newFile, null, 2))
+// }
