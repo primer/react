@@ -72,3 +72,7 @@ export type {
   ButtonCloseProps,
 } from './Button'
 // end of v35.0.0
+
+// Will be deprecated in v36.0.0
+export {default as UnderlineNav} from './UnderlineNav'
+export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'

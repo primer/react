@@ -2,10 +2,10 @@ import classnames from 'classnames'
 import {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'
-import {get} from './constants'
-import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
-import getGlobalFocusStyles from './_getGlobalFocusStyles'
+import {get} from '../constants'
+import sx, {SxProp} from '../sx'
+import {ComponentProps} from '../utils/types'
+import getGlobalFocusStyles from '../_getGlobalFocusStyles'
 
 const ITEM_CLASS = 'PRC-UnderlineNav-item'
 const SELECTED_CLASS = 'PRC-selected'
@@ -111,4 +111,7 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
 
 export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
+/**
+ * @deprecated Use the new responsive and accessible UnderlineNav. See https://primer.style/react/UnderlineNav for more details.
+ */
 export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})

@@ -1,13 +1,13 @@
 import React from 'react'
-import {UnderlineNav} from '..'
-import {render, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
+import {UnderlineNav} from '../../deprecated'
+import {render, rendersClass, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'
 
 describe('UnderlineNav', () => {
   behavesAsComponent({Component: UnderlineNav})
 
-  checkExports('UnderlineNav', {
+  checkExports('deprecated/UnderlineNav', {
     default: UnderlineNav,
   })
 
