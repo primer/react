@@ -1,10 +1,5 @@
 const githubMarkdownOpinions = require('@github/markdownlint-github')
 
-// Rules to enable
-const rulesToEnable = {
-  'no-duplicate-header': false,
-  'ul-style': false,
-}
 // Rules we don't care to enforce.
 const rulesToNotEnforce = {
   'line-length': false,
@@ -18,7 +13,7 @@ const rulesToNotEnforce = {
   'no-hard-tabs': false,
   'first-line-heading': false,
 }
-const options = githubMarkdownOpinions.init({...rulesToNotEnforce, ...rulesToEnable})
+const options = githubMarkdownOpinions.init({...rulesToNotEnforce})
 module.exports = {
   config: options,
   customRules: ['@github/markdownlint-github'],
