@@ -202,6 +202,7 @@
     "lodash.isobject": "3.0.2",
     "lodash.keyby": "4.6.0",
     "markdownlint-cli2": "^0.5.1",
+    "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "2.8.1",
     "react": "18.2.0",
     "react-dnd": "14.0.4",
