@@ -11,7 +11,6 @@ export type {BoxProps} from './Box'
 export * from './Button'
 export {PageLayout} from './PageLayout'
 export {PageHeader} from './PageHeader'
-export * from './Hidden'
 export type {
   PageLayoutProps,
   PageLayoutHeaderProps,

@@ -290,9 +290,11 @@ ContextArea should be used to provide users contextual information about their n
   <PropsTableSxRow />
 </PropsTable>
 
-### PageHeader.ParentLink
+### PageHeader.ContextArea Children
 
-ParentLink is the default way to let users navigate up in the hierarchy on narrow viewports. It is only visible on narrow viewports by default.
+#### PageHeader.ParentLink
+
+ParentLink is the default way to let users navigate up in the hierarchy on narrow viewports.
 
 <PropsTable>
   <PropsTableRow name="href" type="string" description="The URL to link to." defaultValue="" />
@@ -314,7 +316,7 @@ ParentLink is the default way to let users navigate up in the hierarchy on narro
   <PropsTableSxRow />
 </PropsTable>
 
-### PageHeader.ContextBar
+#### PageHeader.ContextBar
 
 ContextBar is a generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
 
@@ -333,7 +335,7 @@ ContextBar is a generic slot for any component above the title region. Use it fo
   <PropsTableSxRow />
 </PropsTable>
 
-### PageHeader.ContextAreaActions
+#### PageHeader.ContextAreaActions
 
 <PropsTable>
   <PropsTableRow
@@ -384,10 +386,17 @@ ContextBar is a generic slot for any component above the title region. Use it fo
       | 'large'
   }`}
     defaultValue="medium"
+    description="Default title (medium) is the most common page title size. Use for static titles in most situations. 
+    Large variant should be used for user-generated content such as issues, pull requests, or discussions. 
+    Subtitle variant can be used when a PageHeader.Title is already present in the page, such as in a SplitPageLayout."
   />
 </PropsTable>
 
-### PageHeader.LeadingAction
+### PageHeader.TitleArea Children
+
+#### PageHeader.LeadingAction
+
+Leading actions can be used for local navigation. It is hidden on narrow viewports by default in favor of ParenLink.
 
 <PropsTable>
   <PropsTableRow
@@ -404,7 +413,9 @@ ContextBar is a generic slot for any component above the title region. Use it fo
   <PropsTableSxRow />
 </PropsTable>
 
-### PageHeader.LeadingVisual
+#### PageHeader.LeadingVisual
+
+Leading visuals are optional and appear at the start of the title. They can be octicons, avatars, and other custom visuals that fit a small area.
 
 <PropsTable>
   <PropsTableRow
@@ -421,7 +432,7 @@ ContextBar is a generic slot for any component above the title region. Use it fo
   <PropsTableSxRow />
 </PropsTable>
 
-### PageHeader.Title
+#### PageHeader.Title
 
 <PropsTable>
   <PropsTableAsRow defaultElementType="h3" />
@@ -439,7 +450,9 @@ ContextBar is a generic slot for any component above the title region. Use it fo
   <PropsTableSxRow />
 </PropsTable>
 
-### PageHeader.TrailingVisual
+#### PageHeader.TrailingVisual
+
+Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, privacy details, etc.
 
 <PropsTable>
   <PropsTableRow
@@ -456,7 +469,10 @@ ContextBar is a generic slot for any component above the title region. Use it fo
   <PropsTableSxRow />
 </PropsTable>
 
-### PageHeader.TrailingAction
+#### PageHeader.TrailingAction
+
+Trailing action can display subtler actions aligned directly next to the title.
+It is hidden on narrow viewports by default. Replace the trailing action with an item in an overflow button on narow viewports.
 
 <PropsTable>
   <PropsTableRow
@@ -473,7 +489,7 @@ ContextBar is a generic slot for any component above the title region. Use it fo
   <PropsTableSxRow />
 </PropsTable>
 
-### PageHeader.Actions
+#### PageHeader.Actions
 
 <PropsTable>
   <PropsTableRow
