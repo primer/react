@@ -402,7 +402,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-labelledby={labelId}
           aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
           aria-level={level}
-          // aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           onKeyDown={handleKeyDown}
