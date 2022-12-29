@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-aria status description is now accurate
+TreeView: aria status description is now accurate
