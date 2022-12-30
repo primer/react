@@ -1,6 +1,7 @@
 import React from 'react'
-import {useMedia} from '../hooks/useMedia'
-import {viewportRanges} from '../hooks/useResponsiveValue'
+import {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
+import Box from '../Box'
 
 type Viewports = 'narrow' | 'regular' | 'wide'
 
@@ -9,18 +10,30 @@ export type HiddenProps = {
   children: React.ReactNode
 }
 
+function isArray(value: Array<string> | string): value is Array<string> {
+  return Array.isArray(value)
+}
+
 export const Hidden = ({on: hiddenViewports, children}: HiddenProps) => {
-  const isNarrowViewport = useMedia(viewportRanges.narrow)
-  const isRegularViewport = useMedia(viewportRanges.regular)
-  const isWideViewport = useMedia(viewportRanges.wide)
-  let show = true
-  if (isNarrowViewport && (hiddenViewports === 'narrow' || hiddenViewports.indexOf('narrow') > -1)) {
-    show = false
-  } else if (isRegularViewport && (hiddenViewports === 'regular' || hiddenViewports.indexOf('regular') > -1)) {
-    show = false
-  } else if (isWideViewport && (hiddenViewports === 'wide' || hiddenViewports.indexOf('wide') > -1)) {
-    show = false
+  let responsiveObj: ResponsiveValue<boolean | number | string> | undefined
+  // If we receive array of viewports, we need to tranform this array into ResponsiveValue object
+  if (isArray(hiddenViewports)) {
+    // ['narrow', 'wide'] -> {narrow: true, regular: false, wide: true}
+    hiddenViewports.map(viewport => {
+      responsiveObj = {...responsiveObj, [viewport]: true}
+    })
+    // For string type
+  } else if (typeof hiddenViewports === 'string') {
+    responsiveObj = {[hiddenViewports]: true}
+  } else {
+    responsiveObj = {}
   }
 
-  return show ? <>{children}</> : null
+  // Get breakpoint declarations for the transformed ResponsiveValue object
+  const styles = getBreakpointDeclarations(responsiveObj, 'display', value => {
+    if (value) return 'none'
+  })
+
+  // Render the children with the styles
+  return <Box sx={styles}>{children}</Box>
 }
