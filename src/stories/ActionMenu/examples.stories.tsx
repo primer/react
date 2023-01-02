@@ -294,7 +294,7 @@ export function MixedSelection(): JSX.Element {
       </p>
 
       <ActionMenu>
-        <ActionMenu.Button aria-label="Group by" leadingIcon={selectedOption && selectedOption.icon}>
+        <ActionMenu.Button aria-label="Group by" leadingIcon={selectedOption ? selectedOption.icon : undefined}>
           {selectedOption ? `Group by ${selectedOption.text}` : 'Group items by'}
         </ActionMenu.Button>
         <ActionMenu.Overlay width="medium">

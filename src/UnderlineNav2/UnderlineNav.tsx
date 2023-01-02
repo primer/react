@@ -16,11 +16,12 @@ import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
 import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-  sx?: SxProp
+  sx?: SxProp['sx']
   // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
   align?: 'right'
@@ -134,7 +135,7 @@ export const UnderlineNav = forwardRef(
       as = 'nav',
       align,
       'aria-label': ariaLabel,
-      sx: sxProp = {},
+      sx: sxProp = defaultSxProp,
       afterSelect,
       variant = 'default',
       loadingCounters = false,
