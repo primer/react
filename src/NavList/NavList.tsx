@@ -11,6 +11,7 @@ import {
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
+import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 
 // ----------------------------------------------------------------------------
@@ -43,7 +44,7 @@ export type NavListItemProps = {
 } & SxProp
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({'aria-current': ariaCurrent, children, sx: sxProp = {}, ...props}, ref) => {
+  ({'aria-current': ariaCurrent, children, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -102,7 +103,7 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState(false)
@@ -167,7 +168,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
 // TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
-const SubNav = ({children, sx: sxProp = {}}: NavListSubNavProps) => {
+const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 

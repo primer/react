@@ -8,6 +8,7 @@ import sx, {merge, SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
 
@@ -51,7 +52,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   fullWidth,
   onChange,
   size,
-  sx: sxProp = {},
+  sx: sxProp = defaultSxProp,
   variant,
   ...rest
 }) => {

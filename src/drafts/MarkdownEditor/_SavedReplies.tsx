@@ -86,7 +86,14 @@ export const SavedRepliesButton = () => {
 
   return items ? (
     <SelectPanel
-      renderAnchor={props => <ToolbarButton {...props} icon={ReplyIcon} aria-label="Add saved reply (Ctrl + .)" />}
+      renderAnchor={props => (
+        <ToolbarButton
+          {...props}
+          icon={ReplyIcon}
+          aria-label="Add saved reply (Ctrl + .)"
+          aria-labelledby={undefined}
+        />
+      )}
       open={open}
       onOpenChange={setOpen}
       items={items}

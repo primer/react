@@ -8,6 +8,7 @@ import {ActionListContainerContext} from './ActionList/ActionListContainerContex
 import {Button, ButtonProps} from './Button'
 import {useId} from './hooks/useId'
 import {MandateProps} from './utils/types'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -67,21 +68,19 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 }
 
 export type ActionMenuAnchorProps = {children: React.ReactElement}
-const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnchorProps>(
-  ({children, ...anchorProps}, anchorRef) => {
-    return React.cloneElement(children, {...anchorProps, ref: anchorRef})
-  },
-)
+const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+  return React.cloneElement(children, {...anchorProps, ref: anchorRef})
+})
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(({...props}, anchorRef) => {
+const MenuButton = React.forwardRef((props, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
       <Button type="button" trailingAction={TriangleDownIcon} {...props} />
     </Anchor>
   )
-})
+}) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
 type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align'> & {

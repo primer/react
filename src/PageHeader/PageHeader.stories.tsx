@@ -217,7 +217,7 @@ const Template: Story = args => (
         }}
       >
         <PageHeader.LeadingAction hidden={!args.hasLeadingAction}>
-          <IconButton icon={SidebarExpandIcon} variant="invisible" />{' '}
+          <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />{' '}
         </PageHeader.LeadingAction>
         <PageHeader.LeadingVisual hidden={!args.hasLeadingVisual}>{<args.LeadingVisual />}</PageHeader.LeadingVisual>
         <PageHeader.Title as={args['Title.as']} hidden={!args.hasTitle}>
@@ -227,7 +227,7 @@ const Template: Story = args => (
           <Label>Beta</Label>
         </PageHeader.TrailingVisual>
         <PageHeader.TrailingAction hidden={!args.hasTrailingAction}>
-          <IconButton icon={PencilIcon} variant="invisible" />
+          <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
         </PageHeader.TrailingAction>
         <PageHeader.Actions hidden={!args.hasActions}>
           <Hidden on={['narrow']}>

@@ -1,20 +1,27 @@
 import React, {forwardRef} from 'react'
-import {merge, SxProp} from '../sx'
+import {BetterSystemStyleObject, merge} from '../sx'
 import {LinkButtonProps} from './types'
 import {ButtonBase, ButtonBaseProps} from './ButtonBase'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 type MyProps = LinkButtonProps & ButtonBaseProps
 
-const LinkButton = forwardRef<HTMLElement, MyProps>(
-  ({children, as: Component = 'a', sx = {}, ...props}, forwardedRef): JSX.Element => {
-    const sxStyle = merge.all([sx as SxProp])
+const LinkButton = forwardRef(
+  ({children, as: Component = 'a', sx = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
+    const sxStyle = merge.all<BetterSystemStyleObject>([sx])
     return (
-      <ButtonBase as={Component} ref={forwardedRef} sx={sxStyle} {...props}>
+      <ButtonBase
+        as={Component}
+        // @ts-expect-error ButtonBase wants both Anchor and Button refs
+        ref={forwardedRef}
+        sx={sxStyle}
+        {...props}
+      >
         {children}
       </ButtonBase>
     )
   },
-) as PolymorphicForwardRefComponent<'a', ButtonBaseProps>
+) as PolymorphicForwardRefComponent<'a', MyProps>
 
 export {LinkButton}
