@@ -205,7 +205,7 @@
     "react-dnd-html5-backend": "14.0.2",
     "react-dom": "18.2.0",
     "react-test-renderer": "18.2.0",
-    "recast": "0.21.5",
+    "recast": "0.22.0",
     "rimraf": "3.0.2",
     "rollup": "2.79.0",
     "rollup-plugin-terser": "7.0.2",
