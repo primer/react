@@ -8,6 +8,7 @@ import CounterLabel from '../CounterLabel'
 import {getLinkStyles, wrapperStyles, iconWrapStyles, counterStyles} from './styles'
 import {LoadingCounter} from './LoadingCounter'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -53,7 +54,7 @@ export type UnderlineNavItemProps = {
 export const UnderlineNavItem = forwardRef(
   (
     {
-      sx: sxProp = {},
+      sx: sxProp = defaultSxProp,
       as: Component = 'a',
       href = '#',
       children,
@@ -129,7 +130,7 @@ export const UnderlineNavItem = forwardRef(
     ])
 
     const keyPressHandler = React.useCallback(
-      event => {
+      (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (event.key === ' ' || event.key === 'Enter') {
           if (!event.defaultPrevented && typeof onSelect === 'function') onSelect(event)
           if (!event.defaultPrevented && typeof afterSelect === 'function') afterSelect(event)
@@ -139,7 +140,7 @@ export const UnderlineNavItem = forwardRef(
       [onSelect, afterSelect, ref, setSelectedLink],
     )
     const clickHandler = React.useCallback(
-      event => {
+      (event: React.MouseEvent<HTMLLIElement>) => {
         if (!event.defaultPrevented) {
           if (typeof onSelect === 'function') onSelect(event)
           if (typeof afterSelect === 'function') afterSelect(event)

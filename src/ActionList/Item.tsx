@@ -1,15 +1,16 @@
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {useSSRSafeId} from '@react-aria/ssr'
 import React from 'react'
 import styled from 'styled-components'
 import Box, {BoxProps} from '../Box'
 import sx, {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {useTheme} from '../ThemeProvider'
+import {useId} from '../hooks/useId'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {ActionListGroupProps, GroupContext} from './Group'
 import {ActionListProps, ListContext} from './List'
 import {Selection} from './Selection'
 import {ActionListItemProps, Slots, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -21,7 +22,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       selected = undefined,
       active = false,
       onSelect,
-      sx: sxProp = {},
+      sx: sxProp = defaultSxProp,
       id,
       role,
       _PrivateItemWrapper,
@@ -144,7 +145,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const clickHandler = React.useCallback(
-      event => {
+      (event: React.MouseEvent<HTMLLIElement>) => {
         if (disabled) return
         if (!event.defaultPrevented) {
           if (typeof onSelect === 'function') onSelect(event)
@@ -156,7 +157,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     const keyPressHandler = React.useCallback(
-      event => {
+      (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (disabled) return
         if (!event.defaultPrevented && [' ', 'Enter'].includes(event.key)) {
           if (typeof onSelect === 'function') onSelect(event)
@@ -168,9 +169,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     // use props.id if provided, otherwise generate one.
-    const labelId = useSSRSafeId(id)
-    const inlineDescriptionId = useSSRSafeId(id && `${id}--inline-description`)
-    const blockDescriptionId = useSSRSafeId(id && `${id}--block-description`)
+    const labelId = useId(id)
+    const inlineDescriptionId = useId(id && `${id}--inline-description`)
+    const blockDescriptionId = useId(id && `${id}--block-description`)
 
     const ItemWrapper = _PrivateItemWrapper || React.Fragment
 

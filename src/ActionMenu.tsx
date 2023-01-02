@@ -1,5 +1,4 @@
 import React from 'react'
-import {useSSRSafeId} from '@react-aria/ssr'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
 import {OverlayProps} from './Overlay'
@@ -7,8 +6,9 @@ import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigat
 import {Divider} from './ActionList/Divider'
 import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
 import {Button, ButtonProps} from './Button'
+import {useId} from './hooks/useId'
 import {MandateProps} from './utils/types'
-import {merge, BetterSystemStyleObject} from './sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -46,7 +46,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
-  const anchorId = useSSRSafeId()
+  const anchorId = useId()
   let renderAnchor: AnchoredOverlayProps['renderAnchor'] = null
 
   // 🚨 Hack for good API!
@@ -68,34 +68,19 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 }
 
 export type ActionMenuAnchorProps = {children: React.ReactElement}
-const Anchor = React.forwardRef<AnchoredOverlayProps['anchorRef'], ActionMenuAnchorProps>(
-  ({children, ...anchorProps}, anchorRef) => {
-    return React.cloneElement(children, {...anchorProps, ref: anchorRef})
-  },
-)
+const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+  return React.cloneElement(children, {...anchorProps, ref: anchorRef})
+})
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = ButtonProps
-const MenuButton = React.forwardRef<AnchoredOverlayProps['anchorRef'], ButtonProps>(
-  ({sx: sxProp = {}, ...props}, anchorRef) => {
-    return (
-      <Anchor ref={anchorRef}>
-        <Button
-          type="button"
-          trailingIcon={TriangleDownIcon}
-          sx={merge<BetterSystemStyleObject>(
-            {
-              // override the margin on caret for optical alignment
-              '[data-component=trailingIcon]': {marginX: -1},
-            },
-            sxProp,
-          )}
-          {...props}
-        />
-      </Anchor>
-    )
-  },
-)
+const MenuButton = React.forwardRef((props, anchorRef) => {
+  return (
+    <Anchor ref={anchorRef}>
+      <Button type="button" trailingAction={TriangleDownIcon} {...props} />
+    </Anchor>
+  )
+}) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
 type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align'> & {
