@@ -1,15 +1,14 @@
 import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
-import {merge, SxProp} from '../sx'
+import {BetterSystemStyleObject, merge} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {ButtonProps, StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-declare let __DEV__: boolean
+import {defaultSxProp} from '../utils/defaultSxProp'
 
-const defaultSxProp = {}
-const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
+const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     const {
       leadingIcon: LeadingIcon,
@@ -22,7 +21,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       ...rest
     } = props
 
-    const innerRef = React.useRef<HTMLElement>(null)
+    const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
     const {theme} = useTheme()
@@ -30,7 +29,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       return merge.all([getButtonStyles(theme), getVariantStyles(variant, theme)])
     }, [theme, variant])
     const sxStyles = useMemo(() => {
-      return merge(baseStyles, sxProp as SxProp)
+      return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])
     const iconWrapStyles = {
       display: 'flex',
@@ -46,7 +45,10 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
        */
       // eslint-disable-next-line react-hooks/rules-of-hooks
       React.useEffect(() => {
-        if (!(innerRef.current instanceof HTMLButtonElement) && !(innerRef.current instanceof HTMLAnchorElement)) {
+        if (
+          !(innerRef.current instanceof HTMLButtonElement) &&
+          !((innerRef.current as unknown) instanceof HTMLAnchorElement)
+        ) {
           // eslint-disable-next-line no-console
           console.warn('This component should be an instanceof a semantic button or anchor')
         }
