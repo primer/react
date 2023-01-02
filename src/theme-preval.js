@@ -18,6 +18,7 @@ const fonts = {
     '-apple-system',
     'BlinkMacSystemFont',
     'Segoe UI',
+    'Noto Sans',
     'Helvetica',
     'Arial',
     'sans-serif',

@@ -1,12 +1,14 @@
 import React from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
+import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {isResponsiveValue, ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import {canUseDOM} from '../utils/environment'
+import VisuallyHidden from '../_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
 const {Slots, Slot} = createSlots(['Header', 'Footer'])
@@ -506,6 +508,7 @@ export type PageLayoutPaneProps = {
   sticky?: boolean
   offsetHeader?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
+  id?: string
 } & SxProp
 
 const panePositions = {
@@ -536,6 +539,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       offsetHeader = 0,
       hidden: responsiveHidden = false,
       children,
+      id,
       sx = {},
     },
     forwardRef,
@@ -597,8 +601,57 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const paneRef = React.useRef<HTMLDivElement>(null)
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
+    const MIN_PANE_WIDTH = 256 // 256px, related to `--pane-min-width CSS var.
+    const [minPercent, setMinPercent] = React.useState(0)
+    const [maxPercent, setMaxPercent] = React.useState(0)
+
+    const measuredRef = React.useCallback(() => {
+      if (paneRef.current !== null) {
+        const maxPaneWidthDiffPixels = getComputedStyle(paneRef.current as Element).getPropertyValue(
+          '--pane-max-width-diff',
+        )
+        const paneWidth = paneRef.current.getBoundingClientRect().width
+        const maxPaneWidthDiff = Number(maxPaneWidthDiffPixels.split('px')[0])
+        const viewportWidth = window.innerWidth
+        const maxPaneWidth = viewportWidth > maxPaneWidthDiff ? viewportWidth - maxPaneWidthDiff : viewportWidth
+
+        const minPercent = Math.round((100 * MIN_PANE_WIDTH) / viewportWidth)
+        setMinPercent(minPercent)
+
+        const maxPercent = Math.round((100 * maxPaneWidth) / viewportWidth)
+        setMaxPercent(maxPercent)
+
+        const widthPercent = Math.round((100 * paneWidth) / viewportWidth)
+        setWidthPercent(widthPercent.toString())
+      }
+    }, [paneRef])
+
+    const [widthPercent, setWidthPercent] = React.useState('')
+    const [prevPercent, setPrevPercent] = React.useState('')
+
+    const handleWidthFormSubmit = (event: React.FormEvent<HTMLElement>) => {
+      event.preventDefault()
+      let percent = Number(widthPercent)
+      if (Number.isNaN(percent)) {
+        percent = Number(prevPercent) || minPercent
+      } else if (percent > maxPercent) {
+        percent = maxPercent
+      } else if (percent < minPercent) {
+        percent = minPercent
+      }
+
+      setWidthPercent(percent.toString())
+      // Cache previous valid percent.
+      setPrevPercent(percent.toString())
+
+      updatePaneWidth((percent / 100) * window.innerWidth)
+    }
+
+    const paneId = useId(id)
+
     return (
       <Box
+        ref={measuredRef}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sx={(theme: any) =>
           merge<BetterSystemStyleObject>(
@@ -671,7 +724,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
           sx={(theme: Theme) => ({
             '--pane-min-width': `256px`,
-            '--pane-max-width': `calc(100vw - 511px)`,
+            '--pane-max-width-diff': '511px',
+            '--pane-max-width': `calc(100vw - var(--pane-max-width-diff))`,
             width: resizable
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
               : paneWidths[width],
@@ -679,10 +733,36 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             overflow: [null, null, 'auto'],
 
             [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
-              '--pane-max-width': 'calc(100vw - 959px)',
+              '--pane-max-width-diff': '959px',
             },
           })}
         >
+          {resizable && (
+            <VisuallyHidden>
+              <form onSubmit={handleWidthFormSubmit}>
+                {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+                <label htmlFor={`${paneId}-width-input`}>Pane width</label>
+                <p id={`${paneId}-input-hint`}>
+                  Use a value between {minPercent}% and {maxPercent}%
+                </p>
+                <input
+                  id={`${paneId}-width-input`}
+                  aria-describedby={`${paneId}-input-hint`}
+                  name="pane-width"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  value={widthPercent}
+                  autoCorrect="off"
+                  autoComplete="off"
+                  type="text"
+                  onChange={event => {
+                    setWidthPercent(event.target.value)
+                  }}
+                />
+                <button type="submit">Change width</button>
+              </form>
+            </VisuallyHidden>
+          )}
           {children}
         </Box>
       </Box>
