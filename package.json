@@ -159,7 +159,7 @@
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "ajv": "8.11.2",
-    "axe-core": "4.5.2",
+    "axe-core": "4.6.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^9.1.0",
     "babel-plugin-add-react-displayname": "0.0.5",
