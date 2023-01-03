@@ -4,7 +4,7 @@ import {viewportRanges} from '../hooks/useResponsiveValue'
 
 type Viewports = 'narrow' | 'regular' | 'wide'
 
-type HiddenProps = {
+export type HiddenProps = {
   on: Array<Viewports> | Viewports
   children: React.ReactNode
 }
@@ -21,5 +21,6 @@ export const Hidden = ({on: hiddenViewports, children}: HiddenProps) => {
   } else if (isWideViewport && (hiddenViewports === 'wide' || hiddenViewports.indexOf('wide') > -1)) {
     show = false
   }
+
   return show ? <>{children}</> : null
 }
