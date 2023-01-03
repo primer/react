@@ -1,3 +1,4 @@
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 import classnames from 'classnames'
 import {To} from 'history'
 import React, {useRef, useState} from 'react'
@@ -67,18 +68,19 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 }
 
-type StyledTabNavLinkProps = {
+export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
   to?: To
   selected?: boolean
+  href?: string
 } & SxProp
 
-const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
+const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
   tabIndex: -1,
-}))<StyledTabNavLinkProps>`
+}))<TabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
   line-height: 20px;
@@ -105,9 +107,8 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   }
 
   ${sx};
-`
+` as PolymorphicForwardRefComponent<'a', TabNavLinkProps>
 
 TabNavLink.displayName = 'TabNav.Link'
 
-export type TabNavLinkProps = ComponentProps<typeof TabNavLink>
 export default Object.assign(TabNav, {Link: TabNavLink})

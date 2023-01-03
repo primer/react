@@ -47,7 +47,7 @@ export type DialogButtonProps = ButtonProps & {
 /**
  * Props to customize the rendering of the Dialog.
  */
-export interface DialogProps {
+export interface DialogProps extends SxProp {
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
@@ -262,6 +262,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     width = 'xlarge',
     height = 'auto',
     footerButtons = [],
+    sx,
   } = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
@@ -301,6 +302,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
+            sx={sx}
           >
             {header}
             {body}
