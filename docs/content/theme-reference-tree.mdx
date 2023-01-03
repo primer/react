@@ -1,0 +1,58 @@
+---
+title: Theme Reference Tree
+description: The default theme object for Primer React components
+---
+
+import {theme} from '@primer/react'
+import {TreeView} from '@primer/react/drafts'
+function ThemeReferenceTree({themeData}) {
+  return (
+    <TreeView>
+      <RecursiveTree property={themeData} propertyName="Theme Data" />
+    </TreeView>
+  )
+}
+function RecursiveTree({property, propertyName}) {
+  return (
+    <>
+      {property ? (
+        typeof property === 'number' || typeof property === 'string' || typeof property === 'boolean' ? (
+          <TreeView.Item>
+            {propertyName} : {property && property.toString()}
+          </TreeView.Item>
+        ) : (
+          <>
+            <TreeView.Item>
+              <b>{propertyName} : </b>
+              <TreeView.SubTree>
+                {Object.values(property).map((childProperty, index) => (
+                  <RecursiveTree
+                    key={index}
+                    property={childProperty}
+                    propertyName={Object.getOwnPropertyNames(property)[index]}
+                  />
+                ))}
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </>
+        )
+      ) : (
+        <span>empty</span>
+      )}
+    </>
+  )
+}
+
+<ThemeReferenceTree themeData={theme} />
+
+<Note>
+  
+See [Theming](/theming) to learn how theming works in Primer React.
+
+</Note>
+
+Colors in this theme object are imported from [Primer Primitives](https://primer.style/primitives/colors).
+
+<pre>
+  <code class="language-json">{JSON.stringify(theme, null, 2)}</code>
+</pre>
