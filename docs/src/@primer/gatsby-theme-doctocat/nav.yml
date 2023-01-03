@@ -168,6 +168,8 @@
       url: /TreeView
     - title: UnderlineNav v2
       url: /drafts/UnderlineNav2
+    - title: PageHeader
+      url: /drafts/PageHeader
 - title: Deprecated
   children:
     - title: ActionList (legacy)
