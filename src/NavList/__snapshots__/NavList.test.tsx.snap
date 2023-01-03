@@ -23,54 +23,6 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
 }
 
-.c3 {
-  color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-}
-
-.c3:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c3:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.c3:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -231,6 +183,54 @@ exports[`NavList renders a simple list 1`] = `
 .c6:focus:not([aria-disabled]) + .c6,
 .c6[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c3 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+}
+
+.c3:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c3:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c3:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -433,54 +433,6 @@ exports[`NavList renders with groups 1`] = `
   padding-inline-start: 0;
 }
 
-.c7 {
-  color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-}
-
-.c7:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c7:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.c7:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -641,6 +593,54 @@ exports[`NavList renders with groups 1`] = `
 .c10:focus:not([aria-disabled]) + .c10,
 .c10[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c7 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+}
+
+.c7:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c7:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c7:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -868,56 +868,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   font-weight: initial;
 }
 
-.c11 {
-  color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding-left: 32px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.c11:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c11:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.c11:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
 .c8 {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -1135,6 +1085,56 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent;
 }
 
+.c11 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 32px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.c11:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c11:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c11:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
 @media (hover:hover) and (pointer:fine) {
   .c10:hover:not([aria-disabled]) {
     background-color: rgba(208,215,222,0.32);
@@ -1342,56 +1342,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: #57606a;
   margin-left: 8px;
   font-weight: initial;
-}
-
-.c11 {
-  color: #0969da;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding-left: 32px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.c11:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c11:is(button) {
-  display: inline-block;
-  padding: 0;
-  font-size: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.c11:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c8 {
@@ -1621,6 +1571,56 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   content: "";
   background-color: #0969da;
   border-radius: 6px;
+}
+
+.c11 {
+  color: #0969da;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 32px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.c11:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c11:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c11:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 @media (hover:hover) and (pointer:fine) {
