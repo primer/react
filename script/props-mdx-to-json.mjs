@@ -111,7 +111,38 @@ const components = mdxFiles.map(mdxPath => {
       passthrough = {element, url}
     }
 
-    // TODO: handle base props
+    const basePropRows = find(node, {type: 'mdxJsxFlowElement', name: 'PropsTableBasePropRows'})
+
+    if (basePropRows) {
+      const refType = jsxToMd(basePropRows.attributes.find(attr => attr.name === 'refType')?.value)
+      const elementType = jsxToMd(basePropRows.attributes.find(attr => attr.name === 'elementType')?.value)
+      const passthroughPropsLink = jsxToMd(
+        basePropRows.attributes.find(attr => attr.name === 'passthroughPropsLink')?.value,
+      )
+        .replace(/^.*\(/, '')
+        .replace(/\)$/, '')
+        .trim()
+      const isPolymorphic = jsxToMd(basePropRows.attributes.find(attr => attr.name === 'isPolymorphic')?.value)
+
+      if (refType) {
+        props.push({name: 'ref', type: `React.RefObject<${refType}>`})
+      }
+
+      if (elementType) {
+        passthrough = {element: elementType, url: passthroughPropsLink}
+      }
+
+      if (isPolymorphic !== false && isPolymorphic !== undefined ? true : undefined) {
+        const isComponent = elementType[0].toUpperCase() === elementType[0]
+        props.push({
+          name: 'as',
+          type: 'React.ElementType',
+          defaultValue: isComponent ? elementType : `"${elementType}"`,
+        })
+      }
+
+      props.push({name: 'sx', type: 'SystemStyleObject'})
+    }
 
     return {name, props, passthrough}
   })
@@ -149,7 +180,7 @@ console.log(
 console.log(
   'wihout props count',
   `${componentsWithoutProps.length} / ${components.length}`,
-  `${(componentsWithoutProps.length / components.length) * 100}%}`,
+  `${((componentsWithoutProps.length / components.length) * 100).toFixed(2)}%`,
 )
 
 console.log(
