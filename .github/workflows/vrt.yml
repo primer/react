@@ -14,11 +14,11 @@ jobs:
       github.repository == 'primer/react' &&
       contains(github.event.pull_request.labels.*.name, 'update snapshots')
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -35,11 +35,11 @@ jobs:
   update-snapshots:
     needs: storybook
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
@@ -73,6 +73,9 @@ jobs:
   commit-snapshots:
     needs: update-snapshots
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
     steps:
       - name: Generate token
         id: generate_token
