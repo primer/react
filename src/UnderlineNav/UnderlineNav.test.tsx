@@ -79,7 +79,7 @@ describe('UnderlineNav', () => {
     toRender: () => <ResponsiveUnderlineNav />,
   })
 
-  checkExports('UnderlineNav2', {
+  checkExports('UnderlineNav', {
     default: undefined,
     UnderlineNav,
   })
@@ -179,4 +179,4 @@ describe('Keyboard Navigation', () => {
   })
 })
 
-checkStoriesForAxeViolations('examples', '../UnderlineNav2/')
+checkStoriesForAxeViolations('examples', '../UnderlineNav/')
