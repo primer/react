@@ -1,6 +1,9 @@
 'use strict'
 
-// Script to migrate prop documentation from .mdx files to .doc.json files
+// Temporary script to migrate React component metadata
+// from .mdx files to .doc.json files.
+
+// TODO: Remove this script after the migration is complete.
 
 import glob from 'fast-glob'
 import {fromMarkdown} from 'mdast-util-from-markdown'
@@ -15,8 +18,8 @@ import flatFilter from 'unist-util-flat-filter'
 import {toString} from 'mdast-util-to-string'
 import {findBefore} from 'unist-util-find-before'
 
-// Get all code files
-const codeFiles = glob
+// Get all source code files
+const srcFiles = glob
   .sync('src/**/[A-Z]*.tsx')
   // Filter out tests and stories
   .filter(filePath => !filePath.includes('.test.') && !filePath.includes('.stories.'))
@@ -25,11 +28,14 @@ const codeFiles = glob
 const mdxFiles = glob.sync('docs/content/**/[A-Z]*.{md,mdx}')
 
 const components = mdxFiles.map(mdxPath => {
+  // Get the component name from the file name
   const name = mdxPath.split('/').pop()?.split('.')[0]
 
-  const mdxContent = fs.readFileSync(mdxPath, 'utf-8')
+  // Find the corresponding source code file
+  const srcPath = srcFiles.find(srcPath => srcPath.endsWith(`/${name}.tsx`))
 
-  const codePath = codeFiles.find(codePath => codePath.endsWith(`/${name}.tsx`))
+  // Read the contents of the MDX file
+  const mdxContent = fs.readFileSync(mdxPath, 'utf-8')
 
   // Parse the MDX file
   const ast = fromMarkdown(mdxContent, {
@@ -40,8 +46,8 @@ const components = mdxFiles.map(mdxPath => {
   // Get the status and a11yReviewed flag from the frontmatter
   const {status, a11yReviewed = false} = parseYaml(find(ast, {type: 'yaml'}).value ?? '')
 
-  // Parse props tables
-  const propsTables = flatFilter(ast, {type: 'mdxJsxFlowElement', name: 'PropsTable'})?.children.map(node => {
+  // Get prop data by parsing usage of the <PropsTable> component
+  const allComponentProps = flatFilter(ast, {type: 'mdxJsxFlowElement', name: 'PropsTable'})?.children.map(node => {
     const name = toString(findBefore(ast, find(ast, node), {type: 'heading', depth: 3}))
 
     const props =
@@ -63,46 +69,96 @@ const components = mdxFiles.map(mdxPath => {
         }
       }) ?? []
 
-    // TODO: sx prop
-    // TODO: ref prop
-    // TODO: as prop
-    // TODO: passthrough props
+    let passthrough
 
-    return {name, props}
+    // If the component has an `sx` prop, add it to the list of props
+    const sxPropRow = find(node, {type: 'mdxJsxFlowElement', name: 'PropsTableSxRow'})
+
+    if (sxPropRow) {
+      props.push({name: 'sx', type: 'SystemStyleObject'})
+    }
+
+    // If the component has a `ref` prop, add it to the list of props
+    const refPropRow = find(node, {type: 'mdxJsxFlowElement', name: 'PropsTableRefRow'})
+
+    if (refPropRow) {
+      const refType = jsxToMd(refPropRow.attributes.find(attr => attr.name === 'refType')?.value)
+
+      props.push({name: 'ref', type: `React.RefObject<${refType}>`})
+    }
+
+    // If the component has am `as` prop, add it to the list of props
+    const asPropRow = find(node, {type: 'mdxJsxFlowElement', name: 'PropsTableAsRow'})
+
+    if (asPropRow) {
+      const defaultElementType = jsxToMd(asPropRow.attributes.find(attr => attr.name === 'defaultElementType')?.value)
+      const isComponent = defaultElementType[0].toUpperCase() === defaultElementType[0]
+      props.push({
+        name: 'as',
+        type: 'React.ElementType',
+        defaultValue: isComponent ? defaultElementType : `"${defaultElementType}"`,
+      })
+    }
+
+    const passthroughRow = find(node, {type: 'mdxJsxFlowElement', name: 'PropsTablePassthroughPropsRow'})
+
+    if (passthroughRow) {
+      const element = jsxToMd(passthroughRow.attributes.find(attr => attr.name === 'elementName')?.value)
+      const url = jsxToMd(passthroughRow.attributes.find(attr => attr.name === 'passthroughPropsLink')?.value)
+        .replace(/^.*\(/, '')
+        .replace(/\)$/, '')
+
+      passthrough = {element, url}
+    }
+
+    // TODO: handle base props
+
+    return {name, props, passthrough}
   })
 
-  const props = propsTables?.find(propsTable => propsTable.name === name)?.props ?? []
-  const subcomponents = propsTables?.filter(propsTable => propsTable.name !== name) ?? []
+  // Separate the props for the current component from the props for subcomponents
+  const props = allComponentProps?.find(component => component.name === name)?.props ?? []
+  const passthrough = allComponentProps?.find(component => component.name === name)?.passthrough
+  const subcomponents = allComponentProps?.filter(component => component.name !== name) ?? []
 
   return {
-    mdxPath,
-    codePath,
     name,
+    mdxPath,
+    srcPath,
     status: status.toLowerCase(),
     a11yReviewed,
     stories: [],
     props,
+    passthrough,
     subcomponents,
   }
 })
 
-function jsxToMd(node) {
-  if (typeof node === 'string') return node
-
-  return toString(node)
-    .replace(/<InlineCode>/g, '`')
-    .replace(/<\/InlineCode>/g, '`')
-    .replace(/<>/g, '')
-    .replace(/<\/>/g, '')
-    .replace(/\{' '\}/g, ' ')
-    .replace(/\s+/g, ' ')
-    .replace(/<Link href="(.+?)">(.+?)<\/Link>/g, '[$2]($1)')
-    .replace(/<a href="(.+?)">(.+?)<\/a>/g, '[$2]($1)')
-    .trim()
-}
-
 // Temporary: write the JSON to a file
 fs.writeFileSync('docs.json', JSON.stringify(components, null, 2))
+
+const componentsWithoutProps = components.filter(component => component.props.length === 0)
+
+const componentsWithoutSrcPath = components.filter(component => !component.srcPath)
+
+console.log(
+  'without props',
+  componentsWithoutProps.map(component => component.name),
+)
+
+console.log(
+  'wihout props count',
+  `${componentsWithoutProps.length} / ${components.length}`,
+  `${(componentsWithoutProps.length / components.length) * 100}%}`,
+)
+
+console.log(
+  'without srcPath',
+  componentsWithoutSrcPath.map(component => component.name),
+)
+
+// TODO: Write JSON files to the same directory as the component's codePath. Merge with existing file if necessary.
+// TODO: Replace <PropTable> in mdx file
 
 // for (const component of components) {
 //   const docPath = component.codePath?.replace('.tsx', '.docs.json') || `src/${component.name}.docs.json`
@@ -125,3 +181,21 @@ fs.writeFileSync('docs.json', JSON.stringify(components, null, 2))
 
 //   fs.writeFileSync(docPath, JSON.stringify(newFile, null, 2))
 // }
+
+// Helper functions
+
+/** Convert JSX string to markdown string */
+function jsxToMd(node) {
+  if (typeof node === 'string') return node
+
+  return toString(node)
+    .replace(/<InlineCode>/g, '`')
+    .replace(/<\/InlineCode>/g, '`')
+    .replace(/<>/g, '')
+    .replace(/<\/>/g, '')
+    .replace(/\{' '\}/g, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/<Link href="(.+?)">(.+?)<\/Link>/g, '[$2]($1)')
+    .replace(/<a href="(.+?)">(.+?)<\/a>/g, '[$2]($1)')
+    .trim()
+}
