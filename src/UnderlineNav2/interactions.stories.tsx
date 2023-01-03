@@ -16,82 +16,117 @@ const KeyboardNavigation = () => {
   return <OverflowTemplate initialSelectedIndex={1} />
 }
 
+const delay = (ms = 500) => new Promise(resolve => setTimeout(resolve, ms))
+
 KeyboardNavigation.storyName = 'Keyboard navigation'
 KeyboardNavigation.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
-  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-  await delay(2000)
-  canvasElement.style.width = '800px'
   const canvas = within(canvasElement)
+  canvasElement.style.width = '800px'
+
+  await delay(1000)
+
+  // Code
   const firstItem = canvas.getByRole('link', {name: 'Code'})
   firstItem.focus()
 
-  await userEvent.tab()
-  await delay(500)
-  await userEvent.tab()
-  await delay(500)
-  await userEvent.tab()
-  await delay(500)
-  await userEvent.tab()
-  await delay(500)
-  await userEvent.tab()
-  await delay(500)
-  await userEvent.tab()
-  await delay(500)
-  // current focus element
-  let activeElement = document.activeElement
-  // check if the active element is the more button
-  expect(activeElement).toHaveTextContent('More')
-  // Open the more Menu
-  activeElement && userEvent.click(activeElement)
-  await userEvent.tab()
-  await delay(500)
-  await userEvent.tab()
-  await delay(500)
+  // Issues
+  await delay()
+  userEvent.tab()
+  expect(document.activeElement).toHaveTextContent('Issues')
+
+  // Pull Requests
+  await delay()
+  userEvent.tab()
+  expect(document.activeElement).toHaveTextContent('Pull Requests')
+
+  // Discussions
+  await delay()
+  userEvent.tab()
+  expect(document.activeElement).toHaveTextContent('Discussions')
+
+  // Actions
+  await delay()
+  userEvent.tab()
+  expect(document.activeElement).toHaveTextContent('Actions')
+
+  // Projects
+  await delay()
+  userEvent.tab()
+  expect(document.activeElement).toHaveTextContent('Projects')
+
+  // More
+  await delay()
+  userEvent.tab()
+  expect(document.activeElement).toHaveTextContent('More')
+
+  // Click to open menu
+  await delay()
+  userEvent.click(document.activeElement as Element)
+
+  // Insights
+  await delay()
+  userEvent.tab()
+  expect(document.activeElement).toHaveTextContent('Insights')
+
+  // Settings
+  await delay()
+  userEvent.tab()
+  expect(document.activeElement).toHaveTextContent('Settings')
+
+  // Click to navigate
+  await delay()
   let menuItem = canvas.getByRole('link', {name: 'Settings (10)'})
   userEvent.click(menuItem)
 
-  expect(activeElement).toHaveFocus()
+  await delay()
   menuItem = canvas.getByRole('link', {name: 'Settings (10)'})
 
-  expect(menuItem).toHaveAttribute('aria-current', 'page')
   const lastListItem = canvas.getByRole('list').children[5]
   const menuListItem = canvas.getByText('Settings').closest('li') as HTMLLIElement
+
   // expect Settings be the last element on the list.
   expect(lastListItem).toEqual(menuListItem)
+
+  // Settings
   userEvent.tab({shift: true})
-  await delay(500)
+
+  // Actions
+  await delay()
   userEvent.tab({shift: true})
-  await delay(500)
+
+  // Discussions
+  await delay()
   userEvent.tab({shift: true})
-  await delay(500)
+
+  // Pull Requests
+  await delay()
   userEvent.tab({shift: true})
-  await delay(500)
-  // current focus element
-  activeElement = document.activeElement
-  userEvent.keyboard('{Enter}')
-  expect(activeElement).toHaveTextContent('Pull Requests')
+  expect(document.activeElement).toHaveTextContent('Pull Requests')
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 SelectAMenuItem.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
-  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-  canvasElement.style.width = '800px'
-  await delay(2000)
   const canvas = within(canvasElement)
+  canvasElement.style.width = '800px'
+
+  await delay(1000)
+
   const moreBtn = canvas.getByRole('button', {name: 'More Repository items'})
   userEvent.hover(moreBtn)
-  await delay(1000)
+
+  await delay()
   userEvent.click(moreBtn)
 
-  await delay(1000)
+  await delay()
   let menuItem = canvas.getByRole('link', {name: 'Settings (10)'})
   userEvent.click(menuItem)
-
   expect(moreBtn).toHaveFocus()
-  menuItem = canvas.getByRole('link', {name: 'Settings (10)'})
 
+  await delay()
+  menuItem = canvas.getByRole('link', {name: 'Settings (10)'})
   expect(menuItem).toHaveAttribute('aria-current', 'page')
+
   const lastListItem = canvas.getByRole('list').children[5]
   const menuListItem = canvas.getByText('Settings').closest('li') as HTMLLIElement
   // expect Settings be the last element on the list.
@@ -104,7 +139,6 @@ const KeepSelectedItemVisible = () => {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 KeepSelectedItemVisible.play = async ({canvasElement}: {canvasElement: HTMLElement}) => {
-  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
   const canvas = within(canvasElement)
   // await delay(2000)
   const selectedItem = canvas.getByRole('link', {name: 'Settings (10)'})

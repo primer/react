@@ -5,7 +5,7 @@ import {UnderlineNavContext} from './UnderlineNavContext'
 import {useResizeObserver, ResizeObserverEntry} from '../hooks/useResizeObserver'
 import CounterLabel from '../CounterLabel'
 import {useTheme} from '../ThemeProvider'
-import {ChildWidthArray, ResponsiveProps} from './types'
+import {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {moreBtnStyles, getDividerStyle, getNavStyles, ulStyles, menuStyles, menuItemStyles, GAP} from './styles'
 import styled from 'styled-components'
@@ -14,13 +14,14 @@ import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import {useOnOutsideClick} from '../hooks/useOnOutsideClick'
+import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
-import {useSSRSafeId} from '@react-aria/ssr'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type UnderlineNavProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
-  sx?: SxProp
+  sx?: SxProp['sx']
   // cariant and align are currently not in used. Keeping here until some design explorations are finalized.
   variant?: 'default' | 'small'
   align?: 'right'
@@ -134,7 +135,7 @@ export const UnderlineNav = forwardRef(
       as = 'nav',
       align,
       'aria-label': ariaLabel,
-      sx: sxProp = {},
+      sx: sxProp = defaultSxProp,
       afterSelect,
       variant = 'default',
       loadingCounters = false,
@@ -148,7 +149,7 @@ export const UnderlineNav = forwardRef(
     const moreMenuRef = useRef<HTMLLIElement>(null)
     const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
     const containerRef = React.useRef<HTMLUListElement>(null)
-    const disclosureWidgetId = useSSRSafeId()
+    const disclosureWidgetId = useId()
 
     const {theme} = useTheme()
 
@@ -251,7 +252,7 @@ export const UnderlineNav = forwardRef(
 
     const actions = responsiveProps.actions
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
-    const setChildrenWidth = useCallback(size => {
+    const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
         const newArr = [...arr, size]
         return newArr
@@ -259,7 +260,7 @@ export const UnderlineNav = forwardRef(
     }, [])
 
     const [noIconChildWidthArray, setNoIconChildWidthArray] = useState<ChildWidthArray>([])
-    const setNoIconChildrenWidth = useCallback(size => {
+    const setNoIconChildrenWidth = useCallback((size: ChildSize) => {
       setNoIconChildWidthArray(arr => {
         const newArr = [...arr, size]
         return newArr
@@ -342,7 +343,7 @@ export const UnderlineNav = forwardRef(
                   aria-controls={disclosureWidgetId}
                   aria-expanded={isWidgetOpen}
                   onClick={onAnchorClick}
-                  trailingIcon={TriangleDownIcon}
+                  trailingAction={TriangleDownIcon}
                 >
                   <Box as="span">
                     More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>

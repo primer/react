@@ -1,12 +1,11 @@
 import React from 'react'
 import {render} from '../utils/testing'
 import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken} from '../Token'
 import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
-expect.extend(toHaveNoViolations)
 
 const mockTokens = [
   {text: 'zero', id: 0},
@@ -467,41 +466,72 @@ describe('TextInputWithTokens', () => {
     expect(onRemoveMock).toHaveBeenCalledWith(mockTokens[4].id)
   })
 
-  it('moves focus to the next token when removing the first token', () => {
+  it('moves focus to the next token when removing the first token', async () => {
     jest.useFakeTimers()
-    const onRemoveMock = jest.fn()
-    const {getByText} = HTMLRender(
-      <TextInputWithTokens tokens={[...mockTokens].slice(0, 2)} onTokenRemove={onRemoveMock} />,
-    )
+
+    function TestComponent() {
+      const [tokens, setTokens] = React.useState(mockTokens.slice(0, 2))
+      return (
+        <TextInputWithTokens
+          tokens={tokens}
+          onTokenRemove={id => {
+            setTokens(
+              tokens.filter(token => {
+                return token.id !== id
+              }),
+            )
+          }}
+        />
+      )
+    }
+
+    const {getByText} = HTMLRender(<TestComponent />)
     const tokenNode = getByText(mockTokens[0].text)
 
     fireEvent.focus(tokenNode)
     fireEvent.keyDown(tokenNode, {key: 'Backspace'})
 
-    jest.runAllTimers()
-    setTimeout(() => {
-      expect(document.activeElement?.textContent).toBe(mockTokens[1].text)
-    }, 0)
+    act(() => {
+      jest.runAllTimers()
+    })
+
+    expect(document.activeElement?.textContent).toBe(mockTokens[1].text)
 
     jest.useRealTimers()
   })
 
   it('moves focus to the input when the last token is removed', () => {
     jest.useFakeTimers()
-    const onRemoveMock = jest.fn()
-    const {getByText, getByLabelText} = HTMLRender(
-      <LabelledTextInputWithTokens tokens={[mockTokens[0]]} onTokenRemove={onRemoveMock} />,
-    )
+
+    function TestComponent() {
+      const [tokens, setTokens] = React.useState([mockTokens[0]])
+      return (
+        <LabelledTextInputWithTokens
+          tokens={tokens}
+          onTokenRemove={id => {
+            setTokens(tokens => {
+              return tokens.filter(token => {
+                return token.id !== id
+              })
+            })
+          }}
+        />
+      )
+    }
+
+    const {getByText, getByLabelText} = HTMLRender(<TestComponent />)
     const tokenNode = getByText(mockTokens[0].text)
     const inputNode = getByLabelText('Tokens')
 
     fireEvent.focus(tokenNode)
     fireEvent.keyDown(tokenNode, {key: 'Backspace'})
 
-    jest.runAllTimers()
-    setTimeout(() => {
-      expect(document.activeElement?.id).toBe(inputNode.id)
-    }, 0)
+    act(() => {
+      jest.runAllTimers()
+    })
+
+    expect(document.activeElement?.id).toBe(inputNode.id)
+
     jest.useRealTimers()
   })
 

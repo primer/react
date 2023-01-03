@@ -12,29 +12,26 @@ module.exports = {
     {
       name: 'storybook-addon-turbo-build',
       options: {
-        optimizationLevel: 2
-      }
+        optimizationLevel: 2,
+      },
     },
-    ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
-      ? ['@whitespace/storybook-addon-html']
-      : [])
   ],
   core: {
     builder: {
       name: 'webpack5',
       options: {
-        fsCache: true
-      }
-    }
+        fsCache: true,
+      },
+    },
   },
   features: {
     interactionsDebugger: true,
     storyStoreV7: true,
-    buildStoriesJson: true
+    buildStoriesJson: true,
   },
   framework: '@storybook/react',
   reactOptions: {
     fastRefresh: true,
-    strictMode: true
-  }
+    strictMode: true,
+  },
 }
