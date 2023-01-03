@@ -6,7 +6,7 @@ import {UnderlineNavItem} from './UnderlineNavItem'
 const excludedControlKeys = ['sx', 'as', 'variant', 'align', 'afterSelect']
 
 export default {
-  title: 'Drafts/Components/UnderlineNav',
+  title: 'Components/UnderlineNav',
   component: UnderlineNav,
   subcomponents: {UnderlineNavItem},
   parameters: {

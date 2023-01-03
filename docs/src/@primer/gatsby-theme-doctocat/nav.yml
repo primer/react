@@ -166,8 +166,6 @@
       url: /drafts/MarkdownViewer
     - title: TreeView
       url: /TreeView
-    - title: UnderlineNav v2
-      url: /drafts/UnderlineNav2
 - title: Deprecated
   children:
     - title: ActionList (legacy)
@@ -202,3 +200,5 @@
       url: /deprecated/SelectMenu
     - title: SideNav
       url: /deprecated/SideNav
+    - title: UnderlineNav (legacy)
+      url: /deprecated/UnderlineNav

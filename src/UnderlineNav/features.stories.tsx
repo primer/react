@@ -17,7 +17,7 @@ import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 
 export default {
-  title: 'Drafts/Components/UnderlineNav/Features',
+  title: 'Components/UnderlineNav/Features',
 } as Meta
 
 export const Default = () => {
