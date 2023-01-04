@@ -18,6 +18,7 @@ import flatFilter from 'unist-util-flat-filter'
 import {toString} from 'mdast-util-to-string'
 import {findBefore} from 'unist-util-find-before'
 import {snakeCase} from 'change-case'
+import path from 'node:path'
 
 const srcMap = new Map([
   ['docs/content/ActionList.mdx', 'src/ActionList/List.tsx'],
@@ -63,7 +64,11 @@ const components = mdxFiles.map(mdxPath => {
     const props =
       flatFilter(node, {type: 'mdxJsxFlowElement', name: 'PropsTableRow'})?.children.map(node => {
         const name = node.attributes.find(attr => attr.name === 'name')?.value
-        const type = jsxToMd(node.attributes.find(attr => attr.name === 'type')?.value).replace(/`/g, '')
+        const type = jsxToMd(node.attributes.find(attr => attr.name === 'type')?.value)
+          .replace(/`/g, '')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/\[([^)]+)\]\([^)]*\)/, '$1')
         const description = jsxToMd(node.attributes.find(attr => attr.name === 'description')?.value)
         const defaultValue = jsxToMd(node.attributes.find(attr => attr.name === 'defaultValue')?.value)
         const required = node.attributes.find(attr => attr.name === 'required')?.value
@@ -166,6 +171,7 @@ const components = mdxFiles.map(mdxPath => {
     id,
     name,
     mdxPath,
+    mdxContent,
     srcPath,
     status: status.toLowerCase(),
     a11yReviewed,
@@ -208,7 +214,7 @@ for (const component of components) {
     component.srcPath?.replace('.tsx', '.docs.json') ||
     `${srcMap.get(component.mdxPath)?.replace(/\/[^/]*$/, '')}/${component.name}.docs.json`
 
-  console.log(component.mdxPath, docPath)
+  // console.log(component.mdxPath, docPath)
 
   let existingFile = {}
 
@@ -224,10 +230,26 @@ for (const component of components) {
     a11yReviewed: component.a11yReviewed,
     stories: component.stories.length > 0 ? component.stories : existingFile.stories || [],
     props: component.props.length > 0 ? component.props : existingFile.props || [],
-    subcomponents: component.subcomponents > 0 ? component.subcomponents : existingFile.subcomponents || undefined,
+    subcomponents: component.subcomponents.length > 0 ? component.subcomponents : existingFile.subcomponents || [],
   }
 
   fs.writeFileSync(docPath, JSON.stringify(newFile, null, 2))
+
+  const relativeDocPath = path.relative(component.mdxPath, docPath).replace(/^\.\.\//, '')
+
+  if (component.props.length > 0 && !component.mdxContent.includes(`import data from '${relativeDocPath}'`)) {
+    let newMdxContent = component.mdxContent.replace(/\n---\n/, `\n---\n\nimport data from '${relativeDocPath}'\n`)
+
+    const propsHeadingIndex = newMdxContent.indexOf('## Props')
+    const nextHeadingIndex = newMdxContent.indexOf('\n## ', propsHeadingIndex + 1)
+
+    newMdxContent = `${newMdxContent.slice(
+      0,
+      propsHeadingIndex,
+    )}## Props\n\n<ComponentProps data={data} />\n\n${newMdxContent.slice(nextHeadingIndex)}`
+
+    fs.writeFileSync(component.mdxPath, newMdxContent)
+  }
 }
 
 // Helper functions
@@ -245,5 +267,7 @@ function jsxToMd(node) {
     .replace(/\s+/g, ' ')
     .replace(/<Link href="(.+?)">(.+?)<\/Link>/g, '[$2]($1)')
     .replace(/<a href="(.+?)">(.+?)<\/a>/g, '[$2]($1)')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
     .trim()
 }
