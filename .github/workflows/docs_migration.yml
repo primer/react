@@ -1,5 +1,5 @@
 name: Docs migration tracking
-on: [pull_request]
+on: [push]
 jobs:
   docs-migration:
     runs-on: ubuntu-latest
