@@ -9,4 +9,5 @@ jobs:
         with:
           node-version: 16.x
           cache: 'npm'
+      - run: npm ci
       - run: node script/docs-migration.js >> $GITHUB_STEP_SUMMARY
