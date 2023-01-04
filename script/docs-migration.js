@@ -26,7 +26,7 @@ console.log(`## Migrated MDX files
 
 ${migratedMdxFiles.length} of ${mdxFiles.length} MDX files have corresponding JSON files.
 
-${migratedMdxFiles.map(file => `- [x] ${file}`).join('\n')}
+${migratedMdxFiles.map(file => `- [x] [${file}](https://github.com/primer/react/blob/main/${file})`).join('\n')}
 `)
 
 console.log(`## Not-yet migrated MDX files
@@ -35,6 +35,6 @@ ${mdxFiles.length - migratedMdxFiles.length} of ${mdxFiles.length} MDX files do 
 
 ${mdxFiles
   .filter(file => !migratedMdxFiles.includes(file))
-  .map(file => `- [ ] ${file}`)
+  .map(file => `- [ ] [${file}](https://github.com/primer/react/blob/main/${file})`)
   .join('\n')}
 `)
