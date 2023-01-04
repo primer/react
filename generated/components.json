@@ -134,7 +134,7 @@
             },
             {
               "name": "ref",
-              "type": "React.Ref<HTMLElement>"
+              "type": "React.RefObject<HTMLElement>"
             }
           ]
         },
