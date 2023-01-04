@@ -76,7 +76,7 @@ function RecursiveTree({property, propertyName, isRootTreeItem = false}) {
     return (
       <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
         <Text fontWeight="bold">{propertyName}</Text>{' '}
-        <Text color="fg.subtle">{getPropertyType(property, expanded)}</Text>
+        {!expanded && <Text color="fg.subtle">{getPropertyType(property)}</Text>}
         <TreeView.SubTree>
           {Object.values(property).map((childProperty, index) => (
             <RecursiveTree
