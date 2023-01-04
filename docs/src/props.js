@@ -5,7 +5,11 @@ import {graphql, useStaticQuery} from 'gatsby'
 import React from 'react'
 import {PropsTable} from './props-table'
 
-/** Render prop documentation for the given component */
+/**
+ * Render prop documentation for the given component
+ *
+ * @deprecated This component does not reliably generate the correct prop types. Use `ComponentProps` instead.
+ */
 export function Props({of}) {
   const data = useStaticQuery(graphql`
     query {

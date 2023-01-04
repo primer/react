@@ -88,9 +88,10 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
               variant={variant}
               type="button"
               icon={icon}
-              aria-label={ariaLabel}
               sx={sx}
               {...rest}
+              aria-label={ariaLabel as unknown as string}
+              aria-labelledby={undefined}
               ref={forwardedRef}
             />
           </Tooltip>
