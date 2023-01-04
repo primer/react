@@ -17,6 +17,14 @@ import {parse as parseYaml} from 'yaml'
 import flatFilter from 'unist-util-flat-filter'
 import {toString} from 'mdast-util-to-string'
 import {findBefore} from 'unist-util-find-before'
+import {snakeCase} from 'change-case'
+
+const srcMap = new Map([
+  ['docs/content/ActionList.mdx', 'src/ActionList/List.tsx'],
+  ['docs/content/deprecated/ActionList.mdx', 'src/deprecated/ActionList/List.tsx'],
+  ['docs/content/deprecated/Buttons.mdx', 'src/deprecated/Button/Button.tsx'],
+  ['docs/content/drafts/UnderlineNav2.mdx', 'src/UnderlineNav2/UnderlineNav.tsx'],
+])
 
 // Get all source code files
 const srcFiles = glob
@@ -30,6 +38,8 @@ const mdxFiles = glob.sync('docs/content/**/[A-Z]*.{md,mdx}')
 const components = mdxFiles.map(mdxPath => {
   // Get the component name from the file name
   const name = mdxPath.split('/').pop()?.split('.')[0]
+
+  const id = snakeCase(mdxPath.replace('docs/content/', '').replace(/.mdx?/, ''))
 
   // Find the corresponding source code file
   const srcPath = srcFiles.find(srcPath => srcPath.endsWith(`/${name}.tsx`))
@@ -153,6 +163,7 @@ const components = mdxFiles.map(mdxPath => {
   const subcomponents = allComponentProps?.filter(component => component.name !== name) ?? []
 
   return {
+    id,
     name,
     mdxPath,
     srcPath,
@@ -166,7 +177,7 @@ const components = mdxFiles.map(mdxPath => {
 })
 
 // Temporary: write the JSON to a file
-fs.writeFileSync('docs.json', JSON.stringify(components, null, 2))
+// fs.writeFileSync('docs.json', JSON.stringify(components, null, 2))
 
 const componentsWithoutProps = components.filter(component => component.props.length === 0)
 
@@ -185,33 +196,39 @@ console.log(
 
 console.log(
   'without srcPath',
-  componentsWithoutSrcPath.map(component => component.name),
+  componentsWithoutSrcPath.map(component => component.mdxPath),
 )
 
 // TODO: Write JSON files to the same directory as the component's codePath. Merge with existing file if necessary.
+// TODO: allow hard-coded src path
 // TODO: Replace <PropTable> in mdx file
 
-// for (const component of components) {
-//   const docPath = component.codePath?.replace('.tsx', '.docs.json') || `src/${component.name}.docs.json`
+for (const component of components) {
+  const docPath =
+    component.srcPath?.replace('.tsx', '.docs.json') ||
+    `${srcMap.get(component.mdxPath)?.replace(/\/[^/]*$/, '')}/${component.name}.docs.json`
 
-//   let existingFile = {}
+  console.log(component.mdxPath, docPath)
 
-//   if (fs.existsSync(docPath)) {
-//     existingFile = JSON.parse(fs.readFileSync(docPath, 'utf-8'))
-//   }
+  let existingFile = {}
 
-//   const newFile = {
-//     ...existingFile,
-//     name: component.name,
-//     status: component.status,
-//     a11yReviewed: component.a11yReviewed,
-//     stories: component.stories.length > 0 ? component.stories : existingFile.stories || [],
-//     props: component.props.length > 0 ? component.props : existingFile.props || [],
-//     subcomponents: component.subcomponents > 0 ? component.subcomponents : existingFile.subcomponents || undefined,
-//   }
+  if (fs.existsSync(docPath)) {
+    existingFile = JSON.parse(fs.readFileSync(docPath, 'utf-8'))
+  }
 
-//   fs.writeFileSync(docPath, JSON.stringify(newFile, null, 2))
-// }
+  const newFile = {
+    ...existingFile,
+    id: component.id,
+    name: component.name,
+    status: component.status,
+    a11yReviewed: component.a11yReviewed,
+    stories: component.stories.length > 0 ? component.stories : existingFile.stories || [],
+    props: component.props.length > 0 ? component.props : existingFile.props || [],
+    subcomponents: component.subcomponents > 0 ? component.subcomponents : existingFile.subcomponents || undefined,
+  }
+
+  fs.writeFileSync(docPath, JSON.stringify(newFile, null, 2))
+}
 
 // Helper functions
 
