@@ -1,8 +1,8 @@
-# ADR XXX: Isolating behaviors through custom clements and vanilla JavaScript
+# ADR XXX: Isolating behaviors through custom elements and vanilla JavaScript
 
 ## Status
 
-Adopted
+Proposed
 
 ## Related ADRs
 
@@ -17,7 +17,7 @@ While ADR 002 landed on the decision to:
  - Not share behaviour code between Primer View Components
  - Not use Custom Elements to drive behaviour of components
  
-The assumptions, findings, and conclusions were weakly founded and have changed substantially since the approval of that ADR and many no longer hold true. This document will revisit some of those assumptions, and describe the current state of affairs, and conclude based on that:
+Our perspective on the assumptions, findings, and conclusions in the ADR have changed substantially since its approval. This document will revisit some of those assumptions, and describe the current state of affairs, and conclude based on that:
 
 ### Updates on Findings
 
