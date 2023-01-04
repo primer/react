@@ -22,6 +22,9 @@ const migratedMdxFiles = mdxFiles.filter(file => {
   return /import .* from ['"].*\.docs\.json['"]/.test(content)
 })
 
+console.log(`![Progress bar](https://geps.dev/progress/${Math.ceil((migratedMdxFiles.length / mdxFiles.length) * 100)})
+`)
+
 console.log(`## Migrated MDX files
 
 ${migratedMdxFiles.length} of ${mdxFiles.length} MDX files have corresponding JSON files.
