@@ -1,6 +1,6 @@
-As we work on the maturity of our components, we will sometimes need to build components in a parallel track/bundle without breaking existing components. Eventually, the new components would replace the old ones in the main bundle and this document explains the process around it.
+Primer components may occasionally be deprecated when they are no longer recommended for use. In some cases, we may recommend replacing a deprecated component with a new one. New replacement components are typically built in a parallel bundle to avoid breaking existing components, and are promoted to the main bundle when it's time for migration.
 
-## Developing a draft component
+## Developing a replacement component
 
 Start building the new component outside of the main bundle. This includes the source code of the component being under the `src/drafts` folder and the component being exported in the draft bundle (`src/drafts/index.ts`). That way, folks who
 who would like to try the draft version of the component can export it from the draft bundle.
@@ -13,7 +13,7 @@ If it is a 1:1 replacement, it's useful to keep the component name the same for 
 
 ## Deprecating the component
 
-Once the component is ready to be graduated from the drafts bundle to the main one, we first plan to see in which major release the component will go into deprecation and prepare for the code changes and the communications around it.
+When Primer maintainers are ready to deprecate a component, they will plan for an upcoming major release that will include the change. This includes preparing code changes and communications about the change.
 
 ### Code side of the deprecation
 
@@ -52,20 +52,19 @@ Here is a checklist for developers to smoothen the deprecation process.
 
 ### Comms side of the deprecation
 
-When we know if the newly developed component is ready to go in the main bundle and the old component is good to be deprecates in the next major release, we announce the deprecation and the promotion in the Primer changelog under the `Coming soon` section.
+When we know if the newly developed component is ready to go in the main bundle and the old component is good to be deprecates in the next major release, we announce the deprecation and the promotion in the [Primer changelog](https://github.com/github/primer/discussions/categories/primer-changelog) (GitHub staff only) under the `Coming soon` section.
+
+To ensure the impending deprecation is included in the Primer changelog, Primer maintainers should highlight any upcoming deprecations in their [weekly status updates](https://github.com/github/design-infrastructure/blob/main/how-we-work/planning-and-tracking-work/updates.md#weekly-status-updates-required) (GitHub staff only).
 
 Once the major release is out, we provide support on how to switch using the newly develop component as well as how to continue to use the deprecated component for folks who prefer to migrate later on.
 
 We also write codemods to deprecate the old component and use the new component under [our migration repo](https://github.com/primer/react-migrate#readme).
 
-### Accessibility Scorecards
+### Primer maintainers to alert Accessibility team about deprecations
 
-As teams begin to adopt the [Accessibility scorecard](https://github.com/github/engineering/discussions/2443), we have an opportunity to encourage teams to update/remove deprecated components and adopt new ones.
+As GitHub teams onboard to the [accessibility scorecard](https://github.com/github/engineering/discussions/2443) (GitHub staff only), we have a new opportunity to encourage teams to remove deprecated components and adopt new, more accessible ones.
 
-To get these items on the scorecard, we should be reaching out to #accessibility:
-
-- When we deprecate a component
-- When we release a new component that we want to enforce usage around
+Primer maintainers should reach out to #accessibility any time a component is planned for deprecation, or if there is a new component that we want to enforce usage around.
 
 ## Removing the deprecated component
 
