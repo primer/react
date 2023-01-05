@@ -141,7 +141,35 @@ describe('Overlay', () => {
     spy.mockRestore()
   })
 
-  it('should right align when given position: right', async () => {
+  it('should right align when given `right: 0` and `position: fixed`', async () => {
+    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
+      if (!message.startsWith('global handler')) {
+        throw new Error(
+          `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
+        )
+      }
+    })
+
+    const user = userEvent.setup()
+    const container = render(
+      <ThemeProvider>
+        <PositionedOverlays right />
+      </ThemeProvider>,
+    )
+
+    // open first menu
+    await user.click(container.getByText('Open right overlay'))
+    expect(container.getByText('Look! right aligned')).toBeInTheDocument()
+
+    const overlay = container.getByText('Look! right aligned').parentElement?.parentElement
+
+    expect(overlay).toHaveStyle({position: 'fixed', right: 0})
+    expect(overlay).not.toHaveStyle({left: 0})
+
+    spy.mockRestore()
+  })
+
+  it('should left align when not given position and left props', async () => {
     const spy = jest.spyOn(console, 'log').mockImplementation(message => {
       if (!message.startsWith('global handler')) {
         throw new Error(
@@ -158,41 +186,11 @@ describe('Overlay', () => {
     )
 
     // open first menu
-    await user.click(container.getByText('Open right overlay'))
-    expect(container.getByText('Look! right aligned')).toBeInTheDocument()
+    await user.click(container.getByText('Open left overlay'))
+    expect(container.getByText('Look! left aligned')).toBeInTheDocument()
 
-    const overlay = container.getByText('Look! right aligned').parentElement?.parentElement
-
-    expect(overlay).toHaveStyle({position: 'fixed', right: 0})
-    expect(overlay).not.toHaveStyle({left: 0})
-
-    spy.mockRestore()
-  })
-
-  it('should left align when given position and left props', async () => {
-    const spy = jest.spyOn(console, 'log').mockImplementation(message => {
-      if (!message.startsWith('global handler')) {
-        throw new Error(
-          `Expected console.log() to be called with: 'global handler:' but instead it was called with: ${message}`,
-        )
-      }
-    })
-
-    const user = userEvent.setup()
-    const container = render(
-      <ThemeProvider>
-        <PositionedOverlays left={0} />
-      </ThemeProvider>,
-    )
-
-    // open first menu
-    await user.click(container.getByText('Open right overlay'))
-    expect(container.getByText('Look! right aligned')).toBeInTheDocument()
-
-    const overlay = container.getByText('Look! right aligned').parentElement?.parentElement
-
-    expect(overlay).not.toHaveStyle({position: 'fixed', right: 0})
-    expect(overlay).toHaveStyle({left: 0})
+    const overlay = container.getByText('Look! left aligned').parentElement?.parentElement
+    expect(overlay).toHaveStyle({left: 0, position: 'absolute'})
 
     spy.mockRestore()
   })

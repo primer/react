@@ -451,9 +451,9 @@ export const MemexIssueOverlay = () => {
   )
 }
 
-export const PositionedOverlays = ({left}: {left?: number}) => {
+export const PositionedOverlays = ({right}: {right?: boolean}) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [direction, setDirection] = useState<'left' | 'right'>('left')
+  const [direction, setDirection] = useState<'left' | 'right'>(right ? 'right' : 'left')
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
@@ -482,29 +482,53 @@ export const PositionedOverlays = ({left}: {left?: number}) => {
         Open right overlay
       </Button>
       {isOpen ? (
-        <Overlay
-          initialFocusRef={confirmButtonRef}
-          returnFocusRef={buttonRef}
-          ignoreClickRefs={[buttonRef]}
-          onEscape={closeOverlay}
-          onClickOutside={closeOverlay}
-          width="auto"
-          anchorSide="inside-left"
-          position={direction}
-          left={left}
-        >
-          <Box
-            sx={{
-              height: '100vh',
-              width: '500px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+        direction === 'left' ? (
+          <Overlay
+            initialFocusRef={confirmButtonRef}
+            returnFocusRef={buttonRef}
+            ignoreClickRefs={[buttonRef]}
+            onEscape={closeOverlay}
+            onClickOutside={closeOverlay}
+            width="auto"
+            anchorSide="inside-right"
           >
-            <Text>Look! {direction} aligned</Text>
-          </Box>
-        </Overlay>
+            <Box
+              sx={{
+                height: '100vh',
+                width: '500px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text>Look! left aligned</Text>
+            </Box>
+          </Overlay>
+        ) : (
+          <Overlay
+            initialFocusRef={confirmButtonRef}
+            returnFocusRef={buttonRef}
+            ignoreClickRefs={[buttonRef]}
+            onEscape={closeOverlay}
+            onClickOutside={closeOverlay}
+            width="auto"
+            anchorSide={'inside-left'}
+            right={0}
+            position="fixed"
+          >
+            <Box
+              sx={{
+                height: '100vh',
+                width: '500px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Text>Look! right aligned</Text>
+            </Box>
+          </Overlay>
+        )
       ) : null}
     </Box>
   )

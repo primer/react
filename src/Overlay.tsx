@@ -17,7 +17,11 @@ type StyledOverlayProps = {
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   visibility?: 'visible' | 'hidden'
   anchorSide?: AnchorSide
-  position?: 'left' | 'right'
+  position?: React.CSSProperties['position']
+  top?: React.CSSProperties['top']
+  left?: React.CSSProperties['left']
+  right?: React.CSSProperties['right']
+  bottom?: React.CSSProperties['bottom']
 } & SxProp
 
 const heightMap = {
@@ -95,8 +99,11 @@ type BaseOverlayProps = {
   onEscape: (e: KeyboardEvent) => void
   visibility?: 'visible' | 'hidden'
   'data-test-id'?: unknown
-  top?: number
-  left?: number
+  position?: React.CSSProperties['position']
+  top?: React.CSSProperties['top']
+  left?: React.CSSProperties['left']
+  right?: React.CSSProperties['right']
+  bottom?: React.CSSProperties['bottom']
   portalContainerName?: string
   preventFocusOnOpen?: boolean
   role?: AriaRole
@@ -118,8 +125,11 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param height Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`, or pass `initial` to set the height based on the initial content of the `Overlay` (i.e. ignoring content changes). `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param maxHeight Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`.
  * @param anchorSide If provided, the Overlay will slide into position from the side of the anchor with a brief animation
- * @param top Optional. Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
- * @param left Optional. Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param top Optional. Vertical top position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param left Optional. Horizontal left position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param right Optional. Horizontal right position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
+ * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  */
 const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
@@ -136,6 +146,8 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       width = 'auto',
       top,
       left,
+      right,
+      bottom,
       anchorSide,
       portalContainerName,
       preventFocusOnOpen,
@@ -182,15 +194,9 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       )
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
-    // Calculate position based on left and position props
-    let calculatedPosition: Record<string, string> = {left: `${left || 0}px`}
-    if (position && left === undefined) {
-      if (position === 'left') {
-        calculatedPosition = {left: '0px', position: 'fixed'}
-      } else {
-        calculatedPosition = {right: '0px', position: 'fixed'}
-      }
-    }
+    // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
+    const leftPosition: React.CSSProperties =
+      left === undefined && right === undefined ? {left: 0} : left ? {left: `${left}px`} : {left}
 
     return (
       <Portal containerName={portalContainerName}>
@@ -202,8 +208,11 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           ref={overlayRef}
           style={
             {
-              top: `${top || 0}px`,
-              ...calculatedPosition,
+              ...leftPosition,
+              right,
+              top,
+              bottom,
+              position,
               '--styled-overlay-visibility': visibility,
             } as React.CSSProperties
           }
