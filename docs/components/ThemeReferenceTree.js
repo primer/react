@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react'
-import {Box, Text, StyledOcticon} from '@primer/react'
+import React, {useState} from 'react'
+import {Box, Text} from '@primer/react'
 import {TreeView} from '@primer/react/drafts'
-import CopyIcon from '@primer/octicons-react'
 
 export default function ThemeReferenceTree({themeData}) {
   return (
@@ -39,10 +38,7 @@ const getLeadingVisual = property => {
 }
 
 const getPropertyType = property => {
-  const isArr = property => {
-    return Array.isArray(property)
-  }
-  if (isArr(property)) {
+  if (Array.isArray(property)) {
     return '[...]'
   }
   if (typeof property === 'object') {
