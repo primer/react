@@ -13,7 +13,10 @@ This script tracks our progress as we move the source of truth for component met
 
 console.log(introduction)
 
-const mdxFiles = glob.sync('docs/content/**/[A-Z]*.{mdx,md}')
+const mdxFiles = glob
+  .sync('docs/content/**/[A-Z]*.{mdx,md}')
+  // Ignore deprecated components for now
+  .filter(file => !file.includes('/deprecated/'))
 
 const migratedMdxFiles = mdxFiles.filter(file => {
   const content = fs.readFileSync(file, 'utf8')
