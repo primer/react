@@ -1,5 +1,4 @@
 import React from 'react'
-declare let __DEV__: boolean
 
 type ControllableStateOptions<T> = {
   /**
