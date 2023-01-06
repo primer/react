@@ -13,7 +13,7 @@ const meta: Meta = {
       exclude: /^(getFormatted.*|datetime|sx|as|theme|forwardedAs|.*Callback|update)$/g,
     },
     // it's not possible to snapshot test relative time because the output keeps changing
-    chromatic: { disableSnapshot: true },
+    chromatic: {disableSnapshot: true},
   },
   args: {
     date: new Date('2020-01-01T00:00:00Z'),
