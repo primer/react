@@ -17,7 +17,7 @@ yarn add @primer/react react react-dom styled-components
 You can now import Primer React from the main package module:
 
 ```javascript
-// using import syntax
+// using import syntax 
 import {Box} from '@primer/react'
 ```
 
