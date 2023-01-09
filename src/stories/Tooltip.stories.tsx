@@ -3,8 +3,8 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider, IconButton} from '..'
 import Box from '../Box'
 import Tooltip from '../Tooltip'
+import TooltipPopover from '../TooltipPopover'
 import {SearchIcon} from '@primer/octicons-react'
-import {Placeholder} from '../Placeholder'
 
 export default {
   title: 'Components/Tooltip/Default',
@@ -28,6 +28,12 @@ export const IconButtonTooltip = () => (
     <Tooltip aria-label="Search">
       <IconButton icon={SearchIcon} aria-label="Search" />
     </Tooltip>
+  </Box>
+)
+
+export const TooltipPopoverExample = () => (
+  <Box sx={{p: 5}}>
+    <TooltipPopover aria-label="Search" />
   </Box>
 )
 

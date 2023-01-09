@@ -26,6 +26,46 @@ const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   details-dialog:focus:not(:focus-visible):not(.focus-visible) {
     outline: none;
   }
+
+  /* Popover API Polyfill */
+  [popover="" i],
+  [popover=auto i],
+  [popover=manual i] {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1em;
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid;
+    background: white;
+    color: black;
+    overflow: auto;
+    margin: auto;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    inset-block-start: 0;
+    inset-block-end: 0;
+  }
+  [popover="" i].\\:open,
+  [popover=auto i].\\:open,
+  [popover=manual i].\\:open {
+    display: block;
+    position: fixed;
+    z-index: 2147483647;
+  }
+  @media (prefers-color-scheme: dark) {
+    [popover="" i],
+    [popover=auto i],
+    [popover=manual i] {
+      background: black;
+      color: white;
+    }
+  }
+  [popover]:not(:-internal-popover-hidden) {
+    display: block;
+  }
 `
 
 const Base = styled.div<SystemTypographyProps & SystemCommonProps>`
