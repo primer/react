@@ -132,7 +132,7 @@ async function main() {
           .flatMap(entrypoint => {
             return [
               [
-                entrypoint.entrypoint,
+                entrypoint.entrypoint === '.' ? '@primer/react' : path.join('@primer/react', entrypoint.entrypoint),
                 '*',
                 filesize(entrypoint.gzipMinified),
                 filesize(entrypoint.gzipUnminified),
