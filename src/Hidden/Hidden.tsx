@@ -15,25 +15,34 @@ function isArray(value: Array<string> | string): value is Array<string> {
 }
 
 export const Hidden = ({on: hiddenViewports, children}: HiddenProps) => {
-  let responsiveObj: ResponsiveValue<boolean | number | string> | undefined
+  let responsiveObj: ResponsiveValue<boolean | number | string> | null = null
   // If we receive array of viewports, we need to tranform this array into ResponsiveValue object
+
+  // For array type
   if (isArray(hiddenViewports)) {
-    // ['narrow', 'wide'] -> {narrow: true, regular: false, wide: true}
+    // ['narrow', 'wide'] -> {narrow: true, wide: true}
     hiddenViewports.map(viewport => {
       responsiveObj = {...responsiveObj, [viewport]: true}
     })
-    // For string type
-  } else if (typeof hiddenViewports === 'string') {
+  }
+  // For string type
+  if (typeof hiddenViewports === 'string') {
+    // 'narrow' -> {narrow: true}
     responsiveObj = {[hiddenViewports]: true}
-  } else {
-    responsiveObj = {}
   }
 
-  // Get breakpoint declarations for the transformed ResponsiveValue object
-  const styles = getBreakpointDeclarations(responsiveObj, 'display', value => {
-    if (value) return 'none'
-  })
+  // if ResponsiveValue object is empty, no need to render the Hidden component
+  if (responsiveObj !== null) {
+    // Get breakpoint declarations for the transformed ResponsiveValue object
+    const styles = getBreakpointDeclarations(responsiveObj, 'display', value => {
+      if (value) return 'none'
+    })
 
-  // Render the children with the styles
-  return <Box sx={styles}>{children}</Box>
+    // Render the children with the styles
+    return <Box sx={styles}>{children}</Box>
+  } else {
+    return null
+  }
 }
+
+Hidden.displayName = 'Hidden'
