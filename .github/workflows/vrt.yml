@@ -8,7 +8,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
-jobs: 
+permissions: {}
+
+jobs:
   storybook:
     if: >
       github.repository == 'primer/react' &&
@@ -92,6 +94,10 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'test(vrt): update snapshots'
-      - uses: actions-ecosystem/action-remove-labels@v1
+      - name: Save PR number
+        run: |
+          echo ${{ github.event.number }} > ./PR_NUMBER
+      - uses: actions/upload-artifact@v2
         with:
-          labels: 'update snapshots'
+          name: pr
+          path: ./PR_NUMBER
