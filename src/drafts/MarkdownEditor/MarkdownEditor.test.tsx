@@ -799,7 +799,6 @@ describe('MarkdownEditor', () => {
 
         await user.click(link)
         expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank', 'noopener noreferrer')
-
       })
     })
   })
