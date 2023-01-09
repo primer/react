@@ -5,6 +5,14 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
+- [Overview](#overview)
+- [Changes](#changes)
+  - [Examples](#examples)
+    - [A prop is added to a component](#a-prop-is-added-to-a-component)
+    - [An existing prop is deprecated](#an-existing-prop-is-deprecated)
+    - [The DOM node that an `id` corresponds to is changed](#the-dom-node-that-an-id-corresponds-to-is-changed)
+    - [The DOM node that an `aria-label` corresponds to is changed](#the-dom-node-that-an-aria-label-corresponds-to-is-changed)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
 
