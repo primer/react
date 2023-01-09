@@ -11,7 +11,7 @@ const meta: Meta = {
     },
   },
   args: {
-    hidden: 'regular',
+    hidden: ['regular'],
   },
   argTypes: {
     hidden: {
@@ -19,7 +19,6 @@ const meta: Meta = {
         name: 'enum',
         value: ['narrow', 'regular', 'wide'],
       },
-      defaultValue: 'regular',
       control: {type: 'multi-select'},
       description: 'The viewport type to hide the content on.',
     },
