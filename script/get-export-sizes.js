@@ -20,14 +20,14 @@ async function main() {
     ...Object.keys(packageJson.devDependencies ?? {}),
     ...Object.keys(packageJson.peerDependencies ?? {}),
   ].map(name => {
-    return new RegExp(`^${name}(\/.*)?`)
+    return new RegExp(`^${name}(/.*)?`)
   })
   const entrypoints = getEntrypoints(packageJson)
   const data = {
     entrypoints: [],
   }
 
-  core.startGroup('Analyzing entrypoints...')
+  core.info('Analyzing entrypoints...')
 
   for (const entrypoint of entrypoints) {
     core.info(`Analyzing entrypoint:  ${entrypoint.entrypoint}`)
@@ -95,61 +95,65 @@ async function main() {
     })
   }
 
-  core.endGroup()
-
   if (process.env.CI) {
     await core.summary
       .addHeading('Sizes')
-      .addTable(
-        [
-          {
-            data: 'Entrypoint',
-            header: true,
-          },
-          {
-            data: 'Export',
-            header: true,
-          },
-          {
-            data: 'Gzip',
-            header: true,
-          },
-          {
-            data: 'Gzip (unminified)',
-            header: true,
-          },
-          {
-            data: 'Size',
-            header: true,
-          },
-          {
-            data: 'Size (unminified)',
-            header: true,
-          },
-        ],
-        ...data.entrypoints.flatMap(entrypoint => {
-          return [
-            [
-              entrypoint.entrypoint,
-              '*',
-              entrypoint.gzipMinified,
-              entrypoint.gzipUnminified,
-              entrypoint.minified,
-              entrypoint.unminified,
-            ],
-            ...entrypoint.exports.map(exportInfo => {
-              return [
-                '',
-                exportInfo.identifier,
-                exportInfo.gzipMinified,
-                exportInfo.gzipUnminified,
-                exportInfo.minified,
-                exportInfo.unminified,
-              ]
-            }),
-          ]
-        }),
-      )
+      .addTable([
+        {
+          data: 'Entrypoint',
+          header: true,
+        },
+        {
+          data: 'Export',
+          header: true,
+        },
+        {
+          data: 'Gzip',
+          header: true,
+        },
+        {
+          data: 'Gzip (unminified)',
+          header: true,
+        },
+        {
+          data: 'Size',
+          header: true,
+        },
+        {
+          data: 'Size (unminified)',
+          header: true,
+        },
+        ...data.entrypoints
+          .sort((a, b) => {
+            return b.gzipMinified - a.gzipMinified
+          })
+          .flatMap(entrypoint => {
+            return [
+              [
+                entrypoint.entrypoint,
+                '*',
+                filesize(entrypoint.gzipMinified),
+                filesize(entrypoint.gzipUnminified),
+                filesize(entrypoint.minified),
+                filesize(entrypoint.unminified),
+              ],
+              ...entrypoint.exports
+                .sort((a, b) => {
+                  return b.gzipMinified - a.gzipMinified
+                })
+                .map(exportInfo => {
+                  return [
+                    '',
+                    exportInfo.identifier,
+                    filesize(exportInfo.gzipMinified),
+                    filesize(exportInfo.gzipUnminified),
+                    filesize(exportInfo.minified),
+                    filesize(exportInfo.unminified),
+                  ]
+                }),
+            ]
+          }),
+      ])
       .write()
   }
 }
@@ -270,7 +274,8 @@ function getPackageExports(exportMap, type = 'commonjs') {
   throw new Error(`Unknown exports format: ${exportMap}`)
 }
 
+// eslint-disable-next-line github/no-then
 main().catch(error => {
-  console.log(error)
+  core.error(error)
   process.exit(1)
 })
