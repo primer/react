@@ -67,4 +67,5 @@ describe('Hidden', () => {
   })
 })
 
-// checkStoriesForAxeViolations('examples', '../Hidden/')
+checkStoriesForAxeViolations('features', '../Hidden/')
+checkStoriesForAxeViolations('examples', '../Hidden/')
