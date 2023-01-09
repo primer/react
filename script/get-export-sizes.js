@@ -99,30 +99,32 @@ async function main() {
     await core.summary
       .addHeading('Sizes')
       .addTable([
-        {
-          data: 'Entrypoint',
-          header: true,
-        },
-        {
-          data: 'Export',
-          header: true,
-        },
-        {
-          data: 'Gzip',
-          header: true,
-        },
-        {
-          data: 'Gzip (unminified)',
-          header: true,
-        },
-        {
-          data: 'Size',
-          header: true,
-        },
-        {
-          data: 'Size (unminified)',
-          header: true,
-        },
+        [
+          {
+            data: 'Entrypoint',
+            header: true,
+          },
+          {
+            data: 'Export',
+            header: true,
+          },
+          {
+            data: 'Gzip',
+            header: true,
+          },
+          {
+            data: 'Gzip (unminified)',
+            header: true,
+          },
+          {
+            data: 'Size',
+            header: true,
+          },
+          {
+            data: 'Size (unminified)',
+            header: true,
+          },
+        ],
         ...data.entrypoints
           .sort((a, b) => {
             return b.gzipMinified - a.gzipMinified
