@@ -57,6 +57,10 @@ below.
 | Styles     | The `position` of the outermost element is updated            |             |
 |            | The `display` property of the outermost element is updated    |             |
 |            | A flex or grid property is updated                            |             |
+|            | A selector is added                                           |             |
+|            | A selector is removed                                         |             |
+|            | The specificity of a selector is raised                       |             |
+|            | The specificity of a selector is lowered                      |             |
 | Behavior   | Interactions are added to a component                         |             |
 |            | Interactions are removed from a component                     |             |
 | TypeScript | A type is added                                               | `minor`     |
