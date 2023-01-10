@@ -4,7 +4,7 @@ title: Details
 status: Alpha
 ---
 
-`Details` is a styled `details` element for use with the `useDetails` hook. The `useDetails` hook returns the `open` state, a `setOpen` function to manually change the open state, and **`getDetailsProps` which must be spread onto your `Details` element in order for `Details` to get receive the proper behaviors provided by the hook**. See Kent Dodd's article on this pattern [here](https://kentcdodds.com/blog/how-to-give-rendering-control-to-users-with-prop-getters).
+`Details` is a styled `details` element for use with the `useDetails` hook. The `useDetails` hook returns the `open` state, a `setOpen` function to manually change the open state, and **`getDetailsProps` which must be spread onto your `Details` element in order for `Details` to get receive the proper behaviors provided by the hook**. See [Kent Dodd's article on this pattern](https://kentcdodds.com/blog/how-to-give-rendering-control-to-users-with-prop-getters).
 
 The `useDetails` hook also takes a few configuration options as parameters which are noted in the table below.
 
@@ -52,7 +52,9 @@ You can also manually show/hide the content using the `setOpen` function returne
       <Details {...getDetailsProps()}>
         <Button as="summary">Delete item</Button>
         Are you sure?
-        <Button variant="danger" onClick={() => setOpen(false)}>Yes I'm sure</Button>
+        <Button variant="danger" onClick={() => setOpen(false)}>
+          Yes I'm sure
+        </Button>
       </Details>
     )
   }}
