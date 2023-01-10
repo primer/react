@@ -3,6 +3,7 @@ const githubMarkdownOpinions = require('@github/markdownlint-github')
 // Rules we want to enforce
 const rulesToEnforce = {
   'fenced-code-language': false,
+  'no-duplicate-header': false, // Fix https://github.com/primer/doctocat/issues/527, then set this rule to `siblings_only: true`
 }
 // Rules we don't care to enforce.
 const rulesToNotEnforce = {
