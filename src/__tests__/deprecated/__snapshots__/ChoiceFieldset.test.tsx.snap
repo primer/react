@@ -386,17 +386,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   margin-right: 0;
 }
 
-.c8 {
-  margin-left: 8px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -417,6 +406,17 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   min-width: 24px;
   min-height: 24px;
   fill: currentColor;
+}
+
+.c8 {
+  margin-left: 8px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .c2 {
@@ -872,6 +872,10 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
   display: flex;
 }
 
+.c4 {
+  margin-right: 4px;
+}
+
 .c6 > input {
   margin-left: 0;
   margin-right: 0;
@@ -886,10 +890,6 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-}
-
-.c4 {
-  margin-right: 4px;
 }
 
 .c2 {
@@ -1432,17 +1432,6 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   flex-direction: column;
 }
 
-.c7 {
-  font-weight: 600;
-  font-size: 14px;
-  display: block;
-  color: #24292f;
-  cursor: pointer;
-  -webkit-align-self: flex-start;
-  -ms-flex-item-align: start;
-  align-self: flex-start;
-}
-
 .c1 {
   position: absolute;
   width: 1px;
@@ -1454,6 +1443,17 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.c7 {
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  color: #24292f;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
 }
 
 .c5 {
@@ -1590,6 +1590,23 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   border: none;
 }
 
+.c9 {
+  margin-top: 16px;
+}
+
+.c10 {
+  height: auto;
+  overflow: hidden;
+}
+
+.c13 {
+  margin-right: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .c1 {
   margin-bottom: 16px;
 }
@@ -1617,23 +1634,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   flex-direction: column;
 }
 
-.c9 {
-  margin-top: 16px;
-}
-
-.c10 {
-  height: auto;
-  overflow: hidden;
-}
-
-.c13 {
-  margin-right: 4px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -1651,8 +1651,8 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 }
 
 .c11 {
-  -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
-  animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
+  -webkit-animation: 170ms cAIjcu cubic-bezier(0.44,0.74,0.36,1);
+  animation: 170ms cAIjcu cubic-bezier(0.44,0.74,0.36,1);
 }
 
 .c12 {
@@ -1851,6 +1851,23 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   border: none;
 }
 
+.c9 {
+  margin-top: 16px;
+}
+
+.c10 {
+  height: auto;
+  overflow: hidden;
+}
+
+.c13 {
+  margin-right: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .c1 {
   margin-bottom: 16px;
 }
@@ -1878,23 +1895,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   flex-direction: column;
 }
 
-.c9 {
-  margin-top: 16px;
-}
-
-.c10 {
-  height: auto;
-  overflow: hidden;
-}
-
-.c13 {
-  margin-right: 4px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -1912,8 +1912,8 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 }
 
 .c11 {
-  -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
-  animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
+  -webkit-animation: 170ms cAIjcu cubic-bezier(0.44,0.74,0.36,1);
+  animation: 170ms cAIjcu cubic-bezier(0.44,0.74,0.36,1);
 }
 
 .c12 {
