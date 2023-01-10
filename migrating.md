@@ -102,7 +102,7 @@ There are two ways to change the theme of @primer/components components:
    const theme = {
      ...primer,
      space: [0, 8, 16, 32, 64],
-     fontSizes: [10, 12, 16, 24, 48]
+     fontSizes: [10, 12, 16, 24, 48],
    }
 
    // override
@@ -126,8 +126,8 @@ There are two ways to change the theme of @primer/components components:
 
    const theme = {
      colors: {
-       magenta: '#f0f'
-     }
+       magenta: '#f0f',
+     },
    }
 
    export default () => (
@@ -245,6 +245,5 @@ Beware that codemods are not 100% fool-proof and may break your code, especially
 [emotion]: https://emotion.sh
 [emotion-theming]: https://github.com/emotion-js/emotion/tree/master/packages/emotion-theming
 [styled-system]: http://jxnblk.com/styled-system/
-[themeget]: http://jxnblk.com/styled-system/api#themeget
 [primer css]: https://github.com/primer/primer
 [responsive values]: http://jxnblk.com/styled-system/responsive-styles#responsive-styles

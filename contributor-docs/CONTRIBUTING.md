@@ -85,7 +85,7 @@ const Component = styled.div<SxProp>`
 
 Component.defaultProps = {
   m: 0,
-  fontSize: 5
+  fontSize: 5,
 }
 
 export default Component
@@ -212,10 +212,4 @@ Make sure to run `npm install` from inside the `docs/` subfolder _as well as_ th
 
 Ensure you are using the latest minor of Node.js for the major version specified in the `.nvmrc` file. For example, if `.nvmrc` contains `8`, make sure you're using the latest version of Node.js with the major version of 8.
 
-[classnames]: https://www.npmjs.com/package/classnames
-[spread syntax]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-[styled-system]: https://styled-system.com
-[table]: https://jxnblk.com/styled-system/table
-[npx]: https://www.npmjs.com/package/npx
-[now]: https://zeit.co/now
 [primer.style]: https://primer.style
