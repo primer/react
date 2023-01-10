@@ -162,7 +162,7 @@ export type PaginationProps = {
   currentPage: number
   onPageChange?: (e: React.MouseEvent, n: number) => void
   hrefBuilder?: (n: number) => string
-  marginPageCount: number
+  marginPageCount?: number
   showPages?: boolean
   surroundingPageCount?: number
 }

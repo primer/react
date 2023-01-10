@@ -35,7 +35,7 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   ${sx};
 `
 
-export type ProgressBarProps = {bg: string} & StyledProgressContainerProps & ProgressProp
+export type ProgressBarProps = {bg?: string} & StyledProgressContainerProps & ProgressProp
 
 function ProgressBar({progress, bg = 'success.emphasis', barSize = 'default', ...rest}: ProgressBarProps) {
   return (
