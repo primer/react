@@ -197,13 +197,7 @@ export const LinkItemPlayground = args => {
 
   return (
     <ActionList>
-      <ActionList.LinkItem
-        {...args}
-        onClick={() => {
-          // eslint-disable-next-line no-console
-          console.log('link clicked')
-        }}
-      >
+      <ActionList.LinkItem {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
