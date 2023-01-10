@@ -296,6 +296,7 @@ test.describe('UnderlineNav', () => {
           expect(await page.screenshot()).toMatchSnapshot()
 
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
+          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
 
           // Resize
           expect(await page.screenshot()).toMatchSnapshot()
@@ -334,6 +335,7 @@ test.describe('UnderlineNav', () => {
           })
 
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
+          await page.locator('button', {hasText: 'More Repository Items'}).waitFor()
 
           await page.getByRole('button', {name: 'More Repository Items'}).click()
 
