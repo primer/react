@@ -10,7 +10,7 @@ The Side Nav is a vertical list of navigational links, typically used on the lef
 
 Use [NavList](/NavList) instead.
 
-**Before**
+### Before
 
 ```jsx
 <SideNav aria-label="Main">
@@ -22,7 +22,7 @@ Use [NavList](/NavList) instead.
 </SideNav>
 ```
 
-**After**
+### After
 
 ```jsx
 <NavList aria-label="Main">
