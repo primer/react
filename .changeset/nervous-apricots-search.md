@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Optimize isScrollable()
+Update `isScrollable` utility to only run `getComputedStyle` on scrollable content.
