@@ -156,17 +156,16 @@ describe('ActionList', () => {
   })
 
   it('should call onClick for a link item', async () => {
-    const onClick = jest.fn
+    const onClick = jest.fn()
     const component = HTMLRender(
       <ActionList role="listbox">
-        <ActionList.LinkItem onClick={onClick}>Primer React</ActionList.LinkItem>
+        <ActionList.LinkItem role="link" onClick={onClick}>
+          Primer React
+        </ActionList.LinkItem>
       </ActionList>,
     )
     const link = await waitFor(() => component.getByRole('link'))
-    expect(link).toBeInTheDocument()
-
     fireEvent.click(link)
-
     expect(onClick).toHaveBeenCalled()
   })
 
