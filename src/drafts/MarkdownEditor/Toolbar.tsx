@@ -27,7 +27,6 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
 
   return (
     <IconButton
-      size="small"
       ref={ref}
       variant="invisible"
       disabled={disabled}
