@@ -34,35 +34,36 @@ that we ship. From semver.org, this means that:
 
 As a result, whenever you see a `minor` or `patch` update for a package from the
 Primer you should feel confident that you can update without
-anything breaking in your project. For a full list of changes that the team
-commits to being backwards-compatible, view the [changes](#changes) table
-below.
+anything breaking in your project. For a full list of changes and their
+corresponding semver bumps, check out the [changes](#changes) table below.
+
+For a full list of releases, visit our [releases](https://github.com/primer/react/releases) page.
 
 ## Changes
 
 | Category   | Type of change                                                | semver bump |
 | :--------- | :------------------------------------------------------------ | :---------- |
 | Component  | A component is added                                          | `minor`     |
-|            | A component is deprecated                                     | `minor`     |
+|            | A component is deprecated                                     | `major`     |
 |            | A component is removed                                        | `major`     |
 | Props      | A prop is added to a component                                | `minor`     |
 |            | The type of a prop is made more general                       | `minor`     |
 |            | The type of a prop is made more specific                      | `major`     |
 |            | A prop is deprecated                                          | `minor`     |
 |            | A prop is removed from a component                            | `major`     |
-|            | The element to which additional props are added to is changed |             |
-| Markup     | The DOM node that an `id` corresponds to is changed           |             |
-|            | The DOM node that an `aria-label` corresponds to is changed   |             |
-|            | The `role` of a component is changed                          |             |
-| Styles     | The `position` of the outermost element is updated            |             |
-|            | The `display` property of the outermost element is updated    |             |
-|            | A flex or grid property is updated                            |             |
-|            | A selector is added                                           |             |
-|            | A selector is removed                                         |             |
-|            | The specificity of a selector is raised                       |             |
-|            | The specificity of a selector is lowered                      |             |
-| Behavior   | Interactions are added to a component                         |             |
-|            | Interactions are removed from a component                     |             |
+|            | The element to which additional props are added to is changed | `<todo>`    |
+| Markup     | The DOM node that an `id` corresponds to is changed           | `<todo>`    |
+|            | The DOM node that an `aria-label` corresponds to is changed   | `<todo>`    |
+|            | The `role` of a component is changed                          | `<todo>`    |
+| Styles     | The `position` of the outermost element is updated            | `<todo>`    |
+|            | The `display` property of the outermost element is updated    | `<todo>`    |
+|            | A flex or grid property is updated                            | `<todo>`    |
+|            | A selector is added                                           | `<todo>`    |
+|            | A selector is removed                                         | `<todo>`    |
+|            | The specificity of a selector is raised                       | `<todo>`    |
+|            | The specificity of a selector is lowered                      | `<todo>`    |
+| Behavior   | Interactions are added to a component                         | `<todo>`    |
+|            | Interactions are removed from a component                     | `<todo>`    |
 | TypeScript | A type is added                                               | `minor`     |
 |            | A type is made more general                                   | `minor`     |
 |            | A type is made more specific                                  | `major`     |
