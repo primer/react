@@ -1,4 +1,4 @@
-import React, {ReducerAction} from 'react'
+import React from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Link from '../Link'
 import {SxProp, merge} from '../sx'
