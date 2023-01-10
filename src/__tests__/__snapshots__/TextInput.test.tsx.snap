@@ -1469,9 +1469,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c3:hover::before,
 .c3:active::before,
 .c3:focus::before,
+.c3:focus-within::before,
 .c3:hover::after,
 .c3:active::after,
-.c3:focus::after {
+.c3:focus::after,
+.c3:focus-within::after {
   display: inline-block;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -1490,16 +1492,19 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c3.tooltipped-no-delay:hover::before,
 .c3.tooltipped-no-delay:active::before,
 .c3.tooltipped-no-delay:focus::before,
+.c3.tooltipped-no-delay:focus-within::before,
 .c3.tooltipped-no-delay:hover::after,
 .c3.tooltipped-no-delay:active::after,
-.c3.tooltipped-no-delay:focus::after {
+.c3.tooltipped-no-delay:focus::after,
+.c3.tooltipped-no-delay:focus-within::after {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
 .c3.tooltipped-multiline:hover::after,
 .c3.tooltipped-multiline:active::after,
-.c3.tooltipped-multiline:focus::after {
+.c3.tooltipped-multiline:focus::after,
+.c3.tooltipped-multiline:focus-within::after {
   display: table-cell;
 }
 
@@ -2212,9 +2217,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c3:hover::before,
 .c3:active::before,
 .c3:focus::before,
+.c3:focus-within::before,
 .c3:hover::after,
 .c3:active::after,
-.c3:focus::after {
+.c3:focus::after,
+.c3:focus-within::after {
   display: inline-block;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -2233,16 +2240,19 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c3.tooltipped-no-delay:hover::before,
 .c3.tooltipped-no-delay:active::before,
 .c3.tooltipped-no-delay:focus::before,
+.c3.tooltipped-no-delay:focus-within::before,
 .c3.tooltipped-no-delay:hover::after,
 .c3.tooltipped-no-delay:active::after,
-.c3.tooltipped-no-delay:focus::after {
+.c3.tooltipped-no-delay:focus::after,
+.c3.tooltipped-no-delay:focus-within::after {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
 .c3.tooltipped-multiline:hover::after,
 .c3.tooltipped-multiline:active::after,
-.c3.tooltipped-multiline:focus::after {
+.c3.tooltipped-multiline:focus::after,
+.c3.tooltipped-multiline:focus-within::after {
   display: table-cell;
 }
 
