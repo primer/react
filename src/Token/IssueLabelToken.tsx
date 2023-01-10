@@ -40,7 +40,19 @@ const darkModeStyles = {
 }
 
 const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, forwardedRef) => {
-  const {as, fillColor = '#999', onRemove, id, isSelected, text, size, hideRemoveButton, href, onClick, ...rest} = props
+  const {
+    as,
+    fillColor = '#999',
+    onRemove,
+    id,
+    isSelected,
+    text,
+    size = defaultTokenSize,
+    hideRemoveButton,
+    href,
+    onClick,
+    ...rest
+  } = props
   const interactiveTokenProps = {
     as,
     href,
@@ -135,11 +147,6 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
     </TokenBase>
   )
 })
-
-IssueLabelToken.defaultProps = {
-  fillColor: '#999',
-  size: defaultTokenSize,
-}
 
 IssueLabelToken.displayName = 'IssueLabelToken'
 

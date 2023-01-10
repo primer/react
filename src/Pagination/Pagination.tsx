@@ -203,12 +203,4 @@ function defaultHrefBuilder(pageNum: number) {
 
 function noop() {}
 
-Pagination.defaultProps = {
-  hrefBuilder: defaultHrefBuilder,
-  marginPageCount: 1,
-  onPageChange: noop,
-  showPages: true,
-  surroundingPageCount: 2,
-}
-
 export default Pagination

@@ -134,7 +134,7 @@ const StyledTokenBase = styled.span<SxProp>`
 `
 
 const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
-  ({text, onRemove, onKeyDown, id, ...rest}, forwardedRef) => {
+  ({text, onRemove, onKeyDown, id, as = 'span', size = defaultTokenSize, ...rest}, forwardedRef) => {
     return (
       <StyledTokenBase
         onKeyDown={(event: KeyboardEvent<TokenElements>) => {
@@ -146,16 +146,13 @@ const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
         }}
         aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
         id={id?.toString()}
+        as={as}
+        size={size}
         {...rest}
         ref={forwardedRef}
       />
     )
   },
 )
-
-TokenBase.defaultProps = {
-  as: 'span',
-  size: defaultTokenSize,
-}
 
 export default TokenBase

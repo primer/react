@@ -36,7 +36,7 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
       id,
       leadingVisual: LeadingVisual,
       text,
-      size,
+      size = defaultTokenSize,
       hideRemoveButton,
       href,
       onClick,
@@ -107,9 +107,5 @@ const Token = forwardRef<HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement
 )
 
 Token.displayName = 'Token'
-
-Token.defaultProps = {
-  size: defaultTokenSize,
-}
 
 export default Token

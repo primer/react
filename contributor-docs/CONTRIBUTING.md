@@ -85,7 +85,7 @@ const Component = styled.div<SxProp>`
 
 Component.defaultProps = {
   m: 0,
-  fontSize: 5
+  fontSize: 5,
 }
 
 export default Component

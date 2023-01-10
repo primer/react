@@ -9,7 +9,7 @@ export type CircleOcticonProps = {
 } & BoxProps
 
 function CircleOcticon(props: CircleOcticonProps) {
-  const {size, as} = props
+  const {size = 32, as} = props
   const {icon: IconComponent, bg, ...rest} = props
   return (
     <Box
@@ -27,11 +27,6 @@ function CircleOcticon(props: CircleOcticonProps) {
       </Box>
     </Box>
   )
-}
-
-CircleOcticon.defaultProps = {
-  ...Box.defaultProps,
-  size: 32,
 }
 
 export default CircleOcticon

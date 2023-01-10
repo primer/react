@@ -201,9 +201,4 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
 
 export type OverlayProps = ComponentPropsWithRef<typeof Overlay>
 
-Overlay.defaultProps = {
-  height: 'auto',
-  width: 'auto',
-}
-
 export default Overlay
