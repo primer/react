@@ -25,10 +25,10 @@ const AvatarToken = forwardRef<HTMLElement, AvatarTokenProps>(
     return (
       <Token
         leadingVisual={() => (
-          <AvatarContainer avatarSize={size || defaultTokenSize}>
+          <AvatarContainer avatarSize={size}>
             <Avatar
               src={avatarSrc}
-              size={parseInt(tokenSizes[size || defaultTokenSize], 10)}
+              size={parseInt(tokenSizes[size], 10)}
               sx={{
                 width: '100%',
                 height: '100%',

@@ -259,7 +259,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       width={widthProp}
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
-      size={size && inputSizeMap[size]}
+      size={inputSizeMap[size]}
       validationStatus={validationStatus}
       variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
@@ -350,7 +350,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
           />
         ))}
         {tokensAreTruncated && tokens.length - visibleTokens.length ? (
-          <Text color="fg.muted" fontSize={size && overflowCountFontSizeMap[size]}>
+          <Text color="fg.muted" fontSize={overflowCountFontSizeMap[size]}>
             +{tokens.length - visibleTokens.length}
           </Text>
         ) : null}
