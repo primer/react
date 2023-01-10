@@ -22,7 +22,7 @@ function getBorderRadius(size: number, square: boolean) {
   }
 }
 
-const Avatar = styled.img.attrs<StyledAvatarProps>(({size = 20, alt = '', square = false}) => ({
+const Avatar = styled.img.attrs<StyledAvatarProps>(({size = 20}) => ({
   height: size,
   width: size,
 }))<StyledAvatarProps>`
@@ -30,7 +30,7 @@ const Avatar = styled.img.attrs<StyledAvatarProps>(({size = 20, alt = '', square
   overflow: hidden; // Ensure page layout in Firefox should images fail to load
   line-height: ${get('lineHeights.condensedUltra')};
   vertical-align: middle;
-  border-radius: ${(size, square) => getBorderRadius(size, square)};
+  border-radius: ${({size = 20, square = false}) => getBorderRadius(size, square)};
   box-shadow: 0 0 0 1px ${get('colors.avatar.border')};
   ${sx}
 `

@@ -26,7 +26,7 @@ const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
 }
 
 const CircleBadge = styled.div<StyledCircleBadgeProps>`
-  display: ${props => (props.inline ? 'inline-flex' : 'flex')};
+  display: ${({inline = false}) => (inline ? 'inline-flex' : 'flex')};
   align-items: center;
   justify-content: center;
   background-color: ${get('colors.canvas.default')};

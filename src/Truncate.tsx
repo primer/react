@@ -11,13 +11,13 @@ type StyledTruncateProps = {
   SxProp
 
 const Truncate = styled.div<StyledTruncateProps>`
-  display: ${props => (props.inline ? 'inline-block' : 'inherit')};
+  display: ${({inline = false}) => (inline ? 'inline-block' : 'inherit')};
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: ${props => (props.inline ? 'top' : 'initial')};
   white-space: nowrap;
   ${maxWidth}
-  ${props => (props.expandable ? `&:hover { max-width: 10000px; }` : '')}
+  ${({expandable = false}) => (expandable ? `&:hover { max-width: 10000px; }` : '')}
   ${sx};
 `
 
