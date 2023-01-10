@@ -16,6 +16,7 @@ const rulesToNotEnforce = {
   'ul-indent': false,
   'no-hard-tabs': false,
   'first-line-heading': false,
+  'no-space-in-emphasis': false,
 }
 const options = githubMarkdownOpinions.init({...rulesToNotEnforce, ...rulesToEnforce})
 module.exports = {
