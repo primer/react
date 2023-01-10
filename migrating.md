@@ -9,7 +9,7 @@
 - `UnderlineNavItem` is now `UnderlineNav.Item`
 - `FilterListItem` is now `FilterList.Item`
 
-There is a [codemod](#codemods) available to upgrade component identifiers from [v3.x.x-beta](#3-0-0-beta):
+There is a [codemod](#codemods) available to upgrade component identifiers from [v3.x.x-beta](#300-beta):
 
 ```
 npx jscodeshift -t node_modules/@primer/components/codemods/v4.js path/to/src
@@ -30,7 +30,7 @@ The following breaking changes must be accounted for manually:
 - The `Link` component no longer accepts `scheme` or `muted` props, and has no underline by default.
 - `DonutChart` is now simply `Donut`, and `DonutSlice` is `Donut.Slice`.
 
-There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#2-0-0-beta) and updating the package name:
+There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#200-beta) and updating the package name:
 
 ```
 npx jscodeshift -t node_modules/@primer/components/codemods/v3.js path/to/src
@@ -46,7 +46,7 @@ npx jscodeshift -t node_modules/@primer/components/codemods/v3.js path/to/src
 
 We suggest that you rename your components in the above order, since renaming `Block` to `Box` before renaming the old `Box` component to `BorderBox` will cause problems.
 
-There is a [codemod](#codemods) available to upgrade from [1.x.x-beta](#1-0-0-beta):
+There is a [codemod](#codemods) available to upgrade from [1.x.x-beta](#100-beta):
 
 ```
 npx jscodeshift -t node_modules/primer-react/codemods/v2.js path/to/src
