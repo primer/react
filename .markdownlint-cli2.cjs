@@ -20,7 +20,12 @@ const rulesToNotEnforce = {
   'no-space-in-emphasis': false,
   'blanks-around-fences': false,
 }
-const options = githubMarkdownOpinions.init({...rulesToNotEnforce, ...rulesToEnforce})
+
+const defaultOverrides = {
+  'no-generic-link-text': {exceptions: ['link']}, // We don't want it to flag links that link to `Link` component.
+}
+
+const options = githubMarkdownOpinions.init({...rulesToNotEnforce, ...rulesToEnforce, ...defaultOverrides})
 module.exports = {
   config: options,
   customRules: ['@github/markdownlint-github'],
