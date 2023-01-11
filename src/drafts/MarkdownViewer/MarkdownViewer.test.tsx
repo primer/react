@@ -103,7 +103,7 @@ text after list`
       )
       const link = getByRole('link') as HTMLAnchorElement
       await user.click(link)
-      expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
+      expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank', 'noopener noreferrer')
     })
 
     it('calls onLinkClick on link click', async () => {
