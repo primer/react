@@ -42,6 +42,8 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -250,6 +252,8 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -458,6 +462,8 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -1067,6 +1073,8 @@ exports[`Token components AvatarToken renders consistently 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -1167,6 +1175,8 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: #24292f;
   border-style: solid;
@@ -1293,6 +1303,8 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -1482,6 +1494,8 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
   --label-r: 153;
   --label-g: 153;
   --label-b: 153;
@@ -1658,6 +1672,8 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   --label-r: 153;
   --label-g: 153;
   --label-b: 153;
@@ -1834,6 +1850,8 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   --label-r: 153;
   --label-g: 153;
   --label-b: 153;
@@ -2366,6 +2384,8 @@ exports[`Token components IssueLabelToken renders consistently 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -2447,6 +2467,8 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   --label-r: 3;
   --label-g: 102;
   --label-b: 214;
@@ -2623,6 +2645,8 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   --label-r: 153;
   --label-g: 153;
   --label-b: 153;
@@ -2799,6 +2823,8 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   --label-r: 153;
   --label-g: 153;
   --label-b: 153;
@@ -2911,6 +2937,8 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   --label-r: 153;
   --label-g: 153;
   --label-b: 153;
@@ -3087,6 +3115,8 @@ exports[`Token components Token renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -3252,6 +3282,8 @@ exports[`Token components Token renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -3417,6 +3449,8 @@ exports[`Token components Token renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -3916,6 +3950,8 @@ exports[`Token components Token renders consistently 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -3997,6 +4033,8 @@ exports[`Token components Token renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: #24292f;
   border-style: solid;
@@ -4088,6 +4126,8 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;
@@ -4182,6 +4222,8 @@ exports[`Token components Token renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
   background-color: rgba(234,238,242,0.5);
   border-color: rgba(27,31,36,0.15);
   border-style: solid;

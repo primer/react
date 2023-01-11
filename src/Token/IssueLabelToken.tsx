@@ -5,6 +5,7 @@ import RemoveTokenButton from './_RemoveTokenButton'
 import {parseToHsla, parseToRgba} from 'color2k'
 import {useTheme} from '../ThemeProvider'
 import TokenTextContainer from './_TokenTextContainer'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
@@ -39,7 +40,7 @@ const darkModeStyles = {
     'hsla(var(--label-h), calc(var(--label-s) * 1%),calc((var(--label-l) + var(--lighten-by)) * 1%),var(--border-alpha))',
 }
 
-const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, forwardedRef) => {
+const IssueLabelToken = forwardRef((props, forwardedRef) => {
   const {as, fillColor = '#999', onRemove, id, isSelected, text, size, hideRemoveButton, href, onClick, ...rest} = props
   const interactiveTokenProps = {
     as,
@@ -134,7 +135,7 @@ const IssueLabelToken = forwardRef<HTMLElement, IssueLabelTokenProps>((props, fo
       ) : null}
     </TokenBase>
   )
-})
+}) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', IssueLabelTokenProps>
 
 IssueLabelToken.defaultProps = {
   fillColor: '#999',
