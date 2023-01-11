@@ -2,4 +2,6 @@
 '@primer/react': patch
 ---
 
-update types for tokens
+Token: Update component type to be PolymorphicForwardRefComponent.
+
+this avoids types being swallowed by forwardRef (which isn't polymorphic)
