@@ -1,6 +1,6 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
 import Box from '../Box'
-import {merge, SxProp} from '../sx'
+import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
@@ -55,7 +55,7 @@ const Token = forwardRef((props, forwardedRef) => {
     href,
     onClick,
   }
-  const sx = merge(
+  const sx = merge<BetterSystemStyleObject>(
     {
       backgroundColor: 'neutral.subtle',
       borderColor: props.isSelected ? 'fg.default' : 'border.subtle',
@@ -74,7 +74,7 @@ const Token = forwardRef((props, forwardedRef) => {
           }
         : {}),
     },
-    sxProp as SxProp,
+    sxProp,
   )
 
   return (
