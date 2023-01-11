@@ -109,6 +109,8 @@ const Component = styled.div<SxProp>`
 
 ### Linting
 
+#### ESLint
+
 We use the [React configuration](https://github.com/github/eslint-plugin-github/blob/master/lib/configs/react.js) from [GitHub's eslint plugin](https://github.com/github/eslint-plugin-github) to lint our JavaScript. To check your work before pushing, run:
 
 ```sh
@@ -129,6 +131,14 @@ npm run lint -- --fix
 ```
 
 **Protip:** `npm run lint -- --quiet` (or `npx eslint --quiet ...`) will suppress warnings so that you can focus on fixing errors.
+
+#### Markdownlint
+
+We use [markdownlint](https://github.com/markdownlint/markdownlint) to lint Markdown files, using [GitHub's markdownlint-github configuration](https://github.com/github/markdownlint-github). To check your work before pushing, run:
+
+```sh
+npm run lint:md
+```
 
 ### TypeScript support
 
