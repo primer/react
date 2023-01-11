@@ -1,5 +1,7 @@
 import React from 'react'
 import Token from '../Token'
+import AvatarToken from '../Token/AvatarToken'
+import IssueLabelToken from '../Token/IssueLabelToken'
 import {CheckIcon} from '@primer/octicons-react'
 
 export function requiresAtLeastaTextProp() {
@@ -91,6 +93,33 @@ export function acceptsASubsetOfDomProps() {
       <Token text="Token test" tabIndex={0} />
       <Token text="Token test" role="button" />
       <Token text="Token test" aria-label="token-aria-label" />
+    </>
+  )
+}
+
+export function specialTokenExtensionsAcceptTheirSpecificProps() {
+  return (
+    <>
+      <AvatarToken text="Token test" avatarSrc="https://github.com" />
+      <IssueLabelToken text="Token test" fillColor="red" />
+    </>
+  )
+}
+
+export function specialTokenExtensionsDoNotAcceptOtherProps() {
+  return (
+    <>
+      {' '}
+      <AvatarToken
+        text="Token test"
+        // @ts-expect-error fillColor is not a valid prop for AvatarToken
+        fillColor="red"
+      />
+      <IssueLabelToken
+        text="Token test"
+        // @ts-expect-error avatarSrc is not a valid prop for IssueLabelToken
+        avatarSrc="https://github.com"
+      />
     </>
   )
 }
