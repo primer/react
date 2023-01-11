@@ -23,7 +23,7 @@ export const tokenSizes: Record<TokenSizeKeys, string> = {
 export const defaultTokenSize: TokenSizeKeys = 'medium'
 
 export interface TokenBaseProps
-  extends Omit<React.HTMLProps<HTMLSpanElement & HTMLButtonElement & HTMLAnchorElement>, 'size' | 'id'> {
+  extends Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'> {
   as?: 'button' | 'a' | 'span'
   /**
    * The function that gets called when a user clicks the remove button, or keys "Backspace" or "Delete" when focused on the token
@@ -49,8 +49,6 @@ export interface TokenBaseProps
    * Which size the token will be rendered at
    */
   size?: TokenSizeKeys
-
-  href?: string
 }
 
 export const isTokenInteractive = ({
