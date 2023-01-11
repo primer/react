@@ -81,3 +81,16 @@ export function hasReasonableEventsForTargets() {
     </>
   )
 }
+
+export function acceptsASubsetOfDomProps() {
+  return (
+    <>
+      <Token text="Token test" className="token-class" />
+      <Token text="Token test" style={{color: 'red'}} />
+      <Token text="Token test" title="token-title" />
+      <Token text="Token test" tabIndex={0} />
+      <Token text="Token test" role="button" />
+      <Token text="Token test" aria-label="token-aria-label" />
+    </>
+  )
+}
