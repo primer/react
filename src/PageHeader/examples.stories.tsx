@@ -126,8 +126,10 @@ export const PullRequestPage = () => (
           </Hidden>
 
           <Hidden on={['narrow']}>
-            <Button>Edit</Button>
-            <Button leadingIcon={CodeIcon}>Code</Button>
+            <Box sx={{display: 'flex'}}>
+              <Button>Edit</Button>
+              <Button leadingIcon={CodeIcon}>Code</Button>
+            </Box>
           </Hidden>
         </PageHeader.Actions>
       </PageHeader.TitleArea>
