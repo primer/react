@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  eslint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -24,24 +24,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
+      - name: Lint JavaScript
         run: npm run lint
-  markdown:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run markdownlint
+      - name: Lint markdown
+        run: npm run lint:md
   test:
     strategy:
       fail-fast: false

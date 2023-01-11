@@ -45,7 +45,7 @@
     "install:docs": "(cd docs && npm install --legacy-peer-deps)",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
-    "markdownlint": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!node_modules\" \"!CHANGELOG.md\"",
+    "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!node_modules\" \"!CHANGELOG.md\"",
     "test": "jest",
     "test:storybook": "test-storybook",
     "test:update": "npm run test -- --updateSnapshot",
