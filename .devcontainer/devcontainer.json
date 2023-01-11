@@ -1,13 +1,18 @@
 {
-  "name": "Primer Components",
+  "name": "Primer React",
   "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:16",
   "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"],
   "forwardPorts": [8000],
-  "postCreateCommand": ["/bin/bash", "-c", "pushd docs && npm install && popd && npm install"],
+  "postCreateCommand": ["/bin/bash", "-c", "npm run setup"],
   "remoteUser": "node",
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": {
         "version": "latest"
     }
+  },
+  "hostRequirements": {
+   "cpus": 4,
+   "memory": "8gb",
+   "storage": "32gb" 
   }
 }
