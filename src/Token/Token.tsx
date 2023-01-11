@@ -9,7 +9,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 
 // Omitting onResize and onResizeCapture because seems like React 18 types includes these menthod in the expansion but React 17 doesn't.
 // TODO: This is a temporary solution until we figure out why these methods are causing type errors.
-export interface TokenProps extends TokenBaseProps {
+export interface TokenProps extends TokenBaseProps, SxProp {
   /**
    * A function that renders a component before the token text
    */
@@ -105,7 +105,7 @@ const Token = forwardRef((props, forwardedRef) => {
       ) : null}
     </TokenBase>
   )
-}) as PolymorphicForwardRefComponent<'a' | 'button' | 'span', TokenProps & SxProp>
+}) as PolymorphicForwardRefComponent<'a' | 'button' | 'span', TokenProps>
 
 Token.displayName = 'Token'
 
