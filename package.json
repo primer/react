@@ -141,7 +141,7 @@
     "@storybook/test-runner": "0.9.1",
     "@storybook/testing-library": "0.0.13",
     "@storybook/theming": "6.5.14",
-    "@testing-library/dom": "8.13.0",
+    "@testing-library/dom": "8.19.1",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@testing-library/react-hooks": "7.0.2",
