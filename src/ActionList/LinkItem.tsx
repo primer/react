@@ -39,11 +39,24 @@ export const LinkItem = React.forwardRef(({sx = {}, active, as: Component, ...pr
     <Item
       active={active}
       sx={{paddingY: 0, paddingX: 0}}
-      _PrivateItemWrapper={({children, ...rest}) => (
-        <Link as={Component} sx={merge(styles, sx as SxProp)} {...props} {...rest} ref={forwardedRef}>
-          {children}
-        </Link>
-      )}
+      _PrivateItemWrapper={({children, onClick, ...rest}) => {
+        const clickHandler = (event: React.MouseEvent) => {
+          onClick && onClick(event)
+          props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
+        }
+        return (
+          <Link
+            as={Component}
+            sx={merge(styles, sx as SxProp)}
+            {...rest}
+            {...props}
+            onClick={clickHandler}
+            ref={forwardedRef}
+          >
+            {children}
+          </Link>
+        )
+      }}
     >
       {props.children}
     </Item>

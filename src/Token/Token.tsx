@@ -6,7 +6,9 @@ import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from '.
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
 
-export interface TokenProps extends TokenBaseProps {
+// Omitting onResize and onResizeCapture because seems like React 18 types includes these menthod in the expansion but React 17 doesn't.
+// TODO: This is a temporary solution until we figure out why these methods are causing type errors.
+export interface TokenProps extends Omit<TokenBaseProps, 'onResize' | 'onResizeCapture'> {
   /**
    * A function that renders a component before the token text
    */
