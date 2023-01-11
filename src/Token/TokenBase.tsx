@@ -1,8 +1,9 @@
-import React, {KeyboardEvent} from 'react'
+import React, {ComponentProps, KeyboardEvent} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 // TODO: remove invalid "extralarge" size name in next breaking change
 /** @deprecated 'extralarge' to be removed to align with size naming ADR https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md **/
@@ -50,14 +51,12 @@ export interface TokenBaseProps
   size?: TokenSizeKeys
 }
 
-type TokenElements = HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement
-
 export const isTokenInteractive = ({
   as = 'span',
   onClick,
   onFocus,
   tabIndex = -1,
-}: Pick<TokenBaseProps, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
+}: Pick<ComponentProps<typeof TokenBase>, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 
 const xlargeVariantStyles = {
@@ -133,25 +132,23 @@ const StyledTokenBase = styled.span<SxProp>`
   ${sx}
 `
 
-const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
-  ({text, onRemove, onKeyDown, id, ...rest}, forwardedRef) => {
-    return (
-      <StyledTokenBase
-        onKeyDown={(event: KeyboardEvent<TokenElements>) => {
-          onKeyDown && onKeyDown(event)
+const TokenBase = React.forwardRef(({text, onRemove, onKeyDown, id, ...rest}, forwardedRef) => {
+  return (
+    <StyledTokenBase
+      onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
+        onKeyDown && onKeyDown(event)
 
-          if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
-            onRemove()
-          }
-        }}
-        aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
-        id={id?.toString()}
-        {...rest}
-        ref={forwardedRef}
-      />
-    )
-  },
-)
+        if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+          onRemove()
+        }
+      }}
+      aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
+      id={id?.toString()}
+      {...rest}
+      ref={forwardedRef}
+    />
+  )
+}) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
 
 TokenBase.defaultProps = {
   as: 'span',
