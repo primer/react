@@ -109,7 +109,6 @@ export function specialTokenExtensionsAcceptTheirSpecificProps() {
 export function specialTokenExtensionsDoNotAcceptOtherProps() {
   return (
     <>
-      {' '}
       <AvatarToken
         text="Token test"
         // @ts-expect-error fillColor is not a valid prop for AvatarToken
