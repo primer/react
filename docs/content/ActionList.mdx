@@ -180,7 +180,7 @@ const SelectFields = () => {
     {text: 'Assignee', selected: true},
     {text: 'Team', selected: true},
     {text: 'Estimate', selected: false},
-    {text: 'Due Date', selected: false}
+    {text: 'Due Date', selected: false},
   ])
 
   const visibleOptions = options.filter(option => option.selected)
@@ -191,7 +191,7 @@ const SelectFields = () => {
       options.map(option => {
         if (option.text === text) option.selected = !option.selected
         return option
-      })
+      }),
     )
   }
 
@@ -446,7 +446,7 @@ render(<SelectFields />)
     stableApi: false, // TODO: revisit on April 10, 2022
     addressedApiFeedback: false,
     hasDesignGuidelines: true,
-    hasFigmaComponent: true
+    hasFigmaComponent: true,
   }}
 />
 

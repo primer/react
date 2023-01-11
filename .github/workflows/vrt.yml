@@ -8,7 +8,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
-jobs: 
+jobs:
   storybook:
     if: >
       github.repository == 'primer/react' &&
