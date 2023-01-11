@@ -9,7 +9,7 @@ Grid is a component that exposes grid system props. See the [CSS Tricks Complete
 
 Use [Box](/Box) instead.
 
-**Before**
+### Before
 
 ```jsx deprecated
 <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
@@ -22,7 +22,7 @@ Use [Box](/Box) instead.
 </Grid>
 ```
 
-**After**
+### After
 
 ```jsx deprecated
 <Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>

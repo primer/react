@@ -10,7 +10,7 @@ An `ActionMenu` is an ActionList-based component for creating a menu of actions 
 
 Use [new version of ActionMenu](/ActionMenu) with composable API, design updates and accessibility fixes.
 
-**Before**
+### Before
 
 ```jsx
 <ActionMenu
@@ -21,13 +21,13 @@ Use [new version of ActionMenu](/ActionMenu) with composable API, design updates
     {text: 'Copy link'},
     {text: 'Edit file'},
     ActionMenu.Divider,
-    {text: 'Delete file', variant: 'danger'}
+    {text: 'Delete file', variant: 'danger'},
   ]}
   overlayProps={{width: 'small'}}
 />
 ```
 
-**After**
+### After
 
 ```jsx
 <ActionMenu>
@@ -61,7 +61,7 @@ import {ActionMenu} from '@primer/react/deprecated'
     ActionMenu.Divider,
     {text: 'Copy link', key: 'copy-link'},
     {text: 'Edit file', key: 'edit-file'},
-    {text: 'Delete file', variant: 'danger', key: 'delete-file'}
+    {text: 'Delete file', variant: 'danger', key: 'delete-file'},
   ]}
 />
 ```
@@ -77,7 +77,7 @@ import {ActionMenu} from '@primer/react/deprecated'
     {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
     {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
     {groupId: '3'},
-    {groupId: '4'}
+    {groupId: '4'},
   ]}
   items={[
     {key: '1', leadingVisual: TypographyIcon, text: 'Rename', groupId: '0'},
@@ -89,7 +89,7 @@ import {ActionMenu} from '@primer/react/deprecated'
       text: 'Table',
       description: 'Information-dense table optimized for operations across teams',
       descriptionVariant: 'block',
-      groupId: '2'
+      groupId: '2',
     },
     {
       key: '5',
@@ -97,17 +97,17 @@ import {ActionMenu} from '@primer/react/deprecated'
       text: 'Board',
       description: 'Kanban-style board focused on visual states',
       descriptionVariant: 'block',
-      groupId: '2'
+      groupId: '2',
     },
     {
       key: '6',
       leadingVisual: FilterIcon,
       text: 'Save sort and filters to current view',
       disabled: true,
-      groupId: '3'
+      groupId: '3',
     },
     {key: '7', leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4'}
+    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4'},
   ]}
 />
 ```
