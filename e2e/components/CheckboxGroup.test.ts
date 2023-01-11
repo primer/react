@@ -3,25 +3,25 @@ import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('RadioGroup', () => {
+test.describe('CheckboxGroup', () => {
   test.describe('Default', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-examples--default',
+            id: 'components-forms-checkboxgroup-examples--default',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-examples--default',
+            id: 'components-forms-checkboxgroup-examples--default',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-examples--default',
+        id: 'components-forms-checkboxgroup-examples--default',
       })
 
       await expect(page).toHaveNoViolations({
@@ -54,19 +54,19 @@ test.describe('RadioGroup', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-external-label',
+            id: 'components-forms-checkboxgroup-fixtures--with-external-label',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.With External Label.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.With External Label.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-external-label',
+            id: 'components-forms-checkboxgroup-fixtures--with-external-label',
             globals: {
               colorScheme: theme,
             },
@@ -81,7 +81,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-fixtures--with-external-label',
+        id: 'components-forms-checkboxgroup-fixtures--with-external-label',
       })
 
       await expect(page).toHaveNoViolations({
@@ -99,19 +99,19 @@ test.describe('RadioGroup', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+            id: 'components-forms-checkboxgroup-fixtures--with-hidden-label',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.With Hidden Label.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`CheckboxGroup.With Hidden Label.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+            id: 'components-forms-checkboxgroup-fixtures--with-hidden-label',
             globals: {
               colorScheme: theme,
             },
@@ -126,7 +126,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+        id: 'components-forms-checkboxgroup-fixtures--with-hidden-label',
       })
 
       await expect(page).toHaveNoViolations({

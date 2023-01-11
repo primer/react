@@ -3,25 +3,25 @@ import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('IconButton', () => {
-  test.describe('Playground', () => {
+test.describe('Autocomplete', () => {
+  test.describe('Add New Item', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton--playground',
+            id: 'components-forms-autocomplete--add-new-item',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Playground.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Autocomplete.Add New Item.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton--playground',
+            id: 'components-forms-autocomplete--add-new-item',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton--playground',
+        id: 'components-forms-autocomplete--add-new-item',
       })
 
       await expect(page).toHaveNoViolations({
@@ -49,24 +49,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Danger', () => {
+  test.describe('Async Loading Of Items', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--danger',
+            id: 'components-forms-autocomplete--async-loading-of-items',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Danger.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Autocomplete.Async Loading Of Items.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--danger',
+            id: 'components-forms-autocomplete--async-loading-of-items',
             globals: {
               colorScheme: theme,
             },
@@ -81,7 +81,142 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--danger',
+        id: 'components-forms-autocomplete--async-loading-of-items',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('Custom Overlay Menu Anchor', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-forms-autocomplete--custom-overlay-menu-anchor',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Autocomplete.Custom Overlay Menu Anchor.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-forms-autocomplete--custom-overlay-menu-anchor',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-forms-autocomplete--custom-overlay-menu-anchor',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('Custom Search Filter Fn', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-forms-autocomplete--custom-search-filter-fn',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Autocomplete.Custom Search Filter Fn.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-forms-autocomplete--custom-search-filter-fn',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-forms-autocomplete--custom-search-filter-fn',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('Custom Sort After Menu Close', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-forms-autocomplete--custom-sort-after-menu-close',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Autocomplete.Custom Sort After Menu Close.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-forms-autocomplete--custom-sort-after-menu-close',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-forms-autocomplete--custom-sort-after-menu-close',
       })
 
       await expect(page).toHaveNoViolations({
@@ -99,19 +234,19 @@ test.describe('IconButton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--default',
+            id: 'components-forms-autocomplete--default',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Autocomplete.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--default',
+            id: 'components-forms-autocomplete--default',
             globals: {
               colorScheme: theme,
             },
@@ -126,7 +261,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--default',
+        id: 'components-forms-autocomplete--default',
       })
 
       await expect(page).toHaveNoViolations({
@@ -139,24 +274,26 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Disabled', () => {
+  test.describe('In Overlay With Custom Scroll Container Ref', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--disabled',
+            id: 'components-forms-autocomplete--in-overlay-with-custom-scroll-container-ref',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Disabled.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(
+            `Autocomplete.In Overlay With Custom Scroll Container Ref.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--disabled',
+            id: 'components-forms-autocomplete--in-overlay-with-custom-scroll-container-ref',
             globals: {
               colorScheme: theme,
             },
@@ -171,7 +308,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--disabled',
+        id: 'components-forms-autocomplete--in-overlay-with-custom-scroll-container-ref',
       })
 
       await expect(page).toHaveNoViolations({
@@ -184,24 +321,26 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Invisible', () => {
+  test.describe('Rendering The Menu Outside An Overlay', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--invisible',
+            id: 'components-forms-autocomplete--rendering-the-menu-outside-an-overlay',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Invisible.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(
+            `Autocomplete.Rendering The Menu Outside An Overlay.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--invisible',
+            id: 'components-forms-autocomplete--rendering-the-menu-outside-an-overlay',
             globals: {
               colorScheme: theme,
             },
@@ -216,7 +355,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--invisible',
+        id: 'components-forms-autocomplete--rendering-the-menu-outside-an-overlay',
       })
 
       await expect(page).toHaveNoViolations({
@@ -229,24 +368,26 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Large', () => {
+  test.describe('With Callback When Overlay Open State Changes', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--large',
+            id: 'components-forms-autocomplete--with-callback-when-overlay-open-state-changes',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Large.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(
+            `Autocomplete.With Callback When Overlay Open State Changes.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--large',
+            id: 'components-forms-autocomplete--with-callback-when-overlay-open-state-changes',
             globals: {
               colorScheme: theme,
             },
@@ -261,7 +402,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--large',
+        id: 'components-forms-autocomplete--with-callback-when-overlay-open-state-changes',
       })
 
       await expect(page).toHaveNoViolations({
@@ -274,24 +415,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Medium', () => {
+  test.describe('With Token Input', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--medium',
+            id: 'components-forms-autocomplete--with-token-input',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Medium.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Autocomplete.With Token Input.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--medium',
+            id: 'components-forms-autocomplete--with-token-input',
             globals: {
               colorScheme: theme,
             },
@@ -306,97 +447,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--medium',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Primary', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-iconbutton-features--primary',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Primary.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-iconbutton-features--primary',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-iconbutton-features--primary',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Small', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-iconbutton-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Small.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-iconbutton-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-iconbutton-features--small',
+        id: 'components-forms-autocomplete--with-token-input',
       })
 
       await expect(page).toHaveNoViolations({

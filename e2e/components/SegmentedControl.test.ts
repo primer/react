@@ -3,25 +3,25 @@ import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('Button', () => {
+test.describe('SegmentedControl', () => {
   test.describe('Playground', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button--playground',
+            id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Playground.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Playground.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button--playground',
+            id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button--playground',
+        id: 'components-segmentedcontrol-segmentedcontrol-button--playground',
       })
 
       await expect(page).toHaveNoViolations({
@@ -49,24 +49,24 @@ test.describe('Button', () => {
     })
   })
 
-  test.describe('Danger', () => {
+  test.describe('Playground', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--danger',
+            id: 'components-segmentedcontrol-segmentedcontrol-iconbutton--playground',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Danger.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Playground.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--danger',
+            id: 'components-segmentedcontrol-segmentedcontrol-iconbutton--playground',
             globals: {
               colorScheme: theme,
             },
@@ -81,7 +81,324 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button-features--danger',
+        id: 'components-segmentedcontrol-segmentedcontrol-iconbutton--playground',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('Playground', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol--playground',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Playground.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol--playground',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-segmentedcontrol--playground',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('[Example] Associated with a label and caption', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(
+            `SegmentedControl.[Example] Associated with a label and caption.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-segmentedcontrol-features--associated-with-a-label-and-caption',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('[fullWidth: narrow]', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--fullwidth-narrow',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.[fullWidth: narrow].${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--fullwidth-narrow',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-segmentedcontrol-features--fullwidth-narrow',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('[fullWidth: regular]', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--fullwidth-regular',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.[fullWidth: regular].${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--fullwidth-regular',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-segmentedcontrol-features--fullwidth-regular',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('[variant: narrow] Action menu', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--variant-narrow-action-menu',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.[variant: narrow] Action menu.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--variant-narrow-action-menu',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-segmentedcontrol-features--variant-narrow-action-menu',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('[variant: narrow] Hide labels', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--variant-narrow-hide-labels',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.[variant: narrow] Hide labels.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--variant-narrow-hide-labels',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-segmentedcontrol-features--variant-narrow-hide-labels',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('Controlled', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--controlled',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Controlled.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-segmentedcontrol-features--controlled',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-segmentedcontrol-features--controlled',
       })
 
       await expect(page).toHaveNoViolations({
@@ -99,19 +416,19 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--default',
+            id: 'components-segmentedcontrol-features--default',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--default',
+            id: 'components-segmentedcontrol-features--default',
             globals: {
               colorScheme: theme,
             },
@@ -126,7 +443,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button-features--default',
+        id: 'components-segmentedcontrol-features--default',
       })
 
       await expect(page).toHaveNoViolations({
@@ -139,24 +456,24 @@ test.describe('Button', () => {
     })
   })
 
-  test.describe('Disabled', () => {
+  test.describe('Full width', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--disabled',
+            id: 'components-segmentedcontrol-features--fullwidth-all',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Disabled.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Full width.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--disabled',
+            id: 'components-segmentedcontrol-features--fullwidth-all',
             globals: {
               colorScheme: theme,
             },
@@ -171,7 +488,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button-features--disabled',
+        id: 'components-segmentedcontrol-features--fullwidth-all',
       })
 
       await expect(page).toHaveNoViolations({
@@ -184,24 +501,24 @@ test.describe('Button', () => {
     })
   })
 
-  test.describe('Invisible', () => {
+  test.describe('Icon only', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--invisible',
+            id: 'components-segmentedcontrol-features--icon-only',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Invisible.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Icon only.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--invisible',
+            id: 'components-segmentedcontrol-features--icon-only',
             globals: {
               colorScheme: theme,
             },
@@ -216,7 +533,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button-features--invisible',
+        id: 'components-segmentedcontrol-features--icon-only',
       })
 
       await expect(page).toHaveNoViolations({
@@ -229,24 +546,24 @@ test.describe('Button', () => {
     })
   })
 
-  test.describe('Large', () => {
+  test.describe('With Icons', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--large',
+            id: 'components-segmentedcontrol-features--with-icons',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Large.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.With Icons.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-button-features--large',
+            id: 'components-segmentedcontrol-features--with-icons',
             globals: {
               colorScheme: theme,
             },
@@ -261,322 +578,7 @@ test.describe('Button', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-button-features--large',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Leading Visual', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--leading-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Leading Visual.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--leading-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button-features--leading-visual',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Medium', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--medium',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Medium.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--medium',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button-features--medium',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Outline', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--outline',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Outline.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--outline',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button-features--outline',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Primary', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--primary',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Primary.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--primary',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button-features--primary',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Small', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Small.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button-features--small',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Trailing Counter', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-counter',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Counter.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-counter',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button-features--trailing-counter',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Trailing Visual', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Trailing Visual.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--trailing-visual',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-button-features--trailing-visual',
+        id: 'components-segmentedcontrol-features--with-icons',
       })
 
       await expect(page).toHaveNoViolations({

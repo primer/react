@@ -3,25 +3,25 @@ import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('IconButton', () => {
-  test.describe('Playground', () => {
+test.describe('PageLayout', () => {
+  test.describe('Custom Sticky Header', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton--playground',
+            id: 'components-pagelayout--custom-sticky-header',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Playground.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Custom Sticky Header.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton--playground',
+            id: 'components-pagelayout--custom-sticky-header',
             globals: {
               colorScheme: theme,
             },
@@ -36,52 +36,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton--playground',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Danger', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-iconbutton-features--danger',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Danger.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-iconbutton-features--danger',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-iconbutton-features--danger',
+        id: 'components-pagelayout--custom-sticky-header',
       })
 
       await expect(page).toHaveNoViolations({
@@ -99,19 +54,19 @@ test.describe('IconButton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--default',
+            id: 'components-pagelayout--default',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--default',
+            id: 'components-pagelayout--default',
             globals: {
               colorScheme: theme,
             },
@@ -126,7 +81,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--default',
+        id: 'components-pagelayout--default',
       })
 
       await expect(page).toHaveNoViolations({
@@ -139,24 +94,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Disabled', () => {
+  test.describe('Custom Sticky Header', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--disabled',
+            id: 'components-pagelayout-interactions--custom-sticky-header',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Disabled.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Custom Sticky Header.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--disabled',
+            id: 'components-pagelayout-interactions--custom-sticky-header',
             globals: {
               colorScheme: theme,
             },
@@ -171,7 +126,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--disabled',
+        id: 'components-pagelayout-interactions--custom-sticky-header',
       })
 
       await expect(page).toHaveNoViolations({
@@ -184,24 +139,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Invisible', () => {
+  test.describe('Non Sticky Pane', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--invisible',
+            id: 'components-pagelayout-interactions--non-sticky-pane',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Invisible.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Non Sticky Pane.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--invisible',
+            id: 'components-pagelayout-interactions--non-sticky-pane',
             globals: {
               colorScheme: theme,
             },
@@ -216,7 +171,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--invisible',
+        id: 'components-pagelayout-interactions--non-sticky-pane',
       })
 
       await expect(page).toHaveNoViolations({
@@ -229,24 +184,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Large', () => {
+  test.describe('Sticky Pane', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--large',
+            id: 'components-pagelayout-interactions--sticky-pane',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Large.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Sticky Pane.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--large',
+            id: 'components-pagelayout-interactions--sticky-pane',
             globals: {
               colorScheme: theme,
             },
@@ -261,7 +216,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--large',
+        id: 'components-pagelayout-interactions--sticky-pane',
       })
 
       await expect(page).toHaveNoViolations({
@@ -274,24 +229,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Medium', () => {
+  test.describe('Nested Scroll Container', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--medium',
+            id: 'components-pagelayout--nested-scroll-container',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Medium.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Nested Scroll Container.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--medium',
+            id: 'components-pagelayout--nested-scroll-container',
             globals: {
               colorScheme: theme,
             },
@@ -306,7 +261,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--medium',
+        id: 'components-pagelayout--nested-scroll-container',
       })
 
       await expect(page).toHaveNoViolations({
@@ -319,24 +274,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Primary', () => {
+  test.describe('Pull Request Page', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--primary',
+            id: 'components-pagelayout--pull-request-page',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Primary.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Pull Request Page.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--primary',
+            id: 'components-pagelayout--pull-request-page',
             globals: {
               colorScheme: theme,
             },
@@ -351,7 +306,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--primary',
+        id: 'components-pagelayout--pull-request-page',
       })
 
       await expect(page).toHaveNoViolations({
@@ -364,24 +319,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Small', () => {
+  test.describe('Resizable Pane', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--small',
+            id: 'components-pagelayout--resizable-pane',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Small.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Resizable Pane.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--small',
+            id: 'components-pagelayout--resizable-pane',
             globals: {
               colorScheme: theme,
             },
@@ -396,7 +351,99 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--small',
+        id: 'components-pagelayout--resizable-pane',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('Scroll Container Within Page Layout Pane', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-pagelayout--scroll-container-within-page-layout-pane',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(
+            `PageLayout.Scroll Container Within Page Layout Pane.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-pagelayout--scroll-container-within-page-layout-pane',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-pagelayout--scroll-container-within-page-layout-pane',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('Sticky Pane', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-pagelayout--sticky-pane',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Sticky Pane.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-pagelayout--sticky-pane',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-pagelayout--sticky-pane',
       })
 
       await expect(page).toHaveNoViolations({

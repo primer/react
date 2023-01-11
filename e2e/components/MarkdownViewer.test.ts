@@ -3,25 +3,25 @@ import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('RadioGroup', () => {
+test.describe('MarkdownViewer', () => {
   test.describe('Default', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-examples--default',
+            id: 'components-forms-markdownviewer--default',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`MarkdownViewer.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-examples--default',
+            id: 'components-forms-markdownviewer--default',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-examples--default',
+        id: 'components-forms-markdownviewer--default',
       })
 
       await expect(page).toHaveNoViolations({
@@ -49,24 +49,24 @@ test.describe('RadioGroup', () => {
     })
   })
 
-  test.describe('With External Label', () => {
+  test.describe('Interactive', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-external-label',
+            id: 'components-forms-markdownviewer--interactive',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.With External Label.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`MarkdownViewer.Interactive.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-external-label',
+            id: 'components-forms-markdownviewer--interactive',
             globals: {
               colorScheme: theme,
             },
@@ -81,7 +81,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-fixtures--with-external-label',
+        id: 'components-forms-markdownviewer--interactive',
       })
 
       await expect(page).toHaveNoViolations({
@@ -94,24 +94,24 @@ test.describe('RadioGroup', () => {
     })
   })
 
-  test.describe('With Hidden Label', () => {
+  test.describe('Link Interception', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+            id: 'components-forms-markdownviewer--link-interception',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.With Hidden Label.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`MarkdownViewer.Link Interception.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+            id: 'components-forms-markdownviewer--link-interception',
             globals: {
               colorScheme: theme,
             },
@@ -126,7 +126,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+        id: 'components-forms-markdownviewer--link-interception',
       })
 
       await expect(page).toHaveNoViolations({

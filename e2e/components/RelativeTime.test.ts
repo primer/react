@@ -3,25 +3,70 @@ import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('RadioGroup', () => {
+test.describe('RelativeTime', () => {
+  test.describe('Count Down Timer', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-relativetime--count-down-timer',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`RelativeTime.Count Down Timer.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-relativetime--count-down-timer',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-relativetime--count-down-timer',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
   test.describe('Default', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-examples--default',
+            id: 'components-relativetime--default',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`RelativeTime.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-examples--default',
+            id: 'components-relativetime--default',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +81,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-examples--default',
+        id: 'components-relativetime--default',
       })
 
       await expect(page).toHaveNoViolations({
@@ -49,24 +94,24 @@ test.describe('RadioGroup', () => {
     })
   })
 
-  test.describe('With External Label', () => {
+  test.describe('Micro Format', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-external-label',
+            id: 'components-relativetime--micro-format',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.With External Label.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`RelativeTime.Micro Format.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-external-label',
+            id: 'components-relativetime--micro-format',
             globals: {
               colorScheme: theme,
             },
@@ -81,7 +126,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-fixtures--with-external-label',
+        id: 'components-relativetime--micro-format',
       })
 
       await expect(page).toHaveNoViolations({
@@ -94,24 +139,24 @@ test.describe('RadioGroup', () => {
     })
   })
 
-  test.describe('With Hidden Label', () => {
+  test.describe('Recent Time', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+            id: 'components-relativetime--recent-time',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.With Hidden Label.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`RelativeTime.Recent Time.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+            id: 'components-relativetime--recent-time',
             globals: {
               colorScheme: theme,
             },
@@ -126,7 +171,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+        id: 'components-relativetime--recent-time',
       })
 
       await expect(page).toHaveNoViolations({

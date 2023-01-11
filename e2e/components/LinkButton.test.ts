@@ -1,4 +1,5 @@
 import {test, expect} from '@playwright/test'
+import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
@@ -25,16 +26,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton--playground',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Danger', () => {
@@ -59,16 +71,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--danger',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Default', () => {
@@ -93,16 +116,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--default',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Invisible', () => {
@@ -127,16 +161,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--invisible',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Large', () => {
@@ -161,16 +206,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--large',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Leading Visual', () => {
@@ -195,16 +251,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--leading-visual',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Medium', () => {
@@ -229,16 +296,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--medium',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Outline', () => {
@@ -263,16 +341,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--outline',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Primary', () => {
@@ -290,23 +379,34 @@ test.describe('LinkButton', () => {
           expect(await page.screenshot()).toMatchSnapshot(`LinkButton.Primary.${theme}.png`)
         })
 
-        test.fixme('axe @aat', async ({page}) => {
+        test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-linkbutton-features--primary',
             globals: {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--primary',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Small', () => {
@@ -331,16 +431,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--small',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('Trailing Visual', () => {
@@ -365,16 +476,27 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--trailing-visual',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 
   test.describe('With React Router', () => {
@@ -399,15 +521,26 @@ test.describe('LinkButton', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
         })
       })
     }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-linkbutton-features--with-react-router',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
   })
 })

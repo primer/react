@@ -3,25 +3,25 @@ import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('IconButton', () => {
-  test.describe('Playground', () => {
+test.describe('SelectPanel', () => {
+  test.describe('Multi Select', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton--playground',
+            id: 'components-selectpanel--multi-select-story',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Playground.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Multi Select.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton--playground',
+            id: 'components-selectpanel--multi-select-story',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton--playground',
+        id: 'components-selectpanel--multi-select-story',
       })
 
       await expect(page).toHaveNoViolations({
@@ -49,24 +49,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Danger', () => {
+  test.describe('SelectPanel, Above a Tall Body', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--danger',
+            id: 'components-selectpanel--select-panel-above-tall-body',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Danger.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.SelectPanel, Above a Tall Body.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--danger',
+            id: 'components-selectpanel--select-panel-above-tall-body',
             globals: {
               colorScheme: theme,
             },
@@ -81,7 +81,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--danger',
+        id: 'components-selectpanel--select-panel-above-tall-body',
       })
 
       await expect(page).toHaveNoViolations({
@@ -94,24 +94,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Default', () => {
+  test.describe('SelectPanel, Height and Scroll', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--default',
+            id: 'components-selectpanel--select-panel-height-and-scroll',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.SelectPanel, Height and Scroll.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--default',
+            id: 'components-selectpanel--select-panel-height-and-scroll',
             globals: {
               colorScheme: theme,
             },
@@ -126,7 +126,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--default',
+        id: 'components-selectpanel--select-panel-height-and-scroll',
       })
 
       await expect(page).toHaveNoViolations({
@@ -139,24 +139,26 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Disabled', () => {
+  test.describe('SelectPanel, Height: Initial, Overflowing Items', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--disabled',
+            id: 'components-selectpanel--select-panel-height-initial-with-overflowing-items-story',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Disabled.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(
+            `SelectPanel.SelectPanel, Height: Initial, Overflowing Items.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--disabled',
+            id: 'components-selectpanel--select-panel-height-initial-with-overflowing-items-story',
             globals: {
               colorScheme: theme,
             },
@@ -171,7 +173,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--disabled',
+        id: 'components-selectpanel--select-panel-height-initial-with-overflowing-items-story',
       })
 
       await expect(page).toHaveNoViolations({
@@ -184,24 +186,26 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Invisible', () => {
+  test.describe('SelectPanel, Height: Initial, Underflowing Items', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--invisible',
+            id: 'components-selectpanel--select-panel-height-initial-with-underflowing-items-story',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Invisible.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(
+            `SelectPanel.SelectPanel, Height: Initial, Underflowing Items.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--invisible',
+            id: 'components-selectpanel--select-panel-height-initial-with-underflowing-items-story',
             globals: {
               colorScheme: theme,
             },
@@ -216,7 +220,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--invisible',
+        id: 'components-selectpanel--select-panel-height-initial-with-underflowing-items-story',
       })
 
       await expect(page).toHaveNoViolations({
@@ -229,24 +233,26 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Large', () => {
+  test.describe('SelectPanel, Height: Initial, Underflowing Items (After Fetch)', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--large',
+            id: 'components-selectpanel--select-panel-height-initial-with-underflowing-items-after-fetch',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Large.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(
+            `SelectPanel.SelectPanel, Height: Initial, Underflowing Items (After Fetch).${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--large',
+            id: 'components-selectpanel--select-panel-height-initial-with-underflowing-items-after-fetch',
             globals: {
               colorScheme: theme,
             },
@@ -261,7 +267,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--large',
+        id: 'components-selectpanel--select-panel-height-initial-with-underflowing-items-after-fetch',
       })
 
       await expect(page).toHaveNoViolations({
@@ -274,24 +280,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Medium', () => {
+  test.describe('Single Select', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--medium',
+            id: 'components-selectpanel--single-select-story',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Medium.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Single Select.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--medium',
+            id: 'components-selectpanel--single-select-story',
             globals: {
               colorScheme: theme,
             },
@@ -306,7 +312,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--medium',
+        id: 'components-selectpanel--single-select-story',
       })
 
       await expect(page).toHaveNoViolations({
@@ -319,24 +325,24 @@ test.describe('IconButton', () => {
     })
   })
 
-  test.describe('Primary', () => {
+  test.describe('With External Anchor', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--primary',
+            id: 'components-selectpanel--external-anchor-story',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Primary.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.With External Anchor.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-iconbutton-features--primary',
+            id: 'components-selectpanel--external-anchor-story',
             globals: {
               colorScheme: theme,
             },
@@ -351,52 +357,7 @@ test.describe('IconButton', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-iconbutton-features--primary',
-      })
-
-      await expect(page).toHaveNoViolations({
-        rules: {
-          'color-contrast': {
-            enabled: false,
-          },
-        },
-      })
-    })
-  })
-
-  test.describe('Small', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-iconbutton-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Small.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-iconbutton-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          if (theme !== 'dark_dimmed') {
-            await expect(page).toHaveNoViolations(contrastOnly)
-          }
-        })
-      })
-    }
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-iconbutton-features--small',
+        id: 'components-selectpanel--external-anchor-story',
       })
 
       await expect(page).toHaveNoViolations({

@@ -3,25 +3,25 @@ import {contrastOnly} from '../test-helpers/axe'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
-test.describe('RadioGroup', () => {
+test.describe('Token', () => {
   test.describe('Default', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-examples--default',
+            id: 'components-token--default-token',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.Default.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Token.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-examples--default',
+            id: 'components-token--default-token',
             globals: {
               colorScheme: theme,
             },
@@ -36,7 +36,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-examples--default',
+        id: 'components-token--default-token',
       })
 
       await expect(page).toHaveNoViolations({
@@ -49,24 +49,24 @@ test.describe('RadioGroup', () => {
     })
   })
 
-  test.describe('With External Label', () => {
+  test.describe('Interactive', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-external-label',
+            id: 'components-token--interactive',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.With External Label.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Token.Interactive.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-external-label',
+            id: 'components-token--interactive',
             globals: {
               colorScheme: theme,
             },
@@ -81,7 +81,7 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-fixtures--with-external-label',
+        id: 'components-token--interactive',
       })
 
       await expect(page).toHaveNoViolations({
@@ -94,24 +94,24 @@ test.describe('RadioGroup', () => {
     })
   })
 
-  test.describe('With Hidden Label', () => {
+  test.describe('with leadingVisual', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+            id: 'components-token--with-leading-visual',
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`RadioGroup.With Hidden Label.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Token.with leadingVisual.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+            id: 'components-token--with-leading-visual',
             globals: {
               colorScheme: theme,
             },
@@ -126,7 +126,52 @@ test.describe('RadioGroup', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-forms-radiogroup-fixtures--with-hidden-label',
+        id: 'components-token--with-leading-visual',
+      })
+
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('With On Remove Fn', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-token--with-on-remove-fn',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Token.With On Remove Fn.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-token--with-on-remove-fn',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          if (theme !== 'dark_dimmed') {
+            await expect(page).toHaveNoViolations(contrastOnly)
+          }
+        })
+      })
+    }
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-token--with-on-remove-fn',
       })
 
       await expect(page).toHaveNoViolations({
