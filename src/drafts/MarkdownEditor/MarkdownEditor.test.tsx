@@ -1177,7 +1177,11 @@ describe('MarkdownEditor', () => {
       // Note: this spy assertion for console.error() is for an act() violation.
       // It's not clear where this act() violation is located as wrapping the
       // above code does not address this.
-      expect(spy).toHaveBeenCalled()
+      if (REACT_VERSION_LATEST) {
+        expect(spy).toHaveBeenCalled()
+      } else {
+        expect(spy).not.toHaveBeenCalled()
+      }
       spy.mockRestore()
     })
 

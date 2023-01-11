@@ -1,5 +1,5 @@
 import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
 import {ActionMenu} from '../deprecated/ActionMenu'
@@ -12,7 +12,7 @@ import {ThemeProvider} from '../ThemeProvider'
 import {SSRProvider} from '../utils/ssr'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
-expect.extend(toHaveNoViolations)
+declare const REACT_VERSION_LATEST: boolean
 
 const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -137,10 +137,12 @@ describe('ConfirmationDialog', () => {
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
 
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith(
-      expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
-    )
+    if (REACT_VERSION_LATEST) {
+      expect(spy).toHaveBeenCalledTimes(1)
+      expect(spy).toHaveBeenCalledWith(
+        expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
+      )
+    }
     spy.mockRestore()
   })
 })

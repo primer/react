@@ -1,5 +1,4 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
@@ -100,6 +99,7 @@ describe('UnderlineNav', () => {
     expect(nav.getElementsByTagName('svg').length).toEqual(7)
   })
   it('fires onSelect on click', async () => {
+    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
     const onSelect = jest.fn()
     const {getByRole} = render(
       <UnderlineNav aria-label="Test Navigation">
@@ -112,6 +112,10 @@ describe('UnderlineNav', () => {
     const user = userEvent.setup()
     await user.click(item)
     expect(onSelect).toHaveBeenCalledTimes(1)
+
+    // Warning: It looks like you're using the wrong act() around your test interactions
+    expect(spy).toHaveBeenCalledTimes(2)
+    spy.mockRestore()
   })
   it('fires onSelect on keypress', async () => {
     const onSelect = jest.fn()
