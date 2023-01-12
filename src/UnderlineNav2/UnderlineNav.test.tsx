@@ -15,6 +15,8 @@ import {
 import {UnderlineNav} from '.'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 
+declare const REACT_VERSION_LATEST: boolean
+
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
 Object.defineProperty(window, 'matchMedia', {
@@ -99,7 +101,7 @@ describe('UnderlineNav', () => {
     expect(nav.getElementsByTagName('svg').length).toEqual(7)
   })
   it('fires onSelect on click', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
+    const spy = jest.spyOn(console, 'error').mockImplementation()
     const onSelect = jest.fn()
     const {getByRole} = render(
       <UnderlineNav aria-label="Test Navigation">
@@ -113,8 +115,12 @@ describe('UnderlineNav', () => {
     await user.click(item)
     expect(onSelect).toHaveBeenCalledTimes(1)
 
-    // Warning: It looks like you're using the wrong act() around your test interactions
-    expect(spy).toHaveBeenCalledTimes(2)
+    if (REACT_VERSION_LATEST) {
+      // Warning: It looks like you're using the wrong act() around your test interactions
+      expect(spy).toHaveBeenCalledTimes(2)
+    } else {
+      expect(spy).not.toHaveBeenCalled()
+    }
     spy.mockRestore()
   })
   it('fires onSelect on keypress', async () => {
