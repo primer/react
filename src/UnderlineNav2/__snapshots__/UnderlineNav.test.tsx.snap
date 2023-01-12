@@ -19,6 +19,7 @@ exports[`UnderlineNav renders consistently 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  min-width: 256px;
 }
 
 .c3 {
