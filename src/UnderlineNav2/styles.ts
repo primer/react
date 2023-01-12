@@ -40,6 +40,7 @@ export const getNavStyles = (theme?: Theme, props?: Partial<Pick<UnderlineNavPro
   borderBottomColor: `${theme?.colors.border.muted}`,
   align: 'row',
   alignItems: 'center',
+  minWidth: '256px', // to keep the selected item visible when the container is too small
 })
 
 export const ulStyles = {

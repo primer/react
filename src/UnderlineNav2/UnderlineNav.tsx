@@ -86,15 +86,16 @@ const overflowEffect = (
     const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
     const numberOfListItems =
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
-
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
         items.push(child)
       } else {
         const ariaCurrent = child.props['aria-current']
         const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
+
         // We need to make sure to keep the selected item always visible.
-        if (isCurrent) {
+        // To do that, we swap the selected item with the last item in the list to make it visible. (When there is at least 1 item in the list to swap.)
+        if (isCurrent && numberOfListItems > 0) {
           // If selected item couldn't make in to the list, we swap it with the last item in the list.
           const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
           // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
