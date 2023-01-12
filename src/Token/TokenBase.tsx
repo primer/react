@@ -118,7 +118,11 @@ const variants = variant<
   },
 })
 
-const StyledTokenBase = styled.span<SxProp>`
+const StyledTokenBase = styled.span<
+  {
+    size?: TokenSizeKeys
+  } & SxProp
+>`
   align-items: center;
   border-radius: 999px;
   cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
@@ -133,7 +137,7 @@ const StyledTokenBase = styled.span<SxProp>`
 `
 
 const TokenBase = React.forwardRef(
-  ({text, onRemove, onKeyDown, id, as = 'span', size = defaultTokenSize, ...rest}, forwardedRef) => {
+  ({text, onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
     return (
       <StyledTokenBase
         onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
@@ -145,7 +149,6 @@ const TokenBase = React.forwardRef(
         }}
         aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
         id={id?.toString()}
-        as={as}
         size={size}
         {...rest}
         ref={forwardedRef}
