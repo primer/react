@@ -91,7 +91,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
     ...rest
-  }: TextInputWithTokensProps<TokenComponentType>,
+  }: TextInputWithTokensProps<TokenComponentType | typeof Token>,
   forwardedRef: React.ForwardedRef<HTMLInputElement>,
 ) {
   const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
