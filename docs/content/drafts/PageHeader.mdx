@@ -1,0 +1,561 @@
+---
+title: PageHeader
+componentId: page_header
+status: Draft
+description: PageHeader is used to determine the arrangement of the top-level headings and how elements adopt to different viewports.
+source: https://github.com/primer/react/tree/main/src/PageHeader
+storybook: '/react/storybook/?path=/story/drafts-components-pageheader--playground'
+---
+
+```js
+import {PageHeader} from '@primer/react/drafts'
+```
+
+## Examples
+
+### Has title only
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Title</PageHeader.Title>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+### Title `variant="large"`
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea variant="large">
+    <PageHeader.Title>Title</PageHeader.Title>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+### With leading and trailing visuals
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.LeadingVisual>
+      <GitPullRequestIcon />
+    </PageHeader.LeadingVisual>
+    <PageHeader.Title>Title</PageHeader.Title>
+    <PageHeader.TrailingVisual>
+      <Label>Beta</Label>
+    </PageHeader.TrailingVisual>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+### With leading visual is hidden on regular viewport
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.LeadingVisual hidden={{regular: true}}>
+      <GitPullRequestIcon />
+    </PageHeader.LeadingVisual>
+    <PageHeader.Title>Title</PageHeader.Title>
+    <PageHeader.TrailingVisual>
+      <Label>Beta</Label>
+    </PageHeader.TrailingVisual>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+### With leading and trailing actions
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.LeadingAction>
+      <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />
+    </PageHeader.LeadingAction>
+    <PageHeader.Title>Title</PageHeader.Title>
+    <PageHeader.TrailingAction>
+      <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
+    </PageHeader.TrailingAction>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+### With actions
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Title</PageHeader.Title>
+    <PageHeader.Actions>
+      <IconButton aria-label="Workflows" icon={WorkflowIcon} />
+      <IconButton aria-label="Insights" icon={GraphIcon} />
+      <Button variant="primary" trailingIcon={TriangleDownIcon}>
+        Add Item
+      </Button>
+      <IconButton aria-label="Settings" icon={GearIcon} />
+    </PageHeader.Actions>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+### With description slot
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>add-pageheader-docs</PageHeader.Title>
+  </PageHeader.TitleArea>
+  <PageHeader.Description>
+    <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+      <Link href="#" muted sx={{fontWeight: 'bold'}}>
+        broccolinisoup
+      </Link>{' '}
+      created this branch 5 days ago · 14 commits · updated today
+    </Text>
+  </PageHeader.Description>
+</PageHeader>
+```
+
+### With navigation slot
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Pull request title</PageHeader.Title>
+  </PageHeader.TitleArea>
+  <PageHeader.Navigation>
+    <UnderlineNav2 aria-label="Pull Request">
+      <UnderlineNav2.Item icon={CommentDiscussionIcon} counter="12" aria-current="page">
+        Conversation
+      </UnderlineNav2.Item>
+      <UnderlineNav2.Item counter={3} icon={CommitIcon}>
+        Commits
+      </UnderlineNav2.Item>
+      <UnderlineNav2.Item counter={7} icon={ChecklistIcon}>
+        Checks
+      </UnderlineNav2.Item>
+      <UnderlineNav2.Item counter={4} icon={FileDiffIcon}>
+        Files Changes
+      </UnderlineNav2.Item>
+    </UnderlineNav2>
+  </PageHeader.Navigation>
+</PageHeader>
+```
+
+### With ContextArea
+
+#### With parent link and actions (only visible on mobile)
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.ContextArea>
+    <PageHeader.ParentLink href="http://github.com">Parent Link</PageHeader.ParentLink>
+
+    <PageHeader.ContextAreaActions>
+      <Button size="small" leadingIcon={GitBranchIcon}>
+        Main
+      </Button>
+      <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
+    </PageHeader.ContextAreaActions>
+  </PageHeader.ContextArea>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Title</PageHeader.Title>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+#### With context bar and actions (only visible on mobile)
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.ContextArea>
+    <PageHeader.ContextBar>
+      <Breadcrumbs>
+        <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+      </Breadcrumbs>
+    </PageHeader.ContextBar>
+
+    <PageHeader.ContextAreaActions>
+      <Button size="small" leadingIcon={GitBranchIcon}>
+        Main
+      </Button>
+      <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
+    </PageHeader.ContextAreaActions>
+  </PageHeader.ContextArea>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Title</PageHeader.Title>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+#### With a ContextArea with all possible children (always visible)
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.ContextArea hidden={false}>
+    <PageHeader.ParentLink href="http://github.com" hidden={false}>
+      Parent Link
+    </PageHeader.ParentLink>
+
+    <PageHeader.ContextBar hidden={false}>
+      <Breadcrumbs>
+        <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+      </Breadcrumbs>
+    </PageHeader.ContextBar>
+
+    <PageHeader.ContextAreaActions hidden={false}>
+      <Button size="small" leadingIcon={GitBranchIcon}>
+        Main
+      </Button>
+      <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
+    </PageHeader.ContextAreaActions>
+  </PageHeader.ContextArea>
+  <PageHeader.TitleArea>
+    <PageHeader.Title>Title</PageHeader.Title>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+### With actions that have responsive content
+
+```jsx live drafts
+<PageHeader>
+  <PageHeader.TitleArea>
+    <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
+    <PageHeader.Actions>
+      <Hidden on={['narrow']}>
+        <Button variant="primary">New webhook</Button>
+      </Hidden>
+      <Hidden on={['regular', 'wide']}>
+        <Button variant="primary">New</Button>
+      </Hidden>
+    </PageHeader.Actions>
+  </PageHeader.TitleArea>
+</PageHeader>
+```
+
+## Props
+
+### PageHeader
+
+<PropsTable>
+  <PropsTableRow
+    name="aria-label"
+    type={`string | undefined`}
+    description="A unique label for the rendered main landmark"
+  />
+  <PropsTableAsRow defaultElementType="header" />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageHeader.ContextArea
+
+ContextArea should be used to provide users contextual information about their navigation journey. It is only visible on narrow viewports by default.
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageHeader.ContextArea Children
+
+#### PageHeader.ParentLink
+
+ParentLink is the default way to let users navigate up in the hierarchy on narrow viewports.
+
+<PropsTable>
+  <PropsTableRow name="href" type="string" description="The URL to link to." defaultValue="" />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue={`{
+    narrow: false
+    regular: true
+    wide: true
+  }`}
+    description="Whether the parent link is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+#### PageHeader.ContextBar
+
+ContextBar is a generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+#### PageHeader.ContextAreaActions
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageHeader.TitleArea
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+  <PropsTableRow
+    name="variant"
+    type={`| 'subtitle'
+| 'medium' | 'large'
+| {
+    narrow?:
+      | 'subtitle'
+      | 'medium' 
+      | 'large'
+    regular?:
+      | 'subtitle'
+      | 'medium' 
+      | 'large'
+    wide?:
+      | 'subtitle'
+      | 'medium' 
+      | 'large'
+  }`}
+    defaultValue="medium"
+    description="Default title (medium) is the most common page title size. Use for static titles in most situations. 
+    Large variant should be used for user-generated content such as issues, pull requests, or discussions. 
+    Subtitle variant can be used when a PageHeader.Title is already present in the page, such as in a SplitPageLayout."
+  />
+</PropsTable>
+
+### PageHeader.TitleArea Children
+
+#### PageHeader.LeadingAction
+
+Leading actions can be used for local navigation. It is hidden on narrow viewports by default in favor of ParenLink.
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+#### PageHeader.LeadingVisual
+
+Leading visuals are optional and appear at the start of the title. They can be octicons, avatars, and other custom visuals that fit a small area.
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+#### PageHeader.Title
+
+<PropsTable>
+  <PropsTableAsRow defaultElementType="h3" />
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+#### PageHeader.TrailingVisual
+
+Trailing visual and trailing text can display auxiliary information. They're placed at the right of the item, and can denote status, privacy details, etc.
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+#### PageHeader.TrailingAction
+
+Trailing action can display subtler actions aligned directly next to the title.
+It is hidden on narrow viewports by default. Replace the trailing action with an item in an overflow button on narow viewports.
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+#### PageHeader.Actions
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageHeader.Description
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+### PageHeader.Navigation
+
+<PropsTable>
+  <PropsTableRow
+    name="hidden"
+    type={`| boolean
+| {
+    narrow?: boolean
+    regular?: boolean
+    wide?: boolean
+  }`}
+    defaultValue="false"
+    description="Whether the content is hidden."
+  />
+  <PropsTableSxRow />
+</PropsTable>
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: false,
+    usedInProduction: false,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false,
+  }}
+/>

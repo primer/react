@@ -31,12 +31,10 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
    *  When all the children have mounted = registered themselves in slot,
    *  we re-render the parent component to render with slots
    */
-  const Slots: React.FC<
-    React.PropsWithChildren<{
-      context?: ContextProps['context']
-      children: (slots: Slots) => React.ReactNode
-    }>
-  > = ({context = defaultContext, children}) => {
+  const Slots: React.FC<{
+    context?: ContextProps['context']
+    children: (slots: Slots) => React.ReactNode
+  }> = ({context = defaultContext, children}) => {
     // initialise slots
     const slotsDefinition: Slots = {}
     slotNames.map(name => (slotsDefinition[name] = null))
@@ -82,16 +80,12 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
     )
   }
 
-  const Slot: React.FC<
-    React.PropsWithChildren<{
-      name: SlotNames
-      children: React.ReactNode
-    }>
-  > = ({name, children}) => {
+  function Slot<T>(props: {name: SlotNames; children: React.ReactNode | ((context: T) => React.ReactNode)}) {
+    const {name, children} = props
     const {registerSlot, unregisterSlot, context} = React.useContext(SlotsContext)
 
     useLayoutEffect(() => {
-      registerSlot(name, typeof children === 'function' ? children(context) : children)
+      registerSlot(name, typeof children === 'function' ? children(context as T) : children)
       return () => unregisterSlot(name)
     }, [name, children, registerSlot, unregisterSlot, context])
 

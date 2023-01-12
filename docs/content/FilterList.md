@@ -22,13 +22,13 @@ The FilterList component is a menu with filter options that filter the main cont
 
 ## Component props
 
-#### FilterList
+### FilterList
 
 | Name | Type              | Default | Description                          |
 | :--- | :---------------- | :-----: | :----------------------------------- |
 | sx   | SystemStyleObject |   {}    | Style to be applied to the component |
 
-#### FilterList.Item
+### FilterList.Item
 
 | Name     | Type              | Default | Description                                                      |
 | :------- | :---------------- | :-----: | :--------------------------------------------------------------- |

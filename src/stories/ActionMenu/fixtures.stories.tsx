@@ -433,6 +433,7 @@ export function MemexViewOptionsMenu(): JSX.Element {
                 padding: '0 1px',
                 lineHeight: '18px',
               }}
+              aria-label="Open View options menu"
             />
           </ActionMenu.Anchor>
 
@@ -579,15 +580,17 @@ export function MemexAddColumn(): JSX.Element {
           </ActionMenu.Button>
           <ActionMenu.Overlay width="medium">
             <ActionList selectionVariant="single">
-              {fieldTypes.map((type, index) => (
-                <ActionList.Item
-                  key={index}
-                  selected={index === selectedIndex}
-                  onSelect={() => setSelectedIndex(index)}
-                >
-                  {type.icon} {type.name}
-                </ActionList.Item>
-              ))}
+              {fieldTypes.map((type, index) => {
+                return (
+                  <ActionList.Item
+                    key={index}
+                    selected={index === selectedIndex}
+                    onSelect={() => setSelectedIndex(index)}
+                  >
+                    {React.createElement(type.icon)} {type.name}
+                  </ActionList.Item>
+                )
+              })}
             </ActionList>
           </ActionMenu.Overlay>
         </ActionMenu>

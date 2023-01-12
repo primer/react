@@ -7,6 +7,8 @@ import {act} from 'react-dom/test-utils'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
 import ThemeProvider from '../../ThemeProvider'
 
+declare const REACT_VERSION_LATEST: boolean
+
 type UncontrolledEditorProps = Omit<MarkdownEditorProps, 'value' | 'onChange' | 'onRenderPreview' | 'children'> &
   Partial<Pick<MarkdownEditorProps, 'onChange' | 'onRenderPreview' | 'children'>> & {
     hideLabel?: boolean
@@ -655,6 +657,10 @@ describe('MarkdownEditor', () => {
         const fileB = imageFile('b')
         fireEvent[method](input, {[dataKey]: {files: [fileA, fileB], types: ['Files']}})
 
+        await act(async () => {
+          await Promise.resolve(process.nextTick)
+        })
+
         await expectFilesToBeAdded(onChange, fileB)
 
         expect(getFooter()).toHaveTextContent('File type not allowed: .app')
@@ -783,8 +789,6 @@ describe('MarkdownEditor', () => {
       })
 
       it('forces links to open in a new tab', async () => {
-        const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
-
         // eslint-disable-next-line github/unescaped-html-literal
         const html = '<a href="https://example.com">Link</a>'
         const user = userEvent.setup()
@@ -794,19 +798,7 @@ describe('MarkdownEditor', () => {
         const link = await waitFor(() => within(getPreview()).getByText('Link'))
 
         await user.click(link)
-        // Note: navigation is not implemented in JSDOM and will log out an
-        // error when clicking the link above. The spy here captures this error
-        // and will assert that it is called only once, otherwise another error
-        // in this test has occurred
-        expect(spy).toHaveBeenCalledTimes(1)
-        expect(spy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            message: 'Not implemented: navigation (except hash changes)',
-          }),
-        )
-        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
-
-        spy.mockRestore()
+        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank', 'noopener noreferrer')
       })
     })
   })
@@ -983,8 +975,11 @@ describe('MarkdownEditor', () => {
         await user.type(input, `hello ${triggerChar}`)
         expect(queryForSuggestionsList()).toBeInTheDocument()
 
-        // eslint-disable-next-line github/no-blur
-        input.blur()
+        act(() => {
+          // eslint-disable-next-line github/no-blur
+          input.blur()
+        })
+
         expect(queryForSuggestionsList()).not.toBeInTheDocument()
       })
 
@@ -1127,10 +1122,27 @@ describe('MarkdownEditor', () => {
     })
 
     it('opens the saved reply menu on Ctrl + .', async () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
       const {getInput, queryByRole, user} = await render(<UncontrolledEditor savedReplies={replies} />)
 
       await user.type(getInput(), 'test{Control>}.{/Control}')
+
+      // Note: this spy is currently catching a: "Warning: An update to %s inside a test was not wrapped in act(...)."
+      // error in React 18. It seems like this is triggered within the `type`
+      // interaction, specifically through `useOpenAndCloseFocus` when the
+      // TextInput is being opened
+      //
+      // At the moment, it doesn't seem clear how to appropriately wrap this
+      // interaction in an act() in order to cover this warning
+      if (REACT_VERSION_LATEST) {
+        expect(spy).toHaveBeenCalled()
+      } else {
+        expect(spy).not.toHaveBeenCalled()
+      }
       expect(queryByRole('listbox')).toBeInTheDocument()
+
+      spy.mockClear()
     })
 
     it('does not open the saved reply menu on Ctrl + . if no replies are set', async () => {

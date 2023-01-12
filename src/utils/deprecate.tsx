@@ -1,5 +1,4 @@
 import {useRef, useCallback} from 'react'
-declare let __DEV__: boolean
 
 type DeprecationType = {name: string; message: string; version: string}
 

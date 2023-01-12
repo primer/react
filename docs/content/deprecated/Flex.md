@@ -9,7 +9,7 @@ The `Flex` component behaves the same as the `Box` component except that it has 
 
 Use [Box](/Box) instead.
 
-**Before**
+### Before
 
 ```jsx deprecated
 <Flex flexWrap="nowrap">
@@ -19,7 +19,7 @@ Use [Box](/Box) instead.
 </Flex>
 ```
 
-**After**
+### After
 
 ```jsx deprecated
 <Box display="flex" flexWrap="nowrap">
