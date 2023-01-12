@@ -36,9 +36,7 @@ const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
   ${sx}
 `
 
-const Avatar = ({size = 20, alt = 'alt', ...rest}: StyledAvatarProps) => (
-  <StyledAvatar alt={alt} size={size} {...rest} />
-)
+const Avatar = ({size = 20, alt = '', ...rest}: StyledAvatarProps) => <StyledAvatar alt={alt} size={size} {...rest} />
 
 export type AvatarProps = ComponentProps<typeof Avatar>
 export default Avatar

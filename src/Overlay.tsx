@@ -131,7 +131,8 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       ignoreClickRefs,
       onEscape,
       visibility = 'visible',
-      height,
+      height = 'auto',
+      width = 'auto',
       top,
       left,
       anchorSide,
@@ -183,6 +184,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       <Portal containerName={portalContainerName}>
         <StyledOverlay
           height={height}
+          width={width}
           role={role}
           {...rest}
           ref={overlayRef}

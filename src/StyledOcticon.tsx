@@ -11,7 +11,7 @@ function Octicon({icon: IconComponent, ...rest}: OcticonProps) {
 }
 
 const StyledOcticon = styled(Octicon)<SxProp>`
-  ${({color, sx: sxProp, size = 16}) => sx({sx: {color, ...sxProp, size}})}
+  ${({color, sx: sxProp}) => sx({sx: {color, ...sxProp}})}
 `
 
 export type StyledOcticonProps = ComponentProps<typeof StyledOcticon>

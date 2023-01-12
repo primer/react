@@ -61,12 +61,14 @@ export type CaretProps = {
 }
 
 function Caret(props: CaretProps) {
-  props.bg ||= 'canvas.default'
-  props.borderColor ||= 'border.default'
-  props.borderWidth ||= 1
-
   const theme = React.useContext(ThemeContext)
-  const propsWithTheme = {...props, theme: props.theme ?? theme}
+  const propsWithTheme = {
+    ...props,
+    bg: props.bg || 'canvas.default',
+    borderColor: props.borderColor || 'border.default',
+    borderWidth: props.borderWidth || 1,
+    theme: props.theme ?? theme,
+  }
   const {bg} = getBg(propsWithTheme)
   const {borderColor} = getBorderColor(propsWithTheme)
   const {borderWidth} = getBorderWidth(propsWithTheme)
