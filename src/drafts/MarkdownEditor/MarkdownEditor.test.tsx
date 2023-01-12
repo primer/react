@@ -789,8 +789,6 @@ describe('MarkdownEditor', () => {
       })
 
       it('forces links to open in a new tab', async () => {
-        const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
-
         // eslint-disable-next-line github/unescaped-html-literal
         const html = '<a href="https://example.com">Link</a>'
         const user = userEvent.setup()
@@ -800,19 +798,7 @@ describe('MarkdownEditor', () => {
         const link = await waitFor(() => within(getPreview()).getByText('Link'))
 
         await user.click(link)
-        // Note: navigation is not implemented in JSDOM and will log out an
-        // error when clicking the link above. The spy here captures this error
-        // and will assert that it is called only once, otherwise another error
-        // in this test has occurred
-        expect(spy).toHaveBeenCalledTimes(1)
-        expect(spy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            message: 'Not implemented: navigation (except hash changes)',
-          }),
-        )
-        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
-
-        spy.mockRestore()
+        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank', 'noopener noreferrer')
       })
     })
   })

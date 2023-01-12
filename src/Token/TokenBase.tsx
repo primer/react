@@ -1,8 +1,9 @@
-import React, {KeyboardEvent} from 'react'
+import React, {ComponentProps, KeyboardEvent} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 // TODO: remove invalid "extralarge" size name in next breaking change
 /** @deprecated 'extralarge' to be removed to align with size naming ADR https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md **/
@@ -50,14 +51,12 @@ export interface TokenBaseProps
   size?: TokenSizeKeys
 }
 
-type TokenElements = HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement
-
 export const isTokenInteractive = ({
   as = 'span',
   onClick,
   onFocus,
   tabIndex = -1,
-}: Pick<TokenBaseProps, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
+}: Pick<ComponentProps<typeof TokenBase>, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 
 const xlargeVariantStyles = {
@@ -133,11 +132,11 @@ const StyledTokenBase = styled.span<SxProp>`
   ${sx}
 `
 
-const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
+const TokenBase = React.forwardRef(
   ({text, onRemove, onKeyDown, id, as = 'span', size = defaultTokenSize, ...rest}, forwardedRef) => {
     return (
       <StyledTokenBase
-        onKeyDown={(event: KeyboardEvent<TokenElements>) => {
+        onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
           onKeyDown && onKeyDown(event)
 
           if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
@@ -153,6 +152,6 @@ const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
       />
     )
   },
-)
+) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
 
 export default TokenBase
