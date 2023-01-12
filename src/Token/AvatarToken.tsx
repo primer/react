@@ -4,6 +4,7 @@ import {get} from '../constants'
 import {TokenBaseProps, defaultTokenSize, tokenSizes, TokenSizeKeys} from './TokenBase'
 import Token from './Token'
 import Avatar from '../Avatar'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 // TODO: update props to only accept 'large' and 'xlarge' on the next breaking change
 export interface AvatarTokenProps extends TokenBaseProps {
@@ -20,7 +21,7 @@ const AvatarContainer = styled.span<{avatarSize: TokenSizeKeys}>`
   width: ${props => `calc(${tokenSizes[props.avatarSize]} - var(--spacing))`};
 `
 
-const AvatarToken = forwardRef<HTMLElement, AvatarTokenProps>(({avatarSrc, id, size, ...rest}, forwardedRef) => {
+const AvatarToken = forwardRef(({avatarSrc, id, size, ...rest}, forwardedRef) => {
   return (
     <Token
       leadingVisual={() => (
@@ -44,7 +45,7 @@ const AvatarToken = forwardRef<HTMLElement, AvatarTokenProps>(({avatarSrc, id, s
       ref={forwardedRef}
     />
   )
-})
+}) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', AvatarTokenProps>
 
 AvatarToken.defaultProps = {
   size: defaultTokenSize,
