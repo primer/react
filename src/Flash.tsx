@@ -68,11 +68,7 @@ const StyledFlash = styled.div<StyledFlashProps>`
   ${sx};
 `
 
-const Flash = ({variant = 'default', ...rest}: StyledFlashProps) => <StyledFlash variant={variant} {...rest} />
+export type FlashProps = ComponentProps<typeof StyledFlash>
+const Flash = ({variant = 'default', ...rest}: FlashProps) => <StyledFlash variant={variant} {...rest} />
 
-Flash.defaultProps = {
-  variant: 'default',
-}
-
-export type FlashProps = ComponentProps<typeof Flash>
 export default Flash
