@@ -61,18 +61,24 @@ const StyledCheckbox = styled.input`
     }
   }
 
-  &:checked {
+  &:checked,
+  &:indeterminate {
     background: ${get('colors.accent.fg')};
     border-color: ${get('colors.accent.fg')};
+
+    &::before {
+      @media screen and (prefers-reduced-motion: no-preference) {
+        animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
+      }
+    }
+  }
+
+  &:checked {
     transition: background-color, border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
 
     &::before {
       visibility: visible;
       transition: visibility 0s linear 0s;
-
-      @media screen and (prefers-reduced-motion: no-preference) {
-        animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
-      }
     }
 
     &:disabled {
@@ -90,6 +96,14 @@ const StyledCheckbox = styled.input`
     @media (forced-colors: active) {
       background-color: canvastext;
       border-color: canvastext;
+    }
+  }
+
+  &:indeterminate {
+    background: ${get('colors.accent.fg')};
+    &::before {
+      mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDEwIDIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAxQzAgMC40NDc3MTUgMC40NDc3MTUgMCAxIDBIOUM5LjU1MjI5IDAgMTAgMC40NDc3MTUgMTAgMUMxMCAxLjU1MjI4IDkuNTUyMjkgMiA5IDJIMUMwLjQ0NzcxNSAyIDAgMS41NTIyOCAwIDFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K');
+      visibility: visible;
     }
   }
 
