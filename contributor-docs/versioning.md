@@ -70,6 +70,10 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |            | A type is removed                                             | `major`     |
 | Package    | An entrypoint is added to the package                         | `minor`     |
 |            | An entrypoint is removed from a package                       | `major`     |
+|            | A dependency is added to the project's `package.json`         | `<todo>`    |
+|            | A dependency is removed from the project's `package.json`     | `<todo>`    |
+|            | A dependency range is updated                                 | `<todo>`    |
+|            | A pinned dependency version is updated to be range            | `<todo>`    |
 
 ### Examples
 
