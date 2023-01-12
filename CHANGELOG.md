@@ -1,5 +1,55 @@
 # @primer/components
 
+## 35.17.0
+
+### Minor Changes
+
+- [#2677](https://github.com/primer/react/pull/2677) [`d356be83`](https://github.com/primer/react/commit/d356be836c1d16666d4e952c21e71e4318749f46) Thanks [@mattcosta7](https://github.com/mattcosta7)! - update types for button extensions
+
+- [#2661](https://github.com/primer/react/pull/2661) [`5dd4bb1f`](https://github.com/primer/react/commit/5dd4bb1f7f92647197160298fc1f521b23b4823b) Thanks [@joshblack](https://github.com/joshblack)! - Update to React.useId() when using React 18
+
+- [#2694](https://github.com/primer/react/pull/2694) [`5a659295`](https://github.com/primer/react/commit/5a659295f3ed505ea3af10e66cf8402a2c4b660c) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: export PageHeader in the draft bundle
+
+- [#2662](https://github.com/primer/react/pull/2662) [`1266b108`](https://github.com/primer/react/commit/1266b108bfa54d219580f18651ed02cd38fc0d87) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Add a util function that returns breakpoint styles with the given CSS property and values
+
+- [#2593](https://github.com/primer/react/pull/2593) [`d8875861`](https://github.com/primer/react/commit/d887586133bf679a1b008f49b112cae39d764c91) Thanks [@radglob](https://github.com/radglob)! - Make resizable SplitPageLayout.Pane keyboard accessible.
+
+### Patch Changes
+
+- [#2765](https://github.com/primer/react/pull/2765) [`154db4b9`](https://github.com/primer/react/commit/154db4b9b2e543f7d75af3ca33f935d05cff3736) Thanks [@iansan5653](https://github.com/iansan5653)! - Remove shadow from `MarkdownEditor` `textarea`
+
+- [#2685](https://github.com/primer/react/pull/2685) [`3a8bb765`](https://github.com/primer/react/commit/3a8bb765424bb51976792c3e585788065755d823) Thanks [@radglob](https://github.com/radglob)! - Setting overflow: auto without a media query to fix resizable pane bug.
+
+- [#2718](https://github.com/primer/react/pull/2718) [`9cb01190`](https://github.com/primer/react/commit/9cb011907cb9cdfd89c8d4442b182cae9ee364db) Thanks [@marywhite](https://github.com/marywhite)! - Prevent default when clicking on MarkdownViewer links with openLinksInNewTab
+
+- [#2656](https://github.com/primer/react/pull/2656) [`db0db6ec`](https://github.com/primer/react/commit/db0db6ec681f00b4ad1bbbc104ac53f133f2349d) Thanks [@joshblack](https://github.com/joshblack)! - Update useDetails `ref` type to HTMLDetailsElement
+
+- [#2762](https://github.com/primer/react/pull/2762) [`74016a7c`](https://github.com/primer/react/commit/74016a7c1426c915534dde95220ccee3bde264d2) Thanks [@mattcosta7](https://github.com/mattcosta7)! - Token: Update component type to be PolymorphicForwardRefComponent.
+
+  this avoids types being swallowed by forwardRef (which isn't polymorphic)
+
+- [#2658](https://github.com/primer/react/pull/2658) [`20e18c07`](https://github.com/primer/react/commit/20e18c07c2a4a4e8b9b2e2456b4dbab08ffe6801) Thanks [@joshblack](https://github.com/joshblack)! - Update TypeScript types for deprecated ButtonClose to support React 18
+
+- [#2755](https://github.com/primer/react/pull/2755) [`dd1e5ce7`](https://github.com/primer/react/commit/dd1e5ce79e6bf02cee8c284a2437a3b910b5a7bd) Thanks [@dwilsonactual](https://github.com/dwilsonactual)! - Update `isScrollable` utility to only run `getComputedStyle` on scrollable content.
+
+- [#2660](https://github.com/primer/react/pull/2660) [`1fb6ee9f`](https://github.com/primer/react/commit/1fb6ee9ff6a13a80d5cb53ada8b5ef027ec02ded) Thanks [@joshblack](https://github.com/joshblack)! - Update npm package to include `deprecated/package.json` for TypeScript type resolution
+
+- [#2721](https://github.com/primer/react/pull/2721) [`386561a3`](https://github.com/primer/react/commit/386561a37b2b6f1f9d4b597e0ac6ede3a40ccbf7) Thanks [@simurai](https://github.com/simurai)! - Add `Noto Sans` to fontStack
+
+- [#2756](https://github.com/primer/react/pull/2756) [`5826b94d`](https://github.com/primer/react/commit/5826b94d2686fff3f8304c6d366542df7bcc3f5e) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Button: Revert new enhancement due to introducing major styling changes
+
+- [#2760](https://github.com/primer/react/pull/2760) [`24fb9a77`](https://github.com/primer/react/commit/24fb9a77a951b3e2e8bda8f4aff8d9aab0fcb34c) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Token: Omit `onResize` and `onResizeCapture` methods that are included in the method expansion and causes type issues in React 18
+
+- [#2757](https://github.com/primer/react/pull/2757) [`b55d8232`](https://github.com/primer/react/commit/b55d8232ce9d990cc91862fff2f6f15ff2fdb65d) Thanks [@jdrush89](https://github.com/jdrush89)! - Making onClick of ActionList.LinkItem functional
+
+- [#2697](https://github.com/primer/react/pull/2697) [`5efab195`](https://github.com/primer/react/commit/5efab195dd75c6871c7240abdf65b4af0e05390d) Thanks [@keithamus](https://github.com/keithamus)! - Update `@github/relative-time-element` package dependency to a range
+
+- [#2712](https://github.com/primer/react/pull/2712) [`88008a0d`](https://github.com/primer/react/commit/88008a0d3e0394b23b3fbb0aa0ca7586b9335601) Thanks [@ajhenry](https://github.com/ajhenry)! - Add `sx` prop to Dialog v2
+
+- [#2750](https://github.com/primer/react/pull/2750) [`dcb51c64`](https://github.com/primer/react/commit/dcb51c64d011afe8e2c8974965e32ee33fb6b876) Thanks [@jdrush89](https://github.com/jdrush89)! - Show tooltips on focus-within
+
+- [#2661](https://github.com/primer/react/pull/2661) [`5dd4bb1f`](https://github.com/primer/react/commit/5dd4bb1f7f92647197160298fc1f521b23b4823b) Thanks [@joshblack](https://github.com/joshblack)! - Update types for components to work for React 17 and 18
+
 ## 35.16.0
 
 ### Minor Changes
