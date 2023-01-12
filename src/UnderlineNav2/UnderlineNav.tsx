@@ -86,13 +86,13 @@ const overflowEffect = (
     const numberOfItemsInMenu = childArray.length - numberOfItemsPossibleWithMoreMenu
     const numberOfListItems =
       numberOfItemsInMenu === 1 ? numberOfItemsPossibleWithMoreMenu - 1 : numberOfItemsPossibleWithMoreMenu
+
     for (const [index, child] of childArray.entries()) {
       if (index < numberOfListItems) {
         items.push(child)
       } else {
         const ariaCurrent = child.props['aria-current']
         const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
-
         // We need to make sure to keep the selected item always visible.
         // To do that, we swap the selected item with the last item in the list to make it visible. (When there is at least 1 item in the list to swap.)
         if (isCurrent && numberOfListItems > 0) {
