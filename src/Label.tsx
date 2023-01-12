@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import sx, {SxProp, BetterSystemStyleObject} from './sx'
 import {get} from './constants'
+import {ComponentProps} from './utils/types'
 
 export type LabelProps = {
   /** The color of the label */
@@ -93,7 +94,7 @@ const StyledLabel = styled.span<LabelProps>`
   ${sx};
 `
 
-const Label = ({size = 'small', variant = 'default', ...rest}: LabelProps) => (
+const Label = ({size = 'small', variant = 'default', ...rest}: ComponentProps<typeof StyledLabel>) => (
   <StyledLabel size={size} variant={variant} {...rest} />
 )
 export default Label
