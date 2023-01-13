@@ -155,6 +155,20 @@ describe('ActionList', () => {
     expect(option).toBeInTheDocument()
   })
 
+  it('should call onClick for a link item', async () => {
+    const onClick = jest.fn()
+    const component = HTMLRender(
+      <ActionList role="listbox">
+        <ActionList.LinkItem role="link" onClick={onClick}>
+          Primer React
+        </ActionList.LinkItem>
+      </ActionList>,
+    )
+    const link = await waitFor(() => component.getByRole('link'))
+    fireEvent.click(link)
+    expect(onClick).toHaveBeenCalled()
+  })
+
   checkStoriesForAxeViolations('', '../ActionList/ActionList.features')
   checkStoriesForAxeViolations('', '../ActionList/ActionList.examples')
 })

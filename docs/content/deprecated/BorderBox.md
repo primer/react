@@ -9,13 +9,13 @@ BorderBox is a Box component with a border. When no `borderColor` is present, th
 
 Use [Box](/Box) instead.
 
-**Before**
+### Before
 
 ```jsx deprecated
 <BorderBox>Item 1</BorderBox>
 ```
 
-**After**
+### After
 
 ```jsx deprecated
 <Box borderWidth="1px" borderStyle="solid" borderColor="border.default" borderRadius={2}>

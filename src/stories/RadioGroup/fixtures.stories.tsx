@@ -127,7 +127,7 @@ WithExternalLabel.parameters = {controls: {exclude: [...excludedControlKeys, 'vi
 export const WithHiddenLabel = ({
   disabled,
   required,
-  labelChildren,
+  labelChildren = 'Choices',
   visuallyHidden,
   captionChildren,
   validationChildren,

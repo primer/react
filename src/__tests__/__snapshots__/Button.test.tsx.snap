@@ -1,20 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button renders consistently 1`] = `
-.c1 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
 .c0 {
   border-radius: 6px;
   border: 1px solid;
   border-color: rgba(27,31,36,0.15);
   font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -26,28 +21,13 @@ exports[`Button renders consistently 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 14px;
   color: #24292f;
   background-color: #f6f8fa;
   box-shadow: 0 1px 0 rgba(27,31,36,0.04),inset 0 1px 0 rgba(255,255,255,0.25);
@@ -69,31 +49,8 @@ exports[`Button renders consistently 1`] = `
   outline-offset: -2px;
 }
 
-.c0[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c0:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
 .c0:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
+  cursor: default;
   color: #8c959f;
 }
 
@@ -101,101 +58,32 @@ exports[`Button renders consistently 1`] = `
   color: inherit;
 }
 
-.c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+.c0:disabled svg {
+  opacity: 0.6;
 }
 
-.c0[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-}
-
-.c0[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c0[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c0[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c0[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c0[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c0[data-component="block"] {
-  width: 100%;
-}
-
-.c0 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
+.c0 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
 }
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
 }
 
-.c0 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
+.c0 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
 }
 
-.c0 [data-component="trailingAction"] {
-  margin-right: -4px;
-}
-
-.c0 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c0 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
+.c0 [data-component=ButtonCounter] {
+  font-size: 14px;
 }
 
 .c0:hover:not([disabled]) {
   background-color: #f3f4f6;
-  border-color: rgba(27,31,36,0.15);
 }
 
 .c0:active:not([disabled]) {
@@ -216,953 +104,18 @@ exports[`Button renders consistently 1`] = `
 
 <button
   className="c0"
-  data-component={null}
-  data-no-visuals={true}
->
-  <span
-    className="c1"
-    data-component="buttonContent"
-  />
-</button>
-`;
-
-exports[`Button respects block prop 1`] = `
-.c1 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c0 {
-  border-radius: 2;
-  border: 1px solid;
-  font-family: inherit;
-  font-weight: semibold;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: btn.text;
-  background-color: btn.bg;
-  box-shadow: undefined,undefined;
-}
-
-.c0:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid;
-  outline-offset: -2px;
-}
-
-.c0:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c0:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid;
-  outline-offset: -2px;
-}
-
-.c0[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c0:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c0 [data-component=ButtonCounter] {
-  font-size: 14px;
-}
-
-.c0[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-}
-
-.c0[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c0[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c0[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c0[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c0[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c0[data-component="block"] {
-  width: 100%;
-}
-
-.c0 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-}
-
-.c0 [data-component="text"] {
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c0 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c0 [data-component="trailingAction"] {
-  margin-right: -4px;
-}
-
-.c0 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c0 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0:hover:not([disabled]) {
-  background-color: btn.hoverBg;
-  border-color: btn.hoverBorder;
-}
-
-.c0:active:not([disabled]) {
-  background-color: btn.activeBg;
-  border-color: btn.activeBorder;
-}
-
-.c0[aria-expanded=true] {
-  background-color: btn.activeBg;
-  border-color: btn.activeBorder;
-}
-
-@media (forced-colors:active) {
-  .c0:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-<button
-  class="c0"
-  data-component="block"
-  data-no-visuals="true"
->
-  <span
-    class="c1"
-    data-component="buttonContent"
-  >
-    <span
-      data-component="text"
-    >
-      Block
-    </span>
-  </span>
-</button>
-`;
-
-exports[`Button respects the alignContent prop 1`] = `
-.c1 {
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-}
-
-.c0 {
-  border-radius: 2;
-  border: 1px solid;
-  font-family: inherit;
-  font-weight: semibold;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: btn.text;
-  background-color: btn.bg;
-  box-shadow: undefined,undefined;
-}
-
-.c0:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid;
-  outline-offset: -2px;
-}
-
-.c0:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c0:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid;
-  outline-offset: -2px;
-}
-
-.c0[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c0:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c0 [data-component=ButtonCounter] {
-  font-size: 14px;
-}
-
-.c0[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-}
-
-.c0[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c0[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c0[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c0[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c0[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c0[data-component="block"] {
-  width: 100%;
-}
-
-.c0 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-}
-
-.c0 [data-component="text"] {
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c0 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c0 [data-component="trailingAction"] {
-  margin-right: -4px;
-}
-
-.c0 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c0 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0:hover:not([disabled]) {
-  background-color: btn.hoverBg;
-  border-color: btn.hoverBorder;
-}
-
-.c0:active:not([disabled]) {
-  background-color: btn.activeBg;
-  border-color: btn.activeBorder;
-}
-
-.c0[aria-expanded=true] {
-  background-color: btn.activeBg;
-  border-color: btn.activeBorder;
-}
-
-@media (forced-colors:active) {
-  .c0:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-<button
-  class="c0"
-  data-no-visuals="true"
->
-  <span
-    class="c1"
-    data-component="buttonContent"
-  >
-    <span
-      data-component="text"
-    >
-      Align start
-    </span>
-  </span>
-</button>
-`;
-
-exports[`Button respects the large size prop 1`] = `
-.c1 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c0 {
-  border-radius: 2;
-  border: 1px solid;
-  font-family: inherit;
-  font-weight: semibold;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: btn.text;
-  background-color: btn.bg;
-  box-shadow: undefined,undefined;
-}
-
-.c0:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid;
-  outline-offset: -2px;
-}
-
-.c0:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c0:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid;
-  outline-offset: -2px;
-}
-
-.c0[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c0:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c0 [data-component=ButtonCounter] {
-  font-size: 14px;
-}
-
-.c0[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-}
-
-.c0[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c0[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c0[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c0[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c0[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c0[data-component="block"] {
-  width: 100%;
-}
-
-.c0 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-}
-
-.c0 [data-component="text"] {
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c0 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c0 [data-component="trailingAction"] {
-  margin-right: -4px;
-}
-
-.c0 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c0 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0:hover:not([disabled]) {
-  background-color: btn.hoverBg;
-  border-color: btn.hoverBorder;
-}
-
-.c0:active:not([disabled]) {
-  background-color: btn.activeBg;
-  border-color: btn.activeBorder;
-}
-
-.c0[aria-expanded=true] {
-  background-color: btn.activeBg;
-  border-color: btn.activeBorder;
-}
-
-@media (forced-colors:active) {
-  .c0:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-<button
-  class="c0"
-  data-no-visuals="true"
-  data-size="large"
->
-  <span
-    class="c1"
-    data-component="buttonContent"
-  >
-    <span
-      data-component="text"
-    >
-      Smol
-    </span>
-  </span>
-</button>
-`;
-
-exports[`Button respects the small size prop 1`] = `
-.c1 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c0 {
-  border-radius: 2;
-  border: 1px solid;
-  font-family: inherit;
-  font-weight: semibold;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: btn.text;
-  background-color: btn.bg;
-  box-shadow: undefined,undefined;
-}
-
-.c0:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid;
-  outline-offset: -2px;
-}
-
-.c0:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c0:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid;
-  outline-offset: -2px;
-}
-
-.c0[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c0:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c0 [data-component=ButtonCounter] {
-  font-size: 14px;
-}
-
-.c0[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-}
-
-.c0[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c0[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c0[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c0[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c0[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c0[data-component="block"] {
-  width: 100%;
-}
-
-.c0 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-}
-
-.c0 [data-component="text"] {
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c0 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c0 [data-component="trailingAction"] {
-  margin-right: -4px;
-}
-
-.c0 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c0 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c0:hover:not([disabled]) {
-  background-color: btn.hoverBg;
-  border-color: btn.hoverBorder;
-}
-
-.c0:active:not([disabled]) {
-  background-color: btn.activeBg;
-  border-color: btn.activeBorder;
-}
-
-.c0[aria-expanded=true] {
-  background-color: btn.activeBg;
-  border-color: btn.activeBorder;
-}
-
-@media (forced-colors:active) {
-  .c0:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-<button
-  class="c0"
-  data-no-visuals="true"
-  data-size="small"
->
-  <span
-    class="c1"
-    data-component="buttonContent"
-  >
-    <span
-      data-component="text"
-    >
-      Smol
-    </span>
-  </span>
-</button>
+/>
 `;
 
 exports[`Button styles danger button appropriately 1`] = `
-.c1 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
 .c0 {
   border-radius: 2;
   border: 1px solid;
   font-family: inherit;
-  font-weight: semibold;
-  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1174,28 +127,13 @@ exports[`Button styles danger button appropriately 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 14px;
   color: btn.danger.text;
   background-color: btn.bg;
   box-shadow: undefined;
@@ -1217,31 +155,8 @@ exports[`Button styles danger button appropriately 1`] = `
   outline-offset: -2px;
 }
 
-.c0[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c0:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
 .c0:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
+  cursor: default;
   color: btn.danger.disabledText;
   background-color: btn.danger.disabledBg;
   border-color: btn.danger.disabledBorder;
@@ -1252,98 +167,30 @@ exports[`Button styles danger button appropriately 1`] = `
   background-color: btn.danger.disabledCounterBg;
 }
 
-.c0 [data-component=ButtonCounter] {
-  font-size: 14px;
-  color: btn.danger.text;
-  background-color: btn.danger.counterBg;
+.c0:disabled svg {
+  opacity: 0.6;
 }
 
-.c0[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-}
-
-.c0[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c0[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c0[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c0[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c0[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c0[data-component="block"] {
-  width: 100%;
-}
-
-.c0 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
+.c0 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
 }
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
 }
 
-.c0 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
+.c0 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
 }
 
-.c0 [data-component="trailingAction"] {
-  margin-right: -4px;
-}
-
-.c0 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c0 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
+.c0 [data-component=ButtonCounter] {
+  font-size: 14px;
+  color: btn.danger.text;
+  background-color: btn.danger.counterBg;
 }
 
 .c0:hover:not([disabled]) {
@@ -1380,36 +227,28 @@ exports[`Button styles danger button appropriately 1`] = `
 
 <button
   class="c0"
-  data-no-visuals="true"
 >
   <span
-    class="c1"
-    data-component="buttonContent"
+    data-component="text"
   >
-    <span
-      data-component="text"
-    >
-      Danger
-    </span>
+    Danger
   </span>
 </button>
 `;
 
-exports[`Button styles invisible button appropriately 1`] = `
+exports[`Button styles icon only button to make it a square 1`] = `
 .c1 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  display: inline-block;
 }
 
 .c0 {
   border-radius: 2;
   border: 1px solid;
-  border-color: transparent;
   font-family: inherit;
-  font-weight: semibold;
-  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1421,29 +260,124 @@ exports[`Button styles invisible button appropriately 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
   color: btn.text;
+  background-color: btn.bg;
+  box-shadow: undefined,undefined;
+}
+
+.c0:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: -2px;
+}
+
+.c0:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: -2px;
+}
+
+.c0:disabled {
+  cursor: default;
+  color: primer.fg.disabled;
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0 [data-component=ButtonCounter] {
+  font-size: 14px;
+}
+
+.c0:hover:not([disabled]) {
+  background-color: btn.hoverBg;
+}
+
+.c0:active:not([disabled]) {
+  background-color: btn.activeBg;
+  border-color: btn.activeBorder;
+}
+
+.c0[aria-expanded=true] {
+  background-color: btn.activeBg;
+  border-color: btn.activeBorder;
+}
+
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+<button
+  aria-label="Search button"
+  class="c0"
+>
+  <span
+    class="c1"
+  >
+    <svg
+      aria-hidden="true"
+      class="octicon octicon-search"
+      fill="currentColor"
+      focusable="false"
+      height="16"
+      role="img"
+      style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <path
+        d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zm-.82 4.74a6 6 0 111.06-1.06l3.04 3.04a.75.75 0 11-1.06 1.06l-3.04-3.04z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+</button>
+`;
+
+exports[`Button styles invisible button appropriately 1`] = `
+.c0 {
+  border-radius: 2;
+  border: 0;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 14px;
+  color: accent.fg;
   background-color: transparent;
   box-shadow: none;
 }
@@ -1464,31 +398,8 @@ exports[`Button styles invisible button appropriately 1`] = `
   outline-offset: -2px;
 }
 
-.c0[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c0:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
 .c0:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
+  cursor: default;
   color: primer.fg.disabled;
 }
 
@@ -1496,120 +407,40 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: inherit;
 }
 
-.c0 [data-component=ButtonCounter] {
-  font-size: 14px;
+.c0:disabled svg {
+  opacity: 0.6;
 }
 
-.c0[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-}
-
-.c0[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c0[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c0[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c0[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c0[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c0[data-component="block"] {
-  width: 100%;
-}
-
-.c0 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
+.c0 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
 }
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
 }
 
-.c0 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
+.c0 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
 }
 
-.c0 [data-component="trailingAction"] {
-  margin-right: -4px;
-}
-
-.c0 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c0 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
+.c0 [data-component=ButtonCounter] {
+  font-size: 14px;
 }
 
 .c0:hover:not([disabled]) {
-  background-color: actionListItem.default.hoverBg;
+  background-color: btn.hoverBg;
 }
 
 .c0:active:not([disabled]) {
-  background-color: actionListItem.default.activeBg;
+  background-color: btn.selectedBg;
 }
 
 .c0[aria-expanded=true] {
-  background-color: actionListItem.default.selectedBg;
-}
-
-.c0 svg {
-  color: fg.muted;
-}
-
-.c0[data-no-visuals] {
-  color: accent.fg;
-}
-
-.c0:has([data-component="ButtonCounter"]) {
-  color: btn.text;
+  background-color: btn.selectedBg;
 }
 
 @media (forced-colors:active) {
@@ -1620,36 +451,25 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 <button
   class="c0"
-  data-no-visuals="true"
 >
   <span
-    class="c1"
-    data-component="buttonContent"
+    data-component="text"
   >
-    <span
-      data-component="text"
-    >
-      Invisible
-    </span>
+    Invisible
   </span>
 </button>
 `;
 
-exports[`Button styles primary button appropriately 1`] = `
-.c1 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
+exports[`Button styles outline button appropriately 1`] = `
 .c0 {
   border-radius: 2;
   border: 1px solid;
-  border-color: btn.primary.border;
+  border-color: btn.border;
   font-family: inherit;
-  font-weight: semibold;
-  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1661,28 +481,143 @@ exports[`Button styles primary button appropriately 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 14px;
+  color: btn.outline.text;
+  box-shadow: undefined;
+  background-color: btn.bg;
+}
+
+.c0:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: -2px;
+}
+
+.c0:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid;
+  outline-offset: -2px;
+}
+
+.c0:disabled {
+  cursor: default;
+  color: btn.outline.disabledText;
+  background-color: btn.outline.disabledBg;
+  border-color: btn.border;
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  background-color: btn.outline.disabledCounterBg;
+  color: inherit;
+}
+
+.c0:disabled svg {
+  opacity: 0.6;
+}
+
+.c0 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c0 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
+}
+
+.c0 [data-component="text"] {
+  grid-area: text;
+}
+
+.c0 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
+}
+
+.c0 [data-component=ButtonCounter] {
+  font-size: 14px;
+  background-color: btn.outline.counterBg;
+  color: btn.outline.text;
+}
+
+.c0:hover:not([disabled]) {
+  color: btn.outline.hoverText;
+  background-color: btn.outline.hoverBg;
+  border-color: btn.outline.hoverBorder;
+  box-shadow: undefined;
+}
+
+.c0:hover:not([disabled]) [data-component=ButtonCounter] {
+  background-color: btn.outline.hoverCounterBg;
+  color: inherit;
+}
+
+.c0:active:not([disabled]) {
+  color: btn.outline.selectedText;
+  background-color: btn.outline.selectedBg;
+  box-shadow: undefined;
+  border-color: btn.outline.selectedBorder;
+}
+
+.c0[aria-expanded=true] {
+  color: btn.outline.selectedText;
+  background-color: btn.outline.selectedBg;
+  box-shadow: undefined;
+  border-color: btn.outline.selectedBorder;
+}
+
+@media (forced-colors:active) {
+  .c0:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+<button
+  class="c0"
+>
+  <span
+    data-component="text"
+  >
+    Outline
+  </span>
+</button>
+`;
+
+exports[`Button styles primary button appropriately 1`] = `
+.c0 {
+  border-radius: 2;
+  border: 1px solid;
+  border-color: border.subtle;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: grid;
+  grid-template-areas: "leadingIcon text trailingIcon";
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 14px;
   color: btn.primary.text;
   background-color: btn.primary.bg;
   box-shadow: undefined;
@@ -1704,31 +639,8 @@ exports[`Button styles primary button appropriately 1`] = `
   outline-offset: -2px;
 }
 
-.c0[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c0[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c0:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
 .c0:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
+  cursor: default;
   color: btn.primary.disabledText;
   background-color: btn.primary.disabledBg;
 }
@@ -1737,98 +649,30 @@ exports[`Button styles primary button appropriately 1`] = `
   color: inherit;
 }
 
-.c0 [data-component=ButtonCounter] {
-  font-size: 14px;
-  background-color: btn.primary.counterBg;
-  color: btn.primary.text;
+.c0:disabled svg {
+  opacity: 0.6;
 }
 
-.c0[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-}
-
-.c0[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c0[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c0[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c0[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c0[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c0[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c0 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c0[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c0[data-component="block"] {
-  width: 100%;
-}
-
-.c0 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
+.c0 [data-component="leadingIcon"] {
+  grid-area: leadingIcon;
 }
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
 }
 
-.c0 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
+.c0 [data-component="trailingIcon"] {
+  grid-area: trailingIcon;
 }
 
-.c0 [data-component="trailingAction"] {
-  margin-right: -4px;
-}
-
-.c0 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c0 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
+.c0 [data-component=ButtonCounter] {
+  font-size: 14px;
+  background-color: btn.primary.counterBg;
+  color: btn.primary.text;
 }
 
 .c0:hover:not([disabled]) {
@@ -1862,17 +706,11 @@ exports[`Button styles primary button appropriately 1`] = `
 
 <button
   class="c0"
-  data-no-visuals="true"
 >
   <span
-    class="c1"
-    data-component="buttonContent"
+    data-component="text"
   >
-    <span
-      data-component="text"
-    >
-      Primary
-    </span>
+    Primary
   </span>
 </button>
 `;
