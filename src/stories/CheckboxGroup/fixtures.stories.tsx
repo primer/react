@@ -82,7 +82,7 @@ export default {
 export const WithExternalLabel = ({
   disabled,
   required,
-  labelChildren,
+  labelChildren = 'Choices',
   captionChildren,
   validationChildren,
   variant,
@@ -127,7 +127,7 @@ WithExternalLabel.parameters = {controls: {exclude: [...excludedControlKeys, 'vi
 export const WithHiddenLabel = ({
   disabled,
   required,
-  labelChildren,
+  labelChildren = 'Choices',
   visuallyHidden,
   captionChildren,
   validationChildren,

@@ -1,5 +1,5 @@
 import {render as HTMLRender, act, fireEvent} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
+import {axe} from 'jest-axe'
 import React, {useCallback, useRef, useState} from 'react'
 
 import {ActionMenu} from '../deprecated/ActionMenu'
@@ -12,7 +12,7 @@ import {ThemeProvider} from '../ThemeProvider'
 import {SSRProvider} from '../utils/ssr'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
-expect.extend(toHaveNoViolations)
+declare const REACT_VERSION_LATEST: boolean
 
 const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -122,14 +122,31 @@ describe('ConfirmationDialog', () => {
   })
 
   it('supports nested `focusTrap`s', async () => {
+    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
+
     const {getByText} = HTMLRender(<ShorthandHookFromActionMenu />)
+
     act(() => {
       fireEvent.click(getByText('Show menu'))
     })
+
     act(() => {
       fireEvent.click(getByText('Show dialog'))
     })
+
     expect(getByText('Primary')).toEqual(document.activeElement)
     expect(getByText('Secondary')).not.toEqual(document.activeElement)
+
+    // REACT_VERSION_LATEST should be treated as a constant for the test
+    // environment
+    if (REACT_VERSION_LATEST) {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(spy).toHaveBeenCalledTimes(1)
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(spy).toHaveBeenCalledWith(
+        expect.stringContaining('Warning: ReactDOM.render is no longer supported in React 18'),
+      )
+    }
+    spy.mockRestore()
   })
 })

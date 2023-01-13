@@ -1159,6 +1159,7 @@ describe('MarkdownEditor', () => {
     })
 
     it('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation()
       const {getToolbarButton, getInput, user, queryByRole} = await render(
         <UncontrolledEditor savedReplies={replies} />,
       )
@@ -1167,12 +1168,21 @@ describe('MarkdownEditor', () => {
       await user.type(getInput(), 'preceding  following')
       input.setSelectionRange(10, 10)
       await user.click(getToolbarButton(buttonLabel))
-
       await user.keyboard('Thanks{Enter}')
 
       expect(queryByRole('listbox')).not.toBeInTheDocument()
       await waitFor(() => expect(getInput().value).toBe('preceding Thanks for your contribution! following'))
       expect(getInput()).toHaveFocus()
+
+      // Note: this spy assertion for console.error() is for an act() violation.
+      // It's not clear where this act() violation is located as wrapping the
+      // above code does not address this.
+      if (REACT_VERSION_LATEST) {
+        expect(spy).toHaveBeenCalled()
+      } else {
+        expect(spy).not.toHaveBeenCalled()
+      }
+      spy.mockRestore()
     })
 
     it('inserts reply on Ctrl + number', async () => {
