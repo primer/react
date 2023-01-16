@@ -1,9 +1,9 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import {ComponentMeta, ComponentStory} from '@storybook/react'
 
 import Hidden from '.'
 
-const meta: Meta = {
+export default {
   title: 'Drafts/Components/Hidden',
   parameters: {
     controls: {
@@ -11,10 +11,10 @@ const meta: Meta = {
     },
   },
   args: {
-    hidden: ['regular'],
+    on: ['regular'],
   },
   argTypes: {
-    hidden: {
+    on: {
       type: {
         name: 'enum',
         value: ['narrow', 'regular', 'wide'],
@@ -23,10 +23,8 @@ const meta: Meta = {
       description: 'The viewport type to hide the content on.',
     },
   },
-}
+} as ComponentMeta<typeof Hidden>
 
-export const Playground: Story = args => (
-  <Hidden on={args.hidden}>The content is hidden on {args.hidden.join(',')}</Hidden>
+export const Playground: ComponentStory<typeof Hidden> = args => (
+  <Hidden {...args}>The content is hidden on {Array(args.on).join(',')}</Hidden>
 )
-
-export default meta

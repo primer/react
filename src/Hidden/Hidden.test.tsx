@@ -6,14 +6,16 @@ import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports, renderStyles, checkStoriesForAxeViolations} from '../utils/testing'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 
-let matchmedia: MatchMediaMock
+let matchMedia: MatchMediaMock
 describe('Hidden', () => {
   beforeAll(() => {
-    matchmedia = new MatchMediaMock()
+    matchMedia = new MatchMediaMock()
   })
+
   afterAll(() => {
-    matchmedia.clear()
+    matchMedia.clear()
   })
+
   behavesAsComponent({
     Component: Hidden,
     options: {skipAs: true, skipSx: true},
@@ -23,10 +25,12 @@ describe('Hidden', () => {
       </Hidden>
     ),
   })
+
   checkExports('Hidden', {
     default: Hidden,
     Hidden,
   })
+
   it('renders `on` prop as expected', () => {
     const {container} = render(
       <Hidden on={'narrow'}>
@@ -35,6 +39,7 @@ describe('Hidden', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
   it('renders the styles as expected when a single viewport value is provided as a string via `on` prop', () => {
     const expectedStyles = {
       // `.replace` is used because renderStyles return the JSON object without a space after the column
@@ -50,6 +55,7 @@ describe('Hidden', () => {
       ),
     ).toEqual(expect.objectContaining(expectedStyles))
   })
+
   it('renders the styles as expected when multiple viewport values are provided as an array via `on` prop', () => {
     const expectedStyles = {
       [`@media screen and ${viewportRanges.narrow.replace(': ', ':')}`]: {

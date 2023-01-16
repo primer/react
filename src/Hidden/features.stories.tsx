@@ -1,19 +1,18 @@
-import {Meta} from '@storybook/react'
+import {ComponentMeta} from '@storybook/react'
 import React from 'react'
 import {Hidden} from './Hidden'
 import {Box, Button} from '..'
 
-const meta: Meta = {
+export default {
   title: 'Drafts/Components/Hidden/Features',
   component: Hidden,
-}
-export default meta
+} as ComponentMeta<typeof Hidden>
 
 export const HideContent = () => (
   <Box>
     <Hidden on="narrow"> This value is shown in regular and wide viewports</Hidden>
     <Hidden on="regular"> This value is shown in narrow and wide viewports</Hidden>
-    <Hidden on="'wide"> This value is shown in narrow and regular viewports</Hidden>
+    <Hidden on="wide"> This value is shown in narrow and regular viewports</Hidden>
   </Box>
 )
 

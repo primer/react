@@ -1,19 +1,19 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import {ComponentMeta} from '@storybook/react'
 import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
 import {PageHeader} from '../PageHeader'
 import Hidden from '../Hidden'
 
-const meta: Meta = {
+export default {
   title: 'Drafts/Components/Hidden/Examples',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},
   },
   args: {},
-}
+} as ComponentMeta<typeof Hidden>
 
 const setViewportParamToNarrow = {
   viewport: {
@@ -86,5 +86,3 @@ export const PullRequestPageOnNarrowViewport = () => {
 }
 
 PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
-
-export default meta

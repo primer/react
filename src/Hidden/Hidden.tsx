@@ -3,46 +3,38 @@ import {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import Box from '../Box'
 
-type Viewports = 'narrow' | 'regular' | 'wide'
+type Viewport = 'narrow' | 'regular' | 'wide'
 
 export type HiddenProps = {
-  on: Array<Viewports> | Viewports
+  on: Array<Viewport> | Viewport
   children: React.ReactNode
 }
-
-function isArray(value: Array<string> | string): value is Array<string> {
-  return Array.isArray(value)
+/* Normalize the value that is received from the prop `on`.
+ * For array types : ['narrow', 'wide'] -> {narrow: true, wide: true}
+ * For string types: 'narrow' -> {narrow: true}
+ */
+function normalize(hiddenViewports: Array<Viewport> | Viewport): ResponsiveValue<boolean> | null {
+  // For array types
+  if (Array.isArray(hiddenViewports)) {
+    const breakpoints: ResponsiveValue<boolean> = {}
+    // ['narrow', 'wide'] -> {narrow: true, wide: true}
+    for (const breakpoint of hiddenViewports) {
+      breakpoints[breakpoint] = true
+    }
+    return breakpoints
+  }
+  // For string types
+  // 'narrow' -> {narrow: true}
+  return {
+    [hiddenViewports]: true,
+  }
 }
 
-export const Hidden = ({on: hiddenViewports, children}: HiddenProps) => {
-  let responsiveObj: ResponsiveValue<boolean | number | string> | null = null
-  // If we receive array of viewports, we need to tranform this array into ResponsiveValue object
-
-  // For array type
-  if (isArray(hiddenViewports)) {
-    // ['narrow', 'wide'] -> {narrow: true, wide: true}
-    hiddenViewports.map(viewport => {
-      responsiveObj = {...responsiveObj, [viewport]: true}
-    })
-  }
-  // For string type
-  if (typeof hiddenViewports === 'string') {
-    // 'narrow' -> {narrow: true}
-    responsiveObj = {[hiddenViewports]: true}
-  }
-
-  // if ResponsiveValue object is empty, no need to render the Hidden component
-  if (responsiveObj !== null) {
-    // Get breakpoint declarations for the transformed ResponsiveValue object
-    const styles = getBreakpointDeclarations(responsiveObj, 'display', value => {
-      if (value) return 'none'
-    })
-
-    // Render the children with the styles
-    return <Box sx={styles}>{children}</Box>
-  } else {
-    return null
-  }
+export const Hidden = ({on, children}: HiddenProps) => {
+  // Get breakpoint declarations for the normalized ResponsiveValue object
+  const styles = getBreakpointDeclarations(normalize(on), 'display', () => 'none')
+  // Render the children with the styles
+  return styles ? <Box sx={styles}>{children}</Box> : null
 }
 
 Hidden.displayName = 'Hidden'
