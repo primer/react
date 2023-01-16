@@ -11,15 +11,15 @@ export default meta
 
 export const HideContent = () => (
   <Box>
-    <Hidden on={['narrow']}> This value is shown in regular and wide viewports</Hidden>
-    <Hidden on={['regular']}> This value is shown in narrow and wide viewports</Hidden>
-    <Hidden on={['wide']}> This value is shown in narrow and regular viewports</Hidden>
+    <Hidden on="narrow"> This value is shown in regular and wide viewports</Hidden>
+    <Hidden on="regular"> This value is shown in narrow and wide viewports</Hidden>
+    <Hidden on="'wide"> This value is shown in narrow and regular viewports</Hidden>
   </Box>
 )
 
 export const RenderContentResponsively = () => (
   <Box>
-    <Hidden on={['narrow']}>
+    <Hidden on="narrow">
       <Button variant="primary">I am visible on regular and wide viewport</Button>
     </Hidden>
 
