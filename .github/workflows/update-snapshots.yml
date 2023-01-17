@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       number: ${{ steps.pr.outputs.number }}
-      ref: ${{ steps.pr.outputs.head_ref }}
     steps:
       - name: 'Get Pull Request'
         uses: actions/github-script@v6
@@ -50,10 +49,8 @@ jobs:
           script: |
             const fs = require('fs');
             const number = Number(fs.readFileSync('./PR/number', 'utf8'), 10);
-            const ref = fs.readFileSync('./PR/head_ref', 'utf8');
 
             core.setOutput('number', number);
-            core.setOutput('head_ref', ref);
 
   commit-and-push:
     needs: pull-request
@@ -71,7 +68,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ needs.pull-request.outputs.ref }}
+          ref: ${{ github.event.workflow_run.head_branch }}
           token: ${{ steps.generate_token.outputs.token }}
       - name: 'Download artifact'
         uses: actions/github-script@v6
