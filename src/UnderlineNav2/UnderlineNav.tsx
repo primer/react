@@ -35,6 +35,7 @@ export type UnderlineNavProps = {
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
 const MORE_BTN_WIDTH = 86
+const MORE_BTN_HEIGHT = 45
 
 // Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
 const NavigationList = styled.ul`
@@ -43,6 +44,8 @@ const NavigationList = styled.ul`
 
 const MoreMenuListItem = styled.li`
   display: flex;
+  align-items: center;
+  height: ${MORE_BTN_HEIGHT}px;
 `
 
 const overflowEffect = (
@@ -252,6 +255,8 @@ export const UnderlineNav = forwardRef(
     }, [])
 
     const actions = responsiveProps.actions
+    // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
+    const onlyMenuVisible = responsiveProps.items.length === 0
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
@@ -337,7 +342,7 @@ export const UnderlineNav = forwardRef(
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
-                <Box sx={getDividerStyle(theme)}></Box>
+                {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
                 <Button
                   ref={moreMenuBtnRef}
                   sx={moreBtnStyles}
@@ -347,7 +352,15 @@ export const UnderlineNav = forwardRef(
                   trailingIcon={TriangleDownIcon}
                 >
                   <Box as="span">
-                    More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                    {onlyMenuVisible ? (
+                      <>
+                        <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Items
+                      </>
+                    ) : (
+                      <>
+                        More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                      </>
+                    )}
                   </Box>
                 </Button>
                 <ActionList
@@ -366,7 +379,8 @@ export const UnderlineNav = forwardRef(
                           as={action.props.as || 'a'}
                           sx={menuItemStyles}
                           onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                            swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                            // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
+                            !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
                             setSelectEvent(event)
                             closeOverlay()
                             focusOnMoreMenuBtn()
