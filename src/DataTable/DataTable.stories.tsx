@@ -1,4 +1,5 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react'
+import React from 'react'
 import {Table, TableHead, TableHeader, TableCell, TableBody, TableRow} from '../DataTable'
 import Label from '../Label'
 import LabelGroup from '../LabelGroup'

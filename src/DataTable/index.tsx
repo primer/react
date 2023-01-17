@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 
@@ -174,6 +175,8 @@ interface TableCellProps {
 
 function TableCell({children, scope}: TableCellProps) {
   return (
+    // The scope attribute is valid on `<td>` elements
+    // eslint-disable-next-line jsx-a11y/scope
     <td className="TableCell" scope={scope}>
       {children}
     </td>
