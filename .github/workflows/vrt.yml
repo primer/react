@@ -50,10 +50,8 @@ jobs:
         run: |
           mkdir PR
           echo $NUMBER > ./PR/number
-          echo $HEAD_REF >> ./PR/head_ref
         env:
           NUMBER: ${{ github.event.number }}
-          HEAD_REF: ${{ github.event.pull_request.head.ref }}
       - uses: actions/upload-artifact@v3
         with:
           name: pull-request
