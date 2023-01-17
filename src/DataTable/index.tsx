@@ -6,7 +6,9 @@ import {get} from '../constants'
 // Table
 // ----------------------------------------------------------------------------
 
-const StyledTable = styled.table`
+interface TableBaseProps extends React.ComponentPropsWithoutRef<'table'> {}
+
+const StyledTable = styled.table<TableBaseProps>`
   & {
     --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
     --table-font-size: 0.75rem;
@@ -102,7 +104,7 @@ const StyledTable = styled.table`
   }
 `
 
-interface TableProps {
+interface TableProps extends TableBaseProps {
   children?: React.ReactNode
 
   /**
@@ -112,8 +114,12 @@ interface TableProps {
   density?: 'condensed' | 'normal' | 'spacious' | undefined
 }
 
-function Table({children, density = 'normal'}: TableProps) {
-  return <StyledTable data-density={density}>{children}</StyledTable>
+function Table({children, density = 'normal', ...rest}: TableProps) {
+  return (
+    <StyledTable {...rest} data-density={density}>
+      {children}
+    </StyledTable>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -170,16 +176,21 @@ function TableRow({children}: TableRowProps) {
 
 interface TableCellProps {
   children?: React.ReactNode
+
+  /**
+   * Provide the scope for a table cell, useful for defining a row header using
+   * `scope="row"`
+   */
   scope?: string | undefined
 }
 
 function TableCell({children, scope}: TableCellProps) {
+  const BaseComponent = scope ? 'th' : 'td'
+
   return (
-    // The scope attribute is valid on `<td>` elements
-    // eslint-disable-next-line jsx-a11y/scope
-    <td className="TableCell" scope={scope}>
+    <BaseComponent className="TableCell" scope={scope}>
       {children}
-    </td>
+    </BaseComponent>
   )
 }
 

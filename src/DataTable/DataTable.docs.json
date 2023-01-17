@@ -1,0 +1,35 @@
+{
+  "$schema": "../../script/components-json/component.schema.json",
+  "id": "data-table",
+  "name": "DataTable",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [],
+  "subcomponents": [
+    {
+      "name": "Table",
+      "props": []
+    },
+    {
+      "name": "TableHead",
+      "props": []
+    },
+    {
+      "name": "TableBody",
+      "props": []
+    },
+    {
+      "name": "TableRow",
+      "props": []
+    },
+    {
+      "name": "TableHeader",
+      "props": []
+    },
+    {
+      "name": "TableCell",
+      "props": []
+    }
+  ]
+}
