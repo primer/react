@@ -46,6 +46,7 @@ describe('TextInput', () => {
   it('renders contrast', () => {
     expect(render(<TextInput name="zipcode" contrast />)).toMatchSnapshot()
   })
+
   it('renders monospace', () => {
     expect(render(<TextInput name="zipcode" monospace />)).toMatchSnapshot()
   })

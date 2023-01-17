@@ -1,5 +1,4 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import {render} from '@testing-library/react'
 import {RadioGroup, FormControl, Radio, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
@@ -12,9 +11,11 @@ describe('RadioGroup', () => {
   beforeAll(() => {
     jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
   })
+
   afterAll(() => {
     jest.clearAllMocks()
   })
+
   behavesAsComponent({
     Component: RadioGroup,
     options: {skipAs: true, skipSx: true}, // skipping sx check because we have to render this in a <SSRProvider> to keep snapshots consistent
@@ -38,10 +39,12 @@ describe('RadioGroup', () => {
       </SSRProvider>
     ),
   })
+
   checkExports('RadioGroup', {
     default: RadioGroup,
     RadioGroupContext,
   })
+
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
       <RadioGroup name="choices" disabled>
@@ -69,6 +72,7 @@ describe('RadioGroup', () => {
 
     expect(fieldset.disabled).toBe(true)
   })
+
   it('renders a required group of inputs', () => {
     const {getByTitle} = render(
       <RadioGroup name="choices" required>
@@ -91,6 +95,7 @@ describe('RadioGroup', () => {
 
     expect(requiredIndicator).toBeInTheDocument()
   })
+
   it('calls onChange handlers passed to RadioGroup and Radio', async () => {
     const user = userEvent.setup()
     const handleParentChange = jest.fn()
@@ -120,6 +125,7 @@ describe('RadioGroup', () => {
     expect(handleParentChange).toHaveBeenCalled()
     expect(handleRadioChange).toHaveBeenCalled()
   })
+
   it('calls onChange handler on RadioGroup with selected value', async () => {
     const user = userEvent.setup()
     const handleParentChange = jest.fn()
