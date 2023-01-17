@@ -1,11 +1,16 @@
 import styled from 'styled-components'
 import {get} from '../constants'
 
+// ----------------------------------------------------------------------------
+// Table
+// ----------------------------------------------------------------------------
+
 const StyledTable = styled.table`
   & {
     --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
     --table-font-size: 0.75rem;
     --table-border-radius: 0.375rem;
+    --table-offset: 1rem;
 
     background-color: ${get('colors.canvas.default')};
     border-spacing: 0;
@@ -38,9 +43,13 @@ const StyledTable = styled.table`
     border-left: 1px solid ${get('colors.border.default')};
   }
 
+  .TableCell:last-of-type,
+  .TableHeader:last-of-type {
+    border-right: 1px solid ${get('colors.border.default')};
+  }
+
   .TableHeader,
   .TableCell {
-    border-right: 1px solid ${get('colors.border.default')};
     border-bottom: 1px solid ${get('colors.border.default')};
   }
 
@@ -49,7 +58,6 @@ const StyledTable = styled.table`
     color: ${get('colors.fg.muted')};
     font-weight: 600;
     text-align: start;
-    /* How does this work for multiple <th> groups??? */
     border-top: 1px solid ${get('colors.border.default')};
   }
 
@@ -59,6 +67,14 @@ const StyledTable = styled.table`
 
   .TableHeader:last-of-type {
     border-top-right-radius: var(--table-border-radius);
+  }
+
+  .TableRow:last-of-type .TableCell:first-of-type {
+    border-bottom-left-radius: var(--table-border-radius);
+  }
+
+  .TableRow:last-of-type .TableCell:last-of-type {
+    border-bottom-right-radius: var(--table-border-radius);
   }
 
   .TableRow {
@@ -71,6 +87,14 @@ const StyledTable = styled.table`
     padding: var(--table-cell-padding);
   }
 
+  .TableCell:first-of-type {
+    padding-inline-start: var(--table-offset);
+  }
+
+  .TableCell:last-of-type {
+    padding-inline-end: var(--table-offset);
+  }
+
   .TableCell[scope='row'] {
     color: ${get('colors.fg.default')};
     font-weight: 600;
@@ -78,42 +102,77 @@ const StyledTable = styled.table`
 `
 
 interface TableProps {
+  children?: React.ReactNode
+
+  /**
+   * Specify the amount of space that should be available around the contents of
+   * the table
+   */
   density?: 'condensed' | 'normal' | 'spacious' | undefined
 }
 
-function Table({children, density = 'normal'}: React.PropsWithChildren<TableProps>) {
+function Table({children, density = 'normal'}: TableProps) {
   return <StyledTable data-density={density}>{children}</StyledTable>
 }
 
-interface TableHeadProps {}
+// ----------------------------------------------------------------------------
+// TableHead
+// ----------------------------------------------------------------------------
 
-function TableHead({children}: React.PropsWithChildren<TableHeadProps>) {
+interface TableHeadProps {
+  children?: React.ReactNode
+}
+
+function TableHead({children}: TableHeadProps) {
   return <thead className="TableHead">{children}</thead>
 }
 
-interface TableBodyProps {}
+// ----------------------------------------------------------------------------
+// TableBody
+// ----------------------------------------------------------------------------
 
-function TableBody({children}: React.PropsWithChildren<TableBodyProps>) {
+interface TableBodyProps {
+  children?: React.ReactNode
+}
+
+function TableBody({children}: TableBodyProps) {
   return <tbody className="TableBody">{children}</tbody>
 }
 
-interface TableHeaderProps {}
+// ----------------------------------------------------------------------------
+// TableHeader
+// ----------------------------------------------------------------------------
 
-function TableHeader({children}: React.PropsWithChildren<TableHeaderProps>) {
+interface TableHeaderProps {
+  children?: React.ReactNode
+}
+
+function TableHeader({children}: TableHeaderProps) {
   return <th className="TableHeader">{children}</th>
 }
 
-interface TableRowProps {}
+// ----------------------------------------------------------------------------
+// TableRow
+// ----------------------------------------------------------------------------
 
-function TableRow({children}: React.PropsWithChildren<TableRowProps>) {
+interface TableRowProps {
+  children?: React.ReactNode
+}
+
+function TableRow({children}: TableRowProps) {
   return <tr className="TableRow">{children}</tr>
 }
 
+// ----------------------------------------------------------------------------
+// TableCell
+// ----------------------------------------------------------------------------
+
 interface TableCellProps {
+  children?: React.ReactNode
   scope?: string | undefined
 }
 
-function TableCell({children, scope}: React.PropsWithChildren<TableCellProps>) {
+function TableCell({children, scope}: TableCellProps) {
   return (
     <td className="TableCell" scope={scope}>
       {children}
