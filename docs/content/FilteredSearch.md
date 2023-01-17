@@ -28,7 +28,7 @@ The FilteredSearch component helps style an ActionMenu and a TextInput side-by-s
 
 ## Component props
 
-#### FilteredSearch.Children
+### FilteredSearch.Children
 
 | Name     | Type              | Default | Description                                                                                                   |
 | :------- | :---------------- | :-----: | :------------------------------------------------------------------------------------------------------------ |

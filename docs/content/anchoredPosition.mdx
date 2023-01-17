@@ -46,7 +46,7 @@ const settings = {
   side: 'outside-right',
   align: 'center',
   alignmentOffset: 10,
-  anchorOffset: -10
+  anchorOffset: -10,
 } as Partial<PositionSettings>
 const float = document.getElementById('floatingElement')
 const anchor = document.getElementById('anchorElement')
@@ -145,7 +145,7 @@ export const AnchoredPositionExample = () => {
 | settings     | `AnchoredPositionHookSettings` | undefined | Optional settings to control how the anchored position is calculated. See below.                                     |
 | dependencies | `React.DependencyList`         | undefined | Dependencies to determine when to re-calculate the position. If undefined or `[]`, only calculate the position once. |
 
-**Return value**
+#### Return value
 
 | Name               | Type                          | Description                                        |
 | :----------------- | :---------------------------- | :------------------------------------------------- |
