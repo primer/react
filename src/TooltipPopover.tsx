@@ -20,32 +20,46 @@ const TooltipBase = styled('span')
     popover: props.popover,
     id: props.id,
   }))<PopoverProps>`
-  /* Without the triple ampersands, the specificity of these styles are overridden by the base popover styles. */
+  /* Without the triple ampersands, the specificity of these styles are overridden by the base popover styles.
+   * https://styled-components.com/docs/faqs#how-can-i-override-styles-with-higher-specificity
+   */
   &&& {
     padding-bottom: 10px;
     border: none;
     overflow: hidden;
     margin: 0;
-    position: absolute;
+    position: fixed;
     background: transparent;
+    top: 0;
+    left: 0;
+    display: none;
+
+    &.\\:open {
+      display: block;
+    }
+
+    &:open {
+      display: block;
+    }
 
     &::before {
       position: relative;
-      height: 20px;
-      width: 100px;
       padding: 0.5em 0.75em;
       border-radius: ${get('radii.1')};
       font: normal normal 11px/1.5 ${get('fonts.normal')};
       background: ${get('colors.neutral.emphasisPlus')};
       color: ${get('colors.fg.onEmphasis')};
       content: attr(aria-label);
+      word-wrap: break-word;
+      text-align: center;
       margin-bottom: 7px;
     }
 
     &::after {
       position: absolute;
       content: '';
-      right: 40%;
+      right: 50%;
+      margin-right: -6px;
       top: 75%;
       width: 0;
       height: 0;
@@ -93,10 +107,10 @@ const TooltipPopover = ({
     const anchored = popoverRef.current
     if (anchored !== null) {
       anchored.showPopover()
-      const anchor = event.target as HTMLElement
-      const {top, left, height} = anchor.getBoundingClientRect()
-      anchored.style.setProperty('top', `${top - height * 1.75}px`)
-      anchored.style.setProperty('left', `${left}px`)
+      const anchor = event.currentTarget as HTMLElement
+      const {top, left, width} = anchor.getBoundingClientRect()
+      anchored.style.setProperty('top', `${top - anchored.clientHeight}px`)
+      anchored.style.setProperty('left', `${left - anchored.clientWidth / 2 + width / 2}px`)
     }
   }
 
@@ -106,7 +120,7 @@ const TooltipPopover = ({
 
   return (
     <>
-      <span onPointerEnter={handlePointerEnter} onPointerLeave={handlePointerLeave}>
+      <span style={{display: 'inline-block'}} onPointerEnter={handlePointerEnter} onPointerLeave={handlePointerLeave}>
         {children}
       </span>
       <TooltipBase ref={popoverRef} popover={popover} className={classes} {...rest} />
