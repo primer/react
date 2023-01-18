@@ -36,6 +36,9 @@ exports[`PageHeader renders consistently 1`] = `
   display: -ms-flexbox;
   display: flex;
   gap: 0.5rem;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -139,6 +142,9 @@ exports[`PageHeader renders default layout 1`] = `
   display: -ms-flexbox;
   display: flex;
   gap: 0.5rem;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
