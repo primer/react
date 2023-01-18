@@ -3,11 +3,26 @@ import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './co
 import sx, {SxProp} from './sx'
 import {ComponentProps} from './utils/types'
 
-const Text = styled.span<SystemTypographyProps & SystemCommonProps & SxProp>`
+const RestrictedAs = {
+  inlineText: ['span', 'p', 'b', 'i', 'em', 'small', 'strong', 'u', 'code', 'q', 's'],
+} as const
+
+const StyledText = styled.span<SystemTypographyProps & SystemCommonProps & SxProp>`
   ${TYPOGRAPHY};
   ${COMMON};
   ${sx};
 `
 
-export type TextProps = ComponentProps<typeof Text>
+export type TextProps = {
+  as?: typeof RestrictedAs.inlineText[number]
+} & ComponentProps<typeof StyledText>
+
+const Text = ({children, as = 'span', ...rest}: TextProps) => {
+  return (
+    <StyledText as={RestrictedAs.inlineText.includes(as) ? as : undefined} {...rest}>
+      {children}
+    </StyledText>
+  )
+}
+
 export default Text
