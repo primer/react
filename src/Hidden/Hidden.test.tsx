@@ -4,7 +4,7 @@ import {render} from '@testing-library/react'
 import {Hidden} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports, renderStyles, checkStoriesForAxeViolations} from '../utils/testing'
-import {viewportRanges} from '../hooks/useResponsiveValue'
+import {mediaQueriesForViewportRanges} from '../utils/layout/breakpoints'
 
 let matchMedia: MatchMediaMock
 describe('Hidden', () => {
@@ -43,7 +43,7 @@ describe('Hidden', () => {
   it('renders the styles as expected when a single viewport value is provided as a string via `on` prop', () => {
     const expectedStyles = {
       // `.replace` is used because renderStyles return the JSON object without a space after the column
-      [`@media screen and ${viewportRanges.regular.replace(': ', ':')}`]: {
+      [`${mediaQueriesForViewportRanges.regular.replace(': ', ':')}`]: {
         display: 'none',
       },
     }
@@ -58,10 +58,10 @@ describe('Hidden', () => {
 
   it('renders the styles as expected when multiple viewport values are provided as an array via `on` prop', () => {
     const expectedStyles = {
-      [`@media screen and ${viewportRanges.narrow.replace(': ', ':')}`]: {
+      [`${mediaQueriesForViewportRanges.narrow.replace(': ', ':')}`]: {
         display: 'none',
       },
-      [`@media screen and ${viewportRanges.wide.replace(': ', ':')}`]: {
+      [`${mediaQueriesForViewportRanges.wide.replace(': ', ':')}`]: {
         display: 'none',
       },
     }

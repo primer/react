@@ -1,55 +1,21 @@
 import {addons} from '@storybook/addons'
 import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
-import theme from '../src/theme-preval'
+import {PrimerViewports} from '../src/utils/layout/breakpoints'
 
 export const globalTypes = toolbarTypes
 export const decorators = [withThemeProvider, withSurroundingElements]
 
-// TODO: Update the hard-coded values when the primitives are ready
-const PrimerViewports = {
-  xsmall: {
-    name: 'Xsmall',
+let storybookViewports = {}
+Object.entries(PrimerViewports).forEach(([viewport, value]) => {
+  const {width} = value
+  storybookViewports[viewport] = {
+    name: viewport,
     styles: {
-      width: '320px',
+      width,
       height: '100%',
     },
-  },
-  small: {
-    name: 'Small',
-    styles: {
-      width: theme.breakpoints[0],
-      height: '100%',
-    },
-  },
-  medium: {
-    name: 'Medium',
-    styles: {
-      width: theme.breakpoints[1],
-      height: '100%',
-    },
-  },
-  large: {
-    name: 'Large',
-    styles: {
-      width: theme.breakpoints[2],
-      height: '100%',
-    },
-  },
-  xlarge: {
-    name: 'Xlarge',
-    styles: {
-      width: theme.breakpoints[3],
-      height: '100%',
-    },
-  },
-  xxlarge: {
-    name: 'XXlarge',
-    styles: {
-      width: '1400px',
-      height: '100%',
-    },
-  },
-}
+  }
+})
 
 addons.setConfig({
   // Some stories may set up keyboard event handlers, which can be interfered
@@ -183,9 +149,10 @@ export const parameters = {
       return compare(getHierarchy(a), getHierarchy(b))
     },
   },
+
   viewport: {
     viewports: {
-      ...PrimerViewports,
+      ...storybookViewports,
     },
   },
 }

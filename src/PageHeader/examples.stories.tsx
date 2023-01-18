@@ -76,7 +76,7 @@ export const PullRequestPage = () => (
           </Hidden>
 
           <Hidden on={['narrow']}>
-            <Box sx={{display: 'flex'}}>
+            <Box sx={{display: 'flex', gap: 2}}>
               <Button>Edit</Button>
               <Button leadingIcon={CodeIcon}>Code</Button>
             </Box>
