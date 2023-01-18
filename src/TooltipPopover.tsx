@@ -3,13 +3,16 @@ import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
+import classNames from 'classnames'
 
 interface PopoverProps extends SxProp, React.PropsWithChildren {
   popover: 'auto'
   id: string
+  'aria-label': string
 }
 
-const TooltipContent = styled('div')
+const TooltipBase = styled('span')
   .withConfig({
     shouldForwardProp: (prop, defaultValidatorFn) => ['popover'].includes(prop) || defaultValidatorFn(prop),
   })
@@ -19,116 +22,95 @@ const TooltipContent = styled('div')
   }))<PopoverProps>`
   /* Without the triple ampersands, the specificity of these styles are overridden by the base popover styles. */
   &&& {
-    position: relative;
-    background: ${get('colors.neutral.emphasisPlus')};
-    color: ${get('colors.fg.onEmphasis')};
-    padding: 0.5em 0.75em;
+    padding-bottom: 10px;
+    border: none;
+    overflow: hidden;
     margin: 0;
-    opacity: 0;
-    border-radius: ${get('radii.1')};
-    font-size: 11px;
-
-    @keyframes tooltip-appear {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    &.\\:open,
-    &:focus,
-    &:focus-within {
-      &,
-      &::before,
-      &::after {
-        display: block;
-        animation-name: tooltip-appear;
-        animation-duration: 0.1s;
-        animation-fill-mode: forwards;
-        animation-timing-function: ease-in;
-        animation-delay: 0.4s;
-      }
-    }
+    position: absolute;
+    background: transparent;
 
     &::before {
+      position: relative;
+      height: 20px;
+      width: 100px;
+      padding: 0.5em 0.75em;
+      border-radius: ${get('radii.1')};
+      font: normal normal 11px/1.5 ${get('fonts.normal')};
+      background: ${get('colors.neutral.emphasisPlus')};
+      color: ${get('colors.fg.onEmphasis')};
+      content: attr(aria-label);
+      margin-bottom: 7px;
+    }
+
+    &::after {
       position: absolute;
-      width: 0px;
-      height: 0px;
-      color: ${get('colors.neutral.emphasisPlus')};
-      pointer-events: none;
       content: '';
+      right: 40%;
+      top: 75%;
+      width: 0;
+      height: 0;
       border: 6px solid transparent;
-      opacity: 0;
+      border-top-color: black;
     }
 
-    &.tooltip-n,
-    &.tooltip-ne,
-    &.tooltip-nw {
-      top: -3rem;
-
-      &::before {
-        top: -7px;
-        right: 50%;
-        bottom: 0;
-        margin-right: -6px;
-        border-top-color: ${get('colors.neutral.emphasisPlus')}
-      }
-    }
-
-    &.tooltip-s,
-    &.tooltip-se,
-    &.tooltip-sw {
-      top: 0;
-    }
-
-    &.tooltip-e,
-    &.tooltip-se,
-    &.tooltip-ne {
-      left: 2rem;
-    }
+    ${sx}
   }
-
-  ${sx}
 `
 
 type TooltipProps = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
   text?: string
-  'aria-label'?: string
-}
+  noDelay?: boolean
+  align?: 'left' | 'right'
+  wrap?: boolean
+} & ComponentProps<typeof TooltipBase>
 
-const TooltipPopover = ({text, direction = 'n', 'aria-label': ariaLabel}: TooltipProps) => {
+const TooltipPopover = ({
+  direction = 'n',
+  children,
+  className,
+  noDelay,
+  align,
+  wrap,
+  popover = 'auto',
+  ...rest
+}: TooltipProps) => {
   if (!isSupported()) {
     apply()
   }
 
-  const popover = React.useRef(null)
+  const classes = classNames(
+    className,
+    `tooltipped-${direction}`,
+    align && `tooltipped-align-${align}-2`,
+    noDelay && 'tooltipped-no-delay',
+    wrap && 'tooltipped-multiline',
+  )
 
-  const handlePointerEnter = () => {
-    const content = popover.current
-    if (content && !content.classList.contains(':open')) {
-      content.showPopover()
+  const popoverRef = React.useRef<HTMLElement>(null)
+
+  const handlePointerEnter = (event: React.PointerEvent<HTMLElement>) => {
+    const anchored = popoverRef.current
+    if (anchored !== null) {
+      anchored.showPopover()
+      const anchor = event.target as HTMLElement
+      const {top, left, height} = anchor.getBoundingClientRect()
+      anchored.style.setProperty('top', `${top - height * 1.75}px`)
+      anchored.style.setProperty('left', `${left}px`)
     }
   }
 
   const handlePointerLeave = () => {
-    const content = popover.current
-    if (content && content.classList.contains(':open')) {
-      content.hidePopover()
-    }
+    popoverRef.current !== null && popoverRef.current.hidePopover()
   }
+
   return (
-    <div aria-label={ariaLabel}>
-      <button onPointerEnter={handlePointerEnter} onPointerLeave={handlePointerLeave}>
-        Toggle popover
-      </button>
-      <TooltipContent ref={popover} popover="auto" id="my-first-popover" className={`tooltip-${direction}`}>
-        {text}
-      </TooltipContent>
-    </div>
+    <>
+      <span onPointerEnter={handlePointerEnter} onPointerLeave={handlePointerLeave}>
+        {children}
+      </span>
+      <TooltipBase ref={popoverRef} popover={popover} className={classes} {...rest} />
+    </>
   )
 }
 

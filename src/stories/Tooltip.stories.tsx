@@ -25,15 +25,17 @@ export default {
 
 export const IconButtonTooltip = () => (
   <Box sx={{p: 5}}>
-    <Tooltip aria-label="Search">
+    <TooltipPopover aria-label="Search">
       <IconButton icon={SearchIcon} aria-label="Search" />
-    </Tooltip>
+    </TooltipPopover>
   </Box>
 )
 
 export const TooltipPopoverExample = () => (
   <Box sx={{p: 5}}>
-    <TooltipPopover aria-label="Search" text="Tooltip content" direction="ne" />
+    <TooltipPopover aria-label="Search">
+      <button>Click me</button>
+    </TooltipPopover>
   </Box>
 )
 
@@ -69,9 +71,9 @@ export const TooltipWithAncestor = () => (
             background: 'cornflowerblue',
           }}
         >
-          <Tooltip aria-label="Tooltip currently falls behind the top sticky header">
+          <TooltipPopover aria-label="Tooltip currently falls behind the top sticky header">
             Second sticky header, Text with a tooltip, within a stacking context
-          </Tooltip>
+          </TooltipPopover>
         </Box>
         <Box
           sx={{
