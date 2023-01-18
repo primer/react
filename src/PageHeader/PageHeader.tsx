@@ -229,6 +229,7 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
           {
             display: 'flex',
             gap: '0.5rem',
+            order: REGION_ORDER.TitleArea,
             ...getBreakpointDeclarations(hidden, 'display', value => {
               return value ? 'none' : 'flex'
             }),
