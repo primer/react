@@ -14,8 +14,5 @@ export function getScrollContainer(element: Element | null): Element | null {
 function isScrollable(element: Element) {
   const hasScrollableContent = element.scrollHeight > element.clientHeight
 
-  const overflowYStyle = window.getComputedStyle(element).overflowY
-  const isOverflowHidden = overflowYStyle.indexOf('hidden') !== -1
-
-  return hasScrollableContent && !isOverflowHidden
+  return hasScrollableContent && !(window.getComputedStyle(element).overflowY.indexOf('hidden') !== -1)
 }
