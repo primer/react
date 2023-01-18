@@ -1,14 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
+import {useId} from '../hooks/useId'
+
+// ----------------------------------------------------------------------------
+// DataTable
+// ----------------------------------------------------------------------------
+interface DataTableProps {
+  children?: React.ReactNode
+}
+
+function DataTable({children}: DataTableProps) {
+  const id = useId()
+
+  return (
+    <>
+      <div>{children}</div>
+    </>
+  )
+}
 
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
 
-interface TableBaseProps extends React.ComponentPropsWithoutRef<'table'> {}
-
-const StyledTable = styled.table<TableBaseProps>`
+const StyledTable = styled.table`
   & {
     --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
     --table-font-size: 0.75rem;
@@ -23,6 +39,7 @@ const StyledTable = styled.table<TableBaseProps>`
     font-size: var(--table-font-size);
     line-height: calc(20 / var(--table-font-size));
     width: 100%;
+    overflow-x: auto;
   }
 
   /* Density modes: condensed, normal, spacious */
@@ -41,19 +58,20 @@ const StyledTable = styled.table<TableBaseProps>`
     --cell-padding-inline: 1rem;
   }
 
-  .TableCell:first-of-type,
-  .TableHeader:first-of-type {
+  .TableCell:first-child,
+  .TableHeader:first-child {
     border-left: 1px solid ${get('colors.border.default')};
   }
 
-  .TableCell:last-of-type,
-  .TableHeader:last-of-type {
+  .TableCell:last-child,
+  .TableHeader:last-child {
     border-right: 1px solid ${get('colors.border.default')};
   }
 
   .TableHeader,
   .TableCell {
     border-bottom: 1px solid ${get('colors.border.default')};
+    text-align: start;
   }
 
   .TableHeader {
@@ -64,19 +82,19 @@ const StyledTable = styled.table<TableBaseProps>`
     border-top: 1px solid ${get('colors.border.default')};
   }
 
-  .TableHeader:first-of-type {
+  .TableHeader:first-child {
     border-top-left-radius: var(--table-border-radius);
   }
 
-  .TableHeader:last-of-type {
+  .TableHeader:last-child {
     border-top-right-radius: var(--table-border-radius);
   }
 
-  .TableRow:last-of-type .TableCell:first-of-type {
+  .TableRow:last-of-type .TableCell:first-child {
     border-bottom-left-radius: var(--table-border-radius);
   }
 
-  .TableRow:last-of-type .TableCell:last-of-type {
+  .TableRow:last-of-type .TableCell:last-child {
     border-bottom-right-radius: var(--table-border-radius);
   }
 
@@ -104,7 +122,17 @@ const StyledTable = styled.table<TableBaseProps>`
   }
 `
 
-interface TableProps extends TableBaseProps {
+interface TableProps {
+  /**
+   * Provide an id to an element which uniquely describes this table
+   */
+  'aria-describedby'?: string | undefined
+
+  /**
+   * Provide an id to an element which uniquely labels this table
+   */
+  'aria-labelledby'?: string | undefined
+
   children?: React.ReactNode
 
   /**
@@ -114,9 +142,15 @@ interface TableProps extends TableBaseProps {
   density?: 'condensed' | 'normal' | 'spacious' | undefined
 }
 
-function Table({children, density = 'normal', ...rest}: TableProps) {
+function Table({
+  'aria-labelledby': labelledBy,
+  'aria-describedby': describedBy,
+  children,
+  density = 'normal',
+  ...rest
+}: TableProps) {
   return (
-    <StyledTable {...rest} data-density={density}>
+    <StyledTable {...rest} aria-labelledby={labelledBy} aria-describedby={describedBy} data-density={density}>
       {children}
     </StyledTable>
   )
