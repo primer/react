@@ -148,7 +148,7 @@ export const Playground: ComponentStory<typeof Table> = args => {
               <TableCell>
                 {row.securityFeatures.codeScanning.length > 0 ? (
                   <LabelGroup>
-                    {row.securityFeatures.dependabot.map(feature => {
+                    {row.securityFeatures.codeScanning.map(feature => {
                       return <Label key={feature}>{uppercase(feature)}</Label>
                     })}
                   </LabelGroup>
