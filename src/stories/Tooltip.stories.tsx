@@ -25,17 +25,17 @@ export default {
 
 export const IconButtonTooltip = () => (
   <Box sx={{p: 5}}>
-    <TooltipPopover aria-label="Search">
+    <TooltipPopover aria-label="Search" direction="w">
       <IconButton icon={SearchIcon} aria-label="Search" />
     </TooltipPopover>
   </Box>
 )
 
-export const TooltipPopoverExample = () => (
+export const TooltipExample = () => (
   <Box sx={{p: 5}}>
-    <TooltipPopover aria-label="Search">
+    <Tooltip aria-label="Search">
       <button>Click me</button>
-    </TooltipPopover>
+    </Tooltip>
   </Box>
 )
 
@@ -45,7 +45,6 @@ export const TooltipWithAncestor = () => (
       <Box
         sx={{
           background: '#a8a8a8',
-          zIndex: 1,
           position: 'sticky',
           top: 0,
           p: 4,
@@ -58,7 +57,6 @@ export const TooltipWithAncestor = () => (
           p: 3,
           // this creates a new "stacking context" so that this whole content section falls behind the main sticky header
           position: 'relative',
-          zIndex: 0,
         }}
       >
         <Box
@@ -66,14 +64,12 @@ export const TooltipWithAncestor = () => (
             p: 1,
             position: 'sticky',
             top: 82,
-            // because content is position: relative, we need to set a higher z-index on this header
-            zIndex: 1,
             background: 'cornflowerblue',
           }}
         >
-          <TooltipPopover aria-label="Tooltip currently falls behind the top sticky header">
+          <Tooltip aria-label="Tooltip currently falls behind the top sticky header">
             Second sticky header, Text with a tooltip, within a stacking context
-          </TooltipPopover>
+          </Tooltip>
         </Box>
         <Box
           sx={{

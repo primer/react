@@ -24,7 +24,6 @@ const TooltipBase = styled('span')
    * https://styled-components.com/docs/faqs#how-can-i-override-styles-with-higher-specificity
    */
   &&& {
-    padding-bottom: 10px;
     border: none;
     overflow: hidden;
     margin: 0;
@@ -60,11 +59,78 @@ const TooltipBase = styled('span')
       content: '';
       right: 50%;
       margin-right: -6px;
-      top: 75%;
       width: 0;
       height: 0;
       border: 6px solid transparent;
-      border-top-color: black;
+    }
+
+    &.tooltipped-n,
+    &.tooltipped-ne,
+    &.tooltipped-nw {  
+      padding-bottom: 10px;
+
+      &::after {
+        top: 75%;
+        border-top-color: ${get('colors.neutral.emphasisPlus')};
+      }
+    }
+
+    &.tooltipped-nw {
+      &::after {
+        right: 25%;
+      }
+    }
+
+    &.tooltipped-ne {
+      &::after {
+        right: 75%;
+      }
+    }
+
+    &.tooltipped-sw {
+      padding-top: 10px;
+      &::after {
+        right: 25%;
+        top: 0;
+        border-bottom-color: ${get('colors.neutral.emphasisPlus')};
+      }
+    }
+
+    &.tooltipped-se {
+      padding-top: 10px;
+      &::after {
+        right: 75%;
+        top: 0;
+        border-bottom-color: ${get('colors.neutral.emphasisPlus')};
+      }
+    }
+
+    &.tooltipped-s {
+      padding-top: 10px;
+
+      &::after {
+        top: 0;
+        border-bottom-color: ${get('colors.neutral.emphasisPlus')};
+      }
+    }
+
+    &.tooltipped-e {
+      padding-left: 10px;
+
+      &:after {
+        top: 40%;
+        right: 94%;
+        border-right-color: ${get('colors.neutral.emphasisPlus')};
+      }
+    }
+
+    &.tooltipped-w {
+      padding-right: 10px;
+      &::after {
+        top: 40%;
+        right: 4px;
+        border-left-color: ${get('colors.neutral.emphasisPlus')};
+      }
     }
 
     ${sx}
@@ -109,8 +175,48 @@ const TooltipPopover = ({
       anchored.showPopover()
       const anchor = event.currentTarget as HTMLElement
       const {top, left, width} = anchor.getBoundingClientRect()
-      anchored.style.setProperty('top', `${top - anchored.clientHeight}px`)
-      anchored.style.setProperty('left', `${left - anchored.clientWidth / 2 + width / 2}px`)
+      let [_top, _left] = [top, left]
+      if (direction === 'n') {
+        _top -= anchored.clientHeight
+        _left = _left - anchored.clientWidth / 2 + width / 2
+      }
+
+      if (direction === 'nw') {
+        _top -= anchored.clientHeight
+        _left = _left - width
+      }
+
+      if (direction === 'w') {
+        _left = _left - anchored.clientWidth
+        _top -= 2
+      }
+
+      if (direction === 'sw') {
+        _top += anchored.clientHeight / 2
+        _left = _left - width
+      }
+
+      if (direction === 's') {
+        _top += anchored.clientHeight / 2
+        _left = _left - anchored.clientWidth / 2 + width / 2
+      }
+
+      if (direction === 'se') {
+        _top += anchored.clientHeight / 2
+        _left = _left + width / 2
+      }
+
+      if (direction === 'e') {
+        _left = _left + width
+      }
+
+      if (direction === 'ne') {
+        _top -= anchored.clientHeight
+        _left = _left + width / 2
+      }
+
+      anchored.style.setProperty('top', `${_top}px`)
+      anchored.style.setProperty('left', `${_left}px`)
     }
   }
 
