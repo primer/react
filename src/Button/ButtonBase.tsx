@@ -15,6 +15,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       leadingIcon: LeadingIcon,
       trailingIcon: TrailingIcon,
       trailingAction: TrailingAction,
+      icon: Icon,
       variant = 'default',
       size = 'medium',
       alignContent = 'center',
@@ -36,9 +37,6 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       display: 'flex',
       pointerEvents: 'none',
     }
-
-    console.log('base styles', baseStyles)
-    console.log('sx prop', sxProp)
 
     if (__DEV__) {
       /**
@@ -66,23 +64,29 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
       >
-        <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-          {LeadingIcon && (
-            <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-              <LeadingIcon />
+        {Icon ? (
+          <Icon />
+        ) : (
+          <>
+            <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
+              {LeadingIcon && (
+                <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
+                  <LeadingIcon />
+                </Box>
+              )}
+              {children && <span data-component="text">{children}</span>}
+              {TrailingIcon && (
+                <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                  <TrailingIcon />
+                </Box>
+              )}
             </Box>
-          )}
-          {children && <span data-component="text">{children}</span>}
-          {TrailingIcon && (
-            <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-              <TrailingIcon />
-            </Box>
-          )}
-        </Box>
-        {TrailingAction && (
-          <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
-            <TrailingAction />
-          </Box>
+            {TrailingAction && (
+              <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
+                <TrailingAction />
+              </Box>
+            )}
+          </>
         )}
       </StyledButton>
     )

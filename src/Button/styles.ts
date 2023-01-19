@@ -229,6 +229,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     padding: 'unset',
     placeContent: 'center',
     width: '32px',
+    minWidth: 'unset',
   },
   '&[data-size="small"]': {
     padding: '0 8px',
