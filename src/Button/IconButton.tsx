@@ -1,19 +1,20 @@
 import React, {forwardRef} from 'react'
-import {merge, SxProp} from '../sx'
 import {IconButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwardedRef): JSX.Element => {
   const {sx = {}, icon: Icon, ...rest} = props
 
-  // const sxStyle = merge.all([sx as SxProp])
-  console.log('sx itself', sx)
+  // check if we have the size prop, if we do we want to add data-size with its value to the css selector
+  const size = props.size ? `[data-size="${props.size}"]` : ''
+  // we need to make sure we add the sx styles to the css selector that has the highest specificity.
+  const cssSelector = `&[data-component="IconButton"]${size}`
 
-  // sx : Object { width: 16px, height: 16px}
-  // what we want : '&[data-component="IconButton"][data-component="Overrides"] : sx & IconButon styles'
-
+  const iconButtonStyles = {
+    [cssSelector]: sx,
+  }
   return (
-    <ButtonBase data-component="IconButton" sx={sx} {...rest} ref={forwardedRef}>
+    <ButtonBase data-component="IconButton" sx={iconButtonStyles} {...rest} ref={forwardedRef}>
       <Icon />
     </ButtonBase>
   )
