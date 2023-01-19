@@ -1,4 +1,4 @@
-import {HeartIcon} from '@primer/octicons-react'
+import {HeartIcon, ChevronDownIcon, ChevronUpIcon} from '@primer/octicons-react'
 import React from 'react'
 import {IconButton} from '.'
 
@@ -21,3 +21,10 @@ export const Small = () => <IconButton size="small" icon={HeartIcon} aria-label=
 export const Medium = () => <IconButton size="medium" icon={HeartIcon} aria-label="Default" />
 
 export const Large = () => <IconButton size="large" icon={HeartIcon} aria-label="Default" />
+
+export const ChevronTest = () => (
+  <>
+    <IconButton size="medium" icon={ChevronDownIcon} aria-label="Default" />
+    <IconButton size="medium" icon={ChevronUpIcon} aria-label="Default" />
+  </>
+)
