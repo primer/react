@@ -272,7 +272,7 @@ export const getBaseStyles = (theme?: Theme) => ({
 export const getButtonStyles = (theme?: Theme) => {
   const styles = {
     ...getBaseStyles(theme),
-    '&[data-component="block"]': {
+    '&[data-block="block"]': {
       width: '100%',
     },
     '[data-component="leadingVisual"]': {

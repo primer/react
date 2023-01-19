@@ -21,3 +21,7 @@ export const Small = () => <IconButton size="small" icon={HeartIcon} aria-label=
 export const Medium = () => <IconButton size="medium" icon={HeartIcon} aria-label="Default" />
 
 export const Large = () => <IconButton size="large" icon={HeartIcon} aria-label="Default" />
+
+export const CustomSize = () => (
+  <IconButton size="large" icon={HeartIcon} aria-label="Default" sx={{width: 16, height: 16}} />
+)

@@ -32,7 +32,11 @@ export const TrailingCounter = () => {
 
 export const TrailingAction = () => <Button trailingAction={TriangleDownIcon}>Trailing action</Button>
 
-export const Block = () => <Button block>Default</Button>
+export const Block = () => (
+  <Button block sx={{backgroundColor: 'blue'}}>
+    Default
+  </Button>
+)
 
 export const Disabled = () => <Button disabled>Default</Button>
 

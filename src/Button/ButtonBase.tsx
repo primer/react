@@ -37,6 +37,9 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
       pointerEvents: 'none',
     }
 
+    console.log('base styles', baseStyles)
+    console.log('sx prop', sxProp)
+
     if (__DEV__) {
       /**
        * The Linter yells because it thinks this conditionally calls an effect,
@@ -59,7 +62,7 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
         sx={sxStyles}
         {...rest}
         ref={innerRef}
-        data-component={block ? 'block' : null}
+        data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
       >

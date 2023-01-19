@@ -1,17 +1,21 @@
 import React, {forwardRef} from 'react'
 import {merge, SxProp} from '../sx'
-import {useTheme} from '../ThemeProvider'
-import {IconButtonProps, StyledButton} from './types'
-import {getBaseStyles, getVariantStyles} from './styles'
+import {IconButtonProps} from './types'
+import {ButtonBase} from './ButtonBase'
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, forwardedRef): JSX.Element => {
-  const {variant = 'default', size = 'medium', sx: sxProp = {}, icon: Icon, ...rest} = props
-  const {theme} = useTheme()
-  const sxStyles = merge.all([getBaseStyles(theme), getVariantStyles(variant, theme), sxProp as SxProp])
+  const {sx = {}, icon: Icon, ...rest} = props
+
+  // const sxStyle = merge.all([sx as SxProp])
+  console.log('sx itself', sx)
+
+  // sx : Object { width: 16px, height: 16px}
+  // what we want : '&[data-component="IconButton"][data-component="Overrides"] : sx & IconButon styles'
+
   return (
-    <StyledButton data-component="IconButton" data-size={size} sx={sxStyles} {...rest} ref={forwardedRef}>
+    <ButtonBase data-component="IconButton" sx={sx} {...rest} ref={forwardedRef}>
       <Icon />
-    </StyledButton>
+    </ButtonBase>
   )
 })
 
