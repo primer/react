@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
 
 const RestrictedAs = {
   inlineText: ['span', 'p', 'b', 'i', 'em', 'small', 'strong', 'u', 'code', 'q', 's', 'label', 'div'],
@@ -16,7 +15,7 @@ const StyledText = styled.span<SystemTypographyProps & SystemCommonProps & SxPro
 
 export type TextProps = {
   as?: typeof RestrictedAs.inlineText[number]
-} & ComponentProps<typeof StyledText>
+} & React.ComponentProps<'span' & typeof StyledText>
 
 const Text = ({children, as = 'span', ...rest}: TextProps) => {
   return (
