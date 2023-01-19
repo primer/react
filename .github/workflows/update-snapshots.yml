@@ -1,0 +1,137 @@
+name: update-snapshots
+on:
+  workflow_run:
+    workflows: [vrt]
+    types:
+      - completed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  pull-request:
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      number: ${{ steps.pr.outputs.number }}
+    steps:
+      - name: 'Get Pull Request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{ github.event.workflow_run.id }},
+            });
+            const artifact = artifacts.data.artifacts.find((artifact) => {
+              return artifact.name == 'pull-request'
+            });
+            const download = await github.rest.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: artifact.id,
+              archive_format: 'zip',
+            });
+            fs.writeFileSync('${{github.workspace}}/PR.zip', Buffer.from(download.data));
+      - run: |
+          mkdir PR
+          unzip PR.zip -d PR
+      - uses: actions/github-script@v6
+        id: pr
+        with:
+          script: |
+            const fs = require('fs');
+            const number = parseInt(fs.readFileSync('./PR/number', 'utf8'), 10);
+
+            if (isNaN(number)) {
+              core.setFailed('Unable to parse Pull Request number from artifact');
+            } else {
+              core.setOutput('number', number);
+            }          
+
+  commit-and-push:
+    needs: pull-request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      # Warning: we are checking out an untrusted source at this point in order
+      # to push to the head pull request. Code from this checkout must not be
+      # used in any of the following steps.
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.workflow_run.head_branch }}
+          token: ${{ steps.generate_token.outputs.token }}
+      - name: 'Download artifact'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{ github.event.workflow_run.id }},
+            });
+            const artifact = artifacts.data.artifacts.find((artifact) => {
+              return artifact.name == 'snapshots'
+            });
+            const download = await github.rest.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: artifact.id,
+              archive_format: 'zip',
+            });
+            fs.writeFileSync('${{github.workspace}}/snapshots.zip', Buffer.from(download.data));
+      - run: |
+          unzip -o snapshots.zip -d .playwright/snapshots
+          rm snapshots.zip
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'test(vrt): update snapshots'
+
+  remove-labels:
+    needs: [commit-and-push, pull-request]
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Remove label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const { ISSUE_NUMBER, LABEL_NAME, OWNER, REPO } = process.env;
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+              owner: OWNER,
+              repo: REPO,
+              issue_number: ISSUE_NUMBER,
+            });
+            const label = labels.find((label) => {
+              return label.name === LABEL_NAME;
+            });
+            if (label) {
+              await github.rest.issues.removeLabel({
+                owner: OWNER,
+                repo: REPO,
+                name: LABEL_NAME,
+                issue_number: ISSUE_NUMBER,
+              });
+            }
+        env:
+          OWNER: 'primer'
+          REPO: 'react'
+          ISSUE_NUMBER: ${{ needs.pull-request.outputs.number }}
+          LABEL_NAME: 'update snapshots'
