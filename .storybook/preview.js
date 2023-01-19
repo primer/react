@@ -1,12 +1,12 @@
 import {addons} from '@storybook/addons'
 import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
-import {PrimerViewports} from '../src/utils/layout/breakpoints'
+import {PrimerBreakpoints} from '../src/utils/layout'
 
 export const globalTypes = toolbarTypes
 export const decorators = [withThemeProvider, withSurroundingElements]
 
 let storybookViewports = {}
-Object.entries(PrimerViewports).forEach(([viewport, value]) => {
+Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
   const {width} = value
   storybookViewports[viewport] = {
     name: viewport,
