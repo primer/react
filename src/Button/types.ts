@@ -40,6 +40,10 @@ export type ButtonBaseProps = {
 
 export type ButtonProps = {
   /**
+   * The icon for the IconButton
+   */
+  icon?: React.ComponentType | null | undefined
+  /**
    * The leading icon comes before button content
    */
   leadingIcon?: React.ComponentType | null | undefined
