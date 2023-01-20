@@ -1,5 +1,4 @@
 import React, {forwardRef} from 'react'
-import {BetterSystemStyleObject, merge} from '../sx'
 import {LinkButtonProps} from './types'
 import {ButtonBase, ButtonBaseProps} from './ButtonBase'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'

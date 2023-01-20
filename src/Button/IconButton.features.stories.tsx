@@ -24,5 +24,5 @@ export const Large = () => <IconButton size="large" icon={HeartIcon} aria-label=
 
 // remove before merging
 export const CustomSize = () => (
-  <IconButton variant="primary" size="small" icon={ChevronDownIcon} sx={{width: 16, height: 16}} />
+  <IconButton aria-label="Expand" variant="primary" size="small" icon={ChevronDownIcon} sx={{width: 16, height: 16}} />
 )
