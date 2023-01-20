@@ -1,26 +1,30 @@
 ---
 title: Hidden
+componentId: hidden
+status: Draft
 description: Use Hidden to responsively hide or show content in narrow, regular and wide viewports.
 source: https://github.com/primer/react/blob/main/src/Hidden/index.tsx
-status: Alpha
-componentId: hidden
+storybook: '/react/storybook/?path=/story/drafts-components-hidden--playground'
 ---
 
 The `Hidden` component is a utility component that will help you hide or show content/components in different viewports.
-**Attention:** Use Hidden only to control behaviour in a responsive manner. It does not take any `sx` props.
 
-## Example
+<Note>Use Hidden only to control behaviour in a responsive manner. It does not take any `sx` props.</Note>
 
-```jsx live
-<Hidden when="narrow">
+## Examples
+
+### Single viewport value provided
+
+```jsx live drafts
+<Hidden on="narrow">
   <Placeholder height="80px" label="This is not visible in narrow viewport" />
 </Hidden>
 ```
 
-## Array as `when` prop
+### Multiple viewport values provided
 
-```jsx live
-<Hidden when={['narrow', 'wide']}>
+```jsx live drafts
+<Hidden on={['narrow', 'wide']}>
   <Placeholder height="80px" label="This is not visible in narrow and wide viewport" />
 </Hidden>
 ```
@@ -29,9 +33,9 @@ The `Hidden` component is a utility component that will help you hide or show co
 
 <PropsTable>
   <PropsTableRow
-    name="when"
-    type="string or Array"
-    description="Can be one or more values of 'narrow', 'wide', 'regular'"
+    name="on"
+    type={`'narrow' | 'wide' | 'regular' | Array<'narrow' | 'regular' | 'wide'>`}
+    description="In which viewport(s) the children are going to be hidden"
   />
 </PropsTable>
 
@@ -51,6 +55,6 @@ The `Hidden` component is a utility component that will help you hide or show co
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />
