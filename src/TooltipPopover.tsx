@@ -204,7 +204,7 @@ const TooltipPopover = ({
 
   const popoverRef = React.useRef<HTMLElement>(null)
 
-  const handlePointerEnter = (event: React.PointerEvent<HTMLElement>) => {
+  const handlePointerEnter = (event: React.PointerEvent<HTMLElement> | React.FocusEvent<HTMLElement>) => {
     const anchored = popoverRef.current
     if (anchored !== null) {
       anchored.showPopover()
@@ -264,7 +264,13 @@ const TooltipPopover = ({
 
   return (
     <>
-      <span style={{display: 'inline-block'}} onPointerEnter={handlePointerEnter} onPointerLeave={handlePointerLeave}>
+      <span
+        style={{display: 'inline-block'}}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+        onFocus={handlePointerEnter}
+        onBlur={handlePointerLeave}
+      >
         {children}
       </span>
       <TooltipBase ref={popoverRef} popover={popover} className={classes} {...rest} />
