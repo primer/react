@@ -25,7 +25,7 @@ export default {
 
 export const IconButtonTooltip = () => (
   <Box sx={{p: 5}}>
-    <TooltipPopover aria-label="Tooltip content.">
+    <TooltipPopover aria-label="Tooltip content." noDelay>
       <IconButton icon={SearchIcon} aria-label="Search" />
     </TooltipPopover>
   </Box>

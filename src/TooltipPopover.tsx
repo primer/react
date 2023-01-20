@@ -33,10 +33,30 @@ const TooltipBase = styled('span')
     top: 0;
     left: 0;
     display: none;
+    opacity: 0;
     padding: 0;
-
     --width: 0;
     --height: 0;
+
+    @keyframes tooltip-appear {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    animation-name: tooltip-appear;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+    animation-delay: 0.4s;
+
+    &.tooltipped-no-delay {
+      animation-delay: 0s;
+    }
 
     &.\\:open {
       display: block;
@@ -72,10 +92,10 @@ const TooltipBase = styled('span')
     &.tooltipped-n,
     &.tooltipped-ne,
     &.tooltipped-nw {
-      padding-bottom: calc(var(--height) * 0.3);
+      padding-bottom: 10px;
 
       &::after {
-        top: calc(var(--height) - 1px);
+        top: calc(var(--height) - 12px);
         border-top-color: ${get('colors.neutral.emphasisPlus')};
       }
     }
