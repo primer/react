@@ -10,7 +10,6 @@ interface PopoverProps extends SxProp, React.PropsWithChildren {
   popover: 'auto'
   id: string
   'aria-label': string
-  'data-width': string
 }
 
 const TooltipBase = styled('span')
@@ -204,9 +203,11 @@ const TooltipPopover = ({
 
   const popoverRef = React.useRef<HTMLElement>(null)
 
+  const [showTooltip, setShowTooltip] = React.useState(false)
+
   const handlePointerEnter = (event: React.PointerEvent<HTMLElement> | React.FocusEvent<HTMLElement>) => {
     const anchored = popoverRef.current
-    if (anchored !== null) {
+    if (anchored !== null && !showTooltip) {
       anchored.showPopover()
       anchored.style.setProperty('--width', `${anchored.clientWidth}px`)
       anchored.style.setProperty('--height', `${anchored.clientHeight}px`)
@@ -255,11 +256,16 @@ const TooltipPopover = ({
 
       anchored.style.setProperty('top', `${_top}px`)
       anchored.style.setProperty('left', `${_left}px`)
+      setShowTooltip(true)
     }
   }
 
   const handlePointerLeave = () => {
-    popoverRef.current !== null && popoverRef.current.hidePopover()
+    const anchored = popoverRef.current
+    if (anchored !== null && showTooltip) {
+      anchored.hidePopover()
+      setShowTooltip(false)
+    }
   }
 
   return (
