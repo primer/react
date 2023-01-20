@@ -211,47 +211,39 @@ const TooltipPopover = ({
       anchored.showPopover()
       anchored.style.setProperty('--width', `${anchored.clientWidth}px`)
       anchored.style.setProperty('--height', `${anchored.clientHeight}px`)
+
       const anchor = event.currentTarget as HTMLElement
       const {top, left, width, height} = anchor.getBoundingClientRect()
-      let [_top, _left] = [top, left]
-      if (direction === 'n') {
-        _top -= anchored.clientHeight
-        _left = _left - anchored.clientWidth / 2 + width / 2
+      let [_top, _left] = [0, 0]
+
+      if (direction === 'n' || direction === 'ne' || direction === 'nw') {
+        _top = top - anchored.clientHeight
+        _left = left - anchored.clientWidth / 2 + width / 2
       }
 
-      if (direction === 'nw') {
-        _top -= anchored.clientHeight
+      if (direction === 's' || direction === 'sw' || direction === 'se') {
+        _top = top + anchored.clientHeight / 2
+        _left = left - anchored.clientWidth / 2 + width / 2
+      }
+
+      if (direction === 'e' || direction === 'w') {
+        _top = top - (anchored.clientHeight - height) / 2
+      }
+
+      if (direction === 'nw' || direction === 'sw') {
         _left = left - anchored.clientWidth * 0.75 + width * 0.6
       }
 
       if (direction === 'w') {
-        _left = _left - anchored.clientWidth
-        _top = _top - (anchored.clientHeight - height) / 2
+        _left = left - anchored.clientWidth
       }
 
-      if (direction === 'sw') {
-        _top += anchored.clientHeight / 2
-        _left = left - anchored.clientWidth * 0.75 + width * 0.6
-      }
-
-      if (direction === 's') {
-        _top += anchored.clientHeight / 2
-        _left = _left - anchored.clientWidth / 2 + width / 2
-      }
-
-      if (direction === 'se') {
-        _top += anchored.clientHeight / 2
-        _left = _left - anchored.clientWidth * 0.25 + width / 2
+      if (direction === 'se' || direction === 'ne') {
+        _left = left - anchored.clientWidth * 0.25 + width / 2
       }
 
       if (direction === 'e') {
-        _left = _left + width
-        _top = _top - (anchored.clientHeight - height) / 2
-      }
-
-      if (direction === 'ne') {
-        _top -= anchored.clientHeight
-        _left = _left - anchored.clientWidth * 0.25 + width / 2
+        _left = left + width
       }
 
       anchored.style.setProperty('top', `${_top}px`)
