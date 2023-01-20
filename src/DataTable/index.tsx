@@ -1,21 +1,105 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
-import {useId} from '../hooks/useId'
 
 // ----------------------------------------------------------------------------
 // DataTable
 // ----------------------------------------------------------------------------
-interface DataTableProps {
-  children?: React.ReactNode
+
+interface Row {
+  /**
+   * Provide a value that uniquely identifies the row
+   */
+  id: string | number
+  [key: string]: any
 }
 
-function DataTable({children}: DataTableProps) {
-  const id = useId()
+interface DataTableProps<Data extends Row> {
+  /**
+   * Provide a collection of the rows which will be rendered inside of the table
+   */
+  data: Array<Data>
 
+  /**
+   * Provide the columns for the table and the fields in `data` to which they
+   * correspond
+   */
+  columns: Array<Column<Data>>
+
+  /**
+   * Specify the amount of space that should be available around the contents of
+   * the table
+   */
+  density?: 'condensed' | 'normal' | 'spacious' | undefined
+}
+
+interface Column<Data> {
+  /**
+   * Provide the name of the column. This will be rendered as a table header
+   * within the table itself
+   */
+  name: string
+
+  /**
+   * Optionally provide a field to render for this column. This may be the key
+   * of the object or a string that accesses nested objects through `.`. For
+   * exmaple: `field: a.b.c`
+   *
+   * Alternatively, you may provide a `renderCell` for this column to render the
+   * field in a row
+   */
+  field: string | undefined
+
+  /**
+   * Provide a custom component or render prop to render the data for this
+   * column in a row
+   */
+  renderCell?: (data: Data) => React.ReactNode | undefined
+}
+
+function DataTable<Data extends Row>({data, density, columns}: DataTableProps<Data>) {
   return (
     <>
-      <div>{children}</div>
+      <Table density={density}>
+        <TableHead>
+          <TableRow>
+            {columns.map(column => {
+              return <TableHeader key={column.name}>{column.name}</TableHeader>
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map(row => {
+            return (
+              <TableRow key={row.id}>
+                {columns.map(column => {
+                  if (column.renderCell) {
+                    return <TableCell key={column.field}>{column.renderCell(row)}</TableCell>
+                  }
+
+                  if (column.field) {
+                    const parts = column.field.split('.')
+                    let value = row
+
+                    for (const part of parts) {
+                      value = value?.[part]
+                    }
+
+                    // TODO: handle validation of deep accessor
+                    if (typeof value === 'string' || typeof value === 'number' || React.isValidElement(value)) {
+                      return <TableCell key={column.field}>{value}</TableCell>
+                    }
+
+                    return null
+                  }
+
+                  return null
+                })}
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
     </>
   )
 }
@@ -24,7 +108,7 @@ function DataTable({children}: DataTableProps) {
 // Table
 // ----------------------------------------------------------------------------
 
-const StyledTable = styled.table`
+const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   & {
     --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
     --table-font-size: 0.75rem;
@@ -142,19 +226,16 @@ interface TableProps {
   density?: 'condensed' | 'normal' | 'spacious' | undefined
 }
 
-function Table({
-  'aria-labelledby': labelledBy,
-  'aria-describedby': describedBy,
-  children,
-  density = 'normal',
-  ...rest
-}: TableProps) {
+const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
+  {'aria-labelledby': labelledBy, 'aria-describedby': describedBy, children, density = 'normal', ...rest}: TableProps,
+  ref,
+) {
   return (
-    <StyledTable {...rest} aria-labelledby={labelledBy} aria-describedby={describedBy} data-density={density}>
+    <StyledTable {...rest} aria-labelledby={labelledBy} aria-describedby={describedBy} data-density={density} ref={ref}>
       {children}
     </StyledTable>
   )
-}
+})
 
 // ----------------------------------------------------------------------------
 // TableHead
@@ -228,4 +309,4 @@ function TableCell({children, scope}: TableCellProps) {
   )
 }
 
-export {Table, TableHead, TableBody, TableHeader, TableRow, TableCell}
+export {DataTable, Table, TableHead, TableBody, TableHeader, TableRow, TableCell}
