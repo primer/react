@@ -10,6 +10,7 @@ interface PopoverProps extends SxProp, React.PropsWithChildren {
   popover: 'auto'
   id: string
   'aria-label': string
+  'data-width': string
 }
 
 const TooltipBase = styled('span')
@@ -32,6 +33,10 @@ const TooltipBase = styled('span')
     top: 0;
     left: 0;
     display: none;
+    padding: 0;
+
+    --width: 0;
+    --height: 0;
 
     &.\\:open {
       display: block;
@@ -51,7 +56,7 @@ const TooltipBase = styled('span')
       content: attr(aria-label);
       word-wrap: break-word;
       text-align: center;
-      margin-bottom: 7px;
+      display: block;
     }
 
     &::after {
@@ -66,31 +71,31 @@ const TooltipBase = styled('span')
 
     &.tooltipped-n,
     &.tooltipped-ne,
-    &.tooltipped-nw {  
-      padding-bottom: 10px;
+    &.tooltipped-nw {
+      padding-bottom: calc(var(--height) * 0.3);
 
       &::after {
-        top: 75%;
+        top: calc(var(--height) - 1px);
         border-top-color: ${get('colors.neutral.emphasisPlus')};
       }
     }
 
     &.tooltipped-nw {
       &::after {
-        right: 25%;
+        right: calc(var(--width) / 4 + 0.25em);
       }
     }
 
     &.tooltipped-ne {
       &::after {
-        right: 75%;
+        right: calc(var(--width) / 4 * 3);
       }
     }
 
     &.tooltipped-sw {
       padding-top: 10px;
       &::after {
-        right: 25%;
+        right: calc(var(--width) / 4 + 0.25em);
         top: 0;
         border-bottom-color: ${get('colors.neutral.emphasisPlus')};
       }
@@ -99,7 +104,7 @@ const TooltipBase = styled('span')
     &.tooltipped-se {
       padding-top: 10px;
       &::after {
-        right: 75%;
+        right: calc(var(--width) / 4 * 3);
         top: 0;
         border-bottom-color: ${get('colors.neutral.emphasisPlus')};
       }
@@ -118,8 +123,8 @@ const TooltipBase = styled('span')
       padding-left: 10px;
 
       &:after {
-        top: 40%;
-        right: 94%;
+        top: calc(var(--height) / 2 - 5px);
+        right: calc(var(--width) - 5px);
         border-right-color: ${get('colors.neutral.emphasisPlus')};
       }
     }
@@ -127,9 +132,19 @@ const TooltipBase = styled('span')
     &.tooltipped-w {
       padding-right: 10px;
       &::after {
-        top: 40%;
+        top: calc(var(--height) / 2 - 5px);
         right: 4px;
         border-left-color: ${get('colors.neutral.emphasisPlus')};
+      }
+    }
+
+    &.tooltipped-multiline {
+      &::before {
+        width: max-content;
+        max-width: 250px;
+        word-wrap: break-word;
+        white-space: pre-line;
+        border-collapse: separate;
       }
     }
 
@@ -173,8 +188,10 @@ const TooltipPopover = ({
     const anchored = popoverRef.current
     if (anchored !== null) {
       anchored.showPopover()
+      anchored.style.setProperty('--width', `${anchored.clientWidth}px`)
+      anchored.style.setProperty('--height', `${anchored.clientHeight}px`)
       const anchor = event.currentTarget as HTMLElement
-      const {top, left, width} = anchor.getBoundingClientRect()
+      const {top, left, width, height} = anchor.getBoundingClientRect()
       let [_top, _left] = [top, left]
       if (direction === 'n') {
         _top -= anchored.clientHeight
@@ -183,17 +200,17 @@ const TooltipPopover = ({
 
       if (direction === 'nw') {
         _top -= anchored.clientHeight
-        _left = _left - width
+        _left = left - anchored.clientWidth * 0.75 + width * 0.6
       }
 
       if (direction === 'w') {
         _left = _left - anchored.clientWidth
-        _top -= 2
+        _top = _top - (anchored.clientHeight - height) / 2
       }
 
       if (direction === 'sw') {
         _top += anchored.clientHeight / 2
-        _left = _left - width
+        _left = left - anchored.clientWidth * 0.75 + width * 0.6
       }
 
       if (direction === 's') {
@@ -203,16 +220,17 @@ const TooltipPopover = ({
 
       if (direction === 'se') {
         _top += anchored.clientHeight / 2
-        _left = _left + width / 2
+        _left = _left - anchored.clientWidth * 0.25 + width / 2
       }
 
       if (direction === 'e') {
         _left = _left + width
+        _top = _top - (anchored.clientHeight - height) / 2
       }
 
       if (direction === 'ne') {
         _top -= anchored.clientHeight
-        _left = _left + width / 2
+        _left = _left - anchored.clientWidth * 0.25 + width / 2
       }
 
       anchored.style.setProperty('top', `${_top}px`)
