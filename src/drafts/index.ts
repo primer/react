@@ -6,7 +6,7 @@
  */
 export * from '../Dialog/Dialog'
 
-export * from '../Hidden' // Will be moved from drafts to main bundle after utility is proven
+export * from '../Hidden'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
@@ -24,6 +24,9 @@ export {default as MarkdownEditor} from './MarkdownEditor'
 export * from './MarkdownEditor'
 
 export * from '../UnderlineNav2'
+
+export * from '../PageHeader'
+export {default as Hidden} from '../Hidden'
 
 export * from './hooks'
 

@@ -42,8 +42,18 @@ export type ActionListItemProps = {
   /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
-  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<unknown>>
+  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
 } & SxProp
+
+type MenuItemProps = {
+  onClick?: (event: React.MouseEvent) => void
+  onKeyPress?: (event: React.KeyboardEvent) => void
+  'aria-disabled'?: boolean
+  tabIndex?: number
+  'aria-labelledby'?: string
+  'aria-describedby'?: string
+  role?: string
+}
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
   inlineDescriptionId: string

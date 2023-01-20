@@ -5,6 +5,8 @@ status: Draft
 description: A hierarchical list of items where nested items can be expanded and collapsed.
 ---
 
+import data from '../../src/TreeView/TreeView.docs.json'
+
 ```js
 import {TreeView} from '@primer/react/drafts'
 ```
@@ -69,7 +71,7 @@ import {TreeView} from '@primer/react/drafts'
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.Item id="src/Avatar.tsx"> 
+          <TreeView.Item id="src/Avatar.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
@@ -202,9 +204,7 @@ function ControlledTreeView() {
           <TreeView.Item id="src" expanded={expanded} onExpandedChange={setExpanded}>
             src
             <TreeView.SubTree>
-              <TreeView.Item id="src/Avatar.tsx">
-                Avatar.tsx
-              </TreeView.Item>
+              <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
               <TreeView.Item id="src/Button.tsx" current>
                 Button.tsx
               </TreeView.Item>
@@ -233,9 +233,7 @@ To render stateful visuals, pass a render function to `TreeView.LeadingVisual` o
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.Item id="src/Avatar.tsx">
-            Avatar.tsx
-          </TreeView.Item>
+          <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
           <TreeView.Item id="src/Button.tsx" current>
             Button.tsx
           </TreeView.Item>
@@ -258,9 +256,7 @@ Since stateful directory icons are a common use case for TreeView, we provide a 
         </TreeView.LeadingVisual>
         src
         <TreeView.SubTree>
-          <TreeView.Item id="src/Avatar.tsx">
-            Avatar.tsx
-          </TreeView.Item>
+          <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
           <TreeView.Item id="src/Button.tsx" current>
             Button.tsx
           </TreeView.Item>
@@ -277,154 +273,7 @@ See [Storybook](https://primer.style/react/storybook?path=/story/components-tree
 
 ## Props
 
-### TreeView
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" required />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.Item
-
-<PropsTable>
-  <PropsTableRow name="id" type="string" required description="Unique identifier for the item." />
-  <PropsTableRow name="children" type="React.ReactNode" required />
-  <PropsTableRow
-    name="current"
-    type="boolean"
-    defaultValue="false"
-    description="Whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
-  />
-  <PropsTableRow
-    name="defaultExpanded"
-    type="boolean"
-    description="The expanded state of the item when it is initially rendered. Use when you do not need to control the state."
-  />
-  <PropsTableRow
-    name="containIntrinsicSize"
-    type="string"
-    description="The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport."
-  />
-  <PropsTableRow
-    name="expanded"
-    type="boolean"
-    description="The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
-  />
-  <PropsTableRow
-    name="onExpandedChange"
-    type="(expanded: boolean) => void"
-    description="Event handler called when the expanded state of the item changes."
-  />
-  <PropsTableRow
-    name="onSelect"
-    type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
-  />
-  <PropsTableRefRow refType="HTMLElement" />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.LeadingVisual
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type={`| React.ReactNode
-| (props: {isExpanded: boolean}) => React.ReactNode`}
-  />
-  <PropsTableRow
-    name="label"
-    type="string"
-    description="Provide an accessible label for the leading visual. This is not necessary for decorative visuals"
-  />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.TrailingVisual
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type={`| React.ReactNode
-| (props: {isExpanded: boolean}) => React.ReactNode`}
-  />
-  <PropsTableRow
-    name="label"
-    type="string"
-    description="Provide an accessible label for the trailing visual. This is not necessary for decorative visuals"
-  />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.DirectoryIcon
-
-<PropsTable>{/* <PropsTableSxRow /> */}</PropsTable>
-
-### TreeView.SubTree
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" />
-  <PropsTableRow
-    name="state"
-    type={`| 'initial'
-| 'loading'
-| 'done'
-| 'error'`}
-    description={
-      <>
-        <p>Specify a state if items in the subtree are loaded asynchronously.</p>
-        <p>
-          An asynchronous subtree can be in one of the following states:
-          <ul>
-            <li>
-              <InlineCode>initial</InlineCode>: Items are neither loaded nor loading.
-            </li>
-            <li>
-              <InlineCode>loading</InlineCode>: Currently loading items. The subtree will render a loading indicator
-              when in this state (after a 300ms delay).
-            </li>
-            <li>
-              <InlineCode>done</InlineCode>: Done loading items. Screen readers will announce when a subtree enters this
-              state.
-            </li>
-            <li>
-              <InlineCode>error</InlineCode>: An error occured while loading items.
-            </li>
-          </ul>
-        </p>
-      </>
-    }
-  />
-  <PropsTableRow
-    name="count"
-    type="number"
-    description="The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items"
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-### TreeView.ErrorDialog
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type="React.ReactNode"
-    required
-    description="The content of the dialog. This is usually a message explaining the error."
-  />
-  <PropsTableRow
-    name="title"
-    type="string"
-    defaultValue="'Error'"
-    description="The title of the dialog. This is usually a short description of the error."
-  />
-  <PropsTableRow
-    name="onRetry"
-    type="() => void"
-    description="Event handler called when the user clicks the retry button."
-  />
-  <PropsTableRow name="onDismiss" type="() => void" description="Event handler called when the dialog is dismissed." />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
+<ComponentProps data={data} />
 
 ## Status
 

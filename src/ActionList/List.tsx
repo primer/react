@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import sx, {SxProp, merge} from '../sx'
 import {AriaRole} from '../utils/types'
 import {ActionListContainerContext} from './ActionListContainerContext'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type ActionListProps = React.PropsWithChildren<{
   /**
@@ -32,7 +33,7 @@ const ListBox = styled.ul<SxProp>(sx)
 
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
-    {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = {}, ...props},
+    {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, ...props},
     forwardedRef,
   ): JSX.Element => {
     const styles = {

@@ -117,6 +117,7 @@ export const MarkdownInput = forwardRef<HTMLTextAreaElement, MarkdownInputProps>
           sx={{
             width: '100%',
             borderStyle: 'none',
+            boxShadow: 'none',
             height: fullHeight ? '100%' : undefined,
             outline: theme => {
               return isDraggedOver ? `solid 2px ${theme.colors.accent.fg}` : undefined

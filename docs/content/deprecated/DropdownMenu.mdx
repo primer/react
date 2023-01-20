@@ -9,7 +9,7 @@ A `DropdownMenu` provides an anchor (button by default) that will open a floatin
 
 Use [new version of ActionMenu](/ActionMenu#with-selection) with composable API, design updates and accessibility fixes.
 
-**Before**
+### Before
 
 ```jsx
 const fieldTypes = [
@@ -17,7 +17,7 @@ const fieldTypes = [
   {key: 1, text: 'Number'},
   {key: 3, text: 'Date'},
   {key: 4, text: 'Single select'},
-  {key: 5, text: 'Iteration'}
+  {key: 5, text: 'Iteration'},
 ]
 
 const Example = () => {
@@ -39,7 +39,7 @@ const Example = () => {
 }
 ```
 
-**After**
+### After
 
 Instead of `DropdownMenu`, you can use the `ActionMenu` with `ActionList selectionVariant=single`, this will give menu items the correct semantics:
 
@@ -49,7 +49,7 @@ const fieldTypes = [
   {id: 1, text: 'Number'},
   {id: 3, text: 'Date'},
   {id: 4, text: 'Single select'},
-  {id: 5, text: 'Iteration'}
+  {id: 5, text: 'Iteration'},
 ]
 
 const Example = () => {
@@ -71,7 +71,7 @@ const Example = () => {
           ))}
         </ActionList>
       </ActionMenu.Overlay>
-    </ActionMenu>
+    </ActionMenu>,
   )
 }
 ```
@@ -90,9 +90,9 @@ function DemoComponent() {
     () => [
       {text: '🔵 Cyan', id: 5, key: 'cyan'},
       {text: '🔴 Magenta', key: 'magenta'},
-      {text: '🟡 Yellow', key: 'yellow'}
+      {text: '🟡 Yellow', key: 'yellow'},
     ],
-    []
+    [],
   )
   const [selectedItem, setSelectedItem] = React.useState()
 
