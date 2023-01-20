@@ -48,7 +48,7 @@ const propertiesToCopy = [
   'wordSpacing',
 
   'tabSize',
-  'MozTabSize' as 'tabSize' // prefixed version for Firefox <= 52
+  'MozTabSize' as 'tabSize', // prefixed version for Firefox <= 52
 ] as const
 
 /**
@@ -63,7 +63,7 @@ const propertiesToCopy = [
  */
 export function getCharacterCoordinates(
   element: HTMLTextAreaElement | HTMLInputElement,
-  index: number
+  index: number,
 ): CharacterCoordinates {
   const isFirefox = 'mozInnerScreenX' in window
 
@@ -153,7 +153,7 @@ export function getCharacterCoordinates(
   const coordinates = {
     top: span.offsetTop + parseInt(computed.borderTopWidth),
     left: span.offsetLeft + parseInt(computed.borderLeftWidth),
-    height: lineHeight
+    height: lineHeight,
   }
 
   document.body.removeChild(div)
@@ -170,7 +170,7 @@ export function getCharacterCoordinates(
  */
 export const getScrollAdjustedCharacterCoordinates = (
   input: HTMLTextAreaElement | HTMLInputElement,
-  index: number
+  index: number,
 ): CharacterCoordinates => {
   const {height, top, left} = getCharacterCoordinates(input, index)
 
@@ -186,7 +186,7 @@ export const getScrollAdjustedCharacterCoordinates = (
  */
 export const getAbsoluteCharacterCoordinates = (
   input: HTMLTextAreaElement | HTMLInputElement,
-  index: number
+  index: number,
 ): CharacterCoordinates => {
   const {top: relativeTop, left: relativeLeft, height} = getScrollAdjustedCharacterCoordinates(input, index)
   const {top: viewportOffsetTop, left: viewportOffsetLeft} = input.getBoundingClientRect()
@@ -194,6 +194,6 @@ export const getAbsoluteCharacterCoordinates = (
   return {
     height,
     top: viewportOffsetTop + relativeTop,
-    left: viewportOffsetLeft + relativeLeft
+    left: viewportOffsetLeft + relativeLeft,
   }
 }

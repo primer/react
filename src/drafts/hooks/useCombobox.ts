@@ -1,6 +1,6 @@
 import Combobox from '@github/combobox-nav'
-import {useSSRSafeId} from '@react-aria/ssr'
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import {useId} from '../../hooks/useId'
 
 export type ComboboxCommitEvent<T> = {
   /** The underlying `combobox-commit` event. */
@@ -62,9 +62,9 @@ export const useCombobox = <T>({
   onCommit: externalOnCommit,
   options,
   tabInsertsSuggestions = false,
-  defaultFirstOption = false
+  defaultFirstOption = false,
 }: UseComboboxSettings<T>) => {
-  const id = useSSRSafeId()
+  const id = useId()
   const optionIdPrefix = `combobox-${id}__option`
 
   const isOpenRef = useRef(isOpen)
@@ -74,7 +74,7 @@ export const useCombobox = <T>({
   /** Get all option element instances. */
   const getOptionElements = useCallback(
     () => [...(list?.querySelectorAll('[role=option]') ?? [])] as Array<HTMLElement>,
-    [list]
+    [list],
   )
 
   const onCommit = useCallback(
@@ -85,7 +85,7 @@ export const useCombobox = <T>({
       const option = options[index]
       if (option) externalOnCommit({nativeEvent, option})
     },
-    [options, externalOnCommit]
+    [options, externalOnCommit],
   )
 
   // Prevent focus leaving the input when clicking an item
@@ -110,7 +110,7 @@ export const useCombobox = <T>({
         }
       }
     },
-    [input, list, tabInsertsSuggestions, defaultFirstOption]
+    [input, list, tabInsertsSuggestions, defaultFirstOption],
   )
 
   useEffect(
@@ -126,7 +126,7 @@ export const useCombobox = <T>({
         comboboxInstance.stop()
       }
     },
-    [isOpen, comboboxInstance]
+    [isOpen, comboboxInstance],
   )
 
   useEffect(
@@ -134,7 +134,7 @@ export const useCombobox = <T>({
       list?.addEventListener('combobox-commit', onCommit)
       return () => list?.removeEventListener('combobox-commit', onCommit)
     },
-    [onCommit, list]
+    [onCommit, list],
   )
 
   useLayoutEffect(() => {

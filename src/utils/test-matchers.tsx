@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom'
 import 'jest-styled-components'
 import {styleSheetSerializer} from 'jest-styled-components/serializer'
+import failOnConsole from 'jest-fail-on-console'
 import React from 'react'
 import {ReactTestRendererJSON, ReactTestRendererNode} from 'react-test-renderer'
 import {getClasses, getComputedStyles, render} from './testing'
@@ -13,16 +14,7 @@ expect.extend({
   toMatchKeys(obj, values) {
     return {
       pass: Object.keys(values).every(key => this.equals(obj[key], values[key])),
-      message: () => `Expected ${stringify(obj)} to have matching keys: ${stringify(values)}`
-    }
-  },
-
-  toHaveClass(node, klass) {
-    const classes = getClasses(node)
-    const pass = classes.includes(klass)
-    return {
-      pass,
-      message: () => `expected ${stringify(classes)} to include: ${stringify(klass)}`
+      message: () => `Expected ${stringify(obj)} to have matching keys: ${stringify(values)}`,
     }
   },
 
@@ -33,7 +25,7 @@ expect.extend({
       : klasses.every((klass: Array<string>) => classes.includes(klass))
     return {
       pass,
-      message: () => `expected ${stringify(classes)} to include: ${stringify(klasses)}`
+      message: () => `expected ${stringify(classes)} to include: ${stringify(klasses)}`,
     }
   },
 
@@ -41,14 +33,14 @@ expect.extend({
     const mediaKey = '@media (max-width:123px)'
     const sxPropValue = {
       [mediaKey]: {
-        color: 'red.5'
-      }
+        color: 'red.5',
+      },
     }
 
     const elem = React.cloneElement(element, {sx: sxPropValue})
 
     function checkStylesDeep(rendered: ReactTestRendererJSON): boolean {
-      const className = rendered.props.className
+      const className = rendered.props.className || rendered.props.class
       const styles = getComputedStyles(className)
       const mediaStyles = styles[mediaKey] as Record<string, string> | null
       if (mediaStyles && mediaStyles.color) {
@@ -62,7 +54,7 @@ expect.extend({
 
     return {
       pass: checkStylesDeep(render(elem)),
-      message: () => 'sx prop values did not change styles of component nor of any sub-components'
+      message: () => 'sx prop values did not change styles of component nor of any sub-components',
     }
   },
 
@@ -70,7 +62,7 @@ expect.extend({
     if (!Object.keys(expectedExports).includes('default')) {
       return {
         pass: false,
-        message: () => "You must specify the module's default export"
+        message: () => "You must specify the module's default export",
       }
     }
 
@@ -84,7 +76,7 @@ expect.extend({
 
         return {
           pass: false,
-          message: () => `Module exported a different value from key '${exp}' than expected`
+          message: () => `Module exported a different value from key '${exp}' than expected`,
         }
       }
     }
@@ -97,14 +89,24 @@ expect.extend({
       if (mod[exp] !== expectedExports[exp]) {
         return {
           pass: false,
-          message: () => `Module exported an unexpected value from key '${exp}'`
+          message: () => `Module exported an unexpected value from key '${exp}'`,
         }
       }
     }
 
     return {
       pass: true,
-      message: () => ''
+      message: () => '',
     }
-  }
+  },
+})
+
+const failOnAllConsoleMessages = process.env.CI === 'true'
+
+failOnConsole({
+  shouldFailOnWarn: true,
+  shouldFailOnError: true,
+  shouldFailOnDebug: failOnAllConsoleMessages,
+  shouldFailOnInfo: failOnAllConsoleMessages,
+  shouldFailOnLog: failOnAllConsoleMessages,
 })

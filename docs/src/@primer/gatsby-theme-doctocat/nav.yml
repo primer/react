@@ -110,6 +110,8 @@
     #   url: /Portal
     - title: ProgressBar
       url: /ProgressBar
+    - title: RelativeTime
+      url: /RelativeTime
     - title: Radio
       url: /Radio
     - title: RadioGroup
@@ -120,9 +122,10 @@
       url: /Select
     - title: SelectPanel
       url: /SelectPanel
-
     - title: Spinner
       url: /Spinner
+    - title: SplitPageLayout
+      url: /SplitPageLayout
     - title: StateLabel
       url: /StateLabel
     - title: StyledOcticon
@@ -161,8 +164,14 @@
       url: /drafts/MarkdownEditor
     - title: MarkdownViewer
       url: /drafts/MarkdownViewer
+    - title: TreeView
+      url: /TreeView
     - title: UnderlineNav v2
       url: /drafts/UnderlineNav2
+    - title: PageHeader
+      url: /drafts/PageHeader
+    - title: Hidden
+      url: /drafts/Hidden
 - title: Deprecated
   children:
     - title: ActionList (legacy)

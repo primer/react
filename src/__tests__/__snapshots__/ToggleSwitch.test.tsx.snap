@@ -85,14 +85,6 @@ exports[`renders consistently 1`] = `
   flex-direction: row;
 }
 
-.c1 {
-  font-size: 14px;
-  color: #24292f;
-  margin-left: 8px;
-  margin-right: 8px;
-  position: relative;
-}
-
 .c5 {
   position: absolute;
   width: 1px;
@@ -104,6 +96,14 @@ exports[`renders consistently 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.c1 {
+  font-size: 14px;
+  color: #24292f;
+  margin-left: 8px;
+  margin-right: 8px;
+  position: relative;
 }
 
 .c4 {

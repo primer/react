@@ -14,14 +14,14 @@ describe('Textarea', () => {
   })
   behavesAsComponent({
     Component: Textarea,
-    options: {skipAs: true}
+    options: {skipAs: true},
   })
 
   checkExports('Textarea', {
     default: Textarea,
     DEFAULT_TEXTAREA_ROWS,
     DEFAULT_TEXTAREA_COLS,
-    DEFAULT_TEXTAREA_RESIZE
+    DEFAULT_TEXTAREA_RESIZE,
   })
 
   it('renders a valid textarea input', () => {
@@ -65,7 +65,7 @@ describe('Textarea', () => {
   it('renders an optional block prop correctly', () => {
     const expectedStyles = {
       width: '100%',
-      display: 'flex'
+      display: 'flex',
     }
     const defaultStyles = renderStyles(<Textarea block />)
     const blockStyles = renderStyles(<Textarea />)
@@ -79,7 +79,7 @@ describe('Textarea', () => {
     const textareaElement = getByRole('textbox')
 
     expect(textareaElement).toHaveStyle({
-      resize: 'both'
+      resize: 'both',
     })
   })
 
@@ -88,13 +88,14 @@ describe('Textarea', () => {
     const textareaElement = getByRole('textbox')
 
     expect(textareaElement).toHaveStyle({
-      resize: 'none'
+      resize: 'none',
     })
   })
 
   it('renders a value in the textarea', () => {
     const mockValue = 'mock value'
-    const {getByRole} = render(<Textarea value={mockValue} />)
+    const onChange = jest.fn()
+    const {getByRole} = render(<Textarea onChange={onChange} value={mockValue} />)
 
     const textareaElement = getByRole('textbox') as HTMLTextAreaElement
 

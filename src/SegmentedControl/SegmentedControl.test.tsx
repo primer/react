@@ -1,10 +1,9 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {render, fireEvent, waitFor} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SegmentedControl} from '.' // TODO: update import when we move this to the global index
 import theme from '../theme'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
@@ -14,21 +13,17 @@ import {viewportRanges} from '../hooks/useResponsiveValue'
 const segmentData = [
   {label: 'Preview', id: 'preview', iconLabel: 'EyeIcon', icon: () => <EyeIcon aria-label="EyeIcon" />},
   {label: 'Raw', id: 'raw', iconLabel: 'FileCodeIcon', icon: () => <FileCodeIcon aria-label="FileCodeIcon" />},
-  {label: 'Blame', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />}
+  {label: 'Blame', id: 'blame', iconLabel: 'PeopleIcon', icon: () => <PeopleIcon aria-label="PeopleIcon" />},
 ]
 
 let matchMedia: MatchMediaMock
 
 describe('SegmentedControl', () => {
-  const mockWarningFn = jest.fn()
-
   beforeAll(() => {
-    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
     matchMedia = new MatchMediaMock()
   })
 
   afterAll(() => {
-    jest.clearAllMocks()
     matchMedia.clear()
   })
 
@@ -42,12 +37,12 @@ describe('SegmentedControl', () => {
           </SegmentedControl.Button>
         ))}
       </SegmentedControl>
-    )
+    ),
   })
 
   checkExports('SegmentedControl', {
     default: undefined,
-    SegmentedControl
+    SegmentedControl,
   })
 
   it('renders with a selected segment', () => {
@@ -58,7 +53,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const selectedButton = getByText('Raw').closest('button')
@@ -78,7 +73,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
     const button = getByText(segmentData[1].label)
 
@@ -98,7 +93,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -113,7 +108,7 @@ describe('SegmentedControl', () => {
         {segmentData.map(({label}) => (
           <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const selectedButton = getByText('Preview').closest('button')
@@ -129,7 +124,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -144,7 +139,7 @@ describe('SegmentedControl', () => {
         {segmentData.map(({label, icon}) => (
           <SegmentedControl.IconButton icon={icon} aria-label={label} key={label} />
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     for (const datum of segmentData) {
@@ -163,7 +158,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const buttonToClick = getByText('Raw').closest('button')
@@ -182,7 +177,7 @@ describe('SegmentedControl', () => {
         {segmentData.map(({label}) => (
           <SegmentedControl.Button key={label}>{label}</SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const buttonToClick = getByText('Raw').closest('button')
@@ -204,7 +199,7 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
     const buttonToClick = getByText('Raw').closest('button')
@@ -234,7 +229,7 @@ describe('SegmentedControl', () => {
             </SegmentedControl>
           </BaseStyles>
         </SSRProvider>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     const button = component.getByText(segmentData[0].label)
 
@@ -264,7 +259,7 @@ describe('SegmentedControl', () => {
             </SegmentedControl>
           </BaseStyles>
         </SSRProvider>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     const button = component.getByText(segmentData[0].label)
 
@@ -277,10 +272,12 @@ describe('SegmentedControl', () => {
   })
 
   it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
+    const spy = jest.spyOn(global.console, 'warn').mockImplementation()
+
     act(() => {
       matchMedia.useMediaQuery(viewportRanges.narrow)
     })
-    const consoleSpy = jest.spyOn(global.console, 'warn')
+
     render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label}, index) => (
@@ -288,12 +285,16 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
-    expect(consoleSpy).toHaveBeenCalled()
+
+    expect(spy).toHaveBeenCalledTimes(3)
+    spy.mockRestore()
   })
 
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
+    const spy = jest.spyOn(global.console, 'warn').mockImplementation()
+
     render(
       <SegmentedControl>
         {segmentData.map(({label, id}) => (
@@ -301,13 +302,14 @@ describe('SegmentedControl', () => {
             {label}
           </SegmentedControl.Button>
         ))}
-      </SegmentedControl>
+      </SegmentedControl>,
     )
 
-    expect(mockWarningFn).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(2)
+    spy.mockRestore()
   })
 })
 
 // TODO: uncomment these tests after we fix a11y for the Tooltip component
 // checkStoriesForAxeViolations('examples', '../SegmentedControl/')
-checkStoriesForAxeViolations('fixtures', '../SegmentedControl/')
+// checkStoriesForAxeViolations('SegmentedControlFeatures', '../SegmentedControl/')

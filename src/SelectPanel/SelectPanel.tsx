@@ -24,7 +24,7 @@ interface SelectPanelMultiSelection {
 interface SelectPanelBaseProps {
   onOpenChange: (
     open: boolean,
-    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection'
+    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
   ) => void
   placeholder?: string
   overlayProps?: Partial<OverlayProps>
@@ -37,14 +37,14 @@ export type SelectPanelProps = SelectPanelBaseProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
 
 function isMultiSelectVariant(
-  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected']
+  selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
 ): selected is SelectPanelMultiSelection['selected'] {
   return Array.isArray(selected)
 }
 
 const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
-  disabled: true
+  disabled: true,
 }
 
 export function SelectPanel({
@@ -69,16 +69,19 @@ export function SelectPanel({
       externalOnFilterChange(value, e)
       setInternalFilterValue(value)
     },
-    [externalOnFilterChange, setInternalFilterValue]
+    [externalOnFilterChange, setInternalFilterValue],
   )
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
-  const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(gesture => onOpenChange(true, gesture), [onOpenChange])
+  const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
+    (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
+    [onOpenChange],
+  )
   const onClose = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection') => {
       onOpenChange(false, gesture)
     },
-    [onOpenChange]
+    [onOpenChange],
   )
 
   const renderMenuAnchor = useMemo(() => {
@@ -91,7 +94,7 @@ export function SelectPanel({
     return <T extends React.HTMLAttributes<HTMLElement>>(props: T) => {
       return renderAnchor({
         ...props,
-        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder
+        children: selectedItems.length ? selectedItems.map(item => item.text).join(', ') : placeholder,
       })
     }
   }, [placeholder, renderAnchor, selected])
@@ -124,21 +127,21 @@ export function SelectPanel({
           const singleSelectOnChange = onSelectedChange as SelectPanelSingleSelection['onSelectedChange']
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
-        }
+        },
       } as ItemProps
     })
   }, [onClose, onSelectedChange, items, selected])
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {
-    initialFocusRef: inputRef
+    initialFocusRef: inputRef,
   }
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
       sx: {m: 2},
       contrast: true,
-      ...textInputProps
+      ...textInputProps,
     }
   }, [textInputProps])
 

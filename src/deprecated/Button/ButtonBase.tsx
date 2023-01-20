@@ -7,16 +7,16 @@ const variants = variant({
   variants: {
     small: {
       p: '4px 12px',
-      fontSize: 0
+      fontSize: 0,
     },
     medium: {
-      fontSize: 1
+      fontSize: 1,
     },
     large: {
       fontSize: 2,
-      p: '10px 20px'
-    }
-  }
+      p: '10px 20px',
+    },
+  },
 })
 
 type StyledButtonBaseProps = {
@@ -25,14 +25,14 @@ type StyledButtonBaseProps = {
 }
 
 const ButtonBase = styled.button.attrs<StyledButtonBaseProps>(({disabled, onClick}) => ({
-  onClick: disabled ? undefined : onClick
+  onClick: disabled ? undefined : onClick,
 }))<StyledButtonBaseProps>`
   ${buttonBaseStyles}
   ${variants}
 `
 
 ButtonBase.defaultProps = {
-  variant: 'medium'
+  variant: 'medium',
 }
 
 export type ButtonBaseProps = ComponentProps<typeof ButtonBase>

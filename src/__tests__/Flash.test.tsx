@@ -11,7 +11,7 @@ describe('Flash', () => {
   behavesAsComponent({Component: Flash})
 
   checkExports('Flash', {
-    default: Flash
+    default: Flash,
   })
 
   it('should have no axe violations', async () => {
@@ -29,15 +29,15 @@ describe('Flash', () => {
   it('respects the "variant" prop', () => {
     expect(render(<Flash variant="warning" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.attention?.subtle
+      theme.colorSchemes.light.colors.attention?.subtle,
     )
     expect(render(<Flash variant="danger" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.danger?.subtle
+      theme.colorSchemes.light.colors.danger?.subtle,
     )
     expect(render(<Flash variant="success" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.success?.subtle
+      theme.colorSchemes.light.colors.success?.subtle,
     )
     expect(render(<Flash />)).toHaveStyleRule('background-color', theme.colorSchemes.light.colors.accent?.subtle)
   })

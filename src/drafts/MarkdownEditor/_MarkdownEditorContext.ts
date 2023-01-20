@@ -14,5 +14,5 @@ export const MarkdownEditorContext = createContext<MarkdownEditorContextProps>({
   disabled: false,
   condensed: false,
   required: false,
-  formattingToolsRef: {current: null}
+  formattingToolsRef: {current: null},
 })

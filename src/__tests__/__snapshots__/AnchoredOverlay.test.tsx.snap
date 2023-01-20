@@ -2,7 +2,7 @@
 
 exports[`AnchoredOverlay renders consistently 1`] = `
 .c0 {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   line-height: 1.5;
   color: #24292f;
 }
@@ -58,8 +58,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 }
 
 .c1:focus {
-  border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: solid 2px #0969da;
 }
 
 .c1:active {
@@ -94,7 +93,7 @@ exports[`AnchoredOverlay renders consistently 1`] = `
 
 exports[`AnchoredOverlay should render consistently when open 1`] = `
 .c0 {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   line-height: 1.5;
   color: #24292f;
 }
@@ -150,8 +149,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
 }
 
 .c1:focus {
-  border-color: rgba(27,31,36,0.15);
-  box-shadow: 0 0 0 3px rgba(9,105,218,0.3);
+  outline: solid 2px #0969da;
 }
 
 .c1:active {

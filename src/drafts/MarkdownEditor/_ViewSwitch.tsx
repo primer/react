@@ -23,14 +23,14 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
   const {label, icon, ...sharedProps} =
     selectedView === 'preview'
       ? {
-          variant: 'invisible',
+          variant: 'invisible' as const,
           sx: {color: 'fg.default', px: 2},
           onClick: () => onViewSelect?.('edit'),
           icon: PencilIcon,
-          label: 'Edit'
+          label: 'Edit',
         }
       : {
-          variant: 'invisible',
+          variant: 'invisible' as const,
           sx: {color: 'fg.default', px: 2},
           onClick: () => {
             onLoadPreview()
@@ -39,13 +39,13 @@ export const ViewSwitch = ({selectedView, onViewSelect, onLoadPreview, disabled}
           onMouseOver: () => onLoadPreview(),
           onFocus: () => onLoadPreview(),
           icon: EyeIcon,
-          label: 'Preview'
+          label: 'Preview',
         }
 
   return (
     <Box sx={{display: 'flex', flexDirection: 'row'}}>
       {condensed ? (
-        <IconButton {...sharedProps} disabled={disabled} icon={icon} label={label} />
+        <IconButton {...sharedProps} disabled={disabled} icon={icon} aria-label={label} />
       ) : (
         <Button {...sharedProps} leadingIcon={icon} disabled={disabled}>
           {label}

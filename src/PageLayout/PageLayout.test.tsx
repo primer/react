@@ -1,10 +1,11 @@
 import React from 'react'
-import {act, render, screen} from '@testing-library/react'
+import {act, fireEvent, render, screen} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
+import {Placeholder} from '../Placeholder'
 
 let matchMedia: MatchMediaMock
 
@@ -26,7 +27,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -40,7 +41,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -58,7 +59,7 @@ describe('PageLayout', () => {
           </PageLayout.Pane>
           <PageLayout.Footer dividerWhenNarrow="line">Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -72,7 +73,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane positionWhenNarrow="start">Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -91,7 +92,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane hidden={{narrow: true}}>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     expect(getByText('Pane')).not.toBeVisible()
@@ -111,7 +112,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane hidden={{narrow: true}}>Pane</PageLayout.Pane>
           <PageLayout.Footer>Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     expect(getByText('Pane')).toBeVisible()
@@ -126,7 +127,7 @@ describe('PageLayout', () => {
           <PageLayout.Pane>Pane</PageLayout.Pane>
           <PageLayout.Footer aria-label="footer">Footer</PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('header')
@@ -149,7 +150,7 @@ describe('PageLayout', () => {
             <span id="footer-label">footer</span>
           </PageLayout.Footer>
         </PageLayout>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     expect(screen.getByRole('banner')).toHaveAccessibleName('header')
@@ -167,9 +168,36 @@ describe('PageLayout', () => {
               <div data-testid="content">Pane</div>
             </PageLayout.Pane>
           </PageLayout>
-        </ThemeProvider>
+        </ThemeProvider>,
       )
       expect(ref).toHaveBeenCalledWith(screen.getByTestId('content').parentNode)
+    })
+
+    it('should be resizable if `resizable` is set correctly', async () => {
+      render(
+        <ThemeProvider>
+          <PageLayout>
+            <PageLayout.Pane resizable>
+              <Placeholder height={320} label="Pane" />
+            </PageLayout.Pane>
+            <PageLayout.Content>
+              <Placeholder height={640} label="Content" />
+            </PageLayout.Content>
+          </PageLayout>
+        </ThemeProvider>,
+      )
+
+      const placeholder = await screen.findByText('Pane')
+      const pane = placeholder.parentNode
+      const initialWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
+
+      const divider = await screen.findByRole('separator')
+      // Moving divider should resize pane.
+      fireEvent.mouseDown(divider)
+      fireEvent.mouseMove(divider)
+      fireEvent.mouseUp(divider)
+      const finalWidth = (pane as HTMLElement).style.getPropertyValue('--pane-width')
+      expect(finalWidth).not.toEqual(initialWidth)
     })
   })
 })

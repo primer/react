@@ -18,8 +18,7 @@ const Button = styled(ButtonBase)<ButtonBaseProps & SxProp>`
 
   // focus must come before :active so that the active box shadow overrides
   &:focus {
-    border-color: ${get('colors.btn.focusBorder')};
-    box-shadow: ${get('shadows.btn.focusShadow')};
+    outline: solid 2px ${get('colors.accent.fg')};
   }
 
   &:active {

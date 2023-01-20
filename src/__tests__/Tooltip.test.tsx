@@ -10,7 +10,7 @@ describe('Tooltip', () => {
   behavesAsComponent({Component: Tooltip})
 
   checkExports('Tooltip', {
-    default: Tooltip
+    default: Tooltip,
   })
 
   it('should have no axe violations', async () => {
@@ -32,7 +32,7 @@ describe('Tooltip', () => {
   it('respects the "direction" prop', () => {
     for (const direction of Tooltip.directions) {
       expect(
-        rendersClass(<Tooltip direction={direction as TooltipProps['direction']} />, `tooltipped-${direction}`)
+        rendersClass(<Tooltip direction={direction as TooltipProps['direction']} />, `tooltipped-${direction}`),
       ).toBe(true)
     }
   })

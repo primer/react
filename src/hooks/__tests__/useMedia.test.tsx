@@ -23,18 +23,18 @@ function mockMatchMedia({defaultMatch = false} = {}) {
       removeEventListener: (_type: string, listener: MediaQueryEventListener) => {
         listeners.delete(listener)
       },
-      dispatchEvent: jest.fn()
-    }))
+      dispatchEvent: jest.fn(),
+    })),
   })
 
   return {
     change({matches = false}) {
       for (const listener of listeners) {
         listener({
-          matches
+          matches,
         })
       }
-    }
+    },
   }
 }
 
@@ -112,21 +112,21 @@ describe('useMedia', () => {
     render(
       <MatchMedia features={{[feature]: true}}>
         <TestComponent />
-      </MatchMedia>
+      </MatchMedia>,
     )
     expect(match[0]).toBe(true)
 
     render(
       <MatchMedia features={{[feature]: false}}>
         <TestComponent />
-      </MatchMedia>
+      </MatchMedia>,
     )
     expect(match[1]).toBe(false)
 
     ReactDOM.renderToString(
       <MatchMedia features={{[feature]: true}}>
         <TestComponent />
-      </MatchMedia>
+      </MatchMedia>,
     )
     expect(match[2]).toBe(true)
   })

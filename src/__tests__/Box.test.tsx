@@ -10,7 +10,7 @@ describe('Box', () => {
   behavesAsComponent({Component: Box})
 
   checkExports('Box', {
-    default: Box
+    default: Box,
   })
 
   it('should have no axe violations', async () => {

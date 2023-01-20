@@ -44,13 +44,13 @@ describe('DropdownMenu', () => {
       <SSRProvider>
         <DropdownMenu items={[]} />
       </SSRProvider>
-    )
+    ),
   })
 
   checkExports('deprecated/DropdownMenu', {
     default: undefined,
     DropdownMenu,
-    DropdownButton
+    DropdownButton,
   })
 
   it('should have no axe violations', async () => {

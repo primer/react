@@ -14,5 +14,5 @@ export const DropdownButton = React.forwardRef<HTMLElement, React.PropsWithChild
       {children}
       <StyledOcticon icon={TriangleDownIcon} sx={{ml: 1}} />
     </Button>
-  )
+  ),
 )

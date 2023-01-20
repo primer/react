@@ -18,6 +18,8 @@
     "script/**/*.ts",
     "src/__tests__/",
     "src/utils/test-*.tsx",
-    "src/utils/testing.tsx"
+    "src/utils/testing.tsx",
+    "e2e/**/*.ts",
+    "playwright.config.ts"
   ]
 }

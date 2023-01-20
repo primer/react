@@ -7,31 +7,32 @@ import userEvent from '@testing-library/user-event'
 import ChoiceFieldset, {Item, ChoiceFieldsetProps} from '../../deprecated/ChoiceFieldset'
 import {ChoiceFieldsetListProps} from '../../deprecated/ChoiceFieldset/ChoiceFieldsetList'
 
-const SelectableChoicelistFieldset: React.FC<React.PropsWithChildren<ChoiceFieldsetProps & ChoiceFieldsetListProps>> =
-  ({onSelect, selectionVariant, selected = []}) => {
-    const [selectionVals, setSelectionVals] = React.useState<string[]>(selected)
+const SelectableChoicelistFieldset: React.FC<
+  React.PropsWithChildren<ChoiceFieldsetProps & ChoiceFieldsetListProps>
+> = ({onSelect, selectionVariant, selected = []}) => {
+  const [selectionVals, setSelectionVals] = React.useState<string[]>(selected)
 
-    React.useEffect(() => {
-      onSelect && onSelect(selectionVals)
-    }, [onSelect, selectionVals])
+  React.useEffect(() => {
+    onSelect && onSelect(selectionVals)
+  }, [onSelect, selectionVals])
 
-    return (
-      <SSRProvider>
-        <ChoiceFieldset
-          onSelect={selectedVals => {
-            setSelectionVals(selectedVals)
-          }}
-          selected={selectionVals}
-        >
-          <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
-          <ChoiceFieldset.List selectionVariant={selectionVariant}>
-            <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
-            <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
-          </ChoiceFieldset.List>
-        </ChoiceFieldset>
-      </SSRProvider>
-    )
-  }
+  return (
+    <SSRProvider>
+      <ChoiceFieldset
+        onSelect={selectedVals => {
+          setSelectionVals(selectedVals)
+        }}
+        selected={selectionVals}
+      >
+        <ChoiceFieldset.Legend>Legend</ChoiceFieldset.Legend>
+        <ChoiceFieldset.List selectionVariant={selectionVariant}>
+          <ChoiceFieldset.Item value="labelOne">Label one</ChoiceFieldset.Item>
+          <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
+        </ChoiceFieldset.List>
+      </ChoiceFieldset>
+    </SSRProvider>
+  )
+}
 
 describe('ChoiceFieldset', () => {
   it('renders default', () => {
@@ -45,8 +46,8 @@ describe('ChoiceFieldset', () => {
               <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
             </ChoiceFieldset.List>
           </ChoiceFieldset>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
   it('renders a group of checkbox inputs when selectionVariant=single (default)', () => {
@@ -59,7 +60,7 @@ describe('ChoiceFieldset', () => {
             <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
-      </SSRProvider>
+      </SSRProvider>,
     )
     const firstInput = getByLabelText('Label one')
     const secondInput = getByLabelText('Label one')
@@ -77,7 +78,7 @@ describe('ChoiceFieldset', () => {
             <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
-      </SSRProvider>
+      </SSRProvider>,
     )
     const firstInput = getByLabelText('Label one')
     const secondInput = getByLabelText('Label one')
@@ -108,8 +109,8 @@ describe('ChoiceFieldset', () => {
               </ChoiceFieldset.Item>
             </ChoiceFieldset.List>
           </ChoiceFieldset>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
   it('renders a list with selected items', () => {
@@ -124,8 +125,8 @@ describe('ChoiceFieldset', () => {
               <ChoiceFieldset.Item value="labelThree">Label three</ChoiceFieldset.Item>
             </ChoiceFieldset.List>
           </ChoiceFieldset>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
   it('renders a disabled list', () => {
@@ -139,8 +140,8 @@ describe('ChoiceFieldset', () => {
               <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
             </ChoiceFieldset.List>
           </ChoiceFieldset>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
   it('renders a required fieldset', () => {
@@ -154,8 +155,8 @@ describe('ChoiceFieldset', () => {
               <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
             </ChoiceFieldset.List>
           </ChoiceFieldset>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
   it('renders a fieldset with a description', () => {
@@ -170,8 +171,8 @@ describe('ChoiceFieldset', () => {
               <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
             </ChoiceFieldset.List>
           </ChoiceFieldset>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
   it('renders with a custom name and id passed', () => {
@@ -185,8 +186,8 @@ describe('ChoiceFieldset', () => {
               <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
             </ChoiceFieldset.List>
           </ChoiceFieldset>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
   it('renders with a hidden legend', () => {
@@ -200,8 +201,8 @@ describe('ChoiceFieldset', () => {
               <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
             </ChoiceFieldset.List>
           </ChoiceFieldset>
-        </SSRProvider>
-      )
+        </SSRProvider>,
+      ),
     ).toMatchSnapshot()
   })
   it('renders with a success validation message', () => {
@@ -220,7 +221,7 @@ describe('ChoiceFieldset', () => {
             You made the wrong selection
           </ChoiceFieldset.Validation>
         </ChoiceFieldset>
-      </SSRProvider>
+      </SSRProvider>,
     )
     const successValidationMessage = queryByText('You made the right selection')
     const errorValidationMessage = queryByText('You made the wrong selection')
@@ -248,7 +249,7 @@ describe('ChoiceFieldset', () => {
             You made the wrong selection
           </ChoiceFieldset.Validation>
         </ChoiceFieldset>
-      </SSRProvider>
+      </SSRProvider>,
     )
     const successValidationMessage = queryByText('You made the right selection')
     const errorValidationMessage = queryByText('You made the wrong selection')
@@ -261,7 +262,7 @@ describe('ChoiceFieldset', () => {
     const user = userEvent.setup()
     const onSelectHandler = jest.fn()
     const {getByLabelText} = HTMLRender(
-      <SelectableChoicelistFieldset onSelect={onSelectHandler} selectionVariant="single" />
+      <SelectableChoicelistFieldset onSelect={onSelectHandler} selectionVariant="single" />,
     )
     const labelOneInputNode = getByLabelText('Label one')
 
@@ -273,7 +274,7 @@ describe('ChoiceFieldset', () => {
     const onSelectHandler = jest.fn()
 
     const {getByLabelText} = HTMLRender(
-      <SelectableChoicelistFieldset onSelect={onSelectHandler} selectionVariant="multiple" selected={['labelOne']} />
+      <SelectableChoicelistFieldset onSelect={onSelectHandler} selectionVariant="multiple" selected={['labelOne']} />,
     )
     const labelTwoInputNode = getByLabelText('Label two')
 
@@ -285,7 +286,7 @@ describe('ChoiceFieldset', () => {
     const onSelectHandler = jest.fn()
 
     const {getByLabelText} = HTMLRender(
-      <SelectableChoicelistFieldset onSelect={onSelectHandler} selectionVariant="multiple" selected={['labelTwo']} />
+      <SelectableChoicelistFieldset onSelect={onSelectHandler} selectionVariant="multiple" selected={['labelTwo']} />,
     )
     const labelTwoInputNode = getByLabelText('Label two')
 
@@ -302,7 +303,7 @@ describe('ChoiceFieldset', () => {
             <ChoiceFieldset.Item value="labelTwo">Label two</ChoiceFieldset.Item>
           </ChoiceFieldset.List>
         </ChoiceFieldset>
-      </SSRProvider>
+      </SSRProvider>,
     )
 
     const labelOneInputNode = getByLabelText('Label one')

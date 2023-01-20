@@ -16,7 +16,7 @@ export function useRenderForcingRef<TRef>(value?: TRef) {
       ref.current = newRef
       setRefCurrent(newRef)
     },
-    [ref]
+    [ref],
   )
   return [ref as RefObject<TRef>, setRef] as const
 }

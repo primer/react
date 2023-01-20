@@ -1,6 +1,7 @@
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 import classnames from 'classnames'
 import {To} from 'history'
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
 import {FocusKeys, useFocusZone} from './hooks/useFocusZone'
@@ -30,21 +31,34 @@ export type TabNavProps = ComponentProps<typeof TabNavBase>
 
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   const customContainerRef = useRef<HTMLElement>(null)
+  // TODO: revert tracking when `initialFocus` is set. This is a fix when TabNav
+  // is nested within another focus zone. This flag is used to indicate when
+  // focus has been initially set, this is useful for including the
+  // `aria-selected="true"` tab as the first interactive item.
+  //
+  // When set to `true`, this changes the behavior in `useFocusZone` to use
+  // the `'previous'` strategy which allows the tab to participate in nested
+  // focus zones without conflict
+  const [initialFocus, setInitialFocus] = useState(false)
   const customStrategy = React.useCallback(() => {
     if (customContainerRef.current) {
       const tabs = Array.from(
-        customContainerRef.current.querySelectorAll<HTMLElement>('[role=tab][aria-selected=true]')
+        customContainerRef.current.querySelectorAll<HTMLElement>('[role=tab][aria-selected=true]'),
       )
+      setInitialFocus(true)
       return tabs[0]
     }
   }, [customContainerRef])
-  const {containerRef: navRef} = useFocusZone({
-    containerRef: customContainerRef,
-    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
-    focusOutBehavior: 'wrap',
-    focusInStrategy: customStrategy,
-    focusableElementFilter: element => element.getAttribute('role') === 'tab'
-  })
+  const {containerRef: navRef} = useFocusZone(
+    {
+      containerRef: customContainerRef,
+      bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+      focusOutBehavior: 'wrap',
+      focusInStrategy: initialFocus ? 'previous' : customStrategy,
+      focusableElementFilter: element => element.getAttribute('role') === 'tab',
+    },
+    [initialFocus],
+  )
   return (
     <TabNavBase {...rest} ref={navRef as React.RefObject<HTMLDivElement>}>
       <TabNavNav aria-label={ariaLabel}>
@@ -54,18 +68,19 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 }
 
-type StyledTabNavLinkProps = {
+export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
   to?: To
   selected?: boolean
+  href?: string
 } & SxProp
 
-const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
+const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
   activeClassName: typeof props.to === 'string' ? 'selected' : '',
   className: classnames(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
-  tabIndex: -1
-}))<StyledTabNavLinkProps>`
+  tabIndex: -1,
+}))<TabNavLinkProps>`
   padding: 8px 12px;
   font-size: ${get('fontSizes.1')};
   line-height: 20px;
@@ -92,9 +107,8 @@ const TabNavLink = styled.a.attrs<StyledTabNavLinkProps>(props => ({
   }
 
   ${sx};
-`
+` as PolymorphicForwardRefComponent<'a', TabNavLinkProps>
 
 TabNavLink.displayName = 'TabNav.Link'
 
-export type TabNavLinkProps = ComponentProps<typeof TabNavLink>
 export default Object.assign(TabNav, {Link: TabNavLink})

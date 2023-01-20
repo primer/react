@@ -23,14 +23,14 @@ const oppositeEdge = {
   top: 'Bottom',
   right: 'Left',
   bottom: 'Top',
-  left: 'Right'
+  left: 'Right',
 }
 
 const perpendicularEdge = {
   top: 'Left',
   right: 'Top',
   bottom: 'Left',
-  left: 'Top'
+  left: 'Top',
 }
 
 function getEdgeAlign(location: Location) {
@@ -43,7 +43,7 @@ function getPosition(edge: Alignment, align: Alignment | undefined, spacing: num
   const perp = perpendicularEdge[edge].toLowerCase()
   return {
     [opposite]: '100%',
-    [align || perp]: align ? spacing : '50%'
+    [align || perp]: align ? spacing : '50%',
   }
 }
 
@@ -85,7 +85,7 @@ function Caret(props: CaretProps) {
     top: `translate(${[size, size * 2]}) rotate(180)`,
     right: `translate(${[0, size]}) rotate(-90)`,
     bottom: `translate(${[size, 0]})`,
-    left: `translate(${[size * 2, size]}) rotate(90)`
+    left: `translate(${[size * 2, size]}) rotate(90)`,
   }[edge]
 
   return (
@@ -98,7 +98,7 @@ function Caret(props: CaretProps) {
         ...getPosition(edge, align, size),
         // if align is set (top|right|bottom|left),
         // then we don't need an offset margin
-        [`margin${perp}`]: align ? null : -size
+        [`margin${perp}`]: align ? null : -size,
       }}
     >
       <g transform={transform}>
@@ -121,13 +121,13 @@ Caret.locations = [
   'bottom-right',
   'left',
   'left-top',
-  'left-bottom'
+  'left-bottom',
 ]
 
 Caret.defaultProps = {
   bg: 'canvas.default',
   borderColor: 'border.default',
-  borderWidth: 1
+  borderWidth: 1,
 }
 
 export default Caret

@@ -18,30 +18,32 @@ const meta: Meta = {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
   parameters: {
     controls: {
-      include: ['Loading', 'Open Links In New Tab']
-    }
+      include: ['Loading', 'Open Links In New Tab'],
+    },
   },
   component: MarkdownViewer,
+  args: {
+    loading: false,
+    linksInNewTab: false,
+  },
   argTypes: {
     loading: {
       name: 'Loading',
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     linksInNewTab: {
       name: 'Open Links In New Tab',
-      defaultValue: false,
       control: {
-        type: 'boolean'
-      }
-    }
-  }
+        type: 'boolean',
+      },
+    },
+  },
 }
 
 export default meta

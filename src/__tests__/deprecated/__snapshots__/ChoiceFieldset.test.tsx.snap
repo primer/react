@@ -45,21 +45,51 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
   font-size: 14px;
   display: block;
   color: #57606a;
-  cursor: default;
+  cursor: not-allowed;
   -webkit-align-self: flex-start;
   -ms-flex-item-align: start;
   align-self: flex-start;
 }
 
 .c6 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: #6e7781;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c6:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: #d0d7de;
+}
+
+.c6:checked {
+  border-color: #0969da;
+  border-width: var(--base-size-4,4px);
+}
+
+.c6:checked:disabled {
   cursor: not-allowed;
+  border-color: #57606a;
 }
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c6:focus:not(:disabled):not(:focus-visible) {
@@ -69,7 +99,7 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c3 {
@@ -87,6 +117,13 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
 
 .c3 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c6 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -116,7 +153,6 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -152,7 +188,6 @@ exports[`ChoiceFieldset renders a disabled list 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="true"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -217,11 +252,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   flex-direction: column;
 }
 
-.c3 {
-  font-size: 14px;
-  color: #24292f;
-}
-
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -238,14 +268,50 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
   align-self: flex-start;
 }
 
+.c3 {
+  font-size: 14px;
+  color: #24292f;
+}
+
 .c7 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: #6e7781;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c7:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: #d0d7de;
+}
+
+.c7:checked {
+  border-color: #0969da;
+  border-width: var(--base-size-4,4px);
+}
+
+.c7:checked:disabled {
+  cursor: not-allowed;
+  border-color: #57606a;
 }
 
 .c7:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c7:focus:not(:disabled):not(:focus-visible) {
@@ -255,7 +321,7 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 .c7:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c4 {
@@ -273,6 +339,13 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
 
 .c4 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c7 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -309,7 +382,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -344,7 +416,6 @@ exports[`ChoiceFieldset renders a fieldset with a description 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -423,12 +494,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   fill: currentColor;
 }
 
-.c10 {
-  font-size: 12px;
-  color: #57606a;
-  display: block;
-}
-
 .c2 {
   font-size: 16px;
   padding: 0;
@@ -445,14 +510,51 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
   align-self: flex-start;
 }
 
+.c10 {
+  font-size: 12px;
+  color: #57606a;
+  display: block;
+}
+
 .c6 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: #6e7781;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c6:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: #d0d7de;
+}
+
+.c6:checked {
+  border-color: #0969da;
+  border-width: var(--base-size-4,4px);
+}
+
+.c6:checked:disabled {
+  cursor: not-allowed;
+  border-color: #57606a;
 }
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c6:focus:not(:disabled):not(:focus-visible) {
@@ -462,7 +564,7 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c3 {
@@ -480,6 +582,13 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
 
 .c3 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c6 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -509,7 +618,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -528,12 +636,8 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
             <svg
               aria-hidden="true"
               className="octicon octicon-mark-github"
-              dangerouslySetInnerHTML={
-                {
-                  "__html": "<path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>",
-                }
-              }
               fill="currentColor"
+              focusable="false"
               height={16}
               role="img"
               style={
@@ -546,7 +650,12 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
               }
               viewBox="0 0 16 16"
               width={16}
-            />
+            >
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                fillRule="evenodd"
+              />
+            </svg>
           </div>
           <div
             className="c8"
@@ -579,7 +688,6 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -598,12 +706,8 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
             <svg
               aria-hidden="true"
               className="octicon octicon-mark-github"
-              dangerouslySetInnerHTML={
-                {
-                  "__html": "<path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>",
-                }
-              }
               fill="currentColor"
+              focusable="false"
               height={16}
               role="img"
               style={
@@ -616,7 +720,12 @@ exports[`ChoiceFieldset renders a list of items with leading visuals and caption
               }
               viewBox="0 0 16 16"
               width={16}
-            />
+            >
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                fillRule="evenodd"
+              />
+            </svg>
           </div>
           <div
             className="c8"
@@ -695,13 +804,92 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
 }
 
 .c6 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: #6e7781;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: 3px;
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c6:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: #d0d7de;
+}
+
+.c6::before {
+  width: var(--base-size-16,16px);
+  height: var(--base-size-16,16px);
+  visibility: hidden;
+  content: '';
+  background-color: #ffffff;
+  -webkit-transition: visibility 0s linear 230ms;
+  transition: visibility 0s linear 230ms;
+  -webkit-clip-path: inset(var(--base-size-16,16px) 0 0 0);
+  clip-path: inset(var(--base-size-16,16px) 0 0 0);
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
+  mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDEyIDkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzgwMyAwLjIxOTYyNUMxMS45MjEgMC4zNjA0MjcgMTIgMC41NTEzMDUgMTIgMC43NTAzMTNDMTIgMC45NDkzMjEgMTEuOTIxIDEuMTQwMTkgMTEuNzgwMyAxLjI4MUw0LjUxODYgOC41NDA0MkM0LjM3Nzc1IDguNjgxIDQuMTg2ODIgOC43NiAzLjk4Nzc0IDguNzZDMy43ODg2NyA4Ljc2IDMuNTk3NzMgOC42ODEgMy40NTY4OSA4LjU0MDQyTDAuMjAxNjIyIDUuMjg2MkMwLjA2ODkyNzcgNS4xNDM4MyAtMC4wMDMzMDkwNSA0Ljk1NTU1IDAuMDAwMTE2NDkzIDQuNzYwOThDMC4wMDM1NTIwNSA0LjU2NjQzIDAuMDgyMzg5NCA0LjM4MDgxIDAuMjIwMDMyIDQuMjQzMjFDMC4zNTc2NjUgNC4xMDU2MiAwLjU0MzM1NSA0LjAyNjgxIDAuNzM3OTcgNC4wMjMzOEMwLjkzMjU4NCA0LjAxOTk0IDEuMTIwOTMgNC4wOTIxNyAxLjI2MzM0IDQuMjI0ODJMMy45ODc3NCA2Ljk0ODM1TDEwLjcxODYgMC4yMTk2MjVDMTAuODU5NSAwLjA3ODk5MjMgMTEuMDUwNCAwIDExLjI0OTUgMEMxMS40NDg1IDAgMTEuNjM5NSAwLjA3ODk5MjMgMTEuNzgwMyAwLjIxOTYyNVoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=');
+  -webkit-mask-size: 75%;
+  mask-size: 75%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.c6:checked,
+.c6:indeterminate {
+  background: #0969da;
+  border-color: #0969da;
+}
+
+.c6:checked {
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
+  transition: background-color,border-color 80ms cubic-bezier(0.32,0,0.67,0) 0ms;
+}
+
+.c6:checked::before {
+  visibility: visible;
+  -webkit-transition: visibility 0s linear 0s;
+  transition: visibility 0s linear 0s;
+}
+
+.c6:checked:disabled {
+  cursor: not-allowed;
+  background-color: #57606a;
+  border-color: #57606a;
+  opacity: 1;
+}
+
+.c6:checked:disabled::before {
+  background-color: #ffffff;
+}
+
+.c6:indeterminate {
+  background: #0969da;
+}
+
+.c6:indeterminate::before {
+  -webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDEwIDIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAxQzAgMC40NDc3MTUgMC40NDc3MTUgMCAxIDBIOUM5LjU1MjI5IDAgMTAgMC40NDc3MTUgMTAgMUMxMCAxLjU1MjI4IDkuNTUyMjkgMiA5IDJIMUMwLjQ0NzcxNSAyIDAgMS41NTIyOCAwIDFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K');
+  mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDEwIDIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAxQzAgMC40NDc3MTUgMC40NDc3MTUgMCAxIDBIOUM5LjU1MjI5IDAgMTAgMC40NDc3MTUgMTAgMUMxMCAxLjU1MjI4IDkuNTUyMjkgMiA5IDJIMUMwLjQ0NzcxNSAyIDAgMS41NTIyOCAwIDFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K');
+  visibility: visible;
 }
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c6:focus:not(:disabled):not(:focus-visible) {
@@ -711,7 +899,7 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c3 {
@@ -729,6 +917,28 @@ exports[`ChoiceFieldset renders a list with selected items 1`] = `
 
 .c3 > li + li {
   margin-top: 8px;
+}
+
+@media screen and (prefers-reduced-motion:no-preference) {
+  .c6::before {
+    -webkit-animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
+    animation: checkmarkOut 80ms cubic-bezier(0.65,0,0.35,1) forwards;
+  }
+}
+
+@media screen and (prefers-reduced-motion:no-preference) {
+  .c6:checked::before,
+  .c6:indeterminate::before {
+    -webkit-animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
+    animation: checkmarkIn 80ms cubic-bezier(0.65,0,0.35,1) forwards 80ms;
+  }
+}
+
+@media (forced-colors:active) {
+  .c6:checked {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -913,13 +1123,44 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
 }
 
 .c7 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: #6e7781;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c7:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: #d0d7de;
+}
+
+.c7:checked {
+  border-color: #0969da;
+  border-width: var(--base-size-4,4px);
+}
+
+.c7:checked:disabled {
+  cursor: not-allowed;
+  border-color: #57606a;
 }
 
 .c7:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c7:focus:not(:disabled):not(:focus-visible) {
@@ -929,7 +1170,7 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
 .c7:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c5 {
@@ -947,6 +1188,13 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
 
 .c5 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c7 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -989,7 +1237,6 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1024,7 +1271,6 @@ exports[`ChoiceFieldset renders a required fieldset 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1105,13 +1351,44 @@ exports[`ChoiceFieldset renders default 1`] = `
 }
 
 .c6 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: #6e7781;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c6:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: #d0d7de;
+}
+
+.c6:checked {
+  border-color: #0969da;
+  border-width: var(--base-size-4,4px);
+}
+
+.c6:checked:disabled {
+  cursor: not-allowed;
+  border-color: #57606a;
 }
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c6:focus:not(:disabled):not(:focus-visible) {
@@ -1121,7 +1398,7 @@ exports[`ChoiceFieldset renders default 1`] = `
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c3 {
@@ -1139,6 +1416,13 @@ exports[`ChoiceFieldset renders default 1`] = `
 
 .c3 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c6 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -1168,7 +1452,6 @@ exports[`ChoiceFieldset renders default 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1203,7 +1486,6 @@ exports[`ChoiceFieldset renders default 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1284,13 +1566,44 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
 }
 
 .c6 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: #6e7781;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c6:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: #d0d7de;
+}
+
+.c6:checked {
+  border-color: #0969da;
+  border-width: var(--base-size-4,4px);
+}
+
+.c6:checked:disabled {
+  cursor: not-allowed;
+  border-color: #57606a;
 }
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c6:focus:not(:disabled):not(:focus-visible) {
@@ -1300,7 +1613,7 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c3 {
@@ -1318,6 +1631,13 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
 
 .c3 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c6 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -1347,7 +1667,6 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1382,7 +1701,6 @@ exports[`ChoiceFieldset renders with a custom name and id passed 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1467,13 +1785,44 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
 }
 
 .c5 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: #6e7781;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c5:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  border-color: #d0d7de;
+}
+
+.c5:checked {
+  border-color: #0969da;
+  border-width: var(--base-size-4,4px);
+}
+
+.c5:checked:disabled {
+  cursor: not-allowed;
+  border-color: #57606a;
 }
 
 .c5:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c5:focus:not(:disabled):not(:focus-visible) {
@@ -1483,7 +1832,7 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
 .c5:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c2 {
@@ -1501,6 +1850,13 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
 
 .c2 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c5 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -1530,7 +1886,6 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1565,7 +1920,6 @@ exports[`ChoiceFieldset renders with a hidden legend 1`] = `
           >
             <input
               aria-checked="false"
-              aria-disabled="false"
               aria-invalid="false"
               aria-required="false"
               checked={false}
@@ -1646,6 +2000,22 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   display: flex;
 }
 
+.c2 {
+  font-size: 16px;
+  padding: 0;
+}
+
+.c8 {
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  color: fg.default;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
 .c11 {
   -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
   animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
@@ -1671,30 +2041,41 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
   text-decoration: underline;
 }
 
-.c2 {
-  font-size: 16px;
-  padding: 0;
-}
-
-.c8 {
-  font-weight: bold;
-  font-size: 14px;
-  display: block;
-  color: fg.default;
-  cursor: pointer;
-  -webkit-align-self: flex-start;
-  -ms-flex-item-align: start;
-  align-self: flex-start;
-}
-
 .c6 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c6:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c6:checked {
+  border-width: var(--base-size-4,4px);
+}
+
+.c6:checked:disabled {
+  cursor: not-allowed;
 }
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c6:focus:not(:disabled):not(:focus-visible) {
@@ -1704,7 +2085,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c3 {
@@ -1722,6 +2103,13 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
 
 .c3 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c6 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -1752,7 +2140,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -1785,7 +2172,6 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -1832,6 +2218,7 @@ exports[`ChoiceFieldset renders with a success validation message 1`] = `
                 aria-hidden="true"
                 class="octicon octicon-check-circle-fill"
                 fill="currentColor"
+                focusable="false"
                 height="12"
                 role="img"
                 style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
@@ -1908,6 +2295,22 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   display: flex;
 }
 
+.c2 {
+  font-size: 16px;
+  padding: 0;
+}
+
+.c8 {
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  color: fg.default;
+  cursor: pointer;
+  -webkit-align-self: flex-start;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
 .c11 {
   -webkit-animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
   animation: 170ms eGcHP cubic-bezier(0.44,0.74,0.36,1);
@@ -1933,30 +2336,41 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
   text-decoration: underline;
 }
 
-.c2 {
-  font-size: 16px;
-  padding: 0;
-}
-
-.c8 {
-  font-weight: bold;
-  font-size: 14px;
-  display: block;
-  color: fg.default;
-  cursor: pointer;
-  -webkit-align-self: flex-start;
-  -ms-flex-item-align: start;
-  align-self: flex-start;
-}
-
 .c6 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-style: solid;
+  border-width: 1px;
   cursor: pointer;
+  display: grid;
+  height: var(--base-size-16,16px);
+  margin: 0;
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16,16px);
+  border-radius: var(--primer-borderRadius-full,100vh);
+  -webkit-transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+  transition: background-color,border-color 80ms cubic-bezier(0.33,1,0.68,1);
+}
+
+.c6:disabled {
+  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c6:checked {
+  border-width: var(--base-size-4,4px);
+}
+
+.c6:checked:disabled {
+  cursor: not-allowed;
 }
 
 .c6:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c6:focus:not(:disabled):not(:focus-visible) {
@@ -1966,7 +2380,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 .c6:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid;
-  outline-offset: 0;
+  outline-offset: 2px;
 }
 
 .c3 {
@@ -1984,6 +2398,13 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
 
 .c3 > li + li {
   margin-top: 8px;
+}
+
+@media (forced-colors:active) {
+  .c6 {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 }
 
 <div>
@@ -2014,7 +2435,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -2047,7 +2467,6 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
             >
               <input
                 aria-checked="false"
-                aria-disabled="false"
                 aria-invalid="false"
                 aria-required="false"
                 class="c6"
@@ -2094,6 +2513,7 @@ exports[`ChoiceFieldset renders with an error validation message 1`] = `
                 aria-hidden="true"
                 class="octicon octicon-alert-fill"
                 fill="currentColor"
+                focusable="false"
                 height="12"
                 role="img"
                 style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"

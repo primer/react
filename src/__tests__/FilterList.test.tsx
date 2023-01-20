@@ -10,7 +10,7 @@ describe('FilterList', () => {
   behavesAsComponent({Component: FilterList})
 
   checkExports('FilterList', {
-    default: FilterList
+    default: FilterList,
   })
 
   it('should have no axe violations', async () => {

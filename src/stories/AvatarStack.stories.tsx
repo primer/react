@@ -16,13 +16,13 @@ const meta: Meta = {
           <Story />
         </BaseStyles>
       </ThemeProvider>
-    )
+    ),
   ],
   parameters: {
     controls: {
-      disabled: true
-    }
-  }
+      disable: true,
+    },
+  },
 }
 export default meta
 

@@ -2,7 +2,7 @@ import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider, Box} from '..'
-import {Button} from '../deprecated'
+import {Button} from '../Button'
 import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
 
 export default {
@@ -19,29 +19,31 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
+    },
   ],
+  args: {
+    width: 'xlarge',
+    height: 'auto',
+    subtitle: true,
+  },
   argTypes: {
     width: {
-      defaultValue: 'xlarge',
       control: {
         type: 'radio',
-        options: ['small', 'medium', 'large', 'xlarge']
-      }
+      },
+      options: ['small', 'medium', 'large', 'xlarge'],
     },
     height: {
-      defaultValue: 'auto',
       control: {
         type: 'radio',
-        options: ['small', 'large', 'auto']
-      }
+      },
+      options: ['small', 'large', 'auto'],
     },
     subtitle: {
       name: 'show subtitle',
-      defaultValue: true,
       control: {
-        type: 'boolean'
-      }
+        type: 'boolean',
+      },
     },
     title: {table: {disable: true}},
 
@@ -52,8 +54,8 @@ export default {
     role: {table: {disable: true}},
     ref: {table: {disable: true}},
     key: {table: {disable: true}},
-    footerButtons: {table: {disable: true}}
-  }
+    footerButtons: {table: {disable: true}},
+  },
 } as Meta
 
 const lipsum = (
@@ -124,7 +126,7 @@ export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
           height={height}
           footerButtons={[
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true}
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
         >
           {lipsum}
@@ -144,7 +146,7 @@ function CustomHeader({
   subtitle,
   dialogLabelId,
   dialogDescriptionId,
-  onClose
+  onClose,
 }: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
@@ -188,7 +190,7 @@ export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps)
           onClose={onDialogClose}
           footerButtons={[
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed'}
+            {buttonType: 'primary', content: 'Proceed'},
           ]}
         >
           {lipsum}
@@ -225,7 +227,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
           footerButtons={[
             ...manyButtons,
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true}
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
           ]}
         >
           {lipsum}

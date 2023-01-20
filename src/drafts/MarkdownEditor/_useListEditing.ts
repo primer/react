@@ -53,7 +53,7 @@ export const parseListItem = (line: string): ListItem | null => {
     leadingWhitespace,
     text,
     delimeter,
-    taskBox: taskBox as '[ ]' | '[x]' | null
+    taskBox: taskBox as '[ ]' | '[x]' | null,
   }
 }
 
@@ -99,7 +99,7 @@ export const useListEditing = ({emitChange}: UseListEditingSettings): UseListEdi
 
       emitChange(updatedItems, [currentLineEnd, currentLineEnd + updatedItems.length + 1], textarea.selectionStart)
     },
-    [emitChange]
+    [emitChange],
   )
 
   const onKeyDown = useCallback(
@@ -130,7 +130,7 @@ export const useListEditing = ({emitChange}: UseListEditingSettings): UseListEdi
         }
       }
     },
-    [emitChange, incrementFollowingNumericLines]
+    [emitChange, incrementFollowingNumericLines],
   )
 
   return {onKeyDown}

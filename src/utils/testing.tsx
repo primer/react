@@ -1,8 +1,6 @@
 import React from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
-import enzyme from 'enzyme'
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import type {Story as StoryType} from '@storybook/react'
@@ -15,12 +13,6 @@ type ComputedStyles = Record<string, string | Record<string, string>>
 const readFile = promisify(require('fs').readFile)
 
 export const COMPONENT_DISPLAY_NAME_REGEX = /^[A-Z][A-Za-z]+(\.[A-Z][A-Za-z]+)*$/
-
-enzyme.configure({adapter: new Adapter()})
-
-export function mount(component: React.ReactElement) {
-  return enzyme.mount(component)
-}
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -70,7 +62,7 @@ export function renderRoot(component: React.ReactElement) {
  */
 export function renderClasses(component: React.ReactElement): string {
   const {
-    props: {className}
+    props: {className},
   } = render(component)
   return className ? className.trim().split(' ') : []
 }
@@ -92,7 +84,7 @@ export function percent(value: number | string): string {
 
 export function renderStyles(node: React.ReactElement) {
   const {
-    props: {className}
+    props: {className},
   } = render(node)
   return getComputedStyles(className)
 }
@@ -255,8 +247,25 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
     if (typeof Story !== 'function') return
 
     const {storyName, name: StoryFunctionName} = Story as StoryType
+
+    beforeEach(() => {
+      // IntersectionObserver isn't available in test environment
+      const mockIntersectionObserver = jest.fn()
+      mockIntersectionObserver.mockReturnValue({
+        observe: () => null,
+        unobserve: () => null,
+        disconnect: () => null,
+      })
+      window.IntersectionObserver = mockIntersectionObserver
+    })
+
     it(`story ${storyName || StoryFunctionName} should have no axe violations`, async () => {
-      const {container} = HTMLRender(<Story />)
+      const {container} = HTMLRender(
+        <ThemeProvider theme={defaultTheme}>
+          <Story />
+        </ThemeProvider>,
+      )
+
       const results = await axe(container)
       expect(results).toHaveNoViolations()
     })

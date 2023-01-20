@@ -1,21 +1,37 @@
+/**
+ * @type {import('@storybook/core-common').StorybookConfig}
+ */
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
+    {name: '@storybook/addon-essentials', options: {backgrounds: false}},
+    '@storybook/addon-storysource',
+    '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     '@storybook/addon-links',
-    '@storybook/addon-interactions',
-    {name: '@storybook/addon-essentials', options: {backgrounds: false}},
-    'storybook-addon-performance/register',
-    {name: 'storybook-addon-turbo-build', options: {optimizationLevel: 2}},
-    ...(process.env.NODE_ENV === 'production' && process.env.GITHUB_JOB !== 'chromatic'
-      ? ['@whitespace/storybook-addon-html']
-      : [])
+    {
+      name: 'storybook-addon-turbo-build',
+      options: {
+        optimizationLevel: 2,
+      },
+    },
   ],
-  babel: options => {
-    options.plugins.push(['open-source', {editor: process.env.NODE_ENV === 'production' ? 'github' : 'vscode'}])
-    return options
+  core: {
+    builder: {
+      name: 'webpack5',
+      options: {
+        fsCache: true,
+      },
+    },
   },
   features: {
-    interactionsDebugger: true
-  }
+    interactionsDebugger: true,
+    storyStoreV7: true,
+    buildStoriesJson: true,
+  },
+  framework: '@storybook/react',
+  reactOptions: {
+    fastRefresh: true,
+    strictMode: true,
+  },
 }

@@ -34,7 +34,7 @@ export function useMedia(mediaQueryString: string, defaultState?: boolean) {
     if (process.env.NODE_ENV !== 'production') {
       // eslint-disable-next-line no-console
       console.warn(
-        '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.'
+        '`useMedia` When server side rendering, defaultState should be defined to prevent a hydration mismatches.',
       )
     }
 

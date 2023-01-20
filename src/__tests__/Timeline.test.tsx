@@ -10,7 +10,7 @@ describe('Timeline', () => {
   behavesAsComponent({Component: Timeline})
 
   checkExports('Timeline', {
-    default: Timeline
+    default: Timeline,
   })
 
   it('should have no axe violations', async () => {

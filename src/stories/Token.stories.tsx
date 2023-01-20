@@ -12,17 +12,17 @@ import {GitBranchIcon} from '@primer/octicons-react'
 export default {
   title: 'Components/Token',
   component: Token,
+  args: {
+    text: 'Token',
+    size: 'medium',
+  },
   argTypes: {
-    text: {
-      defaultValue: 'Token'
-    },
     size: {
-      defaultValue: 'medium',
       control: {
-        options: ['small', 'medium', 'large', 'xlarge'],
-        type: 'radio'
-      }
-    }
+        type: 'radio',
+      },
+      options: ['small', 'medium', 'large', 'xlarge'],
+    },
   },
   decorators: [
     Story => {
@@ -33,8 +33,8 @@ export default {
           </BaseStyles>
         </ThemeProvider>
       )
-    }
-  ]
+    },
+  ],
 } as Meta
 
 const excludedControlKeys = ['id', 'as', 'tabIndex', 'onRemove', 'leadingVisual']
@@ -45,7 +45,7 @@ const SingleExampleContainer: React.FC<React.PropsWithChildren<{label?: string}>
     sx={{
       alignItems: 'start',
       flexDirection: 'column',
-      gap: get('space.0')
+      gap: get('space.0'),
     }}
   >
     {label ? (
@@ -63,7 +63,7 @@ const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = (
     sx={{
       alignItems: 'start',
       flexDirection: 'column',
-      gap: get('space.6')
+      gap: get('space.6'),
     }}
   >
     <Text fontSize={1} color="fg.subtle">
@@ -90,12 +90,12 @@ export const Interactive = (args: Omit<TokenProps, 'ref' | 'text'>) => {
         display="flex"
         sx={{
           alignItems: 'start',
-          gap: get('space.2')
+          gap: get('space.2'),
         }}
       >
-        <Token as="a" href="http://google.com/" text="Link" {...args} />
-        <Token as="button" onClick={action('clicked')} text="Button" {...args} />
-        <Token as="span" tabIndex={0} onFocus={action('focused')} text="Focusable Span" {...args} />
+        <Token as="a" href="http://google.com/" {...args} text="Link" />
+        <Token as="button" onClick={action('clicked')} {...args} text="Button" />
+        <Token as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
       </Box>
     </ExampleCollectionContainer>
   )
@@ -123,7 +123,7 @@ export const WithOnRemoveFn = (args: Omit<TokenProps, 'ref'>) => {
           display="flex"
           sx={{
             alignItems: 'start',
-            gap: get('space.2')
+            gap: get('space.2'),
           }}
         >
           <Token as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />

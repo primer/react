@@ -1,42 +1,32 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Select, ThemeProvider, FormControl, Box} from '..'
+import {Select, FormControl, Box} from '..'
 import {SelectProps} from '../Select'
 import {
   FormControlArgs,
+  formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
-  inputWrapperArgTypes
+  inputWrapperArgTypes,
 } from '../utils/story-helpers'
 
 export default {
   title: 'Components/Forms/Select',
   component: Select,
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Story />
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    }
-  ],
+  args: {
+    ...formControlArgs,
+    required: false,
+  },
   argTypes: {
-    required: {
-      defaultValue: false,
-      type: 'boolean'
-    },
     ...inputWrapperArgTypes,
-    ...formControlArgTypes
+    ...formControlArgTypes,
   },
   parameters: {
     controls: {
-      exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused', 'sx', 'size']
-    }
-  }
+      exclude: ['contrast', 'hasTrailingAction', 'monospace', 'isInputFocused', 'sx', 'size'],
+    },
+  },
 } as Meta
 
 export const Default = (args: FormControlArgs<SelectProps>) => {
@@ -63,7 +53,7 @@ export const Default = (args: FormControlArgs<SelectProps>) => {
   )
 }
 Default.args = {
-  labelChildren: 'Choice'
+  labelChildren: 'Choice',
 }
 
 export const WithOptionGroups = (args: FormControlArgs<SelectProps>) => {
@@ -93,5 +83,5 @@ export const WithOptionGroups = (args: FormControlArgs<SelectProps>) => {
   )
 }
 WithOptionGroups.args = {
-  labelChildren: 'Choice'
+  labelChildren: 'Choice',
 }

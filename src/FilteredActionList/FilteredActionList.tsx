@@ -1,5 +1,4 @@
 import React, {KeyboardEventHandler, useCallback, useEffect, useRef} from 'react'
-import {useSSRSafeId} from '@react-aria/ssr'
 import {GroupedListProps, ListPropsBase} from '../deprecated/ActionList/List'
 import TextInput, {TextInputProps} from '../TextInput'
 import Box from '../Box'
@@ -14,6 +13,7 @@ import useScrollFlash from '../hooks/useScrollFlash'
 import {scrollIntoView} from '@primer/behaviors'
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {SxProp} from '../sx'
+import {useId} from '../hooks/useId'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -52,14 +52,14 @@ export function FilteredActionList({
       onFilterChange(value, e)
       setInternalFilterValue(value)
     },
-    [onFilterChange, setInternalFilterValue]
+    [onFilterChange, setInternalFilterValue],
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const listContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
-  const listId = useSSRSafeId()
+  const listId = useId()
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
       if (event.key === 'Enter' && activeDescendantRef.current) {
@@ -71,7 +71,7 @@ export function FilteredActionList({
         activeDescendantRef.current.dispatchEvent(activeDescendantEvent)
       }
     },
-    [activeDescendantRef]
+    [activeDescendantRef],
   )
 
   useFocusZone(
@@ -88,12 +88,12 @@ export function FilteredActionList({
         if (current && scrollContainerRef.current && directlyActivated) {
           scrollIntoView(current, scrollContainerRef.current, menuScrollMargins)
         }
-      }
+      },
     },
     [
       // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading
-    ]
+      loading,
+    ],
   )
 
   useEffect(() => {

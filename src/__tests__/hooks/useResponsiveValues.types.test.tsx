@@ -14,7 +14,7 @@ export function ShouldFlattenResponsiveValueTypes() {
     'a' | 'b' | 'c'
   > = {
     regular: 'a',
-    narrow: 'c'
+    narrow: 'c',
   }
 
   const value: 'a' | 'b' | 'c' = useResponsiveValue(responsiveValue, 'b')

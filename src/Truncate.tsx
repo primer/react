@@ -24,7 +24,7 @@ const Truncate = styled.div<StyledTruncateProps>`
 Truncate.defaultProps = {
   expandable: false,
   inline: false,
-  maxWidth: 125
+  maxWidth: 125,
 }
 
 export type TruncateProps = ComponentProps<typeof Truncate>

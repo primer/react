@@ -12,7 +12,7 @@ import {useCallback, useState} from 'react'
 export function useProvidedStateOrCreate<T>(
   externalState: T | undefined,
   setExternalState: ((s: T) => void) | undefined,
-  defaultState: T
+  defaultState: T,
 ) {
   const [internalState, setInternalState] = useState<T>(defaultState)
   const state = externalState ?? internalState
@@ -21,7 +21,7 @@ export function useProvidedStateOrCreate<T>(
       setInternalState(s)
       if (setExternalState) setExternalState(s)
     },
-    [setExternalState]
+    [setExternalState],
   )
   return [state, setState] as const
 }

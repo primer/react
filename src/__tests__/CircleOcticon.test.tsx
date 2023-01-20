@@ -11,11 +11,11 @@ expect.extend(toHaveNoViolations)
 describe('CircleOcticon', () => {
   behavesAsComponent({
     Component: CircleOcticon,
-    toRender: () => <CircleOcticon icon={CheckIcon} />
+    toRender: () => <CircleOcticon icon={CheckIcon} />,
   })
 
   checkExports('CircleOcticon', {
-    default: CircleOcticon
+    default: CircleOcticon,
   })
 
   it('renders a <div> with width and height', () => {
@@ -37,7 +37,7 @@ describe('CircleOcticon', () => {
   it('respects the bg prop', () => {
     expect(render(<CircleOcticon icon={CheckIcon} bg="danger.subtle" />)).toHaveStyleRule(
       'background-color',
-      theme.colorSchemes.light.colors.danger?.subtle
+      theme.colorSchemes.light.colors.danger?.subtle,
     )
   })
 

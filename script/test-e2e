@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -x
+
+docker run --rm \
+  --network host \
+  -v $(pwd):/workspace \
+  -w /workspace \
+  -it mcr.microsoft.com/playwright:v1.27.0-focal \
+  /bin/bash -c "npm install && STORYBOOK_URL=http://host.docker.internal:6006 npx playwright test $@"

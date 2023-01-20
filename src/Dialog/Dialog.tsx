@@ -12,7 +12,7 @@ import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-import {useSSRSafeId} from '@react-aria/ssr'
+import {useId} from '../hooks/useId'
 
 const ANIMATION_DURATION = '200ms'
 
@@ -47,7 +47,7 @@ export type DialogButtonProps = ButtonProps & {
 /**
  * Props to customize the rendering of the Dialog.
  */
-export interface DialogProps {
+export interface DialogProps extends SxProp {
   /**
    * Title of the Dialog. Also serves as the aria-label for this Dialog.
    */
@@ -167,14 +167,14 @@ const Backdrop = styled('div')`
 const heightMap = {
   small: '480px',
   large: '640px',
-  auto: 'auto'
+  auto: 'auto',
 } as const
 
 const widthMap = {
   small: '296px',
   medium: '320px',
   large: '480px',
-  xlarge: '640px'
+  xlarge: '640px',
 } as const
 
 export type DialogWidth = keyof typeof widthMap
@@ -218,7 +218,7 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
   title,
   subtitle,
   dialogDescriptionId,
-  onClose
+  onClose,
 }) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
@@ -241,7 +241,7 @@ const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children})
 const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
-    focusInStrategy: 'closest'
+    focusInStrategy: 'closest',
   })
   return footerButtons ? (
     <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
@@ -261,10 +261,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     role = 'dialog',
     width = 'xlarge',
     height = 'auto',
-    footerButtons = []
+    footerButtons = [],
+    sx,
   } = props
-  const dialogLabelId = useSSRSafeId()
-  const dialogDescriptionId = useSSRSafeId()
+  const dialogLabelId = useId()
+  const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
   for (const footerButton of footerButtons) {
     if (footerButton.autoFocus) {
@@ -283,7 +284,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       onClose('escape')
       event.preventDefault()
     },
-    [onClose]
+    [onClose],
   )
 
   const header = (renderHeader ?? DefaultHeader)(defaultedProps)
@@ -301,6 +302,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
+            sx={sx}
           >
             {header}
             {body}
@@ -313,7 +315,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
 })
 _Dialog.displayName = 'Dialog'
 
-const Header = styled.div.attrs<SxProp>({as: 'header'})`
+const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
@@ -344,7 +346,7 @@ const Body = styled.div<SxProp>`
   ${sx};
 `
 
-const Footer = styled.div.attrs<SxProp>({as: 'footer'})`
+const Footer = styled.div<SxProp>`
   box-shadow: 0 -1px 0 ${get('colors.border.default')};
   padding: ${get('space.3')};
   display: flex;
@@ -366,7 +368,7 @@ const Footer = styled.div.attrs<SxProp>({as: 'footer'})`
 const buttonTypes = {
   normal: Button,
   primary: ButtonPrimary,
-  danger: ButtonDanger
+  danger: ButtonDanger,
 }
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
@@ -447,5 +449,5 @@ export const Dialog = Object.assign(_Dialog, {
   Body,
   Footer,
   Buttons,
-  CloseButton
+  CloseButton,
 })

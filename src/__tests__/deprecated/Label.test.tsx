@@ -10,7 +10,7 @@ describe('Label', () => {
   behavesAsComponent({Component: Label})
 
   checkExports('deprecated/Label', {
-    default: Label
+    default: Label,
   })
 
   it('renders a <span>', () => {

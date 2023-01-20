@@ -30,7 +30,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   required,
   visuallyHidden,
   sx,
-  as = 'label'
+  as = 'label',
 }) => {
   return (
     <VisuallyHidden
@@ -45,9 +45,9 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
         fontSize: 1,
         display: 'block',
         color: disabled ? 'fg.muted' : 'fg.default',
-        cursor: disabled ? 'default' : 'pointer',
+        cursor: disabled ? 'not-allowed' : 'pointer',
         alignSelf: 'flex-start',
-        ...sx
+        ...sx,
       }}
     >
       {required ? (

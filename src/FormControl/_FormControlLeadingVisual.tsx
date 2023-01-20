@@ -14,9 +14,9 @@ const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({ch
           '> *': {
             minWidth: captionId ? get('fontSizes.4') : get('fontSizes.2'),
             minHeight: captionId ? get('fontSizes.4') : get('fontSizes.2'),
-            fill: 'currentColor'
+            fill: 'currentColor',
           },
-          ...sx
+          ...sx,
         }}
         ml={2}
       >

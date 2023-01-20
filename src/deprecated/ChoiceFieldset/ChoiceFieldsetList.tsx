@@ -28,7 +28,7 @@ const getSelectedCheckboxes = (
   value: string,
   checked: boolean,
   selectedValues: string[],
-  selectionVariant?: ChoiceFieldsetListProps['selectionVariant']
+  selectionVariant?: ChoiceFieldsetListProps['selectionVariant'],
 ): string[] => {
   if (checked) {
     return selectionVariant === 'multiple' ? [...selectedValues, value] : [value]
@@ -39,7 +39,7 @@ const getSelectedCheckboxes = (
 
 const ChoiceFieldsetList: React.FC<React.PropsWithChildren<ChoiceFieldsetListProps>> = ({
   selectionVariant,
-  children
+  children,
 }) => {
   const ssrSafeUniqueName = useSSRSafeId()
 
@@ -57,11 +57,11 @@ const ChoiceFieldsetList: React.FC<React.PropsWithChildren<ChoiceFieldsetListPro
                   e.currentTarget.value,
                   e.currentTarget.checked,
                   selected,
-                  selectionVariant
+                  selectionVariant,
                 )
                 onSelect && onSelect(updatedSelections)
               },
-              selectionVariant
+              selectionVariant,
             }}
           >
             <List>
@@ -77,7 +77,7 @@ const ChoiceFieldsetList: React.FC<React.PropsWithChildren<ChoiceFieldsetListPro
 }
 
 ChoiceFieldsetList.defaultProps = {
-  selectionVariant: 'single'
+  selectionVariant: 'single',
 }
 
 export default ChoiceFieldsetList

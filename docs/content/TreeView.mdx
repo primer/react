@@ -5,68 +5,189 @@ status: Draft
 description: A hierarchical list of items where nested items can be expanded and collapsed.
 ---
 
+import data from '../../src/TreeView/TreeView.docs.json'
+
+```js
+import {TreeView} from '@primer/react/drafts'
+```
+
 ## Examples
 
 ### File tree navigation without directory links
 
 ```jsx live drafts
-<nav aria-label="File navigation">
-  <TreeView aria-label="File navigation">
-    <TreeView.Item>
-      src
-      <TreeView.SubTree>
-        <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-        <TreeView.Item>
-          Button
-          <TreeView.SubTree>
-            <TreeView.LinkItem href="#" current>
-              Button.tsx
-            </TreeView.LinkItem>
-            <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
-          </TreeView.SubTree>
-        </TreeView.Item>
-      </TreeView.SubTree>
-    </TreeView.Item>
-    <TreeView.Item>
-      public
-      <TreeView.SubTree>
-        <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
-        <TreeView.LinkItem href="#">favicon.ico</TreeView.LinkItem>
-      </TreeView.SubTree>
-    </TreeView.Item>
-    <TreeView.LinkItem href="#">package.json</TreeView.LinkItem>
-  </TreeView>
-</nav>
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
+      <TreeView.Item id="src">
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx" onSelect={() => console.log('src/Avatar.tsx')}>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <TreeView.TrailingVisual>
+              <StyledOcticon icon={DiffAddedIcon} color="success.fg" aria-label="added" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Button.tsx
+            <TreeView.TrailingVisual>
+              <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="package.json">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        package.json
+        <TreeView.TrailingVisual>
+          <StyledOcticon icon={DiffModifiedIcon} color="attention.fg" aria-label="modified" />
+        </TreeView.TrailingVisual>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+</Box>
 ```
 
 ### File tree navigation with directory links
 
 ```jsx live drafts
-<nav aria-label="File navigation">
-  <TreeView aria-label="File navigation">
-    <TreeView.LinkItem href="#">
-      src
-      <TreeView.SubTree>
-        <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-        <TreeView.LinkItem href="#" current>
-          Button
-          <TreeView.SubTree>
-            <TreeView.LinkItem href="#">Button.tsx</TreeView.LinkItem>
-            <TreeView.LinkItem href="#">Button.test.tsx</TreeView.LinkItem>
-          </TreeView.SubTree>
-        </TreeView.LinkItem>
-      </TreeView.SubTree>
-    </TreeView.LinkItem>
-    <TreeView.LinkItem href="#">
-      public
-      <TreeView.SubTree>
-        <TreeView.LinkItem href="#">index.html</TreeView.LinkItem>
-        <TreeView.LinkItem href="#">favicon.ico</TreeView.LinkItem>
-      </TreeView.SubTree>
-    </TreeView.LinkItem>
-    <TreeView.LinkItem href="#">package.json</TreeView.LinkItem>
-  </TreeView>
-</nav>
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
+      <TreeView.Item id="src">
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+          </TreeView.Item>
+          <TreeView.Item id="src/Button" current>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Button
+            <TreeView.SubTree>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+              </TreeView.Item>
+              <TreeView.Item id="src/Button/Button.test.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.test.tsx
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="package.json">
+        <TreeView.LeadingVisual>
+          <FileIcon />
+        </TreeView.LeadingVisual>
+        package.json
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+</Box>
+```
+
+### With React Router
+
+```jsx
+import {Link, useMatch, useResolvedPath, navigate} from 'react-router-dom'
+import {TreeView} from '@primer/react/drafts'
+
+function TreeLinkItem({id, to, children}) {
+  const resolved = useResolvedPath(to)
+  const isCurrent = useMatch({path: resolved.pathname, end: true})
+  return (
+    <TreeList.Item
+      id={id}
+      aria-current={isCurrent ? 'page' : undefined}
+      current={isCurrent}
+      onSelect={() => navigate(to)}
+    >
+      {children}
+    </TreeList.Item>
+  )
+}
+
+function App() {
+  return (
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
+        <TreeLinkItem id="src/Avatar.tsx" to="/src/Avatar.tsx">
+          Avatar.tsx
+        </TreeLinkItem>
+        <TreeLinkItem id="src/Button.tsx" to="/src/Button.tsx">
+          Button.tsx
+        </TreeLinkItem>
+      </TreeView>
+    </nav>
+  )
+}
+```
+
+### With Next.js
+
+```jsx
+import {useRouter} from 'next/router'
+import Link from 'next/link'
+import {TreeView} from '@primer/react/drafts'
+
+function TreeLinkItem({id, href, children}) {
+  const router = useRouter()
+  const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
+  return (
+    <Link href={href} passHref>
+      <TreeView.Item id={id} aria-current={isCurrent ? 'page' : false} current={isCurrent}>
+        {children}
+      </TreeView.Item>
+    </Link>
+  )
+}
+
+function App() {
+  return (
+    <nav aria-label="Files">
+      <TreeView aria-label="Files">
+        <TreeLinkItem id="src/Avatar.tsx" href="/src/Avatar.tsx">
+          Avatar.tsx
+        </TreeLinkItem>
+        <TreeLinkItem
+          id="src/Button.tsx"
+          // You can also pass a URL object
+          // https://nextjs.org/docs/api-reference/next/link#with-url-object
+          href={{
+            pathname: '/src/[component].[filetype]',
+            query: {component: 'Button', filetype: 'tsx'}
+          }}
+        >
+          Button.tsx
+        </TreeLinkItem>
+      </TreeView>
+    </nav>
+  )
+}
 ```
 
 ### With controlled expanded state
@@ -76,17 +197,17 @@ function ControlledTreeView() {
   const [expanded, setExpanded] = React.useState(false)
 
   return (
-    <Box sx={{display: 'grid', gap: 2}}>
+    <Box sx={{display: 'grid', gap: 2, maxWidth: 400}}>
       <Button onClick={() => setExpanded(!expanded)}>{expanded ? 'Collapse' : 'Expand'}</Button>
-      <nav aria-label="File navigation">
-        <TreeView aria-label="File navigation">
-          <TreeView.Item expanded={expanded} onExpandedChange={setExpanded}>
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
+          <TreeView.Item id="src" expanded={expanded} onExpandedChange={setExpanded}>
             src
             <TreeView.SubTree>
-              <TreeView.LinkItem href="#">Avatar.tsx</TreeView.LinkItem>
-              <TreeView.LinkItem href="#" current>
+              <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
+              <TreeView.Item id="src/Button.tsx" current>
                 Button.tsx
-              </TreeView.LinkItem>
+              </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
         </TreeView>
@@ -98,129 +219,61 @@ function ControlledTreeView() {
 render(<ControlledTreeView />)
 ```
 
+### With stateful visuals
+
+To render stateful visuals, pass a render function to `TreeView.LeadingVisual` or `TreeView.TrailingVisual`. The function will be called with the `expanded` state of the item.
+
+```jsx live drafts
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
+      <TreeView.Item id="src">
+        <TreeView.LeadingVisual>
+          {({isExpanded}) => (isExpanded ? <FileDirectoryOpenFillIcon /> : <FileDirectoryFillIcon />)}
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            Button.tsx
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+</Box>
+```
+
+Since stateful directory icons are a common use case for TreeView, we provide a `TreeView.DirectoryIcon` component for convenience. The previous example can be rewritten as:
+
+```jsx live drafts
+<Box sx={{maxWidth: 400}}>
+  <nav aria-label="Files">
+    <TreeView aria-label="Files">
+      <TreeView.Item id="src">
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">Avatar.tsx</TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            Button.tsx
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+</Box>
+```
+
+### With asynchronously loaded items
+
+See [Storybook](https://primer.style/react/storybook?path=/story/components-treeview--async-success) for examples with asynchronously loaded items.
+
 ## Props
 
-### TreeView
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" required />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.Item
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" required />
-  <PropsTableRow
-    name="current"
-    type="boolean"
-    defaultValue="false"
-    description="Whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
-  />
-  <PropsTableRow
-    name="defaultExpanded"
-    type="boolean"
-    description="The expanded state of the item when it is initially rendered. Use when you do not need to control the state."
-  />
-  <PropsTableRow
-    name="expanded"
-    type="boolean"
-    description="The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
-  />
-  <PropsTableRow
-    name="onExpandedChange"
-    type="(expanded: boolean) => void"
-    description="Event handler called when the expanded state of the item changes."
-  />
-  <PropsTableRow
-    name="onSelect"
-    type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
-  />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.LinkItem
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" required />
-  <PropsTableRow
-    name="href"
-    type="string"
-    description={
-      <>
-        The URL that the item navigates to. <InlineCode>href</InlineCode> is passed to the underlying{' '}
-        <InlineCode>&lt;a&gt;</InlineCode> element. If <InlineCode>as</InlineCode> is specified, the component may need
-        different props. If the item contains a sub-nav, the item is rendered as a{' '}
-        <InlineCode>&lt;button&gt;</InlineCode> and <InlineCode>href</InlineCode> is ignored.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="current"
-    type="boolean"
-    defaultValue="false"
-    description="Whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
-  />
-  <PropsTableRow
-    name="defaultExpanded"
-    type="boolean"
-    description="The expanded state of the item when it is initially rendered. Use when you do not need to control its state."
-  />
-  <PropsTableRow
-    name="expanded"
-    type="boolean"
-    description="The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
-  />
-  <PropsTableRow
-    name="onExpandedChange"
-    type="(expanded: boolean) => void"
-    description="Event handler called when the expanded state of the item changes."
-  />
-  <PropsTableRow
-    name="onSelect"
-    type="(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
-  />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-### TreeView.SubTree
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" />
-  {/* <PropsTableSxRow /> */}
-</PropsTable>
-
-<!-- TODO: Add leading and trailing visuals -->
-
-<!-- ### TreeView.LeadingVisual
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type={`| React.ReactNode
-| (props: {isExpanded: boolean}) => React.ReactNode`}
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-### TreeView.TrailingVisual
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type={`| React.ReactNode
-| (props: {isExpanded: boolean}) => React.ReactNode`}
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-### TreeView.FolderIcon
-
-<PropsTable>
-  <PropsTableSxRow />
-</PropsTable> -->
-
-<!-- TODO: Add components to support async behavior (e.g. LoadingItem) -->
+<ComponentProps data={data} />
 
 ## Status
 

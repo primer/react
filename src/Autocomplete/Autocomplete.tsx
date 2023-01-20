@@ -1,10 +1,10 @@
 import React, {useCallback, useReducer, useRef} from 'react'
-import {useSSRSafeId} from '@react-aria/ssr'
 import {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'
 import AutocompleteMenu from './AutocompleteMenu'
 import AutocompleteOverlay from './AutocompleteOverlay'
+import {useId} from '../hooks/useId'
 
 type Action =
   | {type: 'showMenu' | 'isMenuDirectlyActivated'; payload: boolean}
@@ -24,7 +24,7 @@ const initialState = {
   showMenu: false,
   isMenuDirectlyActivated: false,
   autocompleteSuggestion: '',
-  selectedItemLength: 0
+  selectedItemLength: 0,
 }
 
 const reducer = (state: State, action: Action) => {
@@ -66,7 +66,7 @@ const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({childre
   const setSelectedItemLength = useCallback((value: State['selectedItemLength']) => {
     dispatch({type: 'selectedItemLength', payload: value})
   }, [])
-  const id = useSSRSafeId(idProp)
+  const id = useId(idProp)
 
   return (
     <AutocompleteContext.Provider
@@ -84,7 +84,7 @@ const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({childre
         setIsMenuDirectlyActivated,
         setShowMenu,
         setSelectedItemLength,
-        showMenu
+        showMenu,
       }}
     >
       {children}
@@ -100,5 +100,5 @@ export default Object.assign(Autocomplete, {
   Context: AutocompleteContext,
   Input: AutocompleteInput,
   Menu: AutocompleteMenu,
-  Overlay: AutocompleteOverlay
+  Overlay: AutocompleteOverlay,
 })

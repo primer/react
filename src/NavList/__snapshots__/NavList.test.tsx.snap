@@ -239,13 +239,15 @@ exports[`NavList renders a simple list 1`] = `
     color: #24292f;
   }
 
-  .c2:focus:not([data-focus-visible-added]) {
+  .c2:focus:not([data-focus-visible-added]),
+  .c2 > a:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c2[data-focus-visible-added] {
+  .c2[data-focus-visible-added],
+  .c2 > a[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -269,13 +271,15 @@ exports[`NavList renders a simple list 1`] = `
     color: #24292f;
   }
 
-  .c6:focus:not([data-focus-visible-added]) {
+  .c6:focus:not([data-focus-visible-added]),
+  .c6 > a:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c6[data-focus-visible-added] {
+  .c6[data-focus-visible-added],
+  .c6 > a[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -301,13 +305,14 @@ exports[`NavList renders a simple list 1`] = `
       class="c0"
     >
       <li
-        aria-labelledby="react-aria-1 "
         class="c1 c2"
       >
         <a
           aria-current="page"
+          aria-labelledby="react-aria-1 "
           class="c3"
           href="/"
+          tabindex="0"
         >
           <div
             class="c4"
@@ -323,12 +328,13 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        aria-labelledby="react-aria-4 "
         class="c1 c6"
       >
         <a
+          aria-labelledby="react-aria-4 "
           class="c3"
           href="/about"
+          tabindex="0"
         >
           <div
             class="c4"
@@ -344,12 +350,13 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        aria-labelledby="react-aria-7 "
         class="c1 c6"
       >
         <a
+          aria-labelledby="react-aria-7 "
           class="c3"
           href="/contact"
+          tabindex="0"
         >
           <div
             class="c4"
@@ -642,13 +649,15 @@ exports[`NavList renders with groups 1`] = `
     color: #24292f;
   }
 
-  .c6:focus:not([data-focus-visible-added]) {
+  .c6:focus:not([data-focus-visible-added]),
+  .c6 > a:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c6[data-focus-visible-added] {
+  .c6[data-focus-visible-added],
+  .c6 > a[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -672,13 +681,15 @@ exports[`NavList renders with groups 1`] = `
     color: #24292f;
   }
 
-  .c10:focus:not([data-focus-visible-added]) {
+  .c10:focus:not([data-focus-visible-added]),
+  .c10 > a:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c10[data-focus-visible-added] {
+  .c10[data-focus-visible-added],
+  .c10 > a[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -727,13 +738,14 @@ exports[`NavList renders with groups 1`] = `
           class="c4"
         >
           <li
-            aria-labelledby="react-aria-2 "
             class="c5 c6"
           >
             <a
               aria-current="page"
+              aria-labelledby="react-aria-2 "
               class="c7"
               href="/getting-started"
+              tabindex="0"
             >
               <div
                 class="c8"
@@ -774,12 +786,13 @@ exports[`NavList renders with groups 1`] = `
           class="c4"
         >
           <li
-            aria-labelledby="react-aria-6 "
             class="c5 c10"
           >
             <a
+              aria-labelledby="react-aria-6 "
               class="c7"
               href="/Avatar"
+              tabindex="0"
             >
               <div
                 class="c8"
@@ -1128,13 +1141,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
     color: #24292f;
   }
 
-  .c10:focus:not([data-focus-visible-added]) {
+  .c10:focus:not([data-focus-visible-added]),
+  .c10 > a:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c10[data-focus-visible-added] {
+  .c10[data-focus-visible-added],
+  .c10 > a[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -1158,13 +1173,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
     color: #24292f;
   }
 
-  .c3:focus:not([data-focus-visible-added]) {
+  .c3:focus:not([data-focus-visible-added]),
+  .c3 > a:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c3[data-focus-visible-added] {
+  .c3[data-focus-visible-added],
+  .c3 > a[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -1220,6 +1237,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   aria-hidden="true"
                   class="c8"
                   fill="currentColor"
+                  focusable="false"
                   height="16"
                   role="img"
                   style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
@@ -1242,13 +1260,14 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             id="react-aria-2"
           >
             <li
-              aria-labelledby="react-aria-3 "
               class="c2 c10"
             >
               <a
                 aria-current="page"
+                aria-labelledby="react-aria-3 "
                 class="c11"
                 href="#"
+                tabindex="0"
               >
                 <div
                   class="c4"
@@ -1610,13 +1629,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
     color: #24292f;
   }
 
-  .c10:focus:not([data-focus-visible-added]) {
+  .c10:focus:not([data-focus-visible-added]),
+  .c10 > a:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c10[data-focus-visible-added] {
+  .c10[data-focus-visible-added],
+  .c10 > a[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -1640,13 +1661,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
     color: #24292f;
   }
 
-  .c3:focus:not([data-focus-visible-added]) {
+  .c3:focus:not([data-focus-visible-added]),
+  .c3 > a:focus:not([data-focus-visible-added]) {
     background-color: rgba(208,215,222,0.24);
     color: #24292f;
     outline: none;
   }
 
-  .c3[data-focus-visible-added] {
+  .c3[data-focus-visible-added],
+  .c3 > a[data-focus-visible-added] {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px #0969da;
@@ -1702,6 +1725,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                   aria-hidden="true"
                   class="c8"
                   fill="currentColor"
+                  focusable="false"
                   height="16"
                   role="img"
                   style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
@@ -1724,13 +1748,14 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             id="react-aria-2"
           >
             <li
-              aria-labelledby="react-aria-3 "
               class="c2 c10"
             >
               <a
                 aria-current="page"
+                aria-labelledby="react-aria-3 "
                 class="c11"
                 href="#"
+                tabindex="0"
               >
                 <div
                   class="c4"

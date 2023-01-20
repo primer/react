@@ -1,10 +1,11 @@
-import React, {HTMLAttributes} from 'react'
+import React, {ButtonHTMLAttributes} from 'react'
 import {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import sx, {merge, SxProp} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import Tooltip from '../Tooltip'
 import Box from '../Box'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
@@ -15,7 +16,7 @@ export type SegmentedControlIconButtonProps = {
   /** Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render. */
   defaultSelected?: boolean
 } & SxProp &
-  HTMLAttributes<HTMLButtonElement | HTMLLIElement>
+  ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlIconButtonStyled = styled.button`
   ${sx};
@@ -31,15 +32,15 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
   'aria-label': ariaLabel,
   icon: Icon,
   selected,
-  sx: sxProp = {},
+  sx: sxProp = defaultSxProp,
   ...rest
 }) => {
   const mergedSx = merge(
     {
       width: '32px', // TODO: use primitive `control.medium.size` when it is available
-      ...getSegmentedControlListItemStyles()
+      ...getSegmentedControlListItemStyles(),
     },
-    sxProp as SxProp
+    sxProp as SxProp,
   )
 
   return (

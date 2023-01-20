@@ -27,7 +27,7 @@ const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
 type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
 const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
-  className: classnames('Timeline-Item', props.className)
+  className: classnames('Timeline-Item', props.className),
 }))<StyledTimelineItemProps>`
   display: flex;
   position: relative;
@@ -136,5 +136,5 @@ export default Object.assign(Timeline, {
   Item: TimelineItem,
   Badge: TimelineBadge,
   Body: TimelineBody,
-  Break: TimelineBreak
+  Break: TimelineBreak,
 })

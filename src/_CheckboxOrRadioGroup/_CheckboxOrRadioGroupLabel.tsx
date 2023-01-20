@@ -15,7 +15,7 @@ export type CheckboxOrRadioGroupLabelProps = {
 const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupLabelProps>> = ({
   children,
   visuallyHidden,
-  sx
+  sx,
 }) => (
   <Slot name="Label">
     {({required, disabled}: CheckboxOrRadioGroupContext) => (
@@ -26,7 +26,7 @@ const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadi
           display: 'block',
           color: disabled ? 'fg.muted' : undefined,
           fontSize: 2,
-          ...sx
+          ...sx,
         }}
       >
         {required ? (
@@ -43,7 +43,7 @@ const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadi
 )
 
 CheckboxOrRadioGroupLabel.defaultProps = {
-  visuallyHidden: false
+  visuallyHidden: false,
 }
 
 export default CheckboxOrRadioGroupLabel

@@ -17,10 +17,10 @@ const NextJSLikeLink = React.forwardRef<HTMLAnchorElement, NextJSLinkProps>(
     const child = React.Children.only(children)
     const childProps = {
       ref,
-      href
+      href,
     }
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
-  }
+  },
 )
 
 describe('NavList', () => {
@@ -36,7 +36,7 @@ describe('NavList', () => {
             <NavList.Item href="/contact">Contact</NavList.Item>
           </NavList>
         </SSRProvider>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -56,7 +56,7 @@ describe('NavList', () => {
             </NavList.Group>
           </NavList>
         </SSRProvider>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
   })
@@ -71,7 +71,7 @@ describe('NavList.Item', () => {
         </NavList.Item>
         <NavList.Item href="/about">About</NavList.Item>
         <NavList.Item href="/contact">Contact</NavList.Item>
-      </NavList>
+      </NavList>,
     )
 
     const homeLink = getByRole('link', {name: 'Home'})
@@ -87,7 +87,7 @@ describe('NavList.Item', () => {
         <NavList.Item as={ReactRouterLikeLink} to={'/'} aria-current="page">
           React Router link
         </NavList.Item>
-      </NavList>
+      </NavList>,
     )
 
     const link = getByRole('link', {name: 'React Router link'})
@@ -102,7 +102,7 @@ describe('NavList.Item', () => {
         <NextJSLikeLink href="/">
           <NavList.Item aria-current="page">NextJS link</NavList.Item>
         </NextJSLikeLink>
-      </NavList>
+      </NavList>,
     )
 
     const link = getByRole('link', {name: 'NextJS link'})
@@ -208,7 +208,7 @@ describe('NavList.Item with NavList.SubNav', () => {
             </NavList.Item>
           </NavList>
         </SSRProvider>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     const button = getByRole('button')
@@ -239,7 +239,7 @@ describe('NavList.Item with NavList.SubNav', () => {
             </NavList.Item>
           </NavList>
         </SSRProvider>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     // Starts open
@@ -269,7 +269,7 @@ describe('NavList.Item with NavList.SubNav', () => {
             </NavList.Item>
           </NavList.SubNav>
         </NavList.Item>
-      </NavList>
+      </NavList>,
     )
 
     const item = getByRole('button', {name: 'Item'})
@@ -300,7 +300,7 @@ describe('NavList.Item with NavList.SubNav', () => {
           </NavList.SubNav>
         </NavList.Item>
         <NavLink href="/">Item 3</NavLink>
-      </NavList>
+      </NavList>,
     )
 
     const currentLink = queryByRole('link', {name: 'Current'})

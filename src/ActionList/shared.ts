@@ -42,8 +42,18 @@ export type ActionListItemProps = {
   /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
-  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<unknown>>
+  _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
 } & SxProp
+
+type MenuItemProps = {
+  onClick?: (event: React.MouseEvent) => void
+  onKeyPress?: (event: React.KeyboardEvent) => void
+  'aria-disabled'?: boolean
+  tabIndex?: number
+  'aria-labelledby'?: string
+  'aria-describedby'?: string
+  role?: string
+}
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
   inlineDescriptionId: string
@@ -52,13 +62,13 @@ export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
 
 export const getVariantStyles = (
   variant: ActionListItemProps['variant'],
-  disabled: ActionListItemProps['disabled']
+  disabled: ActionListItemProps['disabled'],
 ) => {
   if (disabled) {
     return {
       color: 'primer.fg.disabled',
       iconColor: 'primer.fg.disabled',
-      annotationColor: 'primer.fg.disabled'
+      annotationColor: 'primer.fg.disabled',
     }
   }
 
@@ -68,14 +78,14 @@ export const getVariantStyles = (
         color: 'danger.fg',
         iconColor: 'danger.fg',
         annotationColor: 'fg.muted',
-        hoverColor: 'actionListItem.danger.hoverText'
+        hoverColor: 'actionListItem.danger.hoverText',
       }
     default:
       return {
         color: 'fg.default',
         iconColor: 'fg.muted',
         annotationColor: 'fg.muted',
-        hoverColor: 'fg.default'
+        hoverColor: 'fg.default',
       }
   }
 }
