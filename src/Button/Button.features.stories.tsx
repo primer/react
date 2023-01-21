@@ -32,11 +32,7 @@ export const TrailingCounter = () => {
 
 export const TrailingAction = () => <Button trailingAction={TriangleDownIcon}>Trailing action</Button>
 
-export const Block = () => (
-  <Button block sx={{backgroundColor: 'blue'}}>
-    Default
-  </Button>
-)
+export const Block = () => <Button block>Default</Button>
 
 export const Disabled = () => <Button disabled>Default</Button>
 
@@ -68,6 +64,23 @@ export const InvisibleVariants = () => {
       <Button variant="invisible" leadingIcon={EyeIcon} trailingAction={TriangleDownIcon}>
         Button
         <Button.Counter>{count}</Button.Counter>
+      </Button>
+    </div>
+  )
+}
+
+export const Test = () => {
+  const count = 4
+  return (
+    <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+      <Button variant="invisible" sx={{color: 'deeppink'}}>
+        Button
+      </Button>
+      <Button size="small" variant="invisible" sx={{color: 'deeppink'}}>
+        Button
+      </Button>
+      <Button size="small" block variant="invisible" sx={{color: 'deeppink'}}>
+        Button
       </Button>
     </div>
   )

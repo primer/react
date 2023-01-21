@@ -4,8 +4,14 @@ import {ButtonBase} from './ButtonBase'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 const ButtonComponent = forwardRef(({children, ...props}, forwardedRef): JSX.Element => {
+  const {sx = {}} = props
+  const cssSelector = `&[data-component="Button"]`
+  const buttonStyles = {
+    [cssSelector]: sx,
+  }
+
   return (
-    <ButtonBase ref={forwardedRef} as="button" {...props}>
+    <ButtonBase data-component="Button" ref={forwardedRef} as="button" sx={buttonStyles} {...props}>
       {children}
     </ButtonBase>
   )
