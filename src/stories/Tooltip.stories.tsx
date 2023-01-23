@@ -3,7 +3,6 @@ import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider, IconButton} from '..'
 import Box from '../Box'
 import Tooltip from '../Tooltip'
-import TooltipPopover from '../TooltipPopover'
 import {SearchIcon} from '@primer/octicons-react'
 
 export default {
@@ -25,17 +24,17 @@ export default {
 
 export const IconButtonTooltip = () => (
   <Box sx={{p: 5}}>
-    <TooltipPopover aria-label="Tooltip content.">
+    <Tooltip aria-label="Tooltip content.">
       <IconButton icon={SearchIcon} aria-label="Search" />
-    </TooltipPopover>
+    </Tooltip>
   </Box>
 )
 
 export const TooltipExample = () => (
   <Box sx={{p: 5}}>
-    <TooltipPopover aria-label="Search for something lorem ipsum" direction="e">
+    <Tooltip aria-label="Search for something lorem ipsum">
       <button>What if the button is really long??</button>
-    </TooltipPopover>
+    </Tooltip>
   </Box>
 )
 
@@ -67,9 +66,9 @@ export const TooltipWithAncestor = () => (
             background: 'cornflowerblue',
           }}
         >
-          <TooltipPopover aria-label="Tooltip currently falls behind the top sticky header">
+          <Tooltip aria-label="Tooltip currently falls behind the top sticky header">
             Second sticky header, Text with a tooltip, within a stacking context
-          </TooltipPopover>
+          </Tooltip>
         </Box>
         <Box
           sx={{
