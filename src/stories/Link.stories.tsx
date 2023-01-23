@@ -2,7 +2,6 @@ import Link from '../Link'
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {ThemeProvider} from '..'
-import BaseStyles from '../BaseStyles'
 
 const meta: Meta = {
   title: 'Components/Link',
@@ -10,21 +9,14 @@ const meta: Meta = {
   decorators: [
     (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
       <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
+        <Story />
       </ThemeProvider>
     ),
   ],
-  parameters: {
-    controls: {
-      disable: true,
-    },
-  },
 }
 export default meta
 
 export function LinkStory(): JSX.Element {
-  return <Link as="i"> hi</Link>
+  return <Link as="i">{`Link with <i> as prop`}</Link>
 }
 LinkStory.storyName = 'Link'
