@@ -21,14 +21,14 @@ const AvatarContainer = styled.span<{avatarSize: TokenSizeKeys}>`
   width: ${props => `calc(${tokenSizes[props.avatarSize]} - var(--spacing))`};
 `
 
-const AvatarToken = forwardRef(({avatarSrc, id, size, ...rest}, forwardedRef) => {
+const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
   return (
     <Token
       leadingVisual={() => (
-        <AvatarContainer avatarSize={size || defaultTokenSize}>
+        <AvatarContainer avatarSize={size}>
           <Avatar
             src={avatarSrc}
-            size={parseInt(tokenSizes[size || defaultTokenSize], 10)}
+            size={parseInt(tokenSizes[size], 10)}
             sx={{
               width: '100%',
               height: '100%',
@@ -46,10 +46,6 @@ const AvatarToken = forwardRef(({avatarSrc, id, size, ...rest}, forwardedRef) =>
     />
   )
 }) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', AvatarTokenProps>
-
-AvatarToken.defaultProps = {
-  size: defaultTokenSize,
-}
 
 AvatarToken.displayName = 'AvatarToken'
 
