@@ -117,7 +117,6 @@ render(<PopoverDemo />)
 
 <ComponentProps data={data} />
 
-
 ## Status
 
 <ComponentChecklist

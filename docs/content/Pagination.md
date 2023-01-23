@@ -176,7 +176,6 @@ export default {
 
 <ComponentProps data={data} />
 
-
 ## Status
 
 <ComponentChecklist
