@@ -6,7 +6,6 @@ import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
 import Token, {TokenProps} from '../Token/Token'
-import Text from '../Text'
 import {GitBranchIcon} from '@primer/octicons-react'
 
 export default {
