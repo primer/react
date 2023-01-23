@@ -17,11 +17,6 @@ type StyledOverlayProps = {
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
   visibility?: 'visible' | 'hidden'
   anchorSide?: AnchorSide
-  position?: React.CSSProperties['position']
-  top?: React.CSSProperties['top']
-  left?: React.CSSProperties['left']
-  right?: React.CSSProperties['right']
-  bottom?: React.CSSProperties['bottom']
 } & SxProp
 
 const heightMap = {
