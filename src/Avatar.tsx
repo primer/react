@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
@@ -22,7 +23,7 @@ function getBorderRadius({size, square}: StyledAvatarProps) {
   }
 }
 
-const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
+const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
   height: props.size,
   width: props.size,
 }))<StyledAvatarProps>`
@@ -34,11 +35,8 @@ const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
   box-shadow: 0 0 0 1px ${get('colors.avatar.border')};
   ${sx}
 `
-Avatar.defaultProps = {
-  size: 20,
-  alt: '',
-  square: false,
-}
+
+const Avatar = ({size = 20, alt = '', ...rest}: StyledAvatarProps) => <StyledAvatar alt={alt} size={size} {...rest} />
 
 export type AvatarProps = ComponentProps<typeof Avatar>
 export default Avatar
