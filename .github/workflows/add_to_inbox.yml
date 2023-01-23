@@ -14,7 +14,7 @@ jobs:
       REACT_LABEL_ID: 'LA_kwDOB0K8ws7Oq_eD'
       PROJECT_ID: 'PN_kwDNJr_NNKA'
     steps:
-      - name: Add react label to issue      
+      - name: Add react label to issue
         run: |
           gh api graphql --header 'GraphQL-Features: projects_next_graphql' -f query='
             mutation($reactLabelId: ID!, $issue: ID!) {

@@ -34,6 +34,8 @@
     "setup": "./script/setup",
     "build": "./script/build",
     "clean": "rimraf dist lib lib-esm",
+    "format": "prettier --cache --write '**/*.{js,md,mdx,ts,tsx,yml}'",
+    "format:diff": "prettier --cache --list-different '**/*.{js.md,mdx,ts,tsx,yml}'",
     "start": "concurrently npm:start:*",
     "start:docs": "cd docs && npm run develop",
     "start:storybook": "STORYBOOK=true start-storybook -p 6006",
