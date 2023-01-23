@@ -18,10 +18,10 @@ Formats a timestamp as a localized string or as relative text that auto-updates 
 ```jsx live
 <>
   <RelativeTime datetime="2014-04-01T16:30:00-08:00" />
-  <br/>
-  <RelativeTime date={new Date('2014-04-01T16:30:00-08:00')} format="micro" tense="past"/>
-  <br/>
-  <RelativeTime datetime="2014-04-01T16:30:00-08:00" format="elapsed"/>
+  <br />
+  <RelativeTime date={new Date('2014-04-01T16:30:00-08:00')} format="micro" tense="past" />
+  <br />
+  <RelativeTime datetime="2014-04-01T16:30:00-08:00" format="elapsed" />
 </>
 ```
 
@@ -30,12 +30,7 @@ Formats a timestamp as a localized string or as relative text that auto-updates 
 ### RelativeTime
 
 <PropsTable>
-  <PropsTableRow
-    name="datetime"
-    type="string"
-    required
-    description="An ISO8601 time represeting the time"
-  />
+  <PropsTableRow name="datetime" type="string" required description="An ISO8601 time represeting the time" />
   <PropsTableRow
     name="date"
     type="string"
@@ -71,42 +66,22 @@ Formats a timestamp as a localized string or as relative text that auto-updates 
     defaultValue="'on'"
     description="The prefix to use when displaying a localised (non relative) date"
   />
-  <PropsTableRow
-    name="second"
-    type="'numeric' | '2-digit'"
-    description="The format with which to render seconds"
-  />
-  <PropsTableRow
-    name="minute"
-    type="'numeric' | '2-digit'"
-    description="The format with which to render minutes"
-  />
-  <PropsTableRow
-    name="hour"
-    type="'numeric' | '2-digit'"
-    description="The format with which to render hours"
-  />
+  <PropsTableRow name="second" type="'numeric' | '2-digit'" description="The format with which to render seconds" />
+  <PropsTableRow name="minute" type="'numeric' | '2-digit'" description="The format with which to render minutes" />
+  <PropsTableRow name="hour" type="'numeric' | '2-digit'" description="The format with which to render hours" />
   <PropsTableRow
     name="weekday"
     type="'short' | 'long' | 'narrow'"
     description="The format with which to render weekdays"
   />
-  <PropsTableRow
-    name="day"
-    type="'numeric' | '2-digit'"
-    description="The format with which to render days"
-  />
+  <PropsTableRow name="day" type="'numeric' | '2-digit'" description="The format with which to render days" />
   <PropsTableRow
     name="month"
     type="'numeric' | '2-digit' | 'short' | 'long' | 'narrow'"
     defaultValue="'numeric'"
     description="The format with which to render months"
   />
-  <PropsTableRow
-    name="year"
-    type="'numeric' | '2-digit'"
-    description="The format with which to render years"
-  />
+  <PropsTableRow name="year" type="'numeric' | '2-digit'" description="The format with which to render years" />
   <PropsTableRow
     name="timeZoneName"
     type="'long' | 'short' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'"
@@ -138,6 +113,6 @@ Formats a timestamp as a localized string or as relative text that auto-updates 
     stableApi: true,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />

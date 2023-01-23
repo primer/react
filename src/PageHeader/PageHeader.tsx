@@ -14,6 +14,21 @@ const REGION_ORDER = {
   Navigation: 3,
 }
 
+const CONTEXT_AREA_REGION_ORDER = {
+  ParentLink: 0,
+  ContextBar: 1,
+  ContextAreaActions: 2,
+}
+
+const TITLE_AREA_REGION_ORDER = {
+  LeadingAction: 0,
+  LeadingVisual: 1,
+  Title: 2,
+  TrailingVisual: 3,
+  TrailingAction: 4,
+  Actions: 5,
+}
+
 // Types that are shared between sub components
 export type sharedPropTypes = {
   hidden?: boolean | ResponsiveValue<boolean>
@@ -105,6 +120,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
             {
               display: 'flex',
               alignItems: 'center',
+              order: CONTEXT_AREA_REGION_ORDER.ParentLink,
               gap: '0.5rem',
               ...getBreakpointDeclarations(hidden, 'display', value => {
                 return value ? 'none' : 'flex'
@@ -136,6 +152,7 @@ const ContextBar: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
+          order: CONTEXT_AREA_REGION_ORDER.ContextBar,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -161,6 +178,7 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<PageHeaderProps>> = (
         {
           display: 'flex',
           flexDirection: 'row',
+          order: CONTEXT_AREA_REGION_ORDER.ContextAreaActions,
           alignItems: 'center',
           gap: '0.5rem',
           flexGrow: '1',
@@ -211,6 +229,7 @@ const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
           {
             display: 'flex',
             gap: '0.5rem',
+            order: REGION_ORDER.TitleArea,
             ...getBreakpointDeclarations(hidden, 'display', value => {
               return value ? 'none' : 'flex'
             }),
@@ -238,6 +257,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.LeadingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -259,6 +279,7 @@ const LeadingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chil
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.LeadingVisual,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -302,6 +323,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
             subtitle: '400',
           }[titleVariant],
           display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.Title,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -321,6 +343,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({chi
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.TrailingVisual,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -347,6 +370,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.TrailingAction,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -368,6 +392,7 @@ const Actions: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, 
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.Actions,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -393,6 +418,7 @@ const Description: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childr
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
+          order: REGION_ORDER.Description,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'flex'
           }),
@@ -415,6 +441,7 @@ const Navigation: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({childre
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
+          order: REGION_ORDER.Navigation,
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
           }),

@@ -29,51 +29,6 @@ const meta: Meta = {
   args: {},
 }
 
-const PrimerViewports = {
-  xsmall: {
-    name: 'Xsmall',
-    styles: {
-      width: '320px',
-      height: '100%',
-    },
-  },
-  small: {
-    name: 'Small',
-    styles: {
-      width: '540px',
-      height: '100%',
-    },
-  },
-  medium: {
-    name: 'Medium',
-    styles: {
-      width: '768px',
-      height: '100%',
-    },
-  },
-  large: {
-    name: 'Large',
-    styles: {
-      width: '1012px',
-      height: '100%',
-    },
-  },
-  xlarge: {
-    name: 'Xlarge',
-    styles: {
-      width: '1280px',
-      height: '100%',
-    },
-  },
-  xxlarge: {
-    name: 'XXlarge',
-    styles: {
-      width: '1400px',
-      height: '100%',
-    },
-  },
-}
-
 export const HasTitleOnly = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
@@ -128,7 +83,6 @@ export const WithLeadingVisualHiddenOnRegularViewport = () => (
 
 WithLeadingVisualHiddenOnRegularViewport.parameters = {
   viewport: {
-    viewports: PrimerViewports,
     defaultViewport: 'regular',
   },
 }
@@ -231,7 +185,6 @@ export const WithParentLinkAndActionsOfContextArea = () => (
 
 WithParentLinkAndActionsOfContextArea.parameters = {
   viewport: {
-    viewports: PrimerViewports,
     defaultViewport: 'small',
   },
 }
@@ -267,7 +220,6 @@ export const WithContextBarAndActionsOfContextArea = () => (
 
 WithContextBarAndActionsOfContextArea.parameters = {
   viewport: {
-    viewports: PrimerViewports,
     defaultViewport: 'small',
   },
 }

@@ -64,23 +64,27 @@ import {ActionList} from '@primer/react'
 
 Leading visuals are optional and appear at the start of an item. They can be octicons, avatars, and other custom visuals that fit a small area.
 
-<!-- prettier-ignore -->
 ```jsx live
 <ActionList>
   <ActionList.Item>
-    <ActionList.LeadingVisual><LinkIcon /></ActionList.LeadingVisual>
+    <ActionList.LeadingVisual>
+      <LinkIcon />
+    </ActionList.LeadingVisual>
     github.com/primer
   </ActionList.Item>
   <ActionList.Item variant="danger">
-    <ActionList.LeadingVisual><AlertIcon /></ActionList.LeadingVisual>
+    <ActionList.LeadingVisual>
+      <AlertIcon />
+    </ActionList.LeadingVisual>
     4 vulnerabilities
   </ActionList.Item>
   <ActionList.Item>
-    <ActionList.LeadingVisual><Avatar src="https://github.com/mona.png" /></ActionList.LeadingVisual>
+    <ActionList.LeadingVisual>
+      <Avatar src="https://github.com/mona.png" />
+    </ActionList.LeadingVisual>
     mona
   </ActionList.Item>
 </ActionList>
-
 ```
 
 ### With trailing visual
@@ -142,7 +146,6 @@ Item dividers allow users to parse heavier amounts of information. They're place
 
 When you want to add links to the List instead of actions, use `ActionList.LinkItem`
 
-<!-- prettier-ignore -->
 ```jsx live
 <ActionList>
   <ActionList.LinkItem href="https://github.com/primer">
@@ -157,11 +160,7 @@ When you want to add links to the List instead of actions, use `ActionList.LinkI
     </ActionList.LeadingVisual>
     MIT License
   </ActionList.LinkItem>
-  <ActionList.LinkItem 
-    href="https://github.com/primer/react/stargazers"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
+  <ActionList.LinkItem href="https://github.com/primer/react/stargazers" target="_blank" rel="noopener noreferrer">
     <ActionList.LeadingVisual>
       <StarIcon />
     </ActionList.LeadingVisual>
@@ -180,7 +179,7 @@ const SelectFields = () => {
     {text: 'Assignee', selected: true},
     {text: 'Team', selected: true},
     {text: 'Estimate', selected: false},
-    {text: 'Due Date', selected: false}
+    {text: 'Due Date', selected: false},
   ])
 
   const visibleOptions = options.filter(option => option.selected)
@@ -191,7 +190,7 @@ const SelectFields = () => {
       options.map(option => {
         if (option.text === text) option.selected = !option.selected
         return option
-      })
+      }),
     )
   }
 
@@ -446,7 +445,7 @@ render(<SelectFields />)
     stableApi: false, // TODO: revisit on April 10, 2022
     addressedApiFeedback: false,
     hasDesignGuidelines: true,
-    hasFigmaComponent: true
+    hasFigmaComponent: true,
   }}
 />
 

@@ -107,6 +107,7 @@ text after list`
     })
 
     it('calls onLinkClick on link click', async () => {
+      const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
       const user = userEvent.setup()
       const onLinkClick = jest.fn()
       const {getByRole} = render(
@@ -118,7 +119,15 @@ text after list`
       )
       const link = getByRole('link') as HTMLAnchorElement
       await user.click(link)
+
       expect(onLinkClick).toHaveBeenCalled()
+      expect(spy).toHaveBeenCalledTimes(1)
+      expect(spy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          message: 'Not implemented: navigation (except hash changes)',
+        }),
+      )
+      spy.mockRestore()
     })
   })
 })
