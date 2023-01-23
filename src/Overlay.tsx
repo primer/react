@@ -190,7 +190,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
-  const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
+    const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
 
     return (
       <Portal containerName={portalContainerName}>
