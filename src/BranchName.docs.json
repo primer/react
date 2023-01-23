@@ -1,0 +1,23 @@
+{
+  "id": "branch_name",
+  "name": "BranchName",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLAnchorElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"a\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}
