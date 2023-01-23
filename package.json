@@ -189,7 +189,7 @@
     "eslint-plugin-mdx": "1.15.1",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-primer-react": "0.7.4",
-    "eslint-plugin-react": "7.24.0",
+    "eslint-plugin-react": "7.32.1",
     "eslint-plugin-react-hooks": "4.2.0",
     "fast-glob": "3.2.12",
     "filesize": "10.0.6",
