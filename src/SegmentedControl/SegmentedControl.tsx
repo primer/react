@@ -53,7 +53,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   onChange,
   size,
   sx: sxProp = defaultSxProp,
-  variant,
+  variant = 'default',
   ...rest
 }) => {
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
@@ -212,10 +212,6 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 }
 
 Root.displayName = 'SegmentedControl'
-
-Root.defaultProps = {
-  variant: 'default',
-}
 
 export const SegmentedControl = Object.assign(Root, {
   Button,
