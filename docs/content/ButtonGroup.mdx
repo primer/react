@@ -6,6 +6,8 @@ source: https://github.com/primer/react/tree/main/src/ButtonGroup
 storybook: '/react/storybook?path=/story/components-buttongroup--default'
 ---
 
+import data from '../../src/ButtonGroup.docs.json'
+
 ```js
 import {ButtonGroup} from '@primer/react'
 ```
@@ -33,12 +35,8 @@ import {ButtonGroup} from '@primer/react'
 
 ## Props
 
-### ButtonGroup
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLDivElement" />
-</PropsTable>
 
 ## Status
 

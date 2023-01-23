@@ -5,6 +5,8 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/BranchName.tsx
 ---
 
+import data from '../../src/BranchName.docs.json'
+
 ```js
 import {BranchName} from '@primer/react'
 ```
@@ -19,18 +21,8 @@ BranchName is a label-type component rendered as an `<a>` tag by default with mo
 
 ## Props
 
-### BranchName
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableBasePropRows
-    elementType="a"
-    refType="HTMLAnchorElement"
-    isPolymorphic
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
-    }
-  />
-</PropsTable>
 
 ## Status
 

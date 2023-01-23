@@ -5,6 +5,8 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/Flash.tsx
 ---
 
+import data from '../../src/Flash.docs.json'
+
 ```js
 import {Flash} from '@primer/react'
 ```
@@ -37,25 +39,8 @@ Flash components with icons inside of them will automatically set the correct co
 
 ## Props
 
-### Flash
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="full" type="boolean" defaultValue="false" description="Creates a full width Flash component" />
-  <PropsTableRow
-    name="variant"
-    type="'default' | 'success' | 'warning' | 'danger'"
-    defaultValue="'default'"
-    description="Sets the background color and border"
-  />
-  <PropsTableBasePropRows
-    elementType="div"
-    isPolymorphic
-    refType="HTMLDivElement"
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#Attributes">MDN</Link>
-    }
-  />
-</PropsTable>
 
 ## Status
 

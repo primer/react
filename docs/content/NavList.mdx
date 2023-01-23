@@ -7,6 +7,8 @@ source: https://github.com/primer/react/tree/main/src/NavList
 storybook: '/react/storybook/?path=/story/components-navlist--simple'
 ---
 
+import data from '../../src/NavList/NavList.docs.json'
+
 ```js
 import {NavList} from '@primer/react'
 ```
@@ -239,100 +241,8 @@ function App() {
 
 ## Props
 
-### NavList
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="aria-label" type="string" />
-  <PropsTableRow name="aria-labelledby" type="string" />
-  <PropsTableBasePropRows
-    elementType="nav"
-    refType="HTMLElement"
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav#Attributes">MDN</Link>
-    }
-  />
-</PropsTable>
-
-### NavList.Item
-
-<PropsTable>
-  <PropsTableRow
-    name="href"
-    type="string"
-    description={
-      <>
-        The URL that the item navigates to. <InlineCode>href</InlineCode> is passed to the underlying{' '}
-        <InlineCode>&lt;a&gt;</InlineCode> element. If <InlineCode>as</InlineCode> is specified, the component may need
-        different props. If the item contains a sub-nav, the item is rendered as a{' '}
-        <InlineCode>&lt;button&gt;</InlineCode> and <InlineCode>href</InlineCode> is ignored.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="aria-current"
-    type={`| 'page'
-| 'step'
-| 'location'
-| 'date'
-| 'time'
-| true
-| false`}
-    defaultValue="false"
-    description={
-      <>
-        Set <InlineCode>aria-current</InlineCode> to <InlineCode>"page"</InlineCode> to indicate that the item
-        represents the current page. Set <InlineCode>aria-current</InlineCode> to <InlineCode>"location"</InlineCode> to
-        indicate that the item represents the current location on a page. For more information about{' '}
-        <InlineCode>aria-current</InlineCode>, see{' '}
-        <Link href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current">MDN</Link>.
-      </>
-    }
-  />
-  <PropsTableBasePropRows
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
-    }
-    elementType="a"
-    isPolymorphic
-    refType="HTMLAnchorElement"
-  />
-</PropsTable>
-
-### NavList.LeadingVisual
-
-<PropsTable>
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLElement" />
-</PropsTable>
-
-### NavList.TrailingVisual
-
-<PropsTable>
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLElement" />
-</PropsTable>
-
-### NavList.SubNav
-
-<PropsTable>
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLElement" />
-</PropsTable>
-
-### NavList.Group
-
-<PropsTable>
-  <PropsTableRow name="title" type="string" description="Title of the group." /> {/* Should `title` be required? */}
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLElement" />
-</PropsTable>
-
-### NavList.Divider
-
-<PropsTable>
-  <PropsTableSxRow />
-  <PropsTableRefRow refType="HTMLElement" />
-</PropsTable>
 
 ## Status
 

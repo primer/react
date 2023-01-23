@@ -7,6 +7,8 @@ source: https://github.com/primer/react/blob/main/src/CheckboxGroup/CheckboxGrou
 storybook: '/react/storybook/?path=/story/components-forms-checkboxgroup-examples'
 ---
 
+import data from '../../src/CheckboxGroup.docs.json'
+
 import {CheckboxGroup, Checkbox, Box} from '@primer/components'
 import {CheckIcon, XIcon, AlertIcon} from '@primer/octicons-react'
 
@@ -215,85 +217,8 @@ render(<WithOnChangeHandlers />)
 
 ## Props
 
-### CheckboxGroup
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="aria-labelledby"
-    type="string"
-    description="Used when associating the input group with a label other than CheckboxGroup.Label"
-  />
-  <PropsTableRow
-    name="children"
-    type="CheckboxGroup.Label | CheckboxGroup.Caption | CheckboxGroup.Validation | FormControl"
-    required
-  />
-  <PropsTableRow
-    name="disabled"
-    type="boolean"
-    defaultValue="false"
-    description="Whether the input group allows user input"
-  />
-  <PropsTableRow
-    name="id"
-    type="string"
-    defaultValue="a generated string"
-    description={
-      <span>
-        The unique identifier for this input group. Used to associate the label, validation text, and caption text.{' '}
-        <br /> You may want a custom ID to make it easier to select elements in integration tests.
-      </span>
-    }
-  />
-  <PropsTableRow
-    name="onChange"
-    type="(selected: string[], e?: ChangeEvent<HTMLInputElement>) => void"
-    description="An onChange handler that gets called when the selection changes"
-  />
-  <PropsTableRow
-    name="required"
-    type="boolean"
-    defaultValue="false"
-    description="If true, the user must make a selection before the owning form can be submitted"
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-### CheckboxGroup.Label
-
-A title for the set of choices. If a `CheckboxGroup.Label` is not passed as a child, you must pass the external title's ID to the `aria-describedby` prop on `CheckboxGroup`
-
-<PropsTable>
-  <PropsTableRow
-    name="visuallyHidden"
-    type="boolean"
-    defaultValue="false"
-    description="If true, the fieldset legend will be visually hidden"
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-### CheckboxGroup.Description
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" description="The caption content" />
-  <PropsTableSxRow />
-</PropsTable>
-
-### CheckboxGroup.Validation
-
-If the user's selection has been flagged during validation, `CheckboxGroup.Validation` may be used to render contextual validation information to help the user complete their task
-
-<PropsTable>
-  <PropsTableRow name="children" type="React.ReactNode" description="The validation message" />
-  <PropsTableRow
-    required
-    name="variant"
-    type="'error' | 'success' | 'warning'"
-    description="Changes the visual style to match the validation status"
-  />
-  <PropsTableSxRow />
-</PropsTable>
 
 ## Status
 

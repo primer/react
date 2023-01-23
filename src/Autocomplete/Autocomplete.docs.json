@@ -1,0 +1,24 @@
+{
+  "id": "autocomplete",
+  "name": "Autocomplete",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [],
+  "subcomponents": [
+    {
+      "name": "Autocomplete.Input",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "TextInput"
+        }
+      ],
+      "passthrough": {
+        "element": "TextInput",
+        "url": "/react/TextInput"
+      }
+    }
+  ]
+}

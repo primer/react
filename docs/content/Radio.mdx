@@ -7,6 +7,8 @@ source: https://github.com/primer/react/blob/main/src/Radio.tsx
 storybook: '/react/storybook?path=/story/components-forms-radiogroup'
 ---
 
+import data from '../../src/Radio.docs.json'
+
 ## Examples
 
 <Note variant="warning">
@@ -88,33 +90,8 @@ If you're not building something custom, you should use the [RadioGroup](/RadioG
 
 ## Props
 
-### Radio
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="value" type="string" required description="A unique value that is never shown to the user" />
-  <PropsTableRow name="name" type="string" description="Required for grouping multiple radios" />
-  <PropsTableRow name="checked" type="boolean" description="Modifies true/false value of the native radio" />
-  <PropsTableRow name="defaultChecked" type="boolean" description="Selects the radio by default in uncontrolled mode" />
-  <PropsTableRow
-    name="onChange"
-    type="(event: React.ChangeEvent) => void"
-    description="A callback function that is triggered when the input state has been changed"
-  />
-  <PropsTableRow
-    name="disabled"
-    type="boolean"
-    description="Modifies the native disabled state of the native checkbox"
-  />
-  <PropsTableBasePropRows
-    elementType="input"
-    refType="HTMLInputElement"
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#additional_attributes">
-        MDN
-      </Link>
-    }
-  />
-</PropsTable>
 
 ## Status
 

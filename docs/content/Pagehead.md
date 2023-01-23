@@ -6,6 +6,8 @@ source: https://github.com/primer/react/blob/main/src/Pagehead.tsx
 status: Alpha
 ---
 
+import data from '../../src/Pagehead.docs.json'
+
 ```js
 import {Pagehead} from '@primer/react'
 ```
@@ -18,17 +20,8 @@ import {Pagehead} from '@primer/react'
 
 ## Props
 
-### Pagehead
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="as"
-    defaultValue="div"
-    type="string"
-    description="Sets the underlying HTML tag for the component"
-  />
-  <PropsTableSxRow />
-</PropsTable>
 
 ## Status
 

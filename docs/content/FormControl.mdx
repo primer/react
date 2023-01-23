@@ -7,6 +7,8 @@ source: https://github.com/primer/react/blob/main/src/FormControl/FormControl.ts
 storybook: '/react/storybook?path=/story/components-forms-autocomplete'
 ---
 
+import data from '../../src/FormControl/FormControl.docs.json'
+
 import {
   FormControl,
   TextInputWithTokens,
@@ -348,111 +350,8 @@ render(ValidationExample)
 
 ## Props
 
-### FormControl
+<ComponentProps data={data} />
 
-The container that handles the layout and passes the relevant IDs and ARIA attributes its children.
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type="FormControl.Label | FormControl.Caption | FormControl.Validation | Autocomplete | TextInput | TextInputWithTokens | Select"
-    required
-  />
-  <PropsTableRow
-    name="disabled"
-    type="boolean"
-    defaultValue="false"
-    description="Whether the control allows user input"
-  />
-  <PropsTableRow
-    name="id"
-    type="string"
-    defaultValue="a generated string"
-    description="The unique identifier for this control. Used to associate the label, validation text, and caption text"
-  />
-  <PropsTableRow
-    name="required"
-    type="boolean"
-    defaultValue="false"
-    description="If true, the user must specify a value for the input before the owning form can be submitted"
-  />
-  <PropsTableRefRow refType="HTMLDivElement" />
-  <PropsTableSxRow />
-</PropsTable>
-
-### FormControl.Label
-
-A `FormControl.Label` must be passed for the field to be accessible to assistive technology, but it may be visually hidden.
-
-<PropsTable>
-  <PropsTableRow
-    name="visuallyHidden"
-    type="boolean"
-    defaultValue="false"
-    description="Whether the label should be visually hidden"
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-### FormControl.Caption
-
-`FormControl.Caption` may be used to render hint text for fields that require additional context.
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type="React.ReactNode"
-    description="The content (usually just text) that is rendered to give contextual info about the field"
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-### FormControl.Validation
-
-Use `FormControl.Validation` to render contextual validation information if necessary.
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type="React.ReactNode"
-    description="The content (usually just text) that is rendered to give contextual info about the validation result for the field"
-  />
-  <PropsTableRow
-    required
-    name="variant"
-    type="'error' | 'success' | 'warning'"
-    description="Changes the visual style to match the validation status"
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-<Note>
-
-Validation messages should not be shown for an individual checkbox or radio form control, so `FormControl.Validation`
-will not be rendered when a `Checkbox` or `Radio` is not a child of `FormControl`. Validation messages for checkbox
-and radio selections should only apply to the entire group of inputs.
-
-</Note>
-
-### FormControl.LeadingVisual
-
-Use `FormControl.LeadingVisual` if the selectable option is easier to understand with a visual.
-
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    type="React.ReactNode"
-    description="The visual to render before the choice input's label"
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-<Note>
-
-Only a checkbox or radio form control may have a leading visual. If you want to render a leading visual
-**inside** an input, check if that input component supports a leading visual.
-
-</Note>
 
 ## Component status
 

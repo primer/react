@@ -4,6 +4,8 @@ title: SelectPanel
 status: Alpha
 ---
 
+import data from '../../src/SelectPanel/SelectPanel.docs.json'
+
 A `SelectPanel` provides an anchor that will open an overlay with a list of selectable items, and a text input to filter the selectable items
 
 ## Example
@@ -82,46 +84,8 @@ alternative to activating the save button.
 
 ## Props
 
-### SelectPanel
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="onOpenChange"
-    type={`(
-  open: boolean,
-  gesture:
-    | 'anchor-click'
-    | 'anchor-key-press'
-    | 'click-outside'
-    | 'escape'
-    | 'selection'
-) => void`}
-    required
-  />
-  <PropsTableRow name="placeholder" type="string" />
-  <PropsTableRow
-    name="overlayProps"
-    type="Partial<OverlayProps>"
-    description={
-      <>
-        See <a href="/react/Overlay#props">Overlay props</a>.
-      </>
-    }
-  />
-  <PropsTableRow name="title" type="string" />
-  <PropsTableRow name="inputLabel" type="string" />
-  <PropsTableRow name="inputPlaceholder" type="string" />
-  <PropsTableRow
-    name="selected"
-    type="ItemInput | ItemInput[] | undefined"
-    description="Specify the selected item(s)"
-  />
-  <PropsTableRow
-    name="onSelectedChange"
-    type="(selected: ItemInput | ItemInput[]) => void"
-    description="Provide a callback called when the selected item(s) change"
-  />
-</PropsTable>
 
 ## Status
 

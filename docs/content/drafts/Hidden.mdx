@@ -7,6 +7,8 @@ source: https://github.com/primer/react/blob/main/src/Hidden/index.tsx
 storybook: '/react/storybook/?path=/story/drafts-components-hidden--playground'
 ---
 
+import data from '../../../src/Hidden/Hidden.docs.json'
+
 The `Hidden` component is a utility component that will help you hide or show content/components in different viewports.
 
 <Note>Use Hidden only to control behaviour in a responsive manner. It does not take any `sx` props.</Note>
@@ -31,15 +33,8 @@ The `Hidden` component is a utility component that will help you hide or show co
 
 ## Props
 
-### Hidden
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="on"
-    type={`'narrow' | 'wide' | 'regular' | Array<'narrow' | 'regular' | 'wide'>`}
-    description="In which viewport(s) the children are going to be hidden"
-  />
-</PropsTable>
 
 ## Status
 

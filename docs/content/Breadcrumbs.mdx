@@ -6,6 +6,8 @@ description: Use breadcrumbs to show navigational context on pages that are many
 source: https://github.com/primer/react/blob/main/src/Breadcrumbs.tsx
 ---
 
+import data from '../../src/Breadcrumbs.docs.json'
+
 ```js
 import {Breadcrumbs} from '@primer/react'
 ```
@@ -35,26 +37,8 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ## Props
 
-### Breadcrumbs
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="children" type="Breadcrumbs.Item[]" />
-  <PropsTableSxRow />
-</PropsTable>
-
-### Breadcrumbs.Item
-
-<PropsTable>
-  <PropsTableRow name="selected" type="boolean" defaultValue="false" />
-  <PropsTableBasePropRows
-    elementType="a"
-    refType="HTMLAnchorElement"
-    isPolymorphic
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes">MDN</Link>
-    }
-  />
-</PropsTable>
 
 ## Status
 

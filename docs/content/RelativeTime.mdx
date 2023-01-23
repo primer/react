@@ -5,6 +5,8 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/RelativeTime.tsx
 ---
 
+import data from '../../src/RelativeTime/RelativeTime.docs.json'
+
 ```js
 import {RelativeTime} from '@primer/react'
 ```
@@ -27,74 +29,8 @@ Formats a timestamp as a localized string or as relative text that auto-updates 
 
 ## Props
 
-### RelativeTime
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="datetime" type="string" required description="An ISO8601 time represeting the time" />
-  <PropsTableRow
-    name="date"
-    type="string"
-    description="Instead of passing the `datetime`, it is possible to pass a full `Date` object into the `date` prop"
-  />
-  <PropsTableRow
-    name="format"
-    type="'auto' | 'micro' | 'elapsed'"
-    defaultValue="'auto'"
-    description="The format with which to display the time"
-  />
-  <PropsTableRow
-    name="tense"
-    type="'auto' | 'past' | 'future'"
-    defaultValue="'auto'"
-    description="The tense to use when displaying a relative time"
-  />
-  <PropsTableRow
-    name="precision"
-    type="'year' | 'month' | 'day' | 'hour' | 'minute' | 'second'"
-    defaultValue="'second'"
-    description="The precision to use when displaying an elapsed time"
-  />
-  <PropsTableRow
-    name="threshold"
-    type="string"
-    defaultValue="'P30D'"
-    description="The threshold (ISO8601 duration) to display relative dates within"
-  />
-  <PropsTableRow
-    name="prefix"
-    type="string"
-    defaultValue="'on'"
-    description="The prefix to use when displaying a localised (non relative) date"
-  />
-  <PropsTableRow name="second" type="'numeric' | '2-digit'" description="The format with which to render seconds" />
-  <PropsTableRow name="minute" type="'numeric' | '2-digit'" description="The format with which to render minutes" />
-  <PropsTableRow name="hour" type="'numeric' | '2-digit'" description="The format with which to render hours" />
-  <PropsTableRow
-    name="weekday"
-    type="'short' | 'long' | 'narrow'"
-    description="The format with which to render weekdays"
-  />
-  <PropsTableRow name="day" type="'numeric' | '2-digit'" description="The format with which to render days" />
-  <PropsTableRow
-    name="month"
-    type="'numeric' | '2-digit' | 'short' | 'long' | 'narrow'"
-    defaultValue="'numeric'"
-    description="The format with which to render months"
-  />
-  <PropsTableRow name="year" type="'numeric' | '2-digit'" description="The format with which to render years" />
-  <PropsTableRow
-    name="timeZoneName"
-    type="'long' | 'short' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'"
-    description="The format with which to render the time zone"
-  />
-  <PropsTableBasePropRows
-    elementType="relative-time"
-    refType="RelativeTimeElement"
-    passthroughPropsLink={
-      <Link href="https://github.com/github/relative-time-element/">@github/relative-time-element</Link>
-    }
-  />
-</PropsTable>
 
 ## Status
 

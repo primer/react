@@ -7,6 +7,8 @@ source: https://github.com/primer/react/tree/main/src/InlineAutocomplete
 storybook: '/react/storybook?path=/story/components-forms-inlineautocomplete--default'
 ---
 
+import data from '../../../src/drafts/InlineAutocomplete/InlineAutocomplete.docs.json'
+
 ```js
 import {InlineAutocomplete} from '@primer/react/drafts'
 ```
@@ -100,47 +102,8 @@ render(SimpleExample)
 
 ## Props
 
-### InlineAutocomplete
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    required
-    type="React.ReactNode"
-    description="An `input` or `textarea` compatible component to extend. A compatible component is any component that forwards a ref and props to an underlying `input` or `textarea` element, including but not limited to `Input`, `TextArea`, `input`, `textarea`, `styled.input`, and `styled.textarea`. If the child is not compatible, a runtime `TypeError` will be thrown."
-  />
-  <PropsTableRow
-    name="triggers"
-    required
-    type="Array<Trigger>"
-    description="Register the triggers that can cause suggestions to appear."
-  />
-  <PropsTableRow
-    name="onShowSuggestions"
-    type="(event: ShowSuggestionsEvent) => void"
-    required
-    description="Called when a valid suggestion query is updated. This should be handled by setting the `suggestions` prop accordingly."
-  />
-  <PropsTableRow
-    name="onShowSuggestions"
-    type="() => void"
-    required
-    description="Called when suggestions should be hidden. Set `suggestions` to `null` or an empty array in this case."
-  />
-  <PropsTableRow
-    name="suggestions"
-    type="Suggestion[] | null | 'loading'"
-    required
-    description="The currently visible list of suggestions. If `loading`, a loading indicator will be shown. If `null` or empty, the list will be hidden. Suggestion sort will be preserved. Typically, this should not contain more than five or so suggestions."
-  />
-  <PropsTableRow
-    name="tabInsertsSuggestions"
-    type="boolean"
-    defaultValue="false"
-    description="If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just `Enter`. This may be expected behavior for users used to IDEs, but use caution when hijacking browser tabbing capability."
-  />
-  <PropsTableSxRow />
-</PropsTable>
 
 ## Status
 

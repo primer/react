@@ -6,6 +6,8 @@ source: https://github.com/primer/react/blob/main/src/Portal/Portal.tsx
 status: Alpha
 ---
 
+import data from '../../src/Portal/Portal.docs.json'
+
 ```js
 import {Portal, registerPortalRoot} from '@primer/react'
 ```
@@ -78,16 +80,8 @@ There may be situations where you want to have multiple portal roots. Advanced s
 
 ## Props
 
-### Portal
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="onMount" type="function" description="Called when this portal is added to the DOM" />
-  <PropsTableRow
-    name="containerName"
-    type="string"
-    description="Renders the portal children into the container registered with the given name. If omitted, children are rendered into the default portal root."
-  />
-</PropsTable>
 
 ## Status
 
