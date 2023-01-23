@@ -1,4 +1,3 @@
-import {addons} from '@storybook/addons'
 import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
 import {PrimerBreakpoints} from '../src/utils/layout'
 
@@ -15,12 +14,6 @@ Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
       height: '100%',
     },
   }
-})
-
-addons.setConfig({
-  // Some stories may set up keyboard event handlers, which can be interfered
-  // with by these keyboard shortcuts.
-  enableShortcuts: false,
 })
 
 export const parameters = {
