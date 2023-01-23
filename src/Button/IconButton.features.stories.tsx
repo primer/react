@@ -21,8 +21,3 @@ export const Small = () => <IconButton size="small" icon={HeartIcon} aria-label=
 export const Medium = () => <IconButton size="medium" icon={HeartIcon} aria-label="Default" />
 
 export const Large = () => <IconButton size="large" icon={HeartIcon} aria-label="Default" />
-
-// remove before merging
-export const CustomSize = () => (
-  <IconButton aria-label="Expand" variant="primary" size="small" icon={ChevronDownIcon} sx={{width: 16, height: 16}} />
-)

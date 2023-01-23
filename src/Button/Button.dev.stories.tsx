@@ -1,0 +1,58 @@
+import {SearchIcon, TriangleDownIcon, EyeIcon} from '@primer/octicons-react'
+import React from 'react'
+import {Button} from '.'
+
+export default {
+  title: 'Components/Button/DevOnly',
+}
+
+export const InvisibleVariants = () => {
+  const count = 4
+  return (
+    <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+      <Button variant="invisible">Button</Button>
+      <Button variant="invisible" leadingIcon={SearchIcon}>
+        Button
+      </Button>
+      <Button variant="invisible" trailingAction={TriangleDownIcon}>
+        Button
+      </Button>
+      <Button variant="invisible">
+        Button
+        <Button.Counter>{count}</Button.Counter>
+      </Button>
+      <Button variant="invisible" leadingIcon={EyeIcon}>
+        Button
+        <Button.Counter>{count}</Button.Counter>
+      </Button>
+      <Button variant="invisible" leadingIcon={EyeIcon} trailingAction={TriangleDownIcon}>
+        Button
+        <Button.Counter>{count}</Button.Counter>
+      </Button>
+    </div>
+  )
+}
+
+export const TestSxProp = () => {
+  const count = 4
+  return (
+    <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+      <Button variant="invisible" sx={{color: 'deeppink'}}>
+        Pink
+      </Button>
+      <Button leadingIcon={SearchIcon} variant="invisible" sx={{color: 'deeppink'}}>
+        Pink
+      </Button>
+      <Button size="small" variant="invisible" sx={{width: 32, height: 32}}>
+        Custom size
+      </Button>
+      <Button size="small" block variant="invisible" sx={{width: 320}}>
+        Overriden Block
+      </Button>
+      <Button>
+        Watch
+        <Button.Counter sx={{fontSize: 16}}>{count}</Button.Counter>
+      </Button>
+    </div>
+  )
+}
