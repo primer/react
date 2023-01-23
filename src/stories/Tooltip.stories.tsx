@@ -33,8 +33,8 @@ export const IconButtonTooltip = () => (
 
 export const TooltipExample = () => (
   <Box sx={{p: 5}}>
-    <TooltipPopover aria-label="Search">
-      <button>Click me</button>
+    <TooltipPopover aria-label="Search for something lorem ipsum" direction="e">
+      <button>What if the button is really long??</button>
     </TooltipPopover>
   </Box>
 )

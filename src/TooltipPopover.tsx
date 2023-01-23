@@ -36,6 +36,7 @@ const TooltipBase = styled('span')
     padding: 0;
     --width: 0;
     --height: 0;
+    --anchor-width: 0;
 
     @keyframes tooltip-appear {
       from {
@@ -101,20 +102,20 @@ const TooltipBase = styled('span')
 
     &.tooltipped-nw {
       &::after {
-        right: calc(var(--width) / 4 + 0.25em);
+        right: 0.5em;
       }
     }
 
     &.tooltipped-ne {
       &::after {
-        right: calc(var(--width) / 4 * 3);
+        left: 0.5em;
       }
     }
 
     &.tooltipped-sw {
       padding-top: 10px;
       &::after {
-        right: calc(var(--width) / 4 + 0.25em);
+        right: 0.5em;
         top: 0;
         border-bottom-color: ${get('colors.neutral.emphasisPlus')};
       }
@@ -123,7 +124,7 @@ const TooltipBase = styled('span')
     &.tooltipped-se {
       padding-top: 10px;
       &::after {
-        right: calc(var(--width) / 4 * 3);
+        left: 0.5em;
         top: 0;
         border-bottom-color: ${get('colors.neutral.emphasisPlus')};
       }
@@ -166,7 +167,6 @@ const TooltipBase = styled('span')
         border-collapse: separate;
       }
     }
-
     ${sx}
   }
 `
@@ -214,6 +214,7 @@ const TooltipPopover = ({
 
       const anchor = event.currentTarget as HTMLElement
       const {top, left, width, height} = anchor.getBoundingClientRect()
+      anchored.style.setProperty('--anchor-width', `${width}px`)
       let [_top, _left] = [0, 0]
 
       if (direction === 'n' || direction === 'ne' || direction === 'nw') {
@@ -231,7 +232,7 @@ const TooltipPopover = ({
       }
 
       if (direction === 'nw' || direction === 'sw') {
-        _left = left - anchored.clientWidth * 0.75 + width * 0.6
+        _left = left + width - anchored.clientWidth
       }
 
       if (direction === 'w') {
@@ -239,7 +240,7 @@ const TooltipPopover = ({
       }
 
       if (direction === 'se' || direction === 'ne') {
-        _left = left - anchored.clientWidth * 0.25 + width / 2
+        _left = left
       }
 
       if (direction === 'e') {
