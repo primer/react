@@ -17,7 +17,7 @@ import {
   CheckboxGroup,
   Radio,
   RadioGroup,
-  Text
+  Text,
 } from '@primer/react'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
@@ -39,7 +39,7 @@ const DifferentInputs = () => {
   const [tokens, setTokens] = React.useState([
     {text: 'zero', id: 0},
     {text: 'one', id: 1},
-    {text: 'two', id: 2}
+    {text: 'two', id: 2},
   ])
   const onTokenRemove = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -64,7 +64,7 @@ const DifferentInputs = () => {
                 {text: 'javascript', id: 3},
                 {text: 'typescript', id: 4},
                 {text: 'react', id: 5},
-                {text: 'design-systems', id: 6}
+                {text: 'design-systems', id: 6},
               ]}
               selectedItemIds={[]}
             />
@@ -471,6 +471,6 @@ Only a checkbox or radio form control may have a leading visual. If you want to 
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />

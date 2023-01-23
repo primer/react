@@ -86,7 +86,7 @@ function CaretSelector(props) {
     'top-left',
     'bottom-left',
     'top-right',
-    'bottom-right'
+    'bottom-right',
   ].map(dir => (
     <label>
       <input

@@ -69,7 +69,7 @@ A function may be passed to the `filterFn` prop if this default filtering behavi
           {text: 'radio-input-component', id: 4},
           {text: 'release-1.0.0', id: 5},
           {text: 'text-input-implementation', id: 6},
-          {text: 'visual-design-tweaks', id: 7}
+          {text: 'visual-design-tweaks', id: 7},
         ]}
         selectedItemIds={[]}
         aria-labelledby="autocompleteLabel-basic"
@@ -128,7 +128,7 @@ const CustomTextInputExample = () => {
               {text: 'four', id: 4},
               {text: 'five', id: 5},
               {text: 'six', id: 6},
-              {text: 'seven', id: 7}
+              {text: 'seven', id: 7},
             ]}
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
@@ -160,7 +160,7 @@ render(<CustomTextInputExample />)
         {text: 'radio-input-component', id: 4},
         {text: 'release-1.0.0', id: 5},
         {text: 'text-input-implementation', id: 6},
-        {text: 'visual-design-tweaks', id: 7}
+        {text: 'visual-design-tweaks', id: 7},
       ]}
       selectedItemIds={[]}
       aria-labelledby="autocompleteLabel-withoutOverlay"
@@ -193,7 +193,7 @@ const CustomRenderedItemExample = () => {
   const [tokens, setTokens] = React.useState([
     {text: 'enhancement', id: 1, fillColor: '#a2eeef'},
     {text: 'bug', id: 2, fillColor: '#d73a4a'},
-    {text: 'good first issue', id: 3, fillColor: '#0cf478'}
+    {text: 'good first issue', id: 3, fillColor: '#0cf478'},
   ])
   const selectedTokenIds = tokens.map(token => token.id)
   const [selectedItemIds, setSelectedItemIds] = React.useState(selectedTokenIds)
@@ -241,12 +241,12 @@ const CustomRenderedItemExample = () => {
                 leadingVisual: getColorCircle('#0cf478'),
                 text: 'good first issue',
                 id: 3,
-                metadata: {fillColor: '#0cf478'}
+                metadata: {fillColor: '#0cf478'},
               },
               {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4, metadata: {fillColor: '#ffd78e'}},
               {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5, metadata: {fillColor: '#ff0000'}},
               {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6, metadata: {fillColor: '#a4f287'}},
-              {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7, metadata: {fillColor: '#8dc6fc'}}
+              {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7, metadata: {fillColor: '#8dc6fc'}},
             ]}
             selectedItemIds={selectedItemIds}
             onSelectedChange={onSelectedChange}
@@ -295,7 +295,7 @@ const CustomSortAfterMenuClose = () => {
               {text: 'radio-input-component', id: 4},
               {text: 'release-1.0.0', id: 5},
               {text: 'text-input-implementation', id: 6},
-              {text: 'visual-design-tweaks', id: 7}
+              {text: 'visual-design-tweaks', id: 7},
             ]}
             selectedItemIds={selectedItemIds}
             aria-labelledby="autocompleteLabel-sortAfterClose"
@@ -339,7 +339,7 @@ const CustomSearchFilter = () => {
               {text: 'radio-input-component', id: 4},
               {text: 'release-1.0.0', id: 5},
               {text: 'text-input-implementation', id: 6},
-              {text: 'visual-design-tweaks', id: 7}
+              {text: 'visual-design-tweaks', id: 7},
             ]}
             selectedItemIds={[]}
             aria-labelledby="autocompleteLabel-customFilter"
@@ -410,8 +410,8 @@ const InOverlayWithCustomScrollContainerRef = () => {
                   boxShadow: 'none',
                   ':focus-within': {
                     border: '0',
-                    boxShadow: 'none'
-                  }
+                    boxShadow: 'none',
+                  },
                 }}
               />
             </Box>
@@ -425,7 +425,7 @@ const InOverlayWithCustomScrollContainerRef = () => {
                   {text: 'radio-input-component', id: 4},
                   {text: 'release-1.0.0', id: 5},
                   {text: 'text-input-implementation', id: 6},
-                  {text: 'visual-design-tweaks', id: 7}
+                  {text: 'visual-design-tweaks', id: 7},
                 ]}
                 selectedItemIds={[]}
                 customScrollContainerRef={scrollContainerRef}
@@ -454,7 +454,7 @@ const MultiSelect = () => {
     {text: 'radio-input-component', id: 4},
     {text: 'release-1.0.0', id: 5},
     {text: 'text-input-implementation', id: 6},
-    {text: 'visual-design-tweaks', id: 7}
+    {text: 'visual-design-tweaks', id: 7},
   ]
   const [selectedItemIds, setSelectedItemIds] = React.useState([])
   const onSelectedChange = newlySelectedItems => {
@@ -520,7 +520,7 @@ const MultiSelectAddNewItem = () => {
     {text: 'radio-input-component', id: 4},
     {text: 'release-1.0.0', id: 5},
     {text: 'text-input-implementation', id: 6},
-    {text: 'visual-design-tweaks', id: 7}
+    {text: 'visual-design-tweaks', id: 7},
   ])
   const getItemById = id => localItemsState.find(item => item.id === id)
   const [filterVal, setFilterVal] = React.useState('')
@@ -553,10 +553,10 @@ const MultiSelectAddNewItem = () => {
                         onItemSelect({
                           ...item,
                           text: filterVal,
-                          selected: true
+                          selected: true,
                         })
                         setFilterVal('')
-                      }
+                      },
                     }
                   : undefined
               }
@@ -631,7 +631,7 @@ export function AutocompleteWithContextInternal() {
             {text: 'radio-input-component', id: 4},
             {text: 'release-1.0.0', id: 5},
             {text: 'text-input-implementation', id: 6},
-            {text: 'visual-design-tweaks', id: 7}
+            {text: 'visual-design-tweaks', id: 7},
           ]}
           selectedItemIds={[]}
           selectionVariant="single"
@@ -680,6 +680,6 @@ export function AutocompleteWithContextInternal() {
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: true,
-    hasFigmaComponent: true
+    hasFigmaComponent: true,
   }}
 />

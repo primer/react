@@ -149,7 +149,6 @@ export const parameters = {
       return compare(getHierarchy(a), getHierarchy(b))
     },
   },
-
   viewport: {
     viewports: {
       ...storybookViewports,

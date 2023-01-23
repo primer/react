@@ -45,7 +45,7 @@ jobs:
             core.info(`${previews.length} preview environments found`);
 
             core.startGroup('Status');
-            
+
             const changes = [];
 
             for (const preview of previews) {
@@ -82,9 +82,9 @@ jobs:
                 type: 'removed',
               });
             }
-            
+
             core.endGroup();
-            
+
             await core.summary
               .addHeading('Environments')
               .addTable([
