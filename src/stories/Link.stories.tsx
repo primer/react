@@ -24,7 +24,7 @@ const meta: Meta = {
 }
 export default meta
 
-export function AvatarStackStory(): JSX.Element {
+export function LinkStory(): JSX.Element {
   return <Link as="i"> hi</Link>
 }
-AvatarStackStory.storyName = 'AvatarStack'
+LinkStory.storyName = 'Link'
