@@ -35,11 +35,9 @@ A separate component called `IconButton` is used if the action shows only an ico
 </>
 ```
 
-## API reference
+## Props
 
-Native `<button>` HTML attributes are forwarded to the underlying React `button` component and are not listed below.
-
-### Button
+### IconButton
 
 <PropsTable>
   <PropsTableRow name="children" required type="React.ReactNode" description="This will be the Button description." />
@@ -59,6 +57,12 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
     description="provide an octicon. It will be placed in the center of the button"
   />
   <PropsTableSxRow />
+  <PropsTablePassthroughPropsRow
+    elementName="button"
+    passthroughPropsLink={
+      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes">MDN</Link>
+    }
+  />
 </PropsTable>
 
 ## Component status
@@ -77,6 +81,6 @@ Native `<button>` HTML attributes are forwarded to the underlying React `button`
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />

@@ -94,7 +94,7 @@ const LoadingToggle = () => {
     on => {
       setLoading(false)
     },
-    [setLoading]
+    [setLoading],
   )
 
   return (
@@ -159,6 +159,8 @@ render(LoadingToggle)
 
 ## Props
 
+### ToggleSwitch
+
 <PropsTable>
   <PropsTableRow name="aria-describedby" type="string" description="The id of the DOM node that describes the switch" />
   <PropsTableRow
@@ -215,6 +217,6 @@ render(LoadingToggle)
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />
