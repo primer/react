@@ -54,7 +54,7 @@ jobs:
               core.setFailed('Unable to parse Pull Request number from artifact');
             } else {
               core.setOutput('number', number);
-            }          
+            }
 
   commit-and-push:
     needs: pull-request

@@ -1,0 +1,9 @@
+{
+  "id": "sub_nav",
+  "name": "SubNav",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [],
+  "subcomponents": []
+}
