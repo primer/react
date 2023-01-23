@@ -131,6 +131,32 @@ const components = new Map([
     },
   ],
   [
+    'Checkbox',
+    {
+      stories: [
+        {
+          id: 'components-forms-checkbox--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-forms-checkbox--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+      ],
+    },
+  ],
+  [
+    'FilteredActionList',
+    {
+      stories: [
+        {
+          id: 'components-filteredactionlist--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'IconButton',
     {
       stories: [
@@ -279,6 +305,29 @@ const components = new Map([
     },
   ],
   [
+    'Token',
+    {
+      stories: [
+        {
+          id: 'components-token--default-token',
+          name: 'Default',
+        },
+        {
+          id: 'components-token--interactive',
+          name: 'Interactive',
+        },
+        {
+          id: 'components-token--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+        {
+          id: 'components-token--with-on-remove-fn',
+          name: 'With onRemove',
+        },
+      ],
+    },
+  ],
+  [
     'TreeView',
     {
       stories: [
@@ -301,41 +350,6 @@ const components = new Map([
       ],
     },
   ],
-
-  // Today
-  // [
-  // 'ActionMenu',
-  // {
-  // stories: [],
-  // },
-  // ],
-  [
-    'Checkbox',
-    {
-      stories: [
-        {
-          id: 'components-forms-checkbox--default',
-          name: 'Default',
-        },
-        {
-          id: 'components-forms-checkbox--with-leading-visual',
-          name: 'With Leading Visual',
-        },
-      ],
-    },
-  ],
-  // [
-  // 'FilteredActionList',
-  // {
-  // stories: [],
-  // }
-  // ],
-  // [
-  // 'Token',
-  // {
-  // stories: [],
-  // }
-  // ],
 ])
 
 for (const [component, info] of components) {

@@ -39,7 +39,7 @@ export default {
 
 const excludedControlKeys = ['id', 'as', 'tabIndex', 'onRemove', 'leadingVisual']
 
-const SingleExampleContainer: React.FC<React.PropsWithChildren<{label?: string}>> = ({children, label}) => (
+const SingleExampleContainer: React.FC<{children: React.ReactNode}> = ({children}) => (
   <Box
     display="flex"
     sx={{
@@ -48,11 +48,6 @@ const SingleExampleContainer: React.FC<React.PropsWithChildren<{label?: string}>
       gap: get('space.0'),
     }}
   >
-    {label ? (
-      <Text fontSize={0} color="fg.subtle">
-        {label}
-      </Text>
-    ) : null}
     {children}
   </Box>
 )
@@ -66,9 +61,6 @@ const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = (
       gap: get('space.6'),
     }}
   >
-    <Text fontSize={1} color="fg.subtle">
-      Hint: use the &quot;Controls&quot; tab in the Addons panel to change the token properties
-    </Text>
     {children}
   </Box>
 )
@@ -115,10 +107,10 @@ WithLeadingVisual.parameters = {controls: {exclude: [...excludedControlKeys, 'hi
 export const WithOnRemoveFn = (args: Omit<TokenProps, 'ref'>) => {
   return (
     <ExampleCollectionContainer>
-      <SingleExampleContainer label="w/ onRemove passed">
+      <SingleExampleContainer>
         <Token onRemove={action('remove me')} {...args} />
       </SingleExampleContainer>
-      <SingleExampleContainer label="w/ onRemove passed and the token is interactive">
+      <SingleExampleContainer>
         <Box
           display="flex"
           sx={{
