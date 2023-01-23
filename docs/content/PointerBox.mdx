@@ -6,6 +6,8 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/PointerBox.tsx
 ---
 
+import data from '../../src/PointerBox.docs.json'
+
 ## Examples
 
 ```jsx live
@@ -52,7 +54,7 @@ function CaretSelector(props) {
     'top-left',
     'bottom-left',
     'top-right',
-    'bottom-right'
+    'bottom-right',
   ].map(dir => (
     <label key={dir}>
       <input
@@ -78,30 +80,12 @@ render(<PointerBoxDemo />)
 
 ## Props
 
-<PropsTable>
-  <PropsTableRow
-    name="caret"
-    type={`| 'top'
-| 'top-left'
-| 'top-right'
-| 'right'
-| 'right-top'
-| 'right-bottom'
-| 'bottom'
-| 'bottom-left'
-| 'bottom-right'
-| 'left'
-| 'left-top'
-| 'left-bottom'`}
-    defaultValue="'bottom'"
-    description="Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. Use top"
-  />
-</PropsTable>
+<ComponentProps data={data} />
 
 ## Status
 
 <ComponentChecklist
-items={{
+  items={{
     propsDocumented: true,
     noUnnecessaryDeps: true,
     adaptsToThemes: true,
@@ -114,7 +98,7 @@ items={{
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />
 

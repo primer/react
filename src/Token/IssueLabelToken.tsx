@@ -41,7 +41,19 @@ const darkModeStyles = {
 }
 
 const IssueLabelToken = forwardRef((props, forwardedRef) => {
-  const {as, fillColor = '#999', onRemove, id, isSelected, text, size, hideRemoveButton, href, onClick, ...rest} = props
+  const {
+    as,
+    fillColor = '#999',
+    onRemove,
+    id,
+    isSelected,
+    text,
+    size = defaultTokenSize,
+    hideRemoveButton,
+    href,
+    onClick,
+    ...rest
+  } = props
   const interactiveTokenProps = {
     as,
     href,
@@ -136,11 +148,6 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     </TokenBase>
   )
 }) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', IssueLabelTokenProps>
-
-IssueLabelToken.defaultProps = {
-  fillColor: '#999',
-  size: defaultTokenSize,
-}
 
 IssueLabelToken.displayName = 'IssueLabelToken'
 

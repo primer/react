@@ -65,7 +65,7 @@ const ConditionalTooltip: React.FC<
 )
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
-  ({'aria-label': ariaLabel, children, icon, sx: sxProp, variant, ...rest}, forwardedRef) => {
+  ({'aria-label': ariaLabel, children, icon, sx: sxProp, variant = 'invisible', ...rest}, forwardedRef) => {
     const sx =
       variant === 'invisible'
         ? merge<BetterSystemStyleObject>(invisibleButtonStyleOverrides, sxProp || {})
@@ -103,9 +103,5 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     )
   },
 )
-
-TextInputAction.defaultProps = {
-  variant: 'invisible',
-}
 
 export default TextInputAction

@@ -1,26 +1,40 @@
 import React from 'react'
-import {useMedia} from '../hooks/useMedia'
-import {viewportRanges} from '../hooks/useResponsiveValue'
+import {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
+import Box from '../Box'
 
-type Viewports = 'narrow' | 'regular' | 'wide'
+type Viewport = 'narrow' | 'regular' | 'wide'
 
 export type HiddenProps = {
-  on: Array<Viewports> | Viewports
+  on: Array<Viewport> | Viewport
   children: React.ReactNode
 }
-
-export const Hidden = ({on: hiddenViewports, children}: HiddenProps) => {
-  const isNarrowViewport = useMedia(viewportRanges.narrow)
-  const isRegularViewport = useMedia(viewportRanges.regular)
-  const isWideViewport = useMedia(viewportRanges.wide)
-  let show = true
-  if (isNarrowViewport && (hiddenViewports === 'narrow' || hiddenViewports.indexOf('narrow') > -1)) {
-    show = false
-  } else if (isRegularViewport && (hiddenViewports === 'regular' || hiddenViewports.indexOf('regular') > -1)) {
-    show = false
-  } else if (isWideViewport && (hiddenViewports === 'wide' || hiddenViewports.indexOf('wide') > -1)) {
-    show = false
+/* Normalize the value that is received from the prop `on`.
+ * For array types : ['narrow', 'wide'] -> {narrow: true, wide: true}
+ * For string types: 'narrow' -> {narrow: true}
+ */
+function normalize(hiddenViewports: Array<Viewport> | Viewport): ResponsiveValue<boolean> | null {
+  // For array types
+  if (Array.isArray(hiddenViewports)) {
+    const breakpoints: ResponsiveValue<boolean> = {}
+    // ['narrow', 'wide'] -> {narrow: true, wide: true}
+    for (const breakpoint of hiddenViewports) {
+      breakpoints[breakpoint] = true
+    }
+    return breakpoints
   }
-
-  return show ? <>{children}</> : null
+  // For string types
+  // 'narrow' -> {narrow: true}
+  return {
+    [hiddenViewports]: true,
+  }
 }
+
+export const Hidden = ({on, children}: HiddenProps) => {
+  // Get breakpoint declarations for the normalized ResponsiveValue object
+  const styles = getBreakpointDeclarations(normalize(on), 'display', () => 'none')
+  // Render the children with the styles
+  return styles ? <Box sx={styles}>{children}</Box> : null
+}
+
+Hidden.displayName = 'Hidden'

@@ -1,3 +1,4 @@
+// TODO: Import PrimerBreakpoints from src/utils/layout/breakpoints.ts and refactor the usage of this object
 export const viewports: {[key: string]: number} = {
   'primer.breakpoint.xs': 544,
   'primer.breakpoint.sm': 768,

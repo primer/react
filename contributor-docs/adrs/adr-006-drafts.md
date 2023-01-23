@@ -43,4 +43,3 @@ At this point, consumers are expected to plan migration work.
 We should detangle "drafts" from component lifecycle.
 
 "Drafts components" should not be collocated with "main bundle" components in the documentation or status page. They should have their own section because they are not recommended as an alternative yet.
-

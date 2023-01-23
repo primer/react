@@ -1,6 +1,7 @@
-import {isResponsiveValue, ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
+import {isResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
 import {BetterSystemStyleObject} from '../sx'
 import type {Properties as CSSProperties} from 'csstype'
+import {mediaQueries} from './layout'
 
 function areAllValuesTheSame(responsiveValue: ResponsiveValue<boolean | number | string>): boolean {
   if ('narrow' in responsiveValue && 'regular' in responsiveValue && 'wide' in responsiveValue) {
@@ -113,7 +114,7 @@ export function getBreakpointDeclarations<TInput, TOutput>(
     const narrowMediaQuery =
       'narrow' in responsiveValue
         ? {
-            [`@media screen and ${viewportRanges.narrow}`]: {
+            [mediaQueries.narrow]: {
               [cssProperty]: mapFn(responsiveValue.narrow),
             },
           }
@@ -122,7 +123,7 @@ export function getBreakpointDeclarations<TInput, TOutput>(
     const regularMediaQuery =
       'regular' in responsiveValue
         ? {
-            [`@media screen and ${viewportRanges.regular}`]: {
+            [mediaQueries.regular]: {
               [cssProperty]: mapFn(responsiveValue.regular),
             },
           }
@@ -131,7 +132,7 @@ export function getBreakpointDeclarations<TInput, TOutput>(
     const wideMediaQuery =
       'wide' in responsiveValue
         ? {
-            [`@media screen and ${viewportRanges.wide}`]: {
+            [mediaQueries.wide]: {
               [cssProperty]: mapFn(responsiveValue.wide),
             },
           }

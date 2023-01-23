@@ -27,7 +27,7 @@ import {MarkdownEditor} from '@primer/react/drafts'
 A `Label` is always required for accessibility:
 
 ```javascript live noinline drafts
-const renderMarkdown = async (markdown) => {
+const renderMarkdown = async markdown => {
   // In production code, this would make a query to some external API endpoint to render
   return 'Rendered Markdown.'
 }
@@ -48,11 +48,11 @@ render(MinimalExample)
 ### Suggestions, File Uploads, and Saved Replies
 
 ```javascript live noinline drafts
-const renderMarkdown = async (markdown) => 'Rendered Markdown.'
+const renderMarkdown = async markdown => 'Rendered Markdown.'
 
-const uploadFile = async (file) => ({
+const uploadFile = async file => ({
   url: `https://example.com/${encodeURIComponent(file.name)}`,
-  file
+  file,
 })
 
 const emojis = [
@@ -70,7 +70,7 @@ const emojis = [
   {name: 'point_right', character: '👉'},
   {name: 'raised_hand', character: '✋'},
   {name: 'thumbsup', character: '👍'},
-  {name: 'thumbsdown', character: '👎'}
+  {name: 'thumbsdown', character: '👎'},
 ]
 
 const references = [
@@ -78,21 +78,21 @@ const references = [
   {
     id: '2',
     titleText: 'Error: `Failed to install` when installing',
-    titleHtml: 'Error: <code>Failed to install</code> when installing'
+    titleHtml: 'Error: <code>Failed to install</code> when installing',
   },
-  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'}
+  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
 ]
 
 const mentionables = [
   {identifier: 'monalisa', description: 'Monalisa Octocat'},
   {identifier: 'github', description: 'GitHub'},
-  {identifier: 'primer', description: 'Primer'}
+  {identifier: 'primer', description: 'Primer'},
 ]
 
 const savedReplies = [
   {name: 'Duplicate', content: 'Duplicate of #'},
   {name: 'Welcome', content: 'Welcome to the project!\n\nPlease be sure to read the contributor guidelines.'},
-  {name: 'Thanks', content: 'Thanks for your contribution!'}
+  {name: 'Thanks', content: 'Thanks for your contribution!'},
 ]
 
 const MinimalExample = () => {
@@ -120,7 +120,7 @@ render(MinimalExample)
 ### Custom Buttons
 
 ```javascript live noinline drafts
-const renderMarkdown = async (markdown) => 'Rendered Markdown.'
+const renderMarkdown = async markdown => 'Rendered Markdown.'
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')
