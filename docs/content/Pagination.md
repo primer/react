@@ -145,28 +145,28 @@ export default {
     spaceBetween,
     colors: {
       normal: {
-        fg
+        fg,
       },
       disabled: {
         fg,
-        border
+        border,
       },
       hover: {
-        border
+        border,
       },
       selected: {
         fg,
         bg,
-        border
+        border,
       },
       active: {
-        border
+        border,
       },
       nextPrevious: {
-        fg
-      }
-    }
-  }
+        fg,
+      },
+    },
+  },
 }
 ```
 

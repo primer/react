@@ -6,7 +6,6 @@ title: useOpenAndCloseFocus
 
 If no ref is passed to `initialFocusRef` , the hook focuses the first focusable element inside of the container.
 
-
 ### Usage
 
 ```javascript live noinline
@@ -25,25 +24,27 @@ function Component() {
   const initialFocusRef = React.useRef(null)
   const [isOpen, setIsOpen] = React.useState(false)
   return (
-    <Box sx={{'*': { ':focus' : { backgroundColor: 'red.5'}}}}>
-      <Button ref={returnFocusRef} onClick={() => setIsOpen(!isOpen)}>toggle</Button>
-      {isOpen &&
+    <Box sx={{'*': {':focus': {backgroundColor: 'red.5'}}}}>
+      <Button ref={returnFocusRef} onClick={() => setIsOpen(!isOpen)}>
+        toggle
+      </Button>
+      {isOpen && (
         <Overlay returnFocusRef={returnFocusRef} initialFocusRef={initialFocusRef}>
           <Button>Button One</Button>
           <Button ref={initialFocusRef}>Button Two</Button>
-        </Overlay>}
+        </Overlay>
+      )}
     </Box>
   )
 }
 
-render(<Component/>)
+render(<Component />)
 ```
-
 
 #### useOpenAndCloseFocus settings
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| initialFocusRef | `React.RefObject<HTMLElement>` | | Optional. The element to focus when the container is mounted on the page. |
-| returnFocusRef | `React.RefObject<HTMLElement>` | | Required. The element to focus when the container is unmounted. |
-| containerRef | `React.RefObject<HTMLElement>` | | Required. A ref for the containing element. |
+| Name            | Type                           | Default | Description                                                               |
+| :-------------- | :----------------------------- | :-----: | :------------------------------------------------------------------------ |
+| initialFocusRef | `React.RefObject<HTMLElement>` |         | Optional. The element to focus when the container is mounted on the page. |
+| returnFocusRef  | `React.RefObject<HTMLElement>` |         | Required. The element to focus when the container is unmounted.           |
+| containerRef    | `React.RefObject<HTMLElement>` |         | Required. A ref for the containing element.                               |
