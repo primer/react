@@ -9,3 +9,15 @@ export default {
 export const CustomSize = () => (
   <IconButton aria-label="Expand" variant="primary" size="small" icon={ChevronDownIcon} sx={{width: 16, height: 16}} />
 )
+
+export const CustomSizeWithMedia = () => {
+  return (
+    <IconButton
+      aria-label="Expand"
+      variant="primary"
+      size="small"
+      icon={ChevronDownIcon}
+      sx={{'@media (min-width: 123px)': {width: 16, height: 16}}}
+    />
+  )
+}
