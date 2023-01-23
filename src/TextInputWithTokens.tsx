@@ -71,7 +71,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     leadingVisual: LeadingVisual,
     trailingVisual: TrailingVisual,
     loading,
-    loaderPosition,
+    loaderPosition = 'auto',
     contrast,
     className,
     block,
@@ -79,10 +79,10 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     sx: sxProp,
     tokens,
     onTokenRemove,
-    tokenComponent: TokenComponent,
-    preventTokenWrapping,
-    size,
-    hideTokenRemoveButtons,
+    tokenComponent: TokenComponent = Token,
+    preventTokenWrapping = false,
+    size = 'xlarge',
+    hideTokenRemoveButtons = false,
     maxHeight,
     width: widthProp,
     minWidth: minWidthProp,
@@ -91,7 +91,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
     ...rest
-  }: TextInputWithTokensProps<TokenComponentType>,
+  }: TextInputWithTokensProps<TokenComponentType | typeof Token>,
   forwardedRef: React.ForwardedRef<HTMLInputElement>,
 ) {
   const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
@@ -259,7 +259,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       width={widthProp}
       minWidth={minWidthProp}
       maxWidth={maxWidthProp}
-      size={size && inputSizeMap[size]}
+      size={inputSizeMap[size]}
       validationStatus={validationStatus}
       variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
@@ -332,27 +332,25 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             {...inputPropsRest}
           />
         </Box>
-        {TokenComponent
-          ? visibleTokens.map(({id, ...tokenRest}, i) => (
-              <TokenComponent
-                key={id}
-                onFocus={handleTokenFocus(i)}
-                onBlur={handleTokenBlur}
-                onKeyUp={handleTokenKeyUp}
-                onClick={preventTokenClickPropagation}
-                isSelected={selectedTokenIndex === i}
-                onRemove={() => {
-                  handleTokenRemove(id)
-                }}
-                hideRemoveButton={hideTokenRemoveButtons}
-                size={size}
-                tabIndex={0}
-                {...tokenRest}
-              />
-            ))
-          : null}
+        {visibleTokens.map(({id, ...tokenRest}, i) => (
+          <TokenComponent
+            key={id}
+            onFocus={handleTokenFocus(i)}
+            onBlur={handleTokenBlur}
+            onKeyUp={handleTokenKeyUp}
+            onClick={preventTokenClickPropagation}
+            isSelected={selectedTokenIndex === i}
+            onRemove={() => {
+              handleTokenRemove(id)
+            }}
+            hideRemoveButton={hideTokenRemoveButtons}
+            size={size}
+            tabIndex={0}
+            {...tokenRest}
+          />
+        ))}
         {tokensAreTruncated && tokens.length - visibleTokens.length ? (
-          <Text color="fg.muted" fontSize={size && overflowCountFontSizeMap[size]}>
+          <Text color="fg.muted" fontSize={overflowCountFontSizeMap[size]}>
             +{tokens.length - visibleTokens.length}
           </Text>
         ) : null}
@@ -369,14 +367,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
 }
 
 const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
-
-TextInputWithTokens.defaultProps = {
-  tokenComponent: Token,
-  size: 'xlarge',
-  hideTokenRemoveButtons: false,
-  preventTokenWrapping: false,
-  loaderPosition: 'auto',
-}
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
 

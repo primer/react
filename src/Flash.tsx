@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from './constants'
@@ -41,12 +42,12 @@ const variants = variant({
   },
 })
 
-const Flash = styled.div<
-  {
-    variant?: 'default' | 'warning' | 'success' | 'danger'
-    full?: boolean
-  } & SxProp
->`
+type StyledFlashProps = {
+  variant?: 'default' | 'warning' | 'success' | 'danger'
+  full?: boolean
+} & SxProp
+
+const StyledFlash = styled.div<StyledFlashProps>`
   position: relative;
   color: ${get('colors.fg.default')};
   padding: ${get('space.3')};
@@ -67,9 +68,7 @@ const Flash = styled.div<
   ${sx};
 `
 
-Flash.defaultProps = {
-  variant: 'default',
-}
+export type FlashProps = ComponentProps<typeof StyledFlash>
+const Flash = ({variant = 'default', ...rest}: FlashProps) => <StyledFlash variant={variant} {...rest} />
 
-export type FlashProps = ComponentProps<typeof Flash>
 export default Flash
