@@ -1,9 +1,21 @@
 import {addons} from '@storybook/addons'
 import {withThemeProvider, withSurroundingElements, toolbarTypes} from '../src/utils/story-helpers'
-import theme from './theme'
+import {PrimerBreakpoints} from '../src/utils/layout'
 
 export const globalTypes = toolbarTypes
 export const decorators = [withThemeProvider, withSurroundingElements]
+
+let storybookViewports = {}
+Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
+  const {width} = value
+  storybookViewports[viewport] = {
+    name: viewport,
+    styles: {
+      width,
+      height: '100%',
+    },
+  }
+})
 
 addons.setConfig({
   // Some stories may set up keyboard event handlers, which can be interfered
@@ -135,6 +147,11 @@ export const parameters = {
       }
 
       return compare(getHierarchy(a), getHierarchy(b))
+    },
+  },
+  viewport: {
+    viewports: {
+      ...storybookViewports,
     },
   },
 }
