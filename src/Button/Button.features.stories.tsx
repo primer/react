@@ -74,13 +74,17 @@ export const Test = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
       <Button variant="invisible" sx={{color: 'deeppink'}}>
-        Button
+        Pink
       </Button>
-      <Button size="small" variant="invisible" sx={{color: 'deeppink'}}>
-        Button
+      <Button size="small" variant="invisible" sx={{width: 32, height: 32}}>
+        Custom size
       </Button>
-      <Button size="small" block variant="invisible" sx={{color: 'deeppink'}}>
-        Button
+      <Button size="small" block variant="invisible" sx={{width: 320}}>
+        Overriden Block
+      </Button>
+      <Button>
+        Watch
+        <Button.Counter sx={{fontSize: 16}}>{count}</Button.Counter>
       </Button>
     </div>
   )
