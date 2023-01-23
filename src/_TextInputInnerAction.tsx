@@ -88,7 +88,6 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
               variant={variant}
               type="button"
               icon={icon}
-              aria-label={ariaLabel}
               size="small"
               sx={sx}
               {...rest}
