@@ -115,7 +115,7 @@ exports[`ActionMenu renders consistently 1`] = `
   color: inherit;
 }
 
-.c1 [data-component=ButtonCounter] {
+.c1[data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -124,6 +124,7 @@ exports[`ActionMenu renders consistently 1`] = `
   padding: unset;
   place-content: center;
   width: 32px;
+  min-width: unset;
 }
 
 .c1[data-size="small"] {
@@ -165,7 +166,7 @@ exports[`ActionMenu renders consistently 1`] = `
   padding: unset;
 }
 
-.c1[data-component="block"] {
+.c1[data-block="block"] {
   width: 100%;
 }
 
@@ -237,7 +238,7 @@ exports[`ActionMenu renders consistently 1`] = `
   <button
     aria-haspopup="true"
     className="c1"
-    data-component={null}
+    data-block={null}
     id="react-aria-1"
     onClick={[Function]}
     onKeyDown={[Function]}

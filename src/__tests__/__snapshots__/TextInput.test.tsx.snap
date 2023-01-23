@@ -1301,11 +1301,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
-  padding-top: 2px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  position: relative;
 }
 
 .c4:focus:not(:disabled) {
@@ -1356,7 +1351,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: inherit;
 }
 
-.c4 [data-component=ButtonCounter] {
+.c4[data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1365,6 +1360,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding: unset;
   place-content: center;
   width: 32px;
+  min-width: unset;
 }
 
 .c4[data-size="small"] {
@@ -1406,6 +1402,48 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding: unset;
 }
 
+.c4[data-block="block"] {
+  width: 100%;
+}
+
+.c4 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+}
+
+.c4 [data-component="text"] {
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c4 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c4 [data-component="trailingAction"] {
+  margin-right: -4px;
+}
+
+.c4 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c4 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
 .c4:hover:not([disabled]) {
   background-color: rgba(208,215,222,0.32);
 }
@@ -1430,7 +1468,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: #24292f;
 }
 
-.c4[data-component="IconButton"] {
+.c4[data-component="IconButton"][data-size="small"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c4[data-component="IconButton"][data-size="small"][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
 }
@@ -1755,7 +1801,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c4:after {
+  .c4[data-component="IconButton"][data-size="small"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -1800,8 +1846,10 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       <button
         aria-label="iconLabel"
         className="c4"
+        data-block={null}
         data-component="IconButton"
-        data-size="medium"
+        data-no-visuals={true}
+        data-size="small"
         onClick={[MockFunction]}
         type="button"
       >
@@ -1891,11 +1939,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
-  padding-top: 2px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  position: relative;
 }
 
 .c3:focus:not(:disabled) {
@@ -1946,7 +1989,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: inherit;
 }
 
-.c3 [data-component=ButtonCounter] {
+.c3[data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1955,6 +1998,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding: unset;
   place-content: center;
   width: 32px;
+  min-width: unset;
 }
 
 .c3[data-size="small"] {
@@ -1996,7 +2040,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding: unset;
 }
 
-.c3[data-component="block"] {
+.c3[data-block="block"] {
   width: 100%;
 }
 
@@ -2062,7 +2106,15 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: #24292f;
 }
 
-.c3[data-component="IconButton"] {
+.c3[data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c3[data-no-visuals="true"][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
 }
@@ -2163,7 +2215,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c3:after {
+  .c3[data-no-visuals="true"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2202,7 +2254,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   >
     <button
       className="c3"
-      data-component={null}
+      data-block={null}
       data-no-visuals={true}
       onClick={[MockFunction]}
       type="button"
@@ -2279,11 +2331,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: #24292f;
   background-color: transparent;
   box-shadow: none;
-  padding-top: 2px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  position: relative;
 }
 
 .c4:focus:not(:disabled) {
@@ -2334,7 +2381,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: inherit;
 }
 
-.c4 [data-component=ButtonCounter] {
+.c4[data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -2343,6 +2390,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding: unset;
   place-content: center;
   width: 32px;
+  min-width: unset;
 }
 
 .c4[data-size="small"] {
@@ -2384,7 +2432,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding: unset;
 }
 
-.c4[data-component="block"] {
+.c4[data-block="block"] {
   width: 100%;
 }
 
@@ -2450,7 +2498,15 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: #24292f;
 }
 
-.c4[data-component="IconButton"] {
+.c4[data-no-visuals="true"] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c4[data-no-visuals="true"][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
 }
@@ -2776,7 +2832,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c4:after {
+  .c4[data-no-visuals="true"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2820,7 +2876,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     >
       <button
         className="c4"
-        data-component={null}
+        data-block={null}
         data-no-visuals={true}
         onClick={[MockFunction]}
         type="button"
