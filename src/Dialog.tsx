@@ -53,7 +53,7 @@ const DialogHeaderBase = styled(Box)<SxProp>`
 `
 export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 
-function DialogHeader({theme, children, backgroundColor = 'gray.1', ...rest}: DialogHeaderProps) {
+function DialogHeader({theme, children, backgroundColor = 'canvas.subtle', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
       <Text theme={theme} color="fg.default" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
@@ -130,10 +130,6 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
     ) : null
   },
 )
-
-DialogHeader.defaultProps = {
-  backgroundColor: 'canvas.subtle',
-}
 
 DialogHeader.propTypes = {
   ...Box.propTypes,

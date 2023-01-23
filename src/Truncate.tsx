@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
 import sx, {SxProp} from './sx'
@@ -10,7 +11,7 @@ type StyledTruncateProps = {
 } & MaxWidthProps &
   SxProp
 
-const Truncate = styled.div<StyledTruncateProps>`
+const StyledTruncate = styled.div<StyledTruncateProps>`
   display: ${props => (props.inline ? 'inline-block' : 'inherit')};
   overflow: hidden;
   text-overflow: ellipsis;
@@ -21,11 +22,9 @@ const Truncate = styled.div<StyledTruncateProps>`
   ${sx};
 `
 
-Truncate.defaultProps = {
-  expandable: false,
-  inline: false,
-  maxWidth: 125,
-}
+export type TruncateProps = ComponentProps<typeof StyledTruncate>
+const Truncate = ({expandable = false, inline = false, maxWidth = 125, ...rest}: TruncateProps) => (
+  <StyledTruncate maxWidth={maxWidth} expandable={expandable} inline={inline} {...rest} />
+)
 
-export type TruncateProps = ComponentProps<typeof Truncate>
 export default Truncate
