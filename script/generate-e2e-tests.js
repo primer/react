@@ -301,6 +301,41 @@ const components = new Map([
       ],
     },
   ],
+
+  // Today
+  // [
+  // 'ActionMenu',
+  // {
+  // stories: [],
+  // },
+  // ],
+  [
+    'Checkbox',
+    {
+      stories: [
+        {
+          id: 'components-forms-checkbox--default',
+          name: 'Default',
+        },
+        {
+          id: 'components-forms-checkbox--with-leading-visual',
+          name: 'With Leading Visual',
+        },
+      ],
+    },
+  ],
+  // [
+  // 'FilteredActionList',
+  // {
+  // stories: [],
+  // }
+  // ],
+  // [
+  // 'Token',
+  // {
+  // stories: [],
+  // }
+  // ],
 ])
 
 for (const [component, info] of components) {
