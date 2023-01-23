@@ -6,6 +6,8 @@ source: https://github.com/primer/react/blob/main/src/StyledOcticon.tsx
 componentId: styled_octicon
 ---
 
+import data from '../../src/StyledOcticon.docs.json'
+
 ## Example
 
 ```jsx live
@@ -17,47 +19,8 @@ componentId: styled_octicon
 
 ## Props
 
-### StyledOcticon
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="ariaLabel"
-    type="string"
-    description="Specifies the aria-label attribute, which is read verbatim by screen readers "
-  />
-  <PropsTableRow
-    name="icon"
-    type="Component"
-    description={
-      <>
-        Checks the input by default in uncontrolled modeName of the <Link href="https://primer.style/octicons/">Octicon component</Link> used in the 
-      </>
-    }
-  />
-  <PropsTableRow
-    name="color"
-    type="string"
-    description={
-      <>
-        Sets an override color for the Octicon. Compatible with colors from the <Link href="https://primer.style/primitives/colors">Primer color system</Link>." 
-      </>  
-    }
-  />
-  <PropsTableRow
-    name="size"
-    defaultValue="16"
-    type="number"
-    description="Sets the uniform `width` and `height` of the SVG element"    
-  />
-  <PropsTableRow 
-    name="verticalAlign"
-    defaultValue="text-bottom"
-    type="string"
-    description="Sets the `vertical-align` CSS property"
-  />
-  <PropsTableSxRow />
-
-</PropsTable>
 
 ## Status
 

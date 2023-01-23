@@ -8,6 +8,8 @@ storybook: '/react/storybook?path=/story/components-actionmenu'
 description: An ActionMenu is an ActionList-based component for creating a menu of actions that expands through a trigger button.
 ---
 
+import data from '../../src/ActionMenu.docs.json'
+
 import {Box, Avatar, ActionList, ActionMenu} from '@primer/react'
 
 <br />
@@ -279,77 +281,10 @@ render(
 )
 ```
 
-## Props / API reference
+## Props
 
-### ActionMenu
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="children"
-    required
-    type="React.ReactElement[]"
-    description={
-      <>
-        Recommended: <InlineCode>ActionMenu.Button</InlineCode> or <InlineCode>ActionMenu.Anchor</InlineCode> with{' '}
-        <InlineCode>ActionMenu.Overlay</InlineCode>
-      </>
-    }
-  />
-  <PropsTableRow
-    name="open"
-    type="boolean"
-    defaultValue="false"
-    description={
-      <>
-        If defined, will control the open/closed state of the overlay. Must be used in conjuction with{' '}
-        <InlineCode>onOpenChange</InlineCode>.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="onOpenChange"
-    type="(open: boolean) => void"
-    description={
-      <>
-        If defined, will control the open/closed state of the overlay. Must be used in conjuction with{' '}
-        <InlineCode>open</InlineCode>.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="anchorRef"
-    type="React.RefObject<HTMLElement>"
-    description="Useful for defining an external anchor"
-  />
-</PropsTable>
-
-### ActionMenu.Button
-
-<PropsTable>
-  <PropsTableRow name="children" required type="React.ReactElement" />
-  <PropsTablePassthroughPropsRow
-    elementName="Button"
-    isPolymorphic
-    passthroughPropsLink={<Link href="/react/Button">Button docs</Link>}
-  />
-</PropsTable>
-
-### ActionMenu.Anchor
-
-<PropsTable>
-  <PropsTableRow name="children" required type="React.ReactElement" description="Accepts a single child element" />
-</PropsTable>
-
-### ActionMenu.Overlay
-
-<PropsTable>
-  <PropsTableRow name="children" required type="React.ReactNode" />
-  <PropsTableRow name="align" type="start | center | end" defaultValue="start" />
-  <PropsTablePassthroughPropsRow
-    elementName="Overlay"
-    passthroughPropsLink={<Link href="/react/Overlay">Overlay docs</Link>}
-  />
-</PropsTable>
 
 ## Status
 

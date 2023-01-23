@@ -6,6 +6,8 @@ description: A low-level utility component that accepts styled system props to e
 source: https://github.com/primer/react/blob/main/src/Box.tsx
 ---
 
+import data from '../../src/Box.docs.json'
+
 ```js
 import {Box} from '@primer/react'
 ```
@@ -66,13 +68,8 @@ Use Box to create [grid](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_
 
 ## Props
 
-### Box
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableBasePropRows elementType="div" isPolymorphic refType="HTMLDivElement" />
-</PropsTable>
-
-Box also accepts all [styled system props](https://styled-system.com/table/).
 
 ## Status
 

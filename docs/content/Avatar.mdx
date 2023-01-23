@@ -5,6 +5,8 @@ componentId: avatar
 source: https://github.com/primer/react/blob/main/src/Avatar.tsx
 ---
 
+import data from '../../src/Avatar.docs.json'
+
 import {Avatar, Box} from '@primer/react'
 
 ```js
@@ -27,25 +29,8 @@ import {Avatar} from '@primer/react'
 
 ## Props
 
-### Avatar
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="src" type="string" required description="URL of the avatar image." />{' '}
-  <PropsTableRow
-    name="alt"
-    type="string"
-    defaultValue="''"
-    description="Provide alt text when the avatar is used without a name next to it."
-  />
-  <PropsTableRow name="size" type="number" defaultValue="20" description="The size of the avatar in pixels." />
-  <PropsTableRow
-    name="square"
-    type="boolean"
-    defaultValue="false"
-    description="If true, the avatar will be square instead of circular."
-  />
-  <PropsTableSxRow />
-</PropsTable>
 
 ## Status
 

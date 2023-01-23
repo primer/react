@@ -7,6 +7,8 @@ storybook: '/react/storybook?path=/story/components-forms-checkbox'
 componentId: checkbox
 ---
 
+import data from '../../src/Checkbox.docs.json'
+
 ## Examples
 
 <Note variant="warning">
@@ -104,74 +106,8 @@ If you're not building something custom, you should use the [CheckboxGroup](/Che
 
 ## Props
 
-### Checkbox
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="checked"
-    type="boolean"
-    description="Modifies true/false value of the native checkbox"
-  />
-  <PropsTableRow
-    name="defaultChecked"
-    type="boolean"
-    description="Checks the input by default in uncontrolled mode"
-  />
-  <PropsTableRow
-    name="disabled"
-    type="boolean"
-    description="Modifies the native disabled state of the native checkbox"
-  />
-  <PropsTableRow
-    name="indeterminate"
-    type="boolean"
-    defaultValue="false"
-    description={
-      <>
-        Applies an{' '}
-        <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-indeterminate">
-          indeterminate state
-        </Link>{' '}
-        to the checkbox
-      </>
-    }
-  />
-  <PropsTableRow
-    name="onChange"
-    type="(event: React.ChangeEvent) => void"
-    description="A callback function that is triggered when the checked state has been changed"
-  />
-  <PropsTableRow
-    name="validationStatus"
-    type="'error' | 'success' | 'warning'"
-    description={
-      <>
-        Only used to inform ARIA attributes.<br />
-        Individual checkboxes do not have validation styles.
-      </>
-    }
-  />
-  <PropsTableRow
-    name="value"
-    type="string"
-    description={
-      <>
-        A unique value that is never shown to the user.<br />
-        Used during form submission and to identify which checkbox inputs are selected.
-      </>
-    }
-  />
-  <PropsTableBasePropRows
-    elementType="input"
-    refType="HTMLInputElement"
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#additional_attributes">
-        MDN
-      </Link>
-    }
-  />
-
-</PropsTable>
 
 ## Status
 

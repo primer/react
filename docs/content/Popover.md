@@ -6,6 +6,8 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/Popover.tsx
 ---
 
+import data from '../../src/Popover.docs.json'
+
 ```js
 import {Popover} from '@primer/react'
 ```
@@ -113,59 +115,8 @@ render(<PopoverDemo />)
 
 ## Props
 
-### Popover
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="as"
-    defaultValue="div"
-    type="string"
-    description="Sets the underlying HTML tag for the component"
-  />
-  <PropsTableRow
-    name="caret"
-    defaultValue="'top'"
-	    type={`| 'top'
-| 'bottom'
-| 'left'
-| 'right'
-| 'bottom-left'
-| 'bottom-right'
-| 'top-left'
-| 'top-right'
-| 'left-bottom'
-| 'left-top'
-| 'right-bottom'
-| 'right-top'
-  `}
-    description="Controls the position of the caret"
-  />
-  <PropsTableRow
-    name="open"
-    defaultValue="false"
-    type="boolean"
-    description="Controls the visibility of the popover."
-  />
-  <PropsTableRow
-    name="relative"
-    defaultValue="false"
-    type="boolean"
-    description="Set to true to render the popover using relative positioning. "
-  />
-  <PropsTableSxRow />
-</PropsTable>
-
-### Popover.Content
-
-<PropsTable>
-  <PropsTableRow
-    name="as"
-    defaultValue="div"
-    type="string"
-    description="Sets the underlying HTML tag for the component"
-  />
-  <PropsTableSxRow />
-</PropsTable>
 
 ## Status
 

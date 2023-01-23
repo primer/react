@@ -7,6 +7,8 @@ storybook: '/react/storybook?path=/story/components-iconbutton--playground'
 description: An accessible button component with no text and only icon.
 ---
 
+import data from '../../src/Button/IconButton.docs.json'
+
 ## Usage
 
 ### Installation
@@ -37,33 +39,8 @@ A separate component called `IconButton` is used if the action shows only an ico
 
 ## Props
 
-### IconButton
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="children" required type="React.ReactNode" description="This will be the Button description." />
-  <PropsTableRow
-    name="variant"
-    type="'default' | 'primary' | 'danger' | 'outline' | 'invisible'"
-    description="Changes the look and feel of the button which is different for each variant"
-  />
-  <PropsTableRow
-    name="size"
-    type="'small' | 'medium' | 'large'"
-    description="Changes the size of the icon button component"
-  />
-  <PropsTableRow
-    name="icon"
-    type="Component"
-    description="provide an octicon. It will be placed in the center of the button"
-  />
-  <PropsTableSxRow />
-  <PropsTablePassthroughPropsRow
-    elementName="button"
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes">MDN</Link>
-    }
-  />
-</PropsTable>
 
 ## Component status
 

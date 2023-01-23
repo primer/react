@@ -6,6 +6,8 @@ source: https://github.com/primer/react/blob/main/src/Header.tsx
 componentId: header
 ---
 
+import data from '../../src/Header.docs.json'
+
 ## Examples
 
 All items directly under the Header component should be a `Header.Item` component. Inside these components can be anything (text, forms, images...), and the `Header.Item` component will make sure these elements vertically align with each other.
@@ -57,30 +59,8 @@ All items directly under the Header component should be a `Header.Item` componen
 
 ## Props
 
-### Header
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableSxRow />
-</PropsTable>
-
-### Header.Item
-
-<PropsTable>
-  <PropsTableRow name="full" type="string" description="Stretches item to fill the available space" />
-  <PropsTableSxRow />
-</PropsTable>
-
-### Header.Link
-
-<PropsTable>
-  <PropsTableRow name="href" type="string" description="URL to be used for the Link" />
-  <PropsTableBasePropRows
-    elementType="a"
-    passthroughPropsLink={
-      <Link href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes">MDN</Link>
-    }
-  />
-</PropsTable>
 
 ## Status
 

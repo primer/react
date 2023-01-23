@@ -5,6 +5,8 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/CircleBadge.tsx
 ---
 
+import data from '../../src/CircleBadge.docs.json'
+
 ```js
 import {CircleBadge} from '@primer/react'
 ```
@@ -21,55 +23,8 @@ Use CircleBadge to visually connect logos of third party services like in market
 
 ## Props
 
-### CircleBadge
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="variant"
-    type="'small' | 'medium' | 'large'"
-    defaultValue="'medium'"
-    description={
-      <>
-        Creates a smaller or larger badge. Has no effect if the <InlineCode>size</InlineCode> prop is set
-      </>
-    }
-  />
-  <PropsTableRow
-    name="size"
-    type="number"
-    description={
-      <>
-        Sets the size of the badge in pixels. Overrides the <InlineCode>variant</InlineCode> prop when set
-      </>
-    }
-  />
-  <PropsTableRow
-    name="inline"
-    type="boolean"
-    defaultValue="false"
-    description={
-      <>
-        Styles the badge to <InlineCode>display: inline</InlineCode>
-      </>
-    }
-  />
-  <PropsTableBasePropRows elementType="div" isPolymorphic refType="HTMLDivElement" />
-</PropsTable>
-
-### CircleBadge.Icon
-
-<PropsTable>
-  <PropsTableAsRow defaultElementType="StyledOcticon" />
-  <PropsTablePassthroughPropsRow
-    elementName="StyledOcticon"
-    isPolymorphic
-    passthroughPropsLink={
-      <>
-        the <Link href="/StyledOcticon">StyledOcticon docs</Link>
-      </>
-    }
-  />
-</PropsTable>
 
 ## Status
 

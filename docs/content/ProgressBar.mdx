@@ -5,6 +5,8 @@ status: Alpha
 source: https://github.com/primer/react/blob/main/src/ProgressBar.tsx
 ---
 
+import data from '../../src/ProgressBar.docs.json'
+
 ```js
 import {ProgressBar} from '@primer/react'
 ```
@@ -28,22 +30,8 @@ If you'd like to use ProgressBar inline, pass the `inline` boolean prop & **be s
 
 ## Props
 
-### ProgressBar
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow name="progress" type="number" description="Used to set the size of the green bar" defaultValue={0} />
-  <PropsTableRow
-    name="barSize"
-    type={`| 'small'
-| 'large'
-| 'default'`}
-    defaultValue="'default'"
-    description="Controls the height of the progress bar. If omitted, height is set to the default height."
-  />
-  <PropsTableRow name="inline" type="boolean" defaultValue="false" description="Styles the progress bar inline" />
-  <PropsTableRow name="bg" type="string" defaultValue="'bg.successInverse'" description="Set the progress bar color" />
-  <PropsTableSxRow />
-</PropsTable>
 
 ## Status
 

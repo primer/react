@@ -7,6 +7,8 @@ storybook: '/react/storybook?path=/story/components-label--label'
 description: Use Label components to add contextual metadata to a design.
 ---
 
+import data from '../../src/Label.docs.json'
+
 ## Examples
 
 ### Basic
@@ -47,31 +49,8 @@ render(
 
 ## Props
 
-### Label
+<ComponentProps data={data} />
 
-<PropsTable>
-  <PropsTableRow
-    name="variant"
-    type={`| 'default'
-| 'primary'
-| 'secondary'
-| 'accent'
-| 'success'
-| 'attention'
-| 'severe'
-| 'danger'
-| 'done'
-| 'sponsors'`}
-    defaultValue="'default'"
-    description="The color of the label"
-  />
-  <PropsTableRow
-    name="size"
-    type="'small' | 'large'"
-    defaultValue="'small'"
-    description="How large the label is rendered"
-  />
-</PropsTable>
 
 ## Status
 
