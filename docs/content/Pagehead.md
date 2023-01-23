@@ -22,7 +22,6 @@ import {Pagehead} from '@primer/react'
 
 <ComponentProps data={data} />
 
-
 ## Status
 
 <ComponentChecklist
