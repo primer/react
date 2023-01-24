@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
 import sx, {SxProp} from './sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 import {ComponentProps} from './utils/types'
 
 type StyledTruncateProps = {
@@ -22,9 +23,11 @@ const StyledTruncate = styled.div<StyledTruncateProps>`
   ${sx};
 `
 
-export type TruncateProps = ComponentProps<typeof StyledTruncate>
-const Truncate = ({expandable = false, inline = false, maxWidth = 125, ...rest}: TruncateProps) => (
-  <StyledTruncate maxWidth={maxWidth} expandable={expandable} inline={inline} {...rest} />
-)
+const Truncate = React.forwardRef(({expandable = false, inline = false, maxWidth = 125, ...rest}, ref) => (
+  <StyledTruncate ref={ref} maxWidth={maxWidth} expandable={expandable} inline={inline} {...rest} />
+)) as PolymorphicForwardRefComponent<'div', StyledTruncateProps>
 
+Truncate.displayName = 'Truncate'
+
+export type TruncateProps = ComponentProps<typeof Truncate>
 export default Truncate
