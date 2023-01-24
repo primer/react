@@ -40,4 +40,6 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(({size = 20, alt 
   <StyledAvatar ref={ref} alt={alt} size={size} {...rest} />
 ))
 
+Avatar.displayName = 'Avatar'
+
 export default Avatar

@@ -72,4 +72,6 @@ const Flash = React.forwardRef<HTMLDivElement, FlashProps>(({variant = 'default'
   <StyledFlash ref={ref} variant={variant} {...rest} />
 ))
 
+Flash.displayName = 'Flash'
+
 export default Flash

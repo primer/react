@@ -98,4 +98,6 @@ const Label = React.forwardRef<HTMLSpanElement, LabelProps>(({size = 'small', va
   <StyledLabel ref={ref} size={size} variant={variant} {...rest} />
 ))
 
+Label.displayName = 'Label'
+
 export default Label
