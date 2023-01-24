@@ -4,7 +4,12 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode"
+    }
+  ],
   "subcomponents": [
     {
       "name": "Autocomplete.Input",
@@ -19,6 +24,96 @@
         "element": "TextInput",
         "url": "/react/TextInput"
       }
+    },
+    {
+      "name": "Autocomplete.Overlay",
+      "props": [
+        {
+          "name": "menuAnchorRef",
+          "type": "React.RefObject<HTMLElement>"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "overlayProps",
+          "deprecated": true,
+          "type": "Partial<OverlayProps>",
+          "description": "Props to be spread on the internal `Overlay` component."
+        }
+      ],
+      "passthrough": {
+        "element": "Overlay",
+        "url": "/react/Overlay"
+      }
+    },
+    {
+      "name": "Autocomplete.Menu",
+      "props": [
+        {
+          "name": "items",
+          "required": true,
+          "type": "T[]",
+          "description": "The options for field values that are displayed in the dropdown menu. One or more may be selected depending on the value of the `selectionVariant` prop."
+        },
+        {
+          "name": "selectedItemIds",
+          "required": true,
+          "type": "(string | number)[]",
+          "description": "The IDs of the selected items"
+        },
+        {
+          "name": "aria-labelledby",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "addNewItem",
+          "type": "Omit<T, 'id' | 'leadingVisual' | 'onAction'> & { handleAddItem: (item: Omit<T, 'leadingVisual' | 'onAction'>) => void; }",
+          "description": "A menu item that is used to allow users make a selection that is not available in the array passed to the `items` prop. This menu item gets appended to the end of the list of options."
+        },
+        {
+          "name": "emptyStateText",
+          "type": "React.ReactNode | false",
+          "description": "The text that appears in the menu when there are no options in the array passed to the `items` prop."
+        },
+        {
+          "name": "filterFn",
+          "type": "(item: T, i: number) => boolean",
+          "description": "A custom function used to filter the options in the array passed to the `items` prop. By default, we filter out items that don't match the value of the autocomplete text input. The default filter is not case-sensitive."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Whether the data is loading for the menu items"
+        },
+        {
+          "name": "sortOnCloseFn",
+          "type": "(itemIdA: string | number, itemIdB: string | number) => number",
+          "description": "The sort function that is applied to the options in the array passed to the `items` prop after the user closes the menu. By default, selected items are sorted to the top after the user closes the menu."
+        },
+        {
+          "name": "selectionVariant",
+          "type": "'single' | 'multiple'",
+          "description": "Whether there can be one item selected from the menu or multiple items selected from the menu"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "description": "Function that gets called when the menu is opened or closed"
+        },
+        {
+          "name": "onSelectedChange",
+          "type": "(item: T | T[]) => void",
+          "description": "The function that is called when an item in the list is selected or deselected"
+        },
+        {
+          "name": "customScrollContainerRef",
+          "type": "React.MutableRefObject<HTMLElement | null>",
+          "description": "If the menu is rendered in a scrolling element other than the `Autocomplete.Overlay` component, pass the ref of that element to `customScrollContainerRef` to ensure the container automatically scrolls when the user highlights an item in the menu that is outside the scroll container"
+        }
+      ]
     }
   ]
 }
