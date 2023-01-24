@@ -4,6 +4,7 @@ import {variant} from 'styled-system'
 import {get} from './constants'
 import sx, {BetterSystemStyleObject, SxProp} from './sx'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
+import {ComponentProps} from './utils/types'
 
 type StyledLabelProps = {
   /** The color of the label */
@@ -100,4 +101,5 @@ const Label = React.forwardRef(({size = 'small', variant = 'default', ...rest}, 
 
 Label.displayName = 'Label'
 
+export type LinkProps = ComponentProps<typeof Label>
 export default Label
