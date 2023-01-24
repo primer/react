@@ -503,7 +503,22 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "icon",
+          "type": "Octicon"
+        },
+        {
+          "name": "size",
+          "defaultValue": "32",
+          "type": "number",
+          "description": "Set the width and height of the icon in pixels."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "subcomponents": []
     },
     "counter_label": {
@@ -528,17 +543,67 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "subcomponents": []
     },
-    "drafts_dialog": {
-      "id": "drafts_dialog",
+    "dialog": {
+      "id": "dialog",
       "name": "Dialog",
-      "status": "draft",
+      "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": []
+      "props": [
+        {
+          "name": "isOpen",
+          "type": "boolean",
+          "description": "Whether or not the dialog is open"
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "description": "Function that will be called when the dialog is closed"
+        },
+        {
+          "name": "returnFocusRef",
+          "type": " React.RefObject<HTMLElement>",
+          "description": "The element to restore focus back to after the `Dialog` is closed"
+        },
+        {
+          "name": "initialFocusRef",
+          "type": " React.RefObject<HTMLElement>",
+          "description": "Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `initialFocusRef` the close button is focused."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Dialog.Header",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "filter_list": {
       "id": "filter_list",
@@ -546,8 +611,44 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": []
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "FilterList.Item",
+          "props": [
+            {
+              "name": "count",
+              "type": "number",
+              "description": "Number to be displayed in the list item"
+            },
+            {
+              "name": "selected",
+              "type": "boolean",
+              "description": "Whether the list item is selected or not"
+            },
+            {
+              "name": "small",
+              "type": "boolean",
+              "defaultValue": "false",
+              "description": "Whether the list item is small or not"
+            },
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "filtered_search": {
       "id": "filtered_search",
@@ -555,7 +656,17 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "subcomponents": []
     },
     "flash": {
@@ -653,21 +764,15 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": [
+      "props": [
         {
-          "name": "",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            },
-            {
-              "name": "as",
-              "type": "React.ElementType",
-              "defaultValue": "\"h2\""
-            }
-          ]
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"h2\""
         }
       ]
     },
@@ -699,18 +804,13 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": [
+      "props": [
         {
-          "name": "",
-          "props": [
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
+          "name": "sx",
+          "type": "SystemStyleObject"
         }
-      ]
+      ],
+      "subcomponents": []
     },
     "link": {
       "id": "link",
@@ -833,13 +933,29 @@
           "name": "top",
           "type": "number",
           "defaultValue": "0",
-          "description": "Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`)."
+          "description": "The top CSS property of the Overlay — affects the vertical position."
         },
         {
           "name": "left",
           "type": "number",
           "defaultValue": "0",
-          "description": "Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`)."
+          "description": "The left CSS property of the Overlay — affects the horizontal position."
+        },
+        {
+          "name": "right",
+          "type": "number",
+          "description": "The right CSS property of the Overlay — affects the horizontal position."
+        },
+        {
+          "name": "bottom",
+          "type": "number",
+          "description": "The bottom CSS property of the Overlay — affects the vertical position."
+        },
+        {
+          "name": "position",
+          "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
+          "defaultValue": "absolute",
+          "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
         },
         {
           "name": "portalContainerName",
@@ -1199,7 +1315,13 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "description": "Sets the width and height of the spinner."
+        }
+      ],
       "subcomponents": []
     },
     "state_label": {
@@ -1208,7 +1330,21 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "variant",
+          "type": "'small' | 'normal'",
+          "defaultValue": "'normal'"
+        },
+        {
+          "name": "status",
+          "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "subcomponents": []
     },
     "styled_octicon": {
@@ -1261,8 +1397,65 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": []
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "SubNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "default": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "SubNav.Links",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "tab_nav": {
       "id": "tab_nav",
@@ -1270,8 +1463,41 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": []
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "TabNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "text": {
       "id": "text",
@@ -1279,7 +1505,17 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "as",
+          "defaultValue": "'span'",
+          "type": "React.ElementType"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "subcomponents": []
     },
     "text_input": {
@@ -1578,8 +1814,60 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": []
+      "props": [
+        {
+          "name": "clipSidebar",
+          "type": "boolean",
+          "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "Timeline.Item",
+          "props": [
+            {
+              "name": "condensed",
+              "type": "boolean",
+              "description": "Reduces vertical padding and removes background from an item's badge."
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Badge",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Body",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "Timeline.Break",
+          "props": [
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "toggle_switch": {
       "id": "toggle_switch",
@@ -1658,7 +1946,36 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "align",
+          "type": "'left' | 'right'"
+        },
+        {
+          "name": "direction",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "description": "Sets where the tooltip renders in relation to the target."
+        },
+        {
+          "name": "noDelay",
+          "type": "boolean",
+          "description": "When set to `true`, tooltip appears without any delay."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Text used in `aria-label` (for accessibility)"
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "description": "Use `true` to allow text within tooltip to wrap."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "subcomponents": []
     },
     "truncate": {
@@ -1667,7 +1984,35 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "maxWidth",
+          "type": "number",
+          "defaultValue": "125",
+          "description": "Sets the max-width of the text."
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Displays text as inline block and vertical aligns to the top."
+        },
+        {
+          "name": "expandable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Allows the truncated text to be displayed on hover."
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'div'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "subcomponents": []
     },
     "underline_nav": {
@@ -1676,8 +2021,56 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": []
+      "props": [
+        {
+          "name": "actions",
+          "type": "React.ReactNode",
+          "description": "Place another element, such as a button, to the opposite side of the navigation items."
+        },
+        {
+          "name": "align",
+          "type": "'right'",
+          "description": "Use `right` to have navigation items aligned right."
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "description": "Used to make navigation fill the width of the container."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "Used to set the `aria-label` on the top level `<nav>` element."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "UnderlineNav.Link",
+          "props": [
+            {
+              "name": "as",
+              "type": "React.ElementType",
+              "defaultValue": "'a'"
+            },
+            {
+              "name": "href",
+              "type": "string"
+            },
+            {
+              "name": "selected",
+              "type": "boolean"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "action_list": {
       "id": "action_list",
@@ -1918,78 +2311,72 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": [
+      "props": [
         {
-          "name": "",
-          "props": [
-            {
-              "name": "open",
-              "type": "boolean",
-              "defaultValue": "false",
-              "description": "Determines whether the overlay portion of the component should be shown or not."
-            },
-            {
-              "name": "onOpen",
-              "type": "(gesture: 'anchor-click' | 'anchor-key-press') => unknown",
-              "defaultValue": "",
-              "description": "A callback that is called whenever the overlay is currently closed and an \"open gesture\" is detected."
-            },
-            {
-              "name": "onClose",
-              "type": "(gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown",
-              "defaultValue": "",
-              "description": "A callback that is called whenever the overlay is currently open and a \"close gesture\" is detected."
-            },
-            {
-              "name": "renderAnchor",
-              "type": "<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element",
-              "defaultValue": "",
-              "description": "A custom function component used to render the anchor element. When renderAnchor is null, an anchorRef is required."
-            },
-            {
-              "name": "anchorRef",
-              "type": "React.RefObject<HTMLElement>",
-              "defaultValue": "",
-              "description": "An override to the internal `renderAnchor` ref that will be used to position the overlay. When `renderAnchor` is `null`, this can be used to make an anchor that is detached from ` AnchoredOverlay `."
-            },
-            {
-              "name": "anchorId",
-              "type": "string",
-              "defaultValue": "",
-              "description": "An override to the internal id that will be passed to the anchor."
-            },
-            {
-              "name": "side",
-              "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
-              "defaultValue": "'outside-bottom'",
-              "description": ""
-            },
-            {
-              "name": "align",
-              "type": "'start' | 'center' | 'end'",
-              "defaultValue": "'start'",
-              "description": ""
-            },
-            {
-              "name": "overlayProps",
-              "type": "Partial<OverlayProps>",
-              "defaultValue": "",
-              "description": "Props to be spread on the internal `Overlay` component."
-            },
-            {
-              "name": "focusTrapSettings",
-              "type": "Partial<FocusTrapHookSettings>",
-              "defaultValue": "",
-              "description": "Settings to apply to the focus trap on the internal `Overlay` component."
-            },
-            {
-              "name": "focusZoneSettings",
-              "type": "Partial<FocusZoneHookSettings>",
-              "defaultValue": "",
-              "description": "Settings to apply to the focus zone on the internal `Overlay` component."
-            }
-          ]
+          "name": "open",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Determines whether the overlay portion of the component should be shown or not."
+        },
+        {
+          "name": "onOpen",
+          "type": "(gesture: 'anchor-click' | 'anchor-key-press') => unknown",
+          "defaultValue": "",
+          "description": "A callback that is called whenever the overlay is currently closed and an \"open gesture\" is detected."
+        },
+        {
+          "name": "onClose",
+          "type": "(gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown",
+          "defaultValue": "",
+          "description": "A callback that is called whenever the overlay is currently open and a \"close gesture\" is detected."
+        },
+        {
+          "name": "renderAnchor",
+          "type": "<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element",
+          "defaultValue": "",
+          "description": "A custom function component used to render the anchor element. When renderAnchor is null, an anchorRef is required."
+        },
+        {
+          "name": "anchorRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "description": "An override to the internal `renderAnchor` ref that will be used to position the overlay. When `renderAnchor` is `null`, this can be used to make an anchor that is detached from ` AnchoredOverlay `."
+        },
+        {
+          "name": "anchorId",
+          "type": "string",
+          "defaultValue": "",
+          "description": "An override to the internal id that will be passed to the anchor."
+        },
+        {
+          "name": "side",
+          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+          "defaultValue": "'outside-bottom'",
+          "description": ""
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end'",
+          "defaultValue": "'start'",
+          "description": ""
+        },
+        {
+          "name": "overlayProps",
+          "type": "Partial<OverlayProps>",
+          "defaultValue": "",
+          "description": "Props to be spread on the internal `Overlay` component."
+        },
+        {
+          "name": "focusTrapSettings",
+          "type": "Partial<FocusTrapHookSettings>",
+          "defaultValue": "",
+          "description": "Settings to apply to the focus trap on the internal `Overlay` component."
+        },
+        {
+          "name": "focusZoneSettings",
+          "type": "Partial<FocusZoneHookSettings>",
+          "defaultValue": "",
+          "description": "Settings to apply to the focus zone on the internal `Overlay` component."
         }
       ]
     },
@@ -1999,7 +2386,12 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ],
       "subcomponents": [
         {
           "name": "Autocomplete.Input",
@@ -2014,6 +2406,96 @@
             "element": "TextInput",
             "url": "/react/TextInput"
           }
+        },
+        {
+          "name": "Autocomplete.Overlay",
+          "props": [
+            {
+              "name": "menuAnchorRef",
+              "type": "React.RefObject<HTMLElement>"
+            },
+            {
+              "name": "children",
+              "type": "React.ReactNode"
+            },
+            {
+              "name": "overlayProps",
+              "deprecated": true,
+              "type": "Partial<OverlayProps>",
+              "description": "Props to be spread on the internal `Overlay` component."
+            }
+          ],
+          "passthrough": {
+            "element": "Overlay",
+            "url": "/react/Overlay"
+          }
+        },
+        {
+          "name": "Autocomplete.Menu",
+          "props": [
+            {
+              "name": "items",
+              "required": true,
+              "type": "T[]",
+              "description": "The options for field values that are displayed in the dropdown menu. One or more may be selected depending on the value of the `selectionVariant` prop."
+            },
+            {
+              "name": "selectedItemIds",
+              "required": true,
+              "type": "(string | number)[]",
+              "description": "The IDs of the selected items"
+            },
+            {
+              "name": "aria-labelledby",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "addNewItem",
+              "type": "Omit<T, 'id' | 'leadingVisual' | 'onAction'> & { handleAddItem: (item: Omit<T, 'leadingVisual' | 'onAction'>) => void; }",
+              "description": "A menu item that is used to allow users make a selection that is not available in the array passed to the `items` prop. This menu item gets appended to the end of the list of options."
+            },
+            {
+              "name": "emptyStateText",
+              "type": "React.ReactNode | false",
+              "description": "The text that appears in the menu when there are no options in the array passed to the `items` prop."
+            },
+            {
+              "name": "filterFn",
+              "type": "(item: T, i: number) => boolean",
+              "description": "A custom function used to filter the options in the array passed to the `items` prop. By default, we filter out items that don't match the value of the autocomplete text input. The default filter is not case-sensitive."
+            },
+            {
+              "name": "loading",
+              "type": "boolean",
+              "description": "Whether the data is loading for the menu items"
+            },
+            {
+              "name": "sortOnCloseFn",
+              "type": "(itemIdA: string | number, itemIdB: string | number) => number",
+              "description": "The sort function that is applied to the options in the array passed to the `items` prop after the user closes the menu. By default, selected items are sorted to the top after the user closes the menu."
+            },
+            {
+              "name": "selectionVariant",
+              "type": "'single' | 'multiple'",
+              "description": "Whether there can be one item selected from the menu or multiple items selected from the menu"
+            },
+            {
+              "name": "onOpenChange",
+              "type": "(open: boolean) => void",
+              "description": "Function that gets called when the menu is opened or closed"
+            },
+            {
+              "name": "onSelectedChange",
+              "type": "(item: T | T[]) => void",
+              "description": "The function that is called when an item in the list is selected or deselected"
+            },
+            {
+              "name": "customScrollContainerRef",
+              "type": "React.MutableRefObject<HTMLElement | null>",
+              "description": "If the menu is rendered in a scrolling element other than the `Autocomplete.Overlay` component, pass the ref of that element to `customScrollContainerRef` to ensure the container automatically scrolls when the user highlights an item in the menu that is outside the scroll container"
+            }
+          ]
         }
       ]
     },
@@ -2122,6 +2604,64 @@
         {
           "name": "sx",
           "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": []
+    },
+    "drafts_dialog": {
+      "id": "drafts_dialog",
+      "name": "Dialog",
+      "status": "draft",
+      "a11yReviewed": false,
+      "stories": [],
+      "props": [
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "description": "Title of the Dialog. Also serves as the aria-label for this Dialog."
+        },
+        {
+          "name": "subtitle",
+          "type": "React.ReactNode",
+          "description": "The Dialog's subtitle. Optional. Rendered below the title in smaller type with less contrast. Also serves as the aria-describedby for this Dialog."
+        },
+        {
+          "name": "renderHeader",
+          "type": "React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>>",
+          "description": "Provide a custom renderer for the dialog header. This content is rendered directly into the dialog body area, full bleed from edge to edge, top to the start of the body element. Warning: using a custom renderer may violate Primer UX principles."
+        },
+        {
+          "name": "renderBody",
+          "type": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>",
+          "description": "Provide a custom render function for the dialog body. This content is rendered directly into the dialog body area, full bleed from edge to edge, header to footer. Warning: using a custom renderer may violate Primer UX principles."
+        },
+        {
+          "name": "renderFooter",
+          "type": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>",
+          "description": "Provide a custom render function for the dialog footer. This content is rendered directly into the dialog footer area, full bleed from edge to edge, end of the body element to bottom. Warning: using a custom renderer may violate Primer UX principles."
+        },
+        {
+          "name": "footerButtons",
+          "type": "DialogButtonProps[]",
+          "description": "Specifies the buttons to be rendered in the Dialog footer."
+        },
+        {
+          "name": "onClose",
+          "type": "(gesture: 'close-button' | 'escape') => void",
+          "description": "This method is invoked when a gesture to close the dialog is used (either an Escape key press or clicking the 'X' in the top-right corner). The gesture argument indicates the gesture that was used to close the dialog (either 'close-button' or 'escape')."
+        },
+        {
+          "name": "role",
+          "type": "'dialog' | 'alertdialog'",
+          "description": "The ARIA role to assign to this dialog."
+        },
+        {
+          "name": "width",
+          "type": "'small' | 'medium' | 'large' | 'xlarge'"
+        },
+        {
+          "name": "height",
+          "type": "'small' | 'large' | 'auto'"
         }
       ],
       "subcomponents": []
@@ -3432,8 +3972,154 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
-      "subcomponents": []
+      "props": [
+        {
+          "name": "leadingVisual",
+          "type": "React.ComponentType<React.PropsWithChildren<any>>",
+          "description": "A function that renders a component before the token text"
+        },
+        {
+          "name": "text",
+          "required": true,
+          "type": "string",
+          "description": "The text label inside the token"
+        },
+        {
+          "name": "as",
+          "type": "'button' | 'a' | 'span'",
+          "defaultValue": "'span'"
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void",
+          "description": "The function that gets called when a user clicks the remove button, or keys `Backspace` or `Delete` when focused on the token"
+        },
+        {
+          "name": "hideRemoveButton",
+          "type": "boolean",
+          "description": "Whether the remove button should be rendered in the token"
+        },
+        {
+          "name": "isSelected",
+          "type": "boolean",
+          "description": "Whether the token is selected"
+        },
+        {
+          "name": "id",
+          "type": "number | string",
+          "description": "A unique identifier that can be associated with the token"
+        },
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large' | 'xlarge'",
+          "description": "Which size the token will be rendered at"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "IssueLabelToken",
+          "props": [
+            {
+              "name": "fillColor",
+              "type": "string",
+              "description": "The color that corresponds to the label"
+            },
+            {
+              "name": "text",
+              "required": true,
+              "type": "string",
+              "description": "The text label inside the token"
+            },
+            {
+              "name": "as",
+              "type": "'button' | 'a' | 'span'",
+              "defaultValue": "'span'"
+            },
+            {
+              "name": "onRemove",
+              "type": "() => void",
+              "description": "The function that gets called when a user clicks the remove button, or keys `Backspace` or `Delete` when focused on the token"
+            },
+            {
+              "name": "hideRemoveButton",
+              "type": "boolean",
+              "description": "Whether the remove button should be rendered in the token"
+            },
+            {
+              "name": "isSelected",
+              "type": "boolean",
+              "description": "Whether the token is selected"
+            },
+            {
+              "name": "id",
+              "type": "number | string",
+              "description": "A unique identifier that can be associated with the token"
+            },
+            {
+              "name": "size",
+              "type": "'small' | 'medium' | 'large' | 'xlarge'",
+              "description": "Which size the token will be rendered at"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        },
+        {
+          "name": "AvatarToken",
+          "props": [
+            {
+              "name": "avatarSrc",
+              "type": "string"
+            },
+            {
+              "name": "text",
+              "required": true,
+              "type": "string",
+              "description": "The text label inside the token"
+            },
+            {
+              "name": "as",
+              "type": "'button' | 'a' | 'span'",
+              "defaultValue": "'span'"
+            },
+            {
+              "name": "onRemove",
+              "type": "() => void",
+              "description": "The function that gets called when a user clicks the remove button, or keys `Backspace` or `Delete` when focused on the token"
+            },
+            {
+              "name": "hideRemoveButton",
+              "type": "boolean",
+              "description": "Whether the remove button should be rendered in the token"
+            },
+            {
+              "name": "isSelected",
+              "type": "boolean",
+              "description": "Whether the token is selected"
+            },
+            {
+              "name": "id",
+              "type": "number | string",
+              "description": "A unique identifier that can be associated with the token"
+            },
+            {
+              "name": "size",
+              "type": "'small' | 'medium' | 'large' | 'xlarge'",
+              "description": "Which size the token will be rendered at"
+            },
+            {
+              "name": "sx",
+              "type": "SystemStyleObject"
+            }
+          ]
+        }
+      ]
     },
     "tree_view": {
       "id": "tree_view",
@@ -3586,46 +4272,42 @@
     },
     "drafts_underline_nav2": {
       "id": "drafts_underline_nav2",
-      "name": "UnderlineNav2",
+      "name": "UnderlineNav",
       "status": "draft",
       "a11yReviewed": true,
       "stories": [],
-      "props": [],
-      "subcomponents": [
+      "props": [
         {
-          "name": "UnderlineNav",
-          "props": [
-            {
-              "name": "afterSelect",
-              "type": "(event) => void",
-              "defaultValue": "",
-              "description": "The handler that gets called when a nav link child is selected"
-            },
-            {
-              "name": "aria-label",
-              "type": "string",
-              "defaultValue": "",
-              "description": "A unique name for the rendered 'nav' landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll ${aria-label} left/right')\n"
-            },
-            {
-              "name": "children",
-              "type": "UnderlineNav.Item[]",
-              "defaultValue": "",
-              "required": true,
-              "description": ""
-            },
-            {
-              "name": "loadingCounters",
-              "type": "boolean",
-              "defaultValue": "false",
-              "description": "Whether the navigation items are in loading state. Component waits for all the counters to finish loading to prevent multiple layout shifts."
-            },
-            {
-              "name": "sx",
-              "type": "SystemStyleObject"
-            }
-          ]
+          "name": "afterSelect",
+          "type": "(event) => void",
+          "defaultValue": "",
+          "description": "The handler that gets called when a nav link child is selected"
         },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "",
+          "description": "A unique name for the rendered 'nav' landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll ${aria-label} left/right')\n"
+        },
+        {
+          "name": "children",
+          "type": "UnderlineNav.Item[]",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "loadingCounters",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the navigation items are in loading state. Component waits for all the counters to finish loading to prevent multiple layout shifts."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "subcomponents": [
         {
           "name": "UnderlineNav.Item",
           "props": [
@@ -3742,7 +4424,117 @@
       "status": "draft",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "value",
+          "required": true,
+          "type": "string",
+          "description": "Current value of the editor as a multiline markdown string."
+        },
+        {
+          "name": "onChange",
+          "required": true,
+          "type": "(newMarkdown: string) => void",
+          "description": "Called when the value changes. "
+        },
+        {
+          "name": "onRenderPreview",
+          "required": true,
+          "type": "(markdown: string) => Promise<string>",
+          "description": "Accepts Markdown and returns rendered HTML. To prevent XSS attacks, the HTML should be sanitized and/or come from a trusted source."
+        },
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Disable the editor and all related buttons. Users can still switch between preview & edit modes."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "description": "Placeholder text to show when the editor is empty. By default, no placeholder will be shown."
+        },
+        {
+          "name": "maxLength",
+          "type": "number",
+          "description": "Maximum number of characters the markdown can hold (includes formatting characters like `*`). "
+        },
+        {
+          "name": "fullHeight",
+          "type": "boolean",
+          "description": "Force the editor to take up the full height of the container and disallow resizing. Only use when the container height is tall enough that the user will never want to expand the input further, ie when it takes the full height of the viewport."
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string"
+        },
+        {
+          "name": "viewMode",
+          "type": "'preview' | 'edit'"
+        },
+        {
+          "name": "onChangeViewMode",
+          "type": "(newViewMode: 'preview' | 'edit') => void"
+        },
+        {
+          "name": "onPrimaryAction",
+          "type": "() => void"
+        },
+        {
+          "name": "minHeightLines",
+          "type": "number",
+          "defaultValue": "5"
+        },
+        {
+          "name": "maxHeightLines",
+          "type": "number",
+          "defaultValue": "35"
+        },
+        {
+          "name": "emojiSuggestions",
+          "type": "SuggestionOptions<Emoji>"
+        },
+        {
+          "name": "mentionSuggestions",
+          "type": "SuggestionOptions<Mentionable>"
+        },
+        {
+          "name": "referenceSuggestions",
+          "type": "SuggestionOptions<Reference>"
+        },
+        {
+          "name": "onUploadFile",
+          "type": "(file: File) => Promise<FileUploadResult>"
+        },
+        {
+          "name": "acceptedFileTypes",
+          "type": "FileType[]"
+        },
+        {
+          "name": "monospace",
+          "type": "boolean"
+        },
+        {
+          "name": "required",
+          "type": "boolean"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "savedReplies",
+          "type": "SavedReply[]"
+        },
+        {
+          "name": "pasteUrlsAsPlainText",
+          "type": "boolean"
+        }
+      ],
       "subcomponents": []
     },
     "drafts_markdown_viewer": {
@@ -3751,7 +4543,42 @@
       "status": "draft",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "markdownValue",
+          "type": "string",
+          "description": "The markdown the HTML was rendered from. This is not used for viewing, only as a source for change events."
+        },
+        {
+          "name": "dangerousRenderHTML",
+          "type": "{ __html: string }",
+          "description": "Set the rendered HTML of the viewer. To prevent XSS, ensure that the source of this HTML is trusted!"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "Show a loading spinner instead of content."
+        },
+        {
+          "name": "onLinkClick",
+          "type": "(event: MouseEvent) => void",
+          "description": "Called when the user clicks a link element. This can be used to intercept the click and provide custom routing. Note that this is a native HTML `MouseEvent` and not a `React.ClickEvent`."
+        },
+        {
+          "name": "openLinksInNewTab",
+          "type": "boolean"
+        },
+        {
+          "name": "onChange",
+          "type": "(markdown: string) => void | Promise<void>",
+          "description": "Called when the user interacts and updates the Markdown. The rendered Markdown is updated eagerly - if the request fails, a rejected Promise should be returned by this handler. In that case, the viewer will revert the visual change. If the change is handled by an async API request (as it typically will be in production code), the viewer should be `disabled` while the request is pending to avoid conflicts. To allow users to check multiple boxes rapidly, the API request should be debounced (an ideal debounce duration is about 1 second)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Control whether interaction is disabled."
+        }
+      ],
       "subcomponents": []
     }
   }

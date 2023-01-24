@@ -4,78 +4,72 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
-  "subcomponents": [
+  "props": [
     {
-      "name": "",
-      "props": [
-        {
-          "name": "open",
-          "type": "boolean",
-          "defaultValue": "false",
-          "description": "Determines whether the overlay portion of the component should be shown or not."
-        },
-        {
-          "name": "onOpen",
-          "type": "(gesture: 'anchor-click' | 'anchor-key-press') => unknown",
-          "defaultValue": "",
-          "description": "A callback that is called whenever the overlay is currently closed and an \"open gesture\" is detected."
-        },
-        {
-          "name": "onClose",
-          "type": "(gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown",
-          "defaultValue": "",
-          "description": "A callback that is called whenever the overlay is currently open and a \"close gesture\" is detected."
-        },
-        {
-          "name": "renderAnchor",
-          "type": "<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element",
-          "defaultValue": "",
-          "description": "A custom function component used to render the anchor element. When renderAnchor is null, an anchorRef is required."
-        },
-        {
-          "name": "anchorRef",
-          "type": "React.RefObject<HTMLElement>",
-          "defaultValue": "",
-          "description": "An override to the internal `renderAnchor` ref that will be used to position the overlay. When `renderAnchor` is `null`, this can be used to make an anchor that is detached from ` AnchoredOverlay `."
-        },
-        {
-          "name": "anchorId",
-          "type": "string",
-          "defaultValue": "",
-          "description": "An override to the internal id that will be passed to the anchor."
-        },
-        {
-          "name": "side",
-          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
-          "defaultValue": "'outside-bottom'",
-          "description": ""
-        },
-        {
-          "name": "align",
-          "type": "'start' | 'center' | 'end'",
-          "defaultValue": "'start'",
-          "description": ""
-        },
-        {
-          "name": "overlayProps",
-          "type": "Partial<OverlayProps>",
-          "defaultValue": "",
-          "description": "Props to be spread on the internal `Overlay` component."
-        },
-        {
-          "name": "focusTrapSettings",
-          "type": "Partial<FocusTrapHookSettings>",
-          "defaultValue": "",
-          "description": "Settings to apply to the focus trap on the internal `Overlay` component."
-        },
-        {
-          "name": "focusZoneSettings",
-          "type": "Partial<FocusZoneHookSettings>",
-          "defaultValue": "",
-          "description": "Settings to apply to the focus zone on the internal `Overlay` component."
-        }
-      ]
+      "name": "open",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Determines whether the overlay portion of the component should be shown or not."
+    },
+    {
+      "name": "onOpen",
+      "type": "(gesture: 'anchor-click' | 'anchor-key-press') => unknown",
+      "defaultValue": "",
+      "description": "A callback that is called whenever the overlay is currently closed and an \"open gesture\" is detected."
+    },
+    {
+      "name": "onClose",
+      "type": "(gesture: 'anchor-click' | 'click-outside' | 'escape') => unknown",
+      "defaultValue": "",
+      "description": "A callback that is called whenever the overlay is currently open and a \"close gesture\" is detected."
+    },
+    {
+      "name": "renderAnchor",
+      "type": "<T extends React.HTMLAttributes<HTMLElement>>(props: T) => JSX.Element",
+      "defaultValue": "",
+      "description": "A custom function component used to render the anchor element. When renderAnchor is null, an anchorRef is required."
+    },
+    {
+      "name": "anchorRef",
+      "type": "React.RefObject<HTMLElement>",
+      "defaultValue": "",
+      "description": "An override to the internal `renderAnchor` ref that will be used to position the overlay. When `renderAnchor` is `null`, this can be used to make an anchor that is detached from ` AnchoredOverlay `."
+    },
+    {
+      "name": "anchorId",
+      "type": "string",
+      "defaultValue": "",
+      "description": "An override to the internal id that will be passed to the anchor."
+    },
+    {
+      "name": "side",
+      "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+      "defaultValue": "'outside-bottom'",
+      "description": ""
+    },
+    {
+      "name": "align",
+      "type": "'start' | 'center' | 'end'",
+      "defaultValue": "'start'",
+      "description": ""
+    },
+    {
+      "name": "overlayProps",
+      "type": "Partial<OverlayProps>",
+      "defaultValue": "",
+      "description": "Props to be spread on the internal `Overlay` component."
+    },
+    {
+      "name": "focusTrapSettings",
+      "type": "Partial<FocusTrapHookSettings>",
+      "defaultValue": "",
+      "description": "Settings to apply to the focus trap on the internal `Overlay` component."
+    },
+    {
+      "name": "focusZoneSettings",
+      "type": "Partial<FocusZoneHookSettings>",
+      "defaultValue": "",
+      "description": "Settings to apply to the focus zone on the internal `Overlay` component."
     }
   ]
 }
