@@ -4,6 +4,16 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "description": "FilteredSearch is expected to contain an `ActionMenu` followed by a `TextInput`."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
   "subcomponents": []
 }

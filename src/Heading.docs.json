@@ -4,21 +4,15 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
-  "subcomponents": [
+  "props": [
     {
-      "name": "",
-      "props": [
-        {
-          "name": "sx",
-          "type": "SystemStyleObject"
-        },
-        {
-          "name": "as",
-          "type": "React.ElementType",
-          "defaultValue": "\"h2\""
-        }
-      ]
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"h2\""
     }
   ]
 }

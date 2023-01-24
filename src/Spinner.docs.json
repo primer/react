@@ -4,6 +4,12 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
+  "props": [
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "description": "Sets the width and height of the spinner."
+    }
+  ],
   "subcomponents": []
 }
