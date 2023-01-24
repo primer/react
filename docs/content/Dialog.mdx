@@ -3,11 +3,13 @@ title: Dialog
 status: Alpha
 ---
 
+import data from '../../src/Dialog.docs.json'
+
 The dialog component is used for all modals. It renders on top of the rest of the app with an overlay.
 
 You'll need to manage the `isOpen` state in a wrapper component of your own and pass in a function to be used to close the Dialog. For documentation purposes only we've created a mock `State` to handle this, but you should handle the state in the component you consume `Dialog` in or in a wrapper component.
 
-### Accessibility
+## Accessibility
 
 A few considerations must be made to ensure your use of the `Dialog` component is accessible:
 
@@ -15,11 +17,11 @@ A few considerations must be made to ensure your use of the `Dialog` component i
 
 - Be sure to pass a ref to return the focus back to once the `Dialog` closes via the `returnFocusRef` prop. In most cases this should be the element that opened the Dialog. If you decide to manage focus within your application and want to bypass Primer React Components from doing so when the `Dialog` closes, you can omit the `returnFocusProp`.
 
-### Z-index
+## Z-index
 
 If you're running into z-index issues or are rendering the component inside of an absolutely positioned element, you can wrap your `Dialog` in a [React Portal](https://reactjs.org/docs/portals.html).
 
-### Examples
+## Examples
 
 ```jsx live
 <State default={false}>
@@ -83,22 +85,6 @@ You can also pass any non-text content into the header:
 </State>
 ```
 
-## Component props
+## Props
 
-### Dialog
-
-| Prop name       | Type              | Default | Description                                                                                                                                               |
-| :-------------- | :---------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| isOpen          | Boolean           |         | Set whether or not the dialog is shown                                                                                                                    |
-| onDismiss       | Function          |         | A user-provided function that should close the dialog                                                                                                     |
-| returnFocusRef  | React ref         |         | The element to restore focus back to after the `Dialog` is closed                                                                                         |
-| initialFocusRef | React ref         |         | Element inside of the `Dialog` you'd like to be focused when the Dialog is opened. If nothing is passed to `initialFocusRef` the close button is focused. |
-| aria-labelledby | string            |         | Pass an id to use for the aria-label. Use either a `aria-label` or an `aria-labelledby` but not both.                                                     |
-| aria-label      | string            |         | Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both.                                           |
-| sx              | SystemStyleObject | {}      | Style to be applied to the component                                                                                                                      |
-
-### Dialog.Header
-
-| Prop name | Type              | Default | Description                          |
-| :-------- | :---------------- | :------ | :----------------------------------- |
-| sx        | SystemStyleObject | {}      | Style to be applied to the component |
+<ComponentProps data={data} />
