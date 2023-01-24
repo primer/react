@@ -10,8 +10,8 @@ updates:
     schedule:
       interval: 'weekly'
     labels:
-      - "dependencies"
-      - "skip changeset"
+      - 'dependencies'
+      - 'skip changeset'
 
   - package-ecosystem: 'npm'
     directory: '/docs'
@@ -20,13 +20,13 @@ updates:
     allow:
       - dependency-name: '@primer/gatsby-theme-doctocat'
     labels:
-      - "dependencies"
-      - "skip changeset"
+      - 'dependencies'
+      - 'skip changeset'
 
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
       interval: 'weekly'
     labels:
-      - "dependencies"
-      - "skip changeset"
+      - 'dependencies'
+      - 'skip changeset'

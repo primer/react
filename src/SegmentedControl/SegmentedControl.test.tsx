@@ -1,5 +1,4 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {render, fireEvent, waitFor} from '@testing-library/react'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
@@ -20,15 +19,11 @@ const segmentData = [
 let matchMedia: MatchMediaMock
 
 describe('SegmentedControl', () => {
-  const mockWarningFn = jest.fn()
-
   beforeAll(() => {
-    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
     matchMedia = new MatchMediaMock()
   })
 
   afterAll(() => {
-    jest.clearAllMocks()
     matchMedia.clear()
   })
 
@@ -277,10 +272,12 @@ describe('SegmentedControl', () => {
   })
 
   it('warns users if they try to use the hideLabels variant without a leadingIcon', () => {
+    const spy = jest.spyOn(global.console, 'warn').mockImplementation()
+
     act(() => {
       matchMedia.useMediaQuery(viewportRanges.narrow)
     })
-    const consoleSpy = jest.spyOn(global.console, 'warn')
+
     render(
       <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels'}}>
         {segmentData.map(({label}, index) => (
@@ -290,10 +287,14 @@ describe('SegmentedControl', () => {
         ))}
       </SegmentedControl>,
     )
-    expect(consoleSpy).toHaveBeenCalled()
+
+    expect(spy).toHaveBeenCalledTimes(3)
+    spy.mockRestore()
   })
 
   it('should warn the user if they neglect to specify a label for the segmented control', () => {
+    const spy = jest.spyOn(global.console, 'warn').mockImplementation()
+
     render(
       <SegmentedControl>
         {segmentData.map(({label, id}) => (
@@ -304,7 +305,8 @@ describe('SegmentedControl', () => {
       </SegmentedControl>,
     )
 
-    expect(mockWarningFn).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(2)
+    spy.mockRestore()
   })
 })
 

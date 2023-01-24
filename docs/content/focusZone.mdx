@@ -59,7 +59,7 @@ Deploy Storybook to see live demos of `focusZone`.
 
 ```ts
 const settings = {
-  bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd
+  bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd,
 } as FocusZoneSettings
 const focusZone = document.getElementById('focusZoneContainer')
 focusZone(focusZone, settings)
@@ -127,7 +127,7 @@ export const FocusZoneExample = () => {
 | settings     | `FocusZoneHookSettings` | undefined | Optional settings to control how the focus zone behaves. See below. |
 | dependencies | `React.DependencyList`  | undefined | Dependencies to determine when to initialize the focus zone.        |
 
-**Return value**
+#### Return value
 
 | Name                       | Type                           | Description                                                                               |
 | :------------------------- | :----------------------------- | :---------------------------------------------------------------------------------------- |

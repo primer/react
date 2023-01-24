@@ -10,7 +10,7 @@ Many of our theme keys correspond to system props on our components. For example
 
 In the background, [styled-system](https://github.com/styled-system/styled-system) does the work of finding the `medium` value from `maxWidth` key in the theme file and applying the corresponding CSS.
 
-Our full theme can be found [here](https://github.com/primer/react/blob/main/src/theme-preval.js).
+Learn more about [our full theme](https://github.com/primer/react/blob/main/src/theme-preval.js).
 
 ### Custom Theming
 
@@ -28,7 +28,7 @@ There are two ways to change the theme of Primer components:
    const theme = {
      ...primer,
      space: [0, 8, 16, 32, 64],
-     fontSizes: [10, 12, 16, 24, 48]
+     fontSizes: [10, 12, 16, 24, 48],
    }
 
    // override
@@ -71,8 +71,8 @@ There are two ways to change the theme of Primer components:
 
    const theme = {
      colors: {
-       magenta: '#f0f'
-     }
+       magenta: '#f0f',
+     },
    }
 
    export default () => (

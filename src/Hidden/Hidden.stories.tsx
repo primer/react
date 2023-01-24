@@ -1,26 +1,17 @@
-import {Meta} from '@storybook/react'
 import React from 'react'
-import {ThemeProvider} from '..'
-import {Hidden} from './Hidden'
-import BaseStyles from '../BaseStyles'
-import Box from '../Box'
+import {ComponentMeta, ComponentStory} from '@storybook/react'
 
-const meta: Meta = {
-  title: 'Layout components/Hidden',
-  component: Hidden,
-  decorators: [
-    (Story: React.ComponentType<React.PropsWithChildren<unknown>>): JSX.Element => (
-      <ThemeProvider>
-        <BaseStyles>
-          <Story />
-        </BaseStyles>
-      </ThemeProvider>
-    ),
-  ],
+import Hidden from '.'
+
+export default {
+  title: 'Drafts/Components/Hidden',
   parameters: {
     controls: {
       expanded: true,
     },
+  },
+  args: {
+    on: ['regular'],
   },
   argTypes: {
     on: {
@@ -28,27 +19,12 @@ const meta: Meta = {
         name: 'enum',
         value: ['narrow', 'regular', 'wide'],
       },
-      defaultValue: 'regular',
-      control: {type: 'radio'},
+      control: {type: 'multi-select'},
+      description: 'The viewport type to hide the content on.',
     },
   },
-}
-export default meta
+} as ComponentMeta<typeof Hidden>
 
-export const isVisibleInRegularOnly = () => (
-  <Box>
-    <Hidden on={['narrow', 'wide']}> This value is only shown in regular viewport</Hidden>
-  </Box>
-)
-
-export const isVisibleInNarrowOnly = () => (
-  <Box>
-    <Hidden on={['regular', 'wide']}> This value is only shown in narrow viewport</Hidden>
-  </Box>
-)
-
-export const isHiddenInNarrowOnly = () => (
-  <Box>
-    <Hidden on="narrow">This is hidden in narrow only</Hidden>
-  </Box>
+export const Playground: ComponentStory<typeof Hidden> = args => (
+  <Hidden {...args}>The content is hidden on {Array(args.on).join(',')}</Hidden>
 )
