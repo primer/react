@@ -74,6 +74,7 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |            | A dependency is removed from the project's `package.json`     | `<todo>`    |
 |            | A dependency range is updated                                 | `<todo>`    |
 |            | A pinned dependency version is updated to be range            | `<todo>`    |
+| Visual     | The design for a component has been updated                   | `<todo>`    |
 
 ### Examples
 
