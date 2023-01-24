@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 
@@ -72,16 +72,53 @@ interface Column<Data> {
   rowHeader?: boolean | undefined
 }
 
-function DataTableImpl<Data extends Row>({
+function useHasOverflow(ref: React.RefObject<HTMLTableElement>) {
+  const [hasOverflow, setHasOverflow] = useState(false)
+
+  useEffect(() => {
+    const {current: element} = ref
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        if (
+          entry.target.scrollHeight > entry.target.clientHeight ||
+          entry.target.scrollWidth > entry.target.clientWidth
+        ) {
+          setHasOverflow(true)
+        } else {
+          setHasOverflow(false)
+        }
+      }
+    })
+
+    observer.observe(element as HTMLTableElement)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [ref])
+
+  return hasOverflow
+}
+
+function DataTable<Data extends Row>({
   'aria-describedby': describedBy,
   'aria-labelledby': labelledBy,
   data,
   density,
   columns,
 }: DataTableProps<Data>) {
+  const ref = useRef<HTMLTableElement | null>(null)
+  const tableHasOverflow = useHasOverflow(ref)
+
   return (
     <>
-      <Table aria-describedby={describedBy} aria-labelledby={labelledBy} density={density}>
+      <Table
+        aria-describedby={describedBy}
+        aria-labelledby={labelledBy}
+        density={density}
+        ref={ref}
+        tabIndex={tableHasOverflow ? '0' : undefined}
+      >
         <TableHead>
           <TableRow>
             {columns.map(column => {
@@ -355,10 +392,5 @@ function TableCell({children, scope}: TableCellProps) {
     </BaseComponent>
   )
 }
-
-const DataTable = Object.assign(DataTableImpl, {
-  Title,
-  Subtitle,
-})
 
 export {DataTable, Table, TableHead, TableBody, TableHeader, TableRow, TableCell}
