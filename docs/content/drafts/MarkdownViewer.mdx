@@ -5,6 +5,8 @@ status: Draft
 description: Displays rendered Markdown and facilitates interaction.
 ---
 
+import data from '../../../src/drafts/MarkdownViewer/MarkdownViewer.docs.json'
+
 ```js
 import {MarkdownViewer} from '@primer/react/drafts'
 ```
@@ -74,6 +76,10 @@ const MarkdownViewerExample = () => {
 
 render(MarkdownViewerExample)
 ```
+
+## Props
+
+<ComponentProps data={data} />
 
 ## Status
 

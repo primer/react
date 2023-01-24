@@ -4,11 +4,13 @@ title: FilteredSearch
 status: Alpha
 ---
 
+import data from '../../src/FilteredSearch.docs.json'
+
 The FilteredSearch component helps style an ActionMenu and a TextInput side-by-side.
 
 **Note:** You _must_ use a `TextInput` and `ActionMenu` (or native `<details>` and `<summary>`) in order for this component to work properly.
 
-## Default example
+## Examples
 
 ```jsx live
 <FilteredSearch>
@@ -26,11 +28,6 @@ The FilteredSearch component helps style an ActionMenu and a TextInput side-by-s
 </FilteredSearch>
 ```
 
-## Component props
+## Props
 
-### FilteredSearch.Children
-
-| Name     | Type              | Default | Description                                                                                                   |
-| :------- | :---------------- | :-----: | :------------------------------------------------------------------------------------------------------------ |
-| children |                   |         | FilteredSearch is expected to contain an [`ActionMenu`](/ActionMenu) followed by a [`TextInput`](/TextInput). |
-| sx       | SystemStyleObject |   {}    | Style to be applied to the component                                                                          |
+<ComponentProps data={data} />

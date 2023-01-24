@@ -72,13 +72,29 @@
       "name": "top",
       "type": "number",
       "defaultValue": "0",
-      "description": "Vertical position of the overlay, relative to its closest positioned ancestor (often its `Portal`)."
+      "description": "The top CSS property of the Overlay — affects the vertical position."
     },
     {
       "name": "left",
       "type": "number",
       "defaultValue": "0",
-      "description": "Horizontal position of the overlay, relative to its closest positioned ancestor (often its `Portal`)."
+      "description": "The left CSS property of the Overlay — affects the horizontal position."
+    },
+    {
+      "name": "right",
+      "type": "number",
+      "description": "The right CSS property of the Overlay — affects the horizontal position."
+    },
+    {
+      "name": "bottom",
+      "type": "number",
+      "description": "The bottom CSS property of the Overlay — affects the vertical position."
+    },
+    {
+      "name": "position",
+      "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
+      "defaultValue": "absolute",
+      "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
     },
     {
       "name": "portalContainerName",
