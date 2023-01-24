@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import sx, {SxProp, BetterSystemStyleObject} from './sx'
 import {get} from './constants'
+import sx, {BetterSystemStyleObject, SxProp} from './sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
+import {ComponentProps} from './utils/types'
 
 type StyledLabelProps = {
   /** The color of the label */
@@ -77,7 +79,7 @@ const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
   },
 }
 
-const StyledLabel = styled.span<LabelProps>`
+const StyledLabel = styled.span<StyledLabelProps>`
   align-items: center;
   background-color: transparent;
   border-width: 1px;
@@ -93,11 +95,11 @@ const StyledLabel = styled.span<LabelProps>`
   ${sx};
 `
 
-export type LabelProps = StyledLabelProps & React.ComponentPropsWithoutRef<'span'>
-const Label = React.forwardRef<HTMLSpanElement, LabelProps>(({size = 'small', variant = 'default', ...rest}, ref) => (
+const Label = React.forwardRef(({size = 'small', variant = 'default', ...rest}, ref) => (
   <StyledLabel ref={ref} size={size} variant={variant} {...rest} />
-))
+)) as PolymorphicForwardRefComponent<'span', StyledLabelProps>
 
 Label.displayName = 'Label'
 
+export type LabelProps = ComponentProps<typeof Label>
 export default Label
