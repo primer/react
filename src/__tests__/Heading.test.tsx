@@ -125,6 +125,7 @@ describe('Heading', () => {
   it('logs a warning when trying to render invalid "as" prop', () => {
     const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
 
+    // @ts-expect-error as prop should not be accepted
     HTMLRender(<Heading as="i" />)
     expect(consoleSpy).toHaveBeenCalled()
 
