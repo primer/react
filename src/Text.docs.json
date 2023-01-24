@@ -4,6 +4,16 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
+  "props": [
+    {
+      "name": "as",
+      "defaultValue": "'span'",
+      "type": "React.ElementType"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
   "subcomponents": []
 }

@@ -4,6 +4,35 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
+  "props": [
+    {
+      "name": "align",
+      "type": "'left' | 'right'"
+    },
+    {
+      "name": "direction",
+      "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+      "description": "Sets where the tooltip renders in relation to the target."
+    },
+    {
+      "name": "noDelay",
+      "type": "boolean",
+      "description": "When set to `true`, tooltip appears without any delay."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Text used in `aria-label` (for accessibility)"
+    },
+    {
+      "name": "wrap",
+      "type": "boolean",
+      "description": "Use `true` to allow text within tooltip to wrap."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
   "subcomponents": []
 }

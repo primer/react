@@ -91,7 +91,7 @@
       "description": "Information about the subcomponents.",
       "items": {
         "type": "object",
-        "required": ["name"],
+        "required": ["name", "props"],
         "properties": {
           "name": {
             "type": "string",
