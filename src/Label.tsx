@@ -101,5 +101,5 @@ const Label = React.forwardRef(({size = 'small', variant = 'default', ...rest}, 
 
 Label.displayName = 'Label'
 
-export type LinkProps = ComponentProps<typeof Label>
+export type LabelProps = ComponentProps<typeof Label>
 export default Label
