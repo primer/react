@@ -1,0 +1,27 @@
+---
+componentId: filter_list
+title: FilterList
+status: Alpha
+---
+
+import data from '../../src/FilterList.docs.json'
+
+The FilterList component is a menu with filter options that filter the main content of the page.
+
+## Examples
+
+```jsx live
+<FilterList>
+  <FilterList.Item selected count={32} href="#foo">
+    First Filter
+  </FilterList.Item>
+  <FilterList.Item count={2} href="#bar">
+    Second Filter
+  </FilterList.Item>
+  <FilterList.Item href="#baz">Third Filter</FilterList.Item>
+</FilterList>
+```
+
+## Props
+
+<ComponentProps data={data} />
