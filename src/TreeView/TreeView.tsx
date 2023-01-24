@@ -530,7 +530,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
     }
   }, [state, isSubTreeEmpty, setIsSubTreeEmpty, children])
 
-  // Announce when content has loaded
+  // If a consumer sets state="done" without having a previous state (like `loading`), 
+  // then it would announce on the first render. Using isPending is to only 
+  // announce being "loaded" when the state has changed from `loading` --> `done`. 
   React.useEffect(() => {
     if (isPending && state === 'done') {
       const parentItem = document.getElementById(itemId)
