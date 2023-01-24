@@ -7,6 +7,7 @@ source: https://github.com/primer/react/tree/main/src/Token
 storybook: '/react/storybook?path=/story/components-token--default-token'
 ---
 
+import data from '../../src/Token/Token.docs.json'
 import {AvatarToken, IssueLabelToken, Token} from '@primer/react'
 
 The default `Token` can be used for most cases, but specialized token components are provided for specific use cases (see below for more info).
@@ -355,11 +356,7 @@ Tokens that represent GitHub users should use the `AvatarToken` component.
 
 ## Props
 
-<Props of={Token} />
-
-<Props of={IssueLabelToken} />
-
-<Props of={AvatarToken} />
+<ComponentProps data={data} />
 
 ## Status
 

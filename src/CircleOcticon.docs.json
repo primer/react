@@ -4,6 +4,21 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
+  "props": [
+    {
+      "name": "icon",
+      "type": "Octicon"
+    },
+    {
+      "name": "size",
+      "defaultValue": "32",
+      "type": "number",
+      "description": "Set the width and height of the icon in pixels."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
   "subcomponents": []
 }
