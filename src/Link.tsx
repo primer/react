@@ -60,7 +60,7 @@ const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
         !(innerRef.current instanceof HTMLAnchorElement)
       ) {
         // eslint-disable-next-line no-console
-        console.warn('This component should be an instanceof a semantic button or anchor')
+        console.error('Error: Found `Link` component that renders an inaccessible element', innerRef.current, 'Please ensure `Link` always renders as <a> or <button>')
       }
     }, [innerRef])
   }
