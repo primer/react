@@ -122,6 +122,14 @@ describe('Heading', () => {
       ).toHaveStyleRule('font-size', `${fontSize}`)
     }
   })
+  it('logs a warning when trying to render invalid "as" prop', () => {
+    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
+
+    HTMLRender(<Heading as="i" />)
+    expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
+  })
 
   it('respects the "fontStyle" prop', () => {
     expect(
