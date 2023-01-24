@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Box from '../Box'
 import sx, {merge, SxProp} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -25,7 +26,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
   children,
   leadingIcon: LeadingIcon,
   selected,
-  sx: sxProp = {},
+  sx: sxProp = defaultSxProp,
   ...rest
 }) => {
   const mergedSx = merge(getSegmentedControlListItemStyles(), sxProp as SxProp)

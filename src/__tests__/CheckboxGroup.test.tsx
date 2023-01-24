@@ -12,9 +12,11 @@ describe('CheckboxGroup', () => {
   beforeAll(() => {
     jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
   })
+
   afterAll(() => {
     jest.clearAllMocks()
   })
+
   behavesAsComponent({
     Component: CheckboxGroup,
     options: {skipAs: true, skipSx: true}, // skipping sx check because we have to render this in a <SSRProvider> to keep snapshots consistent
@@ -38,10 +40,12 @@ describe('CheckboxGroup', () => {
       </SSRProvider>
     ),
   })
+
   checkExports('CheckboxGroup', {
     default: CheckboxGroup,
     CheckboxGroupContext,
   })
+
   it('renders a disabled group of inputs', () => {
     const {getAllByRole, getByRole} = render(
       <CheckboxGroup disabled>
@@ -69,6 +73,7 @@ describe('CheckboxGroup', () => {
 
     expect(fieldset.disabled).toBe(true)
   })
+
   it('renders a required group of inputs', () => {
     const {getByTitle} = render(
       <CheckboxGroup required>
@@ -91,6 +96,7 @@ describe('CheckboxGroup', () => {
 
     expect(requiredIndicator).toBeInTheDocument()
   })
+
   it('calls onChange handlers passed to CheckboxGroup and Checkbox', async () => {
     const user = userEvent.setup()
     const handleParentChange = jest.fn()
@@ -120,6 +126,7 @@ describe('CheckboxGroup', () => {
     expect(handleParentChange).toHaveBeenCalled()
     expect(handleCheckboxChange).toHaveBeenCalled()
   })
+
   it('calls onChange handler on CheckboxGroup with selected values', async () => {
     const user = userEvent.setup()
     const handleParentChange = jest.fn()

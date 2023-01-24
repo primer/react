@@ -433,6 +433,7 @@ export function MemexViewOptionsMenu(): JSX.Element {
                 padding: '0 1px',
                 lineHeight: '18px',
               }}
+              aria-label="Open View options menu"
             />
           </ActionMenu.Anchor>
 

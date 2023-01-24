@@ -18,10 +18,9 @@ These behaviors include:
 ### Usage
 
 ```javascript live noinline
-
 const DemoOverlay = ({onClickOutside, initialFocusRef, returnFocusRef, ignoreClickRefs, onEscape, ...rest}) => {
-    const overlayProps = useOverlay({returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
-    return <Box height="200px" bg="green.4" {...overlayProps} {...rest}/>
+  const overlayProps = useOverlay({returnFocusRef, onEscape, ignoreClickRefs, onClickOutside, initialFocusRef})
+  return <Box height="200px" bg="green.4" {...overlayProps} {...rest} />
 }
 
 const DemoComponent = () => {
@@ -31,8 +30,10 @@ const DemoComponent = () => {
   const closeOverlay = () => setIsOpen(false)
   return (
     <>
-      <Button ref={returnFocusRef} onClick={() => setIsOpen(!isOpen)}>toggle</Button>
-      {isOpen &&
+      <Button ref={returnFocusRef} onClick={() => setIsOpen(!isOpen)}>
+        toggle
+      </Button>
+      {isOpen && (
         <DemoOverlay
           returnFocusRef={returnFocusRef}
           ignoreClickRefs={[returnFocusRef]}
@@ -42,21 +43,21 @@ const DemoComponent = () => {
         >
           <Button>Button One</Button>
           <Button ref={initialFocusRef}>Button Two</Button>
-        </DemoOverlay>}
+        </DemoOverlay>
+      )}
     </>
   )
 }
 
-render(<DemoComponent/>)
+render(<DemoComponent />)
 ```
-
 
 #### UseOverlaySettings
 
-| Name | Type | Required | Description |
-| :- | :- | :-: | :- |
-| onEscapePress | `function` | required | Function to call when user presses the Escape key |
-| onOutsideClick | `function` | required | Function to call when user clicks outside of the overlay |
+| Name            | Type                              | Required | Description                                                                                                                           |
+| :-------------- | :-------------------------------- | :------: | :------------------------------------------------------------------------------------------------------------------------------------ |
+| onEscapePress   | `function`                        | required | Function to call when user presses the Escape key                                                                                     |
+| onOutsideClick  | `function`                        | required | Function to call when user clicks outside of the overlay                                                                              |
 | ignoreClickRefs | `React.RefObject<HTMLElement> []` | optional | Refs to click clicks on in the `onOutsideClick` function, useful for ignoring clicks on elements that trigger the overlay visibility. |
-| initialFocusRef | `React.RefObject<HTMLElement>` | optional | Ref to focus when overlay is mounted. |
-| returnFocusRef | `React.RefObject<HTMLElement>` | required | Ref to focus when overlay is unmounted. Important for accessibility. |
+| initialFocusRef | `React.RefObject<HTMLElement>`    | optional | Ref to focus when overlay is mounted.                                                                                                 |
+| returnFocusRef  | `React.RefObject<HTMLElement>`    | required | Ref to focus when overlay is unmounted. Important for accessibility.                                                                  |

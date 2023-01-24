@@ -1,0 +1,14 @@
+{
+  "id": "label_group",
+  "name": "LabelGroup",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

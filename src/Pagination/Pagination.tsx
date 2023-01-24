@@ -165,7 +165,7 @@ export type PaginationProps = {
   currentPage: number
   onPageChange?: (e: React.MouseEvent, n: number) => void
   hrefBuilder?: (n: number) => string
-  marginPageCount: number
+  marginPageCount?: number
   showPages?: boolean
   surroundingPageCount?: number
 }
@@ -205,13 +205,5 @@ function defaultHrefBuilder(pageNum: number) {
 }
 
 function noop() {}
-
-Pagination.defaultProps = {
-  hrefBuilder: defaultHrefBuilder,
-  marginPageCount: 1,
-  onPageChange: noop,
-  showPages: true,
-  surroundingPageCount: 2,
-}
 
 export default Pagination
