@@ -5,31 +5,107 @@
   "status": "draft",
   "a11yReviewed": false,
   "stories": [],
-  "props": [],
+  "props": [
+    {
+      "name": "aria-describedby",
+      "type": "string",
+      "description": "Provide an id to an element which uniquely describes this table"
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "Provide an id to an element which uniquely labels this table"
+    },
+    {
+      "name": "data",
+      "type": "Array<Data>",
+      "description": "Provide a collection of the rows which will be rendered inside of the table"
+    },
+    {
+      "name": "columns",
+      "type": "Array<Column<Data>>",
+      "description": "Provide the columns for the table and the fields in `data` to which they correspond"
+    },
+    {
+      "name": "density",
+      "type": "'condensed' | 'normal' | 'spacious'",
+      "description": "Specify the amount of space that should be available around the contents of the table"
+    }
+  ],
   "subcomponents": [
     {
       "name": "Table",
-      "props": []
+      "props": [
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely describes this table"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely labels this table"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "density",
+          "type": "'condensed' | 'normal' | 'spacious'",
+          "description": "Specify the amount of space that should be available around the contents of the table"
+        }
+      ]
     },
     {
       "name": "TableHead",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
     },
     {
       "name": "TableBody",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
     },
     {
       "name": "TableRow",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
     },
     {
       "name": "TableHeader",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
     },
     {
       "name": "TableCell",
-      "props": []
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "scope",
+          "type": "string",
+          "description": "Provide the scope for a table cell, useful for defining a row header using `scope=\"row\"`"
+        }
+      ]
     }
   ]
 }

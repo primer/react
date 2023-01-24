@@ -225,7 +225,6 @@
     "styled-components": "4.4.1",
     "terser": "5.16.1",
     "ts-node": "10.9.1",
-    "ts-toolbelt": "9.6.0",
     "typescript": "4.9.3",
     "webpack": "5.74.0"
   },

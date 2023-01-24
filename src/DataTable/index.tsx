@@ -11,10 +11,19 @@ interface Row {
    * Provide a value that uniquely identifies the row
    */
   id: string | number
-  [key: string]: any
 }
 
 interface DataTableProps<Data extends Row> {
+  /**
+   * Provide an id to an element which uniquely describes this table
+   */
+  'aria-describedby'?: string | undefined
+
+  /**
+   * Provide an id to an element which uniquely labels this table
+   */
+  'aria-labelledby'?: string | undefined
+
   /**
    * Provide a collection of the rows which will be rendered inside of the table
    */
@@ -38,7 +47,7 @@ interface Column<Data> {
    * Provide the name of the column. This will be rendered as a table header
    * within the table itself
    */
-  name: string
+  header: string
 
   /**
    * Optionally provide a field to render for this column. This may be the key
@@ -48,23 +57,35 @@ interface Column<Data> {
    * Alternatively, you may provide a `renderCell` for this column to render the
    * field in a row
    */
-  field: string | undefined
+  field?: string | undefined
 
   /**
    * Provide a custom component or render prop to render the data for this
    * column in a row
    */
-  renderCell?: (data: Data) => React.ReactNode | undefined
+  renderCell?: ((data: Data) => React.ReactNode) | undefined
+
+  /**
+   * Specify if the value of this column for a row should be treated as a row
+   * header
+   */
+  rowHeader?: boolean | undefined
 }
 
-function DataTable<Data extends Row>({data, density, columns}: DataTableProps<Data>) {
+function DataTableImpl<Data extends Row>({
+  'aria-describedby': describedBy,
+  'aria-labelledby': labelledBy,
+  data,
+  density,
+  columns,
+}: DataTableProps<Data>) {
   return (
     <>
-      <Table density={density}>
+      <Table aria-describedby={describedBy} aria-labelledby={labelledBy} density={density}>
         <TableHead>
           <TableRow>
             {columns.map(column => {
-              return <TableHeader key={column.name}>{column.name}</TableHeader>
+              return <TableHeader key={column.header}>{column.header}</TableHeader>
             })}
           </TableRow>
         </TableHead>
@@ -73,13 +94,17 @@ function DataTable<Data extends Row>({data, density, columns}: DataTableProps<Da
             return (
               <TableRow key={row.id}>
                 {columns.map(column => {
+                  const columnProps = {
+                    key: column.header,
+                    scope: column.rowHeader ? 'row' : undefined,
+                  }
                   if (column.renderCell) {
-                    return <TableCell key={column.field}>{column.renderCell(row)}</TableCell>
+                    return <TableCell {...columnProps}>{column.renderCell(row)}</TableCell>
                   }
 
                   if (column.field) {
                     const parts = column.field.split('.')
-                    let value = row
+                    let value: any = row
 
                     for (const part of parts) {
                       value = value?.[part]
@@ -87,7 +112,7 @@ function DataTable<Data extends Row>({data, density, columns}: DataTableProps<Da
 
                     // TODO: handle validation of deep accessor
                     if (typeof value === 'string' || typeof value === 'number' || React.isValidElement(value)) {
-                      return <TableCell key={column.field}>{value}</TableCell>
+                      return <TableCell {...columnProps}>{value}</TableCell>
                     }
 
                     return null
@@ -102,6 +127,28 @@ function DataTable<Data extends Row>({data, density, columns}: DataTableProps<Da
       </Table>
     </>
   )
+}
+
+// ----------------------------------------------------------------------------
+// Header
+// ----------------------------------------------------------------------------
+interface TableTitleProps {
+  children: string
+  level?: 1 | 2 | 3 | 4 | 5 | 6
+}
+
+function Title({children, level = 2}: TableTitleProps) {
+  const id = React.useId()
+  return React.createElement(`h${level}`, {id}, children)
+}
+
+interface TableSubtitleProps {
+  children: React.ReactNode
+}
+
+function Subtitle({children}: TableSubtitleProps) {
+  const id = React.useId()
+  return <div id={id}>{children}</div>
 }
 
 // ----------------------------------------------------------------------------
@@ -308,5 +355,10 @@ function TableCell({children, scope}: TableCellProps) {
     </BaseComponent>
   )
 }
+
+const DataTable = Object.assign(DataTableImpl, {
+  Title,
+  Subtitle,
+})
 
 export {DataTable, Table, TableHead, TableBody, TableHeader, TableRow, TableCell}

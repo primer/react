@@ -124,32 +124,33 @@ function uppercase(input: string): string {
   return input[0].toUpperCase() + input.slice(1)
 }
 
-export const Default = () => {
+export const Playground: ComponentStory<typeof DataTable> = args => {
   return (
     <DataTable
+      {...args}
       data={data}
       columns={[
         {
-          name: 'Repository',
+          header: 'Repository',
           field: 'name',
+          rowHeader: true,
         },
         {
-          name: 'Type',
+          header: 'Type',
           field: 'type',
           renderCell: row => {
             return <Label>{uppercase(row.type)}</Label>
           },
         },
         {
-          name: 'Updated',
+          header: 'Updated',
           field: 'updatedAt',
           renderCell: row => {
             return <RelativeTime date={new Date(row.updatedAt)} />
           },
         },
         {
-          name: 'Dependabot',
-          field: 'securityFeatures.dependabot',
+          header: 'Dependabot',
           renderCell: row => {
             return row.securityFeatures.dependabot.length > 0 ? (
               <LabelGroup>
@@ -161,8 +162,7 @@ export const Default = () => {
           },
         },
         {
-          name: 'Code scanning',
-          field: 'securityFeatures.codeScanning',
+          header: 'Code scanning',
           renderCell: row => {
             return row.securityFeatures.codeScanning.length > 0 ? (
               <LabelGroup>
@@ -178,67 +178,18 @@ export const Default = () => {
   )
 }
 
-// export const Playground: ComponentStory<typeof Table> = args => {
-// return (
-// <Table {...args}>
-// <TableHead>
-// <TableRow>
-// <TableHeader>Repository</TableHeader>
-// <TableHeader>Type</TableHeader>
-// <TableHeader>Updated</TableHeader>
-// <TableHeader>Dependabot</TableHeader>
-// <TableHeader>Code scanning</TableHeader>
-// </TableRow>
-// </TableHead>
-// <TableBody>
-// {data.map(row => {
-// return (
-// <TableRow key={row.id}>
-// <TableCell scope="row">{row.name}</TableCell>
-// <TableCell>
-// <Label>{uppercase(row.type)}</Label>
-// </TableCell>
-// <TableCell>
-// <RelativeTime date={new Date(row.updatedAt)} />
-// </TableCell>
-// <TableCell>
-// {row.securityFeatures.dependabot.length > 0 ? (
-// <LabelGroup>
-// {row.securityFeatures.dependabot.map(feature => {
-// return <Label key={feature}>{uppercase(feature)}</Label>
-// })}
-// </LabelGroup>
-// ) : null}
-// </TableCell>
-// <TableCell>
-// {row.securityFeatures.codeScanning.length > 0 ? (
-// <LabelGroup>
-// {row.securityFeatures.codeScanning.map(feature => {
-// return <Label key={feature}>{uppercase(feature)}</Label>
-// })}
-// </LabelGroup>
-// ) : null}
-// </TableCell>
-// </TableRow>
-// )
-// })}
-// </TableBody>
-// </Table>
-// )
-// }
+Playground.args = {
+  density: 'normal',
+}
 
-// Playground.args = {
-// density: 'normal',
-// }
-
-// Playground.argTypes = {
-// density: {
-// control: {
-// type: 'radio',
-// },
-// type: {
-// name: 'enum',
-// value: ['condensed', 'normal', 'spacious'],
-// },
-// },
-// }
+Playground.argTypes = {
+  density: {
+    control: {
+      type: 'radio',
+    },
+    type: {
+      name: 'enum',
+      value: ['condensed', 'normal', 'spacious'],
+    },
+  },
+}
