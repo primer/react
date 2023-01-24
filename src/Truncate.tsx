@@ -27,5 +27,7 @@ const Truncate = React.forwardRef(({expandable = false, inline = false, maxWidth
   <StyledTruncate ref={ref} maxWidth={maxWidth} expandable={expandable} inline={inline} {...rest} />
 )) as PolymorphicForwardRefComponent<'div', StyledTruncateProps>
 
+Truncate.displayName = 'Truncate'
+
 export type TruncateProps = ComponentProps<typeof Truncate>
 export default Truncate
