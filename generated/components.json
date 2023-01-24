@@ -543,7 +543,12 @@
       "status": "alpha",
       "a11yReviewed": false,
       "stories": [],
-      "props": [],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "subcomponents": []
     },
     "drafts_dialog": {
