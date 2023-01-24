@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
 
 const variants = variant({
   variants: {
@@ -68,7 +67,11 @@ const StyledFlash = styled.div<StyledFlashProps>`
   ${sx};
 `
 
-export type FlashProps = ComponentProps<typeof StyledFlash>
-const Flash = ({variant = 'default', ...rest}: FlashProps) => <StyledFlash variant={variant} {...rest} />
+export type FlashProps = StyledFlashProps & React.ComponentPropsWithoutRef<'div'>
+const Flash = React.forwardRef<HTMLDivElement, FlashProps>(({variant = 'default', ...rest}, ref) => (
+  <StyledFlash ref={ref} variant={variant} {...rest} />
+))
+
+Flash.displayName = 'Flash'
 
 export default Flash

@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import sx, {SxProp, BetterSystemStyleObject} from './sx'
 import {get} from './constants'
-import {ComponentProps} from './utils/types'
 
-export type LabelProps = {
+type StyledLabelProps = {
   /** The color of the label */
   variant?: LabelColorOptions
   /** How large the label is rendered */
@@ -94,7 +93,11 @@ const StyledLabel = styled.span<LabelProps>`
   ${sx};
 `
 
-const Label = ({size = 'small', variant = 'default', ...rest}: ComponentProps<typeof StyledLabel>) => (
-  <StyledLabel size={size} variant={variant} {...rest} />
-)
+export type LabelProps = StyledLabelProps & React.ComponentPropsWithoutRef<'span'>
+const Label = React.forwardRef<HTMLSpanElement, LabelProps>(({size = 'small', variant = 'default', ...rest}, ref) => (
+  <StyledLabel ref={ref} size={size} variant={variant} {...rest} />
+))
+
+Label.displayName = 'Label'
+
 export default Label

@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
-import {ComponentProps} from './utils/types'
 
 type StyledAvatarProps = {
   /** Sets the width and height of the avatar. */
@@ -36,7 +35,11 @@ const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
   ${sx}
 `
 
-const Avatar = ({size = 20, alt = '', ...rest}: StyledAvatarProps) => <StyledAvatar alt={alt} size={size} {...rest} />
+export type AvatarProps = StyledAvatarProps & React.ComponentPropsWithoutRef<'img'>
+const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(({size = 20, alt = '', ...rest}, ref) => (
+  <StyledAvatar ref={ref} alt={alt} size={size} {...rest} />
+))
 
-export type AvatarProps = ComponentProps<typeof Avatar>
+Avatar.displayName = 'Avatar'
+
 export default Avatar
