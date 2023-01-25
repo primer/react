@@ -8,6 +8,7 @@ import sx, {merge, SxProp} from '../sx'
 import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
 
@@ -51,8 +52,8 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   fullWidth,
   onChange,
   size,
-  sx: sxProp = {},
-  variant,
+  sx: sxProp = defaultSxProp,
+  variant = 'default',
   ...rest
 }) => {
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
@@ -211,10 +212,6 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 }
 
 Root.displayName = 'SegmentedControl'
-
-Root.defaultProps = {
-  variant: 'default',
-}
 
 export const SegmentedControl = Object.assign(Root, {
   Button,

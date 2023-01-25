@@ -9,7 +9,7 @@
 - `UnderlineNavItem` is now `UnderlineNav.Item`
 - `FilterListItem` is now `FilterList.Item`
 
-There is a [codemod](#codemods) available to upgrade component identifiers from [v3.x.x-beta](#3-0-0-beta):
+There is a [codemod](#codemods) available to upgrade component identifiers from [v3.x.x-beta](#300-beta):
 
 ```
 npx jscodeshift -t node_modules/@primer/components/codemods/v4.js path/to/src
@@ -30,7 +30,7 @@ The following breaking changes must be accounted for manually:
 - The `Link` component no longer accepts `scheme` or `muted` props, and has no underline by default.
 - `DonutChart` is now simply `Donut`, and `DonutSlice` is `Donut.Slice`.
 
-There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#2-0-0-beta) and updating the package name:
+There is a [codemod](#codemods) available to upgrade from [2.x.x-beta](#200-beta) and updating the package name:
 
 ```
 npx jscodeshift -t node_modules/@primer/components/codemods/v3.js path/to/src
@@ -46,7 +46,7 @@ npx jscodeshift -t node_modules/@primer/components/codemods/v3.js path/to/src
 
 We suggest that you rename your components in the above order, since renaming `Block` to `Box` before renaming the old `Box` component to `BorderBox` will cause problems.
 
-There is a [codemod](#codemods) available to upgrade from [1.x.x-beta](#1-0-0-beta):
+There is a [codemod](#codemods) available to upgrade from [1.x.x-beta](#100-beta):
 
 ```
 npx jscodeshift -t node_modules/primer-react/codemods/v2.js path/to/src
@@ -102,7 +102,7 @@ There are two ways to change the theme of @primer/components components:
    const theme = {
      ...primer,
      space: [0, 8, 16, 32, 64],
-     fontSizes: [10, 12, 16, 24, 48]
+     fontSizes: [10, 12, 16, 24, 48],
    }
 
    // override
@@ -126,8 +126,8 @@ There are two ways to change the theme of @primer/components components:
 
    const theme = {
      colors: {
-       magenta: '#f0f'
-     }
+       magenta: '#f0f',
+     },
    }
 
    export default () => (
@@ -245,6 +245,5 @@ Beware that codemods are not 100% fool-proof and may break your code, especially
 [emotion]: https://emotion.sh
 [emotion-theming]: https://github.com/emotion-js/emotion/tree/master/packages/emotion-theming
 [styled-system]: http://jxnblk.com/styled-system/
-[themeget]: http://jxnblk.com/styled-system/api#themeget
 [primer css]: https://github.com/primer/primer
 [responsive values]: http://jxnblk.com/styled-system/responsive-styles#responsive-styles

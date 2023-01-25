@@ -179,6 +179,8 @@ export type {CheckboxProps} from './Checkbox'
 export {default as Textarea} from './Textarea'
 export type {TextareaProps} from './Textarea'
 
+export {UnderlineNav as UnderlineNav2} from './UnderlineNav2'
+
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'

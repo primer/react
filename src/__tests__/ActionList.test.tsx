@@ -18,6 +18,9 @@ function SimpleActionList(): JSX.Element {
             <ActionList.Item>Copy link</ActionList.Item>
             <ActionList.Item>Edit file</ActionList.Item>
             <ActionList.Item variant="danger">Delete file</ActionList.Item>
+            <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
+              Link Item
+            </ActionList.LinkItem>
           </ActionList>
         </BaseStyles>
       </SSRProvider>
@@ -61,6 +64,15 @@ describe('ActionList', () => {
   checkExports('ActionList', {
     default: undefined,
     ActionList,
+  })
+
+  it('should have aria-keyshortcuts applied to the correct element', async () => {
+    const {container} = HTMLRender(<SimpleActionList />)
+
+    const linkOptions = await waitFor(() => container.querySelectorAll('a'))
+
+    expect(linkOptions[0]).toHaveAttribute('aria-keyshortcuts', 'd')
+    expect(linkOptions[0].parentElement).not.toHaveAttribute('aria-keyshortcuts', 'd')
   })
 
   it('should have no axe violations', async () => {
@@ -141,6 +153,20 @@ describe('ActionList', () => {
     fireEvent.click(option)
     fireEvent.keyPress(option, {key: 'Enter', charCode: 13})
     expect(option).toBeInTheDocument()
+  })
+
+  it('should call onClick for a link item', async () => {
+    const onClick = jest.fn()
+    const component = HTMLRender(
+      <ActionList role="listbox">
+        <ActionList.LinkItem role="link" onClick={onClick}>
+          Primer React
+        </ActionList.LinkItem>
+      </ActionList>,
+    )
+    const link = await waitFor(() => component.getByRole('link'))
+    fireEvent.click(link)
+    expect(onClick).toHaveBeenCalled()
   })
 
   checkStoriesForAxeViolations('', '../ActionList/ActionList.features')

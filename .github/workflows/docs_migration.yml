@@ -1,0 +1,13 @@
+name: Docs migration tracking
+on: [push]
+jobs:
+  docs-migration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'npm'
+      - run: npm ci
+      - run: node script/docs-migration.js >> $GITHUB_STEP_SUMMARY

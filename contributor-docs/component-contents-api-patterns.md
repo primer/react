@@ -2,7 +2,7 @@
 
 Consider a React component that renders a list of items. Here are two possible APIs that component might expose, both achieving an equivalent result.
 
-### A: Contents passed as React children
+### A: Contents passed as React children <!-- markdownlint-disable-line heading-increment -->
 
 ```jsx
 <List>
@@ -19,11 +19,11 @@ Consider a React component that renders a list of items. Here are two possible A
 ```jsx
 <List
   items={[
-    { text: "New file" },
+    {text: 'New file'},
     ActionList.Divider,
-    { text: "Copy link" },
-    { text: "Edit file" },
-    { text: "Delete file", variant: "danger" },
+    {text: 'Copy link'},
+    {text: 'Edit file'},
+    {text: 'Delete file', variant: 'danger'},
   ]}
 />
 ```
@@ -68,12 +68,12 @@ Though less common, sometimes the HTML schema puts tight restrictions on the kin
 Furthermore, for custom React components, there is a first-class approach for rendering your component's children:
 
 ```jsx
-function MyFancyBox({ children }) {
-  return <div style="border: 4px double cornflowerblue;">{children}</div>;
+function MyFancyBox({children}) {
+  return <div style="border: 4px double cornflowerblue;">{children}</div>
 }
 
 // usage
-<MyFancyBox>I have a blue border!</MyFancyBox>;
+;<MyFancyBox>I have a blue border!</MyFancyBox>
 ```
 
 I call this "first class" because the JSX children that are defined between your component's opening and closing tags are wrapped up into a special prop called `children`. It is the component's responsibility to render those children in the appropriate spot.
@@ -92,26 +92,22 @@ One _could_ imagine a parallel universe where a tooltip is achieved by some othe
 
 ```html
 <button>
-    <title>Save</title>
-    💾
+  <title>Save</title>
+  💾
 </button>
 ```
 
 In custom React components, this pattern can be more common. In this example, the text to render is passed as a prop, as data rather than as pre-created React elements (i.e. JSX):
 
 ```jsx
-function WordWrap({ text, charactersPerLine }) {
-  const lines = [];
-  for (
-    let low = 0;
-    low + charactersPerLine < text.length;
-    low += charactersPerLine
-  ) {
-    lines.push(text.substr(low, charactersPerLine));
+function WordWrap({text, charactersPerLine}) {
+  const lines = []
+  for (let low = 0; low + charactersPerLine < text.length; low += charactersPerLine) {
+    lines.push(text.substr(low, charactersPerLine))
   }
-  const remaining = text.length % charactersPerLine;
+  const remaining = text.length % charactersPerLine
   if (remaining !== 0) {
-    lines.push(text.substr(text.length - remaining));
+    lines.push(text.substr(text.length - remaining))
   }
   return (
     <>
@@ -119,14 +115,11 @@ function WordWrap({ text, charactersPerLine }) {
         <div key={index + l}>{l}</div>
       ))}
     </>
-  );
+  )
 }
 
 // usage
-<WordWrap
-  text="the quick brown fox jumps over the lazy dog"
-  charactersPerLine={5}
-/>;
+;<WordWrap text="the quick brown fox jumps over the lazy dog" charactersPerLine={5} />
 ```
 
 For further customization, one could imagine an optional `renderLine` prop that is used to give consumers control over the way a single line is rendered (see the section "Customization of content passed as data" below).
@@ -144,18 +137,18 @@ Since both patterns are equally powerful, we should be able to write equivalent 
 Let's start with `MyFancyBox`:
 
 ```jsx
-function MyFancyBox({ contents }) {
-  const boxChildren = [];
-  if (typeof contents === "string" || React.isValidElement(contents)) {
-    boxChildren.push(contents);
-  } else if (typeof contents === "function") {
-    boxChildren.push(contents());
+function MyFancyBox({contents}) {
+  const boxChildren = []
+  if (typeof contents === 'string' || React.isValidElement(contents)) {
+    boxChildren.push(contents)
+  } else if (typeof contents === 'function') {
+    boxChildren.push(contents())
   } // implementation abbreviated for clarity
-  return <div style="border: 4px double cornflowerblue;">{boxChildren}</div>;
+  return <div style="border: 4px double cornflowerblue;">{boxChildren}</div>
 }
 
 // usage
-<MyFancyBox contents="I have a blue border!" />;
+;<MyFancyBox contents="I have a blue border!" />
 ```
 
 This example is so esoteric that I think it's obvious which is superior. The original has a less-complex implementation and a clearer API (in the second, just looking at the usage example, there is no way to know that contents can also accept a React element or a function callback).
@@ -165,25 +158,21 @@ This example is so esoteric that I think it's obvious which is superior. The ori
 Now let's dive into `WordWrap`, implemented with a React children-based API:
 
 ```jsx
-function WordWrap({ children, charactersPerLine }) {
-  const items = React.Children.toArray(children);
-  let textContent = "";
+function WordWrap({children, charactersPerLine}) {
+  const items = React.Children.toArray(children)
+  let textContent = ''
   for (const child of items) {
-    if (typeof child === "string") {
-      textContent += child;
+    if (typeof child === 'string') {
+      textContent += child
     }
   }
-  const lines = [];
-  for (
-    let low = 0;
-    low + charactersPerLine < textContent.length;
-    low += charactersPerLine
-  ) {
-    lines.push(textContent.substr(low, charactersPerLine));
+  const lines = []
+  for (let low = 0; low + charactersPerLine < textContent.length; low += charactersPerLine) {
+    lines.push(textContent.substr(low, charactersPerLine))
   }
-  const remaining = textContent.length % charactersPerLine;
+  const remaining = textContent.length % charactersPerLine
   if (remaining !== 0) {
-    lines.push(textContent.substr(textContent.length - remaining));
+    lines.push(textContent.substr(textContent.length - remaining))
   }
   return (
     <>
@@ -191,13 +180,11 @@ function WordWrap({ children, charactersPerLine }) {
         <div key={index + l}>{l}</div>
       ))}
     </>
-  );
+  )
 }
 
 // usage
-<WordWrap charactersPerLine={5}>
-  the quick brown fox jumps over the lazy dog
-</WordWrap>;
+;<WordWrap charactersPerLine={5}>the quick brown fox jumps over the lazy dog</WordWrap>
 ```
 
 Let's get the obvious out of the way: the component implementation is more complex. Instead of receiving the raw text as a prop, the component has to iterate through its children, figure out which ones are text nodes, and build up the string.
@@ -225,12 +212,12 @@ I shall make the following claim:
 For example, take the following two implementations of a simple (contrived) List component:
 
 ```jsx
-function List({ children, ordered }) {
-  const Elem = ordered ? "ol" : "ul";
-  return <Elem>{children}</Elem>;
+function List({children, ordered}) {
+  const Elem = ordered ? 'ol' : 'ul'
+  return <Elem>{children}</Elem>
 }
-function Item({ children }) {
-  return <li>{children}</li>;
+function Item({children}) {
+  return <li>{children}</li>
 }
 
 // usage
@@ -241,20 +228,20 @@ function MyApp() {
       <Item>Banana</Item>
       <Item>Cantaloupe</Item>
     </List>
-  );
+  )
 }
 ```
 
 ```jsx
-function List({ items, ordered }) {
-  const Elem = ordered ? "ol" : "ul";
-  const listItems = items.map((i) => <li key={i}>i</li>);
-  return <Elem>{listItems}</Elem>;
+function List({items, ordered}) {
+  const Elem = ordered ? 'ol' : 'ul'
+  const listItems = items.map(i => <li key={i}>i</li>)
+  return <Elem>{listItems}</Elem>
 }
 
 // usage
 function MyApp() {
-  return <List ordered={true} items={["Apple", "Banana", "Cantaloupe"]} />;
+  return <List ordered={true} items={['Apple', 'Banana', 'Cantaloupe']} />
 }
 ```
 
@@ -265,6 +252,7 @@ Why do I bring this up? If you assume that the _owner_ of an element has the _hi
 I believe this is a reasonable assumption: an element owner should be able to expect that the element will be rendered as close to the definition as possible. Otherwise, this violates the principle of least surprise.
 
 ### The `React.Children` anti-pattern
+
 Based on the above assumption, using `React.Children` can be an anti-pattern. `React.Children` allows a component to reach into elements that it does not own. In our `WordWrap` example that uses React children, it is clear that we do not respect the owner (as defined above) of these elements. We iterate through children, ignoring anything that is not a text node.
 
 With this reasoning, it's also easy to argue that `React.cloneElement` should be an anti-pattern. While that is true, there are ways to use `React.cloneElement` to simply augment children without altering their primary purpose or function. Adding additional props is a common use.
@@ -275,7 +263,7 @@ While anti-patterns sometimes have their valid uses, those uses should be indivi
 
 One significant benefit to the contents as children pattern is the fact that it lends itself very naturally to customization. Since the parent owns the children, it can create whatever children it likes, deciding their props and element types. This level of customization can be achieved using the contents as data pattern too, but it's not quite as straightforward (for the component author or the component consumer).
 
-One common practice is for a component to accept a "render prop." The render prop is a function that returns JSX (the same as a function component). That function should be passed any data that may be needed for rendering. Of course, components should ship with a default renderer and not rely on being passed a render prop. 
+One common practice is for a component to accept a "render prop." The render prop is a function that returns JSX (the same as a function component). That function should be passed any data that may be needed for rendering. Of course, components should ship with a default renderer and not rely on being passed a render prop.
 
 ## How to decide
 
@@ -302,6 +290,7 @@ At this point we have shown that both patterns are valid, so how do we know whic
 Based on these observations, here are some guidelines to decide which type of API to build:
 
 ### When to use a data contract
+
 - Data doesn't cleanly transfer to an element structure
 - Data needs to be manipulated before being converted to an element structure
 - Certain well-defined scenarios need to be supported
@@ -310,6 +299,7 @@ Based on these observations, here are some guidelines to decide which type of AP
 - You are building a composite component
 
 ### When to use a children-based contract
+
 - Your component doesn't care about the structure of children
 - Your component doesn't need to use `React.Children`
 - Your component is flexible enough to accommodate almost any child structure

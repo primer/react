@@ -1,0 +1,20 @@
+{
+  "id": "avatar_pair",
+  "name": "AvatarPair",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "children",
+      "type": "Avatar[]",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}
