@@ -56,8 +56,7 @@ export type StickyProps = Omit<PositionProps, 'position'>
 /**
  * @deprecated Use the Box component instead (i.e. <Sticky> → <Box position="sticky">)
  */
-export const Sticky = React.forwardRef((props: StickyProps, ref) => {
-  return <Position {...props} position="sticky" ref={ref} />
+export const Sticky = React.forwardRef(({top = 0, zIndex = 1, ...rest}: StickyProps, ref) => {
+  return <Position {...rest} top={top} zIndex={zIndex} position="sticky" ref={ref} />
 })
-Sticky.defaultProps = {top: 0, zIndex: 1}
 Sticky.displayName = 'Sticky'

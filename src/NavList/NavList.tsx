@@ -1,6 +1,5 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {useSSRSafeId} from '@react-aria/ssr'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import {
@@ -12,6 +11,8 @@ import {
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
+import {defaultSxProp} from '../utils/defaultSxProp'
+import {useId} from '../hooks/useId'
 
 // ----------------------------------------------------------------------------
 // NavList
@@ -43,7 +44,7 @@ export type NavListItemProps = {
 } & SxProp
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({'aria-current': ariaCurrent, children, sx: sxProp = {}, ...props}, ref) => {
+  ({'aria-current': ariaCurrent, children, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -102,9 +103,9 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, sx: sxProp = {}}: ItemWithSubNavProps) {
-  const buttonId = useSSRSafeId()
-  const subNavId = useSSRSafeId()
+function ItemWithSubNav({children, subNav, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
+  const buttonId = useId()
+  const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState(false)
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
@@ -167,7 +168,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
 // TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
-const SubNav = ({children, sx: sxProp = {}}: NavListSubNavProps) => {
+const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 
@@ -242,7 +243,7 @@ export type NavListGroupProps = {
 
 const defaultSx = {}
 // TODO: ref prop
-const Group: React.VFC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
+const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}

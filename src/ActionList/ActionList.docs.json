@@ -1,0 +1,233 @@
+{
+  "id": "action_list",
+  "name": "ActionList",
+  "status": "beta",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "children",
+      "type": "ActionList.Item[] | ActionList.LinkItem[] | ActionList.Group[]",
+      "defaultValue": "",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "variant",
+      "type": "'inset' | 'full'",
+      "defaultValue": "'inset'",
+      "description": "`inset` children are offset (vertically and horizontally) from list edges. `full` children are flush (vertically and horizontally) with list edges"
+    },
+    {
+      "name": "selectionVariant",
+      "type": "'single' | 'multiple'",
+      "defaultValue": "",
+      "description": "Whether multiple items or a single item can be selected."
+    },
+    {
+      "name": "showDivider",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Display a divider above each item in this list when it does not follow a header or divider."
+    },
+    {
+      "name": "role",
+      "type": "AriaRole",
+      "defaultValue": "",
+      "description": "ARIA role describing the function of the list. `listbox` and `menu` are a common values."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionList.Item",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'danger'",
+          "defaultValue": "'default'",
+          "description": "`danger` indicates that the item is destructive."
+        },
+        {
+          "name": "onSelect",
+          "type": "(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void",
+          "defaultValue": "",
+          "description": "Callback that is called when the item is selected using either the mouse or keyboard."
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Indicate whether the item is selected. Only applies to items that can be selected."
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Indicate whether the item is active. There should never be more than one active item."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Items that are disabled can not be clicked, selected, or navigated to."
+        },
+        {
+          "name": "role",
+          "type": "AriaRole",
+          "defaultValue": "",
+          "description": "ARIA role describing the function of the item. `option` is a common value."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.LinkItem",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode | ActionList.LeadingVisual | ActionList.Description | ActionList.TrailingVisual",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Indicate whether the item is active. There should never be more than one active item."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+      }
+    },
+    {
+      "name": "ActionList.LeadingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "Icon (or similar) positioned before item text."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.TrailingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "Visual positioned after item text."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.Description",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "'inline' | 'block'",
+          "defaultValue": "'inline'",
+          "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionList.Group",
+      "props": [
+        {
+          "name": "children",
+          "type": "ActionList.Item[] | ActionList.LinkItem[]",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Title of the group."
+        },
+        {
+          "name": "auxiliaryText",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Secondary text that provides additional information about the group."
+        },
+        {
+          "name": "variant",
+          "type": "'filled' | 'subtle'",
+          "defaultValue": "'subtle'",
+          "description": "`inline` descriptions are positioned beside primary text. `block` descriptions are positioned below primary text."
+        },
+        {
+          "name": "selectionVariant",
+          "type": "'single' | 'multiple' | false",
+          "defaultValue": "",
+          "description": "Set `selectionVariant` at the group level."
+        },
+        {
+          "name": "role",
+          "type": "AriaRole",
+          "defaultValue": "",
+          "description": "ARIA role describing the function of the list inside the group. `listbox` and `menu` are a common values."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

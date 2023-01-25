@@ -24,6 +24,9 @@ function Example(): JSX.Element {
                 <ActionList.Item variant="danger" onClick={event => event.preventDefault()}>
                   Delete file
                 </ActionList.Item>
+                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                  Github
+                </ActionList.LinkItem>
               </ActionList>
             </ActionMenu.Overlay>
           </ActionMenu>
@@ -168,6 +171,26 @@ describe('ActionMenu', () => {
     await user.keyboard('{ArrowDown}')
 
     expect(component.getAllByRole('menuitem')[0]).toEqual(document.activeElement)
+  })
+  it('should be able to select an Item with aria-keyshortcuts after opening Menu with click', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
+    expect(component.queryByRole('menu')).toBeInTheDocument()
+
+    // linkItem button is the active element at this point
+    await user.keyboard('{ArrowDown}{s}')
+
+    expect(component.getAllByRole('menuitem')[4]).toEqual(document.activeElement)
+    await user.keyboard('{ArrowUp}')
+    expect(component.getAllByRole('menuitem')[3]).toEqual(document.activeElement)
+
+    // assumes mnemonics aria-keyshortcuts are ignored
+    await user.keyboard('{g}')
+    expect(component.getAllByRole('menuitem')[3]).toEqual(document.activeElement)
   })
 
   it('should select last element when ArrowUp is pressed after opening Menu with click', async () => {

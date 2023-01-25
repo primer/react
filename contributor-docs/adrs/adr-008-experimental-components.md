@@ -8,7 +8,7 @@ Proposed
 
 ## Context
 
-#### Recap: Drafts
+### Recap: Drafts
 
 As we work on new components (or rewrites of old components), we often need to start with a "prototype"[^1] and not include them in the semantically versioned (semver-ed) main bundle.
 
@@ -39,8 +39,6 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
    We want to enable feature teams to contribute to Primer. We also want to make it clear which contributions haven't been evaluated by our high standards for Primer components.
 
-
-
 &nbsp;
 
 ## Decision
@@ -53,17 +51,16 @@ The approach that has served us well since Dec 2021 has been "drafts" (along wit
 
 This will help in sharing experimental components between the monolith and projects outside of monolith. The ownership and responsibility of maintenance will be shared by multiple teams (including primer).
 
-#### Risks:
+### Risks:
 
 This will require improvements in the development and publishing workflow for experimental components. Without making that investment, we could create more friction and make contributions more difficult.
-
 
 &nbsp;
 
 #### Other options considered
 
-1. The code for experimental components should live in a new repository code `github.com/primer/react-candidates` to support different conventions and processes for experimental components and convey shared ownership between primer and product teams. 
- 
+1. The code for experimental components should live in a new repository code `github.com/primer/react-candidates` to support different conventions and processes for experimental components and convey shared ownership between primer and product teams.
+
    Keeping experimental components in primer _org_ suggests that the primer _team_ would take up maintenance of these components while they are still candidates (bugs, a11y remedial, etc.). This will be a new parallel workstream for the team and with our current team size, we might not be able to give it the required attention.
 
 2. The code for experimental components should live inside the monolith in [github/github/modules/react-shared](https://github.com/github/github/tree/master/app/assets/modules/react-shared) instead of a new repository.

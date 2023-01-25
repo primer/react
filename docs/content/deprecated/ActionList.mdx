@@ -10,7 +10,7 @@ An `ActionList` is a list of items which can be activated or selected. `ActionLi
 
 Use [new version of ActionList](/ActionList) with composable API, design updates and accessibility fixes.
 
-**Before**
+### Before
 
 ```jsx
 <ActionList
@@ -19,12 +19,12 @@ Use [new version of ActionList](/ActionList) with composable API, design updates
     {text: 'Copy link'},
     {text: 'Edit file'},
     ActionList.Divider,
-    {text: 'Delete file', variant: 'danger'}
+    {text: 'Delete file', variant: 'danger'},
   ]}
 />
 ```
 
-**After**
+### After
 
 ```jsx
 <ActionList>
@@ -51,7 +51,7 @@ import {ActionList} from '@primer/react/deprecated'
     ActionList.Divider,
     {text: 'Copy link'},
     {text: 'Edit file'},
-    {text: 'Delete file', variant: 'danger'}
+    {text: 'Delete file', variant: 'danger'},
   ]}
 />
 ```
@@ -65,7 +65,7 @@ import {ActionList} from '@primer/react/deprecated'
     {groupId: '1', header: {title: 'Live query', variant: 'subtle'}},
     {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
     {groupId: '3'},
-    {groupId: '4'}
+    {groupId: '4'},
   ]}
   items={[
     {key: '1', leadingVisual: TypographyIcon, text: 'Rename', groupId: '0', trailingVisual: '⌘R'},
@@ -77,7 +77,7 @@ import {ActionList} from '@primer/react/deprecated'
       text: 'Table',
       description: 'Information-dense table optimized for operations across teams',
       descriptionVariant: 'block',
-      groupId: '2'
+      groupId: '2',
     },
     {
       key: '5',
@@ -85,17 +85,17 @@ import {ActionList} from '@primer/react/deprecated'
       text: 'Board',
       description: 'Kanban-style board focused on visual states',
       descriptionVariant: 'block',
-      groupId: '2'
+      groupId: '2',
     },
     {
       key: '6',
       leadingVisual: FilterIcon,
       text: 'Save sort and filters to current view',
       disabled: true,
-      groupId: '3'
+      groupId: '3',
     },
     {key: '7', leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '3'},
-    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4', trailingVisual: ArrowRightIcon}
+    {key: '8', leadingVisual: GearIcon, text: 'View settings', groupId: '4', trailingVisual: ArrowRightIcon},
   ]}
 />
 ```
@@ -107,11 +107,11 @@ import {ActionList} from '@primer/react/deprecated'
   items={[
     {
       text: 'Vanilla link',
-      renderItem: props => <ActionList.Item as="a" href="/about" {...props} />
+      renderItem: props => <ActionList.Item as="a" href="/about" {...props} />,
     },
     {
       text: 'React Router link',
-      renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />
+      renderItem: props => <ActionList.Item as={ReactRouterLikeLink} to="/about" {...props} />,
     },
     {
       text: 'NextJS style',
@@ -119,8 +119,8 @@ import {ActionList} from '@primer/react/deprecated'
         <NextJSLikeLink href="/about">
           <ActionList.Item as="a" {...props} />
         </NextJSLikeLink>
-      )
-    }
+      ),
+    },
   ]}
 />
 ```
