@@ -2,8 +2,8 @@ import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
-import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
+import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
 import {ShowSuggestionsEvent, Suggestions, TextInputCompatibleChild, TextInputElement, Trigger} from './types'
 import {augmentHandler, calculateSuggestionsQuery, getSuggestionValue, requireChildrenToBeInput} from './utils'
@@ -198,8 +198,8 @@ const InlineAutocomplete = ({
         inputRef={inputRef}
         onCommit={onCommit}
         onClose={onHideSuggestions}
-        top={suggestionsOffset.top}
-        left={suggestionsOffset.left}
+        top={suggestionsOffset.top || 0}
+        left={suggestionsOffset.left || 0}
         visible={suggestionsVisible}
         tabInsertsSuggestions={tabInsertsSuggestions}
       />

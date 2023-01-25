@@ -220,8 +220,8 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
   checked,
   onChange,
   onClick,
-  size,
-  statusLabelPosition,
+  size = 'medium',
+  statusLabelPosition = 'start',
   sx: sxProp,
 }) => {
   const isControlled = typeof checked !== 'undefined'
@@ -311,11 +311,6 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
       </SwitchButton>
     </Box>
   )
-}
-
-Switch.defaultProps = {
-  statusLabelPosition: 'start',
-  size: 'medium',
 }
 
 export default Switch

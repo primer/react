@@ -1,0 +1,20 @@
+{
+  "id": "pagehead",
+  "name": "Pagehead",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "as",
+      "type": "string",
+      "defaultValue": "div",
+      "description": "Sets the underlying HTML tag for the component"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

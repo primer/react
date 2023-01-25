@@ -6,6 +6,8 @@
  */
 export * from '../Dialog/Dialog'
 
+export * from '../Hidden'
+
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
   InlineAutocompleteProps,

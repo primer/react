@@ -52,9 +52,9 @@ const Body = styled.div`
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
   'aria-labelledby': ariaLabelledby,
   children,
-  disabled,
+  disabled = false,
   id: idProp,
-  required,
+  required = false,
   sx,
 }) => {
   const labelChild = React.Children.toArray(children).find(
@@ -119,7 +119,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
                   </Box>
                 ) : (
                   /*
-                    If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend> 
+                    If CheckboxOrRadioGroup.Label wasn't passed as a child, we don't render a <legend>
                     but we still want to render a caption
                   */
                   slots.Caption
@@ -151,11 +151,6 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
       }}
     </Slots>
   )
-}
-
-CheckboxOrRadioGroup.defaultProps = {
-  disabled: false,
-  required: false,
 }
 
 export type {CheckboxOrRadioGroupLabelProps} from './_CheckboxOrRadioGroupLabel'
