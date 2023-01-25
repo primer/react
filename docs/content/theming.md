@@ -33,8 +33,8 @@ import deepmerge from 'deepmerge'
 
 const customTheme = deepmerge(theme, {
   fonts: {
-    mono: 'MonoLisa, monospace'
-  }
+    mono: 'MonoLisa, monospace',
+  },
 })
 
 function App() {
@@ -81,9 +81,9 @@ Some [system props](/system-props) and [`sx` prop](/overriding-styles) keys are 
 const theme = {
   colors: {
     canvas: {
-      default: '#fff'
-    }
-  }
+      default: '#fff',
+    },
+  },
 }
 
 function App() {
@@ -230,16 +230,16 @@ const customTheme = deepmerge(theme, {
     light: {
       colors: {
         text: {
-          primary: '#f00'
-        }
-      }
+          primary: '#f00',
+        },
+      },
     },
     // Add a new scheme
     my_scheme_name: {
       colors: {},
-      shadows: {}
-    }
-  }
+      shadows: {},
+    },
+  },
 })
 
 function App() {
@@ -275,7 +275,7 @@ function Example() {
   const customBg = useColorSchemeVar({
     light: colors.light.scale.gray[1],
     dark: colors.dark.scale.gray[9],
-    dark_dimmed: colors.dark_dimmed.scale.gray[2]
+    dark_dimmed: colors.dark_dimmed.scale.gray[2],
   })
   return <Box bg={customBg}>Hello world</Box>
 }

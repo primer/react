@@ -62,7 +62,13 @@ export type CaretProps = {
 
 function Caret(props: CaretProps) {
   const theme = React.useContext(ThemeContext)
-  const propsWithTheme = {...props, theme: props.theme ?? theme}
+  const propsWithTheme = {
+    ...props,
+    bg: props.bg || 'canvas.default',
+    borderColor: props.borderColor || 'border.default',
+    borderWidth: props.borderWidth || 1,
+    theme: props.theme ?? theme,
+  }
   const {bg} = getBg(propsWithTheme)
   const {borderColor} = getBorderColor(propsWithTheme)
   const {borderWidth} = getBorderWidth(propsWithTheme)
@@ -123,11 +129,5 @@ Caret.locations = [
   'left-top',
   'left-bottom',
 ]
-
-Caret.defaultProps = {
-  bg: 'canvas.default',
-  borderColor: 'border.default',
-  borderWidth: 1,
-}
 
 export default Caret

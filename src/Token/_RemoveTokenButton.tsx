@@ -92,7 +92,7 @@ const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
 const RemoveTokenButton: React.FC<React.PropsWithChildren<ComponentProps<typeof StyledTokenButton>>> = ({
   'aria-label': ariaLabel,
   isParentInteractive,
-  size,
+  size = defaultTokenSize,
   ...rest
 }) => {
   delete rest.children
@@ -108,10 +108,6 @@ const RemoveTokenButton: React.FC<React.PropsWithChildren<ComponentProps<typeof 
       <XIcon size={getTokenButtonIconSize(size)} />
     </StyledTokenButton>
   )
-}
-
-RemoveTokenButton.defaultProps = {
-  size: defaultTokenSize,
 }
 
 export default RemoveTokenButton

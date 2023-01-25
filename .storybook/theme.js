@@ -9,5 +9,5 @@ export default create({
       </svg>
       <span>${packageJson.name}@${packageJson.version}</span>
     </div>
-  `
+  `,
 })

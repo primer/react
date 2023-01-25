@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import sx, {SxProp, BetterSystemStyleObject} from './sx'
 import {get} from './constants'
+import sx, {BetterSystemStyleObject, SxProp} from './sx'
 
 export type LabelProps = {
   /** The color of the label */
@@ -92,6 +92,8 @@ const Label = styled.span<LabelProps>`
   ${sx};
 `
 
+// TODO: Remove defaultProps to be compatible with the next major version of React
+// Reference: https://github.com/primer/react/issues/2758
 Label.defaultProps = {
   size: 'small',
   variant: 'default',

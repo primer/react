@@ -14,7 +14,7 @@ export const Tool = () => {
     window?.localStorage?.setItem('showSurroundingElements', `${!currentValue}`)
 
     updateGlobals({
-      showSurroundingElements: !currentValue
+      showSurroundingElements: !currentValue,
     })
   }, [showSurroundingElements])
 
