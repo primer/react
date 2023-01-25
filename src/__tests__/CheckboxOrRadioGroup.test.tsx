@@ -159,8 +159,9 @@ describe('CheckboxOrRadioGroup', () => {
 
     expect(fieldset).toBeInTheDocument()
   })
+
   it('logs a warning when trying to render a group without a label', () => {
-    const consoleSpy = jest.spyOn(global.console, 'warn')
+    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
 
     render(
       <CheckboxOrRadioGroup>
@@ -180,9 +181,12 @@ describe('CheckboxOrRadioGroup', () => {
     )
 
     expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
   })
+
   it('logs a warning when trying to render an input component other than Radio or Checkbox', () => {
-    const consoleSpy = jest.spyOn(global.console, 'warn')
+    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
 
     render(
       <CheckboxOrRadioGroup>
@@ -203,5 +207,6 @@ describe('CheckboxOrRadioGroup', () => {
     )
 
     expect(consoleSpy).toHaveBeenCalled()
+    consoleSpy.mockRestore()
   })
 })

@@ -1,6 +1,5 @@
-import React, {ComponentPropsWithRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import {IconProps} from '@primer/octicons-react'
 import sx, {SxProp} from '../sx'
 import getGlobalFocusStyles from '../_getGlobalFocusStyles'
 
@@ -13,16 +12,9 @@ export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'outl
 
 export type Size = 'small' | 'medium' | 'large'
 
-export type AlignContent = 'start' | 'center'
-
-/**
- * Remove styled-components polymorphic as prop, which conflicts with radix's
- */
-type StyledButtonProps = Omit<ComponentPropsWithRef<typeof StyledButton>, 'as'>
-
 type ButtonA11yProps =
-  | {'aria-label': string; 'aria-labelledby'?: never}
-  | {'aria-label'?: never; 'aria-labelledby': string}
+  | {'aria-label': string; 'aria-labelledby'?: undefined}
+  | {'aria-label'?: undefined; 'aria-labelledby': string}
 
 export type ButtonBaseProps = {
   /**
@@ -37,37 +29,24 @@ export type ButtonBaseProps = {
    * Items that are disabled can not be clicked, selected, or navigated through.
    */
   disabled?: boolean
-  /**
-   * Allow button width to fill its container.
-   */
-  block?: boolean
 } & SxProp &
-  React.ButtonHTMLAttributes<HTMLButtonElement> &
-  StyledButtonProps
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
   /**
    * The leading icon comes before button content
    */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  leadingIcon?: React.ComponentType | null | undefined
   /**
    * The trailing icon comes after button content
    */
-  trailingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
-  /**
-   * Trailing action appears to the right of the trailing visual and is always locked to the end
-   */
-  trailingAction?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  trailingIcon?: React.ComponentType | null | undefined
   children: React.ReactNode
-  /**
-   * Content alignment for when visuals are present
-   */
-  alignContent?: AlignContent
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
-  icon: React.FunctionComponent<React.PropsWithChildren<IconProps>>
-} & ButtonBaseProps
+  icon: React.ComponentType
+} & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkButtonProps = {

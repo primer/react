@@ -48,24 +48,24 @@ Dropdown.Menu wraps your menu content. Be sure to pass a `direction` prop to thi
 
 The Dropdown component is extended from the [`Details`](/Details) component and gets all props that the [`Details`](/Details) component gets.
 
-#### Dropdown.Menu
+### Dropdown.Menu
 
 | Name      | Type              | Default | Description                                                                           |
 | :-------- | :---------------- | :-----: | :------------------------------------------------------------------------------------ |
 | direction | String            |  'sw'   | Sets the direction of the dropdown menu. Pick from 'ne', 'e', 'se', 's', 'sw', or 'w' |
 | sx        | SystemStyleObject |   {}    | Style to be applied to the component                                                  |
 
-#### Dropdown.Button
+### Dropdown.Button
 
 See https://primer.style/react/Buttons#component-props
 
-#### Dropdown.Caret
+### Dropdown.Caret
 
 | Name | Type              | Default | Description                          |
 | :--- | :---------------- | :-----: | :----------------------------------- |
 | sx   | SystemStyleObject |   {}    | Style to be applied to the component |
 
-#### Dropdown.Item
+### Dropdown.Item
 
 | Name | Type              | Default | Description                          |
 | :--- | :---------------- | :-----: | :----------------------------------- |

@@ -1,41 +1,34 @@
 import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
-import {merge, SxProp} from '../sx'
+import {BetterSystemStyleObject, merge} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import {ButtonProps, StyledButton} from './types'
-import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
+import {getVariantStyles, getSizeStyles, getButtonStyles} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
-declare let __DEV__: boolean
+import {defaultSxProp} from '../utils/defaultSxProp'
 
-const defaultSxProp = {}
-const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
+const iconWrapStyles = {
+  display: 'inline-block',
+}
+const trailingIconStyles = {
+  ...iconWrapStyles,
+  ml: 2,
+}
+
+const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-    const {
-      leadingIcon: LeadingIcon,
-      trailingIcon: TrailingIcon,
-      trailingAction: TrailingAction,
-      variant = 'default',
-      size = 'medium',
-      alignContent = 'center',
-      block = false,
-      ...rest
-    } = props
-
-    const innerRef = React.useRef<HTMLElement>(null)
+    const {leadingIcon: LeadingIcon, trailingIcon: TrailingIcon, variant = 'default', size = 'medium', ...rest} = props
+    const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
-      return merge.all([getButtonStyles(theme), getVariantStyles(variant, theme)])
-    }, [theme, variant])
+      return merge.all([getButtonStyles(theme), getSizeStyles(size, variant, false), getVariantStyles(variant, theme)])
+    }, [theme, size, variant])
     const sxStyles = useMemo(() => {
-      return merge(baseStyles, sxProp as SxProp)
+      return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])
-    const iconWrapStyles = {
-      display: 'flex',
-      pointerEvents: 'none',
-    }
 
     if (__DEV__) {
       /**
@@ -46,7 +39,11 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
        */
       // eslint-disable-next-line react-hooks/rules-of-hooks
       React.useEffect(() => {
-        if (!(innerRef.current instanceof HTMLButtonElement) && !(innerRef.current instanceof HTMLAnchorElement)) {
+        if (
+          innerRef.current &&
+          !(innerRef.current instanceof HTMLButtonElement) &&
+          !((innerRef.current as unknown) instanceof HTMLAnchorElement)
+        ) {
           // eslint-disable-next-line no-console
           console.warn('This component should be an instanceof a semantic button or anchor')
         }
@@ -54,31 +51,16 @@ const ButtonBase = forwardRef<HTMLElement, ButtonProps>(
     }
 
     return (
-      <StyledButton
-        as={Component}
-        sx={sxStyles}
-        {...rest}
-        ref={innerRef}
-        data-component={block ? 'block' : null}
-        data-size={size === 'small' || size === 'large' ? size : undefined}
-        data-no-visuals={!LeadingIcon && !TrailingIcon && !TrailingAction ? true : undefined}
-      >
-        <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-          {LeadingIcon && (
-            <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-              <LeadingIcon />
-            </Box>
-          )}
-          {children && <span data-component="text">{children}</span>}
-          {TrailingIcon && (
-            <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-              <TrailingIcon />
-            </Box>
-          )}
-        </Box>
-        {TrailingAction && (
-          <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
-            <TrailingAction />
+      <StyledButton as={Component} sx={sxStyles} {...rest} ref={innerRef}>
+        {LeadingIcon && (
+          <Box as="span" data-component="leadingIcon" sx={iconWrapStyles}>
+            <LeadingIcon />
+          </Box>
+        )}
+        {children && <span data-component="text">{children}</span>}
+        {TrailingIcon && (
+          <Box as="span" data-component="trailingIcon" sx={trailingIconStyles}>
+            <TrailingIcon />
           </Box>
         )}
       </StyledButton>
