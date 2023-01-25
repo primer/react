@@ -46,7 +46,7 @@ export interface FormControlContext extends Pick<FormControlProps, 'disabled' | 
 }
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
-  ({children, disabled: disabledProp, layout, id: idProp, required, sx}, ref) => {
+  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx}, ref) => {
     const expectedInputComponents = [
       Autocomplete,
       Checkbox,
@@ -232,10 +232,6 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     )
   },
 )
-
-FormControl.defaultProps = {
-  layout: 'vertical',
-}
 
 export default Object.assign(FormControl, {
   Caption: FormControlCaption,

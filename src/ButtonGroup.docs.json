@@ -1,0 +1,18 @@
+{
+  "id": "button_group",
+  "name": "ButtonGroup",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLDivElement>"
+    }
+  ],
+  "subcomponents": []
+}

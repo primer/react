@@ -1,4 +1,4 @@
-import {EyeIcon, ChevronRightIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeIcon, HeartIcon} from '@primer/octicons-react'
 import React, {forwardRef} from 'react'
 import {Button} from '.'
 
@@ -45,18 +45,6 @@ export const LeadingVisual = () => (
 export const TrailingVisual = () => (
   <Button as="a" href="/" trailingIcon={EyeIcon}>
     Trailing visual
-  </Button>
-)
-
-export const TrailingAction = () => (
-  <Button as="a" href="/" trailingAction={ChevronRightIcon}>
-    Trailing action
-  </Button>
-)
-
-export const Block = () => (
-  <Button as="a" href="/" block>
-    Default
   </Button>
 )
 

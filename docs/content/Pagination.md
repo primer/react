@@ -6,6 +6,8 @@ source: https://github.com/primer/react/blob/main/src/Pagination/Pagination.tsx
 status: Alpha
 ---
 
+import data from '../../src/Pagination/Pagination.docs.json'
+
 import State from '../components/State'
 
 ```js
@@ -145,79 +147,34 @@ export default {
     spaceBetween,
     colors: {
       normal: {
-        fg
+        fg,
       },
       disabled: {
         fg,
-        border
+        border,
       },
       hover: {
-        border
+        border,
       },
       selected: {
         fg,
         bg,
-        border
+        border,
       },
       active: {
-        border
+        border,
       },
       nextPrevious: {
-        fg
-      }
-    }
-  }
+        fg,
+      },
+    },
+  },
 }
 ```
 
 ## Props
 
-### Pagination
-
-<PropsTable>
-  <PropsTableRow
-    name="currentPage"
-    type="number"
-    description="The currently selected page."
-    required
-  />
-  <PropsTableRow
-    name="pageCount"
-    type="number"
-    description="The total number of pages."
-    required
-  />
-  <PropsTableRow
-    name="hrefBuilder"
-    type="function"
-    description="A function to generate links based on page number."
-  />
-  <PropsTableRow
-    name="marginPageCount"
-    type="number"
-    defaultValue={1}
-    description="How many pages to always show at the left and right of the component."
-  />
-  <PropsTableRow
-    name="onPageChange"
-    type="function"
-    defaultValue="no-op"
-    description="Called with event and page number when a page is clicked."
-  />
-  <PropsTableRow
-    name="showPages"
-    type="boolean"
-    defaultValue="true"
-    description="Whether or not to show the individual page links."
-  />
-  <PropsTableRow
-    name="surroundingPageCount"
-    type="number"
-    defaultValue="2"
-    description="How many pages to display on each side of the currently selected page."
-  />
-  <PropsTableSxRow />
-</PropsTable>
+<ComponentProps data={data} />
 
 ## Status
 
