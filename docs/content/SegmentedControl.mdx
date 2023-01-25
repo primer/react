@@ -133,7 +133,9 @@ render(Controlled)
 
 ```jsx live
 <FormControl>
-  <FormControl.Label id="scLabel-horiz">File view</FormControl.Label>
+  <FormControl.Label id="scLabel-horiz" as="span">
+    File view
+  </FormControl.Label>
   <SegmentedControl aria-labelledby="scLabel-horiz" aria-describedby="scCaption-horiz">
     <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
