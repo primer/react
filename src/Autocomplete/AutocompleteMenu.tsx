@@ -133,10 +133,10 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
     items,
     selectedItemIds,
     sortOnCloseFn,
-    emptyStateText,
+    emptyStateText = 'No selectable options',
     addNewItem,
     loading,
-    selectionVariant,
+    selectionVariant = 'single',
     filterFn,
     'aria-labelledby': ariaLabelledBy,
     onOpenChange,
@@ -324,11 +324,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
       )}
     </VisuallyHidden>
   )
-}
-
-AutocompleteMenu.defaultProps = {
-  emptyStateText: 'No selectable options',
-  selectionVariant: 'single',
 }
 
 AutocompleteMenu.displayName = 'AutocompleteMenu'

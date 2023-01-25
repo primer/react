@@ -38,7 +38,7 @@ const getSelectedCheckboxes = (
 }
 
 const ChoiceFieldsetList: React.FC<React.PropsWithChildren<ChoiceFieldsetListProps>> = ({
-  selectionVariant,
+  selectionVariant = 'single',
   children,
 }) => {
   const ssrSafeUniqueName = useSSRSafeId()
@@ -74,10 +74,6 @@ const ChoiceFieldsetList: React.FC<React.PropsWithChildren<ChoiceFieldsetListPro
       }}
     </Slot>
   )
-}
-
-ChoiceFieldsetList.defaultProps = {
-  selectionVariant: 'single',
 }
 
 export default ChoiceFieldsetList

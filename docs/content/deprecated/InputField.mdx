@@ -48,7 +48,7 @@ const TextInputWithTokensExample = () => {
   const [tokens, setTokens] = React.useState([
     {text: 'zero', id: 0},
     {text: 'one', id: 1},
-    {text: 'two', id: 2}
+    {text: 'two', id: 2},
   ])
   const onTokenRemove = tokenId => {
     setTokens(tokens.filter(token => token.id !== tokenId))
@@ -60,8 +60,8 @@ const TextInputWithTokensExample = () => {
       flexDirection="column"
       sx={{
         '> * + *': {
-          marginTop: 4
-        }
+          marginTop: 4,
+        },
       }}
     >
       <InputField>
@@ -81,7 +81,7 @@ const TextInputWithTokensExample = () => {
                 {text: 'javascript', id: 3},
                 {text: 'typescript', id: 4},
                 {text: 'react', id: 5},
-                {text: 'design-systems', id: 6}
+                {text: 'design-systems', id: 6},
               ]}
               selectedItemIds={[]}
             />
@@ -154,7 +154,7 @@ const ValidationExample = () => {
     <InputField
       validationMap={{
         noSpaces: 'error',
-        validName: 'success'
+        validName: 'success',
       }}
       validationResult={validationResult}
     >
@@ -266,7 +266,7 @@ A `InputField.Label` must be passed for the field to be accessible to assistive 
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: false,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />
 

@@ -6,6 +6,7 @@ import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations, renderStyles} from '../utils/testing'
 import {IconButton} from '../Button'
 import {ChevronLeftIcon, GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
+import {mediaQueries} from '../utils/layout'
 
 let matchmedia: MatchMediaMock
 describe('PageHeader', () => {
@@ -58,7 +59,7 @@ describe('PageHeader', () => {
       [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'flex',
       },
-      [`@media screen and (min-width:768px)`]: {
+      [`${mediaQueries.regular.replace(': ', ':')}`]: {
         display: 'none',
       },
       'align-items': 'center',
@@ -84,10 +85,10 @@ describe('PageHeader', () => {
       [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'flex',
       },
-      [`@media screen and (min-width:768px)`]: {
+      [`${mediaQueries.regular.replace(': ', ':')}`]: {
         display: 'flex',
       },
-      [`@media screen and (min-width:1400px)`]: {
+      [`${mediaQueries.wide.replace(': ', ':')}`]: {
         display: 'none',
       },
       'align-items': 'center',
@@ -119,7 +120,7 @@ describe('PageHeader', () => {
       [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'none',
       },
-      [`@media screen and (min-width:768px)`]: {
+      [`${mediaQueries.regular.replace(': ', ':')}`]: {
         display: 'flex',
       },
       'align-items': 'center',

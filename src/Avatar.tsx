@@ -34,6 +34,9 @@ const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
   box-shadow: 0 0 0 1px ${get('colors.avatar.border')};
   ${sx}
 `
+
+// TODO: Remove defaultProps to be compatible with the next major version of React
+// Reference: https://github.com/primer/react/issues/2758
 Avatar.defaultProps = {
   size: 20,
   alt: '',
