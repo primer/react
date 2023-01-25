@@ -1,4 +1,4 @@
-import {HeartIcon, ChevronDownIcon} from '@primer/octicons-react'
+import {HeartIcon} from '@primer/octicons-react'
 import React from 'react'
 import {IconButton} from '.'
 

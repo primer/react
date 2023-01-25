@@ -37,13 +37,39 @@ export const TestSxProp = () => {
   const count = 4
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
-      <Button variant="invisible" sx={{color: 'deeppink'}}>
+      <Button
+        size="small"
+        sx={{
+          '&:hover': {
+            color: 'deepskyblue',
+          },
+          [`@media screen and (max-width: 768px)`]: {
+            color: 'salmon',
+          },
+          '@media (min-width: 1440)': {
+            color: 'deeppink',
+          },
+        }}
+      >
         Pink
       </Button>
       <Button leadingIcon={SearchIcon} variant="invisible" sx={{color: 'deeppink'}}>
         Pink
       </Button>
-      <Button size="small" variant="invisible" sx={{width: 32, height: 32}}>
+      <Button
+        size="small"
+        variant="invisible"
+        sx={{
+          width: 32,
+          height: 32,
+          '&:focus': {
+            outline: 0,
+            '& > span': {
+              boxShadow: `inset 0 0 0 2px deeppink`,
+            },
+          },
+        }}
+      >
         Custom size
       </Button>
       <Button size="small" block variant="invisible" sx={{width: 320}}>
