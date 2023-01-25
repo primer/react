@@ -11,7 +11,7 @@ export default {
 
 export const Default = () => (
   <SegmentedControl aria-label="File view">
-    <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+    <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
     <SegmentedControl.Button>Raw</SegmentedControl.Button>
     <SegmentedControl.Button>Blame</SegmentedControl.Button>
   </SegmentedControl>
@@ -19,7 +19,7 @@ export const Default = () => (
 
 export const WithIcons = () => (
   <SegmentedControl aria-label="File view">
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
       Preview
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
@@ -47,7 +47,7 @@ export const Controlled = () => {
 
 export const VariantNarrowHideLabels = () => (
   <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
       Preview
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
@@ -62,7 +62,7 @@ VariantNarrowHideLabels.storyName = '[variant: narrow] Hide labels'
 
 export const VariantNarrowActionMenu = () => (
   <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
       Preview
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
@@ -77,7 +77,7 @@ VariantNarrowActionMenu.storyName = '[variant: narrow] Action menu'
 
 export const FullwidthNarrow = () => (
   <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
       Preview
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
@@ -92,7 +92,7 @@ FullwidthNarrow.storyName = '[fullWidth: narrow]'
 
 export const FullwidthRegular = () => (
   <SegmentedControl aria-label="File view" fullWidth={{narrow: false, regular: true, wide: false}}>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
       Preview
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
@@ -107,7 +107,7 @@ FullwidthRegular.storyName = '[fullWidth: regular]'
 
 export const FullwidthAll = () => (
   <SegmentedControl aria-label="File view" fullWidth>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+    <SegmentedControl.Button defaultSelected aria-label={'Preview'} leadingIcon={EyeIcon}>
       Preview
     </SegmentedControl.Button>
     <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
@@ -122,7 +122,7 @@ FullwidthAll.storyName = 'Full width'
 
 export const IconOnly = () => (
   <SegmentedControl aria-label="File view">
-    <SegmentedControl.IconButton selected aria-label={'Preview'} icon={EyeIcon} />
+    <SegmentedControl.IconButton defaultSelected aria-label={'Preview'} icon={EyeIcon} />
     <SegmentedControl.IconButton aria-label={'Raw'} icon={FileCodeIcon} />
     <SegmentedControl.IconButton aria-label={'Blame'} icon={PeopleIcon} />
   </SegmentedControl>
@@ -149,7 +149,7 @@ export const AssociatedWithALabelAndCaption = () => (
       </Text>
     </Box>
     <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
-      <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+      <SegmentedControl.Button defaultSelected>Preview</SegmentedControl.Button>
       <SegmentedControl.Button>Raw</SegmentedControl.Button>
       <SegmentedControl.Button>Blame</SegmentedControl.Button>
     </SegmentedControl>
