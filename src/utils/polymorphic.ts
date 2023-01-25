@@ -32,7 +32,7 @@ type ForwardRefExoticComponent<E, OwnProps> = React.ForwardRefExoticComponent<
 
 interface ForwardRefComponent<
   IntrinsicElementString,
-  OwnProps = {}
+  OwnProps = {},
   /**
    * Extends original type to ensure built in React types play nice
    * with polymorphic components still e.g. `React.ElementRef` etc.
@@ -53,7 +53,7 @@ interface ForwardRefComponent<
       ? Merge<P, OwnProps & {as: As}>
       : As extends keyof JSX.IntrinsicElements
       ? Merge<JSX.IntrinsicElements[As], OwnProps & {as: As}>
-      : never
+      : never,
   ): React.ReactElement | null
 }
 

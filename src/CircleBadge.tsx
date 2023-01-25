@@ -26,7 +26,7 @@ const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
 }
 
 const CircleBadge = styled.div<StyledCircleBadgeProps>`
-  display: ${props => (props.inline ? 'inline-flex' : 'flex')};
+  display: ${({inline = false}) => (inline ? 'inline-flex' : 'flex')};
   align-items: center;
   justify-content: center;
   background-color: ${get('colors.canvas.default')};
@@ -41,10 +41,6 @@ const CircleBadgeIcon = styled(StyledOcticon)`
   max-width: 60%;
   max-height: 55%;
 `
-
-CircleBadge.defaultProps = {
-  inline: false,
-}
 
 CircleBadgeIcon.displayName = 'CircleBadge.Icon'
 
