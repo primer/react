@@ -99,8 +99,8 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   overlayProps,
   focusTrapSettings,
   focusZoneSettings,
-  side,
-  align,
+  side = 'outside-bottom',
+  align = 'start',
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -194,8 +194,3 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
 }
 
 AnchoredOverlay.displayName = 'AnchoredOverlay'
-
-AnchoredOverlay.defaultProps = {
-  side: 'outside-bottom',
-  align: 'start',
-}

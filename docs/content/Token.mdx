@@ -7,6 +7,7 @@ source: https://github.com/primer/react/tree/main/src/Token
 storybook: '/react/storybook?path=/story/components-token--default-token'
 ---
 
+import data from '../../src/Token/Token.docs.json'
 import {AvatarToken, IssueLabelToken, Token} from '@primer/react'
 
 The default `Token` can be used for most cases, but specialized token components are provided for specific use cases (see below for more info).
@@ -34,7 +35,7 @@ All types of tokens may have the same interactive qualities as links or buttons.
   sx={{
     alignItems: 'start',
     flexDirection: 'column',
-    gap: 6
+    gap: 6,
   }}
 >
   <div>
@@ -78,7 +79,7 @@ All types of tokens may have the same interactive qualities as links or buttons.
       display="flex"
       sx={{
         alignItems: 'start',
-        gap: 2
+        gap: 2,
       }}
     >
       <Token size="small" text="'small' Token" />
@@ -103,7 +104,7 @@ All types of tokens may have the same interactive qualities as links or buttons.
   sx={{
     alignItems: 'start',
     flexDirection: 'column',
-    gap: 6
+    gap: 6,
   }}
 >
   <Token size="medium" text="'medium' Token" leadingVisual={GitBranchIcon} />
@@ -128,7 +129,7 @@ These rules apply to all token components mentioned in this document.
   sx={{
     alignItems: 'start',
     flexDirection: 'column',
-    gap: 6
+    gap: 6,
   }}
 >
   <div>
@@ -139,7 +140,7 @@ These rules apply to all token components mentioned in this document.
       display="flex"
       sx={{
         alignItems: 'start',
-        gap: 2
+        gap: 2,
       }}
     >
       <Token as="a" href="http://google.com/" text="Link" />
@@ -155,7 +156,7 @@ These rules apply to all token components mentioned in this document.
       display="flex"
       sx={{
         alignItems: 'start',
-        gap: 2
+        gap: 2,
       }}
     >
       <Token
@@ -198,7 +199,7 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
   sx={{
     alignItems: 'start',
     flexDirection: 'column',
-    gap: 6
+    gap: 6,
   }}
 >
   <div>
@@ -236,7 +237,7 @@ Tokens that represent Issue labels should use the `IssueLabelToken` component.
       display="flex"
       sx={{
         alignItems: 'start',
-        gap: 2
+        gap: 2,
       }}
     >
       <IssueLabelToken
@@ -291,7 +292,7 @@ Tokens that represent GitHub users should use the `AvatarToken` component.
   sx={{
     alignItems: 'start',
     flexDirection: 'column',
-    gap: 6
+    gap: 6,
   }}
 >
   <div>
@@ -329,7 +330,7 @@ Tokens that represent GitHub users should use the `AvatarToken` component.
       display="flex"
       sx={{
         alignItems: 'start',
-        gap: 2
+        gap: 2,
       }}
     >
       <AvatarToken
@@ -355,11 +356,7 @@ Tokens that represent GitHub users should use the `AvatarToken` component.
 
 ## Props
 
-<Props of={Token} />
-
-<Props of={IssueLabelToken} />
-
-<Props of={AvatarToken} />
+<ComponentProps data={data} />
 
 ## Status
 
@@ -377,6 +374,6 @@ Tokens that represent GitHub users should use the `AvatarToken` component.
     stableApi: false,
     addressedApiFeedback: false,
     hasDesignGuidelines: true,
-    hasFigmaComponent: false
+    hasFigmaComponent: false,
   }}
 />

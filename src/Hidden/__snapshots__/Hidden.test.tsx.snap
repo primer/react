@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hidden renders \`on\` prop as expected 1`] = `
+@media screen and (max-width:calc(768px - 0.02px)) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div>
+  <div
+    class="c0"
+  >
+    <div>
+      Hidden on narrow
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Hidden renders consistently 1`] = `
+@media screen and (max-width:calc(768px - 0.02px)) {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div>
+    Hidden on narrow
+  </div>
+</div>
+`;
