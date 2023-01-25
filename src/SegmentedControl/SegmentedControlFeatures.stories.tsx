@@ -129,10 +129,17 @@ export const IconOnly = () => (
 )
 IconOnly.storyName = 'Icon only'
 
-// TODO: make it possible to use FormControl as a wrapper for SegmentedControl
-// - FormControl.Label needs to accept a prop that lets it render an element that isn't a `<label>`
 export const AssociatedWithALabelAndCaption = () => (
-  <Box display="flex">
+  <Box
+    display="flex"
+    sx={(theme: any) => ({
+      flexDirection: 'column',
+      gap: theme.space[1],
+      [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+        flexDirection: 'row',
+      },
+    })}
+  >
     <Box flexGrow={1}>
       <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
         File view
