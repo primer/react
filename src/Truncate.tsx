@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {maxWidth, MaxWidthProps} from 'styled-system'
 import sx, {SxProp} from './sx'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
 import {ComponentProps} from './utils/types'
 
 type StyledTruncateProps = {
