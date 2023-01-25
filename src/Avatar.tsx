@@ -1,7 +1,7 @@
-import React from 'react'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 type StyledAvatarProps = {
   /** Sets the width and height of the avatar. */
@@ -22,7 +22,7 @@ function getBorderRadius({size, square}: StyledAvatarProps) {
   }
 }
 
-const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
+const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
   height: props.size,
   width: props.size,
 }))<StyledAvatarProps>`
@@ -35,11 +35,13 @@ const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
   ${sx}
 `
 
-export type AvatarProps = StyledAvatarProps & React.ComponentPropsWithoutRef<'img'>
-const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(({size = 20, alt = '', ...rest}, ref) => (
-  <StyledAvatar ref={ref} alt={alt} size={size} {...rest} />
-))
+// TODO: Remove defaultProps to be compatible with the next major version of React
+// Reference: https://github.com/primer/react/issues/2758
+Avatar.defaultProps = {
+  size: 20,
+  alt: '',
+  square: false,
+}
 
-Avatar.displayName = 'Avatar'
-
+export type AvatarProps = ComponentProps<typeof Avatar>
 export default Avatar

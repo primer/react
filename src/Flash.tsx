@@ -1,8 +1,8 @@
-import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
+import {ComponentProps} from './utils/types'
 
 const variants = variant({
   variants: {
@@ -46,7 +46,7 @@ type StyledFlashProps = {
   full?: boolean
 } & SxProp
 
-const StyledFlash = styled.div<StyledFlashProps>`
+const Flash = styled.div<StyledFlashProps>`
   position: relative;
   color: ${get('colors.fg.default')};
   padding: ${get('space.3')};
@@ -67,11 +67,11 @@ const StyledFlash = styled.div<StyledFlashProps>`
   ${sx};
 `
 
-export type FlashProps = StyledFlashProps & React.ComponentPropsWithoutRef<'div'>
-const Flash = React.forwardRef<HTMLDivElement, FlashProps>(({variant = 'default', ...rest}, ref) => (
-  <StyledFlash ref={ref} variant={variant} {...rest} />
-))
+// TODO: Remove defaultProps to be compatible with the next major version of React
+// Reference: https://github.com/primer/react/issues/2758
+Flash.defaultProps = {
+  variant: 'default',
+}
 
-Flash.displayName = 'Flash'
-
+export type FlashProps = ComponentProps<typeof Flash>
 export default Flash
