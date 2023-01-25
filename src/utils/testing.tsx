@@ -247,8 +247,25 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
     if (typeof Story !== 'function') return
 
     const {storyName, name: StoryFunctionName} = Story as StoryType
+
+    beforeEach(() => {
+      // IntersectionObserver isn't available in test environment
+      const mockIntersectionObserver = jest.fn()
+      mockIntersectionObserver.mockReturnValue({
+        observe: () => null,
+        unobserve: () => null,
+        disconnect: () => null,
+      })
+      window.IntersectionObserver = mockIntersectionObserver
+    })
+
     it(`story ${storyName || StoryFunctionName} should have no axe violations`, async () => {
-      const {container} = HTMLRender(<Story />)
+      const {container} = HTMLRender(
+        <ThemeProvider theme={defaultTheme}>
+          <Story />
+        </ThemeProvider>,
+      )
+
       const results = await axe(container)
       expect(results).toHaveNoViolations()
     })

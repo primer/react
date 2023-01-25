@@ -4,6 +4,8 @@ import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import {RadioGroupContext} from './RadioGroup'
 import getGlobalFocusStyles from './_getGlobalFocusStyles'
+import {get} from './constants'
+import {sharedCheckboxAndRadioStyles} from './_sharedCheckboxAndRadioStyles'
 
 export type RadioProps = {
   /**
@@ -39,10 +41,26 @@ export type RadioProps = {
   SxProp
 
 const StyledRadio = styled.input`
-  cursor: pointer;
+  ${sharedCheckboxAndRadioStyles};
+  border-radius: var(--primer-borderRadius-full, 100vh);
+  transition: background-color, border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
-  ${props => props.disabled && `cursor: not-allowed;`}
-  ${getGlobalFocusStyles(0)};
+  &:checked {
+    border-color: ${get('colors.accent.fg')};
+    border-width: var(--base-size-4, 4px);
+
+    &:disabled {
+      cursor: not-allowed;
+      border-color: ${get('colors.fg.muted')};
+    }
+  }
+
+  ${getGlobalFocusStyles()};
+
+  @media (forced-colors: active) {
+    background-color: canvastext;
+    border-color: canvastext;
+  }
 
   ${sx}
 `

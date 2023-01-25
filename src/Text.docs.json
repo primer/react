@@ -1,0 +1,19 @@
+{
+  "id": "text",
+  "name": "Text",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "as",
+      "defaultValue": "'span'",
+      "type": "React.ElementType"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,3 +1,5 @@
+import {TextEncoder} from 'node:util'
+
 // JSDOM doesn't mock ResizeObserver
 global.ResizeObserver = jest.fn().mockImplementation(() => {
   return {
@@ -13,3 +15,5 @@ global.CSS = {
     return false
   }),
 }
+
+global.TextEncoder = TextEncoder

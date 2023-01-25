@@ -6,8 +6,8 @@ interface Props {
 }
 
 const VisuallyHidden = styled.span<Props & SxProp>`
-  ${props => {
-    if (props.isVisible) {
+  ${({isVisible = false}) => {
+    if (isVisible) {
       return sx
     }
 
@@ -24,9 +24,5 @@ const VisuallyHidden = styled.span<Props & SxProp>`
     `
   }}
 `
-
-VisuallyHidden.defaultProps = {
-  isVisible: false,
-}
 
 export default VisuallyHidden

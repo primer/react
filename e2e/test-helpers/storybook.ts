@@ -36,6 +36,7 @@ export async function visit(page: Page, options: Options) {
   }
 
   await page.goto(url.toString())
-  await page.waitForSelector('.sb-show-main')
+  await page.waitForSelector('body.sb-show-main:not(.sb-show-preparing-story)')
+  await page.waitForSelector('#root > *')
   await waitForImages(page)
 }
