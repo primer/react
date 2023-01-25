@@ -1,24 +1,19 @@
 name: vrt
 on:
-  pull_request_target:
+  pull_request:
     types:
       - labeled
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-jobs: 
-  storybook:
-    if: >
-      github.repository == 'primer/react' &&
-      contains(github.event.pull_request.labels.*.name, 'update snapshots')
+jobs:
+  upload-snapshots:
+    if: contains(github.event.pull_request.labels.*.name, 'update snapshots')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -31,27 +26,8 @@ jobs:
         with:
           name: storybook
           path: storybook-static
-
-  update-snapshots:
-    needs: storybook
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-      - name: Install dependencies
-        run: npm ci
       - name: Install browsers
         run: npx playwright install --with-deps
-      - uses: actions/download-artifact@v3
-        with:
-          name: storybook
-          path: storybook-static
       - name: Run storybook
         id: storybook
         run: |
@@ -69,29 +45,15 @@ jobs:
         with:
           name: snapshots
           path: .playwright/snapshots
-
-  commit-snapshots:
-    needs: update-snapshots
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
+          retention-days: 1
+      - name: Save Pull Request info
+        run: |
+          mkdir PR
+          echo $NUMBER > ./PR/number
+        env:
+          NUMBER: ${{ github.event.number }}
+      - uses: actions/upload-artifact@v3
         with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
-      - uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.head_ref }}
-          token: ${{ steps.generate_token.outputs.token }}
-      - uses: actions/download-artifact@v3
-        with:
-          name: snapshots
-          path: .playwright/snapshots
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'test(vrt): update snapshots'
-      - uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: 'update snapshots'
+          name: pull-request
+          path: ./PR
+          retention-days: 1

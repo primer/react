@@ -103,7 +103,7 @@ type SelectMenuItemInteralProps = {
 } & ComponentProps<typeof StyledItem>
 
 const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>(
-  ({children, selected, theme, onClick, ...rest}, forwardedRef) => {
+  ({children, selected = false, theme, onClick, ...rest}, forwardedRef) => {
     const menuContext = useContext(MenuContext)
     const backupRef = useRef<HTMLAnchorElement>(null)
     const itemRef = forwardedRef ?? backupRef
@@ -125,10 +125,6 @@ const SelectMenuItem = forwardRef<HTMLAnchorElement, SelectMenuItemInteralProps>
     )
   },
 )
-
-SelectMenuItem.defaultProps = {
-  selected: false,
-}
 
 SelectMenuItem.displayName = 'SelectMenu.Item'
 

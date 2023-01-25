@@ -72,7 +72,7 @@ We predominantly use [@testing-library/react](https://testing-library.com/docs/r
 
 To make assertions about the elements we use [Jest](https://jestjs.io/) and [jest-dom](https://github.com/testing-library/jest-dom).
 
-\*: You can read about the differences between `fireEvent` and `UserEvent` [here](https://testing-library.com/docs/user-event/intro/#differences-from-fireevent).
+\*: Read about the [differences between `fireEvent` and `UserEvent`](https://testing-library.com/docs/user-event/intro/#differences-from-fireevent).
 
 ### Running Tests
 

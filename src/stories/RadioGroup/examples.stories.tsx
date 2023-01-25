@@ -81,7 +81,7 @@ export default {
 export const Default = ({
   disabled,
   required,
-  labelChildren,
+  labelChildren = 'Choices',
   visuallyHidden,
   captionChildren,
   validationChildren,

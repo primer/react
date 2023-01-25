@@ -100,7 +100,7 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
 
 export type StateLabelProps = ComponentProps<typeof StateLabelBase>
 
-function StateLabel({children, status, variant: variantProp, ...rest}: StateLabelProps) {
+function StateLabel({children, status, variant: variantProp = 'normal', ...rest}: StateLabelProps) {
   const octiconProps = variantProp === 'small' ? {width: '1em'} : {}
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
@@ -109,10 +109,6 @@ function StateLabel({children, status, variant: variantProp, ...rest}: StateLabe
       {children}
     </StateLabelBase>
   )
-}
-
-StateLabel.defaultProps = {
-  variant: 'normal',
 }
 
 export default StateLabel

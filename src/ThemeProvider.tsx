@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
 import deepmerge from 'deepmerge'
@@ -83,8 +84,13 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
         // if the resolved color mode passed on from the server is not the resolved color mode on client, change it!
         if (resolvedColorModePassthrough.current !== resolvedColorModeOnClient) {
           window.setTimeout(() => {
-            // override colorMode to whatever is resolved on the client to get a re-render
-            setColorMode(resolvedColorModeOnClient)
+            // use ReactDOM.flushSync to prevent automatic batching of state updates since React 18
+            // ref: https://github.com/reactwg/react-18/discussions/21
+            ReactDOM.flushSync(() => {
+              // override colorMode to whatever is resolved on the client to get a re-render
+              setColorMode(resolvedColorModeOnClient)
+            })
+
             // immediately after that, set the colorMode to what the user passed to respond to system color mode changes
             setColorMode(colorMode)
           })
