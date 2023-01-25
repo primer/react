@@ -7,6 +7,7 @@ source: https://github.com/primer/react/tree/main/src/Autocomplete
 storybook: '/react/storybook?path=/story/components-forms-autocomplete'
 ---
 
+import data from '../../src/Autocomplete/Autocomplete.docs.json'
 import {Autocomplete} from '@primer/react'
 
 The `Autocomplete` component is comprised of an `Autocomplete.Input` component that a user types into, and a `Autocomplete.Menu` component that displays the list of selectable values.
@@ -644,24 +645,7 @@ export function AutocompleteWithContextInternal() {
 
 ## Props
 
-### Autocomplete.Input
-
-<PropsTable>
-  <PropsTableAsRow defaultElementType="TextInput" />
-  <PropsTablePassthroughPropsRow
-    elementName="TextInput"
-    isPolymorphic
-    passthroughPropsLink={
-      <>
-        the <Link href="/react/TextInput">TextInput docs</Link>
-      </>
-    }
-  />
-</PropsTable>
-
-<Props of={Autocomplete.Overlay} />
-
-<Props of={Autocomplete.Menu} />
+<ComponentProps data={data} />
 
 ## Status
 

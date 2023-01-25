@@ -6,6 +6,8 @@ description: Full-featured Markdown input.
 storybook: '/react/storybook?path=/story/components-forms-markdowneditor--default'
 ---
 
+import data from '../../../src/drafts/MarkdownEditor/MarkdownEditor.docs.json'
+
 ```js
 import {MarkdownEditor} from '@primer/react/drafts'
 ```
@@ -145,3 +147,7 @@ const MinimalExample = () => {
 
 render(MinimalExample)
 ```
+
+## Props
+
+<ComponentProps data={data} />
