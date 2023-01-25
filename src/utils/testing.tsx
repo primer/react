@@ -68,10 +68,34 @@ export function renderClasses(component: React.ReactElement): string {
 }
 
 /**
+ * Get the HTML class names rendered by the children of a component instance
+ * as an array.
+ *
+ * ```js
+ * expect(childRenderClasses(<div><span className='a b' /></div>, 0))
+ *   .toEqual(['a', 'b'])
+ * ```
+ */
+export function childRenderClasses(component: React.ReactElement, childIndex: number): string {
+  const {children} = render(component)
+  const {
+    props: {className},
+  } = children.at(childIndex)
+  return className ? className.trim().split(' ') : []
+}
+
+/**
  * Returns true if a node renders with a single class.
  */
 export function rendersClass(node: React.ReactElement, klass: string): boolean {
   return renderClasses(node).includes(klass)
+}
+
+/**
+ * Returns true if the child of a node renders with a single class.
+ */
+export function childRendersClass(node: React.ReactElement, klass: string, childIndex: number): boolean {
+  return childRenderClasses(node, childIndex).includes(klass)
 }
 
 export function px(value: number | string): string {

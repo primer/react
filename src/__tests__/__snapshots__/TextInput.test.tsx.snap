@@ -1284,11 +1284,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   margin: 4px;
 }
 
-.c6 {
+.c5 {
   display: inline-block;
 }
 
-.c5 {
+.c4 {
   border-radius: 6px;
   border: 0;
   border-color: rgba(27,31,36,0.15);
@@ -1319,48 +1319,48 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   position: relative;
 }
 
-.c5:focus:not(:disabled) {
+.c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c5:focus:not(:disabled):not(:focus-visible) {
+.c4:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible:not(:disabled) {
+.c4:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c5:disabled {
+.c4:disabled {
   cursor: default;
   color: #8c959f;
 }
 
-.c5:disabled [data-component=ButtonCounter] {
+.c4:disabled [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c5:disabled svg {
+.c4:disabled svg {
   opacity: 0.6;
 }
 
-.c5 [data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
-.c5:hover:not([disabled]) {
+.c4:hover:not([disabled]) {
   background-color: #f3f4f6;
 }
 
-.c5:active:not([disabled]) {
+.c4:active:not([disabled]) {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c5[aria-expanded=true] {
+.c4[aria-expanded=true] {
   background-color: hsla(220,14%,94%,1);
 }
 
@@ -1456,60 +1456,20 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   outline: 0;
 }
 
-.c4 {
-  position: relative;
-}
-
-.c4::before {
-  position: absolute;
-  z-index: 1000001;
+.c6.c6.c6 {
+  border: none;
+  overflow: hidden;
+  margin: 0;
+  position: fixed;
+  background: transparent;
+  top: 0;
+  left: 0;
   display: none;
-  width: 0px;
-  height: 0px;
-  color: #24292f;
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
   opacity: 0;
-}
-
-.c4::after {
-  position: absolute;
-  z-index: 1000000;
-  display: none;
-  padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: #ffffff;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
-  background: #24292f;
-  border-radius: 3px;
-  opacity: 0;
-}
-
-.c4:hover::before,
-.c4:active::before,
-.c4:focus::before,
-.c4:focus-within::before,
-.c4:hover::after,
-.c4:active::after,
-.c4:focus::after,
-.c4:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  padding: 0;
+  --width: 0;
+  --height: 0;
+  --anchor-width: 0;
   -webkit-animation-name: tooltip-appear;
   animation-name: tooltip-appear;
   -webkit-animation-duration: 0.1s;
@@ -1522,123 +1482,113 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   animation-delay: 0.4s;
 }
 
-.c4.tooltipped-no-delay:hover::before,
-.c4.tooltipped-no-delay:active::before,
-.c4.tooltipped-no-delay:focus::before,
-.c4.tooltipped-no-delay:focus-within::before,
-.c4.tooltipped-no-delay:hover::after,
-.c4.tooltipped-no-delay:active::after,
-.c4.tooltipped-no-delay:focus::after,
-.c4.tooltipped-no-delay:focus-within::after {
+.c6.c6.c6.tooltipped-no-delay {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
-.c4.tooltipped-multiline:hover::after,
-.c4.tooltipped-multiline:active::after,
-.c4.tooltipped-multiline:focus::after,
-.c4.tooltipped-multiline:focus-within::after {
-  display: table-cell;
+.c6.c6.c6.\\:open {
+  display: block;
 }
 
-.c4.tooltipped-s::after,
-.c4.tooltipped-se::after,
-.c4.tooltipped-sw::after {
-  top: 100%;
-  right: 50%;
-  margin-top: 6px;
+.c6.c6.c6:open {
+  display: block;
 }
 
-.c4.tooltipped-s::before,
-.c4.tooltipped-se::before,
-.c4.tooltipped-sw::before {
-  top: auto;
+.c6.c6.c6::before {
+  position: relative;
+  padding: 0.5em 0.75em;
+  border-radius: 3px;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  background: #24292f;
+  color: #ffffff;
+  content: attr(aria-label);
+  word-wrap: break-word;
+  text-align: center;
+  display: block;
+}
+
+.c6.c6.c6::after {
+  position: absolute;
+  content: '';
   right: 50%;
-  bottom: -7px;
   margin-right: -6px;
-  border-bottom-color: #24292f;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
 }
 
-.c4.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
+.c6.c6.c6.tooltipped-n,
+.c6.c6.c6.tooltipped-ne,
+.c6.c6.c6.tooltipped-nw {
+  padding-bottom: 10px;
 }
 
-.c4.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-n::after,
-.c4.tooltipped-ne::after,
-.c4.tooltipped-nw::after {
-  right: 50%;
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-.c4.tooltipped-n::before,
-.c4.tooltipped-ne::before,
-.c4.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
+.c6.c6.c6.tooltipped-n::after,
+.c6.c6.c6.tooltipped-ne::after,
+.c6.c6.c6.tooltipped-nw::after {
+  top: calc(var(--height) - 12px);
   border-top-color: #24292f;
 }
 
-.c4.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
+.c6.c6.c6.tooltipped-nw::after {
+  right: 0.5em;
 }
 
-.c4.tooltipped-nw::after {
-  margin-right: -16px;
+.c6.c6.c6.tooltipped-ne::after {
+  left: 0.5em;
 }
 
-.c4.tooltipped-s::after,
-.c4.tooltipped-n::after {
-  -webkit-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
+.c6.c6.c6.tooltipped-sw {
+  padding-top: 10px;
 }
 
-.c4.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
+.c6.c6.c6.tooltipped-sw::after {
+  right: 0.5em;
+  top: 0;
+  border-bottom-color: #24292f;
 }
 
-.c4.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
+.c6.c6.c6.tooltipped-se {
+  padding-top: 10px;
 }
 
-.c4.tooltipped-e::after {
-  bottom: 50%;
-  left: 100%;
-  margin-left: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
+.c6.c6.c6.tooltipped-se::after {
+  left: 0.5em;
+  top: 0;
+  border-bottom-color: #24292f;
 }
 
-.c4.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
+.c6.c6.c6.tooltipped-s {
+  padding-top: 10px;
+}
+
+.c6.c6.c6.tooltipped-s::after {
+  top: 0;
+  border-bottom-color: #24292f;
+}
+
+.c6.c6.c6.tooltipped-e {
+  padding-left: 10px;
+}
+
+.c6.c6.c6.tooltipped-e:after {
+  top: calc(var(--height) / 2 - 5px);
+  right: calc(var(--width) - 5px);
   border-right-color: #24292f;
 }
 
-.c4.tooltipped-multiline::after {
+.c6.c6.c6.tooltipped-w {
+  padding-right: 10px;
+}
+
+.c6.c6.c6.tooltipped-w::after {
+  top: calc(var(--height) / 2 - 5px);
+  right: 4px;
+  border-left-color: #24292f;
+}
+
+.c6.c6.c6.tooltipped-multiline::before {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -1648,46 +1598,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   border-collapse: separate;
 }
 
-.c4.tooltipped-multiline.tooltipped-s::after,
-.c4.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.c4.tooltipped-multiline.tooltipped-w::after,
-.c4.tooltipped-multiline.tooltipped-e::after {
-  right: 100%;
-}
-
-.c4.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c4.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
-.c4.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
-.c4.tooltipped-align-left-2::before {
-  left: 10px;
-}
-
 @media (forced-colors:active) {
-  .c5:focus {
+  .c4:focus {
     outline: solid 1px transparent;
   }
 }
 
 @media (pointer:coarse) {
-  .c5:after {
+  .c4:after {
     content: "";
     position: absolute;
     left: 0;
@@ -1725,18 +1643,24 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <span
-      aria-label="iconLabel"
-      className="c4 tooltipped-n"
-      role="tooltip"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onPointerEnter={[Function]}
+      onPointerLeave={[Function]}
+      style={
+        {
+          "display": "inline-block",
+        }
+      }
     >
       <button
         aria-label="iconLabel"
-        className="c5"
+        className="c4"
         onClick={[MockFunction]}
         type="button"
       >
         <span
-          className="c6"
+          className="c5"
         >
           <svg
             aria-hidden="true"
@@ -1763,6 +1687,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
           </svg>
         </span>
       </button>
+      <span
+        aria-label="iconLabel"
+        className="c6 tooltipped-n"
+        popover="auto"
+      />
     </span>
   </span>
 </span>
@@ -2023,7 +1952,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   margin: 4px;
 }
 
-.c5 {
+.c4 {
   border-radius: 6px;
   border: 0;
   border-color: rgba(27,31,36,0.15);
@@ -2056,64 +1985,64 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   position: relative;
 }
 
-.c5:focus:not(:disabled) {
+.c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c5:focus:not(:disabled):not(:focus-visible) {
+.c4:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible:not(:disabled) {
+.c4:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid #0969da;
   outline-offset: -2px;
 }
 
-.c5:disabled {
+.c4:disabled {
   cursor: default;
   color: #8c959f;
 }
 
-.c5:disabled [data-component=ButtonCounter] {
+.c4:disabled [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c5:disabled svg {
+.c4:disabled svg {
   opacity: 0.6;
 }
 
-.c5 > :not(:last-child) {
+.c4 > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5 [data-component="leadingIcon"] {
+.c4 [data-component="leadingIcon"] {
   grid-area: leadingIcon;
 }
 
-.c5 [data-component="text"] {
+.c4 [data-component="text"] {
   grid-area: text;
 }
 
-.c5 [data-component="trailingIcon"] {
+.c4 [data-component="trailingIcon"] {
   grid-area: trailingIcon;
 }
 
-.c5 [data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5:hover:not([disabled]) {
+.c4:hover:not([disabled]) {
   background-color: #f3f4f6;
 }
 
-.c5:active:not([disabled]) {
+.c4:active:not([disabled]) {
   background-color: hsla(220,14%,94%,1);
 }
 
-.c5[aria-expanded=true] {
+.c4[aria-expanded=true] {
   background-color: hsla(220,14%,94%,1);
 }
 
@@ -2209,61 +2138,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   outline: 0;
 }
 
-.c4 {
-  position: relative;
-  display: inline-block;
-}
-
-.c4::before {
-  position: absolute;
-  z-index: 1000001;
+.c5.c5.c5 {
+  border: none;
+  overflow: hidden;
+  margin: 0;
+  position: fixed;
+  background: transparent;
+  top: 0;
+  left: 0;
   display: none;
-  width: 0px;
-  height: 0px;
-  color: #24292f;
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
   opacity: 0;
-}
-
-.c4::after {
-  position: absolute;
-  z-index: 1000000;
-  display: none;
-  padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: #ffffff;
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
-  background: #24292f;
-  border-radius: 3px;
-  opacity: 0;
-}
-
-.c4:hover::before,
-.c4:active::before,
-.c4:focus::before,
-.c4:focus-within::before,
-.c4:hover::after,
-.c4:active::after,
-.c4:focus::after,
-.c4:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
+  padding: 0;
+  --width: 0;
+  --height: 0;
+  --anchor-width: 0;
   -webkit-animation-name: tooltip-appear;
   animation-name: tooltip-appear;
   -webkit-animation-duration: 0.1s;
@@ -2274,125 +2162,116 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   animation-timing-function: ease-in;
   -webkit-animation-delay: 0.4s;
   animation-delay: 0.4s;
+  display: inline-block;
 }
 
-.c4.tooltipped-no-delay:hover::before,
-.c4.tooltipped-no-delay:active::before,
-.c4.tooltipped-no-delay:focus::before,
-.c4.tooltipped-no-delay:focus-within::before,
-.c4.tooltipped-no-delay:hover::after,
-.c4.tooltipped-no-delay:active::after,
-.c4.tooltipped-no-delay:focus::after,
-.c4.tooltipped-no-delay:focus-within::after {
+.c5.c5.c5.tooltipped-no-delay {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
-.c4.tooltipped-multiline:hover::after,
-.c4.tooltipped-multiline:active::after,
-.c4.tooltipped-multiline:focus::after,
-.c4.tooltipped-multiline:focus-within::after {
-  display: table-cell;
+.c5.c5.c5.\\:open {
+  display: block;
 }
 
-.c4.tooltipped-s::after,
-.c4.tooltipped-se::after,
-.c4.tooltipped-sw::after {
-  top: 100%;
-  right: 50%;
-  margin-top: 6px;
+.c5.c5.c5:open {
+  display: block;
 }
 
-.c4.tooltipped-s::before,
-.c4.tooltipped-se::before,
-.c4.tooltipped-sw::before {
-  top: auto;
+.c5.c5.c5::before {
+  position: relative;
+  padding: 0.5em 0.75em;
+  border-radius: 3px;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  background: #24292f;
+  color: #ffffff;
+  content: attr(aria-label);
+  word-wrap: break-word;
+  text-align: center;
+  display: block;
+}
+
+.c5.c5.c5::after {
+  position: absolute;
+  content: '';
   right: 50%;
-  bottom: -7px;
   margin-right: -6px;
-  border-bottom-color: #24292f;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
 }
 
-.c4.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
+.c5.c5.c5.tooltipped-n,
+.c5.c5.c5.tooltipped-ne,
+.c5.c5.c5.tooltipped-nw {
+  padding-bottom: 10px;
 }
 
-.c4.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-n::after,
-.c4.tooltipped-ne::after,
-.c4.tooltipped-nw::after {
-  right: 50%;
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-.c4.tooltipped-n::before,
-.c4.tooltipped-ne::before,
-.c4.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
+.c5.c5.c5.tooltipped-n::after,
+.c5.c5.c5.tooltipped-ne::after,
+.c5.c5.c5.tooltipped-nw::after {
+  top: calc(var(--height) - 12px);
   border-top-color: #24292f;
 }
 
-.c4.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
+.c5.c5.c5.tooltipped-nw::after {
+  right: 0.5em;
 }
 
-.c4.tooltipped-nw::after {
-  margin-right: -16px;
+.c5.c5.c5.tooltipped-ne::after {
+  left: 0.5em;
 }
 
-.c4.tooltipped-s::after,
-.c4.tooltipped-n::after {
-  -webkit-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
+.c5.c5.c5.tooltipped-sw {
+  padding-top: 10px;
 }
 
-.c4.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
+.c5.c5.c5.tooltipped-sw::after {
+  right: 0.5em;
+  top: 0;
+  border-bottom-color: #24292f;
 }
 
-.c4.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: #24292f;
+.c5.c5.c5.tooltipped-se {
+  padding-top: 10px;
 }
 
-.c4.tooltipped-e::after {
-  bottom: 50%;
-  left: 100%;
-  margin-left: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
+.c5.c5.c5.tooltipped-se::after {
+  left: 0.5em;
+  top: 0;
+  border-bottom-color: #24292f;
 }
 
-.c4.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
+.c5.c5.c5.tooltipped-s {
+  padding-top: 10px;
+}
+
+.c5.c5.c5.tooltipped-s::after {
+  top: 0;
+  border-bottom-color: #24292f;
+}
+
+.c5.c5.c5.tooltipped-e {
+  padding-left: 10px;
+}
+
+.c5.c5.c5.tooltipped-e:after {
+  top: calc(var(--height) / 2 - 5px);
+  right: calc(var(--width) - 5px);
   border-right-color: #24292f;
 }
 
-.c4.tooltipped-multiline::after {
+.c5.c5.c5.tooltipped-w {
+  padding-right: 10px;
+}
+
+.c5.c5.c5.tooltipped-w::after {
+  top: calc(var(--height) / 2 - 5px);
+  right: 4px;
+  border-left-color: #24292f;
+}
+
+.c5.c5.c5.tooltipped-multiline::before {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -2402,46 +2281,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   border-collapse: separate;
 }
 
-.c4.tooltipped-multiline.tooltipped-s::after,
-.c4.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.c4.tooltipped-multiline.tooltipped-w::after,
-.c4.tooltipped-multiline.tooltipped-e::after {
-  right: 100%;
-}
-
-.c4.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c4.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
-.c4.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
-.c4.tooltipped-align-left-2::before {
-  left: 10px;
-}
-
 @media (forced-colors:active) {
-  .c5:focus {
+  .c4:focus {
     outline: solid 1px transparent;
   }
 }
 
 @media (pointer:coarse) {
-  .c5:after {
+  .c4:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2479,12 +2326,18 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     className="c3 TextInput-action"
   >
     <span
-      aria-label="Clear input"
-      className="c4 tooltipped-n"
-      role="tooltip"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onPointerEnter={[Function]}
+      onPointerLeave={[Function]}
+      style={
+        {
+          "display": "inline-block",
+        }
+      }
     >
       <button
-        className="c5"
+        className="c4"
         onClick={[MockFunction]}
         type="button"
       >
@@ -2494,6 +2347,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
           Clear
         </span>
       </button>
+      <span
+        aria-label="Clear input"
+        className="c5 tooltipped-n"
+        popover="auto"
+      />
     </span>
   </span>
 </span>

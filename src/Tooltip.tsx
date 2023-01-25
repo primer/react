@@ -1,5 +1,5 @@
 import React from 'react'
-import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
+import '@oddbird/popover-polyfill'
 import styled from 'styled-components'
 import {get} from './constants'
 import sx, {SxProp} from './sx'
@@ -9,7 +9,6 @@ import classNames from 'classnames'
 interface PopoverProps extends SxProp, React.PropsWithChildren {
   popover: 'auto'
   id: string
-  'aria-label': string
 }
 
 const TooltipBase = styled('span')
@@ -171,18 +170,23 @@ const TooltipBase = styled('span')
   }
 `
 
-type TooltipProps = {
+export type TooltipProps = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
   text?: string
   noDelay?: boolean
   wrap?: boolean
 } & ComponentProps<typeof TooltipBase>
 
-const Tooltip = ({direction = 'n', children, className, noDelay, wrap, popover = 'auto', ...rest}: TooltipProps) => {
-  if (!isSupported()) {
-    apply()
-  }
-
+const Tooltip = ({
+  direction = 'n',
+  children,
+  className,
+  noDelay,
+  text,
+  wrap,
+  popover = 'auto',
+  ...rest
+}: TooltipProps) => {
   const classes = classNames(
     className,
     `tooltipped-${direction}`,
@@ -251,19 +255,19 @@ const Tooltip = ({direction = 'n', children, className, noDelay, wrap, popover =
   }
 
   return (
-    <>
-      <span
-        style={{display: 'inline-block'}}
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-        onFocus={handlePointerEnter}
-        onBlur={handlePointerLeave}
-      >
-        {children}
-      </span>
-      <TooltipBase ref={popoverRef} popover={popover} className={classes} {...rest} />
-    </>
+    <span
+      style={{display: 'inline-block'}}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
+      onFocus={handlePointerEnter}
+      onBlur={handlePointerLeave}
+    >
+      {children}
+      <TooltipBase ref={popoverRef} popover={popover} className={classes} aria-label={text} {...rest} />
+    </span>
   )
 }
+
+Tooltip.directions = ['n', 'ne', 'nw', 's', 'se', 'sw', 'e', 'w']
 
 export default Tooltip
