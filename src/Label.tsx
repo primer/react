@@ -1,9 +1,7 @@
-import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import sx, {SxProp, BetterSystemStyleObject} from './sx'
 import {get} from './constants'
-import {ComponentProps} from './utils/types'
+import sx, {BetterSystemStyleObject, SxProp} from './sx'
 
 export type LabelProps = {
   /** The color of the label */
@@ -78,7 +76,7 @@ const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
   },
 }
 
-const StyledLabel = styled.span<LabelProps>`
+const Label = styled.span<LabelProps>`
   align-items: center;
   background-color: transparent;
   border-width: 1px;
@@ -94,7 +92,11 @@ const StyledLabel = styled.span<LabelProps>`
   ${sx};
 `
 
-const Label = ({size = 'small', variant = 'default', ...rest}: ComponentProps<typeof StyledLabel>) => (
-  <StyledLabel size={size} variant={variant} {...rest} />
-)
+// TODO: Remove defaultProps to be compatible with the next major version of React
+// Reference: https://github.com/primer/react/issues/2758
+Label.defaultProps = {
+  size: 'small',
+  variant: 'default',
+}
+
 export default Label
