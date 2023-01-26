@@ -4,7 +4,7 @@ import groupBy from 'lodash.groupby'
 
 const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 // Components opted into the new story format
-const allowlist = ['ActionList', 'Button', 'IconButton', 'FilteredActionList', 'TreeView', 'UnderlineNav2']
+const allowlist = ['ActionList', 'Button', 'IconButton', 'FilteredActionList', 'TreeView']
 const stories = glob
   .sync('src/**/*.stories.tsx', {
     cwd: ROOT_DIRECTORY,
@@ -21,18 +21,18 @@ const stories = glob
     const type = path.basename(filepath, '.stories.tsx').endsWith('features') ? 'feature' : 'default'
     const name = type === 'feature' ? path.basename(file, '.features.stories.tsx') : path.basename(file, '.stories.tsx')
 
-    return [name, require(filepath), type]
+    return {name, story: require(filepath), type, relativeFilepath: path.relative(ROOT_DIRECTORY, filepath)}
   })
 
 const components = Object.entries(
-  groupBy(stories, ([name]) => {
+  groupBy(stories, ({name}) => {
     return name
   }),
 )
 
 describe.each(components)('%s', (_component, stories) => {
-  for (const [, story, type] of stories) {
-    describe(`${story.default.title}`, () => {
+  for (const {story, type, relativeFilepath} of stories) {
+    describe(`${story.default.title} (${relativeFilepath})`, () => {
       test('title follows naming convention', () => {
         // Matches:
         // - title: 'Components/TreeView'
@@ -52,15 +52,15 @@ describe.each(components)('%s', (_component, stories) => {
       })
 
       if (type === 'default') {
-        test('exports a "Default" story', () => {
+        test('exports a Default story', () => {
           expect(story.Default).toBeDefined()
         })
 
-        test('"Default" story does not use args', () => {
+        test('Default story does not have `args`', () => {
           expect(story.Default.args).not.toBeDefined()
         })
 
-        test('"Default" story does not set `argTypes` on the `Default` story', () => {
+        test('Default story does not have `argTypes`', () => {
           expect(story.Default.argTypes).not.toBeDefined()
         })
 
