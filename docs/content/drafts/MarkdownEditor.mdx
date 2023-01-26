@@ -28,8 +28,9 @@ import {MarkdownEditor} from '@primer/react/drafts'
 
 A `Label` is always required for accessibility:
 
+<!-- prettier-ignore-start -->
 ```javascript live noinline drafts
-const renderMarkdown = async markdown => {
+const renderMarkdown = async (markdown) => {
   // In production code, this would make a query to some external API endpoint to render
   return 'Rendered Markdown.'
 }
@@ -46,13 +47,15 @@ const MinimalExample = () => {
 
 render(MinimalExample)
 ```
+<!-- prettier-ignore-end -->
 
 ### Suggestions, File Uploads, and Saved Replies
 
+<!-- prettier-ignore-start -->
 ```javascript live noinline drafts
-const renderMarkdown = async markdown => 'Rendered Markdown.'
+const renderMarkdown = async (markdown) => 'Rendered Markdown.'
 
-const uploadFile = async file => ({
+const uploadFile = async (file) => ({
   url: `https://example.com/${encodeURIComponent(file.name)}`,
   file,
 })
@@ -118,11 +121,13 @@ const MinimalExample = () => {
 
 render(MinimalExample)
 ```
+<!-- prettier-ignore-end -->
 
 ### Custom Buttons
 
+<!-- prettier-ignore-start -->
 ```javascript live noinline drafts
-const renderMarkdown = async markdown => 'Rendered Markdown.'
+const renderMarkdown = async (markdown) => 'Rendered Markdown.'
 
 const MinimalExample = () => {
   const [value, setValue] = React.useState('')
@@ -147,6 +152,7 @@ const MinimalExample = () => {
 
 render(MinimalExample)
 ```
+<!-- prettier-ignore-end -->
 
 ## Props
 
