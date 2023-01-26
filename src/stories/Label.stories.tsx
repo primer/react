@@ -1,42 +1,47 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-// import {ComponentProps} from '../utils/types'
+import {ComponentProps} from '../utils/types'
 import Label from '../Label'
-
-// type Args = ComponentProps<typeof Label>
 
 export default {
   title: 'Components/Label',
   component: Label,
   args: {
-    //   variant: 'default',
-    //   size: 'large',
+    variant: 'default',
+    size: 'small',
   },
   argTypes: {
-    //   variant: {
-    //     control: {
-    //       type: 'select',
-    //     },
-    //     options: [
-    //       'default',
-    //       'primary',
-    //       'secondary',
-    //       'accent',
-    //       'success',
-    //       'attention',
-    //       'severe',
-    //       'danger',
-    //       'done',
-    //       'sponsors',
-    //     ],
-    //   },
-    //   size: {
-    //     control: {
-    //       type: 'radio',
-    //     },
-    //     options: ['small', 'large'],
-    //   },
+    ref: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    as: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    theme: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    forwardedAs: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
+    sx: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
   },
-} as Meta<typeof Label>
+} as Meta<ComponentProps<typeof Label>>
 
-export const Playground: Story<typeof Label> = args => <Label {...args}>Label</Label>
+export const Playground: Story<ComponentProps<typeof Label>> = args => <Label {...args}>Label</Label>
