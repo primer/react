@@ -32,7 +32,7 @@ export function ComponentProps({data}) {
     <>
       <H3>{data.name}</H3>
       <Props props={data.props} passthrough={data.passthrough} />
-      {data.subcomponents.map(subcomponent => {
+      {data.subcomponents?.map(subcomponent => {
         return (
           <>
             <H3>{subcomponent.name}</H3>

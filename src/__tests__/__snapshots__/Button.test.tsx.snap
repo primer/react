@@ -219,6 +219,7 @@ exports[`Button renders consistently 1`] = `
   className="c0"
   data-block={null}
   data-no-visuals={true}
+  type="button"
 >
   <span
     className="c1"
@@ -445,6 +446,7 @@ exports[`Button respects block prop 1`] = `
   class="c0"
   data-block="block"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"
@@ -676,6 +678,7 @@ exports[`Button respects the alignContent prop 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"
@@ -908,6 +911,7 @@ exports[`Button respects the large size prop 1`] = `
   class="c0"
   data-no-visuals="true"
   data-size="large"
+  type="button"
 >
   <span
     class="c1"
@@ -1140,6 +1144,7 @@ exports[`Button respects the small size prop 1`] = `
   class="c0"
   data-no-visuals="true"
   data-size="small"
+  type="button"
 >
   <span
     class="c1"
@@ -1390,6 +1395,7 @@ exports[`Button styles danger button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"
@@ -1631,6 +1637,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"
@@ -1877,6 +1884,7 @@ exports[`Button styles primary button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"

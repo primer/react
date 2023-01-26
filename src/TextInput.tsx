@@ -63,7 +63,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       contrast,
       disabled,
       loading,
-      loaderPosition,
+      loaderPosition = 'auto',
       monospace,
       validationStatus,
       sx: sxProp,
@@ -76,6 +76,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       maxWidth: maxWidthProp,
       variant: variantProp,
       // end deprecated props
+      type = 'text',
       ...inputProps
     },
     ref,
@@ -141,6 +142,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           disabled={disabled}
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
+          type={type}
           {...inputProps}
           data-component="input"
         />
@@ -156,11 +158,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'input', TextInputProps>
-
-TextInput.defaultProps = {
-  type: 'text',
-  loaderPosition: 'auto',
-}
 
 TextInput.displayName = 'TextInput'
 

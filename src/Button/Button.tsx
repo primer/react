@@ -13,7 +13,7 @@ const ButtonComponent = forwardRef(({children, sx: SxProp = defaultSxProp, ...pr
   }
 
   return (
-    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} {...props}>
+    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} type="button" {...props}>
       {children}
     </ButtonBase>
   )

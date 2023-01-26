@@ -38,7 +38,7 @@ const Token = forwardRef((props, forwardedRef) => {
     id,
     leadingVisual: LeadingVisual,
     text,
-    size,
+    size = defaultTokenSize,
     hideRemoveButton,
     href,
     onClick,
@@ -108,9 +108,5 @@ const Token = forwardRef((props, forwardedRef) => {
 }) as PolymorphicForwardRefComponent<'a' | 'button' | 'span', TokenProps>
 
 Token.displayName = 'Token'
-
-Token.defaultProps = {
-  size: defaultTokenSize,
-}
 
 export default Token
