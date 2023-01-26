@@ -4,12 +4,18 @@ import groupBy from 'lodash.groupby'
 
 const ROOT_DIRECTORY = path.resolve(__dirname, '..', '..')
 // Components opted into the new story format
-const allowlist = ['TreeView']
+const allowlist = ['ActionList', 'Button', 'IconButton', 'FilteredActionList', 'TreeView', 'UnderlineNav2']
 const stories = glob
   .sync('src/**/*.stories.tsx', {
     cwd: ROOT_DIRECTORY,
   })
-  .filter(file => allowlist.some(component => file.includes(component)))
+  // Filter out deprecated stories
+  .filter(file => !file.includes('deprecated'))
+  .filter(file =>
+    allowlist.some(
+      component => file.includes(`/${component}.stories.tsx`) || file.includes(`/${component}.features.stories.tsx`),
+    ),
+  )
   .map(file => {
     const filepath = path.join(ROOT_DIRECTORY, file)
     const type = path.basename(filepath, '.stories.tsx').endsWith('features') ? 'feature' : 'default'
@@ -56,6 +62,12 @@ describe.each(components)('%s', (_component, stories) => {
 
         test('"Default" story does not set `argTypes` on the `Default` story', () => {
           expect(story.Default.argTypes).not.toBeDefined()
+        })
+
+        test('only exports Default and Playground stories', () => {
+          for (const storyName of Object.keys(story)) {
+            expect(/^Default$|^(.*)Playground$|^default$/.test(storyName)).toBe(true)
+          }
         })
       }
     })
