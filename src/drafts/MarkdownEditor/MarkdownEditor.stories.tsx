@@ -201,105 +201,109 @@ const renderPreview = async () => {
   return 'Previewing Markdown is not supported in this example.'
 }
 
-export const Default = ({
-  disabled,
-  fullHeight,
-  monospace,
-  minHeightLines,
-  maxHeightLines,
-  hideLabel,
-  required,
-  fileUploadsEnabled,
-  onSubmit,
-  savedRepliesEnabled,
-  pasteUrlsAsPlainText,
-}: ArgProps) => {
-  const [value, setValue] = useState('')
+export const Default = {
+  render: ({
+    disabled,
+    fullHeight,
+    monospace,
+    minHeightLines,
+    maxHeightLines,
+    hideLabel,
+    required,
+    fileUploadsEnabled,
+    onSubmit,
+    savedRepliesEnabled,
+    pasteUrlsAsPlainText,
+  }: ArgProps) => {
+    const [value, setValue] = useState('')
 
-  return (
-    <>
-      <MarkdownEditor
-        value={value}
-        onChange={setValue}
-        onPrimaryAction={onSubmit}
-        disabled={disabled}
-        fullHeight={fullHeight}
-        monospace={monospace}
-        minHeightLines={minHeightLines}
-        maxHeightLines={maxHeightLines}
-        placeholder="Enter some Markdown..."
-        onRenderPreview={renderPreview}
-        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-        emojiSuggestions={emojis}
-        mentionSuggestions={mentionables}
-        referenceSuggestions={references}
-        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
-        required={required}
-        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
-      >
-        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
-      </MarkdownEditor>
-      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-    </>
-  )
+    return (
+      <>
+        <MarkdownEditor
+          value={value}
+          onChange={setValue}
+          onPrimaryAction={onSubmit}
+          disabled={disabled}
+          fullHeight={fullHeight}
+          monospace={monospace}
+          minHeightLines={minHeightLines}
+          maxHeightLines={maxHeightLines}
+          placeholder="Enter some Markdown..."
+          onRenderPreview={renderPreview}
+          onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+          emojiSuggestions={emojis}
+          mentionSuggestions={mentionables}
+          referenceSuggestions={references}
+          savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+          required={required}
+          pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+        >
+          <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
+        </MarkdownEditor>
+        <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+      </>
+    )
+  },
 }
 
-export const CustomButtons = ({
-  disabled,
-  fullHeight,
-  monospace,
-  minHeightLines,
-  maxHeightLines,
-  hideLabel,
-  required,
-  fileUploadsEnabled,
-  onSubmit,
-  onDiffClick,
-  savedRepliesEnabled,
-  pasteUrlsAsPlainText,
-}: ArgProps) => {
-  const [value, setValue] = useState('')
+export const CustomButtons = {
+  render: ({
+    disabled,
+    fullHeight,
+    monospace,
+    minHeightLines,
+    maxHeightLines,
+    hideLabel,
+    required,
+    fileUploadsEnabled,
+    onSubmit,
+    onDiffClick,
+    savedRepliesEnabled,
+    pasteUrlsAsPlainText,
+  }: ArgProps) => {
+    const [value, setValue] = useState('')
 
-  return (
-    <>
-      <MarkdownEditor
-        value={value}
-        onChange={setValue}
-        onPrimaryAction={onSubmit}
-        disabled={disabled}
-        fullHeight={fullHeight}
-        monospace={monospace}
-        minHeightLines={minHeightLines}
-        maxHeightLines={maxHeightLines}
-        placeholder="Enter some Markdown..."
-        onRenderPreview={renderPreview}
-        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-        emojiSuggestions={emojis}
-        mentionSuggestions={mentionables}
-        referenceSuggestions={references}
-        required={required}
-        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
-        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
-      >
-        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
+    return (
+      <>
+        <MarkdownEditor
+          value={value}
+          onChange={setValue}
+          onPrimaryAction={onSubmit}
+          disabled={disabled}
+          fullHeight={fullHeight}
+          monospace={monospace}
+          minHeightLines={minHeightLines}
+          maxHeightLines={maxHeightLines}
+          placeholder="Enter some Markdown..."
+          onRenderPreview={renderPreview}
+          onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+          emojiSuggestions={emojis}
+          mentionSuggestions={mentionables}
+          referenceSuggestions={references}
+          required={required}
+          savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+          pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+        >
+          <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
 
-        <MarkdownEditor.Toolbar>
-          <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} aria-label="Custom Button" />
-          <MarkdownEditor.DefaultToolbarButtons />
-        </MarkdownEditor.Toolbar>
+          <MarkdownEditor.Toolbar>
+            <MarkdownEditor.ToolbarButton icon={DiffIcon} onClick={onDiffClick} aria-label="Custom Button" />
+            <MarkdownEditor.DefaultToolbarButtons />
+          </MarkdownEditor.Toolbar>
 
-        <MarkdownEditor.Actions>
-          <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
-            Reset
-          </MarkdownEditor.ActionButton>
-          <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
-            Submit
-          </MarkdownEditor.ActionButton>
-        </MarkdownEditor.Actions>
-      </MarkdownEditor>
-      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-    </>
-  )
+          <MarkdownEditor.Actions>
+            <MarkdownEditor.ActionButton variant="danger" onClick={() => setValue('')}>
+              Reset
+            </MarkdownEditor.ActionButton>
+            <MarkdownEditor.ActionButton variant="primary" onClick={onSubmit}>
+              Submit
+            </MarkdownEditor.ActionButton>
+          </MarkdownEditor.Actions>
+        </MarkdownEditor>
+        <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+      </>
+    )
+  },
 }
 
 function useLazySuggestions<T>(suggestions: T[]) {
@@ -319,49 +323,51 @@ function useLazySuggestions<T>(suggestions: T[]) {
   }
 }
 
-export const LazyLoadedSuggestions = ({
-  disabled,
-  fullHeight,
-  monospace,
-  minHeightLines,
-  maxHeightLines,
-  hideLabel,
-  required,
-  fileUploadsEnabled,
-  onSubmit,
-  savedRepliesEnabled,
-  pasteUrlsAsPlainText,
-}: ArgProps) => {
-  const [value, setValue] = useState('')
+export const LazyLoadedSuggestions = {
+  render: ({
+    disabled,
+    fullHeight,
+    monospace,
+    minHeightLines,
+    maxHeightLines,
+    hideLabel,
+    required,
+    fileUploadsEnabled,
+    onSubmit,
+    savedRepliesEnabled,
+    pasteUrlsAsPlainText,
+  }: ArgProps) => {
+    const [value, setValue] = useState('')
 
-  const emojiSuggestions = useLazySuggestions(emojis)
-  const mentionSuggestions = useLazySuggestions(mentionables)
-  const referenceSuggestions = useLazySuggestions(references)
+    const emojiSuggestions = useLazySuggestions(emojis)
+    const mentionSuggestions = useLazySuggestions(mentionables)
+    const referenceSuggestions = useLazySuggestions(references)
 
-  return (
-    <>
-      <MarkdownEditor
-        value={value}
-        onChange={setValue}
-        onPrimaryAction={onSubmit}
-        disabled={disabled}
-        fullHeight={fullHeight}
-        monospace={monospace}
-        minHeightLines={minHeightLines}
-        maxHeightLines={maxHeightLines}
-        placeholder="Enter some Markdown..."
-        onRenderPreview={renderPreview}
-        onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
-        emojiSuggestions={emojiSuggestions}
-        mentionSuggestions={mentionSuggestions}
-        referenceSuggestions={referenceSuggestions}
-        savedReplies={savedRepliesEnabled ? savedReplies : undefined}
-        required={required}
-        pasteUrlsAsPlainText={pasteUrlsAsPlainText}
-      >
-        <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
-      </MarkdownEditor>
-      <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
-    </>
-  )
+    return (
+      <>
+        <MarkdownEditor
+          value={value}
+          onChange={setValue}
+          onPrimaryAction={onSubmit}
+          disabled={disabled}
+          fullHeight={fullHeight}
+          monospace={monospace}
+          minHeightLines={minHeightLines}
+          maxHeightLines={maxHeightLines}
+          placeholder="Enter some Markdown..."
+          onRenderPreview={renderPreview}
+          onUploadFile={fileUploadsEnabled ? onUploadFile : undefined}
+          emojiSuggestions={emojiSuggestions}
+          mentionSuggestions={mentionSuggestions}
+          referenceSuggestions={referenceSuggestions}
+          savedReplies={savedRepliesEnabled ? savedReplies : undefined}
+          required={required}
+          pasteUrlsAsPlainText={pasteUrlsAsPlainText}
+        >
+          <MarkdownEditor.Label visuallyHidden={hideLabel}>Markdown Editor Example</MarkdownEditor.Label>
+        </MarkdownEditor>
+        <p>Note: for demo purposes, files starting with &quot;A&quot; will be rejected.</p>
+      </>
+    )
+  },
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {StoryObj, Meta, StoryFn} from '@storybook/react'
 
 import Hidden from '.'
 
@@ -23,8 +23,8 @@ export default {
       description: 'The viewport type to hide the content on.',
     },
   },
-} as ComponentMeta<typeof Hidden>
+} as Meta<typeof Hidden>
 
-export const Playground: ComponentStory<typeof Hidden> = args => (
-  <Hidden {...args}>The content is hidden on {Array(args.on).join(',')}</Hidden>
-)
+export const Playground: StoryObj<typeof Hidden> = {
+  render: args => <Hidden {...args}>The content is hidden on {Array(args.on).join(',')}</Hidden>,
+}

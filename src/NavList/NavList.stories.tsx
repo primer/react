@@ -1,4 +1,4 @@
-import {Meta, Story} from '@storybook/react'
+import {StoryFn, Meta} from '@storybook/react'
 import React from 'react'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
@@ -11,7 +11,7 @@ const meta: Meta = {
   },
 }
 
-export const Simple: Story = () => (
+export const Simple: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -26,7 +26,7 @@ export const Simple: Story = () => (
   </PageLayout>
 )
 
-export const WithSubItems: Story = () => (
+export const WithSubItems: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>

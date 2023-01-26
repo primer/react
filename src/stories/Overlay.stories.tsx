@@ -48,140 +48,146 @@ interface OverlayProps {
   anchorSide: AnchorSide
 }
 
-export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  return (
-    <>
-      <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
-        open overlay
-      </Button>
-      {isOpen ? (
-        <Overlay
-          returnFocusRef={buttonRef}
-          height="auto"
-          width="small"
-          ignoreClickRefs={[buttonRef]}
-          onEscape={() => setIsOpen(false)}
-          onClickOutside={() => setIsOpen(false)}
-          anchorSide={anchorSide}
-        >
-          <ActionList>
-            <ActionList.Item>Copy link</ActionList.Item>
-            <ActionList.Item>Quote reply</ActionList.Item>
-            <ActionList.Item>Reference in new issue</ActionList.Item>
-            <ActionList.Item>Edit</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item variant="danger">Delete</ActionList.Item>
-          </ActionList>
-        </Overlay>
-      ) : null}
-    </>
-  )
+export const DropdownOverlay = {
+  render: ({anchorSide}: OverlayProps) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const buttonRef = useRef<HTMLButtonElement>(null)
+    return (
+      <>
+        <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
+          open overlay
+        </Button>
+        {isOpen ? (
+          <Overlay
+            returnFocusRef={buttonRef}
+            height="auto"
+            width="small"
+            ignoreClickRefs={[buttonRef]}
+            onEscape={() => setIsOpen(false)}
+            onClickOutside={() => setIsOpen(false)}
+            anchorSide={anchorSide}
+          >
+            <ActionList>
+              <ActionList.Item>Copy link</ActionList.Item>
+              <ActionList.Item>Quote reply</ActionList.Item>
+              <ActionList.Item>Reference in new issue</ActionList.Item>
+              <ActionList.Item>Edit</ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item variant="danger">Delete</ActionList.Item>
+            </ActionList>
+          </Overlay>
+        ) : null}
+      </>
+    )
+  },
 }
 
-export const DialogOverlay = ({anchorSide}: OverlayProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const confirmButtonRef = useRef<HTMLButtonElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
-  const closeOverlay = () => setIsOpen(false)
-  return (
-    <Box ref={anchorRef}>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        open overlay
-      </Button>
-      {isOpen ? (
-        <Overlay
-          initialFocusRef={confirmButtonRef}
-          returnFocusRef={buttonRef}
-          ignoreClickRefs={[buttonRef]}
-          onEscape={closeOverlay}
-          onClickOutside={closeOverlay}
-          width="small"
-          anchorSide={anchorSide}
-        >
-          <Box display="flex" flexDirection="column" p={2}>
-            <Text>Are you sure?</Text>
-            <Button variant="danger" onClick={closeOverlay}>
-              Cancel
-            </Button>
-            <Button onClick={closeOverlay} ref={confirmButtonRef}>
-              Confirm
-            </Button>
-          </Box>
-        </Overlay>
-      ) : null}
-    </Box>
-  )
+export const DialogOverlay = {
+  render: ({anchorSide}: OverlayProps) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const buttonRef = useRef<HTMLButtonElement>(null)
+    const confirmButtonRef = useRef<HTMLButtonElement>(null)
+    const anchorRef = useRef<HTMLDivElement>(null)
+    const closeOverlay = () => setIsOpen(false)
+    return (
+      <Box ref={anchorRef}>
+        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+          open overlay
+        </Button>
+        {isOpen ? (
+          <Overlay
+            initialFocusRef={confirmButtonRef}
+            returnFocusRef={buttonRef}
+            ignoreClickRefs={[buttonRef]}
+            onEscape={closeOverlay}
+            onClickOutside={closeOverlay}
+            width="small"
+            anchorSide={anchorSide}
+          >
+            <Box display="flex" flexDirection="column" p={2}>
+              <Text>Are you sure?</Text>
+              <Button variant="danger" onClick={closeOverlay}>
+                Cancel
+              </Button>
+              <Button onClick={closeOverlay} ref={confirmButtonRef}>
+                Confirm
+              </Button>
+            </Box>
+          </Overlay>
+        ) : null}
+      </Box>
+    )
+  },
 }
 
-export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isSecondaryOpen, setIsSecondaryOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const secondaryButtonRef = useRef<HTMLButtonElement>(null)
-  const confirmButtonRef = useRef<HTMLButtonElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
-  const closeOverlay = () => setIsOpen(false) // intentionally not memoized
-  const closeSecondaryOverlay = useCallback(() => setIsSecondaryOpen(false), [setIsSecondaryOpen])
-  const items = ['🔵 Cyan', '🔴 Magenta', '🟡 Yellow']
-  const [selectedItem, setSelectedItem] = React.useState(items[0])
+export const OverlayOnTopOfOverlay = {
+  render: ({anchorSide}: OverlayProps) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const [isSecondaryOpen, setIsSecondaryOpen] = useState(false)
+    const buttonRef = useRef<HTMLButtonElement>(null)
+    const secondaryButtonRef = useRef<HTMLButtonElement>(null)
+    const confirmButtonRef = useRef<HTMLButtonElement>(null)
+    const anchorRef = useRef<HTMLDivElement>(null)
+    const closeOverlay = () => setIsOpen(false) // intentionally not memoized
+    const closeSecondaryOverlay = useCallback(() => setIsSecondaryOpen(false), [setIsSecondaryOpen])
+    const items = ['🔵 Cyan', '🔴 Magenta', '🟡 Yellow']
+    const [selectedItem, setSelectedItem] = React.useState(items[0])
 
-  return (
-    <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
-      <input placeholder="Input for focus testing" />
-      <br />
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        open overlay
-      </Button>
-      {isOpen ? (
-        <Overlay
-          initialFocusRef={confirmButtonRef}
-          returnFocusRef={buttonRef}
-          onEscape={closeOverlay}
-          onClickOutside={closeOverlay}
-          width="small"
-          anchorSide={anchorSide}
-        >
-          <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
-            open overlay
-          </Button>
-          {isSecondaryOpen ? (
-            <Overlay
-              initialFocusRef={confirmButtonRef}
-              returnFocusRef={secondaryButtonRef}
-              onEscape={closeSecondaryOverlay}
-              onClickOutside={closeSecondaryOverlay}
-              width="small"
-              sx={{top: '40px'}}
-              anchorSide={anchorSide}
-            >
-              <Box display="flex" flexDirection="column" p={2}>
-                <Text>Select an option!</Text>
-                <ActionMenu>
-                  <ActionMenu.Button sx={{width: 200}}>{selectedItem}</ActionMenu.Button>
-                  <ActionMenu.Overlay>
-                    <ActionList selectionVariant="single">
-                      {items.map(item => (
-                        <ActionList.Item
-                          key={item}
-                          selected={item === selectedItem}
-                          onSelect={() => setSelectedItem(item)}
-                        >
-                          {item}
-                        </ActionList.Item>
-                      ))}
-                    </ActionList>
-                  </ActionMenu.Overlay>
-                </ActionMenu>
-              </Box>
-            </Overlay>
-          ) : null}
-        </Overlay>
-      ) : null}
-    </Box>
-  )
+    return (
+      <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
+        <input placeholder="Input for focus testing" />
+        <br />
+        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+          open overlay
+        </Button>
+        {isOpen ? (
+          <Overlay
+            initialFocusRef={confirmButtonRef}
+            returnFocusRef={buttonRef}
+            onEscape={closeOverlay}
+            onClickOutside={closeOverlay}
+            width="small"
+            anchorSide={anchorSide}
+          >
+            <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
+              open overlay
+            </Button>
+            {isSecondaryOpen ? (
+              <Overlay
+                initialFocusRef={confirmButtonRef}
+                returnFocusRef={secondaryButtonRef}
+                onEscape={closeSecondaryOverlay}
+                onClickOutside={closeSecondaryOverlay}
+                width="small"
+                sx={{top: '40px'}}
+                anchorSide={anchorSide}
+              >
+                <Box display="flex" flexDirection="column" p={2}>
+                  <Text>Select an option!</Text>
+                  <ActionMenu>
+                    <ActionMenu.Button sx={{width: 200}}>{selectedItem}</ActionMenu.Button>
+                    <ActionMenu.Overlay>
+                      <ActionList selectionVariant="single">
+                        {items.map(item => (
+                          <ActionList.Item
+                            key={item}
+                            selected={item === selectedItem}
+                            onSelect={() => setSelectedItem(item)}
+                          >
+                            {item}
+                          </ActionList.Item>
+                        ))}
+                      </ActionList>
+                    </ActionMenu.Overlay>
+                  </ActionMenu>
+                </Box>
+              </Overlay>
+            ) : null}
+          </Overlay>
+        ) : null}
+      </Box>
+    )
+  },
 }
 
 export const MemexNestedOverlays = () => {
@@ -451,85 +457,87 @@ export const MemexIssueOverlay = () => {
   )
 }
 
-export const PositionedOverlays = ({right}: {right?: boolean}) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [direction, setDirection] = useState<'left' | 'right'>(right ? 'right' : 'left')
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const confirmButtonRef = useRef<HTMLButtonElement>(null)
-  const anchorRef = useRef<HTMLDivElement>(null)
-  const closeOverlay = () => setIsOpen(false)
-  return (
-    <Box ref={anchorRef}>
-      <Button
-        ref={buttonRef}
-        onClick={() => {
-          setIsOpen(!isOpen)
-          setDirection('left')
-        }}
-      >
-        Open left overlay
-      </Button>
-      <Button
-        ref={buttonRef}
-        onClick={() => {
-          setIsOpen(!isOpen)
-          setDirection('right')
-        }}
-        sx={{
-          mt: 2,
-        }}
-      >
-        Open right overlay
-      </Button>
-      {isOpen ? (
-        direction === 'left' ? (
-          <Overlay
-            initialFocusRef={confirmButtonRef}
-            returnFocusRef={buttonRef}
-            ignoreClickRefs={[buttonRef]}
-            onEscape={closeOverlay}
-            onClickOutside={closeOverlay}
-            width="auto"
-            anchorSide="inside-right"
-          >
-            <Box
-              sx={{
-                height: '100vh',
-                width: '500px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+export const PositionedOverlays = {
+  render: ({right}: {right?: boolean}) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const [direction, setDirection] = useState<'left' | 'right'>(right ? 'right' : 'left')
+    const buttonRef = useRef<HTMLButtonElement>(null)
+    const confirmButtonRef = useRef<HTMLButtonElement>(null)
+    const anchorRef = useRef<HTMLDivElement>(null)
+    const closeOverlay = () => setIsOpen(false)
+    return (
+      <Box ref={anchorRef}>
+        <Button
+          ref={buttonRef}
+          onClick={() => {
+            setIsOpen(!isOpen)
+            setDirection('left')
+          }}
+        >
+          Open left overlay
+        </Button>
+        <Button
+          ref={buttonRef}
+          onClick={() => {
+            setIsOpen(!isOpen)
+            setDirection('right')
+          }}
+          sx={{
+            mt: 2,
+          }}
+        >
+          Open right overlay
+        </Button>
+        {isOpen ? (
+          direction === 'left' ? (
+            <Overlay
+              initialFocusRef={confirmButtonRef}
+              returnFocusRef={buttonRef}
+              ignoreClickRefs={[buttonRef]}
+              onEscape={closeOverlay}
+              onClickOutside={closeOverlay}
+              width="auto"
+              anchorSide="inside-right"
             >
-              <Text>Look! left aligned</Text>
-            </Box>
-          </Overlay>
-        ) : (
-          <Overlay
-            initialFocusRef={confirmButtonRef}
-            returnFocusRef={buttonRef}
-            ignoreClickRefs={[buttonRef]}
-            onEscape={closeOverlay}
-            onClickOutside={closeOverlay}
-            width="auto"
-            anchorSide={'inside-left'}
-            right={0}
-            position="fixed"
-          >
-            <Box
-              sx={{
-                height: '100vh',
-                width: '500px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              <Box
+                sx={{
+                  height: '100vh',
+                  width: '500px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Text>Look! left aligned</Text>
+              </Box>
+            </Overlay>
+          ) : (
+            <Overlay
+              initialFocusRef={confirmButtonRef}
+              returnFocusRef={buttonRef}
+              ignoreClickRefs={[buttonRef]}
+              onEscape={closeOverlay}
+              onClickOutside={closeOverlay}
+              width="auto"
+              anchorSide={'inside-left'}
+              right={0}
+              position="fixed"
             >
-              <Text>Look! right aligned</Text>
-            </Box>
-          </Overlay>
-        )
-      ) : null}
-    </Box>
-  )
+              <Box
+                sx={{
+                  height: '100vh',
+                  width: '500px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Text>Look! right aligned</Text>
+              </Box>
+            </Overlay>
+          )
+        ) : null}
+      </Box>
+    )
+  },
 }

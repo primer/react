@@ -73,50 +73,54 @@ const items: {navigation: string; icon: React.FC<IconProps>; counter?: number | 
   {navigation: 'Security', icon: ShieldLockIcon, href: '#security'},
 ]
 
-export const OverflowTemplate = ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
-  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(initialSelectedIndex)
-  return (
-    <UnderlineNav aria-label="Repository">
-      {items.map((item, index) => (
-        <UnderlineNav.Item
-          key={item.navigation}
-          icon={item.icon}
-          aria-current={index === selectedIndex ? 'page' : undefined}
-          // Set so that navigation in interaction tests does not cause the
-          // page to load the storybook iframe URL and instead keeps the test in
-          // the local preview
-          target="_self"
-          onSelect={event => {
-            event.preventDefault()
-            setSelectedIndex(index)
-          }}
-          counter={item.counter}
-          href={item.href}
-        >
-          {item.navigation}
-        </UnderlineNav.Item>
-      ))}
-    </UnderlineNav>
-  )
+export const OverflowTemplate = {
+  render: ({initialSelectedIndex = 1}: {initialSelectedIndex?: number}) => {
+    const [selectedIndex, setSelectedIndex] = React.useState<number | null>(initialSelectedIndex)
+    return (
+      <UnderlineNav aria-label="Repository">
+        {items.map((item, index) => (
+          <UnderlineNav.Item
+            key={item.navigation}
+            icon={item.icon}
+            aria-current={index === selectedIndex ? 'page' : undefined}
+            // Set so that navigation in interaction tests does not cause the
+            // page to load the storybook iframe URL and instead keeps the test in
+            // the local preview
+            target="_self"
+            onSelect={event => {
+              event.preventDefault()
+              setSelectedIndex(index)
+            }}
+            counter={item.counter}
+            href={item.href}
+          >
+            {item.navigation}
+          </UnderlineNav.Item>
+        ))}
+      </UnderlineNav>
+    )
+  },
 }
 
-export const OverflowOnNarrowScreen = () => {
-  return <OverflowTemplate initialSelectedIndex={1} />
-}
+export const OverflowOnNarrowScreen = {
+  render: () => {
+    return <OverflowTemplate initialSelectedIndex={1} />
+  },
 
-OverflowOnNarrowScreen.parameters = {
-  viewport: {
-    viewports: {
-      ...INITIAL_VIEWPORTS,
-      narrowScreen: {
-        name: 'Narrow Screen',
-        styles: {
-          width: '800px',
-          height: '100%',
+  parameters: {
+    viewport: {
+      viewports: {
+        ...INITIAL_VIEWPORTS,
+        narrowScreen: {
+          name: 'Narrow Screen',
+          styles: {
+            width: '800px',
+            height: '100%',
+          },
         },
       },
+      defaultViewport: 'narrowScreen',
     },
-    defaultViewport: 'narrowScreen',
   },
 }
 

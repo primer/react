@@ -45,107 +45,126 @@ export const Controlled = () => {
   )
 }
 
-export const VariantNarrowHideLabels = () => (
-  <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
-      Raw
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
-      Blame
-    </SegmentedControl.Button>
-  </SegmentedControl>
-)
-VariantNarrowHideLabels.storyName = '[variant: narrow] Hide labels'
-
-export const VariantNarrowActionMenu = () => (
-  <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
-      Raw
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
-      Blame
-    </SegmentedControl.Button>
-  </SegmentedControl>
-)
-VariantNarrowActionMenu.storyName = '[variant: narrow] Action menu'
-
-export const FullwidthNarrow = () => (
-  <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
-      Raw
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
-      Blame
-    </SegmentedControl.Button>
-  </SegmentedControl>
-)
-FullwidthNarrow.storyName = '[fullWidth: narrow]'
-
-export const FullwidthRegular = () => (
-  <SegmentedControl aria-label="File view" fullWidth={{narrow: false, regular: true, wide: false}}>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
-      Raw
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
-      Blame
-    </SegmentedControl.Button>
-  </SegmentedControl>
-)
-FullwidthRegular.storyName = '[fullWidth: regular]'
-
-export const FullwidthAll = () => (
-  <SegmentedControl aria-label="File view" fullWidth>
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
-      Raw
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
-      Blame
-    </SegmentedControl.Button>
-  </SegmentedControl>
-)
-FullwidthAll.storyName = 'Full width'
-
-export const IconOnly = () => (
-  <SegmentedControl aria-label="File view">
-    <SegmentedControl.IconButton selected aria-label={'Preview'} icon={EyeIcon} />
-    <SegmentedControl.IconButton aria-label={'Raw'} icon={FileCodeIcon} />
-    <SegmentedControl.IconButton aria-label={'Blame'} icon={PeopleIcon} />
-  </SegmentedControl>
-)
-IconOnly.storyName = 'Icon only'
-
-// TODO: make it possible to use FormControl as a wrapper for SegmentedControl
-// - FormControl.Label needs to accept a prop that lets it render an element that isn't a `<label>`
-export const AssociatedWithALabelAndCaption = () => (
-  <Box display="flex">
-    <Box flexGrow={1}>
-      <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
-        File view
-      </Text>
-      <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
-        Change the way the file is viewed
-      </Text>
-    </Box>
-    <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
-      <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
-      <SegmentedControl.Button>Raw</SegmentedControl.Button>
-      <SegmentedControl.Button>Blame</SegmentedControl.Button>
+export const VariantNarrowHideLabels = {
+  render: () => (
+    <SegmentedControl aria-label="File view" variant={{narrow: 'hideLabels', regular: 'default', wide: 'default'}}>
+      <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
     </SegmentedControl>
-  </Box>
-)
-AssociatedWithALabelAndCaption.storyName = '[Example] Associated with a label and caption'
+  ),
+
+  name: '[variant: narrow] Hide labels',
+}
+
+export const VariantNarrowActionMenu = {
+  render: () => (
+    <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown', regular: 'default', wide: 'default'}}>
+      <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  ),
+
+  name: '[variant: narrow] Action menu',
+}
+
+export const FullwidthNarrow = {
+  render: () => (
+    <SegmentedControl aria-label="File view" fullWidth={{narrow: true, regular: false, wide: false}}>
+      <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  ),
+
+  name: '[fullWidth: narrow]',
+}
+
+export const FullwidthRegular = {
+  render: () => (
+    <SegmentedControl aria-label="File view" fullWidth={{narrow: false, regular: true, wide: false}}>
+      <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  ),
+
+  name: '[fullWidth: regular]',
+}
+
+export const FullwidthAll = {
+  render: () => (
+    <SegmentedControl aria-label="File view" fullWidth>
+      <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  ),
+
+  name: 'Full width',
+}
+
+export const IconOnly = {
+  render: () => (
+    <SegmentedControl aria-label="File view">
+      <SegmentedControl.IconButton selected aria-label={'Preview'} icon={EyeIcon} />
+      <SegmentedControl.IconButton aria-label={'Raw'} icon={FileCodeIcon} />
+      <SegmentedControl.IconButton aria-label={'Blame'} icon={PeopleIcon} />
+    </SegmentedControl>
+  ),
+
+  name: 'Icon only',
+}
+
+export const AssociatedWithALabelAndCaption = {
+  render: () => (
+    <Box display="flex">
+      <Box flexGrow={1}>
+        <Text fontSize={2} fontWeight="bold" id="scLabel-vert" display="block">
+          File view
+        </Text>
+        <Text color="fg.subtle" fontSize={1} id="scCaption-vert" display="block">
+          Change the way the file is viewed
+        </Text>
+      </Box>
+      <SegmentedControl aria-labelledby="scLabel-vert" aria-describedby="scCaption-vert">
+        <SegmentedControl.Button selected>Preview</SegmentedControl.Button>
+        <SegmentedControl.Button>Raw</SegmentedControl.Button>
+        <SegmentedControl.Button>Blame</SegmentedControl.Button>
+      </SegmentedControl>
+    </Box>
+  ),
+
+  name: '[Example] Associated with a label and caption',
+}

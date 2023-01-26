@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import {Meta} from '@storybook/react'
 import {Box, Button, Heading, Text} from '..'
 import {NavList} from '../NavList'
 import {Placeholder} from '../Placeholder'
@@ -300,82 +300,82 @@ const meta: Meta = {
   },
 }
 
-const Template: Story = args => (
-  <SplitPageLayout sx={args.sx}>
-    {args['Render header?'] ? (
-      <SplitPageLayout.Header
-        padding={args['Header.padding']}
-        divider={{
-          narrow: args['Header.divider.narrow'],
-          regular: args['Header.divider.regular'],
-          wide: args['Header.divider.wide'],
-        }}
+export const Default = {
+  render: args => (
+    <SplitPageLayout sx={args.sx}>
+      {args['Render header?'] ? (
+        <SplitPageLayout.Header
+          padding={args['Header.padding']}
+          divider={{
+            narrow: args['Header.divider.narrow'],
+            regular: args['Header.divider.regular'],
+            wide: args['Header.divider.wide'],
+          }}
+          hidden={{
+            narrow: args['Header.hidden.narrow'],
+            regular: args['Header.hidden.regular'],
+            wide: args['Header.hidden.wide'],
+          }}
+        >
+          <Placeholder height={args['Header placeholder height']} label="Header" />
+        </SplitPageLayout.Header>
+      ) : null}
+      <SplitPageLayout.Content
+        width={args['Content.width']}
+        padding={args['Content.padding']}
         hidden={{
-          narrow: args['Header.hidden.narrow'],
-          regular: args['Header.hidden.regular'],
-          wide: args['Header.hidden.wide'],
+          narrow: args['Content.hidden.narrow'],
+          regular: args['Content.hidden.regular'],
+          wide: args['Content.hidden.wide'],
         }}
       >
-        <Placeholder height={args['Header placeholder height']} label="Header" />
-      </SplitPageLayout.Header>
-    ) : null}
-    <SplitPageLayout.Content
-      width={args['Content.width']}
-      padding={args['Content.padding']}
-      hidden={{
-        narrow: args['Content.hidden.narrow'],
-        regular: args['Content.hidden.regular'],
-        wide: args['Content.hidden.wide'],
-      }}
-    >
-      <Placeholder height={args['Content placeholder height']} label="Content" />
-    </SplitPageLayout.Content>
-    {args['Render pane?'] ? (
-      <SplitPageLayout.Pane
-        resizable={args['Pane.resizable']}
-        position={{
-          narrow: args['Pane.position.narrow'],
-          regular: args['Pane.position.regular'],
-          wide: args['Pane.position.wide'],
-        }}
-        width={args['Pane.width']}
-        sticky={args['Pane.sticky']}
-        padding={args['Pane.padding']}
-        divider={{
-          narrow: args['Pane.divider.narrow'],
-          regular: args['Pane.divider.regular'],
-          wide: args['Pane.divider.wide'],
-        }}
-        hidden={{
-          narrow: args['Pane.hidden.narrow'],
-          regular: args['Pane.hidden.regular'],
-          wide: args['Pane.hidden.wide'],
-        }}
-      >
-        <Placeholder height={args['Pane placeholder height']} label="Pane" />
-      </SplitPageLayout.Pane>
-    ) : null}
-    {args['Render footer?'] ? (
-      <SplitPageLayout.Footer
-        padding={args['Footer.padding']}
-        divider={{
-          narrow: args['Footer.divider.narrow'],
-          regular: args['Footer.divider.regular'],
-          wide: args['Footer.divider.wide'],
-        }}
-        hidden={{
-          narrow: args['Footer.hidden.narrow'],
-          regular: args['Footer.hidden.regular'],
-          wide: args['Footer.hidden.wide'],
-        }}
-      >
-        <Placeholder height={args['Footer placeholder height']} label="Footer" />
-      </SplitPageLayout.Footer>
-    ) : null}
-  </SplitPageLayout>
-)
-
-export const Default = Template.bind({})
+        <Placeholder height={args['Content placeholder height']} label="Content" />
+      </SplitPageLayout.Content>
+      {args['Render pane?'] ? (
+        <SplitPageLayout.Pane
+          resizable={args['Pane.resizable']}
+          position={{
+            narrow: args['Pane.position.narrow'],
+            regular: args['Pane.position.regular'],
+            wide: args['Pane.position.wide'],
+          }}
+          width={args['Pane.width']}
+          sticky={args['Pane.sticky']}
+          padding={args['Pane.padding']}
+          divider={{
+            narrow: args['Pane.divider.narrow'],
+            regular: args['Pane.divider.regular'],
+            wide: args['Pane.divider.wide'],
+          }}
+          hidden={{
+            narrow: args['Pane.hidden.narrow'],
+            regular: args['Pane.hidden.regular'],
+            wide: args['Pane.hidden.wide'],
+          }}
+        >
+          <Placeholder height={args['Pane placeholder height']} label="Pane" />
+        </SplitPageLayout.Pane>
+      ) : null}
+      {args['Render footer?'] ? (
+        <SplitPageLayout.Footer
+          padding={args['Footer.padding']}
+          divider={{
+            narrow: args['Footer.divider.narrow'],
+            regular: args['Footer.divider.regular'],
+            wide: args['Footer.divider.wide'],
+          }}
+          hidden={{
+            narrow: args['Footer.hidden.narrow'],
+            regular: args['Footer.hidden.regular'],
+            wide: args['Footer.hidden.wide'],
+          }}
+        >
+          <Placeholder height={args['Footer placeholder height']} label="Footer" />
+        </SplitPageLayout.Footer>
+      ) : null}
+    </SplitPageLayout>
+  ),
+}
 
 export const SettingsPage = () => (
   <SplitPageLayout>

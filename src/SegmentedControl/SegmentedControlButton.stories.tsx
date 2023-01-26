@@ -1,5 +1,5 @@
 import React from 'react'
-import {Story, Meta} from '@storybook/react'
+import {StoryObj, Meta} from '@storybook/react'
 import SegmentedControlButton, {SegmentedControlButtonProps} from './SegmentedControlButton'
 import {SegmentedControl} from '.'
 import {EyeIcon, FileCodeIcon, PeopleIcon} from '@primer/octicons-react'
@@ -45,4 +45,4 @@ export default {
   ],
 } as Meta<typeof SegmentedControlButton>
 
-export const Playground: Story<SegmentedControlButtonProps> = args => <SegmentedControlButton {...args} />
+export const Playground: StoryObj<SegmentedControlButtonProps> = {}

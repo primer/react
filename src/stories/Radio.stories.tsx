@@ -39,19 +39,22 @@ export default {
   },
 } as Meta
 
-export const Default = ({value: _value, ...args}: FormControlArgs<RadioProps>) => {
-  const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
+export const Default = {
+  render: ({value: _value, ...args}: FormControlArgs<RadioProps>) => {
+    const {parentArgs, labelArgs, captionArgs} = getFormControlArgsByChildComponent(args)
 
-  return (
-    <Box as="form" sx={{p: 3}}>
-      <FormControl {...parentArgs}>
-        <Radio name="default-radio-name" value="default" {...args} />
-        <FormControl.Label {...labelArgs} />
-        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
-      </FormControl>
-    </Box>
-  )
-}
-Default.args = {
-  labelChildren: 'Default radio button',
+    return (
+      <Box as="form" sx={{p: 3}}>
+        <FormControl {...parentArgs}>
+          <Radio name="default-radio-name" value="default" {...args} />
+          <FormControl.Label {...labelArgs} />
+          {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+        </FormControl>
+      </Box>
+    )
+  },
+
+  args: {
+    labelChildren: 'Default radio button',
+  },
 }

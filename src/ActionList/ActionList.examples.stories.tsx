@@ -49,52 +49,55 @@ const NextJSLikeLink = forwardRef(
   },
 )
 
-export const ListLinkItem = () => (
-  <ActionList showDividers>
-    <ActionList.Item>
-      <ActionList.LeadingVisual>
-        <XIcon />
-      </ActionList.LeadingVisual>
-      not a link, just an Item for comparison
-    </ActionList.Item>
-    <ActionList.LinkItem href="https://github.com/primer" aria-keyshortcuts="g">
-      <ActionList.LeadingVisual>
-        <LinkIcon />
-      </ActionList.LeadingVisual>
-      ActionList.LinkItem
-    </ActionList.LinkItem>
-    <ActionList.LinkItem href="https://github.com/primer" target="_blank" rel="noopener noreferrer">
-      <ActionList.LeadingVisual>
-        <LinkIcon />
-      </ActionList.LeadingVisual>
-      ActionList.LinkItem with anchor attributes
-    </ActionList.LinkItem>
-    <ActionList.LinkItem as={ReactRouterLikeLink} to="?path=/story/components-actionlist--default">
-      <ActionList.LeadingVisual>
-        <LinkIcon />
-      </ActionList.LeadingVisual>
-      as ReactRouterLink
-    </ActionList.LinkItem>
-    <NextJSLikeLink href="?path=/story/components-actionlist--default">
-      <ActionList.LinkItem>
+export const ListLinkItem = {
+  render: () => (
+    <ActionList showDividers>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <XIcon />
+        </ActionList.LeadingVisual>
+        not a link, just an Item for comparison
+      </ActionList.Item>
+      <ActionList.LinkItem href="https://github.com/primer" aria-keyshortcuts="g">
         <ActionList.LeadingVisual>
           <LinkIcon />
         </ActionList.LeadingVisual>
-        NextJS style Link
+        ActionList.LinkItem
       </ActionList.LinkItem>
-    </NextJSLikeLink>
-    <ActionList.LinkItem href="?path=/story/components-actionlist--default">
-      <ActionList.LeadingVisual>
-        <LinkIcon />
-      </ActionList.LeadingVisual>
-      ActionList.LinkItem with everything
-      <ActionList.Description variant="inline">inline description</ActionList.Description>
-      <ActionList.Description variant="block">Block description</ActionList.Description>
-      <ActionList.TrailingVisual>⌘ + L</ActionList.TrailingVisual>
-    </ActionList.LinkItem>
-  </ActionList>
-)
-ListLinkItem.storyName = 'Link Item'
+      <ActionList.LinkItem href="https://github.com/primer" target="_blank" rel="noopener noreferrer">
+        <ActionList.LeadingVisual>
+          <LinkIcon />
+        </ActionList.LeadingVisual>
+        ActionList.LinkItem with anchor attributes
+      </ActionList.LinkItem>
+      <ActionList.LinkItem as={ReactRouterLikeLink} to="?path=/story/components-actionlist--default">
+        <ActionList.LeadingVisual>
+          <LinkIcon />
+        </ActionList.LeadingVisual>
+        as ReactRouterLink
+      </ActionList.LinkItem>
+      <NextJSLikeLink href="?path=/story/components-actionlist--default">
+        <ActionList.LinkItem>
+          <ActionList.LeadingVisual>
+            <LinkIcon />
+          </ActionList.LeadingVisual>
+          NextJS style Link
+        </ActionList.LinkItem>
+      </NextJSLikeLink>
+      <ActionList.LinkItem href="?path=/story/components-actionlist--default">
+        <ActionList.LeadingVisual>
+          <LinkIcon />
+        </ActionList.LeadingVisual>
+        ActionList.LinkItem with everything
+        <ActionList.Description variant="inline">inline description</ActionList.Description>
+        <ActionList.Description variant="block">Block description</ActionList.Description>
+        <ActionList.TrailingVisual>⌘ + L</ActionList.TrailingVisual>
+      </ActionList.LinkItem>
+    </ActionList>
+  ),
+
+  name: 'Link Item',
+}
 
 const branches = [
   'main',

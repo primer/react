@@ -63,53 +63,62 @@ export default {
   ],
 } as Meta
 
-export const Default = (args: Args) => (
-  <Box display="flex">
-    <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
-      Notifications
-    </Box>
-    <ToggleSwitch {...args} aria-labelledby="switchLabel" />
-  </Box>
-)
-Default.storyName = 'Default (uncontrolled)'
-
-export const Controlled = (args: Args) => {
-  const [isOn, setIsOn] = React.useState(false)
-
-  const onClick = React.useCallback(() => {
-    setIsOn(!isOn)
-  }, [setIsOn, isOn])
-
-  const handleSwitchChange = (on: boolean) => {
-    action(`new switch "on" state: ${on}`)
-  }
-
-  return (
-    <>
-      <Box display="flex" maxWidth="300px">
-        <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
-          Notifications
-        </Box>
-        <ToggleSwitch
-          onClick={onClick}
-          onChange={handleSwitchChange}
-          checked={isOn}
-          {...args}
-          aria-labelledby="switchLabel"
-        />
+export const Default = {
+  render: (args: Args) => (
+    <Box display="flex">
+      <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
+        Notifications
       </Box>
-      <p>The switch is {isOn ? 'on' : 'off'}</p>
-    </>
-  )
-}
-Controlled.parameters = {controls: {exclude: [...excludedControlKeys, 'on']}}
+      <ToggleSwitch {...args} aria-labelledby="switchLabel" />
+    </Box>
+  ),
 
-export const StatusLabelPositionedAtEnd = (args: Args) => (
-  <>
-    <Text fontSize={2} fontWeight="bold" id="switchLabel" display="block" mb={1}>
-      Notifications
-    </Text>
-    <ToggleSwitch statusLabelPosition="end" {...args} aria-labelledby="switchLabel" />
-  </>
-)
-StatusLabelPositionedAtEnd.storyName = 'statusLabelPosition="end"'
+  name: 'Default (uncontrolled)',
+}
+
+export const Controlled = {
+  render: (args: Args) => {
+    const [isOn, setIsOn] = React.useState(false)
+
+    const onClick = React.useCallback(() => {
+      setIsOn(!isOn)
+    }, [setIsOn, isOn])
+
+    const handleSwitchChange = (on: boolean) => {
+      action(`new switch "on" state: ${on}`)
+    }
+
+    return (
+      <>
+        <Box display="flex" maxWidth="300px">
+          <Box flexGrow={1} fontSize={2} fontWeight="bold" id="switchLabel">
+            Notifications
+          </Box>
+          <ToggleSwitch
+            onClick={onClick}
+            onChange={handleSwitchChange}
+            checked={isOn}
+            {...args}
+            aria-labelledby="switchLabel"
+          />
+        </Box>
+        <p>The switch is {isOn ? 'on' : 'off'}</p>
+      </>
+    )
+  },
+
+  parameters: {controls: {exclude: [...excludedControlKeys, 'on']}},
+}
+
+export const StatusLabelPositionedAtEnd = {
+  render: (args: Args) => (
+    <>
+      <Text fontSize={2} fontWeight="bold" id="switchLabel" display="block" mb={1}>
+        Notifications
+      </Text>
+      <ToggleSwitch statusLabelPosition="end" {...args} aria-labelledby="switchLabel" />
+    </>
+  ),
+
+  name: 'statusLabelPosition="end"',
+}

@@ -64,42 +64,23 @@ const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = (
   </Box>
 )
 
-export const DefaultToken = (args: Omit<AvatarTokenProps, 'ref'>) => {
-  return (
-    <ExampleCollectionContainer>
-      <AvatarToken {...args} />
-    </ExampleCollectionContainer>
-  )
-}
-DefaultToken.storyName = 'Default'
-DefaultToken.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}}
+export const DefaultToken = {
+  render: (args: Omit<AvatarTokenProps, 'ref'>) => {
+    return (
+      <ExampleCollectionContainer>
+        <AvatarToken {...args} />
+      </ExampleCollectionContainer>
+    )
+  },
 
-export const Interactive = (args: Omit<AvatarTokenProps, 'ref' | 'text'>) => {
-  return (
-    <ExampleCollectionContainer>
-      <Box
-        display="flex"
-        sx={{
-          alignItems: 'start',
-          gap: get('space.2'),
-        }}
-      >
-        <AvatarToken as="a" href="http://google.com/" {...args} text="Link" />
-        <AvatarToken as="button" onClick={action('clicked')} {...args} text="Button" />
-        <AvatarToken as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
-      </Box>
-    </ExampleCollectionContainer>
-  )
+  name: 'Default',
+  parameters: {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}},
 }
-Interactive.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton', 'text']}}
 
-export const WithOnRemoveFn = (args: Omit<AvatarTokenProps, 'ref'>) => {
-  return (
-    <ExampleCollectionContainer>
-      <SingleExampleContainer label="w/ onRemove passed">
-        <AvatarToken onRemove={action('remove me')} {...args} />
-      </SingleExampleContainer>
-      <SingleExampleContainer label="w/ onRemove passed and the token is interactive">
+export const Interactive = {
+  render: (args: Omit<AvatarTokenProps, 'ref' | 'text'>) => {
+    return (
+      <ExampleCollectionContainer>
         <Box
           display="flex"
           sx={{
@@ -107,19 +88,53 @@ export const WithOnRemoveFn = (args: Omit<AvatarTokenProps, 'ref'>) => {
             gap: get('space.2'),
           }}
         >
-          <AvatarToken as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />
-          <AvatarToken as="button" onClick={action('clicked')} onRemove={action('remove me')} {...args} text="Button" />
-          <AvatarToken
-            as="span"
-            tabIndex={0}
-            onFocus={action('focused')}
-            onRemove={action('remove me')}
-            {...args}
-            text="Focusable Span"
-          />
+          <AvatarToken as="a" href="http://google.com/" {...args} text="Link" />
+          <AvatarToken as="button" onClick={action('clicked')} {...args} text="Button" />
+          <AvatarToken as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
         </Box>
-      </SingleExampleContainer>
-    </ExampleCollectionContainer>
-  )
+      </ExampleCollectionContainer>
+    )
+  },
+
+  parameters: {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton', 'text']}},
 }
-WithOnRemoveFn.parameters = {controls: {exclude: excludedControlKeys}}
+
+export const WithOnRemoveFn = {
+  render: (args: Omit<AvatarTokenProps, 'ref'>) => {
+    return (
+      <ExampleCollectionContainer>
+        <SingleExampleContainer label="w/ onRemove passed">
+          <AvatarToken onRemove={action('remove me')} {...args} />
+        </SingleExampleContainer>
+        <SingleExampleContainer label="w/ onRemove passed and the token is interactive">
+          <Box
+            display="flex"
+            sx={{
+              alignItems: 'start',
+              gap: get('space.2'),
+            }}
+          >
+            <AvatarToken as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />
+            <AvatarToken
+              as="button"
+              onClick={action('clicked')}
+              onRemove={action('remove me')}
+              {...args}
+              text="Button"
+            />
+            <AvatarToken
+              as="span"
+              tabIndex={0}
+              onFocus={action('focused')}
+              onRemove={action('remove me')}
+              {...args}
+              text="Focusable Span"
+            />
+          </Box>
+        </SingleExampleContainer>
+      </ExampleCollectionContainer>
+    )
+  },
+
+  parameters: {controls: {exclude: excludedControlKeys}},
+}

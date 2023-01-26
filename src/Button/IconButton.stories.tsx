@@ -1,6 +1,6 @@
 import React, {ComponentProps} from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon} from '@primer/octicons-react'
-import {Story, Meta} from '@storybook/react'
+import {StoryObj, Meta} from '@storybook/react'
 import {IconButton} from '.'
 import {OcticonArgType} from '../utils/story-helpers'
 
@@ -37,4 +37,6 @@ const meta: Meta<ComponentProps<typeof IconButton>> = {
 
 export default meta
 
-export const Playground: Story<ComponentProps<typeof IconButton>> = args => <IconButton {...args} />
+export const Playground: StoryObj<ComponentProps<typeof IconButton>> = {
+  render: args => <IconButton {...args} />,
+}

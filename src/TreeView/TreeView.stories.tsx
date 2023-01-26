@@ -1,6 +1,6 @@
 import React from 'react'
 import {DiffAddedIcon, DiffModifiedIcon, FileIcon} from '@primer/octicons-react'
-import {Meta, Story} from '@storybook/react'
+import {StoryFn, Meta} from '@storybook/react'
 import Box from '../Box'
 import StyledOcticon from '../StyledOcticon'
 import {TreeView} from './TreeView'
@@ -19,7 +19,7 @@ const meta: Meta = {
   ],
 }
 
-export const Default: Story = () => (
+export const Default: StoryFn = () => (
   <nav aria-label="Files changed">
     <TreeView aria-label="Files changed">
       <TreeView.Item id="src" defaultExpanded>

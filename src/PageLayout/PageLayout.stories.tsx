@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import {StoryFn, StoryObj, Meta} from '@storybook/react'
 import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
 import {Placeholder} from '../Placeholder'
 import {PageLayout} from './PageLayout'
@@ -340,88 +340,88 @@ const meta: Meta = {
   },
 }
 
-const Template: Story = args => (
-  <PageLayout
-    containerWidth={args.containerWidth}
-    padding={args.padding}
-    rowGap={args.rowGap}
-    columnGap={args.columnGap}
-    sx={args.sx}
-  >
-    {args['Render header?'] ? (
-      <PageLayout.Header
-        padding={args['Header.padding']}
-        divider={{
-          narrow: args['Header.divider.narrow'],
-          regular: args['Header.divider.regular'],
-          wide: args['Header.divider.wide'],
-        }}
-        hidden={{
-          narrow: args['Header.hidden.narrow'],
-          regular: args['Header.hidden.regular'],
-          wide: args['Header.hidden.wide'],
-        }}
-      >
-        <Placeholder height={args['Header placeholder height']} label="Header" />
-      </PageLayout.Header>
-    ) : null}
-    <PageLayout.Content
-      width={args['Content.width']}
-      padding={args['Content.padding']}
-      hidden={{
-        narrow: args['Content.hidden.narrow'],
-        regular: args['Content.hidden.regular'],
-        wide: args['Content.hidden.wide'],
-      }}
+export const Default = {
+  render: args => (
+    <PageLayout
+      containerWidth={args.containerWidth}
+      padding={args.padding}
+      rowGap={args.rowGap}
+      columnGap={args.columnGap}
+      sx={args.sx}
     >
-      <Placeholder height={args['Content placeholder height']} label="Content" />
-    </PageLayout.Content>
-    {args['Render pane?'] ? (
-      <PageLayout.Pane
-        position={{
-          narrow: args['Pane.position.narrow'],
-          regular: args['Pane.position.regular'],
-          wide: args['Pane.position.wide'],
-        }}
-        width={args['Pane.width']}
-        sticky={args['Pane.sticky']}
-        resizable={args['Pane.resizable']}
-        padding={args['Pane.padding']}
-        divider={{
-          narrow: args['Pane.divider.narrow'],
-          regular: args['Pane.divider.regular'],
-          wide: args['Pane.divider.wide'],
-        }}
+      {args['Render header?'] ? (
+        <PageLayout.Header
+          padding={args['Header.padding']}
+          divider={{
+            narrow: args['Header.divider.narrow'],
+            regular: args['Header.divider.regular'],
+            wide: args['Header.divider.wide'],
+          }}
+          hidden={{
+            narrow: args['Header.hidden.narrow'],
+            regular: args['Header.hidden.regular'],
+            wide: args['Header.hidden.wide'],
+          }}
+        >
+          <Placeholder height={args['Header placeholder height']} label="Header" />
+        </PageLayout.Header>
+      ) : null}
+      <PageLayout.Content
+        width={args['Content.width']}
+        padding={args['Content.padding']}
         hidden={{
-          narrow: args['Pane.hidden.narrow'],
-          regular: args['Pane.hidden.regular'],
-          wide: args['Pane.hidden.wide'],
+          narrow: args['Content.hidden.narrow'],
+          regular: args['Content.hidden.regular'],
+          wide: args['Content.hidden.wide'],
         }}
       >
-        <Placeholder height={args['Pane placeholder height']} label="Pane" />
-      </PageLayout.Pane>
-    ) : null}
-    {args['Render footer?'] ? (
-      <PageLayout.Footer
-        padding={args['Footer.padding']}
-        divider={{
-          narrow: args['Footer.divider.narrow'],
-          regular: args['Footer.divider.regular'],
-          wide: args['Footer.divider.wide'],
-        }}
-        hidden={{
-          narrow: args['Footer.hidden.narrow'],
-          regular: args['Footer.hidden.regular'],
-          wide: args['Footer.hidden.wide'],
-        }}
-      >
-        <Placeholder height={args['Footer placeholder height']} label="Footer" />
-      </PageLayout.Footer>
-    ) : null}
-  </PageLayout>
-)
-
-export const Default = Template.bind({})
+        <Placeholder height={args['Content placeholder height']} label="Content" />
+      </PageLayout.Content>
+      {args['Render pane?'] ? (
+        <PageLayout.Pane
+          position={{
+            narrow: args['Pane.position.narrow'],
+            regular: args['Pane.position.regular'],
+            wide: args['Pane.position.wide'],
+          }}
+          width={args['Pane.width']}
+          sticky={args['Pane.sticky']}
+          resizable={args['Pane.resizable']}
+          padding={args['Pane.padding']}
+          divider={{
+            narrow: args['Pane.divider.narrow'],
+            regular: args['Pane.divider.regular'],
+            wide: args['Pane.divider.wide'],
+          }}
+          hidden={{
+            narrow: args['Pane.hidden.narrow'],
+            regular: args['Pane.hidden.regular'],
+            wide: args['Pane.hidden.wide'],
+          }}
+        >
+          <Placeholder height={args['Pane placeholder height']} label="Pane" />
+        </PageLayout.Pane>
+      ) : null}
+      {args['Render footer?'] ? (
+        <PageLayout.Footer
+          padding={args['Footer.padding']}
+          divider={{
+            narrow: args['Footer.divider.narrow'],
+            regular: args['Footer.divider.regular'],
+            wide: args['Footer.divider.wide'],
+          }}
+          hidden={{
+            narrow: args['Footer.hidden.narrow'],
+            regular: args['Footer.hidden.regular'],
+            wide: args['Footer.hidden.wide'],
+          }}
+        >
+          <Placeholder height={args['Footer placeholder height']} label="Footer" />
+        </PageLayout.Footer>
+      ) : null}
+    </PageLayout>
+  ),
+}
 
 export const PullRequestPage = () => (
   <PageLayout>
@@ -491,170 +491,33 @@ export const PullRequestPage = () => (
   </PageLayout>
 )
 
-export const StickyPane: Story = args => (
-  <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
-    <PageLayout.Header padding="normal" divider="line">
-      <Placeholder label="Header" height={64} />
-    </PageLayout.Header>
-    <PageLayout.Content padding="normal" width="large">
-      <Box sx={{display: 'grid', gap: 3}}>
-        {Array.from({length: args.numParagraphsInContent}).map((_, i) => {
-          const testId = `content${i}`
-          return (
-            <Box key={i} as="p" sx={{margin: 0}}>
-              <span data-testid={testId}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
-                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
-                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
-                massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus
-                in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod
-                nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
-              </span>
-            </Box>
-          )
-        })}
-      </Box>
-    </PageLayout.Content>
-    <PageLayout.Pane position="start" resizable padding="normal" divider="line" sticky={args.sticky}>
-      <Box sx={{display: 'grid', gap: 3}}>
-        {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
-          const testId = `paragraph${i}`
-          return (
-            <Box key={i} as="p" sx={{margin: 0}}>
-              <span data-testid={testId}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
-                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
-                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
-                massa purus.
-              </span>
-            </Box>
-          )
-        })}
-      </Box>
-    </PageLayout.Pane>
-    <PageLayout.Footer padding="normal" divider="line">
-      <Placeholder label="Footer" height={64} />
-    </PageLayout.Footer>
-  </PageLayout>
-)
-
-StickyPane.args = {
-  sticky: true,
-  numParagraphsInPane: 10,
-  numParagraphsInContent: 30,
-}
-
-StickyPane.argTypes = {
-  sticky: {
-    type: 'boolean',
-  },
-  numParagraphsInPane: {
-    type: 'number',
-  },
-  numParagraphsInContent: {
-    type: 'number',
-  },
-}
-
-export const NestedScrollContainer: Story = args => (
-  <Box sx={{display: 'grid', gridTemplateRows: 'auto 1fr auto', height: '100vh'}}>
-    <Placeholder label="Above scroll container" height={120} />
-    <Box sx={{overflow: 'auto'}}>
-      <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
-        <PageLayout.Header padding="normal" divider="line">
-          <Placeholder label="Header" height={64} />
-        </PageLayout.Header>
-        <PageLayout.Content padding="normal" width="large">
-          <Box sx={{display: 'grid', gap: 3}}>
-            {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
-              <Box key={i} as="p" sx={{margin: 0}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
-                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
-                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
-                massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus
-                in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod
-                nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
-              </Box>
-            ))}
-          </Box>
-        </PageLayout.Content>
-        <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
-          <Box sx={{display: 'grid', gap: 3}}>
-            {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
-              <Box key={i} as="p" sx={{margin: 0}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
-                ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus
-                et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet
-                massa purus.
-              </Box>
-            ))}
-          </Box>
-        </PageLayout.Pane>
-        <PageLayout.Footer padding="normal" divider="line">
-          <Placeholder label="Footer" height={64} />
-        </PageLayout.Footer>
-      </PageLayout>
-    </Box>
-    <Placeholder label="Below scroll container" height={120} />
-  </Box>
-)
-
-NestedScrollContainer.args = {
-  numParagraphsInPane: 10,
-  numParagraphsInContent: 30,
-}
-
-NestedScrollContainer.argTypes = {
-  numParagraphsInPane: {
-    type: 'number',
-  },
-  numParagraphsInContent: {
-    type: 'number',
-  },
-}
-
-export const CustomStickyHeader: Story = args => (
-  // a box to create a sticky top element that will be on the consumer side and outside of the PageLayout component
-  <Box data-testid="story-window">
-    <Box
-      as="header"
-      data-testid="sticky-header"
-      sx={{
-        position: 'sticky',
-        top: 0,
-        height: args.offsetHeader,
-        display: 'grid',
-        placeItems: 'center',
-        backgroundColor: 'canvas.subtle',
-        borderBottom: '1px solid',
-        borderColor: 'border.default',
-        zIndex: 100,
-      }}
-    >
-      Custom sticky header
-    </Box>
+export const StickyPane: StoryObj = {
+  render: args => (
     <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+      <PageLayout.Header padding="normal" divider="line">
+        <Placeholder label="Header" height={64} />
+      </PageLayout.Header>
       <PageLayout.Content padding="normal" width="large">
-        <Box sx={{display: 'grid', gap: 3}} data-testid="scrollContainer">
+        <Box sx={{display: 'grid', gap: 3}}>
           {Array.from({length: args.numParagraphsInContent}).map((_, i) => {
             const testId = `content${i}`
             return (
               <Box key={i} as="p" sx={{margin: 0}}>
                 <span data-testid={testId}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae orci et magna consectetur
-                  ullamcorper eget ac purus. Nam at enim id lorem tempus egestas a non ipsum. Maecenas imperdiet ante
-                  quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et, auctor felis. Donec
-                  pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa purus. Nunc sem
-                  lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus in imperdiet. Ut
-                  blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod nisi. Nullam
-                  tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                  ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius
+                  tellus et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec
+                  sit amet massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor
+                  auctor tellus in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum
+                  auctor euismod nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut
+                  ornare.
                 </span>
               </Box>
             )
           })}
         </Box>
       </PageLayout.Content>
-      <PageLayout.Pane position="start" padding="normal" divider="line" sticky offsetHeader={args.offsetHeader}>
+      <PageLayout.Pane position="start" resizable padding="normal" divider="line" sticky={args.sticky}>
         <Box sx={{display: 'grid', gap: 3}}>
           {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
             const testId = `paragraph${i}`
@@ -675,32 +538,177 @@ export const CustomStickyHeader: Story = args => (
         <Placeholder label="Footer" height={64} />
       </PageLayout.Footer>
     </PageLayout>
-  </Box>
-)
+  ),
 
-CustomStickyHeader.args = {
-  sticky: true,
-  offsetHeader: '8rem',
-  numParagraphsInPane: 10,
-  numParagraphsInContent: 30,
-}
+  args: {
+    sticky: true,
+    numParagraphsInPane: 10,
+    numParagraphsInContent: 30,
+  },
 
-CustomStickyHeader.argTypes = {
-  sticky: {
-    type: 'boolean',
-  },
-  offsetHeader: {
-    type: 'string',
-  },
-  numParagraphsInPane: {
-    type: 'number',
-  },
-  numParagraphsInContent: {
-    type: 'number',
+  argTypes: {
+    sticky: {
+      type: 'boolean',
+    },
+    numParagraphsInPane: {
+      type: 'number',
+    },
+    numParagraphsInContent: {
+      type: 'number',
+    },
   },
 }
 
-export const ResizablePane: Story = () => (
+export const NestedScrollContainer: StoryObj = {
+  render: args => (
+    <Box sx={{display: 'grid', gridTemplateRows: 'auto 1fr auto', height: '100vh'}}>
+      <Placeholder label="Above scroll container" height={120} />
+      <Box sx={{overflow: 'auto'}}>
+        <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+          <PageLayout.Header padding="normal" divider="line">
+            <Placeholder label="Header" height={64} />
+          </PageLayout.Header>
+          <PageLayout.Content padding="normal" width="large">
+            <Box sx={{display: 'grid', gap: 3}}>
+              {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
+                <Box key={i} as="p" sx={{margin: 0}}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                  ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius
+                  tellus et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec
+                  sit amet massa purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor
+                  auctor tellus in imperdiet. Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum
+                  auctor euismod nisi. Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut
+                  ornare.
+                </Box>
+              ))}
+            </Box>
+          </PageLayout.Content>
+          <PageLayout.Pane position="start" padding="normal" divider="line" sticky>
+            <Box sx={{display: 'grid', gap: 3}}>
+              {Array.from({length: args.numParagraphsInPane}).map((_, i) => (
+                <Box key={i} as="p" sx={{margin: 0}}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                  ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius
+                  tellus et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec
+                  sit amet massa purus.
+                </Box>
+              ))}
+            </Box>
+          </PageLayout.Pane>
+          <PageLayout.Footer padding="normal" divider="line">
+            <Placeholder label="Footer" height={64} />
+          </PageLayout.Footer>
+        </PageLayout>
+      </Box>
+      <Placeholder label="Below scroll container" height={120} />
+    </Box>
+  ),
+
+  args: {
+    numParagraphsInPane: 10,
+    numParagraphsInContent: 30,
+  },
+
+  argTypes: {
+    numParagraphsInPane: {
+      type: 'number',
+    },
+    numParagraphsInContent: {
+      type: 'number',
+    },
+  },
+}
+
+export const CustomStickyHeader: StoryObj = {
+  render: args => (
+    // a box to create a sticky top element that will be on the consumer side and outside of the PageLayout component
+    <Box data-testid="story-window">
+      <Box
+        as="header"
+        data-testid="sticky-header"
+        sx={{
+          position: 'sticky',
+          top: 0,
+          height: args.offsetHeader,
+          display: 'grid',
+          placeItems: 'center',
+          backgroundColor: 'canvas.subtle',
+          borderBottom: '1px solid',
+          borderColor: 'border.default',
+          zIndex: 100,
+        }}
+      >
+        Custom sticky header
+      </Box>
+      <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
+        <PageLayout.Content padding="normal" width="large">
+          <Box sx={{display: 'grid', gap: 3}} data-testid="scrollContainer">
+            {Array.from({length: args.numParagraphsInContent}).map((_, i) => {
+              const testId = `content${i}`
+              return (
+                <Box key={i} as="p" sx={{margin: 0}}>
+                  <span data-testid={testId}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae orci et magna consectetur
+                    ullamcorper eget ac purus. Nam at enim id lorem tempus egestas a non ipsum. Maecenas imperdiet ante
+                    quam, at varius lorem molestie vel. Sed at eros consequat, varius tellus et, auctor felis. Donec
+                    pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus. Donec sit amet massa purus. Nunc
+                    sem lectus, bibendum a sapien nec, tristique tempus felis. Ut porttitor auctor tellus in imperdiet.
+                    Ut blandit tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum auctor euismod nisi.
+                    Nullam tincidunt est in mi tincidunt dictum. Sed consectetur aliquet velit ut ornare.
+                  </span>
+                </Box>
+              )
+            })}
+          </Box>
+        </PageLayout.Content>
+        <PageLayout.Pane position="start" padding="normal" divider="line" sticky offsetHeader={args.offsetHeader}>
+          <Box sx={{display: 'grid', gap: 3}}>
+            {Array.from({length: args.numParagraphsInPane}).map((_, i) => {
+              const testId = `paragraph${i}`
+              return (
+                <Box key={i} as="p" sx={{margin: 0}}>
+                  <span data-testid={testId}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
+                    ipsum. Maecenas imperdiet ante quam, at varius lorem molestie vel. Sed at eros consequat, varius
+                    tellus et, auctor felis. Donec pulvinar lacinia urna nec commodo. Phasellus at imperdiet risus.
+                    Donec sit amet massa purus.
+                  </span>
+                </Box>
+              )
+            })}
+          </Box>
+        </PageLayout.Pane>
+        <PageLayout.Footer padding="normal" divider="line">
+          <Placeholder label="Footer" height={64} />
+        </PageLayout.Footer>
+      </PageLayout>
+    </Box>
+  ),
+
+  args: {
+    sticky: true,
+    offsetHeader: '8rem',
+    numParagraphsInPane: 10,
+    numParagraphsInContent: 30,
+  },
+
+  argTypes: {
+    sticky: {
+      type: 'boolean',
+    },
+    offsetHeader: {
+      type: 'string',
+    },
+    numParagraphsInPane: {
+      type: 'number',
+    },
+    numParagraphsInContent: {
+      type: 'number',
+    },
+  },
+}
+
+export const ResizablePane: StoryFn = () => (
   <PageLayout containerWidth="full">
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
@@ -717,7 +725,7 @@ export const ResizablePane: Story = () => (
   </PageLayout>
 )
 
-export const ScrollContainerWithinPageLayoutPane: Story = () => (
+export const ScrollContainerWithinPageLayoutPane: StoryFn = () => (
   <Box sx={{display: 'grid', gridTemplateRows: 'auto 1fr auto', height: '100vh'}}>
     <Box sx={{overflow: 'auto'}}>
       <Placeholder label="Above inner scroll container" height={120} />

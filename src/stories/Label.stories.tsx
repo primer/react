@@ -51,4 +51,6 @@ export default {
   ],
 } as Meta
 
-export const label = (args: Args) => <Label {...args}>Label</Label>
+export const label = {
+  render: (args: Args) => <Label {...args}>Label</Label>,
+}

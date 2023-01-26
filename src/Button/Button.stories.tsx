@@ -1,6 +1,6 @@
 import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon} from '@primer/octicons-react'
-import {Story, Meta} from '@storybook/react'
+import {StoryObj, Meta} from '@storybook/react'
 import {Button} from '.'
 import {OcticonArgType} from '../utils/story-helpers'
 
@@ -36,4 +36,6 @@ export default {
   },
 } as Meta<typeof Button>
 
-export const Playground: Story<typeof Button> = args => <Button {...args}>Default</Button>
+export const Playground: StoryObj<typeof Button> = {
+  render: args => <Button {...args}>Default</Button>,
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta} from '@storybook/react'
+import {Meta} from '@storybook/react'
 import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
@@ -13,13 +13,14 @@ export default {
     controls: {expanded: true},
   },
   args: {},
-} as ComponentMeta<typeof Hidden>
+} as Meta<typeof Hidden>
 
 const setViewportParamToNarrow = {
   viewport: {
     defaultViewport: 'small',
   },
 }
+
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
@@ -43,11 +44,13 @@ export const Webhooks = () => (
   </Box>
 )
 
-export const WebhooksOnNarrowViewport = () => {
-  return <Webhooks />
-}
+export const WebhooksOnNarrowViewport = {
+  render: () => {
+    return <Webhooks />
+  },
 
-WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
+  parameters: setViewportParamToNarrow,
+}
 
 export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
@@ -81,8 +84,10 @@ export const PullRequestPage = () => (
   </Box>
 )
 
-export const PullRequestPageOnNarrowViewport = () => {
-  return <PullRequestPage />
-}
+export const PullRequestPageOnNarrowViewport = {
+  render: () => {
+    return <PullRequestPage />
+  },
 
-PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
+  parameters: setViewportParamToNarrow,
+}

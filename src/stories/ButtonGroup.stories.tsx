@@ -1,5 +1,5 @@
 import React from 'react'
-import {Story, Meta} from '@storybook/react'
+import {StoryObj, Meta} from '@storybook/react'
 import ButtonGroup from '../ButtonGroup'
 import {Button, ButtonProps} from '../Button'
 
@@ -23,27 +23,31 @@ export const Default = () => (
   </ButtonGroup>
 )
 
-export const Playground: Story<ButtonProps> = args => (
-  <ButtonGroup>
-    <Button {...args}>Button 1</Button>
-    <Button {...args}>Button 2</Button>
-    <Button {...args}>Button 3</Button>
-  </ButtonGroup>
-)
-Playground.args = {
-  size: 'medium',
-  disabled: false,
-}
-Playground.argTypes = {
-  size: {
-    control: {
-      type: 'radio',
-    },
-    options: ['small', 'medium', 'large'],
+export const Playground: StoryObj<ButtonProps> = {
+  render: args => (
+    <ButtonGroup>
+      <Button {...args}>Button 1</Button>
+      <Button {...args}>Button 2</Button>
+      <Button {...args}>Button 3</Button>
+    </ButtonGroup>
+  ),
+
+  args: {
+    size: 'medium',
+    disabled: false,
   },
-  disabled: {
-    control: {
-      type: 'boolean',
+
+  argTypes: {
+    size: {
+      control: {
+        type: 'radio',
+      },
+      options: ['small', 'medium', 'large'],
+    },
+    disabled: {
+      control: {
+        type: 'boolean',
+      },
     },
   },
 }

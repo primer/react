@@ -105,40 +105,42 @@ interface DialogStoryProps {
   height: DialogHeight
   subtitle: boolean
 }
-export const BasicDialog = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [secondOpen, setSecondOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
-  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
-  return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <Dialog
-          title="My Dialog"
-          subtitle={subtitle ? 'This is a subtitle!' : undefined}
-          onClose={onDialogClose}
-          width={width}
-          height={height}
-          footerButtons={[
-            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
-          ]}
-        >
-          {lipsum}
-          {secondOpen && (
-            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
-              Hello world
-            </Dialog>
-          )}
-        </Dialog>
-      )}
-    </>
-  )
+export const BasicDialog = {
+  render: ({width, height, subtitle}: DialogStoryProps) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const [secondOpen, setSecondOpen] = useState(false)
+    const buttonRef = useRef<HTMLButtonElement>(null)
+    const onDialogClose = useCallback(() => setIsOpen(false), [])
+    const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
+    const openSecondDialog = useCallback(() => setSecondOpen(true), [])
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+          Show dialog
+        </Button>
+        {isOpen && (
+          <Dialog
+            title="My Dialog"
+            subtitle={subtitle ? 'This is a subtitle!' : undefined}
+            onClose={onDialogClose}
+            width={width}
+            height={height}
+            footerButtons={[
+              {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+              {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            ]}
+          >
+            {lipsum}
+            {secondOpen && (
+              <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
+                Hello world
+              </Dialog>
+            )}
+          </Dialog>
+        )}
+      </>
+    )
+  },
 }
 
 function CustomHeader({
@@ -172,72 +174,76 @@ function CustomFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
     </Dialog.Footer>
   )
 }
-export const WithCustomRenderers = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-  return (
-    <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
-      {isOpen && (
-        <Dialog
-          title="My Dialog"
-          subtitle={subtitle ? 'This is a subtitle!' : undefined}
-          width={width}
-          height={height}
-          renderHeader={CustomHeader}
-          renderBody={CustomBody}
-          renderFooter={CustomFooter}
-          onClose={onDialogClose}
-          footerButtons={[
-            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed'},
-          ]}
-        >
-          {lipsum}
-        </Dialog>
-      )}
-    </>
-  )
+export const WithCustomRenderers = {
+  render: ({width, height, subtitle}: DialogStoryProps) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const onDialogClose = useCallback(() => setIsOpen(false), [])
+    return (
+      <>
+        <Button onClick={() => setIsOpen(!isOpen)}>Show dialog</Button>
+        {isOpen && (
+          <Dialog
+            title="My Dialog"
+            subtitle={subtitle ? 'This is a subtitle!' : undefined}
+            width={width}
+            height={height}
+            renderHeader={CustomHeader}
+            renderBody={CustomBody}
+            renderFooter={CustomFooter}
+            onClose={onDialogClose}
+            footerButtons={[
+              {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+              {buttonType: 'primary', content: 'Proceed'},
+            ]}
+          >
+            {lipsum}
+          </Dialog>
+        )}
+      </>
+    )
+  },
 }
 
-export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [secondOpen, setSecondOpen] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const onDialogClose = useCallback(() => setIsOpen(false), [])
-  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
-  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
-  const manyButtons = new Array(10).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
-  return (
-    <>
-      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        Show dialog
-      </Button>
-      {isOpen && (
-        <Dialog
-          title="This dialog has a really long title. So long, in fact, that it should cause wrapping, going to multiple lines!."
-          subtitle={
-            subtitle
-              ? "It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
-              : undefined
-          }
-          onClose={onDialogClose}
-          width={width}
-          height={height}
-          footerButtons={[
-            ...manyButtons,
-            {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
-          ]}
-        >
-          {lipsum}
-          {secondOpen && (
-            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
-              Hello world
-            </Dialog>
-          )}
-        </Dialog>
-      )}
-    </>
-  )
+export const StressTest = {
+  render: ({width, height, subtitle}: DialogStoryProps) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const [secondOpen, setSecondOpen] = useState(false)
+    const buttonRef = useRef<HTMLButtonElement>(null)
+    const onDialogClose = useCallback(() => setIsOpen(false), [])
+    const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
+    const openSecondDialog = useCallback(() => setSecondOpen(true), [])
+    const manyButtons = new Array(10).fill(undefined).map((_, i) => ({content: `Button ${i}`}))
+    return (
+      <>
+        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+          Show dialog
+        </Button>
+        {isOpen && (
+          <Dialog
+            title="This dialog has a really long title. So long, in fact, that it should cause wrapping, going to multiple lines!."
+            subtitle={
+              subtitle
+                ? "It's not a common scenario, sure, but what if the subtitle is generated from a really long value? Do we just break the dialog? Or do we handle it because we are pros?"
+                : undefined
+            }
+            onClose={onDialogClose}
+            width={width}
+            height={height}
+            footerButtons={[
+              ...manyButtons,
+              {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
+              {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            ]}
+          >
+            {lipsum}
+            {secondOpen && (
+              <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
+                Hello world
+              </Dialog>
+            )}
+          </Dialog>
+        )}
+      </>
+    )
+  },
 }

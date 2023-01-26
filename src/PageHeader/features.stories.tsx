@@ -65,25 +65,27 @@ export const WithLeadingAndTrailingVisuals = () => (
   </Box>
 )
 
-export const WithLeadingVisualHiddenOnRegularViewport = () => (
-  <Box sx={{padding: 3}}>
-    <PageHeader>
-      <PageHeader.TitleArea>
-        <PageHeader.LeadingVisual hidden={{regular: true}}>
-          <GitPullRequestIcon />
-        </PageHeader.LeadingVisual>
-        <PageHeader.Title>Title</PageHeader.Title>
-        <PageHeader.TrailingVisual>
-          <Label>Beta</Label>
-        </PageHeader.TrailingVisual>
-      </PageHeader.TitleArea>
-    </PageHeader>
-  </Box>
-)
+export const WithLeadingVisualHiddenOnRegularViewport = {
+  render: () => (
+    <Box sx={{padding: 3}}>
+      <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.LeadingVisual hidden={{regular: true}}>
+            <GitPullRequestIcon />
+          </PageHeader.LeadingVisual>
+          <PageHeader.Title>Title</PageHeader.Title>
+          <PageHeader.TrailingVisual>
+            <Label>Beta</Label>
+          </PageHeader.TrailingVisual>
+        </PageHeader.TitleArea>
+      </PageHeader>
+    </Box>
+  ),
 
-WithLeadingVisualHiddenOnRegularViewport.parameters = {
-  viewport: {
-    defaultViewport: 'regular',
+  parameters: {
+    viewport: {
+      defaultViewport: 'regular',
+    },
   },
 }
 
@@ -163,66 +165,71 @@ export const WithLeadingAndTrailingActions = () => (
   </Box>
 )
 
-export const WithParentLinkAndActionsOfContextArea = () => (
-  <Box sx={{padding: 3}}>
-    <PageHeader>
-      <PageHeader.ContextArea>
-        <PageHeader.ParentLink href="http://github.com">Parent Link</PageHeader.ParentLink>
+export const WithParentLinkAndActionsOfContextArea = {
+  render: () => (
+    <Box sx={{padding: 3}}>
+      <PageHeader>
+        <PageHeader.ContextArea>
+          <PageHeader.ParentLink href="http://github.com">Parent Link</PageHeader.ParentLink>
 
-        <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
-            Main
-          </Button>
-          <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
-        </PageHeader.ContextAreaActions>
-      </PageHeader.ContextArea>
-      <PageHeader.TitleArea>
-        <PageHeader.Title>Title</PageHeader.Title>
-      </PageHeader.TitleArea>
-    </PageHeader>
-  </Box>
-)
+          <PageHeader.ContextAreaActions>
+            <Button size="small" leadingIcon={GitBranchIcon}>
+              Main
+            </Button>
+            <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
+          </PageHeader.ContextAreaActions>
+        </PageHeader.ContextArea>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
+      </PageHeader>
+    </Box>
+  ),
 
-WithParentLinkAndActionsOfContextArea.parameters = {
-  viewport: {
-    defaultViewport: 'small',
+  parameters: {
+    viewport: {
+      defaultViewport: 'small',
+    },
   },
 }
 
-export const WithContextBarAndActionsOfContextArea = () => (
-  <Box sx={{padding: 3}}>
-    <PageHeader>
-      <PageHeader.ContextArea>
-        <PageHeader.ContextBar>
-          <Breadcrumbs>
-            <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
-          </Breadcrumbs>
-        </PageHeader.ContextBar>
+export const WithContextBarAndActionsOfContextArea = {
+  render: () => (
+    <Box sx={{padding: 3}}>
+      <PageHeader>
+        <PageHeader.ContextArea>
+          <PageHeader.ContextBar>
+            <Breadcrumbs>
+              <Breadcrumbs.Item href="#">...</Breadcrumbs.Item>
+              <Breadcrumbs.Item href="#">primer</Breadcrumbs.Item>
+              <Breadcrumbs.Item href="#">react</Breadcrumbs.Item>
+              <Breadcrumbs.Item href="#">src</Breadcrumbs.Item>
+              <Breadcrumbs.Item href="#">PageHeader</Breadcrumbs.Item>
+              <Breadcrumbs.Item href="#">PageHeader.tsx</Breadcrumbs.Item>
+            </Breadcrumbs>
+          </PageHeader.ContextBar>
 
-        <PageHeader.ContextAreaActions>
-          <Button size="small" leadingIcon={GitBranchIcon}>
-            Main
-          </Button>
-          <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
-        </PageHeader.ContextAreaActions>
-      </PageHeader.ContextArea>
-      <PageHeader.TitleArea>
-        <PageHeader.Title>Title</PageHeader.Title>
-      </PageHeader.TitleArea>
-    </PageHeader>
-  </Box>
-)
+          <PageHeader.ContextAreaActions>
+            <Button size="small" leadingIcon={GitBranchIcon}>
+              Main
+            </Button>
+            <IconButton size="small" aria-label="More Options" icon={KebabHorizontalIcon} />
+          </PageHeader.ContextAreaActions>
+        </PageHeader.ContextArea>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
+      </PageHeader>
+    </Box>
+  ),
 
-WithContextBarAndActionsOfContextArea.parameters = {
-  viewport: {
-    defaultViewport: 'small',
+  parameters: {
+    viewport: {
+      defaultViewport: 'small',
+    },
   },
 }
+
 export const WithActionsThatHaveResponsiveContent = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>

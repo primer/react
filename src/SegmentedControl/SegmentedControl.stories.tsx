@@ -1,5 +1,5 @@
 import React from 'react'
-import {Story, Meta} from '@storybook/react'
+import {StoryObj, Meta} from '@storybook/react'
 import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
@@ -105,21 +105,23 @@ export default {
   parameters: {controls: {exclude: excludedControlKeys}},
 } as Meta<typeof SegmentedControl>
 
-export const Playground: Story<Args> = args => (
-  <SegmentedControl
-    aria-label="File view"
-    fullWidth={parseFullWidthFromArgs(args)}
-    variant={parseVariantFromArgs(args)}
-    size={args.size}
-  >
-    <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
-      Preview
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
-      Raw
-    </SegmentedControl.Button>
-    <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
-      Blame
-    </SegmentedControl.Button>
-  </SegmentedControl>
-)
+export const Playground: StoryObj<Args> = {
+  render: args => (
+    <SegmentedControl
+      aria-label="File view"
+      fullWidth={parseFullWidthFromArgs(args)}
+      variant={parseVariantFromArgs(args)}
+      size={args.size}
+    >
+      <SegmentedControl.Button selected aria-label={'Preview'} leadingIcon={EyeIcon}>
+        Preview
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Raw'} leadingIcon={FileCodeIcon}>
+        Raw
+      </SegmentedControl.Button>
+      <SegmentedControl.Button aria-label={'Blame'} leadingIcon={PeopleIcon}>
+        Blame
+      </SegmentedControl.Button>
+    </SegmentedControl>
+  ),
+}

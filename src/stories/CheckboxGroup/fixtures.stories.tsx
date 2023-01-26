@@ -79,31 +79,71 @@ export default {
   ],
 } as Meta
 
-export const WithExternalLabel = ({
-  disabled,
-  required,
-  labelChildren = 'Choices',
-  captionChildren,
-  validationChildren,
-  variant,
-}: CheckboxOrRadioGroupArgs) => {
-  const parentArgs = {disabled, required}
-  const validationArgs = {children: validationChildren, variant}
+export const WithExternalLabel = {
+  render: ({
+    disabled,
+    required,
+    labelChildren = 'Choices',
+    captionChildren,
+    validationChildren,
+    variant,
+  }: CheckboxOrRadioGroupArgs) => {
+    const parentArgs = {disabled, required}
+    const validationArgs = {children: validationChildren, variant}
 
-  return (
-    <>
-      <Box
-        id="choiceHeading"
-        borderBottomWidth="1px"
-        borderBottomStyle="solid"
-        borderBottomColor="border.default"
-        pb={2}
-        mb={3}
-        fontSize={3}
-      >
-        {labelChildren} {parentArgs.required && '*'}
-      </Box>
-      <CheckboxGroup aria-labelledby="choiceHeading" {...parentArgs}>
+    return (
+      <>
+        <Box
+          id="choiceHeading"
+          borderBottomWidth="1px"
+          borderBottomStyle="solid"
+          borderBottomColor="border.default"
+          pb={2}
+          mb={3}
+          fontSize={3}
+        >
+          {labelChildren} {parentArgs.required && '*'}
+        </Box>
+        <CheckboxGroup aria-labelledby="choiceHeading" {...parentArgs}>
+          {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
+          <FormControl>
+            <Checkbox />
+            <FormControl.Label>Choice one</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Checkbox />
+            <FormControl.Label>Choice two</FormControl.Label>
+          </FormControl>
+          <FormControl>
+            <Checkbox />
+            <FormControl.Label>Choice three</FormControl.Label>
+          </FormControl>
+          {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
+        </CheckboxGroup>
+      </>
+    )
+  },
+
+  parameters: {controls: {exclude: [...excludedControlKeys, 'visuallyHidden']}},
+}
+
+export const WithHiddenLabel = {
+  render: ({
+    disabled,
+    required,
+    labelChildren = 'Choices',
+    visuallyHidden,
+    captionChildren,
+    validationChildren,
+    variant,
+  }: CheckboxOrRadioGroupArgs) => {
+    const parentArgs = {disabled, required}
+    const labelArgs = {children: labelChildren, visuallyHidden}
+    const validationArgs = {children: validationChildren, variant}
+
+    return (
+      <CheckboxGroup {...parentArgs}>
+        {labelArgs.children && <CheckboxGroup.Label {...labelArgs} />}
         {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
         <FormControl>
           <Checkbox />
@@ -119,44 +159,10 @@ export const WithExternalLabel = ({
         </FormControl>
         {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
       </CheckboxGroup>
-    </>
-  )
-}
-WithExternalLabel.parameters = {controls: {exclude: [...excludedControlKeys, 'visuallyHidden']}}
+    )
+  },
 
-export const WithHiddenLabel = ({
-  disabled,
-  required,
-  labelChildren = 'Choices',
-  visuallyHidden,
-  captionChildren,
-  validationChildren,
-  variant,
-}: CheckboxOrRadioGroupArgs) => {
-  const parentArgs = {disabled, required}
-  const labelArgs = {children: labelChildren, visuallyHidden}
-  const validationArgs = {children: validationChildren, variant}
-
-  return (
-    <CheckboxGroup {...parentArgs}>
-      {labelArgs.children && <CheckboxGroup.Label {...labelArgs} />}
-      {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
-      <FormControl>
-        <Checkbox />
-        <FormControl.Label>Choice one</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Checkbox />
-        <FormControl.Label>Choice two</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Checkbox />
-        <FormControl.Label>Choice three</FormControl.Label>
-      </FormControl>
-      {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
-    </CheckboxGroup>
-  )
-}
-WithHiddenLabel.args = {
-  visuallyHidden: true,
+  args: {
+    visuallyHidden: true,
+  },
 }

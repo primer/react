@@ -77,36 +77,38 @@ export default {
   ],
 } as Meta
 
-export const Default = ({
-  disabled,
-  required,
-  labelChildren = 'Choices',
-  visuallyHidden,
-  captionChildren,
-  validationChildren,
-  variant,
-}: CheckboxOrRadioGroupArgs) => {
-  const parentArgs = {disabled, required}
-  const labelArgs = {children: labelChildren, visuallyHidden}
-  const validationArgs = {children: validationChildren, variant}
+export const Default = {
+  render: ({
+    disabled,
+    required,
+    labelChildren = 'Choices',
+    visuallyHidden,
+    captionChildren,
+    validationChildren,
+    variant,
+  }: CheckboxOrRadioGroupArgs) => {
+    const parentArgs = {disabled, required}
+    const labelArgs = {children: labelChildren, visuallyHidden}
+    const validationArgs = {children: validationChildren, variant}
 
-  return (
-    <CheckboxGroup {...parentArgs}>
-      {labelArgs.children && <CheckboxGroup.Label {...labelArgs} />}
-      {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
-      <FormControl>
-        <Checkbox value="one" defaultChecked />
-        <FormControl.Label>Choice one</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Checkbox value="two" defaultChecked />
-        <FormControl.Label>Choice two</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Checkbox value="three" />
-        <FormControl.Label>Choice three</FormControl.Label>
-      </FormControl>
-      {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
-    </CheckboxGroup>
-  )
+    return (
+      <CheckboxGroup {...parentArgs}>
+        {labelArgs.children && <CheckboxGroup.Label {...labelArgs} />}
+        {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
+        <FormControl>
+          <Checkbox value="one" defaultChecked />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox value="two" defaultChecked />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox value="three" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+        {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
+      </CheckboxGroup>
+    )
+  },
 }

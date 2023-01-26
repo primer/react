@@ -63,20 +63,22 @@ export default {
   },
 } as Meta
 
-export const TextareaStory = (args: FormControlArgs<TextareaProps>) => {
-  const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
-  return (
-    <Box as="form" sx={{p: 3}}>
-      <FormControl {...parentArgs}>
-        <FormControl.Label {...labelArgs} />
-        <Textarea id="textarea" {...args} />
-        {captionArgs.children && <FormControl.Caption {...captionArgs} />}
-        {validationArgs.children && validationArgs.variant && (
-          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
-        )}
-      </FormControl>
-    </Box>
-  )
-}
+export const TextareaStory = {
+  render: (args: FormControlArgs<TextareaProps>) => {
+    const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
+    return (
+      <Box as="form" sx={{p: 3}}>
+        <FormControl {...parentArgs}>
+          <FormControl.Label {...labelArgs} />
+          <Textarea id="textarea" {...args} />
+          {captionArgs.children && <FormControl.Caption {...captionArgs} />}
+          {validationArgs.children && validationArgs.variant && (
+            <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+          )}
+        </FormControl>
+      </Box>
+    )
+  },
 
-TextareaStory.storyName = 'Textarea'
+  name: 'Textarea',
+}

@@ -109,55 +109,61 @@ code block
 - [ ] Task 2
 - [ ] Task 3`
 
-export const Default = ({loading, linksInNewTab}: ArgProps) => (
-  <MarkdownViewer loading={loading} openLinksInNewTab={linksInNewTab} dangerousRenderedHTML={htmlObject} />
-)
+export const Default = {
+  render: ({loading, linksInNewTab}: ArgProps) => (
+    <MarkdownViewer loading={loading} openLinksInNewTab={linksInNewTab} dangerousRenderedHTML={htmlObject} />
+  ),
+}
 
-export const LinkInterception = ({loading}: ArgProps) => (
-  <MarkdownViewer
-    loading={loading}
-    onLinkClick={event => {
-      event.preventDefault()
-      alert(`Link clicked: ${event.target instanceof HTMLAnchorElement ? event.target.href : 'unknown'}`)
-    }}
-    dangerousRenderedHTML={htmlObject}
-  />
-)
-
-export const Interactive = ({loading, linksInNewTab}: ArgProps) => {
-  const [markdown, setMarkdown] = useState(sampleMarkdownSource)
-  const [disabled, setDisabled] = useState(false)
-
-  // Any state-setting inside a debounced function and/or after an async call should be done safely
-  // to avoid setting state after the component unmounts
-  const safeSetDisabled = useSafeAsyncCallback(setDisabled)
-
-  const saveChanges = useCallback(async () => {
-    // Disable interaction for the duration of the request to avoid conflicts
-    safeSetDisabled(true)
-    // In production this would make an API request to save the markdown and update the rendered HTML
-    await new Promise(r => setTimeout(r, 500))
-    safeSetDisabled(false)
-  }, [safeSetDisabled])
-
-  // saveChanges itself must also be called safely to avoid accidentally calling an outdated reference
-  // Important to allow calling after unmount to avoid loss of data if the component unmounts before saving
-  const safeSaveChanges = useSafeAsyncCallback(saveChanges, true)
-
-  // We always want to debounce the request to avoid disabling checkboxes in between every click
-  const debouncedSaveChanges = useMemo(() => debounce(safeSaveChanges, 1000), [safeSaveChanges])
-
-  return (
+export const LinkInterception = {
+  render: ({loading}: ArgProps) => (
     <MarkdownViewer
       loading={loading}
-      openLinksInNewTab={linksInNewTab}
-      onChange={md => {
-        setMarkdown(md)
-        debouncedSaveChanges()
+      onLinkClick={event => {
+        event.preventDefault()
+        alert(`Link clicked: ${event.target instanceof HTMLAnchorElement ? event.target.href : 'unknown'}`)
       }}
-      markdownValue={markdown}
       dangerousRenderedHTML={htmlObject}
-      disabled={disabled}
     />
-  )
+  ),
+}
+
+export const Interactive = {
+  render: ({loading, linksInNewTab}: ArgProps) => {
+    const [markdown, setMarkdown] = useState(sampleMarkdownSource)
+    const [disabled, setDisabled] = useState(false)
+
+    // Any state-setting inside a debounced function and/or after an async call should be done safely
+    // to avoid setting state after the component unmounts
+    const safeSetDisabled = useSafeAsyncCallback(setDisabled)
+
+    const saveChanges = useCallback(async () => {
+      // Disable interaction for the duration of the request to avoid conflicts
+      safeSetDisabled(true)
+      // In production this would make an API request to save the markdown and update the rendered HTML
+      await new Promise(r => setTimeout(r, 500))
+      safeSetDisabled(false)
+    }, [safeSetDisabled])
+
+    // saveChanges itself must also be called safely to avoid accidentally calling an outdated reference
+    // Important to allow calling after unmount to avoid loss of data if the component unmounts before saving
+    const safeSaveChanges = useSafeAsyncCallback(saveChanges, true)
+
+    // We always want to debounce the request to avoid disabling checkboxes in between every click
+    const debouncedSaveChanges = useMemo(() => debounce(safeSaveChanges, 1000), [safeSaveChanges])
+
+    return (
+      <MarkdownViewer
+        loading={loading}
+        openLinksInNewTab={linksInNewTab}
+        onChange={md => {
+          setMarkdown(md)
+          debouncedSaveChanges()
+        }}
+        markdownValue={markdown}
+        dangerousRenderedHTML={htmlObject}
+        disabled={disabled}
+      />
+    )
+  },
 }

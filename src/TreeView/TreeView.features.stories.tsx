@@ -1,5 +1,5 @@
 import {DiffAddedIcon, DiffModifiedIcon, DiffRemovedIcon, DiffRenamedIcon, FileIcon} from '@primer/octicons-react'
-import {Meta, Story} from '@storybook/react'
+import {StoryObj, StoryFn, Meta} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
@@ -21,7 +21,7 @@ const meta: Meta = {
   ],
 }
 
-export const Files: Story = () => (
+export const Files: StoryFn = () => (
   <nav aria-label="Files">
     <TreeView aria-label="Files">
       <TreeView.Item id="src" defaultExpanded>
@@ -98,7 +98,7 @@ export const Files: Story = () => (
   </nav>
 )
 
-export const FilesChanged: Story = () => {
+export const FilesChanged: StoryFn = () => {
   return (
     <nav aria-label="Files">
       <TreeView aria-label="Files">
@@ -262,7 +262,7 @@ const intialTree: TreeItem[] = Array.from({length: 5}).map((_, i) => ({
   })),
 }))
 
-export const Controlled: Story = () => {
+export const Controlled: StoryFn = () => {
   const [currentPath, setCurrentPath] = React.useState<string[]>(['src', 'Avatar.tsx'])
   const [tree, setTree] = React.useState<TreeItem[]>(intialTree)
 
@@ -334,85 +334,186 @@ async function loadItems(responseTime: number) {
   return ['Avatar.tsx', 'Button.tsx', 'Checkbox.tsx']
 }
 
-export const AsyncSuccess: Story = args => {
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+export const AsyncSuccess: StoryObj = {
+  render: args => {
+    const [isLoading, setIsLoading] = React.useState(false)
+    const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
-  let state: SubTreeState = 'initial'
+    let state: SubTreeState = 'initial'
 
-  if (isLoading) {
-    state = 'loading'
-  } else if (asyncItems.length > 0) {
-    state = 'done'
-  }
+    if (isLoading) {
+      state = 'loading'
+    } else if (asyncItems.length > 0) {
+      state = 'done'
+    }
 
-  return (
-    <nav aria-label="Files">
-      <TreeView aria-label="Files">
-        <TreeView.Item id="file-1">
-          <TreeView.LeadingVisual>
-            <FileIcon />
-          </TreeView.LeadingVisual>
-          Some file
-        </TreeView.Item>
-        <TreeView.Item
-          id="async-directory"
-          onExpandedChange={async isExpanded => {
-            if (asyncItems.length === 0 && isExpanded) {
-              setIsLoading(true)
+    return (
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
+          <TreeView.Item id="file-1">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Some file
+          </TreeView.Item>
+          <TreeView.Item
+            id="async-directory"
+            onExpandedChange={async isExpanded => {
+              if (asyncItems.length === 0 && isExpanded) {
+                setIsLoading(true)
 
-              // Load items
-              const items = await loadItems(args.responseTime)
+                // Load items
+                const items = await loadItems(args.responseTime)
 
-              setIsLoading(false)
-              setAsyncItems(items)
-            }
-          }}
-        >
-          <TreeView.LeadingVisual>
-            <TreeView.DirectoryIcon />
-          </TreeView.LeadingVisual>
-          Directory with async items
-          <TreeView.SubTree state={state}>
-            {asyncItems.map(item => (
-              <TreeView.Item id={`item-${item}`} key={item}>
-                <TreeView.LeadingVisual>
-                  <FileIcon />
-                </TreeView.LeadingVisual>
-                {item}
-              </TreeView.Item>
-            ))}
-          </TreeView.SubTree>
-        </TreeView.Item>
-        <TreeView.Item id="another-file">
-          <TreeView.LeadingVisual>
-            <FileIcon />
-          </TreeView.LeadingVisual>
-          Another file
-        </TreeView.Item>
-      </TreeView>
-    </nav>
-  )
+                setIsLoading(false)
+                setAsyncItems(items)
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree state={state}>
+              {asyncItems.map(item => (
+                <TreeView.Item id={`item-${item}`} key={item}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="another-file">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Another file
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    )
+  },
+
+  args: {
+    responseTime: 2000,
+  },
 }
 
-AsyncSuccess.args = {
-  responseTime: 2000,
+export const AsyncWithCount: StoryObj = {
+  render: args => {
+    const [isLoading, setIsLoading] = React.useState(false)
+    const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+    let state: SubTreeState = 'initial'
+
+    if (isLoading) {
+      state = 'loading'
+    } else if (asyncItems.length > 0) {
+      state = 'done'
+    }
+
+    return (
+      <nav aria-label="Files">
+        <TreeView aria-label="Files">
+          <TreeView.Item id="some-file">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Some file
+          </TreeView.Item>
+          <TreeView.Item
+            id="async-directory"
+            onExpandedChange={async isExpanded => {
+              if (asyncItems.length === 0 && isExpanded) {
+                setIsLoading(true)
+
+                // Load items
+                const items = await loadItems(args.responseTime)
+
+                setIsLoading(false)
+                setAsyncItems(items)
+              }
+            }}
+          >
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory with async items
+            <TreeView.SubTree state={state} count={args.count}>
+              {asyncItems.map(item => (
+                <TreeView.Item key={item} id={`item-${item}`}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  {item}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="another-file">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Another file
+          </TreeView.Item>
+        </TreeView>
+      </nav>
+    )
+  },
+
+  args: {
+    responseTime: 2000,
+    count: 3,
+  },
+
+  argTypes: {
+    count: {
+      type: 'number',
+    },
+  },
 }
 
-export const AsyncWithCount: Story = args => {
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+async function alwaysFails(responseTime: number) {
+  await wait(responseTime)
+  throw new Error('Failed to load items')
+  return []
+}
 
-  let state: SubTreeState = 'initial'
+export const AsyncError: StoryObj = {
+  render: args => {
+    const [isLoading, setIsLoading] = React.useState(false)
+    const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+    const [error, setError] = React.useState<Error | null>(null)
 
-  if (isLoading) {
-    state = 'loading'
-  } else if (asyncItems.length > 0) {
-    state = 'done'
-  }
+    let state: SubTreeState = 'initial'
 
-  return (
-    <nav aria-label="Files">
+    if (isLoading) {
+      state = 'loading'
+    } else if (error) {
+      state = 'error'
+    } else if (asyncItems.length > 0) {
+      state = 'done'
+    }
+
+    async function loadItems() {
+      if (asyncItems.length === 0) {
+        setIsLoading(true)
+
+        try {
+          // Try to load items
+          const items = await alwaysFails(args.responseTime)
+          setAsyncItems(items)
+        } catch (error) {
+          setError(error as Error)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+    }
+
+    return (
       <TreeView aria-label="Files">
         <TreeView.Item id="some-file">
           <TreeView.LeadingVisual>
@@ -422,15 +523,9 @@ export const AsyncWithCount: Story = args => {
         </TreeView.Item>
         <TreeView.Item
           id="async-directory"
-          onExpandedChange={async isExpanded => {
-            if (asyncItems.length === 0 && isExpanded) {
-              setIsLoading(true)
-
-              // Load items
-              const items = await loadItems(args.responseTime)
-
-              setIsLoading(false)
-              setAsyncItems(items)
+          onExpandedChange={isExpanded => {
+            if (isExpanded) {
+              loadItems()
             }
           }}
         >
@@ -438,7 +533,20 @@ export const AsyncWithCount: Story = args => {
             <TreeView.DirectoryIcon />
           </TreeView.LeadingVisual>
           Directory with async items
-          <TreeView.SubTree state={state} count={args.count}>
+          <TreeView.SubTree state={state}>
+            {error ? (
+              <TreeView.ErrorDialog
+                onRetry={() => {
+                  setError(null)
+                  loadItems()
+                }}
+                onDismiss={() => {
+                  setError(null)
+                }}
+              >
+                {error.message}
+              </TreeView.ErrorDialog>
+            ) : null}
             {asyncItems.map(item => (
               <TreeView.Item key={item} id={`item-${item}`}>
                 <TreeView.LeadingVisual>
@@ -456,117 +564,15 @@ export const AsyncWithCount: Story = args => {
           Another file
         </TreeView.Item>
       </TreeView>
-    </nav>
-  )
-}
+    )
+  },
 
-AsyncWithCount.args = {
-  responseTime: 2000,
-  count: 3,
-}
-
-AsyncWithCount.argTypes = {
-  count: {
-    type: 'number',
+  args: {
+    responseTime: 2000,
   },
 }
 
-async function alwaysFails(responseTime: number) {
-  await wait(responseTime)
-  throw new Error('Failed to load items')
-  return []
-}
-
-export const AsyncError: Story = args => {
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
-  const [error, setError] = React.useState<Error | null>(null)
-
-  let state: SubTreeState = 'initial'
-
-  if (isLoading) {
-    state = 'loading'
-  } else if (error) {
-    state = 'error'
-  } else if (asyncItems.length > 0) {
-    state = 'done'
-  }
-
-  async function loadItems() {
-    if (asyncItems.length === 0) {
-      setIsLoading(true)
-
-      try {
-        // Try to load items
-        const items = await alwaysFails(args.responseTime)
-        setAsyncItems(items)
-      } catch (error) {
-        setError(error as Error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-  }
-
-  return (
-    <TreeView aria-label="Files">
-      <TreeView.Item id="some-file">
-        <TreeView.LeadingVisual>
-          <FileIcon />
-        </TreeView.LeadingVisual>
-        Some file
-      </TreeView.Item>
-      <TreeView.Item
-        id="async-directory"
-        onExpandedChange={isExpanded => {
-          if (isExpanded) {
-            loadItems()
-          }
-        }}
-      >
-        <TreeView.LeadingVisual>
-          <TreeView.DirectoryIcon />
-        </TreeView.LeadingVisual>
-        Directory with async items
-        <TreeView.SubTree state={state}>
-          {error ? (
-            <TreeView.ErrorDialog
-              onRetry={() => {
-                setError(null)
-                loadItems()
-              }}
-              onDismiss={() => {
-                setError(null)
-              }}
-            >
-              {error.message}
-            </TreeView.ErrorDialog>
-          ) : null}
-          {asyncItems.map(item => (
-            <TreeView.Item key={item} id={`item-${item}`}>
-              <TreeView.LeadingVisual>
-                <FileIcon />
-              </TreeView.LeadingVisual>
-              {item}
-            </TreeView.Item>
-          ))}
-        </TreeView.SubTree>
-      </TreeView.Item>
-      <TreeView.Item id="another-file">
-        <TreeView.LeadingVisual>
-          <FileIcon />
-        </TreeView.LeadingVisual>
-        Another file
-      </TreeView.Item>
-    </TreeView>
-  )
-}
-
-AsyncError.args = {
-  responseTime: 2000,
-}
-
-export const EmptyDirectories: Story = () => {
+export const EmptyDirectories: StoryFn = () => {
   const [state, setState] = React.useState<SubTreeState>('loading')
   const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -609,7 +615,7 @@ export const EmptyDirectories: Story = () => {
   )
 }
 
-export const NestedTrees: Story = () => {
+export const NestedTrees: StoryFn = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
@@ -687,7 +693,7 @@ export const NestedTrees: Story = () => {
   )
 }
 
-export const NestedScrollContainer: Story = () => {
+export const NestedScrollContainer: StoryFn = () => {
   return (
     <Box sx={{maxHeight: '50vh', overflow: 'auto'}}>
       <TreeView aria-label="Files">
@@ -719,62 +725,66 @@ export const NestedScrollContainer: Story = () => {
   )
 }
 
-export const StressTest: Story = () => {
-  return (
-    <TreeView aria-label="Files">
-      {Array.from({length: 1000}).map((_, i) => (
-        <TreeView.Item key={i} id={`directory-${i}`}>
-          <TreeView.LeadingVisual>
-            <TreeView.DirectoryIcon />
-          </TreeView.LeadingVisual>
-          Directory {i}
-          <TreeView.SubTree>
-            {Array.from({length: 100}).map((_, j) => (
-              <TreeView.Item key={j} id={`directory-${i}/file-${j}`}>
-                <TreeView.LeadingVisual>
-                  <FileIcon />
-                </TreeView.LeadingVisual>
-                File {j}
-              </TreeView.Item>
-            ))}
-          </TreeView.SubTree>
-        </TreeView.Item>
-      ))}
-    </TreeView>
-  )
+export const StressTest: StoryObj = {
+  render: () => {
+    return (
+      <TreeView aria-label="Files">
+        {Array.from({length: 1000}).map((_, i) => (
+          <TreeView.Item key={i} id={`directory-${i}`}>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory {i}
+            <TreeView.SubTree>
+              {Array.from({length: 100}).map((_, j) => (
+                <TreeView.Item key={j} id={`directory-${i}/file-${j}`}>
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  File {j}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        ))}
+      </TreeView>
+    )
+  },
+
+  parameters: {
+    chromatic: {disableSnapshot: true},
+  },
 }
 
-StressTest.parameters = {
-  chromatic: {disableSnapshot: true},
-}
+export const ContainIntrinsicSize: StoryObj = {
+  render: () => {
+    return (
+      <TreeView aria-label="Files">
+        {Array.from({length: 10}).map((_, i) => (
+          <TreeView.Item key={i} id={`directory-${i}`} defaultExpanded containIntrinsicSize="2rem">
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Directory {i}
+            <TreeView.SubTree>
+              {Array.from({length: 1000}).map((_, j) => (
+                <TreeView.Item key={j} id={`directory-${i}/file-${j}`} containIntrinsicSize="2rem">
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  File {j}
+                </TreeView.Item>
+              ))}
+            </TreeView.SubTree>
+          </TreeView.Item>
+        ))}
+      </TreeView>
+    )
+  },
 
-export const ContainIntrinsicSize: Story = () => {
-  return (
-    <TreeView aria-label="Files">
-      {Array.from({length: 10}).map((_, i) => (
-        <TreeView.Item key={i} id={`directory-${i}`} defaultExpanded containIntrinsicSize="2rem">
-          <TreeView.LeadingVisual>
-            <TreeView.DirectoryIcon />
-          </TreeView.LeadingVisual>
-          Directory {i}
-          <TreeView.SubTree>
-            {Array.from({length: 1000}).map((_, j) => (
-              <TreeView.Item key={j} id={`directory-${i}/file-${j}`} containIntrinsicSize="2rem">
-                <TreeView.LeadingVisual>
-                  <FileIcon />
-                </TreeView.LeadingVisual>
-                File {j}
-              </TreeView.Item>
-            ))}
-          </TreeView.SubTree>
-        </TreeView.Item>
-      ))}
-    </TreeView>
-  )
-}
-
-ContainIntrinsicSize.parameters = {
-  chromatic: {disableSnapshot: true},
+  parameters: {
+    chromatic: {disableSnapshot: true},
+  },
 }
 
 export default meta

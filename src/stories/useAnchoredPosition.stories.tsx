@@ -90,52 +90,53 @@ const Anchor = styled(Box)`
   padding: ${get('space.3')};
 `
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const UseAnchoredPosition = (args: any) => {
-  const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
-    {
-      side: `${args.anchorPosition ?? 'outside'}-${args.anchorSide ?? 'bottom'}` as AnchorSide,
-      align: args.anchorAlignment ?? 'start',
-      anchorOffset: args.anchorOffset && parseInt(args.anchorOffset, 10),
-      alignmentOffset: args.alignmentOffset && parseInt(args.alignmentOffset, 10),
-      allowOutOfBounds: args.allowOutOfBounds ?? undefined,
-    },
-    [
-      args.anchorY,
-      args.anchorX,
-      args.anchorPosition,
-      args.anchorSide,
-      args.anchorAlignment,
-      args.anchorOffset,
-      args.alignmentOffset,
-      args.allowOutOfBounds,
-      args.floatHeight,
-      args.floatWidth,
-    ],
-  )
+export const UseAnchoredPosition = {
+  render: (args: any) => {
+    const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
+      {
+        side: `${args.anchorPosition ?? 'outside'}-${args.anchorSide ?? 'bottom'}` as AnchorSide,
+        align: args.anchorAlignment ?? 'start',
+        anchorOffset: args.anchorOffset && parseInt(args.anchorOffset, 10),
+        alignmentOffset: args.alignmentOffset && parseInt(args.alignmentOffset, 10),
+        allowOutOfBounds: args.allowOutOfBounds ?? undefined,
+      },
+      [
+        args.anchorY,
+        args.anchorX,
+        args.anchorPosition,
+        args.anchorSide,
+        args.anchorAlignment,
+        args.anchorOffset,
+        args.alignmentOffset,
+        args.allowOutOfBounds,
+        args.floatHeight,
+        args.floatWidth,
+      ],
+    )
 
-  return (
-    <Box position="relative" m={2}>
-      <Anchor
-        top={args.anchorY ?? 0}
-        left={args.anchorX ?? 0}
-        width={args.anchorWidth}
-        height={args.anchorHeight}
-        ref={anchorElementRef as React.RefObject<HTMLDivElement>}
-      >
-        Anchor Element
-      </Anchor>
-      <Float
-        top={position?.top ?? 0}
-        left={position?.left ?? 0}
-        width={args.floatWidth ?? 150}
-        height={args.floatHeight ?? 150}
-        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-      >
-        Floating element
-      </Float>
-    </Box>
-  )
+    return (
+      <Box position="relative" m={2}>
+        <Anchor
+          top={args.anchorY ?? 0}
+          left={args.anchorX ?? 0}
+          width={args.anchorWidth}
+          height={args.anchorHeight}
+          ref={anchorElementRef as React.RefObject<HTMLDivElement>}
+        >
+          Anchor Element
+        </Anchor>
+        <Float
+          top={position?.top ?? 0}
+          left={position?.left ?? 0}
+          width={args.floatWidth ?? 150}
+          height={args.floatHeight ?? 150}
+          ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+        >
+          Floating element
+        </Float>
+      </Box>
+    )
+  },
 }
 export const CenteredOnScreen = () => {
   const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition({
@@ -253,23 +254,6 @@ const Main = styled('main')`
   right: 0;
   bottom: 0;
 `
-
-/*
-
-There are a few "gotchas" to take note of from this example. See the
-documentation for more info.
-
-1. The portal's root (<Main> in this example) needs to be large enough
-   to include ANY space that the overlay might need to take. By default,
-   elements are not rendered at full height! Notice how <Main> uses
-   top, left, right, and bottom all set to 0 to achieve a full-size box.
-
-2. The positioning routine needs to know the size of the overlay before
-   calculating its position! Therefore, we use visibility: hidden to
-   prevent showing a single frame of the overlay being positioned at
-   (0, 0).
-
-*/
 
 export const WithPortal = () => {
   const [showMenu, setShowMenu] = React.useState(false)

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
+import {StoryObj, Meta} from '@storybook/react'
 
 import {ThemeProvider, BaseStyles, Box, themeGet, useTheme} from '..'
 import {ThemeProviderProps} from '../ThemeProvider'
@@ -29,21 +29,23 @@ function ActiveColorScheme() {
   return <span>Active color scheme: {colorScheme}</span>
 }
 
-export const Default: Story<ThemeProviderProps> = args => {
-  return (
-    <ThemeProvider {...args}>
-      <GlobalStyle />
-      <BaseStyles>
-        <ActiveColorScheme />
-      </BaseStyles>
-    </ThemeProvider>
-  )
-}
+export const Default: StoryObj<ThemeProviderProps> = {
+  render: args => {
+    return (
+      <ThemeProvider {...args}>
+        <GlobalStyle />
+        <BaseStyles>
+          <ActiveColorScheme />
+        </BaseStyles>
+      </ThemeProvider>
+    )
+  },
 
-Default.args = {
-  colorMode: 'day',
-  dayScheme: 'light',
-  nightScheme: 'dark',
+  args: {
+    colorMode: 'day',
+    dayScheme: 'light',
+    nightScheme: 'dark',
+  },
 }
 
 function NightMode() {
@@ -85,17 +87,19 @@ function InverseMode() {
   )
 }
 
-export const Nested: Story<ThemeProviderProps> = args => {
-  return (
-    <ThemeProvider {...args}>
-      <GlobalStyle />
-      <BaseStyles>
-        <ActiveColorScheme />
-        <NightMode />
-        <InverseMode />
-      </BaseStyles>
-    </ThemeProvider>
-  )
+export const Nested: StoryObj<ThemeProviderProps> = {
+  render: args => {
+    return (
+      <ThemeProvider {...args}>
+        <GlobalStyle />
+        <BaseStyles>
+          <ActiveColorScheme />
+          <NightMode />
+          <InverseMode />
+        </BaseStyles>
+      </ThemeProvider>
+    )
+  },
 }
 
 const AutoContents = () => {

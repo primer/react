@@ -78,36 +78,38 @@ export default {
   ],
 } as Meta
 
-export const Default = ({
-  disabled,
-  required,
-  labelChildren = 'Choices',
-  visuallyHidden,
-  captionChildren,
-  validationChildren,
-  variant,
-}: CheckboxOrRadioGroupArgs) => {
-  const parentArgs = {disabled, required}
-  const labelArgs = {children: labelChildren, visuallyHidden}
-  const validationArgs = {children: validationChildren, variant}
+export const Default = {
+  render: ({
+    disabled,
+    required,
+    labelChildren = 'Choices',
+    visuallyHidden,
+    captionChildren,
+    validationChildren,
+    variant,
+  }: CheckboxOrRadioGroupArgs) => {
+    const parentArgs = {disabled, required}
+    const labelArgs = {children: labelChildren, visuallyHidden}
+    const validationArgs = {children: validationChildren, variant}
 
-  return (
-    <RadioGroup {...parentArgs} name="defaultRadioGroup">
-      {labelArgs.children && <RadioGroup.Label {...labelArgs} />}
-      {captionChildren && <RadioGroup.Caption>{captionChildren}</RadioGroup.Caption>}
-      <FormControl>
-        <Radio value="one" />
-        <FormControl.Label>Choice one</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Radio value="two" />
-        <FormControl.Label>Choice two</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Radio value="three" />
-        <FormControl.Label>Choice three</FormControl.Label>
-      </FormControl>
-      {validationArgs.children && <RadioGroup.Validation {...validationArgs} />}
-    </RadioGroup>
-  )
+    return (
+      <RadioGroup {...parentArgs} name="defaultRadioGroup">
+        {labelArgs.children && <RadioGroup.Label {...labelArgs} />}
+        {captionChildren && <RadioGroup.Caption>{captionChildren}</RadioGroup.Caption>}
+        <FormControl>
+          <Radio value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="two" />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="three" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+        {validationArgs.children && <RadioGroup.Validation {...validationArgs} />}
+      </RadioGroup>
+    )
+  },
 }

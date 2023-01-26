@@ -30,6 +30,7 @@ const setViewportParamToNarrow = {
     defaultViewport: 'small',
   },
 }
+
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
@@ -53,11 +54,13 @@ export const Webhooks = () => (
   </Box>
 )
 
-export const WebhooksOnNarrowViewport = () => {
-  return <Webhooks />
-}
+export const WebhooksOnNarrowViewport = {
+  render: () => {
+    return <Webhooks />
+  },
 
-WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
+  parameters: setViewportParamToNarrow,
+}
 
 export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
@@ -122,11 +125,13 @@ export const PullRequestPage = () => (
   </Box>
 )
 
-export const PullRequestPageOnNarrowViewport = () => {
-  return <PullRequestPage />
-}
+export const PullRequestPageOnNarrowViewport = {
+  render: () => {
+    return <PullRequestPage />
+  },
 
-PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
+  parameters: setViewportParamToNarrow,
+}
 
 export const FilesPage = () => (
   <Box sx={{padding: 3}}>
@@ -154,8 +159,12 @@ export const FilesPage = () => (
   </Box>
 )
 
-export const FilesPageOnNarrowViewport = () => {
-  return <FilesPage />
+export const FilesPageOnNarrowViewport = {
+  render: () => {
+    return <FilesPage />
+  },
+
+  parameters: setViewportParamToNarrow,
 }
 
 export const WithPageLayout = () => {
@@ -261,7 +270,5 @@ export const WithPageLayout = () => {
     </PageLayout>
   )
 }
-
-FilesPageOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export default meta

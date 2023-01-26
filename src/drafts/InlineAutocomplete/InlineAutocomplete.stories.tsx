@@ -67,62 +67,66 @@ const filteredUsers = (query: string) =>
       user.login.toLowerCase().includes(query.toLowerCase()) || user.name.toLowerCase().includes(query.toLowerCase()),
   )
 
-export const Default = ({loading, tabInserts}: ArgProps) => {
-  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+export const Default = {
+  render: ({loading, tabInserts}: ArgProps) => {
+    const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
-  const onShowSuggestions = (event: ShowSuggestionsEvent) => {
-    if (loading) {
-      setSuggestions('loading')
-      return
+    const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+      if (loading) {
+        setSuggestions('loading')
+        return
+      }
+
+      setSuggestions(filteredUsers(event.query).map(user => user.login))
     }
 
-    setSuggestions(filteredUsers(event.query).map(user => user.login))
-  }
-
-  return (
-    <FormControl>
-      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
-      <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
-      <InlineAutocomplete
-        triggers={[{triggerChar: '@'}]}
-        suggestions={suggestions}
-        onShowSuggestions={onShowSuggestions}
-        onHideSuggestions={() => setSuggestions(null)}
-        tabInsertsSuggestions={tabInserts}
-      >
-        <Textarea />
-      </InlineAutocomplete>
-    </FormControl>
-  )
+    return (
+      <FormControl>
+        <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
+        <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
+        <InlineAutocomplete
+          triggers={[{triggerChar: '@'}]}
+          suggestions={suggestions}
+          onShowSuggestions={onShowSuggestions}
+          onHideSuggestions={() => setSuggestions(null)}
+          tabInsertsSuggestions={tabInserts}
+        >
+          <Textarea />
+        </InlineAutocomplete>
+      </FormControl>
+    )
+  },
 }
 
-export const SingleLine = ({loading, tabInserts}: ArgProps) => {
-  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+export const SingleLine = {
+  render: ({loading, tabInserts}: ArgProps) => {
+    const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
-  const onShowSuggestions = (event: ShowSuggestionsEvent) => {
-    if (loading) {
-      setSuggestions('loading')
-      return
+    const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+      if (loading) {
+        setSuggestions('loading')
+        return
+      }
+
+      setSuggestions(filteredUsers(event.query).map(user => user.login))
     }
 
-    setSuggestions(filteredUsers(event.query).map(user => user.login))
-  }
-
-  return (
-    <FormControl>
-      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
-      <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
-      <InlineAutocomplete
-        triggers={[{triggerChar: '@'}]}
-        suggestions={suggestions}
-        onShowSuggestions={onShowSuggestions}
-        onHideSuggestions={() => setSuggestions(null)}
-        tabInsertsSuggestions={tabInserts}
-      >
-        <TextInput sx={{lineHeight: 1.2}} />
-      </InlineAutocomplete>
-    </FormControl>
-  )
+    return (
+      <FormControl>
+        <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
+        <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
+        <InlineAutocomplete
+          triggers={[{triggerChar: '@'}]}
+          suggestions={suggestions}
+          onShowSuggestions={onShowSuggestions}
+          onHideSuggestions={() => setSuggestions(null)}
+          tabInsertsSuggestions={tabInserts}
+        >
+          <TextInput sx={{lineHeight: 1.2}} />
+        </InlineAutocomplete>
+      </FormControl>
+    )
+  },
 }
 
 const UserSuggestion = ({user, ...props}: {user: User} & ActionListItemProps) => (
@@ -139,38 +143,40 @@ type ArgProps = {
   tabInserts: boolean
 }
 
-export const CustomRendering = ({loading, tabInserts}: ArgProps) => {
-  const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
+export const CustomRendering = {
+  render: ({loading, tabInserts}: ArgProps) => {
+    const [suggestions, setSuggestions] = useState<Suggestions | null>(null)
 
-  const onShowSuggestions = (event: ShowSuggestionsEvent) => {
-    if (loading) {
-      setSuggestions('loading')
-      return
+    const onShowSuggestions = (event: ShowSuggestionsEvent) => {
+      if (loading) {
+        setSuggestions('loading')
+        return
+      }
+
+      setSuggestions(
+        filteredUsers(event.query).map(user => ({
+          value: user.login,
+          render: props => <UserSuggestion user={user} {...props} />,
+        })),
+      )
     }
 
-    setSuggestions(
-      filteredUsers(event.query).map(user => ({
-        value: user.login,
-        render: props => <UserSuggestion user={user} {...props} />,
-      })),
+    const onHideSuggestions = () => setSuggestions(null)
+
+    return (
+      <FormControl>
+        <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
+        <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
+        <InlineAutocomplete
+          triggers={[{triggerChar: '@'}]}
+          suggestions={suggestions}
+          onShowSuggestions={onShowSuggestions}
+          onHideSuggestions={onHideSuggestions}
+          tabInsertsSuggestions={tabInserts}
+        >
+          <Textarea />
+        </InlineAutocomplete>
+      </FormControl>
     )
-  }
-
-  const onHideSuggestions = () => setSuggestions(null)
-
-  return (
-    <FormControl>
-      <FormControl.Label>Inline Autocomplete Demo</FormControl.Label>
-      <FormControl.Caption>Try typing &apos;@&apos; to show user suggestions.</FormControl.Caption>
-      <InlineAutocomplete
-        triggers={[{triggerChar: '@'}]}
-        suggestions={suggestions}
-        onShowSuggestions={onShowSuggestions}
-        onHideSuggestions={onHideSuggestions}
-        tabInsertsSuggestions={tabInserts}
-      >
-        <Textarea />
-      </InlineAutocomplete>
-    </FormControl>
-  )
+  },
 }

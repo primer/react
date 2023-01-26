@@ -73,52 +73,23 @@ const ExampleCollectionContainer: React.FC<React.PropsWithChildren<unknown>> = (
   </Box>
 )
 
-export const DefaultToken = (args: Omit<TokenProps, 'ref'>) => {
-  return (
-    <ExampleCollectionContainer>
-      <Token {...args} />
-    </ExampleCollectionContainer>
-  )
-}
-DefaultToken.storyName = 'Default'
-DefaultToken.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}}
+export const DefaultToken = {
+  render: (args: Omit<TokenProps, 'ref'>) => {
+    return (
+      <ExampleCollectionContainer>
+        <Token {...args} />
+      </ExampleCollectionContainer>
+    )
+  },
 
-export const Interactive = (args: Omit<TokenProps, 'ref' | 'text'>) => {
-  return (
-    <ExampleCollectionContainer>
-      <Box
-        display="flex"
-        sx={{
-          alignItems: 'start',
-          gap: get('space.2'),
-        }}
-      >
-        <Token as="a" href="http://google.com/" {...args} text="Link" />
-        <Token as="button" onClick={action('clicked')} {...args} text="Button" />
-        <Token as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
-      </Box>
-    </ExampleCollectionContainer>
-  )
+  name: 'Default',
+  parameters: {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}},
 }
-Interactive.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton', 'text']}}
 
-export const WithLeadingVisual = (args: Omit<TokenProps, 'ref'>) => {
-  return (
-    <ExampleCollectionContainer>
-      <Token {...args} leadingVisual={GitBranchIcon} />
-    </ExampleCollectionContainer>
-  )
-}
-WithLeadingVisual.storyName = 'with leadingVisual'
-WithLeadingVisual.parameters = {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}}
-
-export const WithOnRemoveFn = (args: Omit<TokenProps, 'ref'>) => {
-  return (
-    <ExampleCollectionContainer>
-      <SingleExampleContainer label="w/ onRemove passed">
-        <Token onRemove={action('remove me')} {...args} />
-      </SingleExampleContainer>
-      <SingleExampleContainer label="w/ onRemove passed and the token is interactive">
+export const Interactive = {
+  render: (args: Omit<TokenProps, 'ref' | 'text'>) => {
+    return (
+      <ExampleCollectionContainer>
         <Box
           display="flex"
           sx={{
@@ -126,19 +97,60 @@ export const WithOnRemoveFn = (args: Omit<TokenProps, 'ref'>) => {
             gap: get('space.2'),
           }}
         >
-          <Token as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />
-          <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} {...args} text="Button" />
-          <Token
-            as="span"
-            tabIndex={0}
-            onFocus={action('focused')}
-            onRemove={action('remove me')}
-            {...args}
-            text="Focusable Span"
-          />
+          <Token as="a" href="http://google.com/" {...args} text="Link" />
+          <Token as="button" onClick={action('clicked')} {...args} text="Button" />
+          <Token as="span" tabIndex={0} onFocus={action('focused')} {...args} text="Focusable Span" />
         </Box>
-      </SingleExampleContainer>
-    </ExampleCollectionContainer>
-  )
+      </ExampleCollectionContainer>
+    )
+  },
+
+  parameters: {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton', 'text']}},
 }
-WithOnRemoveFn.parameters = {controls: {exclude: excludedControlKeys}}
+
+export const WithLeadingVisual = {
+  render: (args: Omit<TokenProps, 'ref'>) => {
+    return (
+      <ExampleCollectionContainer>
+        <Token {...args} leadingVisual={GitBranchIcon} />
+      </ExampleCollectionContainer>
+    )
+  },
+
+  name: 'with leadingVisual',
+  parameters: {controls: {exclude: [...excludedControlKeys, 'hideRemoveButton']}},
+}
+
+export const WithOnRemoveFn = {
+  render: (args: Omit<TokenProps, 'ref'>) => {
+    return (
+      <ExampleCollectionContainer>
+        <SingleExampleContainer label="w/ onRemove passed">
+          <Token onRemove={action('remove me')} {...args} />
+        </SingleExampleContainer>
+        <SingleExampleContainer label="w/ onRemove passed and the token is interactive">
+          <Box
+            display="flex"
+            sx={{
+              alignItems: 'start',
+              gap: get('space.2'),
+            }}
+          >
+            <Token as="a" href="http://google.com/" onRemove={action('remove me')} {...args} text="Link" />
+            <Token as="button" onClick={action('clicked')} onRemove={action('remove me')} {...args} text="Button" />
+            <Token
+              as="span"
+              tabIndex={0}
+              onFocus={action('focused')}
+              onRemove={action('remove me')}
+              {...args}
+              text="Focusable Span"
+            />
+          </Box>
+        </SingleExampleContainer>
+      </ExampleCollectionContainer>
+    )
+  },
+
+  parameters: {controls: {exclude: excludedControlKeys}},
+}
