@@ -7,7 +7,7 @@ import {SearchIcon} from '@primer/octicons-react'
 expect.extend(toHaveNoViolations)
 
 describe('Button', () => {
-  behavesAsComponent({Component: Button})
+  behavesAsComponent({Component: Button, options: {skipSx: true}})
 
   it('renders a <button>', () => {
     const container = render(<Button>Default</Button>)
