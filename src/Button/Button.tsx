@@ -50,7 +50,9 @@ sx={{
 //  '&[data-attribute="something"]:hover': {
 //     backgroundColor: 'yellow',
 //   },
-//  width : 320px
+//  '&[data-attribute="something"]': {
+//     width : 320px
+//  }
 // }}
 
 // We need to make sure we append the customCSSSelector to the original class selector. i.e & - > &[data-attribute="Icon"][data-size="small"]
@@ -80,7 +82,6 @@ function generateCustomSxProp(props: ButtonProps, providedSx: SxProp) {
       // if key starts with &, we need to add the selectors to the cssSelector
       const combinedSelector = `${cssSelector}${key.replace('&', '')}`
       customSxProp[combinedSelector] = value
-      // if key starts with @media, we need to restructure the object
     } else {
       customSxProp[cssSelector] = providedSx
     }
