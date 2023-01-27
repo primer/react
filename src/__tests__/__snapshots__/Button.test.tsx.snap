@@ -104,6 +104,7 @@ exports[`Button renders consistently 1`] = `
 
 <button
   className="c0"
+  type="button"
 />
 `;
 
@@ -227,6 +228,7 @@ exports[`Button styles danger button appropriately 1`] = `
 
 <button
   class="c0"
+  type="button"
 >
   <span
     data-component="text"
@@ -451,6 +453,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 <button
   class="c0"
+  type="button"
 >
   <span
     data-component="text"
@@ -581,6 +584,7 @@ exports[`Button styles outline button appropriately 1`] = `
 
 <button
   class="c0"
+  type="button"
 >
   <span
     data-component="text"
@@ -706,6 +710,7 @@ exports[`Button styles primary button appropriately 1`] = `
 
 <button
   class="c0"
+  type="button"
 >
   <span
     data-component="text"

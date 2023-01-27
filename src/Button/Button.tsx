@@ -5,7 +5,7 @@ import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/po
 
 const ButtonComponent = forwardRef(({children, ...props}, forwardedRef): JSX.Element => {
   return (
-    <ButtonBase ref={forwardedRef} as="button" {...props}>
+    <ButtonBase ref={forwardedRef} as="button" type="button" {...props}>
       {children}
     </ButtonBase>
   )
