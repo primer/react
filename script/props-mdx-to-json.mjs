@@ -24,7 +24,7 @@ const srcMap = new Map([
   ['docs/content/ActionList.mdx', 'src/ActionList/List.tsx'],
   ['docs/content/deprecated/ActionList.mdx', 'src/deprecated/ActionList/List.tsx'],
   ['docs/content/deprecated/Buttons.mdx', 'src/deprecated/Button/Button.tsx'],
-  ['docs/content/drafts/UnderlineNav2.mdx', 'src/UnderlineNav2/UnderlineNav.tsx'],
+  ['docs/content/UnderlineNav.mdx', 'src/UnderlineNav/UnderlineNav.tsx'],
 ])
 
 // Get all source code files

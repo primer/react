@@ -72,7 +72,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "Tooltip",
   "Truncate",
   "UnderlineNav",
-  "UnderlineNav2",
   "merge",
   "registerPortalRoot",
   "sx",
