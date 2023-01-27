@@ -1,5 +1,4 @@
 {
-  "$schema": "../../script/components-json/component.schema.json",
   "id": "data-table",
   "name": "DataTable",
   "status": "draft",
