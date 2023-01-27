@@ -9,8 +9,6 @@ import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
 import {ViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import VisuallyHidden from '../_VisuallyHidden'
-import {useId} from '../hooks/useId'
 
 type WidthOnlyViewportRangeKeys = Exclude<ViewportRangeKeys, 'narrowLandscape' | 'portrait' | 'landscape'>
 
@@ -60,7 +58,6 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
 }) => {
   const segmentedControlContainerRef = useRef<HTMLUListElement>(null)
   const {theme} = useTheme()
-  const labelId = useId()
   const isUncontrolled =
     onChange === undefined ||
     React.Children.toArray(children).some(
