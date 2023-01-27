@@ -84,7 +84,7 @@ const components = new Map([
           name: 'Danger',
         },
         {
-          id: 'components-button-features--default',
+          id: 'components-button--default',
           name: 'Default',
         },
         {
@@ -143,7 +143,7 @@ const components = new Map([
           name: 'Danger',
         },
         {
-          id: 'components-iconbutton-features--default',
+          id: 'components-iconbutton--default',
           name: 'Default',
         },
         {
