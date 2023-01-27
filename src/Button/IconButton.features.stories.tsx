@@ -6,8 +6,6 @@ export default {
   title: 'Components/IconButton/Features',
 }
 
-export const Default = () => <IconButton icon={HeartIcon} aria-label="Default" />
-
 export const Primary = () => <IconButton icon={HeartIcon} variant="primary" aria-label="Primary" />
 
 export const Danger = () => <IconButton icon={HeartIcon} variant="danger" aria-label="Danger" />
