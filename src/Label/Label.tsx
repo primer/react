@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import {get} from './constants'
-import sx, {BetterSystemStyleObject, SxProp} from './sx'
+import {get} from '../constants'
+import sx, {BetterSystemStyleObject, SxProp} from '../sx'
 
 export type LabelProps = {
   /** The color of the label */
