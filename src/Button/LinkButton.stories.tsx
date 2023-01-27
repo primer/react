@@ -37,3 +37,9 @@ export const Playground: Story<typeof Button> = args => (
     Default
   </Button>
 )
+
+export const Default = () => (
+  <Button as="a" href="/">
+    Default
+  </Button>
+)
