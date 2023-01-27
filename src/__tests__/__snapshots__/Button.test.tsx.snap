@@ -101,7 +101,7 @@ exports[`Button renders consistently 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -328,7 +328,7 @@ exports[`Button respects block prop 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -561,7 +561,7 @@ exports[`Button respects the alignContent prop 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -793,7 +793,7 @@ exports[`Button respects the large size prop 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1026,7 +1026,7 @@ exports[`Button respects the small size prop 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1262,8 +1262,10 @@ exports[`Button styles danger button appropriately 1`] = `
   background-color: btn.danger.disabledCounterBg;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
+  color: btn.danger.text;
+  background-color: btn.danger.counterBg;
 }
 
 .c0[data-component=IconButton] {
@@ -1372,11 +1374,6 @@ exports[`Button styles danger button appropriately 1`] = `
   background-color: btn.danger.selectedBg;
   box-shadow: undefined;
   border-color: btn.danger.selectedBorder;
-}
-
-.c0 [data-component=ButtonCounter] {
-  color: btn.danger.text;
-  background-color: btn.danger.counterBg;
 }
 
 .c0[aria-expanded=true] {
@@ -1511,7 +1508,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1754,8 +1751,10 @@ exports[`Button styles primary button appropriately 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
+  background-color: btn.primary.counterBg;
+  color: btn.primary.text;
 }
 
 .c0[data-component=IconButton] {
@@ -1863,11 +1862,6 @@ exports[`Button styles primary button appropriately 1`] = `
 .c0:active:not([disabled]) {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
-}
-
-.c0 [data-component=ButtonCounter] {
-  background-color: btn.primary.counterBg;
-  color: btn.primary.text;
 }
 
 .c0[aria-expanded=true] {

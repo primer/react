@@ -3,13 +3,16 @@ import {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {SxProp} from '../sx'
+import {BetterSystemStyleObject} from '../sx'
 
-const ButtonComponent = forwardRef(({children, sx: SxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-  let sxStyles = SxProp
+const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
+  let sxStyles = sxProp
 
-  if (SxProp !== null && Object.keys(SxProp).length > 0) {
-    sxStyles = generateCustomSxProp(props, SxProp)
+  // grap the button props that have associated data attributes in the styles
+  const {block, size, leadingIcon, trailingIcon, trailingAction} = props
+
+  if (sxProp !== null && Object.keys(sxProp).length > 0) {
+    sxStyles = generateCustomSxProp({block, size, leadingIcon, trailingIcon, trailingAction}, sxProp)
   }
 
   return (
@@ -19,7 +22,7 @@ const ButtonComponent = forwardRef(({children, sx: SxProp = defaultSxProp, ...pr
   )
 }) as PolymorphicForwardRefComponent<'button', ButtonProps>
 
-// This function is used to generate a custom cssSelector for the SxProp
+// This function is used to generate a custom cssSelector for the sxProp
 
 // The usual sx prop can like this:
 // sx={{
@@ -34,7 +37,9 @@ const ButtonComponent = forwardRef(({children, sx: SxProp = defaultSxProp, ...pr
 //  '&:hover': {
 //     backgroundColor: 'yellow',
 //   },
+//  '&': {
 //  width : 320px
+// }
 // }}
 //*
 /* What we want for Button styles is this:
@@ -56,39 +61,28 @@ sx={{
 // }}
 
 // We need to make sure we append the customCSSSelector to the original class selector. i.e & - > &[data-attribute="Icon"][data-size="small"]
-
 */
-function generateCustomSxProp(props: ButtonProps, providedSx: SxProp) {
+export function generateCustomSxProp(
+  props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingIcon' | 'trailingIcon' | 'trailingAction'>>,
+  providedSx: BetterSystemStyleObject,
+) {
   // Possible data attributes: data-size, data-block, data-no-visuals
   const size = props.size ? `[data-size="${props.size}"]` : ''
   const block = props.block ? `[data-block="block"]` : ''
   const noVisuals = props.leadingIcon || props.trailingIcon || props.trailingAction ? '' : '[data-no-visuals="true"]'
 
-  // this is our custom selector. We are updating this from & -> & plus selectors.
+  // this is custom selector. We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]])
   const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals="true"]
-  type customSxPropType = {
-    [key: string]: SxProp
+
+  const customSxProp: {
+    [key: string]: BetterSystemStyleObject
+  } = {}
+
+  if (!providedSx) return customSxProp
+  else {
+    customSxProp[cssSelector] = providedSx
+    return customSxProp
   }
-  const customSxProp: customSxPropType = {}
-
-  // eslint-disable-next-line github/array-foreach
-  Object.entries(providedSx).forEach(([key, value]) => {
-    if (typeof value === 'object' && key.includes('@media')) {
-      // if key includes @media, we need to restructure the object
-      customSxProp[key] = {
-        [cssSelector]: value,
-      }
-    } else if (typeof value === 'object' && key.startsWith('&')) {
-      // if key starts with &, we need to add the selectors to the cssSelector
-      const combinedSelector = `${cssSelector}${key.replace('&', '')}`
-      customSxProp[combinedSelector] = value
-    } else {
-      customSxProp[cssSelector] = providedSx
-    }
-  })
-
-  console.log('customSxProp', customSxProp)
-  return customSxProp
 }
 
 ButtonComponent.displayName = 'Button'

@@ -17,7 +17,7 @@ export const InvisibleVariants = () => {
       <Button variant="invisible" trailingAction={TriangleDownIcon}>
         Button
       </Button>
-      <Button variant="invisible">
+      <Button variant="primary">
         Button
         <Button.Counter>{count}</Button.Counter>
       </Button>
@@ -40,11 +40,16 @@ export const TestSxProp = () => {
       <Button
         size="small"
         sx={{
-          '&:hover': {
+          ':hover': {
             color: 'deepskyblue',
           },
           [`@media screen and (max-width: 768px)`]: {
             color: 'salmon',
+          },
+          '@media screen and (min-width: 768px)': {
+            ':focus': {
+              color: 'green',
+            },
           },
           '@media (min-width: 1440)': {
             color: 'deeppink',
@@ -77,7 +82,7 @@ export const TestSxProp = () => {
       </Button>
       <Button>
         Watch
-        <Button.Counter sx={{fontSize: 16}}>{count}</Button.Counter>
+        <Button.Counter sx={{fontSize: 32}}>{count}</Button.Counter>
       </Button>
     </div>
   )
