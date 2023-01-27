@@ -2,28 +2,69 @@
 
 ## Status
 
-Proposed
+Accepted
 
-## Related ADRs
+## Context
 
-- [ADR 002 Behavior Isolation](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-002-behavior-isolation.md)
+While [ADR 002](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-002-behavior-isolation.md) landed on the decision to:
 
-## Providing behaviors via custom elements
-
-### Context
-
-While ADR 002 landed on the decision to:
-
- - Not share behaviour code between Primer View Components
- - Not use Custom Elements to drive behaviour of components
+ - Share JavaScript behaviour as "vanilla" functions which can be used between Primer View Components (PVC) and Primer React (PRC), consumed via React Hooks in PRC.
+ - Not use Custom Elements to drive behaviour of components.
  
-Our perspective on the assumptions, findings, and conclusions in the ADR have changed substantially since its approval. This document will revisit some of those assumptions, and describe the current state of affairs, and conclude based on that:
+Our perspective on the ADR has changed since its approval and this document will address those changes.
 
-### Updates on Findings
+## Updates on Findings
 
-#### ShadowDOM
+### JavaScript functions and React Hooks
 
-ShadowDOM is the preferred way for Custom Elements to mutate HTML, as their shadow root is encapsulated from the rest of the document. This means that a Custom Element is free to mutate HTML wihout disrupting reconcilers (such as React's Virtual DOM implementation) or observers (such as MutationObservers on the document).
+Currently, we share some behaviours across PVC and PRC as JavaScript functions. Behaviours like `focusTrap`, `focusZone`, `anchoredPosition` are developed within `primer/behaviors` and can be imported into PVC or PRC and utilised.
+
+The drawbacks to using JavaScript functions that we can currently see, is that they:
+
+ - Do not have standard invocation pattern, they are called like functions but the arguments they take can become complex quickly.
+ - They need to be "wired in" manually into our components, requiring the passing of containing elements and other state.
+ - They're difficult for engineers to use as they do not apply the standard component pattern of each of the respective frameworks. For example an engineer cannot add a `FocusTrap` component to an element to make it trap focus, instead an engineer must create their own component which calls into this behaviour.
+ 
+This complexity bears the biggest weight in Primer React, as we add abstractions of these behaviours out into Hooks, which creates another layer of complexity and indirection. If we remodelled these as Web Components, we'd vastly simplify a lot of this:
+
+ - Web Components have a standard invocation pattern and can be adopted into the component model of each respective framework (see below).
+ - Web Components do not need to be wired in manually, as they are part of the tree that they share association with. This means they can manage their own internal state and be driven by other components far more easily.
+ - Engineers _can_ easily drop a Web Component into their tree to add the desired behavior. For example an engineer can add a `<focus-trap>` element into their tree to make it trap focus. This does not require additional components or hooks to deliver the functionality.
+ 
+Taking a closer look at an example behaviour can clarify this. Looking at `focusTrap` as an example, we can see for it to work it needs a container element. It also needs to know where the initial focus is (another element), and we need to able to manage the lifecycle of how Focus Trap works, so it gets an abort signal too. These are all passed in as arguments into the `focusTrap` function.
+
+In React, to make this slightly easier, we create a [~100LOC `useFocusTrap` hook](https://github.com/primer/react/blob/a0db832302702b869aa22b0c4049ad9305ef631f/src/hooks/useFocusTrap.ts). However this hook can only really solve the issue of state management, and so it simplifies the creation of React refs and the Abort Controller, but the refs still need to be managed inside of component code.
+
+When it comes to actually implementing the `useFocusTrap` hook, [we end up supplying the refs](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/AnchoredOverlay/AnchoredOverlay.tsx#L106), as they typically [need additional management](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/AnchoredOverlay/AnchoredOverlay.tsx#L147-L152), making the hook somewhat of a leaky abstraction.
+
+The additional overhead of the hook now requires [documentation](https://github.com/primer/react/blob/b3e422042f118637886ab988aea1672d2c2fe78f/docs/content/focusTrap.mdx#usefocustrap-hook) and [tests](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/stories/useFocusTrap.stories.tsx), in addition to the docs and tests we already have for the behavior.
+
+It's a little simpler using PVC if the View Component needs additional behaviour, as we already have a Web Component we don't need concepts like refs, we only need to pass `this`. [The AbortController still needs to be created to help manage the lifecycle of the trap](https://github.com/primer/view_components/blob/ac33b436f817e982108e313ad12f2d388d91dcd3/app/components/primer/alpha/modal_dialog.ts#L72-L75).
+
+In both instances, a component is required to manage focus trapping, as the `focusTrap` function needs a container to attach to. If this were a Web Component it would be its own container, and so would not need a component to invoke it, as it would _be_ a component. In addition, a Web Component could manage its own lifecycle and provide a far simpler method of invocation and management of state than the function.
+
+On top of this complexity, there's also the complexity of the behaviour itself. To properly manage focus trap, the focusTrap function creates [two sentinel elements and appends them to do the DOM](https://github.com/primer/behaviors/blob/acbcc744f56837166c2a3f76bab1f3572b61d0ca/src/focus-trap.ts#L67-L68). This increases complexity in debugging code, as there are surprising new DOM elements in the tree. This also [effects tests](https://github.com/primer/react/blob/386561a37b2b6f1f9d4b597e0ac6ede3a40ccbf7/src/__tests__/__snapshots__/AnchoredOverlay.test.tsx.snap#L222-L239). A Web Component would be able to utilise ShadowDOM to create clean separation of utility elements required by the behavior.
+
+While `focusTrap` has been used as an example, it should be noted this is not exceptional, rather representitive. `focusZone` has a similarl [`useFocusZone` hook](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/hooks/useFocusZone.ts), as does `anchoredPosition` with [`useAnchoredPosition`](https://github.com/primer/react/blob/5dd4bb1f7f92647197160298fc1f521b23b4823b/src/hooks/useAnchoredPosition.ts).
+
+Were these behaviours Web Components, then they would be their own container, they would have lifecycle hooks to manage internal state, and they would have a standard invocation pattern. We'd simply drop `<focus-trap active={isActive}>` into a component. The element would manage lifecycle thanks to the hooks the browser provides, and interactive state could be managed via React (or in the case of VC, another WC).
+
+By modelling these behaviours as Web Components we simplify their application for engineers. Instead of requiring engineers to understand another hook, this would fit transparently into the already understood concept of components. 
+
+Specifically for behaviours like `focusZone` and `focusTrap` it makes understanding of the component far simpler too: by having the component existing within a tree of other components, an engineer can more easily understand the relationship of _what elements this component would affect_. This is currently opaque with the current functions, as they are not part of the tree.
+
+### ShadowDOM
+
+ShadowDOM is the preferred way for Custom Elements to mutate HTML, as their shadow root is encapsulated from the rest of the document. This means that a Custom Element is free to mutate HTML within the ShadowDOM wihout disrupting reconcilers (such as React's Virtual DOM implementation) or observers (such as MutationObservers on the document). Any mutations within the ShadowDOM are private to that element. Frameworks like React can still interact with light DOM nodes as they normally would. 
+
+ShadowDOM exists in browsers today, and powers some built in elements, like `<input>`, `<textarea>`, `<button>`, `<video>` and so on. The browser can build these elements out of many other elements which can be toggled off and on. For example, in Chrome, an `<input>` has an underlying ShadowDOM of:
+
+```html
+<div pseudo="-webkit-onput-placeholder" id="placeholder" style="display: none !important">Placeholder content</div>
+<div>input contents</div>
+```
+
+Whenever the `input.placeholder` is changed, Chrome will change the textcontent of the `div[id=placeholder]` element. Similarly whenever text is input into the element, the plain `<div>`'s textcontent is changed. This happens transparently and without userland libraries (like React) being able to influence this.
 
 ADR 002 describes complexity around Custom Elements and the ShadowDOM. It states that Primer React will accumulate added complexity if we were to implement Custom Elements with ShadowDOM, due to the requirement for polyfills.
 
@@ -58,13 +99,23 @@ There are no additional steps required for consumers of Primer React, and the co
 
 While React 18 and below require a small library like `@lit-labs/react`, due to the [lack of support for Custom Element](https://custom-elements-everywhere.com/libraries/react/results/results.html), React 19 [will likely need no such library](https://custom-elements-everywhere.com/libraries/react-experimental/results/results.html).
 
-#### Styling with `styled-components`
+Custom Elements ShadowDOM content can be rendered either client side (when the element connects to the DOM) or server side using a `<template>` element which allows the browser to piece together ShadowDOM content as the HTML stream in. This is known as "Declarative ShadowDOM". Declarative ShadowDOM is not always necessary, as it depends on the use case of the element which is being rendered. Declarative ShadowDOM is supported in Chrome and Safari 17 (at the time of writing this is unreleased, but [technology preview 162 includes DSD support](https://webkit.org/blog/13703/release-notes-for-safari-technology-preview-162/). For other browsers a DSD polyfill is a few additional lines of code.
+
+There may be additional considerations of when to use ShadowDOM, when to use Declarative ShadowDOM, and when to not use ShadowDOM at all. These considerations are outside of the scope of this document, as they will depend on the component being created. With respect to server side rendering, ShadowDOM is, in essence, no different to a component using other client side only APIs, such as `navigator`, or `location`. It, however, is not a blocker for adoption with respect to SSR.
+
+### Styling with `styled-components`
 
 Primer React currently uses a CSS-in-JS library called [`styled-components`](https://styled-components.com/). This library accumulates objects that map to CSS properties, and during runtime it will create a hash digest to use as the class name for the component, and inject the mapped CSS into a stylesheet on the page. This way, CSS lives in JavaScript object notation within the same file as the React Component itself. In addition to this, Primer React also uses [`styled-system`](https://styled-system.com/) which allows the use of style properties directly within a React Components props. Primer React uses the `sx` prop to allow for customisation of styles.
 
 ADR 002 describes complexity around styling Custom Elements with the styled-components library. It claimed that a custom element must use another wrapping element to apply styles.
 
 Today, Primer React's RelativeTime component can be styled using the `sx` prop, just like any other Primer React component.
+
+### Styling considerations with Custom Elements
+
+One consideration with Custom Elements is that they always represent a node in the DOM tree. This means components which only represent behaviour (such as `<focus-trap>`) can influence or even interrupt non-inheritable CSS properties as they flow through a document. For example if an element that needs focus trapping uses `display: flex`, using `<focus-trap>` as a component within the flex element will require the `<focus-trap>` element to be styled with `display: flex`. Many built-in elements require the same consideration, for example `<form>`, `<datalist>`, `<picture>` and so on.
+
+One mitigation for this is to replace non-semantic elements (such as `<div>` or `<span>`) within a tree with the custom element. Another is to replace "semantic" elements with Custom Elements that offer a similar behavior. In the case of `<relative-time>` it can replace the `<time>` element and offer equivalent semantic value.
 
 #### Incompatibility with some React tools
 
@@ -88,7 +139,7 @@ React Portals will cause the document structure to change, which also means the 
 
 Given these constraints, it may not be correct to say that Custom Elements raise compatibility issues with React Portals, but rather that React Portals must be created with judicious consideration to how they may create issues within the DOM tree. When using React portals to work around z-index and overflow issues, this problem may better be solved with existing Web Platform standards such as the `<dialog>` element or `popover` attribute, neither of which introduce the caveats and considerations that React Portals do.
 
-#### Extensibility
+### Extensibility
 
 Custom Elements have two predominant modes of communication: their ancestors may set attributes on an element (or properties directly on the class instance) to communicate downward intent, and ancestors may also listen to events which Custom Elements will announce during their lifetimes, to allow ancestors to react. React components have similar modes of communication; instead of attributes React components have "props", and within a React components props, it may have callbacks which map to events.
 
@@ -111,13 +162,13 @@ const RelativeTime = styled(createComponent(React, 'relative-time', RelativeTime
 While React 18 and below require a small library like `@lit-labs/react`, due to the [lack of support for Custom Element](https://custom-elements-everywhere.com/libraries/react/results/results.html), React 19 [will likely need no such library](https://custom-elements-everywhere.com/libraries/react-experimental/results/results.html).
 
 
-#### Organizational overhead
+### Organizational overhead
 
 One consideration around sharing code between one or more implementations of primer is the organisational overhead of doing so.
 
 ADR 002 enumerates concerns around development, including the issue of developing against multiple repositories and handling depdencies with `npm link`. It also enumerates concerns around orchestrating releases. Again, this is mostly a concern around the available tooling across multiple repositories and out of scope. 
 
-These issues are not intrinsic to the use of shared code, however. For example sharing of code can be done within a monorepo. This is likely out of scope of the discussion of this ADR.
+These issues are not intrinsic to the use of shared code, however. For example sharing of code can be done within a monorepo. This is out of scope of the discussion of this ADR.
 
 ADR 002 raises another concern around developement and contribution, with regard to familiarity of working with React and also the familiarity of working with Custom Elements, as well as the requirement for developers to context switch.
 
@@ -125,13 +176,34 @@ The Primer View Components library can serve as an example of handling these con
 
 The Primer Behaviours library can also serve as an example of handling these concerns. Today, both Primer View Components and Primer React components utilise the `@primer/behaviors` library to manage shared code.
 
+One concern comes with regard to Custom Elements using a global registry of tag names to hook into behaviours. On any given page, only one Custom Element definition can use a given tag name at a time - for example there cannot be two different versions of `RelativeTime` using the `<relative-time>` tag. GitHub has been using Custom Elements since 2014, and many of our components have had breaking changes and we've not found this limitation to be an issue. Having said that, it is possible to remediate this issue in several ways: such as naming the tags differently between versions or between libraries.
+
+Organizational overhead of shared dependencies is something that we will have to address in the future, regardless of the decision to utilise Custom Elements, and so it will be addressed in later ADRs. It is out of the scope of this ADR to mandate decisions on remediation strategies for shared dependencies.
+
 ## Decision
 
 ### Custom elements
 
-Given that today we are using custom elements to deliver many View Components, and the RelativeTime React component, it stands to reason that it is very much possible to continue doing so. Given it is of benefit to us to have shared behaviours across both Primer View Component and Primer React, this ADR concludes that we should continue to create components using Custom Elements where there is good precident to do so:
+- We may use Custom Elements to share behaviour between PVC and PRC.
+- Where existing built in HTML elements provide the necessary semantics and UI required, we should continue to use those. This is to say that Custom Elements to not provide a stand-in for _all_ elements on the page.
+- Where there is no client side behaviour nor no benefit to using ShadowDOM, a Custom Element should not be used.
 
-  - A component has client side driven behaviour
-  - The component exists (or will need to exist) in both Primer React Components and Primer View Components
-  - The component already exists as a Custom Element authored by GitHub
-  - The component would benefit from using the ShadowDOM
+## Not Decided
+
+### Custom Elements
+
+- This ADR does not conclude with a decision on how custom elements should be written. It does not enforce a decision on language or tooling.
+- This ADR does not enforce a decision that custom elements _must be written_ in any circumstances. It merely decides that we _may_ chose to use this technology as we see fit.
+
+### Repositories
+
+- This ADR does not conclude with a decision on where custom elements should live. We _may_ continue to use the existing set of custom elements we have, which are in various repositories, or we _may_ write custom elements in a monorepo. This is not a decision enforced by this ADR.
+
+### Rewrites
+
+- This ADR does not conclude with a decision to rewrite any existing component or behavior in use today. We _may_ consider the use of custom elements during refactors but this ADR does not enforce a decision to rewrite any existing code.
+
+## Consequences
+
+- By using `@lit-labs/ssr` today, we introduce a new dependency into Primer React. This may be removed later should React support Custom Elements out of the box (which seems likely for React 19), but for now we will need to continue to ship this dependency.
+- This decision may expediate the need to resolve organisational overhead issues. Deciding to use custom elements to share more code among PVC and PRC may highlight other areas which need to be addressed in subsequen PRs.
