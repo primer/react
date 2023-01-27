@@ -20,7 +20,7 @@ export default {
   ],
 } as Meta
 
-export const defaultPortal = () => (
+export const DefaultPortal = () => (
   <>
     Root position
     <Box bg="red.2" p={3}>
@@ -35,7 +35,7 @@ export const defaultPortal = () => (
   </>
 )
 
-export const customPortalRootById = () => (
+export const CustomPortalRootById = () => (
   <>
     Root position
     <Box bg="red.2" p={3} id="__primerPortalRoot__">

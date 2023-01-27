@@ -41,29 +41,29 @@ export default {
   },
 } as Meta
 
-export const defaultButton = (args: StrictButtonStyleProps) => <Button {...args}>Default Button</Button>
-export const dangerButton = (args: StrictButtonStyleProps) => <ButtonDanger {...args}>Danger Button</ButtonDanger>
-export const outlineButton = (args: StrictButtonStyleProps) => <ButtonOutline {...args}>Outline Button</ButtonOutline>
-export const primaryButton = (args: StrictButtonStyleProps) => <ButtonPrimary {...args}>Primary Button</ButtonPrimary>
-export const invisibleButton = (args: StrictButtonStyleProps) => (
+export const DefaultButton = (args: StrictButtonStyleProps) => <Button {...args}>Default Button</Button>
+export const DangerButton = (args: StrictButtonStyleProps) => <ButtonDanger {...args}>Danger Button</ButtonDanger>
+export const OutlineButton = (args: StrictButtonStyleProps) => <ButtonOutline {...args}>Outline Button</ButtonOutline>
+export const PrimaryButton = (args: StrictButtonStyleProps) => <ButtonPrimary {...args}>Primary Button</ButtonPrimary>
+export const InvisibleButton = (args: StrictButtonStyleProps) => (
   <ButtonInvisible {...args}>Invisible Button</ButtonInvisible>
 )
 
-export const closeButton = (args: ButtonStyleProps) => (
+export const CloseButton = (args: ButtonStyleProps) => (
   <ButtonClose {...args} onClick={() => alert('button clicked.')} />
 )
-export const buttonTableList = (args: ButtonStyleProps) => (
+export const ButtonTableList = (args: ButtonStyleProps) => (
   <ButtonTableList {...args}>Button Table List</ButtonTableList>
 )
-export const disabledButton = (args: StrictButtonStyleProps) => {
+export const DisabledButton = (args: StrictButtonStyleProps) => {
   const props = {disabled: true, ...args}
   return <Button {...props}>Disabled</Button>
 }
 
-defaultButton.args = {variant: 'medium'}
-dangerButton.args = {variant: 'medium'}
-outlineButton.args = {variant: 'medium'}
-primaryButton.args = {variant: 'medium'}
-invisibleButton.args = {variant: 'medium'}
-closeButton.args = {variant: 'medium'}
-buttonTableList.args = {variant: 'medium'}
+DefaultButton.args = {variant: 'medium'}
+DangerButton.args = {variant: 'medium'}
+OutlineButton.args = {variant: 'medium'}
+PrimaryButton.args = {variant: 'medium'}
+InvisibleButton.args = {variant: 'medium'}
+CloseButton.args = {variant: 'medium'}
+ButtonTableList.args = {variant: 'medium'}

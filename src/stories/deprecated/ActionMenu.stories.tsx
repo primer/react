@@ -153,7 +153,6 @@ export function ExternalOpenState(): JSX.Element {
     </>
   )
 }
-ExternalOpenState.storyName = 'External Open State'
 
 export function ComplexListStory(): JSX.Element {
   const [option, setOption] = useState('Select an option')
@@ -254,7 +253,6 @@ export function CustomTrigger(): JSX.Element {
     </>
   )
 }
-CustomTrigger.storyName = 'Custom Trigger'
 
 export function ActionMenuWithExternalAnchor(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
