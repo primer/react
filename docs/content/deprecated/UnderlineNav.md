@@ -1,7 +1,10 @@
 ---
+componentId: underline_nav
 title: UnderlineNav (legacy)
 status: Deprecated
 ---
+
+import data from '../../src/deprecated/UnderlineNav.docs.json'
 
 Use the UnderlineNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
 
@@ -58,21 +61,4 @@ This ensures that the NavLink gets `activeClassName='selected'`
 
 ## Component props
 
-### UnderlineNav
-
-| Name       | Type              | Default | Description                                                                            |
-| :--------- | :---------------- | :-----: | :------------------------------------------------------------------------------------- |
-| actions    | Node              |         | Place another element, such as a button, to the opposite side of the navigation items. |
-| align      | String            |         | Use `right` to have navigation items aligned right.                                    |
-| full       | Boolean           |         | Used to make navigation fill the width of the container.                               |
-| aria-label | String            |         | Used to set the `aria-label` on the top level `<nav>` element.                         |
-| sx         | SystemStyleObject |   {}    | Style to be applied to the component                                                   |
-
-### UnderlineNav.Link
-
-| Name     | Type              | Default | Description                                      |
-| :------- | :---------------- | :-----: | :----------------------------------------------- |
-| as       | String            |         | sets the HTML tag for the component              |
-| href     | String            |         | URL to be used for the Link                      |
-| selected | Boolean           |         | Used to style the link as selected or unselected |
-| sx       | SystemStyleObject |   {}    | Style to be applied to the component             |
+<ComponentProps data={data} />

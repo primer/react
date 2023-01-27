@@ -18,11 +18,7 @@ Similar to `useCallback`, `useOnEscapePress` takes a `React.DependencyList` as i
 ```javascript live noinline
 const OverlayDemo = ({onEscape, children}) => {
   useOnEscapePress(onEscape)
-  return (
-    <Box height="200px">
-      {children}
-    </Box>
-  )
+  return <Box height="200px">{children}</Box>
 }
 
 function DemoComponent() {
@@ -36,21 +32,22 @@ function DemoComponent() {
   return (
     <>
       <Button onClick={toggleOverlay}>toggle</Button>
-      {isOpen &&
+      {isOpen && (
         <OverlayDemo onEscape={closeOverlay}>
           <Button>Button One</Button>
           <Button>Button Two</Button>
-        </OverlayDemo>}
+        </OverlayDemo>
+      )}
     </>
   )
 }
 
-render(<DemoComponent/>)
+render(<DemoComponent />)
 ```
 
 #### useOnEscapePress
 
-| Name | Type | Default | Description |
-| :- | :- | :-: | :- |
-| onEscape | `(event: KeyboardEvent) => void` | | Function to call when user presses the Escape key |
-| callbackDependencies | `React.DependencyList` | | Array of dependencies for memoizing the given callback |
+| Name                 | Type                             | Default | Description                                            |
+| :------------------- | :------------------------------- | :-----: | :----------------------------------------------------- |
+| onEscape             | `(event: KeyboardEvent) => void` |         | Function to call when user presses the Escape key      |
+| callbackDependencies | `React.DependencyList`           |         | Array of dependencies for memoizing the given callback |

@@ -47,9 +47,11 @@ exports[`Tooltip renders consistently 1`] = `
 .c0:hover::before,
 .c0:active::before,
 .c0:focus::before,
+.c0:focus-within::before,
 .c0:hover::after,
 .c0:active::after,
-.c0:focus::after {
+.c0:focus::after,
+.c0:focus-within::after {
   display: inline-block;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -68,16 +70,19 @@ exports[`Tooltip renders consistently 1`] = `
 .c0.tooltipped-no-delay:hover::before,
 .c0.tooltipped-no-delay:active::before,
 .c0.tooltipped-no-delay:focus::before,
+.c0.tooltipped-no-delay:focus-within::before,
 .c0.tooltipped-no-delay:hover::after,
 .c0.tooltipped-no-delay:active::after,
-.c0.tooltipped-no-delay:focus::after {
+.c0.tooltipped-no-delay:focus::after,
+.c0.tooltipped-no-delay:focus-within::after {
   -webkit-animation-delay: 0s;
   animation-delay: 0s;
 }
 
 .c0.tooltipped-multiline:hover::after,
 .c0.tooltipped-multiline:active::after,
-.c0.tooltipped-multiline:focus::after {
+.c0.tooltipped-multiline:focus::after,
+.c0.tooltipped-multiline:focus-within::after {
   display: table-cell;
 }
 

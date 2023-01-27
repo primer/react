@@ -1,8 +1,9 @@
-import React, {KeyboardEvent} from 'react'
+import React, {ComponentProps, KeyboardEvent} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import sx, {SxProp} from '../sx'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 // TODO: remove invalid "extralarge" size name in next breaking change
 /** @deprecated 'extralarge' to be removed to align with size naming ADR https://github.com/github/primer/blob/main/adrs/2022-02-09-size-naming-guidelines.md **/
@@ -50,14 +51,12 @@ export interface TokenBaseProps
   size?: TokenSizeKeys
 }
 
-type TokenElements = HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement
-
 export const isTokenInteractive = ({
   as = 'span',
   onClick,
   onFocus,
   tabIndex = -1,
-}: Pick<TokenBaseProps, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
+}: Pick<ComponentProps<typeof TokenBase>, 'as' | 'onClick' | 'onFocus' | 'tabIndex'>) =>
   Boolean(onFocus || onClick || tabIndex > -1 || ['a', 'button'].includes(as))
 
 const xlargeVariantStyles = {
@@ -77,6 +76,8 @@ const variants = variant<
     lineHeight: string
     paddingLeft: number
     paddingRight: number
+    paddingTop: number
+    paddingBottom: number
   },
   TokenSizeKeys
 >({
@@ -89,6 +90,10 @@ const variants = variant<
       lineHeight: tokenSizes.small,
       paddingLeft: 1,
       paddingRight: 1,
+      // need to explicitly set padding top and bottom to "0" to override default `<button>` element styles
+      // without setting these, the "x" appears vertically mis-aligned
+      paddingTop: 0,
+      paddingBottom: 0,
     },
     medium: {
       fontSize: 0,
@@ -96,6 +101,8 @@ const variants = variant<
       lineHeight: tokenSizes.medium,
       paddingLeft: 2,
       paddingRight: 2,
+      paddingTop: 0,
+      paddingBottom: 0,
     },
     large: {
       fontSize: 0,
@@ -103,13 +110,19 @@ const variants = variant<
       lineHeight: tokenSizes.large,
       paddingLeft: 2,
       paddingRight: 2,
+      paddingTop: 0,
+      paddingBottom: 0,
     },
     extralarge: xlargeVariantStyles,
     xlarge: xlargeVariantStyles,
   },
 })
 
-const StyledTokenBase = styled.span<SxProp>`
+const StyledTokenBase = styled.span<
+  {
+    size?: TokenSizeKeys
+  } & SxProp
+>`
   align-items: center;
   border-radius: 999px;
   cursor: ${props => (isTokenInteractive(props) ? 'pointer' : 'auto')};
@@ -123,11 +136,11 @@ const StyledTokenBase = styled.span<SxProp>`
   ${sx}
 `
 
-const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
-  ({text, onRemove, onKeyDown, id, ...rest}, forwardedRef) => {
+const TokenBase = React.forwardRef(
+  ({text, onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
     return (
       <StyledTokenBase
-        onKeyDown={(event: KeyboardEvent<TokenElements>) => {
+        onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
           onKeyDown && onKeyDown(event)
 
           if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
@@ -136,16 +149,12 @@ const TokenBase = React.forwardRef<TokenElements, TokenBaseProps & SxProp>(
         }}
         aria-label={onRemove ? `${text}, press backspace or delete to remove` : undefined}
         id={id?.toString()}
+        size={size}
         {...rest}
         ref={forwardedRef}
       />
     )
   },
-)
-
-TokenBase.defaultProps = {
-  as: 'span',
-  size: defaultTokenSize,
-}
+) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', TokenBaseProps & SxProp>
 
 export default TokenBase

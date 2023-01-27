@@ -1,9 +1,12 @@
 {
-  "id": "tree-view",
+  "id": "tree_view",
   "name": "TreeView",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": ["components-treeview-features--files", "components-treeview-features--files-changed"],
+  "stories": [
+    "components-treeview-features--files",
+    "components-treeview-features--files-changed"
+  ],
   "props": [
     {
       "name": "children",

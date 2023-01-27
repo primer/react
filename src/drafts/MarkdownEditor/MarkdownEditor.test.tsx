@@ -789,8 +789,6 @@ describe('MarkdownEditor', () => {
       })
 
       it('forces links to open in a new tab', async () => {
-        const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
-
         // eslint-disable-next-line github/unescaped-html-literal
         const html = '<a href="https://example.com">Link</a>'
         const user = userEvent.setup()
@@ -800,19 +798,7 @@ describe('MarkdownEditor', () => {
         const link = await waitFor(() => within(getPreview()).getByText('Link'))
 
         await user.click(link)
-        // Note: navigation is not implemented in JSDOM and will log out an
-        // error when clicking the link above. The spy here captures this error
-        // and will assert that it is called only once, otherwise another error
-        // in this test has occurred
-        expect(spy).toHaveBeenCalledTimes(1)
-        expect(spy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            message: 'Not implemented: navigation (except hash changes)',
-          }),
-        )
-        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank')
-
-        spy.mockRestore()
+        expect(windowOpenSpy).toHaveBeenCalledWith('https://example.com/', '_blank', 'noopener noreferrer')
       })
     })
   })
@@ -1173,6 +1159,7 @@ describe('MarkdownEditor', () => {
     })
 
     it('inserts the selected reply at the caret position, closes the menu, and focuses the input', async () => {
+      const spy = jest.spyOn(console, 'error').mockImplementation()
       const {getToolbarButton, getInput, user, queryByRole} = await render(
         <UncontrolledEditor savedReplies={replies} />,
       )
@@ -1181,12 +1168,21 @@ describe('MarkdownEditor', () => {
       await user.type(getInput(), 'preceding  following')
       input.setSelectionRange(10, 10)
       await user.click(getToolbarButton(buttonLabel))
-
       await user.keyboard('Thanks{Enter}')
 
       expect(queryByRole('listbox')).not.toBeInTheDocument()
       await waitFor(() => expect(getInput().value).toBe('preceding Thanks for your contribution! following'))
       expect(getInput()).toHaveFocus()
+
+      // Note: this spy assertion for console.error() is for an act() violation.
+      // It's not clear where this act() violation is located as wrapping the
+      // above code does not address this.
+      if (REACT_VERSION_LATEST) {
+        expect(spy).toHaveBeenCalled()
+      } else {
+        expect(spy).not.toHaveBeenCalled()
+      }
+      spy.mockRestore()
     })
 
     it('inserts reply on Ctrl + number', async () => {

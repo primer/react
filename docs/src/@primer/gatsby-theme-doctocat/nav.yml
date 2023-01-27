@@ -166,6 +166,10 @@
       url: /drafts/MarkdownViewer
     - title: TreeView
       url: /TreeView
+    - title: PageHeader
+      url: /drafts/PageHeader
+    - title: Hidden
+      url: /drafts/Hidden
 - title: Deprecated
   children:
     - title: ActionList (legacy)

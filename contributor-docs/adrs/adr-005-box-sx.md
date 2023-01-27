@@ -10,44 +10,44 @@ In Primer React and consuming applications, we use many different patterns for c
 
 1. Creating components with styled-components
 
-    ```tsx
-    const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
-      height: props.size,
-      width: props.size
-    }))<StyledAvatarProps>`
-      display: inline-block;
-      overflow: hidden;
-      line-height: ${get('lineHeights.condensedUltra')};
-      border-radius: ${props => getBorderRadius(props)};
-      ${sx}
-    `
-    ```
+   ```tsx
+   const Avatar = styled.img.attrs<StyledAvatarProps>(props => ({
+     height: props.size,
+     width: props.size,
+   }))<StyledAvatarProps>`
+     display: inline-block;
+     overflow: hidden;
+     line-height: ${get('lineHeights.condensedUltra')};
+     border-radius: ${props => getBorderRadius(props)};
+     ${sx}
+   `
+   ```
 
-    [Show full code example →](https://github.com/primer/react/pull/2019/files?diff=split&w=0)
+   [Show full code example →](https://github.com/primer/react/pull/2019/files?diff=split&w=0)
 
-2.  Creating components with Box
+2. Creating components with Box
 
-    ```tsx
-    const Avatar: React.FC<AvatarProps> = ({size = 20, alt = '', square = false, sx = {}, ...props}) => {
-      const styles:BetterSystemStyleObject = {
-        display: 'inline-block',
-        overflow: 'hidden',
-        lineHeight: 'condensedUltra',
-        borderRadius: getBorderRadius({size, square})
-      }
+   ```tsx
+   const Avatar: React.FC<AvatarProps> = ({size = 20, alt = '', square = false, sx = {}, ...props}) => {
+     const styles: BetterSystemStyleObject = {
+       display: 'inline-block',
+       overflow: 'hidden',
+       lineHeight: 'condensedUltra',
+       borderRadius: getBorderRadius({size, square}),
+     }
 
-      return (
-        <Box
-          as="img"
-          alt={alt}
-          sx={merge<BetterSystemStyleObject>(styles, sx)} // styles needs to merge with props.sx
-          {...props}
-        />
-      )
-    }
-    ```
+     return (
+       <Box
+         as="img"
+         alt={alt}
+         sx={merge<BetterSystemStyleObject>(styles, sx)} // styles needs to merge with props.sx
+         {...props}
+       />
+     )
+   }
+   ```
 
-    [Show full code example →](https://github.com/primer/react/pull/2019/files?diff=split&w=0)
+   [Show full code example →](https://github.com/primer/react/pull/2019/files?diff=split&w=0)
 
 &nbsp;
 

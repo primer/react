@@ -9,7 +9,7 @@ The Position component is a wrapper component that gives the containing componen
 
 Use [Box](/Box) instead.
 
-**Before**
+### Before
 
 ```jsx deprecated
 <>
@@ -21,7 +21,7 @@ Use [Box](/Box) instead.
 </>
 ```
 
-**After**
+### After
 
 ```jsx deprecated
 <>

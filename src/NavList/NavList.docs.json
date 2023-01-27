@@ -1,0 +1,135 @@
+{
+  "id": "nav_list",
+  "name": "NavList",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"nav\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "NavList.Item",
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "defaultValue": "",
+          "description": "The URL that the item navigates to. `href` is passed to the underlying `<a>` element. If `as` is specified, the component may need different props. If the item contains a sub-nav, the item is rendered as a `<button>` and `href` is ignored."
+        },
+        {
+          "name": "aria-current",
+          "type": "| 'page' | 'step' | 'location' | 'date' | 'time' | true | false",
+          "defaultValue": "false",
+          "description": "Set `aria-current` to `\"page\"` to indicate that the item represents the current page. Set `aria-current` to `\"location\"` to indicate that the item represents the current location on a page. For more information about `aria-current`, see [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+      }
+    },
+    {
+      "name": "NavList.LeadingVisual",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.TrailingVisual",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.SubNav",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.Group",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.Divider",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+---
+componentId: text
+title: Text
+status: Alpha
+---
+
+import data from '../../src/Text.docs.json'
+
+The Text component is a wrapper component that will apply typography styles to the text inside.
+
+## Examples
+
+```jsx live
+<>
+  <Text as="p" sx={{fontWeight: 'bold'}}>
+    bold
+  </Text>
+  <Text as="p" sx={{color: 'danger.fg'}}>
+    danger color
+  </Text>
+  <Text as="p" sx={{color: 'fg.onEmphasis', bg: 'neutral.emphasis', p: 2}}>
+    inverse colors
+  </Text>
+</>
+```
+
+## Props
+
+<ComponentProps data={data} />

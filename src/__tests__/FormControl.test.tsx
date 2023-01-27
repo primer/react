@@ -10,18 +10,6 @@ const CAPTION_TEXT = 'Hint text'
 const ERROR_TEXT = 'This field is invalid'
 
 describe('FormControl', () => {
-  const mockWarningFn = jest.fn()
-  const mockErrorFn = jest.fn()
-
-  beforeAll(() => {
-    jest.spyOn(global.console, 'warn').mockImplementation(mockWarningFn)
-    jest.spyOn(global.console, 'error').mockImplementation(mockErrorFn)
-  })
-
-  afterAll(() => {
-    jest.clearAllMocks()
-  })
-
   describe('vertically stacked layout (default)', () => {
     describe('rendering', () => {
       it('renders with a hidden label', () => {
@@ -40,6 +28,7 @@ describe('FormControl', () => {
         expect(input).toBeDefined()
         expect(label).toBeDefined()
       })
+
       it('renders with a custom ID', () => {
         const {getByLabelText} = render(
           <SSRProvider>
@@ -54,6 +43,7 @@ describe('FormControl', () => {
 
         expect(input.getAttribute('id')).toBe('customId')
       })
+
       it('renders as disabled', () => {
         const {getByLabelText} = render(
           <SSRProvider>
@@ -68,6 +58,7 @@ describe('FormControl', () => {
 
         expect(input.getAttribute('disabled')).not.toBeNull()
       })
+
       it('renders as required', () => {
         const {getByRole} = render(
           <SSRProvider>
@@ -82,6 +73,7 @@ describe('FormControl', () => {
 
         expect(input.getAttribute('required')).not.toBeNull()
       })
+
       it('renders with a caption', () => {
         const {getByText} = render(
           <SSRProvider>
@@ -97,6 +89,7 @@ describe('FormControl', () => {
 
         expect(caption).toBeDefined()
       })
+
       it('renders with a successful validation message', () => {
         const {getByText} = render(
           <SSRProvider>
@@ -112,6 +105,7 @@ describe('FormControl', () => {
 
         expect(validationMessage).toBeDefined()
       })
+
       it('renders with an error validation message', () => {
         const {getByText} = render(
           <SSRProvider>
@@ -127,6 +121,7 @@ describe('FormControl', () => {
 
         expect(validationMessage).toBeDefined()
       })
+
       it('renders with the input as a TextInputWithTokens', () => {
         const onRemoveMock = jest.fn()
         const {getByLabelText} = render(
@@ -149,6 +144,7 @@ describe('FormControl', () => {
 
         expect(input).toBeDefined()
       })
+
       it('renders with the input as an Autocomplete', () => {
         const {getByLabelText} = render(
           <SSRProvider>
@@ -165,6 +161,7 @@ describe('FormControl', () => {
 
         expect(input).toBeDefined()
       })
+
       it('renders with the input as a Select', () => {
         const {getByLabelText, getByText} = render(
           <SSRProvider>
@@ -185,6 +182,7 @@ describe('FormControl', () => {
         expect(input).toBeDefined()
         expect(label).toBeDefined()
       })
+
       it('renders with the input as a Textarea', () => {
         const {getByLabelText, getByText} = render(
           <SSRProvider>
@@ -217,6 +215,7 @@ describe('FormControl', () => {
         const inputNode = getByLabelText(LABEL_TEXT)
         expect(inputNode).toBeDefined()
       })
+
       it('associates caption text with the input', () => {
         const fieldId = 'captionedInput'
         const {getByLabelText, getByText} = render(
@@ -235,6 +234,7 @@ describe('FormControl', () => {
         expect(captionNode.getAttribute('id')).toBe(`${fieldId}-caption`)
         expect(inputNode.getAttribute('aria-describedby')).toBe(`${fieldId}-caption`)
       })
+
       it('associates validation text with the input', () => {
         const fieldId = 'validatedInput'
         const {getByLabelText, getByText} = render(
@@ -256,7 +256,9 @@ describe('FormControl', () => {
     })
 
     describe('warnings', () => {
-      it('should log an error if a user does not pass a label', async () => {
+      it('should log an error if a user does not pass a label', () => {
+        const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
+
         render(
           <SSRProvider>
             <FormControl>
@@ -266,9 +268,13 @@ describe('FormControl', () => {
           </SSRProvider>,
         )
 
-        expect(mockErrorFn).toHaveBeenCalled()
+        expect(spy).toHaveBeenCalledTimes(1)
+        spy.mockRestore()
       })
+
       it('should warn users if they try to render a leading visual when using variant="stack"', async () => {
+        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+
         render(
           <SSRProvider>
             <FormControl>
@@ -281,9 +287,13 @@ describe('FormControl', () => {
           </SSRProvider>,
         )
 
-        expect(mockWarningFn).toHaveBeenCalled()
+        expect(spy).toHaveBeenCalledTimes(1)
+        spy.mockRestore()
       })
+
       it('should warn users if they pass an id directly to the input', async () => {
+        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+
         render(
           <SSRProvider>
             <FormControl>
@@ -294,9 +304,13 @@ describe('FormControl', () => {
           </SSRProvider>,
         )
 
-        expect(mockWarningFn).toHaveBeenCalled()
+        expect(spy).toHaveBeenCalledTimes(1)
+        spy.mockRestore()
       })
+
       it('should warn users if they pass a `disabled` prop directly to the input', async () => {
+        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+
         render(
           <SSRProvider>
             <FormControl>
@@ -307,9 +321,13 @@ describe('FormControl', () => {
           </SSRProvider>,
         )
 
-        expect(mockWarningFn).toHaveBeenCalled()
+        expect(spy).toHaveBeenCalledTimes(1)
+        spy.mockRestore()
       })
+
       it('should warn users if they pass a `required` prop directly to the input', async () => {
+        const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+
         render(
           <SSRProvider>
             <FormControl>
@@ -320,9 +338,11 @@ describe('FormControl', () => {
           </SSRProvider>,
         )
 
-        expect(mockWarningFn).toHaveBeenCalled()
+        expect(spy).toHaveBeenCalledTimes(1)
+        spy.mockRestore()
       })
     })
+
     it('should have no axe violations', async () => {
       const {container} = render(
         <SSRProvider>
@@ -361,7 +381,7 @@ describe('FormControl', () => {
 
     describe('warnings', () => {
       it('should warn users if they try to render a validation message when using a checkbox or radio', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
+        const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
         render(
           <SSRProvider>
             <FormControl>
@@ -374,9 +394,12 @@ describe('FormControl', () => {
         )
 
         expect(consoleSpy).toHaveBeenCalled()
+        consoleSpy.mockRestore()
       })
+
       it('should warn users if they pass `required` to a checkbox or radio', async () => {
-        const consoleSpy = jest.spyOn(global.console, 'warn')
+        const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
+
         render(
           <SSRProvider>
             <FormControl required>
@@ -388,8 +411,10 @@ describe('FormControl', () => {
         )
 
         expect(consoleSpy).toHaveBeenCalled()
+        consoleSpy.mockRestore()
       })
     })
+
     it('should have no axe violations', async () => {
       const {container} = render(
         <SSRProvider>

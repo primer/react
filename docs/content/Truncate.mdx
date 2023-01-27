@@ -1,0 +1,55 @@
+---
+componentId: truncate
+title: Truncate
+status: Alpha
+---
+
+import data from '../../src/Truncate.docs.json'
+
+The Truncate component will shorten text with an ellipsis. Always add a `title` attribute to the truncated element so the full text remains accessible.
+
+## Examples
+
+### Default
+
+Truncate will prevent text that overflows from wrapping. The default max-width is 125px.
+
+```jsx live
+<Truncate title="Some text with a branch-name-that-is-really-long">
+  Some text with a branch-name-that-is-really-long
+</Truncate>
+```
+
+### Custom max-width
+
+You can override the maximum width of the truncated text with the `maxWidth` prop.
+
+```jsx live
+<Truncate maxWidth={250} title="Some text with a branch-name-that-is-really-long">
+  Some text with a branch-name-that-is-really-long
+</Truncate>
+```
+
+### Inline
+
+You can use the `inline` boolean prop for inline (or inline-block) elements with a fixed maximum width (default: 125px).
+
+```jsx live
+<Truncate as="strong" inline title="branch-name-that-is-really-long">
+  Some text with a branch-name-that-is-really-long
+</Truncate>
+```
+
+### Expandable
+
+You can use the `expandable` boolean prop to display the truncated text on hover.
+
+```jsx live
+<Truncate expandable title="Some text with a branch-name-that-is-really-long">
+  Some text with a branch-name-that-is-really-long
+</Truncate>
+```
+
+## Props
+
+<ComponentProps data={data} />
