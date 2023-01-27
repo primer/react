@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {ComponentProps} from '../utils/types'
-import Label from '../Label'
+import Label from './Label'
 
 export default {
   title: 'Components/Label',
@@ -45,3 +45,5 @@ export default {
 } as Meta<ComponentProps<typeof Label>>
 
 export const Playground: Story<ComponentProps<typeof Label>> = args => <Label {...args}>Label</Label>
+
+export const Default = () => <Label>Default</Label>

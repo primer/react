@@ -174,6 +174,67 @@ const components = new Map([
     },
   ],
   [
+    'Label',
+    {
+      stories: [
+        {
+          id: 'components-label--default',
+          name: 'Default',
+          importPath: './src/Label/Label.stories.tsx',
+        },
+        {
+          id: 'components-label--playground',
+          name: 'Playground',
+          importPath: './src/Label/Label.stories.tsx',
+        },
+        {
+          id: 'components-label-features--accent',
+          name: 'Accent',
+        },
+        {
+          id: 'components-label-features--attention',
+          name: 'Attention',
+        },
+        {
+          id: 'components-label-features--danger',
+          name: 'Danger',
+        },
+        {
+          id: 'components-label-features--done',
+          name: 'Done',
+        },
+        {
+          id: 'components-label-features--primary',
+          name: 'Primary',
+        },
+        {
+          id: 'components-label-features--secondary',
+          name: 'Secondary',
+        },
+        {
+          id: 'components-label-features--severe',
+          name: 'Severe',
+        },
+        {
+          id: 'components-label-features--size-large',
+          name: 'Size Large',
+        },
+        {
+          id: 'components-label-features--size-small',
+          name: 'Size Small',
+        },
+        {
+          id: 'components-label-features--sponsors',
+          name: 'Sponsors',
+        },
+        {
+          id: 'components-label-features--success',
+          name: 'Success',
+        },
+      ],
+    },
+  ],
+  [
     'LinkButton',
     {
       stories: [
