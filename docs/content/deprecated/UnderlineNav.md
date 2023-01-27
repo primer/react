@@ -4,7 +4,7 @@ title: UnderlineNav (legacy)
 status: Deprecated
 ---
 
-import data from '../../src/deprecated/UnderlineNav.docs.json'
+import data from '../../../src/deprecated/UnderlineNav.docs.json'
 
 Use the UnderlineNav component to style navigation with a minimal underlined selected state, typically used for navigation placed at the top of the page.
 
@@ -12,7 +12,7 @@ Use the UnderlineNav component to style navigation with a minimal underlined sel
 
 Use [the new version of UnderlineNav](/UnderlineNav) with design updated and accessibility improvements.
 
-**Before**
+### Before
 
 ```jsx
 <UnderlineNav aria-label="Main">
@@ -24,7 +24,7 @@ Use [the new version of UnderlineNav](/UnderlineNav) with design updated and acc
 </UnderlineNav>
 ```
 
-**After**
+### After
 
 ```jsx
 <UnderlineNav aria-label="Repository">
