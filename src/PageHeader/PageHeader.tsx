@@ -4,7 +4,8 @@ import {useResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
 import {SxProp, merge, BetterSystemStyleObject} from '../sx'
 import Heading from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
-import Link from '../Link'
+import Link, {LinkProps as BaseLinkProps} from '../Link'
+
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 const REGION_ORDER = {
@@ -92,8 +93,8 @@ const ContextArea: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({
   return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
 }
 type LinkProps = Pick<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy'
+  React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
+  'download' | 'href' | 'hrefLang' | 'media' | 'ping' | 'rel' | 'target' | 'type' | 'referrerPolicy' | 'as'
 >
 export type ParentLinkProps = React.PropsWithChildren<PageHeaderProps & LinkProps>
 
