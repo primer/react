@@ -82,52 +82,50 @@ function DataTable<Data extends Row>({
   data,
 }: DataTableProps<Data>) {
   return (
-    <>
-      <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
-        <TableHead>
-          <TableRow>
-            {columns.map(column => {
-              return <TableHeader key={column.header}>{column.header}</TableHeader>
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map(row => {
-            return (
-              <TableRow key={row.id}>
-                {columns.map(column => {
-                  const columnProps = {
-                    scope: column.rowHeader ? 'row' : undefined,
-                  }
+    <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
+      <TableHead>
+        <TableRow>
+          {columns.map(column => {
+            return <TableHeader key={column.header}>{column.header}</TableHeader>
+          })}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {data.map(row => {
+          return (
+            <TableRow key={row.id}>
+              {columns.map(column => {
+                const columnProps = {
+                  scope: column.rowHeader ? 'row' : undefined,
+                }
 
-                  if (column.renderCell) {
+                if (column.renderCell) {
+                  return (
+                    <TableCell key={column.header} {...columnProps}>
+                      {column.renderCell(row)}
+                    </TableCell>
+                  )
+                }
+
+                if (column.field) {
+                  const value = row[column.field]
+
+                  if (typeof value === 'string' || typeof value === 'number' || React.isValidElement(value)) {
                     return (
                       <TableCell key={column.header} {...columnProps}>
-                        {column.renderCell(row)}
+                        {value}
                       </TableCell>
                     )
                   }
+                }
 
-                  if (column.field) {
-                    const value = row[column.field]
-
-                    if (typeof value === 'string' || typeof value === 'number' || React.isValidElement(value)) {
-                      return (
-                        <TableCell key={column.header} {...columnProps}>
-                          {value}
-                        </TableCell>
-                      )
-                    }
-                  }
-
-                  return null
-                })}
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
-    </>
+                return null
+              })}
+            </TableRow>
+          )
+        })}
+      </TableBody>
+    </Table>
   )
 }
 
