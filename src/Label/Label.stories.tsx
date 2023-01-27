@@ -6,7 +6,6 @@ import Label from './Label'
 export default {
   title: 'Components/Label',
   component: Label,
-  argTypes: {},
 } as Meta<ComponentProps<typeof Label>>
 
 export const Playground: Story<ComponentProps<typeof Label>> = args => <Label {...args}>Label</Label>
@@ -22,19 +21,7 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  as: {
-    control: false,
-    table: {
-      disable: true,
-    },
-  },
   theme: {
-    control: false,
-    table: {
-      disable: true,
-    },
-  },
-  forwardedAs: {
     control: false,
     table: {
       disable: true,
