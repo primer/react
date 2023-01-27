@@ -2,6 +2,7 @@
 
 exports[`RelativeTime renders consistently 1`] = `
 <relative-time
+  _$Gl={null}
   class=""
 />
 `;

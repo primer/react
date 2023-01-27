@@ -115,7 +115,7 @@ exports[`ActionMenu renders consistently 1`] = `
   color: inherit;
 }
 
-.c1[data-component=ButtonCounter] {
+.c1 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 

@@ -1351,7 +1351,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: inherit;
 }
 
-.c4[data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1468,7 +1468,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: #24292f;
 }
 
-.c4[data-component="IconButton"][data-size="small"] {
+.c4[data-size="small"][data-no-visuals="true"] {
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
@@ -1476,7 +1476,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   position: relative;
 }
 
-.c4[data-component="IconButton"][data-size="small"][data-component="IconButton"] {
+.c4[data-size="small"][data-no-visuals="true"][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
 }
@@ -1801,7 +1801,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c4[data-component="IconButton"][data-size="small"]:after {
+  .c4[data-size="small"][data-no-visuals="true"]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -1989,7 +1989,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: inherit;
 }
 
-.c3[data-component=ButtonCounter] {
+.c3 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -2381,7 +2381,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: inherit;
 }
 
-.c4[data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
