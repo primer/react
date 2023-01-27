@@ -37,3 +37,5 @@ export default {
 } as Meta<typeof Button>
 
 export const Playground: Story<typeof Button> = args => <Button {...args}>Default</Button>
+
+export const Default = () => <Button>Default</Button>
