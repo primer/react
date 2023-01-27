@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
-import {useId} from '../hooks/useId'
-import Box from '../Box'
 
 // ----------------------------------------------------------------------------
 // DataTable
@@ -43,16 +41,6 @@ export interface DataTableProps<Data extends Row> {
    * correspond
    */
   columns: Array<Column<Data>>
-
-  /**
-   * Provide a title for the table
-   */
-  title?: string | React.ReactNode | undefined
-
-  /**
-   * Provide an optional description for the table
-   */
-  subtitle?: string | React.ReactNode | undefined
 }
 
 interface Column<Data extends Row> {
@@ -91,40 +79,10 @@ function DataTable<Data extends Row>({
   cellPadding,
   columns,
   data,
-  title,
-  subtitle,
 }: DataTableProps<Data>) {
-  const id = useId()
   return (
     <>
-      {title || subtitle ? (
-        <Box sx={{mb: 2}}>
-          {title ? (
-            <Box
-              id={`${id}-title`}
-              sx={{
-                color: 'fg.default',
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                lineHeight: 'calc(20 / 14)',
-                margin: 0,
-              }}
-            >
-              {title}
-            </Box>
-          ) : null}
-          {subtitle ? (
-            <Box id={`${id}-subtitle`} sx={{color: 'fg.default', fontSize: '0.75rem', fontWeight: 400, margin: 0}}>
-              {subtitle}
-            </Box>
-          ) : null}
-        </Box>
-      ) : null}
-      <Table
-        aria-labelledby={labelledby ?? (title ? `${id}-title` : undefined)}
-        aria-describedby={describedby ?? (subtitle ? `${id}-subtitle` : undefined)}
-        cellPadding={cellPadding}
-      >
+      <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
         <TableHead>
           <TableRow>
             {columns.map(column => {

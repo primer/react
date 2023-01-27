@@ -180,8 +180,6 @@ export const Playground: ComponentStory<typeof DataTable> = args => {
 
 Playground.args = {
   cellPadding: 'normal',
-  title: 'Repositories',
-  subtitle: 'A subtitle could appear here to give extra context to the data.',
 }
 
 Playground.argTypes = {
@@ -216,16 +214,6 @@ Playground.argTypes = {
     type: {
       name: 'enum',
       value: ['condensed', 'normal', 'spacious'],
-    },
-  },
-  title: {
-    control: {
-      type: 'text',
-    },
-  },
-  subtitle: {
-    control: {
-      type: 'text',
     },
   },
 }
