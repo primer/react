@@ -71,7 +71,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   const selectedSegments = React.Children.toArray(children).map(
     child =>
       React.isValidElement<SegmentedControlButtonProps | SegmentedControlIconButtonProps>(child) &&
-      (isUncontrolled ? child.props.defaultSelected : child.props.selected),
+      (child.props.defaultSelected || child.props.selected),
   )
   const hasSelectedButton = selectedSegments.some(isSelected => isSelected)
   const selectedIndexExternal = hasSelectedButton ? selectedSegments.indexOf(true) : 0
