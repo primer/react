@@ -186,7 +186,7 @@ const components = new Map([
           name: 'Danger',
         },
         {
-          id: 'components-linkbutton-features--default',
+          id: 'components-linkbutton--default',
           name: 'Default',
         },
         {
