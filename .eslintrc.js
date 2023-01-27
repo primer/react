@@ -6,8 +6,6 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
   },
   extends: [
     'plugin:react/recommended',
@@ -20,7 +18,7 @@ module.exports = {
     'plugin:import/typescript',
   ],
   ignorePatterns: [
-    'node_modules',
+    '**/node_modules/**',
     '.cache',
     'coverage/**/*',
     'docs/public/**/*',
@@ -78,10 +76,18 @@ module.exports = {
     'filenames/match-regex': 'off',
     // React.useState() pattern is a warning if pulled from default export
     'import/no-named-as-default-member': 'off',
+    'import/no-named-as-default': 'off',
+    'import/default': 'off',
     'import/no-deprecated': 'off',
+    'import/no-commonjs': 'off',
+    'import/no-dynamic-require': 'off',
+    'import/extensions': 'off',
+    'import/no-nodejs-modules': 'off',
+    'i18n-text/no-en': 'off',
+    'github/no-inner-html': 'off',
   },
   overrides: [
-    // rules which apply only to JS
+    // JavaScript
     {
       files: ['**/*.{js,jsx}'],
       rules: {
@@ -95,10 +101,14 @@ module.exports = {
         ],
       },
     },
+
+    // TypeScript
     {
       files: ['**/*.{ts,tsx}'],
-
-      plugins: ['@typescript-eslint'],
+      parserOptions: {
+        project: 'tsconfig.json',
+        tsconfigRootDir: __dirname,
+      },
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
         '@typescript-eslint/no-explicit-any': 'error',
@@ -133,69 +143,32 @@ module.exports = {
         ],
       },
     },
-  ],
-}
 
-const initialRules = {
-  overrides: [
-    // rules which apply only to TS
+    // Tests
     {
-      parserOptions: {
-        project: 'tsconfig.json',
-      },
-      files: ['**/*.{ts,tsx}'],
-      extends: ['plugin:@typescript-eslint/recommended'],
+      files: ['**/*.test.{ts,tsx,js}'],
+      extends: ['plugin:jest/recommended'],
       rules: {
-        '@typescript-eslint/no-explicit-any': 2,
-        '@typescript-eslint/no-unnecessary-condition': 2,
-        '@typescript-eslint/explicit-module-boundary-types': 0,
-        '@typescript-eslint/no-unused-vars': [
-          'error',
-          {
-            argsIgnorePattern: '^_',
-          },
-        ],
-        '@typscript-eslint/no-shadow': 0,
-        '@typescript-eslint/no-empty-function': 0,
-        '@typescript-eslint/ban-ts-comment': [
-          'error',
-          {
-            'ts-ignore': 'allow-with-description',
-          },
-        ],
-        'no-restricted-imports': [
-          'error',
-          {
-            paths: [
-              {
-                name: '@react-aria/ssr',
-                importNames: ['useSSRSafeId'],
-                message: 'Please use the `useId` hook from `src/hooks/useId.ts` instead',
-              },
-            ],
-            patterns: [],
-          },
-        ],
+        '@typescript-eslint/no-non-null-assertion': 0,
       },
     },
-    // Stories
-    {
-      files: ['**/*.stories.{ts,tsx}'],
-      extends: ['plugin:storybook/recommended'],
-      rules: {},
-    },
-    // rules which apply only to Markdown
+
+    // Markdown
     {
       files: ['**/*.{md,mdx}'],
       extends: ['plugin:mdx/recommended'],
+      // parserOptions: {
+      // project: 'tsconfig.json',
+      // },
       settings: {
         'mdx/code-blocks': true,
       },
       rules: {
-        'prettier/prettier': 0,
+        'prettier/prettier': 'off',
       },
     },
-    // rules which apply only to Markdown code blocks
+
+    // Markdown code blocks
     {
       files: ['**/*.{md,mdx}/**'],
       parserOptions: {
@@ -223,15 +196,6 @@ const initialRules = {
         '@typescript-eslint/no-unused-vars': 0,
         'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
         'no-redeclare': 0,
-      },
-    },
-    {
-      parserOptions: {
-        project: 'tsconfig.json',
-      },
-      files: ['playwright.config.ts', 'e2e/**/*.{ts,tsx}'],
-      rules: {
-        'github/array-foreach': 'off',
       },
     },
   ],
