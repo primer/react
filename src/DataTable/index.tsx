@@ -11,6 +11,7 @@ interface Row {
    */
   id: string | number
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any
 }
 
@@ -96,19 +97,26 @@ function DataTable<Data extends Row>({
               <TableRow key={row.id}>
                 {columns.map(column => {
                   const columnProps = {
-                    key: column.header,
                     scope: column.rowHeader ? 'row' : undefined,
                   }
 
                   if (column.renderCell) {
-                    return <TableCell {...columnProps}>{column.renderCell(row)}</TableCell>
+                    return (
+                      <TableCell key={column.header} {...columnProps}>
+                        {column.renderCell(row)}
+                      </TableCell>
+                    )
                   }
 
                   if (column.field) {
                     const value = row[column.field]
 
                     if (typeof value === 'string' || typeof value === 'number' || React.isValidElement(value)) {
-                      return <TableCell {...columnProps}>{value}</TableCell>
+                      return (
+                        <TableCell key={column.header} {...columnProps}>
+                          {value}
+                        </TableCell>
+                      )
                     }
                   }
 
