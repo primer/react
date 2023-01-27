@@ -30,16 +30,6 @@
       "name": "cellPadding",
       "type": "'condensed' | 'normal' | 'spacious'",
       "description": "Specify the amount of space that should be available around the contents of a cell"
-    },
-    {
-      "name": "title",
-      "type": "string | React.ReactNode",
-      "description": "Provide a title for the table"
-    },
-    {
-      "name": "subtitle",
-      "type": "string | React.ReactNode",
-      "description": "Provide a subtitle for the table"
     }
   ],
   "subcomponents": [

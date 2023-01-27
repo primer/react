@@ -79,56 +79,6 @@ describe('DataTable', () => {
     }
   })
 
-  it('should support labeling through `title`', () => {
-    const columns = [
-      {
-        header: 'Name',
-        field: 'name',
-      },
-    ]
-    const data = [
-      {
-        id: 1,
-        name: 'one',
-      },
-      {
-        id: 2,
-        name: 'two',
-      },
-      {
-        id: 3,
-        name: 'three',
-      },
-    ]
-    render(<DataTable data={data} columns={columns} title="test" />)
-    expect(screen.getByRole('table', {name: 'test'})).toBeInTheDocument()
-  })
-
-  it('should support describing the table through `subtitle`', () => {
-    const columns = [
-      {
-        header: 'Name',
-        field: 'name',
-      },
-    ]
-    const data = [
-      {
-        id: 1,
-        name: 'one',
-      },
-      {
-        id: 2,
-        name: 'two',
-      },
-      {
-        id: 3,
-        name: 'three',
-      },
-    ]
-    render(<DataTable data={data} columns={columns} subtitle="test" />)
-    expect(screen.getByRole('table', {description: 'test'})).toBeInTheDocument()
-  })
-
   it('should support custom labeling through `aria-labelledby`', () => {
     const columns = [
       {
