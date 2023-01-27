@@ -44,7 +44,7 @@ describe('Link', () => {
   })
 
   it('logs a warning when trying to render invalid "as" prop', () => {
-    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
+    const consoleSpy = jest.spyOn(global.console, 'error').mockImplementation()
 
     HTMLRender(<Link as="i" />)
     expect(consoleSpy).toHaveBeenCalled()
