@@ -78,15 +78,15 @@ describe.each(components)('%s', (_component, stories) => {
 
 const jsonFiles = glob.sync('src/**/*.docs.json', {
   cwd: ROOT_DIRECTORY,
-})
+}).filter((filepath) => {
+  const name = path.basename(filepath, '.docs.json')
+  return allowlist.includes(name);
+});
 
 // eslint-disable-next-line jest/no-identical-title
 describe.each(jsonFiles)('%s', filepath => {
-  const name = path.basename(filepath, '.docs.json')
-  if (allowlist.includes(name)) {
-    test('has a corresponding .stories.tsx file', () => {
-      const storyFilepath = path.join(ROOT_DIRECTORY, filepath.replace('.docs.json', '.stories.tsx'))
-      expect(fs.existsSync(storyFilepath)).toBe(true)
-    })
-  }
+  test('has a corresponding .stories.tsx file', () => {
+    const storyFilepath = path.join(ROOT_DIRECTORY, filepath.replace('.docs.json', '.stories.tsx'))
+    expect(fs.existsSync(storyFilepath)).toBe(true)
+  })
 })
