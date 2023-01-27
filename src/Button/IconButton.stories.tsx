@@ -38,3 +38,5 @@ const meta: Meta<ComponentProps<typeof IconButton>> = {
 export default meta
 
 export const Playground: Story<ComponentProps<typeof IconButton>> = args => <IconButton {...args} />
+
+export const Default = () => <IconButton icon={HeartIcon} aria-label="Default" />

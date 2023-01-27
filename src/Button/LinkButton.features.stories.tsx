@@ -6,12 +6,6 @@ export default {
   title: 'Components/LinkButton/Features',
 }
 
-export const Default = () => (
-  <Button as="a" href="/">
-    Default
-  </Button>
-)
-
 export const Primary = () => (
   <Button as="a" href="/" variant="primary">
     Primary
