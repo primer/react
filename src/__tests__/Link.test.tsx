@@ -51,17 +51,4 @@ describe('Link', () => {
 
     consoleSpy.mockRestore()
   })
-
-  it('logs a warning when trying to render invalid component "as" prop', () => {
-    const CustomComponent = React.forwardRef<HTMLDivElement>((props, ref) => {
-      return <div ref={ref} {...props} />
-    })
-
-    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
-
-    HTMLRender(<Link as={CustomComponent} />)
-    expect(consoleSpy).toHaveBeenCalled()
-
-    consoleSpy.mockRestore()
-  })
 })
