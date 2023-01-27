@@ -355,7 +355,7 @@ export const UnderlineNav = forwardRef(
                   <Box as="span">
                     {onlyMenuVisible ? (
                       <>
-                        <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Items
+                        <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
                       </>
                     ) : (
                       <>
