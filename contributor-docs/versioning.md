@@ -55,13 +55,15 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 | Markup     | The DOM node that an `id` corresponds to is changed           | `<todo>`    |
 |            | The DOM node that an `aria-label` corresponds to is changed   | `<todo>`    |
 |            | The `role` of a component is changed                          | `<todo>`    |
-| Styles     | The `position` of the outermost element is updated            | `<todo>`    |
+| Style      | The `position` of the outermost element is updated            | `<todo>`    |
 |            | The `display` property of the outermost element is updated    | `<todo>`    |
 |            | A flex or grid property is updated                            | `<todo>`    |
 |            | A selector is added                                           | `<todo>`    |
 |            | A selector is removed                                         | `<todo>`    |
 |            | The specificity of a selector is raised                       | `<todo>`    |
 |            | The specificity of a selector is lowered                      | `<todo>`    |
+|            | A token used for a CSS property has changed                   | `<todo>`    |
+|            | A component token is no longer used                           | `<todo>`    |
 | Behavior   | Interactions are added to a component                         | `<todo>`    |
 |            | Interactions are removed from a component                     | `<todo>`    |
 | TypeScript | A type is added                                               | `minor`     |
