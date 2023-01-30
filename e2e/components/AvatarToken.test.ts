@@ -1,0 +1,49 @@
+import {test, expect} from '@playwright/test'
+import {visit} from '../test-helpers/storybook'
+
+test.describe('AvatarToken', () => {
+  test.describe('Default', () => {
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-avatartoken--default-token',
+      })
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('Interactive', () => {
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-avatartoken--interactive',
+      })
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+
+  test.describe('With On Remove Fn', () => {
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-avatartoken--with-on-remove-fn',
+      })
+      await expect(page).toHaveNoViolations({
+        rules: {
+          'color-contrast': {
+            enabled: false,
+          },
+        },
+      })
+    })
+  })
+})
