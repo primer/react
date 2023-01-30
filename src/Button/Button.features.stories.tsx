@@ -6,8 +6,6 @@ export default {
   title: 'Components/Button/Features',
 }
 
-export const Default = () => <Button>Default</Button>
-
 export const Primary = () => <Button variant="primary">Primary</Button>
 
 export const Danger = () => <Button variant="danger">Danger</Button>
