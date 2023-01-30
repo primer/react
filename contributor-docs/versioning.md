@@ -32,8 +32,8 @@ that we ship. From semver.org, this means that:
 > _Additional labels for pre-release and build metadata are available as
 > extensions to the MAJOR.MINOR.PATCH format._
 
-As a result, whenever you see a `minor` or `patch` update for a package from the
-Primer you should feel confident that you can update without
+As a result, whenever you see a `minor` or `patch` update to a package from the
+Primer team you should feel confident that you can update without
 anything breaking in your project. For a full list of changes and their
 corresponding semver bumps, check out the [changes](#changes) table below.
 
