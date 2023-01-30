@@ -77,6 +77,9 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |            | A dependency range is updated                                 | `<todo>`    |
 |            | A pinned dependency version is updated to be range            | `<todo>`    |
 | Visual     | The design for a component has been updated                   | `<todo>`    |
+| Theming    | A token in a theme is no longer used by a component           | `<todo>`    |
+|            | A token in a theme is added                                   | `<todo>`    |
+|            | A token value in a theme is changed                           | `<todo>`    |
 
 ### Examples
 
