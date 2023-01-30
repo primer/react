@@ -1,5 +1,17 @@
 # @primer/components
 
+## 35.19.0
+
+### Minor Changes
+
+- [#2807](https://github.com/primer/react/pull/2807) [`81447a10`](https://github.com/primer/react/commit/81447a10c7795e268f6c62535ca24c166bb0d630) Thanks [@joshblack](https://github.com/joshblack)! - Add default `type="button"` for `Button`. This removes the implicit `type="submit"` for a `<button>` and requires an explicit `type` to change.
+
+- [#2789](https://github.com/primer/react/pull/2789) [`44f66cb9`](https://github.com/primer/react/commit/44f66cb976c4be496733f3f85a3fc23dbb6023c7) Thanks [@green6erry](https://github.com/green6erry)! - warn user if link `as` prop is not <a> or <button>
+
+### Patch Changes
+
+- [#2818](https://github.com/primer/react/pull/2818) [`7403a47f`](https://github.com/primer/react/commit/7403a47f4230bbde600d64eb678cef5c3ee14c2b) Thanks [@iansan5653](https://github.com/iansan5653)! - Improve initial `useCombobox` initialization process to avoid race conditions
+
 ## 35.18.0
 
 ### Minor Changes
