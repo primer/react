@@ -121,8 +121,10 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   ${props => {
     if (props.disabled) {
       return css`
-        background-color: ${get('colors.canvas.subtle')};
-        border-color: ${get('colors.border.subtle')};
+        background-color: ${props.checked
+          ? get('colors.switchTrack.checked.disabledBg')
+          : get('colors.switchTrack.disabledBg')};
+        border-color: transparent;
         cursor: not-allowed;
         transition-property: none;
       `
@@ -131,7 +133,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     if (props.checked) {
       return css`
         background-color: ${get('colors.switchTrack.checked.bg')};
-        border-color: ${get('colors.switchTrack.checked.border')};
+        border-color: transparent;
 
         &:hover,
         &:focus:focus-visible {
@@ -146,20 +148,17 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     } else {
       return css`
         background-color: ${get('colors.switchTrack.bg')};
-        border-color: ${get('colors.switchTrack.border')};
+        border-color: transparent;
 
         &:hover,
         &:focus:focus-visible {
           .Toggle-knob {
-            background-color: ${get('colors.btn.hoverBg')};
+            background-color: ${get('colors.switchKnob.hoverBg')};
           }
         }
 
-        &:active,
-        &:active:focus-visible {
-          .Toggle-knob {
-            background-color: ${get('colors.btn.activeBg')};
-          }
+        &:active {
+          background-color: ${get('colors.switchTrack.activeBg')};
         }
       `
     }
@@ -168,23 +167,21 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   ${sx}
   ${sizeVariants}
 `
-
 const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
-  background-color: ${get('colors.btn.bg')};
+  background-color: ${get('colors.switchKnob.bg')};
   border-width: 1px;
   border-style: solid;
-  border-color: ${props => (props.disabled ? get('colors.border.default') : get('colors.switchTrack.border'))};
+  border-color: ${props =>
+    props.disabled ? get('colors.switchKnob.disabledBorder') : get('colors.switchKnob.border')};
   border-radius: calc(${get('radii.2')} - 1px); /* -1px to account for 1px border around the control */
-  box-shadow: ${props =>
-    props.disabled ? 'none' : `${props.theme?.shadows?.shadow.medium}, ${props.theme?.shadows?.btn.insetShadow}`};
   width: 50%;
   position: absolute;
-  top: -1px;
-  bottom: -1px;
+  top: 0;
+  bottom: 0;
   transition-property: transform;
   transition-duration: ${TRANSITION_DURATION};
   transition-timing-function: ${EASE_OUT_QUAD_CURVE};
-  transform: ${props => `translateX(${props.checked ? 'calc(100% + 1px)' : '-1px'})`};
+  transform: ${props => `translateX(${props.checked ? '100%' : '0px'})`};
   z-index: 1;
 
   @media (prefers-reduced-motion) {
@@ -192,15 +189,18 @@ const ToggleKnob = styled.div<{checked?: boolean; disabled?: boolean}>`
   }
 
   ${props => {
+    if (props.disabled) {
+      return css`
+        border-color: ${
+          props.checked ? get('colors.switchKnob.checked.disabledBorder') : get('colors.switchKnob.disabledBorder')
+        };
+      };
+      `
+    }
+
     if (props.checked) {
       return css`
-        background-color: ${props.disabled
-          ? get('colors.switchKnob.checked.disabledBg')
-          : get('colors.switchKnob.checked.bg')};
-        border-color: ${props.disabled
-          ? get('colors.switchKnob.checked.disabledBg')
-          : get('colors.switchKnob.checked.bg')};
-        box-shadow: ${get('shadows.shadow.small')};
+        border-color: ${get('colors.switchKnob.checked.border')};
       `
     }
   }}
@@ -282,7 +282,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
             flexGrow={1}
             flexShrink={0}
             flexBasis="50%"
-            color={acceptsInteraction ? 'accent.fg' : 'fg.subtle'}
+            color={acceptsInteraction ? 'switchTrack.checked.fg' : 'switchTrack.checked.disabledFg'}
             lineHeight="0"
             sx={{
               transform: `translateX(${isOn ? '0' : '-100%'})`,
@@ -296,7 +296,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
             flexGrow={1}
             flexShrink={0}
             flexBasis="50%"
-            color={acceptsInteraction ? 'fg.default' : 'fg.subtle'}
+            color={acceptsInteraction ? 'switchTrack.fg' : 'switchTrack.disabledFg'}
             lineHeight="0"
             sx={{
               transform: `translateX(${isOn ? '100%' : '0'})`,
