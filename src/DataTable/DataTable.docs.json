@@ -105,6 +105,43 @@
           "description": "Provide the scope for a table cell, useful for defining a row header using `scope=\"row\"`"
         }
       ]
+    },
+    {
+      "name": "TableContainer",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "TableTitle",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "TableSubtitle",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true
+        }
+      ]
     }
   ]
 }
