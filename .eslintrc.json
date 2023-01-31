@@ -120,6 +120,12 @@
         ]
       }
     },
+    // Stories
+    {
+      "files": ["**/*.stories.{ts,tsx}"],
+      "extends": ["plugin:storybook/recommended"],
+      "rules": {}
+    },
     // rules which apply only to Markdown
     {
       "files": ["**/*.{md,mdx}"],
