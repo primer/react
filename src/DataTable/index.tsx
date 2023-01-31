@@ -228,6 +228,12 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     border-top: 1px solid ${get('colors.border.default')};
   }
 
+  /* TableRow */
+  .TableRow:hover .TableCell {
+    /* TODO: update this token when the new primitive tokens are released */
+    background-color: ${get('colors.actionListItem.default.hoverBg')};
+  }
+
   /* TableCell */
   .TableCell[scope='row'] {
     color: ${get('colors.fg.default')};
