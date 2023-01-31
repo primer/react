@@ -1,4 +1,4 @@
-# ADR XXX: Isolating behaviors through custom elements and vanilla JavaScript
+# ADR 010: Isolating behaviors through custom elements and vanilla JavaScript
 
 ## Status
 
