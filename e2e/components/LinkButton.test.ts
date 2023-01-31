@@ -76,7 +76,7 @@ test.describe('LinkButton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-linkbutton-features--default',
+            id: 'components-linkbutton--default',
             globals: {
               colorScheme: theme,
             },
@@ -88,7 +88,7 @@ test.describe('LinkButton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-linkbutton-features--default',
+            id: 'components-linkbutton--default',
             globals: {
               colorScheme: theme,
             },

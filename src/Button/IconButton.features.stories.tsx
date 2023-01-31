@@ -1,12 +1,10 @@
-import {HeartIcon, ChevronDownIcon} from '@primer/octicons-react'
+import {HeartIcon} from '@primer/octicons-react'
 import React from 'react'
 import {IconButton} from '.'
 
 export default {
   title: 'Components/IconButton/Features',
 }
-
-export const Default = () => <IconButton icon={HeartIcon} aria-label="Default" />
 
 export const Primary = () => <IconButton icon={HeartIcon} variant="primary" aria-label="Primary" />
 

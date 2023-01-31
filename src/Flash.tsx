@@ -41,12 +41,12 @@ const variants = variant({
   },
 })
 
-const Flash = styled.div<
-  {
-    variant?: 'default' | 'warning' | 'success' | 'danger'
-    full?: boolean
-  } & SxProp
->`
+type StyledFlashProps = {
+  variant?: 'default' | 'warning' | 'success' | 'danger'
+  full?: boolean
+} & SxProp
+
+const Flash = styled.div<StyledFlashProps>`
   position: relative;
   color: ${get('colors.fg.default')};
   padding: ${get('space.3')};
@@ -67,6 +67,8 @@ const Flash = styled.div<
   ${sx};
 `
 
+// TODO: Remove defaultProps to be compatible with the next major version of React
+// Reference: https://github.com/primer/react/issues/2758
 Flash.defaultProps = {
   variant: 'default',
 }

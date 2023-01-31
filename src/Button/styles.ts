@@ -221,7 +221,7 @@ export const getBaseStyles = (theme?: Theme) => ({
       outline: 'solid 1px transparent',
     },
   },
-  '&[data-component=ButtonCounter]': {
+  '[data-component=ButtonCounter]': {
     fontSize: '1',
   },
   '&[data-component=IconButton]': {

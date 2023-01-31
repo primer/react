@@ -101,7 +101,7 @@ exports[`Button renders consistently 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -219,6 +219,7 @@ exports[`Button renders consistently 1`] = `
   className="c0"
   data-block={null}
   data-no-visuals={true}
+  type="button"
 >
   <span
     className="c1"
@@ -327,7 +328,7 @@ exports[`Button respects block prop 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -445,6 +446,7 @@ exports[`Button respects block prop 1`] = `
   class="c0"
   data-block="block"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"
@@ -559,7 +561,7 @@ exports[`Button respects the alignContent prop 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -676,6 +678,7 @@ exports[`Button respects the alignContent prop 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"
@@ -790,7 +793,7 @@ exports[`Button respects the large size prop 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -908,6 +911,7 @@ exports[`Button respects the large size prop 1`] = `
   class="c0"
   data-no-visuals="true"
   data-size="large"
+  type="button"
 >
   <span
     class="c1"
@@ -1022,7 +1026,7 @@ exports[`Button respects the small size prop 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1140,6 +1144,7 @@ exports[`Button respects the small size prop 1`] = `
   class="c0"
   data-no-visuals="true"
   data-size="small"
+  type="button"
 >
   <span
     class="c1"
@@ -1257,8 +1262,10 @@ exports[`Button styles danger button appropriately 1`] = `
   background-color: btn.danger.disabledCounterBg;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
+  color: btn.danger.text;
+  background-color: btn.danger.counterBg;
 }
 
 .c0[data-component=IconButton] {
@@ -1369,11 +1376,6 @@ exports[`Button styles danger button appropriately 1`] = `
   border-color: btn.danger.selectedBorder;
 }
 
-.c0 [data-component=ButtonCounter] {
-  color: btn.danger.text;
-  background-color: btn.danger.counterBg;
-}
-
 .c0[aria-expanded=true] {
   color: btn.danger.selectedText;
   background-color: btn.danger.selectedBg;
@@ -1390,6 +1392,7 @@ exports[`Button styles danger button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"
@@ -1505,7 +1508,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
 }
 
@@ -1631,6 +1634,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"
@@ -1747,8 +1751,10 @@ exports[`Button styles primary button appropriately 1`] = `
   color: inherit;
 }
 
-.c0[data-component=ButtonCounter] {
+.c0 [data-component=ButtonCounter] {
   font-size: 14px;
+  background-color: btn.primary.counterBg;
+  color: btn.primary.text;
 }
 
 .c0[data-component=IconButton] {
@@ -1858,11 +1864,6 @@ exports[`Button styles primary button appropriately 1`] = `
   box-shadow: undefined;
 }
 
-.c0 [data-component=ButtonCounter] {
-  background-color: btn.primary.counterBg;
-  color: btn.primary.text;
-}
-
 .c0[aria-expanded=true] {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
@@ -1877,6 +1878,7 @@ exports[`Button styles primary button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  type="button"
 >
   <span
     class="c1"

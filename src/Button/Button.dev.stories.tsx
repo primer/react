@@ -17,7 +17,7 @@ export const InvisibleVariants = () => {
       <Button variant="invisible" trailingAction={TriangleDownIcon}>
         Button
       </Button>
-      <Button variant="invisible">
+      <Button variant="primary">
         Button
         <Button.Counter>{count}</Button.Counter>
       </Button>
@@ -37,13 +37,44 @@ export const TestSxProp = () => {
   const count = 4
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
-      <Button variant="invisible" sx={{color: 'deeppink'}}>
+      <Button
+        size="small"
+        sx={{
+          ':hover': {
+            color: 'deepskyblue',
+          },
+          [`@media screen and (max-width: 768px)`]: {
+            color: 'salmon',
+          },
+          '@media screen and (min-width: 768px)': {
+            ':focus': {
+              color: 'green',
+            },
+          },
+          '@media (min-width: 1440)': {
+            color: 'deeppink',
+          },
+        }}
+      >
         Pink
       </Button>
       <Button leadingIcon={SearchIcon} variant="invisible" sx={{color: 'deeppink'}}>
         Pink
       </Button>
-      <Button size="small" variant="invisible" sx={{width: 32, height: 32}}>
+      <Button
+        size="small"
+        variant="invisible"
+        sx={{
+          width: 32,
+          height: 32,
+          '&:focus': {
+            outline: 0,
+            '& > span': {
+              boxShadow: `inset 0 0 0 2px deeppink`,
+            },
+          },
+        }}
+      >
         Custom size
       </Button>
       <Button size="small" block variant="invisible" sx={{width: 320}}>
@@ -51,7 +82,7 @@ export const TestSxProp = () => {
       </Button>
       <Button>
         Watch
-        <Button.Counter sx={{fontSize: 16}}>{count}</Button.Counter>
+        <Button.Counter sx={{fontSize: 32}}>{count}</Button.Counter>
       </Button>
     </div>
   )
