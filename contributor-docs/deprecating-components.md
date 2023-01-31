@@ -1,8 +1,17 @@
-# Deprecating PRC
+# Deprecating and promoting components in Primer React
 
 Primer components may occasionally be deprecated when they are no longer recommended for use. In some cases, Primer team may recommend replacing a deprecated component with a new one. New replacement components are typically built in a parallel bundle to avoid breaking existing components, and are promoted to the main bundle when it's time for migration.
 
 If there is not a one-to-one replacement for the newly deprecated component, Primer maintainers will recommend the use of another, different component in Primer instead. This will be clearly communicated in the [Primer changelog](https://github.com/github/primer/discussions/categories/primer-changelog) (GitHub staff only) and deprecated component docs.
+
+## Deprecating a component
+
+When Primer maintainers are to deprecate a component, they will issue `@deprecated` notice in a minor/patch release. This gives feature teams time to prepare for the migration to the replacement component (if there is one) or to the suggested alternative component.
+
+Issuing a `@deprecated` notice in a minor/patch release includes:
+
+- [ ] Adding a `@deprecated` annotation in the component's source code.
+- [ ] Adding a `Deprecation` section to the documentation of the component with the link of the recommended component and provide a diff. See [deprecated ActionList docs](https://primer.style/react/deprecated/ActionList#deprecation) as an example.
 
 ## Developing a replacement component
 
@@ -15,15 +24,15 @@ import { ActionList } from "@primer/react/drafts"
 
 If it is a 1:1 replacement, it's useful to keep the component name the same for consumers. For example, naming the folder `ActionList2` and docs `ActionMenu v2`.
 
-## Deprecating the component
+### Promoting the replacement component
 
-When Primer maintainers are ready to deprecate a component, first they will issue `@deprecated` notice in the next minor/patch release. This gives feature teams time to prepare for the migration to the new component as well as prepare for the upcoming major release. Then, Primer team will plan for an upcoming major release that will include the change. This includes preparing code changes and communications about the change.
+When Primer team is ready to promote the newly developed component in the main bundle, they also plan to move the current one to the deprecated bundle and this change is released as a major change as it is introducing breaking changes. I.e. changing the components' import paths.
 
-### Code side of the deprecation
+### Developer checklist for the promotion
 
-Here is a checklist for developers who are going through the deprecation process. Although this is a step-by-step guide, it is not a strict process and please use this as a reference.
+Here is a checklist for developers who are going through the promotion process. Although this is a step-by-step guide, it is not a strict process and please use this as a reference.
 
-Note: Component v1 is refered to the component that is going to be deprecated and component v2 is the one that is going to be promoted to the main bundle.
+Note: Component v1 is refered to the component that is going to be moved to the deprecated bundle and component v2 is the one that is going to be promoted to the main bundle.
 
 #### Source Code
 
@@ -48,17 +57,18 @@ Note: Component v1 is refered to the component that is going to be deprecated an
 #### Docs
 
 - [ ] Move the deprecated component's docs to the `src/docs/deprecated` folder and update the title by adding `(legacy)`, status as well as the storybook and the source code link.
+
   - [ ] Make sure to update `jsx live` -> `jsx live deprecated`
   - [ ] Make sure to update the import code block. I.e. `import { ActionList } from "@primer/react/deprecated"`.
-- [ ] Add a `Deprecation` section with the link of the newly developed component and provide a diff. See [deprecated ActionList docs](https://primer.style/react/deprecated/ActionList#deprecation) as an example.
+
 - [ ] Move the new components docs from draft folder to the main docs folder `docs/content/` and update the title by removing `v2`, status as well as the storybook and the source code link.
   - [ ] Make sure to update `jsx live drafts` -> `jsx live`
   - [ ] Make sure to update the import code block. I.e. `import { ActionList } from "@primer/react"`.
   - [ ] Update the navigation on `docs/src/@primer/gatsby-theme-doctocat/nav.yml` accordingly.
 
-### Comms side of the deprecation
+### Communicating the promotion
 
-When Primer team is ready to promote the newly developed component in the main bundle and the component v1 is good to be deprecated in the next major release, team announces the deprecation and the promotion in the [Primer changelog](https://github.com/github/primer/discussions/categories/primer-changelog) (GitHub staff only) under the `Coming soon` section and release a technical preview. Please see an example of the [technical preview announcement for the v35](https://github.com/primer/react/discussions/1918).
+Primer team announces the upcoming major changes in the [Primer changelog](https://github.com/github/primer/discussions/categories/primer-changelog) (GitHub staff only) under the `Coming soon` section and release a technical preview. Please see an example of the [technical preview announcement for the v35](https://github.com/primer/react/discussions/1918).
 
 To ensure the impending deprecation is included in the Primer changelog, Primer maintainers should highlight any upcoming deprecations in their [weekly status updates](https://github.com/github/design-infrastructure/blob/main/how-we-work/planning-and-tracking-work/updates.md#weekly-status-updates-required) (GitHub staff only).
 
