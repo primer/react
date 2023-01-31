@@ -18,6 +18,10 @@ export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject
 
       return getNextFocusableElement(from, event) ?? from
     },
+    focusInStrategy: () => {
+      // Focus the aria-current item if it exists
+      return containerRef.current?.querySelector('[aria-current]') || undefined
+    },
   })
 }
 
