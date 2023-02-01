@@ -3,9 +3,9 @@ import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext
 import sx, {SxProp} from './sx'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
 import {RadioGroupContext} from './RadioGroup'
-import getGlobalFocusStyles from './_getGlobalFocusStyles'
+import getGlobalFocusStyles from './private/_getGlobalFocusStyles'
 import {get} from './constants'
-import {sharedCheckboxAndRadioStyles} from './_sharedCheckboxAndRadioStyles'
+import {sharedCheckboxAndRadioStyles} from './private/_sharedCheckboxAndRadioStyles'
 
 export type RadioProps = {
   /**

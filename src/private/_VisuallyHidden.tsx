@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import sx, {SxProp} from './sx'
+import sx, {SxProp} from '../sx'
 
 interface Props {
   isVisible?: boolean

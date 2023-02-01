@@ -8,7 +8,7 @@ import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {Theme} from '../ThemeProvider'
 import createSlots from '../utils/create-slots'
 import {canUseDOM} from '../utils/environment'
-import VisuallyHidden from '../_VisuallyHidden'
+import VisuallyHidden from '../private/_VisuallyHidden'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
 const {Slots, Slot} = createSlots(['Header', 'Footer'])

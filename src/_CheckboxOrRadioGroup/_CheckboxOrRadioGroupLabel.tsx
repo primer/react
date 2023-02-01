@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../Box'
 import {SxProp} from '../sx'
-import VisuallyHidden from '../_VisuallyHidden'
+import VisuallyHidden from '../private/_VisuallyHidden'
 import {CheckboxOrRadioGroupContext} from './CheckboxOrRadioGroup'
 import {Slot} from './slots'
 

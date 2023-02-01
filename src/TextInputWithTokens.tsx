@@ -9,9 +9,9 @@ import Text from './Text'
 import {TextInputProps} from './TextInput'
 import Token from './Token/Token'
 import {TokenSizeKeys} from './Token/TokenBase'
-import TextInputInnerVisualSlot from './_TextInputInnerVisualSlot'
-import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from './_TextInputWrapper'
-import UnstyledTextInput from './_UnstyledTextInput'
+import TextInputInnerVisualSlot from './private/_TextInputInnerVisualSlot'
+import TextInputWrapper, {textInputHorizPadding, TextInputSizes} from './private/_TextInputWrapper'
+import UnstyledTextInput from './private/_UnstyledTextInput'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
