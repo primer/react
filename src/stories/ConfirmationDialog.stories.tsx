@@ -2,7 +2,7 @@ import React, {useState, useRef, useCallback} from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, Box, ThemeProvider, useTheme} from '..'
 import {Button} from '../Button'
-import {ActionMenu} from '../ActionMenu'
+import {ActionMenu} from '../ActionMenu/ActionMenu'
 import {ActionList} from '../ActionList'
 import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
 

@@ -241,6 +241,6 @@ describe('ActionMenu', () => {
     expect(results).toHaveNoViolations()
   })
 
-  checkStoriesForAxeViolations('ActionMenu/fixtures')
-  checkStoriesForAxeViolations('ActionMenu/examples')
+  checkStoriesForAxeViolations('fixtures', '../ActionMenu/')
+  checkStoriesForAxeViolations('examples', '../ActionMenu/')
 })

@@ -1,14 +1,14 @@
 import React from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {AnchoredOverlay, AnchoredOverlayProps} from './AnchoredOverlay'
-import {OverlayProps} from './Overlay'
-import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from './hooks'
-import {Divider} from './ActionList/Divider'
-import {ActionListContainerContext} from './ActionList/ActionListContainerContext'
-import {Button, ButtonProps} from './Button'
-import {useId} from './hooks/useId'
-import {MandateProps} from './utils/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from './utils/polymorphic'
+import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
+import {OverlayProps} from '../Overlay'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
+import {Divider} from '../ActionList/Divider'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
+import {Button, ButtonProps} from '../Button'
+import {useId} from '../hooks/useId'
+import {MandateProps} from '../utils/types'
+import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,

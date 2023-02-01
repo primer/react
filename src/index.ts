@@ -55,8 +55,8 @@ export type {
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps,
 } from './ActionList'
-export {ActionMenu} from './ActionMenu'
-export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu'
+export {ActionMenu} from './ActionMenu/ActionMenu'
+export type {ActionMenuProps, ActionMenuAnchorProps, ActionMenuButtonProps} from './ActionMenu/ActionMenu'
 export {AnchoredOverlay} from './AnchoredOverlay'
 export type {AnchoredOverlayProps} from './AnchoredOverlay'
 export {default as Autocomplete} from './Autocomplete'
