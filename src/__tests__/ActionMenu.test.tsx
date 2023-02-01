@@ -5,7 +5,7 @@ import React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
-import {SingleSelection, MixedSelection} from '../stories/ActionMenu/examples.stories'
+import {SingleSelection, MixedSelection} from '../ActionMenu/examples.stories'
 expect.extend(toHaveNoViolations)
 
 function Example(): JSX.Element {

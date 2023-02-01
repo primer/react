@@ -13,7 +13,7 @@ import {
   Button,
   IconButton,
   AnchoredOverlay,
-} from '../..'
+} from '..'
 import {
   ServerIcon,
   PlusCircleIcon,
