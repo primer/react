@@ -4,7 +4,7 @@ import {render} from '@testing-library/react'
 import {Checkbox, CheckboxGroup, FormControl, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
-import {CheckboxGroupContext} from '../CheckboxGroup'
+import {CheckboxGroupContext} from './CheckboxGroup'
 
 describe('CheckboxGroup', () => {
   const mockWarningFn = jest.fn()
@@ -172,5 +172,5 @@ describe('CheckboxGroup', () => {
   })
 })
 
-checkStoriesForAxeViolations('CheckboxGroup/fixtures')
-checkStoriesForAxeViolations('CheckboxGroup/examples')
+checkStoriesForAxeViolations('fixtures', '../CheckboxGroup/')
+checkStoriesForAxeViolations('examples', '../CheckboxGroup/')

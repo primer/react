@@ -4,7 +4,7 @@ import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext
 import sx, {SxProp} from './sx'
 import useLayoutEffect from './utils/useIsomorphicLayoutEffect'
 import {FormValidationStatus} from './utils/types/FormValidationStatus'
-import {CheckboxGroupContext} from './CheckboxGroupContext'
+import {CheckboxGroupContext} from './CheckboxGroup/CheckboxGroupContext'
 import getGlobalFocusStyles from './private/_getGlobalFocusStyles'
 import {get} from './constants'
 import {sharedCheckboxAndRadioStyles} from './private/_sharedCheckboxAndRadioStyles'

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Box, Checkbox, CheckboxGroup, FormControl, ThemeProvider} from '../../'
-import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
+import {BaseStyles, Box, Checkbox, CheckboxGroup, FormControl, ThemeProvider} from '..'
+import {CheckboxOrRadioGroupArgs} from '../utils/story-helpers'
 
 const excludedControlKeys = ['aria-labelledby', 'id', 'onChange', 'sx', 'visuallyHidden']
 

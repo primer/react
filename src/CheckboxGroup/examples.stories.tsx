@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
-import {BaseStyles, Checkbox, CheckboxGroup, FormControl, ThemeProvider} from '../../'
-import {CheckboxOrRadioGroupArgs} from '../../utils/story-helpers'
+import {BaseStyles, Checkbox, CheckboxGroup, FormControl, ThemeProvider} from '..'
+import {CheckboxOrRadioGroupArgs} from '../utils/story-helpers'
 
 export default {
   title: 'Components/Forms/CheckboxGroup/examples',
