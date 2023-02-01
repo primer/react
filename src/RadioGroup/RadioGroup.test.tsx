@@ -3,7 +3,7 @@ import {render} from '@testing-library/react'
 import {RadioGroup, FormControl, Radio, SSRProvider} from '..'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
-import {RadioGroupContext} from '../RadioGroup'
+import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 
 describe('RadioGroup', () => {
   const mockWarningFn = jest.fn()
@@ -162,5 +162,5 @@ describe('RadioGroup', () => {
   })
 })
 
-checkStoriesForAxeViolations('RadioGroup/fixtures')
-checkStoriesForAxeViolations('RadioGroup/examples')
+checkStoriesForAxeViolations('fixtures', '../RadioGroup/')
+checkStoriesForAxeViolations('examples', '../RadioGroup/')
