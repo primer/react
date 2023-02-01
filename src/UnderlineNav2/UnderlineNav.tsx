@@ -350,7 +350,7 @@ export const UnderlineNav = forwardRef(
                   aria-controls={disclosureWidgetId}
                   aria-expanded={isWidgetOpen}
                   onClick={onAnchorClick}
-                  trailingIcon={TriangleDownIcon}
+                  trailingAction={TriangleDownIcon}
                 >
                   <Box as="span">
                     {onlyMenuVisible ? (
