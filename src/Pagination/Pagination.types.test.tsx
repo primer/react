@@ -1,5 +1,5 @@
 import React from 'react'
-import Pagination from '../Pagination'
+import Pagination from '.'
 
 export function shouldAcceptCallWithNoProps() {
   return <Pagination currentPage={1} pageCount={2} />
