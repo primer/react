@@ -2,7 +2,7 @@ import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionList} from '../ActionList'
+import {ActionList} from '.'
 import {behavesAsComponent, checkExports, checkStoriesForAxeViolations} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider} from '..'
 expect.extend(toHaveNoViolations)
