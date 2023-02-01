@@ -1,4 +1,4 @@
-import AvatarStack from '../AvatarStack'
+import AvatarStack from './AvatarStack'
 import Avatar from '../Avatar'
 import {Meta} from '@storybook/react'
 import React from 'react'
