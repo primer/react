@@ -1,8 +1,8 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 
-import {BaseStyles, Box, ToggleSwitch, Text, ThemeProvider} from '../../'
-import {ComponentProps} from '../../utils/types'
+import {BaseStyles, Box, Text, ThemeProvider, ToggleSwitch} from '..'
+import {ComponentProps} from '../utils/types'
 import {action} from '@storybook/addon-actions'
 
 type Args = ComponentProps<typeof ToggleSwitch>

@@ -1,18 +1,18 @@
 import React, {MouseEventHandler, useCallback, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
-import Box from './Box'
-import Spinner from './Spinner'
-import Text from './Text'
-import {get} from './constants'
-import {useProvidedStateOrCreate} from './hooks'
-import sx, {BetterSystemStyleObject, SxProp} from './sx'
-import VisuallyHidden from './private/_VisuallyHidden'
+import Box from '../Box'
+import Spinner from '../Spinner'
+import Text from '../Text'
+import {get} from '../constants'
+import {useProvidedStateOrCreate} from '../hooks'
+import sx, {BetterSystemStyleObject, SxProp} from '../sx'
+import VisuallyHidden from '../private/_VisuallyHidden'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
-type SwitchProps = {
+type ToggleSwitchProps = {
   /** The id of the DOM node that describes the switch */
   ['aria-describedby']?: string
   /** The id of the DOM node that labels the switch */
@@ -47,13 +47,13 @@ const sizeVariants = variant({
   },
 })
 
-type SwitchButtonProps = {
+type ToggleSwitchButtonProps = {
   disabled?: boolean
   checked?: boolean
-  size?: SwitchProps['size']
+  size?: ToggleSwitchProps['size']
 } & SxProp
 
-type InnerIconProps = {size?: SwitchProps['size']}
+type InnerIconProps = {size?: ToggleSwitchProps['size']}
 
 const CircleIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => (
   <svg
@@ -78,7 +78,7 @@ const LineIcon: React.FC<React.PropsWithChildren<InnerIconProps>> = ({size}) => 
   </svg>
 )
 
-const SwitchButton = styled.button<SwitchButtonProps>`
+const ToggleSwitchButton = styled.button<ToggleSwitchButtonProps>`
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -211,7 +211,7 @@ const hiddenTextStyles: BetterSystemStyleObject = {
   height: 0,
 }
 
-const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
+const ToggleSwitch: React.FC<React.PropsWithChildren<ToggleSwitchProps>> = ({
   'aria-labelledby': ariaLabelledby,
   'aria-describedby': ariaDescribedby,
   defaultChecked,
@@ -265,7 +265,7 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
           Off
         </Box>
       </Text>
-      <SwitchButton
+      <ToggleSwitchButton
         onClick={handleToggleClick}
         aria-labelledby={ariaLabelledby}
         aria-describedby={ariaDescribedby}
@@ -308,9 +308,9 @@ const Switch: React.FC<React.PropsWithChildren<SwitchProps>> = ({
           </Box>
         </Box>
         <ToggleKnob aria-hidden="true" className="Toggle-knob" disabled={!acceptsInteraction} checked={isOn} />
-      </SwitchButton>
+      </ToggleSwitchButton>
     </Box>
   )
 }
 
-export default Switch
+export default ToggleSwitch

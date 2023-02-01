@@ -129,5 +129,5 @@ it('calls onChange when the switch is toggled', async () => {
   expect(handleChange).toHaveBeenCalledWith(true)
 })
 
-checkStoriesForAxeViolations('Switch/fixtures')
-checkStoriesForAxeViolations('Switch/examples')
+checkStoriesForAxeViolations('fixtures', '../ToggleSwitch/')
+checkStoriesForAxeViolations('examples', '../ToggleSwitch/')
