@@ -1,4 +1,4 @@
-import {ActionMenu} from '..'
+import {ActionMenu} from '.'
 import React from 'react'
 
 export function actionButtonWithoutProps() {
