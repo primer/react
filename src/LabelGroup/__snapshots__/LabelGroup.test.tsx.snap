@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LabelGroup renders consistently 1`] = `
+.c0 * {
+  margin-right: 4px;
+}
+
+.c0 *:last-child {
+  margin-right: 0;
+}
+
+<span
+  className="c0"
+/>
+`;

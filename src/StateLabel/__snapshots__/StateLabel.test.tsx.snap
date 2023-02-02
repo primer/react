@@ -1,0 +1,477 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StateLabel renders children 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #2da44e;
+  color: #ffffff;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    fill="currentColor"
+    focusable="false"
+    height={16}
+    role="img"
+    style={
+      {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  >
+    <path
+      d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+    />
+    <path
+      d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"
+      fillRule="evenodd"
+    />
+  </svg>
+  hi
+</span>
+`;
+
+exports[`StateLabel renders consistently 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #2da44e;
+  color: #ffffff;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    fill="currentColor"
+    focusable="false"
+    height={16}
+    role="img"
+    style={
+      {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  >
+    <path
+      d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+    />
+    <path
+      d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"
+      fillRule="evenodd"
+    />
+  </svg>
+  Open
+</span>
+`;
+
+exports[`StateLabel respects the status prop 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #2da44e;
+  color: #ffffff;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    fill="currentColor"
+    focusable="false"
+    height={16}
+    role="img"
+    style={
+      {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  >
+    <path
+      d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+    />
+    <path
+      d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
+`;
+
+exports[`StateLabel respects the status prop 2`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #8250df;
+  color: #ffffff;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    fill="currentColor"
+    focusable="false"
+    height={16}
+    role="img"
+    style={
+      {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  >
+    <path
+      d="M11.28 6.78a.75.75 0 00-1.06-1.06L7.25 8.69 5.78 7.22a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l3.5-3.5z"
+    />
+    <path
+      d="M16 8A8 8 0 110 8a8 8 0 0116 0zm-1.5 0a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
+`;
+
+exports[`StateLabel respects the status prop 3`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #6e7781;
+  color: #ffffff;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    fill="currentColor"
+    focusable="false"
+    height={16}
+    role="img"
+    style={
+      {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  >
+    <path
+      d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm3.28 5.78a.75.75 0 00-1.06-1.06l-5.5 5.5a.75.75 0 101.06 1.06l5.5-5.5z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
+`;
+
+exports[`StateLabel respects the status prop 4`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #8250df;
+  color: #ffffff;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    fill="currentColor"
+    focusable="false"
+    height={16}
+    role="img"
+    style={
+      {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  >
+    <path
+      d="M5 3.254V3.25v.005a.75.75 0 110-.005v.004zm.45 1.9a2.25 2.25 0 10-1.95.218v5.256a2.25 2.25 0 101.5 0V7.123A5.735 5.735 0 009.25 9h1.378a2.251 2.251 0 100-1.5H9.25a4.25 4.25 0 01-3.8-2.346zM12.75 9a.75.75 0 100-1.5.75.75 0 000 1.5zm-8.5 4.5a.75.75 0 100-1.5.75.75 0 000 1.5z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
+`;
+
+exports[`StateLabel respects the variant prop 1`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #2da44e;
+  color: #ffffff;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 12px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    fill="currentColor"
+    focusable="false"
+    height={16}
+    role="img"
+    style={
+      {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  >
+    <path
+      d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+    />
+    <path
+      d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
+`;
+
+exports[`StateLabel respects the variant prop 2`] = `
+.c1 {
+  margin-right: 4px;
+}
+
+.c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 600;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #2da44e;
+  color: #ffffff;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+}
+
+<span
+  className="c0"
+>
+  <svg
+    aria-hidden="true"
+    className="c1"
+    fill="currentColor"
+    focusable="false"
+    height={16}
+    role="img"
+    style={
+      {
+        "display": "inline-block",
+        "overflow": "visible",
+        "userSelect": "none",
+        "verticalAlign": "text-bottom",
+      }
+    }
+    viewBox="0 0 16 16"
+    width={16}
+  >
+    <path
+      d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+    />
+    <path
+      d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"
+      fillRule="evenodd"
+    />
+  </svg>
+</span>
+`;
