@@ -335,7 +335,8 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     transform: rotate(180deg) scale(-1, 1);
   }
 
-  .TableHeader[aria-sort='none']:hover .TableSortIcon {
+  .TableHeader[aria-sort='none']:hover .TableSortIcon,
+  .TableHeader[aria-sort='none'] button:focus .TableSortIcon {
     visibility: visible;
   }
 
