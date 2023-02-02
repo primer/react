@@ -35,8 +35,3 @@ export function sortByNumber<T extends number>(a: T, b: T, state: SortState) {
   }
   return b - a
 }
-
-// function sort<T>(source: Array<T>, input: Array<T>, state: SortState, sorters: Record<string, SortStrategyHandler<T>): Array<T> {
-// return input.sort((a, b) => {
-// })
-// }
