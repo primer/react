@@ -1,7 +1,5 @@
-import {VariantType} from './types'
+import {VariantType, AlignContent} from './types'
 import {Theme} from '../ThemeProvider'
-
-export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
 
 export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
@@ -11,6 +9,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
       '&:hover:not([disabled])': {
         backgroundColor: 'btn.hoverBg',
+        borderColor: 'btn.hoverBorder',
       },
       '&:active:not([disabled])': {
         backgroundColor: 'btn.activeBg',
@@ -30,7 +29,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
     primary: {
       color: 'btn.primary.text',
       backgroundColor: 'btn.primary.bg',
-      borderColor: 'border.subtle',
+      borderColor: 'btn.primary.border',
       boxShadow: `${theme?.shadows.btn.primary.shadow}`,
       '&:hover:not([disabled])': {
         color: 'btn.primary.hoverText',
@@ -105,7 +104,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
     invisible: {
       color: 'accent.fg',
       backgroundColor: 'transparent',
-      border: '0',
+      borderColor: 'transparent',
       boxShadow: 'none',
       '&:hover:not([disabled])': {
         backgroundColor: 'btn.hoverBg',
@@ -121,6 +120,15 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'btn.selectedBg',
+      },
+      svg: {
+        color: 'fg.muted',
+      },
+      '&[data-no-visuals]': {
+        color: 'accent.fg',
+      },
+      '&:has([data-component="ButtonCounter"])': {
+        color: 'accent.fg',
       },
     },
     outline: {
@@ -170,70 +178,42 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
   return style[variant]
 }
 
-/* The button heights have to amount to 
-  small - 28
-  medium - 32
-  large - 34
-  In icon these have to be square.
-*/
-export const getSizeStyles = (size = 'medium', variant: VariantType = 'default', iconOnly: boolean) => {
-  let paddingY, paddingX, fontSize
-  switch (size) {
-    case 'small':
-      paddingY = 3
-      paddingX = 12
-      fontSize = 0
-      break
-    case 'large':
-      paddingY = 9
-      paddingX = 20
-      fontSize = 2
-      break
-    case 'medium':
-    default:
-      paddingY = 5
-      paddingX = 16
-      fontSize = 1
-  }
-  if (iconOnly) {
-    // when `size !== 'medium'`, vertical alignment of the icon is thrown off
-    // because changing the font size draws an em-box that does not match the
-    // bounding box of the SVG
-    fontSize = 1
-    paddingX = paddingY + 3 // to make it a square
-  }
-  if (variant === 'invisible') {
-    paddingY = paddingY + 1 // to make up for absence of border
-  }
-  return {
-    paddingY: `${paddingY}px`,
-    paddingX: `${paddingX}px`,
-    fontSize,
-    '[data-component=ButtonCounter]': {
-      fontSize,
-    },
-  }
-}
-
 export const getBaseStyles = (theme?: Theme) => ({
   borderRadius: '2',
   border: '1px solid',
   borderColor: theme?.colors.btn.border,
   fontFamily: 'inherit',
-  fontWeight: 'bold',
-  lineHeight: TEXT_ROW_HEIGHT,
-  whiteSpace: 'nowrap',
-  verticalAlign: 'middle',
+  fontWeight: 'semibold',
+  fontSize: '1',
   cursor: 'pointer',
   appearance: 'none',
   userSelect: 'none',
   textDecoration: 'none',
   textAlign: 'center',
-  '&:disabled': {
-    cursor: 'default',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  height: '32px',
+  padding: '0 12px',
+  gap: '8px',
+  minWidth: 'max-content',
+  transition: '80ms cubic-bezier(0.65, 0, 0.35, 1)',
+  transitionProperty: 'color, fill, background-color, border-color',
+  '&[href]': {
+    display: 'inline-flex',
+    '&:hover': {
+      textDecoration: 'none',
+    },
   },
-  '&:disabled svg': {
-    opacity: '0.6',
+  '&:hover': {
+    transitionDuration: '80ms',
+  },
+  '&:active': {
+    transition: 'none',
+  },
+  '&:disabled': {
+    cursor: 'not-allowed',
+    boxShadow: 'none',
   },
   '@media (forced-colors: active)': {
     '&:focus': {
@@ -241,25 +221,90 @@ export const getBaseStyles = (theme?: Theme) => ({
       outline: 'solid 1px transparent',
     },
   },
+  '[data-component=ButtonCounter]': {
+    fontSize: '1',
+  },
+  '&[data-component=IconButton]': {
+    display: 'inline-grid',
+    padding: 'unset',
+    placeContent: 'center',
+    width: '32px',
+    minWidth: 'unset',
+  },
+  '&[data-size="small"]': {
+    padding: '0 8px',
+    height: '28px',
+    gap: '4px',
+    fontSize: '0',
+
+    '[data-component="text"]': {
+      lineHeight: 'calc(20 / 12)',
+    },
+
+    '[data-component=ButtonCounter]': {
+      fontSize: '0',
+    },
+
+    '[data-component="buttonContent"] > :not(:last-child)': {
+      mr: '4px',
+    },
+
+    '&[data-component=IconButton]': {
+      width: '28px',
+      padding: 'unset',
+    },
+  },
+  '&[data-size="large"]': {
+    padding: '0 16px',
+    height: '40px',
+    gap: '8px',
+
+    '[data-component="buttonContent"] > :not(:last-child)': {
+      mr: '8px',
+    },
+
+    '&[data-component=IconButton]': {
+      width: '40px',
+      padding: 'unset',
+    },
+  },
 })
 
 export const getButtonStyles = (theme?: Theme) => {
   const styles = {
     ...getBaseStyles(theme),
-    display: 'grid',
-    gridTemplateAreas: '"leadingIcon text trailingIcon"',
-    '& > :not(:last-child)': {
-      mr: '2',
+    '&[data-block="block"]': {
+      width: '100%',
     },
-    '[data-component="leadingIcon"]': {
-      gridArea: 'leadingIcon',
+    '[data-component="leadingVisual"]': {
+      gridArea: 'leadingVisual',
     },
     '[data-component="text"]': {
       gridArea: 'text',
+      lineHeight: 'calc(20/14)',
+      whiteSpace: 'nowrap',
     },
-    '[data-component="trailingIcon"]': {
-      gridArea: 'trailingIcon',
+    '[data-component="trailingVisual"]': {
+      gridArea: 'trailingVisual',
+    },
+    '[data-component="trailingAction"]': {
+      marginRight: '-4px',
+    },
+    '[data-component="buttonContent"]': {
+      flex: '1 0 auto',
+      display: 'grid',
+      gridTemplateAreas: '"leadingVisual text trailingVisual"',
+      gridTemplateColumns: 'min-content minmax(0, auto) min-content',
+      alignItems: 'center',
+      alignContent: 'center',
+    },
+    '[data-component="buttonContent"] > :not(:last-child)': {
+      mr: '8px',
     },
   }
   return styles
 }
+
+export const getAlignContentSize = (alignContent: AlignContent = 'center') => ({
+  justifyContent: alignContent === 'center' ? 'center' : 'flex-start',
+})
