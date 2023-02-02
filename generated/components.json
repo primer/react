@@ -2608,8 +2608,8 @@
       ],
       "subcomponents": []
     },
-    "data-table": {
-      "id": "data-table",
+    "data_table": {
+      "id": "data_table",
       "name": "DataTable",
       "status": "draft",
       "a11yReviewed": false,
