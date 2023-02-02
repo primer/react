@@ -1224,9 +1224,6 @@ describe('Asyncronous loading', () => {
     // Parent item should be expanded
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
 
-    // Focus first item
-    parentItem.focus()
-
     // Press ←
     fireEvent.keyDown(document.activeElement || document.body, {key: 'ArrowLeft'})
 
