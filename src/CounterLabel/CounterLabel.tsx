@@ -38,7 +38,7 @@ const CounterLabel: React.FC<React.PropsWithChildren<CounterLabelProps>> = ({
       >
         {children}
       </Box>
-      <VisuallyHidden>&nbsp;{`(${children})`}</VisuallyHidden>
+      <VisuallyHidden>&nbsp;({children})</VisuallyHidden>
     </>
   )
 }

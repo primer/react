@@ -35,6 +35,8 @@ export type UnderlineNavProps = {
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
 const MORE_BTN_WIDTH = 86
+// The height is needed to make sure we don't have a layout shift when the more button is the only item in the nav.
+const MORE_BTN_HEIGHT = 45
 
 // Needed this because passing a ref using HTMLULListElement to `Box` causes a type error
 const NavigationList = styled.ul`
@@ -43,6 +45,8 @@ const NavigationList = styled.ul`
 
 const MoreMenuListItem = styled.li`
   display: flex;
+  align-items: center;
+  height: ${MORE_BTN_HEIGHT}px;
 `
 
 const overflowEffect = (
@@ -94,7 +98,8 @@ const overflowEffect = (
         const ariaCurrent = child.props['aria-current']
         const isCurrent = Boolean(ariaCurrent) && ariaCurrent !== 'false'
         // We need to make sure to keep the selected item always visible.
-        if (isCurrent) {
+        // To do that, we swap the selected item with the last item in the list to make it visible. (When there is at least 1 item in the list to swap.)
+        if (isCurrent && numberOfListItems > 0) {
           // If selected item couldn't make in to the list, we swap it with the last item in the list.
           const indexToReplaceAt = numberOfListItems - 1 // because we are replacing the last item in the list
           // splice method modifies the array by removing 1 item here at the given index and replace it with the "child" element then returns the removed item.
@@ -251,6 +256,8 @@ export const UnderlineNav = forwardRef(
     }, [])
 
     const actions = responsiveProps.actions
+    // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
+    const onlyMenuVisible = responsiveProps.items.length === 0
     const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
     const setChildrenWidth = useCallback((size: ChildSize) => {
       setChildWidthArray(arr => {
@@ -336,7 +343,7 @@ export const UnderlineNav = forwardRef(
             {responsiveProps.items}
             {actions.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
-                <Box sx={getDividerStyle(theme)}></Box>
+                {!onlyMenuVisible && <Box sx={getDividerStyle(theme)}></Box>}
                 <Button
                   ref={moreMenuBtnRef}
                   sx={moreBtnStyles}
@@ -346,7 +353,15 @@ export const UnderlineNav = forwardRef(
                   trailingAction={TriangleDownIcon}
                 >
                   <Box as="span">
-                    More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                    {onlyMenuVisible ? (
+                      <>
+                        <VisuallyHidden as="span">{`${ariaLabel}`}&nbsp;</VisuallyHidden>Menu
+                      </>
+                    ) : (
+                      <>
+                        More<VisuallyHidden as="span">&nbsp;{`${ariaLabel} items`}</VisuallyHidden>
+                      </>
+                    )}
                   </Box>
                 </Button>
                 <ActionList
@@ -365,7 +380,8 @@ export const UnderlineNav = forwardRef(
                           as={action.props.as || 'a'}
                           sx={menuItemStyles}
                           onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
-                            swapMenuItemWithListItem(action, index, event, updateListAndMenu)
+                            // When there are no items in the list, do not run the swap function as we want to keep everything in the menu.
+                            !onlyMenuVisible && swapMenuItemWithListItem(action, index, event, updateListAndMenu)
                             setSelectEvent(event)
                             closeOverlay()
                             focusOnMoreMenuBtn()

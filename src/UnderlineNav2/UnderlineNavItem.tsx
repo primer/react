@@ -105,7 +105,14 @@ export const UnderlineNavItem = forwardRef(
         setChildrenWidth({text, width: domRect.width})
         setNoIconChildrenWidth({text, width: domRect.width - iconWidthWithMargin})
 
-        if (selectedLink === undefined && Boolean(ariaCurrent) && ariaCurrent !== 'false') {
+        // When an item has aria-current !== false while rendering, we should be sure to select it.
+        // It can happen when the page is loaded (selectedLink === undefined)
+        // or if the item is coming out of the menu when there is enough space to show items along with the more menu. (selectedLink.current === null)
+        if (
+          (selectedLink === undefined || selectedLink.current === null) &&
+          Boolean(ariaCurrent) &&
+          ariaCurrent !== 'false'
+        ) {
           setSelectedLink(ref as RefObject<HTMLElement>)
         }
 

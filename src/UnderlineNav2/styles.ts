@@ -61,6 +61,7 @@ export const getDividerStyle = (theme?: Theme) => ({
   width: '1px',
   borderLeftColor: `${theme?.colors.border.muted}`,
   marginRight: 1,
+  height: '24px', // The height of the divider - reference from Figma
 })
 
 export const moreBtnStyles = {
