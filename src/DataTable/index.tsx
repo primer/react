@@ -1,7 +1,9 @@
-import React from 'react'
+import {SortAscIcon} from '@primer/octicons-react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
+import {SortStrategy, sortByNumber, sortByString, transition, SortDirection} from './sorting'
 
 // ----------------------------------------------------------------------------
 // DataTable
@@ -73,6 +75,16 @@ interface Column<Data extends Row> {
    * header
    */
   rowHeader?: boolean | undefined
+
+  /**
+   * Specify if the table should sort by this column. When a boolean is
+   * provided, the sort strategy will try to infer the sorting method to be
+   * used.
+   *
+   * You may also explicitly set the sorting method or provide a custom sorting
+   * strategy for this column.
+   */
+  sortBy?: boolean | SortStrategy<Data[keyof Data]> | undefined
 }
 
 function DataTable<Data extends Row>({
@@ -82,45 +94,127 @@ function DataTable<Data extends Row>({
   columns,
   data,
 }: DataTableProps<Data>) {
+  const headers = columns.map(column => {
+    return {
+      id: column.header,
+      isSortable: column.sortBy,
+      isRowHeader: column.rowHeader,
+      column,
+    }
+  })
+  const [rows, setRows] = useState(data)
+  const [sorting, setSorting] = useState(() => {
+    const state = new Map()
+    for (const header of headers) {
+      if (header.isSortable) {
+        state.set(header.id, 'none')
+      }
+    }
+
+    return state
+  })
+
+  function toggleSort(id: string) {
+    const nextState = new Map(sorting)
+    for (const [key, value] of nextState) {
+      if (key === id) {
+        nextState.set(key, transition(value))
+        continue
+      }
+
+      if (value !== 'none') {
+        nextState.set(key, 'none')
+      }
+    }
+
+    setSorting(nextState)
+
+    const direction = nextState.get(id)
+    const header = headers.find(header => {
+      return header.id === id
+    })
+    if (!header) {
+      return
+    }
+
+    sortRows(header.column, direction)
+  }
+
+  function sortRows(column: Column<Data>, direction: SortDirection) {
+    setRows(
+      rows.slice().sort((a, b) => {
+        // We are unable to find the value of this column in this row, as a
+        // result we cannot sort or compare them
+        if (column.field === undefined) {
+          return 0
+        }
+
+        // If there is no sort direction, default to the order of an item in
+        // the input `data`
+        if (direction === 'none') {
+          return data.indexOf(a) - data.indexOf(b)
+        }
+
+        // When a custom `sortBy` function is  provided, use it before any
+        // automatic or inferred sorters
+        if (typeof column.sortBy === 'function') {
+          return column.sortBy(a[column.field], b[column.field], {direction})
+        }
+
+        const valueType = typeof a[column.field]
+
+        if (column.sortBy === 'string' || valueType === 'string') {
+          return sortByString(a[column.field], b[column.field], {direction})
+        }
+
+        if (column.sortBy === 'number' || valueType === 'number') {
+          return sortByNumber(a[column.field], b[column.field], {direction})
+        }
+
+        return 0
+      }),
+    )
+  }
+
   return (
     <Table aria-labelledby={labelledby} aria-describedby={describedby} cellPadding={cellPadding}>
       <TableHead>
         <TableRow>
-          {columns.map(column => {
-            return <TableHeader key={column.header}>{column.header}</TableHeader>
+          {headers.map(header => {
+            return (
+              <TableHeader key={header.id} aria-sort={header.isSortable ? sorting.get(header.id) : undefined}>
+                {header.isSortable ? (
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      toggleSort(header.id)
+                    }}
+                  >
+                    {header.column.header}
+                    <SortAscIcon className="TableSortIcon" size="small" />
+                  </Button>
+                ) : (
+                  header.column.header
+                )}
+              </TableHeader>
+            )
           })}
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.map(row => {
+        {rows.map(row => {
           return (
             <TableRow key={row.id}>
-              {columns.map(column => {
-                const columnProps = {
-                  scope: column.rowHeader ? 'row' : undefined,
-                }
-
-                if (column.renderCell) {
-                  return (
-                    <TableCell key={column.header} {...columnProps}>
-                      {column.renderCell(row)}
-                    </TableCell>
-                  )
-                }
-
-                if (column.field) {
-                  const value = row[column.field]
-
-                  if (typeof value === 'string' || typeof value === 'number' || React.isValidElement(value)) {
-                    return (
-                      <TableCell key={column.header} {...columnProps}>
-                        {value}
-                      </TableCell>
-                    )
-                  }
-                }
-
-                return null
+              {headers.map(header => {
+                return (
+                  <TableCell key={`${row.id}:${header.id}`} scope={header.isRowHeader ? 'row' : undefined}>
+                    {header.column.renderCell
+                      ? header.column.renderCell(row)
+                      : header.column.field
+                      ? row[header.column.field]
+                      : undefined}
+                  </TableCell>
+                )
               })}
             </TableRow>
           )
@@ -228,6 +322,23 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
     border-top: 1px solid ${get('colors.border.default')};
   }
 
+  .TableHeader[aria-sort='descending'],
+  .TableHeader[aria-sort='ascending'] {
+    color: ${get('colors.fg.default')};
+  }
+
+  .TableHeader[aria-sort='none'] .TableSortIcon {
+    visibility: hidden;
+  }
+
+  .TableHeader[aria-sort='descending'] .TableSortIcon {
+    transform: rotate(180deg) scale(-1, 1);
+  }
+
+  .TableHeader[aria-sort='none']:hover .TableSortIcon {
+    visibility: visible;
+  }
+
   /* TableRow */
   .TableRow:hover .TableCell {
     /* TODO: update this token when the new primitive tokens are released */
@@ -304,8 +415,12 @@ interface TableHeaderProps extends React.ComponentPropsWithoutRef<'th'> {
   children?: React.ReactNode
 }
 
-function TableHeader({children}: TableHeaderProps) {
-  return <th className="TableHeader">{children}</th>
+function TableHeader({children, ...rest}: TableHeaderProps) {
+  return (
+    <th {...rest} className="TableHeader" scope="col">
+      {children}
+    </th>
+  )
 }
 
 // ----------------------------------------------------------------------------
@@ -426,6 +541,27 @@ function TableSubtitle({as, children, id}: TableSubtitleProps) {
     </Box>
   )
 }
+
+const Button = styled.button`
+  padding: 0;
+  border: 0;
+  margin: 0;
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  background: none;
+  cursor: pointer;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+  column-gap: 0.5rem;
+  align-items: center;
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+`
 
 export {
   DataTable,

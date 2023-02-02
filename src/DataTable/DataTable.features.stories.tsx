@@ -317,3 +317,66 @@ export const WithTitleAndSubtitle = () => (
     />
   </TableContainer>
 )
+
+export const WithSorting = () => (
+  <TableContainer>
+    <TableTitle as="h2" id="repositories">
+      Repositories
+    </TableTitle>
+    <TableSubtitle as="p" id="repositories-subtitle">
+      A subtitle could appear here to give extra context to the data.
+    </TableSubtitle>
+    <DataTable
+      aria-labelledby="repositories"
+      aria-describedby="repositories-subtitle"
+      data={data}
+      columns={[
+        {
+          header: 'Repository',
+          field: 'name',
+          rowHeader: true,
+          sortBy: true,
+        },
+        {
+          header: 'Type',
+          field: 'type',
+          renderCell: row => {
+            return <Label>{uppercase(row.type)}</Label>
+          },
+        },
+        {
+          header: 'Updated',
+          field: 'updatedAt',
+          renderCell: row => {
+            return <RelativeTime date={new Date(row.updatedAt)} />
+          },
+          sortBy: 'number',
+        },
+        {
+          header: 'Dependabot',
+          renderCell: row => {
+            return row.securityFeatures.dependabot.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.dependabot.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+        },
+        {
+          header: 'Code scanning',
+          renderCell: row => {
+            return row.securityFeatures.codeScanning.length > 0 ? (
+              <LabelGroup>
+                {row.securityFeatures.codeScanning.map(feature => {
+                  return <Label key={feature}>{uppercase(feature)}</Label>
+                })}
+              </LabelGroup>
+            ) : null
+          },
+        },
+      ]}
+    />
+  </TableContainer>
+)
