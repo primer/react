@@ -19,8 +19,21 @@ export function useRovingTabIndex({containerRef}: {containerRef: React.RefObject
       return getNextFocusableElement(from, event) ?? from
     },
     focusInStrategy: () => {
+      const currentItem = containerRef.current?.querySelector('[aria-current]')
+      const firstItem = containerRef.current?.querySelector('[role="treeitem"]')
+
       // Focus the aria-current item if it exists
-      return containerRef.current?.querySelector('[aria-current]') || undefined
+      if (currentItem instanceof HTMLElement) {
+        return currentItem
+      }
+
+      // Otherwise, focus the activeElement if it's a treeitem
+      if (document.activeElement instanceof HTMLElement && containerRef.current?.contains(document.activeElement)) {
+        return document.activeElement
+      }
+
+      // Otherwise, focus the first treeitem
+      return firstItem instanceof HTMLElement ? firstItem : undefined
     },
   })
 }
