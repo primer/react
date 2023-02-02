@@ -4,7 +4,7 @@ import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import glob from 'fast-glob'
 import {terser} from 'rollup-plugin-terser'
-import visualizer from 'rollup-plugin-visualizer'
+import {visualizer} from 'rollup-plugin-visualizer'
 import packageJson from './package.json'
 
 const input = new Set([
