@@ -1,5 +1,5 @@
 import React from 'react'
-import Truncate from '../Truncate'
+import Truncate from '../Truncate/Truncate'
 
 export function shouldAcceptCallWithNoProps() {
   return <Truncate title="Hello" />

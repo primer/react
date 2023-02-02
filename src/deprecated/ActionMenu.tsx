@@ -5,7 +5,7 @@ import Button, {ButtonProps} from './Button'
 import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {OverlayProps} from '../Overlay'
+import {OverlayProps} from '../Overlay/Overlay'
 import {useProvidedRefOrCreate} from '../hooks'
 import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 

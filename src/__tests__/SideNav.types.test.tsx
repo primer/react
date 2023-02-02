@@ -1,5 +1,5 @@
 import React from 'react'
-import SideNav from '../SideNav'
+import SideNav from '../SideNav/SideNav'
 
 export function shouldAcceptCallWithNoProps() {
   return <SideNav />

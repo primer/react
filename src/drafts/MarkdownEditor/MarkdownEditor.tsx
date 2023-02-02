@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import Box from '../../Box'
+import Box from '../../Box/Box'
 import {FileType} from '../hooks/useUnifiedFileSelect'
 import {useId} from '../../hooks/useId'
 import {useIgnoreKeyboardActionsWhileComposing} from '../hooks/useIgnoreKeyboardActionsWhileComposing'

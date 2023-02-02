@@ -6,8 +6,8 @@ import {axe, toHaveNoViolations} from 'jest-axe'
 import {SSRProvider} from '../index'
 import {Button} from '../deprecated'
 import theme from '../theme'
-import BaseStyles from '../BaseStyles'
-import {ThemeProvider} from '../ThemeProvider'
+import BaseStyles from '../BaseStyles/BaseStyles'
+import {ThemeProvider} from '../ThemeProvider/ThemeProvider'
 expect.extend(toHaveNoViolations)
 
 type TestComponentSettings = {

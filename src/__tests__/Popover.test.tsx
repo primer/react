@@ -1,5 +1,5 @@
 import React from 'react'
-import Popover, {PopoverProps} from '../Popover'
+import Popover, {PopoverProps} from '../Popover/Popover'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'

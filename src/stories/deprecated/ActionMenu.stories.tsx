@@ -14,10 +14,10 @@ import {Meta} from '@storybook/react'
 import React, {useCallback, useState, useRef} from 'react'
 import styled from 'styled-components'
 import {ThemeProvider} from '../..'
-import Link, {LinkProps} from '../../Link'
+import Link, {LinkProps} from '../../Link/Link'
 import {ActionMenu, ActionMenuProps, ActionList, DropdownButton, Button} from '../../deprecated'
 import {ItemProps} from '../../deprecated/ActionList'
-import BaseStyles from '../../BaseStyles'
+import BaseStyles from '../../BaseStyles/BaseStyles'
 
 const meta: Meta = {
   title: 'Deprecated components/ActionMenu',

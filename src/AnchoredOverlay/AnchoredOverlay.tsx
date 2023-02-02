@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react'
-import Overlay, {OverlayProps} from '../Overlay'
+import Overlay, {OverlayProps} from '../Overlay/Overlay'
 import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
 import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'

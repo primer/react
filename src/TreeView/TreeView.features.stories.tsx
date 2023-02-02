@@ -1,9 +1,9 @@
 import {DiffAddedIcon, DiffModifiedIcon, DiffRemovedIcon, DiffRenamedIcon, FileIcon} from '@primer/octicons-react'
 import {Meta, Story} from '@storybook/react'
 import React from 'react'
-import Box from '../Box'
+import Box from '../Box/Box'
 import {Button} from '../Button'
-import StyledOcticon from '../StyledOcticon'
+import StyledOcticon from '../StyledOcticon/StyledOcticon'
 import {SubTreeState, TreeView} from './TreeView'
 
 const meta: Meta = {

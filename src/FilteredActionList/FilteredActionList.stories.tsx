@@ -2,8 +2,8 @@ import {Meta} from '@storybook/react'
 import React from 'react'
 import {ThemeProvider} from '..'
 import {FilteredActionList} from '../FilteredActionList'
-import BaseStyles from '../BaseStyles'
-import Box from '../Box'
+import BaseStyles from '../BaseStyles/BaseStyles'
+import Box from '../Box/Box'
 
 const meta: Meta = {
   title: 'Components/FilteredActionList',

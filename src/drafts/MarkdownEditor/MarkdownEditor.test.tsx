@@ -5,7 +5,7 @@ import {UserEvent} from '@testing-library/user-event/dist/types/setup/setup'
 import React, {forwardRef, useRef, useState} from 'react'
 import {act} from 'react-dom/test-utils'
 import MarkdownEditor, {Emoji, MarkdownEditorHandle, MarkdownEditorProps, Mentionable, Reference, SavedReply} from '.'
-import ThemeProvider from '../../ThemeProvider'
+import ThemeProvider from '../../ThemeProvider/ThemeProvider'
 
 declare const REACT_VERSION_LATEST: boolean
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import StateLabel from '../StateLabel'
+import StateLabel from '../StateLabel/StateLabel'
 
 export function shouldAcceptCallWithNoProps() {
   return <StateLabel />

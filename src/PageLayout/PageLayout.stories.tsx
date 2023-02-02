@@ -1,7 +1,7 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
-import {Placeholder} from '../Placeholder'
+import {Placeholder} from '../Placeholder/Placeholder'
 import {PageLayout} from './PageLayout'
 
 const meta: Meta = {

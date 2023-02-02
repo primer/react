@@ -2,7 +2,7 @@ import React from 'react'
 import {suggestionsCalculator, UseSuggestionsHook} from '.'
 import {ActionList} from '../../../ActionList'
 import {Suggestion, Trigger} from '../../InlineAutocomplete'
-import Text from '../../../Text'
+import Text from '../../../Text/Text'
 import {score} from 'fzy.js'
 
 export type Reference = {

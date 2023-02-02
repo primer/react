@@ -1,6 +1,6 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
-import Box from '../Box'
+import Box from '../Box/Box'
 import {SxProp} from '../sx'
 import {ListContext, ActionListProps} from './List'
 import {AriaRole} from '../utils/types'

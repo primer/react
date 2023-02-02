@@ -2,7 +2,7 @@ import React, {ChangeEventHandler, RefObject, useCallback, useRef, useState} fro
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
-import TextInputTokens from '../TextInputWithTokens'
+import TextInputTokens from '../TextInputWithTokens/TextInputWithTokens'
 import Autocomplete from './Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import FormControl from '../FormControl'

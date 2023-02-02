@@ -1,5 +1,5 @@
 import React, {forwardRef, MouseEventHandler} from 'react'
-import Box from '../Box'
+import Box from '../Box/Box'
 import {BetterSystemStyleObject, merge, SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'

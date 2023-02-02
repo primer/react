@@ -1,5 +1,5 @@
 import React from 'react'
-import Flash from '../Flash'
+import Flash from '../Flash/Flash'
 
 export function shouldAcceptCallWithNoProps() {
   return <Flash />

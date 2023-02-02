@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, RadioGroup, FormControl, ThemeProvider} from '..'
 import {CheckboxOrRadioGroupArgs} from '../utils/story-helpers'
-import Radio from '../Radio'
+import Radio from '../Radio/Radio'
 
 export default {
   title: 'Components/Forms/RadioGroup/examples',

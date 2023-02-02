@@ -9,7 +9,7 @@ import React, {
 } from 'react'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
-import TextInput from '../TextInput'
+import TextInput from '../TextInput/TextInput'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {ComponentProps} from '../utils/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'

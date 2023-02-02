@@ -2,7 +2,7 @@ import {fireEvent, render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {act} from 'react-dom/test-utils'
-import {ThemeProvider} from '../ThemeProvider'
+import {ThemeProvider} from '../ThemeProvider/ThemeProvider'
 import {SubTreeState, TreeView} from './TreeView'
 
 jest.useFakeTimers()

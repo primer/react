@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {EyeIcon, PencilIcon} from '@primer/octicons-react'
 
-import Box from '../../Box'
+import Box from '../../Box/Box'
 import {Button, IconButton} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 

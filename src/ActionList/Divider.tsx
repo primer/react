@@ -1,7 +1,7 @@
 import React from 'react'
-import Box from '../Box'
+import Box from '../Box/Box'
 import {get} from '../constants'
-import {Theme} from '../ThemeProvider'
+import {Theme} from '../ThemeProvider/ThemeProvider'
 import {SxProp, merge} from '../sx'
 
 export type ActionListDividerProps = SxProp

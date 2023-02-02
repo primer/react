@@ -2,12 +2,12 @@ import {CheckIcon, IconProps} from '@primer/octicons-react'
 import React, {useCallback} from 'react'
 import {get} from '../../constants'
 import sx, {SxProp} from '../../sx'
-import Truncate from '../../Truncate'
+import Truncate from '../../Truncate/Truncate'
 import {ItemInput} from './List'
 import styled from 'styled-components'
 import {StyledHeader} from './Header'
 import {StyledDivider} from './Divider'
-import {useTheme} from '../../ThemeProvider'
+import {useTheme} from '../../ThemeProvider/ThemeProvider'
 import {
   activeDescendantActivatedDirectly,
   activeDescendantActivatedIndirectly,

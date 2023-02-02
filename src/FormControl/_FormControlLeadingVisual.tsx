@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from '../Box'
+import Box from '../Box/Box'
 import {get} from '../constants'
 import {SxProp} from '../sx'
 import {FormControlContext} from './FormControl'

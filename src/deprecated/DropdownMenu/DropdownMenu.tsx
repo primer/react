@@ -3,7 +3,7 @@ import {List, GroupedListProps, ListPropsBase, ItemInput} from '../ActionList/Li
 import {DropdownButton, DropdownButtonProps} from './DropdownButton'
 import {ItemProps} from '../ActionList/Item'
 import {AnchoredOverlay} from '../../AnchoredOverlay'
-import {OverlayProps} from '../../Overlay'
+import {OverlayProps} from '../../Overlay/Overlay'
 import {AnchoredOverlayWrapperAnchorProps} from '../../AnchoredOverlay/AnchoredOverlay'
 import {useProvidedRefOrCreate} from '../../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../../hooks/useProvidedStateOrCreate'

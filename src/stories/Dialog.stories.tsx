@@ -3,7 +3,7 @@ import {Meta} from '@storybook/react'
 
 import {BaseStyles, ThemeProvider, Box} from '..'
 import {Button} from '../Button'
-import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../Dialog/Dialog'
+import {Dialog, DialogProps, DialogWidth, DialogHeight} from '../ConfirmationDialog/Dialog'
 
 export default {
   title: 'Components/Dialog',

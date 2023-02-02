@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {TokenBaseProps, defaultTokenSize, tokenSizes, TokenSizeKeys} from './TokenBase'
 import Token from './Token'
-import Avatar from '../Avatar'
+import Avatar from '../Avatar/Avatar'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 // TODO: update props to only accept 'large' and 'xlarge' on the next breaking change

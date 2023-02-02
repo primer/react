@@ -7,7 +7,7 @@ import {FocusKeys} from '@primer/behaviors'
 import type {Direction} from '@primer/behaviors'
 import {themeGet} from '@styled-system/theme-get'
 import {useFocusZone} from '../hooks/useFocusZone'
-import {useTheme} from '../ThemeProvider'
+import {useTheme} from '../ThemeProvider/ThemeProvider'
 
 export default {
   title: 'Hooks/useFocusZone',

@@ -1,6 +1,6 @@
 import {MoonIcon} from '@primer/octicons-react'
 import React from 'react'
-import StyledOcticon from '../StyledOcticon'
+import StyledOcticon from '../StyledOcticon/StyledOcticon'
 
 export function shouldAcceptCallWithNoProps() {
   return <StyledOcticon icon={MoonIcon} />

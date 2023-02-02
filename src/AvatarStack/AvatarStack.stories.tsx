@@ -1,9 +1,9 @@
 import AvatarStack from './AvatarStack'
-import Avatar from '../Avatar'
+import Avatar from '../Avatar/Avatar'
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {ThemeProvider} from '..'
-import BaseStyles from '../BaseStyles'
+import BaseStyles from '../BaseStyles/BaseStyles'
 
 const meta: Meta = {
   title: 'Components/AvatarStack',

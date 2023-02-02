@@ -1,5 +1,5 @@
 import React, {cloneElement, useRef} from 'react'
-import Box from '../../Box'
+import Box from '../../Box/Box'
 import Portal from '../../Portal'
 import {BetterSystemStyleObject} from '../../sx'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'

@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from '../Box'
+import Box from '../Box/Box'
 import {SxProp} from '../sx'
 import VisuallyHidden from '../private/_VisuallyHidden'
 

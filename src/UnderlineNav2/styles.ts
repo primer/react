@@ -1,4 +1,4 @@
-import {Theme} from '../ThemeProvider'
+import {Theme} from '../ThemeProvider/ThemeProvider'
 import {UnderlineNavProps} from './UnderlineNav'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.

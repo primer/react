@@ -3,7 +3,7 @@ import {Heading} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe, toHaveNoViolations} from 'jest-axe'
-import ThemeProvider from '../ThemeProvider'
+import ThemeProvider from '../ThemeProvider/ThemeProvider'
 expect.extend(toHaveNoViolations)
 
 const theme = {

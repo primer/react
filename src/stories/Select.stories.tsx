@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 
 import {Select, FormControl, Box} from '..'
-import {SelectProps} from '../Select'
+import {SelectProps} from '../Select/Select'
 import {
   FormControlArgs,
   formControlArgs,

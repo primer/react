@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, FormControl, Textarea, TextareaProps, ThemeProvider} from '..'
-import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
+import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea/Textarea'
 import {
   FormControlArgs,
   formControlArgTypes,

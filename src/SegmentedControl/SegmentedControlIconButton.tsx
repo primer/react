@@ -3,8 +3,8 @@ import {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import sx, {merge, SxProp} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
-import Tooltip from '../Tooltip'
-import Box from '../Box'
+import Tooltip from '../Tooltip/Tooltip'
+import Box from '../Box/Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type SegmentedControlIconButtonProps = {

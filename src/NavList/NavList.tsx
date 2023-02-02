@@ -8,8 +8,8 @@ import {
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps,
 } from '../ActionList'
-import Box from '../Box'
-import StyledOcticon from '../StyledOcticon'
+import Box from '../Box/Box'
+import StyledOcticon from '../StyledOcticon/StyledOcticon'
 import sx, {merge, SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'

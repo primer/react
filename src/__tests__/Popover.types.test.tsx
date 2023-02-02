@@ -1,5 +1,5 @@
 import React from 'react'
-import Popover from '../Popover'
+import Popover from '../Popover/Popover'
 
 export function shouldAcceptCallWithNoProps() {
   return <Popover />

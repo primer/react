@@ -1,8 +1,8 @@
 import React from 'react'
 import {Meta} from '@storybook/react'
 import {BaseStyles, ThemeProvider, IconButton} from '..'
-import Box from '../Box'
-import Tooltip from '../Tooltip'
+import Box from '../Box/Box'
+import Tooltip from '../Tooltip/Tooltip'
 import {SearchIcon} from '@primer/octicons-react'
 
 export default {

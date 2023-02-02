@@ -5,8 +5,8 @@ import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {axe} from 'jest-axe'
 import theme from '../theme'
-import BaseStyles from '../BaseStyles'
-import {ThemeProvider} from '../ThemeProvider'
+import BaseStyles from '../BaseStyles/BaseStyles'
+import {ThemeProvider} from '../ThemeProvider/ThemeProvider'
 import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverlays} from '../stories/Overlay.stories'
 
 type TestComponentSettings = {

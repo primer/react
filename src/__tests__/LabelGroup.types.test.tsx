@@ -1,5 +1,5 @@
 import React from 'react'
-import LabelGroup from '../LabelGroup'
+import LabelGroup from '../LabelGroup/LabelGroup'
 
 export function shouldAcceptCallWithNoProps() {
   return <LabelGroup />

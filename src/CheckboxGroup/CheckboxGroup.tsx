@@ -6,7 +6,7 @@ import CheckboxOrRadioGroupValidation from '../_CheckboxOrRadioGroup/_CheckboxOr
 import {useRenderForcingRef} from '../hooks'
 import {SxProp} from '../sx'
 import FormControl from '../FormControl'
-import Checkbox from '../Checkbox'
+import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
 
 type CheckboxGroupProps = {

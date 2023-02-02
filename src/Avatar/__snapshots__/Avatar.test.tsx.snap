@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar renders consistently 1`] = `
+.c0 {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(27,31,36,0.15);
+}
+
+<img
+  alt=""
+  className="c0"
+  height={20}
+  size={20}
+  width={20}
+/>
+`;

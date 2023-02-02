@@ -1,5 +1,5 @@
 import React from 'react'
-import Box from '../Box'
+import Box from '../Box/Box'
 import {SxProp, merge} from '../sx'
 import {get} from '../constants'
 import {getVariantStyles, Slot, ItemContext, TEXT_ROW_HEIGHT} from './shared'

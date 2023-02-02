@@ -17,7 +17,7 @@ import styled from 'styled-components'
 import {Label, ThemeProvider} from '../..'
 import {ActionList as _ActionList} from '../../deprecated/ActionList'
 import {Header} from '../../deprecated/ActionList/Header'
-import BaseStyles from '../../BaseStyles'
+import BaseStyles from '../../BaseStyles/BaseStyles'
 import sx from '../../sx'
 
 const ActionList = Object.assign(_ActionList, {

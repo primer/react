@@ -2,10 +2,10 @@ import {Meta} from '@storybook/react'
 import React from 'react'
 import {theme, ThemeProvider} from '../..'
 import {ItemInput} from '../../deprecated/ActionList/List'
-import BaseStyles from '../../BaseStyles'
-import Box from '../../Box'
+import BaseStyles from '../../BaseStyles/BaseStyles'
+import Box from '../../Box/Box'
 import {DropdownMenu, DropdownButton} from '../../deprecated'
-import TextInput from '../../TextInput'
+import TextInput from '../../TextInput/TextInput'
 
 const meta: Meta = {
   title: 'Deprecated components/DropdownMenu',

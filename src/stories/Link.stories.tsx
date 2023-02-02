@@ -1,4 +1,4 @@
-import Link from '../Link'
+import Link from '../Link/Link'
 import {Meta} from '@storybook/react'
 import React from 'react'
 import {ThemeProvider} from '..'

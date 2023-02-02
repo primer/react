@@ -4,7 +4,7 @@ import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
 import {axe} from 'jest-axe'
 import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken} from '../Token'
-import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
+import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens/TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 const mockTokens = [

@@ -1,13 +1,13 @@
-import type {OverlayProps} from '../Overlay'
+import type {OverlayProps} from '../Overlay/Overlay'
 import {Meta} from '@storybook/react'
 import React, {useRef, useState} from 'react'
 import {theme, ThemeProvider} from '..'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {ItemInput} from '../deprecated/ActionList/List'
-import BaseStyles from '../BaseStyles'
+import BaseStyles from '../BaseStyles/BaseStyles'
 import {SelectPanel} from '../SelectPanel'
-import Box from '../Box'
+import Box from '../Box/Box'
 
 const meta: Meta = {
   title: 'Components/SelectPanel',

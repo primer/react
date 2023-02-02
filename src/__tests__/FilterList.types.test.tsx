@@ -1,5 +1,5 @@
 import React from 'react'
-import FilterList from '../FilterList'
+import FilterList from '../FilterList/FilterList'
 
 export function shouldAcceptCallWithNoProps() {
   return <FilterList />

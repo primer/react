@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabNav TabNav.Link renders consistently 1`] = `
+.c0 {
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #24292f;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom: 0;
+}
+
+.c0:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -6px;
+}
+
+.c0:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid #0969da;
+  outline-offset: -6px;
+}
+
+.c0:hover,
+.c0:focus {
+  color: #24292f;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0.selected {
+  color: #24292f;
+  border-color: #d0d7de;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  background-color: #ffffff;
+}
+
+<a
+  aria-selected={false}
+  className="c0 TabNav-item"
+  role="tab"
+  tabIndex={-1}
+/>
+`;
+
+exports[`TabNav renders consistently 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: -1px;
+  overflow: auto;
+}
+
+.c0 {
+  margin-top: 0;
+  border-bottom: 1px solid #d0d7de;
+}
+
+<div
+  className=""
+>
+  <nav
+    className="c0"
+  >
+    <div
+      className="c1"
+      role="tablist"
+    />
+  </nav>
+</div>
+`;

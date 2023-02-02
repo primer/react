@@ -5,7 +5,7 @@ import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
 import {viewportRanges} from '../hooks/useResponsiveValue'
 import {PageLayout} from './PageLayout'
-import {Placeholder} from '../Placeholder'
+import {Placeholder} from '../Placeholder/Placeholder'
 
 let matchMedia: MatchMediaMock
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
-import {OverlayProps} from '../Overlay'
+import {OverlayProps} from '../Overlay/Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'

@@ -4,9 +4,9 @@ import {action} from '@storybook/addon-actions'
 
 import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
-import Box from '../Box'
+import Box from '../Box/Box'
 import AvatarToken, {AvatarTokenProps} from '../Token/AvatarToken'
-import Text from '../Text'
+import Text from '../Text/Text'
 
 export default {
   title: 'Components/AvatarToken',

@@ -1,5 +1,5 @@
 import React from 'react'
-import UnderlineNav from '../UnderlineNav'
+import UnderlineNav from '../UnderlineNav/UnderlineNav'
 
 export function shouldAcceptCallWithNoProps() {
   return (

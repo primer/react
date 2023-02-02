@@ -1,5 +1,5 @@
 import React from 'react'
-import Pagehead from '../Pagehead'
+import Pagehead from '../Pagehead/Pagehead'
 
 export function shouldAcceptCallWithNoProps() {
   return <Pagehead />

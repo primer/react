@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
-import Spinner from '../../Spinner'
+import Spinner from '../../Spinner/Spinner'
 import sx, {SxProp} from '../../sx'
 import {ComponentProps} from '../../utils/types'
 

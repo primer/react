@@ -1,9 +1,9 @@
 import React, {Meta} from '@storybook/react'
 import {debounce} from 'lodash'
 import {useCallback, useMemo, useState} from 'react'
-import BaseStyles from '../../BaseStyles'
-import Box from '../../Box'
-import ThemeProvider from '../../ThemeProvider'
+import BaseStyles from '../../BaseStyles/BaseStyles'
+import Box from '../../Box/Box'
+import ThemeProvider from '../../ThemeProvider/ThemeProvider'
 import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
 import MarkdownViewer from './MarkdownViewer'
 

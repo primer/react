@@ -3,7 +3,7 @@ import {CSSObject} from '@styled-system/css'
 import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import {parseToHsla, parseToRgba} from 'color2k'
-import {useTheme} from '../ThemeProvider'
+import {useTheme} from '../ThemeProvider/ThemeProvider'
 import TokenTextContainer from './_TokenTextContainer'
 import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 

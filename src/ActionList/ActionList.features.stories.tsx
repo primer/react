@@ -6,10 +6,10 @@ import {LinkItem} from './LinkItem'
 import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
-import Avatar from '../Avatar'
-import Box from '../Box'
+import Avatar from '../Avatar/Avatar'
+import Box from '../Box/Box'
 import Label from '../Label'
-import Heading from '../Heading'
+import Heading from '../Heading/Heading'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {
   EyeIcon,

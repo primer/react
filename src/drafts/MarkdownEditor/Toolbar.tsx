@@ -15,7 +15,7 @@ import {
 import React, {forwardRef, memo, useContext, useRef} from 'react'
 
 import {isMacOS} from '@primer/behaviors/utils'
-import Box from '../../Box'
+import Box from '../../Box/Box'
 import {IconButton, IconButtonProps} from '../../Button'
 import {useFocusZone} from '../../hooks/useFocusZone'
 import {MarkdownEditorSlot} from './MarkdownEditor'

@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {Box, Button, Heading, Text} from '..'
 import {NavList} from '../NavList'
-import {Placeholder} from '../Placeholder'
+import {Placeholder} from '../Placeholder/Placeholder'
 import {SplitPageLayout} from '../SplitPageLayout'
 
 const meta: Meta = {

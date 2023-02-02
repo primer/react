@@ -4,7 +4,7 @@ import {BaseStyles, Box, ThemeProvider, useTheme} from '..'
 import {Button} from '../Button'
 import {ActionMenu} from '../ActionMenu/ActionMenu'
 import {ActionList} from '../ActionList'
-import {ConfirmationDialog, useConfirm} from '../Dialog/ConfirmationDialog'
+import {ConfirmationDialog, useConfirm} from '../ConfirmationDialog/ConfirmationDialog'
 
 export default {
   title: 'Components/ConfirmationDialog',

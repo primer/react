@@ -1,9 +1,9 @@
 import React, {useCallback, useState} from 'react'
-import Spinner from '../../Spinner'
+import Spinner from '../../Spinner/Spinner'
 import {ActionList, ActionListItemProps} from '../../ActionList'
-import Box from '../../Box'
+import Box from '../../Box/Box'
 import {ComboboxCommitEvent, useCombobox} from '../hooks/useCombobox'
-import Overlay from '../../Overlay'
+import Overlay from '../../Overlay/Overlay'
 
 import {Suggestion, Suggestions, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'
